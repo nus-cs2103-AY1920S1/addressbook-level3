@@ -3,13 +3,16 @@ package seedu.savenus.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.savenus.logic.commands.CommandTestUtil.ASC_DIRECTION;
-import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.DESC_DIRECTION;
-import static seedu.savenus.logic.commands.CommandTestUtil.INVALID_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.NAME_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_FIELD;
+import static seedu.savenus.logic.parser.CliSyntax.ASCENDING_DIRECTION;
+import static seedu.savenus.logic.parser.CliSyntax.DESCENDING_DIRECTION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_CATEGORY;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_LOCATION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_OPENING_HOURS;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_RESTRICTIONS;
+
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.logic.commands.SortCommand;
 
 public class SortCommandParserTest {
+    private String invalidField = "2323";
     private SortCommandParser parser = new SortCommandParser();
 
     @Test
@@ -40,13 +44,13 @@ public class SortCommandParserTest {
     public void parse_invalidFields_failure() {
         String invalidFieldsMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.INVALID_FIELD_USAGE);
 
-        assertParseFailure(parser, INVALID_FIELD + " " + ASC_DIRECTION,
+        assertParseFailure(parser, invalidField + " " + ASCENDING_DIRECTION,
                 invalidFieldsMessage);
 
-        assertParseFailure(parser, INVALID_FIELD + ASC_DIRECTION + INVALID_FIELD + ASC_DIRECTION,
+        assertParseFailure(parser, invalidField + ASCENDING_DIRECTION + invalidField + ASCENDING_DIRECTION,
                 invalidFieldsMessage);
 
-        assertParseFailure(parser, NAME_FIELD + " " + ASC_DIRECTION + " " + INVALID_FIELD,
+        assertParseFailure(parser, FIELD_NAME_NAME + " " + ASCENDING_DIRECTION + " " + invalidField,
                 invalidFieldsMessage);
     }
 
@@ -55,11 +59,11 @@ public class SortCommandParserTest {
         String duplicateFieldsMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SortCommand.DUPLICATE_FIELD_USAGE);
 
-        assertParseFailure(parser, NAME_FIELD + " " + ASC_DIRECTION + " " + NAME_FIELD,
+        assertParseFailure(parser, FIELD_NAME_NAME + " " + ASCENDING_DIRECTION + " " + FIELD_NAME_NAME,
                 duplicateFieldsMessage);
 
-        assertParseFailure(parser, NAME_FIELD + " " + ASC_DIRECTION + " " + NAME_FIELD
-                + " " + ASC_DIRECTION,
+        assertParseFailure(parser, FIELD_NAME_NAME + " " + ASCENDING_DIRECTION + " "
+                        + FIELD_NAME_NAME + " " + DESCENDING_DIRECTION,
                 duplicateFieldsMessage);
 
     }
@@ -69,10 +73,10 @@ public class SortCommandParserTest {
         String missingDirectionsMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SortCommand.MISSING_DIRECTION_USAGE);
 
-        assertParseFailure(parser, NAME_FIELD,
+        assertParseFailure(parser, FIELD_NAME_OPENING_HOURS,
                 missingDirectionsMessage);
 
-        assertParseFailure(parser, NAME_FIELD + " " + DESC_DIRECTION + " " + PRICE_FIELD,
+        assertParseFailure(parser, FIELD_NAME_LOCATION + " " + DESCENDING_DIRECTION + " " + FIELD_NAME_PRICE,
                 missingDirectionsMessage);
     }
 
@@ -81,30 +85,30 @@ public class SortCommandParserTest {
         String invalidDirectionsMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SortCommand.INVALID_DIRECTION_USAGE);
 
-        assertParseFailure(parser, NAME_FIELD + " " + PRICE_FIELD,
+        assertParseFailure(parser, FIELD_NAME_DESCRIPTION + " " + FIELD_NAME_RESTRICTIONS,
                 invalidDirectionsMessage);
 
-        assertParseFailure(parser, NAME_FIELD + " " + ASC_DIRECTION + " " + PRICE_FIELD + " " + INVALID_FIELD,
-                invalidDirectionsMessage);
+        assertParseFailure(parser, FIELD_NAME_RESTRICTIONS + " " + ASCENDING_DIRECTION + " "
+                + FIELD_NAME_CATEGORY + " " + invalidField, invalidDirectionsMessage);
     }
 
     @Test
     public void parse_validField() {
-        assertTrue(parser.isValidField(NAME_FIELD));
-        assertTrue(parser.isValidField(PRICE_FIELD));
-        assertTrue(parser.isValidField(DESCRIPTION_FIELD));
-        assertTrue(parser.isValidField(CATEGORY_FIELD));
+        assertTrue(parser.isValidField(FIELD_NAME_CATEGORY));
+        assertTrue(parser.isValidField(FIELD_NAME_DESCRIPTION));
+        assertTrue(parser.isValidField(FIELD_NAME_NAME));
+        assertTrue(parser.isValidField(FIELD_NAME_RESTRICTIONS));
 
-        assertFalse(parser.isValidField(INVALID_FIELD));
+        assertFalse(parser.isValidField(invalidField));
     }
 
     @Test
     public void parse_validDirection() {
-        assertTrue(parser.isAscOrDesc(ASC_DIRECTION));
-        assertTrue(parser.isAscOrDesc(DESC_DIRECTION));
+        assertTrue(parser.isAscOrDesc(ASCENDING_DIRECTION));
+        assertTrue(parser.isAscOrDesc(DESCENDING_DIRECTION));
 
-        assertFalse(parser.isAscOrDesc(INVALID_FIELD));
-        assertFalse(parser.isAscOrDesc(NAME_FIELD));
+        assertFalse(parser.isAscOrDesc(invalidField));
+        assertFalse(parser.isAscOrDesc(FIELD_NAME_RESTRICTIONS));
     }
 
 }

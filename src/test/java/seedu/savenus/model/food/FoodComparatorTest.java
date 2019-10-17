@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.savenus.logic.commands.CommandTestUtil.ASC_DIRECTION;
-import static seedu.savenus.logic.commands.CommandTestUtil.DESC_DIRECTION;
-import static seedu.savenus.logic.commands.CommandTestUtil.NAME_FIELD;
+import static seedu.savenus.logic.parser.CliSyntax.ASCENDING_DIRECTION;
+import static seedu.savenus.logic.parser.CliSyntax.DESCENDING_DIRECTION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
 import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 import static seedu.savenus.testutil.TypicalMenu.NASI_AYAM;
 
@@ -21,8 +21,8 @@ public class FoodComparatorTest {
 
     @Test
     public void check_compare() {
-        fields.add(NAME_FIELD);
-        fields.add(ASC_DIRECTION);
+        fields.add(FIELD_NAME_NAME);
+        fields.add(ASCENDING_DIRECTION);
         assertThrows(NullPointerException.class, () -> new FoodComparator(fields).compare(CARBONARA, null));
         assertEquals(new FoodComparator(fields).compare(CARBONARA, CARBONARA), 0);
         assertNotEquals(new FoodComparator(fields).compare(CARBONARA, NASI_AYAM), 0);
@@ -31,7 +31,7 @@ public class FoodComparatorTest {
     @Test
     public void check_direction() {
         FoodComparator test = new FoodComparator(fields);
-        assertTrue(test.isDirectionAscending(ASC_DIRECTION));
-        assertFalse(test.isDirectionAscending(DESC_DIRECTION));
+        assertTrue(test.isDirectionAscending(ASCENDING_DIRECTION));
+        assertFalse(test.isDirectionAscending(DESCENDING_DIRECTION));
     }
 }
