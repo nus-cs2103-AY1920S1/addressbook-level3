@@ -5,153 +5,154 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TAG_HORROR;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_ACTOR_BOB;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showShowAtIndex;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
-import seedu.ezwatchlist.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.ezwatchlist.model.AddressBook;
+import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
+import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
-import seedu.ezwatchlist.model.person.Person;
-import seedu.ezwatchlist.testutil.EditPersonDescriptorBuilder;
-import seedu.ezwatchlist.testutil.PersonBuilder;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
+import seedu.ezwatchlist.testutil.ShowBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        Show editedShow = new ShowBuilder().build();
+        EditShowDescriptor descriptor = new EditShowDescriptorBuilder(editedShow).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_SHOW, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SHOW_SUCCESS, editedShow);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        expectedModel.setShow(model.getFilteredShowList().get(0), editedShow);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastShow = Index.fromOneBased(model.getFilteredShowList().size());
+        Show lastShow = model.getFilteredShowList().get(indexLastShow.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HORROR).build();
+        ShowBuilder showInList = new ShowBuilder(lastShow);
+        Show editedShow = showInList.withName(VALID_NAME_BOB).withDescription(VALID_DESCRIPTION_BOB)
+                .withActors(VALID_ACTOR_BOB).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HORROR).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withDescription(VALID_DESCRIPTION_BOB).withActors(VALID_ACTOR_BOB).build();
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        EditCommand editCommand = new EditCommand(indexLastShow, descriptor);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(lastPerson, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SHOW_SUCCESS, editedShow);
+
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        expectedModel.setShow(lastShow, editedShow);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_SHOW, new EditShowDescriptor());
+        Show editedShow = model.getFilteredShowList().get(INDEX_FIRST_SHOW.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SHOW_SUCCESS, editedShow);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showShowAtIndex(model, INDEX_FIRST_SHOW);
 
-        Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+        Show showInFilteredList = model.getFilteredShowList().get(INDEX_FIRST_SHOW.getZeroBased());
+        Show editedShow = new ShowBuilder(showInFilteredList).withName(VALID_NAME_BOB).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_SHOW,
+                new EditShowDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SHOW_SUCCESS, editedShow);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        expectedModel.setShow(model.getFilteredShowList().get(0), editedShow);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+    public void execute_duplicateShowUnfilteredList_failure() {
+        Show firstShow = model.getFilteredShowList().get(INDEX_FIRST_SHOW.getZeroBased());
+        EditShowDescriptor descriptor = new EditShowDescriptorBuilder(firstShow).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_SHOW, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_SHOW);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_duplicateShowFilteredList_failure() {
+        showShowAtIndex(model, INDEX_FIRST_SHOW);
 
-        // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(personInList).build());
+        // edit show in filtered list into a duplicate in watch list
+        Show showInList = model.getWatchList().getShowList().get(INDEX_SECOND_SHOW.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_SHOW,
+                new EditShowDescriptorBuilder(showInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_SHOW);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+    public void execute_invalidShowIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredShowList().size() + 1);
+        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
     }
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of watch list
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+    public void execute_invalidShowIndexFilteredList_failure() {
+        showShowAtIndex(model, INDEX_FIRST_SHOW);
+        Index outOfBoundIndex = INDEX_SECOND_SHOW;
+        // ensures that outOfBoundIndex is still in bounds of watch list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getWatchList().getShowList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditShowDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_SHOW, DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditShowDescriptor copyDescriptor = new EditShowDescriptor(DESC_AMY);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_SHOW, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -164,10 +165,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_SHOW, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_SHOW, DESC_BOB)));
     }
 
 }

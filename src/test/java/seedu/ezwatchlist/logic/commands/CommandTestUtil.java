@@ -27,12 +27,14 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob the Builder";
     public static final String VALID_DATE_AMY = "11/11/11";
     public static final String VALID_DATE_BOB = "22/2/2222";
-    public static final String VALID_WATCHED_AMY = "true";
-    public static final String VALID_WATCHED_BOB = "false";
+    public static final boolean VALID_WATCHED_AMY = true;
+    public static final boolean VALID_WATCHED_BOB = false;
     public static final String VALID_DESCRIPTION_AMY = "Horror film";
     public static final String VALID_DESCRIPTION_BOB = "Cartoon about building things";
-    public static final String VALID_TAG_HORROR = "Horror";
-    public static final String VALID_TAG_KID_FRIENDLY = "Kid-friendly";
+    public static final int VALID_RUNNING_TIME_AMY = 122;
+    public static final int VALID_RUNNING_TIME_BOB = 30;
+    public static final String VALID_ACTOR_AMY = "Horror";
+    public static final String VALID_ACTOR_BOB = "Kid-friendly";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -40,16 +42,19 @@ public class CommandTestUtil {
     public static final String DATE_DESC_BOB = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_BOB;
     public static final String WATCHED_DESC_AMY = " " + PREFIX_IS_WATCHED + VALID_WATCHED_AMY;
     public static final String WATCHED_DESC_BOB = " " + PREFIX_IS_WATCHED + VALID_WATCHED_BOB;
+    public static final String RUNNING_TIME_DESC_AMY = " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_AMY;
+    public static final String RUNNING_TIME_DESC_BOB = " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_BOB;
     public static final String DESCRIPTION_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
     public static final String DESCRIPTION_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TYPE + VALID_TAG_KID_FRIENDLY;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TYPE + VALID_TAG_HORROR;
+    public static final String ACTOR_DESC_AMY = " " + PREFIX_TYPE + VALID_ACTOR_AMY;
+    public static final String ACTOR_DESC_BOB = " " + PREFIX_TYPE + VALID_ACTOR_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_DATE_OF_RELEASE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_IS_WATCHED + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_DESCRIPTION; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TYPE + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE_OF_RELEASE + "911a"; // 'a' not allowed in date
+    public static final String INVALID_IS_WATCHED_DESC = " " + PREFIX_IS_WATCHED + null; //null not allowed
+    public static final String INVALID_RUNNING_TIME_DESC = " " + PREFIX_RUNNING_TIME; // empty string not allowed for running time
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // empty string not allowed for description
+    public static final String INVALID_ACTOR_DESC = " " + PREFIX_ACTOR + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -59,11 +64,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditShowDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withDate(VALID_DATE_AMY).withWatched(VALID_WATCHED_AMY).withDescription(VALID_DESCRIPTION_AMY)
-                .withTags(VALID_TAG_KID_FRIENDLY).build();
+                .withDescription(VALID_DESCRIPTION_AMY).withIsWatched(VALID_WATCHED_AMY).withDateOfRelease(VALID_DATE_AMY)
+                .withRunningTime(VALID_RUNNING_TIME_AMY).withActors(VALID_ACTOR_AMY).build();
         DESC_BOB = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDate(VALID_DATE_BOB).withWatched(VALID_WATCHED_BOB).withDescription(VALID_DESCRIPTION_BOB)
-                .withTags(VALID_TAG_HORROR, VALID_TAG_KID_FRIENDLY).build();
+                .withDescription(VALID_DESCRIPTION_BOB).withIsWatched(VALID_WATCHED_BOB).withDateOfRelease(VALID_DATE_BOB)
+                .withRunningTime(VALID_RUNNING_TIME_BOB).withActors(VALID_ACTOR_BOB).build();
     }
 
     /**
@@ -96,23 +101,23 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the watch list, filtered show list and selected show in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        WatchList expectedAddressBook = new WatchList(actualModel.getWatchList());
+        WatchList expectedWatchList = new WatchList(actualModel.getWatchList());
         List<Show> expectedFilteredList = new ArrayList<>(actualModel.getFilteredShowList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getWatchList());
+        assertEquals(expectedWatchList, actualModel.getWatchList());
         assertEquals(expectedFilteredList, actualModel.getFilteredShowList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the show at the given {@code targetIndex} in the
+     * {@code model}'s watch list.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showShowAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredShowList().size());
 
         Show show = model.getFilteredShowList().get(targetIndex.getZeroBased());

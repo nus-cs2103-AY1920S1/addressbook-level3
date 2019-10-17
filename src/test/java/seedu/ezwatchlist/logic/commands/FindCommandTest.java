@@ -3,12 +3,12 @@ package seedu.ezwatchlist.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_SHOWS_LISTED_OVERVIEW;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ezwatchlist.testutil.TypicalPersons.CARL;
-import static seedu.ezwatchlist.testutil.TypicalPersons.ELLE;
-import static seedu.ezwatchlist.testutil.TypicalPersons.FIONA;
-import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.ezwatchlist.testutil.TypicalShows.JOKER;
+import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
+import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
+import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,14 +18,14 @@ import org.junit.jupiter.api.Test;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
-import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
+import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalWatchList(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -50,28 +50,28 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different show -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+    public void execute_zeroKeywords_noShowFound() {
+        String expectedMessage = String.format(MESSAGE_SHOWS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredShowList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredShowList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+    public void execute_multipleKeywords_multipleShowsFound() {
+        String expectedMessage = String.format(MESSAGE_SHOWS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredShowList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(JOKER, AVENGERSENDGAME, FIGHTCLUB), model.getFilteredShowList());
     }
 
     /**
