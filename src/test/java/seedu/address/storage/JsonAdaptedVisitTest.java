@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.visit.EndDateTime;
-import seedu.address.model.visit.StartDateTime;
+import seedu.address.model.datetime.EndDateTime;
+import seedu.address.model.datetime.StartDateTime;
 import seedu.address.model.visit.Visit;
 
 public class JsonAdaptedVisitTest {
@@ -25,13 +26,22 @@ public class JsonAdaptedVisitTest {
     private static final String VALID_END = "11-12-2019 2100";
     private static final String VALID_VISIT_TASK = "10-12-2019 2100";
     private static final Visit VALID_VISIT = BENSON.getVisits().get(0);
+    private static final Visit VALID_COMPLETED_VISIT = CARL.getVisits().get(0);
 
     private static final JsonAdaptedVisit VALID_JSON_VISIT =
             new JsonAdaptedVisit(BENSON.getVisits().get(0));
 
     @Test
-    public void toModelType_validVisitDetails_returnsVisitTask() throws Exception {
+    public void toModelType_validVisitDetailsAndNullEnd_returnsVisitTask() throws Exception {
         for (Visit visit : BENSON.getVisits()) {
+            JsonAdaptedVisit visitTask = new JsonAdaptedVisit(visit);
+            assertEquals(visit, visitTask.toModelType());
+        }
+    }
+
+    @Test
+    public void toModelType_validVisitDetailsAndNonNullEnd_returnsVisitTask() throws Exception {
+        for (Visit visit : CARL.getVisits()) {
             JsonAdaptedVisit visitTask = new JsonAdaptedVisit(visit);
             assertEquals(visit, visitTask.toModelType());
         }
