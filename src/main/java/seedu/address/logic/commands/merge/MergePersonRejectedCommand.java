@@ -31,12 +31,12 @@ public class MergePersonRejectedCommand extends Command {
     public CommandResult execute(Model model) throws DuplicatePersonWithMergeException {
         requireNonNull(model);
         String fieldType = previousMergeCommand.getNextMergeFieldType();
-        previousMergeCommand.removeFirstDifferentField();
         if (isLastMerge()) {
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_NOT_EXECUTED, fieldType)
                     + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
                     previousMergeCommand.getOriginalPerson()));
         } else {
+            previousMergeCommand.removeFirstDifferentField();
             String nextMerge = previousMergeCommand.getNextMergePrompt();
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_NOT_EXECUTED, fieldType)
                     + "\n" + nextMerge);

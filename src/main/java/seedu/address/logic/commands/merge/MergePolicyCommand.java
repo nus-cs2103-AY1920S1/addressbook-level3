@@ -119,7 +119,6 @@ public class MergePolicyCommand extends MergeCommand {
      * @return
      */
     public boolean onlyOneMergeLeft() {
-        System.out.println(differentFields.size());
         return differentFields.size() == 1;
     }
 

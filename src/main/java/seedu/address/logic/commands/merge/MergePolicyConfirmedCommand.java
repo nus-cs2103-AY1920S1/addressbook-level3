@@ -60,12 +60,12 @@ public class MergePolicyConfirmedCommand extends MergeConfirmedCommand {
         EditPolicyCommand edit = new EditPolicyCommand();
         Policy editedPolicy = edit.executeForMerge(originalPolicy, editPolicyDescriptor, model);
         previousMergeCommand.updateOriginalPolicy(editedPolicy);
-        previousMergeCommand.removeFirstDifferentField();
         if (isLastMerge()) {
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
                     + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
                     previousMergeCommand.getOriginalPolicy()));
         } else {
+            previousMergeCommand.removeFirstDifferentField();
             String nextMerge = previousMergeCommand.getNextMergePrompt();
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
                     + "\n" + nextMerge);

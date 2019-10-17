@@ -56,12 +56,12 @@ public class MergePersonConfirmedCommand extends MergeConfirmedCommand {
         EditCommand edit = new EditCommand();
         Person editedPerson = edit.executeForMerge(originalPerson, editPersonDescriptor, model);
         previousMergeCommand.updateOriginalPerson(editedPerson);
-        previousMergeCommand.removeFirstDifferentField();
         if (isLastMerge()) {
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
                     + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
                     previousMergeCommand.getOriginalPerson()));
         } else {
+            previousMergeCommand.removeFirstDifferentField();
             String nextMerge = previousMergeCommand.getNextMergePrompt();
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
                     + "\n" + nextMerge);
