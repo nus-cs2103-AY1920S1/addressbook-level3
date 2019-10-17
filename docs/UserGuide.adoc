@@ -68,7 +68,7 @@ Format: `help`
 
 
 === Adding an item: `add`
-Adds an item to your tracker +
+Adds an item to your tracker. +
 Format: `add|<item name>|<expiry date>[|<quantity>]`
 
 Examples:
@@ -89,12 +89,12 @@ For items with single quantity, you can save time by keying in only the item nam
 
 === Listing all items : `view`
 
-Lists all items in your tracker: +
+Lists all items in your tracker. +
 Format: `view`
 
 === Setting reminder for an item: `set reminder`
 
-Sets a reminder threshold for your item +
+Sets a reminder threshold for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
 
 This allows the check command to quickly find the item once the reminder threshold is exceeded.
@@ -118,7 +118,7 @@ Removes the reminder for the first item in the list.
 Lists items that will expire within the specified number of days in your tracker. +
 Format: `check|<days>`
 
-Lists items whose reminder has been activated +
+Lists items whose reminder has been activated. +
 Format: `check`
 
 
@@ -137,7 +137,7 @@ Lists items expiring in the next 20 days.
 
 === Sorting all items : `sort`
 
-Sorts all items in your list by either name or date: +
+Sorts all items in your list by either name or date. +
 Format: `sort|<key>`
 
 ****
@@ -235,9 +235,6 @@ Examples:
 `tag|2|#Nestle #Caffeine` +
 Tags the 2nd item in the list with `#Nestle` and `#Caffeine`.
 
-* `search|potato` +
-`tag|1` +
-Deletes all tags of the 1st item in the results of the `search` command.
 
 === Clearing all entries : `clear`
 
