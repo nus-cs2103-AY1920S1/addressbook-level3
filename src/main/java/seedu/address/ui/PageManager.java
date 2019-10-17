@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.logic.commands.CommandResult;
 
 import java.util.List;
@@ -48,7 +50,19 @@ public class PageManager {
         } else if (requestedPage.isEmpty()) {
             assert false : "Every get page command should have a page class implemented for it";
         }
-
-        primaryStage.setScene(requestedPage.get());
+        //Credits to : Asfal, Genuine Coder
+        //https://www.genuinecoder.com/javafx-scene-switch-change-animation/
+        Scene requestedScene = requestedPage.get();
+        //Fade out transition
+        FadeTransition fadeOutTransition = new FadeTransition(Duration.millis(500), primaryStage.getScene().getRoot());
+        fadeOutTransition.setFromValue(1.0);
+        fadeOutTransition.setToValue(0.0);
+        fadeOutTransition.play();
+        primaryStage.setScene(requestedScene);
+        //Fade in transition
+        FadeTransition fadeInTransition = new FadeTransition(Duration.millis(500), requestedPage.get().getRoot());
+        fadeInTransition.setFromValue(0.0);
+        fadeInTransition.setToValue(1.0);
+        fadeInTransition.play();
     }
 }
