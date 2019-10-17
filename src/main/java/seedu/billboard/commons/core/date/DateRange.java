@@ -116,9 +116,4 @@ public class DateRange {
 
         return false;
     }
-
-    @Override
-    public String toString() {
-        return "start: " + startDate.toString() + "\nEnd: " + endDate.toString();
-    }
 }

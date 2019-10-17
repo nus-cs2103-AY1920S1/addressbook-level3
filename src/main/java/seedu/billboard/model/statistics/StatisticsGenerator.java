@@ -17,12 +17,12 @@ import seedu.billboard.model.expense.Expense;
  */
 public class StatisticsGenerator implements Statistics {
     @Override
-    public ExpenseTimeline generateExpenseTimeline(List<Expense> expenses) {
+    public ExpenseTimeline generateExpenseTimeline(List<? extends Expense> expenses) {
         return generateExpenseTimeline(expenses, DateInterval.MONTH);
     }
 
     @Override
-    public ExpenseTimeline generateExpenseTimeline(List<Expense> expenses, DateInterval interval) {
+    public ExpenseTimeline generateExpenseTimeline(List<? extends Expense> expenses, DateInterval interval) {
         if (!CollectionUtil.checkNonEmpty(expenses)) {
             return new EmptyExpenseTimeline();
         }

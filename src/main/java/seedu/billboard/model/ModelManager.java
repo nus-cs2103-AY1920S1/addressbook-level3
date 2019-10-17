@@ -55,6 +55,7 @@ public class ModelManager implements Model {
             filteredArchives.put(archiveName,
                     new FilteredList<>(this.archives.getArchiveExpenses(archiveName)));
         }
+
     }
 
     public ModelManager() {
