@@ -14,6 +14,7 @@ import seedu.address.logic.parser.CalendarParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -74,5 +75,10 @@ public class TaskLogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ReadOnlyCalendar getCalendar() {
+        return null;
     }
 }

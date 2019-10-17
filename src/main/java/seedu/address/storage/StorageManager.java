@@ -23,10 +23,12 @@ public class StorageManager implements Storage {
     private CalendarStorage calendarStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage
+                          /*CalendarStorage calendarStorage*/) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        //this.calendarStorage = calendarStorage;
     }
 
     // ================ UserPrefs methods ==============================

@@ -87,4 +87,7 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     void addTask(Task task);
+
+    /** Returns the Calendar */
+    ReadOnlyCalendar getCalendar();
 }
