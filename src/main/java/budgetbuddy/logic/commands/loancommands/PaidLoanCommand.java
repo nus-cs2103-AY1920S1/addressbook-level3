@@ -9,6 +9,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.loan.util.PersonLoanIndexPair;
 
 /**
  * Marks one or more loans as paid.
@@ -26,34 +27,33 @@ public class PaidLoanCommand extends UpdateStatusCommand {
             + "3";
 
     public static final String MESSAGE_SUCCESS = "Loan(s) marked as paid.";
-    public static final String MESSAGE_FAILURE = "No such loan(s) found.";
+    public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";
 
     public PaidLoanCommand(
-            List<Index> targetPersonsIndices, List<Index> targetLoansIndices) throws CommandException {
-        super(targetPersonsIndices, targetLoansIndices);
+            List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
+        super(personLoanIndexPairs, personIndices);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getLoansManager());
 
-        List<PersonLoanIndexPair> pairsNotFound = updateStatuses(model.getLoansManager(), Status.PAID);
-        String result = constructMultiLoanResult(pairsNotFound, MESSAGE_SUCCESS, MESSAGE_FAILURE);
+        try {
+            updateStatuses(model.getLoansManager(), Status.PAID);
+        } catch (CommandException e) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
 
+        String result = constructMultiLoanResult(MESSAGE_SUCCESS, MESSAGE_FAILURE);
         return new CommandResult(result);
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
         if (!(other instanceof PaidLoanCommand)) {
             return false;
         }
 
-        PaidLoanCommand otherCommand = (PaidLoanCommand) other;
-        return personLoanIndexPairs.equals(otherCommand.personLoanIndexPairs);
+        return super.equals(other);
     }
 }

@@ -2,8 +2,8 @@ package budgetbuddy.logic.commands.loancommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.CommandResult;
@@ -11,9 +11,8 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
-import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.exceptions.PersonNotFoundException;
+import budgetbuddy.model.loan.LoanList;
+import budgetbuddy.model.loan.util.PersonLoanIndexPair;
 
 /**
  * Delete one or more loans.
@@ -28,14 +27,15 @@ public class DeleteLoanCommand extends MultiLoanCommand {
             + "...\n"
             + "Example: " + COMMAND_WORD + " "
             + "1.(1 3 4) "
-            + "2";
+            + "2 "
+            + "3.1";
 
     public static final String MESSAGE_SUCCESS = "Loan(s) deleted.";
-    public static final String MESSAGE_FAILURE = "No such loan(s) found.";
+    public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";
 
     public DeleteLoanCommand(
-            List<Index> targetPersonsIndices, List<Index> targetLoansIndices) throws CommandException {
-        super(targetPersonsIndices, targetLoansIndices);
+            List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
+        super(personLoanIndexPairs, personIndices);
     }
 
     @Override
@@ -43,39 +43,25 @@ public class DeleteLoanCommand extends MultiLoanCommand {
         requireAllNonNull(model, model.getLoansManager());
 
         LoansManager loansManager = model.getLoansManager();
-        List<PersonLoanIndexPair> pairsNotFound = new ArrayList<PersonLoanIndexPair>();
-        for (int i = 0; i < personLoanIndexPairs.size(); i++) {
-            try {
-                Person targetPerson = loansManager.getPersonsList().get(
-                        personLoanIndexPairs.get(i).getPersonIndex().getZeroBased()
-                );
+        LoanList targetLoans = constructTargetLoanList(loansManager);
+        Consumer<Loan> operation = loansManager::deleteLoan;
 
-                Loan targetLoan = targetPerson.getLoans().get(
-                        personLoanIndexPairs.get(i).getLoanIndex().getZeroBased()
-                );
-
-                loansManager.deleteLoan(targetLoan);
-            } catch (IndexOutOfBoundsException | PersonNotFoundException | LoanNotFoundException e) {
-                pairsNotFound.add(personLoanIndexPairs.get(i));
-            }
+        try {
+            actOnTargetLoans(targetLoans, operation);
+        } catch (CommandException e) {
+            throw new CommandException(MESSAGE_FAILURE);
         }
 
-        String result = constructMultiLoanResult(pairsNotFound, MESSAGE_SUCCESS, MESSAGE_FAILURE);
-
-        return new CommandResult(result);
+        String resultMessage = constructMultiLoanResult(MESSAGE_SUCCESS, MESSAGE_FAILURE);
+        return new CommandResult(resultMessage);
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
         if (!(other instanceof DeleteLoanCommand)) {
             return false;
         }
 
-        DeleteLoanCommand otherCommand = (DeleteLoanCommand) other;
-        return personLoanIndexPairs.equals(otherCommand.personLoanIndexPairs);
+        return super.equals(other);
     }
 }

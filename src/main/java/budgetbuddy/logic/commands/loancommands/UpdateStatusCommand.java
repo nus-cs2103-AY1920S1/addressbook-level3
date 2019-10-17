@@ -1,16 +1,18 @@
 package budgetbuddy.logic.commands.loancommands;
 
-import java.util.ArrayList;
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
+import java.util.function.Consumer;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.loan.Status;
-import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
+import budgetbuddy.model.loan.util.PersonLoanIndexPair;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Updates the status of a loan.
@@ -18,34 +20,34 @@ import budgetbuddy.model.person.exceptions.PersonNotFoundException;
 public abstract class UpdateStatusCommand extends MultiLoanCommand {
 
     public UpdateStatusCommand(
-            List<Index> targetPersonsIndices, List<Index> targetLoansIndices) throws CommandException {
-        super(targetPersonsIndices, targetLoansIndices);
+            List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
+        super(personLoanIndexPairs, personIndices);
     }
 
     /**
      * Updates the statues of one or more existing loans to the given status.
-     * @return A list of person-loan index pairs that could not be found among existing loans.
      */
-    public List<PersonLoanIndexPair> updateStatuses(LoansManager loansManager, Status updatedStatus) {
-        List<PersonLoanIndexPair> pairsNotFound = new ArrayList<PersonLoanIndexPair>();
-        for (int i = 0; i < personLoanIndexPairs.size(); i++) {
-            try {
-                Person targetPerson = loansManager.getPersonsList().get(
-                        personLoanIndexPairs.get(i).getPersonIndex().getZeroBased()
-                );
+    public void updateStatuses(LoansManager loansManager, Status updatedStatus) throws CommandException {
+        requireAllNonNull(loansManager, updatedStatus);
 
-                Loan targetLoan = targetPerson.getLoans().get(
-                        personLoanIndexPairs.get(i).getLoanIndex().getZeroBased()
-                );
-
-                Loan updatedLoan = createUpdatedLoan(targetLoan, updatedStatus);
-
-                loansManager.updateLoanStatus(targetPerson, targetLoan, updatedLoan);
-            } catch (IndexOutOfBoundsException | PersonNotFoundException | LoanNotFoundException e) {
-                pairsNotFound.add(personLoanIndexPairs.get(i));
+        LoanList targetLoans = constructTargetLoanList(loansManager);
+        Consumer<Loan> operation = targetLoan -> {
+            Person targetPerson = null;
+            for (Person person : loansManager.getPersonsList()) {
+                if (person.isSamePerson(targetLoan.getPerson())) {
+                    targetPerson = person;
+                }
             }
+
+            Loan updatedLoan = createUpdatedLoan(targetLoan, updatedStatus);
+            loansManager.updateLoanStatus(targetPerson, targetLoan, updatedLoan);
+        };
+
+        try {
+            actOnTargetLoans(targetLoans, operation);
+        } catch (CommandException e) {
+            throw new CommandException("One or more targeted loans could not be found.");
         }
-        return pairsNotFound;
     }
 
     /**
