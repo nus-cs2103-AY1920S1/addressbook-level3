@@ -32,12 +32,7 @@ public class ContainsKeywordsPredicate implements Predicate<Event> {
     @Override
     public boolean test(Event event) {
         return keywords.stream()
-                .anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(event.getPersonId().toString(), keyword)
-                                || (keyword.length() >= 3
-                                && StringUtil.containsIgnoreCase(event.getPersonId().toString(), keyword))
-                                || (keyword.length() >= 4
-                                && StringUtil.containsIgnoreCase(event.getPersonId().toString(), keyword)));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(event.getPersonId().toString(), keyword));
     }
 
     @Override
