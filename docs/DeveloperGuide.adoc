@@ -338,7 +338,30 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 unless specified otherwise)
 
 [discrete]
+// Updated by Sudharshan
 === Use case: (UC01) Add appointment
+*MSS*
+
+1. User requests to add an appointment.
+2. System adds the appointment to the existing appointment list.
+3. System displays the updated appointment list
+and notifies the user.
++
+Use case ends
+
+*Extensions*
+
+* 1a. User supplies the necessary information.
++
+Use case ends
+* 1b. User supplies invalid information.
+** 1b1. System notifies user about the invalid information.
++
+Use case ends
+* 1c. Appointment clashes with an existing appointment.
+** 1c1. System notifies user about the conflict.
++
+Use case ends
 
 //Updated by Yu Chen
 [discrete]
@@ -390,7 +413,7 @@ Use case ends.
 1.  User requests to list appointments
 2.  System displays the list of appointments
 3.  User requests to delete a specific appointment in the list
-4.  System deletes the person
+4.  System deletes the appointment
 +
 Use case ends.
 
@@ -527,11 +550,8 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: (UC13) Checking spelling errors
-
-[discrete]
 //Updated by Ko Gi Hun 30/09/19
-=== Use case: (UC14) Generate appointment document in PDF format
+=== Use case: (UC13) Generate appointment document in PDF format
 *MSS*
 
 1. User requests to list appointments

@@ -14,7 +14,7 @@ import com.typee.logic.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -31,17 +31,17 @@ import javafx.stage.Stage;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private EngagementListPanel engagementListPanel;
     //Tab related attributes.
     private TabPanel tabPanel;
     private ObservableList<Tab> tabList;
+
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -50,9 +50,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
 
     //Added tab panel by Ko Gi Hun 8/10/19
     @FXML
@@ -132,8 +129,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() throws DataConversionException {
-        personListPanel = new PersonListPanel(logic.getFilteredEngagementList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        lblWindowTitle.setText("Engagement Window");
+        engagementListPanel = new EngagementListPanel(logic.getFilteredEngagementList());
+        mainWindow.getChildren().add(engagementListPanel.getRoot());
 
         //adding tab panel holder
         tabPanel = new TabPanel(tabList);
@@ -193,19 +191,14 @@ public class MainWindow extends UiPart<Stage> {
      * Switch the window to the {@code Tab} specified.
      */
     private void handleTabSwitch(Tab tabInput) throws IOException, CommandException {
-        String tabUrl = null;
-        tabUrl = tabInput.getUrl();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/" + tabUrl));
-
-        loader.setController(tabInput.getController());
-        VBox newPane = loader.load();
+        Parent root = tabInput.getController().getRoot();
         mainWindow.getChildren().clear();
-        mainWindow.getChildren().add(newPane);
+        mainWindow.getChildren().add(root);
         lblWindowTitle.setText(tabInput.getName() + " Window");
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public EngagementListPanel getEngagementListPanel() {
+        return engagementListPanel;
     }
 
     /**
@@ -229,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isTabCommand()) {
                 Tab tab = commandResult.getTab();
-                handleTabSwitch(tab);
+                handleTabSwitch(fetchTabInformation(tab.getName()));
             }
 
             return commandResult;
@@ -238,5 +231,37 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Fetches tab information from the tab menu list to the tab retrived after {@code TabCommand}
+     */
+    private Tab fetchTabInformation(String tabName) {
+        Tab tabToReturn = new Tab();
+        for (Tab tabInList : tabList) {
+            if (tabInList.getName().equals(tabName)) {
+                tabToReturn = tabInList;
+                logger.info("tab matches: " + tabToReturn);
+                break;
+            }
+        }
+        switch (tabName) {
+        case "Calendar":
+            tabToReturn.setController(new CalendarWindow(logic));
+            break;
+        case "TypingGame":
+            tabToReturn.setController(new GameWindow());
+            break;
+        case "Report":
+            tabToReturn.setController(new ReportWindow());
+            break;
+        case "Engagement":
+            tabToReturn.setController(new EngagementListPanel(logic.getFilteredEngagementList()));
+            break;
+        default:
+            break;
+        }
+        logger.info("tab after fetch: " + tabToReturn);
+        return tabToReturn;
     }
 }

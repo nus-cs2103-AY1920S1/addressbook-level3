@@ -14,23 +14,23 @@ import javafx.scene.layout.Region;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class EngagementListPanel extends UiPart<Region> {
+    public static final String FXML = "EngagementListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(EngagementListPanel.class);
 
     @FXML
-    private ListView<Engagement> personListView;
+    private ListView<Engagement> engagementListView;
 
-    public PersonListPanel(ObservableList<Engagement> personList) {
+    public EngagementListPanel(ObservableList<Engagement> engagementList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        engagementListView.setItems(engagementList);
+        engagementListView.setCellFactory(listView -> new EngagementListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Engagement> {
+    class EngagementListViewCell extends ListCell<Engagement> {
         @Override
         protected void updateItem(Engagement engagement, boolean empty) {
             super.updateItem(engagement, empty);
@@ -39,7 +39,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(engagement, getIndex() + 1).getRoot());
+                setGraphic(new EngagementCard(engagement, getIndex() + 1).getRoot());
             }
         }
     }
