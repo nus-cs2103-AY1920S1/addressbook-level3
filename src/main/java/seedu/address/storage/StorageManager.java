@@ -26,7 +26,6 @@ public class StorageManager implements Storage {
     private WasteListStorage wasteListStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
                           TemplateListStorage templateListStorage, WasteListStorage wasteListStorage) {
         super();

@@ -44,7 +44,7 @@ public class TemplateList implements ReadOnlyTemplateList {
      * {@code foods} must not contain duplicate persons.
      */
     public void setTemplates(List<UniqueTemplateItems> templates) {
-        this.templates.setTemplateList(templates);
+        this.templates.setTemplates(templates);
     }
 
     /**

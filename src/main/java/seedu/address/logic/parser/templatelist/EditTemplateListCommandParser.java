@@ -47,5 +47,4 @@ public class EditTemplateListCommandParser implements Parser<EditTemplateListCom
 
         return new EditTemplateListCommand(index, editTemplateListDescriptor);
     }
-
 }

@@ -2,11 +2,16 @@ package seedu.address.logic.commands.templatelist.template;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.food.TemplateItem;
+import seedu.address.model.food.UniqueTemplateItems;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -22,31 +27,39 @@ public class DeleteTemplateItemCommand extends Command {
 
     public static final String MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS = "Deleted TemplateList Item: %1$s";
 
-    private final Index targetIndex;
+    private final Index targetTemplateIndex;
+    private final Index targetItemIndex;
 
-    public DeleteTemplateItemCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteTemplateItemCommand(Index targetTemplateIndex, Index targetItemIndex) {
+        this.targetTemplateIndex = targetTemplateIndex;
+        this.targetItemIndex = targetItemIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        /**List<TemplateItem> lastShownList = model.getFilteredTemplateItemList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
+        List<UniqueTemplateItems> lastShownList = model.getFilteredTemplateList();
+        // Check that the template index is valid
+        if (targetTemplateIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
+        }
+        UniqueTemplateItems templateToEdit = lastShownList.get(targetTemplateIndex.getZeroBased());
+        if (targetItemIndex.getZeroBased() >= templateToEdit.getSize()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
         }
 
-        TemplateItem foodToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteTemplateItem(foodToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS, foodToDelete));**/
-        return new CommandResult("Method not implemented yet.");
+        TemplateItem itemToDelete = templateToEdit.get(targetItemIndex.getZeroBased());
+
+        templateToEdit.remove(itemToDelete);
+
+        return new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS, itemToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteTemplateItemCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTemplateItemCommand) other).targetIndex)); // state check
+                && targetTemplateIndex.equals(((DeleteTemplateItemCommand) other).targetTemplateIndex)
+                && targetItemIndex.equals(((DeleteTemplateItemCommand) other).targetItemIndex)); // state check
     }
 }

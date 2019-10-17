@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.templatelist.template.AddTemplateItemCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -31,8 +32,16 @@ public class AddTemplateItemCommandParser implements Parser<AddTemplateItemComma
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
-                || !argMultimap.getPreamble().isEmpty()) {
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTemplateItemCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTemplateItemCommand.MESSAGE_USAGE));
         }
@@ -42,7 +51,7 @@ public class AddTemplateItemCommandParser implements Parser<AddTemplateItemComma
 
         TemplateItem templateItem = new TemplateItem(name, amount);
 
-        return new AddTemplateItemCommand(templateItem);
+        return new AddTemplateItemCommand(index, templateItem);
     }
 
     /**
