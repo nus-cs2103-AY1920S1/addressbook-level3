@@ -43,7 +43,8 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_DATE_OF_BIRTH_AMY = "1.1.1991";
     public static final String VALID_DATE_OF_BIRTH_BOB = "2.2.1992";
-    public static final String VALID_POLICY_HEALTH = "health";
+    public static final String VALID_POLICY_HEALTH = "Health Insurance";
+    public static final String VALID_POLICY_LIFE = "Life Insurance";
     public static final String VALID_TAG_DIABETIC = "diabetic";
     public static final String VALID_TAG_SMOKER = "smoker";
 
@@ -60,6 +61,7 @@ public class CommandTestUtil {
     public static final String DATE_OF_BIRTH_DESC_AMY = " " + PREFIX_DATE_OF_BIRTH + VALID_DATE_OF_BIRTH_AMY;
     public static final String DATE_OF_BIRTH_DESC_BOB = " " + PREFIX_DATE_OF_BIRTH + VALID_DATE_OF_BIRTH_BOB;
     public static final String POLICY_DESC_HEALTH = " " + PREFIX_POLICY + VALID_POLICY_HEALTH;
+    public static final String POLICY_DESC_LIFE = " " + PREFIX_POLICY + VALID_POLICY_LIFE;
     public static final String TAG_DESC_DIABETIC = " " + PREFIX_TAG + VALID_TAG_DIABETIC;
     public static final String TAG_DESC_SMOKER = " " + PREFIX_TAG + VALID_TAG_SMOKER;
 

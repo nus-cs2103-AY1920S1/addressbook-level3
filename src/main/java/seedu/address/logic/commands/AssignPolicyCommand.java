@@ -26,7 +26,7 @@ public class AssignPolicyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns the policy to a person.\n"
             + "Parameters: "
-            + "INDEX (must be a positive integer)"
+            + "INDEX (must be a positive integer) "
             + PREFIX_POLICY + "POLICY NAME\n"
             + "Example: "
             + COMMAND_WORD + " 1 "

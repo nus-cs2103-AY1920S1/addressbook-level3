@@ -27,21 +27,21 @@ public class UnassignPolicyCommandParser implements Parser<UnassignPolicyCommand
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_POLICY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_POLICY)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UnassignPolicyCommand.MESSAGE_USAGE));
         }
 
         Index personIndex;
-        PolicyName policyName;
 
         try {
-            policyName = ParserUtil.parsePolicyName(argMultimap.getValue(PREFIX_POLICY).get());
             personIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UnassignPolicyCommand.MESSAGE_USAGE), pe);
         }
+
+        PolicyName policyName = ParserUtil.parsePolicyName(argMultimap.getValue(PREFIX_POLICY).get());
 
         return new UnassignPolicyCommand(personIndex, policyName);
     }

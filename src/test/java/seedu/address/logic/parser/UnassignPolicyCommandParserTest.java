@@ -11,15 +11,15 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AssignPolicyCommand;
+import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.model.policy.PolicyName;
 
-class AssignPolicyCommandParserTest {
+class UnassignPolicyCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignPolicyCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnassignPolicyCommand.MESSAGE_USAGE);
 
-    private AssignPolicyCommandParser parser = new AssignPolicyCommandParser();
+    private UnassignPolicyCommandParser parser = new UnassignPolicyCommandParser();
 
     @Test
     public void parse_policyNameSpecified_success() {
@@ -27,7 +27,7 @@ class AssignPolicyCommandParserTest {
         String userInput = targetIndex.getOneBased() + POLICY_DESC_LIFE;
 
         PolicyName policyName = new PolicyName(VALID_NAME_LIFE_INSURANCE);
-        AssignPolicyCommand expectedCommand = new AssignPolicyCommand(targetIndex, policyName);
+        UnassignPolicyCommand expectedCommand = new UnassignPolicyCommand(targetIndex, policyName);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -38,7 +38,7 @@ class AssignPolicyCommandParserTest {
         String userInput = targetIndex.getOneBased() + POLICY_DESC_HEALTH + POLICY_DESC_LIFE;
 
         PolicyName policyName = new PolicyName(VALID_NAME_LIFE_INSURANCE);
-        AssignPolicyCommand expectedCommand = new AssignPolicyCommand(targetIndex, policyName);
+        UnassignPolicyCommand expectedCommand = new UnassignPolicyCommand(targetIndex, policyName);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
