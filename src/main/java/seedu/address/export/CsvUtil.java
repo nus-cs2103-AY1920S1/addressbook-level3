@@ -18,11 +18,14 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.person.Person;
 
 /**
- * Exports Java based Person objects into a .csv file
+ * Reads and writes Java based Person objects to and fro .csv files
  */
 public class CsvUtil {
-    // Temporary static file path
-    private static final Path csvFile = Paths.get("exports/export.csv");
+    // Temporary static file paths
+    private static final Path exportFilePath = Paths.get("exports/export.csv");
+    private static final Path importFilePath = Paths.get("imports/import.csv");
+
+    //=========== Writing/Export functions =============================================================
 
     /**
      * Writes a list of Persons into a .csv file
@@ -30,8 +33,8 @@ public class CsvUtil {
      * @throws IOException
      */
     public static void writePersonsToCsv(List<Person> persons) throws IOException {
-        FileUtil.createIfMissing(csvFile);
-        FileUtil.writeToFile(csvFile, getCsvStringFromPersons(persons));
+        FileUtil.createIfMissing(exportFilePath);
+        FileUtil.writeToFile(exportFilePath, getCsvStringFromPersons(persons));
     }
 
     /**
