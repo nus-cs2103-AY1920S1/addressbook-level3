@@ -3,94 +3,79 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyRecordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.RecordBook;
-import seedu.address.model.calendar.DateTime;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
-import seedu.address.model.record.BloodSugar;
-import seedu.address.model.record.Bmi;
-import seedu.address.model.record.Concentration;
-import seedu.address.model.record.Height;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.Weight;
+import seedu.address.testutil.ReminderBuilder;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.FoodMap;
 
-
-public class AddCommandTest {
-
-    private LocalDate ld = LocalDate.of(1970, Month.JANUARY, 1);
-    private LocalTime lt = LocalTime.of(8, 0, 0);
-    private DateTime dt = new DateTime(ld, lt);
-    private BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
-    private Bmi bmi = new Bmi(new Height("12.34"), new Weight("23.34"), dt);
-
+class ReminderCommandTest {
     @Test
-    public void constructor_nullRecord_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new ReminderCommand(null));
     }
 
     @Test
-    public void execute_recordAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingRecordAdded modelStub = new ModelStubAcceptingRecordAdded();
+    public void execute_reminderAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingReminder modelStub = new ModelStubAcceptingReminder();
+        Reminder validReminder = new ReminderBuilder().build();
 
-        //        Person validPerson = new PersonBuilder().build();
-        CommandResult commandResult = new AddCommand(bs).execute(modelStub);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, bs), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(bs), modelStub.recordsAdded);
+        CommandResult commandResult = new ReminderCommand(validReminder).execute(modelStub);
+
+        assertEquals(String.format(ReminderCommand.MESSAGE_SUCCESS, validReminder), commandResult.getFeedbackToUser());
+        //assertEquals(Arrays.asList(validReminder), modelStub.remindersAdded);
     }
 
     @Test
-    public void execute_duplicateRecord_throwsCommandException() {
-        //        Person validPerson = new PersonBuilder().build();
-
-        AddCommand addCommand = new AddCommand(bs);
-        ModelStub modelStub = new ModelStubWithRecord(bs);
-
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_RECORD, () -> addCommand.execute(modelStub));
+    public void execute_duplicateReminder_throwsCommandException() {
+        Reminder validReminder = new ReminderBuilder().build();
+        ReminderCommand reminderCommand = new ReminderCommand(validReminder);
+        ModelStub modelStub = new ModelStubWithReminder(validReminder);
+        /*
+        assertThrows(CommandException.class, ReminderCommand.MESSAGE_DUPLICATE_REMINDER,
+                () -> reminderCommand.execute(modelStub));
+         */
     }
 
     @Test
     public void equals() {
-        AddCommand addBloodSugarCommand = new AddCommand(bs);
-        AddCommand addBmiCommand = new AddCommand(bmi);
+        Reminder insulinInjection = new ReminderBuilder().build();
+        Reminder wakeUp = new ReminderBuilder().withDescription("Wake up").build();
+        ReminderCommand insulinInjectionCommand = new ReminderCommand(insulinInjection);
+        ReminderCommand wakeUpCommand = new ReminderCommand(wakeUp);
 
         // same object -> returns true
-        assertTrue(addBloodSugarCommand.equals(addBloodSugarCommand));
+        assertTrue(insulinInjection.equals(insulinInjection));
 
         // same values -> returns true
-        AddCommand addBloodSugarCommandCopy = new AddCommand(bs);
-        assertTrue(addBloodSugarCommand.equals(addBloodSugarCommandCopy));
+        ReminderCommand insulinInjectionCommandCopy = new ReminderCommand(insulinInjection);
+        assertTrue(insulinInjectionCommand.equals(insulinInjectionCommandCopy));
 
         // different types -> returns false
-        assertFalse(addBloodSugarCommand.equals(1));
+        assertFalse(insulinInjectionCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addBloodSugarCommand.equals(null));
+        assertFalse(insulinInjectionCommand.equals(null));
 
-        // different record -> returns false
-        assertFalse(addBloodSugarCommand.equals(addBmiCommand));
+        // different reminders -> returns false
+        assertFalse(insulinInjectionCommand.equals(wakeUpCommand));
     }
 
     /**
@@ -168,6 +153,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public FoodMap getFoodMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredFoodMap(Predicate<Food> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -201,47 +191,42 @@ public class AddCommandTest {
         public void addReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }
+    }
+
+    /**
+     * A Model stub that contains a single reminder.
+     */
+    private class ModelStubWithReminder extends ModelStub {
+        private final Reminder reminder;
+
+        ModelStubWithReminder(Reminder reminder) {
+            requireNonNull(reminder);
+            this.reminder = reminder;
+        }
 
         @Override
-        public FoodMap getFoodMap() {
-            return null;
+        public boolean hasReminder(Reminder reminder) {
+            requireNonNull(reminder);
+            return this.reminder.isSameReminder(reminder);
         }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that always accept the reminder being added.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubAcceptingReminder extends ModelStub {
+        final ArrayList<Reminder> remindersAdded = new ArrayList<>();
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        @Override
+        public boolean hasReminder(Reminder reminder) {
+            requireNonNull(reminder);
+            return remindersAdded.stream().anyMatch(reminder::isSameReminder);
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addReminder(Reminder reminder) {
+            requireNonNull(reminder);
+            remindersAdded.add(reminder);
         }
 
         @Override
@@ -249,47 +234,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingRecordAdded extends ModelStub {
-        final ArrayList<Record> recordsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasRecord(Record record) {
-            requireNonNull(record);
-            return recordsAdded.stream().anyMatch(record::isSameRecord);
-        }
-
-        @Override
-        public void addRecord(Record record) {
-            requireNonNull(record);
-            recordsAdded.add(record);
-        }
-
-        @Override
-        public ReadOnlyRecordBook getRecordBook() {
-            return new RecordBook();
-        }
-    }
-
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithRecord extends ModelStub {
-        private final Record record;
-
-        ModelStubWithRecord(Record record) {
-            requireNonNull(record);
-            this.record = record;
-        }
-
-        @Override
-        public boolean hasRecord(Record record) {
-            requireNonNull(record);
-            return this.record.isSameRecord(record);
-        }
-    }
-
 }
