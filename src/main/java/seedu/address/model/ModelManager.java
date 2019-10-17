@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Lesson.Lesson;
 import seedu.address.model.student.Student;
 
 /**
@@ -112,6 +113,16 @@ public class ModelManager implements Model {
         addressBook.setStudent(target, editedStudent);
     }
 
+    @Override
+    public void addLesson(Lesson lesson) {
+        addressBook.addLesson(lesson);
+    }
+
+    @Override
+    public boolean hasLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        return addressBook.hasLesson(lesson);
+    }
     //=========== Filtered Student List Accessors =============================================================
 
     /**
