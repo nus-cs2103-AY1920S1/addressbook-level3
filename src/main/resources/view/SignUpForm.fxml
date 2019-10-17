@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.Label?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" style="-fx-background-color: #192124 #192124;" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.xpire.ui.SignUpForm">
+   <children>
+      <ImageView fitHeight="60.0" fitWidth="75.0" layoutX="266.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/xpire_icon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="278.0" layoutY="84.0" text="Xpire" textFill="#d3d3d3">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="148.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/user.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="username" focusColor="#d3d3d3" layoutX="190.0" layoutY="136.0" prefHeight="28.0" prefWidth="222.0" promptText=" Username" style="-fx-text-fill: #d3d3d3; -fx-prompt-text-fill: #b0b0b0;" unFocusColor="#d3d3d3">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <ImageView fitHeight="39.0" fitWidth="33.0" layoutX="145.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/password.png" />
+         </image>
+      </ImageView>
+      <JFXPasswordField fx:id="password" focusColor="#d3d3d3" layoutX="190.0" layoutY="186.0" prefHeight="28.0" prefWidth="222.0" promptText=" Password" style="-fx-text-fill: #d3d3d3; -fx-prompt-text-fill: #b0b0b0;" unFocusColor="#d3d3d3">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXPasswordField>
+      <ImageView fitHeight="39.0" fitWidth="33.0" layoutX="145.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/confirm_password.png" />
+         </image>
+      </ImageView>
+      <JFXPasswordField fx:id="confirmPassword" focusColor="#d3d3d3" layoutX="190.0" layoutY="239.0" prefHeight="28.0" prefWidth="222.0" promptText=" Confirm password" style="-fx-text-fill: #d3d3d3; -fx-prompt-text-fill: #b0b0b0;" unFocusColor="#d3d3d3">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton fx:id="signUp" layoutX="189.0" layoutY="304.0" onAction="#handleSignUp" prefHeight="28.0" prefWidth="222.0" style="-fx-background-color: #6b9da8;" text="Sign Up" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="23.0" fitWidth="15.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/back.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="back" layoutX="7.0" layoutY="8.0" onAction="#handleBack" text="  Back to login" textFill="#d3d3d3">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
