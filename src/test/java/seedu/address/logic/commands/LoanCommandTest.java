@@ -1,17 +1,19 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
 import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_7;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.HOON;
-import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
-import static seedu.address.testutil.TypicalLoans.getTypicalLoanRecords;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,8 +32,6 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
 
 class LoanCommandTest {
-    private Model model = new ModelManager(getTypicalCatalog(), getTypicalLoanRecords(),
-            getTypicalBorrowerRecords(), new UserPrefs());
 
     @Test
     public void constructor_nullSerialNumber_throwsNullPointerException() {
@@ -133,5 +133,27 @@ class LoanCommandTest {
         }
         String expectedMessage = String.format(MESSAGE_BOOK_ON_LOAN, BOOK_7);
         assertEquals(actualMessage, expectedMessage);
+    }
+
+    @Test
+    public void equals() {
+        LoanCommand loanCommand1 = new LoanCommand(new SerialNumber(VALID_SERIAL_NUMBER_BOOK_1));
+        LoanCommand loanCommand2 = new LoanCommand(new SerialNumber(VALID_SERIAL_NUMBER_BOOK_1));
+        LoanCommand loanCommand3 = new LoanCommand(new SerialNumber(VALID_SERIAL_NUMBER_BOOK_2));
+
+        // same object -> returns true
+        assertTrue(loanCommand1.equals(loanCommand1));
+
+        // same values -> returns true
+        assertTrue(loanCommand1.equals(loanCommand2));
+
+        // different values -> returns false
+        assertFalse(loanCommand1.equals(loanCommand3));
+
+        // null -> returns false
+        assertFalse(loanCommand1.equals(null));
+
+        // different type -> returns false
+        assertFalse(loanCommand1.equals(1));
     }
 }
