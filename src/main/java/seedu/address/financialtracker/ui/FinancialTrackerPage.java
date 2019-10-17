@@ -59,7 +59,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     private StackPane statusbarPlaceholder;
 
     public FinancialTrackerPage() {
-        super(FXML, new VBox());
+        super(FXML);
         this.financialTrackerParser = new FinancialTrackerParser();
         this.model = new Model();
         financialTrackerScene = new Scene(financialTrackerPane);
