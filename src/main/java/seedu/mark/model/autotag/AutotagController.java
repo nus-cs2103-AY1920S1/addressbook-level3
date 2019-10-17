@@ -1,5 +1,8 @@
 package seedu.mark.model.autotag;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,6 +14,18 @@ import seedu.mark.model.bookmark.Bookmark;
 public class AutotagController {
     private final List<SelectiveBookmarkTagger> taggers;
 
+    /**
+     * Create a new {@code AutotagController} with an empty list of taggers.
+     */
+    public AutotagController() {
+        this.taggers = new ArrayList<>();
+    }
+
+    /**
+     * Creates a new {@code AutotagController} with the given list of taggers.
+     *
+     * @param taggers List of {@code SelectiveBookmarkTagger}s to manage.
+     */
     public AutotagController(List<SelectiveBookmarkTagger> taggers) {
         this.taggers = taggers;
     }
@@ -26,6 +41,7 @@ public class AutotagController {
      * @param tagger A new SelectiveBookmarkTagger to add.
      */
     public void addTagger(SelectiveBookmarkTagger tagger) {
+        requireNonNull(tagger);
         taggers.add(tagger);
     }
 
@@ -38,6 +54,8 @@ public class AutotagController {
      * @return A tagged Bookmark
      */
     public Bookmark applyTaggers(Bookmark bookmark) {
+        requireNonNull(bookmark);
+
         Bookmark taggedBookmark = bookmark;
         for (SelectiveBookmarkTagger tagger : taggers) {
             taggedBookmark = tagger.applyTagSelectively(taggedBookmark);
