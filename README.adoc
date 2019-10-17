@@ -3,8 +3,8 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/AY1920S1-CS2103T-F13-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-F13-2/main"]
 https://ci.appveyor.com/project/jon-chua/main[image:https://ci.appveyor.com/api/projects/status/6bknqbs43hquea89?svg=true[Build status]]
-https://coveralls.io/github/AY1920S1-CS2103T-F13-2/main[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F13-2/main/badge.svg?branch=master[Coverage Status]]
-image:https://api.codacy.com/project/badge/Grade/969d69f2a07d402cbc227168e3678848["Codacy code quality", link="https://www.codacy.com/manual/jon-chua/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-F13-2/main&utm_campaign=Badge_Grade"]
+https://coveralls.io/github/AY1920S1-CS2103T-F13-2/main[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F13-2/main/badge.svg?branch=master&service=github[Coverage Status]]
+
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
