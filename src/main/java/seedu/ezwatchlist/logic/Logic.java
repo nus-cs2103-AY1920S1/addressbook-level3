@@ -31,6 +31,9 @@ public interface Logic {
      */
     ReadOnlyWatchList getWatchList();
 
+    /** Returns an unmodifiable view of the filtered watched list of shows */
+    ObservableList<Show> getWatchedList();
+
     /** Returns an unmodifiable view of the filtered list of shows */
     ObservableList<Show> getFilteredShowList();
 
