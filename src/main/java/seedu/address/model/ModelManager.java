@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -97,6 +98,16 @@ public class ModelManager implements Model {
     @Override
     public void setStagedAddressBook(ReadOnlyAddressBook addressBook) {
         this.stagedAddressBook.resetData(addressBook);
+        refreshStagedPersons();
+    }
+
+    @Override
+    public void replaceStagedAddressBook(List<Person> persons) {
+        AddressBook newBook = new AddressBook();
+        for (Person person : persons) {
+            newBook.addPerson(person);
+        }
+        setStagedAddressBook(newBook);
         refreshStagedPersons();
     }
 
