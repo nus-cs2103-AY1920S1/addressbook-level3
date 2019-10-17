@@ -211,7 +211,7 @@ public class ModelManager implements Model {
 
 
 
-    //=========== Filtered Repeater List Accessors =============================================================
+    //=========== Filtered Transaction List Accessors =============================================================
 
     @Override
     public ObservableList<Transaction> getFilteredTransactionList() {
