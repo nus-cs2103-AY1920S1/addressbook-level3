@@ -10,7 +10,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.CalendarParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -20,21 +19,19 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
 /**
- * The main LogicManager of the app.
+ * The tasks LogicManager of the app.
  */
-public class LogicManager implements Logic {
+public class TaskLogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private final Logger logger = LogsCenter.getLogger(TaskLogicManager.class);
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
     private final CalendarParser calendarParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public TaskLogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
         calendarParser = new CalendarParser();
     }
 
@@ -43,12 +40,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = calendarParser.parseCalendarCommand(commandText);
         commandResult = command.execute(model);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
-            //storage.saveCalendar(model.getCalendar());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -83,6 +79,6 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyCalendar getCalendar() {
-        return model.getCalendar();
+        return null;
     }
 }

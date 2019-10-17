@@ -2,16 +2,23 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Participation;
 import seedu.address.model.person.Picture;
 import seedu.address.model.person.Result;
+import seedu.address.model.task.Marking;
+import seedu.address.model.task.TaskDescription;
+import seedu.address.model.task.TaskTime;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -123,5 +130,57 @@ public class ParserUtil {
         return new Participation(trimmedParticipation);
     }
 
+
+    /**
+     * Parses a {@code String taskDescription} into a {@code TaskDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static TaskDescription parseTaskDescription(String taskDescription) {
+        requireNonNull(taskDescription);
+        String trimmedTaskDescription = taskDescription.trim();
+        return new TaskDescription(trimmedTaskDescription);
+    }
+
+    /**
+     * Parses a {@code String taskTime} into a {@code TaskTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code taskTime} is invalid.
+     */
+    public static TaskTime parseTaskTime(String taskTime) throws ParseException {
+        requireNonNull(taskTime);
+        String trimmedTaskTime = taskTime.trim();
+        if (!TaskTime.isValidTaskTime(trimmedTaskTime)) {
+            throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
+        }
+        return new TaskTime(trimmedTaskTime);
+    }
+
+    /**
+     * Parses {@code Collection<String> taskTimes} into a {@code Set<TaskTime>}.
+     */
+    public static Set<TaskTime> parseTaskTimes(Collection<String> taskTimes) throws ParseException {
+        requireNonNull(taskTimes);
+        final Set<TaskTime> taskTimeList = new HashSet<>();
+        for (String taskTime : taskTimes) {
+            taskTimeList.add(parseTaskTime(taskTime));
+        }
+        return taskTimeList;
+    }
+
+    /**
+     * Parses a {@code String marking} into a {@code Marking}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code marking} is invalid.
+     */
+    public static Marking parseMarking(String marking) throws ParseException {
+        requireNonNull(marking);
+        String trimmedMarking = marking.trim();
+        if (!Marking.isValidMark(trimmedMarking)) {
+            throw new ParseException(Marking.MESSAGE_CONSTRAINTS);
+        }
+        return new Marking(trimmedMarking);
+    }
 
 }
