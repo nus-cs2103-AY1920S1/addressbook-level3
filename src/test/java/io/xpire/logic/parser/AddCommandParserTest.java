@@ -55,15 +55,8 @@ public class AddCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + VALID_EXPIRY_DATE_APPLE,
                 expectedMessage);
 
-        /*// trailing bars
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|||||"
-                        + VALID_EXPIRY_DATE_APPLE + "||||||" + VALID_QUANTITY_APPLE, expectedMessage);
-
-        // invalid separator
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "&"
-                + VALID_EXPIRY_DATE_APPLE + "&" + VALID_QUANTITY_APPLE, expectedMessage);*/
-
     }
+
 
     @Test
     public void parse_invalidValue_failure() {
@@ -72,8 +65,8 @@ public class AddCommandParserTest {
             + "|", Name.MESSAGE_CONSTRAINTS);
 
         // invalid expiry date
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + INVALID_EXPIRY_DATE
-            + "|" , ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + INVALID_EXPIRY_DATE,
+                ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
 
         // invalid quantity
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE
