@@ -11,6 +11,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
+import seedu.address.model.person.SortSequence;
+import seedu.address.model.person.SortType;
 import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
@@ -68,6 +70,26 @@ public class ParserUtil {
     public static Time parseTime(String time) {
         requireNonNull(time);
         return new Time(time);
+    }
+
+    /**
+     * Parses a type of sorting in String to SortType.
+     * @param type the time as a String.
+     * @return the specified time as SortType.
+     */
+    public static SortType parseSortType(String type) {
+        requireNonNull(type);
+        return new SortType(type);
+    }
+
+    /**
+     * Parses a type of sequencesorting in String to SortSequence.
+     * @param sequence the sequence of sorting as a String.
+     * @return the specified time as SortSequence.
+     */
+    public static SortSequence parseSortSequence(String sequence) {
+        requireNonNull(sequence);
+        return new SortSequence(sequence);
     }
 
     /**

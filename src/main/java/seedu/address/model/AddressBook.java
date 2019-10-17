@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.BudgetList;
+import seedu.address.model.person.AutoExpense;
+import seedu.address.model.person.AutoExpenseList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseList;
@@ -21,8 +23,8 @@ import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the address-book level Duplicates are not allowed (by
+ * .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -31,14 +33,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final IncomeList incomes;
     private final BudgetList budgets;
     private final WishList wishes;
+    private final AutoExpenseList autoExpenses;
     private final ExpenseReminderList expenseReminders;
     private final ExpenseTrackerList expenseTrackers;
     /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     * The 'unusual' code block below is a non-static initialization block,
+     * sometimes used to avoid duplication between constructors. See
+     * https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+     * Note that non-static init blocks are not recommended to use. There are other
+     * ways to avoid duplication among constructors.
      */
     {
         entries = new UniqueEntryList();
@@ -46,11 +50,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         incomes = new IncomeList();
         budgets = new BudgetList();
         wishes = new WishList();
+        autoExpenses = new AutoExpenseList();
         expenseReminders = new ExpenseReminderList();
         expenseTrackers = new ExpenseTrackerList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -63,8 +69,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of entries with {@code entry}.
-     * {@code entry} must not contain duplicate entries.
+     * Replaces the contents of entries with {@code entry}. {@code entry} must not
+     * contain duplicate entries.
      */
     public void setEntries(List<Entry> entries) {
         this.entries.setEntries(entries);
@@ -80,6 +86,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void setWishes(List<Wish> wishes) {
         this.wishes.setEntries(wishes);
+    }
+
+    public void setAutoExpenses(List<AutoExpense> autoExpenses) {
+        this.autoExpenses.setEntries(autoExpenses);
     }
 
     public void setExpenseReminders(List<ExpenseReminder> expenseReminders) {
@@ -104,6 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setIncomes(newData.getIncomeList());
         setWishes(newData.getWishList());
         setBudgets(newData.getBudgetList());
+        setAutoExpenses(newData.getAutoExpenseList());
         setExpenseReminders(newData.getExpenseReminderList());
         setExpenseTrackers(newData.getExpenseTrackerList());
     }
@@ -111,7 +122,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Returns true if a entry with the same identity as {@code entry} exists in the address book.
+     * Returns true if a entry with the same identity as {@code entry} exists in the
+     * address book.
      */
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
@@ -119,7 +131,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a reminder with the same identity as {@code reminder} exists in the address book.
+     * Returns true if a reminder with the same identity as {@code reminder} exists
+     * in the address book.
      */
     public boolean hasExpenseReminder(ExpenseReminder reminder) {
         requireNonNull(reminder);
@@ -127,8 +140,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the address book. The person must not already exist in the
+     * address book.
      */
     public void addEntry(Entry entry) {
         entries.add(entry);
@@ -136,7 +149,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds a specified Expense to the finance app.
-     * @param expense the specified Expense to be added.
+     *
+     * * @param expense the specified Expense to be added.
      */
     public void addExpense(Expense expense) {
         entries.add(expense);
@@ -145,6 +159,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds the specified Income to the finance app.
+     *
      * @param income the specified Income to be added.
      */
     public void addIncome(Income income) {
@@ -163,6 +178,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds the specified Wish to the finance app.
+     *
      * @param wish the specified Wish to be added.
      */
     public void addWish(Wish wish) {
@@ -176,6 +192,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds the specified ExpenseTrackerReminder to the app.
+     *
      * @param expenseReminder the specified ExpenseTracker to be added.
      */
     public void addExpenseReminder(ExpenseReminder expenseReminder) {
@@ -184,9 +201,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Adds the specified AutoExpense to the finance app.
+     *
+     * @param autoExpense the specified AutoExpense to be added.
+     */
+    public void addAutoExpense(AutoExpense autoExpense) {
+        entries.add(autoExpense);
+        autoExpenses.add(autoExpense);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with
+     * {@code editedPerson}. {@code target} must exist in the address book. The
+     * person identity of {@code editedPerson} must not be the same as another
+     * existing person in the address book.
      */
     public void setEntry(Entry target, Entry editedEntry) {
         requireNonNull(editedEntry);
@@ -194,9 +222,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given Expense {@code target} in the list with {@code editedEntry}.
-     * {@code target} must exist in the address book.
-     * The expense identity of {@code editedEntry} must not be the same as another existing expense in the address book.
+     * Replaces the given Expense {@code target} in the list with
+     * {@code editedEntry}. {@code target} must exist in the address book. The
+     * expense identity of {@code editedEntry} must not be the same as another
+     * existing expense in the address book.
      */
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
@@ -205,9 +234,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given Income {@code target} in the list with {@code editedIncome}.
-     * {@code target} must exist in the address book.
-     * The income identity of {@code editedEntry} must not be the same as another existing income in the address book.
+     * Replaces the given Income {@code target} in the list with
+     * {@code editedIncome}. {@code target} must exist in the address book. The
+     * income identity of {@code editedEntry} must not be the same as another
+     * existing income in the address book.
      */
     public void setIncome(Income target, Income editedEntry) {
         requireNonNull(editedEntry);
@@ -216,9 +246,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given Income {@code target} in the list with {@code editedIncome}.
-     * {@code target} must exist in the address book.
-     * The income identity of {@code editedEntry} must not be the same as another existing income in the address book.
+     * Replaces the given Income {@code target} in the list with
+     * {@code editedIncome}. {@code target} must exist in the address book. The
+     * income identity of {@code editedEntry} must not be the same as another
+     * existing income in the address book.
      */
     public void setWish(Wish target, Wish editedEntry) {
         requireNonNull(editedEntry);
@@ -232,10 +263,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given ExpenseTracker {@code target} in the list with {@code editedTracker}.
-     * {@code target} must exist in the address book.
-     * The ExpenseTracer identity of {@code editedTracker}
-     * must not be the same as another existing ExpenseTracker in the address book.
+     * Replaces the given ExpenseTracker {@code target} in the list with
+     * {@code editedTracker}. {@code target} must exist in the address book. The
+     * ExpenseTracer identity of {@code editedTracker} must not be the same as
+     * another existing ExpenseTracker in the address book.
      */
     public void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry) {
         requireNonNull(editedEntry);
@@ -252,6 +283,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);
         budgets.setBudget(target, editedEntry);
+    }
+
+    /**
+     * Replaces the given AutoExpense {@code target} in the list with
+     * {@code editedIncome}. {@code target} must exist in the address book. The
+     * income identity of {@code editedEntry} must not be the same as another
+     * existing income in the address book.
+     */
+    public void setAutoExpense(AutoExpense target, AutoExpense editedEntry) {
+        requireNonNull(editedEntry);
+        autoExpenses.setAutoExpense(target, editedEntry);
         entries.setEntry(target, editedEntry);
     }
 
@@ -263,10 +305,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         entries.remove(key);
     }
 
-
     /**
-     * Removes {@code key} from this {@code expenses}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code expenses}. {@code key} must exist in the
+     * address book.
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
@@ -274,8 +315,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code incomes}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code incomes}. {@code key} must exist in the
+     * address book.
      */
     public void removeIncome(Income key) {
         incomes.remove(key);
@@ -283,8 +324,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code wishes}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code wishes}. {@code key} must exist in the
+     * address book.
      */
     public void removeWish(Wish key) {
         wishes.remove(key);
@@ -300,6 +341,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         entries.remove(key);
     }
 
+    
+    /**
+     * Removes {@code key} from this {@code autoExpenses}. {@code key} must exist in
+     * the address book.
+     */
+    public void removeAutoExpense(AutoExpense key) {
+        autoExpenses.remove(key);
+        entries.remove(key);
+    }
+
     /**
      * Removes {@code key} from this {@code expensetracker}.
      * {@code key} must exist in the address book.
@@ -309,8 +360,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code wishes}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code wishes}. {@code key} must exist in the
+     * address book.
      */
     public void removeExpenseReminder(ExpenseReminder key) {
         expenseReminders.remove(key);
@@ -320,10 +371,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void updateExpenseReminders() {
         expenseReminders.updateList();
     }
-
-    //// util methods
-
-    //// util methods
 
     //// util methods
     @Override
@@ -358,6 +405,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<AutoExpense> getAutoExpenseList() {
+        return autoExpenses.asUnmodifiableObservableList();
+    }
+
     public ObservableList<ExpenseReminder> getExpenseReminderList() {
         return expenseReminders.asUnmodifiableObservableList();
     }
@@ -371,7 +422,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && entries.equals(((AddressBook) other).entries));
+                        && entries.equals(((AddressBook) other).entries));
     }
 
     @Override

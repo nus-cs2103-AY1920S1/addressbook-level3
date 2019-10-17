@@ -43,6 +43,7 @@ public class EntryCard extends UiPart<Region> {
         super(FXML);
         this.entry = entry;
         id.setText(displayedIndex + ". ");
+
         String type = entry.getType().toLowerCase();
         String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;
         desc.setText(descWithType);

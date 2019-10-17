@@ -9,25 +9,19 @@ import seedu.address.model.tag.Tag;
  */
 public class Expense extends Entry {
 
-    private static final String ENTRY_TYPE = "Expense";
-    private final Time time;
+    private static final String ENTRYTYPE = "Expense";
 
     public Expense(Description desc, Time time, Amount amount, Set<Tag> tags) {
-        super(desc, amount, tags);
-        this.time = time;
+        super(desc, time, amount, tags);
     }
 
     public String getType() {
-        return this.ENTRY_TYPE;
-    }
-
-    public Time getTime() {
-        return this.time;
+        return this.ENTRYTYPE;
     }
 
     /**
-     * Returns true if both expenses have the same data fields.
-     * This defines a stronger notion of equality between two entries.
+     * Returns true if both expenses have the same data fields. This defines a
+     * stronger notion of equality between two entries.
      */
     @Override
     public boolean equals(Object other) {
@@ -42,22 +36,16 @@ public class Expense extends Entry {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getDesc().equals(getDesc())
-                && otherExpense.getAmount().equals(getAmount())
-                && otherExpense.getTags().equals(getTags())
-                && otherExpense.getTime().equals(getTime());
+        return otherExpense.getDesc().equals(getDesc()) && otherExpense.getAmount().equals(getAmount())
+                && otherExpense.getTags().equals(getTags()) && otherExpense.getTime().equals(getTime());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(ENTRY_TYPE + ": ")
-                .append(getDesc())
-                .append(" Amount: ")
-                .append(getAmount())
-                .append(" Tags: ");
+        builder.append(ENTRYTYPE + ": ").append(getDesc()).append(" Amount: ").append(getAmount()).append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + time + ")");
+        builder.append("(" + this.getTime() + ")");
         return builder.toString();
     }
 

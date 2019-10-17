@@ -26,16 +26,16 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_DESC + "DESCRIPTION "
-            + PREFIX_TIME + "TIME "
             + PREFIX_AMOUNT + "AMOUNT "
+            + PREFIX_TIME + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "expense "
-            + PREFIX_DESC + "deck mala "
-            + PREFIX_TIME + "13:00 "
+            + PREFIX_TYPE + "Expense "
+            + PREFIX_DESC + "Mala "
             + PREFIX_AMOUNT + "5.50 "
+            + PREFIX_TIME + "2019-09-09 "
             + PREFIX_TAG + "food "
-            + PREFIX_TAG + "mala";
+            + PREFIX_TAG + "indulgence";
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
 

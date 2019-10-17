@@ -6,10 +6,13 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
+import seedu.address.model.person.SortSequence;
+import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 
 /**
@@ -25,8 +28,9 @@ public interface Model {
 
     Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
 
-
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
+
+    Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
 
     Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
 
@@ -70,33 +74,30 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in
+     * the address book.
      */
     boolean hasEntry(Entry entry);
 
     boolean hasExpenseReminder(ExpenseReminder reminder);
 
     /**
-     * Deletes the given entry.
-     * The entry must exist in the address book.
+     * Deletes the given entry. The entry must exist in the address book.
      */
     void deleteEntry(Entry target);
 
     /**
-     * Deletes the given expense.
-     * The entry must exist in the address book.
+     * Deletes the given expense. The entry must exist in the address book.
      */
     void deleteExpense(Expense target);
 
     /**
-     * Deletes the given income.
-     * The income must exist in the address book.
+     * Deletes the given income. The income must exist in the address book.
      */
     void deleteIncome(Income target);
 
     /**
-     * Deletes the given wish.
-     * The wish must exist in the address book.
+     * Deletes the given wish. The wish must exist in the address book.
      */
     void deleteWish(Wish target);
 
@@ -109,8 +110,13 @@ public interface Model {
     void deleteBudget(Budget target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Deletes the given AutoExpense. The entry must exist in the address book.
+     */
+    void deleteAutoExpense(AutoExpense target);
+
+    /**
+     * Adds the given person. {@code person} must not already exist in the address
+     * book.
      */
     void addEntry(Entry entry);
 
@@ -120,16 +126,17 @@ public interface Model {
 
     void addWish(Wish wish);
 
-
     void addBudget(Budget budget);
 
+    void addAutoExpense(AutoExpense autoExpense);
 
     void addExpenseReminder(ExpenseReminder expenseReminder);
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
-     * {@code target} must exist in the address book.
-     * The entry identity of {@code editedEntry} must not be the same as another existing entry in the address book.
+     * {@code target} must exist in the address book. The entry identity of
+     * {@code editedEntry} must not be the same as another existing entry in the
+     * address book.
      */
     void setEntry(Entry target, Entry editedEntry);
 
@@ -147,14 +154,19 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
 
-
     /** Returns an unmodifiable view of the filtered budget list */
     ObservableList<Budget> getFilteredBudgets();
+
+    /** Returns an unmodifiable view of the filtered expenditure list */
+    ObservableList<AutoExpense> getFilteredAutoExpenses();
+
     /** Returns an unmodifiable view of the filtered expense reminder list */
     ObservableList<ExpenseReminder> getFilteredExpenseReminders();
 
     /**
-     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered entry list to filter by the given
+     * {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEntryList(Predicate<Entry> predicate);
@@ -180,4 +192,10 @@ public interface Model {
     //void redoAddressBook();
 
     public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
+
+    void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
+
+    void sortFilteredEntry(SortType comparator, SortSequence sequence);
+
+    void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
 }

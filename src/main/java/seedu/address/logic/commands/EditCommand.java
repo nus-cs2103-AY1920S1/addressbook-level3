@@ -32,7 +32,7 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the entry identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -91,11 +91,12 @@ public class EditCommand extends Command {
     private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
         assert entryToEdit != null;
 
-        Description updatedDesc = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
+        Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
+        Time updatedTime = editEntryDescriptor.getTime().orElse(entryToEdit.getTime());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
-        return new Entry(updatedDesc, updatedAmount, updatedTags);
+        return new Entry(updatedName, updatedTime, updatedAmount, updatedTags);
     }
 
     @Override
@@ -135,6 +136,7 @@ public class EditCommand extends Command {
         public EditEntryDescriptor(EditEntryDescriptor toCopy) {
             setDesc(toCopy.desc);
             setAmount(toCopy.amt);
+            setTime(toCopy.time);
             setTags(toCopy.tags);
         }
 
