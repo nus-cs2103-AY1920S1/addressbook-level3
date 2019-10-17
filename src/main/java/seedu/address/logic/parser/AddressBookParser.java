@@ -74,7 +74,7 @@ public class AddressBookParser {
             return new ImportCommandParser().parse(arguments);
 
         case EmailCommand.COMMAND_WORD:
-            return new EmailCommand();
+            return new EmailCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

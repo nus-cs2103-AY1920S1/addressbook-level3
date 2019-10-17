@@ -1,11 +1,13 @@
 package seedu.address.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
@@ -49,6 +51,12 @@ public interface Model {
      * Returns a list of observable list of the schedules.
      */
     List<ObservableList<ObservableList<String>>> getObservableLists();
+
+    /**
+     * Emails the given Interviewee.
+     * The Interviewee must exist in the database.
+     */
+    void emailInterviewee(Interviewee interviewee) throws IOException;
 
     /**
      * Returns the interview slot assigned to the interviewee with the {@code intervieweeName}.

@@ -3,6 +3,10 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
@@ -114,6 +119,30 @@ public class ModelManager implements Model {
             observableLists.add(schedule.getObservableList());
         }
         return observableLists;
+    }
+
+    /**
+     * Emails the given Interviewee.
+     * The Interviewee must exist in the database.
+     */
+    @Override
+    public void emailInterviewee(Interviewee interviewee) throws IOException {
+        // TODO: Implement getting the emails of the Interviewee
+        StringBuilder sb = new StringBuilder();
+        sb.append("mailto:");
+        sb.append("someone@example.com");
+        sb.append("?cc=");
+        sb.append("copied@example.com");
+        sb.append("&subject=");
+        sb.append(URLEncoder.encode("This is a test subject",
+                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20"));
+        sb.append("&body=");
+        sb.append(URLEncoder.encode("This is a test body + Some additional stuff",
+                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20"));
+
+        Desktop desktop = Desktop.getDesktop();
+        URI uri = URI.create(sb.toString());
+        desktop.mail(uri);
     }
 
     /**
