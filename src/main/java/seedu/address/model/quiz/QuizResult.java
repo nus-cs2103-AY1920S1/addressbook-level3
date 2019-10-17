@@ -48,7 +48,7 @@ public class QuizResult {
         }
 
         QuizResult otherQuizResult = (QuizResult) other;
-        return otherQuizResult.getQuestionBody().equals(getQuestionBody());
+        return otherQuizResult.getQuizTime().equals(getQuizTime());
     }
 
     @Override
