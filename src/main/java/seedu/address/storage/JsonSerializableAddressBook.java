@@ -63,13 +63,13 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
-        for (JsonAdaptedEarnings jsonAdaptedEarnings : earning) {
+        /*for (JsonAdaptedEarnings jsonAdaptedEarnings : earning) {
             Earnings earnings = jsonAdaptedEarnings.toModelType();
             if (addressBook.hasEarnings(earnings)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EARNINGS);
             }
             addressBook.addEarnings(earnings);
-        }
+        }*/
         return addressBook;
     }
 
