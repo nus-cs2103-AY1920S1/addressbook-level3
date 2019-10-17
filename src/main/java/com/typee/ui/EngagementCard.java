@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class EngagementCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -43,7 +43,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
 
-    public PersonCard(Engagement engagement, int displayedIndex) {
+    public EngagementCard(Engagement engagement, int displayedIndex) {
         super(FXML);
         this.engagement = engagement;
         id.setText(displayedIndex + ". ");
@@ -64,12 +64,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof EngagementCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        EngagementCard card = (EngagementCard) other;
         return id.getText().equals(card.id.getText())
                 && engagement.equals(card.engagement);
     }
