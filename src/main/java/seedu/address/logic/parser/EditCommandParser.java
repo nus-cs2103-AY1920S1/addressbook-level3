@@ -2,13 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,8 +28,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String description, String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TASK_DESCRIPTION, PREFIX_EVENT_DESCRIPTION,
-                        PREFIX_REMINDER_DESCRIPTION, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_DATETIME,
+                        PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
 
         Index index;
 
@@ -46,20 +40,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditItemDescriptor editItemDescriptor = new EditItemDescriptor();
-        if (argMultimap.getValue(PREFIX_TASK_DESCRIPTION).isPresent()) {
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editItemDescriptor.setDescription(
                     ParserUtil.parseDescription(
-                            argMultimap.getValue(PREFIX_TASK_DESCRIPTION).get()));
-        }
-        if (argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).isPresent()) {
-            editItemDescriptor.setDescription(
-                    ParserUtil.parseDescription(
-                            argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).get()));
-        }
-        if (argMultimap.getValue(PREFIX_REMINDER_DESCRIPTION).isPresent()) {
-            editItemDescriptor.setDescription(
-                    ParserUtil.parseDescription(
-                            argMultimap.getValue(PREFIX_REMINDER_DESCRIPTION).get()));
+                            argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
             editItemDescriptor.setEvent(

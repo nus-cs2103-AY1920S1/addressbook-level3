@@ -1,12 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,14 +36,12 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TASK_DESCRIPTION + "TASK DESCRIPTION] "
-            + "[" + PREFIX_EVENT_DESCRIPTION + "EVENT DESCRIPTION] "
-            + "[" + PREFIX_REMINDER_DESCRIPTION + "REMINDER DESCRIPTION] "
+            + "[" + PREFIX_DESCRIPTION + " DESCRIPTION] "
             + "[" + PREFIX_REMINDER + "REMINDER] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_TASK_DESCRIPTION + "DRINK WATER "
+            + PREFIX_DESCRIPTION + "DRINK WATER "
             + PREFIX_PRIORITY + "HIGH";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
@@ -83,7 +76,6 @@ public class EditCommand extends Command {
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
 
         model.replaceItem(oldItem, editedItem);
-        //model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
     }
 
