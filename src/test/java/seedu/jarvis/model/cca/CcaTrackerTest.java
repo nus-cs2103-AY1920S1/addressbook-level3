@@ -17,7 +17,6 @@ public class CcaTrackerTest {
         ccaTracker = new CcaTracker();
         CcaList ccaList = new CcaList();
         ccaList.addCca(CANOEING);
-        ccaTracker.setCcaList(ccaList);
     }
 
     @Test
