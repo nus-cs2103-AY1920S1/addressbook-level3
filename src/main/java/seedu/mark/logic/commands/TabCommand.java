@@ -15,15 +15,15 @@ public class TabCommand extends Command {
 
     public static final String COMMAND_WORD = "tab";
 
-    public static final String MESSAGE_SWITCH_ACKNOWLEDGEMENT = "Switching view to tab %1$s.";
-    public static final String MESSAGE_INVALID_INDEX = "Tab index should be 1, 2, or 3.";
-    public static final String MESSAGE_INVALID_KEYWORD = "Tab keyword should be dash, on, or off.";
-
-    public static final String MESSAGE_USAGE =
-            COMMAND_WORD + ": Switches to the tab specified by the given index or keyword. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Switches to the tab specified by the given index or keyword. "
             + "Dashboard - '1' or 'dash'. Online - '2' or 'on'. Offline - '3' or 'off'.\n"
             + "Parameter: INDEX or KEYWORD\n"
             + "Example: " + COMMAND_WORD + " 1 \n";
+
+    public static final String MESSAGE_SWITCH_ACKNOWLEDGEMENT = "Switching view to tab: %1$s.";
+    public static final String MESSAGE_INVALID_INDEX = "Tab index should be 1, 2, or 3.";
+    public static final String MESSAGE_INVALID_KEYWORD = "Tab keyword should be dash, on, or off.";
 
     private final Tab tab;
 

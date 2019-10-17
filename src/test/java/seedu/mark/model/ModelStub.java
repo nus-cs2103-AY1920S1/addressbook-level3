@@ -8,11 +8,14 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
 import seedu.mark.commons.core.GuiSettings;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -157,4 +160,40 @@ public class ModelStub implements Model {
     public void saveMark() {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void addReminder(Bookmark bookmark, Reminder reminder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void removeReminder(Reminder reminder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void editReminder(Reminder targetReminder, Reminder editedReminder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean isBookmarkHasReminder(Bookmark bookmark) {
+        return false;
+    }
+
+    @Override
+    public ObservableList<Reminder> getReminders() {
+        return null;
+    }
+
+    @Override
+    public void updateDocument(OfflineDocument doc) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Paragraph> getObservableDocument() {
+        throw new AssertionError("This method should not be called.");
+    }
+
 }

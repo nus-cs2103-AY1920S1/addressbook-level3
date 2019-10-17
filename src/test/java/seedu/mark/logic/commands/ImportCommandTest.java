@@ -8,6 +8,7 @@ import static seedu.mark.testutil.TypicalBookmarks.ALICE;
 import static seedu.mark.testutil.TypicalBookmarks.BENSON;
 import static seedu.mark.testutil.TypicalBookmarks.CARL;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarks;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalFolderStructure;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +35,14 @@ import seedu.mark.storage.Storage;
  * Contains integration tests (interaction with the Model) for {@code ImportCommand}.
  */
 public class ImportCommandTest {
+
+    private static final Path PATH_NON_EXISTENT_FILE = Path.of("data", "bookmarks", "nonExistentFile");
+    private static final Path PATH_INVALID_FORMAT_FILE = Path.of("invalidFormatFile");
+    private static final Path PATH_PROBLEM_FILE = Path.of("problemFile");
+    private static final Path PATH_VALID_FILE = Path.of("data", "validFile");
+    private static final Path PATH_NO_FOLDER_FILE = Path.of("data", "validFileNoFolders");
+    private static final Path PATH_NO_BOOKMARK_FILE = Path.of("data", "validFileNoBookmarks");
+
     private Model model = new ModelManager(new Mark(), new UserPrefs());
     private Storage storage = new StorageStubAllowsRead();
 
@@ -47,29 +57,38 @@ public class ImportCommandTest {
                 .reduce("", String::concat);
     }
 
+    /**
+     * Sets the {@code Folder} of all bookmarks in the given list to the root folder.
+     */
+    private static List<Bookmark> setToRootFolder(List<Bookmark> bookmarks) {
+        return bookmarks.stream()
+                .map(ImportCommand.MarkImporter::setToRootFolder)
+                .collect(Collectors.toList());
+    }
+
     @Test
     public void execute_invalidFile_exceptionThrown() {
         // file does not exist
-        Path filePath = Path.of("data", "bookmarks", "nonExistentFile");
+        Path filePath = PATH_NON_EXISTENT_FILE;
         ImportCommand command = new ImportCommand(filePath);
         String expectedMessage = String.format(ImportCommand.MESSAGE_FILE_NOT_FOUND, filePath);
         assertCommandFailure(command, model, storage, expectedMessage);
 
         // file contains wrong data format
-        filePath = Path.of("invalidFormatFile");
+        filePath = PATH_INVALID_FORMAT_FILE;
         command = new ImportCommand(filePath);
         expectedMessage = String.format(ImportCommand.MESSAGE_FILE_FORMAT_INCORRECT, filePath);
         assertCommandFailure(command, model, storage, expectedMessage);
 
         // problem while reading file
-        filePath = Path.of("problemFile");
+        filePath = PATH_PROBLEM_FILE;
         command = new ImportCommand(filePath);
         assertCommandFailure(command, model, storage, ImportCommand.MESSAGE_IMPORT_FAILURE);
     }
 
     @Test
-    public void execute_validFileNoDuplicates_success() {
-        Path filePath = Path.of("data", "validFile");
+    public void execute_validFileEmptyMark_success() {
+        Path filePath = PATH_VALID_FILE;
         ImportCommand command = new ImportCommand(filePath);
 
         String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, filePath);
@@ -77,7 +96,7 @@ public class ImportCommandTest {
         // set up expected model with appropriate state
         Model expectedModel = new ModelManager(new Mark(), new UserPrefs());
         Mark expectedMark = new Mark();
-        expectedMark.setBookmarks(getTypicalBookmarks());
+        expectedMark.setBookmarks(setToRootFolder(getTypicalBookmarks())); // strip folders
         expectedModel.setMark(expectedMark);
         expectedModel.saveMark();
 
@@ -85,38 +104,51 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_validFileSomeDuplicates_duplicatesSkipped() {
-        Path filePath = Path.of("data", "validFile");
-        ImportCommand command = new ImportCommand(filePath);
+    public void execute_validFileAllDuplicates_modelNotChanged() {
+        ImportCommand command = new ImportCommand(PATH_VALID_FILE);
 
-        List<Bookmark> existingBookmarks = Arrays.asList(ALICE, BENSON, CARL);
-        Mark markWithSomeBookmarks = new Mark();
-        existingBookmarks.forEach(markWithSomeBookmarks::addBookmark);
-        Model initialModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
+        Model initialModel = new ModelManager(getTypicalMark(), new UserPrefs());
 
-        String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
-                makeIndentedString(existingBookmarks));
-
-        // set up expected model with appropriate state
-        Model expectedModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
-        Mark expectedMark = new Mark();
-        expectedMark.setBookmarks(getTypicalBookmarks());
-        expectedModel.setMark(expectedMark);
-        expectedModel.saveMark();
+        String expectedMessage = String.format(ImportCommand.MESSAGE_NO_BOOKMARKS_TO_IMPORT,
+                makeIndentedString(getTypicalBookmarks()));
+        Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
 
         assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_validFileAllDuplicates_modelNotChanged() {
-        Path filePath = Path.of("data", "validFile");
-        ImportCommand command = new ImportCommand(filePath);
+    public void execute_validFileNoBookmarksToImport_modelNotChanged() {
+        ImportCommand command = new ImportCommand(PATH_NO_BOOKMARK_FILE);
 
         Model initialModel = new ModelManager(getTypicalMark(), new UserPrefs());
-        String expectedMessage = String.format(ImportCommand.MESSAGE_NO_BOOKMARKS_TO_IMPORT,
-                makeIndentedString(getTypicalBookmarks()));
 
+        String expectedMessage = String.format(ImportCommand.MESSAGE_NO_BOOKMARKS_TO_IMPORT, "");
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
+
+        assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validFileDuplicateBookmarksNoFolders_duplicatesSkipped() {
+        Path filePath = PATH_NO_FOLDER_FILE;
+        ImportCommand command = new ImportCommand(filePath);
+
+        // initial model: 3 bookmarks in root folder
+        List<Bookmark> existingBookmarks = setToRootFolder(Arrays.asList(ALICE, BENSON, CARL));
+        Mark markWithSomeBookmarks = new Mark();
+        existingBookmarks.forEach(markWithSomeBookmarks::addBookmark);
+        Model initialModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
+
+        // expected message
+        String expectedMessage = String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
+                makeIndentedString(existingBookmarks));
+
+        // expected model: 7 bookmarks in root folder (4 imported)
+        Model expectedModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
+        Mark expectedMark = new Mark();
+        expectedMark.setBookmarks(setToRootFolder(getTypicalBookmarks()));
+        expectedModel.setMark(expectedMark);
+        expectedModel.saveMark();
 
         assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
     }
@@ -178,14 +210,25 @@ public class ImportCommandTest {
         @Override
         public Optional<ReadOnlyMark> readMark(Path filePath) throws IOException, DataConversionException {
             // note: should match test case #execute_invalidFile_exceptionThrown()
-            if (filePath.endsWith("problemFile")) {
+            if (filePath.equals(PATH_PROBLEM_FILE)) {
                 throw new IOException();
-            } else if (filePath.endsWith("invalidFormatFile")) {
+            } else if (filePath.equals(PATH_INVALID_FORMAT_FILE)) {
                 throw new DataConversionException(new CommandException("Invalid data format"));
-            } else if (filePath.endsWith("nonExistentFile")) {
+            } else if (filePath.equals(PATH_NON_EXISTENT_FILE)) {
                 return Optional.empty();
+            } else if (filePath.equals(PATH_VALID_FILE)) {
+                return Optional.of(getTypicalMark());
+            } else if (filePath.equals(PATH_NO_FOLDER_FILE)) {
+                Mark mark = new Mark();
+                mark.setBookmarks(setToRootFolder(getTypicalBookmarks()));
+                return Optional.of(mark);
+            } else if (filePath.equals(PATH_NO_BOOKMARK_FILE)) {
+                Mark mark = new Mark();
+                mark.setFolderStructure(getTypicalFolderStructure());
+                return Optional.of(mark);
+            } else {
+                throw new AssertionError("This method should be called with a specific type of path.");
             }
-            return Optional.of(getTypicalMark());
         }
 
         @Override

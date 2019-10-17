@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
+import seedu.mark.logic.commands.AddReminderCommand;
 import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
@@ -96,6 +97,9 @@ public class MarkParser {
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
+
+        case AddReminderCommand.COMMAND_WORD:
+            return new AddReminderCommandParser().parse(arguments);
 
         case AutotagCommand.COMMAND_WORD:
             return new AutotagCommandParser().parse(arguments);

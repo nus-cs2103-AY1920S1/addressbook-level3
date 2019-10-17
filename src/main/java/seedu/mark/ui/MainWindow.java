@@ -124,16 +124,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.getCurrentUrlProperty());
-        dashboardPanel = new DashboardPanel();
-        offlinePanel = new OfflinePanel();
+        dashboardPanel = new DashboardPanel(logic);
+        offlinePanel = new OfflinePanel(logic.getObservableDocument());
         mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
-        bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
+        bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList(),
+                logic.getCurrentUrlProperty(), logic::setCurrentUrl, this);
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
-
-        FolderStructureTreeView folderStructureTreeView = new FolderStructureTreeView(
-                logic.getFolderStructure(), logic.getFilteredBookmarkList());
-        folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -186,20 +183,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void handleSwitchToDashboard() {
-        //TODO:
+    public void handleSwitchToDashboard() {
         mainViewAreaPlaceholder.getChildren().set(0, dashboardPanel.getRoot());
     }
 
     @FXML
-    private void handleSwitchToOnline() {
-        //TODO:
+    public void handleSwitchToOnline() {
         mainViewAreaPlaceholder.getChildren().set(0, browserPanel.getRoot());
     }
 
     @FXML
-    private void handleSwitchToOffline() {
-        //TODO:
+    public void handleSwitchToOffline() {
         mainViewAreaPlaceholder.getChildren().set(0, offlinePanel.getRoot());
     }
 
