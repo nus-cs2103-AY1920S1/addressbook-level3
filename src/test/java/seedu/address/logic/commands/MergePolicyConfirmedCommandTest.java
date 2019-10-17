@@ -27,6 +27,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
 
 public class MergePolicyConfirmedCommandTest {
 
@@ -232,6 +233,11 @@ public class MergePolicyConfirmedCommandTest {
         }
 
         @Override
+        public Policy getPolicyWithName(PolicyName policyName) {
+            return null;
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -268,7 +274,7 @@ public class MergePolicyConfirmedCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -278,6 +284,11 @@ public class MergePolicyConfirmedCommandTest {
 
         @Override
         public boolean hasPolicy(Policy policy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPolicyWithName(PolicyName policyName) {
             throw new AssertionError("This method should not be called.");
         }
 
