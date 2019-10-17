@@ -42,7 +42,7 @@ public class IdentifiersContainKeywordsPredicateTest {
     }
 
     @Test
-    public void test_urlContainsKeywords_returnsTrue() {
+    public void test_identifierContainsKeywords_returnsTrue() {
         // Name predicate matches
         IdentifiersContainKeywordsPredicate predicate =
                 new IdentifiersContainKeywordsPredicate(Collections.singletonList("website"));
@@ -64,7 +64,7 @@ public class IdentifiersContainKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_identifierDoesNotContainKeywords_returnsFalse() {
         // Zero predicates match
         IdentifiersContainKeywordsPredicate predicate =
                 new IdentifiersContainKeywordsPredicate(Collections.emptyList());

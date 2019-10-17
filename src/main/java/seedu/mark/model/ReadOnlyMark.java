@@ -2,6 +2,8 @@ package seedu.mark.model;
 
 import javafx.collections.ObservableList;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.ReminderAssociation;
 
 /**
  * Unmodifiable view of a Mark.
@@ -14,4 +16,7 @@ public interface ReadOnlyMark {
      */
     ObservableList<Bookmark> getBookmarkList();
 
+    FolderStructure getFolderStructure();
+
+    ReminderAssociation getReminderAssociation();
 }

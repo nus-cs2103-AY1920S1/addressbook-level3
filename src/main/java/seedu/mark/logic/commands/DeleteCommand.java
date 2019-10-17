@@ -6,10 +6,11 @@ import java.util.List;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.Storage;
 
 /**
  * Deletes a bookmark identified using its displayed index from Mark.
@@ -32,7 +33,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
@@ -42,6 +43,7 @@ public class DeleteCommand extends Command {
 
         Bookmark bookmarkToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBookmark(bookmarkToDelete);
+        model.saveMark();
         return new CommandResult(String.format(MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete));
     }
 

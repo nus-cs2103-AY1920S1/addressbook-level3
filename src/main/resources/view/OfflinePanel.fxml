@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fitToHeight="true" fitToWidth="true">
+    <VBox>
+        <TextField fx:id="dummyField" />
+    </VBox>
+    <VBox fx:id="annotationList"
+          styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+        <StackPane fx:id="annotationListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+    </VBox>
+</ScrollPane>

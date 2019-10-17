@@ -15,6 +15,8 @@ import java.util.List;
 
 import seedu.mark.model.Mark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
  * A utility class containing a list of {@code Bookmark} objects to be used in tests.
@@ -23,17 +25,18 @@ public class TypicalBookmarks {
 
     public static final Bookmark ALICE = new BookmarkBuilder().withName("Alice Pauline")
             .withRemark("123, Jurong West Ave 6, #08-111").withUrl("https://alice@example.com")
-            .withTags("friends").build();
+            .withFolder("contacts").withTags("friends").build();
     public static final Bookmark BENSON = new BookmarkBuilder().withName("Benson Meier")
             .withRemark("311, Clementi Ave 2, #02-25")
             .withUrl("https://johnd@example.com")
+            .withFolder("contacts")
             .withTags("owesMoney", "friends").build();
     public static final Bookmark CARL = new BookmarkBuilder().withName("Carl Kurz")
-            .withUrl("https://heinz@example.com").withRemark("wall street").build();
+            .withUrl("https://heinz@example.com").withRemark("wall street").withFolder("family").build();
     public static final Bookmark DANIEL = new BookmarkBuilder().withName("Daniel Meier")
             .withUrl("https://cornelia@example.com").withRemark("10th street").withTags("friends").build();
     public static final Bookmark ELLE = new BookmarkBuilder().withName("Elle Meyer")
-            .withUrl("https://werner@example.com").withRemark("michegan ave").build();
+            .withUrl("https://werner@example.com").withRemark("michegan ave").withFolder("family").build();
     public static final Bookmark FIONA = new BookmarkBuilder().withName("Fiona Kunz")
             .withUrl("https://lydia@example.com").withRemark("little tokyo").build();
     public static final Bookmark GEORGE = new BookmarkBuilder().withName("George Best")
@@ -64,7 +67,14 @@ public class TypicalBookmarks {
         for (Bookmark bookmark : getTypicalBookmarks()) {
             mark.addBookmark(bookmark);
         }
+        mark.setFolderStructure(getTypicalFolderStructure());
         return mark;
+    }
+
+    public static FolderStructure getTypicalFolderStructure() {
+        FolderStructure family = new FolderStructure(CARL.getFolder(), new ArrayList<>());
+        FolderStructure contacts = new FolderStructure(BENSON.getFolder(), List.of(family));
+        return new FolderStructure(Folder.ROOT_FOLDER, List.of(contacts));
     }
 
     public static List<Bookmark> getTypicalBookmarks() {
