@@ -1,7 +1,5 @@
 package io.xpire.model.item;
 
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_APPLE;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
