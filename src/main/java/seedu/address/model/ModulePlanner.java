@@ -132,15 +132,17 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      * details.
      */
     public StudyPlan activateStudyPlan(int index) throws StudyPlanNotFoundException {
+        boolean foundStudyPlan = false;
         Iterator<StudyPlan> iterator = studyPlans.iterator();
         while (iterator.hasNext()) {
             StudyPlan studyPlan = iterator.next();
             if (studyPlan.getIndex() == index) {
                 activeStudyPlan = studyPlan;
+                foundStudyPlan = true;
             }
         }
 
-        if (activeStudyPlan == null) {
+        if (activeStudyPlan == null || !foundStudyPlan) {
             throw new StudyPlanNotFoundException();
         }
 

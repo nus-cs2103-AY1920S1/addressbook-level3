@@ -194,6 +194,7 @@ public class StudyPlan implements Cloneable {
             UniqueModuleList uniqueModuleList = semester.getModules();
             for (Module module : uniqueModuleList) {
                 if (module.getModuleCode().toString().equals(moduleInfo.getCode())) {
+                    // System.out.println(semester);
                     if (semester.getSemesterName().compareTo(currentSemester) < 0) {
                         moduleTagList.addTag(studyPlanTagList.getDefaultTag("Completed"));
                     }
@@ -315,6 +316,12 @@ public class StudyPlan implements Cloneable {
         clone.tags = (UniqueTagList) tags.clone();
 
         return clone;
+    }
+
+    @Override
+    public String toString() {
+        String toReturn = "Study Plan index: " + index + " Title: " + title.toString();
+        return toReturn;
     }
 
     @Override
