@@ -9,7 +9,7 @@ import seedu.address.model.question.Question;
 /**
  * An UI component that displays information of a {@code Question}.
  */
-public class QuestionCard extends UiPart<Region> {
+public class QuestionListCard extends UiPart<Region> {
     private static final String FXML = "QuestionListCard.fxml";
 
     public final Question question;
@@ -27,7 +27,7 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private Label difficulty;
 
-    public QuestionCard(Question question, int displayedIndex) {
+    public QuestionListCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;
         id.setText(displayedIndex + ". ");
@@ -45,12 +45,12 @@ public class QuestionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof QuestionCard)) {
+        if (!(other instanceof QuestionListCard)) {
             return false;
         }
 
         // state check
-        QuestionCard card = (QuestionCard) other;
+        QuestionListCard card = (QuestionListCard) other;
         return id.getText().equals(card.id.getText())
                 && question.equals(card.question);
     }

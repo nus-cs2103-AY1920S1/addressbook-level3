@@ -16,6 +16,8 @@ import seedu.address.logic.commands.FindNoteCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListNoteCommand;
 import seedu.address.logic.commands.questioncommands.AddQuestionCommand;
+import seedu.address.logic.commands.questioncommands.DeleteQuestionCommand;
+import seedu.address.logic.commands.questioncommands.ListQuestionCommand;
 import seedu.address.logic.commands.quiz.QuizModeCommand;
 import seedu.address.logic.commands.statistics.GetQnsCommand;
 import seedu.address.logic.commands.statistics.GetReportCommand;
@@ -26,6 +28,7 @@ import seedu.address.logic.commands.task.DeleteTaskCommand;
 import seedu.address.logic.commands.task.DoneTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.questionparser.AddQuestionCommandParser;
+import seedu.address.logic.parser.questionparser.DeleteQuestionCommandParser;
 import seedu.address.logic.parser.quiz.QuizModeCommandParser;
 import seedu.address.logic.parser.statistics.GetQnsCommandParser;
 import seedu.address.logic.parser.statistics.GetReportCommandParser;
@@ -99,6 +102,12 @@ public class AddressBookParser {
 
         case AddQuestionCommand.COMMAND_WORD:
             return new AddQuestionCommandParser().parse(arguments);
+
+        case DeleteQuestionCommand.COMMAND_WORD:
+            return new DeleteQuestionCommandParser().parse(arguments);
+
+        case ListQuestionCommand.COMMAND_WORD:
+            return new ListQuestionCommand();
 
         case AddTaskForNoteCommand.COMMAND_WORD:
             return new AddTaskForNoteCommandParser().parse(arguments);
