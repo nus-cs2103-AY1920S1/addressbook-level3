@@ -34,6 +34,8 @@ import seedu.jarvis.logic.parser.address.FindAddressCommandParser;
 import seedu.jarvis.logic.parser.cca.AddCcaCommandParser;
 import seedu.jarvis.logic.parser.cca.DeleteCcaCommandParser;
 import seedu.jarvis.logic.parser.cca.EditCcaCommandParser;
+import seedu.jarvis.logic.parser.course.AddCourseCommandParser;
+import seedu.jarvis.logic.parser.course.DeleteCourseCommandParser;
 import seedu.jarvis.logic.parser.course.LookUpCommandParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.logic.parser.finance.RemoveInstallmentCommandParser;

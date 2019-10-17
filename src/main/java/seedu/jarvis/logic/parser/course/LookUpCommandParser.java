@@ -28,8 +28,10 @@ public class LookUpCommandParser implements Parser<LookUpCommand> {
                 MESSAGE_INVALID_COMMAND_FORMAT, LookUpCommand.MESSAGE_USAGE));
         }
 
+        String courseCode = arg.get();
+
         try {
-            Course course = CourseUtil.getCourse(arg.get());
+            Course course = CourseUtil.getCourse(courseCode);
             return new LookUpCommand(course);
         } catch (CourseNotFoundException e) {
             throw new ParseException(arg.get() + " could not be found!");
