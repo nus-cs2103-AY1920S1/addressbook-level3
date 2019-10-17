@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.model.Model;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
 /**
@@ -26,6 +27,27 @@ public class StatsCommand extends Command {
             totalCost += Double.parseDouble(i.getCost().toString());
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + "\nTotal Cost: $" + String.format("%.2f", totalCost));
+        double budget = model.getBudget().getValue();
+
+        double budgetRemaining = budget - totalCost;
+
+        String feedbackToUser;
+
+        if (budgetRemaining >= 0) {
+            String s = MESSAGE_SUCCESS
+                + "\nTotal Cost: $" + String.format("%.2f", totalCost)
+                + "\nBudget Set: $" + String.format("%.2f", budget)
+                + "\nBudget Remaining: $" + String.format("%.2f", budgetRemaining)
+                + "\nStatus: Surplus";
+            feedbackToUser = s;
+        } else {
+            String s = MESSAGE_SUCCESS
+                + "\nTotal Cost: $" + String.format("%.2f", totalCost)
+                + "\nBudget Set: $" + String.format("%.2f", budget)
+                + "\nBudget Remaining: -$" + String.format("%.2f", -1*budgetRemaining)
+                + "\nStatus: Deficit";
+            feedbackToUser = s;
+        }
+        return new CommandResult(feedbackToUser);
     }
 }
