@@ -93,7 +93,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setEvents(newData.getEventList());
     }
 
-    //// expense-level operations
+    //=========== Expense-level operations =============================================================
 
     /**
      * Returns true if an expense with the same identity as {@code expense}
@@ -154,6 +154,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    //=========== Budget-level operations ================================================================
     /**
      * Returns true if a budget with the same identity as {@code budget}
      * exists in Moolah.
@@ -168,10 +169,24 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The budget must not already exist in Moolah.
      */
     public void addBudget(Budget budget) {
+        requireNonNull(budget);
         budgets.add(budget);
     }
 
-    //// event-level operations
+    public boolean hasBudgetWithSameName(Budget budget) {
+        requireNonNull(budget);
+        return budgets.hasBudgetWithSameName(budget);
+    }
+
+    public Budget getPrimaryBudget() {
+        return budgets.getPrimaryBudget();
+    }
+
+    public void switchBudgetTo(Budget target) {
+        budgets.setPrimary(target);
+    }
+
+    //=========== Event-level operations ================================================================
 
     /**
      * Returns true if an event with the same identity as {@code event}

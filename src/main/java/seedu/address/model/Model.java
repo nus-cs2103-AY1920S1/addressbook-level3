@@ -24,6 +24,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
+    Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
+
     /**
      * Resets data to the given model.
      */
@@ -163,7 +165,13 @@ public interface Model {
 
     boolean hasBudget(Budget budget);
 
+    boolean hasBudgetWithSameName(Budget budget);
+
+    Budget getPrimaryBudget();
+
     void addBudget(Budget budget);
+
+    void switchBudgetTo(Budget target);
 
     void setPrimary(Budget budget);
 
@@ -202,4 +210,8 @@ public interface Model {
     boolean hasStatistic();
 
     StringBuilder getStatistic();
+
+    //ObservableList<Budget> getFilteredBudgetList();
+
+    //void updateFilteredBudgetList(Predicate<Budget> predicate);
 }

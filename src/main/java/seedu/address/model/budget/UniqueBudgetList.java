@@ -85,6 +85,10 @@ public class UniqueBudgetList implements Iterable<Budget> {
         return primaryBudget;
     }
 
+    public boolean hasBudgetWithSameName(Budget budget) {
+        return internalList.stream().anyMatch(b -> b.isSameBudget(budget));
+    }
+
     public boolean isEmpty() {
         return internalList.size() == 0;
     }

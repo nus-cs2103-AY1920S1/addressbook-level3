@@ -183,7 +183,8 @@ public class Budget {
     }
 
     /**
-     * Returns true if both budgets have the same description, amount, start date and period.
+     * Returns true if both budgets have the same description, i.e. name.
+     * Implication: all budgets should have different names.
      */
     public boolean isSameBudget(Budget otherBudget) {
         if (otherBudget == this) {
@@ -191,10 +192,7 @@ public class Budget {
         }
 
         return otherBudget != null
-                && otherBudget.getDescription().equals(getDescription())
-                && otherBudget.getAmount().equals(getAmount())
-                && otherBudget.getStartDate().equals(getStartDate())
-                && otherBudget.getPeriod().equals(getPeriod());
+                && otherBudget.getDescription().equals(getDescription());
     }
 
     @Override
