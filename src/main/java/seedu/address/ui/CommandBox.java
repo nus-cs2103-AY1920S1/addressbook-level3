@@ -4,13 +4,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.DoNotMergeCommand;
-import seedu.address.logic.commands.MergeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithoutMergeException;
+import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
+import seedu.address.logic.commands.exceptions.DuplicatePolicyWithoutMergeException;
+import seedu.address.logic.commands.merge.DoNotMergePersonCommand;
+import seedu.address.logic.commands.merge.DoNotMergePolicyCommand;
+import seedu.address.logic.commands.merge.MergePersonCommand;
+import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -20,12 +23,15 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private static final String MERGE_PERSON = "person";
+    private static final String MERGE_POLICY = "policy";
 
     private final CommandExecutor commandExecutor;
 
     private String mergeCommand;
     private String doNotMergeCommand;
     private boolean isOnMergeStandby = false;
+    private String mergeType;
 
     @FXML
     private TextField commandTextField;
@@ -52,8 +58,12 @@ public class CommandBox extends UiPart<Region> {
             } catch (DuplicatePersonWithMergeException e) {
                 commandTextField.setText("");
                 setStyleToIndicateCommandFailure();
-                standByForMerge(command);
-            } catch (DuplicatePersonWithoutMergeException e) {
+                standByForMerge(command, MERGE_PERSON);
+            } catch (DuplicatePolicyWithMergeException e) {
+                commandTextField.setText("");
+                setStyleToIndicateCommandFailure();
+                standByForMerge(command, MERGE_POLICY);
+            } catch (DuplicatePersonWithoutMergeException | DuplicatePolicyWithoutMergeException e) {
                 setStyleToIndicateCommandFailure();
                 commandTextField.setText("");
             } catch (CommandException | ParseException e) {
@@ -68,10 +78,18 @@ public class CommandBox extends UiPart<Region> {
      * @throws CommandException Should not be thrown.
      * @throws ParseException Should not be thrown.
      */
-    private void standByForMerge(String command) throws CommandException, ParseException {
-        this.mergeCommand = MergeCommand.COMMAND_WORD + " " + command;
-        this.doNotMergeCommand = DoNotMergeCommand.COMMAND_WORD + " " + command;
-        this.isOnMergeStandby = true;
+    private void standByForMerge(String command, String mergeType) throws CommandException, ParseException {
+        if (mergeType.equals(MERGE_PERSON)) {
+            this.mergeCommand = MergePersonCommand.COMMAND_WORD + " " + command;
+            this.doNotMergeCommand = DoNotMergePersonCommand.COMMAND_WORD + " " + command;
+            this.isOnMergeStandby = true;
+            this.mergeType = MERGE_PERSON;
+        } else {
+            this.mergeCommand = MergePolicyCommand.COMMAND_WORD + " " + command;
+            this.doNotMergeCommand = DoNotMergePolicyCommand.COMMAND_WORD + " " + command;
+            this.isOnMergeStandby = true;
+            this.mergeType = MERGE_POLICY;
+        }
     }
 
     /**
