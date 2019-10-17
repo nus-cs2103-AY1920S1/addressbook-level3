@@ -43,7 +43,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(
+            ParseException.class,
+            MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1))
+        );
     }
 
     @Test
@@ -205,7 +208,8 @@ public class ParserUtilTest {
         String validOpeningHours = "0000 0001";
         String invalidOpeningHours = "abcd efgh";
         assertTrue(ParserUtil.parseOpeningHours(validOpeningHours).equals(new OpeningHours(validOpeningHours)));
-        assertTrue(ParserUtil.parseOpeningHours(invalidOpeningHours).equals(new OpeningHours(invalidOpeningHours)));
-        assertTrue(ParserUtil.parseOpeningHours(OpeningHours.DEFAULT_VALUE).equals(new OpeningHours(OpeningHours.DEFAULT_VALUE))
+        assertThrows(ParseException.class, () -> ParserUtil.parseOpeningHours(invalidOpeningHours));
+        assertTrue(ParserUtil.parseOpeningHours(OpeningHours.DEFAULT_VALUE)
+                   .equals(new OpeningHours(OpeningHours.DEFAULT_VALUE)));
     }
 }

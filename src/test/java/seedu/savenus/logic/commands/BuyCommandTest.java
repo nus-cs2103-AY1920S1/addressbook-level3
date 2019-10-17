@@ -63,6 +63,7 @@ public class BuyCommandTest {
         String expectedMessage = String.format(BuyCommand.MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString());
         BuyCommand correctCommand = new BuyCommand(INDEX_FIRST_FOOD);
         CommandResult result = correctCommand.execute(model);
-        assertEquals(result, new CommandResult(String.format(BuyCommand.MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString())));
+        assertEquals(result, new CommandResult(String.format(BuyCommand.MESSAGE_BUY_FOOD_SUCCESS,
+            purchaseToAdd.toString())));
     }
 }
