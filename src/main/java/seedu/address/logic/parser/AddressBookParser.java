@@ -9,16 +9,21 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
+import seedu.address.logic.commands.AddPolicyTagCommand;
+import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeletePolicyCommand;
+import seedu.address.logic.commands.DeletePolicyTagCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.DoNotMergeCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
@@ -101,7 +106,6 @@ public class AddressBookParser {
             case UnassignPolicyCommand.COMMAND_WORD:
                 return new UnassignPolicyCommandParser().parse(arguments);
 
-            /*
             case AddTagCommand.COMMAND_WORD:
                 return new AddTagCommandParser().parse(arguments);
 
@@ -113,17 +117,16 @@ public class AddressBookParser {
 
             case DeletePolicyTagCommand.COMMAND_WORD:
                 return new DeletePolicyTagCommandParser().parse(arguments);
-            */
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
 
             case FindCommand.COMMAND_WORD:
                 return new FindCommandParser().parse(arguments);
-            /*
+
             case FindPolicyCommand.COMMAND_WORD:
                 return new FindPolicyCommandParser().parse(arguments);
-            */
+
             case ListPeopleCommand.COMMAND_WORD:
                 return new ListPeopleCommand();
 
