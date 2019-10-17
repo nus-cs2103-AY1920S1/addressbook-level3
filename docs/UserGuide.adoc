@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
 
-By: `Team UnrealUnity`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team UnrealUnity`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
