@@ -1,14 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
+import static seedu.address.logic.parser.CliSyntax.*;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.contact.Contact;
 import seedu.address.storage.SuggestionsStorage;
 
@@ -58,6 +54,8 @@ public class AddContactCommand extends Command {
         }
 
         model.addContact(toAdd);
+        AutocorrectSuggestion addName = new AutocorrectSuggestion(toAdd.getName().toString());
+        model.addAutocorrectSuggestion(addName);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

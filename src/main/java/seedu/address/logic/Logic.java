@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
@@ -42,6 +43,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of incomes */
     ObservableList<Income> getFilteredIncomeList();
+
+    /** Returns an unmodifiable view of the filtered list of incomes */
+    ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList();
 
     /**
      * Returns the user prefs' address book file path.

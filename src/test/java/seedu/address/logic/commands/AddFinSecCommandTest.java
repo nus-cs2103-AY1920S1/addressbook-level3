@@ -20,6 +20,7 @@ import seedu.address.model.FinSec;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
@@ -224,6 +225,35 @@ public class AddFinSecCommandTest {
         }
 
         @Override
+        public boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+            return false;
+        }
+
+        @Override
+        public void deleteAutocorrectSuggestion(AutocorrectSuggestion target) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void addAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void setAutocorrectSuggestion(AutocorrectSuggestion target, AutocorrectSuggestion editedSuggestion) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
         public ObservableList<Income> getFilteredIncomeList() {
             return null;
         }
@@ -242,6 +272,18 @@ public class AddFinSecCommandTest {
 
         @Override
         public void updateFilteredClaimList(Predicate<Claim> predicate) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredAutocorrectSuggestionList(Predicate<AutocorrectSuggestion> predicate) {
             /*
             FUNCTION TO BE EDITED
              */
