@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Roby Tanama
 image::robytanama.png[width="150", align="left"]
-{empty}[Github](https://github.com/robytanama) | <<johndoe#, Portfolio>>
+link:https://github.com/robytanama[Github] | <<johndoe#, Portfolio>>
 
 Role: Project lead +
 Responsibilities: UI +
@@ -22,7 +22,7 @@ Main project tasks: Information and UI features
 
 === Low Jun Kai Sean
 image::seanlowjk.png[width="150", align="left"]
-{empty}[Github](https://github.com/seanlowjk) | <<johndoe#, Portfolio>>
+link:https://github.com/seanlowjk[Github] | <<johndoe#, Portfolio>>
 
 Role: Documentation +
 Responsibilities: Deliverables, and deadlines +
@@ -30,19 +30,18 @@ Main project tasks: Recommend and Budgeting features
 
 '''
 
-=== Chua Jia Cheng Jon
+=== Chua Jia Cheng, Jon
 image::jon-chua.png[width="150", align="left"]
-{empty}[Github](http://github.com/jon-chua) | <<johndoe#, Portfolio>>
+link:http://github.com/jon-chua[Github] | <<johndoe#, Portfolio>>
 
 Role: Developer +
-Responsibilities: Storage handling +
-Main project tasks: Sorting and Algorithm features
+Responsibilities: Recommendation, like and dislike features +
 
 '''
 
 === Koh Wee Lun Clarence
 image::fatclarence.png[width="150", align="left"]
-{empty}[Github](http://github.com/fatclarence) | <<johndoe#, Portfolio>>
+link:http://github.com/fatclarence[Github] | <<johndoe#, Portfolio>>
 
 Role: Developer +
 Responsibilities: Implementing features +
@@ -52,7 +51,7 @@ Main project tasks: Updating and Editing features
 
 === Choo Ze Yuan
 image::raikonen.png[width="150", align="left"]
-{empty}[Github](http://github.com/raikonen) | <<johndoe#, Portfolio>>
+link:http://github.com/raikonen[Github] | <<johndoe#, Portfolio>>
 
 Role: Developer +
 Responsibilities: Implementing features +

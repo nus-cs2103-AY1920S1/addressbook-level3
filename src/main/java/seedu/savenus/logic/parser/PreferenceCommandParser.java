@@ -28,7 +28,7 @@ public class PreferenceCommandParser implements Parser<PreferenceCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the PreferenceCommand
-     * and returns an AddCommand object for execution.
+     * and returns A LikeCommand or DislikeCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public PreferenceCommand parse(String args, boolean isLike) throws ParseException {
