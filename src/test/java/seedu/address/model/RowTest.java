@@ -8,7 +8,6 @@ import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -29,7 +28,7 @@ public class RowTest {
 
     @Test
     public void getInterviewee_skeleton_true() {
-        Person person = new Person(new Name("John Doe"), new Phone("12345678"), new Email("johndoe@mail.com"),
+        Person person = new Person(new Name("John Doe"), new Phone("12345678"),
             new Address("Singapore"), new HashSet<>());
         assertEquals(person, new Row().getInterviewee(0));
     }

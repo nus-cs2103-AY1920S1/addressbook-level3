@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.util.HashSet;
 
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -24,7 +23,7 @@ public class Row {
 
     // Change this to return Interivewee instead later
     public Person getInterviewee(int index) {
-        return new Person(new Name("John Doe"), new Phone("12345678"), new Email("johndoe@mail.com"),
+        return new Person(new Name("John Doe"), new Phone("12345678"),
             new Address("Singapore"), new HashSet<>());
     }
 }

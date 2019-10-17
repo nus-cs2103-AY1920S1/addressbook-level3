@@ -25,12 +25,12 @@ public class ScheduleTest {
         Schedule schedule = SampleSchedules.getSampleFilledSchedule();
 
         List<Slot> johnSlots = new LinkedList<>();
-        johnSlots.add(new Slot("10/9/2019", "18:00", "18:30"));
-        johnSlots.add(new Slot("10/9/2019", "18:30", "19:00"));
+        johnSlots.add(new Slot("10/09/2019", "18:00", "18:30"));
+        johnSlots.add(new Slot("10/09/2019", "18:30", "19:00"));
 
         List<Slot> selinaSlots = new LinkedList<>();
-        selinaSlots.add(new Slot("10/9/2019", "19:30", "20:00"));
-        selinaSlots.add(new Slot("10/9/2019", "20:00", "20:30"));
+        selinaSlots.add(new Slot("10/09/2019", "19:30", "20:00"));
+        selinaSlots.add(new Slot("10/09/2019", "20:00", "20:30"));
 
         assertEquals(johnSlots, schedule.getInterviewSlots("John"));
         assertEquals(selinaSlots, schedule.getInterviewSlots("Selina"));

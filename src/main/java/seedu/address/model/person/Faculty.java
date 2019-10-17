@@ -1,14 +1,15 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the faculty an {@code Interviewee} belongs to.
  */
 public class Faculty {
 
-    public static final String MESSAGE_CONSTRAINTS = "Placeholder";
-    public static final String VALIDATION_REGEX = "Placeholder";
+    public static final String MESSAGE_CONSTRAINTS = "Faculties can take any values, but should not be blank.";
+    public static final String VALIDATION_REGEX = "[^\\s].*"; // "" will be wrong
     public final String faculty;
 
     /**
@@ -18,8 +19,7 @@ public class Faculty {
      */
     public Faculty(String faculty) {
         requireNonNull(faculty);
-        // TODO: argument checking
-        // checkArgument(isValidDepartment(faculty), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidFaculty(faculty), MESSAGE_CONSTRAINTS);
         this.faculty = faculty;
     }
 

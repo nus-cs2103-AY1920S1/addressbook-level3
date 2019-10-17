@@ -1,8 +1,7 @@
 {
   "persons": [ {
-    "name": "Hans Muster",
+    "name": "Invalid !Name @Since .Invalid &Email *was (deleted: Hans Muster",
     "phone": "9482424",
-    "email": "invalid@email!3e",
     "address": "4th street"
   } ]
 }

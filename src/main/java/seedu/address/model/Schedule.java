@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,7 +94,10 @@ public class Schedule {
      */
     public boolean addInterviewer(Interviewer interviewer) {
         String columnTitle = generateColumnTitle(interviewer);
-        List<String> availabilities = interviewer.getAvailabilities();
+        List<String> availabilities = interviewer.getAvailabilities()
+                    .stream()
+                    .map(Slot::toString)
+                    .collect(Collectors.toList());
 
         boolean added = false;
         int currRowIndex = 1;
