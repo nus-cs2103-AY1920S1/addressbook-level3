@@ -17,7 +17,7 @@ public class Cost {
      * otherwise " " (a blank string) becomes a valid input.
      * Cost must be a number with at most 2 decimal places.
      */
-    public static final String VALIDATION_REGEX = "[0-9]+([,.][0-9]{1,2})?";
+    public static final String VALIDATION_REGEX = "[0-9]+([.][0-9]{1,2})?";
 
     public final String value;
 
