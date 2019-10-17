@@ -12,23 +12,23 @@ import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.util.PersonLoanIndexPair;
 
 /**
- * Marks one or more loans as unpaid.
+ * Marks one or more loans as paid.
  */
-public class UnpaidLoanCommand extends UpdateStatusCommand {
+public class LoanPaidCommand extends UpdateStatusCommand {
 
-    public static final String COMMAND_WORD = "loan unpaid";
+    public static final String COMMAND_WORD = "loan paid";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks one or more loans as unpaid.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks one or more loans as paid.\n"
             + "Parameters: "
             + MULTI_LOAN_SYNTAX
             + "\n"
             + "Example: " + COMMAND_WORD + " "
             + MULTI_LOAN_SYNTAX_EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "Loan(s) marked as unpaid.";
+    public static final String MESSAGE_SUCCESS = "Loan(s) marked as paid.";
     public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";
 
-    public UnpaidLoanCommand(
+    public LoanPaidCommand(
             List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
         super(personLoanIndexPairs, personIndices);
     }
@@ -38,7 +38,7 @@ public class UnpaidLoanCommand extends UpdateStatusCommand {
         requireAllNonNull(model, model.getLoansManager());
 
         try {
-            updateStatuses(model.getLoansManager(), Status.UNPAID);
+            updateStatuses(model.getLoansManager(), Status.PAID);
         } catch (CommandException e) {
             throw new CommandException(MESSAGE_FAILURE);
         }
@@ -49,7 +49,7 @@ public class UnpaidLoanCommand extends UpdateStatusCommand {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof UnpaidLoanCommand)) {
+        if (!(other instanceof LoanPaidCommand)) {
             return false;
         }
 

@@ -15,7 +15,7 @@ import budgetbuddy.model.loan.Loan;
 /**
  * Adds a loan.
  */
-public class AddLoanCommand extends Command {
+public class LoanCommand extends Command {
 
     public static final String COMMAND_WORD = "loan";
 
@@ -37,7 +37,7 @@ public class AddLoanCommand extends Command {
 
     private final Loan toAdd;
 
-    public AddLoanCommand(Loan loan) {
+    public LoanCommand(Loan loan) {
         requireNonNull(loan);
         toAdd = loan;
     }
@@ -56,11 +56,11 @@ public class AddLoanCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof AddLoanCommand)) {
+        if (!(other instanceof LoanCommand)) {
             return false;
         }
 
-        AddLoanCommand otherCommand = (AddLoanCommand) other;
+        LoanCommand otherCommand = (LoanCommand) other;
         return toAdd.equals(otherCommand.toAdd);
     }
 }

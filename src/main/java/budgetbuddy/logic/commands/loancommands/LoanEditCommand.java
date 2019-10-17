@@ -24,7 +24,7 @@ import budgetbuddy.model.transaction.Amount;
 /**
  * Edits a loan.
  */
-public class EditLoanCommand extends Command {
+public class LoanEditCommand extends Command {
 
     public static final String COMMAND_WORD = "loan edit";
 
@@ -44,7 +44,7 @@ public class EditLoanCommand extends Command {
     private final Index targetLoanIndex;
     private final EditLoanDescriptor editLoanDescriptor;
 
-    public EditLoanCommand(Index targetPersonIndex, Index targetLoanIndex, EditLoanDescriptor editLoanDescriptor) {
+    public LoanEditCommand(Index targetPersonIndex, Index targetLoanIndex, EditLoanDescriptor editLoanDescriptor) {
         requireAllNonNull(targetPersonIndex, targetLoanIndex, editLoanDescriptor);
         this.targetPersonIndex = targetPersonIndex;
         this.targetLoanIndex = targetLoanIndex;
@@ -88,11 +88,11 @@ public class EditLoanCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof EditLoanCommand)) {
+        if (!(other instanceof LoanEditCommand)) {
             return false;
         }
 
-        EditLoanCommand otherCommand = (EditLoanCommand) other;
+        LoanEditCommand otherCommand = (LoanEditCommand) other;
         return targetPersonIndex.equals(otherCommand.targetPersonIndex)
                 && targetLoanIndex.equals(otherCommand.targetLoanIndex)
                 && editLoanDescriptor.equals(otherCommand.editLoanDescriptor);

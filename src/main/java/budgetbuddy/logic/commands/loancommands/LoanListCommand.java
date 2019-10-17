@@ -12,7 +12,7 @@ import budgetbuddy.model.person.Person;
 /**
  * Lists loans.
  */
-public class ListLoansCommand extends Command {
+public class LoanListCommand extends Command {
 
     public static final String COMMAND_WORD = "loan list";
 

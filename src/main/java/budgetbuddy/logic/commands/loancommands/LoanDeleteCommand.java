@@ -17,7 +17,7 @@ import budgetbuddy.model.loan.util.PersonLoanIndexPair;
 /**
  * Delete one or more loans.
  */
-public class DeleteLoanCommand extends MultiLoanCommand {
+public class LoanDeleteCommand extends MultiLoanCommand {
 
     public static final String COMMAND_WORD = "loan delete";
 
@@ -31,7 +31,7 @@ public class DeleteLoanCommand extends MultiLoanCommand {
     public static final String MESSAGE_SUCCESS = "Loan(s) deleted.";
     public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";
 
-    public DeleteLoanCommand(
+    public LoanDeleteCommand(
             List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
         super(personLoanIndexPairs, personIndices);
     }
@@ -56,7 +56,7 @@ public class DeleteLoanCommand extends MultiLoanCommand {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof DeleteLoanCommand)) {
+        if (!(other instanceof LoanDeleteCommand)) {
             return false;
         }
 
