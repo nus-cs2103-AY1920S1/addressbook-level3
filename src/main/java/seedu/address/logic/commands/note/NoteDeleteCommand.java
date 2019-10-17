@@ -19,9 +19,9 @@ import static java.util.Objects.requireNonNull;
 public class NoteDeleteCommand extends NoteCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + " [index]: the note identified by the index number used in the displayed notes list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: note 1 delete";
+            + " delete {index}: deletes the note identified by the index number used in the displayed notes list.\n"
+            + "Note: {index} must be a positive integer\n"
+            + "Example: note delete 3";
 
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Deleted Note: %1$s";
 

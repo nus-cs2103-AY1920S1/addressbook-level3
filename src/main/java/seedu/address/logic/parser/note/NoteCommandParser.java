@@ -68,7 +68,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
                             String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                     NoteDeleteCommand.MESSAGE_USAGE));
                 }
-                index.fromOneBased(indexToDelete);
+                index = index.fromOneBased(indexToDelete);
             } catch (NumberFormatException e) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT,
