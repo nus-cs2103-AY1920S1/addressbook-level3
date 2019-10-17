@@ -10,5 +10,6 @@ public enum DayViewCommand {
     DELETE,
     HOME,
     DAYS,
-    ITINERARY
+    ITINERARY,
+    EXPENSE
 }

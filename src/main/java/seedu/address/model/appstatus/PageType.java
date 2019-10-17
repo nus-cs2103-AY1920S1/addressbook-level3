@@ -16,5 +16,6 @@ public enum PageType {
     OVERALL_VIEW,
     ADD_TRIP,
     ADD_DAY,
-    ADD_EVENT
+    ADD_EVENT,
+    ADD_EXPENDITURE
 }

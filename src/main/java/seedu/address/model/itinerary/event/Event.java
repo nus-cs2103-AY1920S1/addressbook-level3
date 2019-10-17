@@ -6,15 +6,15 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 
 /**
  * Represents a Event in TravelPal.
  * Compulsory fields: name, startDate, endDate, destination.
- * Optional fields: totalBudget, booking, inventory.
+ * Optional fields: expenditure, booking, inventory.
  */
 public class Event {
     // Compulsory fields
@@ -25,52 +25,52 @@ public class Event {
 
     // Optional fields
     private final Inventory inventory;
-    private final Expenditure totalBudget;
+    private final Expenditure expenditure;
     private final Booking booking;
 
     /**
      * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
-                 Expenditure totalBudget, Inventory inventory, Location destination) {
-        requireAllNonNull(name, startDate, endDate, booking, totalBudget, inventory);
+                 Expenditure expenditure, Inventory inventory, Location destination) {
+        requireAllNonNull(name, startDate, endDate, booking, expenditure, inventory);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.booking = booking;
         this.destination = destination;
-        this.totalBudget = totalBudget;
+        this.expenditure = expenditure;
         this.inventory = inventory;
     }
 
     // temporary constructor until we implement booking and inventory, accepts null for now
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Expenditure totalBudget, Location destination) {
-        requireAllNonNull(name, startDate, endDate, totalBudget);
+                 Expenditure expenditure, Location destination) {
+        requireAllNonNull(name, startDate, endDate, expenditure);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.booking = null;
         this.destination = destination;
-        this.totalBudget = totalBudget;
+        this.expenditure = expenditure;
         this.inventory = null;
     }
 
     /**
-     * Constructs a trip with optional totalBudget field.
+     * Constructs a trip with optional expenditure field.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Optional<Expenditure> totalBudget, Location destination) {
-        requireAllNonNull(name, startDate, endDate, totalBudget);
+                 Optional<Expenditure> expenditure, Location destination) {
+        requireAllNonNull(name, startDate, endDate, expenditure);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.booking = null;
         this.destination = destination;
-        if (totalBudget.isPresent()) {
-            this.totalBudget = totalBudget.get();
+        if (expenditure.isPresent()) {
+            this.expenditure = expenditure.get();
         } else {
-            this.totalBudget = null;
+            this.expenditure = null;
         }
         this.inventory = null;
     }
@@ -94,8 +94,8 @@ public class Event {
     }
 
     // Optional field getters
-    public Optional<Expenditure> getTotalBudget() {
-        return Optional.ofNullable(totalBudget);
+    public Optional<Expenditure> getExpenditure() {
+        return Optional.ofNullable(expenditure);
     }
 
     public Optional<Inventory> getInventory() {
