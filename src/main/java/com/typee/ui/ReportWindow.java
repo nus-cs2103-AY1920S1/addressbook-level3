@@ -1,9 +1,8 @@
-package com.typee.ui.report;
+package com.typee.ui;
 
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
-import com.typee.ui.UiPart;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
