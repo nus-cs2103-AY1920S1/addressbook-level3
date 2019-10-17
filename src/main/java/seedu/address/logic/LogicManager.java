@@ -43,36 +43,27 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
+        CommandResult commandResult;
         if (!isQuiz) {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-            CommandResult commandResult;
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model);
-
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
-
-            return commandResult;
         } else {
             logger.info("----------------[USER INPUT][" + commandText + "]");
 
-            CommandResult commandResult;
             Command command = quizParser.parseCommand(commandText);
             commandResult = command.execute(model);
-
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
-
-            return commandResult;
         }
+
+        try {
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+        return commandResult;
     }
+
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
