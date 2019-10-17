@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import seedu.address.model.finance.Finance;
 
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -23,14 +24,16 @@ public class Project {
     private final Description description;
 
     private final List<String> members = new ArrayList<>();
+    private final Finance finance;
     private final Set<Task> tasks = new HashSet<>();
     private Set<Meeting> meeting = new HashSet<>();
 
-    public Project(Title name, Description description, Set<Task> tasks) {
+    public Project(Title name, Description description, Set<Task> tasks, Finance finance) {
         requireAllNonNull(name, description);
         this.description = description;
         this.title = name;
         this.tasks.addAll(tasks);
+        this.finance = finance;
     }
 
     public Title getTitle() {
@@ -61,6 +64,9 @@ public class Project {
         return tasks.contains(task);
     }
 
+    public Finance getFinance() {
+        return finance;
+    }
 
     public boolean isSameProject(Project project) {
         return this.title.equals(project.getTitle().title);
@@ -68,14 +74,6 @@ public class Project {
 
     public List<String> getMembers() {
         return this.members;
-    }
-
-    public Project clone() {
-        Set<Task> cloneTasks = new HashSet<>();
-        cloneTasks.addAll(this.tasks);
-        Project project = new Project(title, description, cloneTasks);
-        project.setMembers(this.members);
-        return project;
     }
 
     private void setMembers(List<String> members) {

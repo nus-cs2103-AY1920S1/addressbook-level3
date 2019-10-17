@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.AddProjectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Description;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
@@ -37,8 +38,9 @@ public class AddProjectCommandParser implements Parser<AddProjectCommand> {
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Set<Task> tasks = new HashSet<>();
+        Finance finance = new Finance();
 
-        Project project = new Project(title, description, tasks);
+        Project project = new Project(title, description, tasks, finance);
 
         return new AddProjectCommand(project);
     }

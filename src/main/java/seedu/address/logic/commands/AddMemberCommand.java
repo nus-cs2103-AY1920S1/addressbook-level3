@@ -52,7 +52,7 @@ public class AddMemberCommand extends Command {
         requireNonNull(model);
 
         Project projectToEdit = model.getWorkingProject().get();
-        Project editedProject = projectToEdit.clone();
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),projectToEdit.getTasks(), projectToEdit.getFinance());
 
         Person personToAdd = createNewMember(toAdd);
         personToAdd.getProjects().add(editedProject.getTitle().toString());
@@ -115,7 +115,7 @@ public class AddMemberCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldNotEdited() {
-            return CollectionUtil.isAnyNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNull(name, phone, email, address);
         }
 
         public void setName(Name name) {

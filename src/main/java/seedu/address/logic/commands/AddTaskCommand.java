@@ -46,7 +46,7 @@ public class AddTaskCommand extends Command {
         Set<Task> newTaskList = new HashSet<>();
         newTaskList.addAll(taskToEdit);
         newTaskList.add(task);
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, projectToEdit.getFinance());
         editedProject.getMembers().addAll(members);
 
         if (projectToEdit.hasTask(task)) {
