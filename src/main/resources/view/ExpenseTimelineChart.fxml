@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <LineChart fx:id="timelineChart"
+               AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0"
+               minHeight="300.0" prefHeight="300.0" maxHeight="300.0"
+               minWidth="540.0" prefWidth="540.0" maxWidth="540.0">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis">
+            </CategoryAxis>
+        </xAxis>
+
+        <yAxis>
+            <NumberAxis fx:id="YAxis">
+            </NumberAxis>
+        </yAxis>
+    </LineChart>
+
+</AnchorPane>

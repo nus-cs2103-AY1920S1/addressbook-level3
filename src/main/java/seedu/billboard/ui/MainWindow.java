@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.billboard.commons.core.GuiSettings;
@@ -16,6 +17,8 @@ import seedu.billboard.logic.Logic;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.statistics.StatisticsGenerator;
+import seedu.billboard.ui.charts.ChartBox;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ExpenseListPanel expenseListPanel;
+    private ChartBox chartBox;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +46,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane expenseListPanelPlaceholder;
+
+    @FXML
+    private AnchorPane chartBoxPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,7 +115,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
-        personListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+        expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+
+        chartBox = new ChartBox(new StatisticsGenerator(), logic.getFilteredExpenseList());
+        chartBoxPlaceholder.getChildren().add(chartBox.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
