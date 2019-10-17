@@ -2,15 +2,11 @@ package mams.logic.parser;
 
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static mams.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static mams.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-
-import mams.logic.commands.FindStudentCommand;
 import org.junit.jupiter.api.Test;
 
 import mams.logic.commands.FindCommand;
-import mams.model.student.NameContainsKeywordsPredicate;
+
 
 public class FindCommandParserTest {
 
