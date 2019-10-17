@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -175,5 +176,12 @@ public class StringUtilTest {
                 + "last line";
 
         assertEquals(StringUtil.asLimitedCharactersPerLine(testString, limit), expected);
+    }
+
+    @Test
+    public void listToString_anyInput_success() {
+        List<String> list = List.of("a", "b", "c", "d");
+        String expected = "a\nb\nc\nd\n";
+        assertEquals(StringUtil.listToString(list), expected);
     }
 }

@@ -67,9 +67,11 @@ public class LookUpCommand extends Command {
             throw new CommandException(MESSAGE_COURSE_NOT_FOUND);
         }
 
-        // TODO execute on model i.e model.lookUpCourse(toShow)
-        //      instead of returning it with command result
+        model.lookUpCourse(toShow);
+
         String toDisplay = toShow.toDisplayableString();
+
+        // TODO display a success instead of showing result via CommandResult
         return new CommandResult(toDisplay);
     }
 

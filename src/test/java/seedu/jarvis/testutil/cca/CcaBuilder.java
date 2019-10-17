@@ -3,6 +3,7 @@ package seedu.jarvis.testutil.cca;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
+import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
 
 /**
@@ -12,6 +13,7 @@ public class CcaBuilder {
 
     public static final String DEFAULT_NAME = "Canoeing";
     public static final String DEFAULT_CCATYPE = "sport";
+    public static final String DEFAULT_EQUIPMENT = "paddle";
 
     private CcaName name;
     private CcaType ccaType;
@@ -21,6 +23,7 @@ public class CcaBuilder {
         name = new CcaName(DEFAULT_NAME);
         ccaType = new CcaType(DEFAULT_CCATYPE);
         equipmentList = new EquipmentList();
+        equipmentList.addEquipment(new Equipment(DEFAULT_EQUIPMENT));
     }
 
     /**
@@ -58,6 +61,16 @@ public class CcaBuilder {
      */
     public CcaBuilder withEquipmentList(EquipmentList equipmentList) {
         this.equipmentList = equipmentList;
+        return this;
+    }
+
+    /**
+     * Sets an empty {@code EquipmentList} for the {@code Cca} that we are building.
+     *
+     * @return
+     */
+    public CcaBuilder withEquipmentList() {
+        this.equipmentList = new EquipmentList();
         return this;
     }
 

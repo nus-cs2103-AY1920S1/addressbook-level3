@@ -1,4 +1,4 @@
-package seedu.jarvis.ui;
+package seedu.jarvis.ui.address;
 
 import java.util.Comparator;
 
@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Person}.
