@@ -18,6 +18,7 @@ public class Category {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     public static final Category CATEGORY_ALL = new Category();
+    public static final Category CATEGORY_DEFAULT = new Category("Uncategorised");
 
     public final String category;
 

@@ -18,6 +18,7 @@ public class TransactionType {
      */
     public static final String VALIDATION_REGEX = "in|exp";
     public static final TransactionType TRANSACTION_TYPE_ALL = new TransactionType();
+    public static final TransactionType TRANSACTION_TYPE_DEFAULT = new TransactionType("exp");
 
     public final String transactionType;
 
