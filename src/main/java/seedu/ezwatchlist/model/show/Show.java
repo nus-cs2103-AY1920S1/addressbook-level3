@@ -30,8 +30,6 @@ public class Show {
     private final Set<Actor> actors = new HashSet<>();
     private final String imageOfShow;
 
-    
-
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
         this.imageOfShow = POSTER_PLACEHOLDER_PNG_URL;
