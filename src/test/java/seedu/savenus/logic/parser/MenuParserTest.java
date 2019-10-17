@@ -15,7 +15,22 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.savenus.logic.commands.*;
+import seedu.savenus.logic.commands.AddCommand;
+import seedu.savenus.logic.commands.BudgetCommand;
+import seedu.savenus.logic.commands.BuyCommand;
+import seedu.savenus.logic.commands.ClearCommand;
+import seedu.savenus.logic.commands.CollapseCommand;
+import seedu.savenus.logic.commands.DefaultCommand;
+import seedu.savenus.logic.commands.DeleteCommand;
+import seedu.savenus.logic.commands.DislikeCommand;
+import seedu.savenus.logic.commands.EditCommand;
+import seedu.savenus.logic.commands.ExitCommand;
+import seedu.savenus.logic.commands.FindCommand;
+import seedu.savenus.logic.commands.HelpCommand;
+import seedu.savenus.logic.commands.LikeCommand;
+import seedu.savenus.logic.commands.ListCommand;
+import seedu.savenus.logic.commands.RecommendCommand;
+import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;

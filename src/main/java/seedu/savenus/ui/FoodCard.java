@@ -67,12 +67,13 @@ public class FoodCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        // The label for short optional information which contains opening hours, location, restrictions, and recommendations.
+        // The label for short optional information which contains
+        // opening hours, location, restrictions, and recommendations.
         String textForOptionalInfo = "";
 
         String partition;
         // Partition string.
-        if (CollapseCommand.COLLAPSE) {
+        if (CollapseCommand.getStatus()) {
             partition = "  |  ";
         } else {
             partition = "\n";
