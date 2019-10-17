@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.earnings.Earnings;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    //private EarningsListPanel earningsListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -43,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+    //private StackPane earningsListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -160,6 +163,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+//    public EarningsListPanel getEarningsListPanel() {
+//        return earningsListPanel;
+//    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -182,6 +189,11 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+//            if (commandResult.isEarnings()) {
+//                Earnings earnings = commandResult.getEarnings();
+//                handleEarnings(earnings);
+//            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {
