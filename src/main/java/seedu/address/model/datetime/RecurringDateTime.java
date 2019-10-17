@@ -12,6 +12,7 @@ public class RecurringDateTime {
     public static final String MESSAGE_CONSTRAINTS = "Recurring " + DateTime.MESSAGE_CONSTRAINTS_BODY;
 
     private final long days;
+    private final long weeks;
     private final long months;
     private final long years;
     private final long hours;
@@ -22,9 +23,10 @@ public class RecurringDateTime {
      *
      * @param days, months, years, hours, minutes
      */
-    public RecurringDateTime(long days, long months, long years, long hours, long minutes) {
+    public RecurringDateTime(long days, long weeks, long months, long years, long hours, long minutes) {
         requireAllNonNull(days, months, years, hours, minutes);
         this.days = days;
+        this.weeks = weeks;
         this.months = months;
         this.years = years;
         this.hours = hours;
@@ -39,6 +41,7 @@ public class RecurringDateTime {
             currentAppointmentDateTime.dateTime
                     .plusYears(years)
                     .plusMonths(months)
+                    .plusWeeks(weeks)
                     .plusDays(days)
                     .plusHours(hours)
                     .plusMinutes(minutes);

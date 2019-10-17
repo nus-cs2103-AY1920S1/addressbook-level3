@@ -55,7 +55,7 @@ public class Appointment {
         return description;
     }
 
-    public Address getLocation() {
+    public Address getAddress() {
         return patient.getAddress();
     }
 
@@ -64,7 +64,7 @@ public class Appointment {
      * same.
      * This defines a weaker notion of equality between two appointments.
      */
-    public boolean isSameAppointment(Appointment otherAppointment) {
+    public boolean isSameTimeSlot(Appointment otherAppointment) {
         if (otherAppointment == this) {
             return true;
         }
@@ -96,7 +96,7 @@ public class Appointment {
                 && otherAppointment.getFrequency().equals(getFrequency())
                 && otherAppointment.getPatient().equals(getPatient())
                 && otherAppointment.getDescription().equals(getDescription())
-                && otherAppointment.getLocation().equals(getLocation());
+                && otherAppointment.getAddress().equals(getAddress());
     }
 
     @Override
@@ -117,7 +117,7 @@ public class Appointment {
                 .append(" Patient: ")
                 .append(getPatient())
                 .append(" Location: ")
-                .append(getLocation())
+                .append(getAddress())
                 .append(" Description: ")
                 .append(getDescription());
         return builder.toString();
