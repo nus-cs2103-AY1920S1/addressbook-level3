@@ -18,12 +18,11 @@ import seedu.address.model.visittask.VisitTask;
 /**
  * Jackson-friendly version of {@link Visit}.
  */
-class JsonAdaptedVisit {
+public class JsonAdaptedVisit {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Visit's %s field is missing!";
     public static final String END_DATE_EARLIER_THAN_START_DATE = "Visit's start date is earlier "
             + "than its end date";
-
     private final String remark;
     private final String startDateTime;
     private final String endDateTime;
