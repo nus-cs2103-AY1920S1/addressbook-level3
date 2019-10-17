@@ -3,6 +3,9 @@ package seedu.address.commons.core;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Enum for OmniPanel's Tab.
+ */
 public enum OmniPanelTab {
 
     PATIENTS_TAB("patientsTab"),
@@ -23,7 +26,7 @@ public enum OmniPanelTab {
         this.id = id;
     }
 
-    public static OmniPanelTab valueOfID(String id) {
+    public static OmniPanelTab valueOfId(String id) {
         return BY_ID.get(id);
     }
 }

@@ -42,7 +42,7 @@ public class CommandBox extends UiPart<Region> {
                     break;
                 default:
                 }
-                autoComplete.onKeyPressed(keyEvent.getCode());
+                autoComplete.updateSelectionKeyPressedCommandBox(keyEvent.getCode());
             }
         });
     }

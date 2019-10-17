@@ -257,7 +257,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     /**
      * Receives Key Press event from Command Box and executes expected behaviours.
      */
-    public void onKeyPressed(KeyCode keyCode) {
+    public void updateSelectionKeyPressedCommandBox(KeyCode keyCode) {
         switch (keyCode) {
         case UP:
             if (aco.isSuggesting()) {

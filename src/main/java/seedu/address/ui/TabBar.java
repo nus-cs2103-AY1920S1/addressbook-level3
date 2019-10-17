@@ -29,7 +29,7 @@ public class TabBar extends UiPart<Region> {
 
         ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));
         selectedNode.getStyleClass().setAll("selected-tab");
-        omniPanel.setOmniPanelTab(OmniPanelTab.valueOfID(selectedNode.getId()));
+        omniPanel.setOmniPanelTab(OmniPanelTab.valueOfId(selectedNode.getId()));
 
         tabBar.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
@@ -50,7 +50,7 @@ public class TabBar extends UiPart<Region> {
                 }
                 Node selectedNode = ols.get(selectedIndex);
                 selectedNode.getStyleClass().setAll("selected-tab");
-                omniPanel.setOmniPanelTab(OmniPanelTab.valueOfID(selectedNode.getId()));
+                omniPanel.setOmniPanelTab(OmniPanelTab.valueOfId(selectedNode.getId()));
             }
         });
 
@@ -67,7 +67,7 @@ public class TabBar extends UiPart<Region> {
                     }
                     selectedIndex = i;
                     selectedNode.getStyleClass().setAll("selected-tab");
-                    omniPanel.setOmniPanelTab(OmniPanelTab.valueOfID(selectedNode.getId()));
+                    omniPanel.setOmniPanelTab(OmniPanelTab.valueOfId(selectedNode.getId()));
                 }
             }
         }));

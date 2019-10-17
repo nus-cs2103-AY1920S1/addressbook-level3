@@ -36,6 +36,7 @@ import seedu.address.storage.JsonAppointmentBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.ui.OmniPanelStub;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -114,7 +115,7 @@ public class LogicManagerTest {
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
                                       Model expectedModel) throws CommandException, ParseException {
-        CommandResult result = logic.execute(inputCommand);
+        CommandResult result = logic.execute(inputCommand, new OmniPanelStub());
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
@@ -159,7 +160,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, Model expectedModel) {
-        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand, new OmniPanelStub()));
         assertEquals(expectedModel, model);
     }
 

@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.autocomplete.AutoCompleter;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;

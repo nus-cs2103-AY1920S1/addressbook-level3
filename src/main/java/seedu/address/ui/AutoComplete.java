@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import javafx.scene.input.KeyCode;
 
+/**
+ * Manages AutoComplete of MainWindow.
+ */
 public interface AutoComplete {
 
     /**
@@ -12,6 +15,6 @@ public interface AutoComplete {
     /**
      * Called whenever keyPressed on AutoComplete.
      */
-    void onKeyPressed(KeyCode keycode);
+    void updateSelectionKeyPressedCommandBox(KeyCode keycode);
 
 }

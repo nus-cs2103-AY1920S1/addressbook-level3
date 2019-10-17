@@ -27,7 +27,7 @@ public class AutoCompleter {
             "queue",
             "register",
             "removeRoom",
-            "settleAppt",
+            "settleappt",
             "update",
             "undo",
             "changeappt",
