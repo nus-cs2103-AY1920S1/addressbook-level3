@@ -82,11 +82,7 @@ public class Schedule {
             return false;
         }
 
-        if ((next != null) && (duration.overlaps(next))) {
-            return false;
-        }
-
-        return true;
+        return (next == null) || (!duration.overlaps(next));
     }
 
     @Override
