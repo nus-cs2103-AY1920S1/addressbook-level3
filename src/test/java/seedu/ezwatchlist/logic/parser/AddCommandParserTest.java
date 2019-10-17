@@ -1,33 +1,11 @@
 package seedu.ezwatchlist.logic.parser;
 
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.WATCHED_DESC_AMY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DATE_DESC_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_WATCHED_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TAG_KID_FRIENDLY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TAG_HORROR;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.ezwatchlist.testutil.TypicalPersons.AMY;
-import static seedu.ezwatchlist.testutil.TypicalPersons.BOB;
+import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
+import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,49 +15,46 @@ import seedu.ezwatchlist.model.person.Email;
 import seedu.ezwatchlist.model.person.Name;
 import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.model.person.Phone;
+import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.tag.Tag;
-import seedu.ezwatchlist.testutil.PersonBuilder;
+import seedu.ezwatchlist.testutil.ShowBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_KID_FRIENDLY).build();
+        Show expectedShow = new ShowBuilder(FIGHTCLUB).withActors(VALID_ACTOR_AMY).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + DESCRIPTION_DESC_BOB + WATCHED_DESC_AMY
+                + DATE_DESC_BOB + RUNNING_TIME_DESC_BOB + ACTOR_DESC_BOB, new AddCommand(expectedShow));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + DESCRIPTION_DESC_BOB + WATCHED_DESC_AMY
+                + DATE_DESC_BOB + RUNNING_TIME_DESC_BOB + ACTOR_DESC_BOB, new AddCommand(expectedShow));
 
-        // multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + DATE_DESC_AMY + DATE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        // multiple date of release - last date accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + DESCRIPTION_DESC_BOB + WATCHED_DESC_BOB + DATE_DESC_AMY
+                + DATE_DESC_BOB + RUNNING_TIME_DESC_BOB + ACTOR_DESC_BOB, new AddCommand(expectedShow));
 
-        // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + DATE_DESC_BOB + WATCHED_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
-
-        // multiple addresses - last address accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        // multiple description - last description accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + DESCRIPTION_DESC_AMY + DESCRIPTION_DESC_BOB + WATCHED_DESC_BOB + WATCHED_DESC_BOB
+                + DATE_DESC_BOB + RUNNING_TIME_DESC_BOB + ACTOR_DESC_BOB, new AddCommand(expectedShow));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_KID_FRIENDLY, VALID_TAG_HORROR)
+        Show expectedShowMultipleTags = new ShowBuilder(FIGHTCLUB).withActors(VALID_ACTOR_AMY, VALID_ACTOR_BOB)
                 .build();
-        assertParseSuccess(parser, NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
+        assertParseSuccess(parser, NAME_DESC_BOB + DESCRIPTION_DESC_BOB + WATCHED_DESC_BOB + DATE_DESC_BOB
+                + RUNNING_TIME_DESC_BOB + ACTOR_DESC_BOB, new AddCommand(expectedShowMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + DATE_DESC_AMY + WATCHED_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPerson));
+        Show expectedShow = new ShowBuilder(AVENGERSENDGAME).withActors().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + DESCRIPTION_DESC_AMY + WATCHED_DESC_AMY + DATE_DESC_AMY
+                 + RUNNING_TIME_DESC_AMY, new AddCommand(expectedShow));
     }
 
     @Test

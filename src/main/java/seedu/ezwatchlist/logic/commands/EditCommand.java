@@ -138,7 +138,7 @@ public class EditCommand extends Command {
         private IsWatched isWatched;
         private Description description;
         private RunningTime runningTime;
-        private Set<Actor> actors = new HashSet<>();
+        private Set<Actor> actors;
 
         public EditShowDescriptor() {}
 

@@ -38,7 +38,6 @@
             </children></FlowPane>
             <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
             <Label fx:id="dateOfRelease" styleClass="cell_small_label" text="\$date of release" />
-            <Label fx:id="isWatched" styleClass="cell_small_label" text="\$Watched" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" VBox.vgrow="ALWAYS" />
             <Label fx:id="runningTime" styleClass="cell_small_label" text="\$running time" />
         </VBox>

@@ -86,6 +86,14 @@ public interface Model {
      */
     void updateFilteredShowList(Predicate<Show> predicate);
 
+    /** Returns an unmodifiable view of the watched show list */
+    ObservableList<Show> getWatchedShowList();
+
+    /**
+     * Updates the watched show list to filter by the given watched status.
+     */
+    void updateWatchedShowList();
+
     /** Returns an unmodifiable view of the search result list */
     ObservableList<Show> getSearchResultList();
 

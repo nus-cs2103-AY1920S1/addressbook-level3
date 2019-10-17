@@ -42,6 +42,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     @FXML
+    private StackPane resultDisplayPlaceHolder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -109,12 +112,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         showListPanel = new ShowListPanel(logic.getFilteredShowList());
-        watchedPanel = new WatchedPanel(/*logic.getWatchedList()*/);
-        searchPanel = new SearchPanel(/*logic.getSearchList()*/);
+        watchedPanel = new WatchedPanel(logic.getWatchedList());
+        searchPanel = new SearchPanel(/*logic.getWatchedList()*/);
         statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
+        resultDisplayPlaceHolder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -177,7 +181,6 @@ public class MainWindow extends UiPart<Stage> {
             //somehow use this code to display list of search results???
             //showListPanel = new ShowListPanel(logic.getSearchResultList());
             //contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
-
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

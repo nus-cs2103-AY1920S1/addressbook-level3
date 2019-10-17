@@ -9,7 +9,7 @@ import seedu.ezwatchlist.model.tag.Tag;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Show objects.
  */
 public class ShowBuilder {
 
@@ -38,7 +38,7 @@ public class ShowBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the ShowBuilder with the data of {@code showToCopy}.
      */
     public ShowBuilder(Show showToCopy) {
         name = showToCopy.getName();

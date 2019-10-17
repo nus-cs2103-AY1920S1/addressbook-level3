@@ -2,16 +2,16 @@ package seedu.ezwatchlist.logic.commands;
 
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
-
+import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
-import seedu.ezwatchlist.model.person.Person;
-import seedu.ezwatchlist.testutil.PersonBuilder;
+
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.testutil.ShowBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -22,24 +22,24 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalWatchList(), new UserPrefs());
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+    public void execute_newShow_success() {
+        Show validShow = new ShowBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        Model expectedModel = new ModelManager(model.getWatchList(), new UserPrefs());
+        expectedModel.addShow(validShow);
 
-        assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        assertCommandSuccess(new AddCommand(validShow), model,
+                String.format(AddCommand.MESSAGE_SUCCESS, validShow), expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+    public void execute_duplicateShow_throwsCommandException() {
+        Show showInList = model.getWatchList().getShowList().get(0);
+        assertCommandFailure(new AddCommand(showInList), model, AddCommand.MESSAGE_DUPLICATE_SHOW);
     }
 
 }
