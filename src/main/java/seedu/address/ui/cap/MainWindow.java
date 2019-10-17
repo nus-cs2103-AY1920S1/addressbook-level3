@@ -24,7 +24,7 @@ import seedu.address.logic.cap.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "WindowShark.fxml";
+    private static final String FXML = "WindowCap.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -43,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane gradeListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -109,7 +109,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
-        personListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        gradeListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

@@ -1,7 +1,4 @@
 {
-<<<<<<< HEAD
-  "persons" : [ ]
-=======
   "persons" : [ {
     "name" : "John Doe",
     "phone" : "98765432",
@@ -9,5 +6,4 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "owesMoney", "friends" ]
   } ]
->>>>>>> e10a4121a29e57acbf7205ece34489c78cd2ac5d
 }

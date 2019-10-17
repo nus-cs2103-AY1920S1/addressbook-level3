@@ -1,9 +1,3 @@
 {
-  "modules" : [ {
-    "title" : "Software",
-    "credit" : 4,
-    "faculty" : "Computing",
-    "moduleCode" : "CS2103",
-    "description" : "address"
-  } ]
+  "modules" : [ ]
 }
