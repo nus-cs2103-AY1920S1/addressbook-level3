@@ -133,4 +133,14 @@ public class UniqueNotesList implements Iterable<Note> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Note note : internalList) {
+            sb.append(note + "\n");
+        }
+        return sb.toString();
+    }
+
 }

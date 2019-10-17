@@ -143,7 +143,6 @@ public interface Model {
     ObservableList<Student> getFilteredStudentList();
     void updateFilteredStudentList(Predicate<Student> predicate);
     String getStudentSummary();
-
     //endregion
 
     //region Group

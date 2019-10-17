@@ -80,8 +80,9 @@ public class Note {
         final StringBuilder builder = new StringBuilder();
         builder.append("Note: ")
             .append(getNote())
-            .append("Desc: ")
-            .append(getDescription());
+            .append(" Description: ")
+            .append(getDescription())
+            .append("\n");
         return builder.toString();
     }
 

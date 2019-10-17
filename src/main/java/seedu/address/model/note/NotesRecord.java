@@ -83,8 +83,9 @@ public class NotesRecord implements ReadOnlyNotesRecord {
     //// util methods
     @Override
     public String toString() {
-        return notes.asUnmodifiableObservableList().size() + " Notes";
-        // TODO: refine later
+        return "You have " + notes.asUnmodifiableObservableList().size() +
+                " Notes\n" +
+                notes;
     }
 
     @Override

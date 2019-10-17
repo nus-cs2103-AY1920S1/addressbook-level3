@@ -71,8 +71,12 @@ public class NoteEditCommand extends NoteCommand {
     private static Note createEditedNote(Note noteToEdit, EditNoteDescriptor editNoteDescriptor) {
         assert noteToEdit != null;
 
-        String updatedNote = editNoteDescriptor.getNote().orElse(noteToEdit.getNote());
-        String updatedDescription = editNoteDescriptor.getDescription().orElse(noteToEdit.getDescription());
+        String updatedNote = !editNoteDescriptor.getNote().get().equals("")
+                ? editNoteDescriptor.getNote().get()
+                : noteToEdit.getNote();
+        String updatedDescription = !editNoteDescriptor.getDescription().get().equals("")
+                ? editNoteDescriptor.getDescription().get()
+                : noteToEdit.getDescription();
 
         return new Note(updatedNote, updatedDescription);
     }
