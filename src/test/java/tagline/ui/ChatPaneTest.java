@@ -114,7 +114,7 @@ public class ChatPaneTest {
     void sendEmptyCommand_successful(FxRobot robot) {
         TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
         robot.clickOn(textField);
-        robot.press(KeyCode.ENTER);
+        robot.type(KeyCode.ENTER);
 
         //should have no command dialog
         assertEquals(0, robot.lookup(".command-dialog").queryAll().size());
