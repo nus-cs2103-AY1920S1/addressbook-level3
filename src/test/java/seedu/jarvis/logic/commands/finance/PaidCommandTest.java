@@ -33,7 +33,7 @@ import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.testutil.PurchaseBuilder;
+import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 public class PaidCommandTest {
 

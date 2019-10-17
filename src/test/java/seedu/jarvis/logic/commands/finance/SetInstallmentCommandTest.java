@@ -34,7 +34,7 @@ import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.testutil.InstallmentBuilder;
+import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 public class SetInstallmentCommandTest {
 
