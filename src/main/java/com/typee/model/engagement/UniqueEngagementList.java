@@ -36,7 +36,7 @@ public class UniqueEngagementList implements Iterable<Engagement> {
      */
     public boolean contains(Engagement toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameEngagement);
+        return internalList.stream().anyMatch(toCheck::isConflictingWith);
     }
 
     /**
@@ -64,7 +64,7 @@ public class UniqueEngagementList implements Iterable<Engagement> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSameEngagement(editedEngagement) && contains(editedEngagement)) {
+        if (!target.isConflictingWith(editedEngagement) && contains(editedEngagement)) {
             throw new DuplicatePersonException();
         }
 
@@ -130,7 +130,7 @@ public class UniqueEngagementList implements Iterable<Engagement> {
     private boolean engagementsAreUnique(List<Engagement> engagements) {
         for (int i = 0; i < engagements.size() - 1; i++) {
             for (int j = i + 1; j < engagements.size(); j++) {
-                if (engagements.get(i).isSameEngagement(engagements.get(j))) {
+                if (engagements.get(i).isConflictingWith(engagements.get(j))) {
                     return false;
                 }
             }
