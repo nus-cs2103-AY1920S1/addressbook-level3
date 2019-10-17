@@ -17,8 +17,13 @@ public class TransactionType {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "in|exp";
+    public static final TransactionType TRANSACTION_TYPE_ALL = new TransactionType();
 
     public final String transactionType;
+
+    private TransactionType() {
+        this.transactionType = "!all";
+    }
 
     /**
      * Constructs a {@code Category}.
