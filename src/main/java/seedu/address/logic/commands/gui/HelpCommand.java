@@ -63,7 +63,6 @@ public class HelpCommand extends Command {
         + "\nRegarding verification:\n"
         + "check - Checking a study plan's feasibility";
 
-
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
