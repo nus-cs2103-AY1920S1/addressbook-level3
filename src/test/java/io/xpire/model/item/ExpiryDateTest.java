@@ -51,7 +51,7 @@ public class ExpiryDateTest {
         LocalDate dateStub = LocalDate.of(2019, 8, 18);
 
         //item is not expired
-        ExpiryDate validExpiryDate = new ExpiryDate(VALID_EXPIRY_DATE_APPLE);
+        ExpiryDate validExpiryDate = new ExpiryDate("1/2/2020");
         assertEquals(validExpiryDate.getStatus(dateStub), "167 days left");
 
         //Item has expired
