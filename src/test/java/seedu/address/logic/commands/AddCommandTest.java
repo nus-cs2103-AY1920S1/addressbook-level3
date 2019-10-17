@@ -17,10 +17,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -185,8 +187,52 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public Path getCardBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void updateFilteredFileList(Predicate<EncryptedFile> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCardBookFilePath(Path cardBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCardBook(CardBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CardBook getCardBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCard(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCard(Card target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Card> getFilteredCardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

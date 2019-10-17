@@ -1,0 +1,11 @@
+{
+  "cards": [ {
+    "description": "POSB Debit",
+    "cardNumber": "2859302018572938",
+    "cvc": "834"
+  }, {
+    "description": "Card With Invalid Card Number",
+    "cardNumber": "948asdf2424",
+    "cvc": "102",
+  } ]
+}
