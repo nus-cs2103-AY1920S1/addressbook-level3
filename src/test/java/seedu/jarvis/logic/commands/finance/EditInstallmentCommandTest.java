@@ -23,6 +23,7 @@ import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
@@ -44,7 +45,7 @@ public class EditInstallmentCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
         model.addInstallment(new InstallmentBuilder().build());
         model.addInstallment(new InstallmentBuilder().build());
         model.addInstallment(new InstallmentBuilder().build());
@@ -77,7 +78,7 @@ public class EditInstallmentCommandTest {
         String expectedMessage = String.format(EditInstallmentCommand.MESSAGE_EDIT_INSTALLMENT_SUCCESS,
                 editedInstallment);
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner());
+                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
 
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
@@ -111,7 +112,7 @@ public class EditInstallmentCommandTest {
                 editedInstallment);
 
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner());
+                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
@@ -131,7 +132,7 @@ public class EditInstallmentCommandTest {
                 editedInstallment);
 
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner());
+                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
 
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
