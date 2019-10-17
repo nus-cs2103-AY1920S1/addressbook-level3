@@ -59,7 +59,10 @@ public class AddCheatSheetCommand extends Command {
         model.addCheatSheet(toAdd);
         EditCheatSheetCommand.EditCheatSheetDescriptor edit = new EditCheatSheetCommand.EditCheatSheetDescriptor();
         edit.setContents(getRelevantContents(toAdd.getTags(), model));
-        CheatSheet editedCheatSheet = createEditedCheatSheet(toAdd, edit);
+        CheatSheet editedCheatSheet = createEditedCheatSheet(toAdd, edit, true);
+
+
+
         model.setCheatSheet(toAdd, editedCheatSheet);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedCheatSheet));
@@ -76,6 +79,7 @@ public class AddCheatSheetCommand extends Command {
      * Retrieves all the notes with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
+        Content.resetCounter();
         Set<Content> contentList = new HashSet<>();
 
         // get all notes
