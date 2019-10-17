@@ -6,11 +6,7 @@ import com.typee.commons.core.LogsCenter;
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.ui.AppointmentWindow;
-import com.typee.ui.CalendarWindow;
-import com.typee.ui.GameWindow;
 import com.typee.ui.Tab;
-import com.typee.ui.report.ReportWindow;
 
 /**
  * Parses the given {@code String} of arguments in the context of the TabCommand
@@ -29,14 +25,14 @@ public class TabCommandParser implements Parser<TabCommand> {
         } else {
             switch(tabName.toLowerCase()) {
             //Feel free to modify your tab name and respective Controller class together with your fxml file.
+            case "engagement":
+                return new TabCommand(new Tab("Engagement"));
             case "typinggame":
-                return new TabCommand(new Tab("Typing Game", GameWindow.FXML, new GameWindow()));
-            case "appointment":
-                return new TabCommand(new Tab("Add Engagement", AppointmentWindow.FXML, new AppointmentWindow()));
+                return new TabCommand(new Tab("TypingGame"));
             case "report":
-                return new TabCommand(new Tab("Generate Report", ReportWindow.FXML, new ReportWindow()));
+                return new TabCommand(new Tab("Report"));
             case "calendar":
-                return new TabCommand(new Tab("Calendar View", CalendarWindow.FXML, new CalendarWindow()));
+                return new TabCommand(new Tab("Calendar"));
             default:
                 throw new ParseException(
                         String.format("Invalid tab name. Please specify a valid tab menu."));
