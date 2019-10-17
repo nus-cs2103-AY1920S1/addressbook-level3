@@ -58,7 +58,6 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexFilteredList_success() {
         showTransactionAtIndex(model, TypicalIndexes.INDEX_FIRST_TRANSACTION);
-
         Transaction transactionToDelete = model.getFilteredTransactionList()
                 .get(TypicalIndexes.INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION);
@@ -67,8 +66,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
-        expectedModel.deleteTransaction(transactionToDelete);
-        showNoTransaction(expectedModel);
+        expectedModel.deleteTransaction(TypicalIndexes.INDEX_FIRST_TRANSACTION);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }

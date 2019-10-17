@@ -48,7 +48,7 @@ public class DeleteCommand extends Command implements Undoable {
 
         transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
         actualIndex = model.getIndexInFullTransactionList(transactionToDelete).get();
-        model.deleteTransaction(transactionToDelete);
+        model.deleteTransaction(actualIndex);
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete));
     }
 
