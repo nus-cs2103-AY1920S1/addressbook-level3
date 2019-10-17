@@ -229,8 +229,11 @@ public class ModelManager implements Model {
         updateFilteredTransactionList(transactionContext.getPredicate());
     }
 
-    @Override
-    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+    /**
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    private void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
     }
