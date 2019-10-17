@@ -31,7 +31,7 @@ public class Content {
         checkArgument(isValidContent(question), MESSAGE_CONSTRAINTS);
         checkArgument(isValidContent(answer), MESSAGE_CONSTRAINTS);
         this.content = "Question: " + question
-                + "\nAnswer: " + answer;
+                + "; Answer: " + answer;
 
         System.out.println(this.content);
     }

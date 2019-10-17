@@ -4,8 +4,10 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 
+import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -168,6 +170,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFlashcardList(Predicate<Flashcard> predicate);
+
+    /**
+     * Formats string for output
+     * @return String formatted flashcard display
+     */
+    String formatOutputListString(FunctionMode mode);
+
+    <T> String formatList(FilteredList<T> object, int size);
 
     /**
      * Adds the given cheatSheet.

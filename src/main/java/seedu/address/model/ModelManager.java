@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
+import seedu.address.logic.FunctionMode;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -248,6 +251,60 @@ public class ModelManager implements Model {
     @Override
     public void deleteFlashcard(Flashcard target) {
         addressBook.removeFlashcard(target);
+    }
+
+    /**
+     * Formats string for output
+     * @return String formatted flashcard display
+     */
+    public String formatOutputListString(FunctionMode mode) {
+        int size = -1;
+        String msg = "";
+
+        switch (mode) {
+        case CHEATSHEET:
+            size = filteredCheatSheets.size();
+            msg = formatList(filteredCheatSheets, size);
+            break;
+
+        case FLASHCARD:
+            size = filteredFlashcards.size();
+            msg = formatList(filteredFlashcards, size);
+
+            break;
+
+        case NOTE:
+            size = filteredNotes.size();
+            msg = formatList(filteredNotes, size);
+
+            break;
+
+        default:
+            // error?
+        }
+
+        if (size == 0) {
+            return "[Empty list]";
+        }
+
+        return msg.toString();
+    }
+
+    public <T> String formatList(FilteredList<T> object, int size) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 1; i <= size; i++) {
+            T feature = object.get(i - 1);
+            sb.append(i)
+                    .append(". ")
+                    .append(feature.toString());
+
+            if (i != size) {
+                sb.append("\n");
+            }
+        }
+
+        return sb.toString();
     }
 
     //===================CheatSheetBook============================================================
