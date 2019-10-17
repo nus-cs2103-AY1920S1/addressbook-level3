@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * The manager of the UI component.
  */
-public class UiManager implements Ui {
+public class UiManager {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
