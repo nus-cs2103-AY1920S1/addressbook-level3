@@ -27,10 +27,10 @@ public class AddTransactionCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_CATEGORY + "CATEGORY "
-            + PREFIX_DAY + "DAY "
-            + PREFIX_MONTH + "MONTH "
-            + PREFIX_YEAR + "YEAR "
-            + PREFIX_TRANSACTION_TYPE + "TRANSACTION_TYPE "
+            + "[" + PREFIX_DAY + "DAY] "
+            + "[" + PREFIX_MONTH + "MONTH] "
+            + "[" + PREFIX_YEAR + "YEAR] "
+            + "[" + PREFIX_TRANSACTION_TYPE + "TRANSACTION_TYPE] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Buy lunch "
             + PREFIX_AMOUNT + "5.28 "
@@ -38,7 +38,7 @@ public class AddTransactionCommand extends Command {
             + PREFIX_DAY + "5 "
             + PREFIX_MONTH + "10 "
             + PREFIX_YEAR + "2019 "
-            + PREFIX_TRANSACTION_TYPE + "expenditure ";
+            + PREFIX_TRANSACTION_TYPE + "exp ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
 
