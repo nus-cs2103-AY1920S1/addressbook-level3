@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 
 /**
  * Switches the primary budget to another budget.
@@ -21,25 +21,25 @@ public class SwitchBudgetCommand extends UndoableCommand {
     public static final String MESSAGE_BUDGET_NOT_FOUND = "This budget does not exist in the address book";
     public static final String MESSAGE_BUDGET_ALREADY_PRIMARY = "This budget is already the primary budget";
 
-    private final Budget target;
+    private final Description targetDescription;
 
     /**
-     * Creates an AddCommand to add the specified {@code Expense}
+     * Creates an SwitchBudgetCommand to switch primary budget the budget with the specified {@code targetDescription}.
      */
-    public SwitchBudgetCommand(Budget target) {
-        requireNonNull(target);
-        this.target = target;
+    public SwitchBudgetCommand(Description targetDescription) {
+        requireNonNull(targetDescription);
+        this.targetDescription = targetDescription;
     }
 
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasBudgetWithSameName(target)) {
+        if (!model.hasBudgetWithName(targetDescription)) {
             throw new CommandException(MESSAGE_BUDGET_NOT_FOUND);
         }
 
-        if (model.getPrimaryBudget().equals(target)) {
+        if (model.getPrimaryBudget().getDescription().equals(targetDescription)) {
             throw new CommandException(MESSAGE_BUDGET_ALREADY_PRIMARY);
         }
     }
@@ -48,14 +48,14 @@ public class SwitchBudgetCommand extends UndoableCommand {
     protected CommandResult execute(Model model) {
         requireNonNull(model);
 
-        model.switchBudgetTo(target);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, target));
+        model.switchBudgetTo(targetDescription);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetDescription));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SwitchBudgetCommand // instanceof handles nulls
-                && target.equals(((SwitchBudgetCommand) other).target));
+                && targetDescription.equals(((SwitchBudgetCommand) other).targetDescription));
     }
 }
