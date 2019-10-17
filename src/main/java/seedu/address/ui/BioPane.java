@@ -1,41 +1,25 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.address.MainApp;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class BioPaneStub extends UiPart<Region> {
+public class BioPane extends UiPart<Region> {
 
-    private static final String FXML = "BioPaneStub.fxml";
+    private static final String FXML = "BioPane.fxml";
+    private static String displayImage = "/images/user.png";
 
     private BioTable bioTable;
     private Profile profile;
-    private static String displayImage = "/images/user.png";
 
     @FXML
     private HBox profilePlaceholder;
@@ -43,7 +27,7 @@ public class BioPaneStub extends UiPart<Region> {
     @FXML
     private VBox bioTablePlaceholder;
 
-    public BioPaneStub() {
+    public BioPane() {
         super(FXML);
         Image img = new Image(MainApp.class.getResourceAsStream(displayImage));
 

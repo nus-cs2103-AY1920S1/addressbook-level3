@@ -6,16 +6,16 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox fx:id="profilePlaceholder" styleClass="pane-with-border">
-         <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-         </padding>
-     </HBox>
-
-     <VBox fx:id="bioTablePlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+      <HBox fx:id="achievementsTitlePlaceholder" styleClass="pane-with-border">
         <padding>
           <Insets bottom="5" left="10" right="10" top="5" />
         </padding>
-    </VBox>
+      </HBox>
+
+      <HBox fx:id="achievementsPlaceholder" styleClass="pane-with-border" HBox.Hgrow="ALWAYS">
+        <padding>
+          <Insets bottom="5" left="10" right="10" top="5" />
+        </padding>
+      </HBox>
    </children>
 </VBox>

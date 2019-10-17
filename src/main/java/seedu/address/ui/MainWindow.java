@@ -1,35 +1,28 @@
 package seedu.address.ui;
 
-import java.util.List;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.ui.MainDisplayPane.DisplayPane.ACHVM;
+import static seedu.address.ui.MainDisplayPane.DisplayPane.BIO;
+import static seedu.address.ui.MainDisplayPane.DisplayPane.MAIN;
+
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.storage.Storage;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
@@ -48,7 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private AchievementsCache achievementsCache;
+    private MainDisplayPane mainDisplayPane;
 
     @FXML
     private Scene scene;
@@ -60,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane mainPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -80,6 +73,8 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        mainDisplayPane = new MainDisplayPane();
+
         helpWindow = new HelpWindow();
     }
 
@@ -87,20 +82,8 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public ResultDisplay getResultDisplay() {
-        return resultDisplay;
-    }
-
     public Scene getScene() {
         return scene;
-    }
-
-    public AchievementsCache getAchievementsCache() {
-        return achievementsCache;
-    }
-
-    public void setAchievementsCache(AchievementsCache achievementsCache) {
-        this.achievementsCache = achievementsCache;
     }
 
     private void setAccelerators() {
@@ -143,7 +126,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        mainPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        mainDisplayPane = new MainDisplayPane(MAIN, personListPanel);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -178,34 +162,12 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
-
     /**
-     * Switches this window to the MainWindow.
+     * Switches the main display pane to the specified UI part.
      */
-    @FXML
-    public void switchToBioWindow(String feedbackToUser) {
-        BioPaneStub bioPaneStub = new BioPaneStub();
-        ObservableList<Node> list = personListPanelPlaceholder.getChildren();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(bioPaneStub.getRoot());
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    }
-
-    /**
-     * Switches this window to the AchievementsWindow.
-     */
-    @FXML
-    public void switchToAchvmWindow(String feedbackToUser) {
-        hide();
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        AchievementsWindow achievementsWindow = new AchievementsWindow(primaryStage, logic);
-        achievementsWindow.show();
-        achievementsWindow.setAchievementsCache(achievementsCache);
-        achievementsWindow.fillInnerParts();
-        achievementsWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+    public void switchToMainDisplayPane(UiPart<Region> mainDisplayPane) {
+        mainPanelPlaceholder.getChildren().clear();
+        mainPanelPlaceholder.getChildren().add(mainDisplayPane.getRoot());
     }
 
     void show() {
@@ -241,10 +203,17 @@ public class MainWindow extends UiPart<Stage> {
         try {
 
             CommandResult commandResult = logic.execute(commandText);
+
             if (commandResult.isShowBio()) {
-                switchToBioWindow(commandResult.getFeedbackToUser());
+                if (mainDisplayPane.getCurrPane() != BIO) {
+                    switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(BIO)));
+                }
             } else if (commandResult.isShowAchvm()) {
-                switchToAchvmWindow(commandResult.getFeedbackToUser());
+                if (mainDisplayPane.getCurrPane() != ACHVM) {
+                    switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(ACHVM)));
+                }
+            } else if (mainDisplayPane.getCurrPane() != MAIN) {
+                switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(MAIN)));
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
