@@ -7,10 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.item.Event;
@@ -175,36 +172,31 @@ public class ParserUtil {
      * @throws DateTimeParseException if the format of the string given is incorrect
      */
     private static LocalDateTime getFormattedDateTime(String stringDateTime) throws DateTimeParseException {
-        LocalDateTime processedDateTime;
+        boolean invalidFormat = false;
+        DateTimeParseException parseException = new DateTimeParseException("dummy", "dummy", 0); // just to initialize
+        ArrayList<DateTimeParser> allParsers = new ArrayList<>() {
+            {
+                add(new StandardDateTimeParser());
+                add(new DefinedDateTimeParser());
+            }
+        };
 
-        try {
-            processedDateTime = LocalDateTime.parse(stringDateTime);
-        } catch (DateTimeParseException e1) {
+        LocalDateTime processedDateTime = LocalDateTime.now(); // just to initialize
+        for (DateTimeParser parser : allParsers) {
             try {
-                processedDateTime = parseUsingFormatter(stringDateTime);
-            } catch (Exception e2) {
-                throw new DateTimeParseException(e2.getMessage(), stringDateTime, 0);
+                processedDateTime = parser.parseDateTime(stringDateTime);
+                invalidFormat = false;
+                break;
+            } catch (DateTimeParseException err) {
+                invalidFormat = true;
+                parseException = err;
             }
         }
 
-        return processedDateTime;
-    }
+        if (invalidFormat) {
+            throw parseException;
+        }
 
-    /**
-     * Processes the string using the given format and returns a LocalDateTime
-     * @param stringDateTime of the format "dd/MM/yyyy HHmm"
-     * @return LocalDateTime representation of the string
-     */
-    private static LocalDateTime parseUsingFormatter(String stringDateTime) {
-        String[] splitTime = stringDateTime.split(" ");
-
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate processedDate = LocalDate.parse(splitTime[0], dateFormatter);
-
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
-        LocalTime processedTime = LocalTime.parse(splitTime[1], timeFormatter);
-
-        LocalDateTime processedDateTime = LocalDateTime.of(processedDate, processedTime);
         return processedDateTime;
     }
 }
