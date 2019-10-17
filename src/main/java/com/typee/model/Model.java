@@ -4,7 +4,9 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import com.typee.commons.core.GuiSettings;
-import com.typee.model.person.Person;
+import com.typee.logic.commands.exceptions.NullRedoableActionException;
+import com.typee.logic.commands.exceptions.NullUndoableActionException;
+import com.typee.model.engagement.Engagement;
 
 import javafx.collections.ObservableList;
 
@@ -13,7 +15,8 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    Predicate<Engagement> PREDICATE_SHOW_ALL_ENGAGEMENTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -48,41 +51,54 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setHistoryManager(ReadOnlyAddressBook historyManager);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyAddressBook getHistoryManager();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * REDUNDANT.
+     * Returns true if the engagement is in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasEngagement(Engagement engagement);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given engagement.
+     * The engagement must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteEngagement(Engagement target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given engagement.
+     * {@code engagement} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addEngagement(Engagement engagement);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given engagement {@code target} with {@code editedEngagement}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The engagement identity of {@code editedPerson} must not be the same as
+     * another existing engagement in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setEngagement(Engagement target, Engagement editedEngagement);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered engagement list */
+    ObservableList<Engagement> getFilteredEngagementList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered engagement list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+
+    void updateFilteredEngagementList(Predicate<Engagement> predicate);
+
+    boolean hasNoUndoableCommand();
+
+    void undoEngagementList() throws NullUndoableActionException;
+
+    boolean hasNoRedoableCommand();
+
+    void saveEngagementList();
+
+    void redoEngagementList() throws NullRedoableActionException;
 }

@@ -1,7 +1,7 @@
 package com.typee.testutil;
 
 import com.typee.model.AddressBook;
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -23,8 +23,8 @@ public class AddressBookBuilder {
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withPerson(Person person) {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(Engagement engagement) {
+        addressBook.addEngagement(engagement);
         return this;
     }
 

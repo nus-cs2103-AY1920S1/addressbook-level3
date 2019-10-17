@@ -1,6 +1,6 @@
 package com.typee.ui;
 
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -22,20 +22,38 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Engagement engagement;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label type;
+    @FXML
+    private Label startTime;
+    @FXML
+    private Label endTime;
+    @FXML
+    private Label description;
+    @FXML
+    private Label locationOfEngagement;
+    @FXML
+    private Label priority;
+    @FXML
+    private Label attendees;
     @FXML
     private Label id;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Engagement engagement, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.engagement = engagement;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        type.setText(engagement.getClass().getSimpleName());
+        startTime.setText(engagement.getStartTime().toString());
+        endTime.setText(engagement.getEndTime().toString());
+        locationOfEngagement.setText(engagement.getLocation().toString());
+        priority.setText(engagement.getPriority().name());
+        attendees.setText(engagement.getAttendees().toString());
+        description.setText(engagement.getDescription());
     }
 
     @Override
@@ -53,6 +71,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && engagement.equals(card.engagement);
     }
 }

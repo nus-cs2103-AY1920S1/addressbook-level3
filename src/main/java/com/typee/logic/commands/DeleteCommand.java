@@ -8,7 +8,7 @@ import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -33,15 +33,17 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Engagement> lastShownList = model.getFilteredEngagementList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+
+        Engagement engagementToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteEngagement(engagementToDelete);
+        model.saveEngagementList();
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, engagementToDelete));
     }
 
     @Override

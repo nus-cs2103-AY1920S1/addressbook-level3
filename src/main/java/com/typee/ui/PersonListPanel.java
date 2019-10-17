@@ -3,7 +3,7 @@ package com.typee.ui;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,9 +19,9 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Engagement> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Engagement> personList) {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -30,16 +30,16 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Engagement> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Engagement engagement, boolean empty) {
+            super.updateItem(engagement, empty);
 
-            if (empty || person == null) {
+            if (empty || engagement == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(engagement, getIndex() + 1).getRoot());
             }
         }
     }
