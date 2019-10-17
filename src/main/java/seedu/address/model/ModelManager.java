@@ -168,6 +168,7 @@ public class ModelManager implements Model {
     public ReadOnlyCalendar getCalendar() {
         return null;
     }
+  
     public ObservableList<Earnings> getFilteredEarningsList() {
         return filteredEarnings;
     }
