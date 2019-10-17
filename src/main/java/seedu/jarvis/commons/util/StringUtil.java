@@ -6,6 +6,7 @@ import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Helper functions for handling strings.
@@ -146,5 +147,19 @@ public class StringUtil {
             }
         }
         return lines.append(builder).toString();
+    }
+
+    /**
+     * Returns a concatenated {@code String} containing the elements in {@code stringList}.
+     * The strings are delimited by a newline ({@code \n}).
+     *
+     * @return a {@code String}
+     */
+    public static String listToString(List<String> lines) {
+        final StringBuilder builder = new StringBuilder();
+        for (String s : lines) {
+            builder.append(s).append("\n");
+        }
+        return builder.toString();
     }
 }

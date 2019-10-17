@@ -20,6 +20,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
@@ -95,7 +96,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
         return new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), initialData,
-                userPrefs, new Planner());
+                userPrefs, new Planner(), new CoursePlanner());
     }
 
     private void initLogging(Config config) {
