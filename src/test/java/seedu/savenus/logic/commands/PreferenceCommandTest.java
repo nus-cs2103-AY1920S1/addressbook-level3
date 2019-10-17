@@ -248,4 +248,11 @@ public class PreferenceCommandTest {
         assertThrows(CommandException.class, DislikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 dislikeCommand.execute(model));
     }
+
+    @Test
+    public void wrong_execute_error() {
+        assertThrows(
+            AssertionError.class, () -> new PreferenceCommand(testCategory, testTag, testLocation).execute(model)
+        );
+    }
 }

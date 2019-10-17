@@ -4,11 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_CATEGORY;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_LOCATION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_RESTRICTIONS;
 import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_EQUALS_TO;
 import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_LESS_THAN;
 import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_MORE_THAN;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -96,8 +104,13 @@ public class FilterCommandParserTest {
     public void check_validValues() {
         assertTrue(parser.isValidValue(FIELD_NAME_PRICE, "4.00"));
         assertTrue(parser.isValidValue(FIELD_NAME_PRICE, "4"));
-        assertFalse(parser.isValidValue(FIELD_NAME_PRICE, "eheh"));
         assertFalse(parser.isValidValue(FIELD_NAME_PRICE, "oeoeiie"));
+        assertTrue(parser.isValidValue(FIELD_NAME_DESCRIPTION, "eheh"));
+        assertTrue(parser.isValidValue(FIELD_NAME_LOCATION, "eheh"));
+        assertTrue(parser.isValidValue(FIELD_NAME_NAME, "eheh"));
+        assertTrue(parser.isValidValue(FIELD_NAME_RESTRICTIONS, "eheh"));
+        assertTrue(parser.isValidValue(FIELD_NAME_OPENING_HOURS, "0000 0001"));
+        assertFalse(parser.isValidValue("Invalid Field", "0000 0001"));
     }
 
     @Test
@@ -163,5 +176,13 @@ public class FilterCommandParserTest {
             FIELD_NAME_CATEGORY, QUANTIFY_LESS_THAN, "400"};
         assertTrue(parser.isWrongArgumentNumber(nonLegitFields));
         assertFalse(parser.isWrongArgumentNumber(legitFields));
+    }
+
+    @Test
+    public void create_proper_command() {
+        String legitLine = FIELD_NAME_PRICE + " " + QUANTIFY_LESS_THAN + " 4.20";
+        String[] legitFields = {FIELD_NAME_PRICE, QUANTIFY_LESS_THAN, "4.20"};
+        FilterCommand expectedCommand = new FilterCommand(Arrays.asList(legitFields));
+        assertParseSuccess(parser, legitLine, expectedCommand);
     }
 }
