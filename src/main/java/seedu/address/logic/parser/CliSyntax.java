@@ -20,4 +20,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
     public static final Prefix PREFIX_LOCATION = new Prefix("l/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
+
+    /* For all auto-fill prompts */
+    public static final Prefix PREFIX_AUTO = new Prefix("auto/");
 }

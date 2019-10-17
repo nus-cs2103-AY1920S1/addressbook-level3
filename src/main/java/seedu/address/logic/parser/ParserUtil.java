@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -221,6 +222,27 @@ public class ParserUtil {
         requireNonNull(id);
         String trimmedId = id.trim();
         return new IncidentId(trimmedId);
+    }
+
+    /**
+     * Parses a {@code String auto y/n} into a {@boolean isAuto}.
+     *
+     * @param auto
+     * @return isAuto
+     * @throws ParseException if the {@code auto command} is invalid.
+     */
+    public static boolean parseAuto(String auto) throws ParseException {
+        boolean isAuto;
+        requireNonNull(auto);
+        if (auto.equals("y")) {
+            isAuto = true;
+        } else if (auto.equals("n")) {
+            isAuto = false;
+        } else {
+            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+        }
+
+        return isAuto;
     }
 
 }

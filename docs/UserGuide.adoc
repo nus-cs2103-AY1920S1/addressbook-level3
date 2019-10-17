@@ -69,7 +69,7 @@ Format: `login USERNAME`
 
 ==== Usage
 
-Format: `new DISTRICT_NUM y/n`
+Format: `new l/DISTRICT_NUM auto/[y/n]`
 
 For multi-step:
 
