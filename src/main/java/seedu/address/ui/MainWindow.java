@@ -4,18 +4,29 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.storage.Storage;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
@@ -35,6 +46,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private AchievementsCache achievementsCache;
+
+    @FXML
+    private Scene scene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -72,6 +86,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public ResultDisplay getResultDisplay() {
         return resultDisplay;
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     public AchievementsCache getAchievementsCache() {
@@ -163,15 +181,49 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void switchToBioWindow(String feedbackToUser) {
-        hide();
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        BioWindow bioWindow = new BioWindow(primaryStage, logic);
-        bioWindow.show();
-        bioWindow.setAchievementsCache(achievementsCache);
-        bioWindow.fillInnerParts();
-        bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+
+        try {
+            System.out.println("hello");
+//            Parent root2 = FXMLLoader.load(getClass().getResource("/view/BioWindow.fxml"));
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BioWindow.fxml"));
+//            loader.setRoot(primaryStage);
+//            BioWindow bioWindow = new BioWindow(logic);
+//            bioWindow.fillInnerParts();
+//            loader.setController(bioWindow);
+//            AnchorPane pane = loader.load();
+//            BioWindow bioWindow = new BioWindow(logic);
+//            bioWindow.fillInnerParts();
+            System.out.println("my");
+            Label label = new Label();
+            label.setText("HI");
+            label.setStyle("-fx-text-fill: white");
+            label.setMinSize(100, 100);
+//            label.setStyle("-fx-background-color: black");
+//            getRoot().setScene(new Scene(label));
+
+            BioPaneStub bioPaneStub = new BioPaneStub();
+            personListPanelPlaceholder.getChildren().clear();
+            personListPanelPlaceholder.getChildren().add(bioPaneStub.getRoot());
+            System.out.println(personListPanelPlaceholder.getChildren().isEmpty());
+            System.out.println("world");
+        } catch (Exception e) {
+            System.out.println("loading exception");
+            e.printStackTrace();
+        }
+
+//        BioWindow bioWindow = new BioWindow(logic);
+//        bioWindow.fillInnerParts();
+//        primaryStage.setScene(bioWindow.getScene());
+//        primaryStage.show();
+//        hide();
+//        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+//                (int) primaryStage.getX(), (int) primaryStage.getY());
+//        logic.setGuiSettings(guiSettings);
+//        BioWindow bioWindow = new BioWindow(primaryStage, logic);
+//        bioWindow.show();
+//        bioWindow.setAchievementsCache(achievementsCache);
+//        bioWindow.fillInnerParts();
+//        bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
     }
 
     /**

@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
@@ -46,6 +47,9 @@ public class BioWindow extends UiPart<Stage> {
     private AchievementsCache achievementsCache;
 
     @FXML
+    private Scene scene;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -62,6 +66,11 @@ public class BioWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    public BioWindow(Logic logic) {
+        super(FXML, new Stage());
+        this.logic = logic;
+    }
 
     public BioWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -84,6 +93,10 @@ public class BioWindow extends UiPart<Stage> {
 
     public ResultDisplay getResultDisplay() {
         return resultDisplay;
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     public AchievementsCache getAchievementsCache() {
