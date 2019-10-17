@@ -13,10 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.PurchaseBuilder;
 
 public class PaidCommandTest {

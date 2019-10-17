@@ -9,10 +9,10 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaList;
+import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.cca.CcaBuilder;
 
 /**
