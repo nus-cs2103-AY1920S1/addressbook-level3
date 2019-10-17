@@ -32,6 +32,7 @@ public class StudyPlan implements Cloneable {
     private Title title;
     private int index; // unique identifier of this study plan
     private SemesterName currentSemester;
+    private boolean isActivated = false;
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
     // note: this Mega-List is only constructed when a study plan gets activated.
@@ -117,6 +118,14 @@ public class StudyPlan implements Cloneable {
 
     public SemesterName getCurrentSemester() {
         return currentSemester;
+    }
+
+    public void setActivated(boolean activated) {
+        isActivated = activated;
+    }
+
+    public boolean isActivated() {
+        return isActivated;
     }
 
     public static int getTotalNumberOfStudyPlans() {
@@ -295,6 +304,7 @@ public class StudyPlan implements Cloneable {
         clone.semesters = semesters.clone();
         clone.title = title.clone();
         clone.index = index;
+        clone.isActivated = isActivated;
 
         // because of this, the mega-lists fields don't have final keyword
         clone.modules = new HashMap<>();

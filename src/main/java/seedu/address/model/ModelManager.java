@@ -15,6 +15,7 @@ import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
@@ -105,7 +106,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public StudyPlan activateStudyPlan(int index) {
+    public StudyPlan activateStudyPlan(int index) throws StudyPlanNotFoundException {
         return modulePlanner.activateStudyPlan(index);
     }
 

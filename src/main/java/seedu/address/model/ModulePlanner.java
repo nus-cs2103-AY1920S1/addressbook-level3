@@ -144,6 +144,11 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             throw new StudyPlanNotFoundException();
         }
 
+        // if this active study plan has already been activated before, then no need to activate it again.
+        if (activeStudyPlan.isActivated()) {
+            return activeStudyPlan;
+        }
+
         // construct the mega list of modules
         HashMap<String, Module> megaModuleHash = activeStudyPlan.getModules();
         for (Module module : megaModuleHash.values()) {
@@ -174,11 +179,14 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         }
 
         // TODO: get user-defined tags from mega tag list, and make the tags refer to the megalist of tags
+        // TODO: this is done?
         for (Module module : megaModuleHash.values()) {
             UniqueTagList tagList = module.getTags();
         }
 
         activeStudyPlan.updatePrereqs();
+
+        activeStudyPlan.setActivated(true);
 
         return activeStudyPlan;
     }

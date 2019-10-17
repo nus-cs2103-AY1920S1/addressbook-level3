@@ -20,6 +20,7 @@ import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
+import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
 import seedu.address.logic.commands.storage.CommitStudyPlanEditCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DeleteCommand;
@@ -39,6 +40,7 @@ import seedu.address.logic.parser.datamanagement.RemoveTagFromModuleCommandParse
 import seedu.address.logic.parser.datamanagement.TagModuleCommandParser;
 import seedu.address.logic.parser.datamanagement.ViewModuleTagsCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.storage.ActivateStudyPlanParser;
 import seedu.address.logic.parser.storage.CommitStudyPlanEditsParser;
 import seedu.address.logic.parser.storage.CreateStudyPlanCommandParser;
 import seedu.address.logic.parser.storage.DeleteStudyPlanParser;
@@ -126,6 +128,9 @@ public class ModulePlannerParser {
 
         case EditTitleCommand.COMMAND_WORD:
             return new EditStudyPlanTitleParser().parse(arguments);
+
+        case ActivateStudyPlanCommand.COMMAND_WORD:
+            return new ActivateStudyPlanParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
