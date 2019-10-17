@@ -86,11 +86,11 @@ public class MemeEditCommand extends Command {
     private static Meme createEditedMeme(Meme memeToEdit, EditMemeDescriptor editMemeDescriptor) {
         assert memeToEdit != null;
 
-        ImagePath updatedUrl = editMemeDescriptor.getFilePath().orElse(memeToEdit.getFilePath());
+        ImagePath updatedPath = editMemeDescriptor.getFilePath().orElse(memeToEdit.getFilePath());
         Description updatedDescription = editMemeDescriptor.getDescription().orElse(memeToEdit.getDescription());
         Set<Tag> updatedTags = editMemeDescriptor.getTags().orElse(memeToEdit.getTags());
 
-        return new Meme(updatedUrl, updatedDescription, updatedTags);
+        return new Meme(updatedPath, updatedDescription, updatedTags);
     }
 
     @Override
