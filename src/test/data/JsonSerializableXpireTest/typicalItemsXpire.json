@@ -42,5 +42,11 @@
     "reminderThreshold" : "3",
     "quantity" : "4",
     "tags" : ["Fridge"]
+  }, {
+    "name" : "Lime",
+    "expiryDate" : "01/02/2020",
+    "reminderThreshold" : "2",
+    "quantity" : "4",
+    "tags" : ["Citrus"]
   } ]
 }

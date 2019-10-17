@@ -1,6 +1,7 @@
 package io.xpire.logic.commands;
 
 import io.xpire.logic.commands.exceptions.CommandException;
+import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 
 /**
@@ -15,6 +16,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model) throws CommandException, ParseException;
 
 }

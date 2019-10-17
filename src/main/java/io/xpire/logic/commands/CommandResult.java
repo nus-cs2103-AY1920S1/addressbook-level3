@@ -64,4 +64,5 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(this.feedbackToUser, this.showHelp, this.exit);
     }
+
 }
