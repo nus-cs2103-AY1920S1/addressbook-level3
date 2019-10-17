@@ -43,17 +43,17 @@ class TodoTest {
     }
 
     @Test
-    void isEqual_validInput_true() {
+    void equals_validInput_true() {
         Todo tOne = new Todo("borrow book");
         Todo tTwo = new Todo("borrow book");
-        assertTrue(tOne.isEqual(tTwo));
+        assertTrue(tOne.equals(tTwo));
     }
 
     @Test
-    void isEqual_validInput_false() {
+    void equals_validInput_false() {
         Todo tOne = new Todo("hello");
         Todo tTwo = new Todo("hi there");
-        assertFalse(tOne.isEqual(tTwo));
+        assertFalse(tOne.equals(tTwo));
 
     }
 }
