@@ -1,10 +1,13 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -181,49 +184,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void switchToBioWindow(String feedbackToUser) {
-
-        try {
-            System.out.println("hello");
-//            Parent root2 = FXMLLoader.load(getClass().getResource("/view/BioWindow.fxml"));
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BioWindow.fxml"));
-//            loader.setRoot(primaryStage);
-//            BioWindow bioWindow = new BioWindow(logic);
-//            bioWindow.fillInnerParts();
-//            loader.setController(bioWindow);
-//            AnchorPane pane = loader.load();
-//            BioWindow bioWindow = new BioWindow(logic);
-//            bioWindow.fillInnerParts();
-            System.out.println("my");
-            Label label = new Label();
-            label.setText("HI");
-            label.setStyle("-fx-text-fill: white");
-            label.setMinSize(100, 100);
-//            label.setStyle("-fx-background-color: black");
-//            getRoot().setScene(new Scene(label));
-
-            BioPaneStub bioPaneStub = new BioPaneStub();
-            personListPanelPlaceholder.getChildren().clear();
-            personListPanelPlaceholder.getChildren().add(bioPaneStub.getRoot());
-            System.out.println(personListPanelPlaceholder.getChildren().isEmpty());
-            System.out.println("world");
-        } catch (Exception e) {
-            System.out.println("loading exception");
-            e.printStackTrace();
-        }
-
-//        BioWindow bioWindow = new BioWindow(logic);
-//        bioWindow.fillInnerParts();
-//        primaryStage.setScene(bioWindow.getScene());
-//        primaryStage.show();
-//        hide();
-//        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-//                (int) primaryStage.getX(), (int) primaryStage.getY());
-//        logic.setGuiSettings(guiSettings);
-//        BioWindow bioWindow = new BioWindow(primaryStage, logic);
-//        bioWindow.show();
-//        bioWindow.setAchievementsCache(achievementsCache);
-//        bioWindow.fillInnerParts();
-//        bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+        BioPaneStub bioPaneStub = new BioPaneStub();
+        ObservableList<Node> list = personListPanelPlaceholder.getChildren();
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(bioPaneStub.getRoot());
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
     /**
