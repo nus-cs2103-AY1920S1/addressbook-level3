@@ -16,7 +16,7 @@ public interface Statistics {
      * @param expenses Input expenses list.
      * @return An expense timeline.
      */
-    ExpenseTimeline generateExpenseTimeline(List<Expense> expenses);
+    ExpenseTimeline generateExpenseTimeline(List<? extends Expense> expenses);
 
     /**
      * Generates an expense timeline based on the given list of expenses, and the specified date interval
@@ -25,5 +25,5 @@ public interface Statistics {
      * @param interval Specified date interval.
      * @return An expense timeline.
      */
-    ExpenseTimeline generateExpenseTimeline(List<Expense> expenses, DateInterval interval);
+    ExpenseTimeline generateExpenseTimeline(List<? extends Expense> expenses, DateInterval interval);
 }
