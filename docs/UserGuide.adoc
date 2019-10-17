@@ -110,39 +110,61 @@ A way for the user to beautify the appearance for the contact list. _e.g. Puttin
 
 
 
-=== Calendar (Event Planner)
+=== Calendar
 
 Gives you an overview of when you will be free to travel and recommends when will be a suitable time to travel.
 
-``addCommitment``      : adds commitment to indicate that you won’t be able to travel on a day or over a period of time due to commitments during the public holidays/school vacation +
+*Adding a commitment: ``addCommitment``* +
+Adds commitment to indicate that you won’t be able to travel on a day or over a period of time due to commitments during the public holidays/school vacation. +
+Format: ``addCommitment [date] [name] <details of commitment>``
 
-``addCommitments``     : similar to the above, but we can add multiple commitments at once +
+*Adding a public holiday: ``addHoliday``* +
+Adds a public holiday to your calendar so that you can view any upcoming public holidays easily. +
+Format: ``addHoliday [date] [name of holiday]``
 
-``addPublicHoliday``   : adds a public holiday from your calendar +
+*Adding a school break: ``addSchoolBreak``* +
+Adds a school break to your calendar so that you can view when your school breaks are easily. +
+Format: ``addSchoolBreak [date] [name of break]`` or ``addSchoolBreak [start date] [end date] [name of break]``
 
-``addSchoolBreak``     : adds the start and end date of your school vacation +
+*Adding a trip: ``addTrip``* +
+Adds your trip to the calendar. Now, you can keep track of your trip with ease. +
+Format: ``addTrip [date] [name of trip]`` or ``addSchoolBreak [start date] [end date] [name of trip]``
 
-``addTrip``            : adds your trip to the calendar +
+*Checking your availability for a trip: ``check``* +
+Checks whether you would be able to travel on a specified date/for a specified period of time. +
+Format: ``check [date]`` or ``check [start date] [end date]``
 
-``checkAvailability``  : checks whether you are available for the stated period of time +
+*Clearing all commitments for a particular date: ``clearAll``* +
+Clears all of your commitments for a particular date. +
+Format: ``clearAll [date]``
 
-``clearCommitments``   : clears all commitments for the stated period of time +
+*Editing your school break: ``editSchoolBreak``* +
+Edits either the start or end date of your school break. +
+Format: ``editSchoolBreak [original start date] [name] [original end date] [new start date] [new end date]``
 
-``deleteCommitment``   : deletes commitment from your calendar +
+*Editing your commitment: ``editCommitment``* +
+Edits your commitment. You may change the date and/or details of your commitment. +
+Format: ``editCommitment [original date] [name] <new date> <new details>``
 
-``deleteSchoolBreak``  : deletes school break from your calendar +
+*Removing a commitment: ``removeCommitment``* +
+Removes your commitment, as specified by the name and date of your commitment. +
+Format: ``removeCommitment [date] [name]``
 
-``deletePublicHoliday``: deletes public holiday from your calendar +
+*Removing a school break: ``deleteSchoolBreak``* +
+Removes a school break from your calendar. +
+Format: ``removeSchoolBreak [date] [name]`` or ``removeSchoolBreak [start date] [end date] [name]``
 
-``editBreak``        : edits the start and/or end date of your school vacation  +
+*Removing a public holiday: ``deleteHoliday``* +
+Removes a school break from your calendar. +
+Format: ``removeHoliday [date] [name]``
 
-``editCommitment``   : edits the duration of your commitment +
+*Showing a monthly view of your calendar: ``show``* +
+Shows a monthly view of your calendar. If year is not specified, the current year will be used. +
+Format: ``show [month] <year>``
 
-``showAvailability`` : shows you when you have 3 or more “free” days in the given period of time which you have specified +
-
-``suggestDate``      : suggests when you can travel for numDays
-
-
+*Suggesting a period of time to travel: ``suggest``* +
+Suggests when you can travel for a specified number of days within a time frame (as determined by the start and end dates). +
+Format: ``suggest [start date] [end date] [number of days]``
 
 The event planner feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_

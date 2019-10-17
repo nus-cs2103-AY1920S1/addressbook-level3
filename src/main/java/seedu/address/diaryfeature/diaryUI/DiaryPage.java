@@ -1,68 +1,56 @@
-package seedu.address.financialtracker.ui;
+package seedu.address.diaryfeature.diaryUI;
+
+
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.financialtracker.Model.Model;
-import seedu.address.financialtracker.commands.Command;
-import seedu.address.financialtracker.parser.FinancialTrackerParser;
+import seedu.address.diaryfeature.diaryCommands.DiaryCommand;
+import seedu.address.diaryfeature.diaryModel.DiaryList;
+import seedu.address.diaryfeature.diaryModel.DiaryObject;
+import seedu.address.diaryfeature.diaryParser.DiaryParser;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
 
-import java.util.logging.Logger;
+public class DiaryPage extends UiPart<VBox> implements Page {
+
+    private final static PageType pageType = PageType.DIARY;
+    private static final String FXML = "DiaryPage.fxml";
+    private DiaryList holder;
 
 
-/**
- * The Financial Tracker Window
- */
-public class FinancialTrackerPage extends UiPart<VBox> implements Page {
-
-    private final static PageType pageType = PageType.FINANCIAL_TRACKER;
-    private static final String FXML = "FinancialTrackerWindow.fxml";
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
-    private ExpensePanel expensePanel;
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private FinancialTrackerParser financialTrackerParser;
-    private Model model;
 
-    @FXML
-    private Scene financialTrackerScene;
+   @FXML
+   private Scene diaryScene;
 
-    @FXML
-    private VBox financialTrackerPane;
+   @FXML
+   private VBox diaryPane;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
-    @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane expensePlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
 
-    public FinancialTrackerPage() {
-        super(FXML);
-        this.financialTrackerParser = new FinancialTrackerParser();
-        this.model = new Model();
-        financialTrackerScene = new Scene(financialTrackerPane);
+    public DiaryPage() {
+        super(FXML, new VBox());
+        diaryScene = new Scene(diaryPane);
+        holder = new DiaryList();
         fillInnerParts();
     }
 
@@ -70,11 +58,9 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      * Fills up all the placeholders of this window.
      */
     private void fillInnerParts() {
-        expensePanel = new ExpensePanel(model.getFilteredExpenseList());
-        expensePlaceholder.getChildren().add(expensePanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -85,10 +71,11 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        try {
-            Command command = financialTrackerParser.parseCommand(commandText);
-            CommandResult commandResult = command.execute(model);
+    private CommandResult executeCommand(String input)  {
+            DiaryParser myParser = new DiaryParser();
+            DiaryCommand result = myParser.parse(input);
+            result.setReference(holder);
+            CommandResult commandResult = result.executeCommand();
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -105,11 +92,6 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
-        }
     }
 
     /**
@@ -124,16 +106,19 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      */
     @FXML
     private void handleExit() {
-        this.financialTrackerScene.getWindow().hide();
+        this.diaryScene.getWindow().hide();
     }
+
 
     @Override
     public Scene getScene() {
-        return financialTrackerScene;
+        return diaryScene;
     }
 
     @Override
     public PageType getPageType() {
         return pageType;
     }
+
+
 }

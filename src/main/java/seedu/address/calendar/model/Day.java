@@ -50,4 +50,5 @@ public class Day {
     public int getDayOfWeekZeroIndex() {
         return dayOfWeek.getNumericalVal() - 1;
     }
+
 }
