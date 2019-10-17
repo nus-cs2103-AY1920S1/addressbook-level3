@@ -394,7 +394,7 @@ Use case ends.
 
 1.  User requests to find appointments
 2.  User provides fields that the user wants to use to find appointments
-3.  System finds and displays the list of relevant appointment(s)
+3.  System finds and displays the list of relevant appointments
 +
 Use case ends.
 
@@ -404,7 +404,6 @@ Use case ends.
 +
 Use case ends.
 
-//Updated by Jun Hao
 [discrete]
 === Use case: (UC04) Delete appointment
 
@@ -445,7 +444,6 @@ Use case ends
 [discrete]
 === Use case: (UC06) Request help information
 
-//
 [discrete]
 === Use case: (UC07) Save updated Appointment data
 *MSS*
@@ -559,7 +557,7 @@ Use case resumes at step 1.
 *MSS*
 
 1. User specifies a month to switch the display to.
-2. System updates the calendar view to display appoinments for the specified month.
+2. System updates the calendar view to display appointments for the specified month.
 
 *Extensions*
 
@@ -577,10 +575,10 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to start the typing game
-2.  Typing game shows the user the word(s) to type for a period of time
-3.  User types the word(s) within the period of time
-4.  Typing game updates the User's score and life points accordingly.
-Steps 2-4 are repeated for as many rounds as required until User runs out of life points.
+2.  System shows typing game window which displays the specific word(s) to type.
+3.  User plays the game by typing the word(s).
+4.  Typing game updates the User's score and health points accordingly.
+Steps 2-4 are repeated for as many rounds as required until User runs out of health points.
 5.  Typing game shows the final score of the User
 +
 Use case ends.
@@ -593,16 +591,9 @@ Use case ends.
 Use case ends.
 
 [discrete]
-<<<<<<< HEAD
-=== Use case: (UC15) Checking spelling errors
+//Updated by Ko Gi Hun 30/09/19
+=== Use case: (UC15) Generate appointment document in PDF format
 
-[discrete]
-//Updated by Ko Gi Hun 30/09/19
-=== Use case: (UC16) Generate appointment document in PDF format
-=======
-//Updated by Ko Gi Hun 30/09/19
-=== Use case: (UC13) Generate appointment document in PDF format
->>>>>>> upstream/master
 *MSS*
 
 1. User requests to list appointments
