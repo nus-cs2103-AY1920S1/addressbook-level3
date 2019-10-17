@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,6 +12,8 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.TempQnsModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -119,10 +122,6 @@ public interface Model {
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
 
-    void getStatistics();
-
-    ObservableList<PieChart.Data> getStatsChartData();
-
     /**
      * Updates the filter of the filtered task list to filter by the given {@code predicate}.
      *
@@ -186,6 +185,11 @@ public interface Model {
     ObservableList<Question> getFilteredQuizQuestionList();
 
     /**
+     * Returns an unmodifiable view of the filtered quiz result list.
+     */
+    ObservableList<QuizResult> getFilteredQuizResultList();
+
+    /**
      * Checks the an answer input by user and return the boolean value as the result.
      */
     boolean checkQuizAnswer(int index, Answer answer);
@@ -203,4 +207,34 @@ public interface Model {
      * Returns an answer for question in quiz with specific {@code index}.
      */
     Answer showQuizAnswer(int index);
+
+    /**
+     * Returns the total number of questions answered.
+     */
+    int getTotalQuestionsDone();
+
+    /**
+     * Returns the total number of questions answered correctly.
+     */
+    int getTotalQuestionsCorrect();
+
+    /**
+     * Returns the total number of questions answered incorrectly.
+     */
+    int getTotalQuestionsIncorrect();
+
+    /**
+     * Returns an unmodifiable view of a list correct questions.
+     */
+    List<TempQnsModel> getCorrectQns();
+
+    /**
+     * Returns an unmodifiable view of a list incorrect questions.
+     */
+    List<TempQnsModel> getIncorrectQns();
+
+    /**
+     * Returns an unmodifiable view of the pie chart data.
+     */
+    ObservableList<PieChart.Data> getStatsChartData();
 }

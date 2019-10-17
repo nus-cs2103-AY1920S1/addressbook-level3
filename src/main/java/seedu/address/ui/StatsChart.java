@@ -18,11 +18,11 @@ public class StatsChart extends UiPart<Region> {
     @FXML
     private Label overview;
 
-    public StatsChart(ObservableList<PieChart.Data> data) {
+    public StatsChart(ObservableList<PieChart.Data> data, int totalQns) {
         super(FXML);
         pc.setLegendSide(Side.LEFT);
         pc.setData(data);
-        overview.setText("The total number of questions answered so far: " + data.size() + "\n" //change this later
+        overview.setText("The total number of questions answered so far: " + totalQns + "\n"
                 + "Number of questions answered correctly: " + (int) data.get(0).getPieValue() + "\n"
                 + "Number of questions answered incorrectly: " + (int) data.get(1).getPieValue() + "\n");
     }

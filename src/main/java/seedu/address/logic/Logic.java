@@ -36,7 +36,15 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of lecture notes */
     ObservableList<Note> getFilteredNoteList();
 
+    /**
+     * Returns an unmodifiable view of the pie chart data.
+     */
     ObservableList<PieChart.Data> getStatsChartData();
+
+    /**
+     * Returns the total number of quiz questions done.
+     */
+    int getTotalQuestionsDone();
 
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();

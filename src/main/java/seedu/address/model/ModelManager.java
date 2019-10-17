@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -18,7 +19,8 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
-import seedu.address.model.statistics.StatisticsStub;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.TempQnsModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -32,8 +34,8 @@ public class ModelManager implements Model {
     private final FilteredList<Note> filteredNotes;
     private final FilteredList<Question> filteredQuestions;
     private final FilteredList<Question> filteredQuizQuestions;
+    private final FilteredList<QuizResult> filteredQuizResults;
     private final FilteredList<Task> filteredTasks;
-    private final StatisticsStub statisticsStub;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,8 +51,8 @@ public class ModelManager implements Model {
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
         filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
         filteredQuizQuestions = new FilteredList<>(this.addressBook.getQuizQuestionList());
+        filteredQuizResults = new FilteredList<>(this.addressBook.getQuizResultList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
-        this.statisticsStub = new StatisticsStub();
     }
 
     public ModelManager() {
@@ -227,11 +229,16 @@ public class ModelManager implements Model {
         filteredQuestions.setPredicate(predicate);
     }
 
-    //=========== Filtered Question List Accessors =========================================================
+    //=========== Filtered Quiz Question List Accessors =========================================================
 
     @Override
     public ObservableList<Question> getFilteredQuizQuestionList() {
         return filteredQuizQuestions;
+    }
+
+    @Override
+    public ObservableList<QuizResult> getFilteredQuizResultList() {
+        return filteredQuizResults;
     }
 
     //=========== Filtered Task List accessors =============================================================
@@ -306,16 +313,41 @@ public class ModelManager implements Model {
     }
 
     //=========== Statistics ===============================================================================
+    /*@Override
+    public void setStatistics() {
+        filteredQuizResults = new FilteredList<>(this.addressBook.getQuizResultList());
+    }*/
+
     @Override
-    public void getStatistics() {
-        // read from storage
+    public int getTotalQuestionsDone() {
+        return this.addressBook.getTotalQuestionsDone();
+    }
+
+    @Override
+    public int getTotalQuestionsCorrect() {
+        return this.addressBook.getTotalQuestionsCorrect();
+    }
+
+    @Override
+    public int getTotalQuestionsIncorrect() {
+        return this.addressBook.getTotalQuestionsIncorrect();
+    }
+
+    @Override
+    public List<TempQnsModel> getCorrectQns() {
+        return this.addressBook.getCorrectQns();
+    }
+
+    @Override
+    public List<TempQnsModel> getIncorrectQns() {
+        return this.addressBook.getIncorrectQns();
     }
 
     @Override
     public ObservableList<PieChart.Data> getStatsChartData() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        pieChartData.add(new PieChart.Data("Correct", statisticsStub.getStatistics().get(0)));
-        pieChartData.add(new PieChart.Data("Incorrect", statisticsStub.getStatistics().get(1)));
+        pieChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
+        pieChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
         return pieChartData;
     }
 }

@@ -199,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showStats() {
         mainPanel.setVisible(false);
         stats.setVisible(true);
-        statsChart = new StatsChart(logic.getStatsChartData());
+        statsChart = new StatsChart(logic.getStatsChartData(), logic.getTotalQuestionsDone());
         statsPanelPlaceholder.getChildren().add(statsChart.getRoot());
         statsChart.getChart().getData().forEach(data -> {
             String value = "" + (int) data.getPieValue();

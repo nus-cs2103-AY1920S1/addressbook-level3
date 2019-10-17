@@ -15,6 +15,9 @@ import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.QuizResultList;
+import seedu.address.model.quiz.TempQnsModel;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -28,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueQuestionList questions;
     private final QuizQuestionList quiz;
     private final TaskList tasks;
+    private final QuizResultList quizResults;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -42,6 +46,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         questions = new UniqueQuestionList();
         quiz = new QuizQuestionList();
         tasks = new TaskList();
+        quizResults = new QuizResultList();
     }
 
     public AddressBook() {
@@ -234,6 +239,39 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Question> getQuizQuestionList() {
         return quiz.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<QuizResult> getQuizResultList() {
+        return quizResults.asUnmodifiableObservableList();
+    }
+
+    public void addQuizResult(QuizResult quizResult) {
+        quizResults.add(quizResult);
+    }
+
+    public boolean hasQuizResult(QuizResult quizResult) {
+        return quizResults.contains(quizResult);
+    }
+
+    public int getTotalQuestionsDone() {
+        return quizResults.getTotalQuestionsDone();
+    }
+
+    public int getTotalQuestionsCorrect() {
+        return quizResults.getTotalQuestionsCorrect();
+    }
+
+    public int getTotalQuestionsIncorrect() {
+        return quizResults.getTotalQuestionsIncorrect();
+    }
+
+    public List<TempQnsModel> getCorrectQns() {
+        return quizResults.getCorrectQns();
+    }
+
+    public List<TempQnsModel> getIncorrectQns() {
+        return quizResults.getIncorrectQns();
     }
 
     @Override

@@ -2,7 +2,6 @@ package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
-import static seedu.address.model.Model.PREDICATE_SHOW_NO_NOTES;
 
 import java.util.List;
 
@@ -40,8 +39,8 @@ public class GetStatisticsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
-        model.getStatistics();
+        //model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
+        //model.setStatistics();
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
     }
 }
