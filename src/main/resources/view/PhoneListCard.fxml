@@ -28,10 +28,13 @@
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
-            <Label fx:id="brand" styleClass="cell_small_label" text="\$brand" />
-            <Label fx:id="capacity" styleClass="cell_small_label" text="\$capacity" />
-            <Label fx:id="colour" styleClass="cell_small_label" text="\$colour" />
-            <Label fx:id="cost" styleClass="cell_small_label" text="\$cost" />
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label fx:id="identityNumber" styleClass="cell_small_label" text="\$IMEI"/>
+                <Label fx:id="brand" styleClass="cell_small_label" text="\$brand" />
+                <Label fx:id="capacity" styleClass="cell_small_label" text="\$capacity" />
+                <Label fx:id="colour" styleClass="cell_small_label" text="\$colour" />
+                <Label fx:id="cost" styleClass="cell_small_label" text="\$cost" />
+            </HBox>
         </VBox>
     </GridPane>
 </HBox>
