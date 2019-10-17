@@ -235,4 +235,10 @@ public class ModelManagerStub extends ModelManager {
         return mentorToDelete;
     }
 
+    /**
+     * Placeholder method simulating the updating of ModelHistory
+     */
+    public void updateHistory() {
+
+    }
 }

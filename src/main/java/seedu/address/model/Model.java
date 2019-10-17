@@ -169,4 +169,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the history of entity states with the current state (after execution of a command)
+     */
+    void updateHistory();
 }

@@ -14,7 +14,6 @@ import seedu.address.model.entity.Participant;
  * Adds a {@link Participant} to Alfred.
  */
 public class AddParticipantCommand extends AddCommand {
-
     public static final String COMMAND_WORD = "addParticipant";
     public static final String MESSAGE_SUCCESS = "New participant added: %s";
     public static final String MESSAGE_DUPLICATE_PARTICIPANT = "This participant already exists in this Hackathon";
@@ -58,6 +57,7 @@ public class AddParticipantCommand extends AddCommand {
 
         try {
             model.addParticipant(this.participant);
+            model.updateHistory();
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PARTICIPANT);
         }

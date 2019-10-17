@@ -91,4 +91,11 @@ public class Email {
         return this.toString();
     }
 
+    /**
+     * Returns a deep copy of the Email object
+     * @return a deep copy of the Email object
+     */
+    public Email copy() {
+        return new Email(this.value);
+    }
 }

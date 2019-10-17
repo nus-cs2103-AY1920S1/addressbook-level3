@@ -97,4 +97,11 @@ public class Phone {
         return value.hashCode();
     }
 
+    /**
+     * Returns a deep copy of the Phone object
+     * @return a deep copy of the Phone object
+     */
+    public Phone copy() {
+        return new Phone(this.value);
+    }
 }

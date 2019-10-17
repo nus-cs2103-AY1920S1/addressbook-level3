@@ -44,6 +44,7 @@ public class AddTeamCommand extends AddCommand {
 
         try {
             model.addTeam(this.team);
+            model.updateHistory();
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TEAM);
         }

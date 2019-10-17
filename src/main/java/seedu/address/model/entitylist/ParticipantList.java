@@ -2,7 +2,6 @@ package seedu.address.model.entitylist;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
@@ -72,7 +71,7 @@ public class ParticipantList extends EntityList {
      * Adds participant to the list.
      *
      * @param participant
-     * @throws AlfredException if there was an error while adding.
+     * @throws AlfredModelException if there was an error while adding.
      */
     public void add(Participant participant) throws AlfredModelException {
         for (Participant p: this.participants) {
@@ -163,11 +162,31 @@ public class ParticipantList extends EntityList {
     }
 
     /**
+     * Gets the lastUsedId class attribute.
+     * @return lastUsedId
+     */
+    public static int getLastUsedId() {
+        return lastUsedId;
+    }
+
+    /**
      * Sets the lastUsedId class attribute.
      *
      * @param number
      */
     public static void setLastUsedId(int number) {
         lastUsedId = number;
+    }
+
+    /**
+     * Provides a deep copy of the ParticipantList
+     * @return Deep copy of ParticipantList
+     */
+    public ParticipantList copy() throws AlfredModelException {
+        ParticipantList newPList = new ParticipantList();
+        for (Participant p: this.participants) {
+            newPList.add(p.copy());
+        }
+        return newPList;
     }
 }

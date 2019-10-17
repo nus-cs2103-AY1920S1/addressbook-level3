@@ -33,6 +33,7 @@ public class ViewTeamCommand extends ViewCommand {
         Team teamToView;
         try {
             teamToView = model.getTeam(this.id);
+            model.updateHistory();
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         }

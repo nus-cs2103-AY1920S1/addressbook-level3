@@ -48,6 +48,7 @@ public class DeleteParticipantCommand extends DeleteCommand {
         Participant participantToBeDeleted;
         try {
             participantToBeDeleted = model.deleteParticipant(this.id);
+            model.updateHistory();
         } catch (AlfredException e) {
             // Model checking if index is invalid?
             throw new CommandException(MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX);

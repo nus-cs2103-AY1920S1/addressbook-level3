@@ -2,7 +2,6 @@ package seedu.address.model.entitylist;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
@@ -70,7 +69,7 @@ public class TeamList extends EntityList {
      * Adds the team into the list.
      *
      * @param team
-     * @throws AlfredException
+     * @throws AlfredModelException
      */
     public void add(Team team) throws AlfredModelException {
         for (Team t: this.teams) {
@@ -160,11 +159,31 @@ public class TeamList extends EntityList {
     }
 
     /**
+     * Gets the lastUsedId class attribute.
+     * @return lastUsedId
+     */
+    public static int getLastUsedId() {
+        return lastUsedId;
+    }
+
+    /**
      * Sets the lastUsedId class attribute.
      *
      * @param number
      */
     public static void setLastUsedId(int number) {
         lastUsedId = number;
+    }
+
+    /**
+     * Provides a deep copy of the TeamList
+     * @return Deep copy of TeamList
+     */
+    public TeamList copy() throws AlfredModelException {
+        TeamList newTList = new TeamList();
+        for (Team t: this.teams) {
+            newTList.add(t.copy());
+        }
+        return newTList;
     }
 }

@@ -86,5 +86,12 @@ public class Name {
         return fullName.hashCode();
     }
 
+    /**
+     * Returns a deep copy of the Name object
+     * @return a deep copy of the Name object
+     */
+    public Name copy() {
+        return new Name(this.fullName);
+    }
 }
 

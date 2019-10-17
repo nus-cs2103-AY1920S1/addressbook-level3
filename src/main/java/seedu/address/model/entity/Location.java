@@ -90,4 +90,12 @@ public class Location {
     public int toStorageValue() {
         return this.tableNumber;
     }
+
+    /**
+     * Returns a deep copy of the Location object
+     * @return a deep copy of the Location object
+     */
+    public Location copy() {
+        return new Location(this.tableNumber);
+    }
 }

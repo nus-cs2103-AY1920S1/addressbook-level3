@@ -18,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
+import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
 import seedu.address.model.entity.Id;
@@ -54,6 +55,7 @@ public class ModelManager implements Model {
     // TODO: Remove the null values which are a placeholder due to the multiple constructors.
     // Also will have to change the relevant attributes to final.
     private AlfredStorage storage = null;
+    private ModelHistoryManager history = null;
     private AddressBook addressBook = null;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons = null;
@@ -136,6 +138,14 @@ public class ModelManager implements Model {
         } catch (IOException | AlfredException e) {
             logger.warning("MentorList is empty in storage. Writing a new one.");
             this.mentorList = new MentorList();
+        }
+
+        try {
+            this.history = new ModelHistoryManager(this.participantList, ParticipantList.getLastUsedId(),
+                    this.mentorList, MentorList.getLastUsedId(),
+                    this.teamList, TeamList.getLastUsedId());
+        } catch (AlfredModelHistoryException e) {
+            logger.severe("Unable to initialise ModelHistoryManager.");
         }
 
         this.filteredParticipantList =
@@ -724,5 +734,21 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //========== ModelHistory Methods ===============
+    /**
+     * This method will update the ModelHistoryManager object with the current state of the model.
+     * This method is expected to be called during the `execute()` method of each Command, right after
+     * any transformations/mutations have been made to the data in Model.
+     */
+    public void updateHistory() {
+        try {
+            this.history.updateHistory(this.participantList, ParticipantList.getLastUsedId(),
+                    this.mentorList, MentorList.getLastUsedId(),
+                    this.teamList, TeamList.getLastUsedId());
+        } catch (AlfredModelHistoryException e) {
+            logger.warning("Problem encountered updating model state history.");
+        }
     }
 }

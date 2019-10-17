@@ -1,8 +1,10 @@
 package seedu.address.model.entity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -326,5 +328,34 @@ public class Team extends Entity {
 
         return this.name.equals(otherTeam.getName())
                 || this.projectName.equals(otherTeam.getProjectName());
+    }
+
+    /**
+     * Returns a deep copy of the Team object
+     * @return Deep copy of the Team object
+     */
+    public Team copy() {
+        List<Participant> pListCopy = new ArrayList<Participant>();
+        for (Participant p: this.participants) {
+            pListCopy.add(p.copy());
+        }
+
+        Mentor copiedMentor = null;
+        try {
+            copiedMentor = this.mentor.get().copy();
+        } catch (NoSuchElementException e) {
+            copiedMentor = null;
+        }
+
+        Team copy = new Team(this.id.copy(),
+                             this.name.copy(),
+                             pListCopy,
+                             Optional.of(copiedMentor),
+                             this.subject,
+                             this.score.copy(),
+                             this.projectName.copy(),
+                             this.projectType,
+                             this.location.copy());
+        return copy;
     }
 }

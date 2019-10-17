@@ -62,6 +62,7 @@ public class EditMentorCommand extends EditCommand {
 
         try {
             model.updateMentor(this.id, editedMentor);
+            model.updateHistory();
             return new CommandResult(String.format(MESSAGE_EDIT_MENTOR_SUCCESS, editedMentor.toString()));
         } catch (AlfredException e) {
             throw new CommandException(e.getMessage());

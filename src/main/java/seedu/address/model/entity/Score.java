@@ -69,4 +69,12 @@ public class Score {
         Score otherScore = ((Score) other);
         return otherScore == this | otherScore.getScore() == this.getScore();
     }
+
+    /**
+     * Returns a deep copy of the Score object
+     * @return a deep copy of the Score object
+     */
+    public Score copy() {
+        return new Score(this.score);
+    }
 }

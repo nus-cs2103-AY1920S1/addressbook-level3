@@ -106,5 +106,12 @@ public class Id {
         return builder.toString();
     }
 
+    /**
+     * Returns a deep copy of the Id object
+     * @return a deep copy of the Id object
+     */
+    public Id copy() {
+        return new Id(this.prefix, this.number);
+    }
 }
 

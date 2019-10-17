@@ -70,9 +70,9 @@ public class MentorList extends EntityList {
      * Adds the mentor into the list.
      *
      * @param mentor
-     * @throws AlfredException
+     * @throws AlfredModelException
      */
-    public void add(Mentor mentor) throws AlfredException {
+    public void add(Mentor mentor) throws AlfredModelException {
         for (Mentor m: this.mentors) {
             if (m.isSameMentor(mentor) || m.getId().equals(mentor.getId())) {
                 throw new AlfredModelException("Item to add already exists!");
@@ -161,11 +161,31 @@ public class MentorList extends EntityList {
     }
 
     /**
+     * Gets the lastUsedId class attribute.
+     * @return lastUsedId
+     */
+    public static int getLastUsedId() {
+        return lastUsedId;
+    }
+
+    /**
      * Sets the lastUsedId class attribute.
      *
      * @param number
      */
     public static void setLastUsedId(int number) {
         lastUsedId = number;
+    }
+
+    /**
+     * Provides a deep copy of the MentorList
+     * @return Deep copy of MentorList
+     */
+    public MentorList copy() throws AlfredModelException {
+        MentorList newMList = new MentorList();
+        for (Mentor m: this.mentors) {
+            newMList.add(m.copy());
+        }
+        return newMList;
     }
 }

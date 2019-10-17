@@ -166,4 +166,17 @@ public class Mentor extends Entity {
                 || this.email.equals(otherMentor.getEmail()));
     }
 
+    /**
+     * Returns a deep copy of the Mentor object
+     * @return Deep copy of the Mentor object
+     */
+    public Mentor copy() {
+        Mentor copy = new Mentor(this.name.copy(),
+                                 this.id.copy(),
+                                 this.phone.copy(),
+                                 this.email.copy(),
+                                 this.organization.copy(),
+                                 this.subject);
+        return copy;
+    }
 }
