@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.grocerylist.GroceryListParser;
@@ -48,6 +49,12 @@ public class IfridgeParser {
 
         case WasteListParser.LIST_TYPE_WORD:
             return new WasteListParser().parseCommand(listCommand);
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
