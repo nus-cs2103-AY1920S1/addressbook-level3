@@ -288,6 +288,10 @@ public class MainApp extends Application {
         }
     }
 
+    /**
+     * starts the address book.
+     * @param primaryStage the primary stage of ui
+     */
     private void startAddressBook(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
