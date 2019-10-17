@@ -307,7 +307,6 @@
     -fx-border-radius :2.0em;
 }
 
-
 .scroll-bar:horizontal .increment-button ,
 .scroll-bar:horizontal .decrement-button {
     -fx-background-color :transparent;
