@@ -74,18 +74,6 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "beef*"; // '*' not allowed in tags
     public static final String INVALID_LOCATION_DESC = " " + PREFIX_LOCATION + "    "; // spaces only not allowed
 
-    public static final String PRICE_FIELD = "PRICE";
-    public static final String NAME_FIELD = "NAME";
-    public static final String DESCRIPTION_FIELD = "DESCRIPTION";
-    public static final String LOCATION_FIELD = "LOCATION";
-    public static final String OPENING_HOURS_FIELD = "OPENING_HOURS";
-    public static final String RESTRICTIONS_FIELD = "RESTRICTIONS";
-    public static final String CATEGORY_FIELD = "CATEGORY";
-    public static final String INVALID_FIELD = "YAY";
-
-    public static final String ASC_DIRECTION = "ASC";
-    public static final String DESC_DIRECTION = "DESC";
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
