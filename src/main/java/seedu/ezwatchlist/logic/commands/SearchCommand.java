@@ -6,10 +6,8 @@ import seedu.ezwatchlist.api.ApiMain;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.model.show.TvShow;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.Name;

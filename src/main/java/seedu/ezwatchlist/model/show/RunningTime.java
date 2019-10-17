@@ -1,7 +1,5 @@
 package seedu.ezwatchlist.model.show;
 
-import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 

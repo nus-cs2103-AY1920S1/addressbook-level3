@@ -25,7 +25,7 @@ import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_ACTOR;
+    private static final String ACTOR_EMPTY = " " + PREFIX_ACTOR;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);

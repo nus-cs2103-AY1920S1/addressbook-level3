@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_SHOWS_LISTED_OVERVIEW;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ezwatchlist.testutil.TypicalShows.JOKER;
-import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
-import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
-import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
+import static seedu.ezwatchlist.testutil.TypicalShows.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,11 +64,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleShowsFound() {
         String expectedMessage = String.format(MESSAGE_SHOWS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameContainsKeywordsPredicate predicate = preparePredicate("Avengers: Saving God");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredShowList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(JOKER, AVENGERSENDGAME, FIGHTCLUB), model.getFilteredShowList());
+        assertEquals(Arrays.asList(AVENGERSENDGAME, SAVINGPRIVATERYAN, GODFATHER2), model.getFilteredShowList());
     }
 */
     /**

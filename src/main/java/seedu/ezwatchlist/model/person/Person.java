@@ -1,7 +1,5 @@
 package seedu.ezwatchlist.model.person;
 
-import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;

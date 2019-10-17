@@ -40,7 +40,7 @@ public class StorageManagerTest {
         original.setGuiSettings(new GuiSettings(300, 600, 4, 6));
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
-        assertEquals(original, retrieved);
+        //assertEquals(original, retrieved);
     }
 */
 /*
@@ -50,7 +50,7 @@ public class StorageManagerTest {
         WatchList original = getTypicalWatchList();
         storageManager.saveWatchList(original);
         ReadOnlyWatchList retrieved = storageManager.readWatchList().get();
-        assertEquals(original, new WatchList(retrieved));
+        //assertEquals(original, new WatchList(retrieved));
     }
 */
     @Test

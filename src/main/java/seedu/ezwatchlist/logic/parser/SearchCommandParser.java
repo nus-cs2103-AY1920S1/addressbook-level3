@@ -1,10 +1,7 @@
 package seedu.ezwatchlist.logic.parser;
 
-import java.util.Arrays;
-
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
 import seedu.ezwatchlist.commons.core.Messages;
 
 /**

@@ -52,7 +52,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // zero actor
         Show expectedShow = new ShowBuilder(AVENGERSENDGAME).withActors().build();
         assertParseSuccess(parser, AVENGERSENDGAME.getName() + "movie" + AVENGERSENDGAME.getDateOfRelease().value +AVENGERSENDGAME.isWatched()
                 +AVENGERSENDGAME.getRunningTime().toString() + AVENGERSENDGAME.getDescription() + "", new AddCommand(expectedShow));
