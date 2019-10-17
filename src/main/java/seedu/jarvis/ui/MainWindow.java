@@ -16,6 +16,7 @@ import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.ui.address.PersonListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing

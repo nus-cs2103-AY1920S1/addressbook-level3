@@ -1,4 +1,4 @@
-package seedu.jarvis.ui;
+package seedu.jarvis.ui.address;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.ui.UiPart;
 
 /**
  * Panel containing the list of persons.

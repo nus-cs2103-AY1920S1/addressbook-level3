@@ -1,5 +1,7 @@
 package seedu.jarvis.model.course;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a Course's faculty in the course planner component.
  *
@@ -14,6 +16,7 @@ public class Faculty {
      * @param faculty of the course
      */
     public Faculty(String faculty) {
+        requireNonNull(faculty);
         this.faculty = faculty;
     }
 

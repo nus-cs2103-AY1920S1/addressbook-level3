@@ -16,8 +16,10 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
@@ -25,6 +27,8 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.installment.Installment;
@@ -328,6 +332,16 @@ public class PaidCommandTest {
         }
 
         @Override
+        public int getNumberOfCcas() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Cca getCca(Index index) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public TaskList getTasks() {
             return null;
         }
@@ -349,6 +363,16 @@ public class PaidCommandTest {
 
         @Override
         public void resetData(Planner planner) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void lookUpCourse(Course code) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CoursePlanner getCoursePlanner() {
             throw new AssertionError("This method should not be called.");
         }
 
