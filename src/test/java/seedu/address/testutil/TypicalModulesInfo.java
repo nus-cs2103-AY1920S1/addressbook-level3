@@ -12,6 +12,17 @@ import seedu.address.model.ModulesInfo;
  */
 public class TypicalModulesInfo {
 
+    public static final ModuleInfo CS1101S = new ModuleInfo(
+            "CS1101S",
+            "Programming Methodology",
+            4,
+            false,
+            true,
+            new ArrayList<>(),
+            new ArrayList<>(),
+            "CS1101S description",
+            "");
+
     public static final ModuleInfo CS2040S = new ModuleInfo(
             "CS2040S",
             "Data Structures and Algorithms",
@@ -36,6 +47,7 @@ public class TypicalModulesInfo {
 
     public static ModulesInfo getTypicalModulesInfo() {
         HashMap<String, ModuleInfo> mapModulesInfo = new HashMap<String, ModuleInfo>();
+        mapModulesInfo.put("CS1101S", CS1101S);
         mapModulesInfo.put("CS2040S", CS2040S);
         mapModulesInfo.put("CS4248", CS4248);
         ModulesInfo modulesInfo = new ModulesInfo(mapModulesInfo);
