@@ -64,7 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// Spending-level operations
 
     /**
-     * Returns true if a Spending with the same identity as {@code Spending} exists in the address book.
+     * Returns true if a Spending with the same identity as {@code Spending} exists in MoneyGoWhere.
      */
     public boolean hasSpending(Spending spending) {
         requireNonNull(spending);
@@ -72,8 +72,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a Spending to the address book.
-     * The Spending must not already exist in the address book.
+     * Adds a Spending to the MoneyGoWhere list.
+     * The Spending must not already exist in the MoneyGoWhere list.
      */
     public void addSpending(Spending p) {
         spendings.add(p);
@@ -81,9 +81,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given Spending {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the MoneyGoWhere list.
      * The Spending identity of {@code editedPerson} must not be the same as another existing
-     * Spending in the address book.
+     * Spending in the MoneyGoWhere list.
      */
     public void setSpending(Spending target, Spending editedSpending) {
         requireNonNull(editedSpending);
@@ -93,7 +93,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the MoneyGoWhere list.
      */
     public void removeSpending(Spending key) {
         spendings.remove(key);
@@ -107,7 +107,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the value of budget in the address book with {@code budget}.
+     * Replaces the value of budget in the MoneyGoWhere list with {@code budget}.
      */
     public void setBudget(Budget budget) {
         this.budget.setValue(budget.getValue());

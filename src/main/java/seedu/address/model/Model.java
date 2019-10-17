@@ -36,17 +36,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' MoneyGoWhere file path.
      */
     Path getAddressBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' MoneyGoWhere file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces MoneyGoWhere data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
@@ -54,27 +54,27 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a Spending with the same identity as {@code Spending} exists in the address book.
+     * Returns true if a Spending with the same identity as {@code Spending} exists in the MoneyGoWhere list.
      */
     boolean hasSpending(Spending spending);
 
     /**
      * Deletes the given Spending.
-     * The Spending must exist in the address book.
+     * The Spending must exist in the MoneyGoWhere list.
      */
     void deleteSpending(Spending target);
 
     /**
      * Adds the given Spending.
-     * {@code Spending} must not already exist in the address book.
+     * {@code Spending} must not already exist in the MoneyGoWhere list.
      */
     void addSpending(Spending spending);
 
     /**
      * Replaces the given Spending {@code target} with {@code editedSpending}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the MoneyGoWhere list.
      * The Spending identity of {@code editedSpending} must not be the same as
-     * another existing Spending in the address book.
+     * another existing Spending in the MoneyGoWhere list.
      */
     void setSpending(Spending target, Spending editedSpending);
 
@@ -88,12 +88,12 @@ public interface Model {
     void updateFilteredSpendingList(Predicate<Spending> predicate);
 
     /**
-     * Replaces the previous budget of address book with the new budget.
+     * Replaces the previous budget of MoneyGoWhere with the new budget.
      */
     void setBudget(Budget budget);
 
     /**
-     * Gets the current budget of the address book.
+     * Gets the current budget of the MoneyGoWhere list.
      */
     Budget getBudget();
 }

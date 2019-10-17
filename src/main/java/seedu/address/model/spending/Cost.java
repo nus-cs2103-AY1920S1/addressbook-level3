@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Spending's cost in the address book.
+ * Represents a Spending's cost in the MoneyGoWhere list.
  * Guarantees: immutable; is valid as declared in {@link #isValidCost(String)}
  */
 public class Cost {

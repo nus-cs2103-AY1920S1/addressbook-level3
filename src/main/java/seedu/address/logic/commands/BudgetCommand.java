@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
 
 /**
- * Sets the budget of the address book.
+ * Sets the budget of the MoneyGoWhere list.
  */
 public class BudgetCommand extends Command {
     public static final String COMMAND_WORD = "budget";

@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the budget in the address book.
+ * Represents the budget in the MoneyGoWhere list.
  */
 public class Budget {
 
     public static final String MESSAGE_CONSTRAINTS = "Budget values should be positive number";
-    public static final String VALIDATION_REGEX = "^[+]?([0-9]+(?:[\\.][0-9]*)?|\\.[0-9]+)$";
+    public static final String VALIDATION_REGEX = "^[+]?([0-9]+(?:[.][0-9]*)?|\\.[0-9]+)$";
 
     private double value;
 
@@ -19,7 +19,6 @@ public class Budget {
      * @param budget A valid budget value.
      */
     public Budget(double budget) {
-        requireNonNull(budget);
         checkArgument(isValidBudget(budget), MESSAGE_CONSTRAINTS);
         this.value = budget;
     }

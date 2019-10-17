@@ -111,7 +111,7 @@ public class EditCommandTest {
     public void execute_duplicateSpendingFilteredList_failure() {
         showSpendingAtIndex(model, INDEX_FIRST_SPENDING);
 
-        // edit Spending in filtered list into a duplicate in address book
+        // edit Spending in filtered list into a duplicate in the MoneyGoWhere list
         Spending spendingInList = model.getAddressBook().getSpendingList().get(INDEX_SECOND_SPENDING.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_SPENDING,
                 new EditSpendingDescriptorBuilder(spendingInList).build());
@@ -130,13 +130,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of the MoneyGoWhere list
      */
     @Test
     public void execute_invalidSpendingIndexFilteredList_failure() {
         showSpendingAtIndex(model, INDEX_FIRST_SPENDING);
         Index outOfBoundIndex = INDEX_SECOND_SPENDING;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of the MoneyGoWhere list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getSpendingList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,

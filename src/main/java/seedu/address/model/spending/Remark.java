@@ -3,7 +3,7 @@ package seedu.address.model.spending;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Spending's remark in the address book. Guarantees: immutable; is always valid
+ * Represents a Spending's remark in the MoneyGoWhere list. Guarantees: immutable; is always valid
  */
 public class Remark {
 

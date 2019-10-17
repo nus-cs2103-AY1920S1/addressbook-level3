@@ -15,7 +15,7 @@ import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the MoneyGoWhere list data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -31,7 +31,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with MoneyGoWhere: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);

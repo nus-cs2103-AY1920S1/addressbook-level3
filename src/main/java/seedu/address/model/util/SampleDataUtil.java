@@ -20,24 +20,24 @@ public class SampleDataUtil {
 
     public static Spending[] getSampleSpendings() {
         return new Spending[]{
-            new Spending(new Name("Alex Yeoh"), new Date("1/1/2019"), new Remark("Likes to play basketball."),
-                new Cost("1.00"),
-                getTagSet("friends")),
-            new Spending(new Name("Bernice Yu"), new Date("2/1/2019"), new Remark("Likes to cook."),
-                new Cost("2.50"),
-                getTagSet("colleagues", "friends")),
-            new Spending(new Name("Charlotte Oliveiro"), new Date("3/1/2019"), new Remark("Likes to watch movies."),
-                new Cost("12.00"),
-                getTagSet("neighbours")),
-            new Spending(new Name("David Li"), new Date("4/1/2019"), new Remark("Likes to play games."),
-                new Cost("16"),
-                getTagSet("family")),
-            new Spending(new Name("Irfan Ibrahim"), new Date("5/1/2019"), new Remark("Likes to play soccer"),
-                new Cost("35"),
-                getTagSet("classmates")),
-            new Spending(new Name("Roy Balakrishnan"), new Date("6/1/2019"), new Remark("Likes to eat"),
-                new Cost("60"),
-                getTagSet("colleagues"))
+            new Spending(new Name("Chicken rice"), new Date("1/1/2019"), new Remark("Tasty."),
+                new Cost("4.00"),
+                getTagSet("food")),
+            new Spending(new Name("Taxi"), new Date("2/1/2019"), new Remark("I was late for school."),
+                new Cost("25.50"),
+                getTagSet("transport", "regret")),
+            new Spending(new Name("Math textbook"), new Date("3/1/2019"), new Remark("I hate this."),
+                new Cost("32.00"),
+                getTagSet("education", "regret")),
+            new Spending(new Name("Movie"), new Date("4/1/2019"), new Remark("Excited!"),
+                new Cost("10"),
+                getTagSet("entertainment")),
+            new Spending(new Name("Gold Watch"), new Date("5/1/2019"), new Remark("It's about time."),
+                new Cost("250"),
+                getTagSet("entertainment", "aesthetics")),
+            new Spending(new Name("Concert ticket"), new Date("6/1/2019"), new Remark("I love music festivals."),
+                new Cost("180"),
+                getTagSet("entertainment"))
         };
     }
 
