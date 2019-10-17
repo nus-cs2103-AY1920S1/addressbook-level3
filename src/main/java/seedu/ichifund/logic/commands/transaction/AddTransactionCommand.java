@@ -120,7 +120,7 @@ public class AddTransactionCommand extends Command {
                 && day.equals(((AddTransactionCommand) other).day)
                 && month.equals(((AddTransactionCommand) other).month)
                 && year.equals(((AddTransactionCommand) other).year)
-                && transactionType.equals(((AddTransactionCommand) other).transactionType);
+                && transactionType.equals(((AddTransactionCommand) other).transactionType));
     }
 
     static public class AddTransactionCommandBuilder {
@@ -174,7 +174,7 @@ public class AddTransactionCommand extends Command {
                     && day.equals(((AddTransactionCommandBuilder) other).day)
                     && month.equals(((AddTransactionCommandBuilder) other).month)
                     && year.equals(((AddTransactionCommandBuilder) other).year)
-                    && transactionType.equals(((AddTransactionCommandBuilder) other).transactionType);
+                    && transactionType.equals(((AddTransactionCommandBuilder) other).transactionType));
         }
     }
 }
