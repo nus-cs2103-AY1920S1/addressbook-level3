@@ -2,6 +2,8 @@ package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.billboard.commons.core.Messages;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
@@ -19,9 +21,9 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(Predicate predicate) {
         this.predicate = predicate;
     }
 

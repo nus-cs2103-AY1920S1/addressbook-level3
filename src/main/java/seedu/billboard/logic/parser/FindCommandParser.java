@@ -1,6 +1,7 @@
 package seedu.billboard.logic.parser;
 
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -9,6 +10,9 @@ import java.util.regex.Pattern;
 import seedu.billboard.logic.commands.FindCommand;
 import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.expense.AllContainsKeywordsPredicate;
+import seedu.billboard.model.expense.AmountWithinRangePredicate;
+import seedu.billboard.model.expense.DateWithinRangePredicate;
 import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 
 /**
@@ -38,10 +42,35 @@ public class FindCommandParser implements Parser<FindCommand> {
         switch (findType) {
         case NameContainsKeywordsPredicate.FINDTYPE:
             String[] nameKeywords = arguments.split("\\s+");
+
             return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
 
+        case AllContainsKeywordsPredicate.FINDTYPE:
+            String[] keywords = arguments.split("\\s+");
+
+            return new FindCommand(new AllContainsKeywordsPredicate(Arrays.asList(keywords)));
+
+        case AmountWithinRangePredicate.FINDTYPE:
+            String[] amountLimits = arguments.split("\\s+");
+            try {
+                switch (amountLimits.length) {
+                case 1:
+                    return new FindCommand(new AmountWithinRangePredicate(Float.parseFloat(amountLimits[0])));
+
+                case 2:
+                    return new FindCommand(new AmountWithinRangePredicate(
+                            Float.parseFloat(amountLimits[0]),
+                            Float.parseFloat(amountLimits[1])));
+
+                default:
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
+            } catch (NumberFormatException ex) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
+
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
         }
     }
 
