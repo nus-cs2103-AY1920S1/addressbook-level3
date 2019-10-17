@@ -35,13 +35,13 @@ public class AddParticipantCommandParser implements Parser<AddParticipantCommand
         if (!AlfredParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    seedu.address.logic.commands.AddCommand.MESSAGE_USAGE));
+                    AddParticipantCommand.MESSAGE_USAGE));
         }
 
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = AlfredParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = AlfredParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Id id = new ParticipantList().generateId();
+        Id id = ParticipantList.generateId();
         Participant participant = new Participant(name, id, email, phone);
 
         return new AddParticipantCommand(participant);

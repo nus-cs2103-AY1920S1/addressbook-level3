@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -119,6 +120,14 @@ public interface Model {
     void updateMentor(Id id, Mentor mentor) throws AlfredException;
 
     Mentor deleteMentor(Id id) throws AlfredException;
+
+    /* Find commands */
+
+    List<Participant> findParticipantByName(String name);
+
+    List<Team> findTeamByName(String name);
+
+    List<Mentor> findMentorByName(String name);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.

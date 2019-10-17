@@ -26,9 +26,7 @@ import seedu.address.model.entity.Team;
  */
 public class EditTeamCommand extends EditCommand {
 
-    public static final String COMMAND_WORD = "edit team";
     public static final String MESSAGE_EDIT_TEAM_SUCCESS = "Edited Team: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TEAM = "This person already exists in the address book.";
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX =
             "The team index provided is invalid";

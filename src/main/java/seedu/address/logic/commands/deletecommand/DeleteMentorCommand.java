@@ -15,8 +15,8 @@ import seedu.address.model.entity.Name;
  */
 public class DeleteMentorCommand extends DeleteCommand {
 
-    public static final String COMMAND_WORD = "delete";
-    public static final String MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX = "The mentor ID provided is invalid";
+    public static final String MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX = "The mentor ID provided is "
+            + "invalid or does not exist.";
     public static final String MESSAGE_DELETE_MENTOR_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the mentor identified by the ID used in the displayed mentor list.\n"

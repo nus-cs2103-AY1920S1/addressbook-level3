@@ -26,7 +26,7 @@ public class AddParticipantCommand extends AddCommand {
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "John Doe "
             + CliSyntax.PREFIX_EMAIL + "johnd@example.com "
-            + CliSyntax.PREFIX_PHONE + "98765432";
+            + CliSyntax.PREFIX_PHONE + "+6598765432";
 
     private Participant participant;
     private Name participantName;

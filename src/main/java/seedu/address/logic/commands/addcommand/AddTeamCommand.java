@@ -20,14 +20,16 @@ public class AddTeamCommand extends AddCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a team to Alfred. "
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME "
-            + "[" + CliSyntax.PREFIX_SUBJECT_NAME + "SUBJECT NAME] "
-            + "[" + CliSyntax.PREFIX_SCORE + "SCORE] "
-            + CliSyntax.PREFIX_ORGANISATION + "ORGANIZATION\n"
+            + CliSyntax.PREFIX_SUBJECT_NAME + "SUBJECT NAME"
+            + CliSyntax.PREFIX_PROJECT_NAME + "PROJECT NAME"
+            + CliSyntax.PREFIX_PROJECT_TYPE + "PROJECT TYPE"
+            + CliSyntax.PREFIX_LOCATION + "LOCATION ROOM NUMBER"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_NAME + "John Doe "
-            + CliSyntax.PREFIX_PHONE + "98765432 "
-            + CliSyntax.PREFIX_EMAIL + "johnd@example.com "
-            + CliSyntax.PREFIX_ORGANISATION + "Fill it up for me idk what this is...";
+            + CliSyntax.PREFIX_NAME + "Winning Team "
+            + CliSyntax.PREFIX_SUBJECT_NAME + "Social"
+            + CliSyntax.PREFIX_PROJECT_NAME + "Winning Project"
+            + CliSyntax.PREFIX_PROJECT_TYPE + "AI"
+            + CliSyntax.PREFIX_LOCATION + "14";
 
     private Team team;
 

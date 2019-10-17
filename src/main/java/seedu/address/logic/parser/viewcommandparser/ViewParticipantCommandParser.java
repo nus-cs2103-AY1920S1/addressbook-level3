@@ -1,53 +1,31 @@
 package seedu.address.logic.parser.viewcommandparser;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.viewcommand.ViewParticipantCommand;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.PrefixType;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class ViewParticipantCommandParser implements Parser<EditCommand> {
+public class ViewParticipantCommandParser implements Parser<ViewParticipantCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public ViewParticipantCommand parse(String args) throws ParseException {
+        Id id;
 
-        // The return type of this command will also have to be corrected
-        // to return a ViewTeamCommand object as designed by John instead of an
-        // EditCommand Object.
-
-        /**
-         * This is just placeholder code. We will implement proper code
-         * when the Team class has been finalised.
-         */
-
-        return null;
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
+        try {
+            id = AlfredParserUtil.parseIndex(args, PrefixType.P);
+        } catch (ParseException p) {
+            throw new ParseException(String.format(ViewParticipantCommand
+                    .MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX), p);
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(AlfredParserUtil.parseTags(tagSet));
+        return new ViewParticipantCommand(id);
     }
-
 }

@@ -11,7 +11,6 @@ import seedu.address.model.entity.Participant;
  */
 public class ListParticipantCommand extends ListCommand {
 
-    public static final String COMMAND_WORD = "list participant";
     public static final String MESSAGE_SUCCESS = "Listed all participants";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all of the participants.\n"
             + "Example: " + COMMAND_WORD;

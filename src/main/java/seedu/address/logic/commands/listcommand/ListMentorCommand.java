@@ -11,7 +11,6 @@ import seedu.address.model.entity.Mentor;
  */
 public class ListMentorCommand extends ListCommand {
 
-    public static final String COMMAND_WORD = "list mentor";
     public static final String MESSAGE_SUCCESS = "Listed all mentors";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all of the mentors.\n"
             + "Example: " + COMMAND_WORD;

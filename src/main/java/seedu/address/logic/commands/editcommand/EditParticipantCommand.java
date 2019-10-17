@@ -21,9 +21,7 @@ import seedu.address.model.entity.Phone;
  */
 public class EditParticipantCommand extends EditCommand {
 
-    public static final String COMMAND_WORD = "edit participant";
     public static final String MESSAGE_EDIT_PARTICIPANT_SUCCESS = "Edited Participant: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX =
             "The participant index provided is invalid";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the participant identified "
@@ -57,6 +55,7 @@ public class EditParticipantCommand extends EditCommand {
         }
         Participant editedParticipant = this.createEditedParticipant(participantToEdit,
                                                                      this.editParticipantDescriptor);
+        System.out.println(editedParticipant.toString());
 
         try {
             model.updateParticipant(this.id, editedParticipant);

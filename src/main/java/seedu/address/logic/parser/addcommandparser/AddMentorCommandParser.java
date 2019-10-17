@@ -39,7 +39,7 @@ public class AddMentorCommandParser implements Parser<AddMentorCommand> {
         if (!AlfredParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ORGANISATION, PREFIX_SUBJECT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    seedu.address.logic.commands.AddCommand.MESSAGE_USAGE));
+                    AddMentorCommand.MESSAGE_USAGE));
         }
 
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -47,7 +47,7 @@ public class AddMentorCommandParser implements Parser<AddMentorCommand> {
         Email email = AlfredParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Name organisation = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_ORGANISATION).get());
         SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT_NAME).get());
-        Id id = new MentorList().generateId();
+        Id id = MentorList.generateId();
 
         Mentor mentor = new Mentor(name, id, phone, email, organisation, subject);
 
