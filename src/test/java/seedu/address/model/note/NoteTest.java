@@ -11,13 +11,14 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.NoteBuilder;
 
 public class NoteTest {
-//    @Test
-//    public void toString_format_success() {
-//        Set<Tag> tags = new HashSet<>();
-//        tags.add(new Tag("sampleTag"));
-//        Note note = new Note(new Title("this is a title"), new Content("this is a content"), tags);
-//        assertEquals(note.toString(), "\nTitle: this is a title\nContent: this is a content\nTags: [sampleTag]");
-//    }
+
+    /*@Test
+    public void toString_format_success() {
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag("sampleTag"));
+        Note note = new Note(new Title("this is a title"), new Content("this is a content"), tags);
+        assertEquals(note.toString(), "\nTitle: this is a title\nContent: this is a content\nTags: [sampleTag]");
+    }*/
 
     @Test
     public void requireNonNull_noTitleProvided_throwsIllegalArgumentException() {
