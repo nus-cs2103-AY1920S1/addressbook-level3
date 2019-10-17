@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
  * Represents a list of {@code StudyPlanCommitManager}.
@@ -28,6 +29,22 @@ public class StudyPlanCommitManagerList {
      */
     public StudyPlanCommitManager get(int index) {
         return studyPlanCommitManagers.get(index);
+    }
+
+    /**
+     * Deletes the StudyPlanCommitManager according to the index given.
+     */
+    public void delete(int index) throws StudyPlanCommitManagerNotFoundException {
+        boolean managerExists = false;
+        for (StudyPlanCommitManager manager : studyPlanCommitManagers) {
+            if (manager.getStudyPlanIndex() == index) {
+                studyPlanCommitManagers.remove(manager);
+                managerExists = true;
+            }
+        }
+        if (!managerExists) {
+            throw new StudyPlanCommitManagerNotFoundException();
+        }
     }
 
     /**

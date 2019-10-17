@@ -112,6 +112,13 @@ public interface Model {
      */
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 
+    /**
+     * Changes the current active study plan's title to a new title.
+     *
+     * @param title the new title of the current active stucy plan.
+     */
+    void changeActiveStudyPlanTitle(String title);
+
     // ===================== VERSION TRACKING ==========================
 
     /**
@@ -123,6 +130,11 @@ public interface Model {
      * Returns all the commits of the study plan with a given index.
      */
     CommitList getCommitListByStudyPlanIndex(int index);
+
+    /**
+     * Deletes a StudyPlanCommitManager by the given StudyPlan index.
+     */
+    void deleteStudyPlanCommitManagerByIndex(int index);
 
     // ===================== MODULE INFORMATION ==========================
 

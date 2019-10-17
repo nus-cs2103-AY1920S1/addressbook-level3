@@ -80,7 +80,9 @@ class JsonAdaptedStudyPlan {
         Iterator<Tag> tagIterator = source.getTags().iterator();
         while (tagIterator.hasNext()) {
             Tag tag = tagIterator.next();
-            tags.add(new JsonAdaptedTag(tag));
+            if (!tag.isDefault()) {
+                tags.add(new JsonAdaptedTag(tag));
+            }
         }
     }
 

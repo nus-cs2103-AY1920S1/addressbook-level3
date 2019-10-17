@@ -5,11 +5,8 @@ package seedu.address.logic.commands;
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.address.testutil.Assert.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.testutil.StudyPlanBuilder;
 
@@ -28,11 +25,6 @@ import seedu.address.testutil.StudyPlanBuilder;
 public class CreateStudyPlanCommandTest {
 
     //TODO implement tests
-
-    @Test
-    public void constructor_nullStudyPlan_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CreateStudyPlanCommand(null));
-    }
 
     @Test
     public void execute_studyPlanAcceptedByModel_addSuccessful() throws Exception {

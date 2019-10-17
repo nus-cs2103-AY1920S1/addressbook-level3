@@ -15,7 +15,9 @@ import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.versiontracking.CommitList;
+import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
  * Represents the in-memory model of the module planner data.
@@ -104,7 +106,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public StudyPlan activateStudyPlan(int index) {
+    public StudyPlan activateStudyPlan(int index) throws StudyPlanNotFoundException {
         return modulePlanner.activateStudyPlan(index);
     }
 
@@ -130,6 +132,14 @@ public class ModelManager implements Model {
 
         modulePlanner.setStudyPlan(target, editedStudyPlan);
     }
+
+    @Override
+    public void changeActiveStudyPlanTitle(String title) {
+        requireNonNull(title);
+
+        modulePlanner.changeActiveStudyPlanTitle(title);
+    }
+
     //=========== Version Tracking ============================================================================
 
     @Override
@@ -140,6 +150,11 @@ public class ModelManager implements Model {
     @Override
     public CommitList getCommitListByStudyPlanIndex(int index) {
         return modulePlanner.getCommitListByStudyPlanIndex(index);
+    }
+
+    @Override
+    public void deleteStudyPlanCommitManagerByIndex(int index) throws StudyPlanCommitManagerNotFoundException {
+        modulePlanner.deleteStudyPlanCommitManagerByIndex(index);
     }
 
     //=========== Module Information ============================================================================

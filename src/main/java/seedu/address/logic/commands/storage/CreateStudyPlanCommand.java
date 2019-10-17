@@ -32,7 +32,6 @@ public class CreateStudyPlanCommand extends Command {
      * Creates an CreateStudyPlanCommand to add the specified {@code StudyPlan}
      */
     public CreateStudyPlanCommand(String studyPlanName) {
-        requireNonNull(studyPlanName);
         this.studyPlanName = studyPlanName;
     }
 
@@ -41,15 +40,25 @@ public class CreateStudyPlanCommand extends Command {
         requireNonNull(model);
 
         ModulesInfo modulesInfo = model.getModulesInfo();
-        StudyPlan studyPlanToAdd = new StudyPlan(new Title(studyPlanName), modulesInfo,
-                model.getModulePlanner().getCurrentSemester());
+        StudyPlan studyPlanToAdd;
+        if (studyPlanName == null || studyPlanName.isEmpty()) {
+            // study plan with no title
+            studyPlanToAdd = new StudyPlan(modulesInfo, model.getModulePlanner().getCurrentSemester());
+        } else {
+            // study plan with a title
+            studyPlanToAdd = new StudyPlan(new Title(studyPlanName), modulesInfo,
+                    model.getModulePlanner().getCurrentSemester());
+        }
 
         if (model.hasStudyPlan(studyPlanToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDYPLAN);
         }
 
         model.addStudyPlan(studyPlanToAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, studyPlanName));
+        studyPlanToAdd.setActivated(true);
+        model.activateStudyPlan(studyPlanToAdd.getIndex());
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, studyPlanName), true, false);
     }
 
     @Override
