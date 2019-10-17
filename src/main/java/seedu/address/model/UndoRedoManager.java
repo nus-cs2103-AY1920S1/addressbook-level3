@@ -1,7 +1,7 @@
 package seedu.address.model;
 
-import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_UNDO;
 import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_REDO;
+import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_UNDO;
 
 import java.util.ArrayList;
 
