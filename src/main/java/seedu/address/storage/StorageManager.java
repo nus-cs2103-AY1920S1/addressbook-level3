@@ -29,7 +29,6 @@ public class StorageManager implements Storage {
     private ShoppingListStorage shoppingListStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
                           TemplateListStorage templateListStorage, WasteListStorage wasteListStorage,
                           ShoppingListStorage shoppingListStorage) {

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -162,7 +163,23 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
         return true;
     }
 
+    public int getSize() {
+        return internalList.size();
+    }
+
+    public TemplateItem get(int index) {
+        return internalList.get(index);
+    }
+
     public ObservableList<TemplateItem> getTemplate() {
         return internalUnmodifiableList;
     }
+
+    /**
+     * Updates the filter of the filtered template list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTemplateItemList(Predicate<TemplateItem> predicate) {
+
+    };
 }

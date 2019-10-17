@@ -20,7 +20,7 @@ import seedu.address.model.food.exceptions.TemplateNotFoundException;
  * exactly the same fields will be removed.
  * Supports a minimal set of list operations.
  *
- * @see Food#isSameFood(Food)
+ * @see UniqueTemplateItems#isSameTemplate(UniqueTemplateItems)
  */
 public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
 
@@ -68,9 +68,21 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
         internalList.set(index, editedTemplate);
     }
 
-    public void setTemplate(UniqueTemplateList replacement) {
+    public void setTemplates(UniqueTemplateList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code templates}.
+     * {@code templates} must not contain duplicate food templates.
+     */
+    public void setTemplates(List<UniqueTemplateItems> templates) {
+        requireAllNonNull(templates);
+        if (!templatesAreUnique(templates)) {
+            throw new DuplicateTemplateException();
+        }
+        internalList.setAll(templates);
     }
 
     /**
@@ -84,20 +96,6 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
         }
     }
 
-
-
-    /**
-     * Replaces the contents of this list with {@code templates}.
-     * {@code templates} must not contain duplicate food templates.
-     */
-    public void setTemplateList(List<UniqueTemplateItems> templates) {
-        requireAllNonNull(templates);
-        if (!templatesAreUnique(templates)) {
-            throw new DuplicateTemplateException();
-        }
-
-        internalList.setAll(templates);
-    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

@@ -149,6 +149,17 @@ public class Amount {
         return unit.equals(UNIT_QUANTITY) ? value : 0;
     }
 
+    /**
+     * Reduces the value of amount by the specified amount
+     * @param amt the Amount class to be reduced by
+     * @return Returns Amount with its value deducted
+     */
+    public Amount reduceBy(Amount amt) {
+        float resultantAmount = Amount.getValue(this) - Amount.getValue(amt);
+        String unit = Amount.getUnit(this);
+        return new Amount(resultantAmount + unit);
+    }
+
     @Override
     public String toString() {
         return fullAmt;

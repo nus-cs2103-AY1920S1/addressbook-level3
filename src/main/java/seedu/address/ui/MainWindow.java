@@ -235,7 +235,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isWastelistCommand()) {
-                //displayWasteListPanel();
+                displayWasteListPanel();
             } else if (commandResult.isTemplatelistCommand()) {
                 //displayTemplateListPanel();
             }
@@ -246,5 +246,11 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void displayWasteListPanel() {
+        wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
+        wasteListPanelPlaceholder.getChildren().add(wasteListPanel.getRoot());
+        logger.info("Showing waste list panel.");
     }
 }

@@ -3,7 +3,10 @@ package seedu.address.logic.parser.templatelist.template;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.templatelist.template.EditTemplateItemCommand;
@@ -12,6 +15,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -27,16 +31,16 @@ public class EditTemplateItemCommandParser implements Parser<EditTemplateItemCom
     public EditTemplateItemCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT);
+                ArgumentTokenizer.tokenize(args, PREFIX_ITEM_INDEX, PREFIX_NAME, PREFIX_AMOUNT);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ITEM_INDEX, PREFIX_NAME, PREFIX_AMOUNT)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditTemplateItemCommand.MESSAGE_USAGE), pe);
+                    EditTemplateItemCommand.MESSAGE_USAGE));
         }
+
+        Index templateIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
+        Index itemIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ITEM_INDEX).get());
 
         EditTemplateItemDescriptor editTemplateItemDescriptor = new EditTemplateItemDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -45,12 +49,19 @@ public class EditTemplateItemCommandParser implements Parser<EditTemplateItemCom
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editTemplateItemDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
-
         if (!editTemplateItemDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditTemplateItemCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditTemplateItemCommand(index, editTemplateItemDescriptor);
+        return new EditTemplateItemCommand(templateIndex, itemIndex, editTemplateItemDescriptor);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
