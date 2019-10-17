@@ -1,5 +1,10 @@
 package seedu.jarvis.logic.commands.course;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
+
+import java.util.Objects;
+
 import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
@@ -7,11 +12,9 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.course.Course;
 
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
-
+/**
+ * Adds a course into Jarvis.
+ */
 public class AddCourseCommand extends Command {
     public static final String COMMAND_WORD = "add-course";
 
@@ -37,6 +40,11 @@ public class AddCourseCommand extends Command {
 
     private final Course toAdd;
 
+    public AddCourseCommand(Course course) {
+        requireNonNull(course);
+        toAdd = course;
+    }
+
     /**
      * Gets the {@code Course} to be added in this {@code AddCourseCommand}.
      *
@@ -44,11 +52,6 @@ public class AddCourseCommand extends Command {
      */
     public Course getCourseToAdd() {
         return toAdd;
-    }
-
-    public AddCourseCommand(Course course) {
-        requireNonNull(course);
-        toAdd = course;
     }
 
     /**

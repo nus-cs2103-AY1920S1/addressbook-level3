@@ -1,22 +1,24 @@
 package seedu.jarvis.logic.commands.course;
 
-import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.commons.util.CourseUtil;
-import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.Model;
-import seedu.jarvis.model.course.Course;
+import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
+import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.commons.util.CourseUtil;
+import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.course.Course;
 
+/**
+ * Deletes a course from Jarvis.
+ */
 public class DeleteCourseCommand extends Command {
     public static final String COMMAND_WORD = "delete-course";
 
@@ -44,16 +46,7 @@ public class DeleteCourseCommand extends Command {
     private Index targetIndex;
     private Course deletedCourse;
 
-    /**
-     * Gets the {@code Course} to be added in this {@code AddCourseCommand}.
-     *
-     * @return {@code Course} to be added
-     */
-    public Optional<Course> getDeletedCourse() {
-        return Optional.ofNullable(deletedCourse);
-    }
-
-    public DeleteCourseCommand(Index targetIndex, Course deletedCourse) {
+    private DeleteCourseCommand(Index targetIndex, Course deletedCourse) {
         this.targetIndex = targetIndex;
         this.deletedCourse = deletedCourse;
     }
@@ -64,6 +57,15 @@ public class DeleteCourseCommand extends Command {
 
     public DeleteCourseCommand(Course deletedCourse) {
         this(null, deletedCourse);
+    }
+
+    /**
+     * Gets the {@code Course} to be added in this {@code AddCourseCommand}.
+     *
+     * @return {@code Course} to be added
+     */
+    public Optional<Course> getDeletedCourse() {
+        return Optional.ofNullable(deletedCourse);
     }
 
     /**
@@ -100,20 +102,17 @@ public class DeleteCourseCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        assert(isNull(targetIndex) && !isNull(deletedCourse)
+                || !isNull(targetIndex) && isNull(deletedCourse));
 
         List<Course> lastShownList = model.getUnfilteredCourseList();
 
         if (!isNull(targetIndex) && targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_INDEX);
+        } else if (!isNull(targetIndex)) {
+            deletedCourse = lastShownList.get(targetIndex.getZeroBased());
         }
-
-        if (!isNull(deletedCourse)) {
-            model.deleteCourse(deletedCourse);
-        }
-
-        deletedCourse = lastShownList.get(targetIndex.getZeroBased());
         model.deleteCourse(deletedCourse);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, deletedCourse));
     }
 
@@ -131,11 +130,13 @@ public class DeleteCourseCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasCourse(deletedCourse)) {
-            throw new CommandException(String.format(MESSAGE_INVERSE_COURSE_TO_ADD_ALREADY_EXIST, deletedCourse));
+            throw new CommandException(
+                String.format(MESSAGE_INVERSE_COURSE_TO_ADD_ALREADY_EXIST, deletedCourse));
         }
 
         if (!CourseUtil.courseExists(deletedCourse.getCourseCode().toString())) {
-            throw new CommandException(String.format(MESSAGE_COURSE_NOT_FOUND, deletedCourse.getCourseCode().toString()));
+            throw new CommandException(
+                String.format(MESSAGE_COURSE_NOT_FOUND, deletedCourse.getCourseCode().toString()));
         }
 
         model.addCourse(targetIndex.getZeroBased(), deletedCourse);
