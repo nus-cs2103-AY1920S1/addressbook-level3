@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.task.TaskManager;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -72,6 +73,19 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    //Includes saving task manager
+    @Override
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException {
+        saveAddressBook(addressBook, taskManager, addressBookStorage.getAddressBookFilePath());
+    }
+
+    @Override
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                                Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveAddressBook(addressBook, taskManager, filePath);
     }
 
 }

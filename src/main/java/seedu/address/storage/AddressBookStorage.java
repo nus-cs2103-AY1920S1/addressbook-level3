@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.task.TaskManager;
 
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
@@ -41,5 +42,18 @@ public interface AddressBookStorage {
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+
+    /**
+     * Saves the given {@link ReadOnlyAddressBook} and {@link TaskManager} to the storage.
+     * @param addressBook cannot be null.
+     * @param taskManager cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException;
+
+    /**
+     * @see #saveAddressBook(ReadOnlyAddressBook, TaskManager)
+     */
+    void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager, Path filePath) throws IOException;
 
 }

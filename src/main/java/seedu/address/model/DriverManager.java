@@ -1,18 +1,15 @@
 package seedu.address.model;
 
 import seedu.address.model.person.Driver;
+import seedu.address.model.person.DriverList;
 
 /**
  * Represents the in-memory driver model of the address book data.
  */
-public class DriverManager extends ModelManager {
-
-    public DriverManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        super(addressBook, userPrefs);
-    }
+public class DriverManager extends AddressBook {
 
     public DriverManager() {
-        this(new AddressBook(), new UserPrefs());
+        persons = new DriverList();
     }
 
     public boolean hasDriver(Driver driver) {
@@ -20,7 +17,7 @@ public class DriverManager extends ModelManager {
     }
 
     public void deleteDriver(Driver target) {
-        super.deletePerson(target);
+        super.removePerson(target);
     }
 
     public void addDriver(Driver driver) {

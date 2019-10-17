@@ -20,7 +20,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskManager;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -147,6 +150,51 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void deleteTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasTask(int taskId) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public Task getTask(int taskId) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void setTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public TaskManager getTaskManager() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasCustomer(int customerId) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public Customer getCustomer(int customerId) {
+            throw new AssertionError("This method should not be called.");
+        };
     }
 
     /**

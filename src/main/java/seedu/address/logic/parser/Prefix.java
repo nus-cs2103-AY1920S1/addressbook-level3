@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import java.util.NoSuchElementException;
+
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
  * E.g. 't/' in 'add James t/ friend'.
@@ -13,6 +15,19 @@ public class Prefix {
 
     public String getPrefix() {
         return prefix;
+    }
+
+    /**
+     * Get the Class Name that the prefix represents.
+     *
+     * @return Class Name.
+     */
+    public String getPrefixClass() {
+        String className = CliSyntax.PREFIX_CLASS_MAP.get(prefix);
+        if (className == null) {
+            throw new NoSuchElementException("This prefix is not representing any class.");
+        }
+        return className;
     }
 
     public String toString() {

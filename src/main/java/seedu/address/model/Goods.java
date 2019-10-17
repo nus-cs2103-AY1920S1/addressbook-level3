@@ -12,6 +12,10 @@ public class Goods {
         this.description = description;
     }
 
+    public String getDescription() {
+        return description.getValue();
+    }
+
     /**
      * Edits the Name of the goods.
      *

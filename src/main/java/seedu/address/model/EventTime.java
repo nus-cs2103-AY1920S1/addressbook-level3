@@ -11,8 +11,13 @@ import java.util.Objects;
  */
 public class EventTime implements Comparable<EventTime> {
 
-    private static final DateTimeFormatter COMPACT_TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
+    public static final String TIME_FORMAT = "HHmm";
+    public static final DateTimeFormatter COMPACT_TIME_FORMAT = DateTimeFormatter.ofPattern(TIME_FORMAT);
     private static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
+
+    public static final String MESSAGE_CONSTRAINTS = "Duration needs to have a start and end time. "
+            + "Format: " + TIME_FORMAT + " - " + TIME_FORMAT + ". "
+            + "Example: 1130 - 1300.";
 
     private LocalTime start;
     private LocalTime end;
@@ -64,6 +69,23 @@ public class EventTime implements Comparable<EventTime> {
 
     public LocalTime getStart() {
         return start;
+    }
+
+    public static String getStringFromTime(LocalTime time) {
+        return time.format(COMPACT_TIME_FORMAT);
+    }
+
+    /**
+     * Checks if {@code String startTime} and {@code String endTime} are valid duration
+     */
+    public static boolean isValidDuration(String startTime, String endTime) {
+        try {
+            parse(startTime, endTime);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+
+        return true;
     }
 
     public Duration getDuration() {

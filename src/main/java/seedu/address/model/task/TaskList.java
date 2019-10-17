@@ -25,6 +25,10 @@ public class TaskList {
     public TaskList() {
     }
 
+    public static int getLastTaskId() {
+        return lastTaskId;
+    }
+
     public int getSize() {
         return tasks.size();
     }
@@ -39,6 +43,30 @@ public class TaskList {
         }
 
         return foundTask.get();
+    }
+
+    /**
+     * Checks if the task list has a task with the {@code int taskId}.
+     *
+     * @param taskId Unique task id.
+     */
+    public boolean hasTask(int taskId) {
+        Optional<Task> foundTask = tasks
+                                    .stream()
+                                    .filter(currentTask -> currentTask.getId() == taskId)
+                                    .findFirst();
+        return foundTask.isPresent();
+    }
+
+    /**
+     * Check if task exists in the task list.
+     */
+    public boolean hasTask(Task task) {
+        Optional<Task> foundTask = tasks
+                                    .stream()
+                                    .filter(currentTask -> currentTask == task)
+                                    .findFirst();
+        return foundTask.isPresent();
     }
 
     /**
@@ -71,7 +99,7 @@ public class TaskList {
      *
      * @param updatedTask task to be updated.
      */
-    public void updateTask(Task updatedTask) {
+    public void setTask(Task updatedTask) {
         requireNonNull(updatedTask);
         if (!tasks.contains(updatedTask)) {
             throw new TaskNotFoundException();

@@ -1,8 +1,14 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.model.EventTime;
+import seedu.address.model.Goods;
+import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.task.execeptions.TaskException;
 
 /**
@@ -11,18 +17,27 @@ import seedu.address.model.task.execeptions.TaskException;
  */
 public class Task {
 
+    public static final String DATE_FORMAT = "d/M/yyyy";
+
+    public static final DateTimeFormatter DATE_FORMAT_FOR_PRINT = DateTimeFormatter.ofPattern("d/M/yyyy");
+    public static final DateTimeFormatter DATE_FORMATTER_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
     private int id;
-    private String goods;
-    private String dateTime;
-    private Optional<String> driver;
-    private String customer;
+    private Goods goods;
+    private LocalDate date;
+    private Optional<Driver> driver;
+    private Customer customer;
+    private Optional<EventTime> eventTime;
 
     private TaskStatus status;
 
-    public Task(int id, String goods) {
+    public Task(int id, Goods goods, LocalDate date) {
         this.id = id;
         this.goods = goods;
+        this.date = date;
         status = TaskStatus.INCOMPLETE;
+        driver = Optional.empty();
+        eventTime = Optional.empty();
     }
 
     //get methods
@@ -30,7 +45,7 @@ public class Task {
         return id;
     }
 
-    public String getGoods() {
+    public Goods getGoods() {
         return goods;
     }
 
@@ -38,23 +53,39 @@ public class Task {
         return status;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public String getDriver() {
+    public String getDatePrint() {
+        return date.format(DATE_FORMAT_FOR_PRINT);
+    }
+
+    public Driver getDriver() {
         if (!driver.isPresent()) {
             throw new TaskException("There is no driver assigned to the task.");
         }
         return driver.get();
     }
 
-    public String getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public boolean isAssign() {
-        return getDriver() != null;
+    public EventTime getEventTime() {
+        if (!eventTime.isPresent()) {
+            throw new TaskException("There is no duration assigned to the task.");
+        }
+
+        return eventTime.get();
+    }
+
+    public static LocalDate getDateFromString(String date) {
+        return LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
+    }
+
+    public boolean isAssigned() {
+        return driver.isPresent();
     }
 
     //set methods
@@ -65,18 +96,22 @@ public class Task {
         this.status = status;
     }
 
-    public void setGoods(String goods) {
+    public void setGoods(Goods goods) {
         this.goods = goods;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public void setDriver(String driver) {
+    public void setDriver(Driver driver) {
         this.driver = Optional.of(driver);
 
         setStatus(TaskStatus.ON_GOING);
+    }
+
+    public void setEventTime(EventTime eventTime) {
+        this.eventTime = Optional.of(eventTime);
     }
 
     /**
@@ -88,12 +123,28 @@ public class Task {
         setStatus(TaskStatus.INCOMPLETE);
     }
 
-    public void setCustomer(String customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
     public void markAsDone() {
         setStatus(TaskStatus.COMPLETED);
+    }
+
+    //check methods
+
+    /**
+     * Checks if {@code String id} can be parse into an integer and must be more than 0.
+     *
+     * @param id a unique number in string.
+     */
+    public static boolean isValidId(String id) {
+        try {
+            int tempInt = Integer.parseInt(id);
+            return (tempInt > 0);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override
@@ -117,6 +168,17 @@ public class Task {
 
     @Override
     public String toString() {
-        return getId() + ". " + getGoods() + " " + getStatus();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Task ID: ")
+                .append(getId())
+                .append(" Goods: ")
+                .append(getGoods())
+                .append(" Date: ")
+                .append(getDatePrint())
+                .append(" Delivery Person: ")
+                .append(isAssigned() ? getDriver() : "UNASSIGNED")
+                .append(" Status: ")
+                .append(getStatus());
+        return builder.toString();
     }
 }

@@ -26,6 +26,10 @@ public class Description {
         value = description;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     /**
      * Returns true if a given string is valid .
      */

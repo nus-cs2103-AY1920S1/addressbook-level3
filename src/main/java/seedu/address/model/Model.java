@@ -5,7 +5,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskManager;
 
 /**
  * The API of the Model component.
@@ -84,4 +87,28 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    //task manager
+
+    void addTask(Task task);
+
+    void deleteTask(Task task);
+
+    boolean hasTask(Task task);
+
+    boolean hasTask(int taskId);
+
+    Task getTask(int taskId);
+
+    void setTask(Task task);
+
+    TaskManager getTaskManager();
+
+    //customer manager
+
+    boolean hasCustomer(int customerId);
+
+    Customer getCustomer(int customerId);
+
+    //driver manager
 }

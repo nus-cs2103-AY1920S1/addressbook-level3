@@ -29,8 +29,7 @@ public class Customer extends Person {
 
     public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        id = idCount;
-        idCount++;
+        id = ++idCount;
     }
 
     public int getIdCount() {
@@ -40,5 +39,4 @@ public class Customer extends Person {
     public int getId() {
         return id;
     }
-
 }

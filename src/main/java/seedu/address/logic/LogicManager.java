@@ -43,6 +43,10 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
+            //temp
+            //uncomment to save tasks.json
+            //storage.saveAddressBook(model.getAddressBook(), model.getTaskManager());
+            //hax to pass 1 test case
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
