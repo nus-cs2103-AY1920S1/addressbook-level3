@@ -9,7 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.FilePath;
+import seedu.address.model.export.FilePath;
 import seedu.address.model.category.Category;
 import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;

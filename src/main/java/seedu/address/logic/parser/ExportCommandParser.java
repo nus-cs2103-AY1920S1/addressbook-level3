@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.FilePath;
+import seedu.address.model.export.FilePath;
 import seedu.address.model.category.Category;
 
 /**

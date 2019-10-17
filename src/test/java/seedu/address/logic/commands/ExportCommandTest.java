@@ -15,7 +15,7 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.FilePath;
+import seedu.address.model.export.FilePath;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
