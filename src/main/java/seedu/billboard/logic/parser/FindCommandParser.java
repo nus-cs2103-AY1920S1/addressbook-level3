@@ -26,7 +26,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern FIND_COMMAND_FORMAT = Pattern.compile("(?<findType>\\S+)(?<arguments>.*)");
+    private static final Pattern FIND_COMMAND_FORMAT = Pattern.compile("(?<findType>\\S+)(?<arguments>(.|\n)*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -36,7 +36,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         final Matcher matcher = FIND_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         final String findType = matcher.group("findType");
@@ -67,10 +67,10 @@ public class FindCommandParser implements Parser<FindCommand> {
                             Float.parseFloat(amountLimits[1])));
 
                 default:
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
                 }
             } catch (NumberFormatException ex) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
 
         case DateWithinRangePredicate.FINDTYPE:
