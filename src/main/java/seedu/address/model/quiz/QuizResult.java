@@ -48,23 +48,16 @@ public class QuizResult {
         }
 
         QuizResult otherQuizResult = (QuizResult) other;
-<<<<<<< HEAD
-        return otherQuizResult.getQuestionBody().equals(getQuestionBody());
-=======
         return otherQuizResult.getQuizTime().equals(getQuizTime());
->>>>>>> 9b56a138d1200f66ac914863790197ce79798407
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(answer, questionBody, quizTime, result);
     }
-<<<<<<< HEAD
 
     @Override
     public String toString() {
         return answer.toString() + " " + questionBody.toString();
     }
-=======
->>>>>>> 9b56a138d1200f66ac914863790197ce79798407
 }

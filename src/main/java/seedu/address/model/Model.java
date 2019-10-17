@@ -12,10 +12,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
-<<<<<<< HEAD
 import seedu.address.model.statistics.TempStatsQnsModel;
-=======
->>>>>>> 9b56a138d1200f66ac914863790197ce79798407
 import seedu.address.model.task.Task;
 
 /**

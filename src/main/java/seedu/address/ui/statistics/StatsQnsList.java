@@ -27,6 +27,11 @@ public class StatsQnsList extends UiPart<Region> {
         return qnsListLabel;
     }
 
+    /**
+     * Returns a string object from a question list.
+     * @param qnsList The question list.
+     * @return string A string object for the label.
+     */
     private String createLabel(List<TempStatsQnsModel> qnsList) {
         String qnsListInString = "";
         int i = 1;

@@ -60,11 +60,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane taskListPanelPlaceholder;
 
     @FXML
-<<<<<<< HEAD
     private StackPane statsPanelPlaceholder;
-=======
+
+    @FXML
     private StackPane questionListPanelPlaceholder;
->>>>>>> 9b56a138d1200f66ac914863790197ce79798407
 
     @FXML
     private StackPane quizQuestionListPanelPlaceholder;

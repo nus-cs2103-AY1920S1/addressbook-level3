@@ -19,10 +19,7 @@ import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultList;
-<<<<<<< HEAD
 import seedu.address.model.statistics.TempStatsQnsModel;
-=======
->>>>>>> 9b56a138d1200f66ac914863790197ce79798407
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -37,7 +34,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final QuizQuestionList quiz;
     private final QuizResultList quizResults;
     private final TaskList tasks;
-    private final QuizResultList quizResults;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -53,7 +49,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         quiz = new QuizQuestionList();
         quizResults = new QuizResultList();
         tasks = new TaskList();
-        quizResults = new QuizResultList();
     }
 
     public AddressBook() {
@@ -264,7 +259,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return quizResults.asUnmodifiableObservableList();
     }
 
-<<<<<<< HEAD
     public int getTotalQuestionsDone() {
         return quizResults.getTotalQuestionsDone();
     }
@@ -278,7 +272,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public ObservableList<TempStatsQnsModel> getCorrectQns() {
-        System.out.println("getting correct qns");
         return quizResults.getCorrectQns();
     }
 
@@ -286,8 +279,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return quizResults.getIncorrectQns();
     }
 
-=======
->>>>>>> 9b56a138d1200f66ac914863790197ce79798407
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
