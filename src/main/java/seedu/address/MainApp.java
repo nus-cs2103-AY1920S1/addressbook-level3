@@ -14,11 +14,13 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.CommandManager;
-import seedu.address.logic.NotificationManager;
 import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.notification.NotificationCheckingThread;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,13 +29,14 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.events.EventList;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.notification.Notification;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.ui.systemtray.PopupListener;
+import seedu.address.ui.systemtray.SystemTrayCommunicator;
 
 /**
  * Runs the application.
@@ -46,11 +49,14 @@ public class MainApp extends Application {
     private static final String COMMAND_ADD_EVENT = "add_event";
     private static final String COMMAND_DELETE_EVENT = "delete_event";
     private static final String COMMAND_EDIT_EVENT = "edit_event";
+    private static final String COMMAND_UNDO = "undo";
+    private static final String COMMAND_REDO = "redo";
 
     private Storage storage;
     private ModelManager modelManager;
     private UiManager uiManager;
-    private Notification notification;
+
+    private NotificationCheckingThread notificationCheckingThread;
 
     @Override
     public void init() throws Exception {
@@ -67,8 +73,6 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        notification = new NotificationManager();
-
         CommandManager commandManager = new CommandManager();
         modelManager = new ModelManager(new AddressBook(), new EventList(), userPrefs);
         uiManager = new UiManager();
@@ -76,11 +80,18 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_ADD_EVENT, () -> AddEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_DELETE_EVENT, () -> DeleteEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_UNDO, () -> UndoCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_REDO, () -> RedoCommand.newBuilder(modelManager));
         commandManager.addUserOutputListener(uiManager);
 
         modelManager.addEventListListener(uiManager);
 
         uiManager.addCommandInputListener(commandManager);
+
+        notificationCheckingThread = new NotificationCheckingThread(modelManager);
+        notificationCheckingThread.addPopupListener(new PopupListener(new SystemTrayCommunicator()));
+        notificationCheckingThread.setDaemon(true);
+        notificationCheckingThread.start();
     }
 
     /**
@@ -189,7 +200,7 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
-        notification.shutDown();
+        //notification.shutDown();
 
         try {
             storage.saveUserPrefs(modelManager.getUserPrefs());
