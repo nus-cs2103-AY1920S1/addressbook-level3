@@ -171,7 +171,7 @@ delete 5
 undo
 ```
 Result:
-Expense no. 5 will not be deleted.
+Expense no. 5 will be undone, re-added to the data.
 
 ==== Redo the command that was undone : `redo`
 User can redo the command they have undone.

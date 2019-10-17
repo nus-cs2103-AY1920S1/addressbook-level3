@@ -5,13 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TestUtil.makeModelStack;
 import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
 import static seedu.address.testutil.TypicalExpenses.BUSAN_TRIP;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
@@ -20,13 +23,72 @@ import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager;
+    private ModelManager expectedModelManager;
+
+    @BeforeEach
+    public void setup() {
+        modelManager = new ModelManager();
+        expectedModelManager = new ModelManager(modelManager);
+    }
 
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new ModelHistory(), modelManager.getModelHistory());
+    }
+
+    @Test
+    public void resetData_nullArgument_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.resetData(null));
+    }
+
+    @Test
+    public void resetData_success() {
+        Model other = new ModelManager(modelManager.getAddressBook(), modelManager.getUserPrefs(), new ModelHistory());
+
+        modelManager.resetData(other);
+        assertEquals(modelManager, other);
+    }
+
+    @Test
+    public void rollbackModel_noModel_returnsEmptyOptional() {
+        ModelHistory before = new ModelHistory(modelManager.getModelHistory());
+        Optional<Model> model = modelManager.rollbackModel();
+        assertEquals(before, modelManager.getModelHistory());
+        assertTrue(model.isEmpty());
+    }
+
+    @Test
+    public void rollbackModel_hasModel_returnsModelOptional() {
+        Model other = new ModelManager();
+        modelManager.addToPastHistory(other);
+        expectedModelManager.addToFutureHistory(other);
+
+        Optional<Model> model = modelManager.rollbackModel();
+        assertTrue(model.isPresent());
+        assertEquals(model.get().getModelHistory(), expectedModelManager.getModelHistory());
+    }
+
+    @Test
+    public void migrateModel_noModel_returnsEmptyOptional() {
+        ModelHistory before = new ModelHistory(modelManager.getModelHistory());
+        Optional<Model> model = modelManager.migrateModel();
+        assertEquals(before, modelManager.getModelHistory());
+        assertTrue(model.isEmpty());
+    }
+
+    @Test
+    public void migrateModel_hasModel_returnsModelOptional() {
+        Model other = new ModelManager();
+        modelManager.addToFutureHistory(other);
+        expectedModelManager.addToPastHistory(other);
+
+        Optional<Model> model = modelManager.migrateModel();
+        assertTrue(model.isPresent());
+        assertEquals(model.get().getModelHistory(), expectedModelManager.getModelHistory());
     }
 
     @Test
@@ -98,10 +160,11 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withExpense(ANNIVERSARY).withExpense(BUSAN_TRIP).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
+        ModelHistory modelHistory = new ModelHistory();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(addressBook, userPrefs, modelHistory);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, modelHistory);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,12 +177,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, modelHistory)));
 
         // different filteredList -> returns false
         String[] keywords = ANNIVERSARY.getDescription().fullDescription.split("\\s+");
         modelManager.updateFilteredExpenseList(new DescriptionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, modelHistory)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
@@ -127,6 +190,11 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, modelHistory)));
+
+        // different history -> returns false
+        ModelHistory differentHistory = new ModelHistory(makeModelStack(modelManager), makeModelStack());
+        modelManagerCopy.setModelHistory(differentHistory);
+        assertFalse(modelManager.equals(modelManagerCopy));
     }
 }

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.AliasTestUtil;
@@ -21,9 +22,8 @@ import seedu.address.testutil.AliasTestUtil;
  */
 public class AliasCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
 
     @Test
     public void equals() {
@@ -62,6 +62,7 @@ public class AliasCommandTest {
 
     @Test
     public void run_aliasCommandIsValid_success() {
+        expectedModel.addToHistory();
         expectedModel.addUserAlias(ALIAS_A_TO_B);
         assertCommandSuccess(
                 new AliasCommand(ALIAS_A_TO_B), model,

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
@@ -16,14 +17,16 @@ public class ClearCommandTest {
     public void run_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
+        expectedModel.addToHistory();
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void run_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
+        expectedModel.addToHistory();
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

@@ -2,8 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -17,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 /**
@@ -51,6 +55,17 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditExpenseDescriptor DESC_CHICKEN;
     public static final EditCommand.EditExpenseDescriptor DESC_TRANSPORT;
+
+    public static final String STATS_WITHOUT_TAG = " 5";
+    public static final String STATS_PREFIX_WITHOUT_INPUT = String.format(" %s ", PREFIX_START_DATE);
+    public static final String STATS_INVALID_PREFIX = String.format(" %s ", PREFIX_TAG);
+    public static final String STATS_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019",
+            PREFIX_START_DATE, PREFIX_END_DATE);
+    public static final String STATS_DUPLICATE_TAG = String.format("%s31-10-2019 %s01-10-2019",
+            PREFIX_START_DATE, PREFIX_START_DATE);
+
+    public static final Timestamp OCTOBER_FIRST = Timestamp.createTimestampIfValid("01-10-2019").get();
+    public static final Timestamp OCTOBER_LAST = Timestamp.createTimestampIfValid("31-10-2019").get();
 
     static {
         DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_CHICKEN)
@@ -94,8 +109,6 @@ public class CommandTestUtil {
      * - the address book, filtered expense list and selected expense in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
-        // we are unable to defensively copy the model for comparison later, so we can
-        // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Expense> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExpenseList());
 

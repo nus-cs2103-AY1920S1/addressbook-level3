@@ -7,8 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Stack;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -21,10 +25,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyModelHistory;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.testutil.ExpenseBuilder;
 
 public class AddCommandTest {
@@ -39,10 +45,15 @@ public class AddCommandTest {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
         Expense validExpense = new ExpenseBuilder().build();
 
+        List<Expense> expectedExpensesAdded = Arrays.asList(validExpense);
+        Stack<ModelStub> expectedPastModels = new Stack<>();
+        expectedPastModels.push(new ModelStubAcceptingExpenseAdded(modelStub));
+
         CommandResult commandResult = new AddCommand(validExpense).run(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validExpense), modelStub.expensesAdded);
+        assertEquals(expectedExpensesAdded, modelStub.expensesAdded);
+        assertEquals(expectedPastModels, modelStub.pastModels);
     }
 
     @Test
@@ -84,6 +95,56 @@ public class AddCommandTest {
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyModelHistory getModelHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setModelHistory(ReadOnlyModelHistory history) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRollback() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Model> rollbackModel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canMigrate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Model> migrateModel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToPastHistory(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToFutureHistory(Model model) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -177,9 +238,14 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public Predicate<? super Expense> getFilteredExpensePredicate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
-        public void updateFilteredExpenseList(Predicate<Expense> predicate) {
+        public void updateFilteredExpenseList(Predicate<? super Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -204,7 +270,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredEventList(Predicate<Event> predicate) {
+        public Predicate<? super Event> getFilteredEventPredicate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredEventList(Predicate<? super Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStatistic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public StringBuilder getStatistic() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -231,7 +317,18 @@ public class AddCommandTest {
      * A Model stub that always accept the expense being added.
      */
     private class ModelStubAcceptingExpenseAdded extends ModelStub {
-        final ArrayList<Expense> expensesAdded = new ArrayList<>();
+        final ArrayList<Expense> expensesAdded;
+        final Stack<ModelStub> pastModels;
+
+        public ModelStubAcceptingExpenseAdded() {
+            expensesAdded = new ArrayList<>();
+            pastModels = new Stack<>();
+        }
+
+        public ModelStubAcceptingExpenseAdded(ModelStubAcceptingExpenseAdded model) {
+            expensesAdded = new ArrayList<>(model.expensesAdded);
+            pastModels = (Stack<ModelStub>) model.pastModels.clone();
+        }
 
         @Override
         public boolean hasExpense(Expense expense) {
@@ -246,8 +343,28 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addToHistory() {
+            pastModels.push(new ModelStubAcceptingExpenseAdded(this));
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+
+            if (!(obj instanceof ModelStubAcceptingExpenseAdded)) {
+                return false;
+            }
+
+            ModelStubAcceptingExpenseAdded other = (ModelStubAcceptingExpenseAdded) obj;
+            return expensesAdded.equals(other.expensesAdded)
+                    && pastModels.equals(other.pastModels);
         }
     }
 

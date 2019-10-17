@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.Period;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -10,6 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * The API of the Model component.
@@ -22,16 +25,70 @@ public interface Model {
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * Resets data to the given model.
      */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    void resetData(Model model);
 
+    // ======== MODEL HISTORY ===============
+
+    /**
+     * Returns the model history.
+     */
+    ReadOnlyModelHistory getModelHistory();
+
+    /**
+     * Replaces model history with the data in {@code history}.
+     */
+    void setModelHistory(ReadOnlyModelHistory history);
+
+    /**
+     * Adds the current model to the history.
+     */
+    void addToHistory();
+
+    /**
+     * Adds a to the past history.
+     */
+    void addToPastHistory(Model model);
+
+    /**
+     * Adds a to the future history.
+     */
+    void addToFutureHistory(Model model);
+
+    /**
+     * Checks whether model can be rolled-back.
+     */
+    boolean canRollback();
+
+    /**
+     * Returns the rolled-back version of the model to the immediate previous state.
+     */
+    Optional<Model> rollbackModel();
+
+    /**
+     * Checks whether model can be migrated.
+     */
+    boolean canMigrate();
+
+    /**
+     * Returns the migrated version of the model to the immediate next state.
+     */
+    Optional<Model> migrateModel();
+
+    // ======== USER PREFS ===============
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
 
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+
     // ======== GUI SETTINGS ===============
+
     /**
      * Returns the user prefs' GUI settings.
      */
@@ -58,7 +115,6 @@ public interface Model {
      */
     void addUserAlias(Alias alias);
 
-
     // ======== ADDRESS BOOK SETTINGS ===============
     /**
      * Returns the user prefs' address book file path.
@@ -70,16 +126,15 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
+    /** Returns the AddressBook */
+    ReadOnlyAddressBook getAddressBook();
+
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-
     // ======== ADDRESS BOOK ACTIONS ===============
-
     /**
      * Returns true if a expense with the same identity as {@code expense}
      * exists in the address book.
@@ -115,24 +170,36 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 
+    /** Returns the predicate of the filltred expense list. **/
+    Predicate<? super Expense> getFilteredExpensePredicate();
+
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredExpenseList(Predicate<Expense> predicate);
+    void updateFilteredExpenseList(Predicate<? super Expense> predicate);
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Event> getFilteredEventList();
 
+    /** Returns the predicate of the filtered expense list */
+    Predicate<? super Event> getFilteredEventPredicate();
+
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredEventList(Predicate<Event> predicate);
+    void updateFilteredEventList(Predicate<? super Event> predicate);
 
     boolean hasEvent(Event event);
 
     void addEvent(Event event);
 
     void deleteEvent(Event target);
+
+    String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
+
+    boolean hasStatistic();
+
+    StringBuilder getStatistic();
 }

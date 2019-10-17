@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Lists all events to the user.
  */
-public class ListEventsCommand extends Command {
+public class ListEventsCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "events";
 
