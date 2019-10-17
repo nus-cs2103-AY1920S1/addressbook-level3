@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 import seedu.address.testutil.SpendingBuilder;
 
@@ -146,6 +147,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredSpendingList(Predicate<Spending> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Budget getBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
     }

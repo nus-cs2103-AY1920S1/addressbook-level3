@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -23,8 +24,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ShowBudgetCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.NameContainsKeywordsPredicate;
 import seedu.address.model.spending.Spending;
 import seedu.address.testutil.EditSpendingDescriptorBuilder;
@@ -94,6 +97,20 @@ public class AddressBookParserTest {
     public void parseCommand_stats() throws Exception {
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " 3") instanceof StatsCommand);
+    }
+
+    @Test
+    public void parseCommand_budget() throws Exception {
+        Budget budget = new Budget(300);
+        BudgetCommand command = (BudgetCommand) parser.parseCommand(
+                BudgetCommand.COMMAND_WORD + " 300");
+        assertEquals(new BudgetCommand(budget), command);
+    }
+
+    @Test
+    public void parseCommand_showBudget() throws Exception {
+        assertTrue(parser.parseCommand(ShowBudgetCommand.COMMAND_WORD) instanceof ShowBudgetCommand);
+        assertTrue(parser.parseCommand(ShowBudgetCommand.COMMAND_WORD + " 3") instanceof ShowBudgetCommand);
     }
 
     @Test

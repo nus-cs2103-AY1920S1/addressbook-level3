@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 import seedu.address.model.spending.exceptions.DuplicateSpendingException;
 import seedu.address.testutil.SpendingBuilder;
@@ -29,6 +30,7 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getSpendingList());
+        assertEquals(new Budget(0), addressBook.getBudget());
     }
 
     @Test
@@ -83,12 +85,19 @@ public class AddressBookTest {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getSpendingList().remove(0));
     }
 
+    @Test
+    public void setBudget_validInput_success() {
+        Budget budget = new Budget(1000);
+        addressBook.setBudget(budget);
+        assertTrue(addressBook.getBudget().equals(budget));
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose spendings list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Spending> spendings = FXCollections.observableArrayList();
-
+        private final Budget budget = new Budget(0);
         AddressBookStub(Collection<Spending> spendings) {
             this.spendings.setAll(spendings);
         }
@@ -96,6 +105,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Spending> getSpendingList() {
             return spendings;
+        }
+
+        @Override
+        public Budget getBudget() {
+            return budget;
         }
     }
 

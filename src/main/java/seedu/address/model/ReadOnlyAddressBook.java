@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
 /**
@@ -14,4 +15,8 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Spending> getSpendingList();
 
+    /**
+     * Returns the Budget of the Address Book.
+     */
+    Budget getBudget();
 }

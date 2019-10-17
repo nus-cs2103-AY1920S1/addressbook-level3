@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
 /**
@@ -85,4 +86,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSpendingList(Predicate<Spending> predicate);
+
+    /**
+     * Replaces the previous budget of address book with the new budget.
+     */
+    void setBudget(Budget budget);
+
+    /**
+     * Gets the current budget of the address book.
+     */
+    Budget getBudget();
 }
