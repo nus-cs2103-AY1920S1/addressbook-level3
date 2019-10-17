@@ -70,8 +70,18 @@ public class EditCheatSheetCommandParser implements Parser<EditCheatSheetCommand
         if (contents.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> contentSet = contents.size() == 1 && contents.contains("")
-                ? Collections.emptySet() : contents;
+        Collection<String> contentSet;
+
+        if (contents.size() == 1 && contents.contains("")) {
+            contentSet = Collections.emptySet();
+        } else {
+
+
+
+
+            contentSet = null;
+        }
+
         return Optional.of(ParserUtil.parseCheatSheetContents(contentSet));
     }
 

@@ -38,7 +38,7 @@ public class ViewCheatSheetCommand extends Command {
         List<CheatSheet> lastShownList = model.getFilteredCheatSheetList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX);
         }
 
         CheatSheet cheatSheet = lastShownList.get(targetIndex.getZeroBased());

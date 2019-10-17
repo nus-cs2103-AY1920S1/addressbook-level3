@@ -76,6 +76,7 @@ public class AddCheatSheetCommand extends Command {
      * Retrieves all the notes with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
+        Content.resetCounter();
         Set<Content> contentList = new HashSet<>();
 
         // get all notes
