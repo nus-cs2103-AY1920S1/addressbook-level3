@@ -74,11 +74,14 @@ public abstract class Task {
 
     /**
      * Marks the task as done.
+     *
+     * @return The done task object.
      */
-    public void markAsDone() {
+    public Task markAsDone() {
         if (this.isDone) {
             throw new RedundantOperationException("The task has already been marked done");
         }
         this.isDone = true;
+        return this;
     }
 }

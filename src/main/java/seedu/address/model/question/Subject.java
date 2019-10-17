@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * in particular there can be duplicates.
  */
 public class Subject {
-    public static final String MESSAGE_CONSTRAINT = "Subjects should begin with a non-white space character "
+    public static final String MESSAGE_CONSTRAINTS = "Subjects should begin with a non-white space character "
             + "and only covers the existed subjects in the database";
 
     public final String subject;
@@ -20,7 +20,7 @@ public class Subject {
      */
     public Subject(String subject) {
         requireNonNull(subject);
-        checkArgument(isValidSubject(subject), MESSAGE_CONSTRAINT);
+        checkArgument(isValidSubject(subject), MESSAGE_CONSTRAINTS);
         this.subject = subject;
     }
 

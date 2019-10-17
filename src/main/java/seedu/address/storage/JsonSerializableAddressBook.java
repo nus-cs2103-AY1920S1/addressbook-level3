@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Question;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
 
@@ -26,6 +28,7 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
     private final List<JsonAdaptedTaskForNote> tasks = new ArrayList<>();
+    private final List<JsonAdaptedQuestion> questions = new ArrayList<>();
     private final List<JsonAdaptedQuizResult> quizResults = new ArrayList<>();
 
     /**
@@ -34,9 +37,11 @@ class JsonSerializableAddressBook {
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("notes") List<JsonAdaptedNote> notes,
                                        @JsonProperty("tasks") List<JsonAdaptedTaskForNote> tasks,
+                                       @JsonProperty("questions") List<JsonAdaptedQuestion> questions,
                                        @JsonProperty("quizResults") List<JsonAdaptedQuizResult> quizResults) {
         this.notes.addAll(notes);
         this.tasks.addAll(tasks);
+        this.questions.addAll(questions);
         this.quizResults.addAll(quizResults);
     }
 
@@ -48,6 +53,7 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTaskForNote::new).collect(Collectors.toList()));
+        questions.addAll(source.getQuestionList().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
         quizResults.addAll(source.getQuizResultList().stream().map(JsonAdaptedQuizResult::new)
                 .collect(Collectors.toList()));
     }
@@ -73,6 +79,14 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
             addressBook.addTask(task);
+        }
+
+        for (JsonAdaptedQuestion jsonAdaptedQuestion : questions) {
+            Question question = jsonAdaptedQuestion.toModelType();
+            if (addressBook.hasQuestion(question)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_QUESTION);
+            }
+            addressBook.addQuestion(question);
         }
 
         for (JsonAdaptedQuizResult jsonAdaptedQuizResult : quizResults) {

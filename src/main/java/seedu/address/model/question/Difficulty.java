@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * in particular there can be duplicates.
  */
 public class Difficulty {
-    public static final String MESSAGE_CONSTRAINT = "Difficulty should begin with a non-white space character "
+    public static final String MESSAGE_CONSTRAINTS = "Difficulty should begin with a non-white space character "
             + "and only covers the existed difficulty in the database";
 
     public final String difficulty;
@@ -20,7 +20,7 @@ public class Difficulty {
      */
     public Difficulty(String difficulty) {
         requireNonNull(difficulty);
-        checkArgument(isValidDifficulty(difficulty), MESSAGE_CONSTRAINT);
+        checkArgument(isValidDifficulty(difficulty), MESSAGE_CONSTRAINTS);
         this.difficulty = difficulty;
     }
 

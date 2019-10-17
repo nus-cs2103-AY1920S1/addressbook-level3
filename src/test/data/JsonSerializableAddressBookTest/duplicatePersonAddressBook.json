@@ -18,5 +18,17 @@
     "date" : "2019-09-06",
     "time" : "17:00",
     "status" : "[N]"
+  } ],
+  "questions" : [ {
+    "questionBody" : "body",
+    "answer" : "abc",
+    "subject" : "def",
+    "difficulty" : "x"
+  }, {
+    "questionBody" : "body",
+    "answer" : "123",
+    "subject" : "456",
+    "difficulty" : "y"
   } ]
+
 }
