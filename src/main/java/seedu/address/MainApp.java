@@ -105,6 +105,14 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
+        ReadOnlyFileBook initialDataFile = initFileBook(storage);
+        return new ModelManager(initialData, initialDataFile, userPrefs);
+    }
+
+    /**
+     * Returns data from {@code storage}'s file book.
+     */
+    private ReadOnlyFileBook initFileBook(Storage storage) {
         Optional<ReadOnlyFileBook> fileBookOptional;
         ReadOnlyFileBook initialFileData;
         try {
@@ -120,8 +128,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty FileBook");
             initialFileData = new FileBook();
         }
-
-        return new ModelManager(initialData, initialFileData, userPrefs);
+        return initialFileData;
     }
 
     private void initLogging(Config config) {
