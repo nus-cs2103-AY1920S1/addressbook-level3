@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c203fe74-bce5-4a27-9b56-f1e5f57dc6bf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/commands/DislikeCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/commands/FilterCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/commands/LikeCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/commands/PreferenceCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/FilterCommandParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/PreferenceCommandParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/seedu/savenus/model/food/FieldComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/seedu/savenus/model/food/FoodFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/FilterCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/PreferenceCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/parser/FilterCommandParserTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/model/food/FieldComparatorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/model/food/FoodFilterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/model/purchase/PurchaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/model/purchase/TimeOfPurchaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/CliSyntax.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/CliSyntax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/MenuParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/MenuParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/ParserUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/ParserUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/SortCommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/logic/parser/SortCommandParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/ModelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/ModelManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/RecommendationSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/RecommendationSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/food/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/food/Food.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/purchase/Purchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/purchase/Purchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/purchase/TimeOfPurchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/purchase/TimeOfPurchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/util/TimeFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/util/TimeFormatter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/model/wallet/RemainingBudget.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/model/wallet/RemainingBudget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/ui/FoodCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/ui/FoodCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/seedu/savenus/ui/PurchaseCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/seedu/savenus/ui/PurchaseCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/view/PurchaseListCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/view/PurchaseListCard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/AddCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/AddCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/BuyCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/BuyCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/CommandTestUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/CommandTestUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/SortCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/commands/SortCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/parser/MenuParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/parser/MenuParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/parser/SortCommandParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/logic/parser/SortCommandParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/model/food/FoodComparatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/model/food/FoodComparatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/model/food/FoodTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/model/food/FoodTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/model/purchase/PurchaseHistoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/model/purchase/PurchaseHistoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/model/util/TimeFormatterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/model/util/TimeFormatterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/java/seedu/savenus/testutil/TypicalMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/seedu/savenus/testutil/TypicalMenu.java" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1SJT1Oq6TXqWXBTzswu7V1YCzHL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c203fe74-bce5-4a27-9b56-f1e5f57dc6bf" name="Default Changelist" comment="" />
+      <created>1571280482491</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571280482491</updated>
+      <workItem from="1571280483625" duration="410000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

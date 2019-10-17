@@ -1,4 +1,4 @@
-= $aveNUS
+= $aveNUS - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:icons: font
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
@@ -18,9 +19,10 @@ By: `Team-F13-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-* $aveNUS is a financial planning app for meal planning in NUS. It is meant for
-students who prefer to use a desktop app for managing their food expenditure
-within NUS.
+* $aveNUS is a desktop financial planning app that allows *NUS students* to *plan their meals according
+to the amount of budget they set aside per meal* in NUS. With $aveNUS, you can more effectively manage your expenses,
+save your favourite meal options within NUS, edit meal options, and even receive recommendations
+for meals that suit your budget.
 * More importantly, $aveNUS is optimized for those who prefer to
 work on a Command Line Interface (CLI) while still having the benefits of a
 Graphical User Interface (GUI).
@@ -28,8 +30,28 @@ Graphical User Interface (GUI).
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest release.
+Welcome to $aveNUS! If you are just starting out, this quick start will help you get $aveNUS up and running on
+your computer. It will equip you with the basics you need to know to utilise $aveNUS optimally.
+
+=== Using the User Guide
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed into the command box
+
+ifndef::env-github[]
+a| icon:check[role="green", size="2x"] | Success execution of command
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be useful
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
+endif::[]
+|===
+
+=== Pre-Requisites
+.  Ensure you have Java *11* or above installed in your Computer.
+[TIP]
+You can download Java 11 from
+https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
 .  Copy the file to the folder you want to use as the home folder for $aveNUS.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -39,10 +61,30 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add`**`n/halal chicken rice p/3.00 l/NUS UTown r/Halal`
-* **`edit`**`d/halal chicken rice`
-* **`delete`**`n/halal chicken rice`
-* *`exit`*
+* First, *add* a food item into the menu by typing **`add n/Halal chicken rice p/3.00 d/chicken and rice c/Malay` and
+click kbd:[Enter].
+* You should see that a food item panel appear on the right of the window as shown below in Figure 1.2:
+
+image::Figure_1.2_mockup_add.png[width="790"]
+
+* Now, try typing `delete 1` and then click kbd:[Enter]. Now the card labelled "1. Halal chicken rice"
+should disappear.
+
+* Type *`exit`* and click kbd:[Enter] and the desktop application should close.
+
+* If everything above executes as stated, you can use $aveNUS to plan your expenditure in NUS now!
+
+=== Navigating $aveNUS
+
+* TODO insert when we complete the user interface.
+
+=== Using Commands
+
+You can use the commands described in <<Features>> by typing them into
+the command box and then hitting kbd:[Enter].
+
+You have to provide additional parameters for some commands, and the format of each command
+is provided in the command descriptions.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -51,11 +93,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === General Commands
 
+==== Alias
+Adds a custom ALIAS to a COMMAND. All future occurrences of that alias
+will be executing that COMMAND. +
+
+Format: `alias ALIAS_COMMAND`
+
+Example: `alias roby exit`
+
 ==== Help
 
 Display the help screen that contains helpful information on how to use the application. +
 
 Format: `help`
+
+==== History
+
+Display within the grey box right below the command line box, a list of
+commands that were recently typed in order of which was most recent.
+
+Format: `history` or `h`
 
 ==== Undo
 Undoes a command a specific number of TIMES. Note: TIMES must be a positive integer. +
@@ -75,14 +132,6 @@ Example: `redo 1`
 Exits the app. +
 
 Format: `exit`
-
-==== Alias
-Adds a custom ALIAS to a COMMAND. All future occurrences of that alias
-will be executing that COMMAND. +
-
-Format: `alias ALIAS_COMMAND`
-
-Example: `alias roby exit`
 
 ==== Tutorial
 Displays the tutorial on how to use the app.
