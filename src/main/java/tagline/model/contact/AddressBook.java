@@ -106,7 +106,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// util methods
 
     /**
-     * Return the number of contacts in AddressBook.
+     * Returns the number of contacts in AddressBook.
      *
      * @return the number of contacts.
      */

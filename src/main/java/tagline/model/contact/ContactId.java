@@ -3,27 +3,26 @@ package tagline.model.contact;
 import tagline.model.contact.exceptions.InvalidIdException;
 
 /**
- * Represent a Contact unique Id.
+ * Represents a Contact unique Id.
  */
 public class ContactId {
 
-    public static final String MESSAGE_CONSTRAINTS = "id should be a positive integer up to 5 digit";
+    public static final String MESSAGE_CONSTRAINTS = "Id should be a positive integer.";
 
     private static int contactIdDigits = 5;
 
     private final int id;
 
     /**
-     * Construct an Id from String.
+     * Constructs a contact Id from a String.
      * Warning: This constructor should only be used by storage.
-     * @param id
      */
     public ContactId(String id) {
         this.id = Integer.valueOf(id);
     }
 
     /**
-     * Construct Id from integer.
+     * Constructs a contact Id from an integer.
      */
     ContactId(int id) {
         if (id >= Math.pow(10, contactIdDigits)) {
@@ -33,7 +32,7 @@ public class ContactId {
     }
 
     /**
-     * Returns true if id is valid.
+     * Returns true if {@code id} is valid.
      */
     public static boolean isValidId(String id) {
         int value;
@@ -51,7 +50,7 @@ public class ContactId {
     }
 
     /**
-     * Increase the number of digit in Id.
+     * Increases the number of digits in Id.
      */
     static void incrementDigit() {
         contactIdDigits++;

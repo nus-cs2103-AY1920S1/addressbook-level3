@@ -31,9 +31,8 @@ class JsonAdaptedContact {
      */
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                              @JsonProperty("email") String email, @JsonProperty("address") String address,
-                              @JsonProperty("description") String description, @JsonProperty("id") String id) {
-
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("description") String description, @JsonProperty("id") String id) {
         this.name = name;
         this.phone = phone;
         this.email = email;

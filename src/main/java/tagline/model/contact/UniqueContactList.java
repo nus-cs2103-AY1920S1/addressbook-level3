@@ -114,7 +114,7 @@ public class UniqueContactList implements Iterable<Contact> {
 
     /**
      * Replaces the contents of this list with {@code contacts}.
-     * {@code contacts} must not contain duplicate contacts.
+     * @throws DuplicateContactException If {@code contacts} contains duplicate contacts
      */
     public void setContacts(List<Contact> contacts) {
         requireAllNonNull(contacts);

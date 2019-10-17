@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
  */
 public interface ContactModel {
     /**
-     * {@code Predicate} that always evaluate to true
+     * {@code Predicate} that always evaluates to true
      */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
 

@@ -177,7 +177,7 @@ public class JsonAdaptedNoteTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
 
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
+        invalidTags.add(new JsonAdaptedTag(INVALID_TAG, 1));
         JsonAdaptedNote note =
                 new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
                         VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, invalidTags);

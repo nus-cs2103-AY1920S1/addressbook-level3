@@ -12,7 +12,10 @@ public class Tag {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
+    private static int nextId = 1; //temporary implementation of an incrementing tag ID
+
     public final String tagName;
+    public final int tagId;
 
     /**
      * Constructs a {@code Tag}.
@@ -23,6 +26,8 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        this.tagId = nextId;
+        nextId++;
     }
 
     /**
@@ -36,7 +41,8 @@ public class Tag {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName)); // state check
+                && tagName.equals(((Tag) other).tagName) // state check
+                && tagId == ((Tag) other).tagId);
     }
 
     @Override
