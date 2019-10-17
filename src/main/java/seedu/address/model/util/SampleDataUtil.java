@@ -3,9 +3,9 @@ package seedu.address.model.util;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import seedu.address.model.FinSec;
 import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
@@ -39,10 +39,25 @@ public class SampleDataUtil {
         };
     }
 
+    public static AutocorrectSuggestion[] getSampleSuggestions() {
+        return new AutocorrectSuggestion[] {
+                new AutocorrectSuggestion("goto contacts"),
+                new AutocorrectSuggestion("goto incomes"),
+                new AutocorrectSuggestion("goto claims"),
+                new AutocorrectSuggestion("add_contact"),
+                new AutocorrectSuggestion("add_incomes"),
+                new AutocorrectSuggestion("add_claims"),
+                new AutocorrectSuggestion("exit")
+        };
+    }
+
     public static ReadOnlyFinSec getSampleFinSec() {
         FinSec sampleFs = new FinSec();
         for (seedu.address.model.contact.Contact sampleContact : getSampleContacts()) {
             sampleFs.addContact(sampleContact);
+        }
+        for (AutocorrectSuggestion sampleSuggestion : getSampleSuggestions()) {
+            sampleFs.addAutocorrectSuggestion(sampleSuggestion);
         }
         return sampleFs;
     }
