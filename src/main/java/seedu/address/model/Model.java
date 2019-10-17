@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.person.Person;
+import seedu.address.ui.systemtray.PopupNotification;
 
 /**
  * The API of the Model component.
@@ -141,4 +143,9 @@ public interface Model {
      */
     void clearFutureHistory();
 
+    /**
+     * Returns the list of PopupNotifications to be posted
+     * @return List of PopupNotifications to be posted
+     */
+    ArrayList<PopupNotification> getListOfPopupNotifications();
 }
