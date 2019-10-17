@@ -43,13 +43,13 @@ public class ScheduleBookTest {
     }
 
     @Test
-    public void resetData_withDuplicateSchedules_throwsDuplicateScheduleException() {
+    public void resetData_withDuplicateSchedules_throwsDuplicateIdentityException() {
         // Two schedules with the same identity fields
         Schedule editedSchedule = new ScheduleBuilder(CBD_SCHEDULE).build();
         List<Schedule> newSchedules = Arrays.asList(CBD_SCHEDULE, editedSchedule);
         ScheduleBookStub newData = new ScheduleBookStub(newSchedules);
 
-        assertThrows(DuplicateScheduleException.class, () -> scheduleBook.resetData(newData));
+        assertThrows(DuplicateIdentityException.class, () -> scheduleBook.resetData(newData));
     }
 
     @Test

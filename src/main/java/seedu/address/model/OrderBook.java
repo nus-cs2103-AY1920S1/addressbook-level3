@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.UniqueOrderList;
 
 /**
  * Wraps all data at the order-book level
@@ -14,7 +13,7 @@ import seedu.address.model.order.UniqueOrderList;
  */
 public class OrderBook implements ReadOnlyDataBook<Order> {
 
-    private final UniqueOrderList orders;
+    private final UniqueList<Order> orders;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +23,7 @@ public class OrderBook implements ReadOnlyDataBook<Order> {
      *   among constructors.
      */
     {
-        orders = new UniqueOrderList();
+        orders = new UniqueList<>();
     }
 
     public OrderBook() {}
@@ -44,7 +43,7 @@ public class OrderBook implements ReadOnlyDataBook<Order> {
      * {@code orders} must not contain duplicate orders.
      */
     public void setOrders(List<Order> orders) {
-        this.orders.setOrders(orders);
+        this.orders.setList(orders);
     }
 
     /**
@@ -82,7 +81,7 @@ public class OrderBook implements ReadOnlyDataBook<Order> {
     public void setOrder(Order target, Order editedOrder) {
         requireNonNull(editedOrder);
 
-        orders.setOrder(target, editedOrder);
+        orders.set(target, editedOrder);
     }
 
     /**

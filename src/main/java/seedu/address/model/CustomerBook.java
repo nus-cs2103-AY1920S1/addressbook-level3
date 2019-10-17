@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.UniqueCustomerList;
 
 /**
  * Wraps all data at the customer-book level
@@ -14,7 +13,7 @@ import seedu.address.model.customer.UniqueCustomerList;
  */
 public class CustomerBook implements ReadOnlyDataBook<Customer> {
 
-    private final UniqueCustomerList customers;
+    private final UniqueList<Customer> customers;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +23,7 @@ public class CustomerBook implements ReadOnlyDataBook<Customer> {
      *   among constructors.
      */
     {
-        customers = new UniqueCustomerList();
+        customers = new UniqueList<>();
     }
 
     public CustomerBook() {
@@ -45,7 +44,7 @@ public class CustomerBook implements ReadOnlyDataBook<Customer> {
      * {@code customers} must not contain duplicate customers.
      */
     public void setCustomers(List<Customer> customers) {
-        this.customers.setCustomers(customers);
+        this.customers.setList(customers);
     }
 
     /**
@@ -83,7 +82,7 @@ public class CustomerBook implements ReadOnlyDataBook<Customer> {
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireNonNull(editedCustomer);
 
-        customers.setCustomer(target, editedCustomer);
+        customers.set(target, editedCustomer);
     }
 
     /**

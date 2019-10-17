@@ -9,13 +9,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import seedu.address.model.Identifiable;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Schedule in the SML.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Schedule {
+public class Schedule implements Identifiable<Schedule> {
 
     // Identity fields
     private final UUID id;
@@ -124,4 +125,13 @@ public class Schedule {
         return builder.toString();
     }
 
+    @Override
+    public boolean isSameAs(Schedule other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other != null
+                && other.getId().equals(getId());
+    }
 }

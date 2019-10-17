@@ -43,14 +43,14 @@ public class CustomerBookTest {
     }
 
     @Test
-    public void resetData_withDuplicateCustomers_throwsDuplicateCustomerException() {
+    public void resetData_withDuplicateCustomers_throwsDuplicateIdentityException() {
         // Two persons with the same identity fields
         Customer editedAlice = new CustomerBuilder(ALICE).withContactNumber(VALID_CONTACTNUMBER_BOB)
                 .build();
         List<Customer> newCustomers = Arrays.asList(ALICE, editedAlice);
         CustomerBookStub newData = new CustomerBookStub(newCustomers);
 
-        assertThrows(DuplicateCustomerException.class, () -> customerBook.resetData(newData));
+        assertThrows(DuplicateIdentityException.class, () -> customerBook.resetData(newData));
     }
 
     @Test

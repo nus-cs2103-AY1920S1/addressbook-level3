@@ -42,14 +42,14 @@ public class PhoneBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePhones_throwsDuplicatePhoneException() {
+    public void resetData_withDuplicatePhones_throwsDuplicateIdentityException() {
         // Two phones with the same id
         Phone editediPhoneXr = new PhoneBuilder(IPHONEXR)
                 .build();
         List<Phone> newPhones = Arrays.asList(IPHONEXR, editediPhoneXr);
         PhoneBookStub newData = new PhoneBookStub(newPhones);
 
-        assertThrows(DuplicatePhoneException.class, () -> phoneBook.resetData(newData));
+        assertThrows(DuplicateIdentityException.class, () -> phoneBook.resetData(newData));
     }
 
     @Test

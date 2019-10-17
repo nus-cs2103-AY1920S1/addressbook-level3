@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.Identifiable;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Customer in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Customer {
+public class Customer implements Identifiable<Customer> {
 
     // Identity fields
     private final CustomerName customerName;
@@ -109,4 +110,15 @@ public class Customer {
         return builder.toString();
     }
 
+    @Override
+    public boolean isSameAs(Customer other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other != null
+                && other.getCustomerName().equals(getCustomerName())
+                && (other.getContactNumber().equals(getContactNumber())
+                || other.getEmail().equals(getEmail()));
+    }
 }

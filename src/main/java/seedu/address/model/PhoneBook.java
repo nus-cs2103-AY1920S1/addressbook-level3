@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.phone.Phone;
-import seedu.address.model.phone.UniquePhoneList;
 
 /**
  * Wraps all data at the phone-book level
@@ -14,7 +13,7 @@ import seedu.address.model.phone.UniquePhoneList;
  */
 public class PhoneBook implements ReadOnlyDataBook<Phone> {
 
-    private final UniquePhoneList phones;
+    private final UniqueList<Phone> phones;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +23,7 @@ public class PhoneBook implements ReadOnlyDataBook<Phone> {
      *   among constructors.
      */
     {
-        phones = new UniquePhoneList();
+        phones = new UniqueList<>();
     }
 
     public PhoneBook() {}
@@ -44,7 +43,7 @@ public class PhoneBook implements ReadOnlyDataBook<Phone> {
      * {@code phone} must not contain duplicate phones.
      */
     public void setPhones(List<Phone> phones) {
-        this.phones.setPhones(phones);
+        this.phones.setList(phones);
     }
 
     /**
@@ -82,7 +81,7 @@ public class PhoneBook implements ReadOnlyDataBook<Phone> {
     public void setPhone(Phone target, Phone editedPhone) {
         requireNonNull(editedPhone);
 
-        phones.setPhone(target, editedPhone);
+        phones.set(target, editedPhone);
     }
 
     /**

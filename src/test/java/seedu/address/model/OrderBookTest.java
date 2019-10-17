@@ -42,13 +42,13 @@ public class OrderBookTest {
     }
 
     @Test
-    public void resetData_withDuplicateOrders_throwsDuplicateOrderException() {
+    public void resetData_withDuplicateOrders_throwsDuplicateIdentityException() {
         // Two orders with the same identity fields
         Order editedVipOrder = new OrderBuilder(VIPORDER).build();
         List<Order> newOrders = Arrays.asList(VIPORDER, editedVipOrder);
         OrderBookStub newData = new OrderBookStub(newOrders);
 
-        assertThrows(DuplicateOrderException.class, () -> orderBook.resetData(newData));
+        assertThrows(DuplicateIdentityException.class, () -> orderBook.resetData(newData));
     }
 
     @Test

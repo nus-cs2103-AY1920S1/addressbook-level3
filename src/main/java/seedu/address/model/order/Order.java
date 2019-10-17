@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import seedu.address.model.Identifiable;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
@@ -18,7 +19,7 @@ import seedu.address.model.tag.Tag;
  * Represents an Order in the SML.
  * Guarantees: details are present, field values are validated.
  */
-public class Order {
+public class Order implements Identifiable<Order> {
 
     // Identity fields
     private final UUID id;
@@ -139,4 +140,13 @@ public class Order {
         return builder.toString();
     }
 
+    @Override
+    public boolean isSameAs(Order other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other != null
+                && other.getId().equals(getId());
+    }
 }

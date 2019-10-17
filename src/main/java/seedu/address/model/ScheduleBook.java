@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.schedule.Schedule;
-import seedu.address.model.schedule.UniqueScheduleList;
 
 /**
  * Wraps all data at the schedule-book level
@@ -14,7 +13,7 @@ import seedu.address.model.schedule.UniqueScheduleList;
  */
 public class ScheduleBook implements ReadOnlyDataBook<Schedule> {
 
-    private final UniqueScheduleList schedules;
+    private final UniqueList<Schedule> schedules;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +23,7 @@ public class ScheduleBook implements ReadOnlyDataBook<Schedule> {
      *   among constructors.
      */
     {
-        schedules = new UniqueScheduleList();
+        schedules = new UniqueList<>();
     }
 
     public ScheduleBook() {}
@@ -44,7 +43,7 @@ public class ScheduleBook implements ReadOnlyDataBook<Schedule> {
      * {@code schedules} must not contain duplicate schedules.
      */
     public void setSchedules(List<Schedule> schedules) {
-        this.schedules.setSchedules(schedules);
+        this.schedules.setList(schedules);
     }
 
     /**
@@ -82,7 +81,7 @@ public class ScheduleBook implements ReadOnlyDataBook<Schedule> {
     public void setSchedule(Schedule target, Schedule editedSchedule) {
         requireNonNull(editedSchedule);
 
-        schedules.setSchedule(target, editedSchedule);
+        schedules.set(target, editedSchedule);
     }
 
     /**
