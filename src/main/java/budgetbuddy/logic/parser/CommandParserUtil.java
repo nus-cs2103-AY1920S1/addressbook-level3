@@ -2,7 +2,9 @@ package budgetbuddy.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -11,7 +13,6 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.rules.RuleProcessingUtil;
-import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Name;
 import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
@@ -101,11 +102,15 @@ public class CommandParserUtil {
      * Parses a {@code String date} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Date parseDate(String date) {
+    public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        // TODO Implement check for invalid dates.
-        return new Date(trimmedDate);
+        try {
+            // TODO Some problems, e.g. 12/13/2020 gets parsed to 12/01/2021
+            return new SimpleDateFormat("dd/MM/yy").parse(trimmedDate);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 
     /**

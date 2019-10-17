@@ -5,6 +5,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
+import java.util.Date;
 import java.util.Optional;
 
 import budgetbuddy.commons.core.index.Index;
@@ -18,7 +19,6 @@ import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
-import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.person.exceptions.PersonNotFoundException;
 import budgetbuddy.model.transaction.Amount;

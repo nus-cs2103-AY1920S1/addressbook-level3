@@ -2,10 +2,11 @@ package budgetbuddy.model.loan;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import budgetbuddy.model.Direction;
-import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.stub.Description;
@@ -51,6 +52,11 @@ public class Loan {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getDateString() {
+        // TODO Should standardize the date display format throughout the app.
+        return new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
 
     public Description getDescription() {
@@ -107,7 +113,7 @@ public class Loan {
                 .append(getAmount()).append(" ")
                 .append(directionWithFunctionWord)
                 .append(getPerson().getName()).append(divider)
-                .append(getDate());
+                .append(getDateString());
         if (!description.getDescription().isBlank()) {
             builder.append(divider).append(getDescription());
         }

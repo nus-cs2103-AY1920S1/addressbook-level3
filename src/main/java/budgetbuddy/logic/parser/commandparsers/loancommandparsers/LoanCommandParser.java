@@ -6,6 +6,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -20,7 +21,6 @@ import budgetbuddy.model.Direction;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.loan.Status;
-import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
@@ -64,8 +64,15 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
                 : new Description("");
 
         Optional<String> optionalDate = argMultimap.getValue(PREFIX_DATE);
-        // TODO Change default date.
-        Date date = optionalDate.map(CommandParserUtil::parseDate).orElseGet(() -> new Date("20/12/2099"));
+        Date date = new Date();
+        if (optionalDate.isPresent()) {
+            try {
+                date = CommandParserUtil.parseDate(optionalDate.get());
+            } catch (ParseException e) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
+            }
+        }
 
         Status status = Status.UNPAID;
 
