@@ -9,7 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.export.FilePath;
+import seedu.address.model.export.DocumentPath;
 import seedu.address.model.category.Category;
 import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
@@ -141,18 +141,18 @@ public class ParserUtil {
 
     //@@author LeowWB
     /**
-     * Parses a {@code String filePath} into a {@code FilePath}.
+     * Parses a {@code String documentPath} into a {@code DocumentPath}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code filePath} is invalid.
+     * @throws ParseException if the given {@code documentPath} is invalid.
      */
-    public static FilePath parseFilePath (String filePath) throws ParseException {
-        requireNonNull(filePath);
-        String trimmedFilePath = filePath.trim();
-        if (!FilePath.isValidFilePath((trimmedFilePath))) {
-            throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
+    public static DocumentPath parseDocumentPath(String documentPath) throws ParseException {
+        requireNonNull(documentPath);
+        String trimmedFilePath = documentPath.trim();
+        if (!DocumentPath.isValidDocumentPath((trimmedFilePath))) {
+            throw new ParseException(DocumentPath.MESSAGE_CONSTRAINTS);
         }
-        return new FilePath(trimmedFilePath);
+        return new DocumentPath(trimmedFilePath);
     }
 
 }

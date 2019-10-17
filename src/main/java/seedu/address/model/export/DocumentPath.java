@@ -9,13 +9,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Represents a file path.
- * Guarantees: immutable; is valid as declared in {@link #isValidFilePath(String)}
+ * Represents a document path.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDocumentPath(String)}
  */
-public class FilePath {
+public class DocumentPath {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "File path may only consist of alphanumeric characters, spaces, and the following characters:\n"
+            "Document path may only consist of alphanumeric characters, spaces, and the following characters:\n"
             + "~\\/-_!:[]()\n"
             + "It must also end with \".docx\".";
 
@@ -23,27 +23,27 @@ public class FilePath {
      * The following characters are allowed (in addition to alphanumeric):
      * ~\/-_!:[]()
      * Space is allowed.
-     * FilePath is required to end with the String: ".docx"
+     * DocumentPath is required to end with the String: ".docx"
      */
     public static final String VALIDATION_REGEX = "[~\\w\\-!:\\[\\]()/\\\\ ]+\\.docx";
 
     private final Path path;
 
     /**
-     * Constructs a {@code FilePath}.
+     * Constructs a {@code DocumentPath}.
      *
-     * @param filePath A valid document file path.
+     * @param documentPath A valid document path.
      */
-    public FilePath(String filePath) {
-        requireNonNull(filePath);
-        checkArgument(isValidFilePath(filePath), MESSAGE_CONSTRAINTS);
-        path = Paths.get(filePath);
+    public DocumentPath(String documentPath) {
+        requireNonNull(documentPath);
+        checkArgument(isValidDocumentPath(documentPath), MESSAGE_CONSTRAINTS);
+        path = Paths.get(documentPath);
     }
 
     /**
-     * Returns true if a given string is a valid document file path.
+     * Returns true if a given string is a valid document path.
      */
-    public static boolean isValidFilePath(String test) {
+    public static boolean isValidDocumentPath(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -56,8 +56,8 @@ public class FilePath {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FilePath // instanceof handles nulls
-                && path.equals(((FilePath) other).path)); // state check
+                || (other instanceof DocumentPath // instanceof handles nulls
+                && path.equals(((DocumentPath) other).path)); // state check
     }
 
     @Override

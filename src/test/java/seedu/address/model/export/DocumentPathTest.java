@@ -7,11 +7,11 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class FilePathTest {
+public class DocumentPathTest {
 
     @Test
-    public void filePath_invalidPath_throwsException() {
-        String invalidFilePathStrings[] = {
+    public void documentPath_invalidPath_throwsException() {
+        String invalidDocumentPathStrings[] = {
                 "C:\\Users\\User\\Documents\\cheatsheet",
                 "cheatsheet.txt",
                 "cheatsheet.docxx",
@@ -23,19 +23,19 @@ public class FilePathTest {
                 "https://www.user.com/cheatsheet.docx"
         };
 
-        for (String invalidFilePathString : invalidFilePathStrings) {
+        for (String invalidDocumentPathString : invalidDocumentPathStrings) {
             assertThrows(
                     IllegalArgumentException.class,
-                    () -> new FilePath(
-                            invalidFilePathString
+                    () -> new DocumentPath(
+                            invalidDocumentPathString
                     )
             );
         }
     }
 
     @Test
-    public void filePath_validPath_success() {
-        String validFilePathStrings[] = {
+    public void documentPath_validPath_success() {
+        String validDocumentPathStrings[] = {
                 "cheat_sheet.docx",
                 "cheat-sheet.docx",
                 "windows_directory\\cheatsheet.docx",
@@ -44,11 +44,11 @@ public class FilePathTest {
                 "~/Desktop/[CS2105] Midterm Cheat Sheet (v3).docx"
         };
 
-        for (String validFilePathString : validFilePathStrings) {
+        for (String validDocumentPathString : validDocumentPathStrings) {
             try {
-                new FilePath(validFilePathString);
+                new DocumentPath(validDocumentPathString);
             } catch (IllegalArgumentException e) {
-                fail("Valid file path was not recognized as being valid");
+                fail("Valid document path was not recognized as being valid");
             }
         }
     }

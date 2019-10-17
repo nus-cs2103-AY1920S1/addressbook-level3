@@ -4,13 +4,13 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCUMENT_PATH;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.export.FilePath;
+import seedu.address.model.export.DocumentPath;
 import seedu.address.model.category.Category;
 
 /**
@@ -25,7 +25,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      */
     public ExportCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_FILE_PATH);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DOCUMENT_PATH);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -33,9 +33,9 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         }
 
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
-        FilePath filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE_PATH).get());
+        DocumentPath documentPath = ParserUtil.parseDocumentPath(argMultimap.getValue(PREFIX_DOCUMENT_PATH).get());
 
-        return new ExportCommand(category, filePath);
+        return new ExportCommand(category, documentPath);
     }
 
     /**
