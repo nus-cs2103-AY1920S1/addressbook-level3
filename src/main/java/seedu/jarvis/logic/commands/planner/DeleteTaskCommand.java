@@ -21,7 +21,7 @@ public class DeleteTaskCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task:\n%1$s";
 
     public static final boolean HAS_INVERSE = false;
 
