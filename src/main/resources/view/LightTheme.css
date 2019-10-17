@@ -1,0 +1,119 @@
+.app-root {
+    /* Linear gradient background fill */
+    -fx-background-color: linear-gradient(#f8f8f8, #d8d8d8);
+}
+
+.command-input-root {
+    -fx-padding: 8;
+}
+
+.command-text-field {
+    -fx-background-color: #e0e0e0;
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11pt;
+    -fx-text-fill: black;
+}
+
+.result-display-root {
+    -fx-padding: 0 8 6 8;
+    /* Add horizontal divider to visually separate I/O GUI elements from content */
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #f0f0f0, #c0c0c0, #f0f0f0);
+    -fx-border-width: 0 0 2px 0;
+}
+
+.result-display {
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 10pt;
+    -fx-text-fill: black;
+    -fx-highlight-fill: lightblue;
+}
+
+.result-display .content {
+    /* Fill background colour of TextArea content */
+    -fx-background-color: #dbdbdb;
+}
+
+.result-display:focused {
+    /* Suppress blue focus ring for result display */
+    -fx-focus-color: transparent;
+    -fx-background-insets: 1, 1, 1, 1;
+}
+
+.content-root {
+    -fx-padding: 6 8 4 8;
+    -fx-background-color: transparent;
+}
+
+.content-display, .content-entry-list {
+    /* Suppress blue focus ring for result display */
+    -fx-focus-color: transparent;
+    -fx-background-insets: 1, 1, 1, 1;
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1;
+}
+
+.content-entry-list .label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 12pt;
+    -fx-text-fill: black;
+    -fx-highlight-fill: lightblue;
+}
+
+.card-pane {
+    -fx-padding: 8;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.content-display .card-large-label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bolder;
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+}
+
+.content-display .card-label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12px;
+    -fx-text-fill: black;
+}
+
+.tag-list {
+    -fx-hgap: 5;
+    -fx-vgap: 3;
+}
+
+.tag-list .label {
+    -fx-background-color: royalblue;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+}
+
+.status-bar-root {
+    -fx-padding: 10 8 4 8;
+    /* Add horizontal divider to visually separate content from status bar */
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #dadada, #b0b0b0, #dadada);
+    -fx-border-width: 2px 0 0 0;
+    -fx-border-insets: 2px 0 0 0;
+    -fx-background-insets: 10px 0 0 0;
+    -fx-background-color: #a0a0a0;
+}
+
+.status-bar .label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 9pt;
+    -fx-text-fill: black;
+}

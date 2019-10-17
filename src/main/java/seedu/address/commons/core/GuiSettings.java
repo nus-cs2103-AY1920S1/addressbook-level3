@@ -10,8 +10,8 @@ import java.util.Objects;
  */
 public class GuiSettings implements Serializable {
 
-    private static final double DEFAULT_HEIGHT = 600;
-    private static final double DEFAULT_WIDTH = 740;
+    private static final double DEFAULT_HEIGHT = 700.0;
+    private static final double DEFAULT_WIDTH = 512.0;
 
     private final double windowWidth;
     private final double windowHeight;
@@ -27,6 +27,23 @@ public class GuiSettings implements Serializable {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
+    }
+
+    /**
+     * Returns a new {@code GuiSettings} with the dimensions of the app window reset to their
+     * default values, and the coordinates of the input {@code GuiSettings}.
+     *
+     * @param settings An instance of {@code GuiSettings} to reset.
+     */
+    public static GuiSettings resetWindow(GuiSettings settings) {
+        if (settings.getWindowCoordinates() == null) {
+            return new GuiSettings();
+        }
+
+        Point coordinates = settings.getWindowCoordinates();
+        int x = (int) Math.floor(coordinates.getX() + 0.5);
+        int y = (int) Math.floor(coordinates.getY() + 0.5);
+        return new GuiSettings(DEFAULT_WIDTH, DEFAULT_HEIGHT, x, y);
     }
 
     public double getWindowWidth() {
