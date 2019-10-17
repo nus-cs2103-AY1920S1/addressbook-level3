@@ -1,8 +1,6 @@
 package seedu.ezwatchlist.ui;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.ezwatchlist.model.show.Show;

@@ -1,11 +1,8 @@
 package seedu.ezwatchlist.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;

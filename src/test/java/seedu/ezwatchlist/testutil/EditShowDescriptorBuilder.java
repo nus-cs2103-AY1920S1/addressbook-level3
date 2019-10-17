@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.*;
