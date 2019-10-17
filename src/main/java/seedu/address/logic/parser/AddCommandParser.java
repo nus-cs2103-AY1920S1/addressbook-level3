@@ -40,8 +40,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         File imageTest = new File(argMultimap.getValue(PREFIX_PICTURE).get());
 
         if (!imageTest.exists()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Make sure the picture exists " +
-                    "and is in the same directory as TutorAid!"));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Make sure the picture exists "
+                    + "and is in the same directory as TutorAid!"));
         }
 
         Person person = new Person(name, picture);
