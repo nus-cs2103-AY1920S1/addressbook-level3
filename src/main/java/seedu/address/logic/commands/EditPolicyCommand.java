@@ -152,7 +152,6 @@ public class EditPolicyCommand extends Command {
         }
     }
 
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
