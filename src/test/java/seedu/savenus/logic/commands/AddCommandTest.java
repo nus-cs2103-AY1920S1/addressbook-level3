@@ -64,26 +64,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Food alice = new FoodBuilder().withName("Alice").build();
-        Food bob = new FoodBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Food chickenRice = new FoodBuilder().withName("Chicken Rice").build();
+        Food nasiLemak = new FoodBuilder().withName("Nasi Lemak").build();
+        AddCommand addChickenRiceCommand = new AddCommand(chickenRice);
+        AddCommand addNasiLemakCommand = new AddCommand(nasiLemak);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addChickenRiceCommand.equals(addChickenRiceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addChickenRiceCommandCopy = new AddCommand(chickenRice);
+        assertTrue(addChickenRiceCommand.equals(addChickenRiceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addChickenRiceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addChickenRiceCommand.equals(null));
 
         // different food -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addChickenRiceCommand.equals(addNasiLemakCommand));
     }
 
     /**
@@ -231,6 +231,10 @@ public class AddCommandTest {
         }
 
         @Override
+        public List<String> getCommandHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
             throw new AssertionError("This method should not be called.");
         }

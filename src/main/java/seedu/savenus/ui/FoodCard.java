@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.savenus.logic.commands.CollapseCommand;
 import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
@@ -66,12 +67,17 @@ public class FoodCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        // The label for short optional information which contains opening hours, location, and restrictions.
+        // The label for short optional information which contains
+        // opening hours, location, restrictions, and recommendations.
         String textForOptionalInfo = "";
 
+        String partition;
         // Partition string.
-        String partition = "  |  ";
-
+        if (CollapseCommand.getStatus()) {
+            partition = "  |  ";
+        } else {
+            partition = "\n";
+        }
         // Label for location.
         textForOptionalInfo += "Location: " + food.getLocation().location + partition;
 
