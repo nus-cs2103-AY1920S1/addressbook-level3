@@ -4,7 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
@@ -15,17 +23,23 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteByIndexCommand;
 import seedu.address.logic.commands.DeleteBySerialNumberCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.LoanCommand;
+import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
+import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
 import seedu.address.testutil.EditBookDescriptorBuilder;
@@ -100,6 +114,35 @@ public class CatalogParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_loan() throws Exception {
+        assertTrue(parser.parseCommand(
+                LoanCommand.COMMAND_WORD + " " + PREFIX_SERIAL_NUMBER + VALID_SERIAL_NUMBER_BOOK_1)
+                instanceof LoanCommand);
+    }
+
+    @Test
+    public void parseCommand_register() throws Exception {
+        BorrowerIdGenerator.setBorrowers(new BorrowerRecords());
+        assertTrue(parser.parseCommand(
+                RegisterCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_AMY + " "
+                        + PREFIX_PHONE + VALID_PHONE_AMY + " " + PREFIX_EMAIL + VALID_EMAIL_AMY)
+                instanceof RegisterCommand);
+    }
+
+    @Test
+    public void parseCommand_serve() throws Exception {
+        assertTrue(parser.parseCommand(
+                ServeCommand.COMMAND_WORD + " " + PREFIX_BORROWER_ID + VALID_BORROWER_ID)
+                instanceof ServeCommand);
+    }
+
+    @Test
+    public void parseCommand_done() throws Exception {
+        assertTrue(parser.parseCommand(DoneCommand.COMMAND_WORD) instanceof DoneCommand);
+        assertTrue(parser.parseCommand(DoneCommand.COMMAND_WORD + " 3") instanceof DoneCommand);
     }
 
     @Test

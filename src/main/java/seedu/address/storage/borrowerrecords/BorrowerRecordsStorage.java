@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.ReadOnlyBorrowerRecords;
+import seedu.address.model.ReadOnlyLoanRecords;
 
 /**
  * Represents a storage for {@link BorrowerRecords}.
@@ -24,12 +25,14 @@ public interface BorrowerRecordsStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyBorrowerRecords> readBorrowerRecords() throws DataConversionException, IOException;
+    Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException, IOException;
 
     /**
      * @see #getBorrowerRecordsFilePath()
      */
-    Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(Path filePath, ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyBorrowerRecords} to the storage.

@@ -10,7 +10,9 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Catalog;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.book.Book;
 
 /**
@@ -41,14 +43,25 @@ public class JsonSerializableCatalog {
     }
 
     /**
-     * Converts this address book into the model's {@code Catalog} object.
+     * Converts this catalog into the model's {@code Catalog} object.
+     * Uses an empty LoanRecords.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public Catalog toModelType() throws IllegalValueException {
+        return toModelType(new LoanRecords());
+    }
+
+    /**
+     * Converts this catalog into the model's {@code Catalog} object.
+     * Loan objects of the Books are taken from the initialLoanRecords.
+     *
+     * @throws IllegalValueException if there were any data constraints violated.
+     */
+    public Catalog toModelType(ReadOnlyLoanRecords initialLoanRecords) throws IllegalValueException {
         Catalog catalog = new Catalog();
         for (JsonAdaptedBook jsonAdaptedBook : books) {
-            Book book = jsonAdaptedBook.toModelType();
+            Book book = jsonAdaptedBook.toModelType(initialLoanRecords);
             if (catalog.hasBook(book)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOOK);
             }

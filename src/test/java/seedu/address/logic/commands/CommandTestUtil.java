@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -43,6 +44,7 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String BORROWER_ID_DESC_BOB = " " + PREFIX_BORROWER_ID + VALID_ID_BOB;
 
     public static final String VALID_TITLE_BOOK_1 = "Harry Botter";
     public static final String VALID_TITLE_BOOK_2 = "Legend of the Condor Heroes";
@@ -50,6 +52,7 @@ public class CommandTestUtil {
     public static final String VALID_SERIAL_NUMBER_BOOK_1 = "B00001";
     public static final String VALID_SERIAL_NUMBER_BOOK_2 = "B00002";
     public static final String VALID_SERIAL_NUMBER_BOOK_3 = "B00005";
+    public static final String VALID_SERIAL_NUMBER_BOOK_4 = "B00007";
     public static final String VALID_AUTHOR_BOOK_1 = "J K Rowling";
     public static final String VALID_AUTHOR_BOOK_2 = "Jin Yong";
     public static final String VALID_GENRE_ACTION = "ACTION";
@@ -68,6 +71,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_SERIAL_NUMBER_DESC = " " + PREFIX_SERIAL_NUMBER + "9a"; // 'a' not allowed
     public static final String INVALID_GENRE_DESC = " " + PREFIX_GENRE + "hubby*"; // '*' not allowed in tags
+
+    public static final String VALID_LOAN_ID = "L000001";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

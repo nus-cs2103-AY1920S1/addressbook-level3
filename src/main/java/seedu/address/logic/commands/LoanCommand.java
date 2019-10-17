@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
+import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 
 import seedu.address.commons.util.DateUtil;
@@ -61,17 +62,32 @@ public class LoanCommand extends Command {
             throw new CommandException(String.format(MESSAGE_BOOK_ON_LOAN, bookToBeLoaned));
         }
 
-        Borrower servingBorrower = model.getServingBorrower().get();
+        Borrower servingBorrower = model.getServingBorrower();
         Loan loan = new Loan(LoanIdGenerator.generateLoanId(), toLoan, servingBorrower.getBorrowerId(),
-                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(14)); // TODO READ FROM MODEL->USERSETTINGS instead!!
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
+        // TODO READ FROM MODEL->USERSETTINGS instead!!
         Book loanedOutBook = new Book(bookToBeLoaned.getTitle(), bookToBeLoaned.getSerialNumber(),
                 bookToBeLoaned.getAuthor(), loan, bookToBeLoaned.getGenres());
+
+        // replace the previous Book object with a new Book object that has a Loan
         model.setBook(bookToBeLoaned, loanedOutBook);
+        servingBorrower.addNewLoan(loan); // add Loan object to Borrower
+        model.addLoan(loan); // add Loan object to LoanRecords in model
 
-        model.addLoan(loan);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook, servingBorrower));
+    }
 
-        // TODO ADD LOAN TO BORROWER!
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook.toString(), servingBorrower.toString()));
+        if (!(o instanceof LoanCommand)) {
+            return false;
+        }
+
+        LoanCommand otherLoanCommand = (LoanCommand) o;
+        return this.toLoan.equals(otherLoanCommand.toLoan);
     }
 }
