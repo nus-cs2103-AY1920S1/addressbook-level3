@@ -110,48 +110,60 @@ Clearing of waste list is done automatically at the start of every month.
 
 === Grocery List Management
 
-==== Adding a food item
+==== Adding a food item: `glist add`
 
-Adds a food item to the grocery list
-Format: `add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
-
-****
-* `e/EXPIRY_DATE` must follow the format `ddMMyyyy`
-* `a/AMOUNT` must be have both magnitude and unit, not separated by space. e.g. `a/500g`, `a/2kg`
-****
-
-==== Listing all food items
-
-Shows a list of food items in the grocery list. +
-Format: `list`
-
-==== Deleting a food item (Throw away)
-
-Deletes the specified food item from the grocery list when it is done being used.
-If the amount of the food item left > 0, the item will be moved to the waste list. +
-Format: `delete INDEX`
-
-==== Use an item: `use`
-
-Reduces the amount left of the item by the specified amount. +
-Format: `use INDEX a/AMOUNT`
+Adds a grocery item to the grocery list
+Format: `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
 
 ****
-* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
-* Metric units with different metric prefixes is allowed. e.g. gram, milliliter.
+* `e/EXPIRY_DATE` must follow the format `dd.MM.yyyy` or `dd/MM/yyyy` or `dd-MM-yyyy`.
+* `a/AMOUNT` must have a magnitude i.e. measurable quantity. Amount unit is not mandatory. Magnitude and unit can be separated by a space.
+* There may be more than one tag field.
+* The input fields can be in any order.
 ****
 
 Examples:
 
-* `use 2 a/300g` +
+* `glist add n/Fuji apples e/30.10.2019 t/healthy a/10units` +
+Add Fuji apples of quantity 10 units, tagged as "healthy" and expiring on 30 October 2019.
+* `glist add n/salad a/3 e/25.09.2019` +
+Add salad of quantity 3, untagged and expiring on 25 September 2019.
+* `glist add n/tea a/200 ml e/18.10.2019 t/fresh t/drink` +
+Add tea of quantity 200 ml, tagged as "fresh" and "drink" and expiring on 18 October 2019.
+
+==== Listing all grocery items: `glist list`
+
+Shows a list of grocery items in the grocery list. +
+Format: `glist list`
+
+==== Deleting a grocery item: `glist delete`
+
+Deletes the specified grocery item from the grocery list when it is done being used.
+If the amount of the food item left > 0, the item will be moved to the waste list. +
+Format: `glist delete INDEX`
+
+==== Use a grocery item: `glist use`
+
+Reduces the amount left of a grocery item by the specified amount. +
+Format: `glist use INDEX a/AMOUNT`
+
+****
+* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
+* Metric units with different metric prefixes is allowed. e.g. gram, milliliter.
+* Whitespace between magnitude and unit is allowed.
+****
+
+Examples:
+
+* `glist use 2 a/300g` +
 Reduces the amount of 2nd item by 300 grams.
-* `use 3 a/5L` +
+* `glist use 3 a/5 L` +
 Reduces the amount of 3rd item by 5 liters.
 
-==== Edit an item: `edit`
+==== Edit a grocery item: `glist edit`
 
 Edits an existing item in the grocery list. +
-Format: `edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [t/TAG]`
+Format: `glist edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [t/TAG]`
 
 ****
 * Edits an item at the specified `INDEX`. The index refers to the number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
@@ -164,36 +176,36 @@ Format: `edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [t/TAG]`
 
 Examples:
 
-* `edit 1 n/Fuji apple t/healthy` +
+* `glist edit 1 n/Fuji apple t/healthy` +
 Edits the name and tag of the 1st item to be `Fuji apple` and `healthy` respectively.
-* `edit 2 n/Olive oil t/` +
+* `glist edit 2 n/Olive oil t/` +
 Edits the name of the 2nd item to `Olive oil` and clears all existing tags.
 
-==== Sort the grocery list: `sort`
+==== Sort the grocery list: `glist sort` (Coming in v2.0)
 
 Sorts the grocery list based on the type of sorting. +
-Format: `sort by/TYPE`
+Format: `glist sort by/TYPE`
 
-The type of sorting is as follows:
+The type of sorting supported is as follows:
 ****
-* alphabetical: Sort the grocery list in alphabetical order
-* expiry date: Sort the grocery list based on the expiry date
+* Alphabetical: Sort the grocery list in alphabetical order
+* Expiry date: Sort the grocery list based on the expiry date
 ****
 
 Examples:
 
-* `sort by/alphabetical`
-* `sort by/expiry`
+* `glist sort by/alphabetical`
+* `glist sort by/expiry`
 
-==== Filter
+==== Filter: `glist filter` (Coming in v2.0)
 
 Returns a list of food items that matches the specified tag. +
-Format: `filter t/TAG`
+Format: `glist filter t/TAG`
 
-==== Locating items by name: `find`
+==== Locating items by name: `glist find` (Coming in v2.0)
 
 Finds items whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `glist find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `apple` will match `Apple`
@@ -205,10 +217,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find apple` +
+* `glist find apple` +
 Returns `Fuji apple` and `Apple loaf cake`
-* `find milo doughnut roasted` +
-Returns any person having names `milo`, `doughnut`, or `roasted`
+* `glist find milo doughnut roasted` +
+Returns any grocery item which contains any of the names `milo`, `doughnut`, or `roasted`
 
 === Waste List Management
 

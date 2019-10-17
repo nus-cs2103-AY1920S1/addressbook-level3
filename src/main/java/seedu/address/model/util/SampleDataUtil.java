@@ -2,7 +2,6 @@ package seedu.address.model.util;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,7 +15,6 @@ import seedu.address.model.TemplateList;
 import seedu.address.model.WasteList;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.ExpiryDate;
-import seedu.address.model.food.Food;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
@@ -31,31 +29,18 @@ import seedu.address.model.waste.WasteMonth;
 public class SampleDataUtil {
 
     // ============================= Grocery Item Sample List ============================= //
-    public static Food[] getSampleFoods() {
-        return new Food[] {
-            new Food(new Name("Alex Yeoh"), new Amount("300g")),
-            new Food(new Name("Bernice Yu"), new Amount("300g")),
-            new Food(new Name("Charlotte Oliveiro"), new Amount("300g")),
-            new Food(new Name("David Li"), new Amount("300g")),
-            new Food(new Name("Irfan Ibrahim"), new Amount("300g")),
-            new Food(new Name("Roy Balakrishnan"), new Amount("300g"))
-        };
-    }
-
     public static GroceryItem[] getSampleGroceryItems() {
         return new GroceryItem[] {
-            new GroceryItem(new Name("Alex Yeoh"), new Amount("300g"), new ExpiryDate("10.08.2019"),
-                new HashSet<>()),
-            new GroceryItem(new Name("Bernice Yu"), new Amount("300g"), new ExpiryDate("10.09.2019"),
-                new HashSet<>()),
-            new GroceryItem(new Name("Charlotte Oliveiro"), new Amount("300g"), new ExpiryDate("10.09.2019"),
-                new HashSet<>()),
-            new GroceryItem(new Name("David Li"), new Amount("300g"), new ExpiryDate("10.09.2019"),
-                new HashSet<>()),
-            new GroceryItem(new Name("Irfan Ibrahim"), new Amount("300g"), new ExpiryDate("10.09.2019"),
-                new HashSet<>()),
-            new GroceryItem(new Name("Roy Balakrishnan"), new Amount("300g"), new ExpiryDate("10.09.2019"),
-                new HashSet<>())
+            new GroceryItem(new Name("Minced beef"), new Amount("300g"), new ExpiryDate("30.09.2019"),
+                    getTagSet("meat")),
+            new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20.11.2019"),
+                    getTagSet("dish", "dinner")),
+            new GroceryItem(new Name("Apples"), new Amount("6units"), new ExpiryDate("15.10.2019"),
+                    getTagSet("healthy", "fruit")),
+            new GroceryItem(new Name("Orange juice"), new Amount("500ml"), new ExpiryDate("22.11.2019"),
+                    getTagSet("juice", "diet")),
+            new GroceryItem(new Name("Green tea latte"), new Amount("10units"), new ExpiryDate("30.10.2019"),
+                    getTagSet("drink", "boba"))
         };
     }
 
@@ -108,7 +93,7 @@ public class SampleDataUtil {
                     new ExpiryDate("18.09.2019"), getTagSet()),
 
             new GroceryItem(new Name("Chicken"), new Amount("400g"),
-                new ExpiryDate("12.08.2019"), getTagSet("staples")),
+                    new ExpiryDate("12.08.2019"), getTagSet("staples")),
             new GroceryItem(new Name("Pears"), new Amount("3units"),
                     new ExpiryDate("15.08.2019"), getTagSet("healthy", "fruits")),
             new GroceryItem(new Name("Milk"), new Amount("150ml"),
@@ -176,7 +161,6 @@ public class SampleDataUtil {
                     new ExpiryDate("15.11.2018"), getTagSet("healthy", "fruits")),
             new GroceryItem(new Name("Milk"), new Amount("100ml"),
                     new ExpiryDate("18.11.2018"), getTagSet())
-
         };
     }
 
@@ -259,5 +243,4 @@ public class SampleDataUtil {
         }
         return sampleSl;
     }
-
 }
