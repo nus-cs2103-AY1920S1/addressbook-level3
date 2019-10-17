@@ -43,7 +43,7 @@ public interface Logic {
     ObservableList<Appeal> getFilteredAppealList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' MAMS file path.
      */
     Path getMamsFilePath();
 

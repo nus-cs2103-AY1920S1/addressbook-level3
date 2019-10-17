@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import mams.commons.util.AppUtil;
 
 /**
- * Represents a Student's credits number in the address book.
+ * Represents a Student's credits number in MAMS.
  * Guarantees: immutable; is valid as declared in {@link #isValidCredits(String)}
  */
 public class Credits {

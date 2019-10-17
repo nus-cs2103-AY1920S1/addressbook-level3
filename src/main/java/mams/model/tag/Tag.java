@@ -6,7 +6,7 @@ import mams.commons.util.AppUtil;
 import mams.model.appeal.Appeal;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in MAMS.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
@@ -57,6 +57,14 @@ public class Tag {
      */
     public String toString() {
         return '[' + tagName + ']';
+    }
+
+    /**
+     * Returns the tag name.
+     * @return string of tag name.
+     */
+    public String getTagName() {
+        return tagName;
     }
 
 }

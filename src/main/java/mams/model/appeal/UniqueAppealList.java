@@ -27,7 +27,7 @@ import mams.model.appeal.exceptions.DuplicateAppealException;
 public class UniqueAppealList implements Iterable<Appeal> {
 
     private final ObservableList<Appeal> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Appeal> internalUnmodifiedList =
+    private final ObservableList<Appeal> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
@@ -67,9 +67,6 @@ public class UniqueAppealList implements Iterable<Appeal> {
             throw new AppealNotFoundException();
         }
 
-        if (!target.isSameAppeal(editedAppeal) && contains(editedAppeal)) {
-            throw new DuplicateAppealException();
-        }
 
         internalList.set(index, editedAppeal);
     }
@@ -112,7 +109,7 @@ public class UniqueAppealList implements Iterable<Appeal> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Appeal> asUnmodifiableObservableList() {
-        return internalUnmodifiedList;
+        return internalUnmodifiableList;
     }
 
     @Override

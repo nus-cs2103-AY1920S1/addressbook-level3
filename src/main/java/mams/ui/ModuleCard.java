@@ -2,7 +2,7 @@ package mams.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import mams.model.module.Module;
@@ -20,21 +20,34 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label moduleCode;
     @FXML
+    private Label moduleName;
+    @FXML
+    private Label lecturerName;
+    @FXML
     private Label id;
     @FXML
     private Label timeSlot;
+    @FXML
+    private Label enrolment;
+    @FXML
+    private Label quota;
+    @FXML
+    private ProgressBar quotaBar;
 
     // TODO add more fields for module display card
-
-    @FXML
-    private FlowPane tags;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
         id.setText(displayedIndex + ". ");
         moduleCode.setText(module.getModuleCode());
-        timeSlot.setText(module.timeSlotsToString());
+        moduleName.setText(module.getModuleName());
+        lecturerName.setText(module.getLecturerName());
+        timeSlot.setText(module.getModuleTimeTableToString());
+        enrolment.setText(Integer.toString(module.getCurrentEnrolment()));
+        quota.setText(Integer.toString(module.getQuota()));
+        double percentageFilled = (double) module.getCurrentEnrolment() / module.getQuota();
+        quotaBar.setProgress(percentageFilled);
     }
 
     @Override

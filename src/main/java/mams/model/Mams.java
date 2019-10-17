@@ -33,6 +33,7 @@ public class Mams implements ReadOnlyMams {
         students = new UniqueStudentList();
         modules = new UniqueModuleList();
         appeals = new UniqueAppealList();
+        // todo: add own object to test.
     }
 
     public Mams() {}
@@ -79,6 +80,7 @@ public class Mams implements ReadOnlyMams {
 
         setStudents(newData.getStudentList());
         setModules(newData.getModuleList());
+        setAppeals(newData.getAppealList());
     }
 
     //// student-level operations

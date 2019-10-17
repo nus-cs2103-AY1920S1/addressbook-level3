@@ -2,7 +2,6 @@ package mams.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import mams.model.appeal.Appeal;
@@ -13,9 +12,14 @@ import mams.model.appeal.Appeal;
 public class AppealCard extends UiPart<Region> {
 
     private static final String FXML = "AppealListCard.fxml";
-    private static final String APPEAL_TYPE_LABEL_PREFIX = "Appeal Type: ";
-    private static final String MATRIC_LABEL_PREFIX = "Matric No.: ";
-    private static final String ACAD_YEAR_LABEL_PREFIX = "Academic Year: ";
+
+    private static final String STATUS_RESOLVED = "\u2713" + " Resolved";
+    private static final String STATUS_UNRESOLVED = "\u2718" + " Unresolved";
+
+    // TODO define own style classes as extensions so that future changes to prefix don't affect this in regression
+    private static final String UNRESOLVED_STYLE_CLASS = "prefix_pink";
+    private static final String RESOLVED_STYLE_CLASS = "prefix_green";
+
     public final Appeal appeal;
 
     @FXML
@@ -30,20 +34,28 @@ public class AppealCard extends UiPart<Region> {
     private Label studentId;
     @FXML
     private Label academicYear;
-
-    // TODO fix FXML fields to be specific to appeal
-
     @FXML
-    private FlowPane tags;
+    private Label status;
 
     public AppealCard(Appeal appeal, int displayedIndex) {
         super(FXML);
         this.appeal = appeal;
         id.setText(displayedIndex + ". ");
         appealId.setText(appeal.getAppealId());
-        studentId.setText(MATRIC_LABEL_PREFIX + appeal.getStudentId());
-        appealType.setText(APPEAL_TYPE_LABEL_PREFIX + appeal.getAppealType());
-        academicYear.setText(ACAD_YEAR_LABEL_PREFIX + appeal.getAcademicYear());
+        studentId.setText(appeal.getStudentId());
+        appealType.setText(appeal.getAppealType());
+        academicYear.setText(appeal.getAcademicYear());
+        setStatusDisplay(status, appeal.isResolved());
+    }
+
+    private static void setStatusDisplay(Label status, boolean isResolved) {
+        if (isResolved) {
+            status.setText(STATUS_RESOLVED);
+            status.getStyleClass().add(RESOLVED_STYLE_CLASS);
+        } else {
+            status.setText(STATUS_UNRESOLVED);
+            status.getStyleClass().add(UNRESOLVED_STYLE_CLASS);
+        }
     }
 
     @Override

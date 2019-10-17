@@ -41,17 +41,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' MAMS file path.
      */
     Path getMamsFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' MAMS file path.
      */
     void setMamsFilePath(Path mamsFilePath);
 
     /**
-     * Replaces address book data with the data in {@code mams}.
+     * Replaces MAMS data with the data in {@code mams}.
      */
     void setMams(ReadOnlyMams mams);
 
@@ -59,7 +59,7 @@ public interface Model {
     ReadOnlyMams getMams();
 
     /**
-     * Returns true if a student with the same identity as {@code student} exists in the address book.
+     * Returns true if a student with the same identity as {@code student} exists in MAMS.
      */
     boolean hasStudent(Student student);
 

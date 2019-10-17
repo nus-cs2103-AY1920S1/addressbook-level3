@@ -1,11 +1,12 @@
 package mams.model;
 
 import javafx.collections.ObservableList;
+import mams.model.appeal.Appeal;
 import mams.model.module.Module;
 import mams.model.student.Student;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of MAMS
  */
 public interface ReadOnlyMams {
 
@@ -21,4 +22,5 @@ public interface ReadOnlyMams {
      */
     ObservableList<Module> getModuleList();
 
+    ObservableList<Appeal> getAppealList();
 }
