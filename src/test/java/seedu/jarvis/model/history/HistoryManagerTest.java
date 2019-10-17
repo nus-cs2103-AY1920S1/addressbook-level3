@@ -661,7 +661,7 @@ public class HistoryManagerTest {
         }
 
         @Override
-        public boolean isEqual(Planner other) {
+        public boolean equals(Object other) {
             throw new AssertionError("This method should not be called.");
         }
     }
