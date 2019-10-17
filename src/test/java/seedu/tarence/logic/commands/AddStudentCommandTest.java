@@ -30,6 +30,7 @@ import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
@@ -301,6 +302,11 @@ public class AddStudentCommandTest {
         public void setStudent(Student target, Student editedStudent) {
             throw new AssertionError("This method should not be called.");
 
+        }
+
+        @Override
+        public boolean hasStudentInTutorialAndModule(Name studName, TutName tutName, ModCode modCode) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

@@ -21,6 +21,8 @@ import seedu.tarence.model.tutorial.Tutorial;
 public class DisplayAttendanceCommandTest {
     public static final String VALID_MODCODE = "GET1029";
     public static final String VALID_TUTNAME = "WhyIsThisClassAt8am";
+    public static final String SIMILAR_MODCODE = "GET1028";
+    public static final String SIMILAR_TUTNAME = "WhyIsThisClassAt8pm";
     public static final String VALID_MODCODE_2 = "GET1000";
     public static final String VALID_TUTNAME_2 = "WhyIsThisClassAt9pm";
     private Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
@@ -29,7 +31,7 @@ public class DisplayAttendanceCommandTest {
     public void execute_constructor_showsSameSuccessOutput() {
         TutorialBuilder.DEFAULT_STUDENTS.clear();
         Tutorial tutorialToDisplay =
-                new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
+                new TutorialBuilder().withModCode(VALID_MODCODE_2).withTutName(VALID_TUTNAME_2).build();
         model.addTutorial(tutorialToDisplay);
 
         DisplayAttendanceCommand displayAttendanceCommand =
@@ -38,6 +40,29 @@ public class DisplayAttendanceCommandTest {
 
         assertCommandSuccess(displayAttendanceCommand, model, DisplayAttendanceCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
+    // Todo: Fix test
+    //    @Test
+    //    public void execute_similarTutorialName_showSuggestedCommands() throws CommandException {
+    //        model = new ModelManager(getTypicalApplication(), new UserPrefs());
+    //        TutorialBuilder.DEFAULT_STUDENTS.clear();
+    //        Tutorial similarTutorial =
+    //                new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(SIMILAR_TUTNAME).build();
+    //        Module validModule = new ModuleBuilder().withModCode(VALID_MODCODE).build();
+    //        model.addModule(validModule);
+    //        model.addTutorial(similarTutorial);
+    //        validModule.addTutorial(similarTutorial);
+    //
+    //        DisplayAttendanceCommand displayAttendanceCommand =
+    //                new DisplayAttendanceCommand(new ModCode(VALID_MODCODE), new TutName(VALID_TUTNAME));
+    //
+    //        CommandResult commandResult = displayAttendanceCommand.execute(model);
+    //        String expectedMessage = String.format(Messages.MESSAGE_SUGGESTED_CORRECTIONS, "Tutorial",
+    //                VALID_MODCODE + " " + VALID_TUTNAME)
+    //                + "1. " + VALID_MODCODE + ", " + SIMILAR_TUTNAME + "\n";
+    //
+    //        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+    //    }
 
     @Test
     public void equals() {
@@ -76,6 +101,7 @@ public class DisplayAttendanceCommandTest {
     public void execute_differentCommandWord_showSuccess() {
         String validCommand = "diSplAyAtTenDaNce";
         String validCommand2 = "DISPLAYATTENDANCE";
+        String validCommand3 = "DisplayAtt";
 
         ModCode modCode = new ModCode(VALID_MODCODE);
         TutName tutName = new TutName(VALID_TUTNAME);
@@ -85,12 +111,11 @@ public class DisplayAttendanceCommandTest {
         // Correct word
         assertTrue(displayAttendanceCommand.isMatchingCommandWord(validCommand));
         assertTrue(displayAttendanceCommand.isMatchingCommandWord(validCommand2));
+        assertTrue(displayAttendanceCommand.isMatchingCommandWord(validCommand3));
 
         // Incorrect word
-        String invalidCommand1 = "DISPLAY";
-        String invalidCommand2 = "DisplayAtt";
+        String invalidCommand = "DISPLAY";
 
-        assertFalse(displayAttendanceCommand.isMatchingCommandWord(invalidCommand1));
-        assertFalse(displayAttendanceCommand.isMatchingCommandWord(invalidCommand2));
+        assertFalse(displayAttendanceCommand.isMatchingCommandWord(invalidCommand));
     }
 }

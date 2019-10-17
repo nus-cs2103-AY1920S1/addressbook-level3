@@ -12,6 +12,7 @@ import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
@@ -147,6 +148,11 @@ class ModelStub implements Model {
     @Override
     public void deleteStudent(Student student) {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasStudentInTutorialAndModule(Name studName, TutName tutName, ModCode modCode) {
+        return false;
     }
 
     @Override

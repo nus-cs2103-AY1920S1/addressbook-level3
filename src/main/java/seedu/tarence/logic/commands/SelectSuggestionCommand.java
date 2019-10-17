@@ -1,5 +1,7 @@
 package seedu.tarence.logic.commands;
 
+import static seedu.tarence.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
@@ -43,6 +45,10 @@ public class SelectSuggestionCommand extends Command {
         if (index == null) {
             // dummy command- return empty command result
             return new CommandResult("");
+        }
+
+        if (model.getSuggestedCommands().size() == 0) {
+            throw new CommandException(MESSAGE_UNKNOWN_COMMAND);
         }
 
         if (index.getOneBased() > model.getSuggestedCommands().size()) {

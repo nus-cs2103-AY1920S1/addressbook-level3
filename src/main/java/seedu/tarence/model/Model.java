@@ -9,6 +9,7 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
@@ -117,6 +118,11 @@ public interface Model {
      * {@code student} must not already exist in the application.
      */
     void addStudent(Student student);
+
+    /**
+     * Checks if the combination of a given student name, tutorial name, and module code exists in the model.
+     */
+    public boolean hasStudentInTutorialAndModule(Name studName, TutName tutName, ModCode modCode);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

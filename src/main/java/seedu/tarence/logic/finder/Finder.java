@@ -8,6 +8,8 @@ import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.Name;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
@@ -22,6 +24,7 @@ public class Finder {
     // thresholds for similarity differ between parameters due to their varying expected lengths
     private int thresholdModCode = 80;
     private int thresholdTutName = 70;
+    private int thresholdStudentName = 80;
 
     public Finder(Model model) {
         this.model = model;
@@ -55,6 +58,21 @@ public class Finder {
             }
         }
         return similarTutNames;
+    }
+
+    /**
+     * Searches for students in the application with a {@code Name} similar to the given one.
+     * @param name target name to match against.
+     * @return a {@code List} of similar {@code Name}s.
+     */
+    public List<Name> findSimilarNames (Name name) throws CommandException {
+        List<Name> similarNames = new ArrayList<>();
+        for (Student student : model.getFilteredStudentList()) {
+            if (FuzzySearch.ratio(name.toString(), student.getName().toString()) > thresholdStudentName) {
+                similarNames.add(student.getName());
+            }
+        }
+        return similarNames;
     }
 
 }
