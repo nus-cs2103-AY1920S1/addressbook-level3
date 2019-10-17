@@ -27,7 +27,7 @@ public class FilePath {
      */
     public static final String VALIDATION_REGEX = "[~\\w\\-!:\\[\\]()/\\\\ ]+\\.docx";
 
-    public final Path path;
+    private final Path path;
 
     /**
      * Constructs a {@code Question}.
