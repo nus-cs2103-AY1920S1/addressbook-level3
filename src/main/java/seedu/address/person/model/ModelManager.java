@@ -43,6 +43,7 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
+
     //=========== UserPrefs ==================================================================================
 
     @Override

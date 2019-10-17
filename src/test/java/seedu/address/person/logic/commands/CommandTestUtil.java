@@ -2,13 +2,13 @@ package seedu.address.person.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.util.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.util.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.util.CliSyntax.PREFIX_NAME;
 import static seedu.address.util.CliSyntax.PREFIX_PHONE;
 import static seedu.address.util.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,24 +26,19 @@ import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.NameContainsKeywordsPredicate;
 import seedu.address.person.model.person.Person;
-<<<<<<< HEAD
-import seedu.address.stubs.TransactionLogicStub;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.model.Transaction;
-=======
 import seedu.address.person.storage.AddressBookStorage;
 import seedu.address.person.storage.JsonAddressBookStorage;
 import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.stubs.TransactionLogicStub;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
-import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
->>>>>>> upstream/master
+
 
 /**
  * Contains helper methods for testing commands.
@@ -119,7 +114,8 @@ public class CommandTestUtil {
 
 
             //all related ModelManagers
-            seedu.address.transaction.model.Model transactionModel = new ModelManager(transactionList);
+            seedu.address.transaction.model.Model transactionModel =
+                    new seedu.address.transaction.model.ModelManager(transactionList);
             seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
             seedu.address.reimbursement.model.Model reimbursementModel=
                     new seedu.address.reimbursement.model.ModelManager(reimbursementList);
@@ -192,9 +188,9 @@ public class CommandTestUtil {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(userPrefPath);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(addressPath);
 
-
         //all related ModelManagers
-        seedu.address.transaction.model.Model transactionModel = new ModelManager(transactionList);
+        seedu.address.transaction.model.Model transactionModel =
+                new seedu.address.transaction.model.ModelManager(transactionList);
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
         seedu.address.reimbursement.model.Model reimbursementModel=
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);

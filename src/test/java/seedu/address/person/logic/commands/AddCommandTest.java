@@ -5,43 +5,30 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-<<<<<<< HEAD
-=======
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
->>>>>>> upstream/master
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Test;
-
-<<<<<<< HEAD
-=======
-import javafx.collections.ObservableList;
-import seedu.address.MainApp;
 import seedu.address.inventory.util.InventoryList;
-import seedu.address.person.commons.core.GuiSettings;
->>>>>>> upstream/master
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
-<<<<<<< HEAD
-import seedu.address.stubs.PersonModelStub;
-import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
-import seedu.address.stubs.PersonModelStubWithPerson;
-import seedu.address.testutil.PersonBuilder;
-=======
 import seedu.address.person.storage.AddressBookStorage;
 import seedu.address.person.storage.JsonAddressBookStorage;
 import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.stubs.PersonModelStub;
+import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
+import seedu.address.stubs.PersonModelStubWithPerson;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
->>>>>>> upstream/master
+
+import org.junit.jupiter.api.Test;
+
 
 public class AddCommandTest {
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";
