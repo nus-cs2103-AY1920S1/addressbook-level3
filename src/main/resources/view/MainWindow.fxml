@@ -12,6 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -57,33 +59,43 @@
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-          <VBox fx:id="templateList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <children>
-            <Label text="Template List"></Label>
-          </children>
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-          <VBox fx:id="wasteList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-            <children>
-              <Label text="Waste List"></Label>
-            </children>
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="wasteListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-          <VBox fx:id="shoppingList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-            <children>
-              <Label text="Shopping List"></Label>
-            </children>
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="shoppingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+          <TabPane fx:id="tabPane">
+            <tabs>
+              <Tab fx:id="templateListPage" text="Template List">
+                <VBox fx:id="templateList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                  <children>
+                    <Label text="Template List"></Label>
+                  </children>
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                </VBox>
+              </Tab>
+              <Tab fx:id="wasteListPage" text="Waste List">
+                <VBox fx:id="wasteList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                  <children>
+                    <Label text="Waste List"></Label>
+                  </children>
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="wasteListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                </VBox>
+              </Tab>
+              <Tab fx:id="shoppingListPage" text="Shopping List">
+                <VBox fx:id="shoppingList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                  <children>
+                    <Label text="Shopping List"></Label>
+                  </children>
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="shoppingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                </VBox>
+              </Tab>
+            </tabs>
+          </TabPane>
         </SplitPane>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

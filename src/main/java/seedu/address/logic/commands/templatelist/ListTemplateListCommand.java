@@ -19,6 +19,8 @@ public class ListTemplateListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
+        commandResult.setTemplateListCommand();
+        return commandResult;
     }
 }
