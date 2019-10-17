@@ -7,6 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Id;
+import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Team;
 
 /**
@@ -39,7 +40,7 @@ public class ViewTeamCommand extends ViewCommand {
         }
         viewEntity(teamToView);
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, PrefixType.T);
     }
 
 }

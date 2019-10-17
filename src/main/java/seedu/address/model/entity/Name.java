@@ -3,28 +3,33 @@ package seedu.address.model.entity;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
+
 /**
  * Represents an Entity's name in the address book.
  * Guarantees: details is present and not null,
  * field values is  validated as declared in {@link #isValidName(String)}, immutable.
  */
 public class Name {
-
-    //Constants
-    private static final String SPECIAL_CHARACTERS = ",.-'";
+    //Constat
+    public static final String SPECIAL_CHARACTERS = "\\,.-'";
+    private static final String VALIDATION_REGEX =
+            "^[A-Za-z][A-Za-z\\'\\-\\.\\,0-9]+([\\ A-Za-z0-9][A-Za-z\\'\\-\\.\\,0-9]+)*";
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should adhere to the following constraints:\n"
-            + "1. It should contain alphabets, spaces, and these special characters, excluding"
-            + "the parentheses, (" + SPECIAL_CHARACTERS + "). \n"
-            + "2.Contain at least one character";
+                    + "1. The first character is an alphabet.\n"
+                    + "2. It should contain alphabets, spaces, and these special characters, excluding "
+                    + "the parentheses (" + SPECIAL_CHARACTERS + "). \n"
+                    + "3.Contain at least one character";
 
-
-    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     // Data fields
     public final String fullName;
-
+    //Constants
+    private final Logger logger = LogsCenter.getLogger(Name.class);
     /**
      * Constructs a {@code Name}.
      *
@@ -32,6 +37,9 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
+        if (isValidName(name) == false) {
+            logger.severe("Name is not valid:" + name);
+        }
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
@@ -45,8 +53,6 @@ public class Name {
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
-
 
 
     /**

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.PrefixType;
 
 /**
  * Lists every {@link Mentor} in Alfred.
@@ -22,7 +23,7 @@ public class ListMentorCommand extends ListCommand {
         this.displayMentors(model);
 
         model.updateHistory();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, PrefixType.M);
     }
 
 }

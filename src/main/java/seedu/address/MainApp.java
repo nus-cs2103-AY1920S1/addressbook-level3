@@ -42,7 +42,7 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected AlfredStorage storage;
+    protected AlfredStorage alfredStorage;
     protected Model model;
     protected Config config;
 
@@ -60,11 +60,11 @@ public class MainApp extends Application {
         ParticipantListStorage pStore = new JsonParticipantListStorage(userPrefs.getParticipantListFilePath());
         MentorListStorage mStore = new JsonMentorListStorage(userPrefs.getMentorListFilePath());
         TeamListStorage tStore = new JsonTeamListStorage(userPrefs.getTeamListFilePath());
-        storage = new AlfredStorageManager(pStore, mStore, tStore, userPrefsStorage);
+        alfredStorage = new AlfredStorageManager(pStore, mStore, tStore, userPrefsStorage);
 
         initLogging(config);
 
-        model = new ModelManager(storage, userPrefs);
+        model = new ModelManager(alfredStorage, userPrefs);
         model.initialize();
 
         logic = new LogicManager(model);
@@ -156,7 +156,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            alfredStorage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

@@ -13,8 +13,6 @@ import seedu.address.model.entity.PrefixType;
  */
 public class DeleteParticipantCommandParser implements Parser<DeleteCommand> {
 
-    private static final String MESSAGE_USAGE = "Wrong usage.";
-
     /**
      * Parses the given {@code String} of arguments in the context of the {@code DeleteParticipantCommand}
      * and returns a {@code DeleteParticipantCommand} object for execution.

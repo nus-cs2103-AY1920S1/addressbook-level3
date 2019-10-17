@@ -55,6 +55,21 @@ public interface Model {
     Path getAddressBookFilePath();
 
     /**
+     * Returns the user prefs' ParticipantList file path.
+     */
+    Path getParticipantListFilePath();
+
+    /**
+     * Returns the user prefs' TeamList file path.
+     */
+    Path getTeamListFilePath();
+
+    /**
+     * Returns the user prefs' MentorList file path.
+     */
+    Path getMentorListFilePath();
+
+    /**
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);

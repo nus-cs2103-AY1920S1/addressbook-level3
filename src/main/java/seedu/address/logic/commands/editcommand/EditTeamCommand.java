@@ -16,6 +16,7 @@ import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
@@ -30,19 +31,18 @@ public class EditTeamCommand extends EditCommand {
     public static final String MESSAGE_DUPLICATE_TEAM = "This person already exists in the address book.";
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX =
             "The team index provided is invalid";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the team identified "
-            + "by the index number used in the displayed team list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the team by ID.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: mentor ID "
+            + "Format: " + "ID"
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
-            + "[" + CliSyntax.PREFIX_SUBJECT_NAME + "SUBJECT NAME] "
-            + "[" + CliSyntax.PREFIX_SCORE + "SCORE] "
-            + "[" + CliSyntax.PREFIX_PROJECT_NAME + "PROJECT NAME] "
-            + "[" + CliSyntax.PREFIX_PROJECT_TYPE + "PROJECT TYPE] "
-            + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION]\n"
-            + "Example: " + COMMAND_WORD + " M-1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 "
-            + CliSyntax.PREFIX_EMAIL + "johndoe@example.com";
+            + "[" + CliSyntax.PREFIX_SUBJECT_NAME + "SUBJECT_NAME] "
+            + "[" + CliSyntax.PREFIX_PROJECT_NAME + "PROJECT_NAME] "
+            + "[" + CliSyntax.PREFIX_PROJECT_TYPE + "PROJECT_TYPE] "
+            + "[" + CliSyntax.PREFIX_LOCATION + "TABLE_NUMBER]"
+            + "[" + CliSyntax.PREFIX_SCORE + "SCORE]\n"
+            + "Example: " + COMMAND_WORD + " T-1 "
+            + CliSyntax.PREFIX_PROJECT_NAME + "Saving Gotham "
+            + CliSyntax.PREFIX_PROJECT_TYPE + "Public welfare";
 
     private EditTeamDescriptor editTeamDescriptor;
 
@@ -68,7 +68,7 @@ public class EditTeamCommand extends EditCommand {
         try {
             model.updateTeam(this.id, editedTeam);
             model.updateHistory();
-            return new CommandResult(String.format(MESSAGE_EDIT_TEAM_SUCCESS, editedTeam.toString()));
+            return new CommandResult(String.format(MESSAGE_EDIT_TEAM_SUCCESS, editedTeam.toString()), PrefixType.T);
         } catch (AlfredException e) {
             throw new CommandException(e.getMessage());
         }

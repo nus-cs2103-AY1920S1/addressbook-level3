@@ -1,7 +1,12 @@
 package seedu.address.model.entitylist;
 
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import seedu.address.commons.core.LogsCenter;
+
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
@@ -16,9 +21,8 @@ import seedu.address.model.entity.Team;
  */
 public class TeamList extends EntityList {
     public static final String SIMILAR_TEAM_MSG = "A similar Team already exists.";
-
     private static int lastUsedId = 0;
-
+    private final Logger logger = LogsCenter.getLogger(TeamList.class);
     private final ObservableList<Team> teams = FXCollections.observableArrayList();
     private final ObservableList<Team> unmodifiableTeams =
             FXCollections.unmodifiableObservableList(teams);
@@ -31,7 +35,7 @@ public class TeamList extends EntityList {
      * @throws MissingEntityException if the team to get does not exist.
      */
     public Team get(Id id) throws MissingEntityException {
-        for (Team t: this.teams) {
+        for (Team t : this.teams) {
             if (t.getId().equals(id)) {
                 return t;
             }
@@ -40,17 +44,28 @@ public class TeamList extends EntityList {
     }
 
     /**
+     * Returns the size of ObservableList of Teams.
+     * Used to set the lastUsedId during the intialization of model in ModelManager#intialize.
+     * During the intialization, TeamList is set the the TeamList gotten from storage.
+     *
+     * @return size Number of Teams in TeamList
+     */
+    public int getSize() {
+        return this.teams.size();
+    }
+
+    /**
      * Updates team by ID.
      *
      * @param id
      * @param updatedTeam
-     * @throws MissingEntityException if the team to update does not exist.
+     * @throws MissingEntityException   if the team to update does not exist.
      * @throws ModelValidationException if a similar participant already exists.
      */
     public void update(Id id, Team updatedTeam)
             throws MissingEntityException, ModelValidationException {
         // First check if the updated team already exists
-        for (Team t: this.teams) {
+        for (Team t : this.teams) {
             if (t.isSameTeam(updatedTeam) && !t.getId().equals(updatedTeam.getId())) {
                 throw new ModelValidationException(SIMILAR_TEAM_MSG);
             }
@@ -72,12 +87,14 @@ public class TeamList extends EntityList {
      * @throws AlfredModelException
      */
     public void add(Team team) throws AlfredModelException {
-        for (Team t: this.teams) {
-            if (t.isSameTeam(team) || t.getId().equals(team.getId())) {
+        for (Team t : this.teams) {
+            if (t.isSameTeam(team)) {
+                logger.severe("The same team already exist in TeamList of Model." + this.teams);
                 throw new AlfredModelException("Team to add already exists.");
             }
         }
         this.teams.add(team);
+        this.lastUsedId++;
     }
 
     /**
@@ -87,7 +104,7 @@ public class TeamList extends EntityList {
      * @throws MissingEntityException if team to delete cannot be found.
      */
     public Team delete(Id id) throws MissingEntityException {
-        for (Team t: this.teams) {
+        for (Team t : this.teams) {
             if (t.getId().equals(id)) {
                 this.teams.remove(t);
                 return t;
@@ -132,7 +149,7 @@ public class TeamList extends EntityList {
      */
     @Override
     public boolean contains(Id id) {
-        for (Team p: this.teams) {
+        for (Team p : this.teams) {
             if (p.getId().equals(id)) {
                 return true;
             }

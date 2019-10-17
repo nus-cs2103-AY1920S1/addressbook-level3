@@ -15,6 +15,7 @@ import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Phone;
+import seedu.address.model.entity.PrefixType;
 
 /**
  * Edits a {@link Participant} in Alfred.
@@ -24,16 +25,15 @@ public class EditParticipantCommand extends EditCommand {
     public static final String MESSAGE_EDIT_PARTICIPANT_SUCCESS = "Edited Participant: %1$s";
     public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX =
             "The participant index provided is invalid";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the participant identified "
-            + "by the index number used in the displayed participant list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the participant by ID.\n "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: participant ID "
+            + "Format: " + "ID"
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
             + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL]\n"
             + "Example: " + COMMAND_WORD + " P-1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 "
-            + CliSyntax.PREFIX_EMAIL + "johndoe@example.com";
+            + CliSyntax.PREFIX_PHONE + "+659456 9789 "
+            + CliSyntax.PREFIX_EMAIL + "alfred@butler.com";
 
     private EditParticipantDescriptor editParticipantDescriptor;
 
@@ -54,13 +54,13 @@ public class EditParticipantCommand extends EditCommand {
             throw new CommandException(MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX);
         }
         Participant editedParticipant = this.createEditedParticipant(participantToEdit,
-                                                                     this.editParticipantDescriptor);
-        System.out.println(editedParticipant.toString());
+                this.editParticipantDescriptor);
 
         try {
             model.updateParticipant(this.id, editedParticipant);
             model.updateHistory();
-            return new CommandResult(String.format(MESSAGE_EDIT_PARTICIPANT_SUCCESS, editedParticipant.toString()));
+            return new CommandResult(String.format(MESSAGE_EDIT_PARTICIPANT_SUCCESS,
+                    editedParticipant.toString()), PrefixType.P);
         } catch (AlfredException e) {
             throw new CommandException(e.getMessage());
         }
@@ -70,7 +70,7 @@ public class EditParticipantCommand extends EditCommand {
      * Creates and returns a new {@code Participant} with the details {@code participantToEdit}
      * edited with {@code editParticipantDescriptor}.
      *
-     * @param participantToEdit {@code Participant} that will be updated.
+     * @param participantToEdit         {@code Participant} that will be updated.
      * @param editParticipantDescriptor Descriptor with the details to edit {@code participantToEdit}.
      * @return Updated {@code Participant}.
      */
@@ -96,7 +96,8 @@ public class EditParticipantCommand extends EditCommand {
         private Email email;
         private Phone phone;
 
-        public EditParticipantDescriptor() {}
+        public EditParticipantDescriptor() {
+        }
 
         public EditParticipantDescriptor(EditParticipantDescriptor toCopy) {
             super(toCopy);

@@ -1,6 +1,9 @@
 package seedu.address.model.entity;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents a {@code Mentor} in the address book.
@@ -13,13 +16,15 @@ public class Mentor extends Entity {
     private Name organization;
     private SubjectName subject;
 
+    private final Logger logger = LogsCenter.getLogger(Mentor.class);
+
     /**
      * Constructs an {@code Mentor}.
      *
-     * @param name Name of {@code Mentor}.
-     * @param id Idenfication number of (@code Mentor}.
-     * @param phone Phone number.
-     * @param email Email address.
+     * @param name         Name of {@code Mentor}.
+     * @param id           Idenfication number of (@code Mentor}.
+     * @param phone        Phone number.
+     * @param email        Email address.
      * @param organization Namme of organization.
      */
     public Mentor(
@@ -161,8 +166,19 @@ public class Mentor extends Entity {
             return true;
         }
 
+        /*  To be deleted, logger is used for checking only
+        if (this.name.equals(otherMentor.getName()))
+            logger.info("New Mentor has the same name as existing mentor " + this.name + " and " + otherMentor.name);
+        if (this.phone.equals(otherMentor.getPhone()))
+            logger.severe("New Mentor has the same phone number as existing mentor "
+                    + this.phone + " and " + otherMentor.getPhone());
+        if (this.email.equals(otherMentor.getEmail()))
+            logger.info("New Mentor has the same email as existing mentor " + this.email + " and " + otherMentor.email);
+            */
+
+
         return this.name.equals(otherMentor.getName())
-            && (this.phone.equals(otherMentor.getPhone())
+                && (this.phone.equals(otherMentor.getPhone())
                 || this.email.equals(otherMentor.getEmail()));
     }
 

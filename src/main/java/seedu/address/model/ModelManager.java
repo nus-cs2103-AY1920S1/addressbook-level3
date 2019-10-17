@@ -45,12 +45,9 @@ public class ModelManager implements Model {
     protected TeamList teamList = new TeamList();
     protected MentorList mentorList = new MentorList();
 
-    protected FilteredList<Participant> filteredParticipantList =
-            new FilteredList<>(this.participantList.getSpecificTypedList());
-    protected FilteredList<Team> filteredTeamList =
-            new FilteredList<>(this.teamList.getSpecificTypedList());
-    protected FilteredList<Mentor> filteredMentorList =
-            new FilteredList<>(this.mentorList.getSpecificTypedList());
+    protected FilteredList<Participant> filteredParticipantList;
+    protected FilteredList<Team> filteredTeamList;
+    protected FilteredList<Mentor> filteredMentorList;
 
     // TODO: Remove the null values which are a placeholder due to the multiple constructors.
     // Also will have to change the relevant attributes to final.
@@ -85,16 +82,6 @@ public class ModelManager implements Model {
         // TODO: Remove: Currently it is here to make tests pass.
         this.addressBook = new AddressBook();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        // TODO: Make final
-        this.participantList = new ParticipantList();
-        this.teamList = new TeamList();
-        this.mentorList = new MentorList();
-        this.filteredParticipantList =
-                new FilteredList<>(this.participantList.getSpecificTypedList());
-        this.filteredMentorList =
-                new FilteredList<>(this.mentorList.getSpecificTypedList());
-        this.filteredTeamList =
-                new FilteredList<>(this.teamList.getSpecificTypedList());
     }
 
     /**
@@ -109,6 +96,7 @@ public class ModelManager implements Model {
                 this.teamList = new TeamList();
             } else {
                 this.teamList = storageTeamList.get();
+                this.teamList.setLastUsedId(this.teamList.getSize() - 1);
             }
         } catch (IOException | AlfredException e) {
             logger.warning("TeamList is empty in storage. Writing a new one.");
@@ -122,6 +110,7 @@ public class ModelManager implements Model {
                 this.participantList = new ParticipantList();
             } else {
                 this.participantList = storageParticipantList.get();
+                this.participantList.setLastUsedId(this.participantList.getSize() - 1);
             }
         } catch (IOException | AlfredException e) {
             logger.warning("ParticipantList is empty in storage. Writing a new one.");
@@ -134,6 +123,7 @@ public class ModelManager implements Model {
                 this.mentorList = new MentorList();
             } else {
                 this.mentorList = storageMentorList.get();
+                this.mentorList.setLastUsedId(this.mentorList.getSize() - 1);
             }
         } catch (IOException | AlfredException e) {
             logger.warning("MentorList is empty in storage. Writing a new one.");
@@ -200,6 +190,21 @@ public class ModelManager implements Model {
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getParticipantListFilePath() {
+        return userPrefs.getParticipantListFilePath();
+    }
+
+    @Override
+    public Path getTeamListFilePath() {
+        return userPrefs.getTeamListFilePath();
+    }
+
+    @Override
+    public Path getMentorListFilePath() {
+        return userPrefs.getMentorListFilePath();
     }
 
     @Override

@@ -8,6 +8,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.Team;
 import seedu.address.model.person.Person;
 
 /**
@@ -33,10 +36,34 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered list of Teams */
+    ObservableList<Participant> getFilteredParticipantList();
+
+    /** Returns an unmodifiable view of the filtered list of Teams */
+    ObservableList<Team> getFilteredTeamList();
+
+    /** Returns an unmodifiable view of the filtered list of Teams */
+    ObservableList<Mentor> getFilteredMentorList();
+
     /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' ParticipantList file path.
+     */
+    Path getParticipantListFilePath();
+
+    /**
+     * Returns the user prefs' TeamList file path.
+     */
+    Path getTeamListFilePath();
+
+    /**
+     * Returns the user prefs' MentorList file path.
+     */
+    Path getMentorListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

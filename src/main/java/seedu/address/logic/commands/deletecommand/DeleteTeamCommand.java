@@ -7,6 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Id;
+import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Team;
 
 /**
@@ -18,8 +19,8 @@ public class DeleteTeamCommand extends DeleteCommand {
             + "does not exist.";
     public static final String MESSAGE_DELETE_TEAM_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the team identified by the ID used in the displayed team list.\n"
-            + "Parameters: team ID\n"
+            + ": Deletes a team by ID shown in the list of teams.\n"
+            + "Format: " + COMMAND_WORD + " ID\n"
             + "Example: " + COMMAND_WORD + " T-1";
 
     public DeleteTeamCommand(Id id) {
@@ -39,7 +40,7 @@ public class DeleteTeamCommand extends DeleteCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TEAM_SUCCESS,
-                teamToBeDeleted.toString()));
+                teamToBeDeleted.toString()), PrefixType.T);
     }
 
 }

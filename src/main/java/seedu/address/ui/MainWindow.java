@@ -16,6 +16,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.PrefixType;
+import seedu.address.ui.entitylistpanel.EntityListPanel;
+import seedu.address.ui.entitylistpanel.MentorListPanel;
+import seedu.address.ui.entitylistpanel.ParticipantListPanel;
+import seedu.address.ui.entitylistpanel.TeamListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private EntityListPanel listPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane entityListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -75,6 +80,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,13 +113,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //Displays the list of teams during application start up
+        listPanel = new TeamListPanel(logic.getFilteredTeamList());
+        entityListPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        //Displays the file path for team list during start up for application
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTeamListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -160,8 +168,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public EntityListPanel getListPanel() {
+        return listPanel;
     }
 
     /**
@@ -169,6 +177,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
+    @SuppressWarnings("checkstyle:Regexp")
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
@@ -181,6 +190,32 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            PrefixType type = commandResult.getType();
+            logger.info("CommandResult has the prefix: " + type);
+            //TODO: if the current panel is the one being changed, do not change the entityListPlaceholder
+            switch (type) {
+            case M:
+                listPanel = new MentorListPanel(logic.getFilteredMentorList());
+                entityListPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
+                break;
+
+            case T:
+                listPanel = new TeamListPanel(logic.getFilteredTeamList());
+                entityListPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
+                break;
+
+            case P:
+                listPanel = new ParticipantListPanel(logic.getFilteredParticipantList());
+                entityListPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
+                break;
+
+            default:
+                logger.info("The command does not edit any of the list of Entity");
+                break;
+
+
             }
 
             return commandResult;

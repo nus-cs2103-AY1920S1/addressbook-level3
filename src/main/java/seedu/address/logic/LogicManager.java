@@ -13,6 +13,9 @@ import seedu.address.logic.parser.AlfredParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.Team;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,11 +26,11 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final AlfredParser addressBookParser;
+    private final AlfredParser alfredParser;
 
     public LogicManager(Model model) {
         this.model = model;
-        addressBookParser = new AlfredParser();
+        alfredParser = new AlfredParser();
     }
 
     @Override
@@ -35,7 +38,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = alfredParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         return commandResult;
@@ -52,9 +55,40 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Participant> getFilteredParticipantList() {
+        return model.getFilteredParticipantList();
+    }
+
+    @Override
+    public ObservableList<Team> getFilteredTeamList() {
+        return model.getFilteredTeamList();
+    }
+
+    @Override
+    public ObservableList<Mentor> getFilteredMentorList() {
+        return model.getFilteredMentorList();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
+    //TODO: May update he three methods below to get Alfred file path instead
+    @Override
+    public Path getParticipantListFilePath() {
+        return model.getParticipantListFilePath();
+    }
+
+    @Override
+    public Path getTeamListFilePath() {
+        return model.getTeamListFilePath();
+    }
+
+    @Override
+    public Path getMentorListFilePath() {
+        return model.getMentorListFilePath();
+    }
+
 
     @Override
     public GuiSettings getGuiSettings() {
