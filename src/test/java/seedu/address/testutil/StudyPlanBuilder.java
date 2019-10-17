@@ -7,6 +7,7 @@ import seedu.address.model.ModulesInfo;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -17,10 +18,10 @@ public class StudyPlanBuilder {
 
     // TODO: implement this entire class
 
-    private Set<UserTag> tags;
+    private UniqueTagList tags;
 
     public StudyPlanBuilder() {
-        tags = new HashSet<>();
+        tags = new UniqueTagList();
     }
 
     /**
@@ -41,10 +42,10 @@ public class StudyPlanBuilder {
      */
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code StudyPlan} that we are building.
+     * Parses the {@code tags} into a {@code List<Tag>} and set it to the {@code StudyPlan} that we are building.
      */
     public StudyPlanBuilder withTags(String... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags.setTags(SampleDataUtil.getTagList(tags));
         return this;
     }
 

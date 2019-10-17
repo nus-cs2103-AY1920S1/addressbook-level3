@@ -19,54 +19,54 @@ public class DefaultTagTest {
 
     @Test
     public void isDefault() {
-        assertTrue(TagBuilder.buildDefaultCoreTag().isDefault());
+        assertTrue(new TagBuilder().buildDefaultCoreTag().isDefault());
     }
 
     @Test
     public void getTagName() {
-        assertEquals("Core", TagBuilder.buildDefaultCoreTag().getTagName());
+        assertEquals("Core", new TagBuilder().buildDefaultCoreTag().getTagName());
     }
 
     @Test
     public void getDefaultTagType() {
-        DefaultTag defaultTag = TagBuilder.buildDefaultCoreTag();
+        DefaultTag defaultTag = new TagBuilder().buildDefaultCoreTag();
         assertEquals(DefaultTagType.CORE, defaultTag.getDefaultTagType());
     }
 
     @Test
     public void isSameTag_returnsTrue() {
-        assertTrue(TagBuilder.buildDefaultCoreTag()
-                .isSameTag(TagBuilder.buildDefaultCoreTag()));
-        assertTrue(TagBuilder.buildDefaultTag(DefaultTagType.CORE)
-                .isSameTag(TagBuilder.buildDefaultTag(DefaultTagType.CORE)));
+        assertTrue(new TagBuilder().buildDefaultCoreTag()
+                .isSameTag(new TagBuilder().buildDefaultCoreTag()));
+        assertTrue(new TagBuilder().buildDefaultTag(DefaultTagType.CORE)
+                .isSameTag(new TagBuilder().buildDefaultTag(DefaultTagType.CORE)));
     }
 
     @Test
     public void isSameTag_returnsFalse() {
-        assertFalse(TagBuilder.buildDefaultCoreTag()
-                .isSameTag(TagBuilder.buildDefaultTag(DefaultTagType.COMPLETED)));
+        assertFalse(new TagBuilder().buildDefaultCoreTag()
+                .isSameTag(new TagBuilder().buildDefaultTag(DefaultTagType.COMPLETED)));
     }
 
     @Test
     public void equals() {
-        DefaultTag tag = TagBuilder.buildDefaultCoreTag();
+        DefaultTag tag = new TagBuilder().buildDefaultCoreTag();
 
         // same object
         assertTrue(tag.equals(tag));
 
         // same default tag type
-        assertTrue(tag.equals(TagBuilder.buildDefaultCoreTag()));
+        assertTrue(tag.equals(new TagBuilder().buildDefaultCoreTag()));
 
         // different default tag type
-        assertFalse(tag.equals(TagBuilder.buildDefaultTag(DefaultTagType.COMPLETED)));
+        assertFalse(tag.equals(new TagBuilder().buildDefaultTag(DefaultTagType.COMPLETED)));
 
         // different type of tag
-        assertFalse(tag.equals(TagBuilder.buildTestUserTag()));
+        assertFalse(tag.equals(new TagBuilder().buildTestUserTag()));
     }
 
     @Test
     public void toString_stringReturned() {
-        assertEquals("[Core]", TagBuilder.buildDefaultCoreTag().toString());
+        assertEquals("[Core]", new TagBuilder().buildDefaultCoreTag().toString());
     }
 
 }
