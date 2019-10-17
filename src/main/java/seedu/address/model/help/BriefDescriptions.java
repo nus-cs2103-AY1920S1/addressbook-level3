@@ -3,7 +3,7 @@ package seedu.address.model.help;
 import seedu.address.logic.commands.AddClaimCommand;
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddIncomeCommand;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.EditClaimCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
@@ -40,7 +40,7 @@ public class BriefDescriptions {
             return AddIncomeCommand.MESSAGE_USAGE;
 
         case "delete":
-            return DeleteCommand.MESSAGE_USAGE;
+            return DeleteContactCommand.MESSAGE_USAGE;
 
         case "edit_claim":
             return EditClaimCommand.MESSAGE_USAGE;

@@ -10,7 +10,7 @@ import seedu.address.model.income.Income;
 
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a fin sec.
  */
 public interface ReadOnlyFinSec {
 
