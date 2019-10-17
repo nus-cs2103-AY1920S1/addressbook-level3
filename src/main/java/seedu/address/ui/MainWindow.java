@@ -5,10 +5,13 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -35,24 +38,30 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
+    private DataPanelsTabPaneManager dataPanelsTabPaneManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
-
     @FXML
     private MenuItem helpMenuItem;
-
     @FXML
     private StackPane personListPanelPlaceholder;
-
     @FXML
     private StackPane autoCompletePanelPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
+    @FXML
+    private TabPane dataPanelsTabPane;
+    @FXML
+    private Tab patientTabPage;
+    @FXML
+    private Tab ongoingVisitTabPage;
+    @FXML
+    private VBox ongoingVisit;
+    @FXML
+    private StackPane ongoingVisitPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -126,6 +135,10 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(this::executeCommand, autoCompletePanel);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
+                patientTabPage,
+                ongoingVisitTabPage);
     }
 
     /**
