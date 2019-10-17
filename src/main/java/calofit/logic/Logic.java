@@ -29,7 +29,6 @@ public interface Logic {
 
     /**
      * Returns the DishDatabase.
-     *
      * @see Model#getDishDatabase()
      */
     ReadOnlyDishDatabase getDishDatabase();
@@ -52,9 +51,18 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Returns a list of meals that has already been filtered by a predicate.
+     */
     ObservableList<Meal> getFilteredMealList();
 
+    /**
+     * Returns the Statistics object that wraps around the statistics of CaloFit.
+     */
     Statistics getStatistics();
 
+    /**
+     * Returns the Model that the Logic is operating on.
+     */
     Model getModel();
 }
