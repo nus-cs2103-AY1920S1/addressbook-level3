@@ -41,7 +41,7 @@ public class QuizParser {
             return new QuitQuizModeCommand();
 
         case QuizShowAnswerCommand.COMMAND_WORD:
-            return new QuizShowAnswerCommand(Integer.parseInt(arguments));
+            return new QuizShowAnswerParser().parse(arguments.trim());
 
         default:
             return new QuizAnswerParser().parse(userInput);

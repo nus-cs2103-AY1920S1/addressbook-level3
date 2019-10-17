@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
@@ -32,8 +33,7 @@ public class QuizModeCommand extends Command {
             + PREFIX_SUBJECT + "Maths ";
 
     public static final String MESSAGE_SUCCESS = "You have successfully entered quiz mode!";
-    public static final String MESSAGE_NOT_ENOUGH_QUESTIONS = "There are not enough questions to do!";
-
+    public static final String INSUFFICIENT_QUESTION = "There are insufficient questions to do the quiz!";
 
     private final int numOfQuestions;
     private final Subject subject;
@@ -49,12 +49,16 @@ public class QuizModeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        try {
+            ObservableList<Question> quizQuestionList = model.getQuizQuestions(numOfQuestions, subject, difficulty);
+            model.setQuizQuestionList(quizQuestionList);
+            LogicManager.setIsQuiz(true);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(INSUFFICIENT_QUESTION);
+        }
 
-        ObservableList<Question> quizQuestionList = model.getQuizQuestions(numOfQuestions, subject, difficulty);
-        model.setQuizQuestionList(quizQuestionList);
-        LogicManager.setIsQuiz(true);
         return new CommandResult(MESSAGE_SUCCESS, false, false, true, false);
     }
 }

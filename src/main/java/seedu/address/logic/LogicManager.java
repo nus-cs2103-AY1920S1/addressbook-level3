@@ -44,10 +44,10 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
         CommandResult commandResult;
-
         if (!isQuiz) {
+            logger.info("----------------[USER COMMAND][" + commandText + "]");
+
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model);
 
@@ -55,6 +55,8 @@ public class LogicManager implements Logic {
                 return commandResult;
             }
         } else {
+            logger.info("----------------[USER INPUT][" + commandText + "]");
+
             Command command = quizParser.parseCommand(commandText);
             commandResult = command.execute(model);
         }
@@ -64,9 +66,9 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
         return commandResult;
     }
+
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {

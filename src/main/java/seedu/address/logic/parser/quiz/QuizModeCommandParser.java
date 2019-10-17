@@ -22,6 +22,7 @@ import seedu.address.model.question.Subject;
  * Parses input arguments and creates a new QuizModeCommand object.
  */
 public class QuizModeCommandParser implements Parser<QuizModeCommand> {
+    private static final String INVALID_NUMBER = "The number input should be a positive integer!";
 
     /**
      * Parses the given {@code String} of arguments in the context of the QuizModeCommand
@@ -35,15 +36,21 @@ public class QuizModeCommandParser implements Parser<QuizModeCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NUMBER, PREFIX_DIFFICULTY, PREFIX_SUBJECT);
 
         int numOfQuestions;
+        Subject subject;
+        Difficulty difficulty;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DIFFICULTY, PREFIX_SUBJECT)
                 || (!argMultimap.getPreamble().isEmpty())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizModeCommand.MESSAGE_USAGE));
         }
 
-        numOfQuestions = ParserUtil.parseNumber(argMultimap.getValue(PREFIX_NUMBER).get());
-        Subject subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
-        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+        try {
+            numOfQuestions = ParserUtil.parseNumber(argMultimap.getValue(PREFIX_NUMBER).get());
+            subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
+            difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+        } catch (NumberFormatException e) {
+            throw new ParseException(INVALID_NUMBER);
+        }
         return new QuizModeCommand(numOfQuestions, subject, difficulty);
     }
 

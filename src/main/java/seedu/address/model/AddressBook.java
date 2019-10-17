@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +19,10 @@ import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultList;
+<<<<<<< HEAD
 import seedu.address.model.statistics.TempStatsQnsModel;
+=======
+>>>>>>> 9b56a138d1200f66ac914863790197ce79798407
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -30,6 +35,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueNoteList notes;
     private final UniqueQuestionList questions;
     private final QuizQuestionList quiz;
+    private final QuizResultList quizResults;
     private final TaskList tasks;
     private final QuizResultList quizResults;
 
@@ -45,6 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         notes = new UniqueNoteList();
         questions = new UniqueQuestionList();
         quiz = new QuizQuestionList();
+        quizResults = new QuizResultList();
         tasks = new TaskList();
         quizResults = new QuizResultList();
     }
@@ -177,15 +184,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty) {
         ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
+        List<Question> filteredQuestions = getQuestionList()
+                .stream()
+                .filter(question -> subject.equals(question.getSubject())
+                        && difficulty.equals(question.getDifficulty()))
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < questions.getSize(); i++) {
-            Question question = questions.get(i);
-            if (question.getSubject().equals(subject) && question.getDifficulty().equals(difficulty)) {
-                quizQuestions.add(question);
-            }
-            if (quizQuestions.size() == numOfQuestions) {
-                break;
-            }
+        Random random = new Random();
+        for (int i = 0; i < numOfQuestions; i++) {
+            int randomIndex = random.nextInt(filteredQuestions.size());
+            Question question = filteredQuestions.get(randomIndex);
+            quizQuestions.add(question);
+            filteredQuestions.remove(randomIndex);
         }
         return quizQuestions;
     }
@@ -254,6 +264,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return quizResults.asUnmodifiableObservableList();
     }
 
+<<<<<<< HEAD
     public int getTotalQuestionsDone() {
         return quizResults.getTotalQuestionsDone();
     }
@@ -275,6 +286,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return quizResults.getIncorrectQns();
     }
 
+=======
+>>>>>>> 9b56a138d1200f66ac914863790197ce79798407
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

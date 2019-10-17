@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+<<<<<<< HEAD
         import com.fasterxml.jackson.annotation.JsonCreator;
         import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,6 +8,15 @@ package seedu.address.storage;
         import seedu.address.model.question.Answer;
         import seedu.address.model.question.QuestionBody;
         import seedu.address.model.quiz.QuizResult;
+=======
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.question.Answer;
+import seedu.address.model.question.QuestionBody;
+import seedu.address.model.quiz.QuizResult;
+>>>>>>> 9b56a138d1200f66ac914863790197ce79798407
 
 /**
  * Jackson-friendly version of {@link QuizResult}.
@@ -71,4 +81,8 @@ class JsonAdaptedQuizResult {
 
         return new QuizResult(modelAnswer, modelQuestionBody, modelQuizTime, modelResult);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9b56a138d1200f66ac914863790197ce79798407

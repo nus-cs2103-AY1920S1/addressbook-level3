@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.statistics.TempStatsQnsModel;
 
 /**
@@ -15,6 +16,7 @@ public class QuizResultList implements Iterable<QuizResult> {
     private final ObservableList<QuizResult> internalList = FXCollections.observableArrayList();
     private final ObservableList<QuizResult> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
     //will be changed to <Question> later
     private final ObservableList<TempStatsQnsModel> correctQns = FXCollections.observableArrayList();
     private final ObservableList<TempStatsQnsModel> incorrectQns = FXCollections.observableArrayList();
@@ -53,7 +55,7 @@ public class QuizResultList implements Iterable<QuizResult> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<QuizResult> asUnmodifiableObservableList() {
-        return internalList;
+        return internalUnmodifiableList;
     }
 
     public int getTotalQuestionsDone() {

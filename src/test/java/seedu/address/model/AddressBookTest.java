@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.ALICE_QUESTION;
+import static seedu.address.testutil.TypicalPersons.ALICE_RESULT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
@@ -20,9 +21,11 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.note.Note;
 import seedu.address.model.note.exceptions.DuplicateTitleException;
 import seedu.address.model.question.Question;
+import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskForNote;
 import seedu.address.testutil.PersonBuilder;
@@ -60,7 +63,8 @@ public class AddressBookTest {
         List<Task> newTasks = Arrays.asList(task);
 
         List<Question> newQuestions = Arrays.asList(ALICE_QUESTION);
-        AddressBookStub newData = new AddressBookStub(newNotes, newTasks, newQuestions);
+        List<QuizResult> newQuizResults = Arrays.asList(ALICE_RESULT);
+        AddressBookStub newData = new AddressBookStub(newNotes, newTasks, newQuestions, newQuizResults);
 
         assertThrows(DuplicateTitleException.class, () -> addressBook.resetData(newData));
     }
@@ -98,15 +102,17 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
-
         private final ObservableList<Question> questions = FXCollections.observableArrayList();
         private final ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
+        private final ObservableList<QuizResult> quizResults = FXCollections.observableArrayList();
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Note> notes, Collection<Task> tasks, Collection<Question> questions) {
+        AddressBookStub(Collection<Note> notes, Collection<Task> tasks, Collection<Question> questions,
+                        Collection<QuizResult> quizResults) {
             this.notes.setAll(notes);
             this.tasks.setAll(tasks);
             this.questions.setAll(questions);
+            this.quizResults.setAll(quizResults);
         }
 
         @Override
@@ -122,6 +128,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Question> getQuizQuestionList() {
             return quizQuestions;
+        }
+
+        @Override
+        public ObservableList<QuizResult> getQuizResultList() {
+            return quizResults;
         }
 
         /**

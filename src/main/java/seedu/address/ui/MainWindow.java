@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private NoteListPanel noteListPanel;
     private TaskListPanel taskListPanel;
+    private QuestionListPanel questionListPanel;
     private QuizQuestionListPanel quizQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -59,7 +60,11 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane taskListPanelPlaceholder;
 
     @FXML
+<<<<<<< HEAD
     private StackPane statsPanelPlaceholder;
+=======
+    private StackPane questionListPanelPlaceholder;
+>>>>>>> 9b56a138d1200f66ac914863790197ce79798407
 
     @FXML
     private StackPane quizQuestionListPanelPlaceholder;
@@ -125,6 +130,9 @@ public class MainWindow extends UiPart<Stage> {
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
         quizQuestionListPanel = new QuizQuestionListPanel(logic.getFilteredQuizQuestionList());
         quizQuestionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
