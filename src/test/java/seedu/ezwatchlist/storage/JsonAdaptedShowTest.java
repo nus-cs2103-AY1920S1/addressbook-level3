@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
-import seedu.ezwatchlist.model.show.Description;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.RunningTime;

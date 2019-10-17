@@ -5,7 +5,6 @@ import java.util.Set;
 
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.*;
-import seedu.ezwatchlist.model.tag.Tag;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 
 /**

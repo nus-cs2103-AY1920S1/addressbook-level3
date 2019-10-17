@@ -1,7 +1,6 @@
 package seedu.ezwatchlist.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;

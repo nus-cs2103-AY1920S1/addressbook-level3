@@ -13,7 +13,6 @@ import seedu.ezwatchlist.logic.commands.AddCommand;
 import seedu.ezwatchlist.model.person.Address;
 import seedu.ezwatchlist.model.person.Email;
 import seedu.ezwatchlist.model.person.Name;
-import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.model.person.Phone;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.tag.Tag;

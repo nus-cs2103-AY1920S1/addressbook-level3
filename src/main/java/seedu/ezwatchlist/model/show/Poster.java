@@ -2,8 +2,6 @@ package seedu.ezwatchlist.model.show;
 
 import javafx.scene.image.Image;
 
-import java.net.URL;
-
 /**
  * Represents a Show's name in the watchlist.
  */

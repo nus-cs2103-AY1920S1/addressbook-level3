@@ -15,11 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.RunningTime;
-import seedu.ezwatchlist.model.actor.Actor;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
