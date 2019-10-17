@@ -10,7 +10,7 @@ import com.typee.ui.AppointmentWindow;
 import com.typee.ui.GameWindow;
 import com.typee.ui.Tab;
 import com.typee.ui.calendar.CalendarWindow;
-import com.typee.ui.report.ReportWindow;
+import com.typee.ui.ReportWindow;
 
 /**
  * Parses the given {@code String} of arguments in the context of the TabCommand
