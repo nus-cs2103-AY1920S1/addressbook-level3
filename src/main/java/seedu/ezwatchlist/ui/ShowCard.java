@@ -47,7 +47,7 @@ public class ShowCard extends UiPart<Region> {
     @FXML
     private Label runningTime;
     @FXML
-    private FlowPane actors;
+    private HBox actors;
     @FXML
     private CheckBox watched;
     @FXML

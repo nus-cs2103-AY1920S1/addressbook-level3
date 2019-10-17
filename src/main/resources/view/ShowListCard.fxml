@@ -32,7 +32,10 @@
                 </Label>
                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
             </HBox>
-            <FlowPane fx:id="actors" />
+            <FlowPane>
+            <children>
+               <HBox fx:id="actors" spacing="7.0" />
+            </children></FlowPane>
             <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
             <Label fx:id="dateOfRelease" styleClass="cell_small_label" text="\$date of release" />
             <Label fx:id="isWatched" styleClass="cell_small_label" text="\$Watched" />
