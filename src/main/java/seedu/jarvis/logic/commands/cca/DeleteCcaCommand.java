@@ -54,11 +54,6 @@ public class DeleteCcaCommand extends Command {
     }
 
     @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
-
-    @Override
     public boolean hasInverseExecution() {
         return false;
     }

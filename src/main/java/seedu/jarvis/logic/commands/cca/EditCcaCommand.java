@@ -69,11 +69,6 @@ public class EditCcaCommand extends Command {
         this.editCcaDescriptor = new EditCcaDescriptor(editCcaDescriptor);
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
-
     /**
      * Gets the command word of the command.
      *
