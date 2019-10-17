@@ -9,15 +9,15 @@ import java.util.regex.Pattern;
 import seedu.flashcard.logic.commands.AddCommand;
 import seedu.flashcard.logic.commands.Command;
 import seedu.flashcard.logic.commands.DeleteCommand;
+import seedu.flashcard.logic.commands.DeleteTagCommand;
 import seedu.flashcard.logic.commands.EditCommand;
 import seedu.flashcard.logic.commands.ExitCommand;
 import seedu.flashcard.logic.commands.FindCommand;
-import seedu.flashcard.logic.commands.FlipCommand;
 import seedu.flashcard.logic.commands.HelpCommand;
+import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.commands.ListCommand;
-import seedu.flashcard.logic.commands.TagCommand;
+import seedu.flashcard.logic.commands.ListTagCommand;
 import seedu.flashcard.logic.commands.ViewCommand;
-
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 
 /**
@@ -58,8 +58,8 @@ public class FlashcardListParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case FlipCommand.COMMAND_WORD:
-            return new FlipCommand();
+        case ListCardByTagCommand.COMMAND_WORD:
+            return new ListCardByTagCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -70,11 +70,14 @@ public class FlashcardListParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case ListTagCommand.COMMAND_WORD:
+            return new ListTagCommand();
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
-
-        case TagCommand.COMMAND_WORD:
-            return new TagCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKOWN_COMMAND);

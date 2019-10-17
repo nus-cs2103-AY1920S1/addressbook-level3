@@ -1,115 +1,126 @@
 package seedu.flashcard.model.flashcard;
 
-import java.util.ArrayList;
+import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.flashcard.model.Tag;
-import seedu.flashcard.model.exceptions.DuplicateTagException;
-import seedu.flashcard.model.exceptions.TagNotFoundException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import seedu.flashcard.model.tag.Tag;
 
 /**
- * A model must contain the following components
- * 1. Question on the card
- * 2. Answer on the card
- * 3. A unique card ID to recognize itself to other cards
- * 4. A score class to record how many correct and wrong answers from the user
- * 5. A list of tags
+ * Represents a Flashcard in the flashcard list.
+ * Guarantees: details are present and not null, field values are validated, immutable
  */
-public abstract class Flashcard {
+public class Flashcard {
 
-    private Question question;
-    private Answer answer;
-    private Score score;
-    private CardId id;
-    private ArrayList<Tag> tags;
+    // Identity fields
+    private final Word word;
+
+    // Data fields
+    private final Definition definition;
+    private final Set<Choice> choices = new HashSet<>();
+    private final Set<Tag> tags = new HashSet<>();
+    private final Answer answer;
+
+    public Flashcard(Word word, Set<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
+        requireAllNonNull(word, definitions, tags);
+        this.word = word;
+        this.choices.addAll(choices);
+        this.definition = definitions;
+        this.tags.addAll(tags);
+        this.answer = answer;
+    }
+
+    public Word getWord() {
+        return word;
+    }
 
     /**
-     * Question and Answer must be specified.
+     * Returns an immutable definition, which throws {@code UnsupportedOperationException}
+     * if modification is attempted
      */
-    public Flashcard(Question question, Answer answer) {
-        this.question = question;
-        this.answer = answer;
-        this.score = new Score();
-        this.id = new CardId();
-        this.tags = new ArrayList<>();
+    public Definition getDefinition() {
+        return definition;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
-
+    /**
+     * Returns an immutable answer, which throws {@code UnsupportedOperationException}
+     * if modification attempted
+     */
     public Answer getAnswer() {
         return answer;
     }
 
-    public Score getScore() {
-        return score;
-    }
-
-    public CardId getId() {
-        return id;
-    }
-
-    public ArrayList<Tag> getTags() {
-        return tags;
-    }
-
-    public void setQuestion(String newQuestion) {
-        question.setQuestion(newQuestion);
-    }
-
-    public void setAnswer(String newAnswer) {
-        answer.setAnswer(newAnswer);
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
     /**
-     * Add a new tag to the flash card
-     * Guarantees there are no duplicate tags
-     * @param t the tag to be added to the card
-     * @throws DuplicateTagException if this card already has this tag
+     * Returns true if this flashcard has the following tag.
      */
-    public void addTag(Tag t) throws DuplicateTagException {
-        if (tags.contains(t)) {
-            throw new DuplicateTagException();
+    public boolean hasTag(Tag tag) {
+        return getTags().contains(tag);
+    }
+
+    /**
+     * Returns an immutable choice set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted
+     */
+    public Set<Choice> getChoices() {
+        return Collections.unmodifiableSet(choices);
+    }
+
+    /**
+     * Returns true if this flashcard has any one of the tags in the given tag sets.
+     */
+    public boolean hasAnyTag(Set<Tag> tags) {
+        for (Tag tag : tags) {
+            if (getTags().contains(tag)) {
+                return true;
+            }
         }
-        tags.add(t);
+        return false;
     }
 
     /**
-     * Delete the given tag from the flash card
-     * Guarantees non-existing tags cannot be deleted
-     * @param t the tag to be deleted from the card
-     * @throws TagNotFoundException if this model does not have the given tag
+     * Removes the tag from this flashcard.
      */
-    public void deleteTag(Tag t) throws TagNotFoundException {
-        if (!tags.contains(t)) {
-            throw new TagNotFoundException();
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+    }
+
+    /**
+     * Returns true if any choices is from the choice list
+     */
+    public boolean hasAnyChoice(Set<Choice> choices) {
+        for (Choice choice : choices) {
+            if (getChoices().contains(choice)) {
+                return true;
+            }
         }
-        tags.remove(t);
+        return false;
     }
 
     /**
-     * When the user make an answer to a question, change the score of this model
+     * Defines that if and only if two flashcards containing the same word can be considered as the same.
      */
-    public void isAnswerCorrect(boolean correct) {
-        if (correct) {
-            score.addCorrectAnswerNumber();
-        } else {
-            score.addWrongAnswerNumber();
+    public boolean isSameFlashcard(Flashcard otherFlashcard) {
+        if (otherFlashcard == this) {
+            return true;
         }
-    };
-
-    /**
-     * While searching for a model, decide that whether this model contains the keyword or not.
-     * @param s the keyword we are looking for
-     * @return true if question, answer or the id contains the keyword, false otherwise
-     */
-    public boolean contains(String s) {
-        return question.contains(s) || answer.contains(s) || id.contains(s);
+        return otherFlashcard != null
+                && otherFlashcard.getWord().equals(getWord());
     }
 
     /**
-     * comparing whether two flash cards are the same or not.
-     * Since each model has a unique id number, only comparing this id is enough
+     * Returns true if both the word and the definitions and the tags are the same.
+     * This is stronger than {@code isSameFlashCard}
      */
     @Override
     public boolean equals(Object other) {
@@ -120,19 +131,26 @@ public abstract class Flashcard {
             return false;
         }
         Flashcard otherFlashcard = (Flashcard) other;
-        return otherFlashcard.getId() == this.getId();
+        return otherFlashcard.getWord().equals(getWord())
+                && otherFlashcard.getDefinition().equals(getDefinition())
+                && otherFlashcard.getTags().equals(getTags());
     }
 
-    /**
-     * While showing a card in the form of a string, we show its id number and its question.
-     */
     @Override
     public String toString() {
-        return String.format("Question: %s, id: %d", getQuestion(), id.getIdentityNumber());
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getWord())
+                .append(" Definitions: ")
+                .append(getDefinition())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        builder.append(" Choices: \n");
+        getChoices().forEach(builder::append);
+        return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Objects.hash(word, definition, tags);
     }
 }
