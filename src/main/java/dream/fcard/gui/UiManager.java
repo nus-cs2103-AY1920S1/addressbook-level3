@@ -24,11 +24,6 @@ public class UiManager {
 
     private MainWindow mainWindow;
 
-    public UiManager() {
-        super();
-    }
-
-    @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
 
