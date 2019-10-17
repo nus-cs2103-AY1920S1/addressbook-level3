@@ -47,6 +47,8 @@ public class PhoneCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Label identityNumber;
+    @FXML
+    private Label serialNumber;
 
     public PhoneCard(Phone phone, int displayedIndex) {
         super(FXML);
@@ -61,6 +63,7 @@ public class PhoneCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         identityNumber.setText(phone.getIdentityNumber().value);
+        serialNumber.setText(phone.getSerialNumber().value);
 
     }
 

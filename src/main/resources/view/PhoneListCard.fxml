@@ -29,7 +29,10 @@
             </HBox>
             <FlowPane fx:id="tags" />
             <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label  fx:id="serialNumber"  styleClass="cell_small_label" text="\$IMEI" />
                 <Label fx:id="identityNumber" styleClass="cell_small_label" text="\$IMEI"/>
+            </HBox>
+            <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="brand" styleClass="cell_small_label" text="\$brand" />
                 <Label fx:id="capacity" styleClass="cell_small_label" text="\$capacity" />
                 <Label fx:id="colour" styleClass="cell_small_label" text="\$colour" />
