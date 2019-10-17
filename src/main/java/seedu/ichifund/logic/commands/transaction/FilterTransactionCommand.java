@@ -29,12 +29,13 @@ public class FilterTransactionCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transactions from a specified "
             + "month, year and optionally category, and displays them as a list with index numbers.\n"
             + "To show all categories, use "
-            + PREFIX_CATEGORY + Category.CATEGORY_ALL.toString() + "\n"
+            + "\"" + PREFIX_CATEGORY + Category.CATEGORY_ALL.toString() + "\". "
             + "To show both income and expenditure items, use "
-            + PREFIX_TRANSACTION_TYPE + TransactionType.TRANSACTION_TYPE_ALL.toString() + "\n"
+            + "\"" + PREFIX_TRANSACTION_TYPE + TransactionType.TRANSACTION_TYPE_ALL.toString() + "\"."
+            + "At least one parameter must be present.\n"
             + "Parameters: "
-            + PREFIX_MONTH + "MONTH "
-            + PREFIX_YEAR + "YEAR "
+            + "[" + PREFIX_MONTH + "MONTH] "
+            + "[" + PREFIX_YEAR + "YEAR] "
             + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_TRANSACTION_TYPE + "TRANSACTION_TYPE] "
             + "Example: " + COMMAND_WORD + " "
@@ -80,6 +81,9 @@ public class FilterTransactionCommand extends Command {
                 && category.equals(((FilterTransactionCommand) other).category)); // state check
     }
 
+    /**
+     * Builder class to construct a FilterTransactionCommand.
+     */
     public static class FilterTransactionCommandBuilder {
         private Optional<Month> month;
         private Optional<Year> year;
@@ -102,6 +106,12 @@ public class FilterTransactionCommand extends Command {
             this.transactionType = transactionType;
         }
 
+        /**
+         * Builds a {@code FilterTransactionCommand} from the builder.
+         * All fields must be non-null.
+         *
+         * @return The command corresponding to the builder
+         */
         public FilterTransactionCommand build() {
             requireAllNonNull(month, year, category, transactionType);
             return new FilterTransactionCommand(month, year, category, transactionType);

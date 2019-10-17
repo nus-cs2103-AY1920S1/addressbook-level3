@@ -56,6 +56,10 @@ public class TransactionContext implements Context<Transaction> {
         return year;
     }
 
+    /**
+     * Returns a new {@code TransitionContext} updated with the input month.
+     * Returns the same object if there is no month.
+     */
     public TransactionContext withMonth(Optional<Month> month) {
         if (month.isEmpty()) {
             return this;
@@ -64,6 +68,10 @@ public class TransactionContext implements Context<Transaction> {
         }
     }
 
+    /**
+     * Returns a new {@code TransitionContext} updated with the input year.
+     * Returns the same object if there is no year.
+     */
     public TransactionContext withYear(Optional<Year> year) {
         if (year.isEmpty()) {
             return this;
@@ -72,6 +80,10 @@ public class TransactionContext implements Context<Transaction> {
         }
     }
 
+    /**
+     * Returns a new {@code TransitionContext} updated with the input category.
+     * Returns the same object if there is no category.
+     */
     public TransactionContext withCategory(Optional<Category> category) {
         if (category.isEmpty()) {
             return this;
@@ -82,6 +94,10 @@ public class TransactionContext implements Context<Transaction> {
         }
     }
 
+    /**
+     * Returns a new {@code TransitionContext} updated with the input transaction type.
+     * Returns the same object if there is no transaction type.
+     */
     public TransactionContext withType(Optional<TransactionType> transactionType) {
         if (transactionType.isEmpty()) {
             return this;

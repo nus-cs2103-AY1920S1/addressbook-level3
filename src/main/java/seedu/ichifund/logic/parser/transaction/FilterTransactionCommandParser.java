@@ -44,7 +44,11 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
         return buildCommand(month, year, category, transactionType);
     }
 
-    private FilterTransactionCommand buildCommand(Optional<Month> month, Optional<Year> year, Optional<Category> category,
+    /**
+     * Builds the FilterTransactionCommand from data fields.
+     */
+    private FilterTransactionCommand buildCommand(Optional<Month> month, Optional<Year> year,
+                                                  Optional<Category> category,
                                                   Optional<TransactionType> transactionType) {
         FilterTransactionCommand.FilterTransactionCommandBuilder builder =
                 new FilterTransactionCommand.FilterTransactionCommandBuilder();
@@ -57,6 +61,13 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
         return builder.build();
     }
 
+    /**
+     * Parses the {@code Month} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code Month} object, and wraps it in a {@code Optional} object
+     * Else, an empty {@code Optional} object is returned.
+     *
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
+     */
     private Optional<Month> parseMonth(ArgumentMultimap argMultimap) throws ParseException {
         Optional<String> monthString = argMultimap.getValue(PREFIX_MONTH);
         if (monthString.isEmpty()) {
@@ -66,6 +77,13 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
         }
     }
 
+    /**
+     * Parses the {@code Year} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code Year} object, and wraps it in a {@code Optional} object
+     * Else, an empty {@code Optional} object is returned.
+     *
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
+     */
     private Optional<Year> parseYear(ArgumentMultimap argMultimap) throws ParseException {
         Optional<String> yearString = argMultimap.getValue(PREFIX_YEAR);
         if (yearString.isEmpty()) {
@@ -75,6 +93,14 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
         }
     }
 
+    /**
+     * Parses the {@code Category} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code Category} object, including a {@code Category.CATEGORY_ALL} object, and wraps
+     * it into an {@code Optional} object.
+     * Else, an empty {@code Optional} object is returned.
+     *
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
+     */
     private Optional<Category> parseCategory(ArgumentMultimap argMultimap) throws ParseException {
         Optional<String> categoryString = argMultimap.getValue(PREFIX_CATEGORY);
         if (categoryString.isEmpty()) {
@@ -84,6 +110,14 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
         }
     }
 
+    /**
+     * Parses the {@code TransactionType} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code TransactionType} object, including a {@code TransactionType.TRANSACTION_TYPE_ALL} object, and wraps
+     * it into an {@code Optional} object.
+     * Else, an empty {@code Optional} object is returned.
+     *
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
+     */
     private Optional<TransactionType> parseType(ArgumentMultimap argMultimap) throws ParseException {
         Optional<String> typeString = argMultimap.getValue(PREFIX_TRANSACTION_TYPE);
         if (typeString.isEmpty()) {
