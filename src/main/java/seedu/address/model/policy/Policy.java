@@ -100,6 +100,25 @@ public class Policy {
     }
 
     /**
+     * Returns true if both policies of the same editable fields.
+     * This defines a weaker notion of equality between two policies.
+     */
+    public boolean hasEqualEditableFields(Policy otherPolicy) {
+        if (otherPolicy == this) {
+            return true;
+        }
+
+        return otherPolicy != null
+                && otherPolicy.getName().equals(getName())
+                && otherPolicy.getDescription().equals(getDescription())
+                && otherPolicy.getCoverage().equals(getCoverage())
+                && otherPolicy.getPrice().equals(getPrice())
+                && otherPolicy.getStartAge().equals(getStartAge())
+                && otherPolicy.getEndAge().equals(getEndAge());
+    }
+
+
+    /**
      * Returns true if both policies have the same identity and data fields.
      * This defines a stronger notion of equality between two policies.
      */
@@ -140,11 +159,11 @@ public class Policy {
                 .append(getCoverage())
                 .append(" Price: ")
                 .append(getPrice());
-        if (!startAge.getAge().equals(StartAge.AGE_ZERO)) {
+        if (!startAge.age.equals(StartAge.AGE_ZERO)) {
             builder.append(" Start Age: ")
                     .append(getStartAge());
         }
-        if (!endAge.getAge().equals(EndAge.AGE_INFINITY)) {
+        if (!endAge.age.equals(EndAge.AGE_INFINITY)) {
             builder.append(" End Age: ")
                     .append(getEndAge());
         }

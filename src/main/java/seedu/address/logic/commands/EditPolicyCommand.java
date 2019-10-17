@@ -72,6 +72,11 @@ public class EditPolicyCommand extends Command {
         this.editPolicyDescriptor = new EditPolicyDescriptor(editPolicyDescriptor);
     }
 
+    public EditPolicyCommand() {
+        this.index = null;
+        this.editPolicyDescriptor = null;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -91,14 +96,7 @@ public class EditPolicyCommand extends Command {
         model.setPolicy(policyToEdit, editedPolicy);
         model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
 
-        // Update persons with the edited policy
-        for (Person p : model.getAddressBook().getPersonList()) {
-            if (p.hasPolicy(policyToEdit)) {
-                Person policyRemoved = new PersonBuilder(p).removePolicies(policyToEdit).build();
-                Person editedPerson = new PersonBuilder(policyRemoved).addPolicies(editedPolicy).build();
-                model.setPerson(p, editedPerson);
-            }
-        }
+        updatePersonsWithPolicy(policyToEdit, editedPolicy, model);
 
         return new CommandResult(String.format(MESSAGE_EDIT_POLICY_SUCCESS, editedPolicy));
     }
@@ -121,6 +119,37 @@ public class EditPolicyCommand extends Command {
 
         return new Policy(updatedName, updatedDescription, updatedCoverage, updatedPrice, updatedStartAge,
                 updatedEndAge, updatedCriteria, updatedTags);
+    }
+
+    /**
+     * Performs an edit of one field of a {@code Policy} in the addressbook. This method should only be called by a
+     * {@code MergePolicyConfirmedCommand}/
+     * @param policy Policy in the addressbook.
+     * @param editPolicyDescriptor {@code EditPolicyDescriptor} for policy with updated field.
+     * @param model Model that is used for the address book.
+     * @return The updated {@code Person}.
+     */
+    public Policy executeForMerge(Policy policy, EditPolicyDescriptor editPolicyDescriptor, Model model) {
+        Policy editedPolicy = createEditedPolicy(policy, editPolicyDescriptor);
+        model.setPolicy(policy, editedPolicy);
+        updatePersonsWithPolicy(policy, editedPolicy, model);
+        return editedPolicy;
+    }
+
+    /**
+     * Updates persons with an edited policy.
+     * @param oldPolicy Previous policy.
+     * @param newPolicy Edited policy.
+     * @param model Addressbook model.
+     */
+    public void updatePersonsWithPolicy(Policy oldPolicy, Policy newPolicy, Model model) {
+        for (Person p : model.getAddressBook().getPersonList()) {
+            if (p.hasPolicy(oldPolicy)) {
+                Person policyRemoved = new PersonBuilder(p).removePolicies(oldPolicy).build();
+                Person editedPerson = new PersonBuilder(policyRemoved).addPolicies(newPolicy).build();
+                model.setPerson(p, editedPerson);
+            }
+        }
     }
 
     @Override

@@ -11,6 +11,7 @@ public class StartAge {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Ages should only contain numbers, and cannot be blank.";
+    public static final String DATA_TYPE = "START AGE";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -19,7 +20,7 @@ public class StartAge {
     public static final String VALIDATION_REGEX = "[\\p{N}]+";
     public static final String AGE_ZERO = "0";
 
-    private final String age;
+    public final String age;
     /**
      * Constructs a {@code StartAge}.
      *
@@ -44,10 +45,6 @@ public class StartAge {
      */
     public static boolean isValidAge(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    public String getAge() {
-        return age;
     }
 
     @Override

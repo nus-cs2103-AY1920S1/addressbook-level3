@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.PersonBuilder;
+import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -27,11 +28,11 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
 
-public class MergeCommandTest {
+public class MergePersonCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new MergeCommand(null));
+        assertThrows(NullPointerException.class, () -> new MergePersonCommand(null));
     }
 
     @Test
@@ -39,10 +40,10 @@ public class MergeCommandTest {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_AMY).build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergeCommand(inputPerson).execute(modelStub);
-        assertEquals(String.format(MergeCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
-                + "\n" + MergeCommand.ORIGINAL_HEADER + validPerson.getPhone().value + "\n" + MergeCommand.INPUT_HEADER
-                + VALID_PHONE_AMY, commandResult.getFeedbackToUser());
+        CommandResult commandResult = new MergePersonCommand(inputPerson).execute(modelStub);
+        assertEquals(String.format(MergePersonCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
+                + "\n" + MergePersonCommand.ORIGINAL_HEADER + validPerson.getPhone().value + "\n"
+                + MergePersonCommand.INPUT_HEADER + VALID_PHONE_AMY, commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -50,24 +51,24 @@ public class MergeCommandTest {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergeCommand(inputPerson).execute(modelStub);
-        assertEquals(String.format(MergeCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
-                + "\n" + MergeCommand.ORIGINAL_HEADER + validPerson.getPhone().value + "\n" + MergeCommand.INPUT_HEADER
-                + VALID_PHONE_BOB, commandResult.getFeedbackToUser());
+        CommandResult commandResult = new MergePersonCommand(inputPerson).execute(modelStub);
+        assertEquals(String.format(MergePersonCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
+                + "\n" + MergePersonCommand.ORIGINAL_HEADER + validPerson.getPhone().value + "\n"
+                + MergePersonCommand.INPUT_HEADER + VALID_PHONE_BOB, commandResult.getFeedbackToUser());
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        MergeCommand commandWithAlice = new MergeCommand(alice);
-        MergeCommand commandWithBob = new MergeCommand(bob);
+        MergePersonCommand commandWithAlice = new MergePersonCommand(alice);
+        MergePersonCommand commandWithBob = new MergePersonCommand(bob);
 
         // same object -> returns true
         assertTrue(commandWithAlice.equals(commandWithAlice));
 
         // same values -> returns true
-        MergeCommand commandWithAliceCopy = new MergeCommand(alice);
+        MergePersonCommand commandWithAliceCopy = new MergePersonCommand(alice);
         assertTrue(commandWithAlice.equals(commandWithAliceCopy));
 
         // different types -> returns false
