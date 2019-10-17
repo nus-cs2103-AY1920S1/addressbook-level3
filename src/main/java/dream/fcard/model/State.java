@@ -41,6 +41,7 @@ public class State {
     /**
      * Returns the deck object that matches in name, if a deck with matching name exists.
      * Else, throw exception when no deck with matching name is found.
+     *
      * @return index
      */
     public Deck getDeck(String name) throws DeckNotFoundException {

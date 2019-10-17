@@ -305,6 +305,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |beginner user |access a help page |i can learn about the features at a glance
 
+|`* * *` |student who wants to track his/her progress |view the questions I have not done well in| improve my understanding on these concepts tested
+
 |=======================================================================
 
 _{More to be added}_
@@ -375,7 +377,10 @@ Use case ends.
 * 2b. FlashCard Pro detects that filepath does not lead to a JSON file.
 ** 2b1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
 
+
 _{More to be added}_
+
+
 
 [appendix]
 == Non Functional Requirements
