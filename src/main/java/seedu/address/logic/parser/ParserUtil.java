@@ -34,6 +34,12 @@ import java.util.ArrayList;
 
 import static seedu.address.model.finance.Spending.DATE_FORMAT;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
+
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -165,7 +171,6 @@ public class ParserUtil {
         }
         return new Email(trimmedEmail);
     }
-
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.

@@ -1,15 +1,15 @@
 package seedu.address.model.project;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Iterator;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.project.exceptions.DuplicateProjectException;
 import seedu.address.model.project.exceptions.ProjectNotFoundException;
+
+import java.util.Iterator;
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 
 /**
@@ -88,6 +88,12 @@ public class UniqueProjectList implements Iterable<Project> {
         }
 
         internalList.setAll(projects);
+    }
+
+    public void deleteMember(String member) {
+        for (Project project : internalList) {
+            project.deleteMember(member);
+        }
     }
 
     /**

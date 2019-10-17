@@ -7,12 +7,11 @@ import seedu.address.model.finance.Budget;
 import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Project;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 
 /**
  * Adds a budget type to the project.

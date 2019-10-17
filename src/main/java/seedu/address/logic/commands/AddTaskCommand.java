@@ -1,14 +1,15 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
 
 
@@ -40,11 +41,13 @@ public class AddTaskCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         Project projectToEdit = model.getWorkingProject().get();
+        List<String> members = projectToEdit.getMembers();
         Set<Task> taskToEdit = projectToEdit.getTasks();
         Set<Task> newTaskList = new HashSet<>();
         newTaskList.addAll(taskToEdit);
         newTaskList.add(task);
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, projectToEdit.getFinance());
+        editedProject.getMembers().addAll(members);
 
         if (projectToEdit.hasTask(task)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

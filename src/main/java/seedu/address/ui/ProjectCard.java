@@ -37,6 +37,10 @@ public class ProjectCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
+    private Label memberTitle;
+    @FXML
+    private FlowPane members;
+    @FXML
     private Label taskTitle;
     @FXML
     private FlowPane tasks;
@@ -50,6 +54,9 @@ public class ProjectCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
+        memberTitle.setText("Members:");
+        project.getMembers().forEach(member -> members.getChildren().add(new Label(member)));
+
         for (Task task : project.getTasks()) {
             tasks.getChildren().add(new Label("    " + ++count + ". " + task.toString()));
         }

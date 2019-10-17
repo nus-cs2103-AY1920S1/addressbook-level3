@@ -2,14 +2,9 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.project.Meeting;
 import seedu.address.model.finance.Finance;
-import seedu.address.model.project.Project;
-import seedu.address.model.project.Description;
-import seedu.address.model.project.Task;
-import seedu.address.model.project.Title;
+import seedu.address.model.project.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -27,6 +22,7 @@ class JsonAdaptedProject {
 
     private final String title;
     private final String description;
+    private final List<String> members = new ArrayList<>();
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
     private final List<JsonAdaptedMeeting> meetingList = new ArrayList<>();
     private final JsonAdaptedFinance finance;
@@ -35,11 +31,17 @@ class JsonAdaptedProject {
      * Constructs a {@code JsonAdaptedProject} with the given project details.
      */
     @JsonCreator
-    public JsonAdaptedProject(@JsonProperty("title") String title, @JsonProperty("description") String description,
+    public JsonAdaptedProject(@JsonProperty("title") String title, @JsonProperty("description") String description, @JsonProperty("members") List<String> members,
                               @JsonProperty("tasks") List<JsonAdaptedTask> tasks, @JsonProperty("meetingList") List<JsonAdaptedMeeting> meetingList,
                               @JsonProperty("finance") JsonAdaptedFinance finance) {
+
         this.title = title;
         this.description = description;
+
+        if (members != null) {
+            this.members.addAll(members);
+        }
+
         if (tasks != null) {
             this.tasks.addAll(tasks);
         }
@@ -54,6 +56,7 @@ class JsonAdaptedProject {
     public JsonAdaptedProject(Project source) {
         title = source.getTitle().title;
         description = source.getDescription().description;
+        members.addAll(source.getMembers());
         tasks.addAll(source.getTasks().stream()
                 .map(JsonAdaptedTask::new)
                 .collect(Collectors.toList()));
@@ -81,9 +84,17 @@ class JsonAdaptedProject {
         final Title modelTitle = new Title(title);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         final Description modelDescription = new Description(description);
+
+        final List<String> modelPersonList = new ArrayList<>();
+        for (String person : members) {
+            modelPersonList.add(person);
+        }
+
+
         final Set<Task> modelTasks = new HashSet<>(taskList);
 
         //need to convert the List<JsonAdaptedMeeting> to List<Meeting> then put it in the Set<Meeting> and set it to the given project.
@@ -94,6 +105,7 @@ class JsonAdaptedProject {
         final Finance modelFinance = finance.toModelType();
 
         Project project = new Project(modelTitle, modelDescription, modelTasks, modelFinance);
+        project.getMembers().addAll(modelPersonList);
 
         Set<Meeting> meetingsList = new HashSet<>(meetings);
         project.setListOfMeeting(meetingsList);

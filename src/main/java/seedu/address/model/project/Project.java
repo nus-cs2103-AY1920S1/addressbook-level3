@@ -1,9 +1,15 @@
 package seedu.address.model.project;
 
+import seedu.address.model.person.Person;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import seedu.address.model.finance.Finance;
+
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -16,6 +22,8 @@ public class Project {
     // Identity fields
     private final Title title;
     private final Description description;
+
+    private final List<String> members = new ArrayList<>();
     private final Finance finance;
     private final Set<Task> tasks = new HashSet<>();
     private Set<Meeting> meeting = new HashSet<>();
@@ -64,6 +72,26 @@ public class Project {
         return this.title.equals(project.getTitle().title);
     }
 
+    public List<String> getMembers() {
+        return this.members;
+    }
+
+    private void setMembers(List<String> members) {
+        this.members.addAll(members);
+    }
+
+    public void deleteMember(String member) {
+        int index = members.indexOf(member);
+        if (index != -1) {
+            members.remove(index);
+        }
+    }
+
+    public boolean hasMember(Person person) {
+        return members.contains(person.getName().fullName);
+    }
+
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -72,6 +100,10 @@ public class Project {
                 .append(getTitle())
                 .append(" Description: ")
                 .append(getDescription());
+
+        for (String a : members) {
+            builder.append(a + " ");
+        }
         return builder.toString();
     }
 

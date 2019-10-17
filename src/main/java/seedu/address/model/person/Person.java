@@ -1,13 +1,10 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
 import seedu.address.model.tag.Tag;
+
+import java.util.*;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Person in the address book.
@@ -23,7 +20,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-
+    private final List<String> projects = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -59,6 +56,10 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public List<String> getProjects() {
+        return this.projects;
     }
 
     /**
@@ -114,6 +115,7 @@ public class Person {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
+
         getTags().forEach(builder::append);
         return builder.toString();
     }
