@@ -62,7 +62,7 @@ public class Quantity {
      * Returns true if a given input string is a valid quantity.
      */
     public static boolean isValidInputQuantity(String test) {
-        return StringUtil.isPositiveInteger(test);
+        return StringUtil.isNonZeroUnsignedInteger(test);
     }
 
     /**
