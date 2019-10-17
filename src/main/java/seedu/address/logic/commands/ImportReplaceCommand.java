@@ -31,9 +31,9 @@ public class ImportReplaceCommand extends Command implements MutatorCommand {
         try {
             importedPersons.addAll(CsvUtil.readPersonsFromCsv());
         } catch (IOException e) {
-            throw new CommandException(e.getMessage());
+            throw new CommandException(MESSAGE_FAILURE);
         } catch (IllegalValueException e) {
-            throw new CommandException(e.getMessage());
+            throw new CommandException(MESSAGE_BAD_CSV);
         }
 
         model.replaceStagedAddressBook(importedPersons);
