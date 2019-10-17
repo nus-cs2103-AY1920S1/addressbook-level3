@@ -11,6 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.shoppinglist.JsonShoppingItemStorage;
 import seedu.address.storage.wastelist.JsonWasteListStorage;
 
 public class StorageManagerTest {
@@ -26,9 +27,9 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonTemplateListStorage templateListStorage = new JsonTemplateListStorage(getTempFilePath("ac"));
         JsonWasteListStorage wasteListStorage = new JsonWasteListStorage(getTempFilePath("ad"));
+        JsonShoppingItemStorage shoppingListStorage = new JsonShoppingItemStorage(getTempFilePath("ad"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage,
-                wasteListStorage);
-
+                wasteListStorage, shoppingListStorage);
     }
 
     private Path getTempFilePath(String fileName) {

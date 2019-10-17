@@ -3,9 +3,12 @@ package seedu.address.logic.commands.shoppinglist;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
 
+import java.util.List;
 import java.util.Optional;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
@@ -22,7 +25,7 @@ import seedu.address.model.food.ShoppingItem;
  */
 public class EditShoppingCommand extends Command {
 
-    public static final String COMMAND_WORD = "slist edit";
+    public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the shopping item identified "
             + "by the index number used in the displayed shopping list. "
@@ -34,7 +37,7 @@ public class EditShoppingCommand extends Command {
             + PREFIX_NAME + "apple"
             + PREFIX_AMOUNT + "2";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited food item: %1$s";
+    public static final String MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS = "Edited shopping item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
@@ -55,19 +58,18 @@ public class EditShoppingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        //List<ShoppingItem> lastShownList = model.getFilteredShoppingItemList();
+        List<ShoppingItem> lastShownList = model.getFilteredShoppingList();
 
-        //if (index.getZeroBased() >= lastShownList.size()) {
-        //    throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
-        //}
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        }
 
-        //ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
-        //ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
+        ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
+        ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
 
-        //model.setGroceryItem(shoppingItemToEdit, editedShoppingItem);
-        //model.updateFilteredShoppingItemList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
-        //return new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem));
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, new ShoppingItem())); //this is dummy
+        model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
+        model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+        return new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem));
     }
 
     /**

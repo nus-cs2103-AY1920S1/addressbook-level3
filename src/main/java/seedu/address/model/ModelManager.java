@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
 
@@ -26,16 +27,19 @@ public class ModelManager implements Model {
     private final AddressBook groceryList;
     private final TemplateList templateList;
     private final WasteList wasteList;
+    private final ShoppingList shoppingList;
     private final UserPrefs userPrefs;
     private final FilteredList<GroceryItem> filteredGroceryItems;
     private final FilteredList<UniqueTemplateItems> filteredTemplateList;
     private FilteredList<GroceryItem> filteredWasteItems;
+    private FilteredList<ShoppingItem> filteredShoppingItems;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook groceryList, ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyTemplateList templateList, ReadOnlyWasteList wasteList) {
+                        ReadOnlyTemplateList templateList, ReadOnlyWasteList wasteList,
+                        ReadOnlyShoppingList shoppingList) {
         super();
         requireAllNonNull(groceryList, userPrefs, templateList);
 
@@ -45,15 +49,18 @@ public class ModelManager implements Model {
         this.groceryList = new AddressBook(groceryList);
         this.templateList = new TemplateList(templateList);
         this.wasteList = new WasteList(wasteList);
+        this.shoppingList = new ShoppingList(shoppingList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
         filteredTemplateList = new FilteredList<UniqueTemplateItems>(this.templateList.getTemplateList());
         filteredWasteItems = new FilteredList<GroceryItem>(this.wasteList.getWasteList());
+        filteredShoppingItems = new FilteredList<ShoppingItem>(this.shoppingList.getShoppingList());
+
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new TemplateList(),
-                new WasteList());
+                new WasteList(), new ShoppingList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -123,6 +130,18 @@ public class ModelManager implements Model {
         requireAllNonNull(wasteListFilePath);
         userPrefs.setWasteListFilePath(wasteListFilePath);
     }
+
+    @Override
+    public Path getShoppingListFilePath() {
+        return userPrefs.getShoppingListFilePath();
+    }
+
+    @Override
+    public void setShoppingListFilePath(Path shoppingListFilePath) {
+        requireAllNonNull(shoppingListFilePath);
+        userPrefs.setShoppingListFilePath(shoppingListFilePath);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
@@ -289,6 +308,62 @@ public class ModelManager implements Model {
         return WasteList.getWasteArchive().keySet();
     }
 
+    //=========== ShoppingList ================================================================================
+
+    @Override
+    public void setShoppingList(ReadOnlyShoppingList shoppingList) {
+        this.shoppingList.resetData(shoppingList);
+    }
+
+    @Override
+    public ReadOnlyShoppingList getShoppingList() {
+        return shoppingList;
+    }
+
+    /**
+     * Check if the in-memory model has the specified shopping item.
+     *
+     * @param shoppingItem The shopping item
+     * @return Returns true if the model has the shopping item.
+     */
+    public boolean hasShoppingItem(ShoppingItem shoppingItem) {
+        requireNonNull(shoppingItem);
+        return shoppingList.hasShoppingItem(shoppingItem);
+    }
+
+    public void deleteShoppingItem(ShoppingItem target) {
+        shoppingList.removeShoppingItem(target);
+    }
+
+    @Override
+    public void addShoppingItem(ShoppingItem food) {
+        shoppingList.addShoppingItem(food);
+        updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+    }
+
+    @Override
+    public void setShoppingItem(ShoppingItem target, ShoppingItem editedShoppingItem) {
+        requireAllNonNull(target, editedShoppingItem);
+
+        shoppingList.setShoppingItem(target, editedShoppingItem);
+    }
+
+    //=========== Filtered Shopping List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code ShoppingItem} backed by the internal list of
+     * {@code versionedShoppingList}
+     */
+    @Override
+    public ObservableList<ShoppingItem> getFilteredShoppingList() {
+        return filteredShoppingItems;
+    }
+
+    @Override
+    public void updateFilteredShoppingList(Predicate<ShoppingItem> predicate) {
+        requireNonNull(predicate);
+        filteredShoppingItems.setPredicate(predicate);
+    }
 
     //=========== Common Accessors =============================================================
     @Override

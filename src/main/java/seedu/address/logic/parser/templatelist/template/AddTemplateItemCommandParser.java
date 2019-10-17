@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.templatelist.template.AddTemplateItemCommand;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.templatelist.template.AddTemplateItemCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

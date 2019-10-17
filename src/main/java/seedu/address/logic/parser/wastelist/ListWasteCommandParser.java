@@ -22,15 +22,15 @@ public class ListWasteCommandParser implements Parser<ListWasteCommand> {
      */
     @Override
     public ListWasteCommand parse(String userInput) throws ParseException {
-        String trimmedArgs = userInput.trim();
+        String args = userInput;
 
-        if (trimmedArgs.isEmpty()) {
+        if (args.isEmpty()) {
             WasteMonth.getCurrentWasteMonth();
             return new ListWasteCommand(WasteMonth.getCurrentWasteMonth());
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_MONTH);
+                ArgumentTokenizer.tokenize(args, PREFIX_MONTH);
 
         WasteMonth wasteMonth = ParserUtil.parseWasteMonth(argMultimap.getValue(PREFIX_MONTH).get());
 

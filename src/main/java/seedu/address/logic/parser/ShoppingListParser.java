@@ -27,6 +27,7 @@ public class ShoppingListParser {
     /**
      * Used for initial separation of command word and args.
      */
+    public static final String LIST_TYPE_WORD = "slist";
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**

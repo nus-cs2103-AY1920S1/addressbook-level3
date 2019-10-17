@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
 
@@ -19,6 +20,7 @@ public interface Model {
     Predicate<GroceryItem> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<UniqueTemplateItems> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
     Predicate<GroceryItem> PREDICATE_SHOW_ALL_WASTE_ITEMS = unused -> true;
+    Predicate<ShoppingItem> PREDICATE_SHOW_ALL_SHOPPING_ITEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -191,5 +193,58 @@ public interface Model {
     public Set<WasteMonth> getListOfWasteMonths();
 
     void updateFilteredWasteItemList(WasteMonth wasteMonth);
+
+    //=========== ShoppingList ==================================================================================
+    /**
+     * Returns the user prefs' shopping list file path.
+     */
+    Path getShoppingListFilePath();
+
+    /**
+     * Sets the user prefs' shopping list file path.
+     */
+    void setShoppingListFilePath(Path shoppingListFilePath);
+
+    /**
+     * Replaces shopping list data with the data in {@code shoppingList}.
+     */
+    void setShoppingList(ReadOnlyShoppingList shoppingList);
+
+    /** Returns the TemplateList */
+    ReadOnlyShoppingList getShoppingList();
+
+    /**
+     * Returns true if a Shopping with the same identity as {@code shoppingItem} exists in the shopping list.
+     */
+    boolean hasShoppingItem(ShoppingItem shoppingItem);
+
+    /**
+     * Deletes the given shoppingItem.
+     * The shoppingItem must exist in the shopping list.
+     */
+    void deleteShoppingItem(ShoppingItem target);
+
+    /**
+     * Adds the given shopping item.
+     * {@code toAdd} must not already exist in the shoppingItem.
+     */
+    void addShoppingItem(ShoppingItem toAdd);
+
+    /**
+     * Replaces the given shoppingItem {@code target} with {@code editedShoppingItem}.
+     * {@code target} must exist in the shopping list.
+     * The template identity of {@code editedShoppingItem} must not be the same as another existing shopping item
+     * in the shopping list.
+     */
+    void setShoppingItem(ShoppingItem target, ShoppingItem editedShoppingItem);
+
+    /** Returns an unmodifiable view of the filtered shopping list */
+    ObservableList<ShoppingItem> getFilteredShoppingList();
+
+    /**
+     * Updates the filter of the filtered shopping list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredShoppingList(Predicate<ShoppingItem> predicate);
 
 }
