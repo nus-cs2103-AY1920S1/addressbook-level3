@@ -159,20 +159,16 @@ Format: `undo`
 Redo the most recent undo should there be no more commands/actions after the most recent undo +
 Format: `redo`
 
-==== Set loan time: `setLoanTime`
 
-Sets the standard number of days for any book loan +
-Format: `setLoanTime DAYS`
+==== Set User Settings: `set`
 
-==== Set renewal time: `setRenewTime`
+Sets the user settings for loan period (in days), renew period (in days) and fine increment (in cents). +
+Format: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] }`
 
-Sets the standard number of days for any book renewal +
-Format: `setRenewTime DAYS`
+Examples:
 
-==== Set fine (in cents): `setFineAmt`
-
-Sets the amount of fine per book per day, in cents +
-Format: `setFineAmt CENTS`
+*  `set lp/30 rp/10`
+*  `set rp/10 fi/5 lp/10`
 
 ==== Exiting the program : `exit`
 
@@ -250,7 +246,7 @@ Including `-all` will return all currently loaned books
 
 ==== Paying fines: `pay`
 
-Reduces the oustanding amount of borrower's fines by AMOUNT (in cents) and adds a transaction record to his account +
+Reduces the outstanding amount of borrower's fines by AMOUNT (in cents) and adds a transaction record to his account +
 Format: `pay AMOUNT`
 
 ==== Reserve a book: `reserve`
