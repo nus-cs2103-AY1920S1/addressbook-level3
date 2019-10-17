@@ -1,4 +1,6 @@
 package seedu.address.model;
 
-public class IdentityNotFoundException extends RuntimeException {
-}
+/**
+ * Signals that the {@code Identifiable} object cannot be found.
+ */
+public class IdentityNotFoundException extends RuntimeException {}

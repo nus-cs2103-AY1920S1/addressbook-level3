@@ -10,5 +10,7 @@
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:win:11" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.7.0" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:win:11" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:win:11" level="project" />
+    <orderEntry type="library" name="Gradle: org.jfxtras:jfxtras-agenda:9.0-r1-SNAPSHOT" level="project" />
   </component>
 </module>

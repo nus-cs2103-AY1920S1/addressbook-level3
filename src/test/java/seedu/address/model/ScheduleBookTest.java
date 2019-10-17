@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.schedule.Schedule;
-import seedu.address.model.schedule.exceptions.DuplicateScheduleException;
 import seedu.address.testutil.ScheduleBuilder;
 
 public class ScheduleBookTest {

@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.phone.Phone;
-import seedu.address.model.phone.exceptions.DuplicatePhoneException;
 import seedu.address.testutil.PhoneBuilder;
 
 public class PhoneBookTest {
