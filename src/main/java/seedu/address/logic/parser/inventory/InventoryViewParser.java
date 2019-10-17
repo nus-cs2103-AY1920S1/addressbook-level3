@@ -26,8 +26,6 @@ public class InventoryViewParser implements PageParser<Command> {
         }
 
         switch (commandType) {
-        case INVENTORY:
-            return new EnterInventoryParser().parse(arguments);
         case ADD:
             return new AddInventoryParser().parse(arguments);
         case DELETE:

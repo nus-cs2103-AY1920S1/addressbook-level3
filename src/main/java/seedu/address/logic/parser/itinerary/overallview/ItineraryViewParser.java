@@ -32,16 +32,8 @@ public class ItineraryViewParser implements PageParser<Command> {
         }
 
         switch (commandType) {
-        case HOME:
-            return new EnterTripManagerParser().parse(arguments);
-        case DAYS:
-            return new EnterDayPageParser().parse(arguments);
-        case ITINERARY:
-            return new EnterItineraryPageParser().parse(arguments);
         case GOTO:
             return new EnterDayParser().parse(arguments);
-        case INVENTORY:
-            return new InventoryViewParser().parse(command, arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

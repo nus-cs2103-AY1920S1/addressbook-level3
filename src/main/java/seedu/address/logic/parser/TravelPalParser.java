@@ -92,15 +92,14 @@ public class TravelPalParser {
         case EVENT_PAGE:
             return new EventViewParser().parse(commandWord, arguments);
         case PRETRIP_INVENTORY:
-            return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.DAYS);
+            return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.INVENTORY);
         case EXPENSE_MANAGER:
-            return parseNavbarPageCommand(commandWord, arguments, new ExpenseParser(), NavbarCommand.DAYS);
+            return parseNavbarPageCommand(commandWord, arguments, new ExpenseParser(), NavbarCommand.EXPENSE);
         case DIARY:
             return parseNavbarPageCommand(commandWord, arguments, new DiaryParser(), NavbarCommand.DIARY);
-        case CONTACTS_MANAGER:
-            return parseNavbarPageCommand(commandWord, arguments, new ContactsParser(), NavbarCommand.DAYS);
         case BOOKINGS:
-            return parseNavbarPageCommand(commandWord, arguments, new BookingsParser(), NavbarCommand.DAYS);
+            return parseNavbarPageCommand(commandWord, arguments, new BookingsParser(), NavbarCommand.BOOKINGS);
+        case CONTACTS_MANAGER:
         default:
             throw new ParseException(UNKNOWN_PAGE_MESSAGE);
         }

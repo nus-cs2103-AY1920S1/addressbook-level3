@@ -9,6 +9,7 @@ import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.TravelPalParser;
 import seedu.address.logic.parser.diary.EnterDiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.inventory.EnterInventoryParser;
 import seedu.address.logic.parser.sidebar.EnterDayPageParser;
 import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
 import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
@@ -22,7 +23,7 @@ public class NavbarViewParser implements PageParser {
     /** Concatenation of all NavbarCommand enum types. */
     public static final String MESSAGE_COMMAND_TYPES = "Available navigation commands :"
             + Arrays.stream(NavbarCommand.values())
-                    .map(navbarCommandEnum -> navbarCommandEnum.toString())
+                    .map(navbarCommandEnum -> navbarCommandEnum.toString().toLowerCase())
                     .reduce("", (firstType, secondType) -> {
                         return firstType + " " + secondType;
                     })
@@ -57,6 +58,12 @@ public class NavbarViewParser implements PageParser {
             return new EnterItineraryPageParser().parse(arguments);
         case DIARY:
             return new EnterDiaryParser().parse(arguments);
+        case EXPENSE:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
+        case INVENTORY:
+            return new EnterInventoryParser().parse(arguments);
+        case BOOKINGS:
+            //add your bookings parser here
         //Add your navbar command type here, and in the enum.
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));

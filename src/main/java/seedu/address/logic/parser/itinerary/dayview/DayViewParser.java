@@ -47,12 +47,6 @@ public class DayViewParser implements PageParser<Command> {
             return new EnterDayParser().parse(arguments);
         case EDIT:
             return new EnterEditDayParser().parse(arguments);
-        case HOME:
-            return new EnterTripManagerParser().parse(arguments);
-        case DAYS:
-            return new EnterDayPageParser().parse(arguments);
-        case ITINERARY:
-            return new EnterItineraryPageParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }
