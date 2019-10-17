@@ -122,6 +122,13 @@ public class LogicManagerTest {
         assertTrue(logic.getGuiSettings() instanceof GuiSettings);
     }
 
+    @Test
+    public void setGuiSettings_success() {
+        Logic newLogic = logic;
+        logic.setGuiSettings(logic.getGuiSettings());
+        assertEquals(logic, newLogic);
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>

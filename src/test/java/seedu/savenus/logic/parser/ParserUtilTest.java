@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.tag.Tag;
 
@@ -24,6 +25,8 @@ public class ParserUtilTest {
     private static final String INVALID_PRICE = "+6500q9";
     private static final String INVALID_DESCRIPTION = "";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_LOCATION = "37@+";
+    private static final String INVALID_CATEGORY = "+++";
 
     private static final String VALID_NAME = "Ayam Penyet";
     private static final String VALID_PRICE = "123";
@@ -40,8 +43,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(
+            ParseException.class,
+            MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1))
+        );
     }
 
     @Test
@@ -166,5 +171,45 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseLocations_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseLocations(null));
+    }
+
+    @Test
+    public void parseLocations_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseLocations(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseLocations_collectionWithInvalidLocations_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(INVALID_LOCATION)));
+    }
+
+    @Test
+    public void parseCategories_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCategories(null));
+    }
+
+    @Test
+    public void parseCategories_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseCategories(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseCategories_collectionWithInvalidLocations_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCategories(Arrays.asList(INVALID_CATEGORY)));
+    }
+
+    @Test
+    public void parse_collectionWithValidTags_returnsTagSet() throws ParseException {
+        String validOpeningHours = "0000 0001";
+        String invalidOpeningHours = "abcd efgh";
+        assertTrue(ParserUtil.parseOpeningHours(validOpeningHours).equals(new OpeningHours(validOpeningHours)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseOpeningHours(invalidOpeningHours));
+        assertTrue(ParserUtil.parseOpeningHours(OpeningHours.DEFAULT_VALUE)
+                   .equals(new OpeningHours(OpeningHours.DEFAULT_VALUE)));
     }
 }

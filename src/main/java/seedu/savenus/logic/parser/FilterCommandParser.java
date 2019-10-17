@@ -167,34 +167,30 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @return true if the value is valid. False if otherwsie.
      */
     public boolean isValidValue(String field, String value) {
-        try {
-            switch(field) {
+        switch(field) {
 
-            case FIELD_NAME_CATEGORY:
-                return Category.isValidCategory(value);
+        case FIELD_NAME_CATEGORY:
+            return Category.isValidCategory(value);
 
-            case FIELD_NAME_DESCRIPTION:
-                return Description.isValidDescription(value);
+        case FIELD_NAME_DESCRIPTION:
+            return Description.isValidDescription(value);
 
-            case FIELD_NAME_LOCATION:
-                return Location.isValidLocation(value);
+        case FIELD_NAME_LOCATION:
+            return Location.isValidLocation(value);
 
-            case FIELD_NAME_NAME:
-                return Name.isValidName(value);
+        case FIELD_NAME_NAME:
+            return Name.isValidName(value);
 
-            case FIELD_NAME_OPENING_HOURS:
-                return OpeningHours.isValidOpeningHours(value);
+        case FIELD_NAME_OPENING_HOURS:
+            return OpeningHours.isValidOpeningHours(value);
 
-            case FIELD_NAME_PRICE:
-                return Price.isValidPrice(value);
+        case FIELD_NAME_PRICE:
+            return Price.isValidPrice(value);
 
-            case FIELD_NAME_RESTRICTIONS:
-                return Restrictions.isValidRestrictions(value);
+        case FIELD_NAME_RESTRICTIONS:
+            return Restrictions.isValidRestrictions(value);
 
-            default:
-                return false;
-            }
-        } catch (Exception e) {
+        default:
             return false;
         }
     }
