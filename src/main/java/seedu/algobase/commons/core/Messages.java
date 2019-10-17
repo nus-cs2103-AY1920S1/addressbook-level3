@@ -14,4 +14,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_TAG_FORMAT = "Invalid tag format! \n";
     public static final String MESSAGE_INVALID_TAG_DISPLAYED_INDEX = "The Tag index provided is invalid";
     public static final String MESSAGE_PLANS_LISTED_OVERVIEW = "%1$d plans listed!";
+    public static final String MESSAGE_INVALID_COMMAND_NAME = "Command %1$s not found!";
 }

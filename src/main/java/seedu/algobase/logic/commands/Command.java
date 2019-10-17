@@ -17,4 +17,29 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 
+    public static final Class[] commandList = {
+        AddCommand.class,
+        AddPlanCommand.class,
+        AddTagCommand.class,
+        AddTagCommand.class,
+        ClearCommand.class,
+        DeleteCommand.class,
+        DeletePlanCommand.class,
+        DeleteTagCommand.class,
+        DeleteTaskCommand.class,
+        DoneTaskCommand.class,
+        EditCommand.class,
+        EditPlanCommand.class,
+        EditTagCommand.class,
+        ExitCommand.class,
+        FindCommand.class,
+        FindPlanCommand.class,
+        HelpCommand.class,
+        ListCommand.class,
+        ListPlanCommand.class,
+        ListTagCommand.class,
+        SortCommand.class,
+        SwitchCommand.class,
+        UndoneTaskCommand.class
+    };
 }
