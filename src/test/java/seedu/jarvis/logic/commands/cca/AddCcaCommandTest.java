@@ -359,6 +359,11 @@ public class AddCcaCommandTest {
         }
 
         @Override
+        public void updateFilteredCcaList(Predicate<Cca> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Planner getPlanner() {
             throw new AssertionError("This method should not be called.");
         }

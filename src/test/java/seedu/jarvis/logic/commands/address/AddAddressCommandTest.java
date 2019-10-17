@@ -344,12 +344,7 @@ public class AddAddressCommandTest {
         public void updateCca(Cca toBeUpdatedCca, Cca updatedCca) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public boolean hasCca(Cca cca) {
-            throw new AssertionError("This method should not be called.");
-        }
-
+        
         @Override
         public CcaTracker getCcaTracker() {
             throw new AssertionError("This method should not be called.");

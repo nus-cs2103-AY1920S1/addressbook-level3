@@ -1,7 +1,11 @@
 package seedu.jarvis.model.cca;
 
+import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
+
 
 /**
  * The API of the CcaTrackerModel component
@@ -9,10 +13,13 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
  */
 public interface CcaTrackerModel {
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Cca> PREDICATE_SHOW_ALL_CCAS = unused -> true;
+
     /**
      * Checks if cca tracker contains the given cca.
      */
-    public void contains(Cca cca);
+    public boolean contains(Cca cca);
 
     /**
      * Adds the given cca {@code cca} to the cca tracker.
@@ -34,13 +41,6 @@ public interface CcaTrackerModel {
     public void updateCca(Cca toBeUpdatedCca, Cca updatedCca);
 
     /**
-     * Checks if the cca tracker already has the given {@code cca}.
-     *
-     * @return true if the cca tracker already has the cca.
-     */
-    public boolean hasCca(Cca cca);
-
-    /**
      * Returns the CcaTracker {@Code CcaTracker}.
      */
     public CcaTracker getCcaTracker();
@@ -58,4 +58,8 @@ public interface CcaTrackerModel {
      * @return the {@code Cca} based on its index.
      */
     public Cca getCca(Index index) throws CommandException;
+
+    public void updateFilteredCcaList(Predicate<Cca> predicate);
+
+    public ObservableList<Cca> getFilteredCcaList();
 }

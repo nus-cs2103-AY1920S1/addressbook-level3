@@ -109,7 +109,7 @@ public class EditCcaCommand extends Command {
         Cca createdEditedCca = createEditedCca(originalCca, editCcaDescriptor);
 
         // checks if edited cca does not conflict with another existing cca that is not the original cca.
-        if (!originalCca.isSameCca(createdEditedCca) && model.hasCca(createdEditedCca)) {
+        if (!originalCca.isSameCca(createdEditedCca) && model.contains(createdEditedCca)) {
             throw new CommandException(MESSAGE_DUPLICATE_CCA);
         }
         editedCca = createdEditedCca;
