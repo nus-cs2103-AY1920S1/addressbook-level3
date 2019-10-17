@@ -1,4 +1,4 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.address;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +10,7 @@ import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.model.util.SampleDataUtil;
+
 
 /**
  * A utility class to help with building Person objects.
