@@ -519,3 +519,4 @@ There is no need to save manually.
 * *Edit* : `slist edit INDEX [f/FOOD_ITEM] [a/AMOUNT]`
 * *Merge* : `slist merge bought`
 * *Bought* : `slist bought INDEX [e/EXPIRY_DATE] [a/AMOUNT]`
+
