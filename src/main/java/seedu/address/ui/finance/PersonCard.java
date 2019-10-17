@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.logEntry = logEntry;
         id.setText(displayedIndex + ". ");
-        amount.setText(logEntry.getAmount().fullName);
+        amount.setText(logEntry.getAmount().amount);
         tDate.setText(logEntry.getTransactionDate().value);
         description.setText(logEntry.getDescription().value);
     }

@@ -3,34 +3,47 @@ package seedu.address.model.finance.logentry;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidTransactionDate(String)}
+ * The date the transaction of the associated log entry was made.
+ * Guarantees: is valid as declared in {@link #isValidTransactionDate(String)}
  */
 public class TransactionDate {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Dates should be in the form DD-MM-YYYY and should not be in future";
+
     public final String value;
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code TransactionDate}.
      *
-     * @param phone A valid phone number.
+     * @param transactionDate A valid transaction date.
      */
-    public TransactionDate(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidTransactionDate(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+    public TransactionDate(String transactionDate) {
+        requireNonNull(transactionDate);
+        checkArgument(isValidTransactionDate(transactionDate), MESSAGE_CONSTRAINTS);
+        value = transactionDate;
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid transaction date.
      */
     public static boolean isValidTransactionDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date currentDate = new Date();
+        try {
+            Date testDate = validFormat.parse(test);
+            boolean isToday = testDate.equals(currentDate);
+            boolean isPast = testDate.before(currentDate);
+            return isToday || isPast;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     @Override

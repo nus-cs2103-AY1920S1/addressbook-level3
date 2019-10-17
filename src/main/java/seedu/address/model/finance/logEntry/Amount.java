@@ -9,25 +9,26 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amounts should be numerical (with decimals allowed) and should not be blank";
+            "Amounts should be numerical (up to 2 decimals allowed) and should not be blank";
 
     /*
      * The first character of the amount must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\d]+|[\\d]+\\.[\\d]{1,2}";
 
-    public final String fullName;
+
+    public final String amount;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Amount}.
      *
-     * @param name A valid name.
+     * @param amount A valid amount.
      */
-    public Amount(String name) {
-        requireNonNull(name);
-        checkArgument(isValidAmount(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+    public Amount(String amount) {
+        requireNonNull(amount);
+        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
+        this.amount = amount;
     }
 
     /**
@@ -40,19 +41,19 @@ public class Amount {
 
     @Override
     public String toString() {
-        return fullName;
+        return amount;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
-                && fullName.equals(((Amount) other).fullName)); // state check
+                && amount.equals(((Amount) other).amount)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return amount.hashCode();
     }
 
 }

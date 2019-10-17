@@ -35,7 +35,7 @@ class JsonAdaptedLogEntry {
      * Converts a given {@code LogEntry} into this class for Jackson use.
      */
     public JsonAdaptedLogEntry(LogEntry source) {
-        amount = source.getAmount().fullName;
+        amount = source.getAmount().amount;
         tDate = source.getTransactionDate().value;
         desc = source.getDescription().value;
     }
