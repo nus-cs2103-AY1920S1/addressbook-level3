@@ -64,7 +64,7 @@ public class HelpCommand extends Command {
     public CommandResult execute(Model model) throws IOException {
 
         if (isNull(type) && isNull(command)) {
-            return new CommandResult(helpMessage, true, false, false);
+            return new CommandResult(helpMessage, true, false, false, false);
         } else {
             switch (type.toString()) {
             case "guide":
@@ -73,17 +73,17 @@ public class HelpCommand extends Command {
             case "brief":
                 String briefDescription = BriefDescriptions.getDescription(command);
                 resetCommandAndTypeValues();
-                return new CommandResult(briefDescription, false, false, false);
+                return new CommandResult(briefDescription, false, false, false, false);
             case "api":
                 File f = new File(ApiLinks.getLink(command));
                 Desktop.getDesktop().browse(f.toURI());
                 break;
             default:
                 resetCommandAndTypeValues();
-                return new CommandResult(helpMessage, false, false, false);
+                return new CommandResult(helpMessage, false, false, false, false);
             }
             resetCommandAndTypeValues();
-            return new CommandResult(helpMessage, false, false, false);
+            return new CommandResult(helpMessage, false, false, false, false);
         }
     }
 }
