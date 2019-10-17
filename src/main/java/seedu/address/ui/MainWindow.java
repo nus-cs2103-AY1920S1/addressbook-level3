@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private TemplateListPanel templateListPanel;
     private TemplateItemPanel templateItemPanel;
     private WasteListPanel wasteListPanel;
+    private ShoppingListPanel shoppingListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -52,6 +53,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane wasteListPanelPlaceholder;
+
+    @FXML
+    private StackPane shoppingListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -127,6 +131,8 @@ public class MainWindow extends UiPart<Stage> {
         wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
         wasteListPanelPlaceholder.getChildren().add(wasteListPanel.getRoot());
 
+        shoppingListPanel = new ShoppingListPanel(logic.getFilteredShoppingList());
+        shoppingListPanelPlaceholder.getChildren().add(shoppingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -203,6 +209,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public WasteListPanel getWasteListPanel() {
         return wasteListPanel;
+    }
+
+    public ShoppingListPanel getShoppingListPanel() {
+        return shoppingListPanel;
     }
 
     /**

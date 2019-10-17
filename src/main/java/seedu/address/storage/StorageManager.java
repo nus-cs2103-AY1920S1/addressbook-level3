@@ -8,10 +8,12 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.shoppinglist.ShoppingListStorage;
 import seedu.address.storage.wastelist.WasteListStorage;
 
 
@@ -24,15 +26,18 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private TemplateListStorage templateListStorage;
     private WasteListStorage wasteListStorage;
+    private ShoppingListStorage shoppingListStorage;
     private UserPrefsStorage userPrefsStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          TemplateListStorage templateListStorage, WasteListStorage wasteListStorage) {
+                          TemplateListStorage templateListStorage, WasteListStorage wasteListStorage,
+                          ShoppingListStorage shoppingListStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.templateListStorage = templateListStorage;
         this.wasteListStorage = wasteListStorage;
+        this.shoppingListStorage = shoppingListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -141,5 +146,36 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         wasteListStorage.saveWasteList(wasteList, filePath);
     }
+
+    // ================ ShoppingList methods ==============================
+
+    @Override
+    public Path getShoppingListFilePath() {
+        return shoppingListStorage.getShoppingListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyShoppingList> readShoppingList() throws DataConversionException, IOException {
+        return readShoppingList(shoppingListStorage.getShoppingListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyShoppingList> readShoppingList(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return shoppingListStorage.readShoppingList(filePath);
+    }
+
+    @Override
+    public void saveShoppingList(ReadOnlyShoppingList shoppingList) throws IOException {
+        saveShoppingList(shoppingList, shoppingListStorage.getShoppingListFilePath());
+    }
+
+    @Override
+    public void saveShoppingList(ReadOnlyShoppingList shoppingList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        shoppingListStorage.saveShoppingList(shoppingList, filePath);
+    }
+
 
 }

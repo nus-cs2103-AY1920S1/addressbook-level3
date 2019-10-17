@@ -19,7 +19,7 @@ import seedu.address.model.food.ShoppingItem;
 @JsonRootName(value = "shoppinglist")
 class JsonSerializableShoppingList {
 
-    public static final String MESSAGE_DUPLICATE_SHOPPING_ITEMS = "Persons list contains duplicate shopping_items(s).";
+    public static final String MESSAGE_DUPLICATE_SHOPPING_ITEMS = "Shopping list contains duplicate shopping_items(s).";
 
     private final List<JsonAdaptedShoppingItem> shoppingItems = new ArrayList<>();
 

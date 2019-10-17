@@ -19,9 +19,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWasteList;
+import seedu.address.model.ShoppingList;
 import seedu.address.model.TemplateList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WasteList;
@@ -34,6 +36,8 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TemplateListStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.shoppinglist.JsonShoppingItemStorage;
+import seedu.address.storage.shoppinglist.ShoppingListStorage;
 import seedu.address.storage.wastelist.JsonWasteListStorage;
 import seedu.address.storage.wastelist.WasteListStorage;
 import seedu.address.ui.Ui;
@@ -67,7 +71,9 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TemplateListStorage templateListStorage = new JsonTemplateListStorage(userPrefs.getTemplateListFilePath());
         WasteListStorage wasteListStorage = new JsonWasteListStorage(userPrefs.getWasteListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage, wasteListStorage);
+        ShoppingListStorage shoppingListStorage = new JsonShoppingItemStorage(userPrefs.getShoppingListFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage, wasteListStorage,
+                shoppingListStorage);
 
         initLogging(config);
 
@@ -88,30 +94,39 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTemplateList> templateListOptional;
         Optional<ReadOnlyWasteList> wasteListOptional;
+        Optional<ReadOnlyShoppingList> shoppingListOptional;
         ReadOnlyAddressBook initialAddressBookData;
         ReadOnlyTemplateList initialTemplateListData;
         ReadOnlyWasteList initialWasteListData;
+        ReadOnlyShoppingList initialShoppingListData;
 
         try {
             addressBookOptional = storage.readAddressBook();
             templateListOptional = storage.readTemplateList();
             wasteListOptional = storage.readWasteList();
+            shoppingListOptional = storage.readShoppingList();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             if (!templateListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample TemplateList");
             }
+            if (!shoppingListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ShoppingList");
+            }
             initialAddressBookData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialTemplateListData = templateListOptional.orElseGet(SampleDataUtil::getSampleTemplateList);
+            initialShoppingListData = shoppingListOptional.orElseGet(SampleDataUtil::getSampleShoppingList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialAddressBookData = new AddressBook();
             initialTemplateListData = new TemplateList();
+            initialShoppingListData = new ShoppingList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialAddressBookData = new AddressBook();
             initialTemplateListData = new TemplateList();
+            initialShoppingListData = new ShoppingList();
         }
 
         //For now, will demo with sample data first.
@@ -135,7 +150,8 @@ public class MainApp extends Application {
         }
          */
 
-        return new ModelManager(initialAddressBookData, userPrefs, initialTemplateListData, initialWasteListData);
+        return new ModelManager(initialAddressBookData, userPrefs, initialTemplateListData, initialWasteListData,
+                initialShoppingListData);
     }
 
     private void initLogging(Config config) {

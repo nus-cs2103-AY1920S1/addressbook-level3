@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.address.testutil.TypicalWasteList.getTypicalWasteList;
 
@@ -26,7 +27,7 @@ import seedu.address.testutil.EditFoodDescriptorBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteList());
+            getTypicalWasteList(), getTypicalShoppingList());
 
     /*@Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

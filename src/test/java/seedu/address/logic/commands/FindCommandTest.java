@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalGroceryItems.CARL;
 import static seedu.address.testutil.TypicalGroceryItems.ELLE;
 import static seedu.address.testutil.TypicalGroceryItems.FIONA;
 import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.address.testutil.TypicalWasteList.getTypicalWasteList;
 
@@ -27,9 +28,9 @@ import seedu.address.model.food.NameContainsKeywordsPredicate;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteList());
+            getTypicalWasteList(), getTypicalShoppingList());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteList());
+            getTypicalWasteList(), getTypicalShoppingList());
 
     @Test
     public void equals() {

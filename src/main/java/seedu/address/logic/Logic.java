@@ -9,9 +9,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.UniqueTemplateItems;
 
 /**
@@ -62,6 +64,21 @@ public interface Logic {
     ObservableList<GroceryItem> getFilteredWasteList();
 
     Path getWasteListFilePath();
+
+    /**
+     * Returns the ShoppingList.
+     *
+     * @see Model#getShoppingList()
+     */
+    ReadOnlyShoppingList getShoppingList();
+
+    /** Returns an unmodifiable view of the filtered list of shopping items */
+    ObservableList<ShoppingItem> getFilteredShoppingList();
+
+    /**
+     * Returns the user prefs' shopping list file path.
+     */
+    Path getShoppingListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

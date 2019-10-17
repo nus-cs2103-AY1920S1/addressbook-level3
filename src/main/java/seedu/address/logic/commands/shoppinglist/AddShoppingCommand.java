@@ -15,7 +15,7 @@ import seedu.address.model.food.ShoppingItem;
  */
 public class AddShoppingCommand extends Command {
 
-    public static final String COMMAND_WORD = "slist add";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food item to the shopping list. "
             + "Parameters: "
@@ -42,14 +42,11 @@ public class AddShoppingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        /*if (model.hasShoppingItem(toAdd)) {
+        if (model.hasShoppingItem(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
         }
 
         model.addShoppingItem(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-
-         */
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

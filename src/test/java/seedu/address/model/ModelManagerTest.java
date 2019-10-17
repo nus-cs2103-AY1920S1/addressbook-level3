@@ -7,6 +7,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalGroceryItems.ALICE;
 import static seedu.address.testutil.TypicalGroceryItems.BENSON;
+import static seedu.address.testutil.TypicalShoppingList.CAKE;
+import static seedu.address.testutil.TypicalShoppingList.DATES;
 import static seedu.address.testutil.TypicalTemplateList.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalTemplateList.DIET_PLAN;
 import static seedu.address.testutil.TypicalWasteList.APPLE;
@@ -21,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.food.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ShoppingListBuilder;
 import seedu.address.testutil.TemplateListBuilder;
 import seedu.address.testutil.WasteListBuilder;
 
@@ -108,12 +111,14 @@ public class ModelManagerTest {
         TemplateList differentTemplateList = new TemplateList();
         WasteList wasteList = new WasteListBuilder().withWasteItem(APPLE).withWasteItem(BANANA).build();
         WasteList differentWasteList = new WasteList();
+        ShoppingList shoppingList = new ShoppingListBuilder().withShoppingItem(CAKE).withShoppingItem(DATES).build();
+        ShoppingList differentShoppingList = new ShoppingList();
 
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, templateList, wasteList);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, templateList, wasteList);
+        modelManager = new ModelManager(addressBook, userPrefs, templateList, wasteList, shoppingList);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, templateList, wasteList, shoppingList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -126,16 +131,18 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, templateList, wasteList)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, templateList, wasteList,
+                differentShoppingList)));
 
         // different templateList -> returns false
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, differentTemplateList,
-                differentWasteList)));
+                differentWasteList, differentShoppingList)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredGroceryItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, templateList, wasteList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, templateList, wasteList,
+                shoppingList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
@@ -143,6 +150,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, templateList, wasteList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, templateList, wasteList,
+                shoppingList)));
     }
 }
