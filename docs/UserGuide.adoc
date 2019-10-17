@@ -171,86 +171,46 @@ Examples:
 `top3 wc/100kg`
 
 === Participation
-This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit Athlete’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, rack height, etc).
+This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit Athlete’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, etc).
 
 ==== Prepare for a new session: `new`
-Starts a new session of SBD lifts for the given weight classes (WC), separated by a space. This will load all the athletes information to prepare for the 3 lifts.
+Starts a new session of SBD lifts for the given ID of the competition, separated by a space. This will load all the athletes who are participating in this competition. *im giving a dummy competition id as i dont know the format for the real one yet.
 
-Format: `new wc/WEIGHTCLASS&GENDER`
-GENDER is denoted by either M (male) or F (female)
-
-Examples:
-
-* `new u83M u93M` to create new sessions for male 83kg and male 93kg.
-
-* `new u63F u66M u72F` to create new sessions for female 63kg, male 66kg and female 72kg.
-
-==== Submit next attempt: `attempt`
-Submits an athletes next attempt for either the squat, bench, or deadlift.
-
-Format: ` attempt LIFT ATTEMPT_NO/WEIGHT`
-S means squat, B means bench, D means deadlift
-ATTEMPT_NO ranges from 1 to 3 inclusively.
+Format: `new COMPETITION_ID`
 
 Examples:
 
-* `attempt S 2 /170`
+* `new 0123`
 
-* `attempt D 3 /300`
-
+////
 ==== Update lift or no lift: `lift`
-Updates whether the athlete succeeds in his attempt, or fails it with the given “lights”, with ‘O’ representing a white light, and ‘X’ representing a red. 2 or more red lights implies a no lift, else it will be a successful lift.
+Updates whether the athlete succeeds in his attempt, or fails it
 
-Format: `lift LIFT ATTEMPT_NO 3LIGHTS n/NAME`
-
-Examples:
-
-* `lift S 2 OOO n/christabelteo`
-
-* `lift B 3 XXO n/shawnkoh`
-
-==== Starts the next lift: `start`
-This will line up athletes (sort) according to their attempt weight for that particular lift and attempt. Each lift will have 3 attempts.
-
-Format: `start LIFT`
-LIFT comprises: S means squat, B means bench, D means deadlift
+Format: `lift LIFT ATTEMPT_NO Y/N n/NAME`
 
 Examples:
 
-* `start B`
+* `lift S 2 Y n/christabelteo`
 
-* `start D`
+* `lift B 3 N n/shawnkoh`
+////
 
 ==== Get the next lifter in line: `next`
-Retrieves the next lifter (according to weight lifted for that attempt), the weights he/she is going for, rack height and lift-off if necessary.
+Retrieves the next lifter according to weight lifted for that attempt, the weights he/she is going for that particular lift and attempt. This will also prompt the user to update whether the lift is successfu l or not. The user should update accordingly. (not sure if the second part should be a command by itself or not, since we can just referrence the current card's object and update using a prompt.)
 
 Format: `next`
 
 Examples:
 
-* `to put in later`
+* next
 
-==== Submit first attempts: `first`
-Submits the first attempt (usually before starting any lift) for all 3 lifts.
+==== Submit attempts: `attempts`
+Submits all 9 attempts for the 3 lifts, seperating the lifts by a single space, and the attempts for each lift with a slash.
 
-Format: `first n/NAME SQUAT_WEIGHT/BENCH_WEIGHT/DL_WEIGHT`
-
-Examples:
-
-* `first n/farhannafahrid 125/55/170`
-
-* `first n/marcustay 190/140/220`
-
-==== Declare pre-lift settings: `pre`
-Declares pre meet settings, such as squat and bench rack height, as well as opting for lift-off for bench. For the squat and bench, athletes need to indicate their rack heights so that it can be setup before their lift. Liftoff is optional for the bench, lifters can choose if they need a spotter to help them with the lift off.
-
-Format: ` pre n/NAME s/RACK_HEIGHT b/RACK_HEIGHT LIFTOFF`
-
-RACK_HEIGHT - range:
-LIFTOFF - Y for yes, N for no
+Format: `attempts n/NAME SQUAT_1/SQUAT_2/SQUAT_3 BENCH_1/BENCH_2/BENCH_3 DEADLIFT_1/DEADLIFT_2/DEADLIFT_3`
 
 Examples:
 
-* `pre n/howeichin s/12 b/7 Y`
+* `attempts n/farhannafahrid 115/120/125 40/47.5/55 155/165/170`
 
-* `pre n/ooimingsheng s/10 b/5 N`
+* `attempts n/marcustay 190/200/205 135/140/145 210/220/230`
