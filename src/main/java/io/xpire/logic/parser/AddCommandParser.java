@@ -2,8 +2,6 @@ package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.time.format.DateTimeParseException;
-
 import io.xpire.logic.commands.AddCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ExpiryDate;
@@ -26,15 +24,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!areArgumentsPresent(arguments)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        Name name;
-        ExpiryDate expiryDate;
         Item item;
-        try {
-            name = ParserUtil.parseName(arguments[0]);
-            expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
-        } catch (DateTimeParseException | ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+        Name name = ParserUtil.parseName(arguments[0]);
+        ExpiryDate expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
         if (hasQuantity(arguments)) {
             Quantity quantity = ParserUtil.parseQuantity(arguments[2]);
             item = new Item(name, expiryDate, quantity);
