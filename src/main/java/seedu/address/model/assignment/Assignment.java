@@ -6,10 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import seedu.address.model.student.Student;
-
-
-
 /**
  * Represents an assignment in the classroom.
  * Guarantees: details are present and not null, field values are validated, immutable.

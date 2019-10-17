@@ -1,12 +1,12 @@
-package seedu.address.model.Scheduler;
+package seedu.address.model.scheduler;
 
 import java.util.Calendar;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import seedu.address.model.Lesson.Lesson;
-import seedu.address.model.Lesson.Time;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.Time;
 
 /**
  * Scheduler class which handles scheduling of lessons.

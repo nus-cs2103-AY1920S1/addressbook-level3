@@ -1,4 +1,4 @@
-package seedu.address.model.Lesson;
+package seedu.address.model.lesson;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.model.Lesson.Exceptions.DuplicateLessonException;
+import seedu.address.model.lesson.exceptions.DuplicateLessonException;
 
 /**
  * A list of students that enforces uniqueness between its elements and does not allow nulls.

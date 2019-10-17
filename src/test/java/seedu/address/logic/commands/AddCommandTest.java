@@ -17,11 +17,11 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Lesson.Lesson;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 import seedu.address.testutil.StudentBuilder;
 
@@ -156,10 +156,11 @@ public class AddCommandTest {
         }
 
         @Override
-<<<<<<< HEAD
         public void setAssignment(Assignment target, Assignment editedAssignment) {
             throw new AssertionError("This method should not be called.");
-=======
+        }
+
+        @Override
         public void addLesson(Lesson lesson) {
             throw new AssertionError("This method should not be called");
         }
@@ -167,7 +168,6 @@ public class AddCommandTest {
         @Override
         public boolean hasLesson(Lesson lesson) {
             throw new AssertionError("This method should not be called");
->>>>>>> a522c8888917264684b08709b1e6a69a8cee751c
         }
 
         @Override
