@@ -89,13 +89,6 @@ public class InstallmentListTest {
     }
 
     @Test
-    public void editInstalment_emptyDescription_throwsError() {
-        assertThrows(NullPointerException.class, (
-
-        ) -> installmentList.editInstallment(3, null, 9.50));
-    }
-
-    @Test
     public void totalMoneySpentOnInstalments_normalInputs_addedCorrectly() {
         assertEquals(28.5, installmentList.getTotalMoneySpentOnInstallments());
     }

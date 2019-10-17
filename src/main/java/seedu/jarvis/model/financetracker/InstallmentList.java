@@ -98,25 +98,6 @@ public class InstallmentList {
     }
 
     /**
-     * User requests to edit a particular instalment based on its index. Both description and money spent can be edited.
-     *
-     * @param installmentNumber of the installment to be edited
-     * @param description of the installment to be edited
-     * @param value of the installment to be edited
-     */
-    public void editInstallment(int installmentNumber, String description, double value) {
-        if (installmentNumber < 1) {
-            throw new InstallmentNotFoundException();
-        }
-
-        requireNonNull(description);
-        Index index = Index.fromOneBased(installmentNumber);
-        allInstallments.get(index.getZeroBased()).editDescription(description);
-        allInstallments.get(index.getZeroBased()).editAmount(value);
-        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
-    }
-
-    /**
      * Replaces the installment {@code target} in the list with {@code editedInstallment}.
      *
      * {@code target} must exist in the list.
