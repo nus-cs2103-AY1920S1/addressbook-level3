@@ -18,7 +18,7 @@ public class Assignment {
 
     private final AssignmentName assignmentName;
     private boolean isCompleted;
-    private LinkedHashMap<Student, Grade> assignmentGrades = new LinkedHashMap<>();
+    private LinkedHashMap<String, Grade> assignmentGrades = new LinkedHashMap<>();
 
     /**
      * Constructs a {@code Assignment}.
@@ -39,22 +39,22 @@ public class Assignment {
         return new LinkedList<>(assignmentGrades.values());
     }
 
-    public void setGrades(List<Student> studentList, List<Grade> newGrades) {
+    public void setGrades(List<String> studentList, List<Grade> newGrades) {
         //Remove grades of students that no longer exist in the classroom
-        for (Student existingStudent: assignmentGrades.keySet()) {
+        for (String existingName: assignmentGrades.keySet()) {
             boolean shouldInclude = false;
-            for (Student updatedStudent: studentList) {
-                if (updatedStudent.equals(existingStudent)) {
+            for (String updatedName: studentList) {
+                if (updatedName.equals(existingName)) {
                     shouldInclude = true;
                 }
             }
             if (!shouldInclude) {
-                assignmentGrades.remove(existingStudent);
+                assignmentGrades.remove(existingName);
             }
         }
         //Add new grades
         for (int i = 0; i < studentList.size(); i++) {
-            Student student = studentList.get(i);
+            String student = studentList.get(i);
             Grade studentGrade;
             if (newGrades.size() <= i) {
                 studentGrade = new Grade("-1");

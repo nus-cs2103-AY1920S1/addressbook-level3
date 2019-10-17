@@ -37,7 +37,7 @@ public class EditAssignmentCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the address book.";
 
     private final Index index;
-    private final List<Student> students;
+    private final List<String> students;
     private final List<Grade> grades;
 
     /**
@@ -49,7 +49,7 @@ public class EditAssignmentCommand extends Command {
         requireNonNull(grades);
 
         this.index = index;
-        this.students = new ArrayList<Student>();
+        this.students = new ArrayList<String>();
         this.grades = grades;
 
     }
@@ -67,7 +67,8 @@ public class EditAssignmentCommand extends Command {
         }
 
         for (Student s : lastShownStudentList) {
-            students.add(s);
+            String name = s.getName().fullName;
+            students.add(name);
         }
 
         Assignment assignmentToEdit = lastShownAssignmentList.get(index.getZeroBased());
@@ -87,7 +88,7 @@ public class EditAssignmentCommand extends Command {
      * edited with {@code editAssignmentDescriptor}.
      */
     private static Assignment createEditedAssignment(Assignment assignmentToEdit,
-                                                     List<Student> students, List<Grade> grades) {
+                                                     List<String> students, List<Grade> grades) {
         assert assignmentToEdit != null;
         assignmentToEdit.setGrades(students, grades);
 

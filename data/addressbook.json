@@ -24,9 +24,12 @@
     "grades" : [ ]
   }, {
     "assignmentName" : "homework 3",
-    "grades" : [ ]
+    "grades" : [ "20", "40" ]
   }, {
     "assignmentName" : "english homework",
+    "grades" : [ ]
+  }, {
+    "assignmentName" : "math homework 1",
     "grades" : [ ]
   } ]
 }
