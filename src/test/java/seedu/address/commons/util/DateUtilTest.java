@@ -45,4 +45,9 @@ class DateUtilTest {
         assertFalse(DateUtil.isValidDate("2/2/79"));
         assertTrue(DateUtil.isValidDate("2/2"));
     }
+
+    @Test
+    public void prettyFormatDate_correctResult() {
+        assertEquals("Wed 25/12/2019", DateUtil.prettyFormatDate("25/12/2019"));
+    }
 }
