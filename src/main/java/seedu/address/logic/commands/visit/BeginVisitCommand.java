@@ -46,7 +46,7 @@ public class BeginVisitCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> fullPatientList = model.getPersonList();
+        List<Person> fullPatientList = model.getStagedPersonList();
 
         //Verify Patient Index
         if (patientIndex.getZeroBased() >= fullPatientList.size()) {
