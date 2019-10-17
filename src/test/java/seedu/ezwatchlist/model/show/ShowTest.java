@@ -34,7 +34,7 @@ public class ShowTest {
         assertFalse(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
 
         // same name, same description, different attributes -> returns true
-        editedAVENGERSENDGAME = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withDateofRelease("2019")
+        editedAVENGERSENDGAME = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withDateOfRelease("2019")
                 .withRunningTime(122).build();
         assertTrue(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
 
@@ -79,7 +79,7 @@ public class ShowTest {
         assertFalse(AVENGERSENDGAME.equals(editedAvengersendgame));
 
         // different dateofrelease -> returns false
-        editedAvengersendgame = new ShowBuilder(AVENGERSENDGAME).withDateofRelease("2019").build();
+        editedAvengersendgame = new ShowBuilder(AVENGERSENDGAME).withDateOfRelease("2019").build();
         assertFalse(AVENGERSENDGAME.equals(editedAvengersendgame));
 
         // different Actors -> returns false

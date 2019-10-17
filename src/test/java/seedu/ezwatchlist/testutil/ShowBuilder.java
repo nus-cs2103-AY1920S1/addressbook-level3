@@ -5,7 +5,6 @@ import java.util.Set;
 
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.*;
-import seedu.ezwatchlist.model.tag.Tag;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 
 /**
@@ -13,15 +12,16 @@ import seedu.ezwatchlist.model.util.SampleDataUtil;
  */
 public class ShowBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_DATE = "24/09/1997";
+    public static final String DEFAULT_NAME = "Inception";
+    public static final String DEFAULT_TYPE = "Movie";
+    public static final String DEFAULT_DATE = " 16 July 2010";
     public static final boolean DEFAULT_ISWATCHED = true;
-    public static final String DEFAULT_DESCRIPTION = "STORY OF ALICE AND WONDERLAND";
-    public static final int DEFAULT_RUNNINGTIME = 122;
+    public static final String DEFAULT_DESCRIPTION = "A thief who steals corporate secrets through the use "
+            + " of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.";
+    public static final int DEFAULT_RUNNINGTIME = 148;
 
-
-
-    private seedu.ezwatchlist.model.show.Name name;
+    private Name name;
+    private String type;
     private Description description;
     private IsWatched isWatched;
     private RunningTime runningTime;
@@ -30,6 +30,7 @@ public class ShowBuilder {
 
     public ShowBuilder() {
         name = new Name(DEFAULT_NAME);
+        this.type = DEFAULT_TYPE;
         description = new Description(DEFAULT_DESCRIPTION);
         this.isWatched = new IsWatched(DEFAULT_ISWATCHED);
         dateOfRelease = new Date(DEFAULT_DATE);
@@ -42,6 +43,7 @@ public class ShowBuilder {
      */
     public ShowBuilder(Show showToCopy) {
         name = showToCopy.getName();
+        type = showToCopy.getType();
         description = showToCopy.getDescription();
         isWatched = showToCopy.isWatched();
         dateOfRelease = showToCopy.getDateOfRelease();
@@ -54,6 +56,14 @@ public class ShowBuilder {
      */
     public ShowBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Sets the {@code type} of the {@code Show} that we are building.
+     */
+    public ShowBuilder withType(String type) {
+        this.type = type;
         return this;
     }
 
@@ -84,7 +94,7 @@ public class ShowBuilder {
     /**
      * Sets the {@code Date} of the {@code Show} that we are building.
      */
-    public ShowBuilder withDateofRelease(String Date) {
+    public ShowBuilder withDateOfRelease(String Date) {
         this.dateOfRelease = new Date(Date);
         return this;
     }
@@ -99,7 +109,12 @@ public class ShowBuilder {
 
 
     public Show build() {
-        return new Show(name, description, isWatched, dateOfRelease, runningTime, actors);
+        if (type.equals("Movie")) {
+            return new Movie(name, description, isWatched, dateOfRelease, runningTime, actors);
+        } else {
+            return new TvShow(name, description, isWatched, dateOfRelease, runningTime, actors,
+                    0 ,0, null);
+        }
     }
 
 }

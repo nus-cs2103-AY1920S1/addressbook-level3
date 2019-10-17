@@ -5,6 +5,7 @@ import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_SHOW_DISPL
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+import static seedu.ezwatchlist.testutil.TypicalShows.ANNABELLE;
 import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
 
 import java.io.IOException;
@@ -76,9 +77,10 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + "movie" + DESCRIPTION_DESC_AMY + WATCHED_DESC_AMY
-                + DATE_DESC_AMY + RUNNING_TIME_DESC_AMY + ACTOR_DESC_AMY;
-        Show expectedShow = new ShowBuilder(AVENGERSENDGAME).withActors().build();
+        String addCommand = AddCommand.COMMAND_WORD + "movie" + DESCRIPTION_DESC_ANNABELLE + TYPE_DESC_ANNABELLE
+                + WATCHED_DESC_ANNABELLE + DESCRIPTION_DESC_ANNABELLE
+                + DATE_DESC_ANNABELLE + RUNNING_TIME_DESC_ANNABELLE + ACTOR_DESC_ANNABELLE;
+        Show expectedShow = new ShowBuilder(ANNABELLE).withActors().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addShow(expectedShow);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

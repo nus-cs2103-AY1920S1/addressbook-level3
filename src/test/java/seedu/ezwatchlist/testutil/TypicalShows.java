@@ -18,14 +18,14 @@ public class TypicalShows {
             + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
             + "and disregarded by society, Fleck begins a slow descent into madness as he transforms into the "
             + "criminal mastermind known as the Joker."
-    ).withIsWatched(false).withDateofRelease("3 october 2019").withRunningTime(122).withActors("Joaquin Phoenix").build();
+    ).withIsWatched(false).withDateOfRelease("3 october 2019").withRunningTime(122).withActors("Joaquin Phoenix").build();
 
     public static final Show AVENGERSENDGAME = new ShowBuilder().withName("Avenger Endgame").withDescription(""
             + "Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supply "
             + "starts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce "
             + "Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos"
             + " -- the evil demigod who decimated the planet and the universe.").
-            withIsWatched(false).withDateofRelease("24 April 2019").withRunningTime(182).withActors("Chris Hemsworth")
+            withIsWatched(false).withDateOfRelease("24 April 2019").withRunningTime(182).withActors("Chris Hemsworth")
             .build();
 
     public static final Show BLACKPANTHER = new ShowBuilder().withName("Black Panther").withDescription("After the"
@@ -34,7 +34,7 @@ public class TypicalShows {
             + " -- gets tested when he's drawn into a conflict that puts the fate of Wakanda and the entire world at"
             + " risk. Faced with treachery and danger, the young king must rally his allies and release the full power"
             + " of Black Panther to defeat his foes and secure the safety of his people.").withIsWatched(true)
-            .withDateofRelease("29 January 2018").withRunningTime(135).withActors("Chadwick Boseman").build();
+            .withDateOfRelease("29 January 2018").withRunningTime(135).withActors("Chadwick Boseman").build();
 
 
     // Manually added
@@ -44,7 +44,7 @@ public class TypicalShows {
             + "destroyed. The two bored men form an underground club with strict rules and fight other men who "
             + "are fed up with their mundane lives. Their perfect partnership frays when Marla (Helena Bonham"
             + " Carter), a fellow support group crasher, attracts Tyler's attention.")
-            .withIsWatched(true).withDateofRelease("4 Nov 1999").withRunningTime(151).withActors().build();
+            .withIsWatched(true).withDateOfRelease("4 Nov 1999").withRunningTime(151).withActors().build();
 
     // Manually added - Show's details found in {@code CommandTestUtil}
     public static final Show SAVINGPRIVATERYAN = new ShowBuilder().withName("Saving Private Ryan")
@@ -52,15 +52,25 @@ public class TypicalShows {
             + " Ryan, whose three brothers have been killed in combat. Surrounded by the brutal realties of"
             + " war, while searching for Ryan, each man embarks upon a personal journey and discovers their"
             + " own strength to triumph over an uncertain future with honor, decency and courage.")
-            .withIsWatched(false).withDateofRelease("Saving Private Ryan")
+            .withIsWatched(false).withDateOfRelease("Saving Private Ryan")
             .withRunningTime(170).withActors("Tom Hanks").build();
 
     public static final Show GODFATHER2 = new ShowBuilder().withName("God Father 2").withDescription("The compelling"
             + " sequel to \"The Godfather,\" contrasting the life of Corleone father and son. Traces the problems "
             + "of Michael Corleone (Al Pacino) in 1958 and that of a young immigrant Vito Corleone (Robert De Niro) "
             + "in 1917's Hell's Kitchen. Michael survives many misfortunes and Vito is introduced to a life of crime.")
-            .withIsWatched(true).withDateofRelease("12 December 1974")
+            .withIsWatched(true).withDateOfRelease("12 December 1974")
             .withRunningTime(202).withActors("Al Pacino").build();
+
+    public static final Show BOBTHEBUILDER = new ShowBuilder().withName("Bob the Builder")
+            .withDescription("Cartoon about building things")
+            .withIsWatched(false).withDateOfRelease("1998")
+            .withRunningTime(10).withActors("Rob Rackstraw").withType("Tv Show").build();
+
+    public static final Show ANNABELLE = new ShowBuilder().withName("Annabelle")
+            .withDescription("Horror film")
+            .withIsWatched(true).withDateOfRelease("10/10/2014")
+            .withRunningTime(99).withActors("Annabelle Wallis").withType("Movie").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
