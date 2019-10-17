@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -12,6 +13,8 @@ public class Reminder {
     public static final String MESSAGE_CONSTRAINTS = "Remaining days should be in integer format";
     public static final String VALIDATION_REGEX = "^[0-9]*$";
 
+    // Temporary
+    private static ArrayList<Reminder> reminderTable = new ArrayList<>();
 
     private String description;
     private int days;
@@ -21,6 +24,20 @@ public class Reminder {
         requireNonNull(days);
         this.description = description;
         this.days = days;
+    }
+
+    // Temporary
+    public static String getReminders() {
+        String tmp = "";
+        for (Reminder r : reminderTable) {
+            tmp += r.description + " | " + r.days + " days left\n";
+        }
+        return tmp;
+    }
+
+    // Temporary
+    public static void addReminder(Reminder reminder) {
+        reminderTable.add(reminder);
     }
 
     public String getDescription() {
@@ -63,7 +80,6 @@ public class Reminder {
     public void setDays(int days) {
         this.days = days;
     }
-
 
 }
 

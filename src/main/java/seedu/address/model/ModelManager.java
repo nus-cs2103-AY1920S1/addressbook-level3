@@ -131,7 +131,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addReminder(Reminder reminder) {
-        // todo
+        Reminder.addReminder(reminder);
     }
 
     @Override

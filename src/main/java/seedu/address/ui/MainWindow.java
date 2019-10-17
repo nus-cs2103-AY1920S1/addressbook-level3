@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private MotdWindow motdWindow;
     private VisitRecordWindow visitWindow;
     private VisitListPanel visitListPanel;
     private ProfilePanel profilePanel;
@@ -147,6 +148,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the motd window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleMotd() {
+        motdWindow = new MotdWindow();
+        if (!motdWindow.isShowing()) {
+            motdWindow.show();
+        } else {
+            motdWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -220,6 +234,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowMotd()) {
+                handleMotd();
             }
 
             if (commandResult.isAddVisit()) {
