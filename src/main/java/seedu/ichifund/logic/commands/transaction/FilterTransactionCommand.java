@@ -43,12 +43,12 @@ public class FilterTransactionCommand extends Command {
             + PREFIX_CATEGORY + "!all "
             + PREFIX_TRANSACTION_TYPE + "exp ";
 
-    private final Month month;
-    private final Year year;
+    private final Optional<Month> month;
+    private final Optional<Year> year;
     private final Optional<Category> category;
     private final Optional<TransactionType> transactionType;
 
-    public FilterTransactionCommand(Month month, Year year, Optional<Category> category,
+    public FilterTransactionCommand(Optional<Month> month, Optional<Year> year, Optional<Category> category,
                                     Optional<TransactionType> transactionType) {
         this.month = month;
         this.year = year;
@@ -81,16 +81,16 @@ public class FilterTransactionCommand extends Command {
     }
 
     public static class FilterTransactionCommandBuilder {
-        private Month month;
-        private Year year;
+        private Optional<Month> month;
+        private Optional<Year> year;
         private Optional<Category> category;
         private Optional<TransactionType> transactionType;
 
-        public void setMonth(Month month) {
+        public void setMonth(Optional<Month> month) {
             this.month = month;
         }
 
-        public void setYear(Year year) {
+        public void setYear(Optional<Year> year) {
             this.year = year;
         }
 

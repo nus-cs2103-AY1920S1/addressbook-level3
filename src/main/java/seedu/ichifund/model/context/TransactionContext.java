@@ -56,12 +56,20 @@ public class TransactionContext implements Context<Transaction> {
         return year;
     }
 
-    public TransactionContext withMonth(Month month) {
-        return new TransactionContext(month, this.year, this.category, this.transactionType);
+    public TransactionContext withMonth(Optional<Month> month) {
+        if (month.isEmpty()) {
+            return this;
+        } else {
+            return new TransactionContext(month.get(), this.year, this.category, this.transactionType);
+        }
     }
 
-    public TransactionContext withYear(Year year) {
-        return new TransactionContext(this.month, year, this.category, this.transactionType);
+    public TransactionContext withYear(Optional<Year> year) {
+        if (year.isEmpty()) {
+            return this;
+        } else {
+            return new TransactionContext(this.month, year.get(), this.category, this.transactionType);
+        }
     }
 
     public TransactionContext withCategory(Optional<Category> category) {

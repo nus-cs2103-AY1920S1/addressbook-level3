@@ -28,23 +28,23 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
     @Override
     public FilterTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_MONTH, PREFIX_YEAR, PREFIX_TRANSACTION_TYPE);
+                ArgumentTokenizer.tokenize(args, PREFIX_MONTH, PREFIX_YEAR, PREFIX_CATEGORY, PREFIX_TRANSACTION_TYPE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MONTH, PREFIX_YEAR)
+        if (!areAnyPrefixesPresent(argMultimap, PREFIX_MONTH, PREFIX_YEAR, PREFIX_CATEGORY, PREFIX_TRANSACTION_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FilterTransactionCommand.MESSAGE_USAGE));
         }
 
-        Month month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
-        Year year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
+        Optional<Month> month = parseMonth(argMultimap);
+        Optional<Year> year = parseYear(argMultimap);
         Optional<Category> category = parseCategory(argMultimap);
         Optional<TransactionType> transactionType = parseType(argMultimap);
 
         return buildCommand(month, year, category, transactionType);
     }
 
-    private FilterTransactionCommand buildCommand(Month month, Year year, Optional<Category> category,
+    private FilterTransactionCommand buildCommand(Optional<Month> month, Optional<Year> year, Optional<Category> category,
                                                   Optional<TransactionType> transactionType) {
         FilterTransactionCommand.FilterTransactionCommandBuilder builder =
                 new FilterTransactionCommand.FilterTransactionCommandBuilder();
@@ -57,37 +57,47 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
         return builder.build();
     }
 
-    private Optional<Category> parseCategory(ArgumentMultimap argMultimap) {
-        return argMultimap
-                .getValue(PREFIX_CATEGORY)
-                .flatMap(categoryString -> {
-                    if (categoryString.equals(Category.CATEGORY_ALL.toString())) {
-                        return Optional.of(Category.CATEGORY_ALL);
-                    } else {
-                        return Optional.of(new Category(categoryString));
-                    }
-                });
-
+    private Optional<Month> parseMonth(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> monthString = argMultimap.getValue(PREFIX_MONTH);
+        if (monthString.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseMonth(monthString.get()));
+        }
     }
 
-    private Optional<TransactionType> parseType(ArgumentMultimap argMultimap) {
-        return argMultimap
-                .getValue(PREFIX_TRANSACTION_TYPE)
-                .flatMap(typeString -> {
-                    if (typeString.equals(TransactionType.TRANSACTION_TYPE_ALL.toString())) {
-                        return Optional.of(TransactionType.TRANSACTION_TYPE_ALL);
-                    } else {
-                        return Optional.of(new TransactionType(typeString));
-                    }
-                });
+    private Optional<Year> parseYear(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> yearString = argMultimap.getValue(PREFIX_YEAR);
+        if (yearString.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseYear(yearString.get()));
+        }
+    }
+
+    private Optional<Category> parseCategory(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> categoryString = argMultimap.getValue(PREFIX_CATEGORY);
+        if (categoryString.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseCategoryWithAll(categoryString.get()));
+        }
+    }
+
+    private Optional<TransactionType> parseType(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> typeString = argMultimap.getValue(PREFIX_TRANSACTION_TYPE);
+        if (typeString.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseTransactionTypeWithAll(typeString.get()));
+        }
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * Returns true if at least one of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

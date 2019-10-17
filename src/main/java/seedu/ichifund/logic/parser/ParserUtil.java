@@ -181,7 +181,7 @@ public class ParserUtil {
      * Parses a {@code String category} into a {@code Category}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code category} is invalid.
      */
     public static Category parseCategory(String category) throws ParseException {
         requireNonNull(category);
@@ -191,6 +191,25 @@ public class ParserUtil {
         }
         return new Category(trimmedCategory);
     }
+
+    /**
+     * Parses a {@code String category} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     * Allows for parsing of {@code Category.CATEGORY_ALL}
+     *
+     * @throws ParseException if the given {@code category} is invalid and is not "!all".
+     */
+    public static Category parseCategoryWithAll(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (trimmedCategory.equals(Category.CATEGORY_ALL.toString())) {
+            return Category.CATEGORY_ALL;
+        } else if (!Category.isValidCategory(trimmedCategory)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
+        }
+        return new Category(trimmedCategory);
+    }
+
 
     /**
      * Parses a {@code String day} into a {@code Day}.
@@ -247,6 +266,24 @@ public class ParserUtil {
         requireNonNull(transactionType);
         String trimmedTransactionType = transactionType.trim();
         if (!TransactionType.isValidTransactionType(trimmedTransactionType)) {
+            throw new ParseException(TransactionType.MESSAGE_CONSTRAINTS);
+        }
+        return new TransactionType(trimmedTransactionType);
+    }
+
+    /**
+     * Parses a {@code String transactionType} into a {@code TransactionType}.
+     * Leading and trailing whitespaces will be trimmed.
+     * Allows for parsing of {@code TransactionType.TRANSACTION_TYPE_ALL}
+     *
+     * @throws ParseException if the given {@code transactionType} is invalid.
+     */
+    public static TransactionType parseTransactionTypeWithAll(String transactionType) throws ParseException {
+        requireNonNull(transactionType);
+        String trimmedTransactionType = transactionType.trim();
+        if (trimmedTransactionType.equals(TransactionType.TRANSACTION_TYPE_ALL.toString())) {
+            return TransactionType.TRANSACTION_TYPE_ALL;
+        } else if (!TransactionType.isValidTransactionType(trimmedTransactionType)) {
             throw new ParseException(TransactionType.MESSAGE_CONSTRAINTS);
         }
         return new TransactionType(trimmedTransactionType);
