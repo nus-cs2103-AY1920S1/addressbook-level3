@@ -6,6 +6,9 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.commands.loancommands.LoanDeleteCommand;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new LoanDeleteCommand object.
+ */
 public class LoanDeleteCommandParser extends MultiLoanCommandParser {
     @Override
     public String name() {
