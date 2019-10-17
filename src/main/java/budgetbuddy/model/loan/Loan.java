@@ -102,7 +102,7 @@ public class Loan {
 
         final String divider = " | ";
         final StringBuilder builder = new StringBuilder();
-        builder.append(" ").append(getStatus().getStatusIcon()).append(" ")
+        builder.append(getStatus().getStatusIcon()).append(" ")
                 .append(getAmount()).append(" ")
                 .append(directionWithFunctionWord)
                 .append(getPerson().getName()).append(divider)

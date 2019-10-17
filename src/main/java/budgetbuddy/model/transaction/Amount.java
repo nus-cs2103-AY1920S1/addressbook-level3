@@ -9,7 +9,7 @@ import budgetbuddy.commons.util.AppUtil;
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amounts should be non-negative, and should not be blank.";
+            "Amounts should be non-negative numbers and should not be blank.";
 
     public static final String VALIDATION_REGEX = "^\\d+$";
 
@@ -40,6 +40,9 @@ public class Amount {
     public String toString() {
         String dollars = Long.toString(amount / 100);
         String cents = Long.toString(amount % 100);
+        if (cents.length() == 1) {
+            cents = String.format("%s0", cents);
+        }
 
         return String.format("%s.%s", dollars, cents);
     }
