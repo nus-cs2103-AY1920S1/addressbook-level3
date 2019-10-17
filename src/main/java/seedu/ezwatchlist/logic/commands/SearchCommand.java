@@ -43,12 +43,18 @@ public class SearchCommand extends Command {
         } else {
             this.name = new Name(EMPTY_STRING);
         }
-        /*if (type.isPresent()) {
+
+
+        /*this.type = EMPTY_STRING;
+        if (type.isPresent()) {
             this.type = type.get().trim();
         }
+
+        this.isWatched = new IsWatched(false);
         if (isWatched.isPresent()) {
             this.isWatched = new IsWatched(Boolean.parseBoolean(isWatched.get().trim()));
         }
+
         this.actorList = actorList;*/
     }
 
