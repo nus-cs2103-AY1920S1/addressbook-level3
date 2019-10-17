@@ -1,8 +1,8 @@
 package seedu.address.model.earnings;
 
-import java.util.Objects;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a Tutor's earnings.

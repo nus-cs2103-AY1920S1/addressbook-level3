@@ -6,7 +6,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.earnings.Earnings;
 
-public class EarningsCard extends UiPart<Region>  {
+/**
+ * An UI component that displays information of a {@code Earnings}.
+ */
+public class EarningsCard extends UiPart<Region> {
 
     private static final String FXML = "EarningsListCard.fxml";
 

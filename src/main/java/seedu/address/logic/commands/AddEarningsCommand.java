@@ -38,16 +38,16 @@ public class AddEarningsCommand extends Command {
             "This earnings with the same module, date and amount already exists in the address book";
     // For date, maybe can use this instead --> %tm/%td/%ty
 
-    public int getNumber() {
-        return 5;
-    }
-
     private final Earnings toAddEarnings;
 
     public AddEarningsCommand(Earnings earnings) {
         requireAllNonNull(earnings);
 
         this.toAddEarnings = earnings;
+    }
+
+    public int getNumber() {
+        return 5;
     }
 
     @Override

@@ -16,7 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.earnings.Earnings;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    //private EarningsListPanel earningsListPanel;
+    private EarningsListPanel earningsListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -123,6 +122,20 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    void fillEarnings() {
+        earningsListPanel = new EarningsListPanel(logic.getFilteredEarningsList());
+        personListPanelPlaceholder.getChildren().add(earningsListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -163,9 +176,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-//    public EarningsListPanel getEarningsListPanel() {
-//        return earningsListPanel;
-//    }
+    public EarningsListPanel getEarningsListPanel() {
+        return earningsListPanel;
+    }
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
@@ -190,10 +203,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-//            if (commandResult.isEarnings()) {
-//                Earnings earnings = commandResult.getEarnings();
-//                handleEarnings(earnings);
-//            }
+            /*if (commandResult.isEarnings()) {
+                Earnings earnings = commandResult.getEarnings();
+                handleEarnings(earnings);
+            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {

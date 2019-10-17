@@ -9,8 +9,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.earnings.Earnings;
-import seedu.address.model.person.Person;
 
+/**
+ * Panel containing the list of earnings.
+ */
 public class EarningsListPanel extends UiPart<Region> {
     private static final String FXML = "EarningsListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EarningsListPanel.class);

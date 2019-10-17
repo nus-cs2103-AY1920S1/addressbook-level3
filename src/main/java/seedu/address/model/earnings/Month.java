@@ -10,16 +10,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Month {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Months should only contain the months full name that are valid (i.e. may, october), and it should not be blank.";
+            "Months should only contain the months full name "
+                    + "that are valid (i.e. may, october), and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX =
-            "january|february|march|april|may|june|july|august" +
-            "|september|october|november|december|jan|feb|mar|apr" +
-                    "|jun|jul|aug|sep|oct|nov|dec";
+            "january|february|march|april|may|june|july|august"
+                    + "|september|october|november|december|jan|feb|mar|apr"
+                    + "|jun|jul|aug|sep|oct|nov|dec";
 
     public final String monthName;
 

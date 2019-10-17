@@ -48,17 +48,17 @@ public class UiManager implements Ui {
         }
     }
 
-//    public void startEarnings() {
-//        logger.info("Changing to Earning...");
-//
-//        try {
-//            mainWindow.show(); //This should be called before creating other UI parts
-//            mainWindow.fillInnerParts();
-//        } catch (Throwable e) {
-//            logger.severe(StringUtil.getDetails(e));
-//            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
-//        }
-//    }
+    public void startEarnings() {
+        logger.info("Changing to Earning...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillEarnings();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));

@@ -1,16 +1,27 @@
 package seedu.address.model.earnings;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.earnings.earningsexception.DuplicateEarningsException;
 import seedu.address.model.earnings.earningsexception.EarningsNotFoundException;
 
-import java.util.Iterator;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * A list of earnings that enforces uniqueness between its elements and does not allow nulls.
+ * An earnings is considered unique by comparing using {@code Earnings#isSameEarnings(Earnings)}. As such, adding and updating of
+ * earnings uses Earnings#isSameEarnings(Earnings) for equality so as to ensure that the earnings being added or updated is
+ * unique in terms of identity in the UniqueEarningsList. However, the removal of a person uses Earnings#equals(Object) so
+ * as to ensure that the earning with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Earnings#isSameEarnings(Earnings)
+ */
 public class UniqueEarningsList implements Iterable<Earnings> {
 
     private final ObservableList<Earnings> internalList = FXCollections.observableArrayList();
@@ -57,6 +68,11 @@ public class UniqueEarningsList implements Iterable<Earnings> {
         internalList.set(index, editedEarnings);
     }
 
+    public void setEarnings(UniqueEarningsList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
@@ -66,11 +82,6 @@ public class UniqueEarningsList implements Iterable<Earnings> {
         if (!internalList.remove(toRemove)) {
             throw new EarningsNotFoundException();
         }
-    }
-
-    public void setEarnings(UniqueEarningsList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
     }
 
     /**

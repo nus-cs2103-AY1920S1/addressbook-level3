@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.earnings.Earnings;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+
+import seedu.address.model.earnings.Earnings;
+
+
 
 /**
  * Represents the result of a command execution.
@@ -34,7 +36,8 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings, Earnings earnings) {
+    public CommandResult(String feedbackToUser, boolean showHelp,
+                         boolean exit, boolean showEarnings, Earnings earnings) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;

@@ -53,6 +53,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setEarnings(List<Earnings> earnings) {
         this.earning.setEarnings(earnings);
     }
+
+    /**
+     * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setEarnings(Earnings target, Earnings editedEarnings) {
+        requireNonNull(editedEarnings);
+
+        earning.setEarnings(target, editedEarnings);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -114,17 +126,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEarnings(Earnings e) {
         earning.add(e);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void setEarnings(Earnings target, Earnings editedEarnings) {
-        requireNonNull(editedEarnings);
-
-        earning.setEarnings(target, editedEarnings);
     }
 
     /**
