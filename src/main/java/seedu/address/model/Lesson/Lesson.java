@@ -7,10 +7,10 @@ public class Lesson {
     private final ClassName name;
     private boolean isRepeat;
 
-    public Lesson(Time time, ClassName name, boolean isRepeat) {
+    public Lesson(Time time, ClassName name) {
         this.time = time;
         this.name = name;
-        this.isRepeat = isRepeat;
+        this.isRepeat = false;
     }
 
     public Time getTime() {

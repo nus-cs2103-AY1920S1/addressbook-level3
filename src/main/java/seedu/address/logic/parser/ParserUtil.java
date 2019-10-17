@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Calendar;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -16,6 +17,8 @@ import seedu.address.model.student.Name;
 import seedu.address.model.student.ParentPhone;
 import seedu.address.model.student.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.Lesson.ClassName;
+import seedu.address.model.Lesson.Time;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -152,5 +155,35 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String className} into a {@code ClassName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code className} is invalid.
+     */
+    public static ClassName parseClassName(String className) throws ParseException {
+        requireNonNull(className);
+        String trimmedClassName = className.trim();
+        if (!ClassName.isValidClassName(trimmedClassName)) {
+            throw new ParseException(ClassName.MESSAGE_CONSTRAINTS);
+        }
+        return new ClassName(trimmedClassName);
+    }
+
+    public static Time parseTime(String time) {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        String dateAndTime[] = trimmedTime.split(" ");
+        String date[] = dateAndTime[0].split("/");
+        int day = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]) - 1;
+        int year = Integer.parseInt(date[2]);
+        int hour = Integer.parseInt(dateAndTime[1].substring(0, 2));
+        int min = Integer.parseInt(dateAndTime[1].substring(2));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day, hour, min);
+        return new Time(calendar);
     }
 }

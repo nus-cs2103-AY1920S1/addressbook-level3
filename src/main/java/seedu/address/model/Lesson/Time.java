@@ -15,6 +15,7 @@ public class Time {
     public Calendar getLessonTime() {
         return this.lessonTime;
     }
+
     @Override
     public String toString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy h:mm a");
