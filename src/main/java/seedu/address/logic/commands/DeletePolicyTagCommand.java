@@ -101,6 +101,9 @@ public class DeletePolicyTagCommand extends Command {
         return new CommandResult(generateSuccessMessage(editedPolicy, tagsRemoved));
     }
 
+    /**
+     * Parses {@code personToEdit} and {@code tagsRemoved} and returns a {@code String}.
+     */
     private String generateSuccessMessage(Policy policyToEdit, boolean tagsRemoved) {
         if (tagsRemoved) {
             return String.format(MESSAGE_DELETE_TAG_SUCCESS, policyToEdit);
