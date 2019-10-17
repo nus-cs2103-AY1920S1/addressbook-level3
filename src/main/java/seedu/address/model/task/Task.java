@@ -40,6 +40,15 @@ public class Task {
         this.tags.addAll(tags);
     }
 
+    // for test purposes
+    public Task(Name name, TaskStatus taskStatus, Set<Tag> tags, LocalDateTime dateTime) {
+        requireAllNonNull(name, tags);
+        this.name = name;
+        this.taskStatus = taskStatus;
+        this.tags.addAll(tags);
+        this.deadline = dateTime;
+    }
+
     public Task() {
         name = null;
         taskStatus = null;

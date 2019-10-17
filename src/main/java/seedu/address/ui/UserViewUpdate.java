@@ -10,14 +10,15 @@ import javafx.scene.layout.Pane;
 public class UserViewUpdate {
 
     private Pane paneToRender;
-    private Pane mostRecentView;
     private UserViewMain userViewMain;
 
     public UserViewUpdate(Pane paneToRender, UserViewMain userViewMain) {
         this.paneToRender = paneToRender;
         this.userViewMain = userViewMain;
+        paneToRender.getChildren().add(userViewMain.loadDashboard());
     }
 
+    // TODO update when inventory commands are added.
     /**
      * Retrieves user command's preamble and retrieves the respective pane.
      * Clears the current view first and switches to the desired view.
@@ -31,26 +32,36 @@ public class UserViewUpdate {
 
         assert !(preamble.isEmpty());
 
-        mostRecentView = paneToRender;
+        paneToRender.getChildren().clear();
 
         switch(preamble) {
 
         case "list":
 
+        case "delete-task":
+
+        case "edit":
+
         case "find":
-            paneToRender = userViewMain.loadTasks();
+            paneToRender.getChildren().add(userViewMain.loadTasks());
             break;
 
+        case "add-member":
+
+        case "find-member":
+
+        case "remove-member":
+
         case "list-members":
-            paneToRender = userViewMain.loadMembers();
+            paneToRender.getChildren().add(userViewMain.loadMembers());
             break;
 
         case "home":
-        paneToRender = userViewMain.loadDashboard();
-        break;
+            paneToRender.getChildren().add(userViewMain.loadDashboard());
+            break;
 
         default:
-            paneToRender = mostRecentView;
+            // show nothing (only exit has no case)
         }
     }
 }

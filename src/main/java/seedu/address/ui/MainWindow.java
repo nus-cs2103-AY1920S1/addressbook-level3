@@ -117,8 +117,8 @@ public class MainWindow extends UiPart<Stage> {
      * By default, the project dashboard is shown
      */
     void fillInnerParts() {
-        Pane defaultPane = userViewMain.loadDashboard();
-        userNavigableView.getChildren().add(defaultPane);
+//        Pane defaultPane = userViewMain.loadDashboard();
+//        userNavigableView.getChildren().add(defaultPane);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

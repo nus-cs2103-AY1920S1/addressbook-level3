@@ -5,6 +5,8 @@ import seedu.address.ui.views.MemberListPanel;
 import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.TaskListPanel;
 
+import java.util.logging.Logger;
+
 /**
  * Utility class for controlling navigation between user views.
  * Stores the different views here.
@@ -31,9 +33,10 @@ public class UserViewNavigator {
      * @param logic to access the task data
      */
     public void loadDashboard(Logic logic) {
-        /** The views to switch between **/
+        System.out.println("Trying to load a dashboard");
         ProjectDashboardView projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(),
-                logic.getFilteredTaskListDoing(), logic.getFilteredTaskListDone());
+                logic.getFilteredTaskListDoing(), logic.getFilteredTaskListDone(),
+                logic.getFilteredTaskListByDeadline());
         userViewController.setUserView(projectDashboardView);
     }
 
@@ -42,6 +45,7 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskListView(Logic logic) {
+        System.out.println("Trying to load the task list!");
         TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         userViewController.setUserView(taskListPanel);
     }

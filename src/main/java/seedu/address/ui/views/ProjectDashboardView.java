@@ -25,18 +25,22 @@ public class ProjectDashboardView extends UiPart<Region> {
     private ListView<Task> taskListViewDoing;
     @FXML
     private ListView<Task> taskListViewDone;
+    @FXML
+    private ListView<Task> taskListViewUpcomingDeadlines;
 
     public ProjectDashboardView(ObservableList<Task> taskListNotStarted, ObservableList<Task> taskListDoing,
-                                ObservableList<Task> taskListDone) {
+                                ObservableList<Task> taskListDone, ObservableList<Task> taskListDeadline) {
         super(FXML);
 
         taskListViewNotStarted.setItems(taskListNotStarted);
         taskListViewDoing.setItems(taskListDoing);
         taskListViewDone.setItems(taskListDone);
+        taskListViewUpcomingDeadlines.setItems(taskListDeadline);
 
         taskListViewNotStarted.setCellFactory(listView -> new TaskListViewCell());
         taskListViewDoing.setCellFactory(listView -> new TaskListViewCell());
         taskListViewDone.setCellFactory(listView -> new TaskListViewCell());
+        taskListViewUpcomingDeadlines.setCellFactory(listView -> new TaskListViewCell());
     }
 
     /**
