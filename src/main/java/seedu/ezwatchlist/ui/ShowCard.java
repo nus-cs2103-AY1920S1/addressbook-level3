@@ -7,6 +7,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -45,9 +47,11 @@ public class ShowCard extends UiPart<Region> {
     @FXML
     private Label runningTime;
     @FXML
-    private FlowPane actors;
+    private HBox actors;
     @FXML
     private CheckBox watched;
+    @FXML
+    private ImageView posterPlaceholder;
 
     public ShowCard(Show show, int displayedIndex) {
         super(FXML);
@@ -58,6 +62,7 @@ public class ShowCard extends UiPart<Region> {
         dateOfRelease.setText(show.getDateOfRelease().value);
         description.setText(show.getDescription().fullDescription);
         runningTime.setText(Integer.toString(show.getRunningTime().value));
+        posterPlaceholder.setImage(new Image("/images/poster-placeholder.png"));
         show.getActors().stream()
                 .sorted(Comparator.comparing(actor -> actor.actorName))
                 .forEach(actor -> actors.getChildren().add(new Label(actor.actorName)));
