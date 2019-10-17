@@ -1,4 +1,4 @@
-package seedu.address.model.visit;
+package seedu.address.model.datetime;
 
 /**
  * Represents a Visit's end time in the application.
