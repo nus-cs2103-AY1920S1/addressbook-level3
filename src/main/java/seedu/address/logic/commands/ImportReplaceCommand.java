@@ -21,7 +21,7 @@ public class ImportReplaceCommand extends Command implements MutatorCommand {
 
     public static final String MESSAGE_SUCCESS = "Import success!";
     public static final String MESSAGE_FAILURE = "Import failed.";
-    public static final String MESSAGE_BAD_CSV = "Invalid fields in csv file.";
+    public static final String MESSAGE_INVALID_CSV = "Invalid fields in csv file.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -33,7 +33,7 @@ public class ImportReplaceCommand extends Command implements MutatorCommand {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE);
         } catch (IllegalValueException e) {
-            throw new CommandException(MESSAGE_BAD_CSV);
+            throw new CommandException(MESSAGE_INVALID_CSV);
         }
 
         model.replaceStagedAddressBook(importedPersons);

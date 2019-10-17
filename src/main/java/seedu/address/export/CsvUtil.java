@@ -99,11 +99,28 @@ public class CsvUtil {
                     .with(schema)
                     .readValues(importFilePath.toFile());
         List<JsonAdaptedPerson> importedCsvPersons = iter.readAll();
-        List<Person> importedPersons = new ArrayList<>();
-        for (JsonAdaptedPerson person : importedCsvPersons) {
-            importedPersons.add(person.toModelType());
+
+        return convertImportedPersonsToPersonList(importedCsvPersons);
+    }
+
+    /**
+     * Converts a {@Code JsonAdaptedPerson} read from a csv file into a {@Code Person} object
+     */
+    public static Person convertToPerson(JsonAdaptedPerson person) throws IllegalValueException {
+        return person.toModelType();
+    }
+
+    /**
+     * Converts a list of {@Code JsonAdaptedPerson} objects read from a csv file
+     * into a list of {@Code Person} objects
+     */
+    public static List<Person> convertImportedPersonsToPersonList(List<JsonAdaptedPerson> persons)
+            throws IllegalValueException {
+        List<Person> newPersonList = new ArrayList<>();
+        for (JsonAdaptedPerson person : persons) {
+            newPersonList.add(convertToPerson(person));
         }
-        return importedPersons;
+        return newPersonList;
     }
 
 }
