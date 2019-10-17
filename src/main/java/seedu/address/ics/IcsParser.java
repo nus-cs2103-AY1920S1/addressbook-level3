@@ -1,5 +1,7 @@
 package seedu.address.ics;
 
+import static seedu.address.commons.util.IcsUtil.parseTimeStamp;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,8 +9,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import seedu.address.logic.parser.DateTimeParser;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
 
@@ -124,21 +124,6 @@ public class IcsParser {
             }
         }
         return events;
-    }
-
-    /**
-     * Converts the timestamp from the format given in the ICS file to a DateTime object.
-     * @param timestamp A timestamp in the default ICS file specification format.
-     * @return A DateTime object representing the timestamp.
-     * @throws IcsException Thrown when the timestamp provided is invalid.
-     */
-    private DateTime parseTimeStamp(String timestamp) throws IcsException {
-        try {
-            DateTimeParser dateTimeParser = new DateTimeParser();
-            return dateTimeParser.parse(timestamp);
-        } catch (ParseException e) {
-            throw new IcsException(e.getMessage());
-        }
     }
 
     /**
