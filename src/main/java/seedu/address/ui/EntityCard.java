@@ -40,7 +40,7 @@ public class EntityCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private VBox cards;
+    private VBox labels;
 
     @FXML
     private Label name; //can be team name, mentor name or participant name
@@ -80,8 +80,8 @@ public class EntityCard extends UiPart<Region> {
      */
     private void generateParticipantCard(Entity entity) {
         Participant participant = (Participant) entity;
-        cards.getChildren().add(new Label(participant.getPhone().value));
-        cards.getChildren().add(new Label(participant.getEmail().value));
+        labels.getChildren().add(new Label(participant.getPhone().value));
+        labels.getChildren().add(new Label(participant.getEmail().value));
         this.type = PrefixType.P;
     }
 
@@ -92,8 +92,8 @@ public class EntityCard extends UiPart<Region> {
      */
     private void generateMentorCard(Entity entity) {
         Mentor mentor = (Mentor) entity;
-        cards.getChildren().add(new Label(mentor.getOrganization().toString()));
-        cards.getChildren().add(new Label(mentor.getSubject().toString()));
+        labels.getChildren().add(new Label(mentor.getOrganization().toString()));
+        labels.getChildren().add(new Label(mentor.getSubject().toString()));
         this.type = PrefixType.M;
     }
 
@@ -109,13 +109,13 @@ public class EntityCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(pt -> pt.getName().toString()))
                 .forEach(p -> participantPane.getChildren().add(new Label(p.getName().toString())));
         Optional<Mentor> teamMentor = team.getMentor();
-        cards.getChildren().add(
+        labels.getChildren().add(
                 new Label(teamMentor.isEmpty() ? "Mentor not assigned" : teamMentor.get().getName().toString()));
-        cards.getChildren().add(new Label(team.getSubject().toString()));
-        cards.getChildren().add(new Label(team.getProjectName().toString()));
-        cards.getChildren().add(new Label(team.getProjectType().toString()));
-        cards.getChildren().add(new Label(team.getLocation().toString()));
-        cards.getChildren().add(new Label(team.getScore().toString()));
+        labels.getChildren().add(new Label(team.getSubject().toString()));
+        labels.getChildren().add(new Label(team.getProjectName().toString()));
+        labels.getChildren().add(new Label(team.getProjectType().toString()));
+        labels.getChildren().add(new Label(team.getLocation().toString()));
+        labels.getChildren().add(new Label("Score: " + team.getScore().toString()));
         this.type = PrefixType.T;
 
     }

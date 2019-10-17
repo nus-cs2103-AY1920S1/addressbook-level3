@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.PrefixType;
 
 /**
  * Shows detailed view of the {@link Mentor} at specified ID.
@@ -32,12 +33,13 @@ public class ViewMentorCommand extends ViewCommand {
         Mentor mentorToView;
         try {
             mentorToView = model.getMentor(this.id);
+            model.updateHistory();
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX);
         }
         viewEntity(mentorToView);
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, PrefixType.M);
     }
 
 }

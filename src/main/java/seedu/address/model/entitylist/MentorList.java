@@ -32,7 +32,7 @@ public class MentorList extends EntityList {
      * @return Mentor
      */
     public Mentor get(Id id) throws AlfredException {
-        for (Mentor m: this.mentors) {
+        for (Mentor m : this.mentors) {
             if (m.getId().equals(id)) {
                 return m;
             }
@@ -41,17 +41,28 @@ public class MentorList extends EntityList {
     }
 
     /**
+     * Returns the size of ObservableList of Mentors.
+     * Used to set the lastUsedId during the intialization of model in ModelManager#intialize.
+     * During the intialization, MentorList is set the the MentorList gotten from storage.
+     *
+     * @return size Number of Mentors in MentorList
+     */
+    public int getSize() {
+        return this.mentors.size();
+    }
+
+    /**
      * Updates Mentor by ID.
      *
      * @param id
      * @param updatedMentor
      * @throws ModelValidationException if a similar mentor already exists
-     * @throws MissingEntityException if the id passed does not match
+     * @throws MissingEntityException   if the id passed does not match
      */
     public void update(Id id, Mentor updatedMentor)
             throws MissingEntityException, ModelValidationException {
         // First check if the updated mentor already exists
-        for (Mentor m: this.mentors) {
+        for (Mentor m : this.mentors) {
             if (m.isSameMentor(updatedMentor) && !m.getId().equals(updatedMentor.getId())) {
                 throw new ModelValidationException(SIMILAR_MENTOR_MSG);
             }
@@ -70,15 +81,16 @@ public class MentorList extends EntityList {
      * Adds the mentor into the list.
      *
      * @param mentor
-     * @throws AlfredException
+     * @throws AlfredModelException
      */
     public void add(Mentor mentor) throws AlfredException {
-        for (Mentor m: this.mentors) {
+        for (Mentor m : this.mentors) {
             if (m.isSameMentor(mentor) || m.getId().equals(mentor.getId())) {
                 throw new AlfredModelException("Item to add already exists!");
             }
         }
         this.mentors.add(mentor);
+        lastUsedId++;
     }
 
     /**
@@ -88,7 +100,7 @@ public class MentorList extends EntityList {
      * @throws Exception
      */
     public Mentor delete(Id id) throws AlfredException {
-        for (Mentor m: this.mentors) {
+        for (Mentor m : this.mentors) {
             if (m.getId().equals(id)) {
                 this.mentors.remove(m);
                 return m;
@@ -134,7 +146,7 @@ public class MentorList extends EntityList {
      */
     @Override
     public boolean contains(Id id) {
-        for (Mentor m: this.mentors) {
+        for (Mentor m : this.mentors) {
             if (m.getId().equals(id)) {
                 return true;
             }
@@ -161,11 +173,31 @@ public class MentorList extends EntityList {
     }
 
     /**
+     * Gets the lastUsedId class attribute.
+     * @return lastUsedId
+     */
+    public static int getLastUsedId() {
+        return lastUsedId;
+    }
+
+    /**
      * Sets the lastUsedId class attribute.
      *
      * @param number
      */
     public static void setLastUsedId(int number) {
         lastUsedId = number;
+    }
+
+    /**
+     * Provides a deep copy of the MentorList
+     * @return Deep copy of MentorList
+     */
+    public MentorList copy() throws AlfredException {
+        MentorList newMList = new MentorList();
+        for (Mentor m: this.mentors) {
+            newMList.add(m.copy());
+        }
+        return newMList;
     }
 }

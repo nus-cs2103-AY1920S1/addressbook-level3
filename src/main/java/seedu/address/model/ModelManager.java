@@ -18,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
+import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
 import seedu.address.model.entity.Id;
@@ -44,16 +45,14 @@ public class ModelManager implements Model {
     protected TeamList teamList = new TeamList();
     protected MentorList mentorList = new MentorList();
 
-    protected FilteredList<Participant> filteredParticipantList =
-            new FilteredList<>(this.participantList.getSpecificTypedList());
-    protected FilteredList<Team> filteredTeamList =
-            new FilteredList<>(this.teamList.getSpecificTypedList());
-    protected FilteredList<Mentor> filteredMentorList =
-            new FilteredList<>(this.mentorList.getSpecificTypedList());
+    protected FilteredList<Participant> filteredParticipantList;
+    protected FilteredList<Team> filteredTeamList;
+    protected FilteredList<Mentor> filteredMentorList;
 
     // TODO: Remove the null values which are a placeholder due to the multiple constructors.
     // Also will have to change the relevant attributes to final.
     private AlfredStorage storage = null;
+    private ModelHistoryManager history = null;
     private AddressBook addressBook = null;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons = null;
@@ -83,16 +82,6 @@ public class ModelManager implements Model {
         // TODO: Remove: Currently it is here to make tests pass.
         this.addressBook = new AddressBook();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        // TODO: Make final
-        this.participantList = new ParticipantList();
-        this.teamList = new TeamList();
-        this.mentorList = new MentorList();
-        this.filteredParticipantList =
-                new FilteredList<>(this.participantList.getSpecificTypedList());
-        this.filteredMentorList =
-                new FilteredList<>(this.mentorList.getSpecificTypedList());
-        this.filteredTeamList =
-                new FilteredList<>(this.teamList.getSpecificTypedList());
     }
 
     /**
@@ -107,6 +96,7 @@ public class ModelManager implements Model {
                 this.teamList = new TeamList();
             } else {
                 this.teamList = storageTeamList.get();
+                this.teamList.setLastUsedId(this.teamList.getSize() - 1);
             }
         } catch (IOException | AlfredException e) {
             logger.warning("TeamList is empty in storage. Writing a new one.");
@@ -120,6 +110,7 @@ public class ModelManager implements Model {
                 this.participantList = new ParticipantList();
             } else {
                 this.participantList = storageParticipantList.get();
+                this.participantList.setLastUsedId(this.participantList.getSize() - 1);
             }
         } catch (IOException | AlfredException e) {
             logger.warning("ParticipantList is empty in storage. Writing a new one.");
@@ -132,10 +123,19 @@ public class ModelManager implements Model {
                 this.mentorList = new MentorList();
             } else {
                 this.mentorList = storageMentorList.get();
+                this.mentorList.setLastUsedId(this.mentorList.getSize() - 1);
             }
         } catch (IOException | AlfredException e) {
             logger.warning("MentorList is empty in storage. Writing a new one.");
             this.mentorList = new MentorList();
+        }
+
+        try {
+            this.history = new ModelHistoryManager(this.participantList, ParticipantList.getLastUsedId(),
+                    this.mentorList, MentorList.getLastUsedId(),
+                    this.teamList, TeamList.getLastUsedId());
+        } catch (AlfredModelHistoryException e) {
+            logger.severe("Unable to initialise ModelHistoryManager.");
         }
 
         this.filteredParticipantList =
@@ -190,6 +190,21 @@ public class ModelManager implements Model {
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getParticipantListFilePath() {
+        return userPrefs.getParticipantListFilePath();
+    }
+
+    @Override
+    public Path getTeamListFilePath() {
+        return userPrefs.getTeamListFilePath();
+    }
+
+    @Override
+    public Path getMentorListFilePath() {
+        return userPrefs.getMentorListFilePath();
     }
 
     @Override
@@ -724,5 +739,52 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //========== ModelHistory Methods ===============
+    /**
+     * This method will update the ModelHistoryManager object with the current state of the model.
+     * This method is expected to be called during the `execute()` method of each Command, right after
+     * any transformations/mutations have been made to the data in Model.
+     */
+    public void updateHistory() {
+        try {
+            this.history.updateHistory(this.participantList, ParticipantList.getLastUsedId(),
+                    this.mentorList, MentorList.getLastUsedId(),
+                    this.teamList, TeamList.getLastUsedId());
+        } catch (AlfredModelHistoryException e) {
+            logger.warning("Problem encountered updating model state history.");
+        }
+    }
+
+    /**
+     * This method will undo the effects of the previous command executed and return the state of
+     * the ModelManager to the state where the previous command executed is undone.
+     * @throws AlfredModelHistoryException
+     */
+    public void undo() throws AlfredModelHistoryException {
+        if (this.history.canUndo()) {
+            ModelHistoryRecord hr = this.history.undo();
+
+            //Set Last Used IDs for each of the EntityLists
+            ParticipantList.setLastUsedId(hr.getParticipantListLastUsedId());
+            MentorList.setLastUsedId(hr.getMentorListLastUsedId());
+            TeamList.setLastUsedId(hr.getTeamListLastUsedId());
+
+            //Update each of the EntityLists to the state in the ModelHistoryRecord hr
+            this.participantList = hr.getParticipantList();
+            this.mentorList = hr.getMentorList();
+            this.teamList = hr.getTeamList();
+
+            //Update each of the filteredEntityLists
+            this.filteredParticipantList =
+                    new FilteredList<>(this.participantList.getSpecificTypedList());
+            this.filteredMentorList =
+                    new FilteredList<>(this.mentorList.getSpecificTypedList());
+            this.filteredTeamList =
+                    new FilteredList<>(this.teamList.getSpecificTypedList());
+        } else {
+            throw new AlfredModelHistoryException("Unable to undo.");
+        }
     }
 }

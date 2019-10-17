@@ -39,7 +39,7 @@ public class AddMentorCommandParser implements Parser<AddMentorCommand> {
         if (!AlfredParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ORGANISATION, PREFIX_SUBJECT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddMentorCommand.MESSAGE_USAGE));
+                   AddMentorCommand.MESSAGE_USAGE));
         }
 
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

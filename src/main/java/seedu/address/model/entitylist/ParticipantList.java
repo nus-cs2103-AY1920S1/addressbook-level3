@@ -2,7 +2,6 @@ package seedu.address.model.entitylist;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
@@ -32,7 +31,7 @@ public class ParticipantList extends EntityList {
      * @throws MissingEntityException if the participant to get does not exist.
      */
     public Participant get(Id id) throws MissingEntityException {
-        for (Participant p: this.participants) {
+        for (Participant p : this.participants) {
             if (p.getId().equals(id)) {
                 return p;
             }
@@ -41,17 +40,28 @@ public class ParticipantList extends EntityList {
     }
 
     /**
+     * Returns the size of ObservableList of Participants.
+     * Used to set the lastUsedId during the intialization of model in ModelManager#intialize.
+     * During the intialization, ParticipantList is set the the ParticipantList gotten from storage.
+     *
+     * @return size Number of Participants in ParticipantList
+     */
+    public int getSize() {
+        return this.participants.size();
+    }
+
+    /**
      * Updates participant by id.
      *
      * @param id
      * @param updatedParticipant
-     * @throws MissingEntityException if the participant to update does not exist.
+     * @throws MissingEntityException   if the participant to update does not exist.
      * @throws ModelValidationException if a similar participant already exists.
      */
     public void update(Id id, Participant updatedParticipant)
             throws MissingEntityException, ModelValidationException {
         // First check if the participant already exists
-        for (Participant p: this.participants) {
+        for (Participant p : this.participants) {
             if (p.isSameParticipant(updatedParticipant)
                     && !p.getId().equals(updatedParticipant.getId())) {
                 throw new ModelValidationException(SIMILAR_PARTICIPANT_MSG);
@@ -72,15 +82,16 @@ public class ParticipantList extends EntityList {
      * Adds participant to the list.
      *
      * @param participant
-     * @throws AlfredException if there was an error while adding.
+     * @throws AlfredModelException if there was an error while adding.
      */
     public void add(Participant participant) throws AlfredModelException {
-        for (Participant p: this.participants) {
+        for (Participant p : this.participants) {
             if (p.isSameParticipant(participant) || p.getId().equals(participant.getId())) {
                 throw new AlfredModelException("Participant already exists in list");
             }
         }
         this.participants.add(participant);
+        lastUsedId++;
     }
 
     /**
@@ -90,7 +101,7 @@ public class ParticipantList extends EntityList {
      * @throws MissingEntityException if entity to delete does not exist.
      */
     public Participant delete(Id id) throws MissingEntityException {
-        for (Participant p: this.participants) {
+        for (Participant p : this.participants) {
             if (p.getId().equals(id)) {
                 this.participants.remove(p);
                 return p;
@@ -136,7 +147,7 @@ public class ParticipantList extends EntityList {
      */
     @Override
     public boolean contains(Id id) {
-        for (Participant p: this.participants) {
+        for (Participant p : this.participants) {
             if (p.getId().equals(id)) {
                 return true;
             }
@@ -163,11 +174,31 @@ public class ParticipantList extends EntityList {
     }
 
     /**
+     * Gets the lastUsedId class attribute.
+     * @return lastUsedId
+     */
+    public static int getLastUsedId() {
+        return lastUsedId;
+    }
+
+    /**
      * Sets the lastUsedId class attribute.
      *
      * @param number
      */
     public static void setLastUsedId(int number) {
         lastUsedId = number;
+    }
+
+    /**
+     * Provides a deep copy of the ParticipantList
+     * @return Deep copy of ParticipantList
+     */
+    public ParticipantList copy() throws AlfredModelException {
+        ParticipantList newPList = new ParticipantList();
+        for (Participant p: this.participants) {
+            newPList.add(p.copy());
+        }
+        return newPList;
     }
 }

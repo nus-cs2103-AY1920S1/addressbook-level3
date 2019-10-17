@@ -129,4 +129,16 @@ public class Participant extends Entity {
                 && (this.phone.equals(otherParticipant.getPhone())
                     || this.email.equals(otherParticipant.getEmail()));
     }
+
+    /**
+     * Returns a deep copy of the Participant object
+     * @return Deep copy of the Participant object
+     */
+    public Participant copy() {
+        Participant copy = new Participant(this.name.copy(),
+                                           this.id.copy(),
+                                           this.email.copy(),
+                                           this.phone.copy());
+        return copy;
+    }
 }
