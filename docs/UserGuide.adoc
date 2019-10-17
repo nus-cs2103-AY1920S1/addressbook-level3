@@ -166,6 +166,7 @@ Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920-S
 * `*edit* 2 t/` +
 Clears all existing tags from the 2nd bookmark.
 
+[[locating-bookmarks]]
 === Locating bookmarks by name, URL, or tag: *`find`*
 
 Finds bookmarks that contain any of the given keywords in their name or
@@ -365,8 +366,8 @@ and `youtubeBookmarks.json`.
 Creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
-Format: `*autotag* TAG_NAME [n/NAME] [nn/NOT_NAME] [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL]
-[f/FOLDER] [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
+Format: `*autotag* TAG_NAME [n/NAME_KEYWORD] [nn/NOT_NAME_KEYWORD] [u/URL_KEYWORD]
+[nu/NOT_URL_KEYWORD] [f/FOLDER] [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
 
 ****
 * At least one condition (`n/`, `nn/`, `u/`,
@@ -377,10 +378,10 @@ whether conditions for `TAG_NAME` should be overwritten.
 Hence, if conditions are contradictory, no bookmarks will be tagged by
 this autotag. E.g. no bookmarks will match the conditions `u/github.com/mark
 nu/github.com/mark`
-* `PARTIAL_URL` and `NOT_PARTIAL_URL` can be any part of a URL. E.g.
- `youtube`, `.nus.edu.sg`, or `github.com/mark`.
-* `NOT_NAME`, `NOT_PARTIAL_URL`, `NOT_FOLDER`, and `NOT_TAG` are names, partial URLs, folders,
-or tags that bookmarks to be tagged should *not* match.
+* `NAME_KEYWORD` and `URL_KEYWORD` are used to match bookmarks in the same way
+as the keywords in `*find*` (see <<locating-bookmarks>>). E.g. `.nus.edu.sg`.
+* `NOT_NAME_KEYWORD`, `NOT_URL_KEYWORD`, `NOT_FOLDER`, and `NOT_TAG` are name keywords,
+URL keywords, folders, or tags that bookmarks to be tagged should *not* match.
 * The tag `TAG_NAME` is still a normal tag. E.g. if an autotag `YouTube` matches
 bookmarks with URLs containing `youtube.com`, other bookmarks can still be
 tagged with the tag `YouTube`.
@@ -808,7 +809,8 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 * *Exit*: `*exit*`
 * *Export*: `*export* [FILENAME]`
 * *Import*: `*import* FILENAME [MORE_FILENAMES]...`
-* *Autotag*: `*autotag* NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]`
+* *Autotag*: `*autotag* TAG_NAME [n/NAME_KEYWORD] [nn/NOT_NAME_KEYWORD] [u/URL_KEYWORD]
+[nu/NOT_URL_KEYWORD] [f/FOLDER] [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
 * *Cache*: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
 * *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 * *Annotate (delete)*: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
