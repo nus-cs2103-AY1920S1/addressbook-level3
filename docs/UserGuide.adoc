@@ -137,10 +137,8 @@ i.e adding of category and/or difficulty is not cumulative.
 
 Examples:
 
-* `edit 1 mcq/ e/johndoe@example.com` +
-Edits the phone number and email address of the 1st question to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd question to be `Betsy Crower` and clears all existing tags.
+* `edit 1 mcq/According the the textbook, is greenfield or brownfield tougher?` +
+Edits the the question of the first mcq to "According the the textbook, is greenfield or brownfield tougher?"
 
 // tag::delete[]
 === Deleting a question : `delete`

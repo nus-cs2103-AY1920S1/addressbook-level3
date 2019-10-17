@@ -7,7 +7,7 @@ html lang=(attr :lang, 'en' unless attr? :nolang)
       meta http-equiv="X-UA-Compatible" content="IE=edge"
     meta name='viewport' content='width=device-width, initial-scale=1.0'
     meta name='generator' content="Asciidoctor #{attr 'asciidoctor-version'}"
-    = html_meta_if 'application-name', (attr 'app-name')
+    = html_meta_if 'application-question', (attr 'app-question')
     = html_meta_if 'author', (attr :authors)
     = html_meta_if 'copyright', (attr :copyright)
     = html_meta_if 'description', (attr :description)
