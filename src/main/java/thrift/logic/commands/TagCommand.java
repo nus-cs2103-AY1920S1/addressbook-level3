@@ -78,7 +78,7 @@ public class TagCommand extends Command {
                 ? ""
                 : String.format(MESSAGE_TAG_EXISTED, existedTags.toString());
 
-        model.setTransaction(transactionToTag, updatedTransaction);
+        model.setTransactionWithIndex(index, updatedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         return new CommandResult(taggedTransactionNotification

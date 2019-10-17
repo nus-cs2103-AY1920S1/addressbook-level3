@@ -78,7 +78,7 @@ public class UntagCommand extends Command {
                 ? ""
                 : String.format(MESSAGE_TAG_NOT_EXISTED, nonexistentTags.toString());
 
-        model.setTransaction(transactionToTag, updatedTransaction);
+        model.setTransactionWithIndex(index, updatedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(taggedTransactionNotification
                 + nonexistentTagsNotification
