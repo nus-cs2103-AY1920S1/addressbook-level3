@@ -1,58 +1,80 @@
 package seedu.address.logic.commands.note;
 
-import java.util.HashMap;
+import java.util.*;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
+
 /**
  * Edits the note details in the note list.
  */
 public class NoteEditCommand extends NoteCommand {
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing note\n"
             + "Parameters:\n"
-            + "desc/ [Description]\n"
-            + "Example: desc/ Give class 10 minutes extra for recess today\n\n";
+            + "INDEX: (must be a positive integer) "
+            + "note/{Title}"
+            + "desc/{Description}\n"
+            + "Example: note 1 note/tuesday and wednesday desc/grade papers\n";
+
+    public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited Note: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in the notes record.";
 
     private final Index index;
-    private final String note;
-    private final String description;
+    private final EditNoteDescriptor editNoteDescriptor;
 
     /**
-     * Creates a QuestionEditCommand object.
-     *
-     * @param fields to edit.
+     * @param index of the note in the filtered notes list to edit
+     * @param editNotesDescriptor details to edit the notes with
      */
-    public NoteEditCommand(Index index, HashMap<String, String> fields) {
+    public NoteEditCommand(Index index, EditNoteDescriptor editNotesDescriptor) {
+        requireNonNull(index);
+        requireNonNull(editNotesDescriptor);
         this.index = index;
-        this.note = fields.get("note");
-        this.description = fields.get("description");
+        this.editNoteDescriptor = new EditNoteDescriptor(editNotesDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Note noteObj = model.getNote(index);
+        requireNonNull(model);
+        List<Note> lastShownList = model.getFilteredNotesList();
 
-        String note = (!this.note.isBlank()) ? this.note : noteObj.getNote();
-        String details = (!this.description.isBlank()) ? this.description : noteObj.getDescription();
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
+        }
 
-        noteObj.setNote(note);
-        noteObj.setDescription(details);
+        Note noteToEdit = lastShownList.get(index.getZeroBased());
+        Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
 
-        model.setNote(index, noteObj);
-        return new CommandResult(generateSuccessMessage(noteObj));
+        if (!noteToEdit.isSameNote(editedNote) && model.hasNote(editedNote)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTE);
+        }
+
+        model.setNote(noteToEdit, editedNote);
+        model.updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
     }
 
     /**
-     * Generates a command execution success message.
-     *
-     * @param note that has been added.
+     * Creates and returns a {@code Note} with the details of {@code noteToEdit}
+     * edited with {@code editNoteDescriptor}.
      */
-    private String generateSuccessMessage(Note note) {
-        return "Edited note: " + note;
+    private static Note createEditedNote(Note noteToEdit, EditNoteDescriptor editNoteDescriptor) {
+        assert noteToEdit != null;
+
+        String updatedNote = editNoteDescriptor.getNote().orElse(noteToEdit.getNote());
+        String updatedDescription = editNoteDescriptor.getDescription().orElse(noteToEdit.getDescription());
+
+        return new Note(updatedNote, updatedDescription);
     }
 
     @Override
@@ -69,6 +91,69 @@ public class NoteEditCommand extends NoteCommand {
 
         // state check
         NoteEditCommand e = (NoteEditCommand) other;
-        return note.equals(e.note);
+        return index.equals(e.index)
+                && editNoteDescriptor.equals(e.editNoteDescriptor);
+    }
+
+    /**
+     * Stores the details to edit the note with. Each non-empty field value will replace the
+     * corresponding field value of the note.
+     */
+    public static class EditNoteDescriptor {
+        private String note;
+        private String description;
+
+        public EditNoteDescriptor() {}
+
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public EditNoteDescriptor(NoteEditCommand.EditNoteDescriptor toCopy) {
+            setNote(toCopy.note);
+            setDescription(toCopy.description);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(note, description);
+        }
+
+        public void setNote(String note) {
+            this.note = note;
+        }
+
+        public Optional<String> getNote() {
+            return Optional.ofNullable(note);
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public Optional<String> getDescription() {
+            return Optional.ofNullable(description);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof NoteEditCommand.EditNoteDescriptor)) {
+                return false;
+            }
+
+            // state check
+            NoteEditCommand.EditNoteDescriptor e = (NoteEditCommand.EditNoteDescriptor) other;
+
+            return getNote().equals(e.getNote())
+                    && getDescription().equals(e.getDescription());
+        }
     }
 }

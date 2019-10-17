@@ -8,10 +8,12 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyStudentRecord;
+import seedu.address.model.note.ReadOnlyNotesRecord;
+import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.student.StudentRecordStorage;
 
@@ -24,20 +26,21 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private StudentRecordStorage studentRecordStorage;
     private QuestionStorage questionStorage;
+    private NotesRecordStorage notesRecordStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-        StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage) {
+        StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage, NotesRecordStorage notesStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.studentRecordStorage = studentRecordStorage;
         this.questionStorage = questionStorage;
+        this.notesRecordStorage = notesStorage;
     }
 
-    // ================ UserPrefs methods ==============================
-
+    //region UserPrefs
     @Override
     public Path getUserPrefsFilePath() {
         return userPrefsStorage.getUserPrefsFilePath();
@@ -52,9 +55,9 @@ public class StorageManager implements Storage {
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
+    //endregion
 
-    // ================ AddressBook methods ==============================
-
+    //region AddressBook methods
     @Override
     public Path getAddressBookFilePath() {
         return addressBookStorage.getAddressBookFilePath();
@@ -83,9 +86,9 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
+    //endregion
 
-    // ================ StudentRecord methods ==============================
-
+    //region StudentRecord methods
     @Override
     public Path getStudentRecordFilePath() {
         return studentRecordStorage.getStudentRecordFilePath();
@@ -115,9 +118,9 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to student data file: " + filePath);
         studentRecordStorage.saveStudentRecord(studentRecord, filePath);
     }
+    //endregion
 
-    // ================ Question methods ==============================
-
+    //region Question methods
     @Override
     public Path getSavedQuestionsFilePath() {
         return questionStorage.getSavedQuestionsFilePath();
@@ -145,5 +148,38 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to student data file: " + filePath);
         questionStorage.saveQuestions(questions, filePath);
     }
+    //endregion
+
+    //region NotesRecord methods
+    @Override
+    public Path getNotesRecordFilePath() {
+        return notesRecordStorage.getNotesRecordFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyNotesRecord> readNotesRecord()
+            throws DataConversionException, IOException {
+        return readNotesRecord(notesRecordStorage.getNotesRecordFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyNotesRecord> readNotesRecord(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read student data from file: " + filePath);
+        return notesRecordStorage.readNotesRecord(filePath);
+    }
+
+    @Override
+    public void saveNotesRecord(ReadOnlyNotesRecord notesRecord) throws IOException {
+        saveNotesRecord(notesRecord, notesRecordStorage.getNotesRecordFilePath());
+    }
+
+    @Override
+    public void saveNotesRecord(ReadOnlyNotesRecord notesRecord, Path filePath)
+            throws IOException {
+        logger.fine("Attempting to write to student data file: " + filePath);
+        notesRecordStorage.saveNotesRecord(notesRecord, filePath);
+    }
+    //endregion
 
 }

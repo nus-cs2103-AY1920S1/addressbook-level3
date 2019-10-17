@@ -1,13 +1,14 @@
 {
   "guiSettings" : {
     "windowWidth" : 960.0,
-    "windowHeight" : 822.0,
+    "windowHeight" : 822.4000244140625,
     "windowCoordinates" : {
-      "x" : 480,
-      "y" : 23
+      "x" : 468,
+      "y" : 350
     }
   },
-  "addressBookFilePath" : "data/addressbook.json",
-  "studentRecordFilePath" : "data/students.json",
-  "savedQuestionsFilePath" : "data/questions.json"
+  "addressBookFilePath" : "data\\addressbook.json",
+  "studentRecordFilePath" : "data\\students.json",
+  "savedQuestionsFilePath" : "data\\questions.json",
+  "notesRecordFilePath" : "data\\notes.json"
 }
