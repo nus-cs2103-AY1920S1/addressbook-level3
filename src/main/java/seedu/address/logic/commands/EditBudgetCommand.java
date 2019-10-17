@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,7 +19,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.Time;
+import seedu.address.model.person.Budget;
 import seedu.address.model.tag.Tag;
 
 

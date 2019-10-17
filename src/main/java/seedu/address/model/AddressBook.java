@@ -5,13 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Budget;
+import seedu.address.model.person.BudgetList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseList;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.IncomeList;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.BudgetList;
 import seedu.address.model.person.UniqueEntryList;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishList;
