@@ -21,6 +21,10 @@ public class EventList {
         events.remove(index - 1);
     }
 
+    public int getSize() {
+        return events.size();
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

@@ -2,13 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -26,15 +27,48 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="title" styleClass="cell_big_label" text="\\$title" />
+        <Label fx:id="title" lineSpacing="2.0" prefHeight="20.0" prefWidth="56.0" styleClass="cell_big_label" text="\\\$title" underline="true" wrapText="true">
+               <font>
+                  <Font name="Chalkboard" size="18.0" />
+               </font></Label>
+        <Region prefHeight="16.0" prefWidth="20.0" />
+        <ImageView fx:id="checkBox" fitHeight="17.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
       </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="location" styleClass="cell_small_label" text="\\$location" />
-      <Label fx:id="time" styleClass="cell_small_label" text="\\$time" />
-      <Label fx:id="desc" styleClass="cell_small_label" text="\\$desc" />
+         <VBox prefHeight="0.0" prefWidth="130.0">
+            <children>
+               <HBox prefHeight="14.0" prefWidth="128.0">
+                  <children>
+                     <Label text="⏰TIME: ">
+                        <font>
+                           <Font name="Chalkboard" size="13.0" />
+                        </font>
+                     </Label>
+                  <Label fx:id="time" prefHeight="17.0" prefWidth="57.0" styleClass="cell_small_label" text="\\\$time" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="5.0" prefWidth="129.0">
+                  <children>
+                     <Label text="📍LOCATION: ">
+                        <font>
+                           <Font name="Chalkboard" size="13.0" />
+                        </font></Label>
+                  <Label fx:id="loc" styleClass="cell_small_label" text="\\\$loc" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="10.0" prefWidth="134.0">
+                  <children>
+                     <Label text="📓DESCRIPTION: ">
+                        <font>
+                           <Font name="Chalkboard SE Light" size="13.0" />
+                        </font></Label>
+                  <Label fx:id="desc" styleClass="cell_small_label" text="\\\$desc" />
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
     </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
+    <rowConstraints>
+      <RowConstraints />
+    </rowConstraints>
   </GridPane>
 </HBox>

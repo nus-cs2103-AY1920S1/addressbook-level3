@@ -29,4 +29,12 @@ public class Model {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }
+
+    public void addEvent(Event event) {
+        this.itinerary.addEvent(event);
+    }
+
+    public void deleteEvent(int index) {
+        this.itinerary.deleteEvent(index);
+    }
 }

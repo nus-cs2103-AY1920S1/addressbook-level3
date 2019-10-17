@@ -2,9 +2,10 @@ package seedu.address.itinerary.model.Event;
 
 public class Location {
     public static final String MESSAGE_CONSTRAINTS =
-            "Location should not be empty.";
+            "We all know that you love typing on the CLI but the location of an event "
+            + "should not contain any special characters and should be less than 100 characters.";
 
-    public static final String VALIDATION_REGEX = "\\d{1,}";
+    public static final String VALIDATION_REGEX = "(.{0,100})";
     public final String location;
 
     public Location(String location) {
