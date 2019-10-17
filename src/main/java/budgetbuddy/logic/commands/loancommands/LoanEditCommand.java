@@ -43,6 +43,7 @@ public class LoanEditCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Loan edited: %1$s";
     public static final String MESSAGE_UNEDITED = "At least one field must be provided for editing.";
+    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the person's list.";
     public static final String MESSAGE_FAILURE = "The loan targeted for editing could not be found.";
 
     private final Index targetPersonIndex;
@@ -64,6 +65,10 @@ public class LoanEditCommand extends Command {
         Person targetPerson = loansManager.getPersonsList().get(targetPersonIndex.getZeroBased());
         Loan targetLoan = targetPerson.getLoans().get(targetLoanIndex.getZeroBased());
         Loan editedLoan = createEditedLoan(targetLoan, loanEditDescriptor);
+
+        if (!targetLoan.equals(editedLoan) && targetPerson.hasLoan(editedLoan)) {
+            throw new CommandException(MESSAGE_DUPLICATE_LOAN);
+        }
 
         try {
             loansManager.editLoan(targetPerson, targetLoan, editedLoan);

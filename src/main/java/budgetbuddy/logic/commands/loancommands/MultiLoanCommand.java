@@ -43,6 +43,10 @@ public abstract class MultiLoanCommand extends Command {
     public MultiLoanCommand(
             List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
         requireAllNonNull(personLoanIndexPairs, personIndices);
+
+        pairsNotFound = new ArrayList<PersonLoanIndexPair>();
+        personsNotFound = new ArrayList<Index>();
+
         checkArguments(personLoanIndexPairs, personIndices);
         this.personLoanIndexPairs = personLoanIndexPairs;
         this.personIndices = personIndices;

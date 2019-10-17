@@ -86,8 +86,7 @@ public class Loan {
                 && otherLoan.getDirection() == direction
                 && otherLoan.getAmount().equals(amount)
                 && otherLoan.getDate().equals(date)
-                && otherLoan.getDescription().equals(description)
-                && otherLoan.getStatus() == status;
+                && otherLoan.getDescription().equals(description);
     }
 
     @Override

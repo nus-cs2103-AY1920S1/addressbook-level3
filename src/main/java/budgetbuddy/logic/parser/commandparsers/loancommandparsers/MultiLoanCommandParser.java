@@ -32,6 +32,8 @@ public abstract class MultiLoanCommandParser implements CommandParser<MultiLoanC
      * @throws ParseException If parsing fails at any point.
      */
     protected void parseMultiLoanArgs(String args) throws ParseException {
+        personLoanIndexPairs.clear();
+        personIndices.clear();
         String[] argsArray = args.split("\\s+");
         for (String arg : argsArray) {
             if (arg.length() == 1) {
@@ -53,7 +55,8 @@ public abstract class MultiLoanCommandParser implements CommandParser<MultiLoanC
         try {
             String[] personLoansArray = arg.split("\\.");
             indicesString.add(personLoansArray[0]);
-            indicesString.addAll(Arrays.asList(personLoansArray));
+            String[] loansArray = personLoansArray[1].split("-");
+            indicesString.addAll(Arrays.asList(loansArray));
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             throw new ParseException(String.format("Parsing of %s failed.", arg));
         }

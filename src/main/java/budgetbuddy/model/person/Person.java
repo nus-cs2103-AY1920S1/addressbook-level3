@@ -72,7 +72,7 @@ public class Person {
      * @return True if the list is empty, false otherwise.
      */
     public boolean hasLoansRemaining() {
-        return loans.isEmpty();
+        return !loans.isEmpty();
     }
 
     /**
