@@ -53,7 +53,8 @@ public class DeleteContactCommandTest {
     //        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
     //        DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST_PERSON);
     //
-    //        String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
+    //        String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+    //                                                                                              contactToDelete);
     //
     //        Model expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
     //        expectedModel.deleteContact(contactToDelete);
