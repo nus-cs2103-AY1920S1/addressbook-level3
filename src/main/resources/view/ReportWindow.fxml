@@ -32,13 +32,15 @@
                               <TextFlow fx:id="averageCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
                            </items>
                         </SplitPane>
-                        <SplitPane orientation="VERTICAL">
+                        <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL">
                            <items>
                               <Label fx:id="foodStatistics" prefHeight="35.0" prefWidth="255.0" text="Food Statistics" textAlignment="CENTER" underline="true" wrapText="true">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
+                              <TextFlow fx:id="countCalorieExceeded" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
+                              <TextFlow fx:id="mostConsumedMeal" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
                            </items>
                         </SplitPane>
                     <ScrollPane prefHeight="-1.0" prefWidth="-1.0" />

@@ -10,15 +10,13 @@ public class Calorie {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Calories should only be positive values that are not 0";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public static final Calorie UNKNOWN_CALORIE = new Calorie(-1, true);
 
     public final int calories;
 
     /**
-     * Constructs a {@code Calorie}.
-     *
+     * Constructs a {@code Calorie}
      * @param calorieValue a valid calorie value.
      */
     public Calorie(int calorieValue) {

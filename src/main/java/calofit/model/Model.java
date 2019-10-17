@@ -90,21 +90,51 @@ public interface Model {
      */
     void updateFilteredDishList(Predicate<Dish> predicate);
 
+    /**
+     * Returns an unmodifiable view of the filtered Meal List.
+     */
     ObservableList<Meal> getFilteredMealList();
 
     void addMeal(Meal meal);
 
+    /**
+     * Returns the MealLog that wraps around the list of meals input by the user.
+     */
     MealLog getMealLog();
 
+    /**
+     * Updates the statistics of CaloFit based on the current state of it.
+     */
     void updateStatistics();
 
+    /**
+     * Returns the current Statistics object that wraps around the statistics of CaloFit.
+     */
     Statistics getStatistics();
 
+    /**
+     * Returns the Dish by checking with the Dish Database.
+     * @param dish is the Dish to be searched.
+     * @return the Dish itself or the Dish stored in the database if found.
+     */
     Dish getDishByName(Dish dish);
 
+    /**
+     * Checks if the Dish is in the Dish Database.
+     * @param dish is the Dish to be checked.
+     * @return a boolean representing whether the Dish is found in the database.
+     */
     boolean hasDishName(Dish dish);
 
+    /**
+     * Gets the CalorieBudget that wraps around the calorie budget history of CaloFit.
+     * @return the CalorieBudget wrapper object.
+     */
     CalorieBudget getCalorieBudget();
 
+    /**
+     * Gets the remaining calories that the user has left for the day.
+     * @return the remaining calories.
+     */
     int getRemainingCalories();
 }

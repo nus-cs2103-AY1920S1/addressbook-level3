@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.OptionalInt;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -59,6 +60,16 @@ public class CalorieBudget {
     public void setCurrentBudget(int budget) {
         budgetHistory.put(LocalDate.now(), budget);
         currentBudget.set(budget);
+    }
+
+    /**
+     * Provides a map of the budget history set by the user in the current month.
+     *
+     * @return a SortedMap of budgets set in the current month.
+     */
+    public SortedMap<LocalDate, Integer> getCurrentMonthBudgetHistory() {
+        int lastDate = LocalDate.now().lengthOfMonth();
+        return this.budgetHistory.subMap(LocalDate.now().withDayOfMonth(1), LocalDate.now().withDayOfMonth(lastDate));
     }
 
     public ReadOnlyDoubleProperty currentBudget() {
