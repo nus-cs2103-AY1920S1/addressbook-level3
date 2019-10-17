@@ -32,6 +32,7 @@ public class StudyPlan implements Cloneable {
     private Title title;
     private int index; // unique identifier of this study plan
     private SemesterName currentSemester;
+    private boolean isActivated = false;
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
     // note: this Mega-List is only constructed when a study plan gets activated.
@@ -77,9 +78,11 @@ public class StudyPlan implements Cloneable {
         this.semesters.setSemesters(modelSemesters);
         this.modules = modelModules;
         this.tags = new UniqueTagList();
-        tags.setTags(modelTags);
+        tags.initDefaultTags();
+        for (Tag tag : modelTags) {
+            tags.addTag(tag);
+        }
         this.currentSemester = currentSemester;
-
     }
 
     // make a copy of the current study without incrementing the index, for version tracking commits
@@ -115,6 +118,14 @@ public class StudyPlan implements Cloneable {
 
     public SemesterName getCurrentSemester() {
         return currentSemester;
+    }
+
+    public void setActivated(boolean activated) {
+        isActivated = activated;
+    }
+
+    public boolean isActivated() {
+        return isActivated;
     }
 
     public static int getTotalNumberOfStudyPlans() {
@@ -159,7 +170,8 @@ public class StudyPlan implements Cloneable {
      * @param moduleInfo The module info of the module.
      * @return A {@code UniqueTagList} with the default tags.
      */
-    private UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
+    // made public so as to be accessible from activate method from ModulePlanner
+    public UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
         UniqueTagList moduleTagList = new UniqueTagList();
         UniqueTagList studyPlanTagList = getTags();
         // assign focus primary tags
@@ -181,7 +193,8 @@ public class StudyPlan implements Cloneable {
         for (Semester semester : semesters) {
             UniqueModuleList uniqueModuleList = semester.getModules();
             for (Module module : uniqueModuleList) {
-                if (module.getName().equals(moduleInfo.getName())) {
+                if (module.getModuleCode().toString().equals(moduleInfo.getCode())) {
+                    // System.out.println(semester);
                     if (semester.getSemesterName().compareTo(currentSemester) < 0) {
                         moduleTagList.addTag(studyPlanTagList.getDefaultTag("Completed"));
                     }
@@ -292,6 +305,7 @@ public class StudyPlan implements Cloneable {
         clone.semesters = semesters.clone();
         clone.title = title.clone();
         clone.index = index;
+        clone.isActivated = isActivated;
 
         // because of this, the mega-lists fields don't have final keyword
         clone.modules = new HashMap<>();
@@ -302,6 +316,12 @@ public class StudyPlan implements Cloneable {
         clone.tags = (UniqueTagList) tags.clone();
 
         return clone;
+    }
+
+    @Override
+    public String toString() {
+        String toReturn = "Study Plan index: " + index + " Title: " + title.toString();
+        return toReturn;
     }
 
     @Override

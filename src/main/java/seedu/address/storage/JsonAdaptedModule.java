@@ -12,7 +12,6 @@ import seedu.address.model.Color;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UserTag;
 
 /**
  * Jackson-friendly version of {@link Module}.
@@ -49,7 +48,7 @@ class JsonAdaptedModule {
         Iterator<Tag> tagIterator = source.getTags().iterator();
         while (tagIterator.hasNext()) {
             Tag tag = tagIterator.next();
-            if (tag instanceof UserTag) {
+            if (!tag.isDefault()) {
                 userTags.add(new JsonAdaptedTag(tag));
             }
         }

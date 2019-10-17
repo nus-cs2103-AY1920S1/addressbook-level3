@@ -13,8 +13,10 @@ import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.Title;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
@@ -88,7 +90,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         setStudyPlans(newData.getStudyPlanList());
     }
 
-    //// person-level operations
+    //// studyplan-level operations
 
     /**
      * Returns true if a study plan with the same identity as {@code study plan} exists in the module planner.
@@ -130,16 +132,23 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      * details.
      */
     public StudyPlan activateStudyPlan(int index) throws StudyPlanNotFoundException {
+        boolean foundStudyPlan = false;
         Iterator<StudyPlan> iterator = studyPlans.iterator();
         while (iterator.hasNext()) {
             StudyPlan studyPlan = iterator.next();
             if (studyPlan.getIndex() == index) {
                 activeStudyPlan = studyPlan;
+                foundStudyPlan = true;
             }
         }
 
-        if (activeStudyPlan == null) {
+        if (activeStudyPlan == null || !foundStudyPlan) {
             throw new StudyPlanNotFoundException();
+        }
+
+        // if this active study plan has already been activated before, then no need to activate it again.
+        if (activeStudyPlan.isActivated()) {
+            return activeStudyPlan;
         }
 
         // construct the mega list of modules
@@ -148,6 +157,14 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             ModuleInfo moduleInfo = modulesInfo.find(module.getModuleCode().toString());
             module.setName(new Name(moduleInfo.getName()));
             module.setMcCount(moduleInfo.getMc());
+
+            // adds default tags to each module
+            UniqueTagList defaultTags = activeStudyPlan.assignDefaultTags(moduleInfo);
+            Iterator<Tag> tagIterator = defaultTags.iterator();
+            while (tagIterator.hasNext()) {
+                module.getTags().addTag(tagIterator.next());
+            }
+
         }
 
         // replace skeletal modules under semesters with the actual reference to modules in mega list
@@ -164,11 +181,14 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         }
 
         // TODO: get user-defined tags from mega tag list, and make the tags refer to the megalist of tags
+        // TODO: this is done?
         for (Module module : megaModuleHash.values()) {
             UniqueTagList tagList = module.getTags();
         }
 
         activeStudyPlan.updatePrereqs();
+
+        activeStudyPlan.setActivated(true);
 
         return activeStudyPlan;
     }
@@ -181,6 +201,8 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public boolean activateFirstStudyPlan() {
         if (studyPlans.getSize() == 0) {
+            // the active study plan will be null
+            activeStudyPlan = null;
             return false;
         } else {
             int indexOfFirstStudyPlan = studyPlans.iterator().next().getIndex();
@@ -250,6 +272,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         this.activeStudyPlan.updatePrereqs();
     }
 
+    public void changeActiveStudyPlanTitle(String title) {
+        activeStudyPlan.setTitle(new Title(title));
+    }
+
     //// commit methods
 
     /**
@@ -269,6 +295,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             throw new StudyPlanCommitManagerNotFoundException();
         }
         return manager.getCommitList();
+    }
+
+    /**
+     * Removes a StudyPlanCommitManager by the given StudyPlan index.
+     */
+    public void deleteStudyPlanCommitManagerByIndex(int index) throws StudyPlanCommitManagerNotFoundException {
+        versionTrackingManager.deleteStudyPlanCommitManagerByIndex(index);
     }
 
     //// util methods
