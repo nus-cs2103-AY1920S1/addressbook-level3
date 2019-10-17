@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_POLICIES;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
 
 /**
  * Command to assign a new policy to a person.
@@ -25,58 +26,55 @@ public class AssignPolicyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns the policy to a person.\n"
             + "Parameters: "
-            + PREFIX_POLICY_INDEX + "POLICY INDEX "
-            + PREFIX_PERSON_INDEX + "PERSON INDEX\n"
+            + "INDEX (must be a positive integer) "
+            + PREFIX_POLICY + "POLICY NAME\n"
             + "Example: "
-            + COMMAND_WORD + " "
-            + PREFIX_POLICY_INDEX + "1 "
-            + PREFIX_PERSON_INDEX + "1";
+            + COMMAND_WORD + " 1 "
+            + PREFIX_POLICY + "health insurance";
 
     public static final String MESSAGE_ASSIGN_POLICY_SUCCESS = "Assigned Policy: %1$s to Person: %2$s";
     public static final String MESSAGE_ALREADY_ASSIGNED = "Person: %1$s already has the Policy: %2$s.";
+    public static final String MESSAGE_POLICY_NOT_FOUND = "Policy: %1$s not found in the list of policies.";
 
-
-    private final Index policyIndex;
+    private final PolicyName policyName;
     private final Index personIndex;
 
     /**
-     * @param policyIndex Index of the policy to assign
      * @param personIndex Index of the person to be assigned
+     * @param policyName Name of the policy to assign
      */
-    public AssignPolicyCommand(Index policyIndex, Index personIndex) {
-        requireNonNull(policyIndex);
+    public AssignPolicyCommand(Index personIndex, PolicyName policyName) {
+        requireNonNull(policyName);
         requireNonNull(personIndex);
 
-        this.policyIndex = policyIndex;
         this.personIndex = personIndex;
+        this.policyName = policyName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownPersonList = model.getFilteredPersonList();
-        List<Policy> lastShownPolicyList = model.getFilteredPolicyList();
 
-        if (policyIndex.getZeroBased() >= lastShownPolicyList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
-        }
+
         if (personIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+        if (!model.hasPolicyWithName(policyName)) {
+            throw new CommandException(String.format(MESSAGE_POLICY_NOT_FOUND, policyName));
+        }
 
-        Policy policy = lastShownPolicyList.get(policyIndex.getZeroBased());
+        Policy policy = model.getPolicyWithName(policyName);
         Person person = lastShownPersonList.get(personIndex.getZeroBased());
 
         if (person.hasPolicy(policy)) {
-            throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED,
-                    person.getName(), policy.getName()));
+            throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED, person.getName(), policy.getName()));
         }
 
         Policy copyPolicy = new PolicyBuilder(policy).build();
         Person assignedPerson = new PersonBuilder(person).addPolicies(copyPolicy).build();
 
         model.setPerson(person, assignedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS,
                 policy.getName(), assignedPerson.getName()));
     }
@@ -96,7 +94,7 @@ public class AssignPolicyCommand extends Command {
         // state check
         AssignPolicyCommand e = (AssignPolicyCommand) other;
         return personIndex.equals(e.personIndex)
-                && policyIndex.equals(e.policyIndex);
+                && policyName.equals(e.policyName);
     }
 
 }

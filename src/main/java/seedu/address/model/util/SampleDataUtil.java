@@ -28,34 +28,42 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Nric("S000001A"), new Phone("87438807"),
+            new Person(new Name("Alex Yeoh"), new Nric("S0000001A"), new Phone("87438807"),
                     new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"),
                     new DateOfBirth("12.12.1998"), getPolicySet("teenage"), getTagSet("diabetic")),
-            new Person(new Name("Bernice Yu"), new Nric("S000001B"), new Phone("99272758"),
+            new Person(new Name("Bernice Yu"), new Nric("S0000001B"), new Phone("99272758"),
                     new Email("berniceyu@example.com"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                     new DateOfBirth("11.11.1991"), getPolicySet("young adult", "midlife"),
                     getTagSet("medium priority", "low risk")),
-            new Person(new Name("Charlotte Oliveiro"), new Nric("S000001C"), new Phone("93210283"),
+            new Person(new Name("Charlotte Oliveiro"), new Nric("S0000001C"), new Phone("93210283"),
                     new Email("charlotte@example.com"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     new DateOfBirth("10.9.2000"), getPolicySet("health"), getTagSet("low priority")),
-            new Person(new Name("David Li"), new Nric("S000001D"), new Phone("91031282"),
+            new Person(new Name("David Li"), new Nric("S0000001D"), new Phone("91031282"),
                     new Email("lidavid@example.com"), new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                     new DateOfBirth("4.6.1969"), getPolicySet("midlife", "retirement"),
                 getTagSet("high priority")),
-            new Person(new Name("Irfan Ibrahim"), new Nric("S000001F"), new Phone("92492021"),
+            new Person(new Name("Irfan Ibrahim"), new Nric("S0000001F"), new Phone("92492021"),
                     new Email("irfan@example.com"), new Address("Blk 47 Tampines Street 20, #17-35"),
                     new DateOfBirth("09.04.2010"), getPolicySet("school"), getTagSet("smoker")),
-            new Person(new Name("Roy Balakrishnan"), new Nric("S000001G"), new Phone("92624417"),
+            new Person(new Name("Roy Balakrishnan"), new Nric("S0000001G"), new Phone("92624417"),
                     new Email("royb@example.com"), new Address("Blk 45 Aljunied Street 85, #11-31"),
                     new DateOfBirth("23.8.1999"), getPolicySet("car insurance"),
                     getTagSet("low health risk"))
         };
     }
 
+    public static Set<Policy> getSamplePolicies() {
+        return getPolicySet("teenage", "young adult", "midlife", "health", "midlife",
+                "retirement", "school", "car insurance");
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Policy samplePolicy : getSamplePolicies()) {
+            sampleAb.addPolicy(samplePolicy);
         }
         return sampleAb;
     }

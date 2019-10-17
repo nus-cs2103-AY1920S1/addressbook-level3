@@ -3,8 +3,6 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.testutil.TypicalPolicy.getTypicalPolicy;
 
-import java.util.List;
-
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
@@ -18,8 +16,6 @@ public class TypicalAddressBook {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-
-        List<Policy> l = getTypicalPolicy();
 
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);

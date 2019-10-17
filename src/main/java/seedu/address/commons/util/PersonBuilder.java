@@ -117,7 +117,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code policies} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code policies} into a {@code Set<Policy>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withPolicies(Policy ... policies) {
         this.policies = new HashSet<>(Arrays.asList(policies));
@@ -133,7 +133,8 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code policies} into a {@code Set<Tag>} and removes it from the {@code Person} that we are building.
+     * Parses the {@code policies} into a {@code Set<Policy>} removes it from the policies of the {@code Person}
+     * that we are building.
      */
     public PersonBuilder removePolicies(Policy ... policies) {
         this.policies.removeAll(Arrays.asList(policies));

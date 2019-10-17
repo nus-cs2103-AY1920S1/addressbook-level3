@@ -2,14 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AssignPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.policy.PolicyName;
 
 /**
  * Parses input arguments and creates a new AssignPolicyCommand object
@@ -24,25 +24,25 @@ public class AssignPolicyCommandParser implements Parser<AssignPolicyCommand> {
      */
     public AssignPolicyCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_POLICY_INDEX, PREFIX_PERSON_INDEX);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_POLICY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_POLICY_INDEX, PREFIX_PERSON_INDEX)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_POLICY)
+                || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignPolicyCommand.MESSAGE_USAGE));
         }
 
-        Index personIndex = null;
-        Index policyIndex = null;
+        Index personIndex;
 
         try {
-            policyIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_POLICY_INDEX).get());
-            personIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PERSON_INDEX).get());
+            personIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AssignPolicyCommand.MESSAGE_USAGE), pe);
         }
 
-        return new AssignPolicyCommand(policyIndex, personIndex);
+        PolicyName policyName = ParserUtil.parsePolicyName(argMultimap.getValue(PREFIX_POLICY).get());
+
+        return new AssignPolicyCommand(personIndex, policyName);
     }
 
     /**

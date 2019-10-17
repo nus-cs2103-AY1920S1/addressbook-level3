@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
 
 /**
  * The API of the Model component.
@@ -112,9 +113,19 @@ public interface Model {
     boolean hasPolicy(Policy policy);
 
     /**
+     * Returns true if a policy with the same name as {@code policyName} exists in the address book.
+     */
+    boolean hasPolicyWithName(PolicyName policyName);
+
+    /**
      * Returns the matching policy in the address book.
      */
     Policy getPolicy(Policy policy);
+
+    /**
+     * Returns the matching policy with the same {@code policyName} in the address book.
+     */
+    Policy getPolicyWithName(PolicyName policyName);
 
     /**
      * Replaces the given policy {@code target} with {@code editedPolicy}.
