@@ -14,8 +14,9 @@ import seedu.address.model.incident.Incident;
 public class SubmitCommand extends Command {
 
     public static final String COMMAND_WORD = "submit";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Submits the latest draft.";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Submitting incident...";
+    public static final String MESSAGE_SUCCESS = "New incident report submitted: %1$s";
 
     @Override
     public CommandResult execute(Model model) {
@@ -36,7 +37,6 @@ public class SubmitCommand extends Command {
         Iterator<Incident> it = incidents.iterator();
         Incident toAdd = it.next();
         model.addIncident(toAdd);
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
-
 }
