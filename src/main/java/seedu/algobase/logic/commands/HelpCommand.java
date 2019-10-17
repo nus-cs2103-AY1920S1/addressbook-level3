@@ -23,14 +23,6 @@ public class HelpCommand extends Command {
     private final boolean isListAllCommands;
     private final Class commandClass;
 
-    public boolean isListAllCommands() {
-        return isListAllCommands;
-    }
-
-    public Class getCommandClass() {
-        return commandClass;
-    }
-
     public HelpCommand(Class commandClass, boolean isListAllCommands) {
         this.isListAllCommands = isListAllCommands;
         if (!isListAllCommands) {
@@ -39,6 +31,14 @@ public class HelpCommand extends Command {
         } else {
             this.commandClass = commandClass;
         }
+    }
+
+    public boolean isListAllCommands() {
+        return isListAllCommands;
+    }
+
+    public Class getCommandClass() {
+        return commandClass;
     }
 
     @Override

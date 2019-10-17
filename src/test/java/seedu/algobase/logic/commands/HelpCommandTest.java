@@ -12,10 +12,12 @@ import seedu.algobase.model.UserPrefs;
 
 class HelpCommandTest {
 
+    private static final String EXPECTED_COMMAND_LIST = "Available commands are: [add, addplan, addtag, "
+        + "addtag, clear, delete, deleteplan, deletetag, deletetask, donetask, edit, editplan, edittag, exit, "
+        + "find, findplan, help, list, listplan, listtag, sort, switch, undonetask]\n"
+        + "More information can be found in the popup window.";
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
-    private static final String EXPECTED_COMMAND_LIST = "Available commands are: [add, addplan, addtag, addtag, clear, delete, deleteplan, deletetag, deletetask, donetask, edit, editplan, edittag, exit, find, findplan, help, list, listplan, listtag, sort, switch, undonetask]\n" +
-        "More information can be found in the popup window.";
 
     @Test
     void constructor_nullCommandClassWithoutListingAllCommands_throwsNullPointerException() {

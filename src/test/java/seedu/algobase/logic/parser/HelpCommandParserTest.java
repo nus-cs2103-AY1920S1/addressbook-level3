@@ -12,10 +12,10 @@ import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 class HelpCommandParserTest {
-    private HelpCommandParser helpCommandParser = new HelpCommandParser();
     private static final String INVALID_COMMAND_WORD = "1nval1dC0mmand";
     private static final String VALID_COMMAND_WORD = AddCommand.COMMAND_WORD;
     private static final Class VALID_COMMAND_CLASS = AddCommand.class;
+    private HelpCommandParser helpCommandParser = new HelpCommandParser();
 
     @Test
     void parse_emptyInput_returnsListAllHelpCommand() throws ParseException {
