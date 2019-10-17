@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.CardBook;
-import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;

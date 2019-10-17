@@ -10,9 +10,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CardBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
+import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
-import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 
