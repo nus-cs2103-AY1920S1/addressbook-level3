@@ -16,7 +16,7 @@ import seedu.address.model.finance.ReadOnlyFinanceLog;
 
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access FinanceLog data stored as a json file on the hard disk.
  */
 public class JsonFinanceStorage implements FinanceStorage {
 
@@ -46,14 +46,14 @@ public class JsonFinanceStorage implements FinanceStorage {
     public Optional<ReadOnlyFinanceLog> readFinanceLog(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableFinanceLog> jsonFinanceLog = JsonUtil.readJsonFile(
+                filePath, JsonSerializableFinanceLog.class);
+        if (!jsonFinanceLog.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonFinanceLog.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -75,7 +75,7 @@ public class JsonFinanceStorage implements FinanceStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(financeLog), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableFinanceLog(financeLog), filePath);
     }
 
 }

@@ -2,7 +2,6 @@ package seedu.address.ui.finance;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.finance.logentry.LogEntry;
@@ -34,11 +33,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label tDate;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private Label description;
 
     public PersonCard(LogEntry logEntry, int displayedIndex) {
         super(FXML);
@@ -46,7 +41,7 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         amount.setText(logEntry.getAmount().fullName);
         tDate.setText(logEntry.getTransactionDate().value);
-        email.setText(logEntry.getDescription().value);
+        description.setText(logEntry.getDescription().value);
     }
 
     @Override
