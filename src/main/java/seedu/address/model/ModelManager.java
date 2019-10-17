@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 
@@ -23,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Earnings> filteredEarnings;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,10 +38,12 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredEarnings = new FilteredList<>(this.addressBook.getEarningsList());
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+
     }
 
     //=========== UserPrefs ==================================================================================
@@ -89,6 +93,7 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -111,6 +116,30 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public boolean hasEarnings(Earnings earnings) {
+        requireAllNonNull(earnings);
+        return addressBook.hasEarnings(earnings);
+    }
+
+    @Override
+    public void deleteEarnings(Earnings target) {
+        addressBook.removeEarnings(target);
+    }
+
+    @Override
+    public void addEarnings(Earnings earnings) {
+        addressBook.addEarnings(earnings);
+        updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
+    }
+
+    @Override
+    public void setEarnings(Earnings target, Earnings editedEarnings) {
+        requireAllNonNull(target, editedEarnings);
+
+        addressBook.setEarnings(target, editedEarnings);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -139,6 +168,15 @@ public class ModelManager implements Model {
     public ReadOnlyCalendar getCalendar() {
         return null;
     }
+    public ObservableList<Earnings> getFilteredEarningsList() {
+        return filteredEarnings;
+    }
+
+    @Override
+    public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
+        requireNonNull(predicate);
+        filteredEarnings.setPredicate(predicate);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -154,9 +192,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return (addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons));
     }
 
 }

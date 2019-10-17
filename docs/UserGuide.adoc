@@ -160,7 +160,43 @@ Examples:
 
 * `reminder 3 45`
 
-... MORE TO BE ADDED...
+==== Copying Tasks : `copy`
+
+Copies the task to other time slot. +
+Format: `copy INDEX TIME, …`
+
+Examples:
+
+* `copy 4 10/10/2019 14:00, 21/10/2019 15:00`
+
+==== User Interface
+
+View in calendar format. +
+Format: `show calendar`
+
+Example:
+
+* `show calendar`
+
+==== Switching
+
+Switch the GUI to calendar/list format. +
+Format: `switch STATUS`
+
+Examples:
+
+* `switch day`
+
+=== Earnings
+
+==== Add Earnings: `addEarnings`
+
+Adds Earnings to the list of earnings. +
+Format: `add earnings d/DATE mod/MODULE amt/AMOUNT`
+
+Examples:
+
+* `add earnings d/19/09/2019 mod/CS2103T amt/50.70`
 
 // end::delete[]
 === Clearing all entries : `clear`

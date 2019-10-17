@@ -31,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private EarningsListPanel earningsListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -43,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+    //private StackPane earningsListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -121,6 +123,23 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Fills up all the placeholders with earnings list in the window.
+     */
+    void fillEarnings() {
+        earningsListPanel = new EarningsListPanel(logic.getFilteredEarningsList());
+        personListPanelPlaceholder.getChildren().add(earningsListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -160,6 +179,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    public EarningsListPanel getEarningsListPanel() {
+        return earningsListPanel;
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -182,6 +205,11 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            /*if (commandResult.isEarnings()) {
+                Earnings earnings = commandResult.getEarnings();
+                handleEarnings(earnings);
+            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {
