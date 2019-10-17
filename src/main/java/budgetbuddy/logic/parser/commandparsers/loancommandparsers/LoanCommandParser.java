@@ -17,7 +17,6 @@ import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.Direction;
-import budgetbuddy.model.loan.Description;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.loan.Status;
@@ -25,6 +24,7 @@ import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
+import budgetbuddy.model.transaction.stub.Description;
 
 /**
  * Parses input arguments and creates a new LoanCommand object.

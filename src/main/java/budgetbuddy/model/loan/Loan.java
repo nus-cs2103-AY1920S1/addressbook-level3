@@ -8,6 +8,7 @@ import budgetbuddy.model.Direction;
 import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
+import budgetbuddy.model.transaction.stub.Description;
 
 /**
  * Represents a Loan in a LoanList.
@@ -107,7 +108,7 @@ public class Loan {
                 .append(directionWithFunctionWord)
                 .append(getPerson().getName()).append(divider)
                 .append(getDate());
-        if (!description.description.isBlank()) {
+        if (!description.getDescription().isBlank()) {
             builder.append(divider).append(getDescription());
         }
         return builder.toString();

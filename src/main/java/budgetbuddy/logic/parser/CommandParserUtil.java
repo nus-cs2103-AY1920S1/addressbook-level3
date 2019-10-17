@@ -11,7 +11,6 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.rules.RuleProcessingUtil;
-import budgetbuddy.model.loan.Description;
 import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Name;
 import budgetbuddy.model.rule.RuleAction;
@@ -22,6 +21,7 @@ import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.tag.Tag;
 import budgetbuddy.model.transaction.Amount;
+import budgetbuddy.model.transaction.stub.Description;
 
 /**
  * Contains utility methods used for parsing strings in the various *CommandParser classes.
