@@ -368,6 +368,11 @@ public class SetInstallmentCommandTest {
         }
 
         @Override
+        public boolean equals(Object other) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void lookUpCourse(Course code) {
             throw new AssertionError("This method should not be called.");
         }
@@ -377,10 +382,6 @@ public class SetInstallmentCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public boolean isEqual(Planner other) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**
