@@ -1,5 +1,9 @@
 package seedu.address.commons.util;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -91,5 +95,37 @@ public class EncryptionUtil {
      */
     public static String decryptBytesToString(byte[] input, String password) throws GeneralSecurityException {
         return new String(decryptBytes(input, password));
+    }
+
+    /**
+     * Encrypts a file using the given file path and password.
+     * @param path the path of the file.
+     * @param password the password used for decryption.
+     * @throws IOException if the encryption fails.
+     */
+    public static void encryptFile(String path, String password) throws IOException, GeneralSecurityException {
+        Path oldPath = Paths.get(path);
+        byte[] fileData = Files.readAllBytes(oldPath);
+        byte[] encryptedData = encryptBytes(fileData, password);
+        Path newPath = Paths.get(oldPath.getParent().toString()
+                + "/[LOCKED] " + oldPath.getFileName().toString());
+        Files.write(newPath, encryptedData);
+        Files.deleteIfExists(oldPath);
+    }
+
+    /**
+     * Decrypts a file using the given file path and password.
+     * @param path the path of the file.
+     * @param password the password used for decryption.
+     * @throws IOException if the decryption fails.
+     */
+    public static void decryptFile(String path, String password) throws IOException, GeneralSecurityException {
+        Path oldPath = Paths.get(path);
+        byte[] fileData = Files.readAllBytes(oldPath);
+        byte[] decryptedData = decryptBytes(fileData, password);
+        Path newPath = Paths.get(oldPath.getParent().toString()
+                + "/" + oldPath.getFileName().toString().replace("[LOCKED] ", ""));
+        Files.write(newPath, decryptedData);
+        Files.deleteIfExists(oldPath);
     }
 }

@@ -11,9 +11,12 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.FileBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFileBook;
+import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -27,6 +30,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final FileBookParser fileBookParser;
 
     private String mode;
 
@@ -34,6 +38,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        fileBookParser = new FileBookParser(storage.getStoragePassword());
         mode = "home";
     }
 
@@ -42,11 +47,27 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command;
+        switch (mode) {
+        case "file":
+            command = fileBookParser.parseCommand(commandText);
+            break;
+        default:
+            command = addressBookParser.parseCommand(commandText);
+            break;
+        }
+
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            switch (mode) {
+            case "file":
+                storage.saveFileBook(model.getFileBook());
+                break;
+            default:
+                storage.saveAddressBook(model.getAddressBook());
+                break;
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -62,6 +83,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ReadOnlyFileBook getFileBook() {
+        return model.getFileBook();
+    }
+
+    @Override
+    public ObservableList<EncryptedFile> getFilteredFileList() {
+        return model.getFilteredFileList();
     }
 
     @Override
@@ -82,5 +113,10 @@ public class LogicManager implements Logic {
     @Override
     public void setMode(String newMode) {
         mode = newMode;
+    }
+
+    @Override
+    public String getMode() {
+        return mode;
     }
 }

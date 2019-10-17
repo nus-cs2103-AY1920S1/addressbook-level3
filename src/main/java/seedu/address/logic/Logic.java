@@ -8,6 +8,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFileBook;
+import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 
 /**
@@ -34,6 +36,16 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns the FileBook.
+     *
+     * @see seedu.address.model.Model#getFileBook()
+     */
+    ReadOnlyFileBook getFileBook();
+
+    /** Returns an unmodifiable view of the filtered list of files */
+    ObservableList<EncryptedFile> getFilteredFileList();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
@@ -49,4 +61,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     void setMode(String newMode);
+
+    String getMode();
 }

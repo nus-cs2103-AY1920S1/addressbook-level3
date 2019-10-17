@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private FileListPanel fileListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -107,8 +108,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        fillInnerPartsWithMode();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -118,6 +118,29 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window using the current mode.
+     */
+    void fillInnerPartsWithMode() {
+        switch (logic.getMode()) {
+        case "file":
+            fileListPanel = new FileListPanel(logic.getFilteredFileList());
+            personListPanelPlaceholder.getChildren().add(fileListPanel.getRoot());
+            break;
+        default:
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Handle UI changes on mode change.
+     */
+    void handleModeChange() {
+        personListPanelPlaceholder.getChildren().clear();
+        fillInnerPartsWithMode();
     }
 
     /**
@@ -198,6 +221,7 @@ public class MainWindow extends UiPart<Stage> {
                     logic.setMode("home");
                     break;
                 }
+                handleModeChange();
             }
 
             return commandResult;

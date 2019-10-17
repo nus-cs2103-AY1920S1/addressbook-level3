@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +10,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.file.FileName;
+import seedu.address.model.file.FilePath;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -120,5 +123,37 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String fullPath} into a {@code FileName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fullPath} is invalid.
+     */
+    public static FileName parseFileName(String fullPath) throws ParseException {
+        requireNonNull(fullPath);
+        String trimmedFullPath = fullPath.trim();
+        String fileName = Path.of(trimmedFullPath).getFileName().toString();
+        if (!FileName.isValidFileName(fileName)) {
+            throw new ParseException(FileName.MESSAGE_CONSTRAINTS);
+        }
+        return new FileName(fileName);
+    }
+
+    /**
+     * Parses a {@code String fullPath} into a {@code FilePath}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fullPath} is invalid.
+     */
+    public static FilePath parseFilePath(String fullPath) throws ParseException {
+        requireNonNull(fullPath);
+        String trimmedFullPath = fullPath.trim();
+        String filePath = Path.of(trimmedFullPath).getParent().toString();
+        if (!FilePath.isValidFilePath(filePath)) {
+            throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
+        }
+        return new FilePath(filePath);
     }
 }

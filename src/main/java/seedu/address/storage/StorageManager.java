@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -18,6 +19,7 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private FileBookStorage fileBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private String password;
 
@@ -26,6 +28,22 @@ public class StorageManager implements Storage {
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.password = password;
+    }
+
+    public StorageManager(AddressBookStorage addressBookStorage,
+                          FileBookStorage fileBookStorage,
+                          UserPrefsStorage userPrefsStorage,
+                          String password) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.fileBookStorage = fileBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+        this.password = password;
+    }
+
+    @Override
+    public String getStoragePassword() {
+        return password;
     }
 
     // ================ UserPrefs methods ==============================
@@ -73,6 +91,35 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    // ================ FileBook methods ==============================
+
+    @Override
+    public Path getFileBookFilePath() {
+        return fileBookStorage.getFileBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyFileBook> readFileBook() throws DataConversionException, IOException {
+        return readFileBook(fileBookStorage.getFileBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyFileBook> readFileBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return fileBookStorage.readFileBook(filePath);
+    }
+
+    @Override
+    public void saveFileBook(ReadOnlyFileBook fileBook) throws IOException {
+        saveFileBook(fileBook, fileBookStorage.getFileBookFilePath());
+    }
+
+    @Override
+    public void saveFileBook(ReadOnlyFileBook fileBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        fileBookStorage.saveFileBook(fileBook, filePath);
     }
 
 }

@@ -19,7 +19,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -139,12 +141,52 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addFile(EncryptedFile file) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFileBook(ReadOnlyFileBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyFileBook getFileBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasFile(EncryptedFile file) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteFile(EncryptedFile target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFile(EncryptedFile target, EncryptedFile editedFile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<EncryptedFile> getFilteredFileList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredFileList(Predicate<EncryptedFile> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
