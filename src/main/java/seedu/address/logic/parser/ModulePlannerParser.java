@@ -137,6 +137,9 @@ public class ModulePlannerParser {
         case ListAllStudyPlansCommand.COMMAND_WORD:
             return new ListAllStudyPlansParser().parse(arguments);
 
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
 
