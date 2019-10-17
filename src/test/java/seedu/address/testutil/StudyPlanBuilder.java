@@ -1,14 +1,10 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.tag.UserTag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**

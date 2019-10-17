@@ -5,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
@@ -28,14 +31,13 @@ import seedu.address.testutil.TagBuilder;
 public class CreateTagCommandTest {
 
     // Incomplete
-    
     @Test
     public void constructor_nullTagName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new CreateStudyPlanCommand(null));
     }
 
     @Test
-    public void execute_TagAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_tagAcceptedByModel_addSuccessful() throws Exception {
         StudyPlan studyPlan = new StudyPlanBuilder().build();
         ModelStubWithStudyPlan modelStub = new ModelStubWithStudyPlan(studyPlan);
         Tag validTag = new TagBuilder().buildTestUserTag();
@@ -204,6 +206,11 @@ public class CreateTagCommandTest {
         public CommitList getCommitListByStudyPlanIndex(int index) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updatePrereqs() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -222,5 +229,4 @@ public class CreateTagCommandTest {
             return this.studyPlan;
         }
     }
-
 }
