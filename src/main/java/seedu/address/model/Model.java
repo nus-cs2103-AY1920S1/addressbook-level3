@@ -5,7 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Lesson.Lesson;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
 /**
@@ -14,6 +15,7 @@ import seedu.address.model.student.Student;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
+    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -57,19 +59,19 @@ public interface Model {
      * Returns true if a student with the same identity as {@code student} exists in the address book.
      */
     boolean hasStudent(Student student);
-
+    boolean hasAssignment(Assignment assignment);
     /**
      * Deletes the given student.
      * The student must exist in the address book.
      */
     void deleteStudent(Student target);
-
+    void deleteAssignment(Assignment target);
     /**
      * Adds the given student.
      * {@code student} must not already exist in the address book.
      */
     void addStudent(Student student);
-
+    void addAssignment(Assignment assignment);
     /**
      * Replaces the given student {@code target} with {@code editedStudent}.
      * {@code target} must exist in the address book.
@@ -77,15 +79,17 @@ public interface Model {
      * book.
      */
     void setStudent(Student target, Student editedStudent);
-
+    void setAssignment(Assignment target, Assignment editedAssignment);
     /** Returns an unmodifiable view of the filtered student list */
     ObservableList<Student> getFilteredStudentList();
-
+    ObservableList<Assignment> getFilteredAssignmentList();
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStudentList(Predicate<Student> predicate);
+
+    void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
     /**
      * Adds the given lesson.

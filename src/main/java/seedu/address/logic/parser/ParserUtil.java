@@ -2,16 +2,20 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Lesson.ClassName;
-import seedu.address.model.Lesson.Time;
+import seedu.address.model.assignment.AssignmentName;
+import seedu.address.model.assignment.Grade;
+import seedu.address.model.lesson.ClassName;
+import seedu.address.model.lesson.Time;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
@@ -53,6 +57,39 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+    /**
+     * Parses a {@code String name} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static AssignmentName parseAssignmentName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new AssignmentName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String grades} into a {@code List<Integer>}.
+     * Leading and trailing whitespaces will be trimmed.
+     * String grades will be split by whitespace, converted to Integer and stored in List.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static List<Grade> parseAssignmentGrades(String grades) throws ParseException {
+        requireNonNull(grades);
+        List<Grade> output = new ArrayList<>();
+        String trimmedGrades = grades.trim();
+        String[] individualGrades = trimmedGrades.split(" ");
+        for (String grade: individualGrades) {
+            Integer integerGrade = Integer.parseInt(grade);
+            output.add(new Grade(integerGrade.toString()));
+        }
+        return output;
     }
 
     /**

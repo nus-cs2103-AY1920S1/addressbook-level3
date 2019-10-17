@@ -1,4 +1,4 @@
-package seedu.address.model.student;
+package seedu.address.model.assignment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -20,27 +20,27 @@ import seedu.address.model.student.exceptions.DuplicateAssignmentException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Student#isSameStudent(Student)
+ * @see Assignment#isSameAssignment(Assignment)
  */
-public class UniqueStudentList implements Iterable<Student> {
+public class UniqueAssignmentList implements Iterable<Assignment> {
 
-    private final ObservableList<Student> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Student> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<Assignment> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Assignment> internalUnmodifiableList =
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent student as the given argument.
      */
-    public boolean contains(Student toCheck) {
+    public boolean contains(Assignment toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameStudent);
+        return internalList.stream().anyMatch(toCheck::isSameAssignment);
     }
 
     /**
      * Adds a student to the list.
      * The student must not already exist in the list.
      */
-    public void add(Student toAdd) {
+    public void add(Assignment toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateAssignmentException();
@@ -53,33 +53,33 @@ public class UniqueStudentList implements Iterable<Student> {
      * {@code target} must exist in the list.
      * The student identity of {@code editedStudent} must not be the same as another existing student in the list.
      */
-    public void setStudent(Student target, Student editedStudent) {
-        requireAllNonNull(target, editedStudent);
+    public void setAssignment(Assignment target, Assignment editedAssignment) {
+        requireAllNonNull(target, editedAssignment);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new AssignmentNotFoundException();
         }
 
-        if (!target.isSameStudent(editedStudent) && contains(editedStudent)) {
+        if (!target.isSameAssignment(editedAssignment) && contains(editedAssignment)) {
             throw new DuplicateAssignmentException();
         }
 
-        internalList.set(index, editedStudent);
+        internalList.set(index, editedAssignment);
     }
 
     /**
      * Removes the equivalent student from the list.
      * The student must exist in the list.
      */
-    public void remove(Student toRemove) {
+    public void remove(Assignment toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new AssignmentNotFoundException();
         }
     }
 
-    public void setStudents(UniqueStudentList replacement) {
+    public void setAssignments(UniqueAssignmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,9 +88,9 @@ public class UniqueStudentList implements Iterable<Student> {
      * Replaces the contents of this list with {@code students}.
      * {@code students} must not contain duplicate students.
      */
-    public void setStudents(List<Student> students) {
+    public void setAssignments(List<Assignment> students) {
         requireAllNonNull(students);
-        if (!studentsAreUnique(students)) {
+        if (!assignmentsAreUnique(students)) {
             throw new DuplicateAssignmentException();
         }
 
@@ -100,20 +100,20 @@ public class UniqueStudentList implements Iterable<Student> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Student> asUnmodifiableObservableList() {
+    public ObservableList<Assignment> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Student> iterator() {
+    public Iterator<Assignment> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueStudentList // instanceof handles nulls
-                        && internalList.equals(((UniqueStudentList) other).internalList));
+                   || (other instanceof UniqueAssignmentList // instanceof handles nulls
+                           && internalList.equals(((UniqueAssignmentList) other).internalList));
     }
 
     @Override
@@ -124,10 +124,10 @@ public class UniqueStudentList implements Iterable<Student> {
     /**
      * Returns true if {@code students} contains only unique students.
      */
-    private boolean studentsAreUnique(List<Student> students) {
-        for (int i = 0; i < students.size() - 1; i++) {
-            for (int j = i + 1; j < students.size(); j++) {
-                if (students.get(i).isSameStudent(students.get(j))) {
+    private boolean assignmentsAreUnique(List<Assignment> assignments) {
+        for (int i = 0; i < assignments.size() - 1; i++) {
+            for (int j = i + 1; j < assignments.size(); j++) {
+                if (assignments.get(i).isSameAssignment(assignments.get(j))) {
                     return false;
                 }
             }
@@ -135,3 +135,4 @@ public class UniqueStudentList implements Iterable<Student> {
         return true;
     }
 }
+

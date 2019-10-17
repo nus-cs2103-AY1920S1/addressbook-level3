@@ -1,6 +1,6 @@
-package seedu.address.model.Scheduler;
+package seedu.address.model.scheduler;
 
-import seedu.address.model.Lesson.Lesson;
+import seedu.address.model.lesson.Lesson;
 
 /**
  * Runnable task which carries out the reminder.
