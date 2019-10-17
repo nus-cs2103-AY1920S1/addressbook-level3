@@ -11,14 +11,12 @@ import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.savenus.commons.core.Messages;
 import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.purchase.Purchase;
-
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code BuyCommand}.
@@ -30,7 +28,6 @@ public class BuyCommandTest {
     // Please refer to the wallet and purchase history tests
 
     private Model model = new ModelManager(getTypicalMenu(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -61,17 +58,11 @@ public class BuyCommandTest {
     }
 
     @Test
-    public void execute_success() {
+    public void execute_success() throws CommandException {
         Purchase purchaseToAdd = new Purchase(CARBONARA.getName(), CARBONARA.getPrice());
         String expectedMessage = String.format(BuyCommand.MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString());
         BuyCommand correctCommand = new BuyCommand(INDEX_FIRST_FOOD);
-        try {
-            CommandResult result = correctCommand.execute(model);
-            assertEquals(result, new CommandResult(String.format(
-                BuyCommand.MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString())));
-        } catch (CommandException e) {
-            assertEquals(e, new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX));
-        }
-
+        CommandResult result = correctCommand.execute(model);
+        assertEquals(result, new CommandResult(String.format(BuyCommand.MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString())));
     }
 }
