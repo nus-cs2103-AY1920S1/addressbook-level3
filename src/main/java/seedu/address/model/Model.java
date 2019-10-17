@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;
@@ -122,19 +123,12 @@ public interface Model {
     /**
      * Restores the previous event list state from UndoableHistory.
      */
-    void undoFromHistory();
+    void undoFromHistory() throws CommandException;
 
     /**
      * Restores the previously undone event list state from UndoableHistory.
      */
-    void redoFromHistory();
-
-    /**
-     * Returns true if there are previous event list states to restore, and false otherwise.
-     *
-     * @return boolean
-     */
-    boolean canUndoHistory();
+    void redoFromHistory() throws CommandException;
 
     /**
      * Clears all future event list states in UndoableHistory beyond the current state.

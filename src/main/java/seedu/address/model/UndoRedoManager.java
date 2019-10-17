@@ -1,7 +1,11 @@
 package seedu.address.model;
 
+import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_UNDO;
+import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_REDO;
+
 import java.util.ArrayList;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.EventList;
 
 /**
@@ -54,7 +58,10 @@ public class UndoRedoManager {
     /**
      * Restores the previous event list state from UndoRedoManager.
      */
-    void undo() {
+    void undo() throws CommandException {
+        if (!canUndo()) {
+            throw new CommandException(MESSAGE_NOTHING_TO_UNDO);
+        }
         currentStateIndex--;
         // Retrieve data from duplicate of its past state
         mainEventList.resetData(eventListStateList.get(currentStateIndex));
@@ -63,7 +70,10 @@ public class UndoRedoManager {
     /**
      * Restores the previously undone event list state from UndoRedoManager.
      */
-    void redo() {
+    void redo() throws CommandException {
+        if (!canRedo()) {
+            throw new CommandException(MESSAGE_NOTHING_TO_REDO);
+        }
         currentStateIndex++;
         // Retrieve data from duplicate of its future state
         mainEventList.resetData(eventListStateList.get(currentStateIndex));
@@ -94,8 +104,17 @@ public class UndoRedoManager {
      *
      * @return boolean
      */
-    boolean canUndo() {
+    private boolean canUndo() {
         return currentStateIndex > 0;
+    }
+
+    /**
+     * Returns true if there are future event list states to reset to, and false otherwise.
+     *
+     * @return boolean
+     */
+    private boolean canRedo() {
+        return currentStateIndex < eventListStateList.size() - 1;
     }
 
     @Override

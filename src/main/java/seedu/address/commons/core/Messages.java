@@ -16,7 +16,12 @@ public class Messages {
     public static final String MESSAGE_INVALID_INDEX = "Invalid index! Please enter an integer.";
     public static final String MESSAGE_INVALID_EVENT_INDEX = "Invalid index! Event with index '%s' does not exist.";
 
+    public static final String MESSAGE_NOTHING_TO_UNDO = "There is nothing to undo!";
+    public static final String MESSAGE_NOTHING_TO_REDO = "There is nothing to redo!";
+
     public static final String MESSAGE_ADD_EVENT_SUCCESS = "New event added: %s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Events deleted: %s";
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Events edited: %s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Previous command has been undone!";
+    public static final String MESSAGE_REDO_SUCCESS = "Previous undone command has been redone!";
 }

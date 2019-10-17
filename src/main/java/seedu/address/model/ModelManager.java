@@ -15,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;
@@ -263,26 +264,18 @@ public class ModelManager implements Model {
      * Restores the previous event list state from UndoRedoManager.
      */
     @Override
-    public void undoFromHistory() {
+    public void undoFromHistory() throws CommandException {
         undoRedoManager.undo();
+        eventListListeners.forEach(l -> l.onEventListChange(undoRedoManager.getCurrentState().getReadOnlyList()));
     }
 
     /**
      * Restores the previously undone event list state from UndoRedoManager.
      */
     @Override
-    public void redoFromHistory() {
+    public void redoFromHistory() throws CommandException {
         undoRedoManager.redo();
-    }
-
-    /**
-     * Returns true if there are previous event list states to restore, and false otherwise.
-     *
-     * @return boolean
-     */
-    @Override
-    public boolean canUndoHistory() {
-        return undoRedoManager.canUndo();
+        eventListListeners.forEach(l -> l.onEventListChange(undoRedoManager.getCurrentState().getReadOnlyList()));
     }
 
     /**
