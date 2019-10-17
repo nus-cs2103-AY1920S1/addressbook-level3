@@ -7,9 +7,10 @@ import seedu.address.model.Model;
 
 /**
  * Clears lecture notes.
+ * TODO can Shui Yao modify this so that it clears just the lecture notes?
  */
 public class ClearNoteCommand extends Command {
-    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_WORD = "clearnote";
     public static final String MESSAGE_SUCCESS = "Lecture notes have been cleared!";
 
     @Override
