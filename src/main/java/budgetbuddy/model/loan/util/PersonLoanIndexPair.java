@@ -1,5 +1,7 @@
 package budgetbuddy.model.loan.util;
 
+import java.util.Objects;
+
 import budgetbuddy.commons.core.index.Index;
 
 /**
@@ -40,5 +42,10 @@ public class PersonLoanIndexPair {
 
         return personIndex.equals(((PersonLoanIndexPair) other).personIndex)
                 && loanIndex.equals(((PersonLoanIndexPair) other).loanIndex);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personIndex, loanIndex);
     }
 }
