@@ -1,9 +1,10 @@
 package seedu.address.stubs;
 
+import java.util.function.Predicate;
+
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 import seedu.address.transaction.util.TransactionList;
 
 public class TransactionModelStub implements Model {
@@ -68,7 +69,7 @@ public class TransactionModelStub implements Model {
     }
 
     @Override
-    public void updatePredicate(TransactionContainsKeywordsPredicate predicate) {
+    public void updatePredicate(Predicate<Transaction> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
