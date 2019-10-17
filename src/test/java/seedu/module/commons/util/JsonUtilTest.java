@@ -43,11 +43,11 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void deserializeObjectArrayFromJsonFile_noExceptionThrown() throws IOException {
+    public void fromJsonString_noExceptionThrown() throws IOException {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_ARRAY_STRING_REPRESENTATION);
 
-        List<SerializableTestClass> serializableTestClassList = JsonUtil
-                .deserializeObjectFromJsonFile(SERIALIZATION_FILE, new TypeReference<List<SerializableTestClass>>(){});
+        List<SerializableTestClass> serializableTestClassList = JsonUtil.fromJsonString(
+            FileUtil.readFromFile(SERIALIZATION_FILE), new TypeReference<List<SerializableTestClass>>(){});
 
         assertEquals(serializableTestClassList.get(0).getName(),
             SerializableTestClass.getNameTestValue());

@@ -1,16 +1,16 @@
 package seedu.module.storage;
 
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Optional;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import seedu.module.commons.core.LogsCenter;
-import seedu.module.commons.exceptions.DataConversionException;
 import seedu.module.commons.util.JsonUtil;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.ArchivedModuleList;
@@ -20,7 +20,6 @@ import seedu.module.model.module.ArchivedModuleList;
  */
 public class JsonArchivedModuleList {
     private static final Logger logger = LogsCenter.getLogger(JsonModuleBookStorage.class);
-    private static Path filePath;
 
     /**
      * Returns an ArchivedModuleList read from the Json file corresponding to the
@@ -30,47 +29,40 @@ public class JsonArchivedModuleList {
      * file. The file must be in the ClassLoader's resource folder.
      */
     public static ArchivedModuleList readArchivedModules(String resourceFileName) {
-        Optional<List<JsonAdaptedArchivedModule>> jsonArchivedModules = Optional.empty();
+        List<JsonAdaptedArchivedModule> jsonArchivedModules;
         ArchivedModuleList archivedModules = new ArchivedModuleList();
 
-        filePath = getresourceFilePath(resourceFileName);
-        if (filePath == null) {
-            logger.warning("Resource file: " + resourceFileName + " not found.");
-            logger.warning("Returning an empty ArchivedModuleList.");
-            return archivedModules;
-        }
+        logger.fine("Attempting to read archived modules.");
+
+        // @@author akosicki
+        // Code Snippet below is used to read a resource file as a String
+        // Reused from https://stackoverflow.com/a/18897411 with minor modifications
+        InputStream jsonFileInputStream = JsonArchivedModuleList.class.getClassLoader()
+            .getResourceAsStream(resourceFileName);
+
+        requireNonNull(jsonFileInputStream);
+
+        Scanner sc = new Scanner(jsonFileInputStream);
+        String jsonString = sc.useDelimiter("\\A").next();
+        sc.close();
+
+        // @@author
 
         try {
-            jsonArchivedModules = JsonUtil.readJsonFile(filePath,
+            jsonArchivedModules = JsonUtil.fromJsonString(jsonString,
                 new TypeReference<List<JsonAdaptedArchivedModule>>(){});
-        } catch (DataConversionException e) {
+        } catch (IOException e) {
             logger.warning("Failed to fetch data of archived modules. Error: " + e);
             logger.warning("Returning an empty ArchivedModuleList.");
             return archivedModules;
         }
 
-        // jsonArchivedModules is guaranteed not to be empty due to getresourceFileName
-        List<JsonAdaptedArchivedModule> modules = jsonArchivedModules.get();
-
-        for (JsonAdaptedArchivedModule jsonAdaptedArchivedModule : modules) {
+        for (JsonAdaptedArchivedModule jsonAdaptedArchivedModule : jsonArchivedModules) {
             ArchivedModule module = jsonAdaptedArchivedModule.toModelType();
 
             archivedModules.add(module);
         }
 
         return archivedModules;
-    }
-
-    /**
-     * Returns a {@code Path} corresponding to the resource file name, or
-     * {@code null} if the resource file does not exist.
-     */
-    private static Path getresourceFilePath(String resourceFileName) {
-        try {
-            return Paths.get(JsonArchivedModuleList.class.getClassLoader()
-                .getResource(resourceFileName).toURI());
-        } catch (URISyntaxException | NullPointerException e) {
-            return null;
-        }
     }
 }

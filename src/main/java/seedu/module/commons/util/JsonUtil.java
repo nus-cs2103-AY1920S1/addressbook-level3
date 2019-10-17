@@ -50,11 +50,6 @@ public class JsonUtil {
         return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
     }
 
-    static <T> T deserializeObjectFromJsonFile(Path jsonFile, TypeReference<T> typeReferenceClass)
-            throws IOException {
-        return fromJsonString(FileUtil.readFromFile(jsonFile), typeReferenceClass);
-    }
-
     /**
      * Returns the Json object from the given file or {@code Optional.empty()} object if the file is not found.
      * If any values are missing from the file, default values will be used, as long as the file is a valid json file.
@@ -75,34 +70,6 @@ public class JsonUtil {
 
         try {
             jsonFile = deserializeObjectFromJsonFile(filePath, classOfObjectToDeserialize);
-        } catch (IOException e) {
-            logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
-            throw new DataConversionException(e);
-        }
-
-        return Optional.of(jsonFile);
-    }
-
-    /**
-     * Returns the Json object from the given file or {@code Optional.empty()} object if the file is not found.
-     * If any values are missing from the file, default values will be used, as long as the file is a valid json file.
-     * @param filePath cannot be null.
-     * @param typeReferenceClass Json file has to correspond to the structure in the class given here.
-     * @throws DataConversionException if the file format is not as expected.
-     */
-    public static <T> Optional<T> readJsonFile(
-            Path filePath, TypeReference<T> typeReferenceClass) throws DataConversionException {
-        requireNonNull(filePath);
-
-        if (!Files.exists(filePath)) {
-            logger.info("Json file " + filePath + " not found");
-            return Optional.empty();
-        }
-
-        T jsonFile;
-
-        try {
-            jsonFile = deserializeObjectFromJsonFile(filePath, typeReferenceClass);
         } catch (IOException e) {
             logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);
