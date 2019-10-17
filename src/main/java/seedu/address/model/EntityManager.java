@@ -6,15 +6,16 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniqueEntityList;
 
+// TODO: edit JavaDoc
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class EntityManager<T extends Person> implements ReadOnlyEntityManager<T> {
 
-    protected UniquePersonList persons;
+    private final UniqueEntityList<T> persons;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,15 +25,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        persons = new UniqueEntityList<>();
     }
 
-    public AddressBook() {}
+    public EntityManager() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public EntityManager(ReadOnlyEntityManager<T> toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -43,14 +45,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<T> persons) {
         this.persons.setPersons(persons);
     }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyEntityManager<T> newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -61,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
+    public boolean hasPerson(T person) {
         requireNonNull(person);
         return persons.contains(person);
     }
@@ -70,7 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(T p) {
         persons.add(p);
     }
 
@@ -79,7 +81,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
+    public void setPerson(T target, T editedPerson) {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
@@ -89,7 +91,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(T key) {
         persons.remove(key);
     }
 
@@ -102,15 +104,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<T> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof EntityManager // instanceof handles nulls
+                && persons.equals(((EntityManager) other).persons));
     }
 
     @Override

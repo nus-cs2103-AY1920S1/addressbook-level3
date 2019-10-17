@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.DriverList;
 

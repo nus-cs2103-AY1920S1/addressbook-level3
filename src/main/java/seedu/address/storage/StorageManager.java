@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.task.TaskManager;
 
 /**
@@ -20,7 +20,6 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
-
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -44,7 +43,6 @@ public class StorageManager implements Storage {
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
-
 
     // ================ AddressBook methods ==============================
 
@@ -75,15 +73,15 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-    //Includes saving task manager
+    // Includes saving task manager
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException {
         saveAddressBook(addressBook, taskManager, addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
-                                Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager, Path filePath)
+            throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, taskManager, filePath);
     }

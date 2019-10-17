@@ -1,6 +1,6 @@
 package seedu.address.model.person;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.legacy.AddressBook;
 
 /**
  * Manages the customer list.
@@ -20,13 +20,13 @@ public class CustomerManager extends AddressBook {
      */
     public Customer getCustomer(int customerId) {
         Person foundCustomer = persons.asUnmodifiableObservableList()
-                                            .stream()
-                                            .filter(person -> {
-                                                Customer customer = (Customer) person;
-                                                return customer.getId() == customerId;
-                                            })
-                                            .findFirst()
-                                            .get();
+                .stream()
+                .filter(person -> {
+                    Customer customer = (Customer) person;
+                    return customer.getId() == customerId;
+                })
+                .findFirst()
+                .get();
         return (Customer) foundCustomer;
     }
 
@@ -37,10 +37,10 @@ public class CustomerManager extends AddressBook {
      */
     public boolean hasCustomer(int customerId) {
         return persons.asUnmodifiableObservableList()
-                        .stream()
-                        .anyMatch(person -> {
-                            Customer customer = (Customer) person;
-                            return customer.getId() == customerId;
-                        });
+                .stream()
+                .anyMatch(person -> {
+                    Customer customer = (Customer) person;
+                    return customer.getId() == customerId;
+                });
     }
 }

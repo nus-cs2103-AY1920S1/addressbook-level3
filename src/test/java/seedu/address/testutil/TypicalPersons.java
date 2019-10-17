@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.EntityManager;
+import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -64,6 +65,17 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
+        for (Person person : getTypicalPersons()) {
+            ab.addPerson(person);
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the typical persons.
+     */
+    public static EntityManager<Person> getTypicalPersonEntityManager() {
+        EntityManager<Person> ab = new EntityManager<>();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

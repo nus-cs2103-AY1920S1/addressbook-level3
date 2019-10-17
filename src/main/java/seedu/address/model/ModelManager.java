@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.legacy.AddressBook;
+import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerManager;
@@ -54,11 +56,10 @@ public class ModelManager implements Model {
         this.customerManager = new CustomerManager();
         this.driverManager = new DriverManager();
 
-        //temp
-        //to test the task commands
+        // temp
+        // to test the task commands
         Customer testCustomer = new Customer(new Name("Alesx Yeoh"), new Phone("87438807"),
-                new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
+                new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
         customerManager.addPerson(testCustomer);
     }
 
@@ -66,7 +67,8 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    // =========== UserPrefs
+    // ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -101,7 +103,8 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    // =========== AddressBook
+    // ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -137,7 +140,8 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //=========== Task Manager ===============================================================================
+    // =========== Task Manager
+    // ===============================================================================
     public void addTask(Task task) {
         taskManager.addTask(task);
     }
@@ -166,7 +170,8 @@ public class ModelManager implements Model {
         return taskManager.getTask(taskId);
     }
 
-    //=========== Customer Manager ===========================================================================
+    // =========== Customer Manager
+    // ===========================================================================
     public boolean hasCustomer(int customerId) {
         return customerManager.hasCustomer(customerId);
     }
@@ -175,13 +180,15 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
-    //=========== Driver Manager ===========================================================================
+    // =========== Driver Manager
+    // ===========================================================================
 
-    //=========== Filtered Person List Accessors =============================================================
+    // =========== Filtered Person List Accessors
+    // =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Person} backed by the
+     * internal list of {@code versionedAddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -208,8 +215,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
+        return addressBook.equals(other.addressBook) && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
 

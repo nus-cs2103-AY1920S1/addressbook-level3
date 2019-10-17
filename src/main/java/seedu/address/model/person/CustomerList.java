@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import seedu.address.model.legacy.UniquePersonList;
+
 /**
  * A list of customers that enforces uniqueness between its elements and does not allow nulls.
  * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
