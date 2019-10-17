@@ -751,4 +751,35 @@ public class ModelManager implements Model {
             logger.warning("Problem encountered updating model state history.");
         }
     }
+
+    /**
+     * This method will undo the effects of the previous command executed and return the state of
+     * the ModelManager to the state where the previous command executed is undone.
+     * @throws AlfredModelHistoryException
+     */
+    public void undo() throws AlfredModelHistoryException {
+        if (this.history.canUndo()) {
+            ModelHistoryRecord hr = this.history.undo();
+
+            //Set Last Used IDs for each of the EntityLists
+            ParticipantList.setLastUsedId(hr.getParticipantListLastUsedId());
+            MentorList.setLastUsedId(hr.getMentorListLastUsedId());
+            TeamList.setLastUsedId(hr.getTeamListLastUsedId());
+
+            //Update each of the EntityLists to the state in the ModelHistoryRecord hr
+            this.participantList = hr.getParticipantList();
+            this.mentorList = hr.getMentorList();
+            this.teamList = hr.getTeamList();
+
+            //Update each of the filteredEntityLists
+            this.filteredParticipantList =
+                    new FilteredList<>(this.participantList.getSpecificTypedList());
+            this.filteredMentorList =
+                    new FilteredList<>(this.mentorList.getSpecificTypedList());
+            this.filteredTeamList =
+                    new FilteredList<>(this.teamList.getSpecificTypedList());
+        } else {
+            throw new AlfredModelHistoryException("Unable to undo.");
+        }
+    }
 }

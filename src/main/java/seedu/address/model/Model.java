@@ -9,6 +9,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
@@ -174,4 +175,10 @@ public interface Model {
      * Updates the history of entity states with the current state (after execution of a command)
      */
     void updateHistory();
+
+    /**
+     * Undoes the effects of the previous command and returns the model to the state
+     * prior to the execution of the command.
+     */
+    void undo() throws AlfredModelHistoryException;
 }
