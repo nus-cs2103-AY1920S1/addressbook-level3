@@ -181,6 +181,19 @@ public class Person {
     }
 
     /**
+     * Update a visit in the patient's list of visits.
+     */
+    public void updateVisit(Visit target, Visit updatedVisit) {
+        requireAllNonNull(target, updatedVisit);
+        int indexOf = this.visits.indexOf(target);
+        if (indexOf > -1) {
+            this.visits.set(indexOf, updatedVisit);
+        } else {
+            throw new VisitNotFoundException();
+        }
+    }
+
+    /**
      * Get visit by index from the visit list.
      * Throws VisitNotFound Exception if visit not found.
      */

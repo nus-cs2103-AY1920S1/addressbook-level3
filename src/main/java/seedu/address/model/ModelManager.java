@@ -116,6 +116,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateOngoingVisit(Visit target, Visit updatedVisit) {
+        target.getPatient().updateVisit(target, updatedVisit);
+        setOngoingVisit(updatedVisit);
+    }
+
+    @Override
     public Optional<Visit> getOngoingVisit() {
         return addressBook.getOngoingVisit();
     }

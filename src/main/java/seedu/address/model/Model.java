@@ -58,8 +58,15 @@ public interface Model {
     /**
      * Record ongoing visit of person in the model.
      * This will be saved until the visit is finished.
+     * Ongoing visit must be from a Patient unmodified for this to work.
      */
     void setOngoingVisit(Visit visit);
+
+    /**
+     * Update an ongoing visit in the model. This will update the ongoing visit AND update the visit in the
+     * patient.
+     */
+    void updateOngoingVisit(Visit target, Visit updatedVisit);
 
     /**
      * Set the ongoing visit of person in the model to null.

@@ -84,9 +84,8 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
             throw new CommandException(MESSAGE_ONGOING_VISIT_NOT_MODIFIED);
         }
 
-        //model.setPerson();
-        //Todo: Update the visit in the person
-        model.setOngoingVisit(updatedVisit);
+        model.updateOngoingVisit(visitToUpdate, updatedVisit);
+
         return new CommandResult(String.format(MESSAGE_UPDATE_ONGOING_VISIT_SUCCESS, updatedVisit));
     }
 
