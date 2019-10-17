@@ -62,7 +62,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * First, *add* a food item into the menu by typing **`add n/Halal chicken rice p/3.00 d/chicken and rice c/Malay` and
-click kbd:[Enter].
+click kbd:[Enter]
 * You should see that a food item panel appear on the right of the window as shown below in Figure 1.2:
 
 image::Figure_1.2_mockup_add.png[width="790"]
