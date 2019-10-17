@@ -21,7 +21,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(model.getWatchList(), new UserPrefs());
+        model = new ModelManager(getTypicalWatchList(), new UserPrefs());
         expectedModel = new ModelManager(model.getWatchList(), new UserPrefs());
     }
 

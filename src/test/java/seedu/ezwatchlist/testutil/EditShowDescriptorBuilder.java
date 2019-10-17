@@ -29,6 +29,7 @@ public class EditShowDescriptorBuilder {
     public EditShowDescriptorBuilder(Show show) {
         descriptor = new EditShowDescriptor();
         descriptor.setName(show.getName());
+        descriptor.setType(show.getType());
         descriptor.setDescription(show.getDescription());
         descriptor.setIsWatched(show.isWatched());
         descriptor.setDateOfRelease(show.getDateOfRelease());
@@ -41,6 +42,14 @@ public class EditShowDescriptorBuilder {
      */
     public EditShowDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
+        return this;
+    }
+
+    /**
+     * Sets the {@code type} of the {@code EditShowDescriptor} that we are building.
+     */
+    public EditShowDescriptorBuilder withType(String type) {
+        descriptor.setType(type);
         return this;
     }
 

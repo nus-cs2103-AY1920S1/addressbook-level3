@@ -36,7 +36,7 @@ public class AddCommand extends Command {
             + PREFIX_IS_WATCHED + "true "
             + PREFIX_RUNNING_TIME + "122 "
             + PREFIX_DESCRIPTION + "Joker is funny "
-            + PREFIX_ACTOR + "Joaquin Phoenix"
+            + PREFIX_ACTOR + "Joaquin Phoenix "
             + PREFIX_ACTOR + "Robert De Niro";
 
     public static final String MESSAGE_SUCCESS = "New show added: %1$s";
