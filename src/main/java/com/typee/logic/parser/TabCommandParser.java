@@ -7,7 +7,6 @@ import com.typee.commons.core.Messages;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.Tab;
-import com.typee.ui.game.StartWindow;
 
 /**
  * Parses the given {@code String} of arguments in the context of the TabCommand
