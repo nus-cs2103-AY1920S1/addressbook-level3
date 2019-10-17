@@ -74,6 +74,10 @@ public class Expense {
         return archiveName;
     }
 
+    public CreatedDateTime getCreatedDateTime() {
+        return created;
+    }
+
     public boolean isArchived() {
         return !archiveName.equals("");
     }
