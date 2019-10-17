@@ -8,6 +8,7 @@ import java.util.Optional;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.LogicManager;
@@ -80,6 +81,10 @@ public class SwitchOperation {
      * of component currently saved as args
      */
     public void execute() {
+        Stage primaryStage = MainApp.getPrimary();
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+
         if (args.equals("quiz")) {
             Config config = MainApp.getConfig();
             UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(Paths.get("preferencesQuiz.json"));
@@ -90,6 +95,7 @@ public class SwitchOperation {
 
             quizModel = initModelManager(quizStorage, userPrefs);
             quizLogic = new LogicQuizManager(quizModel, quizStorage);
+            quizLogic.setGuiSettings(guiSettings);
             quizUi = new UiQuizManager(quizLogic);
             Stage stages = MainApp.getPrimary();
             quizUi.start(stages);
@@ -104,6 +110,7 @@ public class SwitchOperation {
                     new StorageManager(addressBookStorage, userCalendarPrefsStorage);
             calendarModel = initModelManager(calendarStorage, userCalendarPrefs);
             calendarLogic = new LogicManager(calendarModel, calendarStorage);
+            calendarLogic.setGuiSettings(guiSettings);
             calendarUi = new UiManager(calendarLogic);
             Stage stages = MainApp.getPrimary();
             calendarUi.start(stages);
@@ -118,6 +125,7 @@ public class SwitchOperation {
                     new FinanceStorageManager(financeLogStorage, userPrefsStorage);
             financeModel = initModelManager(financeStorage, userFinancePrefs);
             financeLogic = new LogicFinanceManager(financeModel, financeStorage);
+            financeLogic.setGuiSettings(guiSettings);
             financeUi = new UiFinanceManager(financeLogic);
             Stage stages = MainApp.getPrimary();
             financeUi.start(stages);
@@ -132,6 +140,7 @@ public class SwitchOperation {
                     new CapStorageManager(capLogStorage, userPrefsStorage);
             capModel = initModelManager(capStorage, userCapPrefs);
             capLogic = new LogicCapManager(capModel, capStorage);
+            capLogic.setGuiSettings(guiSettings);
             capUi = new UiCapManager(capLogic);
             Stage stages = MainApp.getPrimary();
             capUi.start(stages);

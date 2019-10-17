@@ -4,5 +4,5 @@
     "windowHeight" : 600.0,
     "windowCoordinates" : null
   },
-  "addressBookFilePath" : "data/addressbook.json"
+  "addressBookFilePath" : "data\\addressbook.json"
 }

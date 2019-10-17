@@ -6,7 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
+import seedu.address.model.quiz.person.Answer;
+import seedu.address.model.quiz.person.Category;
+import seedu.address.model.quiz.person.Name;
 import seedu.address.model.quiz.person.Question;
+import seedu.address.model.quiz.person.Type;
 import seedu.address.model.quiz.tag.Tag;
 
 /**
@@ -14,7 +18,20 @@ import seedu.address.model.quiz.tag.Tag;
  */
 public class SampleDataUtil {
     public static Question[] getSampleQuestions() {
-        return new Question[] {};
+        return new Question[] {
+            new Question(new Name("What is always coming, but never arrives?"), new Answer("Tomorrow"),
+                new Category("CS2131"), new Type("high"),
+                getTagSet("lecture")),
+            new Question(new Name("In which year did NUS founded?"), new Answer("1905"), new Category("Random"),
+                new Type("low"),
+                getTagSet("general", "trivia")),
+            new Question(new Name("What is always coming, but never arrives?"), new Answer("Tomorrow"),
+                new Category("CS2132"), new Type("medium"),
+                getTagSet("tutorial")),
+            new Question(new Name("In which year did NUS founded?"), new Answer("1905"), new Category("Random"),
+                new Type("high"),
+                getTagSet("trivia"))
+        };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
