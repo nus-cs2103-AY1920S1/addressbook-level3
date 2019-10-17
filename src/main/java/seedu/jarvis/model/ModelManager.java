@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
@@ -491,6 +492,7 @@ public class ModelManager implements Model {
         return planner.hasTask(t);
     }
 
+    //TODO jdocs
     @Override
     public Planner getPlanner() {
         return planner;
@@ -505,4 +507,17 @@ public class ModelManager implements Model {
     public boolean isEqual(Planner other) {
         return this.planner.isEqual(other);
     }
+
+    //TODO test
+    @Override
+    public Task getTask(Index index) {
+        return planner.getTask(index);
+    }
+
+    //TODO test
+    @Override
+    public void deleteTask(Index index) {
+        planner.deleteTask(index);
+    }
+
 }

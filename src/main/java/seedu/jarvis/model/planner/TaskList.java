@@ -2,6 +2,7 @@ package seedu.jarvis.model.planner;
 
 import java.util.ArrayList;
 
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
 /**
@@ -67,6 +68,34 @@ public class TaskList {
         }
 
         return true;
+    }
+
+    /**
+     * Retrieves a task from the taskList
+     * @param index index of the task that is being retrieved
+     * @return the task at that particular index
+     */
+    //TODO test
+    public Task getTask(Index index) {
+        return tasks.get(index.getZeroBased());
+    }
+
+    /**
+     * Retrieves the number of tasks in the taskList
+     * @return the size of the taskList, i.e. the number of tasks in the taskList
+     */
+    //TODO test
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
+     * Removes the tasks at the specified index
+     * @param index the index of that task that is being removed
+     */
+    //TODO test
+    public void deleteTask(Index index) {
+        tasks.remove(index.getZeroBased());
     }
 
 }

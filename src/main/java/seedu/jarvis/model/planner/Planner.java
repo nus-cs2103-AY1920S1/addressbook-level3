@@ -2,6 +2,7 @@ package seedu.jarvis.model.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
 /**
@@ -73,5 +74,26 @@ public class Planner {
     public boolean isEqual(Planner other) {
         requireNonNull(other);
         return this.taskList.isEqual(other.getTasks());
+    }
+
+    /**
+     * Retrieves the task at the specified index
+     *
+     * @param index index of the task that is being retrieved
+     * @return the task at the specified index
+     */
+    //TODO test
+    public Task getTask(Index index) {
+        return taskList.getTask(index);
+    }
+
+    /**
+     * Deletes the task at the specified index
+     *
+     * @param index index of the task to be deleted
+     */
+    //TODO test
+    public void deleteTask(Index index) {
+        taskList.deleteTask(index);
     }
 }

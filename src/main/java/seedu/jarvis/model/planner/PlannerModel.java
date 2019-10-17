@@ -1,5 +1,6 @@
 package seedu.jarvis.model.planner;
 
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
 /**
@@ -47,4 +48,19 @@ public interface PlannerModel {
      * @return true if the planners are equal, false if they are not
      */
     boolean isEqual(Planner other);
+
+    /**
+     * Retrieves the task at the specified index
+     *
+     * @param index index of the task that is being retrieved
+     * @return the task at the specified index
+     */
+    Task getTask(Index index);
+
+    /**
+     * Deletes the task at the specified index
+     *
+     * @param index index of the task to be deleted
+     */
+    void deleteTask(Index index);
 }
