@@ -15,11 +15,13 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.notification.NotificationChecker;
 import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.listeners.EventListListener;
 import seedu.address.model.person.Person;
+import seedu.address.ui.systemtray.PopupNotification;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +31,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UndoableHistory undoableHistory;
+    private final NotificationChecker notificationChecker;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -48,6 +51,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.undoableHistory = new UndoableHistory(eventList);
+        this.notificationChecker = new NotificationChecker(eventList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
@@ -277,4 +281,11 @@ public class ModelManager implements Model {
         undoableHistory.clearFutureHistory();
     }
 
+
+    //=========== Notification ===================================================================================
+
+    @Override
+    public ArrayList<PopupNotification> getListOfPopupNotifications() {
+        return notificationChecker.getListOfPopupNotifications();
+    }
 }

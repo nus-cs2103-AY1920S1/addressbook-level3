@@ -42,6 +42,15 @@ public class EventSource {
         this.end = oldEventSource.end;
     }
 
+    /**
+     * Checks if a particular instance EventSource should have its notification posted now.
+     *
+     * @return <code>true</code> if the EventSource's notification timing matches the current notification timing.
+     */
+    public boolean notificationTimeMatchesCurrentTime() {
+        return start.equalsPrecisionMinute(DateTime.now());
+    }
+
     public String getDescription() {
         return description;
     }
