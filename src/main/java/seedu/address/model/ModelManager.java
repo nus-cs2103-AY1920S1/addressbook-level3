@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,7 +36,6 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
-
     private Optional<Borrower> servingBorrower;
 
     /**
@@ -307,5 +309,19 @@ public class ModelManager implements Model {
     @Override
     public void exitsServeMode() {
         this.servingBorrower = Optional.empty();
+    }
+
+    @Override
+    public List<Book> getBorrowerBooks() {
+        assert(isServeMode());
+
+        ArrayList<Loan> loans = new ArrayList<>();
+        servingBorrower.get()
+                .getCurrentLoanList()
+                .forEach(loan -> loans.add(loan));
+        return loans.stream()
+                .map(loan -> loan.getBookSerialNumber())
+                .map(sn -> catalog.getBook(sn))
+                .collect(Collectors.toList());
     }
 }

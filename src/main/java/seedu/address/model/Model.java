@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -150,5 +151,7 @@ public interface Model {
     boolean hasBorrowerId(BorrowerId borrowerId);
 
     void exitsServeMode();
+
+    List<Book> getBorrowerBooks();
 
 }
