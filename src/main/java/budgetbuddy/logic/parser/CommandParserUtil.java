@@ -70,14 +70,26 @@ public class CommandParserUtil {
     public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!StringUtil.isNonNegativeUnsignedLong(trimmedAmount)) {
+
+        String[] dollarCentArray = trimmedAmount.split("\\.");
+        if (dollarCentArray.length < 1) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        String[] dollarCentArray = trimmedAmount.split("\\.");
-        Long parsedDollars = Long.parseLong(dollarCentArray[0]) * 100L;
+
+        Long parsedDollars;
+        if (StringUtil.isNonNegativeUnsignedLong(dollarCentArray[0])) {
+            parsedDollars = Long.parseLong(dollarCentArray[0]) * 100L;
+        } else {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+
         Long parsedCents = 0L;
         if (dollarCentArray.length > 1) {
-            parsedCents = Long.parseLong(dollarCentArray[1]);
+            if (StringUtil.isNonNegativeUnsignedLong(dollarCentArray[1])) {
+                parsedCents = Long.parseLong(dollarCentArray[1]);
+            } else {
+                throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+            }
         }
 
         return new Amount(parsedDollars + parsedCents);

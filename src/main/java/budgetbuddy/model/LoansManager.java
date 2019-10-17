@@ -38,7 +38,6 @@ public class LoansManager {
     /**
      * Retrieves the list of persons.
      */
-    // TODO Probably need to change this to work with the UI.
     public ObservableList<Person> getPersonsList() {
         return persons.asUnmodifiableObservableList();
     }
