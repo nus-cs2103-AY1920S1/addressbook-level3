@@ -135,7 +135,7 @@ public class ParserUtilTest {
     public void parseDate_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
     }
-    
+
     @Test
     public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
         Date expectedDate = new Date(VALID_DATE);
