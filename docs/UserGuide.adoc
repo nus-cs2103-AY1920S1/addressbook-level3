@@ -75,7 +75,7 @@ Format: `add|<item name>|<expiry date>`
 
 Examples:
 
-* `add|durian|30/09/2019` (without tags) +
+* `add|durian|30/9/2019` (without tags) +
 Adds the item `durian` with expiry date `30/9/2019`
 
 //* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
@@ -83,7 +83,7 @@ Adds the item `durian` with expiry date `30/9/2019`
 === Listing all items : `view`
 
 Shows all items in the list. +
-All items are sorted automatically by name then date in chronological order. +
+All items are sorted by both name (lexicographical order) and date (chronological order). +
 Format: `view`
 
 === Setting reminder for an item: `set reminder`
@@ -153,7 +153,7 @@ Sorts all items in the list by either name or date. +
 Format: `sort|<key>`
 
 ****
-* Sorting by both name and date is done in ascending order.
+* Items are sorted by both name (lexicographical order) and date (chronological order).
 * For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
 ****
 
