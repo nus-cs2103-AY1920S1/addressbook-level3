@@ -23,7 +23,7 @@ public class DirectoryPath {
      * ~\/-_!:[]()
      * Space is allowed.
      */
-    public static final String VALIDATION_REGEX = "[~\\w\\-!:\\[\\]()/\\\\ ]+\\";
+    public static final String VALIDATION_REGEX = "[~.\\w\\-!:\\[\\]()/\\\\ ]+";
 
     private final Path path;
 

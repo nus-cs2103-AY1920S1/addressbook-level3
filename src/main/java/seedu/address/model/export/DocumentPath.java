@@ -5,6 +5,7 @@ package seedu.address.model.export;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -25,9 +26,10 @@ public class DocumentPath {
      * Space is allowed.
      * DocumentPath is required to end with the String: ".docx"
      */
-    public static final String VALIDATION_REGEX = "[~\\w\\-!:\\[\\]()/\\\\ ]+\\.docx";
+    public static final String VALIDATION_REGEX = "[.~\\w\\-!:\\[\\]()/\\\\ ]+\\.docx";
 
-    private final Path path;
+    private final DirectoryPath directoryPath;
+    private final DocumentFilePath documentFilePath;
 
     /**
      * Constructs a {@code DocumentPath}.
@@ -37,7 +39,8 @@ public class DocumentPath {
     public DocumentPath(String documentPath) {
         requireNonNull(documentPath);
         checkArgument(isValidDocumentPath(documentPath), MESSAGE_CONSTRAINTS);
-        path = Paths.get(documentPath);
+        this.directoryPath = extractDirectoryPath(documentPath);
+        this.documentFilePath = extractDocumentFilePath(documentPath);
     }
 
     /**
@@ -47,22 +50,48 @@ public class DocumentPath {
         return test.matches(VALIDATION_REGEX);
     }
 
+    private static DirectoryPath extractDirectoryPath(String documentPathString) {
+        Path fullPath = Paths.get(documentPathString);
+        int nameCount = fullPath.getNameCount();
+
+        if (nameCount == 1) {
+            return new DirectoryPath("./");
+        }
+
+        return new DirectoryPath(
+                fullPath
+                .subpath(0, nameCount - 1)
+                .toString()
+        );
+    }
+
+    private static DocumentFilePath extractDocumentFilePath(String documentFilePathString) {
+        Path fullPath = Paths.get(documentFilePathString);
+        int nameCount = fullPath.getNameCount();
+
+        return new DocumentFilePath(
+                fullPath
+                .subpath(nameCount - 1, nameCount)
+                .toString()
+        );
+    }
 
     @Override
     public String toString() {
-        return path.toString();
+        return directoryPath.toString() + File.separator + documentFilePath.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DocumentPath // instanceof handles nulls
-                && path.equals(((DocumentPath) other).path)); // state check
+                && directoryPath.equals(((DocumentPath) other).directoryPath)
+                && documentFilePath.equals(((DocumentPath) other).documentFilePath)); // state check
     }
 
     @Override
     public int hashCode() {
-        return path.hashCode();
+        return directoryPath.hashCode() + documentFilePath.hashCode();
     }
 
 }
