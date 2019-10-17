@@ -3,6 +3,7 @@ package seedu.ezwatchlist.logic.commands;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showShowAtIndex;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalWatchList(), new UserPrefs());
+        model = new ModelManager(model.getWatchList(), new UserPrefs());
         expectedModel = new ModelManager(model.getWatchList(), new UserPrefs());
     }
 /*

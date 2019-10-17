@@ -5,7 +5,6 @@ import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_SHOW_DISPL
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
-import static seedu.ezwatchlist.testutil.TypicalShows.ANNABELLE;
 import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
 
 import java.io.IOException;

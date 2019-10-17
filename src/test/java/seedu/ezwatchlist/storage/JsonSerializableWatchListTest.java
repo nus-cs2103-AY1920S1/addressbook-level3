@@ -19,32 +19,29 @@ public class JsonSerializableWatchListTest {
     private static final Path TYPICAL_SHOWS_FILE = TEST_DATA_FOLDER.resolve("typicalShowsWatchList.json");
     private static final Path INVALID_SHOW_FILE = TEST_DATA_FOLDER.resolve("invalidShowWatchList.json");
     private static final Path DUPLICATE_SHOW_FILE = TEST_DATA_FOLDER.resolve("duplicateShowWatchList.json");
-/*
-    @Test
-    public void toModelType_typicalActorsFile_success() throws Exception {
-        /*JsonSerializableWatchList dataFromFile = JsonUtil.readJsonFile(TYPICAL_SHOWS_FILE,
-                JsonSerializableWatchList.class).get();
-        WatchList watchListFromFile = dataFromFile.toModelType();
-        WatchList typicalShowsWatchList = TypicalShows.getTypicalWatchList();
-        assertEquals(watchListFromFile, typicalShowsWatchList);
-         */
-    }
-*/
+    /*
+        @Test
+        public void toModelType_typicalActorsFile_success() throws Exception {
+            JsonSerializableWatchList dataFromFile = JsonUtil.readJsonFile(TYPICAL_SHOWS_FILE,
+                    JsonSerializableWatchList.class).get();
+            WatchList watchListFromFile = dataFromFile.toModelType();
+            WatchList typicalShowsWatchList = TypicalShows.getTypicalWatchList();
+            assertEquals(watchListFromFile, typicalShowsWatchList);
+        }
+    */
     @Test
     public void toModelType_invalidShowFile_throwsIllegalValueException() throws Exception {
-        /*JsonSerializableWatchList dataFromFile = JsonUtil.readJsonFile(INVALID_SHOW_FILE,
+        JsonSerializableWatchList dataFromFile = JsonUtil.readJsonFile(INVALID_SHOW_FILE,
                 JsonSerializableWatchList.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
-         */
     }
 
     @Test
     public void toModelType_duplicateShows_throwsIllegalValueException() throws Exception {
-        /*JsonSerializableWatchList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_SHOW_FILE,
+        JsonSerializableWatchList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_SHOW_FILE,
                 JsonSerializableWatchList.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableWatchList.MESSAGE_DUPLICATE_SHOW,
                 dataFromFile::toModelType);
-         */
     }
 
 }
