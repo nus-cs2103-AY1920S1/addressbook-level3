@@ -60,7 +60,14 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveFileBook(model.getFileBook());
+            switch (mode) {
+            case "file":
+                storage.saveFileBook(model.getFileBook());
+                break;
+            default:
+                storage.saveAddressBook(model.getAddressBook());
+                break;
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
