@@ -1,11 +1,14 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.food.Food;
+import seedu.address.model.food.GroceryItem;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -31,6 +34,10 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label amount;
+    @FXML
+    private Label expiryDate;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Food food, int displayedIndex) {
@@ -38,9 +45,12 @@ public class PersonCard extends UiPart<Region> {
         this.food = food;
         id.setText(displayedIndex + ". ");
         name.setText(food.getName().fullName);
-        //food.getTags().stream()
-        //       .sorted(Comparator.comparing(tag -> tag.tagName))
-        //       .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        expiryDate.setText(((GroceryItem) food).getExpiryDate().expiryDate);
+        amount.setText(food.getAmount().fullAmt);
+        GroceryItem groceryItem = (GroceryItem) food;
+        groceryItem.getTags().stream()
+              .sorted(Comparator.comparing(tag -> tag.tagName))
+               .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
