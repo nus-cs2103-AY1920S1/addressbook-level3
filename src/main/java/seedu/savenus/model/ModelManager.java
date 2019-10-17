@@ -289,4 +289,9 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredFoods.equals(other.filteredFoods);
     }
+
+    @Override
+    public List<String> getCommandHistory() {
+        return CommandHistory.getCommandHistory();
+    }
 }

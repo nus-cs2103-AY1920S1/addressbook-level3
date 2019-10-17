@@ -19,11 +19,13 @@ import seedu.savenus.logic.commands.ExitCommand;
 import seedu.savenus.logic.commands.FilterCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
+import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.SortCommand;
+
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
 /**
@@ -94,6 +96,10 @@ public class MenuParser {
 
         case DefaultCommand.COMMAND_WORD:
             return new DefaultCommand();
+
+        case HistoryCommand.COMMAND_ALIAS:
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
