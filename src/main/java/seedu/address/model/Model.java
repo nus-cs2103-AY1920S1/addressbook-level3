@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.UniqueTemplateItems;
+import seedu.address.model.waste.WasteMonth;
 
 /**
  * The API of the Model component.
@@ -16,6 +18,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<GroceryItem> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<UniqueTemplateItems> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
+    Predicate<GroceryItem> PREDICATE_SHOW_ALL_WASTE_ITEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -151,4 +154,42 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate);
+
+    //=========== WasteList ==================================================================================
+    /**
+     * Returns the user prefs' waste list file path.
+     */
+    Path getWasteListFilePath();
+
+    /**
+     * Sets the user prefs' waste list file path.
+     */
+    void setWasteListFilePath(Path wasteListFilePath);
+
+    /**
+     * Replaces waste list data with the data in {@code wasteList}.
+     */
+    void setWasteList(ReadOnlyWasteList wasteList);
+
+    /** Returns the WasteList */
+    ReadOnlyWasteList getWasteList();
+
+    /** Returns the WasteList for a given month */
+    ReadOnlyWasteList getWasteListByMonth(WasteMonth wasteMonth);
+
+    /**
+     * Adds the given waste item.
+     */
+    void addWasteItem(GroceryItem toAdd);
+
+    /** Returns an unmodifiable view of the filtered waste list */
+    ObservableList<GroceryItem> getFilteredWasteItemList();
+
+    /** Returns an unmodifiable view of a specific month's filtered waste list */
+    ObservableList<GroceryItem> getFilteredWasteItemListByMonth(WasteMonth wasteMonth);
+
+    public Set<WasteMonth> getListOfWasteMonths();
+
+    void updateFilteredWasteItemList(WasteMonth wasteMonth);
+
 }

@@ -1,7 +1,5 @@
 package seedu.address.model.util;
 
-import static seedu.address.model.WasteList.addFoodItemToArchive;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
@@ -10,7 +8,9 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTemplateList;
+import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.TemplateList;
+import seedu.address.model.WasteList;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.ExpiryDate;
 import seedu.address.model.food.Food;
@@ -163,15 +163,25 @@ public class SampleDataUtil {
 
         WasteMonth[] wasteMonths = getSampleWasteMonths();
         GroceryItem[] wasteItems = getSampleWasteItems();
-
-        // Populate current month data
-
         // Populate historical data
         for (int i = 0; i < 12; i++) {
             for (int j = i * 3; j < i * 3 + 3; j++) {
-                addFoodItemToArchive(wasteItems[j], wasteMonths[i]);
+                WasteList.addFoodItemToArchive(wasteItems[j], wasteMonths[i]);
             }
         }
+    }
+
+    public static ReadOnlyWasteList getSampleWasteList() {
+        /*
+        WasteList sampleWl = new WasteList();
+        GroceryItem[] sampleWasteItems = getSampleWasteItems();
+        for (GroceryItem wasteItem : sampleWasteItems) {
+            sampleWl.addWasteItem(wasteItem);
+        }
+        return sampleWl;
+
+         */
+        return WasteList.getCurrentWasteList();
     }
 
     // =============================== Template List Sample =============================== //

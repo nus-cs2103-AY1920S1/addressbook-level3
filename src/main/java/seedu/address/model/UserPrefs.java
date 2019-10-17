@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path templateListFilePath = Paths.get("data" , "templateList.json");
+    private Path wasteListFilePath = Paths.get("data", "wastelist.json");
     private IFridgeSettings iFridgeSettings = new IFridgeSettings();
 
 
@@ -80,6 +81,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.templateListFilePath = templateListFilePath;
     }
 
+    public Path getWasteListFilePath() {
+        return wasteListFilePath;
+    }
+
+    public void setWasteListFilePath(Path wasteListFilePath) {
+        requireNonNull(wasteListFilePath);
+        this.wasteListFilePath = wasteListFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -110,5 +120,4 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal data file location (TemplateList): " + templateListFilePath);
         return sb.toString();
     }
-
 }

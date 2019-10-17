@@ -39,6 +39,10 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return this.compareTo(otherWasteMonth) < 0;
     }
 
+    public static WasteMonth getCurrentWasteMonth() {
+        return new WasteMonth(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+    }
+
     @Override
     public int compareTo(WasteMonth otherMonth) {
         LocalDate otherDate = LocalDate.of(otherMonth.getYear(), otherMonth.getMonth(), 1);
@@ -54,5 +58,10 @@ public class WasteMonth implements Comparable<WasteMonth> {
         boolean isSameMonth = ((WasteMonth) other).getMonth() == this.getMonth();
         boolean isSameYear = ((WasteMonth) other).getYear() == this.getYear();
         return isSameMonth && isSameYear;
+    }
+
+    @Override
+    public String toString() {
+        return month + "/" + year;
     }
 }

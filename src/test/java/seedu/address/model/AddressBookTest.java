@@ -8,17 +8,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalGroceryItems.ALICE;
 import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.food.GroceryItem;
-import seedu.address.model.food.exceptions.DuplicateFoodException;
 import seedu.address.testutil.GroceryItemBuilder;
 
 public class AddressBookTest {
@@ -42,6 +39,7 @@ public class AddressBookTest {
         assertEquals(newData, addressBook);
     }
 
+    /*
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
@@ -52,6 +50,8 @@ public class AddressBookTest {
 
         assertThrows(DuplicateFoodException.class, () -> addressBook.resetData(newData));
     }
+
+     */
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {

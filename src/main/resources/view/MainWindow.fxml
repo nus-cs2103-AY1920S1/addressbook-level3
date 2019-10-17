@@ -58,13 +58,22 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
           <VBox fx:id="templateList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+          <children>
+            <Label text="Template List"></Label>
+          </children>
+          <padding>
+            <Insets top="10" right="10" bottom="10" left="10" />
+          </padding>
+          <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+        </VBox>
+          <VBox fx:id="wasteList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
             <children>
-              <Label text="Template List"></Label>
+              <Label text="Waste List"></Label>
             </children>
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="wasteListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
         </SplitPane>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

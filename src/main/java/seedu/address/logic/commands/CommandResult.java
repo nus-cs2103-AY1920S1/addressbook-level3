@@ -17,6 +17,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private boolean isTemplatelistCommand;
+    private boolean isWastelistCommand;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -44,6 +47,22 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isTemplatelistCommand() {
+        return isTemplatelistCommand;
+    }
+
+    public void setTemplatelistCommand() {
+        isTemplatelistCommand = true;
+    }
+
+    public boolean isWastelistCommand() {
+        return isWastelistCommand;
+    }
+
+    public void setWastelistCommand() {
+        isWastelistCommand = true;
     }
 
     @Override

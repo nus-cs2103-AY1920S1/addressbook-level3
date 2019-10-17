@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
+import static seedu.address.testutil.TypicalWasteList.getTypicalWasteList;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -18,7 +19,8 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+                getTypicalWasteList());
     }
 
     /*@Test

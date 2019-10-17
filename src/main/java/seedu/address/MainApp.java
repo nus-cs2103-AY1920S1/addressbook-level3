@@ -21,8 +21,10 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.TemplateList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.WasteList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -32,6 +34,8 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TemplateListStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.wastelist.JsonWasteListStorage;
+import seedu.address.storage.wastelist.WasteListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -62,7 +66,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TemplateListStorage templateListStorage = new JsonTemplateItemStorage(userPrefs.getTemplateListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage);
+        WasteListStorage wasteListStorage = new JsonWasteListStorage(userPrefs.getWasteListFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage, wasteListStorage);
 
         initLogging(config);
 
@@ -79,13 +84,18 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTemplateList> templateListOptional;
+        Optional<ReadOnlyWasteList> wasteListOptional;
         ReadOnlyAddressBook initialAddressBookData;
         ReadOnlyTemplateList initialTemplateListData;
+        ReadOnlyWasteList initialWasteListData;
+
         try {
             addressBookOptional = storage.readAddressBook();
             templateListOptional = storage.readTemplateList();
+            wasteListOptional = storage.readWasteList();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
@@ -104,7 +114,28 @@ public class MainApp extends Application {
             initialTemplateListData = new TemplateList();
         }
 
-        return new ModelManager(initialAddressBookData, userPrefs, initialTemplateListData);
+        //For now, will demo with sample data first.
+        WasteList.initialiseWasteArchive();
+        SampleDataUtil.setSampleWasteItems();
+        initialWasteListData = SampleDataUtil.getSampleWasteList();
+
+        /*
+        try {
+            wasteListOptional = storage.readWasteList();
+            if (!wasteListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample WasteList");
+            }
+            initialWasteListData = wasteListOptional.orElseGet(SampleDataUtil::getSampleWasteList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty WasteList");
+            initialWasteListData = new WasteList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty WasteList");
+            initialWasteListData = new WasteList();
+        }
+         */
+
+        return new ModelManager(initialAddressBookData, userPrefs, initialTemplateListData, initialWasteListData);
     }
 
     private void initLogging(Config config) {

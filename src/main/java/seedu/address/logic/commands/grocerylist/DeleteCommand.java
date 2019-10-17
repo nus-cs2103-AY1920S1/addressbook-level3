@@ -40,6 +40,9 @@ public class DeleteCommand extends Command {
         }
 
         GroceryItem foodToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (!foodToDelete.isEmpty()) {
+            model.addWasteItem(foodToDelete);
+        }
         model.deleteGroceryItem(foodToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_GROCERY_ITEM_SUCCESS, foodToDelete));
     }

@@ -1,9 +1,12 @@
 package seedu.address.logic.commands.wastelist;
 
+import java.util.Set;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.waste.WasteMonth;
 
 /**
  * Generates a report of user's food waste for a specified time frame.
@@ -26,10 +29,15 @@ public class ReportWasteCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+
+        Set<WasteMonth> wasteMonths = model.getListOfWasteMonths();
+        for (WasteMonth wm : wasteMonths) {
+
+        }
         /*
         When TreeMap is initialized, iterate through the TreeMap:
             For each month (WasteMonth):
-                Get the wasteList (in format UniqueFoodList)
+                Get the wasteList
                 Compute waste statistics for the month
                 "print" the month statistics (you'll need to implement something
                 similar to a personcard to display to the Ui)

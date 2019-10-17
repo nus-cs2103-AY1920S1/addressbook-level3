@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTemplateList;
+import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.storage.Storage;
@@ -83,6 +84,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getTemplateListFilePath() {
         return model.getTemplateListFilePath();
+    }
+
+    @Override
+    public ReadOnlyWasteList getWasteList() {
+        return model.getWasteList();
+    }
+
+    @Override
+    public ObservableList<GroceryItem> getFilteredWasteList() {
+        return model.getFilteredWasteItemList();
+    }
+
+    @Override
+    public Path getWasteListFilePath() {
+        return model.getWasteListFilePath();
     }
 
     @Override

@@ -15,4 +15,6 @@ public interface ReadOnlyUserPrefs {
     IFridgeSettings getIFridgeSettings();
 
     Path getAddressBookFilePath();
+
+    Path getWasteListFilePath();
 }

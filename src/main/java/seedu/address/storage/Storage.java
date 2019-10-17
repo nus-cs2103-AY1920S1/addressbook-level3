@@ -8,12 +8,14 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.wastelist.WasteListStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, TemplateListStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, TemplateListStorage, WasteListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -38,5 +40,14 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, TemplateL
 
     @Override
     void saveTemplateList(ReadOnlyTemplateList templateList) throws IOException;
+
+    @Override
+    Path getWasteListFilePath();
+
+    @Override
+    Optional<ReadOnlyWasteList> readWasteList() throws DataConversionException, IOException;
+
+    @Override
+    void saveWasteList(ReadOnlyWasteList wasteList) throws IOException;
 
 }
