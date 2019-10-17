@@ -3,8 +3,10 @@ package seedu.jarvis.model.cca;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -16,7 +18,9 @@ import seedu.jarvis.model.cca.exceptions.DuplicateCcaException;
  */
 public class CcaList {
 
-    private ArrayList<Cca> internalCcaList = new ArrayList<>();
+    private ObservableList<Cca> internalCcaList = FXCollections.observableArrayList();
+    private final ObservableList<Cca> internalUnmodifiableCcaList =
+            FXCollections.unmodifiableObservableList(internalCcaList);
 
     /**
      * Default constructor to be used when JARVIS starts up.
@@ -30,11 +34,30 @@ public class CcaList {
      *
      * @param internalCcaList
      */
-    public CcaList(ArrayList<Cca> internalCcaList) {
+    public CcaList(ObservableList<Cca> internalCcaList) {
         requireNonNull(internalCcaList);
         this.internalCcaList = internalCcaList;
     }
 
+    //// list overwrite operations
+    public void setCcas(List<Cca> ccaList) {
+        requireAllNonNull(ccaList);
+
+        internalCcaList.setAll(ccaList);
+    }
+
+    public ObservableList<Cca> getInternalCcaList() {
+        return internalCcaList;
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Cca> asUnmodifiableObservableList() {
+        return internalUnmodifiableCcaList;
+    }
+
+    /// Getters and setter
     /**
      * Returns the {@Cca} based on its {@code index}
      *

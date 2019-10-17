@@ -83,7 +83,7 @@ public class AddCcaCommandTest {
         }
 
         @Override
-        public boolean hasCca(Cca cca) {
+        public boolean contains(Cca cca) {
             requireNonNull(cca);
             return this.cca.isSameCca(cca);
         }
@@ -96,7 +96,7 @@ public class AddCcaCommandTest {
         private final CcaList ccaList = new CcaList();
 
         @Override
-        public boolean hasCca(Cca cca) {
+        public boolean contains(Cca cca) {
             requireNonNull(cca);
             return ccaList.contains(cca);
         }

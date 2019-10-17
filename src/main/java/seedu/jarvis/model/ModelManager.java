@@ -435,8 +435,8 @@ public class ModelManager implements Model {
     //=========== Cca Tracker ================================================================================
 
     @Override
-    public void contains(Cca cca) {
-
+    public boolean contains(Cca cca) {
+        return ccaTracker.contains(cca);
     }
 
     @Override
@@ -447,19 +447,14 @@ public class ModelManager implements Model {
 
     @Override
     public void removeCca(Cca cca) {
-
+        requireNonNull(cca);
+        ccaTracker.removeCca(cca);
     }
 
     @Override
     public void updateCca(Cca toBeUpdatedCca, Cca updatedCca) {
-
-    }
-
-    @Override
-    public boolean hasCca(Cca cca) {
-        requireNonNull(cca);
-
-        return ccaTracker.contains(cca);
+        requireAllNonNull(toBeUpdatedCca, updatedCca);
+        ccaTracker.updateCca(toBeUpdatedCca, updatedCca);
     }
 
     @Override
@@ -477,6 +472,17 @@ public class ModelManager implements Model {
         requireNonNull(index.getZeroBased());
         return ccaTracker.getCca(index);
     }
+
+    @Override
+    public void updateFilteredCcaList(Predicate<Cca> predicate) {
+        ccaTracker.updateFilteredCcaList(predicate);
+    };
+
+    @Override
+    public ObservableList<Cca> getFilteredCcaList() {
+        return ccaTracker.getFilteredCcaList();
+    }
+
 
     //=========== Planner =============================================================
 

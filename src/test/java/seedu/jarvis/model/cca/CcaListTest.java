@@ -96,10 +96,28 @@ public class CcaListTest {
         assertEquals(expectedCcaList, ccaList);
     }
 
-    //    @Test
-    //    public void setCca_editedCcaHasNonUniqueIdentity_throwsDuplicateCcaException() {
-    //        ccaList.addCca(CANOEING);
-    //        ccaList.addCca(GUITAR_ENSEMBLE);
-    //        assertThrows(DuplicateCcaException.class, () -> ccaList.updateCca(CANOEING, GUITAR_ENSEMBLE));
-    //    }
+    @Test
+    public void setCca_editedCcaHasNonUniqueIdentity_throwsDuplicateCcaException() {
+        ccaList.addCca(CANOEING);
+        ccaList.addCca(GUITAR_ENSEMBLE);
+        assertThrows(DuplicateCcaException.class, () -> ccaList.updateCca(CANOEING, GUITAR_ENSEMBLE));
+    }
+
+    @Test
+    public void remove_nullCca_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ccaList.removeCca(null));
+    }
+
+    @Test
+    public void remove_ccaDoesNotExist_throwsCcaNotFoundException() {
+        assertThrows(CcaNotFoundException.class, () -> ccaList.removeCca(CANOEING));
+    }
+
+    @Test
+    public void remove_existingCca_removesCca() {
+        ccaList.addCca(CANOEING);
+        ccaList.removeCca(CANOEING);
+        CcaList expectedCcaList = new CcaList();
+        assertEquals(expectedCcaList, ccaList);
+    }
 }

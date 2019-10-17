@@ -62,7 +62,7 @@ public class AddCcaCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasCca(toAddCca)) {
+        if (model.contains(toAddCca)) {
             throw new CommandException(MESSAGE_DUPLICATE_CCA);
         }
 
