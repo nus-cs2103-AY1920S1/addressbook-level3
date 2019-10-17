@@ -64,6 +64,8 @@ class AssignPolicyCommandTest {
                 model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showPolicyAtIndex(expectedModel, INDEX_SECOND_POLICY);
         expectedModel.setPerson(model.getFilteredPersonList().get(0), assignedPerson);
 
         assertCommandSuccess(assignPolicyCommand, model, expectedMessage, expectedModel);

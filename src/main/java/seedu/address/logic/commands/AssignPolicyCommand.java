@@ -34,7 +34,7 @@ public class AssignPolicyCommand extends Command {
 
     public static final String MESSAGE_ASSIGN_POLICY_SUCCESS = "Assigned Policy: %1$s to Person: %2$s";
     public static final String MESSAGE_ALREADY_ASSIGNED = "Person: %1$s already has the Policy: %2$s.";
-    public static final String MESSAGE_POLICY_NOT_FOUND = "Policy: %1$s not found in address book.";
+    public static final String MESSAGE_POLICY_NOT_FOUND = "Policy: %1$s not found in the list of policies.";
 
     private final PolicyName policyName;
     private final Index personIndex;
@@ -75,8 +75,6 @@ public class AssignPolicyCommand extends Command {
         Person assignedPerson = new PersonBuilder(person).addPolicies(copyPolicy).build();
 
         model.setPerson(person, assignedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
         return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS,
                 policy.getName(), assignedPerson.getName()));
     }

@@ -33,7 +33,7 @@ public class UnassignPolicyCommand extends Command {
 
     public static final String MESSAGE_UNASSIGN_POLICY_SUCCESS = "Unassigned Policy: %1$s from Person: %2$s";
     public static final String MESSAGE_ALREADY_UNASSIGNED = "Person: %1$s does not have the Policy: %2$s.";
-    public static final String MESSAGE_POLICY_NOT_FOUND = "Policy: %1$s not found in address book.";
+    public static final String MESSAGE_POLICY_NOT_FOUND = "Policy: %1$s not found in list of policies.";
 
 
     private final Index personIndex;
@@ -74,8 +74,6 @@ public class UnassignPolicyCommand extends Command {
         Person assignedPerson = new PersonBuilder(person).removePolicies(policy).build();
 
         model.setPerson(person, assignedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
         return new CommandResult(String.format(MESSAGE_UNASSIGN_POLICY_SUCCESS,
                 policy.getName(), assignedPerson.getName()));
     }
