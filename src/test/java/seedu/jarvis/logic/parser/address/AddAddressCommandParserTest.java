@@ -26,8 +26,8 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.jarvis.testutil.TypicalPersons.AMY;
-import static seedu.jarvis.testutil.TypicalPersons.BOB;
+import static seedu.jarvis.testutil.address.TypicalPersons.AMY;
+import static seedu.jarvis.testutil.address.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +38,7 @@ import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class AddAddressCommandParserTest {
     private AddAddressCommandParser parser = new AddAddressCommandParser();

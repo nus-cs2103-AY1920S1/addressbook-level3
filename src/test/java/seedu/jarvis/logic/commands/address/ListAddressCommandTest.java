@@ -6,7 +6,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.jarvis.commons.exceptions.DataConversionException;
+import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.commons.util.FileUtil;
+import seedu.jarvis.commons.util.JsonUtil;
 import seedu.jarvis.model.history.HistoryManager;
 
 
@@ -52,7 +54,17 @@ public class JsonHistoryManagerStorage implements HistoryManagerStorage {
     @Override
     public Optional<HistoryManager> readHistoryManager(Path filePath) throws DataConversionException, IOException {
         requireNonNull(filePath);
-        return Optional.empty();
+        Optional<JsonSerializableHistoryManager> jsonHistoryManager = JsonUtil.readJsonFile(
+                filePath, JsonSerializableHistoryManager.class);
+        if (jsonHistoryManager.isEmpty()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonHistoryManager.get().toModelType());
+        } catch (IllegalValueException ive) {
+            throw new DataConversionException(ive);
+        }
     }
 
     /**
@@ -78,6 +90,7 @@ public class JsonHistoryManagerStorage implements HistoryManagerStorage {
         requireAllNonNull(historyManager, filePath);
 
         FileUtil.createIfMissing(filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableHistoryManager(historyManager), filePath);
     }
 
 }
