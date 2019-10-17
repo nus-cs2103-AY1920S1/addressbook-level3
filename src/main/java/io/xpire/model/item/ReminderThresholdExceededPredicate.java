@@ -21,7 +21,7 @@ public class ReminderThresholdExceededPredicate implements Predicate<Item> {
         if (obj == this) {
             return true;
         } else {
-            return obj instanceof ReminderThreshold;
+            return obj instanceof ReminderThresholdExceededPredicate;
         }
     }
 }

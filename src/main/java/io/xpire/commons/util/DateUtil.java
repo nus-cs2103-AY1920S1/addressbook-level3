@@ -5,6 +5,7 @@ import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -53,11 +54,12 @@ public class DateUtil {
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
-            return LocalDate.parse(dateInString, formatter);
+            LocalDate date = LocalDate.parse(dateInString, formatter);
+            return date;
+        } catch (DateTimeParseException e) {
+            logger.warning("Failed to parse string to date : " + StringUtil.getDetails(e));
         } catch (IllegalArgumentException e) {
             logger.warning("Failed to recognise date format : " + StringUtil.getDetails(e));
-        } catch (DateTimeException e) {
-            logger.warning("Failed to parse string to date : " + StringUtil.getDetails(e));
         }
         return null;
     }
