@@ -93,6 +93,12 @@ public interface Model {
     void setFoods(List<Food> list);
 
     /**
+     * A simple method to replace the filtered food list with the contents of a new list.
+     * @param fieldList the new list of food.
+     */
+    void editFilteredFoodList(List<String> fieldList);
+
+    /**
      * Buy the given food.
      * The food must exist in the menu.
      */
@@ -166,7 +172,11 @@ public interface Model {
     void setRecommendationSystemInUse(boolean inUse);
 
     /**
-     * Updates the user's liked categories, tags and locations.
+     * Get a history of the list of commands
+     */
+    List<String> getCommandHistory();
+
+    /** Updates the user's liked categories, tags and locations.
      * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
      */
     void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);

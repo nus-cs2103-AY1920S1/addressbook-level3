@@ -1,6 +1,13 @@
 package seedu.savenus.logic.parser;
 
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_CATEGORY;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_LOCATION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_OPENING_HOURS;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_RESTRICTIONS;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -103,13 +110,13 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @return true if the field is valid. False if otherwise.
      */
     public boolean isValidField(String field) {
-        return field.equals("NAME")
-                || field.equals("PRICE")
-                || field.equals("CATEGORY")
-                || field.equals("DESCRIPTION")
-                || field.equals("LOCATION")
-                || field.equals("OPENING_HOURS")
-                || field.equals("RESTRICTIONS");
+        return field.equals(FIELD_NAME_CATEGORY)
+                || field.equals(FIELD_NAME_DESCRIPTION)
+                || field.equals(FIELD_NAME_LOCATION)
+                || field.equals(FIELD_NAME_NAME)
+                || field.equals(FIELD_NAME_OPENING_HOURS)
+                || field.equals(FIELD_NAME_PRICE)
+                || field.equals(FIELD_NAME_RESTRICTIONS);
     }
 
     /**
