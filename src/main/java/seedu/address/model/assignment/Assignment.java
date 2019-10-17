@@ -1,13 +1,11 @@
 package seedu.address.model.assignment;
 
-import java.util.Collections;
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an assignment in the classroom.
@@ -15,10 +13,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Assignment {
 
-    public static final String MESSAGE_CONSTRAINTS = "Assignment names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
-    public final AssignmentName assignmentName;
+    private final AssignmentName assignmentName;
     private boolean isCompleted;
     private HashMap<String, Integer> assignmentGrades = new HashMap<>();
 
