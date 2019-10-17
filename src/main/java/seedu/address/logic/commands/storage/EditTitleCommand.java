@@ -36,7 +36,7 @@ public class EditTitleCommand extends Command {
         requireNonNull(model);
         model.changeActiveStudyPlanTitle(newTitle);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_STUDYPLAN_SUCCESS, newTitle));
+        return new CommandResult(String.format(MESSAGE_EDIT_STUDYPLAN_SUCCESS, newTitle), true, false);
     }
 
     @Override
