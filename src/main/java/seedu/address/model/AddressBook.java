@@ -123,6 +123,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         return policies.contains(policy);
     }
 
+    /**
+     * Returns true if a policy with the same policy name as {@code policyName} exists in the address book.
+     */
     public boolean hasPolicyWithName(PolicyName policyName) {
         requireNonNull(policyName);
         return policies.containsByName(policyName);

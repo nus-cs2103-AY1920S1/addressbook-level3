@@ -133,7 +133,8 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code policies} into a {@code Set<Policy>} removes it from the policies of the {@code Person} that we are building.
+     * Parses the {@code policies} into a {@code Set<Policy>} removes it from the policies of the {@code Person}
+     * that we are building.
      */
     public PersonBuilder removePolicies(Policy ... policies) {
         this.policies.removeAll(Arrays.asList(policies));
