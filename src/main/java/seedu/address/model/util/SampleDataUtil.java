@@ -2,13 +2,16 @@ package seedu.address.model.util;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyWasteList;
+import seedu.address.model.ShoppingList;
 import seedu.address.model.TemplateList;
 import seedu.address.model.WasteList;
 import seedu.address.model.food.Amount;
@@ -16,6 +19,7 @@ import seedu.address.model.food.ExpiryDate;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.Name;
+import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.tag.Tag;
@@ -38,10 +42,27 @@ public class SampleDataUtil {
         };
     }
 
+    public static GroceryItem[] getSampleGroceryItems() {
+        return new GroceryItem[] {
+            new GroceryItem(new Name("Alex Yeoh"), new Amount("300g"), new ExpiryDate("10.08.2019"),
+                new HashSet<>()),
+            new GroceryItem(new Name("Bernice Yu"), new Amount("300g"), new ExpiryDate("10.09.2019"),
+                new HashSet<>()),
+            new GroceryItem(new Name("Charlotte Oliveiro"), new Amount("300g"), new ExpiryDate("10.09.2019"),
+                new HashSet<>()),
+            new GroceryItem(new Name("David Li"), new Amount("300g"), new ExpiryDate("10.09.2019"),
+                new HashSet<>()),
+            new GroceryItem(new Name("Irfan Ibrahim"), new Amount("300g"), new ExpiryDate("10.09.2019"),
+                new HashSet<>()),
+            new GroceryItem(new Name("Roy Balakrishnan"), new Amount("300g"), new ExpiryDate("10.09.2019"),
+                new HashSet<>())
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Food sampleFood : getSampleFoods()) {
-            sampleAb.addPerson((GroceryItem) sampleFood);
+        for (GroceryItem groceryItem : getSampleGroceryItems()) {
+            sampleAb.addPerson(groceryItem);
         }
         return sampleAb;
     }
@@ -217,6 +238,26 @@ public class SampleDataUtil {
             sampleAc.addTemplate(sampleTemplates);
         }
         return sampleAc;
+    }
+
+    // =============================== Shopping List Sample =============================== //
+
+    public static ShoppingItem[] getSampleShoppingItems() {
+        return new ShoppingItem[] {
+            new ShoppingItem(new Name("Minced Beef"), new Amount("400g")),
+            new ShoppingItem(new Name("FullFat Milk"), new Amount("3L")),
+            new ShoppingItem(new Name("White Wine"), new Amount("0.5L")),
+            new ShoppingItem(new Name("Minced Chicken"), new Amount("1000g")),
+            new ShoppingItem(new Name("Applex"), new Amount("2units"))
+        };
+    }
+
+    public static ReadOnlyShoppingList getSampleShoppingList() {
+        ShoppingList sampleSl = new ShoppingList();
+        for (ShoppingItem sampleShoppingItem : getSampleShoppingItems()) {
+            sampleSl.addShoppingItem(sampleShoppingItem);
+        }
+        return sampleSl;
     }
 
 }
