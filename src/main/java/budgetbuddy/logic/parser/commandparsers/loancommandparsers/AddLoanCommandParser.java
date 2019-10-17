@@ -64,9 +64,8 @@ public class AddLoanCommandParser implements CommandParser<AddLoanCommand> {
                 : new Description("");
 
         Optional<String> optionalDate = argMultimap.getValue(PREFIX_DATE);
-        Date date = optionalDate.isPresent()
-                ? CommandParserUtil.parseDate(optionalDate.get())
-                : new Date("20/12/2099");
+        // TODO Change default date.
+        Date date = optionalDate.map(CommandParserUtil::parseDate).orElseGet(() -> new Date("20/12/2099"));
 
         Status status = Status.UNPAID;
 

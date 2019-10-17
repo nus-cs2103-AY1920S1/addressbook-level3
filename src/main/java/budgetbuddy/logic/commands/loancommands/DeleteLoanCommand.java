@@ -23,12 +23,10 @@ public class DeleteLoanCommand extends MultiLoanCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes one or more loans.\n"
             + "Parameters: "
-            + "<person number>[.(<loan numbers...>)] "
-            + "...\n"
+            + MULTI_LOAN_SYNTAX
+            + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + "1.(1 3 4) "
-            + "2 "
-            + "3.1";
+            + MULTI_LOAN_SYNTAX_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "Loan(s) deleted.";
     public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";

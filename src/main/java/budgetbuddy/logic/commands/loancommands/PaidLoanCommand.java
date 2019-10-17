@@ -20,11 +20,10 @@ public class PaidLoanCommand extends UpdateStatusCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks one or more loans as paid.\n"
             + "Parameters: "
-            + "<person number>[.(<loan numbers...>)] "
-            + "...\n"
+            + MULTI_LOAN_SYNTAX
+            + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + "1.(1 2 5) "
-            + "3";
+            + MULTI_LOAN_SYNTAX_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "Loan(s) marked as paid.";
     public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";

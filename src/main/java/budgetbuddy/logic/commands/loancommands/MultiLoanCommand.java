@@ -24,6 +24,9 @@ import budgetbuddy.model.person.exceptions.PersonNotFoundException;
  */
 public abstract class MultiLoanCommand extends Command {
 
+    protected static final String MULTI_LOAN_SYNTAX = "<person number>[.<loan number>[- ...]] ...";
+    protected static final String MULTI_LOAN_SYNTAX_EXAMPLE = "1.1-3-4 2.1 3";
+
     protected List<PersonLoanIndexPair> pairsNotFound;
     protected List<Index> personsNotFound;
 
