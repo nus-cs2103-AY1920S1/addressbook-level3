@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox spacing="20" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="BASELINE_CENTER" spacing="30">
         <Button text="&lt;&lt;" onMouseClicked="#populateCalendarWithPreviousMonth" />
         <Text fx:id="calendarTitle" fill="white" />

@@ -248,7 +248,10 @@ public class MainWindow extends UiPart<Stage> {
         }
         switch (tabName) {
         case "Calendar":
-            tabToReturn.setController(new CalendarWindow(logic));
+            CalendarWindow calendarWindow = new CalendarWindow();
+            calendarWindow.setLogic(logic);
+            calendarWindow.populateCalendar();
+            tabToReturn.setController(calendarWindow);
             break;
         case "TypingGame":
             tabToReturn.setController(new GameWindow());

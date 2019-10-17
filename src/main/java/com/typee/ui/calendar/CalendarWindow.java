@@ -45,12 +45,12 @@ public class CalendarWindow extends UiPart<Region> {
     private YearMonth currentDisplayedYearMonth;
 
     /**
-     * Constructs a calendar window using the calendar's FXML file path and the specified logic.
-     * @param logic The specified logic.
+     * Constructs a calendar window.
      */
-    public CalendarWindow(Logic logic) {
+    public CalendarWindow() {
         super(FXML);
-        this.logic = logic;
+        allCalendarDays = new ArrayList<>();
+        engagementList = new ArrayList<>();
     }
 
     /**
@@ -70,12 +70,9 @@ public class CalendarWindow extends UiPart<Region> {
     }
 
     /**
-     * Initializes the calendar window to display individual dates of the current month.
+     * Populates the calendar with the information to be displayed.
      */
-    @FXML
-    public void initialize() {
-        allCalendarDays = new ArrayList<>();
-        engagementList = new ArrayList<>();
+    public void populateCalendar() {
         for (Engagement engagement : logic.getFilteredEngagementList()) {
             engagementList.add(engagement);
         }
@@ -119,7 +116,7 @@ public class CalendarWindow extends UiPart<Region> {
                 if (startDateTime.getDayOfMonth() == calendarDate.getDayOfMonth()
                         && startDateTime.getMonth().equals(calendarDate.getMonth())) {
                     Text appointmentDescription = new Text(engagement.getDescription());
-                    StackPane.setAlignment(appointmentDescription, Pos.BASELINE_CENTER);
+                    StackPane.setAlignment(appointmentDescription, Pos.CENTER);
                     individualDateStackPane.getChildren().add(appointmentDescription);
                 }
             }
