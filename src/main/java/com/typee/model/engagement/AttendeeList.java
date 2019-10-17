@@ -2,7 +2,6 @@ package com.typee.model.engagement;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.typee.model.person.Name;

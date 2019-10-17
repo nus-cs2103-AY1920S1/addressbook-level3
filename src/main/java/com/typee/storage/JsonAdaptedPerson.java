@@ -8,9 +8,9 @@ import com.typee.commons.exceptions.IllegalValueException;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
-import com.typee.model.engagement.exceptions.InvalidTimeException;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
+import com.typee.model.engagement.exceptions.InvalidTimeException;
 import com.typee.model.person.Person;
 
 /**
@@ -74,8 +74,8 @@ class JsonAdaptedPerson {
         final String modelDescription = validateAndGetDescription();
 
         try {
-            return Engagement.of(modelType, LocalDateTime.parse(startTime), LocalDateTime.parse(endTime), modelAttendees,
-                    modelLocation, modelDescription, modelPriority);
+            return Engagement.of(modelType, LocalDateTime.parse(startTime), LocalDateTime.parse(endTime),
+                    modelAttendees, modelLocation, modelDescription, modelPriority);
         } catch (InvalidTimeException e) {
             throw new IllegalValueException(e.getMessage());
         }

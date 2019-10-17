@@ -76,7 +76,9 @@ public abstract class Engagement {
      *
      * @return an {@code Engagement} with the corresponding fields.
      */
-    private static Engagement makeEngagement(EngagementType type, LocalDateTime start, LocalDateTime end, AttendeeList attendees, Location location, String description, Priority priority) {
+    private static Engagement makeEngagement(EngagementType type, LocalDateTime start, LocalDateTime end,
+                                             AttendeeList attendees, Location location,
+                                             String description, Priority priority) {
         if (type.name().equalsIgnoreCase("meeting")) {
             return new Meeting(start, end, attendees, location, description, priority);
         } else if (type.name().equalsIgnoreCase("interview")) {

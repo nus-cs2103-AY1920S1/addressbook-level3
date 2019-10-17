@@ -8,9 +8,9 @@ import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
-import com.typee.model.engagement.exceptions.InvalidTimeException;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
+import com.typee.model.engagement.exceptions.InvalidTimeException;
 import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 
