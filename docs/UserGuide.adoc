@@ -326,24 +326,24 @@ Format: `undo` +
 
 === Finances
 
-To enter the Finances section, please enter the command: `switch finances`
+To enter the Finances section, please enter the command: `switch finance`
 
 All amounts are taken to be in SGD and recorded as if with dollar signs and numerals. For example, 110 cents should be written as `1.10` or `1.1`.
 
-If dates are to be specified, only dates of format `DDMMYYYY` will be recognised.
+If dates are to be specified, only dates of format `DD-MM-YYYY` will be recognised.
 
-==== Add an expenditure: `add spend`
+==== Add an expenditure: `spend`
 Record down an entry of spending. By default, the date of spending will be set to the day the entry was added. Otherwise, this can be specified through an optional parameter. Other details regarding the expenditure can also be included.
 
-Format: `*add spend* AMOUNT [day\DAY_OF_SPENDING] [item\DESCRIPTION] [cat\CATEGORY(s)] [place\PLACE] [met\PAYMENT_METHOD]` +
-e.g. `add spend 2.80 item\Yong Tau Foo cat\Food School place\Frontier met\cash`
+Format: `*spend* amt\AMOUNT [day\DAY_OF_SPENDING] [item\DESCRIPTION] [cat\CATEGORY(s)] [place\PLACE] [met\TRANSACTION_METHOD]` +
+e.g. `spend 2.80 item\Yong Tau Foo cat\Food School place\Frontier met\cash`
 
-==== Add an income: `add income`
+==== Add an income: `income`
 
 Record down an entry of incoming money. Source of income can also be specified.
 
-Format: `*add income* AMOUNT [day\DAY_OF_SPENDING] [item\DESCRIPTION] [cat\CATEGORY(S)] [from\ORIGIN] [met\PAYMENT_METHOD]` +
-e.g. `add income 800 item\student assistant from\NUS met\bank transfer`
+Format: `*income* AMOUNT [day\DAY_OF_SPENDING] [item\DESCRIPTION] [cat\CATEGORY(S)] [from\ORIGIN] [met\TRANSACTION_METHOD]` +
+e.g. `income amt\800 item\student assistant from\NUS met\bank transfer`
 
 ==== Add category: `add cat`
 Add a new category to list of exisiting categories. Note that category name is not case-sensitive.
@@ -357,11 +357,11 @@ Record down an entry of money borrowed from someone but not yet repaid. By defau
 Format: `*borrow* AMOUNT from\PERSON_BORROWED_FROM [day\DATE_BORROWED]` +
 e.g. `borrow 1.20 from\mom`
 
-==== Add an entry of lent money: `lent`
+==== Add an entry of lent money: `lend`
 Record down an entry of money lent to someone.
 
-Format: `*lent* AMOUNT to\PERSON_LENT_TO` [day\DATE_LENT]` +
-e.g. `lent 5 to\sister`
+Format: `*lend* AMOUNT to\PERSON_LENT_TO` [day\DATE_LENT]` +
+e.g. `lend 5 to\sister`
 
 ==== List out finances: `list`
 List out all entries in recorded down. By default, all entries will be ordered chronologically, according to the day the entry is linked to (e.g. the day of spending etc). Entries are indexed chronologically as well.
@@ -396,11 +396,11 @@ Shows an overview of the state of expenses and incomes.
 
 Format: `*stats*`
 
-==== Set a budget: `add budget`
+==== Set a budget: `budget`
 Set a budget, which by default is for the current month. This can be further specified for a specified time period (i.e. duration) or category of spending. A reminder is shown when this budget is about to be exceeded or has exceeded.
 
-Format: `*add budget* AMOUNT [dur\NUM_DAYS] [cat\CATEGORY]` +
-e.g. `add budget 30 dur\7 cat\food`
+Format: `*budget* amt\AMOUNT [dur\NUM_DAYS] [cat\CATEGORY]` +
+e.g. `budget amt\30 dur\7 cat\food`
 
 ==== Export summary of finances: `export`
 Exports a file and saves it to hard disk.
