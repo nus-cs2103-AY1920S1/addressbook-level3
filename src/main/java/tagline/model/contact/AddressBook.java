@@ -84,7 +84,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setContact(Contact target, Contact editedContact) {
         requireNonNull(editedContact);
-
+        assert (target.getContactId().equals(editedContact.getContactId()))
+                : "Contact id is permanent and cannot be edited";
         contacts.setContact(target, editedContact);
     }
 
@@ -94,10 +95,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeContact(Contact key) {
         contacts.remove(key);
-    }
-
-    public Optional<Contact> findContact(int id) {
-        return contacts.findContact(id);
     }
 
     public Optional<Contact> findContact(ContactId contactId) {

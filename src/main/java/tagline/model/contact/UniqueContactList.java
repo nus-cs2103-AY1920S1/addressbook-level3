@@ -45,7 +45,7 @@ public class UniqueContactList implements Iterable<Contact> {
      * @param id of the contact
      * @return an optional object which implies whether the corresponding contact is found or not.
      */
-    public Optional<Contact> findContact(int id) {
+    public Optional<Contact> findContact(ContactId id) {
         var it = iterator();
         while (it.hasNext()) {
             Contact currentContact = it.next();
@@ -54,10 +54,6 @@ public class UniqueContactList implements Iterable<Contact> {
             }
         }
         return Optional.empty();
-    }
-
-    public Optional<Contact> findContact(ContactId contactId) {
-        return findContact(contactId.toInteger());
     }
 
     public int size() {

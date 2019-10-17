@@ -49,7 +49,7 @@ public interface ContactModel {
      */
     void setContact(Contact target, Contact editedContact);
 
-    Optional<Contact> findContact(int id);
+    Optional<Contact> findContact(ContactId id);
 
     /**
      * Returns an unmodifiable view of the filtered contact list

@@ -60,7 +60,7 @@ public class ContactManager implements ContactModel {
     }
 
     @Override
-    public Optional<Contact> findContact(int id) {
+    public Optional<Contact> findContact(ContactId id) {
         return addressBook.findContact(id);
     }
 
@@ -77,7 +77,7 @@ public class ContactManager implements ContactModel {
 
         int limit = (int) Math.pow(10, ContactId.getDigit());
         int randomId = ThreadLocalRandom.current().nextInt(limit);
-        while (findContact(randomId).isPresent()) {
+        while (findContact(new ContactId(randomId)).isPresent()) {
             randomId = ThreadLocalRandom.current().nextInt(limit);
         }
 

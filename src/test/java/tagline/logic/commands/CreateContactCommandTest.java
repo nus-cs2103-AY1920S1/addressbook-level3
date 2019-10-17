@@ -23,6 +23,7 @@ import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
 import tagline.model.note.ReadOnlyNoteBook;
@@ -155,7 +156,7 @@ public class CreateContactCommandTest {
         }
 
         @Override
-        public Optional<Contact> findContact(int id) {
+        public Optional<Contact> findContact(ContactId id) {
             throw new AssertionError("This method should not be called.");
         }
 

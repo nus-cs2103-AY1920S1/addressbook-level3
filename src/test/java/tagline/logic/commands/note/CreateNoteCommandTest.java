@@ -17,6 +17,7 @@ import tagline.commons.core.GuiSettings;
 import tagline.model.Model;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteModel;
@@ -242,7 +243,7 @@ class CreateNoteCommandTest {
         }
 
         @Override
-        public Optional<Contact> findContact(int id) {
+        public Optional<Contact> findContact(ContactId id) {
             throw new AssertionError("This method should not be called.");
         }
 

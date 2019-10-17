@@ -3,6 +3,7 @@ package tagline.logic.parser;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_ONE;
 import static tagline.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static tagline.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -20,16 +21,13 @@ import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
-import static tagline.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
-import static tagline.testutil.TypicalIndexes.INDEX_THIRD_CONTACT;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.commons.core.index.Index;
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
 import tagline.logic.parser.contact.EditCommandParser;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
@@ -56,11 +54,8 @@ public class EditContactCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
-        // negative index
+        // negative id
         assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-
-        // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -89,26 +84,27 @@ public class EditContactCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_CONTACT;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB
+        ContactId targetContactId = CONTACT_ID_ONE;
+
+        String userInput = targetContactId.toString() + PHONE_DESC_BOB
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY;
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .build();
-        EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
+                .withContactId(CONTACT_ID_ONE).build();
+        EditContactCommand expectedCommand = new EditContactCommand(targetContactId, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_CONTACT;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
+        ContactId targetContactId = CONTACT_ID_ONE;
+        String userInput = targetContactId.toString() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_AMY).build();
-        EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
+        EditContactCommand expectedCommand = new EditContactCommand(targetContactId, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -116,42 +112,42 @@ public class EditContactCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_CONTACT;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
+        ContactId targetContactId = CONTACT_ID_ONE;
+        String userInput = targetContactId.toString() + NAME_DESC_AMY;
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
+        EditContactCommand expectedCommand = new EditContactCommand(targetContactId, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
+        userInput = targetContactId.toString() + PHONE_DESC_AMY;
         descriptor = new EditContactDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
-        expectedCommand = new EditContactCommand(targetIndex, descriptor);
+        expectedCommand = new EditContactCommand(targetContactId, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
+        userInput = targetContactId.toString() + EMAIL_DESC_AMY;
         descriptor = new EditContactDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
-        expectedCommand = new EditContactCommand(targetIndex, descriptor);
+        expectedCommand = new EditContactCommand(targetContactId, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
+        userInput = targetContactId.toString() + ADDRESS_DESC_AMY;
         descriptor = new EditContactDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
-        expectedCommand = new EditContactCommand(targetIndex, descriptor);
+        expectedCommand = new EditContactCommand(targetContactId, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_CONTACT;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
+        ContactId targetContactId = CONTACT_ID_ONE;
+        String userInput = targetContactId.toString() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB;
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .build();
-        EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
+        EditContactCommand expectedCommand = new EditContactCommand(targetContactId, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -159,18 +155,18 @@ public class EditContactCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_CONTACT;
-        String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        ContactId targetContactId = CONTACT_ID_ONE;
+        String userInput = targetContactId.toString() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
+        EditContactCommand expectedCommand = new EditContactCommand(targetContactId, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
+        userInput = targetContactId.toString() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                 + PHONE_DESC_BOB;
         descriptor = new EditContactDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
-        expectedCommand = new EditContactCommand(targetIndex, descriptor);
+        expectedCommand = new EditContactCommand(targetContactId, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

@@ -6,6 +6,7 @@ import tagline.commons.core.index.Index;
 import tagline.commons.util.StringUtil;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.contact.Address;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.Description;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
@@ -21,6 +22,7 @@ public class ContactParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -29,6 +31,20 @@ public class ContactParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code id} into an {@code ContactId} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     *
+     * @throws ParseException if the specified id is invalid.
+     */
+    public static ContactId parseContactId(String id) throws ParseException {
+        String trimmedId = id.trim();
+        if (!ContactId.isValidId(trimmedId)) {
+            throw new ParseException((ContactId.MESSAGE_CONSTRAINTS));
+        }
+        return new ContactId(trimmedId);
     }
 
     /**

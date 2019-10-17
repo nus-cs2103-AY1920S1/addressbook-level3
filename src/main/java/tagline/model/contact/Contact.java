@@ -35,7 +35,6 @@ public class Contact {
     /**
      * Construct a contact with id.
      * Ensure that the id is unique among all other contact.
-     * Warning: This constructor should only be used by storage.
      */
     public Contact(Name name, Phone phone, Email email, Address address, Description description, ContactId contactId) {
         requireAllNonNull(name, phone, email, address, description);

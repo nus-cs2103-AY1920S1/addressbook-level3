@@ -3,6 +3,7 @@ package tagline.testutil;
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
 import tagline.model.contact.Address;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
@@ -32,6 +33,7 @@ public class EditContactDescriptorBuilder {
         descriptor.setEmail(contact.getEmail());
         descriptor.setAddress(contact.getAddress());
         descriptor.setDescription(contact.getDescription());
+        descriptor.setContactId(contact.getContactId());
     }
 
     /**
@@ -63,6 +65,14 @@ public class EditContactDescriptorBuilder {
      */
     public EditContactDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code ContactId} of the {@code EditContactDescriptor} that we are building.
+     */
+    public EditContactDescriptorBuilder withContactId(ContactId id) {
+        descriptor.setContactId(id);
         return this;
     }
 

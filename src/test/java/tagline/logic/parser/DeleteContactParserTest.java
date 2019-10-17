@@ -3,12 +3,12 @@ package tagline.logic.parser;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.logic.parser.contact.DeleteContactParser;
+import tagline.model.contact.ContactId;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -23,12 +23,18 @@ public class DeleteContactParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteContactCommand(INDEX_FIRST_CONTACT));
+        assertParseSuccess(parser, "1", new DeleteContactCommand(new ContactId(1)));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteContactCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteContactCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "10a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteContactCommand.MESSAGE_USAGE));
     }
 }

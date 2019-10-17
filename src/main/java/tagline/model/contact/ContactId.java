@@ -14,19 +14,23 @@ public class ContactId {
     private final int id;
 
     /**
-     * Constructs a contact Id from a String.
-     * Warning: This constructor should only be used by storage.
+     * Construct a contact Id from String.
+     *
+     * @param id
      */
     public ContactId(String id) {
-        this.id = Integer.valueOf(id);
+        this(Integer.valueOf(id));
     }
 
     /**
      * Constructs a contact Id from an integer.
      */
-    ContactId(int id) {
+    public ContactId(int id) {
         if (id >= Math.pow(10, contactIdDigits)) {
             throw new InvalidIdException("Id too large");
+        }
+        if (id < 0) {
+            throw new InvalidIdException("Id has to be a positive number");
         }
         this.id = id;
     }
@@ -79,16 +83,11 @@ public class ContactId {
             return true;
         }
 
-        int other;
-        if (obj instanceof Integer) {
-            other = (Integer) obj;
-        } else if (obj instanceof ContactId) {
-            other = ((ContactId) obj).id;
-        } else {
+        if (!(obj instanceof ContactId)) {
             return false;
         }
 
-        return id == other;
+        return id == ((ContactId) obj).id;
     }
 
     @Override

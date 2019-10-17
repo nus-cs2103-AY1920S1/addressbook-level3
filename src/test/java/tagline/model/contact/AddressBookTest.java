@@ -80,6 +80,29 @@ public class AddressBookTest {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getContactList().remove(0));
     }
 
+    @Test
+    public void addContact_contactWithNullId_throwsNullPointerException() {
+        Contact contact = (new ContactBuilder()).build();
+        contact.setContactId(null);
+
+        assertThrows(NullPointerException.class, () -> addressBook.addContact(contact));
+    }
+
+    @Test
+    public void addContact_contactWithDuplicateId_throwsAssertionError() {
+        addressBook.addContact(ALICE);
+        Contact contact = (new ContactBuilder()).withId(ALICE.getContactId().toInteger()).build();
+
+        assertThrows(AssertionError.class, () -> addressBook.addContact(contact));
+    }
+
+    @Test
+    public void editContact_editContactId_throwsAssertionError() {
+        addressBook.addContact(ALICE);
+        Contact newAlice = (new ContactBuilder(ALICE)).withId(ALICE.getContactId().toInteger() + 1).build();
+        assertThrows(AssertionError.class, () -> addressBook.setContact(ALICE, newAlice));
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose contacts list can violate interface constraints.
      */

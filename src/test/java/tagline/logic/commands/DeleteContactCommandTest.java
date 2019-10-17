@@ -2,23 +2,23 @@ package tagline.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_ONE;
+import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_TWO;
+import static tagline.logic.commands.CommandTestUtil.NON_EXISTING_ID;
 import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tagline.logic.commands.CommandTestUtil.showContactAtIndex;
 import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
-import static tagline.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.commons.core.Messages;
-import tagline.commons.core.index.Index;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactId;
 import tagline.model.note.NoteBook;
 
 /**
@@ -31,9 +31,9 @@ public class DeleteContactCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
-        DeleteContactCommand deleteContactCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
+    public void execute_validContactId_success() {
+        Contact contactToDelete = model.getAddressBook().getContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        DeleteContactCommand deleteContactCommand = new DeleteContactCommand(contactToDelete.getContactId());
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
@@ -45,24 +45,16 @@ public class DeleteContactCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        DeleteContactCommand deleteContactCommand = new DeleteContactCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteContactCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showContactAtIndex(model, INDEX_FIRST_CONTACT);
-
-        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
-        DeleteContactCommand deleteContactCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
+    public void execute_validContactIdButUnfiltered_success() {
+        Contact contactToDelete = model.getAddressBook().getContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        DeleteContactCommand deleteContactCommand = new DeleteContactCommand(contactToDelete.getContactId());
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
+
+        showNoContact(model);
         showNoContact(expectedModel);
 
         assertCommandSuccess(deleteContactCommand, model, expectedMessage,
@@ -70,28 +62,23 @@ public class DeleteContactCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showContactAtIndex(model, INDEX_FIRST_CONTACT);
+    public void execute_nonExistingContactId_throwsCommandException() {
+        ContactId nonExistingId = NON_EXISTING_ID;
+        DeleteContactCommand deleteContactCommand = new DeleteContactCommand(nonExistingId);
 
-        Index outOfBoundIndex = INDEX_SECOND_CONTACT;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
-
-        DeleteContactCommand deleteContactCommand = new DeleteContactCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteContactCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteContactCommand, model, DeleteContactCommand.MESSAGE_NON_EXISTING_ID);
     }
 
     @Test
     public void equals() {
-        DeleteContactCommand deleteFirstCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
-        DeleteContactCommand deleteSecondCommand = new DeleteContactCommand(INDEX_SECOND_CONTACT);
+        DeleteContactCommand deleteFirstCommand = new DeleteContactCommand(CONTACT_ID_ONE);
+        DeleteContactCommand deleteSecondCommand = new DeleteContactCommand(CONTACT_ID_TWO);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteContactCommand deleteFirstCommandCopy = new DeleteContactCommand(INDEX_FIRST_CONTACT);
+        DeleteContactCommand deleteFirstCommandCopy = new DeleteContactCommand(CONTACT_ID_ONE);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

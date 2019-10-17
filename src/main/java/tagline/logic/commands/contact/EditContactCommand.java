@@ -8,11 +8,8 @@ import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
 import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 
-import java.util.List;
 import java.util.Optional;
 
-import tagline.commons.core.Messages;
-import tagline.commons.core.index.Index;
 import tagline.commons.util.CollectionUtil;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
@@ -20,6 +17,7 @@ import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.contact.Address;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.Description;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
@@ -50,18 +48,20 @@ public class EditContactCommand extends ContactCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
 
-    private final Index index;
+    public static final String MESSAGE_NON_EXISTING_ID = "Wrong contact ID.";
+
+    private final ContactId contactId;
     private final EditContactDescriptor editContactDescriptor;
 
     /**
-     * @param index                 of the contact in the filtered contact list to edit
+     * @param contactId             of the contact to be edited
      * @param editContactDescriptor details to edit the contact with
      */
-    public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
-        requireNonNull(index);
+    public EditContactCommand(ContactId contactId, EditContactDescriptor editContactDescriptor) {
+        requireNonNull(contactId);
         requireNonNull(editContactDescriptor);
 
-        this.index = index;
+        this.contactId = contactId;
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
     }
 
@@ -78,19 +78,20 @@ public class EditContactCommand extends ContactCommand {
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Description updatedDescription = editContactDescriptor.getDescription().orElse(contactToEdit.getDescription());
 
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedDescription);
+        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedDescription,
+                contactToEdit.getContactId());
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Contact> lastShownList = model.getFilteredContactList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        Optional<Contact> contact = model.findContact(contactId);
+        if (contact.isEmpty()) {
+            throw new CommandException(MESSAGE_NON_EXISTING_ID);
         }
 
-        Contact contactToEdit = lastShownList.get(index.getZeroBased());
+        Contact contactToEdit = contact.get();
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor);
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
@@ -116,7 +117,7 @@ public class EditContactCommand extends ContactCommand {
 
         // state check
         EditContactCommand e = (EditContactCommand) other;
-        return index.equals(e.index)
+        return contactId.equals(e.contactId)
                 && editContactDescriptor.equals(e.editContactDescriptor);
     }
 
@@ -130,6 +131,7 @@ public class EditContactCommand extends ContactCommand {
         private Email email;
         private Address address;
         private Description description;
+        private ContactId contactId;
 
         public EditContactDescriptor() {
         }
@@ -144,6 +146,7 @@ public class EditContactCommand extends ContactCommand {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setDescription(toCopy.description);
+            setContactId(toCopy.contactId);
         }
 
         /**
@@ -191,6 +194,14 @@ public class EditContactCommand extends ContactCommand {
 
         public void setDescription(Description description) {
             this.description = description;
+        }
+
+        public Optional<ContactId> getContactId() {
+            return Optional.ofNullable(contactId);
+        }
+
+        public void setContactId(ContactId contactId) {
+            this.contactId = contactId;
         }
 
         @Override

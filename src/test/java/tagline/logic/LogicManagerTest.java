@@ -1,7 +1,6 @@
 package tagline.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tagline.commons.core.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -20,6 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.contact.ContactCommand;
 import tagline.logic.commands.contact.CreateContactCommand;
+import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
@@ -62,8 +62,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "contact delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        String deleteCommand = "contact delete 99999";
+        assertCommandException(deleteCommand, DeleteContactCommand.MESSAGE_NON_EXISTING_ID);
     }
 
     @Test

@@ -13,6 +13,7 @@ import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.ContactManager;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
@@ -127,7 +128,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Contact> findContact(int id) {
+    public Optional<Contact> findContact(ContactId id) {
         return contactManager.findContact(id);
     }
 
