@@ -56,7 +56,7 @@ class TaskListTest {
     }
 
     @Test
-    void isEqual_true() {
+    void equals_true() {
         ArrayList<Task> tasksOne = new ArrayList<>();
         tasksOne.add(new Todo("borrow book"));
         tasksOne.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
@@ -70,12 +70,12 @@ class TaskListTest {
         TaskList one = new TaskList(tasksOne);
         TaskList two = new TaskList(tasksTwo);
 
-        assertTrue(one.isEqual(two));
+        assertTrue(one.equals(two));
 
     }
 
     @Test
-    void isEqual_false() {
+    void equals_false() {
         ArrayList<Task> tasksOne = new ArrayList<>();
         tasksOne.add(new Todo("borrow book"));
         tasksOne.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
@@ -89,7 +89,7 @@ class TaskListTest {
         TaskList one = new TaskList(tasksOne);
         TaskList two = new TaskList(tasksTwo);
 
-        assertFalse(one.isEqual(two));
+        assertFalse(one.equals(two));
 
     }
 }

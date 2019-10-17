@@ -73,6 +73,7 @@ public class SetInstallmentCommandTest {
         assertFalse(addSpotifyCommand.equals(addNetflixCommand));
     }
 
+
     /**
      * A Model stub that contains a single person.
      */
