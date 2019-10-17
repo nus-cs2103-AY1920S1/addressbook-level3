@@ -89,9 +89,10 @@ public class ModelManager implements Model {
     //=========== Schedule ================================================================================
     /**
      * Replaces schedule data with the data in {@code schedule}.
+     * @param list
      */
     @Override
-    public void setSchedulesList(LinkedList<Schedule> list) {
+    public void setSchedulesList(List<Schedule> list) {
         schedulesList.clear();
         schedulesList.addAll(cloneSchedulesList(list));
         logger.fine("Schedules list is reset");

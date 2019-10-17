@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -41,7 +40,7 @@ public interface Model {
     /**
      * Replaces schedule data with the data in {@code schedule}.
      */
-    void setSchedulesList(LinkedList<Schedule> schedulesList);
+    void setSchedulesList(List<Schedule> schedulesList);
 
     /** Returns the schedulesList **/
     List<Schedule> getSchedulesList();

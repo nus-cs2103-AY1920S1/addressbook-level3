@@ -104,7 +104,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setSchedulesList(LinkedList<Schedule> schedulesList) {
+        public void setSchedulesList(List<Schedule> schedulesList) {
 
         }
 
