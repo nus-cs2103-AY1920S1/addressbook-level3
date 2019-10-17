@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
+import com.typee.logic.Logic;
 import com.typee.model.engagement.Engagement;
 import com.typee.ui.UiPart;
 
@@ -40,13 +41,32 @@ public class CalendarWindow extends UiPart<Region> {
 
     private List<Engagement> engagementList;
     private List<StackPane> allCalendarDays;
+    private Logic logic;
     private YearMonth currentDisplayedYearMonth;
 
     /**
-     * Constructs a calendar window using the calendar's FXML file path.
+     * Constructs a calendar window using the calendar's FXML file path and the specified logic.
+     * @param logic The specified logic.
      */
-    public CalendarWindow() {
+    public CalendarWindow(Logic logic) {
         super(FXML);
+        this.logic = logic;
+    }
+
+    /**
+     * Returns this calendar window's logic component.
+     * @return This calendar window's logic component.
+     */
+    public Logic getLogic() {
+        return logic;
+    }
+
+    /**
+     * Sets this calendar window's logic component to the specified logic instance.
+     * @param logic The specified logic instance.
+     */
+    public void setLogic(Logic logic) {
+        this.logic = logic;
     }
 
     /**
@@ -55,7 +75,10 @@ public class CalendarWindow extends UiPart<Region> {
     @FXML
     public void initialize() {
         allCalendarDays = new ArrayList<>();
-        this.engagementList = new ArrayList<>();
+        engagementList = new ArrayList<>();
+        for (Engagement engagement : logic.getFilteredEngagementList()) {
+            engagementList.add(engagement);
+        }
         currentDisplayedYearMonth = YearMonth.now();
         initializeDateDisplayGrid();
         populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
