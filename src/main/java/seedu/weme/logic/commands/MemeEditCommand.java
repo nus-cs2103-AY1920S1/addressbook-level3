@@ -35,8 +35,8 @@ public class MemeEditCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "d/Change to this "
-            + "t/friends";
+            + "d/A funny meme "
+            + "t/funny";
 
     public static final String MESSAGE_EDIT_MEME_SUCCESS = "Edited Meme: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
