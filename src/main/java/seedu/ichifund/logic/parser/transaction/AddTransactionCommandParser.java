@@ -9,6 +9,7 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
@@ -20,12 +21,10 @@ import seedu.ichifund.logic.parser.Prefix;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.amount.Amount;
-import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.transaction.Category;
-import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
 
 
@@ -44,8 +43,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_CATEGORY, PREFIX_DAY,
                         PREFIX_MONTH, PREFIX_YEAR, PREFIX_TRANSACTION_TYPE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_CATEGORY, PREFIX_DAY,
-                PREFIX_MONTH, PREFIX_YEAR, PREFIX_TRANSACTION_TYPE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTransactionCommand.MESSAGE_USAGE));
@@ -53,36 +51,106 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Amount amount = ParserUtil.parsePositiveAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
-        Day day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
-        Month month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
-        Year year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
-        TransactionType transactionType = ParserUtil.parseTransactionType(argMultimap
-                .getValue(PREFIX_TRANSACTION_TYPE).get());
+        Optional<Category> category = parseCategory(argMultimap);
+        Optional<Day> day = parseDay(argMultimap);
+        Optional<Month> month = parseMonth(argMultimap);
+        Optional<Year> year = parseYear(argMultimap);
+        Optional<TransactionType> transactionType = parseTransactionType(argMultimap);
 
-        Date date = constructDate(day, month, year);
+        AddTransactionCommand.AddTransactionCommandBuilder builder =
+                new AddTransactionCommand.AddTransactionCommandBuilder();
+        builder.setDescription(description);
+        builder.setAmount(amount);
+        builder.setCategory(category);
+        builder.setDay(day);
+        builder.setMonth(month);
+        builder.setYear(year);
+        builder.setTransactionType(transactionType);
 
-        Transaction transaction = new Transaction(description, amount, category, date, transactionType);
-
-        return new AddTransactionCommand(transaction);
+        return builder.build();
     }
 
     /**
-     * Returns a {@code Date} object from the {@code day}, {@code month} and {@code year}.
+     * Parses the {@code Month} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code Month} object, and wraps it in a {@code Optional} object
+     * Else, an empty {@code Optional} object is returned.
      *
-     * @param day The {@code Day} of the year to be returned.
-     * @param month The {@code Month} of the year to be returned.
-     * @param year The {@code Year} of the year to be returned.
-     * @return A {@code Date} object composed of {@code day}, {@code month} and {@code year}
-     * @throws ParseException If day does not match month and year.
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
      */
-    private static Date constructDate(Day day, Month month, Year year) throws ParseException {
-        if (Date.isValidDate(day, month, year)) {
-            return new Date(day, month, year);
+    private Optional<Day> parseDay(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> dayString = argMultimap.getValue(PREFIX_DAY);
+        if (dayString.isEmpty()) {
+            return Optional.empty();
         } else {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+            return Optional.of(ParserUtil.parseDay(dayString.get()));
         }
     }
+
+    /**
+     * Parses the {@code Month} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code Month} object, and wraps it in a {@code Optional} object
+     * Else, an empty {@code Optional} object is returned.
+     *
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
+     */
+    private Optional<Month> parseMonth(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> monthString = argMultimap.getValue(PREFIX_MONTH);
+        if (monthString.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseMonth(monthString.get()));
+        }
+    }
+
+    /**
+     * Parses the {@code Year} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code Year} object, and wraps it in a {@code Optional} object
+     * Else, an empty {@code Optional} object is returned.
+     *
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
+     */
+    private Optional<Year> parseYear(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> yearString = argMultimap.getValue(PREFIX_YEAR);
+        if (yearString.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseYear(yearString.get()));
+        }
+    }
+
+    /**
+     * Parses the {@code Category} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code Category} object, and wraps it into an {@code Optional} object.
+     * Else, an empty {@code Optional} object is returned.
+     *
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
+     */
+    private Optional<Category> parseCategory(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> categoryString = argMultimap.getValue(PREFIX_CATEGORY);
+        if (categoryString.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseCategory(categoryString.get()));
+        }
+    }
+
+    /**
+     * Parses the {@code TransactionType} field in an {@code ArgumentMultimap}, if present, into
+     * a {@code TransactionType} object, and wraps it into an {@code Optional} object.
+     * Else, an empty {@code Optional} object is returned.
+     *
+     * @throws ParseException if the string in {@code argMultimap} is invalid.
+     */
+    private Optional<TransactionType> parseTransactionType(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> typeString = argMultimap.getValue(PREFIX_TRANSACTION_TYPE);
+        if (typeString.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseTransactionType(typeString.get()));
+        }
+    }
+
+
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
