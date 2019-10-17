@@ -1,4 +1,4 @@
-package seedu.deliverymans.model.deliveryman.exceptions;
+package seedu.deliverymans.model.deliveryman;
 
 import java.util.List;
 

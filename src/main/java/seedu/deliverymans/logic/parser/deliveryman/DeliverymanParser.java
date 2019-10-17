@@ -13,6 +13,7 @@ import seedu.deliverymans.logic.commands.deliveryman.ListAvailCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListCommand;
 import seedu.deliverymans.logic.commands.deliveryman.SortCommand;
 import seedu.deliverymans.logic.commands.deliveryman.StatusCommand;
+import seedu.deliverymans.logic.commands.restaurant.AddCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
@@ -42,7 +43,8 @@ public class DeliverymanParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        // case add??
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
         case AssignCommand.COMMAND_WORD:
             return new AssignCommandParser().parse(arguments);

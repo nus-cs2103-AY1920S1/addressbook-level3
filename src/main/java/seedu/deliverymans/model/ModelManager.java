@@ -261,7 +261,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasDeliveryman(Deliveryman deliveryman) {
         requireNonNull(deliveryman);
-        return true;
+        return deliverymenDatabase.hasDeliveryman(deliveryman);
     }
 
     @Override

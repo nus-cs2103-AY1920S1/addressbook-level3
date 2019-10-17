@@ -2,6 +2,7 @@ package seedu.deliverymans.logic.commands.deliveryman;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
@@ -20,8 +21,10 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " Adds a deliveryman to the deliveryman book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe ";
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_PHONE + "96177613";
 
     public static final String MESSAGE_SUCCESS = "New deliveryman added: %1$s";
     public static final String MESSAGE_DUPLICATE_DELIVERYMAN =
@@ -52,7 +55,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.deliverymans.logic.commands.deliveryman.AddCommand // instanceof handles null
+                || (other instanceof AddCommand // instanceof handles null
                 && toAdd.equals(((AddCommand) other).toAdd));
     }
 
