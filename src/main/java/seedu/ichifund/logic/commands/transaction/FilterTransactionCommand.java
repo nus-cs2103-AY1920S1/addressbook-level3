@@ -24,7 +24,9 @@ public class FilterTransactionCommand extends Command {
     public static final String COMMAND_WORD = "filtertx";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transactions from a specified "
-            + "month, year and optionally category, and displays them as a list with index numbers.\n"
+            + "month, year and optionally category, and displays them as a list with index numbers. "
+            + "To show all categories, use "
+            + PREFIX_CATEGORY + Category.CATEGORY_ALL.toString() + "\n"
             + "Parameters: "
             + PREFIX_MONTH + "MONTH "
             + PREFIX_YEAR + "YEAR "

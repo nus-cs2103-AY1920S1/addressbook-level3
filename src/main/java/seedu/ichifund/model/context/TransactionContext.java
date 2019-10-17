@@ -75,10 +75,12 @@ public class TransactionContext implements Context<Transaction> {
     @Override
     public Predicate<Transaction> getPredicate() {
         Predicate<Transaction> datePredicate = new TransactionDatePredicate(month, year);
-        if (category.isPresent()) {
-            return datePredicate.and(new TransactionCategoryPredicate(category.get()));
-        } else {
+        if (!category.isPresent()) {
             return datePredicate;
+        } else if (category.get() == Category.CATEGORY_ALL) {
+            return datePredicate;
+        } else {
+            return datePredicate.and(new TransactionCategoryPredicate(category.get()));
         }
     }
 

@@ -17,8 +17,13 @@ public class Category {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final Category CATEGORY_ALL = new Category();
 
     public final String category;
+
+    private Category() {
+        this.category = "!all";
+    }
 
     /**
      * Constructs a {@code Category}.

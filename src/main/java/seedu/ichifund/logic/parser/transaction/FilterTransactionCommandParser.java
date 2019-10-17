@@ -38,7 +38,13 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
         Year year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
         Optional<Category> category = argMultimap
                 .getValue(PREFIX_CATEGORY)
-                .flatMap(categoryString -> Optional.of(new Category(categoryString)));
+                .flatMap(categoryString -> {
+                    if (categoryString.equals(Category.CATEGORY_ALL.toString())) {
+                        return Optional.of(Category.CATEGORY_ALL);
+                    } else {
+                        return Optional.of(new Category(categoryString));
+                    }
+                });
 
         return new FilterTransactionCommand(month, year, category);
     }
