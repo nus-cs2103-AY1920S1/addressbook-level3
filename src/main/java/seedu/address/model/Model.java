@@ -5,12 +5,12 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-import seedu.address.model.person.Budget;
 
 /**
  * The API of the Model component.

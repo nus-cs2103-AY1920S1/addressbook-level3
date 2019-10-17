@@ -242,7 +242,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given Budget {@code target} in the list with {@code editedBudget}.
      * {@code target} must exist in the finance tracker.
-     * The budget identity of {@code editedEntry} must not be the same as another existing budget in the finance tracker.
+     * The budget identity of {@code editedEntry} must not be the same as another existing budget
+     * in the finance tracker.
      */
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);

@@ -1,13 +1,13 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.ExpenseTracker;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-import seedu.address.model.person.Budget;
 
 /**
  * Unmodifiable view of an address book

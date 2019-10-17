@@ -11,14 +11,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.ExpenseTrackerManager;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-import seedu.address.model.person.Budget;
-
 
 /**
  * Represents the in-memory model of the address book data.
@@ -130,7 +129,7 @@ public class ModelManager implements Model {
             addressBook.removeIncome((Income) target);
         } else if (target instanceof Wish) {
             addressBook.removeWish((Wish) target);
-        } else if (target instanceof Budget){
+        } else if (target instanceof Budget) {
             addressBook.removeBudget((Budget) target);
         }
     }

@@ -11,11 +11,12 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-import seedu.address.model.person.Budget;
+
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
@@ -73,13 +74,13 @@ class JsonSerializableAddressBook {
             addressBook.addWish(wish);
         }
 
-        for (JsonAdaptedBudget JsonAdaptedBudget: budgets) {
-            Budget budget = JsonAdaptedBudget.toModelType();
+        for (JsonAdaptedBudget jsonAdaptedBudget: budgets) {
+            Budget budget = jsonAdaptedBudget.toModelType();
             addressBook.addBudget(budget);
         }
 
-        for (JsonAdaptedExpenseReminder JsonAdaptedExpenseReminder : expenseReminders) {
-            ExpenseReminder reminder = JsonAdaptedExpenseReminder.toModelType();
+        for (JsonAdaptedExpenseReminder jsonAdaptedExpenseReminder : expenseReminders) {
+            ExpenseReminder reminder = jsonAdaptedExpenseReminder.toModelType();
             addressBook.addExpenseReminder(reminder);
         }
         return addressBook;
