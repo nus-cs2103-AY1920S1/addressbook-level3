@@ -1,10 +1,8 @@
 package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.statistics.Type.CHART;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
-import static seedu.address.model.Model.PREDICATE_SHOW_NO_NOTES;
-
-import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -30,18 +28,20 @@ public class GetStatisticsCommand extends Command {
     public static final String MESSAGE_NO_STATISTICS = "There is no available data for computation of "
             + "statistics, try doing some questions.";
 
-    private final List subjects;
+    /*private final List subjects;
 
     public GetStatisticsCommand(List subjects) {
         requireNonNull(subjects);
         this.subjects = subjects;
-    }
+    }*/
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
-        model.getStatistics();
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        //model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
+        //model.setStatistics();
+        CommandResult c = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        c.setType(CHART);
+        return c;
     }
 }

@@ -19,7 +19,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
-import seedu.address.model.statistics.StatisticsStub;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -35,7 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<Question> filteredQuizQuestions;
     private final FilteredList<QuizResult> filteredQuizResults;
     private final FilteredList<Task> filteredTasks;
-    private final StatisticsStub statisticsStub;
+    private ObservableList<TempStatsQnsModel> statsQnsList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -53,7 +53,6 @@ public class ModelManager implements Model {
         filteredQuizQuestions = new FilteredList<>(this.addressBook.getQuizQuestionList());
         filteredQuizResults = new FilteredList<>(this.addressBook.getQuizResultList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
-        this.statisticsStub = new StatisticsStub();
     }
 
     public ModelManager() {
@@ -131,7 +130,6 @@ public class ModelManager implements Model {
 
         addressBook.setNote(target, editedNote);
     }
-
 
     // question
     @Override
@@ -321,16 +319,46 @@ public class ModelManager implements Model {
     }
 
     //=========== Statistics ===============================================================================
+    /*@Override
+    public void setStatistics() {
+        filteredQuizResults = new FilteredList<>(this.addressBook.getQuizResultList());
+    }*/
+
     @Override
-    public void getStatistics() {
-        // read from storage
+    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
+        return statsQnsList;
+    }
+
+    @Override
+    public int getTotalQuestionsDone() {
+        return addressBook.getTotalQuestionsDone();
+    }
+
+    @Override
+    public int getTotalQuestionsCorrect() {
+        return addressBook.getTotalQuestionsCorrect();
+    }
+
+    @Override
+    public int getTotalQuestionsIncorrect() {
+        return addressBook.getTotalQuestionsIncorrect();
+    }
+
+    @Override
+    public void setCorrectQnsList() {
+        statsQnsList = addressBook.getCorrectQns();
+    }
+
+    @Override
+    public void setIncorrectQnsList() {
+        statsQnsList = addressBook.getIncorrectQns();
     }
 
     @Override
     public ObservableList<PieChart.Data> getStatsChartData() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        pieChartData.add(new PieChart.Data("Correct", statisticsStub.getStatistics().get(0)));
-        pieChartData.add(new PieChart.Data("Incorrect", statisticsStub.getStatistics().get(1)));
+        pieChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
+        pieChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
         return pieChartData;
     }
 }

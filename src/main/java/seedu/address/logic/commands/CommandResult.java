@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.logic.commands.statistics.Type;
+
 /**
  * Represents the result of a command execution.
  */
@@ -24,6 +26,8 @@ public class CommandResult {
     private final boolean isQuiz;
 
     private final boolean showStats;
+
+    private Type type;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -62,6 +66,14 @@ public class CommandResult {
 
     public boolean isShowStats() {
         return showStats;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     @Override

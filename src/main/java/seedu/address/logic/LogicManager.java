@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -49,6 +50,10 @@ public class LogicManager implements Logic {
 
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model);
+
+            if (commandResult.isShowStats()) {
+                return commandResult;
+            }
         } else {
             logger.info("----------------[USER INPUT][" + commandText + "]");
 
@@ -78,6 +83,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<PieChart.Data> getStatsChartData() {
         return model.getStatsChartData();
+    }
+
+    @Override
+    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
+        return model.getStatsQnsList();
+    }
+
+    @Override
+    public int getTotalQuestionsDone() {
+        return model.getTotalQuestionsDone();
     }
 
     @Override

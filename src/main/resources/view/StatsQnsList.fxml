@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="stats-pane-color" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
-    <content>
-        <AnchorPane styleClass="stats-pane-color">
-            <children>
-                <PieChart fx:id="pc" styleClass="chart-pie-label" AnchorPane.rightAnchor="10.0" />
-                <Label fx:id="overview" styleClass="label-bright" text="Label">
+   <content>
+      <AnchorPane styleClass="stats-pane-color">
+         <children>
+            <Label fx:id="qnsListLabel" styleClass="label-bright" text="Label" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
                <padding>
                   <Insets top="20.0" />
                </padding></Label>
-            </children></AnchorPane>
-    </content>
+         </children></AnchorPane>
+   </content>
 </ScrollPane>
