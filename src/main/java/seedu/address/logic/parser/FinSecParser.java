@@ -73,7 +73,7 @@ public class FinSecParser {
             return new EditIncomeCommandParser().parse(arguments);
 
         case DeleteContactCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteContactCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
