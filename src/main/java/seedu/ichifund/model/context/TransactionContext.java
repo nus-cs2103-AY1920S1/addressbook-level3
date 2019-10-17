@@ -48,6 +48,22 @@ public class TransactionContext implements Context<Transaction> {
         this.transactionType = transactionType;
     }
 
+    public boolean hasCategory() {
+        return category.isPresent();
+    }
+
+    public boolean hasTransactionType() {
+        return transactionType.isPresent();
+    }
+
+    public Category getCategory() {
+        return category.orElse(Category.CATEGORY_DEFAULT);
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType.orElse(TransactionType.TRANSACTION_TYPE_DEFAULT);
+    }
+
     public Month getMonth() {
         return month;
     }
