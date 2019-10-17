@@ -23,6 +23,14 @@ public class HelpCommand extends Command {
     private final boolean isListAllCommands;
     private final Class commandClass;
 
+    public boolean isListAllCommands() {
+        return isListAllCommands;
+    }
+
+    public Class getCommandClass() {
+        return commandClass;
+    }
+
     public HelpCommand(Class commandClass, boolean isListAllCommands) {
         this.isListAllCommands = isListAllCommands;
         if (!isListAllCommands) {
@@ -42,6 +50,7 @@ public class HelpCommand extends Command {
             }
             String commandPrompt = "Available commands are: " + commandWords.toString() + "\n"
                 + "More information can be found in the popup window.";
+            System.out.println(commandPrompt);
             return new CommandResult(commandPrompt, true, false);
         } else {
             String commandUsage = getClassStringField(commandClass, "MESSAGE_USAGE");
@@ -49,4 +58,21 @@ public class HelpCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof HelpCommand)) {
+            return false;
+        }
+
+        // state check
+        HelpCommand h = (HelpCommand) other;
+        return isListAllCommands == h.isListAllCommands()
+            && commandClass.equals(h.getCommandClass());
+    }
 }
