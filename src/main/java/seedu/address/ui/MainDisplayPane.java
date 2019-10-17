@@ -41,7 +41,7 @@ public class MainDisplayPane {
     public UiPart<Region> get(DisplayPane displayPane) {
         switch (displayPane) {
         case MAIN:
-            return getMappedPane(displayPane, null);
+            return getMappedPane(displayPane, () -> null);
         case BIO:
             return getMappedPane(displayPane, BioPane::new);
         case ACHVM:
