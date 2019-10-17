@@ -8,7 +8,7 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.person.loan.Status;
+import budgetbuddy.model.loan.Status;
 
 /**
  * Marks one or more loans as paid.

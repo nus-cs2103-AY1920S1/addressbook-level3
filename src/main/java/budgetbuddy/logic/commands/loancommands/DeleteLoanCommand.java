@@ -10,10 +10,10 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.person.exceptions.PersonNotFoundException;
-import budgetbuddy.model.person.loan.Loan;
-import budgetbuddy.model.person.loan.exceptions.LoanNotFoundException;
 
 /**
  * Delete one or more loans.

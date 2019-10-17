@@ -14,11 +14,11 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Direction;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.loan.Description;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.loan.Description;
-import budgetbuddy.model.person.loan.Loan;
-import budgetbuddy.model.person.loan.Status;
-import budgetbuddy.model.person.loan.stub.Date;
 import budgetbuddy.model.transaction.Amount;
 
 /**

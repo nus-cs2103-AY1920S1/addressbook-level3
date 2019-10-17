@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.person.loan.Loan;
+import budgetbuddy.model.loan.Loan;
 
 /**
  * Adds a loan.

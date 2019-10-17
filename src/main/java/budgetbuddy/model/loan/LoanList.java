@@ -1,4 +1,4 @@
-package budgetbuddy.model.person.loan;
+package budgetbuddy.model.loan;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import budgetbuddy.model.person.loan.exceptions.LoanNotFoundException;
+import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

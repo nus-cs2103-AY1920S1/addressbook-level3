@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.person.UniquePersonList;
 import budgetbuddy.model.person.exceptions.PersonNotFoundException;
-import budgetbuddy.model.person.loan.Loan;
 import javafx.collections.ObservableList;
 
 /**

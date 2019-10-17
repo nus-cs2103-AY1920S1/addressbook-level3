@@ -1,4 +1,4 @@
-package budgetbuddy.model.person.loan;
+package budgetbuddy.model.loan;
 
 import static budgetbuddy.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;

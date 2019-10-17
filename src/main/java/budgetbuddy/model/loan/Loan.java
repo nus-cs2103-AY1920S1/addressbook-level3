@@ -1,12 +1,12 @@
-package budgetbuddy.model.person.loan;
+package budgetbuddy.model.loan;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
 import budgetbuddy.model.Direction;
+import budgetbuddy.model.loan.stub.Date;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.loan.stub.Date;
 import budgetbuddy.model.transaction.Amount;
 
 /**

@@ -6,8 +6,8 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_SORT;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.loan.Loan;
 
 /**
  * Lists loans.

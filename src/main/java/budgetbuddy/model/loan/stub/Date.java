@@ -1,4 +1,4 @@
-package budgetbuddy.model.person.loan.stub;
+package budgetbuddy.model.loan.stub;
 
 /**
  * Represents the date of a loan.

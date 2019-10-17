@@ -6,11 +6,11 @@ import java.util.List;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.person.exceptions.PersonNotFoundException;
-import budgetbuddy.model.person.loan.Loan;
-import budgetbuddy.model.person.loan.Status;
-import budgetbuddy.model.person.loan.exceptions.LoanNotFoundException;
 
 /**
  * Updates the status of a loan.
