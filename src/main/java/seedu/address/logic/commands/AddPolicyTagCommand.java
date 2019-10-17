@@ -50,6 +50,15 @@ public class AddPolicyTagCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
         }
 
+        if (tags.length == 0) {
+            throw new CommandException(
+                    String.format(
+                            Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_USAGE
+                    )
+            );
+        }
+
         Policy policyToEdit = lastShownList.get(index.getZeroBased());
         List<Tag> newTags = new ArrayList<>();
 

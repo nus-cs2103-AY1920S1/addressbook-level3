@@ -48,6 +48,15 @@ public class DeleteTagCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        if (tags.length == 0) {
+            throw new CommandException(
+                    String.format(
+                            Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_USAGE
+                    )
+            );
+        }
+
         Person personToEdit = lastShownList.get(index.getZeroBased());
         List<Tag> removeTags = new ArrayList<>();
 
