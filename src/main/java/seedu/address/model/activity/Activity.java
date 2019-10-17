@@ -13,16 +13,28 @@ import seedu.address.model.person.Person;
 public class Activity {
 
     private final Title title;
-    private final ArrayList<Integer> participantIds = new ArrayList<>();
-    private final ArrayList<Expense> expenses = new ArrayList<>();
+    private final ArrayList<Integer> participantIds;
+    private final ArrayList<Expense> expenses;
+
+    /**
+     * Constructor for Activity cloning.
+     * @param activity Activity to be cloned.
+     */
+    public Activity(Activity activity) {
+        title = new Title(activity.title.toString());
+        participantIds = new ArrayList<>(activity.participantIds);
+        expenses = new ArrayList<>(activity.expenses);
+    }
 
     /**
      * Constructor for Activity.
      * @param title Title of the activity.
-     * @param people The people participating in the activity.
+     * @param ids The people participating in the activity.
      */
     public Activity(Title title, Integer ... ids) {
         requireAllNonNull(title);
+        participantIds = new ArrayList<>();
+        expenses = new ArrayList<>();
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);

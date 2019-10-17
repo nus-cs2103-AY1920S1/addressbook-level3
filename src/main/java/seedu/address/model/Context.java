@@ -17,7 +17,7 @@ public class Context {
     /**
      * Represents the various types of contexts that can exist.
      */
-    enum Type {
+    public enum Type {
         MAIN,
         VIEW_CONTACT,
         VIEW_ACTIVITY,
