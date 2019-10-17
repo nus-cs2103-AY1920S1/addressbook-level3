@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BOOK;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -16,7 +18,9 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -30,6 +34,7 @@ import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 import seedu.address.testutil.BookBuilder;
+
 
 public class AddCommandTest {
 
@@ -103,6 +108,16 @@ public class AddCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserSettings getUserSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserSettings(UserSettings userSettings) {
             throw new AssertionError("This method should not be called.");
         }
 

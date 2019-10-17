@@ -17,6 +17,9 @@ import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
 import seedu.address.model.genre.Genre;
+import seedu.address.model.usersettings.FineIncrement;
+import seedu.address.model.usersettings.LoanPeriod;
+import seedu.address.model.usersettings.RenewPeriod;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -169,5 +172,47 @@ public class ParserUtil {
             throw new ParseException(BorrowerId.MESSAGE_CONSTRAINTS);
         }
         return new BorrowerId(trimmedId);
+    }
+
+    /**
+     * Parses {@code loanPeriod} into an {@code LoanPeriod} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified loanPeriod is invalid (not non-zero unsigned integer).
+     */
+    public static LoanPeriod parseLoanPeriod(String loanPeriod) throws ParseException {
+        requireNonNull(loanPeriod);
+        String trimmedLoanPeriod = loanPeriod.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedLoanPeriod)) {
+            throw new ParseException(LoanPeriod.MESSAGE_CONSTRAINTS);
+        }
+        return new LoanPeriod(trimmedLoanPeriod);
+    }
+
+    /**
+     * Parses {@code renewPeriod} into an {@code renewPeriod} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified renewPeriod is invalid (not non-zero unsigned integer).
+     */
+    public static RenewPeriod parseRenewPeriod(String renewPeriod) throws ParseException {
+        requireNonNull(renewPeriod);
+        String trimmedRenewPeriod = renewPeriod.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedRenewPeriod)) {
+            throw new ParseException(RenewPeriod.MESSAGE_CONSTRAINTS);
+        }
+        return new RenewPeriod(trimmedRenewPeriod);
+    }
+
+    /**
+     * Parses {@code fineIncrement} into an {@code FineIncrement} and returns it. Leading and trailing whitespaces will
+     * be trimmed.
+     * @throws ParseException if the specified fineIncrement is invalid (not non-zero unsigned integer).
+     */
+    public static FineIncrement parseFineIncrement(String fineIncrement) throws ParseException {
+        requireNonNull(fineIncrement);
+        String trimmedFineIncrement = fineIncrement.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedFineIncrement)) {
+            throw new ParseException(FineIncrement.MESSAGE_CONSTRAINTS);
+        }
+        return new FineIncrement(trimmedFineIncrement);
     }
 }

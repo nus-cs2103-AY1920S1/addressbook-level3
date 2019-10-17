@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
@@ -38,7 +39,7 @@ public class ModelManager implements Model {
     private Optional<Borrower> servingBorrower;
 
     /**
-     * Initializes a ModelManager with the given catalog and userPrefs.
+     * Initializes a ModelManager with the given catalog, loan records, borrower records and userPrefs.
      * TODO change
      */
     public ModelManager(ReadOnlyCatalog catalog,
@@ -79,6 +80,17 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
+    }
+
+    @Override
+    public UserSettings getUserSettings() {
+        return userPrefs.getUserSettings();
+    }
+
+    @Override
+    public void setUserSettings(UserSettings userSettings) {
+        requireNonNull(userSettings);
+        userPrefs.setUserSettings(userSettings);
     }
 
     @Override
