@@ -38,7 +38,7 @@ public class DateTime implements Comparable<DateTime> {
 
         DateTime parsedDateTime;
         try {
-            if (dateString.length() > 13) {
+            if (dateString.length() != DATETIME_FORMAT.length()) {
                 throw new ParseException("invalid date format", -1);
             }
             DATE_FORMATTER.setLenient(false);
