@@ -1,17 +1,21 @@
 package seedu.address.model.task;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * Represents a Task's time in the calendar.
+ * Guarantees: immutable; is valid as declared in {@link #isValidTaskTime(String)}
+ */
 public class TaskTime {
     public static final String MESSAGE_CONSTRAINTS =
-            "TaskTime should only contain a staring time and an ending time, " +
-                    "with format: dd/MM/yyyy HH:mm, dd/MM/yyyy HH:mm, " +
-                    "with the ending time after the starting time.";
+            "TaskTime should only contain a staring time and an ending time, "
+                    + "with format: dd/MM/yyyy HH:mm, dd/MM/yyyy HH:mm, "
+                    + "with the ending time after the starting time.";
 
     public final String starting;
     public final String ending;
@@ -26,6 +30,9 @@ public class TaskTime {
         ending = endingTime;
     }
 
+    /**
+     * Returns true if a given string is a valid task time.
+     */
     public static boolean isValidTaskTime(String taskTime) {
         Date dateStart;
         Date dateEnd;
@@ -46,7 +53,7 @@ public class TaskTime {
         }
         return dateStart != null;
     }
-/*
+    /*
     public boolean hasTimeConflict(TaskTime otherTaskTime) throws ParseException {
         Date thisStarting = convertToDate(starting);
         Date thisEnding = convertToDate(ending);
@@ -63,7 +70,7 @@ public class TaskTime {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return simpleDateFormat.parse(time);
     }
-*/
+    */
     @Override
     public String toString() {
         return "Starting:\n" + starting + "\nEnding:\n" + ending + "\n";

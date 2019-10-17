@@ -1,16 +1,19 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.calendar.AddTaskCommand;
-import seedu.address.logic.commands.earnings.AddEarningsCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.calendar.AddTaskCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses user input for calendar feature.
+ */
 public class CalendarParser {
     /**
      * Used for initial separation of command word and args.
@@ -33,9 +36,8 @@ public class CalendarParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
-            case AddTaskCommand.COMMAND_WORD:
-                return new AddTaskCommandParser().parse(arguments);
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommandParser().parse(arguments);
 
             /*case EditCommand.COMMAND_WORD:
                 return new EditCommandParser().parse(arguments);
@@ -61,8 +63,8 @@ public class CalendarParser {
             case AddEarningsCommand.COMMAND_WORD:
                 return new AddEarningsCommand();*/
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

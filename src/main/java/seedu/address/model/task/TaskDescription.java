@@ -2,6 +2,9 @@ package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Task's description in the calendar.
+ */
 public class TaskDescription {
     public final String fullTaskDescription;
 

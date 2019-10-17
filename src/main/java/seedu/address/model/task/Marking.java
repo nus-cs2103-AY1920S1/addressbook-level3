@@ -3,13 +3,17 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Task's marking status in the calendar.
+ * Guarantees: immutable; is valid as declared in {@link #isValidMark(String)}
+ */
 public class Marking {
     public static final String MESSAGE_CONSTRAINTS =
             "Marks should only be 'Y' or 'N'";
 
-    public boolean isMarked;
+    private static boolean isMarked;
 
-    public Marking(String  marking) {
+    public Marking(String marking) {
         requireNonNull(marking);
         checkArgument(isValidMark(marking), MESSAGE_CONSTRAINTS);
         if (marking.equals("Y")) {

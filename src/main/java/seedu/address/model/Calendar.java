@@ -1,16 +1,18 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskList;
 
-public class Calendar  implements ReadOnlyCalendar{
+/**
+ * Wraps all data at the calendar level
+ * Duplicates are not allowed (by .isSameTask comparison)
+ */
+public class Calendar implements ReadOnlyCalendar {
     private final TaskList tasks;
 
     /*

@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,20 +9,15 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
-
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Marking;
-import seedu.address.model.task.TaskDescription;
-import seedu.address.model.task.TaskTime;
-
 import seedu.address.model.person.Participation;
 import seedu.address.model.person.Picture;
 import seedu.address.model.person.Result;
+import seedu.address.model.task.Marking;
+import seedu.address.model.task.TaskDescription;
+import seedu.address.model.task.TaskTime;
 
 
 /**

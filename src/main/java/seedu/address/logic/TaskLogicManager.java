@@ -1,12 +1,15 @@
 package seedu.address.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.CalendarParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -14,10 +17,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
-
+/**
+ * The tasks LogicManager of the app.
+ */
 public class TaskLogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(TaskLogicManager.class);
