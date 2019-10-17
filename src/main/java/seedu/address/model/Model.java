@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 
+import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -177,6 +179,20 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFlashcardList(Predicate<Flashcard> predicate);
+
+    /**
+     * Formats string for output
+     * @return String formatted flashcard display
+     */
+    String formatOutputListString(FunctionMode mode);
+
+    /**
+     * Formats string for output.
+     * @param object the filteredlist to read
+     * @param <T> the different features: cheatsheet, flashcard, notes
+     * @return list of all the objects
+     */
+    <T> String formatList(FilteredList<T> object);
 
     /**
      * Adds the given cheatSheet.

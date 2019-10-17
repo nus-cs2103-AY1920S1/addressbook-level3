@@ -51,6 +51,8 @@ public class ListCommand extends Command {
         requireNonNull(model);
         String outputString = MESSAGE_SUCCESS + LogicManager.getMode().toString();
 
+        String returnMsg = ":\n";
+
         switch (LogicManager.getMode()) {
         case CHEATSHEET:
             model.updateFilteredCheatSheetList(PREDICATE_SHOW_ALL_CHEATSHEETS);
@@ -59,6 +61,7 @@ public class ListCommand extends Command {
         case FLASHCARD:
             model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
             List<Flashcard> lastShownList = model.getFilteredFlashcardList();
+
             outputString = formatFlashcardOutputListString(lastShownList);
             break;
 
@@ -71,6 +74,9 @@ public class ListCommand extends Command {
             throw new CommandException(SPECIFY_MODE);
         }
 
-        return new CommandResult(outputString);
+        returnMsg += model.formatOutputListString(LogicManager.getMode());
+        return new CommandResult(MESSAGE_SUCCESS + LogicManager.getMode().toString() + returnMsg);
+
+        //return new CommandResult(outputString);
     }
 }

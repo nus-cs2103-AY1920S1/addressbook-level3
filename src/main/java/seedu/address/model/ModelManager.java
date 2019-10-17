@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
+import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -258,7 +259,63 @@ public class ModelManager implements Model {
         addressBook.removeFlashcard(target);
     }
 
-    //===================CheatSheet============================================================
+    /**
+     * Formats string for output
+     * @return String formatted flashcard display
+     */
+    public String formatOutputListString(FunctionMode mode) {
+        String msg = "";
+
+        switch (mode) {
+        case CHEATSHEET:
+            msg = formatList(filteredCheatSheets);
+            break;
+
+        case FLASHCARD:
+            msg = formatList(filteredFlashcards);
+            break;
+
+        case NOTE:
+            msg = formatList(filteredNotes);
+            break;
+
+        default:
+            // error?
+        }
+
+        return msg;
+    }
+
+    /**
+     * Formats string for output.
+     * @param object the filteredlist to read
+     * @param <T> the different features: cheatsheet, flashcard, notes
+     * @return list of all the objects
+     */
+    public <T> String formatList(FilteredList<T> object) {
+        int size = object.size();
+
+        if (size == 0) {
+            return "[Empty list]";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 1; i <= size; i++) {
+            T feature = object.get(i - 1);
+            sb.append(i)
+                    .append(". ")
+                    .append(feature.toString());
+
+            if (i != size) {
+                sb.append("\n");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    //===================CheatSheetBook============================================================
 
     @Override
     public void addCheatSheet(CheatSheet cheatSheet) {

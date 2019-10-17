@@ -93,7 +93,6 @@ public class AddressBookParser {
                 return parseNoteCommands(commandWord, arguments);
 
             default:
-                System.out.println("test");
                 throw new ParseException(SPECIFY_MODE);
             }
         }

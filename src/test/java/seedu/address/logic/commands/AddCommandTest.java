@@ -14,7 +14,10 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.FunctionMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -190,6 +193,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String formatOutputListString(FunctionMode mode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public <T> String formatList(FilteredList<T> object) {
             throw new AssertionError("This method should not be called.");
         }
 
