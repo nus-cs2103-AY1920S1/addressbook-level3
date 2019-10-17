@@ -16,6 +16,7 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
@@ -150,14 +151,12 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             module.setName(new Name(moduleInfo.getName()));
             module.setMcCount(moduleInfo.getMc());
 
-            /*
             // adds default tags to each module
             UniqueTagList defaultTags = activeStudyPlan.assignDefaultTags(moduleInfo);
             Iterator<Tag> tagIterator = defaultTags.iterator();
             while (tagIterator.hasNext()) {
                 module.getTags().addTag(tagIterator.next());
             }
-             */
 
         }
 

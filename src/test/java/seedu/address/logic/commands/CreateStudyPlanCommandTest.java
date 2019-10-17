@@ -30,11 +30,6 @@ public class CreateStudyPlanCommandTest {
     //TODO implement tests
 
     @Test
-    public void constructor_nullStudyPlan_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CreateStudyPlanCommand(null));
-    }
-
-    @Test
     public void execute_studyPlanAcceptedByModel_addSuccessful() throws Exception {
         //ModelStubAcceptingStudyPlanAdded modelStub = new ModelStubAcceptingStudyPlanAdded();
         StudyPlan validStudyPlan = new StudyPlanBuilder().build();
