@@ -5,8 +5,8 @@ import java.util.Set;
 
 import seedu.address.model.spending.Cost;
 import seedu.address.model.spending.Date;
-import seedu.address.model.spending.Email;
 import seedu.address.model.spending.Name;
+import seedu.address.model.spending.Remark;
 import seedu.address.model.spending.Spending;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -18,20 +18,20 @@ public class SpendingBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_DATE = "25/12/2019";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_REMARK = "Likes to play games";
     public static final String DEFAULT_COST = "123";
 
     private Name name;
     private Date date;
-    private Email email;
+    private Remark remark;
     private Cost cost;
     private Set<Tag> tags;
 
     public SpendingBuilder() {
         name = new Name(DEFAULT_NAME);
         date = new Date(DEFAULT_DATE);
-        email = new Email(DEFAULT_EMAIL);
         cost = new Cost(DEFAULT_COST);
+        remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
     }
 
@@ -41,8 +41,8 @@ public class SpendingBuilder {
     public SpendingBuilder(Spending spendingToCopy) {
         name = spendingToCopy.getName();
         date = spendingToCopy.getDate();
-        email = spendingToCopy.getEmail();
         cost = spendingToCopy.getCost();
+        remark = spendingToCopy.getRemark();
         tags = new HashSet<>(spendingToCopy.getTags());
     }
 
@@ -57,7 +57,7 @@ public class SpendingBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Spending} that we are building.
      */
-    public SpendingBuilder withTags(String ... tags) {
+    public SpendingBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -71,10 +71,10 @@ public class SpendingBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Spending} that we are building.
+     * Sets the {@code Remark} of the {@code Spending} that we are building.
      */
-    public SpendingBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public SpendingBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class SpendingBuilder {
     }
 
     public Spending build() {
-        return new Spending(name, date, email, cost, tags);
+        return new Spending(name, date, remark, cost, tags);
     }
 
 }

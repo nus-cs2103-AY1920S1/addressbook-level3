@@ -2,13 +2,13 @@
   "spendings": [ {
     "name": "Alice Pauline",
     "date": "1/1/2019",
-    "email": "alice@example.com",
+    "remark": "Likes to watch movies",
     "cost": "123",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "date": "1/1/2019",
-    "email": "pauline@example.com",
+    "remark": "Likes to watch movies",
     "cost": "4"
   } ]
 }

@@ -3,43 +3,43 @@
   "spendings" : [ {
     "name" : "Alice Pauline",
     "date" : "1/1/2019",
-    "email" : "alice@example.com",
+    "remark": "Likes to watch movies",
     "cost" : "123",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "date" : "2/1/2019",
-    "email" : "johnd@example.com",
+    "remark": "Likes to play basketball",
     "cost" : "311",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "date" : "3/1/2019",
-    "email" : "heinz@example.com",
+    "remark": "Likes to eat",
     "cost" : "1.50",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "date" : "4/1/2019",
-    "email" : "cornelia@example.com",
+    "remark": "Likes to travel",
     "cost" : "10.10",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "date" : "5/1/2019",
-    "email" : "werner@example.com",
+    "remark": "Likes to sleep",
     "cost" : "134.70",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "date" : "6/1/2019",
-    "email" : "lydia@example.com",
+    "remark": "Likes to cook",
     "cost" : "52",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "date" : "7/1/2019",
-    "email" : "anna@example.com",
+    "remark": "Likes to play golf",
     "cost" : "27.10",
     "tagged" : [ ]
   } ]

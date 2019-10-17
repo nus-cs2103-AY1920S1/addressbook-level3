@@ -2,7 +2,7 @@
   "spendings": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "date": "1/1/2019",
-    "email": "hans@example.com",
+    "remark": "Likes to watch movies",
     "cost": "4"
   } ]
 }

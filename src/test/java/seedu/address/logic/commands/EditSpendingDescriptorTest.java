@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.jupiter.api.Test;
@@ -43,8 +43,8 @@ public class EditSpendingDescriptorTest {
         editedAmy = new EditSpendingDescriptorBuilder(DESC_AMY).withDate(VALID_DATE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different email -> returns false
-        editedAmy = new EditSpendingDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        // different remark -> returns false
+        editedAmy = new EditSpendingDescriptorBuilder(DESC_AMY).withRemark(VALID_REMARK_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different cost -> returns false

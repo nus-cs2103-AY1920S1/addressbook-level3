@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,14 +22,14 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_DATE + "DATE "
-            + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_REMARK + "REMARK "
             + PREFIX_COST + "COST "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_DATE + "today "
-            + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_COST + "1.50 "
+            + PREFIX_REMARK + "Likes to play games"
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
