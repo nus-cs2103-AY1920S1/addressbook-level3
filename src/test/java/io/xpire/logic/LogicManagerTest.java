@@ -82,7 +82,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_BANANA + "|" + VALID_EXPIRY_DATE_BANANA
-                + "|" + VALID_QUANTITY_BANANA;
+                + "| " + VALID_QUANTITY_BANANA;
         Item expectedItem = new ItemBuilder(BANANA).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addItem(expectedItem);
