@@ -1,13 +1,11 @@
 //@@author LeowWB
 
-package seedu.address.model;
+package seedu.address.model.export;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.address.model.export.FilePath;
 
 public class FilePathTest {
 
