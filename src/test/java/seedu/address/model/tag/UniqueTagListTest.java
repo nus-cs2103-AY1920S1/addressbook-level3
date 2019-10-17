@@ -27,28 +27,28 @@ public class UniqueTagListTest {
 
     @Test
     public void contains_tagNotInList_returnsFalse() {
-        assertFalse(uniqueTagList.contains(TagBuilder.buildDefaultCoreTag()));
-        assertFalse(uniqueTagList.contains(TagBuilder.buildTestUserTag()));
+        assertFalse(uniqueTagList.contains(new TagBuilder().buildDefaultCoreTag()));
+        assertFalse(uniqueTagList.contains(new TagBuilder().buildTestUserTag()));
     }
 
     @Test
     public void contains_tagInList_returnsTrue() {
-        DefaultTag defaultTag = TagBuilder.buildDefaultCoreTag();
+        DefaultTag defaultTag = new TagBuilder().buildDefaultCoreTag();
         uniqueTagList.addTag(defaultTag);
         assertTrue(uniqueTagList.contains(defaultTag));
 
-        UserTag userTag = TagBuilder.buildTestUserTag();
+        UserTag userTag = new TagBuilder().buildTestUserTag();
         uniqueTagList.addTag(userTag);
         assertTrue(uniqueTagList.contains(userTag));
     }
 
     @Test
     public void contains_tagWithSameNameInList_returnsTrue() {
-        uniqueTagList.addTag(TagBuilder.buildUserTag("exchange"));
-        assertTrue(uniqueTagList.contains(TagBuilder.buildUserTag("exchange")));
+        uniqueTagList.addTag(new TagBuilder().buildUserTag("exchange"));
+        assertTrue(uniqueTagList.contains(new TagBuilder().buildUserTag("exchange")));
 
-        uniqueTagList.addTag(TagBuilder.buildDefaultCoreTag());
-        assertTrue(uniqueTagList.contains(TagBuilder.buildDefaultCoreTag()));
+        uniqueTagList.addTag(new TagBuilder().buildDefaultCoreTag());
+        assertTrue(uniqueTagList.contains(new TagBuilder().buildDefaultCoreTag()));
     }
 
     @Test
@@ -63,9 +63,9 @@ public class UniqueTagListTest {
 
     @Test
     public void containsTagWithName_tagInList_returnsTrue() {
-        uniqueTagList.addTag(TagBuilder.buildDefaultCoreTag());
+        uniqueTagList.addTag(new TagBuilder().buildDefaultCoreTag());
         assertTrue(uniqueTagList.containsTagWithName("Core"));
-        uniqueTagList.addTag(TagBuilder.buildTestUserTag());
+        uniqueTagList.addTag(new TagBuilder().buildTestUserTag());
         assertTrue(uniqueTagList.containsTagWithName("testUserTag"));
     }
 
@@ -76,32 +76,32 @@ public class UniqueTagListTest {
 
     @Test
     public void add_duplicateTag_throwsDuplicateTagException() {
-        uniqueTagList.addTag(TagBuilder.buildDefaultCoreTag());
-        assertThrows(DuplicateTagException.class, () -> uniqueTagList.addTag(TagBuilder.buildDefaultCoreTag()));
+        uniqueTagList.addTag(new TagBuilder().buildDefaultCoreTag());
+        assertThrows(DuplicateTagException.class, () -> uniqueTagList.addTag(new TagBuilder().buildDefaultCoreTag()));
     }
 
     @Test
     public void setUserTag_nullTargetTag_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                uniqueTagList.setUserTag(null, TagBuilder.buildTestUserTag()));
+                uniqueTagList.setUserTag(null, new TagBuilder().buildTestUserTag()));
     }
 
     @Test
     public void setUserTag_nullEditedTag_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                uniqueTagList.setUserTag(TagBuilder.buildTestUserTag(), null));
+                uniqueTagList.setUserTag(new TagBuilder().buildTestUserTag(), null));
     }
 
     @Test
     public void setUserTag_targetTagNotInList_throwsTagNotFoundException() {
         assertThrows(TagNotFoundException.class, () ->
-                uniqueTagList.setUserTag(TagBuilder.buildUserTag("test"),
-                        TagBuilder.buildUserTag("other")));
+                uniqueTagList.setUserTag(new TagBuilder().buildUserTag("test"),
+                        new TagBuilder().buildUserTag("other")));
     }
 
     @Test
     public void setUserTag_editedUserTagIsSameUserTag_success() {
-        UserTag userTag = TagBuilder.buildTestUserTag();
+        UserTag userTag = new TagBuilder().buildTestUserTag();
         uniqueTagList.addTag(userTag);
         uniqueTagList.setUserTag(userTag, userTag);
         UniqueTagList expectedUniqueTagList = new UniqueTagList();
@@ -111,9 +111,9 @@ public class UniqueTagListTest {
 
     @Test
     public void setUserTag_editedUserTagHasSameName_success() {
-        UserTag test = TagBuilder.buildUserTag("test");
+        UserTag test = new TagBuilder().buildUserTag("test");
         uniqueTagList.addTag(test);
-        UserTag other = TagBuilder.buildUserTag("test");
+        UserTag other = new TagBuilder().buildUserTag("test");
         uniqueTagList.setUserTag(test, other);
         UniqueTagList expectedUniqueTagList = new UniqueTagList();
         expectedUniqueTagList.addTag(other);
@@ -122,9 +122,9 @@ public class UniqueTagListTest {
 
     @Test
     public void setUserTag_editedUserTagHasDifferentName_success() {
-        UserTag test = TagBuilder.buildUserTag("test");
+        UserTag test = new TagBuilder().buildUserTag("test");
         uniqueTagList.addTag(test);
-        UserTag other = TagBuilder.buildUserTag("other");
+        UserTag other = new TagBuilder().buildUserTag("other");
         uniqueTagList.setUserTag(test, other);
         UniqueTagList expectedUniqueTagList = new UniqueTagList();
         expectedUniqueTagList.addTag(other);
@@ -138,19 +138,19 @@ public class UniqueTagListTest {
 
     @Test
     public void remove_userTagDoesNotExist_throwsTagNotFoundException() {
-        assertThrows(TagNotFoundException.class, () -> uniqueTagList.remove(TagBuilder.buildTestUserTag()));
+        assertThrows(TagNotFoundException.class, () -> uniqueTagList.remove(new TagBuilder().buildTestUserTag()));
     }
 
     @Test
     public void remove_defaultTag_throwsInvalidTagModificationException() {
-        DefaultTag defaultTag = TagBuilder.buildDefaultCoreTag();
+        DefaultTag defaultTag = new TagBuilder().buildDefaultCoreTag();
         uniqueTagList.addTag(defaultTag);
         assertThrows(InvalidTagModificationException.class, () -> uniqueTagList.remove(defaultTag));
     }
 
     @Test
     public void remove_existingUserTag_removesUserTag() {
-        UserTag userTag = TagBuilder.buildTestUserTag();
+        UserTag userTag = new TagBuilder().buildTestUserTag();
         uniqueTagList.addTag(userTag);
         uniqueTagList.remove(userTag);
         UniqueTagList expectedUniqueTagList = new UniqueTagList();
@@ -164,9 +164,9 @@ public class UniqueTagListTest {
 
     @Test
     public void setTags_uniqueTagList_replacesOwnListWithProvidedUniqueTagList() {
-        uniqueTagList.addTag(TagBuilder.buildTestUserTag());
+        uniqueTagList.addTag(new TagBuilder().buildTestUserTag());
         UniqueTagList expectedUniqueTagList = new UniqueTagList();
-        expectedUniqueTagList.addTag(TagBuilder.buildUserTag("other"));
+        expectedUniqueTagList.addTag(new TagBuilder().buildUserTag("other"));
         uniqueTagList.setTags(expectedUniqueTagList);
         assertEquals(expectedUniqueTagList, uniqueTagList);
     }
@@ -178,9 +178,9 @@ public class UniqueTagListTest {
 
     @Test
     public void setTags_list_replacesOwnListWithProvidedList() {
-        uniqueTagList.addTag(TagBuilder.buildTestUserTag());
-        uniqueTagList.addTag(TagBuilder.buildDefaultCoreTag());
-        Tag other = TagBuilder.buildUserTag("other");
+        uniqueTagList.addTag(new TagBuilder().buildTestUserTag());
+        uniqueTagList.addTag(new TagBuilder().buildDefaultCoreTag());
+        Tag other = new TagBuilder().buildUserTag("other");
         List<Tag> tagList = Collections.singletonList(other);
         uniqueTagList.setTags(tagList);
         UniqueTagList expectedUniqueTagList = new UniqueTagList();
@@ -190,7 +190,7 @@ public class UniqueTagListTest {
 
     @Test
     public void setTags_listWithDuplicateUserTags_throwsDuplicateTagException() {
-        UserTag userTag = TagBuilder.buildTestUserTag();
+        UserTag userTag = new TagBuilder().buildTestUserTag();
         List<Tag> listWithDuplicateUserTags = Arrays.asList(userTag, userTag);
         assertThrows(DuplicateTagException.class, () -> uniqueTagList.setTags(listWithDuplicateUserTags));
     }
@@ -203,7 +203,7 @@ public class UniqueTagListTest {
 
     @Test
     public void getDefaultTag_validDefaultTagName_success() {
-        DefaultTag defaultTag = TagBuilder.buildDefaultCoreTag();
+        DefaultTag defaultTag = new TagBuilder().buildDefaultCoreTag();
         uniqueTagList.addTag(defaultTag);
         assertEquals(defaultTag, uniqueTagList.getDefaultTag("Core"));
     }
@@ -211,17 +211,17 @@ public class UniqueTagListTest {
     @Test
     public void getDefaultTag_invalidDefaultTagName_throwsTagNotFoundException() {
         uniqueTagList.initDefaultTags();
-        uniqueTagList.addTag(TagBuilder.buildUserTag("exchange"));
+        uniqueTagList.addTag(new TagBuilder().buildUserTag("exchange"));
         assertThrows(TagNotFoundException.class, () -> uniqueTagList.getDefaultTag("exchange"));
     }
 
     @Test
     public void getTag_validTagName_success() {
-        UserTag userTag = TagBuilder.buildTestUserTag();
+        UserTag userTag = new TagBuilder().buildTestUserTag();
         uniqueTagList.addTag(userTag);
         assertEquals(userTag, uniqueTagList.getTag("testUserTag"));
 
-        DefaultTag defaultTag = TagBuilder.buildDefaultCoreTag();
+        DefaultTag defaultTag = new TagBuilder().buildDefaultCoreTag();
         uniqueTagList.addTag(defaultTag);
         assertEquals(defaultTag, uniqueTagList.getTag("Core"));
     }
@@ -238,8 +238,8 @@ public class UniqueTagListTest {
         assertTrue(uniqueTagList.equals(otherUniqueTagList));
 
         // same tag objects in both lists
-        DefaultTag defaultTag = TagBuilder.buildDefaultCoreTag();
-        UserTag userTag = TagBuilder.buildTestUserTag();
+        DefaultTag defaultTag = new TagBuilder().buildDefaultCoreTag();
+        UserTag userTag = new TagBuilder().buildTestUserTag();
         otherUniqueTagList.addTag(defaultTag);
         otherUniqueTagList.addTag(userTag);
         uniqueTagList.addTag(defaultTag);
@@ -247,8 +247,8 @@ public class UniqueTagListTest {
         assertTrue(uniqueTagList.equals(otherUniqueTagList));
 
         // tags with same names in both lists
-        DefaultTag otherDefaultTag = TagBuilder.buildDefaultTag(DefaultTagType.COMPLETED);
-        UserTag otherUserTag = TagBuilder.buildUserTag("otherUserTag");
+        DefaultTag otherDefaultTag = new TagBuilder().buildDefaultTag(DefaultTagType.COMPLETED);
+        UserTag otherUserTag = new TagBuilder().buildUserTag("otherUserTag");
         uniqueTagList.addTag(otherUserTag);
         uniqueTagList.addTag(otherDefaultTag);
         assertFalse(uniqueTagList.equals(otherUniqueTagList));
@@ -258,7 +258,7 @@ public class UniqueTagListTest {
     public void initDefaultTags_success() {
         uniqueTagList.initDefaultTags();
         for (DefaultTagType defaultTagType: DefaultTagType.values()) {
-            assertTrue(uniqueTagList.contains(TagBuilder.buildDefaultTag(defaultTagType)));
+            assertTrue(uniqueTagList.contains(new TagBuilder().buildDefaultTag(defaultTagType)));
         }
     }
 
