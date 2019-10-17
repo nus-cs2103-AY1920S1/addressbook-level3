@@ -68,8 +68,7 @@ Format: `help`
 
 
 === Adding an item: `add`
-
-Adds item to list +
+Adds an item to your tracker +
 Format: `add|<item name>|<expiry date>[|<quantity>]`
 
 Examples:
@@ -90,14 +89,15 @@ For items with single quantity, you can save time by keying in only the item nam
 
 === Listing all items : `view`
 
-Shows all items in the list. +
+Lists all items in your tracker: +
 Format: `view`
 
 === Setting reminder for an item: `set reminder`
 
-Sets a reminder threshold for the specified item. +
-This allows the check command to quickly find the item once the reminder threshold is exceeded. +
+Sets a reminder threshold for your item +
 Format: `set reminder|<index>|<reminder threshold>`
+
+This allows the check command to quickly find the item once the reminder threshold is exceeded.
 
 ****
 * Reminder threshold refers to *the number of days before the item's expiry date* to activate the reminder.
@@ -115,11 +115,12 @@ Removes the reminder for the first item in the list.
 
 === Listing expiring items : `check`
 
-Shows items whose reminder has been activated. +
+Lists items that will expire within the specified number of days in your tracker. +
+Format: `check|<days>`
+
+Lists items whose reminder has been activated +
 Format: `check`
 
-Shows items that will expire within the specified number of days in the list. +
-Format: `check|<days>`
 
 ****
 * Number of days *must be a non-negative integer* 0,1,2,3,..
@@ -136,7 +137,7 @@ Lists items expiring in the next 20 days.
 
 === Sorting all items : `sort`
 
-Sorts all items in the list by either name or date. +
+Sorts all items in your list by either name or date: +
 Format: `sort|<key>`
 
 ****
@@ -152,7 +153,7 @@ Examples:
 
 === Searching item by name: `search`
 
-Search items whose names contain any of the given keywords. +
+Searches for items whose names contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
 
 ****
@@ -173,17 +174,18 @@ Returns any items containing the terms `milk`, `tea`, or `pearls`
 // tag::delete[]
 === Deleting items, tags or quantity : `delete`
 
-Deletes the specified item from the list or deletes tag(s) from the specified item. +
+Deletes the specified item from your list. +
 Format: `delete|<index>` +
 OR +
+Deletes tag(s) from the specified item. +
 Format: `delete|<index>|<tag>[<other tags>]...` +
 OR +
+Reduces item quantity by the specified quantity. +
 Format `delete|<index>|<quantity>`
 
 
 ****
-* Deletes the item at the specified `<index>`.
-* The index refers to the index number shown in the list.
+* The index refers to the index number shown on the list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Tags must be prefixed with a '#'.
 * The item must contain the tags to be deleted.
@@ -266,7 +268,7 @@ There is no need to save manually.
 == Command Summary
 
 * *Help* : `help`
-* *Add* `add|<item name>|<expiry date>|[<tag>]...` +
+* *Add* `add|<item name>|<expiry date>[|<quantity>]...` +
 e.g. `add|durian|30/9/2019`
 * *View* : `view`
 * *Set reminder* : `set reminder|<index>|<reminder threshold>` +
@@ -277,7 +279,7 @@ e.g. `check|20`
 e.g. `sort|date`
 * *Search* : `search|<keyword>[|<other keywords>]...` +
 e.g. `search|milk|tea|pearls`
-* *Delete* : `delete|<index>` +
+* *Delete* : `delete|<index>[|<tag> or <quantity>]` +
 e.g. `delete|3`
 * *Tag* : `tag|<index>|[<tag>]...`
 * *Clear* : `clear`
