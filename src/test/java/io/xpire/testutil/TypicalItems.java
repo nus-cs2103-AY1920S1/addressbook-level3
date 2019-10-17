@@ -68,7 +68,7 @@ public class TypicalItems {
     private TypicalItems() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical items.
+     * Returns an {@code Xpire} with all the typical items.
      */
     public static Xpire getTypicalExpiryDateTracker() {
         Xpire edt = new Xpire();
