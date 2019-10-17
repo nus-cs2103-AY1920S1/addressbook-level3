@@ -18,6 +18,7 @@ import seedu.jarvis.logic.commands.address.FindAddressCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.cca.AddCcaCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
+import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.PaidCommand;
 import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
@@ -31,6 +32,7 @@ import seedu.jarvis.logic.parser.address.FindAddressCommandParser;
 import seedu.jarvis.logic.parser.cca.AddCcaCommandParser;
 import seedu.jarvis.logic.parser.course.LookUpCommandParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.logic.parser.finance.EditInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.PaidCommandParser;
 import seedu.jarvis.logic.parser.finance.RemoveInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.SetInstallmentCommandParser;
@@ -111,6 +113,9 @@ public class JarvisParser {
 
         case RemoveInstallmentCommand.COMMAND_WORD:
             return new RemoveInstallmentCommandParser().parse(arguments);
+
+        case EditInstallmentCommand.COMMAND_WORD:
+            return new EditInstallmentCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

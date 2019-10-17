@@ -64,6 +64,9 @@ public class CommandTestUtil {
     public static final String INSTAL_DESC_NETFLIX = " " + PREFIX_DESCRIPTION + VALID_DESC_NETFLIX;
     public static final String INSTAL_MONEY_NETFLIX = " " + PREFIX_MONEY + VALID_MONEY_NETFLIX;
 
+    public static final String INSTAL_DESC_SPOTIFY = " " + PREFIX_DESCRIPTION + VALID_DESC_SPOTIFY;
+    public static final String INSTAL_MONEY_SPOTIFY = " " + PREFIX_MONEY + VALID_MONEY_SPOTIFY;
+
     public static final String PURCHASE_DESC_LUNCH = " " + PREFIX_DESCRIPTION + VALID_DESC_LUNCH;
     public static final String PURCHASE_MONEY_LUNCH = " " + PREFIX_MONEY + VALID_MONEY_LUNCH;
 
