@@ -39,7 +39,7 @@ public class EventCard extends UiPart<Region> {
         this.uiParser = uiParser;
         this.event = event;
         this.eventName = event.getDescription();
-        this.eventDate = uiParser.getTime(event.getStartDateTime().getDateTime());
+        this.eventDate = uiParser.getTime(event.getStartDateTime().toInstant());
 
         eventCardName.setText(this.eventName);
         eventCardDate.setText(this.eventDate);

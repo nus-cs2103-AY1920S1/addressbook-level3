@@ -1,13 +1,10 @@
 package seedu.address.model.events;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.IcsUtil.generateUid;
 import static seedu.address.commons.util.IcsUtil.toIcsTimeStamp;
 
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
-
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents an EventSource in Horo.
@@ -20,39 +17,34 @@ public class EventSource {
     private final DateTime start;
 
     // Optional
-    private DateTime end;
-    private Set<Tag> tags = new HashSet<>();
+    private final DateTime end;
+    private final Set<String> tags;
 
     /**
-     * Creates an EventSource.
+     * Creates an EventSource from an EventSourceBuilder.
      * All fields must be non null.
      */
-    public EventSource(String description, DateTime start) {
-        requireAllNonNull(description, start);
-        this.description = description;
-        this.start = start;
+    EventSource(EventSourceBuilder builder) {
+        this.description = builder.getDescription();
+        this.start = builder.getStart();
+        this.end = builder.getEnd();
+        this.tags = builder.getTags();
     }
 
     /**
-     * Creates an EventSource.
-     * The description and start fields must be non null. The end field is optional.
+     * Copy constructor.
+     * Creates a deep-copy of an EventSource.
+     * @param eventSource the eventSource to deep-copy.
      */
-    public EventSource(String description, DateTime start, DateTime end) {
-        requireAllNonNull(description, start);
-        this.description = description;
-        this.start = start;
-        this.end = end;
+    public EventSource(EventSource eventSource) {
+        this.description = eventSource.description;
+        this.start = eventSource.start;
+        this.end = eventSource.end;
+        this.tags = eventSource.tags;
     }
 
-    /**
-     * Returns a deep-copy of an EventSource.
-     *
-     * @param oldEventSource the eventSource to deep-copy.
-     */
-    public EventSource(EventSource oldEventSource) {
-        this.description = oldEventSource.description;
-        this.start = oldEventSource.start;
-        this.end = oldEventSource.end;
+    public static EventSourceBuilder newBuilder(String description, DateTime start) {
+        return new EventSourceBuilder(description, start);
     }
 
     /**
@@ -65,11 +57,31 @@ public class EventSource {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public DateTime getStartDateTime() {
-        return start;
+        return this.start;
+    }
+
+    public DateTime getEnd() {
+        return end;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof EventSource) {
+            EventSource e = (EventSource) object;
+            return Objects.equals(this.description, e.description)
+                && Objects.equals(this.start, e.start)
+                && Objects.equals(this.end, e.end)
+                && Objects.equals(this.tags, e.tags);
+        }
+        return false;
     }
 
     /**
