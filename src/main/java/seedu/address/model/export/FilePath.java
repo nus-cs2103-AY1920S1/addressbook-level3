@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Represents a FlashCard's Question in the address book.
+ * Represents a file path.
  * Guarantees: immutable; is valid as declared in {@link #isValidFilePath(String)}
  */
 public class FilePath {
@@ -30,9 +30,9 @@ public class FilePath {
     private final Path path;
 
     /**
-     * Constructs a {@code Question}.
+     * Constructs a {@code FilePath}.
      *
-     * @param filePath A valid question.
+     * @param filePath A valid document file path.
      */
     public FilePath(String filePath) {
         requireNonNull(filePath);
@@ -41,7 +41,7 @@ public class FilePath {
     }
 
     /**
-     * Returns true if a given string is a valid question.
+     * Returns true if a given string is a valid document file path.
      */
     public static boolean isValidFilePath(String test) {
         return test.matches(VALIDATION_REGEX);
