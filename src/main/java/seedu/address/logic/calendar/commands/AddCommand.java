@@ -1,61 +1,60 @@
 package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
-import seedu.address.model.calendar.Model;
-import seedu.address.model.calendar.person.Person;
-
+import seedu.address.model.calendar.CalendarModel;
+import seedu.address.model.calendar.person.Task;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_TASKTITLE + "TITLE "
+            + PREFIX_TASKTIME + "TIME "
+            + PREFIX_TASKDESCRIPTION + "DESCRIPTION "
+            + PREFIX_TASKPLACE + "PLACE "
+            + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TASKTITLE + "CS2109 Assignment 7 "
+            + PREFIX_TASKTIME + "20/10/2019 "
+            + PREFIX_TASKDESCRIPTION + "Submit to Luminus "
+            + PREFIX_TASKPLACE + "NUS "
+            + PREFIX_TASKTAG + "IMPORTANT "
+            + PREFIX_TASKTAG + "CS2109";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the address book";
 
-    private final Person toAdd;
+    private final Task toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Task}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Task task) {
+        requireNonNull(task);
+        toAdd = task;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute(CalendarModel calendarModel) throws CommandException {
+        requireNonNull(calendarModel);
 
-        if (model.hasPerson(toAdd)) {
+        if (calendarModel.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        calendarModel.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

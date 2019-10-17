@@ -9,15 +9,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.person.Address;
-import seedu.address.model.calendar.person.Email;
-import seedu.address.model.calendar.person.Name;
-import seedu.address.model.calendar.person.Phone;
-import seedu.address.model.calendar.tag.Tag;
-
-
-
-
+import seedu.address.model.calendar.person.TaskDescription;
+import seedu.address.model.calendar.person.TaskPlace;
+import seedu.address.model.calendar.person.TaskTime;
+import seedu.address.model.calendar.person.TaskTitle;
+import seedu.address.model.calendar.tag.TaskTag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -40,89 +36,89 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String name} into a {@code TaskTitle}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
+    public static TaskTitle parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!TaskTitle.isValidName(trimmedName)) {
+            throw new ParseException(TaskTitle.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new TaskTitle(trimmedName);
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String phone} into a {@code TaskTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
+    public static TaskTime parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        if (!TaskTime.isValidPhone(trimmedPhone)) {
+            throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new TaskTime(trimmedPhone);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String address} into an {@code TaskPlace}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
+    public static TaskPlace parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        if (!TaskPlace.isValidAddress(trimmedAddress)) {
+            throw new ParseException(TaskPlace.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new TaskPlace(trimmedAddress);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String email} into an {@code TaskDescription}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
+    public static TaskDescription parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+        if (!TaskDescription.isValidEmail(trimmedEmail)) {
+            throw new ParseException(TaskDescription.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new TaskDescription(trimmedEmail);
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String tag} into a {@code TaskTag}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
+    public static TaskTag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        if (!TaskTag.isValidTagName(trimmedTag)) {
+            throw new ParseException(TaskTag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new TaskTag(trimmedTag);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> tags} into a {@code Set<TaskTag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<TaskTag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
+        final Set<TaskTag> taskTagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            taskTagSet.add(parseTag(tagName));
         }
-        return tagSet;
+        return taskTagSet;
     }
 }

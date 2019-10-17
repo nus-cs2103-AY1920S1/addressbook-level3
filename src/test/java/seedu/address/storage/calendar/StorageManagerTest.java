@@ -37,10 +37,10 @@
 //         * {@link JsonUserPrefsStorage} class.
 //         * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
 //         */
-//        UserPrefs original = new UserPrefs();
+//        CalendarUserPrefs original = new CalendarUserPrefs();
 //        original.setGuiSettings(new GuiSettings(300, 600, 4, 6));
 //        storageManager.saveUserPrefs(original);
-//        UserPrefs retrieved = storageManager.readUserPrefs().get();
+//        CalendarUserPrefs retrieved = storageManager.readUserPrefs().get();
 //        assertEquals(original, retrieved);
 //    }
 //
@@ -51,10 +51,10 @@
 //         * {@link JsonAddressBookStorage} class.
 //         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
 //         */
-//        AddressBook original = getTypicalAddressBook();
+//        CalendarAddressBook original = getTypicalAddressBook();
 //        storageManager.saveAddressBook(original);
-//        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-//        assertEquals(original, new AddressBook(retrieved));
+//        ReadOnlyCalendarAddressBook retrieved = storageManager.readAddressBook().get();
+//        assertEquals(original, new CalendarAddressBook(retrieved));
 //    }
 //
 //    @Test

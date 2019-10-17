@@ -14,7 +14,7 @@ import seedu.address.logic.calendar.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
-    private static final String FXML = "IsItCalendar.fxml";
+    private static final String FXML = "CalendarCommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
 

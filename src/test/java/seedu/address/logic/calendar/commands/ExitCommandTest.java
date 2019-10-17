@@ -10,12 +10,12 @@
 //
 //
 //public class ExitCommandTest {
-//    private Model model = new ModelManager();
-//    private Model expectedModel = new ModelManager();
+//    private CalendarModel calendarModel = new CalendarModelManager();
+//    private CalendarModel expectedModel = new CalendarModelManager();
 //
 //    @Test
 //    public void execute_exit_success() {
 //        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
-//        assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
+//        assertCommandSuccess(new ExitCommand(), calendarModel, expectedCommandResult, expectedModel);
 //    }
 //}

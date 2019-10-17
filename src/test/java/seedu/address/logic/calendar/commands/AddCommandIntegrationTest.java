@@ -8,38 +8,39 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.logic.commands.AddCommand;
-//import seedu.address.model.person.Person;
+//import seedu.address.calendarModel.task.Task;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
 //
 ///**
-// * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+// * Contains integration tests (interaction with the CalendarModel) for {@code AddCommand}.
 // */
 //public class AddCommandIntegrationTest {
 //
-//    private Model model;
+//    private CalendarModel calendarModel;
 //
 //    @BeforeEach
 //    public void setUp() {
-//        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+//        calendarModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
 //    }
 //
 //    @Test
 //    public void execute_newPerson_success() {
-//        Person validPerson = new PersonBuilder().build();
+//        Task validPerson = new PersonBuilder().build();
 //
-//        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+//        CalendarModel expectedModel = new CalendarModelManager(calendarModel.getCalendarAddressBook(),
+//                new CalendarUserPrefs());
 //        expectedModel.addPerson(validPerson);
 //
-//        assertCommandSuccess(new AddCommand(validPerson), model,
+//        assertCommandSuccess(new AddCommand(validPerson), calendarModel,
 //                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
 //    }
 //
 //    @Test
 //    public void execute_duplicatePerson_throwsCommandException() {
-//        Person personInList = model.getAddressBook().getPersonList().get(0);
-//        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+//        Task personInList = calendarModel.getCalendarAddressBook().getPersonList().get(0);
+//        assertCommandFailure(new AddCommand(personInList), calendarModel, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //    }
 //
 //}
