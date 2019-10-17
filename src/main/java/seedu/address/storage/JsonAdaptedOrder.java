@@ -186,7 +186,7 @@ class JsonAdaptedOrder {
             throw new IllegalValueException(Venue.MESSAGE_CONSTRAINTS);
         }
 
-        Optional<Schedule> modelSchedule;
+        final Optional<Schedule> modelSchedule;
         if (schedule != null) {
             modelSchedule = Optional.of(schedule.toModelType());
         } else {

@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,7 +54,13 @@ class JsonAdaptedSchedule {
      */
     public JsonAdaptedSchedule(Schedule source) {
         id = source.getId().toString();
-        calendar = DateFormat.getDateInstance().format(source.getCalendar().getTime());
+        StringBuilder sb = new StringBuilder();
+        sb.append(source.getCalendar().get(Calendar.YEAR) + ".")
+                .append(String.format("%02d", source.getCalendar().get(Calendar.MONTH)) + ".")
+                .append(String.format("%02d", source.getCalendar().get(Calendar.DAY_OF_MONTH)) + ".")
+                .append(String.format("%02d", source.getCalendar().get(Calendar.HOUR_OF_DAY)) + ".")
+                .append(String.format("%02d", source.getCalendar().get(Calendar.MINUTE)));
+        calendar = sb.toString();
         venue = source.getVenue().venue;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -84,9 +89,15 @@ class JsonAdaptedSchedule {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Calendar.class.getSimpleName()));
         }
-
-        final Calendar modelCalendar = Calendar.getInstance();
-        modelCalendar.setTime(DateFormat.getDateInstance().parse(calendar));
+        //YYYYMMDDHHmm
+        String[] stringCalendar = calendar.split("\\.");
+        int[] input = new int[5];
+        for (int index = 0; index < 5; index++) {
+            input[index] = Integer.parseInt(stringCalendar[index]);
+        }
+        input[1] -= 1;
+        Calendar modelCalendar = new Calendar.Builder().setDate(input[0], input[1], input[2])
+                .setTimeOfDay(input[3], input[4], 0).build();
 
         if (venue == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
