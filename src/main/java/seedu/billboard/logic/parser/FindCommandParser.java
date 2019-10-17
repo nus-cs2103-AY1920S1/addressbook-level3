@@ -2,7 +2,10 @@ package seedu.billboard.logic.parser;
 
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,21 +40,22 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         final String findType = matcher.group("findType");
-        final String arguments = matcher.group("arguments").trim();
+        final String arguments = matcher.group("arguments");
+        final String trimedArguments = arguments.trim();
 
         switch (findType) {
         case NameContainsKeywordsPredicate.FINDTYPE:
-            String[] nameKeywords = arguments.split("\\s+");
+            String[] nameKeywords = trimedArguments.split("\\s+");
 
             return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
 
         case AllContainsKeywordsPredicate.FINDTYPE:
-            String[] keywords = arguments.split("\\s+");
+            String[] keywords = trimedArguments.split("\\s+");
 
             return new FindCommand(new AllContainsKeywordsPredicate(Arrays.asList(keywords)));
 
         case AmountWithinRangePredicate.FINDTYPE:
-            String[] amountLimits = arguments.split("\\s+");
+            String[] amountLimits = trimedArguments.split("\\s+");
             try {
                 switch (amountLimits.length) {
                 case 1:
@@ -68,6 +72,20 @@ public class FindCommandParser implements Parser<FindCommand> {
             } catch (NumberFormatException ex) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
             }
+
+        case DateWithinRangePredicate.FINDTYPE:
+            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_START_DATE, PREFIX_END_DATE);
+
+            if (!argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+
+            LocalDateTime startDate = ParserUtil.parseCreatedDateTime(argMultimap.getValue(PREFIX_START_DATE).get())
+                    .dateTime;
+            LocalDateTime endDate = argMultimap.getValue(PREFIX_END_DATE).isPresent()
+                    ? ParserUtil.parseCreatedDateTime(argMultimap.getValue(PREFIX_END_DATE).get()).dateTime
+                    : LocalDateTime.now();
+            return new FindCommand(new DateWithinRangePredicate(startDate, endDate));
 
         default:
             throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
