@@ -23,7 +23,7 @@ public class NotNullList<E> implements Iterable<E> {
     }
 
     /**
-     * Adds an element to this event list.
+     * Adds an element to this list.
      * @param e the element to add
      */
     public void add(E e) {
