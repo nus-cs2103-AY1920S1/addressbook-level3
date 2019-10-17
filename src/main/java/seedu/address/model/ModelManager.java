@@ -286,6 +286,12 @@ public class ModelManager implements Model {
         return filteredPasswords;
     }
 
+    @Override
+    public void updateFilteredPasswordList(Predicate<Password> predicate) {
+        requireNonNull(predicate);
+        filteredPasswords.setPredicate(predicate);
+    }
+
     //=========== PasswordBook List Accessors =============================================================
 
     @Override
@@ -318,6 +324,12 @@ public class ModelManager implements Model {
     @Override
     public Path getPasswordBookFilePath() {
         return userPrefs.getPasswordBookFilePath();
+    }
+
+    @Override
+    public void setPassword(Password target, Password editedPassword) {
+        requireAllNonNull(target, editedPassword);
+        passwordBook.setPassword(target, editedPassword);
     }
 
     @Override

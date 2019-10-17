@@ -45,6 +45,10 @@ public class Password {
         return passwordValue;
     }
 
+    /**
+     * Returns the non-encrypted PasswordValue
+     * @return non-encrypted PasswordValue
+     */
     public String getNonEncryptedPasswordValue() {
         return passwordValue.getNonEncryptedPasswordValue();
     }
@@ -57,6 +61,10 @@ public class Password {
         return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Returns the non-encrypted Password
+     * @return non-encrypted Password
+     */
     public String toNonAsterixString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Description: ")

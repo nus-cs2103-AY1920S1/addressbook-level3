@@ -1,7 +1,10 @@
 package seedu.address.model.password;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Represents a Password's password value in the password book.
@@ -27,28 +30,11 @@ public class PasswordValue {
     }
 
     public String getEncryptedPasswordValue() {
-        return changeToAsterix(value);
+        return StringUtil.changeToAsterix(value);
     }
 
     public String getNonEncryptedPasswordValue() {
         return value;
-    }
-
-    public String changeToAsterix(String password) {
-        int len = password.length();
-        if (len <= 3) {
-            return asterix(len);
-        } else {
-            return password.substring(0,2) + asterix(len-2);
-        }
-    }
-
-    public String asterix(int length) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            sb.append("*");
-        }
-        return sb.toString();
     }
 
     @Override

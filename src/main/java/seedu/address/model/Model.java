@@ -19,11 +19,15 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+<<<<<<< HEAD
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
+=======
+    Predicate<Password> PREDICATE_SHOW_ALL_PASSWORDS = unused -> true;
+>>>>>>> Add support for EditPasswordCommand and EditPasswordCommandParser
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -242,6 +246,12 @@ public interface Model {
 
     ObservableList<Password> getFilteredPasswordList();
 
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPasswordList(Predicate<Password> predicate);
+
     void addPassword(Password password);
 
     /**
@@ -267,4 +277,12 @@ public interface Model {
      * Returns the user prefs' password book file path.
      */
     Path getPasswordBookFilePath();
+
+    /**
+     * Replaces the given password {@code target} with {@code editedPassword}.
+     * {@code target} must exist in the password book.
+     * The password identity of {@code editedPassword} must not be the same as another existing password
+     * in the password book.
+     */
+    void setPassword(Password target, Password editedPassword);
 }

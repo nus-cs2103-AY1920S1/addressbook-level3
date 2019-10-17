@@ -243,6 +243,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFilteredPasswordList(Predicate<Password> predicate) {
+
+        }
+
+        @Override
         public void addPassword(Password password) {
 
         }
@@ -270,6 +275,11 @@ public class AddCommandTest {
         @Override
         public Path getPasswordBookFilePath() {
             return null;
+        }
+
+        @Override
+        public void setPassword(Password target, Password editedPassword) {
+
         }
     }
 
