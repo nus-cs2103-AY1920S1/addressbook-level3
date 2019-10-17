@@ -3,9 +3,12 @@ package seedu.address.logic.commands.shoppinglist;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
 
+import java.util.List;
 import java.util.Optional;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -20,7 +23,7 @@ import seedu.address.model.food.ShoppingItem;
  */
 public class BoughtShoppingCommand extends Command {
 
-    public static final String COMMAND_WORD = "slist bought";
+    public static final String COMMAND_WORD = "bought";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the ShoppingItem at the index as bought. "
             + "Also specifies the expiry date and amount of items bought. \n"
@@ -52,19 +55,19 @@ public class BoughtShoppingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        //List<ShoppingItem> lastShownList = model.getFilteredShoppingItemList();
+        List<ShoppingItem> lastShownList = model.getFilteredShoppingList();
 
-        //if (index.getZeroBased() >= lastShownList.size()) {
-        //    throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
-        //}
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        }
 
-        //ShoppingItem shoppingItemToMarkAsBought = lastShownList.get(index.getZeroBased());
-        //ShoppingItem boughtShoppingItem = createBoughtFood(shoppingItemToMarkAsBought, boughtShoppingItemDescriptor);
+        ShoppingItem shoppingItemToMarkAsBought = lastShownList.get(index.getZeroBased());
+        ShoppingItem boughtShoppingItem = createBoughtShoppingItem(shoppingItemToMarkAsBought,
+                boughtShoppingItemDescriptor);
 
-        //model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
-        //model.updateFilteredShoppingItemList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
-        //return new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, boughtShoppingItem));
-        return new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, new ShoppingItem())); //this is dummy
+        model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
+        model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+        return new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, boughtShoppingItem));
     }
 
     /**

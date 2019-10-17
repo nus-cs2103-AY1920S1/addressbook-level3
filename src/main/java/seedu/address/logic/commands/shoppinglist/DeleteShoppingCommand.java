@@ -2,6 +2,9 @@ package seedu.address.logic.commands.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -14,7 +17,7 @@ import seedu.address.model.food.ShoppingItem;
  */
 public class DeleteShoppingCommand extends Command {
 
-    public static final String COMMAND_WORD = "slist delete";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the shopping item identified by the index number used in the displayed shopping list.\n"
@@ -32,16 +35,15 @@ public class DeleteShoppingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        //List<ShoppingItem> lastShownList = model.getFilteredShoppingItemList();
+        List<ShoppingItem> lastShownList = model.getFilteredShoppingList();
 
-        //if (targetIndex.getZeroBased() >= lastShownList.size()) {
-        //    throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
-        //}
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
+        }
 
-        //ShoppingItem shoppingItemToDelete = lastShownList.get(targetIndex.getZeroBased());
-        //model.deleteShoppingItem(shoppingItemToDelete);
-        //return new CommandResult(String.format(MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS, foodToDelete));
-        return new CommandResult(String.format(MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS, new ShoppingItem()));
+        ShoppingItem shoppingItemToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteShoppingItem(shoppingItemToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS, shoppingItemToDelete));
     }
 
     @Override
