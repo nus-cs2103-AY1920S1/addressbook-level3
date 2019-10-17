@@ -10,8 +10,10 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.*;
@@ -25,7 +27,7 @@ class AssignPolicyCommandTest {
         Person personToAssign = model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Policy policyToAssign = model.getAddressBook().getPolicyList().get(INDEX_SECOND_POLICY.getZeroBased());
         Person assignedPerson = new PersonBuilder(personToAssign).addPolicies(policyToAssign).build();
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_SECOND_POLICY, INDEX_FIRST_PERSON);
+        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_PERSON, policyToAssign.getName());
 
         String expectedMessage = String.format(AssignPolicyCommand.MESSAGE_ASSIGN_POLICY_SUCCESS,
                 policyToAssign.getName(), personToAssign.getName());
@@ -45,7 +47,8 @@ class AssignPolicyCommandTest {
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Policy policyInFilteredList = model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
         Person assignedPerson = new PersonBuilder(personInFilteredList).addPolicies(policyInFilteredList).build();
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
+        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY,
+                policyInFilteredList.getName());
 
         String expectedMessage = String.format(AssignPolicyCommand.MESSAGE_ASSIGN_POLICY_SUCCESS,
                 model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased()).getName(),
@@ -59,37 +62,40 @@ class AssignPolicyCommandTest {
 
     @Test
     public void execute_alreadyAssignedUnfilteredList_failure() {
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_SECOND_POLICY, INDEX_SECOND_PERSON);
+        final PolicyName policyName = new PolicyName(VALID_NAME_LIFE_INSURANCE);
+        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_SECOND_PERSON, policyName);
         assertCommandFailure(assignPolicyCommand, model, String.format(AssignPolicyCommand.MESSAGE_ALREADY_ASSIGNED,
                 model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getName(),
-                model.getAddressBook().getPolicyList().get(INDEX_SECOND_POLICY.getZeroBased()).getName()));
+                policyName));
     }
 
     @Test
     public void execute_alreadyAssignedFilteredList_failure() {
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        showPolicyAtIndex(model, INDEX_SECOND_POLICY);
+        final PolicyName policyName = new PolicyName(VALID_NAME_LIFE_INSURANCE);
 
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
+        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_PERSON, policyName);
         assertCommandFailure(assignPolicyCommand, model, String.format(AssignPolicyCommand.MESSAGE_ALREADY_ASSIGNED,
-                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName(),
-                model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased()).getName()));
-    }
-
-    @Test
-    public void execute_invalidPolicyIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPolicyList().size() + 1);
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(outOfBoundIndex, INDEX_FIRST_PERSON);
-
-        assertCommandFailure(assignPolicyCommand, model, Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName(), policyName));
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, outOfBoundIndex);
+        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(outOfBoundIndex,
+                new PolicyName(VALID_NAME_HEALTH_INSURANCE));
 
         assertCommandFailure(assignPolicyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    void execute_policyNotInAddressBook_failure() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        final PolicyName policyName = new PolicyName("TESTING INVALID POLICY");
+
+        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_PERSON, policyName);
+        assertCommandFailure(assignPolicyCommand, model, String.format(AssignPolicyCommand.MESSAGE_POLICY_NOT_FOUND,
+                policyName));
     }
 
     @Test
@@ -100,32 +106,22 @@ class AssignPolicyCommandTest {
         // check if given out of bounds index is still within range for entire list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, outOfBoundIndex);
+        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(outOfBoundIndex,
+                new PolicyName(VALID_NAME_HEALTH_INSURANCE));
         assertCommandFailure(assignPolicyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
-    void execute_invalidPolicyIndexFilteredList_failure() {
-        showPolicyAtIndex(model, INDEX_FIRST_POLICY);
-        Index outOfBoundIndex = INDEX_SECOND_POLICY;
-
-        // check if given out of bounds index is still within range for entire list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPolicyList().size());
-
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(outOfBoundIndex, INDEX_FIRST_PERSON);
-        assertCommandFailure(assignPolicyCommand, model, Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
-    }
-
-    @Test
     public void equals() {
-        final AssignPolicyCommand standardCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
+        final PolicyName policyName = new PolicyName(VALID_NAME_HEALTH_INSURANCE);
+        final AssignPolicyCommand standardCommand = new AssignPolicyCommand(INDEX_FIRST_PERSON, policyName);
 
         // same value -> returns true
-        AssignPolicyCommand newCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
+        AssignPolicyCommand newCommand = new AssignPolicyCommand(INDEX_FIRST_PERSON, policyName);
         assertTrue(standardCommand.equals(newCommand));
 
         // different values -> returns false
-        newCommand = new AssignPolicyCommand(INDEX_SECOND_POLICY, INDEX_FIRST_PERSON);
+        newCommand = new AssignPolicyCommand(INDEX_SECOND_PERSON, policyName);
         assertFalse(standardCommand.equals(newCommand));
 
         // null -> returns false

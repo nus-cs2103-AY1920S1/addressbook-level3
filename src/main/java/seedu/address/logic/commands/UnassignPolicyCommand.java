@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_POLICIES;
 
@@ -15,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
 
 /**
  * Command to assign a new policy to a person.
@@ -25,46 +25,45 @@ public class UnassignPolicyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes an assigned policy from a person.\n"
             + "Parameters: "
-            + PREFIX_POLICY_INDEX + "POLICY INDEX "
-            + PREFIX_PERSON_INDEX + "PERSON INDEX\n"
+            + "INDEX (must be a positive integer) "
+            + PREFIX_POLICY + "POLICY NAME\n"
             + "Example: "
-            + COMMAND_WORD + " "
-            + PREFIX_POLICY_INDEX + "1 "
-            + PREFIX_PERSON_INDEX + "1";
+            + COMMAND_WORD + " 1 "
+            + PREFIX_POLICY + "health insurance";
 
     public static final String MESSAGE_UNASSIGN_POLICY_SUCCESS = "Unassigned Policy: %1$s from Person: %2$s";
     public static final String MESSAGE_ALREADY_UNASSIGNED = "Person: %1$s does not have the Policy: %2$s.";
+    public static final String MESSAGE_POLICY_NOT_FOUND = "Policy: %1$s not found in address book.";
 
 
-    private final Index policyIndex;
     private final Index personIndex;
+    private final PolicyName policyName;
 
     /**
-     * @param policyIndex Index of the policy to unassign
      * @param personIndex Index of the person to be unassigned
+     * @param policyName Name of the policy to be assigned
      */
-    public UnassignPolicyCommand(Index policyIndex, Index personIndex) {
-        requireNonNull(policyIndex);
+    public UnassignPolicyCommand(Index personIndex, PolicyName policyName) {
         requireNonNull(personIndex);
+        requireNonNull(policyName);
 
-        this.policyIndex = policyIndex;
         this.personIndex = personIndex;
+        this.policyName = policyName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownPersonList = model.getFilteredPersonList();
-        List<Policy> lastShownPolicyList = model.getFilteredPolicyList();
 
-        if (policyIndex.getZeroBased() >= lastShownPolicyList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
-        }
         if (personIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+        if (!model.hasPolicyWithName(policyName)) {
+            throw new CommandException(String.format(MESSAGE_POLICY_NOT_FOUND, policyName));
+        }
 
-        Policy policy = lastShownPolicyList.get(policyIndex.getZeroBased());
+        Policy policy = model.getPolicyWithName(policyName);
         Person person = lastShownPersonList.get(personIndex.getZeroBased());
 
         if (!person.hasPolicy(policy)) {
@@ -96,7 +95,7 @@ public class UnassignPolicyCommand extends Command {
         // state check
         UnassignPolicyCommand e = (UnassignPolicyCommand) other;
         return personIndex.equals(e.personIndex)
-                && policyIndex.equals(e.policyIndex);
+                && policyName.equals(e.policyName);
     }
 
 }

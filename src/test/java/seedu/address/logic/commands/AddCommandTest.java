@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
 
 public class AddCommandTest {
 
@@ -143,6 +144,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Policy getPolicyWithName(PolicyName policyName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -159,6 +165,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPolicy(Policy policy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPolicyWithName(PolicyName policyName) {
             throw new AssertionError("This method should not be called.");
         }
 
