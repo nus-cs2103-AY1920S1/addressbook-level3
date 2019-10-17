@@ -23,6 +23,7 @@ public class BudgetCommand extends Command {
 
     private Budget budget;
 
+    //Budget must be valid
     public BudgetCommand(Budget budget) {
         this.budget = budget;
     }

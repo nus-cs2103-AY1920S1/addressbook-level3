@@ -123,7 +123,7 @@ public class ParserUtil {
     public static Budget parseBudget(String budget) throws ParseException {
         String trimmedBudget = budget.trim();
         try {
-            int temp = Integer.parseInt(trimmedBudget);
+            double temp = Double.parseDouble(trimmedBudget);
             if (temp < 0) {
                 throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
             }

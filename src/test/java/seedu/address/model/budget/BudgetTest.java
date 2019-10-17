@@ -14,7 +14,7 @@ class BudgetTest {
     }
 
     @Test
-    public void constructor_invalidTagName_throwsIllegalArgumentException() {
+    public void constructor_invalidBudgetValue_throwsIllegalArgumentException() {
         String invalidBudget = "";
         assertThrows(IllegalArgumentException.class, () -> new Budget(invalidBudget));
     }

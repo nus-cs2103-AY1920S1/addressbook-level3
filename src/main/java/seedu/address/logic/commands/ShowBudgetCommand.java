@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.Model;
 
 /**
- * Displays the current SPending
+ * Displays the current Budget.
  */
 public class ShowBudgetCommand extends Command {
 
