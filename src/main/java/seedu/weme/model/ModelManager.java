@@ -70,14 +70,36 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getMemeBookFilePath() {
-        return userPrefs.getMemeBookFilePath();
+    public Path getDataFilePath() {
+        return userPrefs.getDataFilePath();
     }
 
     @Override
-    public void setMemeBookFilePath(Path memeBookFilePath) {
-        requireNonNull(memeBookFilePath);
-        userPrefs.setMemeBookFilePath(memeBookFilePath);
+    public void setDataFilePath(Path dataFilePath) {
+        requireNonNull(dataFilePath);
+        userPrefs.setDataFilePath(dataFilePath);
+    }
+
+    @Override
+    public Path getMemeImagePath() {
+        return userPrefs.getMemeImagePath();
+    }
+
+    @Override
+    public void setMemeImagePath(Path memeImagePath) {
+        requireNonNull(memeImagePath);
+        userPrefs.setMemeImagePath(memeImagePath);
+    }
+
+    @Override
+    public Path getTemplateImagePath() {
+        return userPrefs.getTemplateImagePath();
+    }
+
+    @Override
+    public void setTemplateImagePath(Path templateImagePath) {
+        requireNonNull(templateImagePath);
+        userPrefs.setTemplateImagePath(templateImagePath);
     }
 
     //=========== MemeBook ================================================================================

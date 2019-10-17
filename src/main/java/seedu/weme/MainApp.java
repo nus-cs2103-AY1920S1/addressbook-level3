@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        MemeBookStorage memeBookStorage = new JsonMemeBookStorage(userPrefs.getMemeBookFilePath());
+        MemeBookStorage memeBookStorage = new JsonMemeBookStorage(userPrefs.getDataFilePath());
         storage = new StorageManager(memeBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -154,6 +154,8 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty MemeBook");
             initializedPrefs = new UserPrefs();
         }
+
+        logger.fine("Loaded preferences: " + initializedPrefs);
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {

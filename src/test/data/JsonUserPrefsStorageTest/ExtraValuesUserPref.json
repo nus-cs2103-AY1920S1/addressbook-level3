@@ -9,5 +9,7 @@
       "z" : 99
     }
   },
-  "wemeFilePath" : "weme.json"
+  "dataFilePath" : "data/weme.json",
+  "memeImagePath": "data/memes",
+  "templateImagePath": "data/templates"
 }
