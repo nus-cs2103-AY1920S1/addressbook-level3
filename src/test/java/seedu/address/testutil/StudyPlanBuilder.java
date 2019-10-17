@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.ModulesInfo;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.UserTag;
@@ -53,7 +54,9 @@ public class StudyPlanBuilder {
      */
     public StudyPlan build() {
         //return new StudyPlan(name, phone, email, address, tags);
-        return new StudyPlan(new Title("this is just a temporary holder"), new ModulesInfo());
+        SemesterName sampleCurrentSemester = SemesterName.Y1S1;
+        return new StudyPlan(new Title("this is just a temporary holder"), new ModulesInfo(),
+                sampleCurrentSemester);
     }
 
 }

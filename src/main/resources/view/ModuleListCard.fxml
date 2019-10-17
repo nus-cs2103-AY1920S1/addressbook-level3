@@ -21,8 +21,9 @@
         <Insets bottom="5" right="5" left="5" />
       </padding>
       <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="name" text="\$first" styleClass="cell_small_label" />
-        <Label fx:id="mcCount" styleClass="cell_big_label" wrapText="true" text="\$McCount" />
+        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="mcCount" styleClass="cell_small_label" wrapText="true" text="\$McCount" />
+        <Label fx:id="prereqs" styleClass="cell_small_label" wrapText="true" text="\$Prereqs" />
       </HBox>
       <FlowPane fx:id="tags"/>
     </VBox>

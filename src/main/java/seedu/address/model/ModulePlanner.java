@@ -168,6 +168,8 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             UniqueTagList tagList = module.getTags();
         }
 
+        activeStudyPlan.updatePrereqs();
+
         return activeStudyPlan;
     }
 
@@ -242,6 +244,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public ModulesInfo getModulesInfo() {
         return modulesInfo;
+    }
+
+    public void updatePrereqs() {
+        this.activeStudyPlan.updatePrereqs();
     }
 
     //// commit methods

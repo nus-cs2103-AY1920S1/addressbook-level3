@@ -1,5 +1,6 @@
 package seedu.address.model.studyplan;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import seedu.address.model.Color;
 import seedu.address.model.ModuleInfo;
 import seedu.address.model.ModulesInfo;
+import seedu.address.model.PrereqTree;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.Name;
@@ -29,6 +31,7 @@ public class StudyPlan implements Cloneable {
     private UniqueSemesterList semesters;
     private Title title;
     private int index; // unique identifier of this study plan
+    private SemesterName currentSemester;
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
     // note: this Mega-List is only constructed when a study plan gets activated.
@@ -41,14 +44,15 @@ public class StudyPlan implements Cloneable {
 
 
     // to create a study plan without a Title
-    public StudyPlan(ModulesInfo modulesInfo) {
-        this(new Title(""), modulesInfo);
+    public StudyPlan(ModulesInfo modulesInfo, SemesterName currentSemester) {
+        this(new Title(""), modulesInfo, currentSemester);
     }
 
     // to create a study plan with a Title
-    public StudyPlan(Title title, ModulesInfo modulesInfo) {
+    public StudyPlan(Title title, ModulesInfo modulesInfo, SemesterName currentSemester) {
         this.title = title;
         this.semesters = new UniqueSemesterList();
+        this.currentSemester = currentSemester;
         setDefaultSemesters();
 
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
@@ -66,14 +70,16 @@ public class StudyPlan implements Cloneable {
      * This constructor is used for {@code JsonAdaptedStudyPlan}.
      */
     public StudyPlan(Title modelTitle, int modelIndex, List<Semester> modelSemesters,
-                     HashMap<String, Module> modelModules, List<Tag> modelTags) {
-        title = modelTitle;
-        index = modelIndex;
-        semesters = new UniqueSemesterList();
-        semesters.setSemesters(modelSemesters);
-        modules = modelModules;
-        tags = new UniqueTagList();
+                     HashMap<String, Module> modelModules, List<Tag> modelTags, SemesterName currentSemester) {
+        this.title = modelTitle;
+        this.index = modelIndex;
+        this.semesters = new UniqueSemesterList();
+        this.semesters.setSemesters(modelSemesters);
+        this.modules = modelModules;
+        this.tags = new UniqueTagList();
         tags.setTags(modelTags);
+        this.currentSemester = currentSemester;
+
     }
 
     // make a copy of the current study without incrementing the index, for version tracking commits
@@ -105,6 +111,10 @@ public class StudyPlan implements Cloneable {
     // "Mega-list" of tags
     public UniqueTagList getTags() {
         return tags;
+    }
+
+    public SemesterName getCurrentSemester() {
+        return currentSemester;
     }
 
     public static int getTotalNumberOfStudyPlans() {
@@ -139,7 +149,8 @@ public class StudyPlan implements Cloneable {
         Name name = new Name(moduleInfo.getName());
         ModuleCode moduleCode = new ModuleCode(moduleInfo.getCode());
         int mcCount = moduleInfo.getMc();
-        return new Module(name, moduleCode, mcCount, Color.RED, moduleTagList);
+        PrereqTree prereqTree = moduleInfo.getPrereqTree();
+        return new Module(name, moduleCode, mcCount, Color.RED, prereqTree, moduleTagList);
     }
 
     /**
@@ -151,36 +162,40 @@ public class StudyPlan implements Cloneable {
     private UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
         UniqueTagList moduleTagList = new UniqueTagList();
         UniqueTagList studyPlanTagList = getTags();
+        // assign focus primary tags
         List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
-        List<String> focusElectives = moduleInfo.getFocusElectives();
         for (String focusPrimary : focusPrimaries) {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
         }
+        // assign focus elective tags
+        List<String> focusElectives = moduleInfo.getFocusElectives();
         for (String focusElective : focusElectives) {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective + ":E"));
         }
+        // assign s/u-able tag
         boolean canSu = moduleInfo.getSuEligibility();
         if (canSu) {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag("S/U-able"));
         }
-        Semester locationOfModule;
+        // assign completed tag
         for (Semester semester : semesters) {
             UniqueModuleList uniqueModuleList = semester.getModules();
             for (Module module : uniqueModuleList) {
                 if (module.getName().equals(moduleInfo.getName())) {
-                    locationOfModule = semester;
+                    if (semester.getSemesterName().compareTo(currentSemester) < 0) {
+                        moduleTagList.addTag(studyPlanTagList.getDefaultTag("Completed"));
+                    }
                     break;
                 }
             }
         }
-        /*
-        // For setting completed tag
-        // Needs current semester to work
-        if (semesterNameComparator.compare(locationOfModule, currentSemester) < 0) {
-            moduleTagList.addTag(studyPlanTagList.getDefaultTag("Completed"));
+        // assign core tag
+        boolean isCore = moduleInfo.getIsCore();
+        if (isCore) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag("Core"));
         }
-         */
-        //TODO add core, ue?, ulr? tags
+
+        //TODO add ue?, ulr? tags
 
         return moduleTagList;
     }
@@ -247,6 +262,23 @@ public class StudyPlan implements Cloneable {
      */
     public boolean isSameStudyPlan(StudyPlan other) {
         return this.index == other.index;
+    }
+
+    /**
+     * Updates the prerequisites of all modules in the study plan.
+     * This method should be called every time there is a change in its modules.
+     */
+    public void updatePrereqs() {
+        ArrayList<String> prevSemCodes = new ArrayList<>();
+        for (Semester sem : semesters) {
+            ArrayList<String> thisSemCodes = new ArrayList<>();
+            for (Module mod : sem.getModules()) {
+                String moduleCode = mod.getModuleCode().toString();
+                thisSemCodes.add(moduleCode);
+                mod.verify(prevSemCodes);
+            }
+            prevSemCodes.addAll(thisSemCodes);
+        }
     }
 
     /**
