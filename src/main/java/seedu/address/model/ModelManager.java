@@ -99,12 +99,13 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
-}
+    }
 
     @Override
     public Path getNoteBookFilePath() {
         return userPrefs.getNoteBookFilePath();
     }
+
     @Override
     public void setNoteBookFilePath(Path noteBookFilePath) {
         requireNonNull(noteBookFilePath);
@@ -303,6 +304,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setNoteBook(ReadOnlyNoteBook noteBook) {
+        this.noteBook.resetData(noteBook);
+    }
+
+    @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
         return noteBook.hasNote(note);
@@ -324,6 +330,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedNote);
         noteBook.setNote(target, editedNote);
     }
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -338,7 +345,6 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredNotes.setPredicate(predicate);
     }
-
 
 
 }

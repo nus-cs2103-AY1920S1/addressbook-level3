@@ -1,0 +1,14 @@
+{
+  "notes": [
+    {
+      "title": "Diary1",
+      "description": "this is a test diary",
+      "content": "hans@example.com"
+    },
+    {
+      "title": "",
+      "description": "note with invalid blank field",
+      "content": "note with invalid blank field"
+    }
+  ]
+}

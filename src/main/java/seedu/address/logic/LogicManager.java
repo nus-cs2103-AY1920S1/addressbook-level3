@@ -17,7 +17,6 @@ import seedu.address.logic.parser.NoteBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CardBook;
 import seedu.address.model.Model;
-import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.card.Card;
@@ -56,10 +55,6 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-
-//        CommandResult commandResult;
-//        Command command = addressBookParser.parseCommand(commandText);
-//        commandResult = command.execute(model);
         CommandResult commandResult;
         Command command;
         switch (mode) {

@@ -28,7 +28,6 @@ public class StorageManager implements Storage {
     private NoteBookStorage noteBookStorage;
     private String password;
 
-
     public StorageManager(AddressBookStorage addressBookStorage,
                           FileBookStorage fileBookStorage,
                           CardBookStorage cardBookStorage,

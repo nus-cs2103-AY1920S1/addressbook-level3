@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -17,8 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.note.Note;
-import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -58,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane noteListPanelPlaceholder;
 
     @FXML
+    private StackPane objectListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -89,6 +89,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -122,9 +123,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         fillInnerPartsWithMode();
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        objectListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        fillInnerPartsWithMode();
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        //ADD MODE LOGIC
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -139,19 +143,19 @@ public class MainWindow extends UiPart<Stage> {
         switch (logic.getMode()) {
         case "file":
             fileListPanel = new FileListPanel(logic.getFilteredFileList());
-            personListPanelPlaceholder.getChildren().add(fileListPanel.getRoot());
+            objectListPanelPlaceholder.getChildren().add(fileListPanel.getRoot());
             break;
         case "card":
             cardListPanel = new CardListPanel(logic.getFilteredCardList());
-            cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+            objectListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
             break;
         case "note":
             noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
-            noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
+            objectListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
             break;
         default:
             personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            objectListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             break;
         }
     }
@@ -160,7 +164,8 @@ public class MainWindow extends UiPart<Stage> {
      * Handle UI changes on mode change.
      */
     void handleModeChange() {
-        personListPanelPlaceholder.getChildren().clear();
+
+        objectListPanelPlaceholder.getChildren().clear();
         fillInnerPartsWithMode();
     }
 
@@ -188,6 +193,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the window or focuses on it if it's already opened.
+     */
     @FXML
     public void handleShowWindow() {
         if (!editObjectWindow.isShowing()) {
@@ -216,6 +224,7 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
+
     public NoteListPanel getNoteListPanel() {
         return noteListPanel;
     }

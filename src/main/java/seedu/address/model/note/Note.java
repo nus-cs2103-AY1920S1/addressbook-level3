@@ -1,14 +1,15 @@
 package seedu.address.model.note;
 
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import javax.imageio.plugins.tiff.GeoTIFFTagSet;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.tag.Tag;
+
+
 
 /**
  * Represents a Person in the address book.
@@ -43,7 +44,7 @@ public class Note {
         return description;
     }
 
-    public Content getContent(){
+    public Content getContent() {
         return content;
     }
 
@@ -103,8 +104,8 @@ public class Note {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle() + " ")
-                .append(getDescription()+ " ")
-                .append(getContent()+ " ")
+                .append(getDescription() + " ")
+                .append(getContent() + " ")
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

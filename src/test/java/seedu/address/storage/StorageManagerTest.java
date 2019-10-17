@@ -30,8 +30,10 @@ public class StorageManagerTest {
         JsonFileBookStorage fileBookStorage = new JsonFileBookStorage(getTempFilePath("fb"), PASSWORD);
         JsonCardBookStorage cardBookStorage = new JsonCardBookStorage(getTempFilePath("cb"), PASSWORD);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"), PASSWORD);
+        JsonNoteBookStorage notePrefsStorage = new JsonNoteBookStorage(getTempFilePath("note"), PASSWORD);
+
         storageManager = new StorageManager(addressBookStorage, fileBookStorage,
-                cardBookStorage, userPrefsStorage, PASSWORD);
+                cardBookStorage, notePrefsStorage, userPrefsStorage, PASSWORD);
     }
 
     private Path getTempFilePath(String fileName) {

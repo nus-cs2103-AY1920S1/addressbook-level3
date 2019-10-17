@@ -100,54 +100,29 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-//    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-//        Optional<ReadOnlyAddressBook> addressBookOptional;
-//        ReadOnlyAddressBook initialData;
-//        try {
-//            addressBookOptional = storage.readAddressBook();
-//            if (!addressBookOptional.isPresent()) {
-//                logger.info("Data file not found. Will be starting with a sample AddressBook");
-//            }
-//            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-//        } catch (DataConversionException e) {
-//            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-//            initialData = new AddressBook();
-//        } catch (IOException e) {
-//            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-//            initialData = new AddressBook();
-//        }
-//
-//        return new ModelManager(initialData, userPrefs);
-//    }
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyNoteBook> noteBookOptional;
-        ReadOnlyNoteBook initialNoteData;
+
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialAddressData;
 
 
         try {
-            noteBookOptional = storage.readNoteBook();
             addressBookOptional = storage.readAddressBook();
-            if (!noteBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
+
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialNoteData = noteBookOptional.orElseGet(SampleDataUtil::getSampleNoteBook);
             initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty file");
-            initialNoteData = new NoteBook();
             initialAddressData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty file");
-            initialNoteData = new NoteBook();
             initialAddressData = new AddressBook();
         }
 
         ReadOnlyFileBook initialDataFile = initFileBook(storage);
+        ReadOnlyNoteBook initialNoteData = initNoteBook(storage);
         return new ModelManager(initialAddressData, initialDataFile, new CardBook(), initialNoteData, userPrefs);
     }
 
@@ -172,6 +147,31 @@ public class MainApp extends Application {
         }
         return initialFileData;
     }
+
+    /**
+     * Initializes a ReadOnlyNoteBook.
+     * @param storage storage object used for application.
+     * @return ReadOnlyNoteBook from storage object if present, else a new ReadOnlyNoteBook.
+     */
+    private ReadOnlyNoteBook initNoteBook(Storage storage) {
+        Optional<ReadOnlyNoteBook> noteBookOptional;
+        ReadOnlyNoteBook initialNoteData;
+        try {
+            noteBookOptional = storage.readNoteBook();
+            if (!noteBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            initialNoteData = noteBookOptional.orElseGet(SampleDataUtil::getSampleNoteBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty file");
+            initialNoteData = new NoteBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty file");
+            initialNoteData = new NoteBook();
+        }
+        return initialNoteData;
+    }
+
 
     private void initLogging(Config config) {
         LogsCenter.init(config);

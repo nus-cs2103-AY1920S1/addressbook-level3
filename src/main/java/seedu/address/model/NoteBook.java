@@ -1,14 +1,14 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.note.Note;
-import seedu.address.model.note.UniqueNoteList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.UniqueNoteList;
+
+
 
 
 /**
@@ -27,7 +27,7 @@ public class NoteBook implements ReadOnlyNoteBook {
      *   among constructors.
      */
     {
-        notes =  new UniqueNoteList();
+        notes = new UniqueNoteList();
     }
 
     public NoteBook() {}

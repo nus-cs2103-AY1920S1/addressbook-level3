@@ -193,6 +193,11 @@ public interface Model {
     ReadOnlyNoteBook getNoteBook();
 
     /**
+     * Replaces note book data with the data in {@code noteBook}.
+     */
+    void setNoteBook(ReadOnlyNoteBook noteBook);
+
+    /**
      * Returns true if a note with the same identity as {@code note} exists in the note book.
      */
     boolean hasNote(Note note);
