@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.stage.Stage;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,7 +30,7 @@ import seedu.address.ui.queue.QueueListPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel {
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -148,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
 
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
-        tabBar = new TabBar(this::onTabSelected);
+        tabBar = new TabBar(this::setOmniPanelTab);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
         queueListPanel = new QueueListPanel(logic.getConsultationRoomList(),
@@ -161,7 +164,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::onCommandBoxTextChanged, this::onCommandBoxKeyPressed);
+        commandBox = new CommandBox(this::executeCommand, this);
         commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
 
         aco = new AutoCompleteOverlay(this::autoCompleterSelected);
@@ -220,11 +223,11 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.address.logic.Logic#execute(String, OmniPanel)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, this::setOmniPanelTab);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -245,16 +248,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Called whenever Command Box text changed.
+     * Called whenever AutoComplete selected command.
      */
-    private void onCommandBoxTextChanged(String commandText) {
+    public void updateCommandAutoComplete(String commandText) {
         aco.showSuggestions(commandText, logic.updateAutoCompleter(commandText).getSuggestions());
     }
 
     /**
      * Receives Key Press event from Command Box and executes expected behaviours.
      */
-    private void onCommandBoxKeyPressed(KeyCode keyCode) {
+    public void onKeyPressed(KeyCode keyCode) {
         switch (keyCode) {
         case UP:
             if (aco.isSuggesting()) {
@@ -287,17 +290,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Called whenever tab has been selected.
+     * Sets OmniPanelTab.
      */
-    private void onTabSelected(String selectedText) {
-        switch (selectedText) {
-        case "patientsTab":
+    @Override
+    public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
+        switch (omniPanelTab) {
+        case PATIENTS_TAB:
             omniPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
             break;
-        case "appointmentsTab":
+        case APPOINTMENTS_TAB:
             omniPanelPlaceholder.getChildren().setAll(eventListPanel.getRoot());
             break;
-        case "doctorsTab":
+        case DOCTORS_TAB:
             break;
         default:
         }

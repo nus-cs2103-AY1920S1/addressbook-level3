@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.autocomplete.AutoCompleter;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,6 +18,7 @@ import seedu.address.model.common.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.Room;
+import seedu.address.ui.OmniPanel;
 
 /**
  * API of the Logic component
@@ -30,7 +32,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException   If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText, OmniPanel omniPanel) throws CommandException, ParseException;
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -39,7 +41,7 @@ public interface Logic {
     ObservableList<Event> getFilteredEventList();
 
     /**
-     * Updates AutoCompleter to the current command text.
+     * Updates AutoComplete to the current command text.
      *
      * @param commandText The command as entered by the user.
      */
@@ -93,4 +95,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }

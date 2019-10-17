@@ -29,6 +29,7 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 
 import seedu.address.storage.Storage;
+import seedu.address.ui.OmniPanel;
 
 /**
  * The main LogicManager of the app.
@@ -54,7 +55,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, OmniPanel omniPanel) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;

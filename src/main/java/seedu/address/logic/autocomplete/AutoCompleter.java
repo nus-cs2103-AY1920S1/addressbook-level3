@@ -37,10 +37,10 @@ public class AutoCompleter {
     private String currentQuery;
 
     /**
-     * Updates AutoCompleter with current query.
+     * Updates AutoComplete with current query.
      *
      * @param currentQuery
-     * @return AutoCompleter itself
+     * @return AutoComplete itself
      */
     public AutoCompleter update(String currentQuery) {
         this.currentQuery = currentQuery;
