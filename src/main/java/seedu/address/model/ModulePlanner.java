@@ -174,6 +174,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             }
         }
 
+        // TODO: get user-defined tags from mega tag list, and make the tags refer to the megalist of tags
+        for (Module module : megaModuleHash.values()) {
+            UniqueTagList tagList = module.getTags();
+        }
+
+        activeStudyPlan.updatePrereqs();
+
         return activeStudyPlan;
     }
 
@@ -248,6 +255,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public ModulesInfo getModulesInfo() {
         return modulesInfo;
+    }
+
+    public void updatePrereqs() {
+        this.activeStudyPlan.updatePrereqs();
     }
 
     //// commit methods

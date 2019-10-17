@@ -2,7 +2,6 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -62,12 +61,6 @@ public class MainApp extends Application {
         ModulePlannerStorage modulePlannerStorage = new JsonModulePlannerStorage(userPrefs.getModulePlannerFilePath());
         ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(config.getModulesInfoFilePath());
         ModulesInfo modulesInfo = initModulesInfo(modulesInfoStorage);
-
-        // TODO: modulesInfo is not used from here on out -- use it with ModelManager
-        // These show how the module information could be used for verification
-        modulesInfo.verify("CS4248", Arrays.asList("CS3243", "ST2334")); // true
-        modulesInfo.verify("CS4248", Arrays.asList("CS3245", "ST2334")); // true
-        modulesInfo.verify("CS4248", Arrays.asList("CS3243", "ST2131")); // false
 
         storage = new StorageManager(modulePlannerStorage, userPrefsStorage, modulesInfoStorage);
 

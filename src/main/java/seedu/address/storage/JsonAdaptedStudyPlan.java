@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.Tag;
@@ -26,6 +27,7 @@ class JsonAdaptedStudyPlan {
     private final String title;
     private final int index;
     private final List<JsonAdaptedSemester> semesters = new ArrayList<>();
+    private final SemesterName currentSemester;
 
     // each study plan also keeps track of a unique module list and a unique tag list
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
@@ -39,10 +41,12 @@ class JsonAdaptedStudyPlan {
                                 @JsonProperty("title") String title, @JsonProperty("index") int index,
                                 @JsonProperty("semesters") List<JsonAdaptedSemester> semesters,
                                 @JsonProperty("modules") List<JsonAdaptedModule> modules,
-                                @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                                @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                                @JsonProperty("currentSemester") SemesterName currentSemester) {
         this.totalNumber = totalNumber;
         this.title = title;
         this.index = index;
+        this.currentSemester = currentSemester;
         if (semesters != null) {
             this.semesters.addAll(semesters);
         }
@@ -61,6 +65,7 @@ class JsonAdaptedStudyPlan {
         totalNumber = StudyPlan.getTotalNumberOfStudyPlans();
         title = source.getTitle().toString();
         index = source.getIndex();
+        currentSemester = source.getCurrentSemester();
 
         Iterator<Semester> semesterIterator = source.getSemesters().iterator();
         while (semesterIterator.hasNext()) {
@@ -121,7 +126,7 @@ class JsonAdaptedStudyPlan {
         }
 
         StudyPlan result =
-                new StudyPlan(modelTitle, modelIndex, modelSemesters, modelModules, modelTags);
+                new StudyPlan(modelTitle, modelIndex, modelSemesters, modelModules, modelTags, currentSemester);
         StudyPlan.setTotalNumberOfStudyPlans(totalNumber);
 
         return result;

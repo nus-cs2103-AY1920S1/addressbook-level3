@@ -21,9 +21,11 @@ public class SampleDataUtil {
         // Can populate this with more dummy study plans
         StudyPlan[] studyPlans = new StudyPlan[3];
 
-        StudyPlan sp1 = new StudyPlan(new Title("first study plan"), modulesInfo);
-        StudyPlan sp2 = new StudyPlan(new Title("second study plan"), modulesInfo);
-        StudyPlan sp3 = new StudyPlan(new Title("third study plan"), modulesInfo);
+        SemesterName sampleCurrentSemester = SemesterName.Y1S1;
+
+        StudyPlan sp1 = new StudyPlan(new Title("first study plan"), modulesInfo, sampleCurrentSemester);
+        StudyPlan sp2 = new StudyPlan(new Title("second study plan"), modulesInfo, sampleCurrentSemester);
+        StudyPlan sp3 = new StudyPlan(new Title("third study plan"), modulesInfo, sampleCurrentSemester);
 
         sp1.addModuleToSemester(new ModuleCode("CS1101S"), SemesterName.Y1S1);
         sp1.addModuleToSemester(new ModuleCode("CS2030"), SemesterName.Y1S2);

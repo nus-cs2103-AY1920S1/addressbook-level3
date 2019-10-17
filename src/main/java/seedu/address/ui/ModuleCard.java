@@ -35,6 +35,8 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label mcCount;
     @FXML
+    private Label prereqs;
+    @FXML
     private FlowPane tags;
 
     public ModuleCard(Module module, int displayedIndex) {
@@ -42,6 +44,8 @@ public class ModuleCard extends UiPart<Region> {
         this.module = module;
         name.setText(module.getModuleCode().value + " " + module.getName().fullName);
         mcCount.setText(Integer.toString(module.getMcCount()));
+        prereqs.setText("NEEDS: " + module.getPrereqString());
+        prereqs.setVisible(!module.getPrereqsSatisfied());
         module.getTags().asUnmodifiableObservableList().stream()
                 .sorted(Comparator.comparing(tag -> tag.getTagName()))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
