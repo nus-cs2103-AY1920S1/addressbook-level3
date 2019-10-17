@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -21,6 +22,11 @@
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
       <HBox alignment="CENTER_LEFT" spacing="5">
+        <ImageView fx:id="checkBox" fitHeight="17.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cross.png" />
+               </image></ImageView>
+            <Region prefHeight="17.0" prefWidth="1.0" />
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
@@ -31,8 +37,6 @@
                <font>
                   <Font name="Chalkboard" size="18.0" />
                </font></Label>
-        <Region prefHeight="16.0" prefWidth="20.0" />
-        <ImageView fx:id="checkBox" fitHeight="17.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
       </HBox>
          <VBox prefHeight="0.0" prefWidth="130.0">
             <children>
