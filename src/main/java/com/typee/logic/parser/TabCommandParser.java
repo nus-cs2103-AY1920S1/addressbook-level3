@@ -25,10 +25,10 @@ public class TabCommandParser implements Parser<TabCommand> {
         } else {
             switch(tabName.toLowerCase()) {
             //Feel free to modify your tab name and respective Controller class together with your fxml file.
-            case "typinggame":
-                return new TabCommand(new Tab("TypingGame"));
             case "engagement":
                 return new TabCommand(new Tab("Engagement"));
+            case "typinggame":
+                return new TabCommand(new Tab("TypingGame"));
             case "report":
                 return new TabCommand(new Tab("Report"));
             case "calendar":
