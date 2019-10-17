@@ -22,6 +22,7 @@ import seedu.jarvis.logic.commands.cca.EditCcaCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.RemovePaidCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
@@ -38,6 +39,7 @@ import seedu.jarvis.logic.parser.course.LookUpCommandParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.logic.parser.finance.EditInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.RemoveInstallmentCommandParser;
+import seedu.jarvis.logic.parser.finance.RemovePaidCommandParser;
 import seedu.jarvis.logic.parser.finance.SetInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.SetPaidCommandParser;
 import seedu.jarvis.logic.parser.history.RedoCommandParser;
@@ -117,6 +119,9 @@ public class JarvisParser {
 
         case SetPaidCommand.COMMAND_WORD:
             return new SetPaidCommandParser().parse(arguments);
+
+        case RemovePaidCommand.COMMAND_WORD:
+            return new RemovePaidCommandParser().parse(arguments);
 
         case SetInstallmentCommand.COMMAND_WORD:
             return new SetInstallmentCommandParser().parse(arguments);
