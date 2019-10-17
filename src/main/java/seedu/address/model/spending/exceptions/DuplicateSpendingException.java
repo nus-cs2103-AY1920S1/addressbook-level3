@@ -6,6 +6,6 @@ package seedu.address.model.spending.exceptions;
  */
 public class DuplicateSpendingException extends RuntimeException {
     public DuplicateSpendingException() {
-        super("Operation would result in duplicate persons");
+        super("Operation would result in duplicate spending entries");
     }
 }
