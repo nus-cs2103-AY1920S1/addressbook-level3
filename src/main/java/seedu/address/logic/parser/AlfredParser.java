@@ -16,8 +16,14 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.addcommand.AddParticipantCommand;
+import seedu.address.logic.commands.findcommand.FindMentorCommand;
+import seedu.address.logic.commands.findcommand.FindParticipantCommand;
+import seedu.address.logic.commands.findcommand.FindTeamCommand;
 import seedu.address.logic.parser.addcommandparser.AddParticipantCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.findcommandparser.FindMentorCommandParser;
+import seedu.address.logic.parser.findcommandparser.FindParticipantCommandParser;
+import seedu.address.logic.parser.findcommandparser.FindTeamCommandParser;
 
 /**
  * Parses user input.
@@ -48,6 +54,15 @@ public class AlfredParser {
 
         case AddParticipantCommand.COMMAND_WORD:
             return new AddParticipantCommandParser().parse(arguments);
+
+        case FindParticipantCommand.COMMAND_WORD:
+            return new FindParticipantCommandParser().parse(arguments);
+
+        case FindMentorCommand.COMMAND_WORD:
+            return new FindMentorCommandParser().parse(arguments);
+
+        case FindTeamCommand.COMMAND_WORD:
+            return new FindTeamCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);

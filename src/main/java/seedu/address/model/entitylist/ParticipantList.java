@@ -115,7 +115,7 @@ public class ParticipantList extends EntityList {
      */
     @Override
     public ObservableList<? extends Entity> list() {
-        return this.participants;
+        return this.unmodifiableParticipants;
     }
 
     /**

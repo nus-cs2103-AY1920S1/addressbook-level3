@@ -103,7 +103,7 @@ public class TeamList extends EntityList {
      * @return List of Teams.
      */
     public ObservableList<Team> getSpecificTypedList() {
-        return this.teams;
+        return this.unmodifiableTeams;
     }
 
     /**

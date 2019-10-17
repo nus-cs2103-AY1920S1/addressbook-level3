@@ -103,7 +103,7 @@ public class MentorList extends EntityList {
      * @return List of Mentors.
      */
     public ObservableList<Mentor> getSpecificTypedList() {
-        return this.mentors;
+        return this.unmodifiableMentors;
     }
 
     /**

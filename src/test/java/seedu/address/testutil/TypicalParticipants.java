@@ -35,7 +35,7 @@ public class TypicalParticipants {
     public static final Participant B = new Participant(new Name("Part B"),
             new Id(PrefixType.P, 2),
                                                         new Email("participantB@hotmail.com"),
-                                                        new Phone("822222222"));
+                                                        new Phone("82222222"));
 
     public static final Participant C = new Participant(new Name("Participant C"),
                                                         new Id(PrefixType.P, 3),
