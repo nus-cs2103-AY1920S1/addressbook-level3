@@ -4,13 +4,15 @@
     nav.navbar.navbar-lg.navbar-light.bg-lighter
       .container
         a.navbar-brand href='https://ay1920s1-cs2103t-f12-2.github.io/main/'
-          img src=(site_url 'images/UnrealUnity.png') alt='Team UnrealUnity'
+          img src=(site_url 'https://github.com/AY1920S1-CS2103T-F12-2/main/raw/master/docs/images/UnrealUnity.jpg') alt='Team UnrealUnity'
 
 - if !(attr? 'no-site-header')
   #site-header
     nav.navbar.navbar-light.bg-light
       .container
         ul.navbar-nav
+		  li.nav-item
+            =nav_link('Index', 'index.html', 'Index')
           li.nav-item
             =nav_link('UserGuide', 'UserGuide.html', 'User Guide')
           li.nav-item
