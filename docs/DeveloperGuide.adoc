@@ -242,6 +242,99 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== [Diary] Photo Manager
+The photo manager, which supports adding and displaying user specified photos on the disk, plays to the same page parser structure.
+
+Specifically, `DiaryParser` returns either `AddPhotoParser`, `DeletePhotoParser` when the appropriate command word is parsed.
+
+==== Implementation
+
+[[photo_model]]
+===== Aspect : Model of photos
+The model for a photo stored in memory is stored in the `Photo` class.
+
+It contains three key fields, that is, the `imagePath`, `description`, and `dateTaken` fields which are used to display key information of the image to the user.
+In addition, a JavaFX `Image` is also stored inside the photo, which holds the `Image` to use for displaying in an `ImageView` inside the user interface.
+
+Playing to the robust java apis of `Path` and `LocalDateTime`, `imagePath` and `dateTaken` were implemented respectively with those, while `description` is simply a `String`.
+
+====== Restrictions on fields during `Photo` instance construction:
+* Several restrictions on the description are enforced by class level `Pattern` matchers, such as the length of the description.
+* While the image file path is parsed and checked using the java `Files` api, it is non-strict in that a path to an invalid image will result in the `Image` field referring to the default class level variable that specifies a placeholder image.
+** However, the original user entered file path is still stored inside the Model, to guard against accidental file deletion.
+
+===== Aspect : Adding photos (through command line file path or os file chooser)
+Following `DiaryParser` returning an instance of `AddPhotoParser` that calls `parse()` on the user specified arguments, a number of operations happen, as per the UML activity diagram below.
+
+
+
+1. Parsing the image file path [[adding_photo_diary_step_1]]
+** Using `ArgumentMultimap`, the file chooser prefix, "fc/", is checked for.
+If present, the OS file choosing gui is opened using `ImageChooser` (a simple extension of JavaFX's `FileChooser` enforcing image file extensions), and the data file path prefix is ignored.
+** Otherwise, the presence of the data file prefix is checked, and its subsequent argument is validated
+as a valid image file.
+** If the file chooser prefix is unspecified and the data file path is invalid, `AddPhotoParser` throws a `ParseException`
+2. Parsing the description
+** If the description prefix is present, `AddPhotoParser` tries to construct the `Photo` instance with it. If validation of the description,
+as described in the <<photo_model>> fails, then a ParseException is thrown.
+** Otherwise, the file name of the validated file from <<adding_photo_diary_step_1>> is used.
+3. Parsing the date of the photo
+* If the date time prefix is present, `ParserDateUtil` is used to parse the date time as per the app level date formats. A `ParseException` is automatically thrown in the case of
+date parsing failure, by `ParserDateUtil`.
+* Otherwise, the last modified date of the validate file from <<adding_photo_diary_step_1>> is used.
+4. The `Photo` instance is then constructed, and passed to `AddPhotoCommand` which simply adds the `Photo` to the
+current `PhotoList` of the `DiaryEntry`.
+
+
+===== Aspect : Deleting photos
+Following `DiaryParser` parsing the 'delphoto' command from the user, an instance of `DeletePhotoParser` is created, which parses the received arguments.
+
+1. The `DeletePhotoParser` simply parses the arguments for a valid integer, failing which a `ParseException` is thrown.
+2. An instance of `DeletePhotoCommand` is returned, which attempts a delete operation on the current `PhotoList` of the `DiaryEntry` with the specified index. A `CommandException` is thrown
+to alert the user if the index was out of bounds.
+
+
+==== Design considerations
+[width="90%", options="header" cols="2, 4, 4"]
+|========================================================================================
+|Feature      |Alternative 1 | Alternative 2
+|Validation of image file path
+|The first option is to implement the file path validation directly inside the `Photo` model.
+
+This would have enforced a stricter level of validation on the image file path throughout the code,
+if an instance of `Photo` needed to be instantiated somewhere else other than the `AddPhotoParser` for future use.
+
+However, since the storage model for `Photo`, that is - `JsonAdaptedPhoto`, initializes the model
+through deserializing the saved file path, this would have led to needing to a separate constructor for `Photo`
+in the case that the file path was invalidated on app startup, to create a placeholder image.
+|The second, chosen option, was to implement the file path validation inside the parser itself.
+
+Although this option limited the validation to only the 'addphoto' command, it allows for leeway in
+image path validation in other areas such as `JsonAdaptedPhoto`, where it is possible for deletion of an
+image file by the user, outside of the application, to invalidate the stored file path and erroneous data to be loaded on application start.
+
+Moreover, Since the function for parsing the image file can and was abstracted into a single utility function,
+any other areas in future development needing this functionality can simply reuse this code.
+
+Overall, this leads to a more robust behaviour of the application, while providing the same level of
+extensibility as the first option.
+
+
+|2
+|Item 2
+|Item 2
+
+|3
+|Item 3
+|Item 3
+
+|4
+|Item 4
+|Item 4
+|========================================================================================
+
+=== [Diary] Text editor parsing
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
