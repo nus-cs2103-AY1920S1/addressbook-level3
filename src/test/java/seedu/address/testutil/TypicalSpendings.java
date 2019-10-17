@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
 /**
@@ -67,10 +68,15 @@ public class TypicalSpendings {
         for (Spending spending : getTypicalSpendings()) {
             ab.addSpending(spending);
         }
+        ab.setBudget(getTypicalBudget());
         return ab;
     }
 
     public static List<Spending> getTypicalSpendings() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static Budget getTypicalBudget() {
+        return new Budget(10000);
     }
 }

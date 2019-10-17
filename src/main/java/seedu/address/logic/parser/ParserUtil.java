@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Cost;
 import seedu.address.model.spending.Date;
 import seedu.address.model.spending.Name;
@@ -112,5 +113,23 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code budget} into an {@code Budget} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified budget is invalid (negative integer).
+     */
+    public static Budget parseBudget(String budget) throws ParseException {
+        String trimmedBudget = budget.trim();
+        try {
+            int temp = Integer.parseInt(trimmedBudget);
+            if (temp < 0) {
+                throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
+            }
+            return new Budget(temp);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
 /**
@@ -21,10 +22,18 @@ public class AddressBookBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Spending} to the {@code AddressBook} that we are building.
      */
     public AddressBookBuilder withSpending(Spending spending) {
         addressBook.addSpending(spending);
+        return this;
+    }
+
+    /**
+     * sets a new {@code Budget} to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withBudget(Budget budget) {
+        addressBook.setBudget(budget);
         return this;
     }
 

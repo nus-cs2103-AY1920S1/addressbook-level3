@@ -19,6 +19,7 @@ public class HelpCommand extends Command {
             + "list \t\t- to display a list of spending\n"
             + "find \t\t- to search for spending based on keyword\n"
             + "budget \t- to set a monthly budget\n"
+            + "showbudget \t- shows the current monthly budget\n"
             + "stats \t\t- to generate statistics of spending\n"
             + "ltags \t- to list all available tags\n"
             + "import \t- to import data from a CSV file\n"

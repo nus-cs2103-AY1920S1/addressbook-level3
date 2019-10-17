@@ -38,7 +38,7 @@ public class JsonSerializableAddressBookTest {
     }
 
     @Test
-    public void petoModelType_duplicateSpendings_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateSpendings_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_SPENDING_FILE,
                 JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_SPENDING,

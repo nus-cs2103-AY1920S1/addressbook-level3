@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
 /**
@@ -22,13 +23,16 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_SPENDING = "Spendings list contains duplicate Spending(s).";
 
     private final List<JsonAdaptedSpending> spendings = new ArrayList<>();
+    private String budget;
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given spendings.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("spendings") List<JsonAdaptedSpending> spendings) {
+    public JsonSerializableAddressBook(@JsonProperty("budget") String budget,
+            @JsonProperty("spendings") List<JsonAdaptedSpending> spendings) {
         this.spendings.addAll(spendings);
+        this.budget = budget;
     }
 
     /**
@@ -38,6 +42,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         spendings.addAll(source.getSpendingList().stream().map(JsonAdaptedSpending::new).collect(Collectors.toList()));
+        budget = "" + source.getBudget().getValue();
     }
 
     /**
@@ -54,6 +59,9 @@ class JsonSerializableAddressBook {
             }
             addressBook.addSpending(spending);
         }
+
+        addressBook.setBudget(new Budget(budget));
+
         return addressBook;
     }
 

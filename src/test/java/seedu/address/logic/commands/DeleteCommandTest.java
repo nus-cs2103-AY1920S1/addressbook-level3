@@ -36,6 +36,8 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteSpending(spendingToDelete);
 
+        System.out.println(model);
+        System.out.println(expectedModel);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
