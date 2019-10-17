@@ -167,7 +167,24 @@ Example: `track -d`
 Allow users to get a recommendation from the application, based on the budget
 as well as the available food items entries.
 
-Format: `rec`
+Format: `recommend`
+
+==== Likes and Dislikes
+Allows users to specify their liked categories, tags and/or locations. The
+recommendation system (as mentioned above) will then be able to generate more
+accurate recommendations with your preferences.
+
+*To add likes*:
+
+Format: `like`
+
+Example: `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+
+*To add dislikes*:
+
+Format `dislike`
+
+Example: `dislike c/International t/Spicy l/The Deck l/The Terrace`
 
 == Frequently Asked Questions
 
@@ -225,6 +242,10 @@ of days.
 | List all saved food items
 | Recommend <<Recommend>>
 | Recommend a food item, based on the user's budget.
+| Like <<Likes and Dislikes>>
+| Likes categories, tags and locations
+| Dislike <<Likes and Dislikes>>
+| Dislikes categories, tags and locations
 | Redo <<Redo>>
 | Redo a command a specified number of times.
 | Sort <<Sort>>
@@ -235,3 +256,4 @@ of days.
 | Give users a brief guide on how to use the application.
 | Undo <<Undo>>
 | Undo a command a specified number of times.
+|===
