@@ -9,36 +9,39 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.food.Name;
+import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 
 /**
- * Jackson-friendly version of {@link UniqueTemplateItems}.
+ * An Immutable AddressBook that is serializable to JSON format.
  */
-class JsonAdaptedTemplate {
+class JsonSerializableTemplate {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "TemplateList Item's %s field is missing!";
     public static final String MESSAGE_DUPLICATE_TEMPLATE_ITEM = "Template contains duplicate template items(s).";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Template's %s field is missing!";
 
     private final String name;
 
-    private final List<JsonAdaptedTemplateItem> templateItems = new ArrayList<>();
+    private final List<JsonAdaptedTemplateItem> template = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedTemplate} with the given template details and given template items.
+     * Constructs a {@code JsonSerializableTemplate} with the given template items.
      */
     @JsonCreator
-    public JsonAdaptedTemplate(@JsonProperty("name") String name, @JsonProperty("templateItems")
-                                List<JsonAdaptedTemplateItem> templateItems) {
+    public JsonSerializableTemplate(@JsonProperty("name") String name, @JsonProperty("template")
+                                    List<JsonAdaptedTemplateItem> templateItems) {
         this.name = name;
-        this.templateItems.addAll(templateItems);
+        this.template.addAll(templateItems);
     }
 
     /**
      * Converts a given {@code UniqueTemplateItems} into this class for Jackson use.
+     *
+     * @param source future changes to this will not affect the created {@code JsonSerializableTemplate}.
      */
-    public JsonAdaptedTemplate(UniqueTemplateItems source) {
+    public JsonSerializableTemplate(UniqueTemplateItems source) {
         name = source.getName().fullName;
-        templateItems.addAll(source.getTemplate().stream().map(JsonAdaptedTemplateItem::new)
+        template.addAll(source.getTemplate().stream().map(JsonAdaptedTemplateItem::new)
                 .collect(Collectors.toList()));
     }
 
@@ -56,8 +59,17 @@ class JsonAdaptedTemplate {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
+        UniqueTemplateItems templateInput = new UniqueTemplateItems(modelName);
 
-        return new UniqueTemplateItems(modelName);
+        for (JsonAdaptedTemplateItem jsonAdaptedTemplateItem : template) {
+            TemplateItem item = jsonAdaptedTemplateItem.toModelType();
+            if (templateInput.contains(item)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TEMPLATE_ITEM);
+            }
+            templateInput.add(item);
+        }
+
+        return templateInput;
     }
 
 }

@@ -52,7 +52,7 @@ public class TemplateItemParser {
             return new DeleteTemplateItemCommandParser().parse(arguments);
 
         case ListTemplateItemCommand.COMMAND_WORD:
-            return new ListTemplateItemCommand();
+            return new ListTemplateItemCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
