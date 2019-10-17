@@ -4,31 +4,34 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.logging.Logger;
 
-import javafx.fxml.FXML;
 import io.xpire.commons.core.LogsCenter;
-import javafx.scene.control.TextArea;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+
+/**
+ * Allows the result to pop up.
+ */
 public class ResultWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "ResultWindow.fxml";
 
     @FXML
-    private TextArea resultWindow;
-
+    private Label resultText;
 
     /**
      * Creates a new ResultWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
-     * 
+     *
      */
     public ResultWindow(Stage root) {
         super(FXML, root);
         this.getRoot().initStyle(StageStyle.TRANSPARENT);
-//        this.getRoot().getScene().getStylesheets().add("view/ResultWindow.css");
     }
 
     /**
@@ -80,7 +83,8 @@ public class ResultWindow extends UiPart<Stage> {
      * Hides the result window.
      */
     public void hideOnKey(KeyEvent e) {
-        getRoot().hide();
+        focus();
+        hide();
     }
 
     /**
@@ -96,6 +100,6 @@ public class ResultWindow extends UiPart<Stage> {
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
-        resultWindow.setText(feedbackToUser);
+        resultText.setText(feedbackToUser);
     }
 }
