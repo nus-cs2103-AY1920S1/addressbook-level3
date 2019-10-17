@@ -45,6 +45,8 @@ public class IfridgeParser {
             return new TemplateListParser().parseCommand(others);
         case WasteListParser.LIST_TYPE_WORD:
             return new WasteListParser().parseCommand(others);
+        case ShoppingListParser.LIST_TYPE_WORD:
+            return new ShoppingListParser().parseShoppingCommand(others);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
