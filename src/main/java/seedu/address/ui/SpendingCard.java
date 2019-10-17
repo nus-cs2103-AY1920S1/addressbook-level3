@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.spending.Spending;
 
 /**
@@ -46,7 +47,7 @@ public class SpendingCard extends UiPart<Region> {
         this.spending = spending;
         id.setText(displayedIndex + ". ");
         name.setText(spending.getName().fullName);
-        date.setText(spending.getDate().value);
+        date.setText(DateUtil.prettyFormatDate(spending.getDate().value));
         cost.setText("$" + spending.getCost().value);
         remark.setText(spending.getRemark().value);
         spending.getTags().stream()
