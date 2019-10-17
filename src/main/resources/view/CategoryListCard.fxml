@@ -8,6 +8,6 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml" >
   <left>
-   <Label fx:id = "categoryFx" text="\$category" textAlignment="CENTER" styleClass="cell_small_label" textOverrun="CLIP" />
+   <Label fx:id = "categoryFx" text="\$category" textAlignment="CENTER" styleClass="cell_big_label" textOverrun="CLIP" />
   </left>
 </BorderPane>
