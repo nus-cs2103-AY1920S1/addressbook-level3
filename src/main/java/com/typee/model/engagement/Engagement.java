@@ -1,6 +1,7 @@
 package com.typee.model.engagement;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Represents a generalization of meetings, interviews and appointments.
@@ -116,5 +117,29 @@ public abstract class Engagement {
         return engagement.endTime.equals(endTime)
                 && engagement.startTime.equals(startTime)
                 && engagement.location.equals(location);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            // short-circuit.
+            return true;
+        } else if (o instanceof Engagement) {
+            // type-cast Object and check for field equality.
+            Engagement otherEngagement = (Engagement) o;
+            return otherEngagement.location.equals(location)
+                    && otherEngagement.attendees.equals(attendees)
+                    && otherEngagement.description.equals(description)
+                    && otherEngagement.startTime.equals(startTime)
+                    && otherEngagement.endTime.equals(endTime)
+                    && otherEngagement.priority.equals(priority);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startTime, endTime, location, description, attendees, priority);
     }
 }
