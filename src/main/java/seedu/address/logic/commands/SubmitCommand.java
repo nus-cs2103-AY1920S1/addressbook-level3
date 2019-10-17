@@ -36,6 +36,10 @@ public class SubmitCommand extends Command {
         incidents.sort(comparator);
         Iterator<Incident> it = incidents.iterator();
         Incident toAdd = it.next();
+
+        if (toAdd == null) {
+
+        }
         model.addIncident(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

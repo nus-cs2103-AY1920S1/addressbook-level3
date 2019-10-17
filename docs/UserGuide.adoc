@@ -63,29 +63,30 @@ Format: `login USERNAME`
 * User has logged in
 
 ==== Description
-* Takes in postal code of accident site and dispatches vehicle closest to it.
-* Once operator picks up the call, they will key in the postal code of accident site to dispatch vehicles.
+* Unique ID automatically generated for report.
+* Takes in district number of accident site and dispatches vehicle near to it.
+* Once operator picks up the call, they will key in the district number of accident site to dispatch vehicles.
 
 ==== Usage
 
-Format: `new POSTAL_CODE`
+Format: `new DISTRICT_NUM y/n`
 
 For multi-step:
 
 * Prompts for default vehicle dispatchment.
-** `y`- the available vehicle nearest to given postal code is dispatched.
-** `n`- an indexed list of available vehicles near the given postal code is given in descending order of proximity.
+** `y`- an available vehicle in the given district is automatically dispatched and attached to the incident.
+** `n`- an indexed list of available vehicles in the given district is shown.
 
 === Filling a new report: `fill`
 
 ==== Description
-* Generates a new report and prompts operator to enter data into report fields.
-* Unique ID automatically generated for report.
+* Display a list of newly created incidents.
+* Based on this list, user chooses incident to fill.
 * Date/time, operator name, and operator name are auto-filled.
 
 ==== Usage
 
-Format: `fill [n/CALLER_NAME d/INCIDENT_DESCRIPTION]`
+Format: `fill [i/index_of_incident n/CALLER_NAME d/INCIDENT_DESCRIPTION]`
 
 For multi-step:
 
