@@ -12,13 +12,13 @@ import seedu.address.model.Model;
 import seedu.address.model.spending.Spending;
 
 /**
- * Adds a Spending to the address book.
+ * Adds a Spending to the MoneyGoWhere list.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Spending to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Spending to MoneyGoWhere. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_DATE + "DATE "
@@ -26,15 +26,15 @@ public class AddCommand extends Command {
             + PREFIX_COST + "COST "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "Apple "
             + PREFIX_DATE + "today "
             + PREFIX_COST + "1.50 "
-            + PREFIX_REMARK + "Likes to play games"
+            + PREFIX_REMARK + "Keeps the doctor away "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New Spending added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SPENDING = "This Spending already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_SPENDING = "This Spending already exists in MoneyGoWhere";
 
     private final Spending toAdd;
 

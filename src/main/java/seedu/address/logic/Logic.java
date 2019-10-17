@@ -34,7 +34,7 @@ public interface Logic {
     ObservableList<Spending> getFilteredSpendingList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' MoneyGoWhere file path.
      */
     Path getAddressBookFilePath();
 
