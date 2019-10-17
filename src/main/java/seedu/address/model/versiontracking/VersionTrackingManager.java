@@ -1,6 +1,7 @@
 package seedu.address.model.versiontracking;
 
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
  * Manages version tracking of the application.
@@ -44,5 +45,12 @@ public class VersionTrackingManager {
             studyPlanCommitManagers.add(manager);
             return manager;
         }
+    }
+
+    /**
+     * Deletes a StudyPlanCommitManager with the given index, matching the study plan to be deleted.
+     */
+    public void deleteStudyPlanCommitManagerByIndex(int index) throws StudyPlanCommitManagerNotFoundException {
+        studyPlanCommitManagers.delete(index);
     }
 }

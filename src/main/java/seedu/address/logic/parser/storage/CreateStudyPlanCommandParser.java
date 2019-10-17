@@ -19,10 +19,13 @@ public class CreateStudyPlanCommandParser implements Parser<CreateStudyPlanComma
      */
     public CreateStudyPlanCommand parse(String args) throws ParseException {
         String studyPlanName = args.trim();
+        // commented out because we allow study plans with no name?
+        /*
         if (studyPlanName.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateStudyPlanCommand.MESSAGE_USAGE));
         }
+         */
         return new CreateStudyPlanCommand(studyPlanName);
     }
 }

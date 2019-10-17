@@ -59,9 +59,15 @@ public class DeleteCommand extends Command {
         if (model.getActiveStudyPlan().equals(studyPlanToDelete)) {
             boolean isSuccessful = model.activateFirstStudyPlan();
             if (!isSuccessful) {
-                return new CommandResult(MESSAGE_NO_MORE_STUDYPLAN);
+                return new CommandResult(MESSAGE_NO_MORE_STUDYPLAN, true, false);
+            } else {
+                return new CommandResult(String.format(MESSAGE_DELETE_STUDYPLAN_SUCCESS, studyPlanToDelete),
+                        true, false);
             }
         }
+
+        // delete the corresponding study plan commit manager
+        model.deleteStudyPlanCommitManagerByIndex(studyPlanToDelete.getIndex());
 
         return new CommandResult(String.format(MESSAGE_DELETE_STUDYPLAN_SUCCESS, studyPlanToDelete));
     }

@@ -191,6 +191,8 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public boolean activateFirstStudyPlan() {
         if (studyPlans.getSize() == 0) {
+            // the active study plan will be null
+            activeStudyPlan = null;
             return false;
         } else {
             int indexOfFirstStudyPlan = studyPlans.iterator().next().getIndex();
@@ -279,6 +281,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             throw new StudyPlanCommitManagerNotFoundException();
         }
         return manager.getCommitList();
+    }
+
+    /**
+     * Removes a StudyPlanCommitManager by the given StudyPlan index.
+     */
+    public void deleteStudyPlanCommitManagerByIndex(int index) throws StudyPlanCommitManagerNotFoundException {
+        versionTrackingManager.deleteStudyPlanCommitManagerByIndex(index);
     }
 
     //// util methods

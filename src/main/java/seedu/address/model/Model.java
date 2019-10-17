@@ -124,6 +124,11 @@ public interface Model {
      */
     CommitList getCommitListByStudyPlanIndex(int index);
 
+    /**
+     * Deletes a StudyPlanCommitManager by the given StudyPlan index.
+     */
+    void deleteStudyPlanCommitManagerByIndex(int index);
+
     // ===================== MODULE INFORMATION ==========================
 
     /**
