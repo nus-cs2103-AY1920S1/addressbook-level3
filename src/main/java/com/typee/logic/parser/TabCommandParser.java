@@ -7,6 +7,7 @@ import com.typee.commons.core.Messages;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.Tab;
+import com.typee.ui.game.StartWindow;
 
 /**
  * Parses the given {@code String} of arguments in the context of the TabCommand
@@ -25,10 +26,10 @@ public class TabCommandParser implements Parser<TabCommand> {
         } else {
             switch(tabName.toLowerCase()) {
             //Feel free to modify your tab name and respective Controller class together with your fxml file.
-            case "typinggame":
-                return new TabCommand(new Tab("TypingGame"));
             case "engagement":
                 return new TabCommand(new Tab("Engagement"));
+            case "typinggame":
+                return new TabCommand(new Tab("TypingGame"));
             case "report":
                 return new TabCommand(new Tab("Report"));
             case "calendar":

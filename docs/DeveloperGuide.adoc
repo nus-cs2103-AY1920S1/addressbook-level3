@@ -404,7 +404,6 @@ Use case ends.
 +
 Use case ends.
 
-//Updated by Jun Hao
 [discrete]
 === Use case: (UC04) Delete appointment
 
