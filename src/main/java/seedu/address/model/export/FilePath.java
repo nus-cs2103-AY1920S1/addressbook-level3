@@ -5,6 +5,9 @@ package seedu.address.model.export;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * Represents a FlashCard's Question in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidFilePath(String)}
@@ -24,7 +27,7 @@ public class FilePath {
      */
     public static final String VALIDATION_REGEX = "[~\\w\\-!:\\[\\]()/\\\\ ]+\\.docx";
 
-    public final String fullFilePath;
+    public final Path path;
 
     /**
      * Constructs a {@code Question}.
@@ -34,7 +37,7 @@ public class FilePath {
     public FilePath(String filePath) {
         requireNonNull(filePath);
         checkArgument(isValidFilePath(filePath), MESSAGE_CONSTRAINTS);
-        fullFilePath = filePath;
+        path = Paths.get(filePath);
     }
 
     /**
@@ -47,19 +50,19 @@ public class FilePath {
 
     @Override
     public String toString() {
-        return fullFilePath;
+        return path.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FilePath // instanceof handles nulls
-                && fullFilePath.equals(((FilePath) other).fullFilePath)); // state check
+                && path.equals(((FilePath) other).path)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullFilePath.hashCode();
+        return path.hashCode();
     }
 
 }
