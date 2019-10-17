@@ -91,6 +91,13 @@ public class Show {
                 && (otherShow.getDateOfRelease().equals(getDateOfRelease()) || otherShow.isWatched() == (isWatched()));
     }
 
+    public boolean isSameName(Show otherShow) {
+        if (otherShow == this) {
+            return true;
+        }
+        return otherShow != null && otherShow.getName().equals(getName());
+    }
+
     /**
      * Returns true if both shows have the same identity and data fields.
      * This defines a stronger notion of equality between two shows.

@@ -21,6 +21,10 @@ public class Description {
 
     public final String fullDescription;
 
+    public Description() {
+        fullDescription = "";
+    }
+
     /**
      * Constructs a {@code Name}.
      *

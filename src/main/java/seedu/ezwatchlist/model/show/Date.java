@@ -21,6 +21,10 @@ public class Date {
 
     public final String value;
 
+    public Date() {
+        value = "";
+    }
+
     /**
      * Constructs an {@code Date}.
      *

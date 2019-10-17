@@ -6,7 +6,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
+import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The API of the Model component.
@@ -57,6 +60,16 @@ public interface Model {
      * Returns true if a show with the same identity as {@code show} exists in the watchlist.
      */
     boolean hasShow(Show show);
+
+    /**
+     * Returns true if a show with the same name as {@code show} exists in the watchlist.
+     */
+    boolean hasShowName(Name showName);
+
+    /**
+     * Returns the list of shows that has the same name as the given argument as the current watch list.
+     */
+    List<Show> getShowIfSameNameAs(Name showName);
 
     /**
      * Deletes the given show.

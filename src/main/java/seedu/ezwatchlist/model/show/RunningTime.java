@@ -15,6 +15,10 @@ public class RunningTime {
 
     public final int value;
 
+    public RunningTime() {
+        value = 0;
+    }
+
     /**
      * Constructs an {@code RunningTime}.
      *

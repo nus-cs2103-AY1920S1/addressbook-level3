@@ -31,7 +31,7 @@ import seedu.ezwatchlist.testutil.PersonUtil;
 
 public class AddressBookParserTest {
 
-    private final EzWatchListParser parser = new EzWatchListParser();
+    private final WatchListParser parser = new WatchListParser();
 
     @Test
     public void parseCommand_add() throws Exception {

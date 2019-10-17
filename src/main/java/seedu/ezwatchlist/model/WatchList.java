@@ -2,11 +2,13 @@ package seedu.ezwatchlist.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.model.show.UniqueShowList;
+import seedu.ezwatchlist.model.show.*;
 
 /**
  * Wraps all data at the address-book level
@@ -64,6 +66,22 @@ public class WatchList implements ReadOnlyWatchList {
     public boolean hasShow(Show show) {
         requireNonNull(show);
         return shows.contains(show);
+    }
+
+    /**
+     * Returns true if a show with the same name as {@code show} exists in the WatchList.
+     */
+    public boolean hasName(Name name) {
+        requireNonNull(name);
+        return shows.hasShowName(name);
+    }
+
+    /**
+     * Returns the list of shows that has the same name as the given argument as the current watch list.
+     */
+    public List<Show> getShowIfSameNameAs(Name showName) {
+        requireNonNull(showName);
+        return shows.getShowIfSameNameAs(showName);
     }
 
     /**
