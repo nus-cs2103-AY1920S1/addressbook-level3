@@ -11,11 +11,11 @@ public class Content {
     public static final String MESSAGE_CONSTRAINTS = "Cheatsheet contents should not be blank. "
             + "For flashcard's components, images are not supported in the cheatsheet.";
     public static final String VALIDATION_REGEX = "\\S.*"; //"\\p{Alnum}+";
+    private static int COUNTER = 1;
 
     public final String content;
     public final int index;
 
-    private static int COUNTER = 0;
 
     /**
      * Constructs a {@code Content}.
@@ -54,7 +54,11 @@ public class Content {
     }
 
     public static void resetCounter() {
-        COUNTER = 0;
+        COUNTER = 1;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     @Override

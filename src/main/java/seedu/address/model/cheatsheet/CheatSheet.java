@@ -59,6 +59,16 @@ public class CheatSheet implements StudyBuddyItem {
         return Collections.unmodifiableSet(contents);
     }
 
+    public Content getContent(int index) {
+        for (Content current : contents) {
+            if (current.getIndex() == index) {
+                return current;
+            }
+        }
+
+        return null;
+    }
+
     public String getContentsInStringForm() {
         StringBuilder sb = new StringBuilder("");
         for (Content c : contents) {

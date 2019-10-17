@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -48,7 +50,7 @@ public class EditCheatSheetCommandParser implements Parser<EditCheatSheetCommand
                     argMultimap.getValue(PREFIX_TITLE).get()));
         }
 
-        parseContentsForEdit(argMultimap.getAllValues(PREFIX_CONTENT)).ifPresent(editCheatSheetDescriptor::setContents);
+        editCheatSheetDescriptor.setIndexes(parseIndexesForEdit(argMultimap.getAllValues(PREFIX_CONTENT)));
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editCheatSheetDescriptor::setTags);
 
@@ -57,6 +59,31 @@ public class EditCheatSheetCommandParser implements Parser<EditCheatSheetCommand
         }
 
         return new EditCheatSheetCommand(index, editCheatSheetDescriptor);
+    }
+
+    /**
+     * Parses {@code Collection<String> indexes} into a {@code ArrayList<Integer>} if {@code indexes} is non-empty.
+     * If {@code indexes} contain only one element which is an empty string, it will be parsed into a
+     * {@code ArrayList<Integer>} containing zero contents.
+     */
+    private ArrayList<Integer> parseIndexesForEdit(Collection<String> indexes) throws ParseException {
+        assert indexes != null;
+
+        if (indexes.isEmpty() || (indexes.size() == 1 && indexes.contains(""))) {
+            return null;
+        }
+
+        ArrayList<Integer> newIndexes = new ArrayList<>();
+
+        for (String s: indexes) {
+            try {
+                newIndexes.add(Integer.parseInt(s));
+            } catch (Exception e) {
+                throw new ParseException(MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX);
+            }
+        }
+
+        return newIndexes;
     }
 
     /**
@@ -70,18 +97,8 @@ public class EditCheatSheetCommandParser implements Parser<EditCheatSheetCommand
         if (contents.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> contentSet;
-
-        if (contents.size() == 1 && contents.contains("")) {
-            contentSet = Collections.emptySet();
-        } else {
-
-
-
-
-            contentSet = null;
-        }
-
+        Collection<String> contentSet = contents.size() == 1 && contents.contains("")
+                ? Collections.emptySet() : contents;
         return Optional.of(ParserUtil.parseCheatSheetContents(contentSet));
     }
 
