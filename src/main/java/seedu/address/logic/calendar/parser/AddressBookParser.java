@@ -18,11 +18,6 @@ import seedu.address.logic.calendar.commands.ListCommand;
 import seedu.address.logic.calendar.commands.SwitchCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 
-
-
-
-
-
 /**
  * Parses user input.
  */

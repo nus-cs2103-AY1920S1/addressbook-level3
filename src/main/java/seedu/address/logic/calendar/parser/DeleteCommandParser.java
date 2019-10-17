@@ -6,8 +6,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.calendar.commands.DeleteCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 
-
-
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
