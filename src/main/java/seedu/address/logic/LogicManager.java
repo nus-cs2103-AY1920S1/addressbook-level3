@@ -2,12 +2,14 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.autocomplete.AutoCompleter;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
@@ -29,7 +31,6 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 
 import seedu.address.storage.Storage;
-import seedu.address.ui.OmniPanel;
 
 /**
  * The main LogicManager of the app.
@@ -55,7 +56,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText, OmniPanel omniPanel) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, Consumer<OmniPanelTab> omniPanelTabConsumer)
+        throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
