@@ -3,7 +3,6 @@ package io.xpire.logic.commands;
 import static io.xpire.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.testutil.TypicalItems.BANANA;
-import static io.xpire.testutil.TypicalItems.CORN;
 import static io.xpire.testutil.TypicalItems.DUCK;
 import static io.xpire.testutil.TypicalItems.JELLY;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
@@ -67,22 +66,22 @@ public class SearchCommandTest {
 
     @Test
     public void execute_allMatchingKeywords_multipleItemsFound() {
-        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 4);
-        ContainsKeywordsPredicate predicate = preparePredicate("Banana|Corn|#Fridge");
+        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 3);
+        ContainsKeywordsPredicate predicate = preparePredicate("Banana|#Fridge");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BANANA, CORN, DUCK, JELLY), model.getFilteredItemList());
+        assertEquals(Arrays.asList(BANANA, DUCK, JELLY), model.getFilteredItemList());
     }
 
     @Test
     public void execute_someMatchingKeywords_multipleItemsFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 2);
-        ContainsKeywordsPredicate predicate = preparePredicate("Pineapple|Corn|#Protein|#Cold");
+        ContainsKeywordsPredicate predicate = preparePredicate("Pineapple|Banana|#Protein|#Cold");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CORN, DUCK), model.getFilteredItemList());
+        assertEquals(Arrays.asList(BANANA, DUCK), model.getFilteredItemList());
     }
 
     /**

@@ -97,6 +97,4 @@ public class StringUtil {
         }
         return newString;
     }
-
-
 }

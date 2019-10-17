@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ItemListPanel itemListPanel;
+    private ResultWindow resultWindow;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -63,6 +64,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        resultWindow = new ResultWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -87,13 +89,13 @@ public class MainWindow extends UiPart<Stage> {
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
+         * ResultWindow contains a TextArea, thus some accelerators (e.g F1) will
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
          * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
+         * in CommandBox or ResultWindow.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -144,6 +146,16 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the result window
+     */
+    @FXML
+    public void handleResult(String feedback) {
+        resultWindow.setFeedbackToUser(feedback);
+        resultWindow.show();
+        resultWindow.focus();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -157,6 +169,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        resultWindow.hide();
         primaryStage.hide();
     }
 
@@ -174,6 +187,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            //handleResult(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -187,6 +201,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            //handleResult(e.getMessage());
             throw e;
         }
     }

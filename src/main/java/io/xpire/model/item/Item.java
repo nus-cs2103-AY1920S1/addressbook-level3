@@ -94,6 +94,15 @@ public class Item {
     }
 
     /**
+     * Sets and overrides the quantity.
+     *
+     * @param newQuantity Quantity to be updated.
+     */
+    public void setQuantity(Quantity newQuantity) {
+        this.quantity = newQuantity;
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

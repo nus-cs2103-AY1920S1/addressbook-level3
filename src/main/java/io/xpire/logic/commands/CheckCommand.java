@@ -40,4 +40,21 @@ public class CheckCommand extends Command {
         model.updateFilteredItemList(this.predicate);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof CheckCommand)) {
+            return false;
+        } else {
+            CheckCommand other = (CheckCommand) obj;
+            return this.predicate.equals(other.predicate);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.predicate.hashCode();
+    }
 }

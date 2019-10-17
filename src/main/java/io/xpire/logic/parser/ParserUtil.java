@@ -61,6 +61,9 @@ public class ParserUtil {
     public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
         requireNonNull(expiryDate);
         String trimmedDate = expiryDate.trim();
+        if (expiryDate.isEmpty()) {
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
+        }
         if (!ExpiryDate.isValidFormatExpiryDate(trimmedDate)) {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
         }
@@ -79,7 +82,7 @@ public class ParserUtil {
     public static Quantity parseQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
-        if (!Quantity.isValidQuantity(quantity)) {
+        if (!Quantity.isValidInputQuantity(trimmedQuantity)) {
             throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
         }
         return new Quantity(trimmedQuantity);

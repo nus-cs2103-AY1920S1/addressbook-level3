@@ -1,13 +1,14 @@
 package io.xpire.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 import io.xpire.commons.core.LogsCenter;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
+import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
 
 /**
@@ -17,16 +18,13 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL =
             "https://ay1920s1-cs2103t-f11-2.github.io/main/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String HELP_MESSAGE = USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
-    private Button copyButton;
-
-    @FXML
-    private Label helpMessage;
+    private Hyperlink helpMessage;
 
     /**
      * Creates a new HelpWindow.
@@ -84,20 +82,25 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the User Guide window in browser.
+     */
+    public void openLink() {
+        try {
+            Desktop.getDesktop().browse(new URL(USERGUIDE_URL).toURI());
+        } catch (IOException e) {
+            logger.severe("Cannot open browser.");
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            logger.severe("Corrupted URL. Cannot open the page.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Focuses on the help window.
      */
     public void focus() {
         getRoot().requestFocus();
     }
 
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
-    }
 }
