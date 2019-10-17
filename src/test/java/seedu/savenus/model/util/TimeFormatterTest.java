@@ -20,12 +20,4 @@ public class TimeFormatterTest {
 
         assertTrue(TimeFormatter.getDaysAgo(testLocalDateTime2DaysAgo, testLocalDateTime) == 2);
     }
-
-    @Test
-    public void formatClockTest() {
-        LocalDateTime testLocalDateTime2DaysAgo = LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(Long.parseLong("1570507200000")), ZoneId.systemDefault()); // 2019/10/08 12:00:00
-        String output = TimeFormatter.format12HourClock(testLocalDateTime2DaysAgo);
-        assertTrue(output.equals("00:00 PM"));
-    }
 }
