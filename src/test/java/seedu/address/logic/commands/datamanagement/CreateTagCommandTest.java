@@ -5,16 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-
 import java.util.function.Predicate;
 
-import org.junit.jupiter.api.Test;
-
 import javafx.collections.ObservableList;
-
+import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
