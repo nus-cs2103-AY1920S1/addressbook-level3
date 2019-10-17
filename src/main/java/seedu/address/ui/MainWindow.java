@@ -122,6 +122,9 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    /**
+     * Fills up all the placeholders with earnings list in the window.
+     */
     void fillEarnings() {
         earningsListPanel = new EarningsListPanel(logic.getFilteredEarningsList());
         personListPanelPlaceholder.getChildren().add(earningsListPanel.getRoot());

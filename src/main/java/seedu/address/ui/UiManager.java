@@ -48,6 +48,9 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * To change tab to earnings tab.
+     */
     public void startEarnings() {
         logger.info("Changing to Earning...");
 
