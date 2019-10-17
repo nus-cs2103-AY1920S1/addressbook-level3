@@ -18,11 +18,11 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the engagement identified by the index number used in the displayed appointment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_ENGAGEMENT_SUCCESS_SUCCESS = "Deleted appointment: %1$s";
 
     private final Index targetIndex;
 
@@ -36,14 +36,15 @@ public class DeleteCommand extends Command {
         List<Engagement> lastShownList = model.getFilteredEngagementList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENGAGEMENT_DISPLAYED_INDEX);
         }
 
 
         Engagement engagementToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEngagement(engagementToDelete);
         model.saveEngagementList();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, engagementToDelete));
+        return new CommandResult(String.format(DeleteCommand.
+                MESSAGE_DELETE_ENGAGEMENT_SUCCESS_SUCCESS, engagementToDelete));
     }
 
     @Override

@@ -51,10 +51,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setHistoryManager(ReadOnlyAddressBook historyManager);
+    void setHistoryManager(ReadOnlyEngagementList historyManager);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getHistoryManager();
+    /** Returns the EngagementList */
+    ReadOnlyEngagementList getHistoryManager();
 
     /**
      * REDUNDANT.

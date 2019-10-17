@@ -94,12 +94,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setHistoryManager(ReadOnlyAddressBook newData) {
+        public void setHistoryManager(ReadOnlyEngagementList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getHistoryManager() {
+        public ReadOnlyEngagementList getHistoryManager() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,8 +196,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getHistoryManager() {
-            return new AddressBook();
+        public ReadOnlyEngagementList getHistoryManager() {
+            return new EngagementList();
         }
     }
    */

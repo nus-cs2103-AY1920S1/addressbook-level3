@@ -13,7 +13,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.TypeeParser;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.engagement.Engagement;
 import com.typee.storage.Storage;
 import com.typee.ui.Tab;
@@ -46,7 +46,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getHistoryManager());
+            storage.saveEngagementList(model.getHistoryManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -55,7 +55,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyEngagementList getAddressBook() {
         return model.getHistoryManager();
     }
 

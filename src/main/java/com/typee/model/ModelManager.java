@@ -29,7 +29,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyEngagementList addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         CollectionUtil.requireAllNonNull(addressBook, userPrefs);
 
@@ -41,7 +41,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new EngagementList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -79,15 +79,15 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== EngagementList ================================================================================
 
     @Override
-    public void setHistoryManager(ReadOnlyAddressBook historyManager) {
+    public void setHistoryManager(ReadOnlyEngagementList historyManager) {
         this.historyManager.resetData(historyManager);
     }
 
     @Override
-    public ReadOnlyAddressBook getHistoryManager() {
+    public ReadOnlyEngagementList getHistoryManager() {
         return historyManager;
     }
 

@@ -18,7 +18,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
+        Model expectedModel = new ModelManager(new EngagementList(model.getHistoryManager()), new UserPrefs());
         expectedModel.setEngagement(model.getFilteredEngagementList().get(0), editedPerson);
         expectedModel.saveEngagementList();
 
@@ -40,7 +40,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
+        Model expectedModel = new ModelManager(new EngagementList(model.getHistoryManager()), new UserPrefs());
 
 
         expectedModel.setEngagement(lastPerson, editedPerson);
@@ -57,7 +57,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
+        Model expectedModel = new ModelManager(new EngagementList(model.getHistoryManager()), new UserPrefs());
         expectedModel.saveEngagementList();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -74,7 +74,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
+        Model expectedModel = new ModelManager(new EngagementList(model.getHistoryManager()), new UserPrefs());
 
         expectedModel.setEngagement(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.saveEngagementList();

@@ -6,7 +6,7 @@ package com.typee.model;
 public class AddressBookTest {
 
     /*
-    private final AddressBook addressBook = new HistoryManager(new AddressBook());
+    private final EngagementList addressBook = new HistoryManager(new EngagementList());
 
     @Test
     public void constructor() {
@@ -20,7 +20,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        EngagementList newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -66,10 +66,10 @@ public class AddressBookTest {
 
      */
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyEngagementList whose persons list can violate interface constraints.
      */
     /*
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class AddressBookStub implements ReadOnlyEngagementList {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {

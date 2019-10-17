@@ -13,15 +13,15 @@ import com.typee.commons.util.ConfigUtil;
 import com.typee.commons.util.StringUtil;
 import com.typee.logic.Logic;
 import com.typee.logic.LogicManager;
-import com.typee.model.AddressBook;
+import com.typee.model.EngagementList;
 import com.typee.model.Model;
 import com.typee.model.ModelManager;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
 import com.typee.model.util.SampleDataUtil;
-import com.typee.storage.AddressBookStorage;
-import com.typee.storage.JsonAddressBookStorage;
+import com.typee.storage.EngagementListStorage;
+import com.typee.storage.JsonEngagementListStorage;
 import com.typee.storage.JsonTypeeStorage;
 import com.typee.storage.JsonUserPrefsStorage;
 import com.typee.storage.Storage;
@@ -59,9 +59,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        EngagementListStorage engagementListStorage = new JsonEngagementListStorage(userPrefs.getAddressBookFilePath());
         TypeeStorage typeeStorage = new JsonTypeeStorage(config.getTabMenuFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, typeeStorage);
+        storage = new StorageManager(engagementListStorage, userPrefsStorage, typeeStorage);
 
         initLogging(config);
 
@@ -79,20 +79,20 @@ public class MainApp extends Application {
      * {@code storage}'s engagement manager.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyEngagementList> addressBookOptional;
+        ReadOnlyEngagementList initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readEngagementList();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample engagement manager");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty engagement manager");
-            initialData = new AddressBook();
+            initialData = new EngagementList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty engagement manager");
-            initialData = new AddressBook();
+            initialData = new EngagementList();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -156,7 +156,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty EngagementList");
             initializedPrefs = new UserPrefs();
         }
 

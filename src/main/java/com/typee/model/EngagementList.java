@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameEngagement comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class EngagementList implements ReadOnlyEngagementList {
 
     private final UniqueEngagementList engagements;
 
@@ -28,12 +28,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         engagements = new UniqueEngagementList();
     }
 
-    public AddressBook() {}
+    public EngagementList() {}
 
     /**
-     * Creates an AddressBook using the Engagements in the {@code toBeCopied}
+     * Creates an EngagementList using the Engagements in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public EngagementList(ReadOnlyEngagementList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -49,9 +49,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code EngagementList} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyEngagementList newData) {
         requireNonNull(newData);
 
         setEngagements(newData.getEngagementList());
@@ -88,7 +88,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code EngagementList}.
      * {@code key} must exist in the address book.
      */
     public void removeEngagement(Engagement key) {
@@ -111,8 +111,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && engagements.equals(((AddressBook) other).engagements));
+                || (other instanceof EngagementList // instanceof handles nulls
+                && engagements.equals(((EngagementList) other).engagements));
     }
 
     @Override

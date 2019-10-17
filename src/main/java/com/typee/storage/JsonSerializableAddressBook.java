@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.typee.commons.exceptions.IllegalValueException;
-import com.typee.model.AddressBook;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.EngagementList;
+import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.engagement.Engagement;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable EngagementList that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
@@ -31,29 +31,29 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyEngagementList} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableAddressBook(ReadOnlyEngagementList source) {
         persons.addAll(source.getEngagementList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code EngagementList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public EngagementList toModelType() throws IllegalValueException {
+        EngagementList engagementList = new EngagementList();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Engagement engagement = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasEngagement(engagement)) {
+            if (engagementList.hasEngagement(engagement)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addEngagement(engagement);
+            engagementList.addEngagement(engagement);
         }
-        return addressBook;
+        return engagementList;
     }
 
 }
