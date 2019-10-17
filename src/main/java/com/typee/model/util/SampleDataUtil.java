@@ -1,7 +1,15 @@
 package com.typee.model.util;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+
 import com.typee.model.AddressBook;
 import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.engagement.AttendeeList;
+import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.EngagementType;
+import com.typee.model.engagement.Location;
+import com.typee.model.engagement.Priority;
 import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 
@@ -9,21 +17,18 @@ import com.typee.model.person.Person;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh")),
-            new Person(new Name("Bernice Yu")),
-            new Person(new Name("Charlotte Oliveiro")),
-            new Person(new Name("David Li")),
-            new Person(new Name("Irfan Ibrahim")),
-            new Person(new Name("Roy Balakrishnan"))
+    public static Engagement[] getSampleEngagements() {
+        return new Engagement[] {
+                Engagement.of(EngagementType.MEETING, LocalDateTime.now(), LocalDateTime.now(),
+                        new AttendeeList(Arrays.asList(new Person[]{new Person(new Name("Uggi"))})),
+                        new Location("SR-10"), "Test", Priority.HIGH)
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Engagement sampleEngagement : getSampleEngagements()) {
+            sampleAb.addEngagement(sampleEngagement);
         }
         return sampleAb;
     }

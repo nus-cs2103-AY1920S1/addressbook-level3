@@ -1,6 +1,6 @@
 package com.typee.ui;
 
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class EngagementCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -22,20 +22,38 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Engagement engagement;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label type;
+    @FXML
+    private Label startTime;
+    @FXML
+    private Label endTime;
+    @FXML
+    private Label description;
+    @FXML
+    private Label locationOfEngagement;
+    @FXML
+    private Label priority;
+    @FXML
+    private Label attendees;
     @FXML
     private Label id;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public EngagementCard(Engagement engagement, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.engagement = engagement;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        type.setText(engagement.getClass().getSimpleName());
+        startTime.setText(engagement.getStartTime().toString());
+        endTime.setText(engagement.getEndTime().toString());
+        locationOfEngagement.setText(engagement.getLocation().toString());
+        priority.setText(engagement.getPriority().name());
+        attendees.setText(engagement.getAttendees().toString());
+        description.setText(engagement.getDescription());
     }
 
     @Override
@@ -46,13 +64,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof EngagementCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        EngagementCard card = (EngagementCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && engagement.equals(card.engagement);
     }
 }
