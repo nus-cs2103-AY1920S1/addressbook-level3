@@ -28,8 +28,8 @@ public class NavigationSidebarRight extends UiPart<Region> {
     }
 
     @FXML
-    private void handleEnterContactsManager() {
-
+    private void handleOpenHelp() {
+        mainWindow.handleHelp();
     }
 
     @FXML

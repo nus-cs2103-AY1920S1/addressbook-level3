@@ -1,0 +1,11 @@
+.Sidebar {
+    -fx-background-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+    -fx-border-radius: 3px;
+    -fx-padding: 0px;
+}
+
+.Sidebar .button {
+    -fx-background-color: #FFFFFA;
+}
