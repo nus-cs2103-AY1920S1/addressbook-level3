@@ -10,7 +10,9 @@ import seedu.billboard.model.statistics.ExpenseTimeline;
 import seedu.billboard.model.statistics.Statistics;
 import seedu.billboard.ui.UiPart;
 
-
+/**
+ * Container for charts.
+ */
 public class ChartBox extends UiPart<Region> implements ListChangeListener<Expense> {
 
     private static final String FXML = "ChartBox.fxml";

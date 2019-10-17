@@ -1,7 +1,12 @@
 package seedu.billboard.ui.charts;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -10,17 +15,11 @@ import javafx.scene.chart.XYChart;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.model.expense.Amount;
-import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.ExpenseTimeline;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-
+/**
+ * Represents a chart showing the timeline for expenses.
+ */
 public class ExpenseTimelineChart extends ExpenseChart<ExpenseTimeline> {
 
     private static final String FXML = "ExpenseTimelineChart.fxml";
@@ -32,7 +31,7 @@ public class ExpenseTimelineChart extends ExpenseChart<ExpenseTimeline> {
     private CategoryAxis xAxis;
 
     @FXML
-    private NumberAxis YAxis;
+    private NumberAxis yAxis;
 
     private final EnumMap<DateInterval, DateTimeFormatter> dateIntervalFormats;
     private XYChart.Series<String, Float> series;
