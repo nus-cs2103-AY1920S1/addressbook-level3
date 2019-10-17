@@ -19,6 +19,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.UserSettings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteByIndexCommand;
@@ -33,6 +34,7 @@ import seedu.address.logic.commands.LoanCommand;
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.ServeCommand;
+import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -44,6 +46,10 @@ import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
 import seedu.address.testutil.EditBookDescriptorBuilder;
+import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
+import seedu.address.testutil.UserSettingsBuilder;
+import seedu.address.testutil.UserSettingsUtil;
+
 
 public class CatalogParserTest {
 
@@ -149,6 +155,15 @@ public class CatalogParserTest {
     @Test
     public void parseCommand_return() throws Exception {
         assertTrue(parser.parseCommand(ReturnCommand.COMMAND_WORD + " 3") instanceof ReturnCommand);
+    }
+
+    @Test
+    public void parseCommand_set() throws Exception {
+        UserSettings userSettings = new UserSettingsBuilder().build();
+        SetCommand.SetUserSettingsDescriptor descriptor = new SetUserSettingsDescriptorBuilder(userSettings).build();
+        SetCommand command = (SetCommand) parser.parseCommand(SetCommand.COMMAND_WORD + " "
+                + UserSettingsUtil.getSetUserSettingsDescriptorDetails(descriptor));
+        assertEquals(new SetCommand(descriptor), command);
     }
 
     @Test
