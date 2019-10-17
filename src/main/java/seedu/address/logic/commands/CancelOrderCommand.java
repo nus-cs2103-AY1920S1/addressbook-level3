@@ -60,6 +60,11 @@ public class CancelOrderCommand extends Command {
 
         model.setOrder(orderToCancel, cancelledOrder);
 
+        Optional<Schedule> scheduleToCancel = orderToCancel.getSchedule();
+        if (scheduleToCancel.isPresent()) {
+            model.deleteSchedule(scheduleToCancel.get());
+        }
+
         return new CommandResult(String.format(MESSAGE_CANCEL_ORDER_SUCCESS, orderToCancel), UiChange.ORDER);
     }
 
