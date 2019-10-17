@@ -5,6 +5,13 @@ package com.typee.model.engagement;
  */
 public class EngagementConflictChecker {
 
+    /**
+     * Checks if the given {@code Engagement firstEngagement} clashes with {@code Engagement secondEngagement}.
+     *
+     * @param firstEngagement first {@code Engagement}.
+     * @param secondEngagement second {@code Engagement}.
+     * @return true if the engagements conflict.
+     */
     public static boolean areConflicting(Engagement firstEngagement, Engagement secondEngagement) {
         if (areAtDifferentLocations(firstEngagement, secondEngagement)) {
             return false;
@@ -13,6 +20,13 @@ public class EngagementConflictChecker {
         return haveTimeOverlap(firstEngagement, secondEngagement);
     }
 
+    /**
+     * Checks if two engagements have a time overlap.
+     *
+     * @param firstEngagement first {@code Engagement}.
+     * @param secondEngagement second {@code Engagement}.
+     * @return true if the times overlap.
+     */
     private static boolean haveTimeOverlap(Engagement firstEngagement, Engagement secondEngagement) {
         if (firstEngagement.getStartTime().isBefore(secondEngagement.getStartTime())) {
             return firstEngagement.getEndTime().isAfter(secondEngagement.getStartTime());
@@ -23,6 +37,13 @@ public class EngagementConflictChecker {
         }
     }
 
+    /**
+     * Checks if the given engagements are held at different locations
+     *
+     * @param firstEngagement the first {@code Engagement}.
+     * @param secondEngagement the second {@code Engagement}.
+     * @return true if the the engagements are held at different locations.
+     */
     private static boolean areAtDifferentLocations(Engagement firstEngagement, Engagement secondEngagement) {
         return !firstEngagement.getLocation().equals(secondEngagement.getLocation());
     }
