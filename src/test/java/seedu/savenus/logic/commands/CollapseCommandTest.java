@@ -13,7 +13,7 @@ public class CollapseCommandTest {
 
     @Test
     public void collapse_correctDefaultBoolean() {
-        assertEquals(true, CollapseCommand.COLLAPSE);
+        assertEquals(false, CollapseCommand.COLLAPSE);
     }
 
     @Test
