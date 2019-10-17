@@ -39,7 +39,7 @@ public class Context {
     /**
      * Constructor for a VIEW_ACTIVITY context.
      */
-    Context(Activity activity) {
+    public Context(Activity activity) {
         requireNonNull(activity);
         object = Optional.ofNullable(activity);
         type = Type.VIEW_ACTIVITY;

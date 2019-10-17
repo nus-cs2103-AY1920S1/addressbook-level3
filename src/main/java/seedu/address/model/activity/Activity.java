@@ -4,7 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Stream;
 
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.model.person.Person;
 
 /**
@@ -15,16 +17,6 @@ public class Activity {
     private final Title title;
     private final ArrayList<Integer> participantIds;
     private final ArrayList<Expense> expenses;
-
-    /**
-     * Constructor for Activity cloning.
-     * @param activity Activity to be cloned.
-     */
-    public Activity(Activity activity) {
-        title = new Title(activity.title.toString());
-        participantIds = new ArrayList<>(activity.participantIds);
-        expenses = new ArrayList<>(activity.expenses);
-    }
 
     /**
      * Constructor for Activity.
@@ -88,8 +80,15 @@ public class Activity {
     /**
      * Add expense to the activity
      * @param expenditures The expense(s) to be added.
+     * @throws PersonNotInActivityException if any person is not found
      */
-    public void addExpense(Expense ... expenditures) {
+    public void addExpense(Expense ... expenditures) throws PersonNotInActivityException {
+        boolean allPresent = Stream.of(expenditures)
+                .map(x -> x.getPersonId())
+                .allMatch(x -> participantIds.contains(x));
+        if (!allPresent) {
+            throw new PersonNotInActivityException();
+        }
         for (int i = 0; i < expenditures.length; i++) {
             expenses.add(expenditures[i]);
         }

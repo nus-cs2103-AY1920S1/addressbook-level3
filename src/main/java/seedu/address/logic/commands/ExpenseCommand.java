@@ -17,6 +17,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Amount;
 import seedu.address.model.activity.Expense;
 import seedu.address.model.activity.Title;
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.Person;
 
@@ -47,6 +48,8 @@ public class ExpenseCommand extends Command {
             "Participant search term \"%s\" has no unique search result in the current context";
     public static final String MESSAGE_MISSING_DESCRIPTION =
             "Creating an expense outside an activity view context requires a description";
+    public static final String MESSAGE_MISSING_PERSON_DESCRIPTION =
+            "At least one person is not found in the activity\nNo expense was added";
 
     private final List<String> persons;
     private final List<Amount> amounts;
@@ -76,9 +79,10 @@ public class ExpenseCommand extends Command {
                 throw new CommandException(MESSAGE_MISSING_DESCRIPTION);
             }
             activity = new Activity(new Title(description));
+            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         } else {
-            activity = new Activity(model.getContext().getActivity().get());
-            model.updateFilteredPersonList(x -> activity.getParticipantIds().contains(x));
+            activity = model.getContext().getActivity().get();
+            model.updateFilteredPersonList(x -> activity.getParticipantIds().contains(x.getPrimaryKey()));
         }
 
         searchScope = model.getFilteredPersonList();
@@ -90,6 +94,7 @@ public class ExpenseCommand extends Command {
         StringBuilder successMessage = new StringBuilder();
         List<String> keywords;
         List<Person> findResult;
+        Expense[] expenseList = new Expense[persons.size()];
         for (int i = 0; i < persons.size(); i++) {
             keywords = Arrays.asList(persons.get(i).split(" "));
             NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
@@ -102,21 +107,23 @@ public class ExpenseCommand extends Command {
             Person person = findResult.get(0);
 
             successMessage.append(String.format(MESSAGE_EXPENSE, person.getName(), amounts.get(i), description));
-            Expense expense = new Expense(person.getPrimaryKey(), amounts.get(i), description);
+            expenseList[i] = new Expense(person.getPrimaryKey(), amounts.get(i), description);
 
             // Contextual behaviour
             if (model.getContext().getType() != Context.Type.VIEW_ACTIVITY) {
                 activity.invite(person);
             }
+        }
 
-            activity.addExpense(expense);
+        try {
+            activity.addExpense(expenseList);
+        } catch (PersonNotInActivityException e) {
+            throw new CommandException(MESSAGE_MISSING_PERSON_DESCRIPTION);
         }
 
         // Contextual behaviour
         if (model.getContext().getType() != Context.Type.VIEW_ACTIVITY) {
             model.addActivity(activity);
-        } else {
-            model.setActivity(model.getContext().getActivity().get(), activity);
         }
 
         //TODO: Switch to activity view to view the newly created activity if not already in activity view?
