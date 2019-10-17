@@ -28,7 +28,7 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
     public static final String COMMAND_WORD = "visit-start";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Begins a visit for a patient. Tje patient is identified by the index number used in the patient "
+            + ": Begins a visit for a patient. The patient is identified by the index number used in the patient "
             + "list displayed using the list or find patient commands.\n"
             + "Parameters: "
             + PREFIX_PATIENT_INDEX + "PATIENT_INDEX (must be a positive integer)\n"

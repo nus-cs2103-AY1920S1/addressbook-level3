@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.Person;
 import seedu.address.model.visittask.VisitTask;
 
@@ -80,7 +81,7 @@ public class Visit {
         return otherVisit.getRemark().equals(getRemark())
                 && otherVisit.getStartDateTime().equals(getStartDateTime())
                 && otherVisit.getEndDateTime().equals(getEndDateTime())
-                && otherVisit.getVisitTasks().equals(getVisitTasks());
+                && CollectionUtil.checkEqual(otherVisit.getVisitTasks(), getVisitTasks());
     }
 
     @Override

@@ -5,7 +5,7 @@ package seedu.address.model.visit;
  */
 public class Remark {
 
-    public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values.";
+    //public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values.";
 
     public final String remark;
 

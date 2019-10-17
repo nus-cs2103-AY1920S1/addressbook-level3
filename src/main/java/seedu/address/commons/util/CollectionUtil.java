@@ -40,7 +40,8 @@ public class CollectionUtil {
     public static boolean checkEqual(Collection<?> itemA, Collection<?> itemB) {
         Iterator itemBIterator = itemB.iterator();
         for (Object obj : itemA) {
-            if (!itemBIterator.hasNext() || !obj.equals(itemBIterator.next())) {
+            if (!itemBIterator.hasNext() ||
+                    !obj.equals(itemBIterator.next())) {
                 return false;
             }
         }

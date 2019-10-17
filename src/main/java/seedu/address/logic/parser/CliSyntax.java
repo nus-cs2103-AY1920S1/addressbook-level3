@@ -15,9 +15,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_PATIENT_VISIT_TODO = new Prefix("vt/");
     //Do not use with PREFIX_PHONE
     public static final Prefix PREFIX_PATIENT_INDEX = new Prefix ("p/");
-    //Do not use with PREFIX_ADDRESS
-    public static final Prefix PREFIX_APPOINTMENT_INDEX = new Prefix ("a/");
-    public static final Prefix PREFIX_VISIT_TASK_INDEX = new Prefix("i/");
-    public static final Prefix PREFIX_VISIT_TASK_DETAILS = new Prefix("d/");
+    public static final Prefix PREFIX_VISIT_TASK_INDEX_AND_DETAIL = new Prefix ("d/");
+    public static final Prefix PREFIX_VISIT_TASK_FINISH = new Prefix("f/");
+    public static final Prefix PREFIX_VISIT_TASK_UNFINISH = new Prefix("uf/");
     public static final Prefix PREFIX_VISIT_REMARKS = new Prefix("r/");
 }
