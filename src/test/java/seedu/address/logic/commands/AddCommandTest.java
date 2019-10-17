@@ -171,6 +171,11 @@ public class AddCommandTest {
         public Optional<Pair<Person, Visit>> getCurrentPersonAndVisit() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean personHasOngoingVisit(Person personToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
