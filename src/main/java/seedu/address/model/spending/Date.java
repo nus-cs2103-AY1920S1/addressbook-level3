@@ -1,7 +1,6 @@
 package seedu.address.model.spending;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,14 +24,15 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
 
+        java.util.Date parsedDate;
         try {
-            java.util.Date parsedDate = DateUtil.parseDate(date);
-            value = DateUtil.formatDate(parsedDate);
+            parsedDate = DateUtil.parseDate(date);
         } catch (ParseException e) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
+
+        value = DateUtil.formatDate(parsedDate);
     }
 
     /**

@@ -42,6 +42,7 @@ class DateUtilTest {
     public void parseDate_isValidDate_correctResult() {
         assertFalse(DateUtil.isValidDate("1"));
         assertFalse(DateUtil.isValidDate("2"));
+        assertFalse(DateUtil.isValidDate("2/2/79"));
         assertTrue(DateUtil.isValidDate("2/2"));
     }
 }
