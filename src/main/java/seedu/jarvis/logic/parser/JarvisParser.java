@@ -18,6 +18,7 @@ import seedu.jarvis.logic.commands.address.FindAddressCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.cca.AddCcaCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
+import seedu.jarvis.logic.commands.finance.PaidCommand;
 import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
@@ -30,6 +31,7 @@ import seedu.jarvis.logic.parser.address.FindAddressCommandParser;
 import seedu.jarvis.logic.parser.cca.AddCcaCommandParser;
 import seedu.jarvis.logic.parser.course.LookUpCommandParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.logic.parser.finance.PaidCommandParser;
 import seedu.jarvis.logic.parser.finance.RemoveInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.SetInstallmentCommandParser;
 import seedu.jarvis.logic.parser.history.RedoCommandParser;
@@ -100,6 +102,9 @@ public class JarvisParser {
 
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
+
+        case PaidCommand.COMMAND_WORD:
+            return new PaidCommandParser().parse(arguments);
 
         case SetInstallmentCommand.COMMAND_WORD:
             return new SetInstallmentCommandParser().parse(arguments);

@@ -157,9 +157,12 @@ public class ParserUtil {
      * Parses a {@code String moneySpent}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static double parsePurchaseAmount(String moneySpent) {
+    public static double parsePurchaseAmount(String moneySpent) throws ParseException {
         requireNonNull(moneySpent);
         String trimmedMoney = moneySpent.trim();
+        if (Double.parseDouble(moneySpent) < 0) {
+            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
+        }
         return Double.parseDouble(trimmedMoney);
     }
 
