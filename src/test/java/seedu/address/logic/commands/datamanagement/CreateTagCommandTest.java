@@ -33,7 +33,7 @@ public class CreateTagCommandTest {
     // Incomplete
     @Test
     public void constructor_nullTagName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CreateStudyPlanCommand(null));
+        assertThrows(NullPointerException.class, () -> new CreateTagCommand(null));
     }
 
     @Test
