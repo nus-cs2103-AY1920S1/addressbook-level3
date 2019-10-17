@@ -52,7 +52,8 @@ public class AddMemberCommand extends Command {
         requireNonNull(model);
 
         Project projectToEdit = model.getWorkingProject().get();
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),projectToEdit.getTasks(), projectToEdit.getFinance());
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
+                projectToEdit.getTasks(), projectToEdit.getFinance());
 
         Person personToAdd = createNewMember(toAdd);
         personToAdd.getProjects().add(editedProject.getTitle().toString());
