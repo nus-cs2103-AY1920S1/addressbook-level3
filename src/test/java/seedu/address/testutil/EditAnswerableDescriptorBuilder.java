@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditAnswerableDescriptor;
+import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.model.category.Category;
-import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.answerable.Difficulty;
 
@@ -34,10 +34,10 @@ public class EditAnswerableDescriptorBuilder {
     public EditAnswerableDescriptorBuilder(Answerable answerable) {
         descriptor = new EditCommand.EditAnswerableDescriptor();
         descriptor.setQuestion(answerable.getQuestion());
-        descriptor.setAnswerSet(answerable.getAnswerSet());
+        descriptor.setCorrectAnswerSet(answerable.getCorrectAnswerSet());
+        descriptor.setWrongAnswerSet(answerable.getWrongAnswerSet());
         descriptor.setDifficulty(answerable.getDifficulty());
-        descriptor.setCategory(answerable.getCategory());
-        descriptor.setTags(answerable.getTags());
+        descriptor.setCategories(answerable.getCategories());
     }
 
     /**
@@ -47,15 +47,22 @@ public class EditAnswerableDescriptorBuilder {
         descriptor.setQuestion(new Question(question));
         return this;
     }
-
     /**
-     * Sets the {@code Question} of the {@code EditAnswerableDescriptor} that we are building.
+     * Sets the Correct Answer Set of the {@code EditAnswerableDescriptor} that we are building.
      */
-    public EditAnswerableDescriptorBuilder withAnswerSet(AnswerSet answerSet) {
-        //TODO: Implement Answerable
-        descriptor.setAnswerSet(answerSet);
+    public EditAnswerableDescriptorBuilder withCorrectAnswerSet(Set<Answer> correctAnswerSet) {
+        descriptor.setCorrectAnswerSet(correctAnswerSet);
         return this;
     }
+
+    /**
+     * Sets the Wrong Answer Set of the {@code EditAnswerableDescriptor} that we are building.
+     */
+    public EditAnswerableDescriptorBuilder withWrongAnswerSet(Set<Answer> wrongAnswerSet) {
+        descriptor.setWrongAnswerSet(wrongAnswerSet);
+        return this;
+    }
+
     /**
      * Sets the {@code Difficulty} of the {@code EditAnswerableDescriptor} that we are building.
      */
@@ -65,20 +72,12 @@ public class EditAnswerableDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Category} of the {@code EditAnswerableDescriptor} that we are building.
-     */
-    public EditAnswerableDescriptorBuilder withCategory(String category) {
-        descriptor.setCategory(new Category(category));
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditAnswerableDescriptor}
+     * Parses the {@code tags} into a {@code Set<Category>} and set it to the {@code EditAnswerableDescriptor}
      * that we are building.
      */
-    public EditAnswerableDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditAnswerableDescriptorBuilder withCategories(String... tags) {
+        Set<Category> tagSet = Stream.of(tags).map(Category::new).collect(Collectors.toSet());
+        descriptor.setCategories(tagSet);
         return this;
     }
 

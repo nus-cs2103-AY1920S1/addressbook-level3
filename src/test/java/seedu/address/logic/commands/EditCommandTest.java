@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showAnswerableAtIndex;
@@ -54,11 +54,11 @@ public class EditCommandTest {
         Answerable lastAnswerable = model.getFilteredAnswerableList().get(indexLastAnswerable.getZeroBased());
 
         AnswerableBuilder answerableInList = new AnswerableBuilder(lastAnswerable);
-        Answerable editedAnswerable = answerableInList.withQuestion(VALID_QUESTION_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Answerable editedAnswerable = answerableInList.withQuestion(VALID_QUESTION_BETA).withDifficulty(VALID_DIFFICULTY_BETA)
+                .withCategories(VALID_CATEGORY_GREENFIELD).build();
 
-        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BOB)
-                .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA)
+                .withDifficulty(VALID_DIFFICULTY_BETA).withCategories(VALID_CATEGORY_GREENFIELD).build();
         EditCommand editCommand = new EditCommand(indexLastAnswerable, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
@@ -86,9 +86,9 @@ public class EditCommandTest {
         showAnswerableAtIndex(model, INDEX_FIRST_ANSWERABLE);
 
         Answerable answerableInFilteredList = model.getFilteredAnswerableList().get(INDEX_FIRST_ANSWERABLE.getZeroBased());
-        Answerable editedAnswerable = new AnswerableBuilder(answerableInFilteredList).withQuestion(VALID_QUESTION_BOB).build();
+        Answerable editedAnswerable = new AnswerableBuilder(answerableInFilteredList).withQuestion(VALID_QUESTION_BETA).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE,
-                new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BOB).build());
+                new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
@@ -122,7 +122,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidAnswerableIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAnswerableList().size() + 1);
-        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BOB).build();
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ANSWERABLE_DISPLAYED_INDEX);
@@ -140,17 +140,17 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getAnswerableList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BOB).build());
+                new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ANSWERABLE_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_ANSWERABLE, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_ANSWERABLE, DESC_ALPHA);
 
         // same values -> returns true
-        EditAnswerableDescriptor copyDescriptor = new EditAnswerableDescriptor(DESC_AMY);
+        EditAnswerableDescriptor copyDescriptor = new EditAnswerableDescriptor(DESC_ALPHA);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_ANSWERABLE, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -164,10 +164,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_ANSWERABLE, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_ANSWERABLE, DESC_ALPHA)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_ANSWERABLE, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_ANSWERABLE, DESC_BETA)));
     }
 
 }

@@ -11,7 +11,6 @@ import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Mcq;
-import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.category.Category;
 
@@ -21,22 +20,25 @@ import seedu.address.model.category.Category;
  */
 public class SampleDataUtil {
     public static Answerable[] getSampleAnswerables() {
-        AnswerSet defaultAnswerSet = new AnswerSet(new HashSet<>(), new HashSet<>());
+        Answer defaultCorrectAnswer = new Answer("CORRECT");
+        Set<Answer> defaultCorrectAnswerSet = new HashSet<>(Arrays.asList(defaultCorrectAnswer));
+        Answer defaultWrongAnswer = new Answer("WRONG");
+        Set<Answer> defaultWrongAnswerSet = new HashSet<>(Arrays.asList(defaultWrongAnswer));
 
         //TODO: Implement actual answerable
         return new Answerable[] {
-            new Mcq(new Question("What is being shown?"), defaultAnswerSet, new Difficulty("3"),
-                      getCategorySet("Math")),
-            new Mcq(new Question("Bernice Yu"), defaultAnswerSet, new Difficulty("99272758"),
-                     getCategorySet("colleagues", "friends")),
-            new Mcq(new Question("Charlotte Oliveiro"), defaultAnswerSet, new Difficulty("93210283"),
-                      getCategorySet("neighbours")),
-            new Mcq(new Question("David Li"), defaultAnswerSet, new Difficulty("91031282"),
-                      getCategorySet("family")),
-            new Mcq(new Question("Irfan Ibrahim"), defaultAnswerSet, new Difficulty("92492021"),
-                      getCategorySet("classmates")),
-            new Mcq(new Question("Roy Balakrishnan"), defaultAnswerSet, new Difficulty("92624417"),
-                      getCategorySet("colleagues"))
+            new Mcq(new Question("What is being shown?"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+                    new Difficulty("3"), getCategorySet("Math")),
+            new Mcq(new Question("Bernice Yu"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+                    new Difficulty("99272758"), getCategorySet("colleagues", "friends")),
+            new Mcq(new Question("Charlotte Oliveiro"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+                    new Difficulty("93210283"), getCategorySet("neighbours")),
+            new Mcq(new Question("David Li"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+                    new Difficulty("91031282"), getCategorySet("family")),
+            new Mcq(new Question("Irfan Ibrahim"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+                    new Difficulty("92492021"), getCategorySet("classmates")),
+            new Mcq(new Question("Roy Balakrishnan"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+                    new Difficulty("92624417"), getCategorySet("colleagues"))
         };
     }
 

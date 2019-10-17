@@ -2,10 +2,9 @@ package seedu.address.model.answerable;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAnswerables.A_ANSWERABLE;
 import static seedu.address.testutil.TypicalAnswerables.BETA;
@@ -19,7 +18,7 @@ public class AnswerableTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Answerable answerable = new AnswerableBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> answerable.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> answerable.getCategories().remove(0));
     }
 
     @Test
@@ -32,17 +31,16 @@ public class AnswerableTest {
 
 
         // different question -> returns false
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withDifficulty(VALID_DIFFICULTY_BOB).build();
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withQuestion(VALID_QUESTION_BOB).build();
+        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withDifficulty(VALID_DIFFICULTY_BETA).build();
+        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withQuestion(VALID_QUESTION_BETA).build();
         assertFalse(A_ANSWERABLE.isSameAnswerable(editedAlice));
 
         // same question, same difficulty, different attributes -> returns true
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
         assertTrue(A_ANSWERABLE.isSameAnswerable(editedAlice));
 
         // same question, same difficulty, different attributes -> returns true
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
         assertTrue(A_ANSWERABLE.isSameAnswerable(editedAlice));
     }
 
@@ -65,19 +63,15 @@ public class AnswerableTest {
         assertFalse(A_ANSWERABLE.equals(BETA));
 
         // different question -> returns false
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withQuestion(VALID_QUESTION_BOB).build();
+        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withQuestion(VALID_QUESTION_BETA).build();
         assertFalse(A_ANSWERABLE.equals(editedAlice));
 
         // different difficulty -> returns false
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withDifficulty(VALID_DIFFICULTY_BOB).build();
+        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withDifficulty(VALID_DIFFICULTY_BETA).build();
         assertFalse(A_ANSWERABLE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB).build();
-        assertFalse(A_ANSWERABLE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withTags(VALID_TAG_HUSBAND).build();
+        // different categories -> returns false
+        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
         assertFalse(A_ANSWERABLE.equals(editedAlice));
     }
 }

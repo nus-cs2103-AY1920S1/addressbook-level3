@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,35 +18,31 @@ public class EditAnswerableDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditAnswerableDescriptor descriptorWithSameValues = new EditAnswerableDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditCommand.EditAnswerableDescriptor descriptorWithSameValues = new EditAnswerableDescriptor(DESC_ALPHA);
+        assertTrue(DESC_ALPHA.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_ALPHA.equals(DESC_ALPHA));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_ALPHA.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_ALPHA.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_ALPHA.equals(DESC_BETA));
 
         // different name -> returns false
-        EditCommand.EditAnswerableDescriptor editedAmy = new EditAnswerableDescriptorBuilder(DESC_AMY).withQuestion(VALID_QUESTION_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditCommand.EditAnswerableDescriptor editedAmy = new EditAnswerableDescriptorBuilder(DESC_ALPHA).withQuestion(VALID_QUESTION_BETA).build();
+        assertFalse(DESC_ALPHA.equals(editedAmy));
 
         // different difficulty -> returns false
-        editedAmy = new EditAnswerableDescriptorBuilder(DESC_AMY).withDifficulty(VALID_DIFFICULTY_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditAnswerableDescriptorBuilder(DESC_ALPHA).withDifficulty(VALID_DIFFICULTY_BETA).build();
+        assertFalse(DESC_ALPHA.equals(editedAmy));
 
-        // different address -> returns false
-        editedAmy = new EditAnswerableDescriptorBuilder(DESC_AMY).withCategory(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different tags -> returns false
-        editedAmy = new EditAnswerableDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        // different categories -> returns false
+        editedAmy = new EditAnswerableDescriptorBuilder(DESC_ALPHA).withCategories(VALID_CATEGORY_GREENFIELD).build();
+        assertFalse(DESC_ALPHA.equals(editedAmy));
     }
 }

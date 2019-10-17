@@ -13,7 +13,8 @@ public class Saq extends Answerable {
     /**
      * Every field must be present and not null.
      */
-    public Saq(Question question, AnswerSet answers, Difficulty difficulty, Set<Category> categories) {
-        super(question, answers, difficulty, categories);
+    public Saq(Question question, Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet, Difficulty difficulty,
+               Set<Category> categories) {
+        super(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
     }
 }

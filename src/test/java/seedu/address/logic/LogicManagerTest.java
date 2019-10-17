@@ -3,11 +3,10 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ANSWERABLE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_UML;
 import static seedu.address.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_TYPE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_ALPHA;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
 import static seedu.address.logic.commands.CommandTestUtil.WRONG_ANSWER_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -82,9 +81,9 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + CORRECT_ANSWER_DESC + WRONG_ANSWER_DESC
-                + DIFFICULTY_DESC_AMY + CATEGORY_DESC_AMY;
-        Answerable expectedAnswerable = new AnswerableBuilder(ALPHA).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + CORRECT_ANSWER_DESC
+                + CATEGORY_DESC_UML + WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
+        Answerable expectedAnswerable = new AnswerableBuilder(ALPHA).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addAnswerable(expectedAnswerable);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

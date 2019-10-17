@@ -15,7 +15,8 @@ public class Mcq extends Answerable {
     /**
      * Every field must be present and not null.
      */
-    public Mcq(Question question, AnswerSet answer, Difficulty difficulty, Set<Category> categories) {
-        super(question, answer, difficulty, categories);
+    public Mcq(Question question, Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet,
+               Difficulty difficulty, Set<Category> categories) {
+        super(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
     }
 }

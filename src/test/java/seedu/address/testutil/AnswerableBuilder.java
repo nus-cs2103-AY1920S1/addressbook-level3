@@ -9,7 +9,6 @@ import seedu.address.model.answerable.Answerable;
 import seedu.address.model.category.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Mcq;
-import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -18,27 +17,26 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class AnswerableBuilder {
 
-    public static final String DEFAULT_QUESTION = "Greenfield projects are easier than greenfield projects";
+    public static final String DEFAULT_QUESTION = "Greenfield projects are easier than brownfield projects";
     public static final String DEFAULT_DIFFICULTY = "1";
-    public static final String DEFAULT_CATEGORY = "brownfield";
-    private static final Answer correctAnswer = new Answer("CORRECT");
-    private static final Set<Answer> correctAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
-    private static final Answer wrongAnswer = new Answer("WRONG");
-    private static final Set<Answer> wrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
-    private static final AnswerSet defaultAnswerSet = new AnswerSet(correctAnswerSet, wrongAnswerSet);
+    public static final String DEFAULT_CATEGORY = "CATEGORY";
+    private static final Answer defaultCorrectAnswer = new Answer("CORRECT");
+    private static final Answer defaultWrongAnswer = new Answer("WRONG");
 
     private Question question;
-    //TODO: Implement Answerable
-    private AnswerSet answer;
+    private Set<Answer> correctAnswerSet;
+    private Set<Answer> wrongAnswerSet;
     private Difficulty difficulty;
     private Set<Category> categories;
 
     public AnswerableBuilder() {
         question = new Question(DEFAULT_QUESTION);
         //TODO: Implement Answerable
-        answer = defaultAnswerSet;
         difficulty = new Difficulty(DEFAULT_DIFFICULTY);
+        correctAnswerSet = new HashSet<>(Arrays.asList(defaultCorrectAnswer));
+        wrongAnswerSet = new HashSet<>(Arrays.asList(defaultWrongAnswer));
         categories = new HashSet<>();
+        categories.add(new Category(DEFAULT_CATEGORY));
     }
 
     /**
@@ -47,7 +45,8 @@ public class AnswerableBuilder {
     public AnswerableBuilder(Answerable answerableToCopy) {
         question = answerableToCopy.getQuestion();
         //TODO: Implement Answerable
-        answer = answerableToCopy.getAnswerSet();
+        correctAnswerSet = new HashSet<>(answerableToCopy.getCorrectAnswerSet());
+        wrongAnswerSet = new HashSet<>(answerableToCopy.getWrongAnswerSet());
         difficulty = answerableToCopy.getDifficulty();
         categories = new HashSet<>(answerableToCopy.getCategories());
     }
@@ -61,27 +60,28 @@ public class AnswerableBuilder {
     }
 
     /**
-     * Sets the {@code Question} of the {@code Answerable} that we are building.
+     * Sets the Correct Answer Set of the {@code Answerable} that we are building.
      */
     //TODO: Implement Answerable
-    public AnswerableBuilder withAnswerSet(AnswerSet answerSet) {
-        this.answer = answerSet;
+    public AnswerableBuilder withCorrectAnswerSet(Set<Answer> correctAnswerSet) {
+        this.correctAnswerSet = correctAnswerSet;
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Answerable} that we are building.
+     * Sets the Wrong Answer Set of the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withTags(String ... tags) {
-        this.categories = SampleDataUtil.getTagSet(tags);
+    //TODO: Implement Answerable
+    public AnswerableBuilder withWrongAnswerSet(Set<Answer> wrongAnswerSet) {
+        this.wrongAnswerSet = wrongAnswerSet;
         return this;
     }
 
     /**
-     * Sets the {@code Category} of the {@code Answerable} that we are building.
+     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withCategory(String address) {
-        this.category = new Category(address);
+    public AnswerableBuilder withCategories(String ... categories) {
+        this.categories = SampleDataUtil.getCategorySet(categories);
         return this;
     }
 
@@ -95,7 +95,7 @@ public class AnswerableBuilder {
 
     public Answerable build() {
         //TODO: Implement Answerable
-        return new Mcq(question, answer, difficulty, categories);
+        return new Mcq(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
     }
 
 }

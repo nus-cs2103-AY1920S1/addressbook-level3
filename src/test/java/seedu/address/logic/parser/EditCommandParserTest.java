@@ -1,29 +1,24 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DIFFICULTY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_TYPE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_BETA;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_UML;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_GREENFIELD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_UML;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.address.logic.commands.CommandTestUtil.WRONG_ANSWER_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
@@ -42,7 +37,7 @@ import seedu.address.testutil.EditAnswerableDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String CATEGORY_EMPTY = " " + PREFIX_CATEGORY;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -52,7 +47,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_QUESTION_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_QUESTION_ALPHA, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -80,36 +75,34 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_QUESTION_DESC, Question.MESSAGE_CONSTRAINTS); // invalid question
         assertParseFailure(parser, "1" + INVALID_DIFFICULTY_DESC, Difficulty.MESSAGE_CONSTRAINTS); // invalid difficulty
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Category.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
 
         // invalid difficultty
         assertParseFailure(parser, "1" + INVALID_DIFFICULTY_DESC, Difficulty.MESSAGE_CONSTRAINTS);
 
         // valid difficulty followed by invalid difficulty. The test case for invalid difficulty followed by valid difficulty
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + DIFFICULTY_DESC_BOB + INVALID_DIFFICULTY_DESC, Difficulty.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + DIFFICULTY_DESC_BETA + INVALID_DIFFICULTY_DESC, Difficulty.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Answerable} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        // while parsing {@code PREFIX_CATEGORY} alone will reset the categories of the {@code Answerable} being edited,
+        // parsing it together with a valid category results in error
+        assertParseFailure(parser, "1" + CATEGORY_DESC_UML + CATEGORY_DESC_GREENFIELD + CATEGORY_EMPTY, Category.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + CATEGORY_DESC_UML + CATEGORY_EMPTY + CATEGORY_DESC_GREENFIELD, Category.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + CATEGORY_EMPTY + CATEGORY_DESC_UML + CATEGORY_DESC_GREENFIELD, Category.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + QUESTION_TYPE_MCQ + CORRECT_ANSWER_DESC
-                + WRONG_ANSWER_DESC + VALID_ADDRESS_AMY + VALID_DIFFICULTY_AMY, Question.MESSAGE_CONSTRAINTS);
+                + WRONG_ANSWER_DESC + VALID_CATEGORY_ALPHA + VALID_DIFFICULTY_ALPHA, Question.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_ANSWERABLE;
-        String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_BOB + TAG_DESC_HUSBAND
-                + CATEGORY_DESC_AMY + QUESTION_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_BETA + CATEGORY_DESC_GREENFIELD
+                + QUESTION_DESC_AMY + CATEGORY_DESC_UML;
 
-        EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withDifficulty(VALID_DIFFICULTY_BOB).withCategory(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_ALPHA)
+                .withDifficulty(VALID_DIFFICULTY_BETA).withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -118,9 +111,9 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_ANSWERABLE;
-        String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_BETA;
 
-        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB).build();
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BETA).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -131,25 +124,19 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_ANSWERABLE;
         String userInput = targetIndex.getOneBased() + QUESTION_DESC_AMY;
-        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_AMY).build();
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_ALPHA).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // difficulty
-        userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_AMY;
-        descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // address
-        userInput = targetIndex.getOneBased() + CATEGORY_DESC_AMY;
-        descriptor = new EditAnswerableDescriptorBuilder().withCategory(VALID_ADDRESS_AMY).build();
+        userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_ALPHA;
+        descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_ALPHA).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditAnswerableDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        userInput = targetIndex.getOneBased() + CATEGORY_DESC_UML;
+        descriptor = new EditAnswerableDescriptorBuilder().withCategories(VALID_CATEGORY_UML).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -157,12 +144,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_ANSWERABLE;
-        String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_AMY + CATEGORY_DESC_AMY
-                + TAG_DESC_FRIEND + DIFFICULTY_DESC_AMY + CATEGORY_DESC_AMY + TAG_DESC_FRIEND
-                + DIFFICULTY_DESC_BOB + CATEGORY_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_ALPHA + CATEGORY_DESC_UML
+                + DIFFICULTY_DESC_ALPHA + CATEGORY_DESC_UML + DIFFICULTY_DESC_BETA
+                + CATEGORY_DESC_GREENFIELD;
 
-        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB)
-                .withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BETA)
+                .withCategories(VALID_CATEGORY_UML, VALID_CATEGORY_GREENFIELD).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -172,16 +159,14 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_ANSWERABLE;
-        String userInput = targetIndex.getOneBased() + INVALID_DIFFICULTY_DESC + DIFFICULTY_DESC_BOB;
-        EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB).build();
+        String userInput = targetIndex.getOneBased() + INVALID_DIFFICULTY_DESC + DIFFICULTY_DESC_BETA;
+        EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BETA).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + INVALID_DIFFICULTY_DESC + CATEGORY_DESC_BOB
-                + DIFFICULTY_DESC_BOB;
-        descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB)
-                .withCategory(VALID_ADDRESS_BOB).build();
+        userInput = targetIndex.getOneBased() + INVALID_DIFFICULTY_DESC + DIFFICULTY_DESC_BETA;
+        descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BETA).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -189,9 +174,9 @@ public class EditCommandParserTest {
     @Test
     public void parse_resetTags_success() {
         Index targetIndex = INDEX_THIRD_ANSWERABLE;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+        String userInput = targetIndex.getOneBased() + CATEGORY_EMPTY;
 
-        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withTags().build();
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withCategories().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

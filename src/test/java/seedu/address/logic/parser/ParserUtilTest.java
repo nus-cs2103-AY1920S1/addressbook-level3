@@ -21,12 +21,10 @@ import seedu.address.model.answerable.Question;
 public class ParserUtilTest {
     private static final String INVALID_QUESTION = "";
     private static final String INVALID_DIFFICULTY = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_CATEGORY = "   #UML";
+    private static final String INVALID_CATEGORY = "";
 
     private static final String VALID_QUESTION = "Rachel Walker";
     private static final String VALID_DIFFICULTY = "1";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_CATEGORY_1 = "OOP";
     private static final String VALID_CATEGORY_2 = "git";
 
@@ -96,29 +94,6 @@ public class ParserUtilTest {
         String difficultyWithWhitespace = WHITESPACE + VALID_DIFFICULTY + WHITESPACE;
         Difficulty expectedDifficulty = new Difficulty(VALID_DIFFICULTY);
         assertEquals(expectedDifficulty, ParserUtil.parseDifficulty(difficultyWithWhitespace));
-    }
-
-    @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseCategory((String) null));
-    }
-
-    @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseCategory(INVALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Category expectedCategory = new Category(VALID_ADDRESS);
-        assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Category expectedCategory = new Category(VALID_ADDRESS);
-        assertEquals(expectedCategory, ParserUtil.parseCategory(addressWithWhitespace));
     }
 
     @Test
