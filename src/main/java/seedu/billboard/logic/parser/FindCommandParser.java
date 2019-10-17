@@ -3,8 +3,11 @@ package seedu.billboard.logic.parser;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.billboard.logic.commands.FindCommand;
+import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 
@@ -14,20 +17,32 @@ import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 public class FindCommandParser implements Parser<FindCommand> {
 
     /**
+     * Used for initial separation of command word and args.
+     */
+    private static final Pattern FIND_COMMAND_FORMAT = Pattern.compile("(?<findType>\\S+)(?<arguments>.*)");
+
+    /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        final Matcher matcher = FIND_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        final String findType = matcher.group("findType");
+        final String arguments = matcher.group("arguments").trim();
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        switch (findType) {
+        case NameContainsKeywordsPredicate.FINDTYPE:
+            String[] nameKeywords = arguments.split("\\s+");
+            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
     }
 
 }
