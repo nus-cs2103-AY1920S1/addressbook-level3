@@ -12,17 +12,17 @@ public class Item {
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     private final String category;
     private final String description;
-    private int quantity;
-    private final double cost;
-    private double totalCost;
-    private double price;
-    private double subtotal;
+    private Integer quantity;
+    private final Double cost;
+    private Double totalCost;
+    private Double price;
+    private Double subtotal;
     private String id;
 
     /**
      * Every field must be present and not null.
      */
-    public Item(String description, String category, int quantity, double cost, double price, int id) {
+    public Item(String description, String category, Integer quantity, Double cost, Double price, int id) {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
@@ -42,8 +42,8 @@ public class Item {
         this.quantity = quantity;
         this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
         this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
-        this.price = 0;
-        this.subtotal = 0;
+        this.price = 0.0;
+        this.subtotal = 0.0;
         this.id = "" + i;
     }
 
