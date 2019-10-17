@@ -78,7 +78,6 @@ public class TypeeParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
