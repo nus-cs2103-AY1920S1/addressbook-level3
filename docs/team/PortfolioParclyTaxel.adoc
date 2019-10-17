@@ -43,7 +43,7 @@ lecture notes. This helped my teammates add their own features, setting an examp
 such as the user guide's introduction and the developer guide's non-functional requirements.
 See https://github.com/AY1920S1-CS2103T-F11-4/main/pull/21[#21] and https://github.com/AY1920S1-CS2103T-F11-4/main/pull/22[#22]
 for examples.
-* I was the **main integrator** for NUStudy:
+* I was the **lead integrator** for NUStudy:
 ** Managed all four releases (v1.1 to v1.4) on GitHub
 ** Set up Travis and Netlify for the project, enabling continuous integration and previews of documentation
 ** Resolved merge conflicts for teammates' pull requests (see https://github.com/AY1920S1-CS2103T-F11-4/main/pull/44[#44] for an example)
@@ -52,11 +52,10 @@ for examples.
 * I contributed to https://github.com/nus-cs2103-AY1920S1/forum[forum] discussions, both as an answerer
 (https://github.com/nus-cs2103-AY1920S1/forum/issues/88[#88], https://github.com/nus-cs2103-AY1920S1/forum/issues/106[#106]) and asker
 (https://github.com/nus-cs2103-AY1920S1/forum/issues/68[#68], https://github.com/nus-cs2103-AY1920S1/forum/issues/100[#100]).
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* I reviewed the following pull requests non-trivially, among others: https://github.com/AY1920S1-CS2103T-F11-4/main/pull/40[#40],
+https://github.com/AY1920S1-CS2103T-F11-4/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53]
 
-* PRs reviewed (with non-trivial review comments): https://github.com[#A], https://github.com[#B], https://github.com[#C], https://github.com[#D]
-
-* Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 == User guide contributions
 
