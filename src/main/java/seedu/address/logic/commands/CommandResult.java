@@ -14,7 +14,7 @@ public class CommandResult {
     /**
      * Help information should be shown to the user.
      */
-    private final boolean showHelp;
+    private final boolean changesActiveStudyPlan;
 
     /**
      * The application should exit.
@@ -26,7 +26,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
+        this.changesActiveStudyPlan = showHelp;
         this.exit = exit;
     }
 
@@ -42,8 +42,8 @@ public class CommandResult {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
+    public boolean isChangesActiveStudyPlan() {
+        return changesActiveStudyPlan;
     }
 
     public boolean isExit() {
@@ -63,13 +63,13 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
+                && changesActiveStudyPlan == otherCommandResult.changesActiveStudyPlan
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, changesActiveStudyPlan, exit);
     }
 
 }
