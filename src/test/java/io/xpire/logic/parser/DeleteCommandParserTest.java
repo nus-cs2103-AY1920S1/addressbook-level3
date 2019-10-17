@@ -1,8 +1,8 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static io.xpire.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
 import java.util.Set;
@@ -29,12 +29,10 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_ITEM));
+        assertEqualsParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_ITEM));
 
         //trailing bars and arguments behind trailing bars will be trimmed
-        assertParseSuccess(parser, "1||||||1", new DeleteCommand(INDEX_FIRST_ITEM));
-
+        assertEqualsParseSuccess(parser, "1||||||1", new DeleteCommand(INDEX_FIRST_ITEM));
     }
 
     @Test
@@ -47,7 +45,7 @@ public class DeleteCommandParserTest {
     public void parse_deleteSingleTagMode_returnsDeleteCommand() {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag("Tag1"));
-        assertParseSuccess(parser, "1|#Tag1", new DeleteCommand(INDEX_FIRST_ITEM, set));
+        assertEqualsParseSuccess(parser, "1|#Tag1", new DeleteCommand(INDEX_FIRST_ITEM, set));
     }
 
     @Test
@@ -55,7 +53,7 @@ public class DeleteCommandParserTest {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag("Tag1"));
         set.add(new Tag("Tag2"));
-        assertParseSuccess(parser, "1|#Tag1", new DeleteCommand(INDEX_FIRST_ITEM, set));
+        assertEqualsParseSuccess(parser, "1|#Tag1", new DeleteCommand(INDEX_FIRST_ITEM, set));
     }
 
     @Test
@@ -66,7 +64,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_deleteValidQuantity_returnsDeleteCommand() {
         Quantity validQuantity = new Quantity("1");
-        assertParseSuccess(parser, "1|1", new DeleteCommand(INDEX_FIRST_ITEM, validQuantity));
+        assertEqualsParseSuccess(parser, "1|1", new DeleteCommand(INDEX_FIRST_ITEM, validQuantity));
     }
 
     @Test

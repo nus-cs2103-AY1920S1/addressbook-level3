@@ -3,8 +3,8 @@ package io.xpire.logic.parser;
 import static io.xpire.logic.CommandParserItemUtil.INVALID_TAG;
 import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRIDGE;
 import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
+import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static io.xpire.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
 import org.junit.jupiter.api.Test;
@@ -19,12 +19,12 @@ public class TagCommandParserTest {
 
     @Test
     public void parse_validSingleTag_returnTagCommand() {
-        assertParseSuccess(parser, "1|#Fruit", new TagCommand(INDEX_FIRST_ITEM, new String[]{VALID_TAG_FRUIT}));
+        assertEqualsParseSuccess(parser, "1|#Fruit", new TagCommand(INDEX_FIRST_ITEM, new String[]{VALID_TAG_FRUIT}));
     }
 
     @Test
     public void parse_validMultipleTags_returnTagCommand() {
-        assertParseSuccess(parser, "1|#Fruit#Fridge", new TagCommand(INDEX_FIRST_ITEM,
+        assertEqualsParseSuccess(parser, "1|#Fruit#Fridge", new TagCommand(INDEX_FIRST_ITEM,
                 new String[]{VALID_TAG_FRUIT, VALID_TAG_FRIDGE}));
     }
 

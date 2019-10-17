@@ -35,12 +35,12 @@ public class AddCommandParserTest {
         Item expectedItem = new ItemBuilder(BANANA).build();
 
         // whitespace only preamble
-        CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_BANANA
+        CommandParserTestUtil.assertEqualsParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_BANANA
                 + " | " + VALID_EXPIRY_DATE_BANANA + " |" + VALID_QUANTITY_BANANA,
                 new AddCommand(expectedItem));
 
         //no whitespace preamble
-        CommandParserTestUtil.assertParseSuccess(parser, VALID_NAME_BANANA
+        CommandParserTestUtil.assertEqualsParseSuccess(parser, VALID_NAME_BANANA
                         + "|" + VALID_EXPIRY_DATE_BANANA + "|" + VALID_QUANTITY_BANANA,
                 new AddCommand(expectedItem));
     }
@@ -50,7 +50,7 @@ public class AddCommandParserTest {
         // no quantity specified
         Item expectedItem = new ItemBuilder(KIWI).withQuantity("1").withReminderThreshold("0").build();
         String userInput = VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI + "|";
-        CommandParserTestUtil.assertParseSuccess(parser, userInput,
+        CommandParserTestUtil.assertEqualsParseSuccess(parser, userInput,
                 new AddCommand(expectedItem));
     }
 

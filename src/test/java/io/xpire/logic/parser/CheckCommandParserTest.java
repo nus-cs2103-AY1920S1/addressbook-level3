@@ -2,8 +2,8 @@ package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static io.xpire.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +16,9 @@ public class CheckCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsCheckCommand() {
-        assertParseSuccess(parser, " 1", new CheckCommand(new ExpiringSoonPredicate(1)));
-        assertParseSuccess(parser, "", new CheckCommand(new ReminderThresholdExceededPredicate()));
-        assertParseSuccess(parser, " ", new CheckCommand(new ReminderThresholdExceededPredicate()));
+        assertEqualsParseSuccess(parser, " 1", new CheckCommand(new ExpiringSoonPredicate(1)));
+        assertEqualsParseSuccess(parser, "", new CheckCommand(new ReminderThresholdExceededPredicate()));
+        assertEqualsParseSuccess(parser, " ", new CheckCommand(new ReminderThresholdExceededPredicate()));
     }
 
     @Test

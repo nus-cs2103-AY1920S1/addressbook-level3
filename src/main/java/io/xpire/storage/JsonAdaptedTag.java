@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import io.xpire.commons.exceptions.IllegalValueException;
-import io.xpire.logic.parser.ParserUtil;
+import io.xpire.commons.util.StringUtil;
 import io.xpire.model.tag.Tag;
 
 /**
@@ -19,14 +19,14 @@ class JsonAdaptedTag {
      */
     @JsonCreator
     public JsonAdaptedTag(String tagName) {
-        this.tagName = ParserUtil.parseTagsToSentenceCase(tagName);
+        this.tagName = StringUtil.convertToSentenceCase(tagName);
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedTag(Tag source) {
-        this.tagName = ParserUtil.parseTagsToSentenceCase(source.getTagName());
+        this.tagName = StringUtil.convertToSentenceCase(source.getTagName());
     }
 
     @JsonValue

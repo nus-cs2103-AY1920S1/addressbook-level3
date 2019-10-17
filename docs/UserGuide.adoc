@@ -156,23 +156,24 @@ Examples:
 
 === Searching item by name: `search`
 
-Searches for items whose names contain any of the given keywords. +
+Search items whose names or tag(s) contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
 
 ****
-* The search is case insensitive. e.g `ham` will match `Ham`
-* The order of the keywords does not matter. e.g. `Turkey Ham|Apple` will match `Apple|Turkey Ham`
-* Only the name is searched.
-* Partial words can also be matched e.g. `Papa` will match `Papayas`
-* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple|Pear` will return `Granny Smith Apple`, `Japanese Pear`
+* The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
+* The order of the keywords does not matter. e.g. `Turkey Ham|Apple` will match `Apple|Turkey Ham`.
+* Only the name and tag, if any, are searched.
+* For name search, partial words can be matched e.g. `Papa` will match `Papayas`.
+* For tag search, only exact words will be matched e.g. `#Fruit` will match `#Fruit` but `#Fru` will not match `#Fruit`.
+* Items matching at least one keyword will be returned (an `OR` search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
 ****
 
 Examples:
 
 * `search|kebab` +
 Returns `Chicken Kebab` and `kebab`
-* `search|milk|tea|pearls` +
-Returns any items containing the terms `milk`, `tea`, or `pearls`
+* `search|milk|tea|#Drink` +
+Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 
 // tag::delete[]
 === Deleting items, tags or quantity : `delete`
