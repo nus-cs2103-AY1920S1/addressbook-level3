@@ -2,17 +2,30 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Duration;
+import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
 
 class ScheduleTest {
+
+    /**
+     * Gets a sample schedule with two events.
+     * @return sample schedule
+     */
+    Schedule sampleSchedule() {
+        Schedule schedule = new Schedule();
+        schedule.add(EventTime.parse("900", "1000"));
+        schedule.add(EventTime.parse("1200", "1500"));
+        return schedule;
+    }
+
     @Test
     void add_outsideWorkingHours_throwsSchedulingException() {
         Schedule schedule = new Schedule();
-        Duration outsideWorkingHours = Duration.parse("0200", "0400");
+        EventTime outsideWorkingHours = EventTime.parse("0200", "0400");
 
         Exception thrown = assertThrows(SchedulingException.class, () -> schedule.add(outsideWorkingHours));
         assertEquals(Schedule.MESSAGE_OUTSIDE_WORKING_HOURS, thrown.getMessage());
@@ -21,10 +34,10 @@ class ScheduleTest {
     @Test
     void add_conflictingTask_throwsSchedulingException() {
         Schedule schedule = new Schedule();
-        Duration conflict = Duration.parse("0930", "1130");
+        EventTime conflict = EventTime.parse("0930", "1130");
 
-        schedule.add(Duration.parse("0900", "1000"));
-        schedule.add(Duration.parse("1100", "1400"));
+        schedule.add(EventTime.parse("0900", "1000"));
+        schedule.add(EventTime.parse("1100", "1400"));
 
         Exception thrown = assertThrows(SchedulingException.class, () -> schedule.add(conflict));
         assertEquals(Schedule.MESSAGE_SCHEDULE_CONFLICT, thrown.getMessage());
@@ -33,7 +46,7 @@ class ScheduleTest {
     @Test
     void remove_isSuccessful() {
         Schedule schedule = new Schedule();
-        Duration slot = Duration.parse("0900", "1000");
+        EventTime slot = EventTime.parse("0900", "1000");
 
         schedule.add(slot);
         schedule.remove(slot);
@@ -42,4 +55,31 @@ class ScheduleTest {
 
     }
 
+    @Test
+    void findFirstAvailableSlot_lateButAvail_returnsEarlySlot() {
+        Schedule sample = sampleSchedule();
+        EventTime oneHourTask = EventTime.parse("1500", "1600");
+        assertEquals(EventTime.parse("1000", "1100"), sample.findFirstAvailableSlot(oneHourTask).get());
+    }
+
+    @Test
+    void findFirstAvailableSlot_schedulingConflict_returnsAvailableSlot() {
+        Schedule sample = sampleSchedule();
+        EventTime oneHourTask = EventTime.parse("1400", "1500");
+        assertEquals(EventTime.parse("1000", "1100"), sample.findFirstAvailableSlot(oneHourTask).get());
+    }
+
+    @Test
+    void findFirstAvailableSlot_alreadyEarliest_returnsItself() {
+        Schedule sample = sampleSchedule();
+        EventTime threeHourTask = EventTime.parse("1500", "1800");
+        assertEquals(threeHourTask, sample.findFirstAvailableSlot(threeHourTask).get());
+    }
+
+    @Test
+    void findFirstAvailableSlot_notAvailable_returnsEmpty() {
+        Schedule sample = sampleSchedule();
+        EventTime fourHourTask = EventTime.parse("1400", "1800");
+        assertTrue(sample.findFirstAvailableSlot(fourHourTask).isEmpty());
+    }
 }
