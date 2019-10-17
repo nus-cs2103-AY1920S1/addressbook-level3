@@ -1,12 +1,10 @@
 {
   "guiSettings" : {
-    "windowWidth" : 512.0,
-    "windowHeight" : 700.0,
-    "extra" : "some value ",
+    "windowWidth" : 1920.0,
+    "windowHeight" : 1080.0,
     "windowCoordinates" : {
-      "x" : 300,
-      "y" : 100,
-      "z" : 99
+      "x" : 400,
+      "y" : 200
     }
   },
   "activityBookFilePath" : "activitybook.json",
