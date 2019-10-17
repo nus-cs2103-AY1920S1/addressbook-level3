@@ -53,7 +53,7 @@ public interface Model {
     /**
      * Returns the user prefs' loan records file path.
      */
-    void setCatalog(ReadOnlyCatalog addressBook);
+    void setCatalog(ReadOnlyCatalog catalog);
 
     /**
      * Returns true if a book with the same identity as {@code book} exists in the catalog.
