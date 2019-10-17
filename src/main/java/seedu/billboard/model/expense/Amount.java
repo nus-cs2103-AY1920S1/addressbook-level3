@@ -2,8 +2,6 @@ package seedu.billboard.model.expense;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 
 /**
  * Represents an Expense's amount in Billboard.
@@ -40,19 +38,18 @@ public class Amount {
     public Amount add(Amount other) {
         BigDecimal result = amount.add(other.amount);
         return new Amount(result.toString());
-//        return new Amount((amount + other.amount) + "");
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
-                && amount == ((Amount) other).amount); // state check
+                && amount.compareTo(((Amount) other).amount) == 0); // state check
     }
 
     @Override
     public String toString() {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        return "S$" + decimalFormat.format(amount);
+        return decimalFormat.format(amount);
     }
 }

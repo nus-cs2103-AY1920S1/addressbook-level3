@@ -13,7 +13,11 @@ import java.util.regex.Pattern;
 import seedu.billboard.logic.commands.FindCommand;
 import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.expense.*;
+import seedu.billboard.model.expense.AllContainsKeywordsPredicate;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.AmountWithinRangePredicate;
+import seedu.billboard.model.expense.DateWithinRangePredicate;
+import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

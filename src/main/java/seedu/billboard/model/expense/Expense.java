@@ -75,7 +75,7 @@ public class Expense {
     }
 
     public CreatedDateTime getCreatedDateTime() {
-        return  created;
+        return created;
     }
 
     public boolean isArchived() {
