@@ -1,9 +1,10 @@
-package guitests.guihandles;
+package guitests.guihandles.panelHandles;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import guitests.guihandles.NodeHandle;
 import guitests.guihandles.cardHandles.PersonCardHandle;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
