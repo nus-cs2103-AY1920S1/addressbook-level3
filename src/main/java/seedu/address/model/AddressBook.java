@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.UniqueBudgetList;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueEventList;
@@ -173,17 +174,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         budgets.add(budget);
     }
 
-    public boolean hasBudgetWithSameName(Budget budget) {
-        requireNonNull(budget);
-        return budgets.hasBudgetWithSameName(budget);
+    public boolean hasBudgetWithName(Description targetDescription) {
+        requireNonNull(targetDescription);
+        return budgets.hasBudgetWithName(targetDescription);
     }
 
     public Budget getPrimaryBudget() {
         return budgets.getPrimaryBudget();
     }
 
-    public void switchBudgetTo(Budget target) {
-        budgets.setPrimary(target);
+    public void switchBudgetTo(Description targetDescription) {
+        Budget targetBudget = budgets.getBudgetWithName(targetDescription);
+        budgets.setPrimary(targetBudget);
     }
 
     //=========== Event-level operations ================================================================

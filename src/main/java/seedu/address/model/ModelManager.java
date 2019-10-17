@@ -16,6 +16,7 @@ import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -261,8 +262,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasBudgetWithSameName(Budget budget) {
-        return addressBook.hasBudgetWithSameName(budget);
+    public boolean hasBudgetWithName(Description targetDescription) {
+        return addressBook.hasBudgetWithName(targetDescription);
     }
 
     @Override
@@ -271,8 +272,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void switchBudgetTo(Budget target) {
-        addressBook.switchBudgetTo(target);
+    public void switchBudgetTo(Description targetDescription) {
+        addressBook.switchBudgetTo(targetDescription);
     }
 
     //=========== Event ================================================================================

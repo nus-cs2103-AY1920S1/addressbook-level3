@@ -10,6 +10,7 @@ import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -165,13 +166,13 @@ public interface Model {
 
     boolean hasBudget(Budget budget);
 
-    boolean hasBudgetWithSameName(Budget budget);
+    boolean hasBudgetWithName(Description targetDescription);
 
     Budget getPrimaryBudget();
 
     void addBudget(Budget budget);
 
-    void switchBudgetTo(Budget target);
+    void switchBudgetTo(Description description);
 
     void setPrimary(Budget budget);
 
