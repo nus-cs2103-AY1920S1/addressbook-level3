@@ -15,7 +15,7 @@ public class CommandHistory {
      * Add Command to history.
      * @param command Command to be added to history
      */
-    private void addCommandToHistory(String command) {
+    private static void addCommandToHistory(String command) {
         // Disregard duplicate commands
         if (commandHistory.size() != 0
                 && commandHistory.get(commandHistory.size() - 1).equals(command)) {
@@ -34,8 +34,8 @@ public class CommandHistory {
      * Store invalid command.
      * @param command Command to be stored
      */
-    public void storeInvalidCommand(String command) {
-        this.addCommandToHistory(command);
+    public static void storeInvalidCommand(String command) {
+        addCommandToHistory(command);
         currentCommandIndex = commandHistory.size() - 1;
     }
 
@@ -59,8 +59,8 @@ public class CommandHistory {
      * Store valid command.
      * @param command Command to be stored
      */
-    public void storeValidCommand(String command) {
-        this.addCommandToHistory(command);
+    public static void storeValidCommand(String command) {
+        addCommandToHistory(command);
         currentCommandIndex = commandHistory.size();
     }
 
