@@ -60,7 +60,7 @@ public class ReturnCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
 
-        Book bookToBeReturned = lastShownList.get(index.getZeroBased()); // TODO change to second list
+        Book bookToBeReturned = lastShownList.get(index.getZeroBased()); // TODO change to second list index
         Optional<Loan> returningLoanOptional = bookToBeReturned.getLoan();
         if (returningLoanOptional.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_BOOK_NOT_ON_LOAN, bookToBeReturned));
