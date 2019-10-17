@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Represents a document path.
+ * Represents the full path to a document, including parent directories.
  * Guarantees: immutable; is valid as declared in {@link #isValidDocumentPath(String)}
  */
 public class DocumentPath {
