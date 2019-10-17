@@ -20,6 +20,8 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
@@ -41,7 +43,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
-
+    private final CoursePlanner coursePlanner;
     private final CcaTracker ccaTracker;
     private final FilteredList<Person> filteredPersons;
     private final Planner planner;
@@ -50,8 +52,9 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager, FinanceTracker financeTracker,
-                ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Planner planner) {
+    public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager,
+                        FinanceTracker financeTracker, ReadOnlyAddressBook addressBook,
+                        ReadOnlyUserPrefs userPrefs, Planner planner, CoursePlanner coursePlanner) {
         super();
         requireAllNonNull(ccaTracker, historyManager, financeTracker, addressBook, userPrefs, planner);
 
@@ -64,11 +67,12 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
+        this.coursePlanner = new CoursePlanner(coursePlanner);
     }
 
     public ModelManager() {
-        this(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new AddressBook(), new UserPrefs(),
-                new Planner());
+        this(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new AddressBook(),
+                new UserPrefs(), new Planner(), new CoursePlanner());
     }
 
 
@@ -423,7 +427,8 @@ public class ModelManager implements Model {
                 && planner.isEqual(other.planner)
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
-                && userPrefs.equals(other.userPrefs);
+                && userPrefs.equals(other.userPrefs)
+                && coursePlanner.equals(other.coursePlanner);
     }
 
 
@@ -512,6 +517,17 @@ public class ModelManager implements Model {
     @Override
     public void resetData(Planner planner) {
         this.planner.resetData(planner);
+    }
+    //=========== Course Planner ========================================================
+
+    @Override
+    public void lookUpCourse(Course course) {
+        coursePlanner.lookUpCourse(course);
+    }
+
+    @Override
+    public CoursePlanner getCoursePlanner() {
+        return coursePlanner;
     }
 
     @Override

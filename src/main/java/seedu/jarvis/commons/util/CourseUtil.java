@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -66,7 +68,6 @@ public class CourseUtil {
      */
     private static File getCourseFile(String courseCode)
             throws CourseNotFoundException {
-
         String coursePrefix = getCoursePrefix(courseCode);
         String fileName = (courseCode.contains(".json")) ? courseCode : courseCode + ".json";
 
@@ -76,7 +77,7 @@ public class CourseUtil {
         try {
             return new File(Objects.requireNonNull(classLoader.getResource(filePath)).getFile());
         } catch (NullPointerException e) {
-            throw new CourseNotFoundException("file not found");
+            throw new CourseNotFoundException();
         }
     }
 
@@ -89,13 +90,12 @@ public class CourseUtil {
      */
     public static String getCourseJsonString(String courseCode)
             throws CourseNotFoundException {
-
         File file = getCourseFile(courseCode);
         StringBuilder text = new StringBuilder();
         try (Stream<String> fileStream = Files.lines(file.toPath())) {
             fileStream.forEach(text::append);
         } catch (IOException e) {
-            throw new CourseNotFoundException("file not found");
+            throw new CourseNotFoundException();
         }
         return removeSpacesNotWithinQuotes(text.toString());
     }
@@ -134,7 +134,7 @@ public class CourseUtil {
             root = new ObjectMapper().readTree(json);
             return getCourseProps(root);
         } catch (IOException e) {
-            throw new CourseNotFoundException("file not found");
+            throw new CourseNotFoundException();
         }
     }
 
@@ -146,6 +146,7 @@ public class CourseUtil {
      */
     private static Map<String, String> getCourseProps(JsonNode root) {
         Map<String, String> courseProps = new HashMap<>();
+
         root.fields().forEachRemaining(entry -> {
             if (entry.getValue().isObject() || entry.getValue().isArray()) {
                 courseProps.put(entry.getKey(), entry.getValue().toString());
@@ -153,27 +154,66 @@ public class CourseUtil {
                 courseProps.put(entry.getKey(), entry.getValue().asText());
             }
         });
+
         return courseProps;
     }
 
     /**
      * Returns a {@code Course} object containing the information in the course file.
      *
-     * @param courseCode of the course
+     * @param code of the course
      * @return a {@code Course} object containing information of the course.
-     * @throws IOException if the file is not found
      */
-    public static Course getCourse(String courseCode) throws CourseNotFoundException {
-        Map<String, String> courseInformation = getCourseMap(courseCode);
+    public static Course getCourse(String code)
+            throws CourseNotFoundException {
+        // TODO somehow refactor this function
+        AtomicReference<CourseCode> courseCode = new AtomicReference<>();
+        AtomicReference<Title> title = new AtomicReference<>();
+        AtomicReference<CourseCredit> courseCredit = new AtomicReference<>();
+        AtomicReference<Description> description = new AtomicReference<>();
+        AtomicReference<Faculty> faculty = new AtomicReference<>();
+        AtomicReference<Preclusion> preclusion = new AtomicReference<>();
+        AtomicReference<FulfillRequirements> fulfillRequirements = new AtomicReference<>();
+        AtomicReference<PrereqTree> prereqTree = new AtomicReference<>();
+
+        Map<String, String> courseInformation = getCourseMap(code);
+
+        courseInformation.forEach((key, value) -> {
+            Optional<String> arg = Optional.ofNullable(value);
+
+            arg.ifPresent(s -> {
+                switch (key) {
+                case "courseCode":
+                    courseCode.set(new CourseCode(s));
+                    break;
+                case "title":
+                    title.set(new Title(s));
+                    break;
+                case "courseCredit":
+                    courseCredit.set(new CourseCredit(s));
+                    break;
+                case "description":
+                    description.set(new Description(s));
+                    break;
+                case "faculty":
+                    faculty.set(new Faculty(s));
+                    break;
+                case "preclusion":
+                    preclusion.set(new Preclusion(s));
+                    break;
+                case "fulfillRequirements":
+                    fulfillRequirements.set(new FulfillRequirements(s));
+                    break;
+                case "prereqTree":
+                    prereqTree.set(new PrereqTree(s));
+                    break;
+                default:
+                }
+            });
+        });
         return new Course(
-                new Title(courseInformation.get("title")),
-                new Faculty(courseInformation.get("faculty")),
-                new Description(courseInformation.get("description")),
-                new CourseCode(courseInformation.get("courseCode")),
-                new CourseCredit(courseInformation.get("courseCredit")),
-                new PrereqTree(courseInformation.get("prereqTree")),
-                new Preclusion(courseInformation.get("preclusion")),
-                new FulfillRequirements(courseInformation.get("fulfillRequirements"))
+            title.get(), faculty.get(), description.get(), courseCode.get(), courseCredit.get(),
+            prereqTree.get(), preclusion.get(), fulfillRequirements.get()
         );
     }
 

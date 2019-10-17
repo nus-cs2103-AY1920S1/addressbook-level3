@@ -28,6 +28,8 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.installment.Installment;
@@ -372,6 +374,16 @@ public class AddAddressCommandTest {
 
         @Override
         public void resetData(Planner planner) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void lookUpCourse(Course code) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CoursePlanner getCoursePlanner() {
             throw new AssertionError("This method should not be called.");
         }
 
