@@ -207,6 +207,15 @@ Examples:
 
 * `updateEarnings d/14/04/2020 mod/CS2103T amt/63.20`
 
+==== Delete Earnings: `deleteEarnings`
+
+Delete Earnings in the list of earnings. +
+Format: `deleteEarnings d/DATE mod/MODULE`
+
+Examples:
+
+* `deleteEarnings d/24/04/2020 mod/CS2103T`
+
 // end::delete[]
 === Clearing all entries : `clear`
 
