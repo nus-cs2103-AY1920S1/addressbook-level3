@@ -73,17 +73,18 @@ Find lecture notes whose title contains every given word (space-separated, ignor
 and display them. +
 Format: `findnote WORD [WORD]…`
 
+==== Listing all lecture notes: `listnote`
+Simply show all lecture notes. +
+Format: `listnote`
+
 ==== Deleting lecture notes: `deletenote`
 Delete the lecture note with the given index, which follows the same restrictions as with `editnote`. +
 Format: `deletenote INDEX`
 
-==== Exporting all entries: `export`
-Export all items in NUStudy, both flash cards and lecture notes, into a file with the given name. +
-Format: `export FILENAME`
-
-==== Importing all entries: `import`
-Import all items in the given file into NUStudy. This overwrites any items already in the app. +
-Format: `import FILENAME`
+==== Clearing all lecture notes: `clearnote`
+Clear all lecture notes. This does not affect quiz questions, but may affect revision tasks linked
+to the cleared notes. +
+Format: `clearnote`
 // end::lecnote[]
 
 === Questions
