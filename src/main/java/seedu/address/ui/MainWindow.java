@@ -1,9 +1,15 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,6 +22,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import jfxtras.scene.control.agenda.Agenda;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -35,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
+    private SchedulerPanel schedulePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane schedulerPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -121,6 +132,17 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+//        schedulePanel = new SchedulerPanel(primaryStage, logic.getSchedulerList());
+
+        // for testing purposes
+        Agenda.AppointmentImpl testAppointment = new Agenda.AppointmentImpl();
+        testAppointment.setSummary("Summary");
+        testAppointment.setStartLocalDateTime(LocalDateTime.of(2011, 5, 28, 4, 00));
+        testAppointment.setEndLocalDateTime(LocalDateTime.of(2011, 5, 28, 5, 00));
+        ObservableList<Agenda.AppointmentImpl> appointmentsList = FXCollections.observableArrayList();
+        appointmentsList.addAll(testAppointment);
+        schedulePanel = new SchedulerPanel(primaryStage, appointmentsList);
     }
 
     /**
@@ -159,7 +181,36 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the scheduler window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleSchedule() {
+        schedulePanel.show();
+//        if (!schedulePanel.isShowing()) {
+//            schedulePanel.show();
+//        } else {
+//            schedulePanel.focus();
+//        }
+    }
+
     void show() {
+//
+//        Agenda agenda = new Agenda();
+//
+//        Agenda.AppointmentImpl testAppointment = new Agenda.AppointmentImpl();
+//        testAppointment.setSummary("Summary");
+//        testAppointment.setStartLocalDateTime(LocalDateTime.of(2011, 5, 28, 4, 00));
+//        testAppointment.setEndLocalDateTime(LocalDateTime.of(2011, 5, 28, 5, 00));
+//
+//        // add an appointment
+//        agenda.appointments().addAll(
+//                testAppointment
+//        );
+//
+//        // show it
+//        primaryStage.setScene(new Scene(agenda, 500, 400));
+
         primaryStage.show();
     }
 
@@ -191,6 +242,10 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (true) {
+                handleSchedule();
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -202,6 +257,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+//            if (commandResult.isShowSchedule()) {
+//                handleSchedule();
+//            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {
