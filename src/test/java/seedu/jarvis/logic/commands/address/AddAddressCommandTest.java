@@ -383,6 +383,21 @@ public class AddAddressCommandTest {
         }
 
         @Override
+        public void addCourse(Course course) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCourse(Course course) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCourse(Course course) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public CoursePlanner getCoursePlanner() {
             throw new AssertionError("This method should not be called.");
         }
