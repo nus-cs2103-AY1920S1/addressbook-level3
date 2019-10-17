@@ -241,7 +241,7 @@ public class ParserUtilTest {
         Task expected = new Todo("borrow book");
         LocalDate[] dates = new LocalDate[2];
         Task actual = ParserUtil.buildTask("todo", "borrow book", dates);
-        assertTrue(expected.isEqual(actual));
+        assertTrue(expected.equals(actual));
     }
 
     @Test

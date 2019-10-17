@@ -46,5 +46,5 @@ public interface PlannerModel {
      * @param other the other planner to be compared against
      * @return true if the planners are equal, false if they are not
      */
-    boolean isEqual(Planner other);
+    boolean equals(Object other);
 }
