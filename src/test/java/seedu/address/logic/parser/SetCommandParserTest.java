@@ -1,32 +1,32 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_2;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FINE_INCREMENT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LOAN_PERIOD_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RENEW_PERIOD_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FINE_INCREMENT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_1_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_1_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_1_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_2_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_1_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_2_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_1_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_2_DESC;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SetCommand;
+import seedu.address.logic.commands.SetCommand.SetUserSettingsDescriptor;
 import seedu.address.model.usersettings.FineIncrement;
 import seedu.address.model.usersettings.LoanPeriod;
 import seedu.address.model.usersettings.RenewPeriod;
 import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
-import seedu.address.logic.commands.SetCommand.SetUserSettingsDescriptor;
 
 public class SetCommandParserTest {
 

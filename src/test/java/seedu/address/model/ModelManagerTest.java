@@ -4,12 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import seedu.address.commons.core.UserSettings;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_1;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
@@ -24,7 +20,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-
+import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;

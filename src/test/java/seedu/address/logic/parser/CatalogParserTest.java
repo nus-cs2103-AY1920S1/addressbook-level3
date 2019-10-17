@@ -4,24 +4,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import seedu.address.commons.core.UserSettings;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
-import seedu.address.logic.commands.SetCommand;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.testutil.Assert.assertThrows;
-import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.UserSettings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteByIndexCommand;
@@ -35,6 +33,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoanCommand;
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.ServeCommand;
+import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -46,8 +45,10 @@ import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
 import seedu.address.testutil.EditBookDescriptorBuilder;
+import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 import seedu.address.testutil.UserSettingsBuilder;
 import seedu.address.testutil.UserSettingsUtil;
+
 
 public class CatalogParserTest {
 

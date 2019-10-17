@@ -6,6 +6,9 @@ import seedu.address.model.usersettings.FineIncrement;
 import seedu.address.model.usersettings.LoanPeriod;
 import seedu.address.model.usersettings.RenewPeriod;
 
+/**
+ * A utility class to help with building SetUserSettingsDescriptor objects.
+ */
 public class SetUserSettingsDescriptorBuilder {
     private SetCommand.SetUserSettingsDescriptor descriptor;
 

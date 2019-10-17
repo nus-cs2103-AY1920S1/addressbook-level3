@@ -1,8 +1,9 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.core.UserSettings;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_1;
+
+import seedu.address.commons.core.UserSettings;
 
 /**
  * A utility class containing a list of {@code UserSettings} objects to be used in tests.

@@ -1,15 +1,17 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import seedu.address.commons.core.UserSettings;
+
 import static seedu.address.logic.commands.CommandTestUtil.DESC_USER_SETTINGS_1;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_USER_SETTINGS_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_1;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.UserSettings;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;

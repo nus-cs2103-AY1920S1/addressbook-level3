@@ -2,10 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.address.logic.commands.SetCommand;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
+
+import seedu.address.logic.commands.SetCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 

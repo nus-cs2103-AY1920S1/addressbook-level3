@@ -5,6 +5,9 @@ import seedu.address.model.usersettings.FineIncrement;
 import seedu.address.model.usersettings.LoanPeriod;
 import seedu.address.model.usersettings.RenewPeriod;
 
+/**
+ * A utility class to help with building UserSettings objects.
+ */
 public class UserSettingsBuilder {
     public static final int DEFAULT_LOAN_PERIOD = 14;
     public static final int DEFAULT_RENEW_PERIOD = 14;

@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.SetCommand;
-
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
+
+import seedu.address.logic.commands.SetCommand;
 
 /**
  * A utility class for UserSettings.

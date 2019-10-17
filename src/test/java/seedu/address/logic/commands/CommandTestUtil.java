@@ -2,15 +2,16 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_PERIOD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
