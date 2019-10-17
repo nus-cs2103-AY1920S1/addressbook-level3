@@ -1,7 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ModulePlanner;
@@ -11,6 +11,7 @@ import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UserTag;
 
 /**
@@ -55,12 +56,12 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a list containing the list of user tag names given.
      */
-    public static Set<UserTag> getTagSet(String... strings) {
+    public static List<Tag> getTagList(String... strings) {
         return Arrays.stream(strings)
                 .map(UserTag::new)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
 }

@@ -12,28 +12,28 @@ public class TagBuilder {
     /**
      * Builds a UserTag with the name "testUserTag".
      */
-    public static UserTag buildTestUserTag() {
+    public UserTag buildTestUserTag() {
         return new UserTag("testUserTag");
     }
 
     /**
      * Builds a UserTag with the specified name.
      */
-    public static UserTag buildUserTag(String name) {
+    public UserTag buildUserTag(String name) {
         return new UserTag(name);
     }
 
     /**
      * Builds a DefaultTag of type CORE.
      */
-    public static DefaultTag buildDefaultCoreTag() {
+    public DefaultTag buildDefaultCoreTag() {
         return new DefaultTag(DefaultTagType.CORE);
     }
 
     /**
      * Builds a DefaultTag of the given DefaultTagType
      */
-    public static DefaultTag buildDefaultTag(DefaultTagType defaultTagType) {
+    public DefaultTag buildDefaultTag(DefaultTagType defaultTagType) {
         return new DefaultTag(defaultTagType);
     }
 
