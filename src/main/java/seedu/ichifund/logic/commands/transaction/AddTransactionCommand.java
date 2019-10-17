@@ -161,6 +161,7 @@ public class AddTransactionCommand extends Command {
         }
 
         public AddTransactionCommand build() {
+            requireAllNonNull(description, amount, category, day, month, year, transactionType);
             return new AddTransactionCommand(description, amount, category, day, month, year, transactionType);
         }
 
