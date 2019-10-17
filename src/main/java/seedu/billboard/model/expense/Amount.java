@@ -1,5 +1,6 @@
 package seedu.billboard.model.expense;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -11,18 +12,12 @@ import java.text.ParseException;
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain a float number and it should not be blank";
-    private static final NumberFormat numberFormatter = NumberFormat.getNumberInstance();
 
     //TODO: Add parsing money logic
-    public final float amount;
+    public final BigDecimal amount;
 
     public Amount(String amount) {
-        try {
-            System.out.println(numberFormatter.parse(amount).toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.amount = Float.parseFloat(amount);
+        this.amount = new BigDecimal(amount);
     }
 
     /**
@@ -30,9 +25,9 @@ public class Amount {
      */
     public static boolean isValidAmount(String test) {
         try {
-            numberFormatter.parse(test);
+            new BigDecimal(test);
             return true;
-        } catch (ParseException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -43,7 +38,9 @@ public class Amount {
      * @return new Amount representing the combine total of the two amounts.
      */
     public Amount add(Amount other) {
-        return new Amount((amount + other.amount) + "");
+        BigDecimal result = amount.add(other.amount);
+        return new Amount(result.toString());
+//        return new Amount((amount + other.amount) + "");
     }
 
     @Override

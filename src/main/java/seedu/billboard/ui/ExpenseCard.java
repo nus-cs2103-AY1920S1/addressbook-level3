@@ -37,7 +37,7 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private Label email;
+    private Label date;
     @FXML
     private FlowPane tags;
 
@@ -48,6 +48,7 @@ public class ExpenseCard extends UiPart<Region> {
         name.setText(expense.getName().toString());
         amount.setText(expense.getAmount().toString());
         description.setText(expense.getDescription().toString());
+        date.setText(expense.getCreated().toString());
         expense.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

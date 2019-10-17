@@ -13,10 +13,7 @@ import java.util.regex.Pattern;
 import seedu.billboard.logic.commands.FindCommand;
 import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.expense.AllContainsKeywordsPredicate;
-import seedu.billboard.model.expense.AmountWithinRangePredicate;
-import seedu.billboard.model.expense.DateWithinRangePredicate;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.*;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -41,30 +38,34 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         final String findType = matcher.group("findType");
         final String arguments = matcher.group("arguments");
-        final String trimedArguments = arguments.trim();
+        final String trimmedArguments = arguments.trim();
 
         switch (findType) {
         case NameContainsKeywordsPredicate.FINDTYPE:
-            String[] nameKeywords = trimedArguments.split("\\s+");
+            String[] nameKeywords = trimmedArguments.split("\\s+");
 
             return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
 
         case AllContainsKeywordsPredicate.FINDTYPE:
-            String[] keywords = trimedArguments.split("\\s+");
+            String[] keywords = trimmedArguments.split("\\s+");
 
             return new FindCommand(new AllContainsKeywordsPredicate(Arrays.asList(keywords)));
 
         case AmountWithinRangePredicate.FINDTYPE:
-            String[] amountLimits = trimedArguments.split("\\s+");
+            String[] amountLimits = trimmedArguments.split("\\s+");
             try {
+                Amount lowerBound;
                 switch (amountLimits.length) {
                 case 1:
-                    return new FindCommand(new AmountWithinRangePredicate(Float.parseFloat(amountLimits[0])));
+                    lowerBound = ParserUtil.parseAmount(amountLimits[0]);
+                    return new FindCommand(new AmountWithinRangePredicate(lowerBound));
 
                 case 2:
+                    lowerBound = ParserUtil.parseAmount(amountLimits[0]);
+                    Amount upperBound = ParserUtil.parseAmount(amountLimits[1]);
                     return new FindCommand(new AmountWithinRangePredicate(
-                            Float.parseFloat(amountLimits[0]),
-                            Float.parseFloat(amountLimits[1])));
+                            lowerBound,
+                            upperBound));
 
                 default:
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
