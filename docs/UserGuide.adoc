@@ -58,6 +58,7 @@ Creates a new study plan with an optional title. +
 Format: `newplan [TITLE]` +
 Examples:
 
+* `newplan`
 * `newplan noc half year`
 * `newplan minor in maths`
 
@@ -155,6 +156,10 @@ Example:
 ==== Setting default study plan: `default`
 Generates a study plan with pre-populated modules according to the recommended study plan for a year one student. +
 Format: `default`
+
+==== Listing all study plans: `list`
+Lists all the study plans that the user has created and has not deleted. +
+Format: `list`
 
 === Help and handling the GUI
 
