@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.person.UniquePersonList;
 import budgetbuddy.model.person.exceptions.PersonNotFoundException;
@@ -58,12 +59,9 @@ public class LoansManager {
      * Edits a person's loan to match a given loan.
      * @param editedLoan The loan to base the target loan's updated attributes on.
      */
-    public void editLoan(Person targetPerson, Loan targetLoan, Loan editedLoan) {
-        if (persons.contains(targetPerson)) {
-            persons.get(targetPerson).setLoan(targetLoan, editedLoan);
-        } else {
-            throw new PersonNotFoundException();
-        }
+    public void editLoan(Person targetPerson, Loan targetLoan, Loan editedLoan)
+            throws PersonNotFoundException, LoanNotFoundException {
+        persons.get(targetPerson).setLoan(targetLoan, editedLoan);
     }
 
     /**
