@@ -3,8 +3,8 @@ package seedu.savenus.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.savenus.logic.commands.CommandTestUtil.ASC_DIRECTION;
-import static seedu.savenus.logic.commands.CommandTestUtil.NAME_FIELD;
+import static seedu.savenus.logic.parser.CliSyntax.ASCENDING_DIRECTION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,8 @@ public class SortCommandTest {
 
     @Test
     public void return_correctFields() {
-        fields.add(NAME_FIELD);
-        fields.add(ASC_DIRECTION);
+        fields.add(FIELD_NAME_NAME);
+        fields.add(ASCENDING_DIRECTION);
         SortCommand test = new SortCommand(fields);
         assertEquals(fields, test.getFields());
     }
@@ -33,7 +33,7 @@ public class SortCommandTest {
     @Test
     public void equals() {
         List<String> myFields = new ArrayList<>();
-        myFields.add("PRICE");
+        myFields.add(FIELD_NAME_NAME);
         SortCommand command = new SortCommand(myFields);
         assertTrue(command.equals(command));
 

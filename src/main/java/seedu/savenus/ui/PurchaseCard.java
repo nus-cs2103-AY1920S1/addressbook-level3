@@ -32,14 +32,14 @@ public class PurchaseCard extends UiPart<Region> {
     @FXML
     private Label price;
     @FXML
-    private Label timeago;
+    private Label timeAgo;
 
     public PurchaseCard(Purchase purchase) {
         super(FXML);
         this.purchase = purchase;
         name.setText(purchase.getPurchasedFoodName().fullName);
         price.setText("$" + purchase.getPurchasedFoodPrice());
-        timeago.setText(purchase.getTimeAgoString());
+        timeAgo.setText(purchase.getTimeAgoString());
     }
 
     @Override

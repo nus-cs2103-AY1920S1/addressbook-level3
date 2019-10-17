@@ -4,13 +4,17 @@ import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.exceptions.CommandException;
+import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 
@@ -89,6 +93,12 @@ public interface Model {
     void setFoods(List<Food> list);
 
     /**
+     * A simple method to replace the filtered food list with the contents of a new list.
+     * @param fieldList the new list of food.
+     */
+    void editFilteredFoodList(List<String> fieldList);
+
+    /**
      * Buy the given food.
      * The food must exist in the menu.
      */
@@ -165,4 +175,25 @@ public interface Model {
      * Get a history of the list of commands
      */
     List<String> getCommandHistory();
+
+    /** Updates the user's liked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /**
+     * Updates the user's disliked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /**
+     * Clears the user's liked categories, tags and locations.
+     */
+    void clearLikes();
+
+    /**
+     * Clears the user's liked categories, tags and locations.
+     */
+    void clearDislikes();
 }

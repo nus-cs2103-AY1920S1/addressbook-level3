@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,8 +16,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.exceptions.CommandException;
+import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.FoodFilter;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
@@ -138,7 +143,7 @@ public class ModelManager implements Model {
 
     @Override
     public void removePurchase(Purchase target) {
-        //TODO
+        menu.removePurchase(target);
     }
 
     //=========== Filtered Purchase List Accessors =============================================================
@@ -215,6 +220,12 @@ public class ModelManager implements Model {
         filteredFoods.setPredicate(predicate);
     }
 
+    @Override
+    public void editFilteredFoodList(List<String> fieldList) {
+        requireNonNull(fieldList);
+        filteredFoods.setPredicate(new FoodFilter(fieldList));
+    }
+
     //=========== Recommendation System =============================================================
     @Override
     public RecommendationSystem getRecommendationSystem() {
@@ -236,6 +247,28 @@ public class ModelManager implements Model {
     @Override
     public void setRecommendationSystemInUse(boolean inUse) {
         this.recommendationSystem.setInUse(inUse);
+    }
+
+    @Override
+    public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        recommendationSystem.addLikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        recommendationSystem.addDislikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void clearLikes() {
+        recommendationSystem.clearLikes();
+    }
+
+    @Override
+    public void clearDislikes() {
+        recommendationSystem.clearDislikes();
     }
 
     @Override

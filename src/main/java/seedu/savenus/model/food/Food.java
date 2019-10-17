@@ -1,6 +1,13 @@
 package seedu.savenus.model.food;
 
 import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_CATEGORY;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_DESCRIPTION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_LOCATION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_OPENING_HOURS;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_RESTRICTIONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -81,25 +88,25 @@ public class Food {
 
     public Field getField(String field) {
         switch(field) {
-        case "NAME":
+        case FIELD_NAME_NAME:
             return getName();
 
-        case "PRICE":
+        case FIELD_NAME_PRICE:
             return getPrice();
 
-        case "CATEGORY":
+        case FIELD_NAME_CATEGORY:
             return getCategory();
 
-        case "DESCRIPTION":
+        case FIELD_NAME_DESCRIPTION:
             return getDescription();
 
-        case "LOCATION":
+        case FIELD_NAME_LOCATION:
             return getLocation();
 
-        case "OPENING_HOURS":
+        case FIELD_NAME_OPENING_HOURS:
             return getOpeningHours();
 
-        case "RESTRICTIONS":
+        case FIELD_NAME_RESTRICTIONS:
             return getRestrictions();
 
         default:

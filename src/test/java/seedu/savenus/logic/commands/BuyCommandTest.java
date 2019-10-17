@@ -2,35 +2,20 @@ package seedu.savenus.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
-import static seedu.savenus.testutil.TypicalMenu.getPoorMenu;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.savenus.commons.core.Messages;
-import seedu.savenus.model.Model;
-import seedu.savenus.model.ModelManager;
-import seedu.savenus.model.UserPrefs;
-
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code BuyCommand}.
  */
 public class BuyCommandTest {
-    // Model
-    private Model poorModel = new ModelManager(getPoorMenu(), new UserPrefs());
 
-    @Test
-    public void execute_notEnoughFunds_success() {
-
-        BuyCommand buyCommand = new BuyCommand(INDEX_FIRST_FOOD);
-        String expectedMessage = Messages.MESSAGE_INSUFFICIENT_FUNDS;
-
-        assertCommandFailure(buyCommand, poorModel, expectedMessage);
-    }
+    // Due to the nature of purchases, taking in the current time, testing will be done on the wallet and purchase
+    // history separately...
+    // Please refer to the wallet and purchase history tests
 
     @Test
     public void equals() {
