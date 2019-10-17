@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import tagline.commons.core.GuiSettings;
 import tagline.model.ReadOnlyUserPrefs;
-//import tagline.model.note.Note;
 
 /**
  * The API of the NoteModel component.

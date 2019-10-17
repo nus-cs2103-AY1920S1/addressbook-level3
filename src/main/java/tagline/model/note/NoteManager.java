@@ -38,6 +38,14 @@ public class NoteManager implements NoteModel {
         filteredNotes = new FilteredList<>(this.noteBook.getNoteList());
     }
 
+    public NoteManager(ReadOnlyNoteBook noteBook) {
+        this(noteBook, new UserPrefs());
+    }
+
+    public NoteManager(ReadOnlyUserPrefs userPrefs) {
+        this(new NoteBook(), userPrefs);
+    }
+
     public NoteManager() {
         this(new NoteBook(), new UserPrefs());
     }

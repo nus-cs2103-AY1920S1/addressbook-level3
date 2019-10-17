@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
+import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
@@ -51,6 +52,7 @@ public class CreateNoteCommand extends NoteCommand {
         }
 
         model.addNote(toCreate);
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toCreate), ViewType.NOTE);
     }
 

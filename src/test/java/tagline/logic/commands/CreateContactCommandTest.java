@@ -191,12 +191,12 @@ public class CreateContactCommandTest {
         }
 
         @Override
-        public void setNote(Note note, Note anotherNote) {
+        public void deleteNote(Note target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteNote(Note note) {
+        public void setNote(Note target, Note editedNote) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -205,6 +205,7 @@ public class CreateContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }

@@ -79,8 +79,23 @@ public class Note {
         }
 
         return otherNote != null
-             //this part should be .equals(getId()), title will be optional i guess
-             && otherNote.getNoteId().equals(getNoteId());
+                && otherNote.getNoteId().equals(getNoteId());
+    }
+
+    /**
+     * Returns true if both notes of the same id have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isUniqueNote(Note otherNote) {
+        if (otherNote == this) {
+            return true;
+        }
+
+        return otherNote != null
+                && otherNote.getNoteId().equals(getNoteId())
+                && otherNote.getTitle().equals(getTitle())
+                && otherNote.getContent().equals(getContent())
+                && otherNote.getTags().equals(getTags());
     }
 
     /**

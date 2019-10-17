@@ -38,11 +38,20 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook
+                + ", note book: " + noteBook + " and user prefs " + userPrefs);
 
         contactManager = new ContactManager(addressBook);
-        noteManager = new NoteManager(noteBook, userPrefs);
+        noteManager = new NoteManager(noteBook);
         this.userPrefs = new UserPrefs(userPrefs);
+    }
+
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        this(addressBook, new NoteBook(), userPrefs);
+    }
+
+    public ModelManager(ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
+        this(new AddressBook(), noteBook, userPrefs);
     }
 
     public ModelManager() {
@@ -132,6 +141,22 @@ public class ModelManager implements Model {
         return contactManager.findContact(id);
     }
 
+    //=========== Filtered Contact List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Contact> getFilteredContactList() {
+        return contactManager.getFilteredContactList();
+    }
+
+    @Override
+    public void updateFilteredContactList(Predicate<Contact> predicate) {
+        contactManager.updateFilteredContactList(predicate);
+    }
+
     //=========== NoteBook ================================================================================
 
     @Override
@@ -151,11 +176,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteNote(Note target) {
-        noteManager.deleteNote(target);
-    }
-
-    @Override
     public void addNote(Note note) {
         noteManager.addNote(note);
     }
@@ -165,22 +185,17 @@ public class ModelManager implements Model {
         noteManager.setNote(target, editedNote);
     }
 
-    //=========== Filtered Contact List Accessors =============================================================
+    @Override
+    public void deleteNote(Note target) {
+        noteManager.deleteNote(target);
+    }
+
+    //=========== Filtered Note List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of
+     * {@code versionedNoteBook}
      */
-    @Override
-    public ObservableList<Contact> getFilteredContactList() {
-        return contactManager.getFilteredContactList();
-    }
-
-    @Override
-    public void updateFilteredContactList(Predicate<Contact> predicate) {
-        contactManager.updateFilteredContactList(predicate);
-    }
-
     @Override
     public ObservableList<Note> getFilteredNoteList() {
         return noteManager.getFilteredNoteList();
