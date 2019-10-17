@@ -1,7 +1,6 @@
 package seedu.ezwatchlist.ui;
 
 import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -17,20 +16,16 @@ public class SearchPanel extends UiPart<Region> {
     @FXML
     private ListView<Show> searchListView;
 
-    public SearchPanel() {
+    public SearchPanel(/*ObservableList<Show> searchList*/) {
         super(FXML);
-    }
-
-    public SearchPanel(ObservableList<Show> showList) {
-        super(FXML);
-        searchListView.setItems(showList);
-        searchListView.setCellFactory(listView -> new SearchPanel.SearchListViewCell());
+        //searchListView.setItems(searchList);
+        //searchListView.setCellFactory(listView -> new SearchListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Show} using a {@code ShowCard}.
      */
-    class SearchListViewCell extends ListCell<Show> {
+    /*class SearchListViewCell extends ListCell<Show> {
         @Override
         protected void updateItem(Show show, boolean empty) {
             super.updateItem(show, empty);
@@ -42,6 +37,5 @@ public class SearchPanel extends UiPart<Region> {
                 setGraphic(new ShowCard(show, getIndex() + 1).getRoot());
             }
         }
-    }
-
+    }*/
 }

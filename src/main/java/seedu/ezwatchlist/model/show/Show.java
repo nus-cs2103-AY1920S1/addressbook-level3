@@ -30,8 +30,6 @@ public class Show {
     private final Set<Actor> actors = new HashSet<>();
     private final String imageOfShow;
 
-    
-
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
         this.imageOfShow = POSTER_PLACEHOLDER_PNG_URL;
@@ -108,12 +106,13 @@ public class Show {
             return true;
         }
 
-        if (!(other instanceof Show)) {
+        if (!(other instanceof TvShow || other instanceof Movie || other instanceof Show)) {
             return false;
         }
 
         Show otherShow = (Show) other;
         return otherShow.getName().equals(getName())
+                && otherShow.getType() == getType()
                 && otherShow.getDateOfRelease().equals(getDateOfRelease())
                 && (otherShow.isWatched() == isWatched())
                 && otherShow.getDescription().equals(getDescription())
@@ -124,7 +123,7 @@ public class Show {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dateOfRelease, isWatched, description, runningTime, actors);
+        return Objects.hash(name, type, dateOfRelease, isWatched, description, runningTime, actors);
     }
 
     @Override

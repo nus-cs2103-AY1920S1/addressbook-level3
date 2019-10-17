@@ -133,11 +133,12 @@ public class EditCommand extends Command {
      */
     public static class EditShowDescriptor {
         private Name name;
+        private String type;
         private Date dateOfRelease;
         private IsWatched isWatched;
         private Description description;
         private RunningTime runningTime;
-        private Set<Actor> actors = new HashSet<>();
+        private Set<Actor> actors;
 
         public EditShowDescriptor() {}
 
@@ -147,6 +148,7 @@ public class EditCommand extends Command {
          */
         public EditShowDescriptor(EditShowDescriptor toCopy) {
             setName(toCopy.name);
+            setType(toCopy.type);
             setDateOfRelease(toCopy.dateOfRelease);
             setIsWatched(toCopy.isWatched);
             setDescription(toCopy.description);
@@ -167,6 +169,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public Optional<String> getType() {
+            return Optional.ofNullable(type);
         }
 
         public void setDateOfRelease(Date dateOfRelease) {
@@ -234,6 +244,7 @@ public class EditCommand extends Command {
             EditShowDescriptor e = (EditShowDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getType().equals(e.getType())
                     && getDateOfRelease().equals(e.getDateOfRelease())
                     && getIsWatched().equals(e.getIsWatched())
                     && getDescription().equals(e.getDescription())

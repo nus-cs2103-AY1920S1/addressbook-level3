@@ -5,6 +5,7 @@ import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFa
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +25,11 @@ public class SearchCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         SearchCommand expectedSearchCommand =
-                new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedSearchCommand);
+                new SearchCommand(Optional.of("Alice"));
+        assertParseSuccess(parser, "Alice", expectedSearchCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedSearchCommand);
+        assertParseSuccess(parser, " \n Alice \n", expectedSearchCommand);
     }
 
 }

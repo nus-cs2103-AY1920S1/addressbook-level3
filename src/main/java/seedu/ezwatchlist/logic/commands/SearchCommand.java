@@ -2,6 +2,8 @@ package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.ezwatchlist.api.ApiMain;
+import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
@@ -51,32 +53,36 @@ public class SearchCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        List<Show> searchResult = new ArrayList<>();
-        //ReadOnlyWatchList watchlist = model.getWatchList();
+        //try {
+            List<Show> searchResult = new ArrayList<>();
 
-        if (!name.equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
-            List<Show> filteredShowList = model.getShowIfSameNameAs(name);
-            for (Show show : filteredShowList) {
-                searchResult.add(show);
+            if (!name.equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
+                List<Show> filteredShowList = model.getShowIfSameNameAs(name);
+                for (Show show : filteredShowList) {
+                    searchResult.add(show);
+                }
             }
-        }
 
-        /*if (!name.equals("")) {
-            List<Movie> movies = new ApiMain().getMovieByName(name);
-            List<TvShow> tvShows = new ApiMain().getTvShowByName(name);
-            for (Movie movie : movies) {
-                searchResult.add(movie);
-            }
-            for(TvShow tvShow : tvShows) {
-                searchResult.add(tvShow);
-            }
-        }*/
+            /*if (!name.equals("")) {
+                List<Movie> movies = new ApiMain().getMovieByName(name);
+                List<TvShow> tvShows = new ApiMain().getTvShowByName(name);
+                for (Movie movie : movies) {
+                    searchResult.add(movie);
+                }
+                for(TvShow tvShow : tvShows) {
+                    searchResult.add(tvShow);
+                }
+            }*/
 
-        model.updateSearchResultList(searchResult);
+            model.updateSearchResultList(searchResult);
 
-        return new CommandResult(
-                String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getSearchResultList().size()));
+            return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getSearchResultList().size()));
+        //} catch (OnlineConnectionException e) {
+            //return null;
+            //to be added
+        //}
     }
+
 
     @Override
     public boolean equals(Object other) {

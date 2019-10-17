@@ -27,7 +27,7 @@ EzWatchList is for those who *prefer to use a desktop app for managing movies an
 .  Copy the file to the folder you want to use as the home folder for your watchlist.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::RealUI.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -58,7 +58,7 @@ The watchlist is the default page that is opened upon start-up of ezwatchlist. I
 * Progress bar showing number of episodes watched (For TV series)
 * Checkbox to indicate if the show has been watched
 
-image::watchlist_page.png[width="790"]
+image::RealUI.png[width="790"]
 
 
 ==== Watched List

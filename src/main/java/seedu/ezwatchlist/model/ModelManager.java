@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final WatchList watchList;
+    private final FilteredList<Show> watchedList;
     private final UserPrefs userPrefs;
     private final FilteredList<Show> filteredShows;
     private final WatchList searchResult = new WatchList();
@@ -41,6 +42,9 @@ public class ModelManager implements Model {
         this.watchList = new WatchList(watchList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredShows = new FilteredList<>(this.watchList.getShowList());
+
+        watchedList = new FilteredList<>(this.watchList.getShowList());
+        updateWatchedShowList();
     }
 
     public ModelManager() {
@@ -144,6 +148,20 @@ public class ModelManager implements Model {
     public void updateFilteredShowList(Predicate<Show> predicate) {
         requireNonNull(predicate);
         filteredShows.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the watched list of {@code Show} backed by the internal list of
+     * {@code versionedWatchList}
+     */
+    @Override
+    public ObservableList<Show> getWatchedShowList() {
+        return watchedList;
+    }
+
+    @Override
+    public void updateWatchedShowList() {
+        watchedList.setPredicate(show -> show.isWatched().value);
     }
 
     @Override
