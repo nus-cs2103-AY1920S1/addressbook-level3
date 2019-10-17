@@ -20,6 +20,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -193,10 +194,8 @@ public class MainWindow extends UiPart<Stage> {
      * Switch the window to the {@code Tab} specified.
      */
     private void handleTabSwitch(Tab tabInput) throws IOException, CommandException {
-        String tabUrl = null;
-        tabUrl = tabInput.getUrl();
+        String tabUrl = tabInput.getUrl();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/" + tabUrl));
-
         loader.setController(tabInput.getController());
         VBox newPane = loader.load();
         mainWindow.getChildren().clear();

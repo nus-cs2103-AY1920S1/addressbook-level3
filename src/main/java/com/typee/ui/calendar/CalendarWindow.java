@@ -1,12 +1,14 @@
 package com.typee.ui.calendar;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
+import com.typee.model.engagement.Engagement;
 import com.typee.ui.UiPart;
 
 import javafx.fxml.FXML;
@@ -36,6 +38,7 @@ public class CalendarWindow extends UiPart<Region> {
     @FXML
     private Text calendarTitle;
 
+    private List<Engagement> engagementList;
     private List<StackPane> allCalendarDays;
     private YearMonth currentDisplayedYearMonth;
 
@@ -52,6 +55,7 @@ public class CalendarWindow extends UiPart<Region> {
     @FXML
     public void initialize() {
         allCalendarDays = new ArrayList<>();
+        this.engagementList = new ArrayList<>();
         currentDisplayedYearMonth = YearMonth.now();
         initializeDateDisplayGrid();
         populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
@@ -82,11 +86,20 @@ public class CalendarWindow extends UiPart<Region> {
         }
         for (StackPane individualDateStackPane : allCalendarDays) {
             if (individualDateStackPane.getChildren().size() > 0) {
-                individualDateStackPane.getChildren().remove(0);
+                individualDateStackPane.getChildren().clear();
             }
             Text dateText = new Text(calendarDate.getDayOfMonth() + "");
             StackPane.setAlignment(dateText, Pos.TOP_LEFT);
             individualDateStackPane.getChildren().add(dateText);
+            for (Engagement engagement : engagementList) {
+                LocalDateTime startDateTime = engagement.getStartTime();
+                if (startDateTime.getDayOfMonth() == calendarDate.getDayOfMonth()
+                        && startDateTime.getMonth().equals(calendarDate.getMonth())) {
+                    Text appointmentDescription = new Text(engagement.getDescription());
+                    StackPane.setAlignment(appointmentDescription, Pos.BASELINE_CENTER);
+                    individualDateStackPane.getChildren().add(appointmentDescription);
+                }
+            }
             calendarDate = calendarDate.plusDays(1);
         }
         calendarTitle.setText(currentDisplayedYearMonth.getMonth().toString() + " "
