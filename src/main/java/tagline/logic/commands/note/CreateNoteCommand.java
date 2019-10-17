@@ -21,8 +21,8 @@ public class CreateNoteCommand extends NoteCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD + ": Creates a new note.\n"
             + "Parameters: "
-            + PREFIX_TITLE + "TITLE "
             + PREFIX_CONTENT + "CONTENT "
+            + "[" + PREFIX_TITLE + "TITLE] "
             + "[" + PREFIX_TAG + "TAG...]\n"
             + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " "
             + PREFIX_TITLE + "CS2103T TP "

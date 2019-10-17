@@ -14,7 +14,8 @@ public class Content {
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
-     */
+    */
+    public static final String VALIDATION_REGEX = "(?s)[^\\s].*";
 
     public final String value;
 
@@ -33,7 +34,7 @@ public class Content {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidContent(String test) {
-        return true; //test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

@@ -92,10 +92,6 @@ public class TypicalNotes {
             .withTitle(TITLE_EARTH)
             .withContent(CONTENT_EARTH).withTimeCreated(TIMECREATED_EARTH)
             .withTimeLastUpdated(TIMELASTUPDATED_EARTH).build();
-    //public static final Note HOON = new NoteBuilder().withName("Hoon Meier").withPhone("8482424")
-    //        .withEmail("stefan@example.com").withAddress("little india").build();
-    //public static final Note IDA = new NoteBuilder().withName("Ida Mueller").withPhone("8482131")
-    //        .withEmail("hans@example.com").withAddress("chicago ave").build();
 
     // Manually added - Note's details found in {@code NoteCommandTestUtil}
     public static final Note PROTECTOR = new NoteBuilder().withNoteId(VALID_NOTEID_PROTECTOR)

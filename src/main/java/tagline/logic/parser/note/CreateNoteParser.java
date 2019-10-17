@@ -34,13 +34,13 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
     public CreateNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty() || !arePrefixesPresent(argMultimap, PREFIX_CONTENT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateNoteCommand.MESSAGE_USAGE));
         }
 
         NoteId noteId = new NoteId();
         Title title = new Title(argMultimap.getValue(PREFIX_TITLE).orElse(""));
-        Content content = new Content(argMultimap.getValue(PREFIX_CONTENT).orElse(""));
+        Content content = NoteParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
         TimeCreated timeCreated = new TimeCreated();
         TimeLastEdited timeLastEdited = new TimeLastEdited(timeCreated.getTime());
         Set<Tag> tags = new HashSet<>(); /* TO UPDATE TAG PARSING WHEN TAG IMPLEMENTED */

@@ -3,6 +3,7 @@ package tagline.logic.parser.note;
 import static java.util.Objects.requireNonNull;
 
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.model.note.Content;
 import tagline.model.note.NoteId;
 
 /**
@@ -40,5 +41,20 @@ public class NoteParserUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Parses a {@code String content} into an {@code Content}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code content} is invalid.
+     */
+    public static Content parseContent(String content) throws ParseException {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Content.MESSAGE_CONSTRAINTS);
+        }
+        return new Content(trimmedContent);
     }
 }
