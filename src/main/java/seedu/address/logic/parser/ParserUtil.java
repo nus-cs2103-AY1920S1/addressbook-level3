@@ -261,5 +261,4 @@ public class ParserUtil {
         }
         return new Week(trimmedWeek);
     }
-
 }
