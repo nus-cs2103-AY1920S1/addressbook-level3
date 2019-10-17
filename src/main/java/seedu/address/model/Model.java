@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
@@ -38,6 +39,16 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' User settings.
+     */
+    UserSettings getUserSettings();
+
+    /**
+     * Sets the user prefs' User settings.
+     */
+    void setUserSettings(UserSettings userSettings);
 
     // ================================================================ Catalog
 
@@ -142,4 +153,5 @@ public interface Model {
     void exitsServeMode();
 
     public List<Book> getBorrowerBooks();
+
 }
