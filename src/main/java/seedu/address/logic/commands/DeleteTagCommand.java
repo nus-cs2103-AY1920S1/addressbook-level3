@@ -90,6 +90,9 @@ public class DeleteTagCommand extends Command {
         return new CommandResult(generateSuccessMessage(editedPerson, tagsRemoved));
     }
 
+    /**
+     * Parses {@code personToEdit} and {@code tagsRemoved} and returns a {@code String}.
+     */
     private String generateSuccessMessage(Person personToEdit, boolean tagsRemoved) {
         if (tagsRemoved) {
             return String.format(MESSAGE_DELETE_TAG_SUCCESS, personToEdit);
