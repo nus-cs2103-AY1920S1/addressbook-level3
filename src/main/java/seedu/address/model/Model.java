@@ -7,18 +7,22 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
+    Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -54,7 +58,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -90,6 +96,7 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
+<<<<<<< HEAD
      * Returns true if a file with the same identity as {@code file} exists in the file book.
      */
     boolean hasFile(EncryptedFile file);
@@ -113,11 +120,14 @@ public interface Model {
      */
     void setFile(EncryptedFile target, EncryptedFile editedFile);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered person list
+     *
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -175,4 +185,56 @@ public interface Model {
      */
     void updateFilteredCardList(Predicate<Card> predicate);
 
+    // NOTE
+
+    /**
+     * Returns the NoteBook
+     */
+    ReadOnlyNoteBook getNoteBook();
+
+    /**
+     * Replaces note book data with the data in {@code noteBook}.
+     */
+    void setNoteBook(ReadOnlyNoteBook noteBook);
+
+    /**
+     * Returns true if a note with the same identity as {@code note} exists in the note book.
+     */
+    boolean hasNote(Note note);
+
+    /**
+     * Deletes the given note.
+     * The note must exist in the Note book.
+     */
+    void deleteNote(Note target);
+
+    /**
+     * Updates the given note.
+     * The note must exist in the Note book.
+     */
+
+    void addNote(Note note);
+
+    /**
+     * Replaces the given note {@code target} with {@code editedNote}.
+     * {@code target} must exist in the address book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the note book.
+     */
+    void setNote(Note target, Note editedNote);
+
+    /**
+     * Returns an unmodifiable view of the filtered note list
+     */
+    ObservableList<Note> getFilteredNoteList();
+
+    /**
+     * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredNoteList(Predicate<Note> predicate);
+
+    public Path getNoteBookFilePath();
+
+    public void setNoteBookFilePath(Path noteBookFilePath);
 }

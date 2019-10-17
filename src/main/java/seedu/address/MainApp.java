@@ -21,8 +21,10 @@ import seedu.address.model.CardBook;
 import seedu.address.model.FileBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
+import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
@@ -32,7 +34,9 @@ import seedu.address.storage.FileBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCardBookStorage;
 import seedu.address.storage.JsonFileBookStorage;
+import seedu.address.storage.JsonNoteBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.NoteBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TestStorage;
@@ -62,6 +66,7 @@ public class MainApp extends Application {
 
     /**
      * Initialises SecureIT app with the given password.
+     *
      * @param password the master password used to encrypt data.
      */
     private void initWithPassword(String password) {
@@ -77,7 +82,9 @@ public class MainApp extends Application {
                 new JsonFileBookStorage(userPrefs.getFileBookFilePath(), password);
         CardBookStorage cardBookStorage =
                 new JsonCardBookStorage(userPrefs.getCardBookFilePath(), password);
-        storage = new StorageManager(addressBookStorage, fileBookStorage, cardBookStorage, userPrefsStorage, password);
+        NoteBookStorage noteBookStorage = new JsonNoteBookStorage(userPrefs.getNoteBookFilePath(), password);
+        storage = new StorageManager(addressBookStorage, fileBookStorage, cardBookStorage, noteBookStorage,
+                userPrefsStorage, password);
 
         initLogging(config);
 
@@ -94,24 +101,29 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook initialAddressData;
+
+
         try {
             addressBookOptional = storage.readAddressBook();
+
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty file");
+            initialAddressData = new AddressBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty file");
+            initialAddressData = new AddressBook();
         }
 
         ReadOnlyFileBook initialDataFile = initFileBook(storage);
-        return new ModelManager(initialData, initialDataFile, new CardBook(), userPrefs);
+        ReadOnlyNoteBook initialNoteData = initNoteBook(storage);
+        return new ModelManager(initialAddressData, initialDataFile, new CardBook(), initialNoteData, userPrefs);
     }
 
     /**
@@ -135,6 +147,31 @@ public class MainApp extends Application {
         }
         return initialFileData;
     }
+
+    /**
+     * Initializes a ReadOnlyNoteBook.
+     * @param storage storage object used for application.
+     * @return ReadOnlyNoteBook from storage object if present, else a new ReadOnlyNoteBook.
+     */
+    private ReadOnlyNoteBook initNoteBook(Storage storage) {
+        Optional<ReadOnlyNoteBook> noteBookOptional;
+        ReadOnlyNoteBook initialNoteData;
+        try {
+            noteBookOptional = storage.readNoteBook();
+            if (!noteBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            initialNoteData = noteBookOptional.orElseGet(SampleDataUtil::getSampleNoteBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty file");
+            initialNoteData = new NoteBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty file");
+            initialNoteData = new NoteBook();
+        }
+        return initialNoteData;
+    }
+
 
     private void initLogging(Config config) {
         LogsCenter.init(config);

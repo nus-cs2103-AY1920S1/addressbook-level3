@@ -34,8 +34,10 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private FileListPanel fileListPanel;
     private CardListPanel cardListPanel;
+    private NoteListPanel noteListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private EditObjectWindow editObjectWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -48,6 +50,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane cardListPanelPlaceholder;
+
+    @FXML
+    private StackPane noteListPanelPlaceholder;
+
+    @FXML
+    private StackPane objectListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -68,6 +76,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        editObjectWindow = new EditObjectWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -80,6 +89,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -113,7 +123,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         fillInnerPartsWithMode();
-
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        objectListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        fillInnerPartsWithMode();
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -131,15 +143,19 @@ public class MainWindow extends UiPart<Stage> {
         switch (logic.getMode()) {
         case "file":
             fileListPanel = new FileListPanel(logic.getFilteredFileList());
-            personListPanelPlaceholder.getChildren().add(fileListPanel.getRoot());
+            objectListPanelPlaceholder.getChildren().add(fileListPanel.getRoot());
             break;
         case "card":
             cardListPanel = new CardListPanel(logic.getFilteredCardList());
-            cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+            objectListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+            break;
+        case "note":
+            noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
+            objectListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
             break;
         default:
             personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            objectListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             break;
         }
     }
@@ -148,7 +164,8 @@ public class MainWindow extends UiPart<Stage> {
      * Handle UI changes on mode change.
      */
     void handleModeChange() {
-        personListPanelPlaceholder.getChildren().clear();
+
+        objectListPanelPlaceholder.getChildren().clear();
         fillInnerPartsWithMode();
     }
 
@@ -176,6 +193,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleShowWindow() {
+        if (!editObjectWindow.isShowing()) {
+            editObjectWindow.show();
+        } else {
+            editObjectWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -196,6 +225,10 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public NoteListPanel getNoteListPanel() {
+        return noteListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -210,11 +243,9 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             if (commandResult.isGoTo()) {
                 switch (commandResult.getModeToGoTo()) {
                 case "password":
@@ -235,7 +266,15 @@ public class MainWindow extends UiPart<Stage> {
                 }
                 handleModeChange();
             }
-
+            if (commandResult.isShowWindow()) {
+                //TODO optimise this
+                String[] tempFeedBack = commandResult.getFeedbackToUser().split("//");
+                editObjectWindow.setTitle(tempFeedBack[0]);
+                editObjectWindow.setContent(tempFeedBack[1]);
+                editObjectWindow.setLogic(logic);
+                editObjectWindow.setIndex(tempFeedBack[2]);
+                handleShowWindow();
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

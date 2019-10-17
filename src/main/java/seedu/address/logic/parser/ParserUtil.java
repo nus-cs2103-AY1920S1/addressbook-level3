@@ -15,6 +15,8 @@ import seedu.address.model.card.Cvc;
 import seedu.address.model.card.Description;
 import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -107,13 +109,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Description parseDescription(String description) throws ParseException {
+    public static seedu.address.model.card.Description parseCardDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if (!Description.isValidDescription(trimmedDescription)) {
+        if (!seedu.address.model.card.Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Description(trimmedDescription);
+        return new seedu.address.model.card.Description(trimmedDescription);
     }
 
     /**
@@ -172,7 +174,6 @@ public class ParserUtil {
         }
         return tagSet;
     }
-
     /**
      * Parses a {@code String fullPath} into a {@code FileName}.
      * Leading and trailing whitespaces will be trimmed.
@@ -203,5 +204,49 @@ public class ParserUtil {
             throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
         }
         return new FilePath(filePath);
+    }
+    //Notes ====================================================================================================
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static seedu.address.model.note.Description parseNoteDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!seedu.address.model.note.Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.note.Description(trimmedDescription);
+    }
+    /**
+     * Parses a {@code String content} into a {@code Content}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code content} is invalid.
+     */
+    public static Content parseContent(String content) throws ParseException {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Content(trimmedContent);
     }
 }

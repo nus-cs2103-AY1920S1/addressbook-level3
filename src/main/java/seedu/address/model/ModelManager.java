@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,35 +29,41 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<EncryptedFile> filteredFiles;
     private final FilteredList<Card> filteredCards;
+    private final NoteBook noteBook;
+    private final FilteredList<Note> filteredNotes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyFileBook fileBook,
-                        CardBook cardBook, ReadOnlyUserPrefs userPrefs) {
+                        CardBook cardBook, ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, fileBook, cardBook, userPrefs);
-
         logger.fine("Initializing with address book: " + addressBook
-                + "and file book: " + fileBook
-                + "and card book: " + cardBook
+                + " and file book: " + fileBook
+                + " and card book: " + cardBook
+                + " and note book: " + noteBook
                 + " and user prefs: " + userPrefs);
+
 
         this.addressBook = new AddressBook(addressBook);
         this.fileBook = new FileBook(fileBook);
         this.cardBook = new CardBook(cardBook);
+        this.noteBook = new NoteBook(noteBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredFiles = new FilteredList<>(this.fileBook.getFileList());
         filteredCards = new FilteredList<>(this.cardBook.getCardList());
+        filteredNotes = new FilteredList<>(this.noteBook.getNoteList());
+
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this(addressBook, new FileBook(), new CardBook(), userPrefs);
+        this(addressBook, new FileBook(), new CardBook(), new NoteBook(), userPrefs);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new FileBook(), new CardBook(), new UserPrefs());
+        this(new AddressBook(), new FileBook(), new CardBook(), new NoteBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -92,6 +99,17 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public Path getNoteBookFilePath() {
+        return userPrefs.getNoteBookFilePath();
+    }
+
+    @Override
+    public void setNoteBookFilePath(Path noteBookFilePath) {
+        requireNonNull(noteBookFilePath);
+        userPrefs.setAddressBookFilePath(noteBookFilePath);
     }
 
     @Override
@@ -277,5 +295,56 @@ public class ModelManager implements Model {
                 && filteredFiles.equals(other.filteredFiles)
                 && filteredCards.equals(other.filteredCards);
     }
+
+    //=========== Notes =============================================================
+
+    @Override
+    public ReadOnlyNoteBook getNoteBook() {
+        return noteBook;
+    }
+
+    @Override
+    public void setNoteBook(ReadOnlyNoteBook noteBook) {
+        this.noteBook.resetData(noteBook);
+    }
+
+    @Override
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return noteBook.hasNote(note);
+    }
+
+    @Override
+    public void deleteNote(Note note) {
+        noteBook.removeNote(note);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        noteBook.addNote(note);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setNote(Note target, Note editedNote) {
+        requireAllNonNull(target, editedNote);
+        noteBook.setNote(target, editedNote);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return filteredNotes;
+    }
+
+    @Override
+    public void updateFilteredNoteList(Predicate<Note> predicate) {
+        requireNonNull(predicate);
+        filteredNotes.setPredicate(predicate);
+    }
+
 
 }

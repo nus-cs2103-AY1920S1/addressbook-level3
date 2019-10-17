@@ -36,7 +36,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }
 
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Description description = ParserUtil.parseCardDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         CardNumber cardNumber = ParserUtil.parseCardNumber(argMultimap.getValue(PREFIX_CARDNUMBER).get());
         Cvc cvc = ParserUtil.parseCvc(argMultimap.getValue(PREFIX_CVC).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
