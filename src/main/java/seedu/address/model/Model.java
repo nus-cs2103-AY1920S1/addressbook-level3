@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.person.Person;
@@ -120,7 +119,7 @@ public interface Model {
     /**
      * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
      */
-    void commitToHistory(EventList eventList);
+    void commitToHistory(NotNullList eventList);
 
     /**
      * Restores the previous event list state from UndoableHistory.
