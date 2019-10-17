@@ -225,8 +225,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setSemester(SemesterName semester) {
-        // TODO: setCurrentSemester in StudyPlan class
-        // this.modulePlanner.getActiveStudyPlan().setCurrentSemester(semester);
+        this.modulePlanner.setCurrentSemester(semester);
     }
 
     @Override

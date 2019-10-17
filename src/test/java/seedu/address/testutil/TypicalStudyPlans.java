@@ -34,9 +34,15 @@ public class TypicalStudyPlans {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
     private static ModulesInfo modulesInfo;
     // Typical study plans
-    public static final StudyPlan SP_1 = new StudyPlan(new Title("first study plan"), modulesInfo);
-    public static final StudyPlan SP_2 = new StudyPlan(new Title("second study plan"), modulesInfo);
-    public static final StudyPlan SP_3 = new StudyPlan(new Title("third study plan"), modulesInfo);
+
+    private static SemesterName typicalCurrentSemester = SemesterName.Y1S1;
+
+    public static final StudyPlan SP_1 = new StudyPlan(new Title("first study plan"), modulesInfo,
+            typicalCurrentSemester);
+    public static final StudyPlan SP_2 = new StudyPlan(new Title("second study plan"), modulesInfo,
+            typicalCurrentSemester);
+    public static final StudyPlan SP_3 = new StudyPlan(new Title("third study plan"), modulesInfo,
+            typicalCurrentSemester);
 
     {
         // TODO: pass in modulesInfo
