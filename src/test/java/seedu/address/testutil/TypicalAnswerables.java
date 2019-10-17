@@ -1,13 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_ALPHA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_UML;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +15,6 @@ import java.util.Set;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.answerable.Answer;
-import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Answerable;
 
 /**
@@ -25,36 +22,38 @@ import seedu.address.model.answerable.Answerable;
  */
 public class TypicalAnswerables {
     private static final Answer correctAnswer = new Answer("CORRECT");
-    private static final Set<Answer> correctAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
+    private static final Set<Answer> defaultCorrectAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
     private static final Answer wrongAnswer = new Answer("WRONG");
-    private static final Set<Answer> wrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
-    private static final AnswerSet defaultAnswerSet = new AnswerSet(correctAnswerSet, wrongAnswerSet);
+    private static final Set<Answer> defaultWrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
 
-    public static final Answerable A_ANSWERABLE = new AnswerableBuilder().withQuestion("Is this a Question?")
-            .withAnswerSet(defaultAnswerSet).withCategory("Category A").withDifficulty("1")
-            .withTags("easy").build();
+    public static final Answerable A_ANSWERABLE = new AnswerableBuilder().withQuestion("If a subclass imposes more "
+            + "restrictive conditions than its parent class, it violates Liskov Substitution Principle.")
+            .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet)
+            .withDifficulty("1").withCategories("LSP", "SOLID", "Week 9").build();
     public static final Answerable B_ANSWERABLE = new AnswerableBuilder().withQuestion("Brownfield or Greenfield?")
-            .withAnswerSet(defaultAnswerSet).withCategory("Requirements").withDifficulty("2")
-            .withTags("field", "introduction").build();
+            .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet)
+            .withDifficulty("1").withCategories("field", "introduction").build();
     public static final Answerable C_ANSWERABLE = new AnswerableBuilder().withQuestion("Carl Kurz").withDifficulty("1")
-            .withAnswerSet(defaultAnswerSet).withCategory("wall street").build();
+            .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet).build();
     public static final Answerable E_ANSWERABLE = new AnswerableBuilder().withQuestion("Elle Meyer").withDifficulty("1")
-            .withAnswerSet(defaultAnswerSet).withCategory("michegan ave").build();
+            .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet).build();
     public static final Answerable F_ANSWERABLE = new AnswerableBuilder().withQuestion("Fiona Kunz").withDifficulty("1")
-            .withAnswerSet(defaultAnswerSet).withCategory("little tokyo").build();
+            .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet).build();
 
     // Manually added
     public static final Answerable H_ANSWERABLE = new AnswerableBuilder().withQuestion("Hoon Meier").withDifficulty("1")
-            .withAnswerSet(defaultAnswerSet).withCategory("little india").build();
+            .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet).build();
     public static final Answerable I_ANSWERABLE = new AnswerableBuilder().withQuestion("Ida Mueller").withDifficulty("1")
-            .withAnswerSet(defaultAnswerSet).withCategory("chicago ave").build();
+            .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet).build();
 
     // Manually added - Answerable's details found in {@code CommandTestUtil}
-    public static final Answerable ALPHA = new AnswerableBuilder().withQuestion(VALID_QUESTION_AMY).withDifficulty(VALID_DIFFICULTY_AMY)
-            .withAnswerSet(defaultAnswerSet).withCategory(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Answerable BETA = new AnswerableBuilder().withQuestion(VALID_QUESTION_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
-            .withAnswerSet(defaultAnswerSet).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .build();
+    public static final Answerable ALPHA = new AnswerableBuilder().withQuestion(VALID_QUESTION_ALPHA)
+            .withDifficulty(VALID_DIFFICULTY_ALPHA) .withCorrectAnswerSet(defaultCorrectAnswerSet)
+            .withWrongAnswerSet(defaultWrongAnswerSet).withCategories(VALID_CATEGORY_UML).build();
+    public static final Answerable BETA = new AnswerableBuilder().withQuestion(VALID_QUESTION_BETA)
+            .withDifficulty(VALID_DIFFICULTY_BETA).withCorrectAnswerSet(defaultCorrectAnswerSet)
+            .withWrongAnswerSet(defaultWrongAnswerSet)
+            .withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

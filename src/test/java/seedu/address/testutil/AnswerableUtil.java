@@ -4,7 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.Set;
@@ -12,8 +12,8 @@ import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.answerable.Answer;
-import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Answerable;
+import seedu.address.model.category.Category;
 
 /**
  * A utility class for Answerable.
@@ -36,15 +36,14 @@ public class AnswerableUtil {
         sb.append(PREFIX_QUESTION_TYPE + "mcq" + " ");
         sb.append(PREFIX_QUESTION + answerable.getQuestion().fullQuestion + " ");
         sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().value + " ");
-        sb.append(PREFIX_CATEGORY + answerable.getCategory().value + " ");
-        answerable.getAnswerSet().getCorrectAnswerSet().stream().forEach(
+        answerable.getCorrectAnswerSet().stream().forEach(
             s -> sb.append(PREFIX_CORRECT + s.answer + " ")
         );
-        answerable.getAnswerSet().getWrongAnswerSet().stream().forEach(
+        answerable.getWrongAnswerSet().stream().forEach(
                 s -> sb.append(PREFIX_WRONG + s.answer + " ")
         );
-        answerable.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        answerable.getCategories().stream().forEach(
+            s -> sb.append(PREFIX_CATEGORY + s.categoryName+ " ")
         );
         return sb.toString();
     }
@@ -56,21 +55,29 @@ public class AnswerableUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION).append(question.fullQuestion).append(" "));
         descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY).append(difficulty.value).append(" "));
-        descriptor.getCategory().ifPresent(address -> sb.append(PREFIX_CATEGORY).append(address.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
+        if (descriptor.getCategories().isPresent()) {
+            Set<Category> tags = descriptor.getCategories().get();
             if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG + " ");
+                sb.append(PREFIX_CATEGORY + " ");
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
             }
         }
-        if (descriptor.getAnswerSet().isPresent()) {
-            AnswerSet answerSet = descriptor.getAnswerSet().get();
-            Set<Answer> correctAnswerSet = answerSet.getCorrectAnswerSet();
-            Set<Answer> wrongAnswerSet = answerSet.getWrongAnswerSet();
-            correctAnswerSet.forEach( s -> sb.append(PREFIX_CORRECT + s.answer + " "));
-            wrongAnswerSet.forEach( s -> sb.append(PREFIX_WRONG + s.answer + " "));
+        if (descriptor.getCorrectAnswerSet().isPresent()) {
+            Set<Answer> correctAnswerSet = descriptor.getCorrectAnswerSet().get();
+            if (correctAnswerSet.isEmpty()) {
+                sb.append(PREFIX_CORRECT + " ");
+            } else {
+                correctAnswerSet.forEach( s -> sb.append(PREFIX_CORRECT + s.answer + " "));
+            }
+        }
+        if (descriptor.getWrongAnswerSet().isPresent()) {
+            Set<Answer> wrongAnswerSet = descriptor.getWrongAnswerSet().get();
+            if (wrongAnswerSet.isEmpty()) {
+                sb.append(PREFIX_WRONG + " ");
+            } else {
+                wrongAnswerSet.forEach( s -> sb.append(PREFIX_WRONG + s.answer + " "));
+            }
         }
         return sb.toString();
     }

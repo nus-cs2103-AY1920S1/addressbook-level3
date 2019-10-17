@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRONG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -22,7 +21,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.answerable.Answer;
-import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.testutil.EditAnswerableDescriptorBuilder;
@@ -32,53 +30,49 @@ import seedu.address.testutil.EditAnswerableDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_QUESTION_AMY = "Amy Bee";
-    public static final String VALID_QUESTION_BOB = "Bob Choo";
+    public static final String VALID_QUESTION_ALPHA = "Amy Bee";
+    public static final String VALID_QUESTION_BETA = "Bob Choo";
     public static final String VALID_QUESTION_TYPE = "mcq";
-    public static final String VALID_DIFFICULTY_AMY = "1";
-    public static final String VALID_DIFFICULTY_BOB = "2";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_DIFFICULTY_ALPHA = "1";
+    public static final String VALID_DIFFICULTY_BETA = "3";
+    public static final String VALID_CATEGORY_ALPHA = "Block 312, Amy Street 1";
+    public static final String VALID_CATEGORY_BETA = "Block 123, Bobby Street 3";
+    public static final String VALID_CATEGORY_GREENFIELD = "greenfield";
+    public static final String VALID_CATEGORY_UML = "UML";
 
     public static final String QUESTION_TYPE_MCQ = " " + PREFIX_QUESTION_TYPE + "mcq";
-    public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_AMY;
-    public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_BOB;
+    public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_ALPHA;
+    public static final String QUESTION_DESC_BETA = " " + PREFIX_QUESTION + VALID_QUESTION_BETA;
     public static final String CORRECT_ANSWER_DESC = " " + PREFIX_CORRECT + "CORRECT";
     public static final String WRONG_ANSWER_DESC = " " + PREFIX_WRONG + "WRONG";
     public static final String QUESTION_TYPE_DESC = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE;
-    public static final String DIFFICULTY_DESC_AMY = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_AMY;
-    public static final String DIFFICULTY_DESC_BOB = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_BOB;
-    public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_ADDRESS_AMY;
-    public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String DIFFICULTY_DESC_ALPHA = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_ALPHA;
+    public static final String DIFFICULTY_DESC_BETA = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_BETA;
+    public static final String CATEGORY_DESC_UML = " " + PREFIX_CATEGORY + VALID_CATEGORY_UML;
+    public static final String CATEGORY_DESC_GREENFIELD = " " + PREFIX_CATEGORY + VALID_CATEGORY_GREENFIELD;
 
-    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + " "; // empty string not allowed for questions
+    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + ""; // empty string not allowed for questions
     public static final String INVALID_DIFFICULTY_DESC = " " + PREFIX_DIFFICULTY + "911a"; // 'a' not allowed in difficulty
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_CATEGORY; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + ""; // category cannot just be whitespace
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditAnswerableDescriptor DESC_AMY;
-    public static final EditCommand.EditAnswerableDescriptor DESC_BOB;
+    public static final EditCommand.EditAnswerableDescriptor DESC_ALPHA;
+    public static final EditCommand.EditAnswerableDescriptor DESC_BETA;
 
     private static final Answer correctAnswer = new Answer("CORRECT");
-    private static final Set<Answer> correctAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
+    private static final Set<Answer> defaultCorrectAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
     private static final Answer wrongAnswer = new Answer("WRONG");
-    private static final Set<Answer> wrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
-    private static final AnswerSet defaultAnswerSet = new AnswerSet(correctAnswerSet, wrongAnswerSet);
+    private static final Set<Answer> defaultWrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
 
     static {
-        DESC_AMY = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withAnswerSet(defaultAnswerSet).withDifficulty(VALID_DIFFICULTY_AMY).withCategory(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BOB)
-                .withAnswerSet(defaultAnswerSet).withDifficulty(VALID_DIFFICULTY_BOB).withCategory(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_ALPHA = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_ALPHA)
+                .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet)
+                .withDifficulty(VALID_DIFFICULTY_ALPHA).withCategories(VALID_CATEGORY_UML).build();
+        DESC_BETA = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA)
+                .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet)
+                .withDifficulty(VALID_DIFFICULTY_BETA).withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();
     }
 
     /**

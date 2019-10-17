@@ -2,6 +2,7 @@ package seedu.address.model.answerable;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,17 +19,19 @@ public abstract class Answerable {
     private final Question question;
     private final Difficulty difficulty;
 
-    // Data fields
-    private final AnswerSet answerSet;
+    private final Set<Answer> correctAnswerSet;
+    private final Set<Answer> wrongAnswerSet;
     private final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Answerable(Question question, AnswerSet answerSet, Difficulty difficulty, Set<Category> categories) {
+    public Answerable(Question question, Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet,
+              Difficulty difficulty, Set<Category> categories) {
         requireAllNonNull(question, difficulty, categories);
         this.question = question;
-        this.answerSet = answerSet;
+        this.correctAnswerSet = correctAnswerSet;
+        this.wrongAnswerSet = wrongAnswerSet;
         this.difficulty = difficulty;
         this.categories.addAll(categories);
     }
@@ -37,8 +40,12 @@ public abstract class Answerable {
         return question;
     }
 
-    public AnswerSet getAnswerSet() {
-        return answerSet;
+    public Set<Answer> getCorrectAnswerSet() {
+        return correctAnswerSet;
+    }
+
+    public Set<Answer> getWrongAnswerSet() {
+        return wrongAnswerSet;
     }
 
     public Difficulty getDifficulty() {
@@ -61,7 +68,8 @@ public abstract class Answerable {
 
         return otherAnswerable != null
                 && otherAnswerable.getQuestion().equals(getQuestion())
-                && otherAnswerable.getAnswerSet().equals(getAnswerSet())
+                && otherAnswerable.getCorrectAnswerSet().equals(getCorrectAnswerSet())
+                && otherAnswerable.getWrongAnswerSet().equals(getWrongAnswerSet())
                 && otherAnswerable.getDifficulty().equals(getDifficulty());
     }
 
@@ -81,7 +89,8 @@ public abstract class Answerable {
 
         Answerable otherAnswerable = (Answerable) other;
         return otherAnswerable.getQuestion().equals(getQuestion())
-                && otherAnswerable.getAnswerSet().equals(getAnswerSet())
+                && otherAnswerable.getCorrectAnswerSet().equals(getCorrectAnswerSet())
+                && otherAnswerable.getWrongAnswerSet().equals(getWrongAnswerSet())
                 && otherAnswerable.getDifficulty().equals(getDifficulty())
                 && otherAnswerable.getCategories().equals(getCategories());
     }
@@ -89,7 +98,7 @@ public abstract class Answerable {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answerSet, difficulty, categories);
+        return Objects.hash(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
     }
 
     @Override
@@ -98,7 +107,8 @@ public abstract class Answerable {
         builder.append("Question: ")
                 .append(getQuestion())
                 .append(" Answers: ")
-                .append(getAnswerSet())
+                .append("Correct Answers: " + getCorrectAnswerSet())
+                .append("Wrong Answers: " + getWrongAnswerSet())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
                 .append(" Categories: ");

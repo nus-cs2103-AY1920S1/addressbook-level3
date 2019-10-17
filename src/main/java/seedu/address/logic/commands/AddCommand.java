@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -21,14 +20,12 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_DIFFICULTY + "DIFFICULTY "
-            + PREFIX_CATEGORY + "CATEGORY "
-            + "[" + PREFIX_TAG + "category]...\n"
+            + "[" + PREFIX_CATEGORY + "category]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "Which of the following is a valid sequence diagram? "
             + PREFIX_DIFFICULTY + "3 "
             + PREFIX_CATEGORY + "UML "
-            + PREFIX_TAG + "UML "
-            + PREFIX_TAG + "graphical";
+            + PREFIX_CATEGORY + "graphical";
 
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";
     public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This question already exists in the test bank";

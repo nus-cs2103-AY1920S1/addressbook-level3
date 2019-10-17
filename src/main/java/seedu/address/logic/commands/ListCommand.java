@@ -32,17 +32,23 @@ public class ListCommand extends Command {
             + PREFIX_CATEGORY + "UML "
             + PREFIX_DIFFICULTY + "2 ";
 
-
     public static final String MESSAGE_SUCCESS = "Listed all answerables";
 
-    private final CategoryPredicate categoryPredicate;
-    private final DifficultyPredicate difficultyPredicate;
+    private CategoryPredicate categoryPredicate;
+    private DifficultyPredicate difficultyPredicate;
 
     public ListCommand(CategoryPredicate categoryPredicate, DifficultyPredicate difficultyPredicate) {
         this.categoryPredicate = categoryPredicate;
         this.difficultyPredicate = difficultyPredicate;
     }
 
+    public ListCommand(CategoryPredicate categoryPredicate) {
+        this.categoryPredicate = categoryPredicate;
+    }
+
+    public ListCommand(DifficultyPredicate difficultyPredicate) {
+        this.difficultyPredicate = difficultyPredicate;
+    }
 
     @Override
     public CommandResult execute(Model model) {

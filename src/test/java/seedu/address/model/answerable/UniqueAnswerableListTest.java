@@ -3,8 +3,7 @@ package seedu.address.model.answerable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAnswerables.A_ANSWERABLE;
 import static seedu.address.testutil.TypicalAnswerables.BETA;
@@ -42,7 +41,7 @@ public class UniqueAnswerableListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueAnswerableList.add(A_ANSWERABLE);
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
         assertTrue(uniqueAnswerableList.contains(editedAlice));
     }
@@ -85,7 +84,7 @@ public class UniqueAnswerableListTest {
     @Test
     public void setAnswerable_editedAnswerableHasSameIdentity_success() {
         uniqueAnswerableList.add(A_ANSWERABLE);
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
         uniqueAnswerableList.setAnswerable(A_ANSWERABLE, editedAlice);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();

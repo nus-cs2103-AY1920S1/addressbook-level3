@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.Set;
@@ -18,7 +17,6 @@ import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Mcq;
-import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
 import seedu.address.model.category.Category;
 
@@ -35,7 +33,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_QUESTION_TYPE, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG,
-                PREFIX_DIFFICULTY, PREFIX_CATEGORY, PREFIX_TAG);
+                PREFIX_DIFFICULTY, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG, PREFIX_CATEGORY,
                 PREFIX_DIFFICULTY) || !argMultimap.getPreamble().isEmpty()) {
@@ -47,19 +45,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Answer> correctAnswerSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
         Set<Answer> wrongAnswerSetSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
         Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
-        Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
+        Set<Category> categories = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         Answerable answerable;
 
         switch (questionType.getType()) {
         case "mcq":
-            AnswerSet mcqAnswers = new AnswerSet(correctAnswerSet, wrongAnswerSetSet);
-            answerable = new Mcq(question, mcqAnswers, difficulty, categoryList);
+            answerable = new Mcq(question, correctAnswerSet, wrongAnswerSetSet, difficulty, categories);
             return new AddCommand(answerable);
 //        case "saq":
 //            //TODO: Implement Saq
-//            AnswerSet saqAnswers = new AnswerSet(); //stub
-//            answerable = new Saq(question, saqAnswers, difficulty, category, tagList);
+//            answerable = new Saq(question, correctAnsweSet, difficulty, category, tagList);
 //            return new AddCommand(answerable);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
