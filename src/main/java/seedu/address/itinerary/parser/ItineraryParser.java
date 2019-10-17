@@ -1,15 +1,12 @@
 package seedu.address.itinerary.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-import seedu.address.itinerary.commands.Command;
-import seedu.address.itinerary.commands.ExitCommand;
-import seedu.address.itinerary.commands.GoToCommand;
+import seedu.address.itinerary.commands.*;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -39,8 +36,14 @@ public class ItineraryParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+            case AddEventCommand.COMMAND_WORD:
+                return new AddEventCommandParser().parse(arguments);
+
+            case DeleteEventCommand.COMMAND_WORD:
+                return new DeleteEventCommandParser().parse(arguments);
+
             case GoToCommand.COMMAND_WORD:
-                new GoToParser().parse(arguments);
+                return new GoToParser().parse(arguments);
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();

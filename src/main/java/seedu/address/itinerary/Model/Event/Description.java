@@ -5,18 +5,18 @@ package seedu.address.itinerary.model.Event;
  */
 public class Description {
     public static final String MESSAGE_CONSTRAINTS =
-            "Description of an event should not contain any special characters and should be "
-                + "less than 100 characters.";
+            "We all know that you love typing on the CLI but the description of an event "
+            + "should not contain any special characters and should be less than 100 characters.";
 
     /*
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = ".*";
-    public final String value;
+    public static final String VALIDATION_REGEX = "(.{0,100})";
+    public final String desc;
 
     public Description(String desc) {
-        this.value = desc;
+        this.desc = desc;
     }
 
     /**
@@ -28,6 +28,6 @@ public class Description {
 
     @Override
     public String toString() {
-        return value;
+        return desc;
     }
 }

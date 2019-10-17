@@ -16,4 +16,13 @@ public class Itinerary {
     public ObservableList<Event> getEventList() {
         return eventList.asUnmodifiableObservableList();
     }
+
+    public void addEvent(Event event) {
+        eventList.addEvent(event);
+        System.out.println(eventList.getSize());
+    }
+
+    public void deleteEvent(int index) {
+        eventList.deleteEvent(index);
+    }
 }

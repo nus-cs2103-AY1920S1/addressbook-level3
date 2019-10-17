@@ -2,10 +2,15 @@ package seedu.address.itinerary.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.itinerary.model.Event.Event;
 import seedu.address.ui.UiPart;
+
+import java.io.InputStream;
+
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -28,13 +33,16 @@ public class EventCard extends UiPart<Region> {
     private HBox cardPane;
 
     @FXML
+    private ImageView checkBox;
+
+    @FXML
     private Label id;
 
     @FXML
     private Label title;
 
     @FXML
-    private Label location;
+    private Label loc;
 
     @FXML
     private Label desc;
@@ -47,8 +55,8 @@ public class EventCard extends UiPart<Region> {
         this.event = event;
         id.setText(displayedIndex + ". ");
         title.setText(event.getTitle().title);
-        desc.setText(event.getDesc().value);
-        location.setText(event.getLocation().location);
+        desc.setText(event.getDesc().desc);
+        loc.setText(event.getLocation().location);
         time.setText(event.getTime().time);
     }
 
