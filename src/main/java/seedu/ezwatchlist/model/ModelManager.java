@@ -149,7 +149,7 @@ public class ModelManager implements Model {
     @Override
     public void updateSearchResultList(List<Show> shows) {
         searchResult.setShows(shows);
-        //updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
+        updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
     }
 
     public ObservableList<Show> getSearchResultList() {
