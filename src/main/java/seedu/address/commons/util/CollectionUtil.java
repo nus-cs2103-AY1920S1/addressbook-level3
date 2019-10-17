@@ -46,4 +46,20 @@ public class CollectionUtil {
         }
         return true;
     }
+
+    /**
+     * Returns a String representation of {@code items} with each element separated
+     * by a newline.
+     */
+    public static <E> String collectionToString(Collection<E> items) {
+        StringBuilder sb = new StringBuilder();
+        for (E item : items) {
+            sb.append(item.toString());
+            sb.append('\n');
+        }
+        if (sb.length() != 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
+    }
 }

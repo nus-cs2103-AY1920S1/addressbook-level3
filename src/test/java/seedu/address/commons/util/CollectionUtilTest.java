@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -80,6 +81,15 @@ public class CollectionUtilTest {
         assertFalse(CollectionUtil.isAnyNonNull((Object[]) null));
         assertTrue(CollectionUtil.isAnyNonNull(new Object()));
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
+    }
+
+    @Test
+    public void collectionToString() {
+        List<Integer> list = List.of(1, 2, 3);
+        assertEquals(CollectionUtil.collectionToString(list), "1\n2\n3");
+
+        List<Integer> emptyList = List.of();
+        assertEquals(CollectionUtil.collectionToString(emptyList), "");
     }
 
     /**
