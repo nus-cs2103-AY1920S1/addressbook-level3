@@ -7,6 +7,7 @@ import seedu.address.logic.commands.inventory.AddInventoryCommand;
 import seedu.address.logic.commands.inventory.DeleteInventoryCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.navbar.NavbarViewParser;
 
 /**
  * Parses the commands related to the itinerary view page.
@@ -14,7 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class InventoryViewParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + AddInventoryCommand.COMMAND_WORD + " "
-            + DeleteInventoryCommand.COMMAND_WORD + " ";
+            + DeleteInventoryCommand.COMMAND_WORD + " | "
+            + NavbarViewParser.MESSAGE_COMMAND_TYPES;
     @Override
     public Command parse(String command, String arguments) throws ParseException {
 

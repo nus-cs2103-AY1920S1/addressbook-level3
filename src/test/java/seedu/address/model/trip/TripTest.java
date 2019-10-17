@@ -23,8 +23,8 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
-import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
@@ -53,7 +53,7 @@ public class TripTest {
         assertFalse(TRIP_A.isSameTrip(editedTripA));
 
         // same name, same start and end times, same destination different attributes -> returns true
-        editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA))
+        editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Budget(VALID_TOTAL_BUDGET_AFRICA))
                 .build();
         assertTrue(TRIP_A.isSameTrip(editedTripA));
 
@@ -99,7 +99,7 @@ public class TripTest {
         assertFalse(TRIP_A.equals(editedTripA));
 
         // different total budget -> returns false
-        editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_BALI)).build();
+        editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Budget(VALID_TOTAL_BUDGET_BALI)).build();
         assertTrue(TRIP_A.equals(editedTripA));
 
         // different daylist -> returns false
@@ -108,7 +108,7 @@ public class TripTest {
                 .setDescription(new Description(VALID_DESCRIPTION_DAY_1))
                 .setStartDate(LocalDateTime.parse(VALID_STARTDATE_DAY_1_2, DATE_TIME_FORMATTER))
                 .setEndDate(LocalDateTime.parse(VALID_ENDDATE_DAY_1_2, DATE_TIME_FORMATTER))
-                .setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_DAY_1))
+                .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
                 .setLocation(new Location(VALID_DESTINATION_DAY_1))
                 .build()
         );

@@ -20,8 +20,8 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
-import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
@@ -101,7 +101,7 @@ public class EditDayFieldCommand extends Command {
         private Optional<LocalDateTime> startDate;
         private Optional<LocalDateTime> endDate;
         private Optional<Location> destination;
-        private Optional<Expenditure> totalBudget;
+        private Optional<Budget> totalBudget;
         private Optional<Description> description;
 
         public EditDayDescriptor() {
@@ -201,7 +201,7 @@ public class EditDayFieldCommand extends Command {
             LocalDateTime startDate = day.getStartDate();
             LocalDateTime endDate = day.getEndDate();
             Location destination = day.getDestination();
-            Optional<Expenditure> budget = day.getTotalBudget();
+            Optional<Budget> budget = day.getTotalBudget();
             Optional<Description> description = day.getDescription();
             if (this.name.isPresent()) {
                 dayName = this.name.get();
@@ -274,16 +274,16 @@ public class EditDayFieldCommand extends Command {
             this.description = description;
         }
 
-        public void setBudget(Expenditure totalBudget) {
+        public void setBudget(Budget totalBudget) {
             this.totalBudget = Optional.of(totalBudget);
         }
 
         // Support optional fields from Day
-        public void setBudget(Optional<Expenditure> totalBudget) {
+        public void setBudget(Optional<Budget> totalBudget) {
             this.totalBudget = totalBudget;
         }
 
-        public Optional<Expenditure> getBudget() {
+        public Optional<Budget> getBudget() {
             return totalBudget;
         }
 

@@ -7,14 +7,9 @@ import seedu.address.logic.commands.itinerary.days.DeleteDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterCreateDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterEditDayCommand;
-import seedu.address.logic.commands.sidebar.EnterDayPageCommand;
-import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
-import seedu.address.logic.commands.sidebar.EnterTripManagerCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.sidebar.EnterDayPageParser;
-import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
-import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
+import seedu.address.logic.parser.navbar.NavbarViewParser;
 
 /**
  * Parser class responsible for directing commands belonging to the day view.
@@ -24,10 +19,8 @@ public class DayViewParser implements PageParser<Command> {
             + EnterCreateDayCommand.COMMAND_WORD + " "
             + DeleteDayCommand.COMMAND_WORD + " "
             + EnterDayCommand.COMMAND_WORD + " "
-            + EnterEditDayCommand.COMMAND_WORD + " "
-            + EnterTripManagerCommand.COMMAND_WORD + " "
-            + EnterDayPageCommand.COMMAND_WORD + " "
-            + EnterItineraryPageCommand.COMMAND_WORD;
+            + EnterEditDayCommand.COMMAND_WORD + " | "
+            + NavbarViewParser.MESSAGE_COMMAND_TYPES;
 
     @Override
     public Command parse(String command, String arguments) throws ParseException {

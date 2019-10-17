@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
 import seedu.address.logic.commands.diary.EnterDiaryCommand;
+import seedu.address.logic.commands.sidebar.EnterExpenseManagerCommand;
 import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
@@ -34,7 +35,7 @@ public class NavigationSidebarRight extends UiPart<VBox> {
 
     @FXML
     private void handleEnterExpenditureManager() {
-
+        mainWindow.executeGuiCommand(EnterExpenseManagerCommand.COMMAND_WORD);
     }
 
     @FXML
