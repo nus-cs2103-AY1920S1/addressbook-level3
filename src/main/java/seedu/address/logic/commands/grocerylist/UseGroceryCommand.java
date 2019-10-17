@@ -80,7 +80,7 @@ public class UseGroceryCommand extends Command {
 
         Name name = groceryItemToUse.getName();
         Amount updatedAmount = groceryItemToUse.getAmount().reduceBy(useGroceryItemDescriptor.amount);
-        ExpiryDate expiryDate =  groceryItemToUse.getExpiryDate();
+        ExpiryDate expiryDate = groceryItemToUse.getExpiryDate();
         Set<Tag> tags = groceryItemToUse.getTags();
 
         return new GroceryItem(name, updatedAmount, expiryDate, tags);
