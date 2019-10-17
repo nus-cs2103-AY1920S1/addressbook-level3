@@ -26,8 +26,7 @@ public class JsonSerializableWatchListTest {
                 JsonSerializableWatchList.class).get();
         WatchList watchListFromFile = dataFromFile.toModelType();
         WatchList typicalShowsWatchList = TypicalShows.getTypicalWatchList();
-        assertEquals(watchListFromFile, typicalShowsWatchList);
-         */
+        assertEquals(watchListFromFile, typicalShowsWatchList);*/
     }
 
     @Test

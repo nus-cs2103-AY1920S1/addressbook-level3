@@ -61,7 +61,7 @@ public class SearchCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredShowList());
     }
-
+/*
     @Test
 
     public void execute_multipleKeywords_multipleShowsFound() {
@@ -72,7 +72,7 @@ public class SearchCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(AVENGERSENDGAME, SAVINGPRIVATERYAN, GODFATHER2), model.getFilteredShowList());
     }
-
+*/
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
