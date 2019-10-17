@@ -310,9 +310,4 @@ public class ModelStub implements Model {
     public CoursePlanner getCoursePlanner() {
         throw new AssertionError("This method should not be called.");
     }
-
-    @Override
-    public boolean isEqual(Planner other) {
-        throw new AssertionError("This method should not be called.");
-    }
 }
