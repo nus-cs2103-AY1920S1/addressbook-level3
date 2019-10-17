@@ -32,7 +32,7 @@ public class AddPolicyCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Senior Care "
             + PREFIX_DESCRIPTION + "Insurance for elderly "
-            + PREFIX_COVERAGE + "10 months "
+            + PREFIX_COVERAGE + "months/10 "
             + PREFIX_PRICE + "$50000 "
             + PREFIX_START_AGE + "50 "
             + PREFIX_END_AGE + "75 ";
