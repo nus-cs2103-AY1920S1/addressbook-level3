@@ -23,6 +23,13 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private String password;
 
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, String password) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+        this.password = password;
+    }
+
     public StorageManager(AddressBookStorage addressBookStorage,
                           FileBookStorage fileBookStorage,
                           UserPrefsStorage userPrefsStorage,
@@ -30,15 +37,6 @@ public class StorageManager implements Storage {
         super();
         this.addressBookStorage = addressBookStorage;
         this.fileBookStorage = fileBookStorage;
-        this.userPrefsStorage = userPrefsStorage;
-        this.password = password;
-    }
-
-    public StorageManager(AddressBookStorage addressBookStorage,
-                          UserPrefsStorage userPrefsStorage,
-                          String password) {
-        super();
-        this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.password = password;
     }
