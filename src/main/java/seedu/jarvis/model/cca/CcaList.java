@@ -5,6 +5,9 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 
+import seedu.jarvis.commons.core.Messages;
+import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.cca.exceptions.CcaNotFoundException;
 import seedu.jarvis.model.cca.exceptions.DuplicateCcaException;
 
@@ -33,11 +36,35 @@ public class CcaList {
     }
 
     /**
+     * Returns the {@Cca} based on its {@code index}
+     *
+     * @return the {@Cca} based on its {@code index}.
+     */
+    public Cca getCca(Index index) throws CommandException {
+        requireNonNull(index);
+
+        if (index.getZeroBased() >= internalCcaList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
+        }
+
+        return internalCcaList.get(index.getZeroBased());
+    }
+
+    /**
      * Returns true if the list contains an equivalent cca as the given argument.
      */
     public boolean contains(Cca toCheck) {
         requireNonNull(toCheck);
         return internalCcaList.stream().anyMatch(toCheck::isSameCca);
+    }
+
+    /**
+     * Returns the number of {@code Cca} in the current {@code CcaList}.
+     *
+     * @return size of the current internalCcaList.
+     */
+    public int size() {
+        return internalCcaList.size();
     }
 
     /**
@@ -71,9 +98,7 @@ public class CcaList {
     }
 
     /**
-     * Removes cca from the cca list.
-     *
-     * @param toBeRemovedCca
+     * Removes {@code toBeRemovedCca} from the {@code CcaList}.
      */
     public void removeCca(Cca toBeRemovedCca) {
         requireNonNull(toBeRemovedCca);
@@ -82,7 +107,6 @@ public class CcaList {
         }
 
         internalCcaList.remove(toBeRemovedCca);
-
     }
 
     @Override

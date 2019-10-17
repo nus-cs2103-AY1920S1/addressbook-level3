@@ -12,7 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
@@ -456,6 +458,17 @@ public class ModelManager implements Model {
     @Override
     public CcaTracker getCcaTracker() {
         return ccaTracker;
+    }
+
+    @Override
+    public int getNumberOfCcas() {
+        return ccaTracker.getNumberOfCcas();
+    }
+
+    @Override
+    public Cca getCca(Index index) throws CommandException {
+        requireNonNull(index.getZeroBased());
+        return ccaTracker.getCca(index);
     }
 
     //=========== Planner =============================================================

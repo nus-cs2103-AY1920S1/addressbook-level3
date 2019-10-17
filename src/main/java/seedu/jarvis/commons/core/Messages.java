@@ -13,4 +13,6 @@ public class Messages {
             + "invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
 
+    public static final String MESSAGE_INVALID_CCA_DISPLAYED_INDEX = "The cca index provided is invalid";
+
 }

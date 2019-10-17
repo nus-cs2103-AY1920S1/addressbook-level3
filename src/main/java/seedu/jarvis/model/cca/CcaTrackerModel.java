@@ -1,5 +1,8 @@
 package seedu.jarvis.model.cca;
 
+import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
+
 /**
  * The API of the CcaTrackerModel component
  *
@@ -41,4 +44,18 @@ public interface CcaTrackerModel {
      * Returns the CcaTracker {@Code CcaTracker}.
      */
     public CcaTracker getCcaTracker();
+
+    /**
+     * Returns the number of {@code Cca} in the CcaTracker.
+     *
+     * @return the number of {@code Cca}.
+     */
+    public int getNumberOfCcas();
+
+    /**
+     * Return the {@code Cca} based on its index.
+     *
+     * @return the {@code Cca} based on its index.
+     */
+    public Cca getCca(Index index) throws CommandException;
 }
