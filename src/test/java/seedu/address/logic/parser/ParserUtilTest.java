@@ -123,7 +123,8 @@ public class ParserUtilTest {
     @Test
     public void parseDates_collectionWithValidDates_returnsDateSet() throws Exception {
         List<Date> actualDateList = ParserUtil.parseDates(Arrays.asList(VALID_DATE_1, VALID_DATE_2));
-        List<Date> expectedDateList = new ArrayList<Date>(Arrays.asList(new Date(VALID_DATE_1), new Date(VALID_DATE_2)));
+        List<Date> expectedDateList = new ArrayList<Date>(Arrays.asList(new Date(VALID_DATE_1),
+            new Date(VALID_DATE_2)));
 
         assertEquals(expectedDateList, actualDateList);
     }

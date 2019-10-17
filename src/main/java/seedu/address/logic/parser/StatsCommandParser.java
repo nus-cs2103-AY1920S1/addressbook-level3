@@ -17,7 +17,8 @@ public class StatsCommandParser implements Parser<StatsCommand> {
 
 
     /**
-     * Parses the given {@code String} of arguments in the context of the StatsCommand and returns an StatsCommand object
+     * Parses the given {@code String} of arguments in the context of the StatsCommand
+     * and returns a StatsCommand object
      * for execution.
      * @throws ParseException if the user input does not conform the expected format
      */

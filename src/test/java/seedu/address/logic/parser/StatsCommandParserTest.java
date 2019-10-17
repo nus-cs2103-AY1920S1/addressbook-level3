@@ -34,21 +34,22 @@ public class StatsCommandParserTest {
 
     @Test
     public void parse_noInputsProvided_success() {
-       //no dates provided
+        //no dates provided
         StatsCommand expectedCommand = new StatsCommand();
-        assertParseSuccess(parser," ", expectedCommand);
+        assertParseSuccess(parser, "", expectedCommand);
     }
 
     @Test
     public void parse_invalidDates_failure() {
         // invalid date
         assertParseFailure(parser, INVALID_DATE_DESC , Date.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser,DATE_DESC_BOB + INVALID_DATE_DESC , Date.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, DATE_DESC_BOB + INVALID_DATE_DESC , Date.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_invalidDateRange_failure() {
-        // invalid date
-        assertParseFailure(parser,DATE_DESC_BOB + DATE_DESC_AMY ,  String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+        // start date is later than end date
+        assertParseFailure(parser, DATE_DESC_BOB + DATE_DESC_AMY ,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
     }
 }

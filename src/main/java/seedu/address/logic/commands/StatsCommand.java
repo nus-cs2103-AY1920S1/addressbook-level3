@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.List;
 
@@ -17,10 +18,12 @@ public class StatsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
     public static final String MESSAGE_SUCCESS = "Statistics of all spending displayed below.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Generates statistics of all spendings within the date range specified by the amount "
-        + "given by the user input. If no user input is given, the date range will be the whole date range.\n"
+        + ": Generates statistics of all spendings within the date range specified "
+        + "by the user input. If no user input is given, the date range will be the whole date range.\n"
         + "Parameters: startDate and endDate (endDate must be later or equal to startDate)\n"
-        + "Example: " + COMMAND_WORD + " 01/01/2019 31/01/2019";
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_DATE + "today "
+        + PREFIX_DATE + "tomorrow ";
 
     private Date startDate = null;
     private Date endDate = null;
@@ -85,5 +88,18 @@ public class StatsCommand extends Command {
             feedbackToUser = s;
         }
         return new CommandResult(feedbackToUser);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            //Comparing null dates
+            || (other instanceof StatsCommand // instanceof handles nulls
+            && (startDate == ((StatsCommand) other).startDate)
+            && endDate == ((StatsCommand) other).endDate)
+            //Comparing valid dates
+            || (other instanceof StatsCommand // instanceof handles nulls
+            && (startDate.equals(((StatsCommand) other).startDate)
+            && endDate.equals(((StatsCommand) other).endDate)));
     }
 }
