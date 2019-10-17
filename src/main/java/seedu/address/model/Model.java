@@ -186,7 +186,13 @@ public interface Model {
      */
     String formatOutputListString(FunctionMode mode);
 
-    <T> String formatList(FilteredList<T> object, int size);
+    /**
+     * Formats string for output.
+     * @param object the filteredlist to read
+     * @param <T> the different features: cheatsheet, flashcard, notes
+     * @return list of all the objects
+     */
+    <T> String formatList(FilteredList<T> object);
 
     /**
      * Adds the given cheatSheet.

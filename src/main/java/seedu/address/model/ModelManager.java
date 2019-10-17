@@ -264,39 +264,41 @@ public class ModelManager implements Model {
      * @return String formatted flashcard display
      */
     public String formatOutputListString(FunctionMode mode) {
-        int size = -1;
         String msg = "";
 
         switch (mode) {
         case CHEATSHEET:
-            size = filteredCheatSheets.size();
-            msg = formatList(filteredCheatSheets, size);
+            msg = formatList(filteredCheatSheets);
             break;
 
         case FLASHCARD:
-            size = filteredFlashcards.size();
-            msg = formatList(filteredFlashcards, size);
-
+            msg = formatList(filteredFlashcards);
             break;
 
         case NOTE:
-            size = filteredNotes.size();
-            msg = formatList(filteredNotes, size);
-
+            msg = formatList(filteredNotes);
             break;
 
         default:
             // error?
         }
 
+        return msg;
+    }
+
+    /**
+     * Formats string for output.
+     * @param object the filteredlist to read
+     * @param <T> the different features: cheatsheet, flashcard, notes
+     * @return list of all the objects
+     */
+    public <T> String formatList(FilteredList<T> object) {
+        int size = object.size();
+
         if (size == 0) {
             return "[Empty list]";
         }
 
-        return msg;
-    }
-
-    public <T> String formatList(FilteredList<T> object, int size) {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 1; i <= size; i++) {
