@@ -49,5 +49,7 @@ class DateUtilTest {
     @Test
     public void prettyFormatDate_correctResult() {
         assertEquals("Wed 25/12/2019", DateUtil.prettyFormatDate("25/12/2019"));
+        assertEquals("", DateUtil.prettyFormatDate(" "));
+
     }
 }
