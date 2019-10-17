@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INVENTORY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INVENTORY;
 import static seedu.address.testutil.TypicalInventories.getTypicalProjectDashboard;
 
 import org.junit.jupiter.api.Test;
@@ -24,8 +23,8 @@ public class DeleteInventoryCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Inventory inventoryToDelete = model.getFilteredInventoriesList().get(INDEX_FIRST_TASK.getZeroBased());
-        DeleteInventoryCommand deleteInventoryCommand = new DeleteInventoryCommand(INDEX_FIRST_TASK);
+        Inventory inventoryToDelete = model.getFilteredInventoriesList().get(INDEX_FIRST_INVENTORY.getZeroBased());
+        DeleteInventoryCommand deleteInventoryCommand = new DeleteInventoryCommand(INDEX_FIRST_INVENTORY);
 
         String expectedMessage = String.format(DeleteInventoryCommand.MESSAGE_DELETE_INVENTORY_SUCCESS,
                                                     inventoryToDelete);
@@ -46,14 +45,14 @@ public class DeleteInventoryCommandTest {
 
     @Test
     public void equals() {
-        DeleteInventoryCommand deleteFirstCommand = new DeleteInventoryCommand(INDEX_FIRST_TASK);
-        DeleteInventoryCommand deleteSecondCommand = new DeleteInventoryCommand(INDEX_SECOND_TASK);
+        DeleteInventoryCommand deleteFirstCommand = new DeleteInventoryCommand(INDEX_FIRST_INVENTORY);
+        DeleteInventoryCommand deleteSecondCommand = new DeleteInventoryCommand(INDEX_SECOND_INVENTORY);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteInventoryCommand deleteFirstCommandCopy = new DeleteInventoryCommand(INDEX_FIRST_TASK);
+        DeleteInventoryCommand deleteFirstCommandCopy = new DeleteInventoryCommand(INDEX_FIRST_INVENTORY);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -66,12 +65,4 @@ public class DeleteInventoryCommandTest {
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoInventory(Model model) {
-        model.updateFilteredInventoriesList(p -> false);
-
-        assertTrue(model.getFilteredInventoriesList().isEmpty());
-    }
 }

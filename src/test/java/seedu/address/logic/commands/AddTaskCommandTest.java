@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
@@ -178,6 +179,11 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public boolean hasMemberId(MemberId memId) {
+            return false;
+        }
+
+        @Override
         public void deleteMember(Member target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -185,6 +191,11 @@ public class AddTaskCommandTest {
         @Override
         public void setMember(Member target, Member editedMember) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getMembersLength() {
+            return 0;
         }
 
         @Override
@@ -208,7 +219,7 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public void updateFilteredInventoriesList(Predicate<Task> predicate) {
+        public void updateFilteredInventoriesList(Predicate<Inventory> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
