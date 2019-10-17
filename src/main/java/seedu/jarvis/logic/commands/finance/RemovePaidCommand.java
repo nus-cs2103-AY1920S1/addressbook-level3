@@ -8,8 +8,8 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 
 /**
  * Deletes an existing purchase identified using its displayed index in the finance tracker.
@@ -77,9 +77,9 @@ public class RemovePaidCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            toDelete = model.getPurchase(targetIndex.getZeroBased());
-            model.deletePurchase(targetIndex.getZeroBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS));
+            toDelete = model.getPurchase(targetIndex.getOneBased());
+            model.deletePurchase(targetIndex.getOneBased());
+            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, toDelete));
         } catch (PurchaseNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_PURCHASE_DISPLAYED_INDEX);
         }
@@ -94,6 +94,6 @@ public class RemovePaidCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof RemovePaidCommand
-                && toDelete.equals((((RemovePaidCommand) other).toDelete)));
+                && targetIndex.equals((((RemovePaidCommand) other).targetIndex)));
     }
 }

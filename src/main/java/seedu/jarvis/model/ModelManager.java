@@ -23,9 +23,10 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
+import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
@@ -240,7 +241,7 @@ public class ModelManager implements Model {
      * @param itemNumber
      */
     @Override
-    public void deletePurchase(int itemNumber) {
+    public void deletePurchase(int itemNumber) throws PurchaseNotFoundException {
         financeTracker.deleteSinglePurchase(itemNumber);
     }
 
@@ -301,11 +302,21 @@ public class ModelManager implements Model {
     /**
      * Retrieves list of all installments
      *
-     * @return InstallmentList
+     * @return ArrayList
      */
     @Override
     public ArrayList<Installment> getInstallmentList() {
         return financeTracker.getInstallmentList();
+    }
+
+    /**
+     * Retrieves list of all installments
+     *
+     * @return ArrayList
+     */
+    @Override
+    public ArrayList<Purchase> getPurchaseList() {
+        return financeTracker.getPurchaseList();
     }
 
     /**
@@ -325,20 +336,6 @@ public class ModelManager implements Model {
     @Override
     public void listSpending() {
         financeTracker.listSpending();
-    }
-
-    public ObservableList<Purchase> getPurchasesList() {
-        return financeTracker.getPurchasesList();
-    }
-
-    @Override
-    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
-        financeTracker.updateFilteredPurchaseList(predicate);
-    }
-
-    @Override
-    public ObservableList<Purchase> getFilteredPurchaseList() {
-        return financeTracker.getFilteredPurchaseList();
     }
 
     //=========== AddressBook ================================================================================

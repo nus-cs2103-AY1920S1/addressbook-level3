@@ -6,41 +6,44 @@ import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
 import java.util.stream.Stream;
 
-import seedu.jarvis.logic.commands.finance.PaidCommand;
+import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
+import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 
 /**
  * Parses input argument and creates a new PaidCommand object
  */
-public class PaidCommandParser implements Parser<PaidCommand> {
+public class SetPaidCommandParser implements Parser<SetPaidCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the PaidCommand
+     * Parses the given {@code String} of arguments in the context of the SetPaidCommand
      * and returns an PaidCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public PaidCommand parse(String args) throws ParseException {
+    public SetPaidCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_MONEY);
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_MONEY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    PaidCommand.MESSAGE_USAGE));
+                    SetPaidCommand.MESSAGE_USAGE));
         }
 
         String description = ParserUtil.parsePurchaseDes(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         double moneySpent = ParserUtil.parsePurchaseAmount(argMultimap.getValue(PREFIX_MONEY).get());
 
-        Purchase purchase = new Purchase(description, moneySpent);
+        Purchase purchase = new Purchase(new PurchaseDescription(description),
+                new PurchaseMoneySpent(Double.toString(moneySpent)));
 
-        return new PaidCommand(purchase);
+        return new SetPaidCommand(purchase);
     }
 
     /**

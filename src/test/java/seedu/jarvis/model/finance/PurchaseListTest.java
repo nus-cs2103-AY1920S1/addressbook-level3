@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.PurchaseList;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
+import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 
 /**
  * Tests logic of purchase list class.
@@ -68,7 +70,7 @@ public class PurchaseListTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super("lunch at Saizerya", 5.00);
+            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"));
         }
     }
 }

@@ -10,11 +10,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.InstallmentList;
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.PurchaseList;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
+import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 
 /**
  * Tests logic of finance tracker class.
@@ -127,7 +129,7 @@ public class FinanceTrackerTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super("lunch at deck", 5.00);
+            super(new PurchaseDescription("lunch at deck"), new PurchaseMoneySpent("5.00"));
         }
     }
 

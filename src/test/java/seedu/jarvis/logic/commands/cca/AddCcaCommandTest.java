@@ -28,8 +28,8 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
@@ -285,27 +285,17 @@ public class AddCcaCommandTest {
         }
 
         @Override
+        public ArrayList<Purchase> getPurchaseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setMonthlyLimit(double value) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void listSpending() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Purchase> getPurchasesList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Purchase> getFilteredPurchaseList() {
             throw new AssertionError("This method should not be called.");
         }
 
