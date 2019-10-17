@@ -25,7 +25,7 @@ public abstract class UpdateStatusCommand extends MultiLoanCommand {
     }
 
     /**
-     * Updates the statues of one or more existing loans to the given status.
+     * Updates the statuses of one or more existing loans to the given status.
      */
     public void updateStatuses(LoansManager loansManager, Status updatedStatus) throws CommandException {
         requireAllNonNull(loansManager, updatedStatus);
