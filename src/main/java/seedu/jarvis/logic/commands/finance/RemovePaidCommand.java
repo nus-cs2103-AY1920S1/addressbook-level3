@@ -16,7 +16,7 @@ import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
  */
 public class RemovePaidCommand extends Command {
 
-    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_WORD = "delete-paid";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the purchase identified by the index number used in the displayed list of purchases.\n"

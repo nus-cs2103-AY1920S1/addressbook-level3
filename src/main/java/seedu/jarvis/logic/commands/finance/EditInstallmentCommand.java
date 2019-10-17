@@ -23,7 +23,7 @@ import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
  */
 public class EditInstallmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "instal edit";
+    public static final String COMMAND_WORD = "edit-install";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -39,7 +39,7 @@ public class EditInstallmentCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This installment already exists in your list.";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index index;
     private final EditInstallmentDescriptor editInstallmentDescriptor;
@@ -93,7 +93,7 @@ public class EditInstallmentCommand extends Command {
             originalInstallment = model.getInstallment(index.getOneBased());
             Installment createdEditedInstallment = createEditedInstallment(originalInstallment,
                     editInstallmentDescriptor);
-            if (!originalInstallment.isSameInstallment(createdEditedInstallment)
+            if (originalInstallment.isSameInstallment(createdEditedInstallment)
                     && model.hasInstallment(createdEditedInstallment)) {
                 throw new CommandException(MESSAGE_DUPLICATE_INSTALLMENT);
             }

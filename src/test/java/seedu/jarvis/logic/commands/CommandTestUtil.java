@@ -18,11 +18,13 @@ import java.util.List;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.testutil.address.EditPersonDescriptorBuilder;
+import seedu.jarvis.testutil.finance.EditInstallmentDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -41,9 +43,12 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_DESC_NETFLIX = "Netflix";
     public static final String VALID_MONEY_NETFLIX = "13.50";
+    public static final String VALID_DESC_SPOTIFY = "Spotify";
+    public static final String VALID_MONEY_SPOTIFY = "9.50";
     public static final String VALID_DESC_LUNCH = "Lunch at Reedz";
     public static final String VALID_MONEY_LUNCH = "5.50";
-
+    public static final String VALID_DESC_EARPHONES = "Earphones";
+    public static final String VALID_MONEY_EARPHONES = "30.50";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -77,6 +82,9 @@ public class CommandTestUtil {
     public static final EditAddressCommand.EditPersonDescriptor DESC_AMY;
     public static final EditAddressCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final EditInstallmentCommand.EditInstallmentDescriptor INSTALL_NETFLIX;
+    public static final EditInstallmentCommand.EditInstallmentDescriptor INSTALL_SPOTIFY;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -84,6 +92,14 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        INSTALL_NETFLIX = new EditInstallmentDescriptorBuilder()
+                .withDescription(VALID_DESC_NETFLIX)
+                .withSubscriptionFee(VALID_MONEY_NETFLIX)
+                .build();
+        INSTALL_SPOTIFY = new EditInstallmentDescriptorBuilder()
+                .withDescription(VALID_DESC_SPOTIFY)
+                .withSubscriptionFee(VALID_MONEY_SPOTIFY)
+                .build();
     }
 
     /**

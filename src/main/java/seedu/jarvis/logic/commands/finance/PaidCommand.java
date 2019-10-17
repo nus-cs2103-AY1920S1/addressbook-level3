@@ -15,7 +15,7 @@ import seedu.jarvis.model.financetracker.Purchase;
  */
 public class PaidCommand extends Command {
 
-    public static final String COMMAND_WORD = "paid";
+    public static final String COMMAND_WORD = "add-paid";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a payment to the finance tracker. "
             + "Parameters: "

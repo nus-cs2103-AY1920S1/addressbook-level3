@@ -22,6 +22,11 @@ public class InstallmentBuilder {
         subscriptionPrice = DEFAULT_MONEY;
     }
 
+    public InstallmentBuilder(Installment toCopy) {
+        description = toCopy.getDescription();
+        subscriptionPrice = toCopy.getMoneySpentOnInstallment();
+    }
+
     /**
      * Sets the {@code Description} of the {@code Purchase} that we are building.
      */
