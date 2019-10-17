@@ -112,6 +112,13 @@ public interface Model {
      */
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 
+    /**
+     * Changes the current active study plan's title to a new title.
+     *
+     * @param title the new title of the current active stucy plan.
+     */
+    void changeActiveStudyPlanTitle(String title);
+
     // ===================== VERSION TRACKING ==========================
 
     /**

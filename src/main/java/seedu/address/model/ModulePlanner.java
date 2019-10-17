@@ -13,6 +13,7 @@ import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.Title;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.UniqueTagList;
@@ -88,7 +89,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         setStudyPlans(newData.getStudyPlanList());
     }
 
-    //// person-level operations
+    //// studyplan-level operations
 
     /**
      * Returns true if a study plan with the same identity as {@code study plan} exists in the module planner.
@@ -260,6 +261,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     public void updatePrereqs() {
         this.activeStudyPlan.updatePrereqs();
+    }
+
+    public void changeActiveStudyPlanTitle(String title) {
+        activeStudyPlan.setTitle(new Title(title));
     }
 
     //// commit methods
