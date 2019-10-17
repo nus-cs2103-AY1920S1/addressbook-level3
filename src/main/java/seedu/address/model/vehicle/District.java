@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class District {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Districts should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Districts should be an integer from 1 to 28";
 
     public static final int FIRST_DISTRICT = 1;
     public static final int LAST_DISTRICT = 28;
