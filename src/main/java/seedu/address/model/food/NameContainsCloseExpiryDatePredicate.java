@@ -27,7 +27,10 @@ public class NameContainsCloseExpiryDatePredicate implements Predicate<GroceryIt
         }
         return isExpiring(date);
     }
-
+    /**
+     * Checks if an item has expired or is expiring.\
+     * @param date expiry date
+     */
     public boolean isExpiring(Date date) {
         Calendar cal = Calendar.getInstance();
         Date current = cal.getTime();
