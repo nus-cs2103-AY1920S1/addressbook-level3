@@ -7,7 +7,7 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
  * Represents a Day in a Date in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Day {
+public class Day implements Comparable<Day> {
     public static final String MESSAGE_CONSTRAINTS =
             "Day should only contain numbers, from 1 to 31";
     public static final String VALIDATION_REGEX = "[1-9]|[1-2]\\d|3[0-1]";
@@ -51,6 +51,12 @@ public class Day {
     @Override
     public int hashCode() {
         return toString().hashCode();
+    }
+
+    @Override
+    public int compareTo(Day other) {
+        // Later days are given priority
+        return other.dayNumber - dayNumber;
     }
 }
 

@@ -3,11 +3,13 @@ package seedu.ichifund.model.date;
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+
 /**
  * Represents a Month in a Date in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Month {
+public class Month implements Comparable<Month> {
     public static final String MESSAGE_CONSTRAINTS =
             "Month should only contain numbers, from 1 to 12";
     public static final String VALIDATION_REGEX = "[1-9]|1[0-2]";
@@ -31,6 +33,10 @@ public class Month {
      */
     public static boolean isValidMonth(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public static Month getCurrent() {
+        return new Month(Integer.toString(LocalDate.now().getMonth().getValue()));
     }
 
     /**
@@ -74,5 +80,11 @@ public class Month {
     @Override
     public int hashCode() {
         return toString().hashCode();
+    }
+
+    @Override
+    public int compareTo(Month other) {
+        // Later months are given priority
+        return other.monthNumber - monthNumber;
     }
 }

@@ -7,7 +7,7 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
  * Represents a Transaction's description in the transaction recorder.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Description {
+public class Description implements Comparable<Description> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Description should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -54,5 +54,10 @@ public class Description {
     @Override
     public int hashCode() {
         return description.hashCode();
+    }
+
+    @Override
+    public int compareTo(Description other) {
+        return toString().compareTo(other.toString());
     }
 }

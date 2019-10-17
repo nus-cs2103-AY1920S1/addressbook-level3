@@ -21,6 +21,7 @@ import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.ReadOnlyUserPrefs;
 import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
@@ -166,6 +167,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public TransactionContext getTransactionContext() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTransactionContext(TransactionContext transactionContext) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void addRepeater(Repeater repeater) {

@@ -6,7 +6,6 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
@@ -19,9 +18,6 @@ import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.transaction.Category;
-import seedu.ichifund.model.transaction.Transaction;
-import seedu.ichifund.model.transaction.TransactionCategoryPredicate;
-import seedu.ichifund.model.transaction.TransactionDatePredicate;
 
 /**
  * Parses input arguments and creates a new FilterTransactionCommand object.
@@ -40,18 +36,11 @@ public class FilterTransactionCommandParser implements Parser<FilterTransactionC
 
         Month month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
         Year year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
-        Optional<String> optionalCategoryString = argMultimap.getValue(PREFIX_CATEGORY);
+        Optional<Category> category = argMultimap
+                .getValue(PREFIX_CATEGORY)
+                .flatMap(categoryString -> Optional.of(new Category(categoryString)));
 
-        Predicate<Transaction> predicate;
-
-        if (optionalCategoryString.isPresent()) {
-            Category category = ParserUtil.parseCategory(optionalCategoryString.get());
-            predicate = new TransactionCategoryPredicate(category).and(new TransactionDatePredicate(month, year));
-        } else {
-            predicate = new TransactionDatePredicate(month, year);
-        }
-
-        return new FilterTransactionCommand(predicate);
+        return new FilterTransactionCommand(month, year, category);
     }
 
     /**
