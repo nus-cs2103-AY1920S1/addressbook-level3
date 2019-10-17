@@ -31,6 +31,8 @@ public class DeleteTagCommand extends Command {
 
     private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag of Person: %1$s";
 
+    private static final String MESSAGE_TAG_NOT_FOUND = "No matching tags found of Policy: %1$s";
+
     private final Index index;
     private final String[] tags;
 
@@ -64,6 +66,20 @@ public class DeleteTagCommand extends Command {
             removeTags.add(new Tag(tag));
         }
 
+        boolean tagsRemoved = false;
+
+        for (Tag removeTag : removeTags) {
+            for (Tag tag : personToEdit.getTags()) {
+                if (removeTag == tag) {
+                    tagsRemoved = true;
+                    break;
+                }
+            }
+            if (tagsRemoved) {
+                break;
+            }
+        }
+
         Person editedPerson = new PersonBuilder(personToEdit)
                 .removeTags(removeTags)
                 .build();
@@ -71,11 +87,15 @@ public class DeleteTagCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedPerson));
+        return new CommandResult(generateSuccessMessage(editedPerson, tagsRemoved));
     }
 
-    private String generateSuccessMessage(Person personToEdit) {
-        return String.format(MESSAGE_DELETE_TAG_SUCCESS, personToEdit);
+    private String generateSuccessMessage(Person personToEdit, boolean tagsRemoved) {
+        if (tagsRemoved) {
+            return String.format(MESSAGE_DELETE_TAG_SUCCESS, personToEdit);
+        } else {
+            return String.format(MESSAGE_TAG_NOT_FOUND, personToEdit);
+        }
     }
 
     @Override

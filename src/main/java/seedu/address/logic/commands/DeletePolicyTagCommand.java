@@ -33,6 +33,8 @@ public class DeletePolicyTagCommand extends Command {
 
     private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag of Policy: %1$s";
 
+    private static final String MESSAGE_TAG_NOT_FOUND = "No matching tags found of Policy: %1$s";
+
     private final Index index;
     private final String[] tags;
 
@@ -66,6 +68,20 @@ public class DeletePolicyTagCommand extends Command {
             removeTags.add(new Tag(tag));
         }
 
+        boolean tagsRemoved = false;
+
+        for (Tag removeTag : removeTags) {
+            for (Tag tag : policyToEdit.getTags()) {
+                if (removeTag == tag) {
+                    tagsRemoved = true;
+                    break;
+                }
+            }
+            if (tagsRemoved) {
+                break;
+            }
+        }
+
         Policy editedPolicy = new PolicyBuilder(policyToEdit)
                 .removeTags(removeTags)
                 .build();
@@ -82,11 +98,15 @@ public class DeletePolicyTagCommand extends Command {
             }
         }
 
-        return new CommandResult(generateSuccessMessage(editedPolicy));
+        return new CommandResult(generateSuccessMessage(editedPolicy, tagsRemoved));
     }
 
-    private String generateSuccessMessage(Policy policyToEdit) {
-        return String.format(MESSAGE_DELETE_TAG_SUCCESS, policyToEdit);
+    private String generateSuccessMessage(Policy policyToEdit, boolean tagsRemoved) {
+        if (tagsRemoved) {
+            return String.format(MESSAGE_DELETE_TAG_SUCCESS, policyToEdit);
+        } else {
+            return String.format(MESSAGE_TAG_NOT_FOUND, policyToEdit);
+        }
     }
 
     @Override
