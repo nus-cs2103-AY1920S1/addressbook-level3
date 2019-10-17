@@ -6,9 +6,11 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SPENDING;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -28,7 +30,8 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_DATE = "21/1/2019";
+    private static final String VALID_DATE_1 = "21/1/2019";
+    private static final String VALID_DATE_2 = "23/1/2019";
     private static final String VALID_COST = "123";
     private static final String VALID_REMARK = "Likes to watch movies";
     private static final String VALID_TAG_1 = "friend";
@@ -91,38 +94,61 @@ public class ParserUtilTest {
 
     @Test
     public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
-        Date expectedDate = new Date(VALID_DATE);
-        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
+        Date expectedDate = new Date(VALID_DATE_1);
+        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE_1));
     }
 
     @Test
     public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
-        String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
-        Date expectedDate = new Date(VALID_DATE);
+        String dateWithWhitespace = WHITESPACE + VALID_DATE_1 + WHITESPACE;
+        Date expectedDate = new Date(VALID_DATE_1);
         assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
+    public void parseDates_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDates(null));
+    }
+
+    @Test
+    public void parseDates_collectionWithInvalidDates_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDates(Arrays.asList(VALID_DATE_1, INVALID_DATE)));
+    }
+
+    @Test
+    public void parseDates_emptyCollection_returnsEmptyList() throws Exception {
+        assertTrue(ParserUtil.parseDates(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseDates_collectionWithValidDates_returnsDateSet() throws Exception {
+        List<Date> actualDateList = ParserUtil.parseDates(Arrays.asList(VALID_DATE_1, VALID_DATE_2));
+        List<Date> expectedDateList = new ArrayList<Date>(Arrays.asList(new Date(VALID_DATE_1), new Date(VALID_DATE_2)));
+
+        assertEquals(expectedDateList, actualDateList);
+    }
+
+    @Test
+    public void parseCost_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCost((String) null));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
+    public void parseCost_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseCost(INVALID_COST));
     }
 
     @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Cost expectedAddress = new Cost(VALID_COST);
-        assertEquals(expectedAddress, ParserUtil.parseCost(VALID_COST));
+    public void parseCost_validValueWithoutWhitespace_returnsCost() throws Exception {
+        Cost expectedCost = new Cost(VALID_COST);
+        assertEquals(expectedCost, ParserUtil.parseCost(VALID_COST));
     }
 
     @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_COST + WHITESPACE;
-        Cost expectedAddress = new Cost(VALID_COST);
-        assertEquals(expectedAddress, ParserUtil.parseCost(addressWithWhitespace));
+    public void parseCost_validValueWithWhitespace_returnsTrimmedCost() throws Exception {
+        String costWithWhitespace = WHITESPACE + VALID_COST + WHITESPACE;
+        Cost expectedCost = new Cost(VALID_COST);
+        assertEquals(expectedCost, ParserUtil.parseCost(costWithWhitespace));
     }
 
     @Test

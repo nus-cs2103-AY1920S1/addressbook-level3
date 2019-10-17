@@ -29,8 +29,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_DATE_AMY = "1/1/2019";
-    public static final String VALID_DATE_BOB = "2/1/2019";
+    public static final String VALID_DATE_AMY = "01/01/2019";
+    public static final String VALID_DATE_BOB = "02/01/2019";
     public static final String VALID_REMARK_AMY = "Likes to watch movies";
     public static final String VALID_REMARK_BOB = "Loves to play soccer";
     public static final String VALID_COST_AMY = "312";
