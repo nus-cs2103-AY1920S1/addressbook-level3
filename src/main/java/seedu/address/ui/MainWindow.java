@@ -53,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane mainPanelPlaceholder;
+    private StackPane mainDisplayPanePlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -126,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        mainPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        mainDisplayPanePlaceholder.getChildren().add(personListPanel.getRoot());
         mainDisplayPane = new MainDisplayPane(MAIN, personListPanel);
 
         resultDisplay = new ResultDisplay();
@@ -166,8 +166,8 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the main display pane to the specified UI part.
      */
     public void switchToMainDisplayPane(UiPart<Region> mainDisplayPane) {
-        mainPanelPlaceholder.getChildren().clear();
-        mainPanelPlaceholder.getChildren().add(mainDisplayPane.getRoot());
+        mainDisplayPanePlaceholder.getChildren().clear();
+        mainDisplayPanePlaceholder.getChildren().add(mainDisplayPane.getRoot());
     }
 
     void show() {
