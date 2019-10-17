@@ -1,21 +1,17 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.classid.ClassId;
+import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Participation;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Picture;
+import seedu.address.model.person.Result;
+
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -25,25 +21,27 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String name;
-    private final String phone;
-    private final String email;
-    private final String address;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String picture;
+    private final String classId;
+    private final String attendance;
+    private final String result;
+    private final String participation;
+
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("picture") String picture,
+            @JsonProperty("classId") String classId, @JsonProperty("attendance") String attendance,
+                             @JsonProperty("result") String result,
+                             @JsonProperty("participation") String participation) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
+        this.picture = picture;
+        this.classId = classId;
+        this.attendance = attendance;
+        this.result = result;
+        this.participation = participation;
     }
 
     /**
@@ -51,25 +49,18 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        picture = source.getPicture().value;
+        classId = source.getClassId().value;
+        attendance = source.getAttendance().value;
+        result = source.getResult().value;
+        participation = source.getParticipation().value;
     }
-
     /**
      * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -78,32 +69,55 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (picture == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Picture.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Picture.isValidPicture(picture)) {
+            throw new IllegalValueException(Picture.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Picture modelPicture = new Picture(picture);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (classId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ClassId.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!ClassId.isValidClassId(classId)) {
+            throw new IllegalValueException(ClassId.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final ClassId modelClassId = new ClassId(classId);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (attendance == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Attendance.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Attendance.isValidAttendance(attendance)) {
+            throw new IllegalValueException(Attendance.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Attendance modelAttendance = new Attendance(attendance);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        if (result == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Result.class.getSimpleName()));
+        }
+        if (!Result.isValidResult(result)) {
+            throw new IllegalValueException(Result.MESSAGE_CONSTRAINTS);
+        }
+        final Result modelResult = new Result(result);
+
+        if (participation == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Participation.class.getSimpleName()));
+        }
+        if (!Participation.isValidParticipation(participation)) {
+            throw new IllegalValueException(Participation.MESSAGE_CONSTRAINTS);
+        }
+        final Participation modelParticipation = new Participation(participation);
+
+        Person modelPerson = new Person(modelName, modelPicture, modelClassId,
+                modelAttendance, modelResult, modelParticipation);
+
+        return modelPerson;
     }
 
 }

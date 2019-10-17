@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
 /**
  * The API of the Model component.
@@ -88,6 +89,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    void addTask(Task task);
+
+    /** Returns the Calendar */
+    ReadOnlyCalendar getCalendar();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

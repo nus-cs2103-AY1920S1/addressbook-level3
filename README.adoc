@@ -4,14 +4,15 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="610"]
-endif::[]
-
-ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-# Track All Your Teaching Related Tasks!
+ifndef::env-github[]
+image::images/Ui.png[width="600"]
+endif::[]
+
+## Track All Your Teaching Related Tasks!
+
 Are you a teaching assistant that is *struggling* to keep up with the additional responsibility of teaching a class?
 
 Do you sometimes *wish* that there was an easier way to organize and filter through your students?
