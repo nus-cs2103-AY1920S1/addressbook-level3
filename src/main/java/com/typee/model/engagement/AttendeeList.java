@@ -80,4 +80,22 @@ public class AttendeeList {
     public String toString() {
         return attendees.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            // short-circuit
+            return true;
+        } else if (o instanceof AttendeeList) {
+            AttendeeList newAttendeeList = (AttendeeList) o;
+            return attendees.equals(newAttendeeList.attendees);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return attendees.hashCode();
+    }
 }

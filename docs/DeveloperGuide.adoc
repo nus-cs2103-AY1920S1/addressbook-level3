@@ -394,7 +394,7 @@ Use case ends.
 
 1.  User requests to find appointments
 2.  User provides fields that the user wants to use to find appointments
-3.  System finds and displays the list of relevant appointment(s)
+3.  System finds and displays the list of relevant appointments
 +
 Use case ends.
 
@@ -516,18 +516,61 @@ Use case ends.
 
 // Updated by Kevin
 [discrete]
-=== Use case: (UC11) Switch to 'Calendar' view mode
+=== Use case: (UC11) Switch tabs
 
 *MSS*
 
-1. User requests to switch to the calendar view
-2. System shows the calendar view with scheduled appointments, if any
+1. User requests to switch to a specified tab.
+2. System switches to the appropriate tab.
 +
 Use case ends.
 
+*Extensions*
+
+[none]
+* 1a. Requested tab is invalid.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: (UC12) Calendar mode
+
+*MSS*
+
+1. User specifies a date to view engagements for.
+2. System shows the engagements for the specified date.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid date.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: (UC13) Calendar mode month switching
+
+*MSS*
+
+1. User specifies a month to switch the display to.
+2. System updates the calendar view to display appointments for the specified month.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid month.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
 //Updated by Jun Hao
 [discrete]
-=== Use case: (UC12) Typing game
+=== Use case: (UC14) Typing game
 
 *MSS*
 
@@ -549,7 +592,8 @@ Use case ends.
 
 [discrete]
 //Updated by Ko Gi Hun 30/09/19
-=== Use case: (UC13) Generate appointment document in PDF format
+=== Use case: (UC15) Generate appointment document in PDF format
+
 *MSS*
 
 1. User requests to list appointments
