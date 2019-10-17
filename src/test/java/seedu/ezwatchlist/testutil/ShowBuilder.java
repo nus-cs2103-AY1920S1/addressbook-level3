@@ -13,8 +13,8 @@ import seedu.ezwatchlist.model.util.SampleDataUtil;
 public class ShowBuilder {
 
     public static final String DEFAULT_NAME = "Inception";
-    public static final String DEFAULT_TYPE = "Movie";
-    public static final String DEFAULT_DATE = " 16 July 2010";
+    public static final String DEFAULT_TYPE = "movie";
+    public static final String DEFAULT_DATE = "16 July 2010";
     public static final boolean DEFAULT_ISWATCHED = true;
     public static final String DEFAULT_DESCRIPTION = "A thief who steals corporate secrets through the use "
             + " of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.";
@@ -109,7 +109,7 @@ public class ShowBuilder {
 
 
     public Show build() {
-        if (type.equals("Movie")) {
+        if (type.equals("movie")) {
             return new Movie(name, description, isWatched, dateOfRelease, runningTime, actors);
         } else {
             return new TvShow(name, description, isWatched, dateOfRelease, runningTime, actors,

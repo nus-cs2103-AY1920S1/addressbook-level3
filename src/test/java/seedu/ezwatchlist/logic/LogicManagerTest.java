@@ -77,9 +77,9 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + "movie" + DESCRIPTION_DESC_ANNABELLE + TYPE_DESC_ANNABELLE
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_ANNABELLE + TYPE_DESC_ANNABELLE
                 + WATCHED_DESC_ANNABELLE + DESCRIPTION_DESC_ANNABELLE
-                + DATE_DESC_ANNABELLE + RUNNING_TIME_DESC_ANNABELLE + ACTOR_DESC_ANNABELLE;
+                + DATE_DESC_ANNABELLE + RUNNING_TIME_DESC_ANNABELLE;
         Show expectedShow = new ShowBuilder(ANNABELLE).withActors().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addShow(expectedShow);

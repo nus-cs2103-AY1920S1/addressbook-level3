@@ -12,7 +12,7 @@ import seedu.ezwatchlist.model.show.Show;
  */
 public class TypicalShows {
 
-    public static final Show JOKER = new ShowBuilder().withName("Joker").withDescription(
+    public static final Show JOKER = new ShowBuilder().withName("Joker").withType("movie").withDescription(
             "Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham "
             + "City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he "
             + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
@@ -20,7 +20,7 @@ public class TypicalShows {
             + "criminal mastermind known as the Joker."
     ).withIsWatched(false).withDateOfRelease("3 october 2019").withRunningTime(122).withActors("Joaquin Phoenix").build();
 
-    public static final Show AVENGERSENDGAME = new ShowBuilder().withName("Avenger Endgame").withDescription(""
+    public static final Show AVENGERSENDGAME = new ShowBuilder().withName("Avengers: Endgame").withType("movie").withDescription(""
             + "Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supply "
             + "starts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce "
             + "Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos"
@@ -28,7 +28,7 @@ public class TypicalShows {
             withIsWatched(false).withDateOfRelease("24 April 2019").withRunningTime(182).withActors("Chris Hemsworth")
             .build();
 
-    public static final Show BLACKPANTHER = new ShowBuilder().withName("Black Panther").withDescription("After the"
+    public static final Show BLACKPANTHER = new ShowBuilder().withName("Black Panther").withType("movie").withDescription("After the"
             + " death of his father, T'Challa returns home to the African nation of Wakanda to take his rightful place"
             + " as king. When a powerful enemy suddenly reappears, T'Challa's mettle as king -- and as Black Panther"
             + " -- gets tested when he's drawn into a conflict that puts the fate of Wakanda and the entire world at"
@@ -38,7 +38,7 @@ public class TypicalShows {
 
 
     // Manually added
-    public static final Show FIGHTCLUB = new ShowBuilder().withName("Fight Club").withDescription(
+    public static final Show FIGHTCLUB = new ShowBuilder().withName("Fight Club").withType("movie").withDescription(
             "A depressed man (Edward Norton) suffering from insomnia meets a strange soap salesman named Tyler Durden "
             + "(Brad Pitt) and soon finds himself living in his squalid house after his perfect apartment is "
             + "destroyed. The two bored men form an underground club with strict rules and fight other men who "
@@ -47,7 +47,7 @@ public class TypicalShows {
             .withIsWatched(true).withDateOfRelease("4 Nov 1999").withRunningTime(151).withActors().build();
 
     // Manually added - Show's details found in {@code CommandTestUtil}
-    public static final Show SAVINGPRIVATERYAN = new ShowBuilder().withName("Saving Private Ryan")
+    public static final Show SAVINGPRIVATERYAN = new ShowBuilder().withName("Saving Private Ryan").withType("movie")
             .withDescription("Captain John Miller (Tom Hanks) takes his men behind enemy lines to find Private James"
             + " Ryan, whose three brothers have been killed in combat. Surrounded by the brutal realties of"
             + " war, while searching for Ryan, each man embarks upon a personal journey and discovers their"
@@ -55,7 +55,7 @@ public class TypicalShows {
             .withIsWatched(false).withDateOfRelease("Saving Private Ryan")
             .withRunningTime(170).withActors("Tom Hanks").build();
 
-    public static final Show GODFATHER2 = new ShowBuilder().withName("God Father 2").withDescription("The compelling"
+    public static final Show GODFATHER2 = new ShowBuilder().withName("God Father 2").withType("movie").withDescription("The compelling"
             + " sequel to \"The Godfather,\" contrasting the life of Corleone father and son. Traces the problems "
             + "of Michael Corleone (Al Pacino) in 1958 and that of a young immigrant Vito Corleone (Robert De Niro) "
             + "in 1917's Hell's Kitchen. Michael survives many misfortunes and Vito is introduced to a life of crime.")
@@ -70,7 +70,7 @@ public class TypicalShows {
     public static final Show ANNABELLE = new ShowBuilder().withName("Annabelle")
             .withDescription("Horror film")
             .withIsWatched(true).withDateOfRelease("10/10/2014")
-            .withRunningTime(99).withActors("Annabelle Wallis").withType("Movie").build();
+            .withRunningTime(99).withActors("Annabelle Wallis").withType("movie").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -89,5 +89,5 @@ public class TypicalShows {
 
     public static List<Show> getTypicalShow() {
         return new ArrayList<>(Arrays.asList(JOKER, AVENGERSENDGAME, BLACKPANTHER, FIGHTCLUB,
-                SAVINGPRIVATERYAN, GODFATHER2 )); }
+                SAVINGPRIVATERYAN, GODFATHER2, BOBTHEBUILDER, ANNABELLE)); }
 }

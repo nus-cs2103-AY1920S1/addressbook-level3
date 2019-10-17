@@ -161,7 +161,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_SHOW, DESC_ANNABELLE)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_SHOW, DESC_ANNABELLE)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_SHOW, DESC_BOB_THE_BUILDER)));
     }
 
 }

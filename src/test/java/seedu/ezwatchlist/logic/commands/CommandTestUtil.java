@@ -41,7 +41,7 @@ public class CommandTestUtil {
     public static final String NAME_DESC_ANNABELLE = " " + PREFIX_NAME + VALID_NAME_ANNABELLE;
     public static final String NAME_DESC_BOB_THE_BUILDER = " " + PREFIX_NAME + VALID_NAME_BOB_THE_BUILDER;
     public static final String TYPE_DESC_ANNABELLE = " " + PREFIX_TYPE + VALID_TYPE_ANNABELLE;
-    public static final String TYPE_DESC_BOB_THE_BUILDER =  "" + PREFIX_TYPE + VALID_TYPE_ANNABELLE;
+    public static final String TYPE_DESC_BOB_THE_BUILDER =  " " + PREFIX_TYPE + VALID_TYPE_BOB_THE_BUILDER;
     public static final String DATE_DESC_ANNABELLE = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_ANNABELLE;
     public static final String DATE_DESC_BOB_THE_BUILDER = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_BOB_THE_BUILDER;
     public static final String WATCHED_DESC_ANNABELLE = " " + PREFIX_IS_WATCHED + VALID_WATCHED_ANNABELLE;

@@ -82,12 +82,11 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Show expectedShow = new ShowBuilder(ANNABELLE).withActors(VALID_ACTOR_ANNABELLE).build();
+        // zero actors
+        Show expectedShow = new ShowBuilder(ANNABELLE).withActors().build();
         assertParseSuccess(parser,
                 NAME_DESC_ANNABELLE + TYPE_DESC_ANNABELLE + DESCRIPTION_DESC_ANNABELLE
-                        + WATCHED_DESC_ANNABELLE + DATE_DESC_ANNABELLE + RUNNING_TIME_DESC_ANNABELLE
-                        + ACTOR_DESC_ANNABELLE,
+                        + WATCHED_DESC_ANNABELLE + DATE_DESC_ANNABELLE + RUNNING_TIME_DESC_ANNABELLE,
                 new AddCommand(expectedShow));
     }
 
