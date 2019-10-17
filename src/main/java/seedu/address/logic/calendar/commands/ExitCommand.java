@@ -1,6 +1,6 @@
 package seedu.address.logic.calendar.commands;
 
-import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.CalendarModel;
 
 /**
  * Terminates the program.
@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(CalendarModel calendarModel) {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 

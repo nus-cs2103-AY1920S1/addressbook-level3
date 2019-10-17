@@ -1,6 +1,6 @@
 package seedu.address.logic.calendar.commands;
 
-import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.CalendarModel;
 
 /**
  * Format full help instructions for every command for display.
@@ -15,7 +15,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(CalendarModel calendarModel) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }

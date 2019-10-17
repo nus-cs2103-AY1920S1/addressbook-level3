@@ -6,10 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.calendar.commands.FindCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.person.NameContainsKeywordsPredicate;
-
-
-
+import seedu.address.model.calendar.person.TaskTitleContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -30,7 +27,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new TaskTitleContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

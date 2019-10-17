@@ -10,12 +10,12 @@
 //
 //
 //public class HelpCommandTest {
-//    private Model model = new ModelManager();
-//    private Model expectedModel = new ModelManager();
+//    private CalendarModel calendarModel = new CalendarModelManager();
+//    private CalendarModel expectedModel = new CalendarModelManager();
 //
 //    @Test
 //    public void execute_help_success() {
 //        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
-//        assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
+//        assertCommandSuccess(new HelpCommand(), calendarModel, expectedCommandResult, expectedModel);
 //    }
 //}
