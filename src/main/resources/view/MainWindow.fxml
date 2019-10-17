@@ -15,7 +15,7 @@
 
 <?import javafx.scene.control.TableView?>
 
-<fx:root minHeight="650" minWidth="960" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="700" minWidth="960" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/TArenceicon.png" />
     </icons>
@@ -48,10 +48,12 @@
                     </padding>
                 </StackPane>
             <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-                <VBox fx:id="tutorialList" alignment="CENTER" minWidth="340" maxWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                    <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                    </padding>
+                <VBox fx:id="tutorialList" alignment="CENTER" minWidth="310" maxWidth="310" prefWidth="310" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Class List" textFill="#fffcfc" underline="true">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                    </Label>
                     <StackPane fx:id="tutorialListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                 </VBox>
 
