@@ -20,8 +20,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class DateUtil {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat DATE_FORMAT_PRETTY = new SimpleDateFormat("EE dd/MM/yyyy");
 
-    /* Date pattern which allows leading zeroes to be omitted. */
+    /** Date pattern which allows leading zeroes to be omitted. **/
     private static final Pattern DATE_PATTERN = Pattern.compile("([0-9]{1,2})(?:[/\\-])([0-9]{1,2})"
             + "(?:(?:[/\\-])([0-9]{0,4})|)");
 
@@ -134,5 +135,21 @@ public class DateUtil {
      */
     public static String formatDate(Date date) {
         return DATE_FORMAT.format(date);
+    }
+
+    /**
+     * Pretty formats a date to a string.
+     * Example output: Mon 25/12/2019
+     *
+     * @param date Input date
+     * @return A formatted date string
+     */
+    public static String prettyFormatDate(String date) {
+        try {
+            Date parsedDate = DATE_FORMAT.parse(date);
+            return DATE_FORMAT_PRETTY.format(parsedDate);
+        } catch (java.text.ParseException e) {
+            return "";
+        }
     }
 }
