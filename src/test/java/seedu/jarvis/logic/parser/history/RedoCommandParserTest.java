@@ -45,7 +45,7 @@ public class RedoCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_UNDO_REDO + "0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 RedoCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " " + PREFIX_UNDO_REDO + "Html is a programming language",
+        assertParseFailure(parser, " " + PREFIX_UNDO_REDO + "Invalid Command Format",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
     }
 }

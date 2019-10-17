@@ -1,4 +1,4 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.address;
 
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -9,6 +9,13 @@ import seedu.jarvis.model.Model;
 public abstract class Command {
 
     /**
+     * Gets the command word of the command.
+     *
+     * @return {@code String} representation of the command word.
+     */
+    public abstract String getCommandWord();
+
+    /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}
      * will be guaranteed to always throw a {@code CommandException}.

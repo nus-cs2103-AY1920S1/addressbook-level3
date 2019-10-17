@@ -1,4 +1,4 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.address;
 
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.Person;
