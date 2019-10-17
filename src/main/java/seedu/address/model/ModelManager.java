@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -128,9 +129,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPolicyWithName(PolicyName policyName) {
+        return addressBook.hasPolicyWithName(policyName);
+    }
+
+    @Override
     public Policy getPolicy(Policy policy) {
         requireNonNull(policy);
         return addressBook.getPolicy(policy);
+    }
+
+    @Override
+    public Policy getPolicyWithName(PolicyName policyName) {
+        requireNonNull(policyName);
+        return addressBook.getPolicyWithName(policyName);
     }
 
     @Override

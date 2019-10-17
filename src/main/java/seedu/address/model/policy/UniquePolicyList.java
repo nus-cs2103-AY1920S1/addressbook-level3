@@ -36,9 +36,25 @@ public class UniquePolicyList implements Iterable<Policy> {
         return internalList.stream().anyMatch(toCheck::isSamePolicy);
     }
 
+    /**
+     * Returns true if the list contains an policy with the same name as {@code policyName}.
+     */
+    public boolean containsByName(PolicyName policyName) {
+        requireNonNull(policyName);
+        return internalList.stream().anyMatch(policy -> policy.getName().equals(policyName));
+    }
+
     public Policy getPolicy(Policy policy) {
         requireNonNull(policy);
         return internalList.stream().filter(policy::isSamePolicy).findAny().get();
+    }
+
+    /**
+     * Gets the policy in the address book with the same name as {@code policyName}
+     */
+    public Policy getPolicyWithName(PolicyName policyName) {
+        requireNonNull(policyName);
+        return internalList.stream().filter(policy -> policy.getName().equals(policyName)).findFirst().get();
     }
 
     /**

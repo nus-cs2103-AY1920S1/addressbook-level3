@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.PolicyName;
 import seedu.address.model.policy.UniquePolicyList;
 
 /**
@@ -122,9 +123,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         return policies.contains(policy);
     }
 
+    public boolean hasPolicyWithName(PolicyName policyName) {
+        requireNonNull(policyName);
+        return policies.containsByName(policyName);
+    }
+
     public Policy getPolicy(Policy policy) {
         requireNonNull(policy);
         return policies.getPolicy(policy);
+    }
+
+    public Policy getPolicyWithName(PolicyName policyName) {
+        return policies.getPolicyWithName(policyName);
     }
 
     /**

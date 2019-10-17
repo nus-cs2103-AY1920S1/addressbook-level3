@@ -127,7 +127,7 @@ public class Policy {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, coverage, price, startAge, endAge, tags);
+        return Objects.hash(name);
     }
 
     @Override
