@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.person.Person;
 
 /**
@@ -48,10 +49,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setStagedAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the current AddressBook */
+    ReadOnlyAddressBook getStagedAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -78,7 +79,7 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /** Returns an unmodifiable view of the entire person list */
-    ObservableList<Person> getPersonList();
+    ObservableList<Person> getStagedPersonList();
 
     /** Returns an unmodifiable view of the filtered person list */
     FilteredList<Person> getFilteredPersonList();
@@ -88,4 +89,29 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if there are changes to the address book that have not been {@code commit()}ed.
+     * @return true if there are uncommitted changes
+     */
+    boolean hasStagedChanges();
+
+    /**
+     * Commits the changes made to the address book since the last call to this method, making them permanent and
+     * updating the UI data. The committing {@code MutatorCommand} is stored for history record purposes.
+     * @param command the {@code MutatorCommand} making this commit
+     */
+    void commit(MutatorCommand command);
+
+    /** Discards staged but uncommitted changes */
+    void discardStagedChanges();
+
+    /**
+     * Reverts current model state to the {@link AddressBook} contained in the specified {@link HistoryRecord}
+     * (i.e. the state before the {@link MutatorCommand} was executed).
+     */
+    void revertTo(HistoryRecord record);
+
+    /** Returns an unmodifiable view of the history */
+    ObservableList<HistoryRecord> getHistory();
 }

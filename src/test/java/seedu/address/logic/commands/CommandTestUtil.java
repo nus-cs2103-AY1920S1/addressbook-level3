@@ -107,11 +107,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        AddressBook expectedAddressBook = new AddressBook(actualModel.getStagedAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedAddressBook, actualModel.getStagedAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
     /**
@@ -126,6 +126,17 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Executes the {@code command} with the given {@code model} and commits it if it is a {@link MutatorCommand}
+     */
+    public static CommandResult executeAndCommitCommand(Command command, Model model) throws CommandException {
+        CommandResult result = command.execute(model);
+        if (command instanceof MutatorCommand) {
+            model.commit((MutatorCommand) command);
+        }
+        return result;
     }
 
 }
