@@ -34,8 +34,8 @@ public class JsonAdaptedAnswerableTest {
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedAnswerable person = new JsonAdaptedAnswerable(B_ANSWERABLE);
-        assertEquals(B_ANSWERABLE, person.toModelType());
+        JsonAdaptedAnswerable answerable = new JsonAdaptedAnswerable(B_ANSWERABLE);
+        assertEquals(B_ANSWERABLE, answerable.toModelType());
     }
 
     @Test

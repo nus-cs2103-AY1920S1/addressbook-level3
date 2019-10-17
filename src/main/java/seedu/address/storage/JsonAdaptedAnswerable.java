@@ -62,7 +62,7 @@ class JsonAdaptedAnswerable {
         correctAnswerSet.addAll(source.getCorrectAnswerSet().stream()
                 .map(JsonAdaptedAnswer::new)
                 .collect(Collectors.toList()));
-        wrongAnswerSet.addAll(source.getCorrectAnswerSet().stream()
+        wrongAnswerSet.addAll(source.getWrongAnswerSet().stream()
                 .map(JsonAdaptedAnswer::new)
                 .collect(Collectors.toList()));
         categories.addAll(source.getCategories().stream()

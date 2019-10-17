@@ -57,7 +57,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
             editAnswerableDescriptor.setDifficulty(ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
-     
 
         parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY)).ifPresent(editAnswerableDescriptor::setCategories);
 
@@ -79,8 +78,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (categories.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> categorySet = categories.size() == 1 && categories.contains("") ? Collections.emptySet() : categories;
-        return Optional.of(ParserUtil.parseCategories(categorySet));
+        return Optional.of(ParserUtil.parseCategories(categories));
     }
 
 }

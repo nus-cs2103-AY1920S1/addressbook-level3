@@ -171,14 +171,4 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_ANSWERABLE;
-        String userInput = targetIndex.getOneBased() + CATEGORY_EMPTY;
-
-        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withCategories().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
 }

@@ -11,7 +11,6 @@ public class Category {
 
     public static final String MESSAGE_CONSTRAINTS = "Category names should not be blank";
     public static final String VALIDATION_REGEX = "^(?=\\s*\\S).*$";
-//    public static final String VALIDATION_REGEX = ".*";
 
     public final String categoryName;
 

@@ -51,7 +51,7 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_UML = " " + PREFIX_CATEGORY + VALID_CATEGORY_UML;
     public static final String CATEGORY_DESC_GREENFIELD = " " + PREFIX_CATEGORY + VALID_CATEGORY_GREENFIELD;
 
-    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + " "; // empty string not allowed for questions
+    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + ""; // empty string not allowed for questions
     public static final String INVALID_DIFFICULTY_DESC = " " + PREFIX_DIFFICULTY + "911a"; // 'a' not allowed in difficulty
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + ""; // category cannot just be whitespace
 
