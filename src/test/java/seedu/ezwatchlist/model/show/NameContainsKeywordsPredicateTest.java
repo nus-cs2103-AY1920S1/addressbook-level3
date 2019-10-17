@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.model.show;
 
 import org.junit.jupiter.api.Test;
+import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
 import seedu.ezwatchlist.testutil.ShowBuilder;
 
 import java.util.Arrays;
@@ -67,9 +68,10 @@ public class NameContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new ShowBuilder().withName("Alice Bob").build()));
 
         // Keywords match description, dateofrelease, and actors, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("description", "2019", "Tony Stark"));
-        /*assertFalse(predicate.test(new ShowBuilder().withName("Alice").withDescription("description")
-                .withDateOfRelease("2019").withActors("Tony Stark").build()));
-         */
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("description", "2019", "Tony"));
+        assertFalse(predicate.test(new ShowBuilder().withName("Alice").withDescription("description")
+                .withDateofRelease("2019").withActors("Tony Stark").build()));
+
+
     }
 }

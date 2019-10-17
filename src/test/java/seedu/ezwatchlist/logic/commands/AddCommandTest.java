@@ -156,6 +156,7 @@ public class AddCommandTest {
 
         @Override
         public void updateWatchedShowList() {
+
             throw new AssertionError("This method should not be called.");
         }
 

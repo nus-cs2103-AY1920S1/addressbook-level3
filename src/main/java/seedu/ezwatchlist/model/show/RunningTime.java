@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.model.show;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Show's Running Time in the watchlist.
@@ -10,6 +11,8 @@ public class RunningTime {
     // For now the running time will be an integer, since that is what the API returns it as.
     public static final String MESSAGE_CONSTRAINTS =
             "Running time can take any integer values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS2 =
+            "Running time can take only positive values.";
 
     public final int value;
 
@@ -20,6 +23,7 @@ public class RunningTime {
      */
     public RunningTime(int runningTime) {
         requireNonNull(runningTime);
+        checkArgument(isValidRunningTime(runningTime), MESSAGE_CONSTRAINTS2);
         value = runningTime;
     }
 
