@@ -70,9 +70,9 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(userPrefs.getAddressBookFilePath(), password);
-        FileBookStorage fileBookStroage =
+        FileBookStorage fileBookStorage =
                 new JsonFileBookStorage(userPrefs.getFileBookFilePath(), password);
-        storage = new StorageManager(addressBookStorage, fileBookStroage, userPrefsStorage, password);
+        storage = new StorageManager(addressBookStorage, fileBookStorage, userPrefsStorage, password);
 
         initLogging(config);
 

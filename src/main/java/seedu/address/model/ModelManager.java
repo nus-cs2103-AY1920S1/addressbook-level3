@@ -33,8 +33,6 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(addressBook, fileBook, userPrefs);
 
-        logger.fine("Initializing with file book: " + fileBook + " and user prefs " + userPrefs);
-
         this.addressBook = new AddressBook(addressBook);
         this.fileBook = new FileBook(fileBook);
         this.userPrefs = new UserPrefs(userPrefs);
