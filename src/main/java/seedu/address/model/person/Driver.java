@@ -1,9 +1,8 @@
 package seedu.address.model.person;
 
-import seedu.address.model.person.exceptions.SchedulingException;
-import seedu.address.model.tag.Tag;
-
 import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Driver available for work.
@@ -12,10 +11,10 @@ import java.util.Set;
 public class Driver extends Person {
 
     //Identity fields
+    private static int IDCOUNT = 1;
     private final int id;
 
     //data fields
-    static int IDCOUNT = 1;
     private Schedule schedule;
 
     /**
@@ -30,6 +29,10 @@ public class Driver extends Person {
 
     public int getId() {
         return id;
+    }
+
+    public int getIDCOUNT() {
+        return IDCOUNT;
     }
 
     public Schedule getSchedule() {
