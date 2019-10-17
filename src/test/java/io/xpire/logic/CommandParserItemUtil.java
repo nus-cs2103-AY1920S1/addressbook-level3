@@ -13,9 +13,8 @@ public class CommandParserItemUtil {
 
     public static final String VALID_NAME_APPLE = "Apple";
     public static final String VALID_NAME_BANANA = "Banana";
-    public static final String VALID_NAME_CORN = "Corn";
+    public static final String VALID_NAME_EXPIRED_MILK = "Milk";
     public static final String VALID_NAME_DUCK = "Duck";
-    public static final String VALID_NAME_EGGS = "Eggs";
     public static final String VALID_NAME_JELLY = "Jelly";
     public static final String VALID_NAME_KIWI = "Kiwi";
     public static final String VALID_NAME_EXPIRED_ORANGE = "Orange";
@@ -38,29 +37,28 @@ public class CommandParserItemUtil {
     public static final String VALID_EXPIRY_DATE_FISH = IN_A_WEEK;
 
     public static final String VALID_QUANTITY_APPLE = "1";
-    public static final String VALID_QUANTITY_BANANA = "1";
-    public static final String VALID_QUANTITY_CORN = "2";
+    public static final String VALID_QUANTITY_BANANA = "5";
     public static final String VALID_QUANTITY_DUCK = "1";
-    public static final String VALID_QUANTITY_EGGS = "1";
     public static final String VALID_QUANTITY_JELLY = "4";
-    public static final String VALID_QUANTITY_LIME = "4";
-    public static final String VALID_QUANTITY_KIWI = "1";
+    public static final String VALID_QUANTITY_KIWI = "2";
+    public static final String VALID_QUANTITY_EXPIRED_MILK = "2";
+    public static final String VALID_QUANTITY_EXPIRING_FISH = "1";
+    public static final String VALID_QUANTITY_EXPIRED_ORANGE = "1";
+
 
     public static final String VALID_TAG_FRUIT = "Fruit";
     public static final String VALID_TAG_DRINK = "Drink";
     public static final String VALID_TAG_FRIDGE = "Fridge";
     public static final String VALID_TAG_PROTEIN = "Protein";
-    public static final String VALID_TAG_LIME = "Citrus";
 
     public static final String VALID_REMINDER_THRESHOLD_APPLE = "0";
     public static final String VALID_REMINDER_THRESHOLD_BANANA = "0";
-    public static final String VALID_REMINDER_THRESHOLD_CORN = "0";
     public static final String VALID_REMINDER_THRESHOLD_DUCK = "0";
-    public static final String VALID_REMINDER_THRESHOLD_EGGS = "7";
-    public static final String VALID_REMINDER_THRESHOLD_FAKECRABSTICK = "0";
     public static final String VALID_REMINDER_THRESHOLD_JELLY = "3";
-    public static final String VALID_REMINDER_THRESHOLD_LIME = "2";
-    public static final String VALID_REMINDER_THRESHOLD_KIWI = "0";
+    public static final String VALID_REMINDER_THRESHOLD_KIWI = "20";
+    public static final String VALID_REMINDER_THRESHOLD_FISH = "8";
+    public static final String VALID_REMINDER_THRESHOLD_ORANGE = "0";
+    public static final String VALID_REMINDER_THRESHOLD_MILK = "0";
 
     public static final String INVALID_NAME = "@pple";
     public static final String INVALID_EXPIRY_DATE = "50/50/5000";
