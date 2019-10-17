@@ -2,7 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Schedule;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -90,8 +91,10 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
+        // For now ModelManager is always initialised with sample schedulesList first
+        List<Schedule> schedules = SampleDataUtil.getSampleSchedulesList();
 
-        return new ModelManager(initialData, userPrefs, new LinkedList<>());
+        return new ModelManager(initialData, userPrefs, schedules);
     }
 
     private void initLogging(Config config) {

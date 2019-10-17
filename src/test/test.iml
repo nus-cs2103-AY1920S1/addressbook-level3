@@ -25,5 +25,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="TEST" name="Gradle: org.openjfx:javafx-base:mac:11" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.openjfx:javafx-fxml:mac:11" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.openjfx:javafx-graphics:mac:11" level="project" />
   </component>
 </module>

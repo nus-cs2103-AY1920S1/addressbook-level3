@@ -19,6 +19,15 @@ import seedu.address.testutil.SampleInterviewers;
 import seedu.address.testutil.SampleSchedules;
 
 public class ScheduleTest {
+    private static String[][] sampleFilledTable =
+            new String[][]{
+                    {"10/9/2019(Thur)", "Welfare-Hazel", "Technical-Johnathan", "Publicity-Lucia"},
+                    {"6:00pm-6:30pm", "John", "Steven", "NA"},
+                    {"6:30pm-7:00pm", "Alex", "Clark", "Alice"},
+                    {"7:00pm-7:30pm", "Alicia", "NA", "Charlie"},
+                    {"7:30pm-8:00pm", "Bruce", "NA", "Selina"},
+                    {"8:00pm-8:30pm", "Barry", "NA", "NA"},
+                    {"8:30pm-9:00pm", "Natal", "NA", "NA"}};
 
     @Test
     public void getInterviewsSlot_existingInterviewee_success() {
