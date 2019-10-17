@@ -6,6 +6,7 @@ import seedu.address.financialtracker.Model.Expense.Amount;
 import seedu.address.financialtracker.Model.Expense.Country;
 import seedu.address.financialtracker.Model.Expense.Description;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.PageType;
 
 
 import static java.util.Objects.requireNonNull;
@@ -73,5 +74,16 @@ public class ParserUtil {
             throw new ParseException(Country.MESSAGE_CONSTRAINTS);
         }
         return new Country(trimmedCountry);
+    }
+
+    public static PageType parsePageType(String pageType) throws ParseException {
+        requireNonNull(pageType);
+        String trimmedPageType = pageType.trim();
+        try {
+            PageType requestedPage = PageType.valueOf(trimmedPageType.toUpperCase());
+            return requestedPage;
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(PageType.MESSAGE_CONSTRAINTS);
+        }
     }
 }
