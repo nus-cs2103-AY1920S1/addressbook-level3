@@ -2,7 +2,6 @@ package seedu.revision.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.revision.commons.core.Messages;
@@ -12,54 +11,43 @@ import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 
 /**
- * Deletes one or more answerables identified using it's displayed index from the revision tool.
+ * Deletes a answerable identified using it's displayed index from the revision tool.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes one or more questions identified by the index number used in the displayed question list.\n"
+            + ": Deletes the answerable identified by the index number used in the displayed answerable list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3";
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_ANSWERABLE_SUCCESS = "Deleted Questions: %s";
+    public static final String MESSAGE_DELETE_ANSWERABLE_SUCCESS = "Deleted Answerable: %1$s";
 
-    private ArrayList<Index> targetIndexList = new ArrayList<>();
+    private final Index targetIndex;
 
-    public DeleteCommand(ArrayList<Index> targetIndexList) {
-        for (Index targetIndex : targetIndexList) {
-            this.targetIndexList.add(targetIndex);
-        }
+    public DeleteCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Answerable> lastShownList = model.getFilteredAnswerableList();
-        ArrayList<Answerable> toBeDeleted = new ArrayList<>();
 
-        for (Index targetIndex : targetIndexList) {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_ANSWERABLE_DISPLAYED_INDEX);
-            }
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ANSWERABLE_DISPLAYED_INDEX);
         }
 
-        for (Index targetIndex : targetIndexList) {
-            Answerable answerableToDelete = lastShownList.get(targetIndex.getZeroBased());
-            toBeDeleted.add(answerableToDelete);
-        }
-
-        for (Answerable answerableToDelete : toBeDeleted) {
-            model.deleteAnswerable(answerableToDelete);
-        }
-        return new CommandResult(String.format(MESSAGE_DELETE_ANSWERABLE_SUCCESS, toBeDeleted.toString()));
+        Answerable answerableToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteAnswerable(answerableToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_ANSWERABLE_SUCCESS, answerableToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand); // instanceof handles nulls
-        // && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 }
