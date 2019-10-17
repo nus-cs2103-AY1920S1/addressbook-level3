@@ -18,6 +18,7 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.statistics.StatisticsStub;
 import seedu.address.model.task.Task;
 
@@ -32,6 +33,7 @@ public class ModelManager implements Model {
     private final FilteredList<Note> filteredNotes;
     private final FilteredList<Question> filteredQuestions;
     private final FilteredList<Question> filteredQuizQuestions;
+    private final FilteredList<QuizResult> filteredQuizResults;
     private final FilteredList<Task> filteredTasks;
     private final StatisticsStub statisticsStub;
 
@@ -49,6 +51,7 @@ public class ModelManager implements Model {
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
         filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
         filteredQuizQuestions = new FilteredList<>(this.addressBook.getQuizQuestionList());
+        filteredQuizResults = new FilteredList<>(this.addressBook.getQuizResultList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         this.statisticsStub = new StatisticsStub();
     }
@@ -189,6 +192,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addQuizResult(QuizResult quizResult) {
+        requireNonNull(quizResult);
+
+        addressBook.addQuizResult(quizResult);
+    }
+
+    @Override
     public void clearQuizQuestionList() {
         addressBook.clearQuizQuestionList();
     }
@@ -232,6 +242,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Question> getFilteredQuizQuestionList() {
         return filteredQuizQuestions;
+    }
+
+    @Override
+    public ObservableList<QuizResult> getFilteredQuizResultList() {
+        return filteredQuizResults;
     }
 
     //=========== Filtered Task List accessors =============================================================

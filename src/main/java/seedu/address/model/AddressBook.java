@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +17,8 @@ import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.QuizResultList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -27,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueNoteList notes;
     private final UniqueQuestionList questions;
     private final QuizQuestionList quiz;
+    private final QuizResultList quizResults;
     private final TaskList tasks;
 
     /*
@@ -41,6 +46,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         notes = new UniqueNoteList();
         questions = new UniqueQuestionList();
         quiz = new QuizQuestionList();
+        quizResults = new QuizResultList();
         tasks = new TaskList();
     }
 
@@ -172,15 +178,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty) {
         ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
+        List<Question> filteredQuestions = getQuestionList()
+                .stream()
+                .filter(question -> subject.equals(question.getSubject())
+                        && difficulty.equals(question.getDifficulty()))
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < questions.getSize(); i++) {
-            Question question = questions.get(i);
-            if (question.getSubject().equals(subject) && question.getDifficulty().equals(difficulty)) {
-                quizQuestions.add(question);
-            }
-            if (quizQuestions.size() == numOfQuestions) {
-                break;
-            }
+        Random random = new Random();
+        for (int i = 0; i < numOfQuestions; i++) {
+            int randomIndex = random.nextInt(filteredQuestions.size());
+            Question question = filteredQuestions.get(randomIndex);
+            quizQuestions.add(question);
+            filteredQuestions.remove(randomIndex);
         }
         return quizQuestions;
     }
@@ -213,6 +222,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         quiz.clearQuizQuestionList();
     }
 
+    public void addQuizResult(QuizResult quizResult) {
+        quizResults.add(quizResult);
+    }
+
+    public boolean hasQuizResult(QuizResult quizResult) {
+        return quizResults.contains(quizResult);
+    }
+
     // util methods
 
     @Override
@@ -234,6 +251,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Question> getQuizQuestionList() {
         return quiz.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<QuizResult> getQuizResultList() {
+        return quizResults.asUnmodifiableObservableList();
     }
 
     @Override
