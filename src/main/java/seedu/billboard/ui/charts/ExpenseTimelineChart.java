@@ -1,24 +1,32 @@
 package seedu.billboard.ui.charts;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import seedu.billboard.commons.core.date.DateInterval;
+import seedu.billboard.commons.core.date.DateRange;
+import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.ExpenseTimeline;
-import seedu.billboard.model.statistics.Statistics;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
-public class ExpenseTimelineChart extends ExpenseChart {
+public class ExpenseTimelineChart extends ExpenseChart<ExpenseTimeline> {
 
     private static final String FXML = "ExpenseTimelineChart.fxml";
 
-
     @FXML
-    private LineChart<Number, String> timelineChart;
+    private LineChart<String, Float> timelineChart;
 
     @FXML
     private CategoryAxis xAxis;
@@ -26,21 +34,46 @@ public class ExpenseTimelineChart extends ExpenseChart {
     @FXML
     private NumberAxis YAxis;
 
-    private ObservableList<String> dateNames;
+    private final EnumMap<DateInterval, DateTimeFormatter> dateIntervalFormats;
+    private XYChart.Series<String, Float> series;
 
 
-    public ExpenseTimelineChart() {
+    public ExpenseTimelineChart(ExpenseTimeline expenseTimeline) {
         super(FXML);
+
+        dateIntervalFormats = new EnumMap<>(DateInterval.class);
+        dateIntervalFormats.put(DateInterval.DAY, DateTimeFormatter.ofPattern("dd/MM/yy"));
+        dateIntervalFormats.put(DateInterval.WEEK, DateTimeFormatter.ofPattern("dd/MM/yy"));
+        dateIntervalFormats.put(DateInterval.MONTH, DateTimeFormatter.ofPattern("MM/yy"));
+        dateIntervalFormats.put(DateInterval.YEAR, DateTimeFormatter.ofPattern("yyyy"));
+
+        series = new XYChart.Series<>();
+        series.getData().setAll(getData(expenseTimeline.getTimeline(), expenseTimeline.getDateInterval()));
+        timelineChart.getData().add(series);
     }
 
-    @FXML
-    private void initialize() {
-        dateNames = FXCollections.observableArrayList();
-    }
 
     @Override
-    public void onDataChange(Statistics stats, ListChangeListener.Change<? extends Expense> change) {
-        ExpenseTimeline newTimeline = stats.generateExpenseTimeline(change.getList());
+    public void onDataChange(ExpenseTimeline newData) {
+        Map<DateRange, Amount> timeline = newData.getTimeline();
+        List<XYChart.Data<String, Float>> data = getData(timeline, newData.getDateInterval());
+        series.getData().setAll(data);
     }
 
+    private List<XYChart.Data<String, Float>> getData(Map<DateRange, Amount> timeline, DateInterval interval) {
+        return timeline.entrySet()
+                .stream()
+                .map(entry -> entryToData(entry, interval))
+                .collect(Collectors.toList());
+    }
+
+    private XYChart.Data<String, Float> entryToData(Map.Entry<DateRange, Amount> entry,
+                                                               DateInterval interval) {
+
+        return new XYChart.Data<>(formatDate(entry.getKey().getStartDate(), interval), entry.getValue().amount);
+    }
+
+    private String formatDate(LocalDate date, DateInterval dateInterval) {
+        return dateIntervalFormats.get(dateInterval).format(date);
+    }
 }
