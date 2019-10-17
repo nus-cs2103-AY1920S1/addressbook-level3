@@ -47,6 +47,20 @@ public class CourseUtilTest {
     };
 
     @Test
+    public void courseExists_validInput_doesNotThrowException() {
+        for (String course : VALID_COURSE_CODES) {
+            assertDoesNotThrow(() -> CourseUtil.courseExists(course));
+        }
+    }
+
+    @Test
+    public void courseExists_invalidInput_throwsException() {
+        for (String course : INVALID_COURSE_CODES) {
+            assertDoesNotThrow(() -> CourseUtil.courseExists(course));
+        }
+    }
+
+    @Test
     public void getCourseJsonString_validInput_doesNotThrowException() {
         for (String course : VALID_COURSE_CODES) {
             assertDoesNotThrow(() -> CourseUtil.getCourseJsonString(course));

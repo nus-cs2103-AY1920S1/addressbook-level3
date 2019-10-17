@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import seedu.jarvis.commons.exceptions.CourseNotFoundException;
+import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CourseCode;
 import seedu.jarvis.model.course.CourseCredit;
@@ -44,6 +45,21 @@ public class CourseUtil {
 
     private static final String removeSpacesNotWithinQuotes(String string) {
         return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();
+    }
+
+    /**
+     * Returns true if the given course exists.
+     *
+     * @param courseCode of the course
+     * @return true if the course exists
+     */
+    public static boolean courseExists(String courseCode) {
+        try {
+            getCourse(courseCode);
+            return true;
+        } catch (CourseNotFoundException e) {
+            return false;
+        }
     }
 
     /**
