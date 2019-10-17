@@ -3,7 +3,6 @@ package seedu.ezwatchlist.model.show;
 import seedu.ezwatchlist.commons.util.AppUtil;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Show's date of release in the watchlist.

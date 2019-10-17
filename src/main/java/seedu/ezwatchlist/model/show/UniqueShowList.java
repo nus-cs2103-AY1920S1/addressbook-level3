@@ -1,7 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.*;
 import java.util.stream.Collectors;

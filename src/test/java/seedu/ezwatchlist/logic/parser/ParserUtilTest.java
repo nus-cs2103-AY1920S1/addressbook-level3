@@ -15,11 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.RunningTime;
-import seedu.ezwatchlist.model.actor.Actor;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -139,7 +135,7 @@ public class ParserUtilTest {
     public void parseDate_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
     }
-    
+
     @Test
     public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
         Date expectedDate = new Date(VALID_DATE);

@@ -1,5 +1,8 @@
 package seedu.ezwatchlist.api;
 
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.model.config.TmdbConfiguration;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,9 +11,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import info.movito.themoviedbapi.TmdbApi;
-import info.movito.themoviedbapi.model.config.TmdbConfiguration;
 
 /**
  * A class for the image retrieval.

@@ -10,6 +10,8 @@ import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.show.*;
 import seedu.ezwatchlist.api.ApiMain;
 import seedu.ezwatchlist.ui.SearchPanel;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Show;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +84,6 @@ public class SearchCommand extends Command {
             //to be added
         //}
     }
-
 
     @Override
     public boolean equals(Object other) {
