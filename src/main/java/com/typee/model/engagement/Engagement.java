@@ -113,10 +113,8 @@ public abstract class Engagement {
      * @param engagement the {@code Engagement} to check for a clash.
      * @return true if there is a clash.
      */
-    public boolean isSameEngagement(Engagement engagement) {
-        return engagement.endTime.equals(endTime)
-                && engagement.startTime.equals(startTime)
-                && engagement.location.equals(location);
+    public boolean isConflictingWith(Engagement engagement) {
+        return EngagementConflictChecker.areConflicting(this, engagement);
     }
 
     @Override
