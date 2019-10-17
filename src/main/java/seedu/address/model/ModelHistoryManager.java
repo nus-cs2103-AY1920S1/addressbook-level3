@@ -98,7 +98,11 @@ public class ModelHistoryManager implements ModelHistory {
     public ModelHistoryRecord undo() throws AlfredModelHistoryException {
         if (this.canUndo()) {
             this.index -= 1;
-            return this.history.get(this.index);
+            ModelHistoryRecord hr = this.history.get(this.index);
+            ParticipantList.setLastUsedId(hr.getParticipantListLastUsedId());
+            MentorList.setLastUsedId(hr.getMentorListLastUsedId());
+            TeamList.setLastUsedId(hr.getTeamListLastUsedId());
+            return hr;
         } else {
             throw new AlfredModelHistoryException("Unable to undo any further!");
         }
