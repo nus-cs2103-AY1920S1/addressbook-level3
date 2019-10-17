@@ -5,12 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-
+/**
+ * Association class between member & task
+ */
 public class Mapping {
 
     private final Member member;
@@ -26,6 +25,10 @@ public class Mapping {
         return member;
     }
 
+    /**
+     * checks whether the Mapping object contains the member
+     * @param otherMember is the member to be checked
+     */
     public boolean hasMember(Member otherMember) {
         if (otherMember == member) {
             return true;
@@ -39,6 +42,10 @@ public class Mapping {
         return task;
     }
 
+    /**
+     * checks whether the Mapping object contains the task
+     * @param otherTask is the task to be checked
+     */
     public boolean hasTask(Task otherTask) {
         if (otherTask == task) {
             return true;
