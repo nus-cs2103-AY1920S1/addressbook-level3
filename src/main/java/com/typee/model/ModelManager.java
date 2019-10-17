@@ -160,35 +160,6 @@ public class ModelManager implements Model {
         historyManager.saveState();
     }
 
-    //=========== Undo ================================================================================
-
-    @Override
-    public boolean hasNoUndoableCommand() {
-        return !historyManager.isUndoable();
-    }
-
-    @Override
-    public void undoAppointmentList() throws NullUndoableActionException {
-        historyManager.undo();
-    }
-
-    //=========== Redo ================================================================================
-
-    @Override
-    public boolean hasNoRedoableCommand() {
-        return !historyManager.isRedoable();
-    }
-
-    @Override
-    public void redoAppointmentList() throws NullRedoableActionException {
-        historyManager.redo();
-    }
-
-    @Override
-    public void saveAppointmentList() {
-        historyManager.saveState();
-    }
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
