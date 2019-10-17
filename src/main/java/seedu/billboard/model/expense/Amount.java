@@ -1,6 +1,8 @@
 package seedu.billboard.model.expense;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 /**
  * Represents an Expense's amount in Billboard.
@@ -9,11 +11,17 @@ import java.text.DecimalFormat;
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain a float number and it should not be blank";
+    private static final NumberFormat numberFormatter = NumberFormat.getNumberInstance();
 
     //TODO: Add parsing money logic
     public final float amount;
 
     public Amount(String amount) {
+        try {
+            System.out.println(numberFormatter.parse(amount).toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.amount = Float.parseFloat(amount);
     }
 
@@ -22,9 +30,9 @@ public class Amount {
      */
     public static boolean isValidAmount(String test) {
         try {
-            Float.parseFloat(test);
+            numberFormatter.parse(test);
             return true;
-        } catch (NumberFormatException e) {
+        } catch (ParseException e) {
             return false;
         }
     }
@@ -48,6 +56,6 @@ public class Amount {
     @Override
     public String toString() {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        return String.valueOf(decimalFormat.format(amount));
+        return "S$" + decimalFormat.format(amount);
     }
 }
