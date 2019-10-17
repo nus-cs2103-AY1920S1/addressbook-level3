@@ -71,10 +71,11 @@ public class ParserUtil {
 
         try {
             formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
-        } catch (DateTimeParseException e) {
+        } catch (ParseException e) {
             throw new ParseException("Date Time format given is incorrect. "
                     + "Please follow this format: \"-d 2019-09-25T23:59:50.63\""
-                    + "or \"-d 25/09/2019 2359\"");
+                    + "or \"-d 25/09/2019 2359\""
+                    + "or \"-d 10.min.later\"");
         }
 
         Event newEvent = new Event(formattedDateTime, null, null);
@@ -102,7 +103,8 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             throw new ParseException("Date Time format given is incorrect. "
                     + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
-                    + "or \"-r 25/09/2019 2359\"");
+                    + "or \"-r 25/09/2019 2359\""
+                    + "of \"-r 10.min.later\"");
         }
 
         Reminder newReminder = new Reminder(formattedDateTime);
@@ -171,13 +173,14 @@ public class ParserUtil {
      * @return a LocalDateTime representation of the given string
      * @throws DateTimeParseException if the format of the string given is incorrect
      */
-    private static LocalDateTime getFormattedDateTime(String stringDateTime) throws DateTimeParseException {
+    private static LocalDateTime getFormattedDateTime(String stringDateTime) throws ParseException {
         boolean invalidFormat = false;
-        DateTimeParseException parseException = new DateTimeParseException("dummy", "dummy", 0); // just to initialize
+        ParseException parseException = new ParseException("dummy"); // just to initialize
         ArrayList<DateTimeParser> allParsers = new ArrayList<>() {
             {
                 add(new StandardDateTimeParser());
                 add(new DefinedDateTimeParser());
+                add(new FastReminderDateTimeParser());
             }
         };
 
@@ -187,7 +190,7 @@ public class ParserUtil {
                 processedDateTime = parser.parseDateTime(stringDateTime);
                 invalidFormat = false;
                 break;
-            } catch (DateTimeParseException err) {
+            } catch (ParseException err) {
                 invalidFormat = true;
                 parseException = err;
             }

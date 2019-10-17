@@ -1,7 +1,8 @@
 package seedu.address.logic.parser;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Parser that is able to parse DateTime input into a {@code LocalDateTime}.
@@ -12,5 +13,5 @@ public interface DateTimeParser {
      * @param stringDateTime of the unprocessed date time string
      * @return LocalDateTime representation of the given string
      */
-    LocalDateTime parseDateTime(String stringDateTime) throws DateTimeParseException;
+    LocalDateTime parseDateTime(String stringDateTime) throws ParseException;
 }

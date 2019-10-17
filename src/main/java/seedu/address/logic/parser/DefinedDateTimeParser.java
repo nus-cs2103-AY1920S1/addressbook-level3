@@ -1,10 +1,11 @@
 package seedu.address.logic.parser;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Parse string date time using a formatter dd/MM/yyyy HHmm
@@ -16,7 +17,7 @@ public class DefinedDateTimeParser implements DateTimeParser {
      * @param stringDateTime of the format "dd/MM/yyyy HHmm"
      * @return LocalDateTime representation of the string
      */
-    public LocalDateTime parseDateTime(String stringDateTime) throws DateTimeParseException {
+    public LocalDateTime parseDateTime(String stringDateTime) throws ParseException {
         try {
             String[] splitTime = stringDateTime.split(" ");
 
@@ -29,8 +30,8 @@ public class DefinedDateTimeParser implements DateTimeParser {
             LocalDateTime processedDateTime = LocalDateTime.of(processedDate, processedTime);
             return processedDateTime;
         } catch (Exception e) {
-            throw new DateTimeParseException("Date Time format given is incorrect."
-                    + " Should be \"25/09/2019 2300\"", e.getMessage(), 0);
+            throw new ParseException("Date Time format given is incorrect."
+                    + " Should be \"25/09/2019 2300\"");
         }
     }
 }

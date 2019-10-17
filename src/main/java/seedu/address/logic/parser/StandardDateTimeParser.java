@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -14,7 +16,11 @@ public class StandardDateTimeParser implements DateTimeParser {
      * @return LocalDateTime representation of this string
      * @throws DateTimeParseException if the format of this string is incorrect
      */
-    public LocalDateTime parseDateTime(String stringDateTime) throws DateTimeParseException {
-        return LocalDateTime.parse(stringDateTime);
+    public LocalDateTime parseDateTime(String stringDateTime) throws ParseException {
+        try {
+            return LocalDateTime.parse(stringDateTime);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 }
