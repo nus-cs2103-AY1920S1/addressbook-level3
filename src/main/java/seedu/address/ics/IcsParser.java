@@ -154,8 +154,7 @@ public class IcsParser {
                 throw new IcsException(FILE_IS_CORRUPTED);
             }
         }
-        return eventEnd == null
-                ? new EventSource(description, eventStart)
-                : new EventSource(description, eventStart, eventEnd);
+        return EventSource.newBuilder(description, eventStart)
+            .build();
     }
 }

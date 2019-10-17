@@ -54,7 +54,7 @@ public class IcsUtil {
      * @return The timestamp in the default ICS file specification format representing the DateTime object.
      */
     public static String toIcsTimeStamp(DateTime dateTime) {
-        Instant instant = dateTime.getDateTime();
+        Instant instant = dateTime.toInstant();
         SimpleDateFormat simpleDateFormat = getIcsSimpleDateFormat();
         return simpleDateFormat.format(instant);
     }
