@@ -3,8 +3,8 @@ package seedu.address.model.itinerary.day;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
-import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.EventList;
@@ -23,12 +23,12 @@ public class Day {
     private final EventList eventList;
 
     // Optional Fields
-    private final Expenditure totalBudget;
+    private final Budget totalBudget;
     private final Description description;
 
     /** Constructs a Day */
     public Day(Name name, LocalDateTime startDate, LocalDateTime endDate, Description description,
-               Location destination, Expenditure totalBudget, EventList eventList) {
+               Location destination, Budget totalBudget, EventList eventList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -40,7 +40,7 @@ public class Day {
 
     /** Constructs a day with optional fields */
     public Day (Name name, LocalDateTime startDate, LocalDateTime endDate, Optional<Description> description,
-                Location destination, Optional<Expenditure> totalBudget, EventList eventList) {
+                Location destination, Optional<Budget> totalBudget, EventList eventList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -76,7 +76,7 @@ public class Day {
         return Optional.ofNullable(description);
     }
 
-    public Optional<Expenditure> getTotalBudget() {
+    public Optional<Budget> getTotalBudget() {
         return Optional.of(totalBudget);
     }
 

@@ -1,11 +1,13 @@
 package seedu.address.model.appstatus;
 
+import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
 import seedu.address.logic.commands.itinerary.days.edit.EditDayFieldCommand;
 import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
 import seedu.address.logic.commands.preferences.EditPrefsFieldCommand.EditPrefsDescriptor;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand.EditTripDescriptor;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.EditDiaryEntryDescriptor;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.trip.Trip;
@@ -18,29 +20,33 @@ public class PageStatus {
     private final Trip trip;
     private final Day day;
     private final Event event;
+    private final Expenditure expenditure;
     private final DiaryEntry diaryEntry;
     private final EditTripDescriptor editTripDescriptor;
     private final EditPrefsDescriptor editPrefsDescriptor;
     private final EditDayFieldCommand.EditDayDescriptor editDayDescriptor;
     private final EditEventFieldCommand.EditEventDescriptor editEventDescriptor;
+    private final EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor;
     private final EditDiaryEntryDescriptor editDiaryEntryDescriptor;
 
-    public PageStatus(PageType pageType, Trip trip, Day day,
-                      Event event, DiaryEntry diaryEntry,
-                      EditTripDescriptor editTripDescriptor,
+    public PageStatus(PageType pageType, Trip trip, Day day, Event event, DiaryEntry diaryEntry,
+                      Expenditure expenditure, EditTripDescriptor editTripDescriptor,
                       EditPrefsDescriptor editPrefsDescriptor,
                       EditDayFieldCommand.EditDayDescriptor editDayDescriptor,
                       EditEventFieldCommand.EditEventDescriptor editEventDescriptor,
+                      EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor,
                       EditDiaryEntryDescriptor editDiaryEntryDescriptor) {
         this.pageType = pageType;
         this.trip = trip;
         this.day = day;
         this.event = event;
+        this.expenditure = expenditure;
         this.diaryEntry = diaryEntry;
         this.editTripDescriptor = editTripDescriptor;
         this.editPrefsDescriptor = editPrefsDescriptor;
         this.editDayDescriptor = editDayDescriptor;
         this.editEventDescriptor = editEventDescriptor;
+        this.editExpenditureDescriptor = editExpenditureDescriptor;
         this.editDiaryEntryDescriptor = editDiaryEntryDescriptor;
     }
 
@@ -51,9 +57,9 @@ public class PageStatus {
      * @return The new PageStatus instance.
      */
     public PageStatus withNewPageType(PageType pageType) {
-        return new PageStatus(pageType, getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(pageType, getTrip(), getDay(), getEvent(), getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -63,9 +69,9 @@ public class PageStatus {
      * @return The new PageStatus instance.
      */
     public PageStatus withNewTrip(Trip trip) {
-        return new PageStatus(getPageType(), trip, getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(getPageType(), trip, getDay(), getEvent(), getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -75,9 +81,9 @@ public class PageStatus {
      * @return The new PageStatus instance.
      */
     public PageStatus withNewDay(Day day) {
-        return new PageStatus(getPageType(), getTrip(), day, getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(getPageType(), getTrip(), day, getEvent(), getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -87,9 +93,21 @@ public class PageStatus {
      * @return The new PageStatus instance.
      */
     public PageStatus withNewEvent(Event event) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), event, getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), event, getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
+    }
+
+    /**
+     * Immutable chained constructor.
+     *
+     * @param expenditure expenditure to use.
+     * @return The new PageStatus instance.
+     */
+    public PageStatus withNewExpenditure(Expenditure expenditure) {
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), expenditure,
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     public PageStatus withResetTrip() {
@@ -104,6 +122,10 @@ public class PageStatus {
         return withNewEvent(null);
     }
 
+    public PageStatus withResetExpenditure() {
+        return withNewExpenditure(null);
+    }
+
     /**
      * Constructs a new {@link PageStatus} from the provided {@code diaryEntry}.
      *
@@ -111,9 +133,9 @@ public class PageStatus {
      * @return The new {@link PageStatus} with the provided {@code diaryEntry}.
      */
     public PageStatus withNewDiaryEntry(DiaryEntry diaryEntry) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), diaryEntry, getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), diaryEntry, getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -123,9 +145,9 @@ public class PageStatus {
      * @return The new PageStatus instance.
      */
     public PageStatus withNewEditTripDescriptor(EditTripDescriptor editTripDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), editTripDescriptor,
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getExpenditure(),
+                editTripDescriptor, getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -135,9 +157,9 @@ public class PageStatus {
      * @return The new PageStatus instance.
      */
     public PageStatus withNewEditPrefsDescriptor(EditPrefsDescriptor editPrefsDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                editPrefsDescriptor, getEditDayDescriptor(), getEditEventDescriptor(),
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), editPrefsDescriptor, getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
     }
 
     /**
@@ -147,9 +169,10 @@ public class PageStatus {
      * @return The new PageStatus instance.
      */
     public PageStatus withNewEditDayDescriptor(EditDayFieldCommand.EditDayDescriptor editDayDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), editDayDescriptor, getEditEventDescriptor(),
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), editDayDescriptor, getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
+
     }
 
     /**
@@ -159,9 +182,23 @@ public class PageStatus {
      * @return The new PageStatus instance.
      */
     public PageStatus withNewEditEventDescriptor(EditEventFieldCommand.EditEventDescriptor editEventDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), editEventDescriptor,
-                getEditDiaryEntryDescriptor());
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), editEventDescriptor,
+                getEditExpenditureDescriptor(), getEditDiaryEntryDescriptor());
+    }
+
+    /**
+     * Immutable chained constructor.
+     *
+     * @param editExpenditureDescriptor editExpenditureDescriptor to use.
+     * @return The new PageStatus instance.
+     */
+    public PageStatus withNewEditExpenditureDescriptor(EditExpenditureFieldCommand.EditExpenditureDescriptor
+                                                               editExpenditureDescriptor) {
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                editExpenditureDescriptor, getEditDiaryEntryDescriptor());
+
     }
 
     public PageStatus withResetEditTripDescriptor() {
@@ -180,6 +217,9 @@ public class PageStatus {
         return withNewEditEventDescriptor(null);
     }
 
+    public PageStatus withResetEditExpenditureDescriptor() {
+        return withNewEditExpenditureDescriptor(null);
+    }
     /**
      * Constructs a new {@link PageStatus} from the provided {@code editDiaryEntryDescriptor}.
      *
@@ -187,8 +227,9 @@ public class PageStatus {
      * @return The new {@link PageStatus} with the provided {@code editDiaryEntryDescriptor}.
      */
     public PageStatus withNewEditDiaryEntryDescriptor(EditDiaryEntryDescriptor editDiaryEntryDescriptor) {
-        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), editDiaryEntryDescriptor);
+        return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getDiaryEntry(), getExpenditure(),
+                getEditTripDescriptor(), getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor(), editDiaryEntryDescriptor);
     }
 
     public PageType getPageType() {
@@ -207,6 +248,10 @@ public class PageStatus {
         return event;
     }
 
+    public Expenditure getExpenditure() {
+        return expenditure;
+    }
+
     public DiaryEntry getDiaryEntry() {
         return diaryEntry;
     }
@@ -221,6 +266,10 @@ public class PageStatus {
 
     public EditEventFieldCommand.EditEventDescriptor getEditEventDescriptor() {
         return editEventDescriptor;
+    }
+
+    public EditExpenditureFieldCommand.EditExpenditureDescriptor getEditExpenditureDescriptor() {
+        return editExpenditureDescriptor;
     }
 
     public EditPrefsDescriptor getEditPrefsDescriptor() {

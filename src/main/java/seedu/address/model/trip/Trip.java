@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.diary.Diary;
+import seedu.address.model.expenditure.ExpenditureList;
 import seedu.address.model.inventory.InventoryList;
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
@@ -22,7 +23,8 @@ public class Trip {
     private final TripId tripId;
     private final Location destination;
     private final DayList dayList;
-    private final Expenditure totalBudget;
+    private final ExpenditureList expenditureList;
+    private final Budget totalBudget;
     private final Diary diary;
 
     private final InventoryList inventoryList = new InventoryList();
@@ -30,14 +32,15 @@ public class Trip {
     /**
      * Constructs a trip.
      */
-    public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                Location destination, Expenditure totalBudget, DayList dayList, Diary diary) {
+    public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
+                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.destination = destination;
         this.totalBudget = totalBudget;
         this.dayList = dayList;
+        this.expenditureList = expenditureList;
         this.tripId = new TripId();
         this.diary = diary;
     }
@@ -67,7 +70,11 @@ public class Trip {
         return dayList;
     }
 
-    public Expenditure getBudget() {
+    public ExpenditureList getExpenditureList() {
+        return expenditureList;
+    }
+
+    public Budget getBudget() {
         return totalBudget;
     }
 

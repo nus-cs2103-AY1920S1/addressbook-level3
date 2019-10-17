@@ -8,11 +8,13 @@ import seedu.address.logic.commands.itinerary.days.EnterCreateDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterEditDayCommand;
 import seedu.address.logic.commands.sidebar.EnterDayPageCommand;
+import seedu.address.logic.commands.sidebar.EnterExpenseManagerCommand;
 import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
 import seedu.address.logic.commands.sidebar.EnterTripManagerCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.sidebar.EnterDayPageParser;
+import seedu.address.logic.parser.sidebar.EnterExpenseManagerParser;
 import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
 import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
 
@@ -27,7 +29,8 @@ public class DayViewParser implements PageParser<Command> {
             + EnterEditDayCommand.COMMAND_WORD + " "
             + EnterTripManagerCommand.COMMAND_WORD + " "
             + EnterDayPageCommand.COMMAND_WORD + " "
-            + EnterItineraryPageCommand.COMMAND_WORD;
+            + EnterItineraryPageCommand.COMMAND_WORD + " "
+            + EnterExpenseManagerCommand.COMMAND_WORD;
 
     @Override
     public Command parse(String command, String arguments) throws ParseException {
@@ -53,6 +56,8 @@ public class DayViewParser implements PageParser<Command> {
             return new EnterDayPageParser().parse(arguments);
         case ITINERARY:
             return new EnterItineraryPageParser().parse(arguments);
+        case EXPENSE:
+            return new EnterExpenseManagerParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }
