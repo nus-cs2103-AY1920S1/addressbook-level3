@@ -47,6 +47,7 @@ public class SampleDataUtil {
     public static ReadOnlyModulePlanner getSampleModulePlanner(ModulesInfo modulesInfo) {
         ModulePlanner sampleAb = new ModulePlanner(modulesInfo);
         for (StudyPlan sampleStudyPlan : getSampleStudyPlans(modulesInfo)) {
+            sampleStudyPlan.setActivated(true);
             sampleAb.addStudyPlan(sampleStudyPlan);
         }
         sampleAb.activateStudyPlan(1);
