@@ -132,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
                 StudyPlan sp = logic.getActiveStudyPlan();
                 ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
                 semesterListPanel = new SemesterListPanel(semesters);
-                semesterListPanelPlaceholder.getChildren().removeAll();
+                semesterListPanelPlaceholder.getChildren().remove(0);
                 semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
                 title.setText(sp.getTitle().toString());
             }
