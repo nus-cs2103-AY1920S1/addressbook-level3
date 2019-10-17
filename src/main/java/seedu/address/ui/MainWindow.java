@@ -183,6 +183,23 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isGoTo()) {
+                switch (commandResult.getModeToGoTo()) {
+                case "password":
+                    logic.setMode("password");
+                    break;
+                case "file":
+                    logic.setMode("file");
+                    break;
+                case "note":
+                    logic.setMode("note");
+                    break;
+                default:
+                    logic.setMode("home");
+                    break;
+                }
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
