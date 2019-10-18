@@ -237,15 +237,23 @@ Example: `track -d`
 
 ==== Recommend
 Allow users to get a recommendation from the application, based on the budget
-as well as the available food items entries.
+as well as the available food items entries. This also takes into account the
+user's likes and dislikes (see below).
 
 Format: `recommend`
 
 ==== Likes and Dislikes
 Allows users to specify their liked categories, tags and/or locations. The
 recommendation system (as mentioned above) will then be able to generate more
-accurate recommendations with your preferences. Note: You can have any number
-of categories, tags or locations
+accurate recommendations with your preferences.
+
+Your likes and dislikes will be saved into your hard disk for your convenience.
+
+To list your likes and dislikes, use the command without providing any arguments.
+
+*To list likes/dislikes*:
+
+Format: `like` or `dislike`.
 
 *To add likes*:
 
