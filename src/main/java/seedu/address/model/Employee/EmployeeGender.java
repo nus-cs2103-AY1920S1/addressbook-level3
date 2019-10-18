@@ -41,26 +41,11 @@ public class EmployeeGender {
         }
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EmployeeGender // instanceof handles nulls
                 && gender.equals(((EmployeeGender) other).gender)); // state check
     }
-
-
->>>>>>> c806dd709324ca0d073f9c108ac2febc19d37e65
-    @Override
-    public String toString() {
-        return gender;
-    }
-
-    @Override
-    public int hashCode() {
-        return gender.hashCode();
-    }
-
 }
 
