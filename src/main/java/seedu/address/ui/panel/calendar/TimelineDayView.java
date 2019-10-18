@@ -127,7 +127,7 @@ public class TimelineDayView extends UiPart<Region> {
      * @return True if the event is the same day as the current timeline.
      */
     private boolean sameDay(EventSource event) {
-        return uiParser.getDay(event.getStartDateTime().getDateTime()).equals(this.day);
+        return uiParser.getDay(event.getStartDateTime().toInstant()).equals(this.day);
     }
 
     /**
@@ -136,7 +136,7 @@ public class TimelineDayView extends UiPart<Region> {
      */
     private void addEventCard(EventSource event) {
         // Gets the event Hour
-        Integer eventHour = uiParser.getHour(event.getStartDateTime().getDateTime());
+        Integer eventHour = uiParser.getHour(event.getStartDateTime().toInstant());
         this.eventMap.put(eventHour, event);
 
         // Creates and add the event card

@@ -1,4 +1,4 @@
-package seedu.address.notification;
+package seedu.address.ui.systemtray;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,13 +6,12 @@ import java.awt.event.ActionListener;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.NotificationManager;
 
 /**
  * The Listener responding to a Notification being clicked.
  */
 public class NotificationClickActionListener implements ActionListener {
-    private static final Logger logger = LogsCenter.getLogger(NotificationManager.class);
+    private static final Logger logger = LogsCenter.getLogger(SystemTrayCommunicator.class);
 
     /**
      * This Listener's reaction to an ActionEvent it is listening to being called.
@@ -22,7 +21,7 @@ public class NotificationClickActionListener implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         /*
-         This is currently undefined behaviour for the first milestone.
+         This is currently undefined behaviour for the current milestone.
          In the future, as things get more developed, this should be replaced with opening up the app.
          */
         logger.info("Notification Clicked");
