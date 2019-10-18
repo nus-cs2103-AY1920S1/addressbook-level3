@@ -211,13 +211,15 @@ Format: `clone i/INDEX`
 * Clone produced is added to a new index at the bottom of the list.
 ****
 
+Examples: +
+
 *   `clone i/1`
 
 Expected output: +
 
-NOTE: Assume entry at index 1 is `1. [-] Laksa ($10.50) [Lunch][Food]` and there are no other entries.
+NOTE: Assume entry at index 1 is `[-] Laksa ($10.50) Date: 18/10/2019 Remarks: Unique taste Tags: [Lunch][Food]` and there are no other entries.
 
-*   `New entry added: 2. [-] Laksa ($10.50) [Lunch][Food]`
+*   `Cloned transaction: [-] Laksa ($10.50) Date: 18/10/2019 Remarks: Unique taste Tags: [Lunch][Food]`
 // end::clone[]
 
 [[UndoTag]]
