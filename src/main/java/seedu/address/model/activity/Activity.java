@@ -3,6 +3,7 @@ package seedu.address.model.activity;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -18,7 +19,7 @@ public class Activity {
     // Id, Balance, Transfers arrays are supposed to be one-to-one.
     private final ArrayList<Integer> participantIds;
     private final ArrayList<Double> participantBalances;
-    private final ArrayList<Double> transfers;
+    private final ArrayList<ArrayList<Double>> transferMatrix;
     private final ArrayList<Expense> expenses;
 
     /**
@@ -31,10 +32,12 @@ public class Activity {
         participantIds = new ArrayList<>();
         expenses = new ArrayList<>();
         participantBalances = new ArrayList<>();
-        transfers = new ArrayList<>();
+        transferMatrix = new ArrayList<>();
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);
+            participantBalances.add(0.0);
+            transferMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
         }
     }
 
@@ -67,11 +70,17 @@ public class Activity {
      * @param people The people that will be added into the activity.
      */
     public void invite(Person ... people) {
-        for (Person p : people) {
+        int len = participantIds.size();
+        int newlen = len + people.length;
+        for (int i = 0; i < people.length; i++) {
+            Person p = people[i];
             if (!participantIds.contains(p.getPrimaryKey())) {
                 participantIds.add(p.getPrimaryKey());
                 participantBalances.add(0.0); // newcomers don't owe.
-                transfers.add(0.0);
+                for (int j = 0; j < len; j++) {
+                    transferMatrix.get(j).add(0.0); // extend columns
+                }
+                transferMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
             }
         }
     }
@@ -82,6 +91,7 @@ public class Activity {
      */
     public void disinvite(Person ... people) {
         // haven't implemented what if list does not contain that specific person
+        // TODO: also care about transfermatrix
     }
 
     /**
@@ -107,7 +117,7 @@ public class Activity {
                 double temp = participantBalances.get(i);
                 // negative balance means you lent more than you borrowed.
                 if (participantIds.get(i) == payer) {
-                    participantBalances.set(i, temp - amount);
+                    participantBalances.set(i, temp - amount + splitAmount);
                 } else {
                     participantBalances.set(i, temp + splitAmount);
                 }
@@ -116,25 +126,34 @@ public class Activity {
         simplifyExpenses();
     }
 
+    /**
+     * Simplifies the expenses in the balance sheet and also updates transferMatrix.
+     */
     private void simplifyExpenses() {
-        int i = 0, j = 0, N = participantBalances.size();
-        while (i != N && j != N) {
-            double I, J;
-            if ((I = participantBalances.get(i)) <= 0) {
+        int i = 0;
+        int j = 0;
+        int n = participantBalances.size();
+
+        while (i != n && j != n) {
+            double bi;
+            double bj;
+            if ((bi = participantBalances.get(i)) <= 0) {
                 i++;
                 continue;
-            } else if ((J = participantBalances.get(j)) >= 0) {
+            } else if ((bj = participantBalances.get(j)) >= 0) {
                 j++;
                 continue;
             }
 
-            double m = I < -J ? I : -J;
+            double m = bi < -bj ? bi : -bj;
             // i gives j $m.
-            System.out.println(i + " " + j + " " + m);
-            transfers.set(i, transfers.get(i) + m);
-            transfers.set(j, transfers.get(j) - m);
-            participantBalances.set(i, I - m);
-            participantBalances.set(j, J + m);
+            transferMatrix.get(i).set(j, transferMatrix.get(i).get(j) - m);
+            transferMatrix.get(j).set(i, transferMatrix.get(j).get(i) + m);
+            participantBalances.set(i, bi - m);
+            participantBalances.set(j, bj + m);
+            for (ArrayList<Double> a : transferMatrix) {
+                System.out.println(a.toString());
+            }
         }
     }
 
