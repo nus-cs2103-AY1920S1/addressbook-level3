@@ -146,30 +146,26 @@ public interface Model {
     /**
      * Checks whether an undo is possible in the address book.
      */
-    boolean canUndo();
+    boolean canUndoAddressBook();
 
     /**
      * Checks whether a redo is possible in the address book.
      */
-    boolean canRedo();
+    boolean canRedoAddressBook();
 
     /**
      * Undo to a previous state of the address book.
      */
-    void undo();
+    void undoAddressBook();
 
     /**
      * Redo to a previous undone state of the address book.
      */
-    void redo();
+    void redoAddressBook();
 
     /**
-     * Commit a person to the stateful person list of the address book.
+     * Add the previous state of address book to list of states.
      */
-    void commitPerson();
+    void saveAddressBookState();
 
-    /**
-     * Commit a policy to the stateful person list of the address book.
-     */
-    void commitPolicy();
 }

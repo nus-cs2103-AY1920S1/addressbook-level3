@@ -2,22 +2,14 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.policy.Policy;
-import seedu.address.model.util.ObjectType;
 
 /**
- * An {@code AddressBook} which maintains a stateful list of persons and policies.
+ * An {@code AddressBook} which maintains a stateful list of address book.
  * Useful for undo/redo functions.
  */
 public class StatefulAddressBook extends AddressBook {
 
-    private final List<ObservableList<Person>> statefulPersonList;
-    private final List<ObservableList<Policy>> statefulPolicyList;
-    private final List<ObjectType> objectTypeList;
-    private int currentPersonStatePointer;
-    private int currentPolicyStatePointer;
+    private final List<ReadOnlyAddressBook> statefulAddressBookList;
     private int currentStatePointer;
 
     /**
@@ -26,35 +18,17 @@ public class StatefulAddressBook extends AddressBook {
     public StatefulAddressBook(ReadOnlyAddressBook addressBook) {
         super(addressBook);
 
-        this.currentPersonStatePointer = 0;
-        this.currentPolicyStatePointer = 0;
         this.currentStatePointer = 0;
-        this.objectTypeList = new ArrayList<>();
-        this.statefulPersonList = new ArrayList<>();
-        this.statefulPolicyList = new ArrayList<>();
-        statefulPersonList.add(addressBook.getPersonList());
-        statefulPolicyList.add(addressBook.getPolicyList());
+        this.statefulAddressBookList = new ArrayList<>();
+        this.statefulAddressBookList.add(new AddressBook(addressBook));
     }
 
     /**
      * Saves a copy of the current person list at the end of {@code statefulPersonList}.
      */
-    public void commitPerson() {
-        removePersonStateAfterCurrentPointer();
-        statefulPersonList.add(getPersonList());
-        objectTypeList.add(ObjectType.PERSON);
-        currentPersonStatePointer++;
-        currentStatePointer++;
-    }
-
-    /**
-     * Saves a copy of the current policy list at the end of {@code statefulPolicyList}.
-     */
-    public void commitPolicy() {
-        removePolicyStateAfterCurrentPointer();
-        statefulPolicyList.add(getPolicyList());
-        objectTypeList.add(ObjectType.POLICY);
-        currentPolicyStatePointer++;
+    public void saveAddressBookState() {
+        removeStateAfterCurrent();
+        statefulAddressBookList.add(new AddressBook(this));
         currentStatePointer++;
     }
 
@@ -64,13 +38,7 @@ public class StatefulAddressBook extends AddressBook {
      */
     public void undo() {
         currentStatePointer--;
-        if (objectTypeList.get(currentStatePointer) == ObjectType.PERSON) {
-            currentPersonStatePointer--;
-            setPersons(statefulPersonList.get(currentPersonStatePointer));
-        } else if (objectTypeList.get(currentStatePointer) == ObjectType.PERSON) {
-            currentPolicyStatePointer--;
-            setPolicies(statefulPolicyList.get(currentPolicyStatePointer));
-        }
+        resetData(statefulAddressBookList.get(currentStatePointer));
     }
 
     // TODO: Add redo exception.
@@ -79,13 +47,7 @@ public class StatefulAddressBook extends AddressBook {
      */
     public void redo() {
         currentStatePointer++;
-        if (objectTypeList.get(currentStatePointer) == ObjectType.PERSON) {
-            currentPersonStatePointer++;
-            setPersons(statefulPersonList.get(currentPersonStatePointer));
-        } else if (objectTypeList.get(currentStatePointer) == ObjectType.PERSON) {
-            currentPolicyStatePointer++;
-            setPolicies(statefulPolicyList.get(currentPolicyStatePointer));
-        }
+        resetData(statefulAddressBookList.get(currentStatePointer));
     }
 
     /**
@@ -99,7 +61,7 @@ public class StatefulAddressBook extends AddressBook {
      * Checks whether a redo is possible in the address book.
      */
     public boolean canRedo() {
-        return currentStatePointer < objectTypeList.size() - 1;
+        return currentStatePointer < statefulAddressBookList.size() - 1;
     }
 
     @Override
@@ -116,22 +78,12 @@ public class StatefulAddressBook extends AddressBook {
 
         StatefulAddressBook other = (StatefulAddressBook) obj;
         return super.equals(other)
-                && statefulPersonList.equals(other.statefulPersonList)
-                && statefulPolicyList.equals(other.statefulPolicyList)
-                && objectTypeList.equals(other.objectTypeList)
-                && currentStatePointer == other.currentStatePointer
-                && currentPolicyStatePointer == other.currentPolicyStatePointer
-                && currentPersonStatePointer == other.currentPersonStatePointer;
+                && statefulAddressBookList.equals(other.statefulAddressBookList)
+                && currentStatePointer == other.currentStatePointer;
     }
 
-    private void removePersonStateAfterCurrentPointer() {
-        statefulPersonList.subList(currentPersonStatePointer + 1, statefulPersonList.size()).clear();
-        objectTypeList.subList(currentStatePointer + 1, objectTypeList.size()).clear();
-    }
-
-    private void removePolicyStateAfterCurrentPointer() {
-        statefulPolicyList.subList(currentPolicyStatePointer + 1, statefulPolicyList.size()).clear();
-        objectTypeList.subList(currentStatePointer + 1, objectTypeList.size()).clear();
+    private void removeStateAfterCurrent() {
+        statefulAddressBookList.subList(currentStatePointer + 1, statefulAddressBookList.size()).clear();
     }
 
 }

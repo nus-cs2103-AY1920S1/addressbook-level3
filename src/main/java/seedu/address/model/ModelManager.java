@@ -167,34 +167,30 @@ public class ModelManager implements Model {
     //=========== Functions related to undo/redo =============================================================
 
     @Override
-    public boolean canUndo() {
+    public boolean canUndoAddressBook() {
         return statefulAddressBook.canUndo();
     }
 
     @Override
-    public boolean canRedo() {
+    public boolean canRedoAddressBook() {
         return statefulAddressBook.canRedo();
     }
 
     @Override
-    public void undo() {
+    public void undoAddressBook() {
         statefulAddressBook.undo();
     }
 
     @Override
-    public void redo() {
+    public void redoAddressBook() {
         statefulAddressBook.redo();
     }
 
     @Override
-    public void commitPerson() {
-        statefulAddressBook.commitPerson();
+    public void saveAddressBookState() {
+        statefulAddressBook.saveAddressBookState();
     }
 
-    @Override
-    public void commitPolicy() {
-        statefulAddressBook.commitPolicy();
-    }
 
     //=========== Filtered Person List Accessors =============================================================
 

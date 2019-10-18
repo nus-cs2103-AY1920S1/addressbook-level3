@@ -73,7 +73,7 @@ public class UnassignPolicyCommand extends Command {
 
         model.setPerson(person, assignedPerson);
         // to maintain the model's state for undo/redo
-        model.commitPerson();
+        model.saveAddressBookState();
         return new CommandResult(String.format(MESSAGE_UNASSIGN_POLICY_SUCCESS, policy.getName(),
                 assignedPerson.getName()));
     }

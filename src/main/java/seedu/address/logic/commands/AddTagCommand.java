@@ -72,7 +72,7 @@ public class AddTagCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // to maintain the model's state for undo/redo
-        model.commitPerson();
+        model.saveAddressBookState();
         return new CommandResult(generateSuccessMessage(editedPerson));
     }
 

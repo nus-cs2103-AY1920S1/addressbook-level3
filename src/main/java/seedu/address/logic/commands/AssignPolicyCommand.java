@@ -74,7 +74,7 @@ public class AssignPolicyCommand extends Command {
 
         model.setPerson(person, assignedPerson);
         // to maintain the model's state for undo/redo
-        model.commitPerson();
+        model.saveAddressBookState();
         return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS,
                 policy.getName(), assignedPerson.getName()));
     }
