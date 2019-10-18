@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -9,6 +11,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.Cca;
+
 
 /**
  * Deletes a cca from Jarvis.
@@ -77,5 +80,19 @@ public class DeleteCcaCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Short circuit if it is the same object.
+        if (obj == this) {
+            return true;
+        }
+        // instanceof handles nulls.
+        if (!(obj instanceof DeleteCcaCommand)) {
+            return false;
+        }
+        DeleteCcaCommand other = (DeleteCcaCommand) obj;
+        return targetIndex.equals(other.targetIndex) && Objects.equals(deletedCca, other.deletedCca);
     }
 }

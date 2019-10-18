@@ -96,13 +96,12 @@ public class CcaListTest {
         assertEquals(expectedCcaList, ccaList);
     }
 
-    // TODO fix this test.
-    //    @Test
-    //    public void setCca_editedCcaHasNonUniqueIdentity_throwsDuplicateCcaException() {
-    //        ccaList.addCca(CANOEING);
-    //        ccaList.addCca(GUITAR_ENSEMBLE);
-    //        assertThrows(DuplicateCcaException.class, () -> ccaList.updateCca(CANOEING, GUITAR_ENSEMBLE));
-    //    }
+    @Test
+    public void setCca_editedCcaHasNonUniqueIdentity_throwsDuplicateCcaException() {
+        ccaList.addCca(CANOEING);
+        ccaList.addCca(GUITAR_ENSEMBLE);
+        assertThrows(DuplicateCcaException.class, () -> ccaList.updateCca(CANOEING, GUITAR_ENSEMBLE));
+    }
 
     @Test
     public void remove_nullCca_throwsNullPointerException() {

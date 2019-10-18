@@ -117,6 +117,10 @@ public class CcaList {
             throw new CcaNotFoundException();
         }
 
+        if (!toBeUpdatedCca.isSameCca(updatedCca) && contains(updatedCca)) {
+            throw new DuplicateCcaException();
+        }
+
         internalCcaList.set(toBeUpdatedCcaIndex, updatedCca);
     }
 

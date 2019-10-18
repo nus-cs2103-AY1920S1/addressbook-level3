@@ -39,13 +39,23 @@ public class CcaTracker {
     }
 
     /**
-     * Constructor to be used if cca list is already present.
+     * Constructor to be used if Cca Tracker is already present.
      *
      * @param ccaTracker
      */
     public CcaTracker(CcaTracker ccaTracker) {
         requireNonNull(ccaTracker);
         resetData(ccaTracker);
+    }
+
+    /**
+     * Constructor to be used if cca list is already present.
+     *
+     * @param the cca list to be copied.
+     */
+    public CcaTracker(CcaList ccaList) {
+        requireNonNull(ccaList);
+        this.ccaList.setCcas(ccaList.getInternalCcaList());
     }
 
     /// list overwrite operations

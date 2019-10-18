@@ -1,8 +1,17 @@
 package seedu.jarvis.logic.commands.cca;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+
+import java.util.Arrays;
+
+import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaNameContainsKeywordsPredicate;
 
 /**
  * Contains helper methods for testing commands.
@@ -37,4 +46,17 @@ public class CcaCommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    /**
+     * Updates {@code model}'s filtered list to show only the cca at the given {@code targetIndex} in the
+     * {@code model}'s cca tracker.
+     */
+    public static void showCcaAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCcaList().size());
+
+        Cca cca = model.getFilteredCcaList().get(targetIndex.getZeroBased());
+        final String[] splitName = cca.getName().fullName.split("\\s+");
+        model.updateFilteredCcaList(new CcaNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredCcaList().size());
+    }
 }
