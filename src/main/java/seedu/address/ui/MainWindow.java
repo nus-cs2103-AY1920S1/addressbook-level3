@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private FoodFlowPanel foodFlowPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
@@ -51,6 +52,13 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    /*
+    @FXML
+    private StackPane personListPanelPlaceholder;
+    */
+
+    private StackPane foodFlowPanelPlaceholder;
 
     @FXML
     private StackPane mainDisplayPanePlaceholder;
@@ -125,7 +133,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        /*
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        foodFlowPanel = new FoodFlowPanel(logic.getFilterFoodList());
+        foodFlowPanelPlaceholder.getChildren().add(foodFlowPanel.getRoot());
+        */
         mainDisplayPanePlaceholder.getChildren().add(personListPanel.getRoot());
         mainDisplayPane = new MainDisplayPane(MAIN, personListPanel);
 
@@ -184,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();

@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.sgm.model.food.TypicalFoods.FOODS;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -31,7 +33,7 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import seedu.sgm.model.food.FoodMap;
+import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * Runs the application.
@@ -63,9 +65,10 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        Model model = initModelManager(storage, userPrefs);
+        this.model = model;
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(this.model, storage);
 
         ui = new UiManager(logic);
     }
@@ -78,7 +81,8 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
-        FoodMap foodMap = new FoodMap();
+        UniqueFoodList foodList = new UniqueFoodList();
+        foodList.setFoods(FOODS);
         RecordBook recordBook = new RecordBook();
         try {
             addressBookOptional = storage.readAddressBook();
@@ -93,8 +97,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-
-        return new ModelManager(initialData, userPrefs, foodMap, recordBook);
+        return new ModelManager(initialData, userPrefs, foodList, recordBook);
     }
 
     private void initLogging(Config config) {

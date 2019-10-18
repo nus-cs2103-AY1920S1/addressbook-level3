@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RecordBook;
 import seedu.address.model.UserPrefs;
-import seedu.sgm.model.food.FoodMap;
+import seedu.sgm.model.food.UniqueFoodList;
 
 public class ClearCommandTest {
 
@@ -24,8 +24,10 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new FoodMap(), new RecordBook());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new FoodMap(),
+
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UniqueFoodList(),
+            new RecordBook());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UniqueFoodList(),
             new RecordBook());
         expectedModel.setAddressBook(new AddressBook());
 
