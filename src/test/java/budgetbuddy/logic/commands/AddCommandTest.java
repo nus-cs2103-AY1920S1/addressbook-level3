@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.logic.commands.exceptions.CommandException;
+import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
@@ -22,6 +23,7 @@ import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.PersonBuilder;
+
 import javafx.collections.ObservableList;
 
 public class AddCommandTest {
@@ -81,6 +83,11 @@ public class AddCommandTest {
     private class ModelStub implements Model {
         @Override
         public LoansManager getLoansManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AccountsManager getAccountsManager() {
             throw new AssertionError("This method should not be called.");
         }
 

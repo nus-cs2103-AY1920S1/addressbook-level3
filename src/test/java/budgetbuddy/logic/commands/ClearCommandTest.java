@@ -5,6 +5,7 @@ import static budgetbuddy.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
@@ -23,8 +24,10 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(new LoansManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new LoansManager(), getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(new LoansManager(),
+                new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new LoansManager(),
+                new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

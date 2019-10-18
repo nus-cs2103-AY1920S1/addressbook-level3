@@ -14,7 +14,7 @@ import budgetbuddy.model.transaction.Transaction;
 public class Account {
 
     // Identity fields
-    private final Name name;
+    private Name name;
     private final ArrayList<Transaction> transaction;
 
     /**
@@ -34,6 +34,9 @@ public class Account {
         return transaction;
     }
 
+    public void setName(Account account, Name name) {
+        this.name = name;
+    }
 
     /**
      * Returns true if both accounts of the same name have at least one other identity field that is the same.

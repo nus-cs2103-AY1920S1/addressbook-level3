@@ -20,6 +20,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final LoansManager loansManager;
+    private final AccountsManager accountsManager;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
@@ -28,20 +29,22 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(LoansManager loansManager, ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(LoansManager loansManager, AccountsManager accountsManager, ReadOnlyAddressBook addressBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(loansManager, addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.loansManager = new LoansManager(loansManager.getPersonsList());
+        this.accountsManager = new AccountsManager(accountsManager.getAccountsList());
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new LoansManager(), new AddressBook(), new UserPrefs());
+        this(new LoansManager(), new AccountsManager(), new AddressBook(), new UserPrefs());
     }
 
     //=========== Loan Manager ===============================================================================
@@ -49,6 +52,11 @@ public class ModelManager implements Model {
     @Override
     public LoansManager getLoansManager() {
         return loansManager;
+    }
+
+    @Override
+    public AccountsManager getAccountsManager() {
+        return accountsManager;
     }
 
     //=========== UserPrefs ==================================================================================

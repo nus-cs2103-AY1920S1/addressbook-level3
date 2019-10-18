@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.core.Messages;
 import budgetbuddy.commons.core.index.Index;
+
+import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
@@ -25,7 +27,8 @@ import budgetbuddy.model.person.Person;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(new LoansManager(), getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(new LoansManager(),
+            new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +37,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getLoansManager(), model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getLoansManager(),
+                model.getAccountsManager(), model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -57,10 +61,10 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getLoansManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLoansManager(),
+                model.getAccountsManager(), model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
-
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 

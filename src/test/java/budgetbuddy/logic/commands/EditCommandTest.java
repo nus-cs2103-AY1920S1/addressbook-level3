@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.commons.core.Messages;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.EditCommand.EditPersonDescriptor;
+import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
@@ -26,13 +27,13 @@ import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.EditPersonDescriptorBuilder;
 import budgetbuddy.testutil.PersonBuilder;
-
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(new LoansManager(), getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(new LoansManager(),
+            new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -44,6 +45,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 model.getLoansManager(),
+                model.getAccountsManager(),
                 new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
@@ -68,6 +70,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 model.getLoansManager(),
+                model.getAccountsManager(),
                 new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
@@ -84,6 +87,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 model.getLoansManager(),
+                model.getAccountsManager(),
                 new AddressBook(model.getAddressBook()),
                 new UserPrefs());
 
@@ -103,6 +107,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 model.getLoansManager(),
+                model.getAccountsManager(),
                 new AddressBook(model.getAddressBook()),
                 new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);

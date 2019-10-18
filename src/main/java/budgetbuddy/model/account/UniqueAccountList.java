@@ -8,6 +8,7 @@ import java.util.List;
 
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.account.exception.DuplicateAccountException;
+import budgetbuddy.model.person.exceptions.PersonNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,6 +24,13 @@ public class UniqueAccountList implements Iterable<Account> {
     private final ObservableList<Account> internalList = FXCollections.observableArrayList();
     private final ObservableList<Account> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    public UniqueAccountList() {}
+
+    public UniqueAccountList(List<Account> toBeCopied) {
+        requireNonNull(toBeCopied);
+        setAccounts(toBeCopied);
+    }
 
     /**
      * Returns true if the list contains an equivalent account as the given argument.
@@ -73,6 +81,29 @@ public class UniqueAccountList implements Iterable<Account> {
         if (!internalList.remove(toRemove)) {
             throw new AccountNotFoundException();
         }
+    }
+
+    /**
+     * Retrieves an account from the list equivalent to the given account.
+     * @param toGet The equivalent account (identical attributes to the target account).
+     * @return The retrieved account.
+     * @throws AccountNotFoundException if account is not in the list.
+     */
+    public Account get(Account toGet) {
+        requireNonNull(toGet);
+
+        Account targetAccount = null;
+        for (Account account : internalUnmodifiableList) {
+            if (account.isSameAccount(toGet)) {
+                targetAccount = account;
+            }
+        }
+
+        if (targetAccount == null) {
+            throw new PersonNotFoundException();
+        }
+
+        return targetAccount;
     }
 
     public void setAccounts(UniqueAccountList replacement) {
@@ -131,3 +162,4 @@ public class UniqueAccountList implements Iterable<Account> {
         return true;
     }
 }
+

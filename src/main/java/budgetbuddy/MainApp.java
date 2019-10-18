@@ -13,6 +13,7 @@ import budgetbuddy.commons.util.ConfigUtil;
 import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.Logic;
 import budgetbuddy.logic.LogicManager;
+import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
@@ -76,14 +77,20 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         LoansManager loansManager;
+        AccountsManager accountsManager;
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
-        loansManager = new LoansManager(); // TODO Load loan data from storage (if data present).
+        loansManager = new LoansManager();
+        accountsManager = new AccountsManager();
+        // TODO Load loan data from storage (if data present).
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Budget Buddy");
             }
+            /**if (!accountBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Budget Buddy");
+            }*/
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Budget Buddy");
@@ -93,7 +100,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(loansManager, initialData, userPrefs);
+        return new ModelManager(loansManager, accountsManager, initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
