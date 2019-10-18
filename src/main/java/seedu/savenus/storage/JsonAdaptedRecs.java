@@ -18,6 +18,8 @@ import seedu.savenus.model.tag.Tag;
  */
 class JsonAdaptedRecs {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "User Recommendation's %s field is missing!";
+    public static final String DUPLICATE_ENTRY_OPPOSING_FOUND =
+            "Duplicate entry found in opposing user recommendation list!";
 
     private Set<String> likedLocations;
     private Set<String> likedTags;
@@ -66,12 +68,18 @@ class JsonAdaptedRecs {
      */
     public UserRecommendations toModelType() throws IllegalValueException {
 
-        if (likedLocations == null || likedTags == null || likedCategories == null) {
+        if (likedLocations == null || dislikedLocations == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    UserRecommendations.class.getSimpleName()));
+                    Location.class.getSimpleName()));
+        } else if (likedTags == null || dislikedTags == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Tag.class.getSimpleName()));
+        } else if (likedCategories == null || dislikedCategories == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
 
-        try {
+            try {
             // Convert all to lowercase, and parse into new category / tag / location
             // This will throw IllegalArgumentExceptions if there are any problems with the saved data
             Set<Category> newLikedCategories = likedCategories.stream()
@@ -98,7 +106,7 @@ class JsonAdaptedRecs {
             if (newLikedCategories.stream().anyMatch(newDislikedCategories::contains)
                 || newLikedTags.stream().anyMatch(newDislikedTags::contains)
                 || newLikedLocation.stream().anyMatch(newDislikedLocation::contains)) {
-                throw new IllegalArgumentException("Duplicate entry found in opposing user recommendation list!");
+                throw new IllegalArgumentException(DUPLICATE_ENTRY_OPPOSING_FOUND);
             }
 
             return new UserRecommendations(newLikedCategories, newLikedTags, newLikedLocation,
