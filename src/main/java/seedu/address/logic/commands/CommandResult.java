@@ -11,9 +11,6 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    private final boolean switchViews;
-    private final String targetView;
-
     private final boolean undo;
 
     /**
@@ -29,13 +26,10 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sViews,
-                         String targetView, boolean undo) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean undo) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.switchViews = sViews;
-        this.targetView = targetView;
         this.undo = undo;
     }
 
@@ -44,19 +38,15 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, null, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, null, false);
+        this(feedbackToUser, showHelp, exit, false);
     }
 
     public CommandResult(String feedbackToUser, boolean undo) {
-        this(feedbackToUser, false, false, false, null, undo);
-    }
-
-    public CommandResult(String feedbackToUser, String targetView) {
-        this(feedbackToUser, false, false, true, targetView, false);
+        this(feedbackToUser, false, false, undo);
     }
 
     public String getFeedbackToUser() {
@@ -71,16 +61,8 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isSwitchViews() {
-        return switchViews;
-    }
-
     public boolean isUndo() {
         return undo;
-    }
-
-    public String getTargetView() {
-        return targetView;
     }
 
     @Override
