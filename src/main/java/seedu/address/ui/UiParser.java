@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.text.DateFormatSymbols;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +14,7 @@ public class UiParser {
      * @param date The time of a given event source
      * @return an array of Integer, size 3, containing {day, month, year} of the event
      */
-    public Integer[] getDateToNumbers(Instant date) {
+    public Integer[] parseDateToNumbers(Instant date) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                 .withZone(ZoneId.systemDefault());
         String eventDate = dateFormat.format(date);
@@ -42,29 +41,5 @@ public class UiParser {
                 .withZone(ZoneId.systemDefault());
         String eventDate = dateFormat.format(date);
         return Integer.valueOf(eventDate);
-    }
-
-    public Integer getHour(Instant time) {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH")
-                .withZone(ZoneId.systemDefault());
-        return Integer.valueOf(timeFormatter.format(time));
-    }
-
-    public String getTime(Instant time) {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-                .withZone(ZoneId.systemDefault());
-        return timeFormatter.format(time);
-    }
-
-    public String getEnglishDate(Integer day, Integer month, Integer year) {
-        String monthStr = new DateFormatSymbols().getMonths()[month - 1].toLowerCase();
-        monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
-        return day + " " + monthStr + " " + year;
-    }
-
-    public String getEnglishDate(Integer month, Integer year) {
-        String monthStr = new DateFormatSymbols().getMonths()[month - 1].toLowerCase();
-        monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
-        return monthStr + " " + year;
     }
 }

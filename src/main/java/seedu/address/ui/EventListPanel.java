@@ -1,4 +1,4 @@
-package seedu.address.ui.panel.list;
+package seedu.address.ui;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -10,13 +10,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.EventSource;
-import seedu.address.ui.UiParser;
-import seedu.address.ui.UiPart;
+import seedu.address.model.listeners.EventListListener;
 
 /**
  * Panel containing the list of persons.
  */
-public class EventListPanel extends UiPart<Region> {
+public class EventListPanel extends UiPart<Region> implements EventListListener {
     private static final String FXML = "EventListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
@@ -34,7 +33,8 @@ public class EventListPanel extends UiPart<Region> {
         eventListView.setCellFactory(listView -> new EventListViewCell());
     }
 
-    public void setItems(List<EventSource> events) {
+    @Override
+    public void onEventListChange(List<EventSource> events) {
         this.eventListView.setItems(FXCollections.observableList(events));
     }
 
@@ -49,7 +49,7 @@ public class EventListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventCardStub(eventSource, getIndex() + 1, uiParser).getRoot());
+                setGraphic(new EventCard(eventSource, getIndex() + 1, uiParser).getRoot());
             }
         }
     }

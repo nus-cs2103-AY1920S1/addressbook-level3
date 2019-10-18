@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
-import static seedu.address.model.events.DateTime.USER_DATE_TIME_PATTERN;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -15,19 +15,17 @@ import seedu.address.model.events.DateTime;
  */
 public class DateTimeParser implements Parser<DateTime> {
 
-    private final DateTimeFormatter parser;
-
-    public DateTimeParser(DateTimeFormatter parser) {
-        this.parser = parser;
-    }
+    private static final String DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm";
+    private static final DateTimeFormatter DATE_TIME_PARSER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN)
+        .withZone(ZoneId.systemDefault());
 
     @Override
     public DateTime parse(String userInput) throws ParseException {
         try {
-            Instant instant = Instant.from(this.parser.parse(userInput));
+            Instant instant = Instant.from(DATE_TIME_PARSER.parse(userInput));
             return new DateTime(instant);
         } catch (DateTimeParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_DATE_TIME, USER_DATE_TIME_PATTERN));
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE_TIME, DATE_TIME_PATTERN));
         }
     }
 }

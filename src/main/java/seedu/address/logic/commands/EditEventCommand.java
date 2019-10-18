@@ -71,9 +71,7 @@ public class EditEventCommand extends Command {
                 start = this.start;
             }
 
-            EventSource replacement = EventSource.newBuilder(description, start)
-                .build();
-            model.setEvent(event, replacement);
+            model.setEvent(event, new EventSource(description, start));
         }
 
         return new UserOutput(String.format(MESSAGE_EDIT_EVENT_SUCCESS, events.stream()

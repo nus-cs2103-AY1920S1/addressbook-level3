@@ -1,4 +1,4 @@
-package seedu.address.ui.systemtray;
+package seedu.address.notification;
 
 import java.awt.AWTException;
 import java.awt.Image;
@@ -13,26 +13,23 @@ import java.util.logging.Logger;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.NotificationManager;
 
 /**
  * Controls interactions between the main program and the System Tray.
  */
 public class SystemTrayCommunicator {
-    private static final Logger logger = LogsCenter.getLogger(SystemTrayCommunicator.class);
+    private static final Logger logger = LogsCenter.getLogger(NotificationManager.class);
     private static final String TRAY_ICON_NAME = "Horo";
     private static final String TRAY_ICON_IMAGE_PATH = "/images/system_tray_icon.png";
 
     private static TrayIcon trayIcon;
     private static boolean systemTrayIsSupported;
 
-    public SystemTrayCommunicator() {
-        this.initialise();
-    }
-
     /**
      * Sets up the System Tray app, if applicable.
      */
-    private void initialise() {
+    public void initialise() {
         systemTrayIsSupported = SystemTray.isSupported();
 
         if (systemTrayIsSupported) {

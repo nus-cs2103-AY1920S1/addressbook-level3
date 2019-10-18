@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.arguments;
 
+import seedu.address.logic.parser.DateTimeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.events.DateTime;
 
@@ -18,6 +19,6 @@ public class DateTimeArgument extends Argument<DateTime> {
 
     @Override
     DateTime parse(String userInput) throws ParseException {
-        return DateTime.fromUserInput(userInput);
+        return new DateTimeParser().parse(userInput);
     }
 }

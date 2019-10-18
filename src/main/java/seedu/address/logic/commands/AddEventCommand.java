@@ -22,8 +22,7 @@ public class AddEventCommand extends Command {
         DateTime start = Objects.requireNonNull(builder.getStart());
 
         this.model = builder.getModel();
-        this.event = EventSource.newBuilder(description, start)
-            .build();
+        this.event = new EventSource(description, start);
     }
 
     public static CommandBuilder newBuilder(Model model) {

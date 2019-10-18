@@ -15,14 +15,11 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.notification.NotificationChecker;
 import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.listeners.EventListListener;
 import seedu.address.model.person.Person;
-import seedu.address.ui.systemtray.PopupNotification;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -31,8 +28,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final NotificationChecker notificationChecker;
-    private final UndoRedoManager undoRedoManager;
+    private final UndoableHistory undoableHistory;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -51,8 +47,7 @@ public class ModelManager implements Model {
         EventList eventList = new EventList(readOnlyEventList);
 
         this.addressBook = new AddressBook(addressBook);
-        this.notificationChecker = new NotificationChecker(eventList);
-        this.undoRedoManager = new UndoRedoManager(eventList);
+        this.undoableHistory = new UndoableHistory(eventList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
@@ -142,15 +137,11 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(EventSource event) {
-
-        // Clears all future states from UndoRedoManager as they are no longer needed
-        clearFutureHistory();
-
-        EventList eventList = undoRedoManager.getCurrentState();
+        EventList eventList = undoableHistory.getCurrentState();
 
         eventList.add(event);
 
-        // Save the modified EventList state to the UndoRedoManager
+        // Save the modified EventList state to the UndoableHistory
         commitToHistory(eventList);
 
         eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
@@ -158,15 +149,11 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteEvent(EventSource target) {
-
-        // Clears all future states from UndoRedoManager as they are no longer needed
-        clearFutureHistory();
-
-        EventList eventList = undoRedoManager.getCurrentState();
+        EventList eventList = undoableHistory.getCurrentState();
 
         eventList.remove(target);
 
-        // Save the modified EventList state to the UndoRedoManager
+        // Save the modified EventList state to the UndoableHistory
         commitToHistory(eventList);
 
         eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
@@ -174,25 +161,21 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyEventList getEventList() {
-        return undoRedoManager.getCurrentState();
+        return undoableHistory.getCurrentState();
     }
 
     @Override
     public boolean hasEvent(EventSource event) {
-        return undoRedoManager.getCurrentState().contains(event);
+        return undoableHistory.getCurrentState().contains(event);
     }
 
     @Override
     public void setEvent(EventSource target, EventSource editedEvent) {
-
-        // Clears all future states from UndoRedoManager as they are no longer needed
-        clearFutureHistory();
-
-        EventList eventList = undoRedoManager.getCurrentState();
+        EventList eventList = undoableHistory.getCurrentState();
 
         eventList.replace(target, editedEvent);
 
-        // Save the modified EventList state to the UndoRedoManager
+        // Save the modified EventList state to the UndoableHistory
         commitToHistory(eventList);
 
         eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
@@ -200,15 +183,11 @@ public class ModelManager implements Model {
 
     @Override
     public void setEventList(ReadOnlyEventList readOnlyEventList) {
-
-        // Clears all future states from UndoRedoManager as they are no longer needed
-        clearFutureHistory();
-
-        EventList eventList = undoRedoManager.getCurrentState();
+        EventList eventList = undoableHistory.getCurrentState();
 
         eventList.resetData(readOnlyEventList);
 
-        // Save the modified EventList state to the UndoRedoManager
+        // Save the modified EventList state to the UndoableHistory
         commitToHistory(eventList);
 
         eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
@@ -233,7 +212,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<EventSource> getFilteredEventList() {
-        return undoRedoManager.getCurrentState().getReadOnlyList();
+        return undoableHistory.getCurrentState().getReadOnlyList();
     }
 
     @Override
@@ -255,46 +234,47 @@ public class ModelManager implements Model {
             && filteredPersons.equals(other.filteredPersons);
     }
 
-    //=========== UndoRedoManager ================================================================================
+    //=========== UndoableHistory ================================================================================
 
     /**
-     * Creates a deep-copy of the current event list state and saves that copy to the UndoRedoManager.
+     * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
      */
     public void commitToHistory(EventList eventList) {
-        undoRedoManager.commit(eventList);
+        undoableHistory.commit(eventList);
     }
 
     /**
-     * Restores the previous event list state from UndoRedoManager.
+     * Restores the previous event list state from UndoableHistory.
      */
     @Override
-    public void undoFromHistory() throws CommandException {
-        undoRedoManager.undo();
-        eventListListeners.forEach(l -> l.onEventListChange(undoRedoManager.getCurrentState().getReadOnlyList()));
+    public void undoFromHistory() {
+        undoableHistory.undo();
     }
 
     /**
-     * Restores the previously undone event list state from UndoRedoManager.
+     * Restores the previously undone event list state from UndoableHistory.
      */
     @Override
-    public void redoFromHistory() throws CommandException {
-        undoRedoManager.redo();
-        eventListListeners.forEach(l -> l.onEventListChange(undoRedoManager.getCurrentState().getReadOnlyList()));
+    public void redoFromHistory() {
+        undoableHistory.redo();
     }
 
     /**
-     * Clears all future event list states in UndoRedoManager beyond the current state.
+     * Returns true if there are previous event list states to restore, and false otherwise.
+     *
+     * @return boolean
+     */
+    @Override
+    public boolean canUndoHistory() {
+        return undoableHistory.canUndo();
+    }
+
+    /**
+     * Clears all future event list states in UndoableHistory beyond the current state.
      */
     @Override
     public void clearFutureHistory() {
-        undoRedoManager.clearFutureHistory();
+        undoableHistory.clearFutureHistory();
     }
 
-
-    //=========== Notification ===================================================================================
-
-    @Override
-    public ArrayList<PopupNotification> getListOfPopupNotifications() {
-        return notificationChecker.getListOfPopupNotifications();
-    }
 }

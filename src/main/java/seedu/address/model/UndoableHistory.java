@@ -1,15 +1,11 @@
 package seedu.address.model;
 
-import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_REDO;
-import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_UNDO;
-
 import java.util.ArrayList;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.EventList;
 
 /**
- * UndoRedoManager contains all EventList states
+ * UndoableHistory contains all EventList states
  * at different points of time in its eventListStateList
  * as well as a currentStateIndex that stores the index of the
  * current EventList state in the list.
@@ -18,7 +14,7 @@ import seedu.address.model.events.EventList;
  * Whenever an undo or redo command is executed, mainEventList restores itself to a
  * past/future state by copying the data in its duplicate over to itself.
  */
-public class UndoRedoManager {
+public class UndoableHistory {
 
     /** The eventList that the GUI is in sync with.
      * This mainEventList is updated every time an
@@ -38,10 +34,10 @@ public class UndoRedoManager {
     private ArrayList<EventList> eventListStateList;
     private int currentStateIndex;
 
-    UndoRedoManager(EventList eventList) {
+    UndoableHistory(EventList eventList) {
         mainEventList = eventList;
         eventListStateList = new ArrayList<>();
-        // Store a deep-copy of the mainEventList to the list by using EventList's copy-constructor
+        // Store a deep-copy of the mainEventList to the list
         eventListStateList.add(new EventList(mainEventList));
         currentStateIndex = 0;
     }
@@ -56,34 +52,10 @@ public class UndoRedoManager {
     }
 
     /**
-     * Restores the previous event list state from UndoRedoManager.
-     */
-    void undo() throws CommandException {
-        if (!canUndo()) {
-            throw new CommandException(MESSAGE_NOTHING_TO_UNDO);
-        }
-        currentStateIndex--;
-        // Retrieve data from duplicate of its past state
-        mainEventList.resetData(eventListStateList.get(currentStateIndex));
-    }
-
-    /**
-     * Restores the previously undone event list state from UndoRedoManager.
-     */
-    void redo() throws CommandException {
-        if (!canRedo()) {
-            throw new CommandException(MESSAGE_NOTHING_TO_REDO);
-        }
-        currentStateIndex++;
-        // Retrieve data from duplicate of its future state
-        mainEventList.resetData(eventListStateList.get(currentStateIndex));
-    }
-
-    /**
-     * Creates a deep-copy of the current event list state and saves that copy to the UndoRedoManager.
+     * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
      */
     void commit(EventList eventList) {
-        // Store a deep-copy of the mainEventList to the list by using EventList's copy-constructor
+        // Store a deep-copy of the mainEventList to the list
         EventList deepCopy = new EventList(eventList);
         assert currentStateIndex >= eventListStateList.size() - 1
                 : "Pointer always points to end of list during commit; All future states must have been discarded.";
@@ -92,11 +64,19 @@ public class UndoRedoManager {
     }
 
     /**
-     * Clears all future event list states in eventListStateList beyond the index given by currentStateIndex
+     * Restores the previous event list state from UndoableHistory.
      */
-    void clearFutureHistory() {
-        eventListStateList =
-                new ArrayList<>(eventListStateList.subList(0, currentStateIndex + 1));
+    void undo() {
+        currentStateIndex--;
+        // Retrieve data from duplicate of its past state
+        mainEventList.resetData(eventListStateList.get(currentStateIndex));
+    }
+
+    /**
+     * Restores the previously undone event list state from UndoableHistory.
+     */
+    void redo() {
+        currentStateIndex++;
     }
 
     /**
@@ -104,17 +84,16 @@ public class UndoRedoManager {
      *
      * @return boolean
      */
-    private boolean canUndo() {
+    boolean canUndo() {
         return currentStateIndex > 0;
     }
 
     /**
-     * Returns true if there are future event list states to reset to, and false otherwise.
-     *
-     * @return boolean
+     * Clears all future event list states in eventListStateList beyond the index given by currentStateIndex
      */
-    private boolean canRedo() {
-        return currentStateIndex < eventListStateList.size() - 1;
+    void clearFutureHistory() {
+        eventListStateList =
+                new ArrayList<>(eventListStateList.subList(0, currentStateIndex + 1));
     }
 
     @Override
@@ -127,10 +106,10 @@ public class UndoRedoManager {
         if (other == this) { // short circuit if same object
             return true;
         } else {
-            if (!(other instanceof UndoRedoManager)) {
+            if (!(other instanceof UndoableHistory)) {
                 return false;
             }
-            UndoRedoManager otherHistory = ((UndoRedoManager) other);
+            UndoableHistory otherHistory = ((UndoableHistory) other);
             if (currentStateIndex != otherHistory.currentStateIndex
                     || eventListStateList.size() != otherHistory.eventListStateList.size()) {
                 return false;

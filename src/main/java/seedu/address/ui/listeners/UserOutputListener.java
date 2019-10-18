@@ -1,6 +1,5 @@
 package seedu.address.ui.listeners;
 
-import seedu.address.ui.ColorTheme;
 import seedu.address.ui.UserOutput;
 
 /**
@@ -9,5 +8,5 @@ import seedu.address.ui.UserOutput;
  */
 public interface UserOutputListener {
 
-    void onUserOutput(UserOutput output, ColorTheme results);
+    void onUserOutput(UserOutput output);
 }
