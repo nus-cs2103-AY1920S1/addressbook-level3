@@ -9,9 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -120,10 +120,16 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts(String imagePath) {
 
-        ImageView imageView = new ImageView(imagePath);
-        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
-        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
-        mainDisplayPanePlaceholder.getChildren().add(imageView);
+//        ImageView imageView = new ImageView(imagePath);
+//        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
+//        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
+//        imageView.setPreserveRatio(true);
+//        mainDisplayPanePlaceholder.getChildren().add(imageView);
+
+        mainDisplayPanePlaceholder.setStyle("-fx-background-image: url('" + imagePath + "'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: no-repeat;" +
+                "-fx-background-size: contain;");
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,6 +166,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void switchToMainDisplayPane(DisplayPaneType displayPaneType) {
         if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType())) {
+            mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
                 .add(requireNonNull(mainDisplayPane.get(displayPaneType).getRoot()));
