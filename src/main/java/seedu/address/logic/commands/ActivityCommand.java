@@ -36,7 +36,6 @@ public class ActivityCommand extends Command {
             "Unable to add person with search term \"%s\", as there were %d matches found.\n";
     public static final String WARNING_DUPLICATE_PERSON =
             "Person with name %s already added.\n";
-    public static final String MESSAGE_ARGUMENTS = "Title: %s";
 
     private final Title title;
     private final List<String> participants;
