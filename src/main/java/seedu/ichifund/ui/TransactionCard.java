@@ -48,7 +48,7 @@ public class TransactionCard extends UiPart<Region> {
         if(transaction.isExpenditure()) {
             amount.setTextFill(Paint.valueOf("#ff7675"));
         } else {
-            amount.setTextFill(Paint.valueOf("#81ecec"));
+            amount.setTextFill(Paint.valueOf("#00b894"));
         }
     }
 
