@@ -67,7 +67,6 @@ public class StatisticManager implements Statistic {
                                currentOrder.getSchedule().get().getCalendar()) > 0)
                        .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
                        .collect(Collectors.toList());
-        completedOrderPriceList.forEach(x -> System.out.println(x));
         return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
     }
 

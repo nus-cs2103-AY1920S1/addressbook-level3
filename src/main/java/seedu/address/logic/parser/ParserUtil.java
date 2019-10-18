@@ -11,7 +11,6 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.statistic.StatsParseUtil;
 import seedu.address.commons.util.StringUtil;
 
 import seedu.address.logic.commands.statisticcommand.StatisticType;
@@ -32,6 +31,7 @@ import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
+import seedu.address.statistic.StatsParseUtil;
 
 
 /**

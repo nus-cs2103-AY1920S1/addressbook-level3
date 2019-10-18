@@ -11,10 +11,10 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.statistic.StatsParseUtil;
 import seedu.address.logic.commands.statisticcommand.StatisticType;
 import seedu.address.logic.commands.statisticcommand.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.statistic.StatsParseUtil;
 
 /**
  * Parses input arguments and creates a new StatsCommand object

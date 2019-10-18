@@ -14,17 +14,18 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.statistic.StatsPayload;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.statistic.StatsPayload;
 import seedu.address.ui.exception.EnumNotPresentException;
 import seedu.address.ui.panels.CalendarPanel;
 import seedu.address.ui.panels.CustomerListPanel;
 import seedu.address.ui.panels.OrderListPanel;
 import seedu.address.ui.panels.PhoneListPanel;
+
 
 /**
  * The Main Window. Provides the basic application layout containing

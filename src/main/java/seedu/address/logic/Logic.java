@@ -4,7 +4,6 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.statistic.StatsPayload;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -15,6 +14,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
+import seedu.address.statistic.StatsPayload;
 
 /**
  * API of the Logic component
