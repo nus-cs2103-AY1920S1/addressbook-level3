@@ -20,11 +20,8 @@ public class PhoneContainsKeywordsPredicate implements Predicate<Order> {
     public boolean test(Order order) {
         return keywords.stream()
                 .anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(order.getPhone().getSerialNumber().toString(), keyword)
-                        || StringUtil.containsWordIgnoreCase(order.getPhone().getBrand().toString(), keyword)
-                        || StringUtil.containsWordIgnoreCase(order.getPhone().getCapacity().toString(), keyword)
+                        StringUtil.containsWordIgnoreCase(order.getPhone().getCapacity().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getColour().toString(), keyword)
-                        || StringUtil.containsWordIgnoreCase(order.getPhone().getCost().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getIdentityNumber().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getPhoneName().toString(), keyword));
     }

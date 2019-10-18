@@ -21,8 +21,7 @@ public class CustomerContainsKeywordsPredicate implements Predicate<Order> {
         return keywords.stream()
                 .anyMatch(keyword ->
                     StringUtil.containsWordIgnoreCase(order.getCustomer().getCustomerName().toString(), keyword)
-                    || StringUtil.containsWordIgnoreCase(order.getCustomer().getContactNumber().toString(), keyword)
-                    || StringUtil.containsWordIgnoreCase(order.getCustomer().getEmail().toString(), keyword));
+                    || StringUtil.containsWordIgnoreCase(order.getCustomer().getContactNumber().toString(), keyword));
     }
 
     @Override

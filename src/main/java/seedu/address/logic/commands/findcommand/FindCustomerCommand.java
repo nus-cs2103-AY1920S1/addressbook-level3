@@ -19,7 +19,7 @@ public class FindCustomerCommand extends Command {
 
     public static final String COMMAND_WORD = "find-c";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all customers whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all customers whose data fields contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
