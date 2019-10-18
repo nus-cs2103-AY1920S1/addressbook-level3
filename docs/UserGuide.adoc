@@ -143,11 +143,11 @@ Deletes the book with serial number `sn/B00422`.
 ==== Registering a new borrower: `register`
 
 Registers a new borrower to the library records. A unique ID associated with the borrower will automatically be generated and displayed. Borrowers are expected to know his ID in order for loans to be processed+
-Format: `register u/NAME p/PHONE_NUMBER e/EMAIL`
+Format: `register n/NAME p/PHONE_NUMBER e/EMAIL`
 
 Example:
 
-* `register u/matt p/83938249 e/matt@damon.com`
+* `register n/matt p/83938249 e/matt@damon.com`
 
 ==== Undoing: `undo`
 
@@ -159,20 +159,16 @@ Format: `undo`
 Redo the most recent undo should there be no more commands/actions after the most recent undo +
 Format: `redo`
 
-==== Set loan time: `setLoanTime`
 
-Sets the standard number of days for any book loan +
-Format: `setLoanTime DAYS`
+==== Set User Settings: `set`
 
-==== Set renewal time: `setRenewTime`
+Sets the user settings for loan period (in days), renew period (in days) and fine increment (in cents). +
+Format: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] }`
 
-Sets the standard number of days for any book renewal +
-Format: `setRenewTime DAYS`
+Examples:
 
-==== Set fine (in cents): `setFineAmt`
-
-Sets the amount of fine per book per day, in cents +
-Format: `setFineAmt CENTS`
+*  `set lp/30 rp/10`
+*  `set rp/10 fi/5 lp/10`
 
 ==== Exiting the program : `exit`
 
@@ -209,7 +205,7 @@ Format: `done`
 ==== Editing a borrower: `edit`
 
 Edit borrower’s particulars. +
-Format: `edit { [u/NAME] [p/PHONE_NUMBER] [e/email] }`
+Format: `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }`
 
 ****
 * Edits the currently serving borrower's particulars.
@@ -250,7 +246,7 @@ Including `-all` will return all currently loaned books
 
 ==== Paying fines: `pay`
 
-Reduces the oustanding amount of borrower's fines by AMOUNT (in cents) and adds a transaction record to his account +
+Reduces the outstanding amount of borrower's fines by AMOUNT (in cents) and adds a transaction record to his account +
 Format: `pay AMOUNT`
 
 ==== Reserve a book: `reserve`
@@ -297,8 +293,8 @@ e.g. `find t/Animal Farm a/George Orwell`, `find g/mystery g/children -available
 * *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]` +
 e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/B02010 g/children`
 * *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
-* *Register a borrower* : `register u/NAME p/PHONE_NUMBER e/EMAIL` +
-e.g. `register u/matt p/83938249 e/matt@damon.com`
+* *Register a borrower* : `register n/NAME p/PHONE_NUMBER e/EMAIL` +
+e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Toggle night mode*: `toggleui`
@@ -313,7 +309,7 @@ e.g. `register u/matt p/83938249 e/matt@damon.com`
 * *Serve mode* : `serve id/BORROWER_ID` +
 e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
-* *Edit a borrower's particulars* : `edit { [u/NAME] [p/PHONE_NUMBER] [e/email] }` +
+* *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
 * *Loan book(s)* : `loan sn/BOOK_SN...` +
 e.g. `loan sn/B00201 sn/B02929 sn/B00203`

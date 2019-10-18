@@ -2,12 +2,16 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -23,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
 import seedu.address.testutil.EditBookDescriptorBuilder;
+import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -77,6 +82,27 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final String VALID_LOAN_PERIOD_1 = "14";
+    public static final String VALID_LOAN_PERIOD_2 = "7";
+    public static final String VALID_RENEW_PERIOD_1 = "14";
+    public static final String VALID_RENEW_PERIOD_2 = "7";
+    public static final String VALID_FINE_INCREMENT_1 = "30";
+    public static final String VALID_FINE_INCREMENT_2 = "40";
+
+    public static final String INVALID_LOAN_PERIOD_DESC = " " + PREFIX_LOAN_PERIOD + "7a"; // 'a' not allowed
+    public static final String INVALID_RENEW_PERIOD_DESC = " " + PREFIX_RENEW_PERIOD + "7b"; // 'a' not allowed
+    public static final String INVALID_FINE_INCREMENT_DESC = " " + PREFIX_FINE_INCREMENT + "10c"; // 'a' not allowed
+
+    public static final String VALID_LOAN_PERIOD_1_DESC = " " + PREFIX_LOAN_PERIOD + VALID_LOAN_PERIOD_1;
+    public static final String VALID_RENEW_PERIOD_1_DESC = " " + PREFIX_RENEW_PERIOD + VALID_RENEW_PERIOD_1;
+    public static final String VALID_FINE_INCREMENT_1_DESC = " " + PREFIX_FINE_INCREMENT + VALID_FINE_INCREMENT_1;
+
+    public static final String VALID_LOAN_PERIOD_2_DESC = " " + PREFIX_LOAN_PERIOD + VALID_LOAN_PERIOD_2;
+    public static final String VALID_RENEW_PERIOD_2_DESC = " " + PREFIX_RENEW_PERIOD + VALID_RENEW_PERIOD_2;
+    public static final String VALID_FINE_INCREMENT_2_DESC = " " + PREFIX_FINE_INCREMENT + VALID_FINE_INCREMENT_2;
+
+
+
     public static final EditCommand.EditBookDescriptor DESC_BOOK_1;
     public static final EditCommand.EditBookDescriptor DESC_BOOK_2;
 
@@ -87,6 +113,22 @@ public class CommandTestUtil {
         DESC_BOOK_2 = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_2)
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).withAuthor(VALID_AUTHOR_BOOK_2)
                 .withGenres(VALID_GENRE_ACTION, VALID_GENRE_FICTION).build();
+    }
+
+    public static final SetCommand.SetUserSettingsDescriptor DESC_USER_SETTINGS_1;
+    public static final SetCommand.SetUserSettingsDescriptor DESC_USER_SETTINGS_2;
+
+    static {
+        DESC_USER_SETTINGS_1 = new SetUserSettingsDescriptorBuilder()
+                .withLoanPeriod(VALID_LOAN_PERIOD_1)
+                .withRenewPeriod(VALID_RENEW_PERIOD_1)
+                .withFineIncrement(VALID_FINE_INCREMENT_1)
+                .build();
+        DESC_USER_SETTINGS_2 = new SetUserSettingsDescriptorBuilder()
+                .withLoanPeriod(VALID_LOAN_PERIOD_2)
+                .withRenewPeriod(VALID_RENEW_PERIOD_2)
+                .withFineIncrement(VALID_FINE_INCREMENT_2)
+                .build();
     }
 
     /**
