@@ -249,7 +249,7 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
         public void put(Index index, String detail) {
             Set<Object> values = getAllValues(index);
             values.add(detail);
-            map.put(index.getZeroBased(), values);
+            map.put(indexToInt(index), values);
         }
 
         /**
@@ -265,7 +265,7 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
             Set<Object> values = getAllValues(index);
             if (!values.contains(VISIT_TASK_UPDATES_MULTIMAP_KEYS.UNFINISH)) {
                 values.add(key);
-                map.put(index.getZeroBased(), values);
+                map.put(indexToInt(index), values);
             }
         }
 
@@ -275,10 +275,17 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
          * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
          */
         public Set<Object> getAllValues(Index index) {
-            if (!map.containsKey(index)) {
+            if (!map.containsKey(indexToInt(index))) {
                 return new HashSet<>();
             }
-            return new HashSet<>(map.get(index));
+            return new HashSet<>(map.get(indexToInt(index)));
+        }
+
+        /**
+         * Helper function to ensure index.getZeroBased() and not index.getOneBased() is used
+         */
+        private int indexToInt(Index index) {
+            return index.getZeroBased();
         }
 
         /**
@@ -289,8 +296,9 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
                 List<Index> indexList,
                 VISIT_TASK_UPDATES_MULTIMAP_KEYS isMarkFinish) throws CommandException {
             for (Index targetIndex : indexList) {
-                if (targetIndex.getZeroBased() >= taskList.size()) {
-                    throw new CommandException(String.format(MESSAGE_INVALID_VISIT_TASK_INDEX, targetIndex.getOneBased()));
+                if (indexToInt(targetIndex) >= taskList.size()) {
+                    throw new CommandException(String.format(MESSAGE_INVALID_VISIT_TASK_INDEX,
+                            targetIndex.getOneBased()));
                 }
                 this.put(targetIndex, isMarkFinish);
             }
@@ -303,7 +311,7 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
                 List<VisitTask> taskList,
                 List<Pair<Index, String>> indexDetailPairList) throws CommandException {
             for (Pair<Index, String> indexStringPair : indexDetailPairList) {
-                if (indexStringPair.getKey().getZeroBased() >= taskList.size()) {
+                if (indexToInt(indexStringPair.getKey()) >= taskList.size()) {
                     throw new CommandException(String.format(MESSAGE_INVALID_VISIT_TASK_INDEX,
                             indexStringPair.getKey()));
                 }
