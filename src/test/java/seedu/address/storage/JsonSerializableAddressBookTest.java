@@ -1,5 +1,5 @@
 package seedu.address.storage;
-
+/*
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -41,6 +41,6 @@ public class JsonSerializableAddressBookTest {
                 JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON,
                 dataFromFile::toModelType);
-    }*/
+    }
 
-}
+}*/
