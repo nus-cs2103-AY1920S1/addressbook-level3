@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.ichifund.commons.core.GuiSettings;
@@ -30,7 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Repeater> filteredRepeaters;
     private final FilteredList<Budget> filteredBudgets;
 
-    private TransactionContext transactionContext;
+    private ObjectProperty<TransactionContext> transactionContext;
 
     /**
      * Initializes a ModelManager with the given fundBook and userPrefs.
@@ -47,7 +49,9 @@ public class ModelManager implements Model {
         filteredTransactions = new FilteredList<>(this.fundBook.getTransactionList());
         filteredRepeaters = new FilteredList<>(this.fundBook.getRepeaterList());
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
-        setTransactionContext(new TransactionContext(this.fundBook.getLatestTransaction()));
+        TransactionContext transactionContext = new TransactionContext(this.fundBook.getLatestTransaction());
+        updateFilteredTransactionList(transactionContext.getPredicate());
+        this.transactionContext = new SimpleObjectProperty<>(transactionContext);
     }
 
     public ModelManager() {
@@ -134,7 +138,7 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction transaction) {
         fundBook.addTransaction(transaction);
-        TransactionContext newContext = transactionContext.getAccommodatingContext(transaction);
+        TransactionContext newContext = getTransactionContext().getAccommodatingContext(transaction);
         setTransactionContext(newContext);
     }
 
@@ -221,12 +225,12 @@ public class ModelManager implements Model {
 
     @Override
     public TransactionContext getTransactionContext() {
-        return transactionContext;
+        return transactionContext.getValue();
     }
 
     @Override
     public void setTransactionContext(TransactionContext transactionContext) {
-        this.transactionContext = transactionContext;
+        this.transactionContext.setValue(transactionContext);
         updateFilteredTransactionList(transactionContext.getPredicate());
     }
 
