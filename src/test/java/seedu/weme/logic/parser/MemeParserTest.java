@@ -59,6 +59,7 @@ public class MemeParserTest {
     public void parseCommand_edit() throws Exception {
         Meme meme = new MemeBuilder().build();
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(meme).build();
+        descriptor.setFilePath(null);
         MemeEditCommand command = (MemeEditCommand) parser.parseCommand(MemeEditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_MEME.getOneBased() + " " + MemeUtil.getEditMemeDescriptorDetails(descriptor));
         assertEquals(new MemeEditCommand(INDEX_FIRST_MEME, descriptor), command);
