@@ -187,7 +187,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-
+    /**
+     * Displays the waste list panel
+     */
     @FXML
     private void displayWasteListPanel() {
         wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
@@ -196,6 +198,9 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("Showing waste list panel.");
     }
 
+    /**
+     * Displays the template list panel
+     */
     @FXML
     private void displayTemplateListPanel() {
         templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
@@ -203,6 +208,9 @@ public class MainWindow extends UiPart<Stage> {
         tabPane.getSelectionModel().select(templateListPage);
     }
 
+    /**
+     * Displays the shopping list panel
+     */
     @FXML
     private void displayShoppingListPanel() {
         shoppingListPanel = new ShoppingListPanel(logic.getFilteredShoppingList());

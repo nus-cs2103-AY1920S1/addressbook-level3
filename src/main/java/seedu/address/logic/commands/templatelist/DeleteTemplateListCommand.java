@@ -43,7 +43,8 @@ public class DeleteTemplateListCommand extends Command {
 
         UniqueTemplateItems templateToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTemplate(templateToDelete);
-        CommandResult commandResult = new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS, templateToDelete));
+        CommandResult commandResult =
+                new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS, templateToDelete));
         commandResult.setTemplateListCommand();
         return commandResult;
     }
