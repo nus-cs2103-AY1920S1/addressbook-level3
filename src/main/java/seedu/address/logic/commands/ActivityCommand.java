@@ -9,8 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Context;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Title;
@@ -92,6 +94,8 @@ public class ActivityCommand extends Command {
 
         Activity toAdd = new Activity(title, participantIds.toArray(new Integer[participantIds.size()]));
         model.addActivity(toAdd);
+        model.setContext(new Context(toAdd));
+        model.updateFilteredPersonList(x -> toAdd.getParticipantIds().contains(x.getPrimaryKey()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, successMessage, warningMessage));
     }
 
@@ -111,6 +115,11 @@ public class ActivityCommand extends Command {
         ActivityCommand e = (ActivityCommand) other;
         return title.equals(e.title)
                 && participants.equals(e.participants);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, participants);
     }
 
     /**
