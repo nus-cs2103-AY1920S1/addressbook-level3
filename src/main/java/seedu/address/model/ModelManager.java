@@ -198,6 +198,7 @@ public class ModelManager implements Model {
         return travelPal.equals(other.travelPal)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredTripList.equals(other.filteredTripList);
+                && filteredTripList.equals(other.filteredTripList)
+                && pageStatus.equals(other.getPageStatus());
     }
 }

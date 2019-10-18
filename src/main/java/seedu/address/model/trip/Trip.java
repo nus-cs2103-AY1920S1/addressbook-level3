@@ -87,7 +87,7 @@ public class Trip {
     }
 
     /**
-     * Returns true if both {@link Trip} contain the same booking and their to and from time are the same.
+     * Returns true if both {@link Trip} contain the same name, location, and starting, ending dates.
      * This defines a weaker notion of equality between two events.
      */
     public boolean isSameTrip(Trip otherTrip) {
@@ -117,7 +117,10 @@ public class Trip {
                 && otherTrip.getStartDate().equals(getStartDate())
                 && otherTrip.getEndDate().equals(getEndDate())
                 && otherTrip.getDestination().equals(getDestination())
-                && otherTrip.getDayList().equals(getDayList());
+                && otherTrip.getBudget().equals(getBudget())
+                && otherTrip.getDayList().equals(getDayList())
+                && otherTrip.getDiary().equals(getDiary())
+                && otherTrip.getExpenditureList().equals(getExpenditureList());
     }
 
     /**

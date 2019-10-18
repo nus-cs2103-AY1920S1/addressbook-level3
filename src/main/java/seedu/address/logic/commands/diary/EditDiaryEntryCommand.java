@@ -10,7 +10,8 @@ import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
 /**
- * {@link Command} opens the edit box with the current diary entry text, if any.
+ * {@link Command} that sets the initial text of the edit box or opens the edit box with the current diary entry
+ * text, if any.
  */
 public class EditDiaryEntryCommand extends Command {
     public static final String COMMAND_WORD = "edit";
@@ -19,11 +20,18 @@ public class EditDiaryEntryCommand extends Command {
 
     public static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
 
+    public static final String MESSAGE_SAVED_EDIT = "Remember to execute the done command to save your changes!";
+
     public static final String MESSAGE_EDIT_SUCCESS = "Brought up the edit window, go ahead and type!";
 
-    public static final String MESSAGE_ALREADY_EDITING = "The edit window is already shown!";
+    public static final String MESSAGE_ALREADY_EDITING = "The edit box is already shown!";
 
-    public EditDiaryEntryCommand() { }
+    private String newText;
+
+    public EditDiaryEntryCommand(String newText) {
+        requireNonNull(newText);
+        this.newText = newText;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -43,8 +51,12 @@ public class EditDiaryEntryCommand extends Command {
                     .withNewEditDiaryEntryDescriptor(editDescriptor));
 
             return new CommandResult(MESSAGE_EDIT_SUCCESS);
-        } else {
+        } else if (newText.trim().isEmpty()) {
             return new CommandResult(MESSAGE_ALREADY_EDITING);
+        } else {
+            currentEditEntryDescriptor.setDiaryText(newText);
+
+            return new CommandResult(MESSAGE_SAVED_EDIT);
         }
     }
 

@@ -12,6 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class EditDiaryEntryParser implements Parser<EditDiaryEntryCommand> {
     @Override
     public EditDiaryEntryCommand parse(String userInput) throws ParseException {
-        return new EditDiaryEntryCommand();
+        requireNonNull(userInput);
+
+        return new EditDiaryEntryCommand(userInput);
     }
 }

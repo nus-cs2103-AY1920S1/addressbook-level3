@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_CHOOSER;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.diary.EditDiaryEntryCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
@@ -34,11 +33,15 @@ public class AddPhotoCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_DATA_FILE_PATH + "./image01.png "
             + PREFIX_DATE_TIME_START + "01/08/2019 1245 " + PREFIX_DESCRIPTION + "...";
 
+    public static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n"
+            + "Run the create command to make one!";
+
     public static final String MESSAGE_ADD_SUCCESS = "Added your photo! %1$s";
 
     private final Photo photo;
 
     public AddPhotoCommand(Photo photo) {
+        requireNonNull(photo);
         this.photo = photo;
     }
 
@@ -48,7 +51,7 @@ public class AddPhotoCommand extends Command {
         DiaryEntry diaryEntry = model.getPageStatus().getDiaryEntry();
 
         if (diaryEntry == null) {
-            throw new CommandException(EditDiaryEntryCommand.MESSAGE_NO_DIARY_ENTRY);
+            throw new CommandException(MESSAGE_NO_DIARY_ENTRY);
         }
 
         diaryEntry.getPhotoList().addPhoto(photo);

@@ -44,4 +44,8 @@ public class DiaryEditBox extends UiPart<VBox> {
     void setText(String text) {
         textEditor.setText(text);
     }
+
+    void requestFocus() {
+        textEditor.requestFocus();
+    }
 }

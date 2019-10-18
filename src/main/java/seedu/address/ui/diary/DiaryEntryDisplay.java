@@ -37,12 +37,16 @@ public class DiaryEntryDisplay extends UiPart<VBox> {
     @FXML
     private ListView<CharSequence> diaryTextLinesList;
 
-    DiaryEntryDisplay(ObservableList<CharSequence> diaryTextLines, PhotoList photoList) {
+    DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
         super(FXML);
-        this.photoList = photoList;
-
-        diaryTextLinesList.setItems(diaryTextLines);
+        this.photoList = new PhotoList();
+        this.diaryTextLines = observableParagraphs;
+        diaryTextLinesList.setItems(this.diaryTextLines);
         diaryTextLinesList.setCellFactory(listViewCell -> new DiaryTextLineCell());
+    }
+
+    void setPhotoList(PhotoList photoList) {
+        this.photoList = photoList;
     }
 
     /**
