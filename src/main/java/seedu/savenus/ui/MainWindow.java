@@ -64,7 +64,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         this.logic = logic;
 
         // Configure the UI
