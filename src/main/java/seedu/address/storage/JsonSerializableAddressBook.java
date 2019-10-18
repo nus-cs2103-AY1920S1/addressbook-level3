@@ -19,7 +19,7 @@ import seedu.address.model.task.Task;
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "data")
 class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_TITLE = "Lecture note list contains duplicate titles.";
     public static final String MESSAGE_DUPLICATE_TASK = "Task list contains duplicate tasks.";
