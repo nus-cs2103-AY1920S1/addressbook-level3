@@ -15,7 +15,10 @@ import seedu.address.model.person.Person;
 public class Activity {
 
     private final Title title;
+    // Id, Balance, Transfers arrays are supposed to be one-to-one.
     private final ArrayList<Integer> participantIds;
+    private final ArrayList<Double> participantBalances;
+    private final ArrayList<Double> transfers;
     private final ArrayList<Expense> expenses;
 
     /**
@@ -27,6 +30,8 @@ public class Activity {
         requireAllNonNull(title);
         participantIds = new ArrayList<>();
         expenses = new ArrayList<>();
+        participantBalances = new ArrayList<>();
+        transfers = new ArrayList<>();
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);
@@ -65,6 +70,8 @@ public class Activity {
         for (Person p : people) {
             if (!participantIds.contains(p.getPrimaryKey())) {
                 participantIds.add(p.getPrimaryKey());
+                participantBalances.add(0.0); // newcomers don't owe.
+                transfers.add(0.0);
             }
         }
     }
@@ -89,8 +96,45 @@ public class Activity {
         if (!allPresent) {
             throw new PersonNotInActivityException();
         }
-        for (int i = 0; i < expenditures.length; i++) {
-            expenses.add(expenditures[i]);
+        for (Expense expense : expenditures) {
+            expenses.add(expense);
+
+            // We update the balance sheet
+            int payer = expense.getPersonId();
+            double amount = expense.getAmount().getValue();
+            double splitAmount = amount / participantIds.size();
+            for (int i = 0; i < participantIds.size(); i++) {
+                double temp = participantBalances.get(i);
+                // negative balance means you lent more than you borrowed.
+                if (participantIds.get(i) == payer) {
+                    participantBalances.set(i, temp - amount);
+                } else {
+                    participantBalances.set(i, temp + splitAmount);
+                }
+            }
+        }
+        simplifyExpenses();
+    }
+
+    private void simplifyExpenses() {
+        int i = 0, j = 0, N = participantBalances.size();
+        while (i != N && j != N) {
+            double I, J;
+            if ((I = participantBalances.get(i)) <= 0) {
+                i++;
+                continue;
+            } else if ((J = participantBalances.get(j)) >= 0) {
+                j++;
+                continue;
+            }
+
+            double m = I < -J ? I : -J;
+            // i gives j $m.
+            System.out.println(i + " " + j + " " + m);
+            transfers.set(i, transfers.get(i) + m);
+            transfers.set(j, transfers.get(j) - m);
+            participantBalances.set(i, I - m);
+            participantBalances.set(j, J + m);
         }
     }
 
