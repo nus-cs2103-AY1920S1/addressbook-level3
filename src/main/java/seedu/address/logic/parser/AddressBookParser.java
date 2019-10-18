@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 
+import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SwitchCustomerPanelCommand;
 import seedu.address.logic.commands.SwitchOrderPanelCommand;
 import seedu.address.logic.commands.SwitchPhonePanelCommand;
@@ -120,7 +121,6 @@ public class AddressBookParser {
         case CancelOrderCommand.COMMAND_WORD:
             return new CancelOrderCommandParser().parse(arguments);
 
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -150,6 +150,9 @@ public class AddressBookParser {
 
         case SwitchSchedulePanelCommand.COMMAND_WORD:
             return new SwitchSchedulePanelCommand();
+
+        case ScheduleCommand.COMMAND_WORD:
+            return new ScheduleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
