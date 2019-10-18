@@ -2,6 +2,7 @@ package budgetbuddy.model.account;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import budgetbuddy.model.transaction.Transaction;
@@ -14,12 +15,12 @@ public class Account {
 
     // Identity fields
     private final Name name;
-    private final Transaction transaction;
+    private final ArrayList<Transaction> transaction;
 
     /**
      * Every field must be present and not null.
      */
-    public Account(Name name, Transaction transaction) {
+    public Account(Name name, ArrayList<Transaction> transaction) {
         requireAllNonNull(name, transaction);
         this.name = name;
         this.transaction = transaction;
@@ -29,7 +30,7 @@ public class Account {
         return name;
     }
 
-    public Transaction getTransaction() {
+    public ArrayList<Transaction> getTransaction() {
         return transaction;
     }
 
