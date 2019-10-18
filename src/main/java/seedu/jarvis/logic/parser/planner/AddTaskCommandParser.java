@@ -35,11 +35,8 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
                                                                     PREFIX_FREQ, PREFIX_PRIORITY, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK_TYPE, PREFIX_TASK_DES)
-            || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
-        }
-
-        if (isEventOrDeadline(argMultimap) && !arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+            || !argMultimap.getPreamble().isEmpty()
+            || (isEventOrDeadline(argMultimap) && !arePrefixesPresent(argMultimap, PREFIX_DATE))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
 
