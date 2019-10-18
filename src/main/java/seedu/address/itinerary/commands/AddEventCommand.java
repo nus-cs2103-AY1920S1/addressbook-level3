@@ -14,7 +14,7 @@ public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the itinerary, "
-            + "based on the following format:\nadd title/[title] time/[time] l/[location] d/[desc]\n"
+            + "based on the following format:\nadd title/[title] date/ [date] time/[time] l/[location] d/[desc]\n"
             + "NOTE: Only title is compulsory the rest can be left as empty fields.";
 
     public static final String MESSAGE_SUCCESS = "Processing...\nDone!\n" +
@@ -35,4 +35,3 @@ public class AddEventCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS, false, false);
     }
 }
-

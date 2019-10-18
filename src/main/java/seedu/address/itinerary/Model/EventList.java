@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.itinerary.model.Event.Event;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 
 /**
  * An event list for tracking events on itinerary.
@@ -30,5 +32,13 @@ public class EventList {
      */
     public ObservableList<Event> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    public void doneEvent(Event target, Event doneEvent) {
+        requireAllNonNull(target, doneEvent);
+
+        int index = events.indexOf(target);
+
+        events.set(index, doneEvent);
     }
 }

@@ -7,8 +7,11 @@ import seedu.address.itinerary.model.Event.Event;
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Model {
+    /** {@code Predicate} that always evaluate to true */
+    public Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     private Itinerary itinerary;
     private final FilteredList<Event> filteredEvents;
@@ -36,5 +39,11 @@ public class Model {
 
     public void deleteEvent(int index) {
         this.itinerary.deleteEvent(index);
+    }
+
+    public void doneEvent(Event target, Event doneEvent) {
+        requireAllNonNull(target, doneEvent);
+
+        itinerary.doneEvent(target, doneEvent);
     }
 }
