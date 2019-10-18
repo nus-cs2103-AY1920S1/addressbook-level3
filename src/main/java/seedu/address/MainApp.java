@@ -23,16 +23,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
-import seedu.address.model.userprefs.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.AppointmentBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonAppointmentBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -58,25 +51,13 @@ public class MainApp extends Application {
 
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
-
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        AppointmentBookStorage appointmentBookStorage = new JsonAppointmentBookStorage(
-            userPrefs.getAppointmentBookFilePath());
-        storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
+        storage = new StorageManager(config.getUserPrefsFilePath());
 
         initLogging(config);
 
-        QueueManager queueManager = new QueueManager();
-
-        model = initModelManager(storage, userPrefs, queueManager);
-
+        model = initModelManager(storage, storage.getUserPrefs());
         logic = new LogicManager(model, storage);
-
         ui = new UiManager(logic);
-
-
     }
 
     /**
@@ -84,7 +65,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         ReadOnlyAddressBook initialPatientAddressData;
         try {
             Optional<ReadOnlyAddressBook> addressBookOptional = storage.readPatientAddressBook();
@@ -102,7 +83,7 @@ public class MainApp extends Application {
 
         ReadOnlyAddressBook initialStaffAddressData;
         try {
-            Optional<ReadOnlyAddressBook> addressBookOptional = storage.readPatientAddressBook();
+            Optional<ReadOnlyAddressBook> addressBookOptional = storage.readStaffAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
@@ -117,7 +98,7 @@ public class MainApp extends Application {
 
         ReadOnlyAppointmentBook initialAppointmentData;
         try {
-            Optional<ReadOnlyAppointmentBook> appointmentBookOptional = storage.readAppointmentBook();
+            Optional<ReadOnlyAppointmentBook> appointmentBookOptional = storage.readPatientAppointmentBook();
             if (!appointmentBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppointmentBook");
             }
@@ -129,6 +110,23 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
             initialAppointmentData = new AppointmentBook();
         }
+
+        ReadOnlyAppointmentBook initialDutyRosterData;
+        try {
+            Optional<ReadOnlyAppointmentBook> appointmentBookOptional = storage.readPatientAppointmentBook();
+            if (!appointmentBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AppointmentBook");
+            }
+            initialDutyRosterData = appointmentBookOptional.orElseGet(SampleDataUtil::getSampleAppointmentBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
+            initialDutyRosterData = new AppointmentBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
+            initialDutyRosterData = new AppointmentBook();
+        }
+
+        QueueManager queueManager = new QueueManager();
 
         return new ModelManager(initialPatientAddressData, initialStaffAddressData,
             userPrefs, queueManager, initialAppointmentData);
@@ -174,47 +172,16 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
-    /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
-     */
-    private UserPrefs initPrefs(UserPrefsStorage storage) {
-        Path prefsFilePath = storage.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
-
-        UserPrefs initializedPrefs;
-        try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
-        } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
-            initializedPrefs = new UserPrefs();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initializedPrefs = new UserPrefs();
-        }
-
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-
-        return initializedPrefs;
-    }
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ClerkPro " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping ClerkPro ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

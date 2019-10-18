@@ -87,11 +87,6 @@ public interface Logic {
     ReadOnlyAppointmentBook getAppointmentBook();
 
     /**
-     * Returns the user prefs' appointment book file path.
-     */
-    Path getAppointmentBookFilePath();
-
-    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();

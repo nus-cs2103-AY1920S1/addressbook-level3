@@ -74,7 +74,7 @@ public class LogicManager implements Logic {
         try {
             if (!(command instanceof NonActionableCommand)) {
                 storage.savePatientAddressBook(model.getPatientAddressBook());
-                storage.saveAppointmentBook(model.getAppointmentBook());
+                storage.savePatientAppointmentBook(model.getAppointmentBook());
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -115,7 +115,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getUserPrefs().getPatientAddressBookFilePath();
     }
 
     @Override
@@ -126,11 +126,6 @@ public class LogicManager implements Logic {
     @Override
     public ReferenceIdResolver getReferenceIdResolver() {
         return model;
-    }
-
-    @Override
-    public Path getAppointmentBookFilePath() {
-        return model.getAppointmentBookFilePath();
     }
 
     @Override
