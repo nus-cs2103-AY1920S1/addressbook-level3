@@ -15,10 +15,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Employee.Employee;
-import seedu.address.model.Employee.UniqueEmployeeList;
-import seedu.address.model.Employee.exceptions.DuplicateEmployeeException;
-import seedu.address.model.Employee.exceptions.EmployeeNotFoundException;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.UniqueEmployeeList;
+import seedu.address.model.employee.exceptions.DuplicateEmployeeException;
+import seedu.address.model.employee.exceptions.EmployeeNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueEmployeeListTest {

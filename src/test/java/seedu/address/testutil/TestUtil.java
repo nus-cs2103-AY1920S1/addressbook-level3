@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.Employee.Employee;
+import seedu.address.model.employee.Employee;
 import seedu.address.model.Model;
 
 /**

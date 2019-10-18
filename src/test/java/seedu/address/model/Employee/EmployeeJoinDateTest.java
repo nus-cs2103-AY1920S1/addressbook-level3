@@ -9,7 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.Employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeJoinDate;
 
 class EmployeeJoinDateTest {
 
