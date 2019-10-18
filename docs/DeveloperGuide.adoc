@@ -394,7 +394,7 @@ Use case ends.
 
 1.  User requests to find appointments
 2.  User provides fields that the user wants to use to find appointments
-3.  System finds and displays the list of relevant appointment(s)
+3.  System finds and displays the list of relevant appointments
 +
 Use case ends.
 
@@ -404,7 +404,6 @@ Use case ends.
 +
 Use case ends.
 
-//Updated by Jun Hao
 [discrete]
 === Use case: (UC04) Delete appointment
 
@@ -445,7 +444,6 @@ Use case ends
 [discrete]
 === Use case: (UC06) Request help information
 
-//
 [discrete]
 === Use case: (UC07) Save updated Appointment data
 *MSS*
@@ -518,26 +516,69 @@ Use case ends.
 
 // Updated by Kevin
 [discrete]
-=== Use case: (UC11) Switch to 'Calendar' view mode
+=== Use case: (UC11) Switch tabs
 
 *MSS*
 
-1. User requests to switch to the calendar view
-2. System shows the calendar view with scheduled appointments, if any
+1. User requests to switch to a specified tab.
+2. System switches to the appropriate tab.
 +
 Use case ends.
 
+*Extensions*
+
+[none]
+* 1a. Requested tab is invalid.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: (UC12) Calendar mode
+
+*MSS*
+
+1. User specifies a date to view engagements for.
+2. System shows the engagements for the specified date.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid date.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: (UC13) Calendar mode month switching
+
+*MSS*
+
+1. User specifies a month to switch the display to.
+2. System updates the calendar view to display appointments for the specified month.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid month.
+[none]
+** 1a1. System shows error message.
++
+Use case resumes at step 1.
+
 //Updated by Jun Hao
 [discrete]
-=== Use case: (UC12) Typing game
+=== Use case: (UC14) Typing game
 
 *MSS*
 
 1.  User requests to start the typing game
-2.  Typing game shows the user the word(s) to type for a period of time
-3.  User types the word(s) within the period of time
-4.  Typing game updates the User's score and life points accordingly.
-Steps 2-4 are repeated for as many rounds as required until User runs out of life points.
+2.  System shows typing game window which displays the specific word(s) to type.
+3.  User plays the game by typing the word(s).
+4.  Typing game updates the User's score and health points accordingly.
+Steps 2-4 are repeated for as many rounds as required until User runs out of health points.
 5.  Typing game shows the final score of the User
 +
 Use case ends.
@@ -551,7 +592,8 @@ Use case ends.
 
 [discrete]
 //Updated by Ko Gi Hun 30/09/19
-=== Use case: (UC13) Generate appointment document in PDF format
+=== Use case: (UC15) Generate appointment document in PDF format
+
 *MSS*
 
 1. User requests to list appointments

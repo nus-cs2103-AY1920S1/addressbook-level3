@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Calendar View Window" />
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="BASELINE_CENTER" spacing="30">
+        <Button text="&lt;&lt;" onMouseClicked="#populateCalendarWithPreviousMonth" />
+        <Text fx:id="calendarTitle" fill="white" />
+        <Button text="&gt;&gt;" onMouseClicked="#populateCalendarWithNextMonth" />
+    </HBox>
+    <GridPane alignment="BASELINE_CENTER" prefWidth="600">
+        <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="0">
+            <Text fill="white" text="Sunday" />
+        </StackPane>
+        <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="1">
+            <Text fill="white" text="Monday" />
+        </StackPane>
+        <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="2">
+            <Text fill="white" text="Tuesday" />
+        </StackPane>
+        <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="3">
+            <Text fill="white" text="Wednesday" />
+        </StackPane>
+        <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="4">
+            <Text fill="white" text="Thursday" />
+        </StackPane>
+        <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="5">
+            <Text fill="white" text="Friday" />
+        </StackPane>
+        <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="6">
+            <Text fill="white" text="Saturday" />
+        </StackPane>
+    </GridPane>
+    <GridPane fx:id="dateDisplayGrid" prefHeight="400" prefWidth="600">
+    </GridPane>
 </VBox>

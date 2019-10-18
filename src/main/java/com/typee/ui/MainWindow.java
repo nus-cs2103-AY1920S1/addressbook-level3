@@ -10,6 +10,8 @@ import com.typee.logic.Logic;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.ui.calendar.CalendarWindow;
+import com.typee.ui.game.StartWindow;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -247,10 +249,13 @@ public class MainWindow extends UiPart<Stage> {
         }
         switch (tabName) {
         case "Calendar":
-            tabToReturn.setController(new CalendarWindow(logic));
+            CalendarWindow calendarWindow = new CalendarWindow();
+            calendarWindow.setLogic(logic);
+            calendarWindow.populateCalendar();
+            tabToReturn.setController(calendarWindow);
             break;
         case "TypingGame":
-            tabToReturn.setController(new GameWindow());
+            tabToReturn.setController(new StartWindow());
             break;
         case "Report":
             tabToReturn.setController(new ReportWindow());

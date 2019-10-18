@@ -22,6 +22,7 @@ import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
+import com.typee.model.engagement.exceptions.InvalidTimeException;
 import com.typee.model.person.Person;
 
 /**
@@ -49,10 +50,32 @@ public class AddCommandParser implements Parser<AddCommand> {
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
         Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
 
-        Engagement engagement = Engagement.of(engagementType, startTime, endTime,
-                attendees, location, description, priority);
+        return makeAddCommand(engagementType, startTime, endTime, attendees, location, description, priority);
+    }
 
-        return new AddCommand(engagement);
+    /**
+     * Makes a new add command to add an engagement using the given arguments.
+     * @param engagementType the type of the engagement.
+     * @param startTime start time.
+     * @param endTime end time.
+     * @param attendees list of people attending the engagement.
+     * @param location location of the engagement.
+     * @param description description of the engagement.
+     * @param priority priority level of the engagement.
+     * @return an {@code AddCommand} to add the engagement.
+     * @throws ParseException if the time arguments are invalid.
+     */
+    private AddCommand makeAddCommand(EngagementType engagementType, LocalDateTime startTime, LocalDateTime endTime,
+                                      AttendeeList attendees, Location location,
+                                      String description, Priority priority) throws ParseException {
+        try {
+            Engagement engagement = Engagement.of(engagementType, startTime, endTime,
+                    attendees, location, description, priority);
+
+            return new AddCommand(engagement);
+        } catch (InvalidTimeException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 
     /**

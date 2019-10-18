@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSameEngagement comparison)
+ * Duplicates are not allowed (by .isConflictingWith comparison)
  */
 public class EngagementList implements ReadOnlyEngagementList {
 

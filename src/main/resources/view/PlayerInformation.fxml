@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane styleClass="player" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+           prefHeight="75.0" prefWidth="200.0" layoutY="0" layoutX="0">
+    <children>
+        <Label text="Score" StackPane.alignment="CENTER_LEFT"/>
+        <Label text="Health" StackPane.alignment="BOTTOM_LEFT"/>
+        <Label fx:id="score" text="" StackPane.alignment="CENTER" wrapText="true"/>
+        <ProgressBar fx:id="health" StackPane.alignment="BOTTOM_CENTER"/>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+    </padding>
+</StackPane>
