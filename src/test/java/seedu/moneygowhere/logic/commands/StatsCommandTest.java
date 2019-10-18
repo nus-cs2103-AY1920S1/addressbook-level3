@@ -75,7 +75,7 @@ class StatsCommandTest {
     //Testing whether list has been filtered correctly (2 valid date parameters specified)
     @Test
     public void execute_validDateRange_success() {
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
         model.setBudget(new Budget(100));
         expectedModel.setBudget(new Budget(100));
 
