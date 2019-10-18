@@ -55,9 +55,9 @@ public class QueueManager {
      * @param index of the room which a patient was allocated
      */
     public void undoServeNext(int index) {
-        ReferenceId id = roomList.get(index).getCurrentPatient();
-        queueList.addPatient(0, id);
-        roomList.remove(index);
+        //ReferenceId id = roomList.get(index).getCurrentPatient();
+        //queueList.addPatient(0, id);
+        //roomList.remove(index);
     }
 
     public void addPatient(ReferenceId id) {
@@ -93,7 +93,8 @@ public class QueueManager {
     }
 
     public boolean hasRoom(ReferenceId doctorReferenceId) {
-        return roomList.contains(doctorReferenceId);
+        return false;
+        //return roomList.contains(doctorReferenceId);
     }
 
     public ReferenceId getCurrentlyServed(int index) {

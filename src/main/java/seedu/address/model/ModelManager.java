@@ -107,12 +107,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom) {
-        queueManager.addRoomToIndex(doctorReferenceId, indexOfRoom);
+        //queueManager.addRoomToIndex(doctorReferenceId, indexOfRoom);
     }
 
     @Override
     public void removeRoom(ReferenceId target) {
-        queueManager.removeRoom(target);
+        //queueManager.removeRoom(target);
     }
 
     @Override
@@ -142,28 +142,6 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    @Override
-    public Path getAppointmentBookFilePath() {
-        return userPrefs.getAppointmentBookFilePath();
-    }
-
-    @Override
-    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
-        requireNonNull(appointmentBookFilePath);
-        userPrefs.setAppointmentBookFilePath(appointmentBookFilePath);
     }
 
 

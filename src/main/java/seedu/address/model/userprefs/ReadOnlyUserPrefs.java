@@ -11,6 +11,12 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getAddressBookFilePath();
+    Path getPatientAddressBookFilePath();
+
+    Path getPatientAppointmentBookFilePath();
+
+    Path getStaffAddressBookFilePath();
+
+    Path getDutyRosterBookFilePath();
 
 }

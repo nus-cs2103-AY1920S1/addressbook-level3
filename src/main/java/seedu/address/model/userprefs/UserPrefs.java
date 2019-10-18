@@ -14,8 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path patientAddressBookFilePath = Paths.get("data" , "patientDetails.json");
+    private Path staffAddressBookFilePath = Paths.get("data" , "staffDetails.json");
     private Path appointmentBookFilePath = Paths.get("data" , "appointments.json");
+    private Path dutyRosterBookFilePath = Paths.get("data" , "dutyRoster.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,7 +38,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setPatientAddressBookFilePath(newUserPrefs.getPatientAddressBookFilePath());
+        setStaffAddressBookFilePath(newUserPrefs.getStaffAddressBookFilePath());
+        setPatientAppointmentBookFilePath(newUserPrefs.getPatientAppointmentBookFilePath());
+        setDutyRosterBookFilePath(newUserPrefs.getStaffAddressBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -48,22 +53,40 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getPatientAddressBookFilePath() {
+        return patientAddressBookFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setPatientAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+        this.patientAddressBookFilePath = addressBookFilePath;
     }
 
-    public Path getAppointmentBookFilePath() {
+    public Path getPatientAppointmentBookFilePath() {
         return appointmentBookFilePath;
     }
 
-    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+    public void setPatientAppointmentBookFilePath(Path appointmentBookFilePath) {
         requireNonNull(appointmentBookFilePath);
         this.appointmentBookFilePath = appointmentBookFilePath;
+    }
+
+    public Path getStaffAddressBookFilePath() {
+        return staffAddressBookFilePath;
+    }
+
+    public void setStaffAddressBookFilePath(Path staffAddressBookFilePath) {
+        requireNonNull(staffAddressBookFilePath);
+        this.staffAddressBookFilePath = staffAddressBookFilePath;
+    }
+
+    public Path getDutyRosterBookFilePath() {
+        return dutyRosterBookFilePath;
+    }
+
+    public void setDutyRosterBookFilePath(Path dutyRosterBookFilePath) {
+        requireNonNull(dutyRosterBookFilePath);
+        this.dutyRosterBookFilePath = dutyRosterBookFilePath;
     }
 
     @Override
@@ -78,21 +101,27 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath)
-                && appointmentBookFilePath.equals(o.appointmentBookFilePath);
+                && patientAddressBookFilePath.equals(o.patientAddressBookFilePath)
+                && staffAddressBookFilePath.equals(o.staffAddressBookFilePath)
+                && appointmentBookFilePath.equals(o.appointmentBookFilePath)
+                && dutyRosterBookFilePath.equals(o.dutyRosterBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, appointmentBookFilePath);
+        return Objects.hash(guiSettings, patientAddressBookFilePath,
+            staffAddressBookFilePath, appointmentBookFilePath,
+            dutyRosterBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal patient data file location : " + addressBookFilePath);
+        sb.append("\nLocal patient details data file location : " + patientAddressBookFilePath);
+        sb.append("\nLocal staff details data file location : " + staffAddressBookFilePath);
         sb.append("\nLocal appointment data file location : " + appointmentBookFilePath);
+        sb.append("\nLocal duty roster data file location : " + dutyRosterBookFilePath);
         return sb.toString();
     }
 
