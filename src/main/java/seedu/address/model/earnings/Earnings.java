@@ -80,12 +80,12 @@ public class Earnings {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDate())
-                .append(" Date: ")
-                .append(getModule())
+        builder.append(" Date: ")
+                .append(getDate())
                 .append(" Module: ")
-                .append(getAmount())
-                .append(" Amount: ");
+                .append(getModule())
+                .append(" Amount: ")
+                .append(getAmount());
         return builder.toString();
     }
 }
