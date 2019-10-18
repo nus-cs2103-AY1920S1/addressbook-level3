@@ -1,14 +1,14 @@
-package seedu.address.logic.parser;
+package seedu.moneygowhere.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.StatsCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.spending.Date;
+import seedu.moneygowhere.logic.commands.StatsCommand;
+import seedu.moneygowhere.logic.parser.exceptions.ParseException;
+import seedu.moneygowhere.model.spending.Date;
 
 /**
  * Parses input arguments and creates a new StatsCommand object
