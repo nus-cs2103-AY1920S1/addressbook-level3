@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.ui.DisplayPaneType;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -17,4 +18,13 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 
+    //TODO: make it abstract
+    /**
+     * Returns a {@code DisplayPaneType} that corresponds to a specific certain command.
+     *
+     * @return  a {@code DisplayPaneType} based on the specific command
+     */
+    public DisplayPaneType getDisplayPaneType() {
+        return null;
+    }
 }
