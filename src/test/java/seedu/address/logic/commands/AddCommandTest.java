@@ -35,7 +35,7 @@ import seedu.address.model.record.Height;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.Weight;
 import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodMap;
+import seedu.sgm.model.food.UniqueFoodList;
 
 
 public class AddCommandTest {
@@ -168,8 +168,26 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredFoodMap(Predicate<Food> predicate) {
-            throw new AssertionError("This method should not be called.");
+        public void setFoodList(UniqueFoodList newFoodList) {
+        }
+
+        @Override
+        public boolean hasFood(Food food) {
+            return false;
+        }
+
+        @Override
+        public void addFood(Food food) {
+        }
+
+        @Override
+        public void deleteFood(Food food) {
+        }
+
+
+        @Override
+        public ObservableList<Food> getFoodList() {
+            return null;
         }
 
         @Override
@@ -203,8 +221,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public FoodMap getFoodMap() {
+        public ObservableList<Food> getFilterFoodList() {
             return null;
+        }
+
+        @Override
+        public void updateFilteredFoodList(Predicate<Food> predicate) {
+
         }
     }
 
@@ -248,6 +271,8 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+
     }
 
     /**

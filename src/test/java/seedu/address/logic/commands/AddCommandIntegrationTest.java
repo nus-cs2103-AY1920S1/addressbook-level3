@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RecordBook;
 import seedu.address.model.UserPrefs;
-import seedu.sgm.model.food.FoodMap;
+import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -19,7 +19,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new FoodMap(), new RecordBook());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook());
     }
 
     //    @Test

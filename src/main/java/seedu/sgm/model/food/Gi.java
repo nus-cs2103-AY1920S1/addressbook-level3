@@ -10,7 +10,7 @@ public class Gi extends NutritionValue {
      *
      * @param giValue a valid glycemic index value
      */
-    public Gi(Double giValue) {
+    public Gi(String giValue) {
         super(giValue);
     }
 }

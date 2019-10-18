@@ -14,9 +14,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.sgm.model.food.FilteredFoodMap;
 import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodMap;
+import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,33 +26,33 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FoodMap foodMap;
-    private final FilteredFoodMap filteredFoodMap;
     private final RecordBook recordBook;
     private final FilteredList<Record> filteredRecords;
+    private final UniqueFoodList foodList;
+    private final FilteredList<Food> filteredFoodList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, FoodMap foodMap,
-        RecordBook recordBook) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, UniqueFoodList foodList,
+                        RecordBook recordBook) {
         super();
-        requireAllNonNull(addressBook, userPrefs, foodMap);
+        requireAllNonNull(addressBook, userPrefs, foodList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
-                + " and food map: " + foodMap);
+                + " and food map: " + foodList);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.foodMap = foodMap;
-        filteredFoodMap = new FilteredFoodMap(foodMap);
         this.recordBook = recordBook;
         this.filteredRecords = new FilteredList<>(this.recordBook.getRecordList());
+        this.foodList = foodList;
+        this.filteredFoodList = new FilteredList<>(this.foodList.asUnmodifiableObservableList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new FoodMap(), new RecordBook());
+        this(new AddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -183,23 +182,43 @@ public class ModelManager implements Model {
 
     //addFood() Function
 
-    /*
+
     @Override
-    public void setFoodMap(UniqueFoodList... uniqueFoodLists) {
+    public boolean hasFood(Food food) {
+        requireNonNull(food);
+        return foodList.contains(food);
+    }
+
+    @Override
+    public void deleteFood(Food food) {
+        foodList.remove(food);
+    }
+
+    @Override
+    public void addFood(Food food) {
+        foodList.add(food);
+    }
+
+    @Override
+    public void setFoodList(UniqueFoodList uniqueFoodLists) {
         requireAllNonNull(uniqueFoodLists);
-        foodMap.setFoodLists(uniqueFoodLists);
-    }
-    */
-
-    @Override
-    public FoodMap getFoodMap() {
-        return foodMap;
+        foodList.setFoods(uniqueFoodLists);
     }
 
     @Override
-    public void updateFilteredFoodMap(Predicate<Food> predicate) {
+    public ObservableList<Food> getFoodList() {
+        return foodList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Food> getFilterFoodList() {
+        return filteredFoodList;
+    }
+
+    @Override
+    public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);
-        filteredFoodMap.setPredicate(predicate);
+        filteredFoodList.setPredicate(predicate);
     }
 
     @Override

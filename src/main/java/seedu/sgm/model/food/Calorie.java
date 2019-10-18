@@ -10,7 +10,7 @@ public class Calorie extends NutritionValue {
      *
      * @param calorieValue a valid calorie value
      */
-    public Calorie(Double calorieValue) {
+    public Calorie(String calorieValue) {
         super(calorieValue);
     }
 }

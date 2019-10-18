@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<VBox alignment="TOP_CENTER" styleClass="v-box" minHeight="200" minWidth="150" prefHeight="200" prefWidth="150"
+      maxHeight="200" maxWidth="150" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane>
+        <Rectangle fx:id="header" height="70" width="150"/>
+        <Label fx:id="foodName" styleClass="card_big_label"/>
+        <padding>
+            <Insets bottom="10"/>
+        </padding>
+    </StackPane>
+
+    <Label fx:id="calorie" styleClass="card_small_label"/>
+    <Label fx:id="gi" styleClass="card_small_label"/>
+    <Label fx:id="sugar" styleClass="card_small_label"/>
+    <Label fx:id="fat" styleClass="card_small_label"/>
+</VBox>

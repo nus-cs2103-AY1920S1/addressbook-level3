@@ -22,6 +22,12 @@ import seedu.address.model.record.Height;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
 import seedu.address.model.tag.Tag;
+import seedu.sgm.model.food.Calorie;
+import seedu.sgm.model.food.Fat;
+import seedu.sgm.model.food.FoodName;
+import seedu.sgm.model.food.Gi;
+import seedu.sgm.model.food.NutritionValue;
+import seedu.sgm.model.food.Sugar;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -71,6 +77,20 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code FoodName}. Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static FoodName parseFoodName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!FoodName.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new FoodName(trimmedName);
     }
 
     /**
@@ -139,6 +159,49 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+
+    /**
+     * Checks whether {@code String value} is valid.
+     *
+     * @throws ParseException if the given {@code nutritionValue} is invalid
+     */
+    private static String verifyNutritionValue(String nutritionValue) throws ParseException {
+        requireNonNull(nutritionValue);
+        String trimmedValue = nutritionValue.trim();
+        if (!NutritionValue.isValidValue(nutritionValue)) {
+            throw new ParseException(NutritionValue.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedValue;
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code Calorie}.
+     */
+    public static Calorie parseCalorieValue(String value) throws ParseException {
+        return new Calorie(verifyNutritionValue(value));
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code Gi}.
+     */
+    public static Gi parseGiValue(String value) throws ParseException {
+        return new Gi(verifyNutritionValue(value));
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code Sugar}.
+     */
+    public static Sugar parseSugarValue(String value) throws ParseException {
+        return new Sugar(verifyNutritionValue(value));
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code Fat}.
+     */
+    public static Fat parseFatValue(String value) throws ParseException {
+        return new Fat(verifyNutritionValue(value));
     }
 
     /**

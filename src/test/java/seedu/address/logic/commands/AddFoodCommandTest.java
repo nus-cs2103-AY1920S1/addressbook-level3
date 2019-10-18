@@ -3,18 +3,19 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyRecordBook;
@@ -22,60 +23,62 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.testutil.ReminderBuilder;
+import seedu.address.testutil.FoodBuilder;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
-class ReminderCommandTest {
+class AddFoodCommandTest {
+
+    private Food food;
+
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ReminderCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddFoodCommand(null));
     }
 
     @Test
-    public void execute_reminderAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingReminder modelStub = new ModelStubAcceptingReminder();
-        Reminder validReminder = new ReminderBuilder().build();
+    public void execute_foodAcceptedByModel_addSuccessful() throws Exception {
+        AddFoodCommandTest.ModelStubAcceptingFoodAdded modelStub = new AddFoodCommandTest.ModelStubAcceptingFoodAdded();
+        Food food = new FoodBuilder().build();
 
-        CommandResult commandResult = new ReminderCommand(validReminder).execute(modelStub);
+        CommandResult commandResult = new AddFoodCommand(food).execute(modelStub);
 
-        assertEquals(String.format(ReminderCommand.MESSAGE_SUCCESS, validReminder), commandResult.getFeedbackToUser());
-        //assertEquals(Arrays.asList(validReminder), modelStub.remindersAdded);
+        assertEquals(String.format(AddFoodCommand.MESSAGE_SUCCESS, food), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(food), modelStub.foodsAdded);
     }
 
     @Test
-    public void execute_duplicateReminder_throwsCommandException() {
-        Reminder validReminder = new ReminderBuilder().build();
-        ReminderCommand reminderCommand = new ReminderCommand(validReminder);
-        ModelStub modelStub = new ModelStubWithReminder(validReminder);
-        /*
-        assertThrows(CommandException.class, ReminderCommand.MESSAGE_DUPLICATE_REMINDER,
-                () -> reminderCommand.execute(modelStub));
-         */
+    public void execute_duplicateFood_throwsCommandException() {
+        Food validFood = new FoodBuilder().build();
+        AddFoodCommand addFoodCommand = new AddFoodCommand(validFood);
+        AddFoodCommandTest.ModelStub modelStub = new AddFoodCommandTest.ModelStubWithFood(validFood);
+
+        assertThrows(CommandException.class, AddFoodCommand.MESSAGE_DUPLICATE_FOOD, () ->
+            addFoodCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Reminder insulinInjection = new ReminderBuilder().build();
-        Reminder wakeUp = new ReminderBuilder().withDescription("Wake up").build();
-        ReminderCommand insulinInjectionCommand = new ReminderCommand(insulinInjection);
-        ReminderCommand wakeUpCommand = new ReminderCommand(wakeUp);
+        Food yogurt = new FoodBuilder().withFoodName("Yogurt").build();
+        Food water = new FoodBuilder().withFoodName("water").build();
+        AddFoodCommand addYogurtCommand = new AddFoodCommand(yogurt);
+        AddFoodCommand addWaterCommand = new AddFoodCommand(water);
 
         // same object -> returns true
-        assertTrue(insulinInjection.equals(insulinInjection));
+        assertTrue(addYogurtCommand.equals(addYogurtCommand));
 
         // same values -> returns true
-        ReminderCommand insulinInjectionCommandCopy = new ReminderCommand(insulinInjection);
-        assertTrue(insulinInjectionCommand.equals(insulinInjectionCommandCopy));
+        AddFoodCommand addFoodCommandCopy = new AddFoodCommand(yogurt);
+        assertTrue(addYogurtCommand.equals(addFoodCommandCopy));
 
         // different types -> returns false
-        assertFalse(insulinInjectionCommand.equals(1));
+        assertFalse(addYogurtCommand.equals(1));
 
         // null -> returns false
-        assertFalse(insulinInjectionCommand.equals(null));
+        assertFalse(addYogurtCommand.equals(null));
 
-        // different reminders -> returns false
-        assertFalse(insulinInjectionCommand.equals(wakeUpCommand));
+        // different food -> returns false
+        assertFalse(addYogurtCommand.equals(addWaterCommand));
     }
 
     /**
@@ -219,44 +222,40 @@ class ReminderCommandTest {
     }
 
     /**
-     * A Model stub that contains a single reminder.
+     * A Model stub that contains a single food.
      */
-    private class ModelStubWithReminder extends ModelStub {
-        private final Reminder reminder;
+    private class ModelStubWithFood extends AddFoodCommandTest.ModelStub {
+        private final Food food;
 
-        ModelStubWithReminder(Reminder reminder) {
-            requireNonNull(reminder);
-            this.reminder = reminder;
+        ModelStubWithFood(Food food) {
+            requireNonNull(food);
+            this.food = food;
         }
 
         @Override
-        public boolean hasReminder(Reminder reminder) {
-            requireNonNull(reminder);
-            return this.reminder.isSameReminder(reminder);
+        public boolean hasFood(Food food) {
+            requireNonNull(food);
+            return this.food.isSameFood(food);
         }
     }
 
     /**
-     * A Model stub that always accept the reminder being added.
+     * A Model stub that always accept the food being added.
      */
-    private class ModelStubAcceptingReminder extends ModelStub {
-        final ArrayList<Reminder> remindersAdded = new ArrayList<>();
+    private class ModelStubAcceptingFoodAdded extends AddFoodCommandTest.ModelStub {
+        final ArrayList<Food> foodsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasReminder(Reminder reminder) {
-            requireNonNull(reminder);
-            return remindersAdded.stream().anyMatch(reminder::isSameReminder);
+        public boolean hasFood(Food food) {
+            requireNonNull(food);
+            return foodsAdded.stream().anyMatch(food::isSameFood);
         }
 
         @Override
-        public void addReminder(Reminder reminder) {
-            requireNonNull(reminder);
-            remindersAdded.add(reminder);
+        public void addFood(Food food) {
+            requireNonNull(food);
+            foodsAdded.add(food);
         }
 
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
     }
 }
