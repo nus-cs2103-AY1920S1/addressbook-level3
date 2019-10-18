@@ -124,6 +124,16 @@ public class TransactionContext implements Context<Transaction> {
         }
     }
 
+    private boolean categoryMatches(Transaction transaction) {
+        return category.isEmpty()
+                || category.get().equals(transaction.getCategory());
+    }
+
+    private boolean transactionTypeMatches(Transaction transaction) {
+        return transactionType.isEmpty()
+                || transactionType.get().equals(transaction.getTransactionType());
+    }
+
     @Override
     public Predicate<Transaction> getPredicate() {
         Predicate<Transaction> predicate = new TransactionDatePredicate(month, year);
@@ -138,6 +148,26 @@ public class TransactionContext implements Context<Transaction> {
         }
 
         return predicate;
+    }
+
+    @Override
+    public TransactionContext getAccommodatingContext(Transaction transaction) {
+        Optional<Category> category = this.category;
+        Optional<TransactionType> transactionType = this.transactionType;
+
+        if (!categoryMatches(transaction)) {
+            category = Optional.empty();
+        }
+
+        if (!transactionTypeMatches(transaction)) {
+            transactionType = Optional.empty();
+        }
+
+        return new TransactionContext(
+                transaction.getDate().getMonth(),
+                transaction.getDate().getYear(),
+                category,
+                transactionType);
     }
 
     @Override
