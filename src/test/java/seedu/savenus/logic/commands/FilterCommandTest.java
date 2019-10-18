@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.recommend.UserRecommendations;
 
 public class FilterCommandTest {
     private List<String> fields;
@@ -24,8 +25,8 @@ public class FilterCommandTest {
     @BeforeEach
     public void set_up() {
         fields = new ArrayList<String>();
-        model = new ModelManager(getTypicalMenu(), new UserPrefs());
-        expectedModel = new ModelManager(model.getMenu(), new UserPrefs());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
+        expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations());
     }
 
     @Test

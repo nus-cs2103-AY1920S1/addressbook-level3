@@ -2,7 +2,6 @@ package seedu.savenus.model.purchase;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -40,8 +39,6 @@ public class TimeOfPurchase {
             LocalDateTime.ofInstant(Instant.ofEpochMilli(
                     Long.parseLong(testDateTimeInMillisSinceEpoch)), ZoneId.systemDefault());;
         } catch (NumberFormatException e) {
-            return false;
-        } catch (DateTimeException e) {
             return false;
         }
         return true;

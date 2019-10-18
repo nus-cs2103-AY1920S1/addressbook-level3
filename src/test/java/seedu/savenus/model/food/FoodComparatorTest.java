@@ -29,6 +29,15 @@ public class FoodComparatorTest {
     }
 
     @Test
+    public void check_compare_desc() {
+        fields.add(FIELD_NAME_NAME);
+        fields.add(DESCENDING_DIRECTION);
+        assertThrows(NullPointerException.class, () -> new FoodComparator(fields).compare(CARBONARA, null));
+        assertEquals(new FoodComparator(fields).compare(CARBONARA, CARBONARA), 0);
+        assertNotEquals(new FoodComparator(fields).compare(CARBONARA, NASI_AYAM), 0);
+    }
+
+    @Test
     public void check_direction() {
         FoodComparator test = new FoodComparator(fields);
         assertTrue(test.isDirectionAscending(ASCENDING_DIRECTION));

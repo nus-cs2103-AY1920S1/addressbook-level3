@@ -8,7 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.savenus.logic.commands.CollapseCommand;
-import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.OpeningHours;
@@ -98,6 +97,8 @@ public class FoodCard extends UiPart<Region> {
             textForOptionalInfo += "Restrictions: " + food.getRestrictions().restrictions;
         }
 
+        /*
+        TODO: Refine later
         int recommendationValue = RecommendationSystem.calculateRecommendation(food);
 
         if (recommendationValue >= 0) {
@@ -105,6 +106,7 @@ public class FoodCard extends UiPart<Region> {
         } else {
             textForOptionalInfo += partition + "Recommendation: " + recommendationValue;
         }
+        */
 
 
         // Setting the text for optional info.

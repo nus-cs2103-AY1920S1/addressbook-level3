@@ -68,6 +68,21 @@ public class ConfigUtilTest {
         return config;
     }
 
+    @Test
+    public void getLogLevel_test() {
+        Config config = new Config();
+        config.setLogLevel(Level.INFO);
+        assertEquals(config.getLogLevel(), Level.INFO);
+    }
+
+    @Test
+    public void getUserPrefsFilePath_test() {
+        Config config = new Config();
+        Path path = Paths.get("preferences.json");
+        config.setUserPrefsFilePath(Paths.get("preferences.json"));
+        assertEquals(config.getUserPrefsFilePath(), path);
+    }
+
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return ConfigUtil.readConfig(configFilePath);
@@ -112,5 +127,9 @@ public class ConfigUtilTest {
                                   : null;
     }
 
-
+    @Test
+    public void notEquals_test() {
+        Config config = new Config();
+        assertFalse(config.equals(new Object()));
+    }
 }

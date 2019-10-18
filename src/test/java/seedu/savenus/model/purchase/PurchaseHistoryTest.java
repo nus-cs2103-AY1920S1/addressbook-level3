@@ -1,6 +1,7 @@
 package seedu.savenus.model.purchase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
@@ -25,7 +27,6 @@ public class PurchaseHistoryTest {
     public void add_nullPurchase_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> testPurchaseHistory.add(null));
     }
-
 
     @Test
     public void remove_nullPurchase_throwsNullPointerException() {
@@ -78,5 +79,20 @@ public class PurchaseHistoryTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> testPurchaseHistory
                 .asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void get_iterator_test() {
+        System.out.println(testPurchaseHistory.iterator());
+        assertNotEquals(testPurchaseHistory.iterator(), FXCollections.observableArrayList().iterator());
+    }
+
+    @Test
+    public void toString_test() {
+        assertEquals(testPurchaseHistory.toString(), "No Purchases Made");
+
+        testPurchaseHistory.add(testPurchase);
+        assertEquals(testPurchaseHistory.toString(), "Current Purchases: \n"
+                + testPurchase.toString());
     }
 }
