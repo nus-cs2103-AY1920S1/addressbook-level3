@@ -30,8 +30,15 @@ public class CliSyntax {
     public static final Prefix PREFIX_STUDENT = new Prefix("student/");
     // END OF STUDENT PREFIX
 
+    // NOTE PREFIX
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("desc/");
+    // END OF NOTE PREFIX
+
+    //START OF STATISTICS PREFIX
+    public static final Prefix PREFIX_METHOD = new Prefix("method/");
+    public static final Prefix PREFIX_FILEPATH = new Prefix("file/");
+    //END IF STATISTICS PREFIX
 
     public static final Prefix PREFIX_LIST = new Prefix("list");
     public static final Prefix PREFIX_DELETE = new Prefix("delete");
