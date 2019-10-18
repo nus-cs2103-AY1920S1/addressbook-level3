@@ -44,6 +44,7 @@ public class InformationDisplay extends UiPart<Region> {
         phone.setText(this.person.getPhone().value);
         address.setText(this.person.getAddress().value);
         email.setText(this.person.getEmail().value);
+        photo.setImage(this.person.getPhoto().photo);
         //setText of attendance and performance. Should attendance and performance be tag to a person?
         attendanceRate.setText("0%");
         performance.setText("superb");
