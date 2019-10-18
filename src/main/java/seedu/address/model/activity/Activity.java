@@ -128,6 +128,7 @@ public class Activity {
 
     /**
      * Simplifies the expenses in the balance sheet and also updates transferMatrix.
+     * See: https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf
      */
     private void simplifyExpenses() {
         int i = 0;
