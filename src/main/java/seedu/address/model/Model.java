@@ -2,11 +2,13 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
 
@@ -50,10 +52,14 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setStagedAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /**
+     * Replaces all persons in address book with new persons from the list.
+     */
+    void replaceStagedAddressBook(List<Person> persons);
+    /** Returns the current AddressBook */
+    ReadOnlyAddressBook getStagedAddressBook();
 
     /**
      * Record a new ongoing visit of person in the model.
@@ -112,7 +118,7 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /** Returns an unmodifiable view of the entire person list */
-    ObservableList<Person> getPersonList();
+    ObservableList<Person> getStagedPersonList();
 
     /** Returns an unmodifiable view of the filtered person list */
     FilteredList<Person> getFilteredPersonList();
@@ -128,4 +134,29 @@ public interface Model {
      * The current constraint is only one ongoing visit at one time.
      */
     ObservableList<Visit> getObservableOngoingVisitList();
+
+    /**
+     * Returns true if there are changes to the address book that have not been {@code commit()}ed.
+     * @return true if there are uncommitted changes
+     */
+    boolean hasStagedChanges();
+
+    /**
+     * Commits the changes made to the address book since the last call to this method, making them permanent and
+     * updating the UI data. The committing {@code MutatorCommand} is stored for history record purposes.
+     * @param command the {@code MutatorCommand} making this commit
+     */
+    void commit(MutatorCommand command);
+
+    /** Discards staged but uncommitted changes */
+    void discardStagedChanges();
+
+    /**
+     * Reverts current model state to the {@link AddressBook} contained in the specified {@link HistoryRecord}
+     * (i.e. the state before the {@link MutatorCommand} was executed).
+     */
+    void revertTo(HistoryRecord record);
+
+    /** Returns an unmodifiable view of the history */
+    ObservableList<HistoryRecord> getHistory();
 }

@@ -1,10 +1,13 @@
-package seedu.address.model.visit;
+package seedu.address.model.datetime;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
@@ -16,10 +19,10 @@ public class DateTime {
     public static final String MESSAGE_CONSTRAINTS_BODY = "Date Time should be of the format dd-MM-yyyy HHmm "
             + "and adhere to the following constraints:\n"
             + "1. The values that substitute 'dd', 'MM', 'yyyy', 'HH' and 'mm' must all be numerical numbers.";
-    static final SimpleDateFormat DATE_DISPLAY_FORMATTER = new SimpleDateFormat("dd-MM-yyyy HHmm");
-    static final SimpleDateFormat DATE_PARSER_VALIDATOR = new SimpleDateFormat("dd-MM-yyyy HHmm");
+    static final DateTimeFormatter DATE_DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    static final DateTimeFormatter DATE_PARSER_VALIDATOR = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
-    public final Date dateTime;
+    public final LocalDateTime dateTime;
 
     /**
      * Constructs a {@code DateTime}.
@@ -39,18 +42,19 @@ public class DateTime {
      */
     public DateTime(Date date) {
         requireNonNull(date);
-        this.dateTime = date;
+        Instant current = date.toInstant();
+        this.dateTime = LocalDateTime.ofInstant(current, ZoneId.systemDefault());
     }
 
     /**
      * Returns the parsed dateTimeTime if a given string is a valid dateTime; else calls checkArgument
      * which will throw an IllegalArgumentException.
-     * @return StartDateTIme
+     * @return LocalDateTime
      */
-    public static Date parseDateTime(String value) {
+    public static LocalDateTime parseDateTime(String value) {
         try {
-            return DATE_PARSER_VALIDATOR.parse(value);
-        } catch (ParseException e) {
+            return LocalDateTime.parse(value, DATE_PARSER_VALIDATOR);
+        } catch (DateTimeParseException e) {
             // This should not happen as we have already validated the value above
             checkArgument(isValidDateTime(value), MESSAGE_CONSTRAINTS_BODY);
             return null;
@@ -64,7 +68,7 @@ public class DateTime {
         try {
             DATE_PARSER_VALIDATOR.parse(test);
             return true;
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
     }

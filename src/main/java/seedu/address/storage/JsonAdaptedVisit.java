@@ -12,21 +12,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
-import seedu.address.model.visit.EndDateTime;
+import seedu.address.model.datetime.EndDateTime;
+import seedu.address.model.datetime.StartDateTime;
 import seedu.address.model.visit.Remark;
-import seedu.address.model.visit.StartDateTime;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visittask.VisitTask;
 
 /**
  * Jackson-friendly version of {@link Visit}.
  */
-class JsonAdaptedVisit {
+public class JsonAdaptedVisit {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Visit's %s field is missing!";
     public static final String END_DATE_EARLIER_THAN_START_DATE = "Visit's start date is earlier "
             + "than its end date";
-
     private final String remark;
     private final String startDateTime;
     private final String endDateTime;
@@ -99,7 +98,7 @@ class JsonAdaptedVisit {
             modelEndDateTime = new EndDateTime(endDateTime);
 
             //Other constraints e.g. EndDateTime cannot be earlier than startDateTime
-            if (modelEndDateTime.dateTime.before(modelStartDateTime.dateTime)) {
+            if (modelEndDateTime.dateTime.isBefore(modelStartDateTime.dateTime)) {
                 throw new IllegalValueException(END_DATE_EARLIER_THAN_START_DATE);
             }
         }

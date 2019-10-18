@@ -2,7 +2,10 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.util.CopyUtil.deepCopyOfObservableList;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -84,6 +87,24 @@ public class AddressBookTest {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
     }
 
+    @Test
+    public void deepCopy() {
+        AddressBook copy = addressBook.deepCopy();
+
+        assertNotSame(copy, addressBook);
+        assertEquals(copy, addressBook);
+    }
+
+    @Test
+    public void deepCopy_changes_areIndependent() {
+        AddressBook copy = addressBook.deepCopy();
+        copy.addPerson(ALICE);
+
+        assertNotEquals(copy, addressBook);
+        assertTrue(copy.hasPerson(ALICE));
+        assertFalse(addressBook.hasPerson(ALICE));
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
@@ -102,6 +123,11 @@ public class AddressBookTest {
         @Override
         public Pair<Integer, Integer> getIndexPairOfOngoingPatientAndVisit() {
             return new Pair<>(-1, -1);
+        }
+
+        @Override
+        public AddressBookStub deepCopy() {
+            return new AddressBookStub(deepCopyOfObservableList(persons));
         }
     }
 

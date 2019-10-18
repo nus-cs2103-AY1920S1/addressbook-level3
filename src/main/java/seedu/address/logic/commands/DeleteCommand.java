@@ -35,7 +35,7 @@ public class DeleteCommand extends Command implements MutatorCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> fullPatientList = model.getPersonList();
+        List<Person> fullPatientList = model.getStagedPersonList();
 
         if (targetIndex.getZeroBased() >= fullPatientList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

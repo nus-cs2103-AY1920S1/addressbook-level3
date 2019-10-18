@@ -7,10 +7,13 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import seedu.address.commons.exceptions.CopyError;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonHasOngoingVisitException;
 import seedu.address.model.visit.Visit;
+import seedu.address.storage.JsonSerializableAddressBook;
 
 /**
  * Wraps all data at the address-book level
@@ -128,6 +131,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
+    @Override
+    public AddressBook deepCopy() {
+        try {
+            return new JsonSerializableAddressBook(this).toModelType();
+        } catch (IllegalValueException e) {
+            throw new CopyError("Error copying AddressBook");
+        }
+    }
 
     @Override
     public String toString() {
