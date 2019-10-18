@@ -11,11 +11,21 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.exercise.Exercise;
-import seedu.address.model.person.Person;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.records.Record;
+import seedu.address.model.diary.DiaryRecords;
+import seedu.address.model.diary.ReadOnlyDiary;
+import seedu.address.model.diary.components.Diary;
+import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.exercise.WorkoutPlanner;
+import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.health.HealthRecords;
+import seedu.address.model.health.ReadOnlyHealthRecords;
+import seedu.address.model.health.components.Record;
+import seedu.address.model.profile.ReadOnlyUserProfile;
+import seedu.address.model.profile.UserProfile;
+import seedu.address.model.profile.person.Person;
+import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.model.recipe.RecipeBook;
+import seedu.address.model.recipe.components.Recipe;
 
 /**
  * Represents the in-memory model of Duke Cooks data.

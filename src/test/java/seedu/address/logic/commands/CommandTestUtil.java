@@ -24,25 +24,29 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.diary.EditDiaryCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exercise.EditExerciseCommand;
+import seedu.address.logic.commands.profile.EditProfileCommand;
+import seedu.address.logic.commands.recipe.EditRecipeCommand;
 import seedu.address.model.Model;
-import seedu.address.model.RecipeBook;
-import seedu.address.model.WorkoutPlanner;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.DiaryNameContainsKeywordsPredicate;
-import seedu.address.model.exercise.Exercise;
-import seedu.address.model.exercise.ExerciseNameContainsKeywordsPredicate;
-import seedu.address.model.exercise.Intensity;
-import seedu.address.model.exercise.MuscleType;
-import seedu.address.model.exercise.MusclesTrained;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
-import seedu.address.testutil.EditDiaryDescriptorBuilder;
-import seedu.address.testutil.EditExerciseDescriptorBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.EditRecipeDescriptorBuilder;
+import seedu.address.model.diary.components.Diary;
+import seedu.address.model.diary.components.DiaryNameContainsKeywordsPredicate;
+import seedu.address.model.exercise.WorkoutPlanner;
+import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.exercise.components.ExerciseNameContainsKeywordsPredicate;
+import seedu.address.model.exercise.components.Intensity;
+import seedu.address.model.exercise.components.MuscleType;
+import seedu.address.model.exercise.components.MusclesTrained;
+import seedu.address.model.profile.person.NameContainsKeywordsPredicate;
+import seedu.address.model.profile.person.Person;
+import seedu.address.model.recipe.RecipeBook;
+import seedu.address.model.recipe.components.Recipe;
+import seedu.address.model.recipe.components.RecipeNameContainsKeywordsPredicate;
+import seedu.address.testutil.diary.EditDiaryDescriptorBuilder;
+import seedu.address.testutil.exercise.EditExerciseDescriptorBuilder;
+import seedu.address.testutil.profile.EditPersonDescriptorBuilder;
+import seedu.address.testutil.recipe.EditRecipeDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

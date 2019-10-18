@@ -11,8 +11,8 @@ import static seedu.address.logic.commands.CommandTestUtil.HEIGHT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExercises.PUSHUP;
-import static seedu.address.testutil.TypicalProfiles.AMY;
+import static seedu.address.testutil.exercise.TypicalExercises.PUSHUP;
+import static seedu.address.testutil.profile.TypicalProfiles.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,30 +21,30 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListExerciseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exercise.ListExerciseCommand;
+import seedu.address.logic.commands.profile.AddProfileCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyDiary;
-import seedu.address.model.ReadOnlyRecipeBook;
-import seedu.address.model.ReadOnlyUserProfile;
-import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.exercise.Exercise;
-import seedu.address.model.person.Person;
-import seedu.address.storage.JsonDiaryStorage;
-import seedu.address.storage.JsonHealthRecordsStorage;
-import seedu.address.storage.JsonRecipeBookStorage;
+import seedu.address.model.diary.ReadOnlyDiary;
+import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.profile.ReadOnlyUserProfile;
+import seedu.address.model.profile.person.Person;
+import seedu.address.model.recipe.ReadOnlyRecipeBook;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.JsonUserProfileStorage;
-import seedu.address.storage.JsonWorkoutPlannerStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.ExerciseBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.storage.diary.JsonDiaryStorage;
+import seedu.address.storage.exercise.JsonWorkoutPlannerStorage;
+import seedu.address.storage.health.JsonHealthRecordsStorage;
+import seedu.address.storage.profile.JsonUserProfileStorage;
+import seedu.address.storage.recipe.JsonRecipeBookStorage;
+import seedu.address.testutil.exercise.ExerciseBuilder;
+import seedu.address.testutil.profile.PersonBuilder;
 
 
 public class LogicManagerTest {

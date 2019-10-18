@@ -5,13 +5,18 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyDiary;
-import seedu.address.model.ReadOnlyHealthRecords;
-import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ReadOnlyUserProfile;
-import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.diary.ReadOnlyDiary;
+import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.health.ReadOnlyHealthRecords;
+import seedu.address.model.profile.ReadOnlyUserProfile;
+import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.storage.diary.DiaryStorage;
+import seedu.address.storage.exercise.WorkoutPlannerStorage;
+import seedu.address.storage.health.HealthRecordsStorage;
+import seedu.address.storage.profile.UserProfileStorage;
+import seedu.address.storage.recipe.RecipeBookStorage;
 
 /**
  * API of the Storage component

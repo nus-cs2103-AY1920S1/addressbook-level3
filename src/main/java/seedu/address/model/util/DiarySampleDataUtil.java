@@ -1,9 +1,9 @@
 package seedu.address.model.util;
 
-import seedu.address.model.DiaryRecords;
-import seedu.address.model.ReadOnlyDiary;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.DiaryName;
+import seedu.address.model.diary.DiaryRecords;
+import seedu.address.model.diary.ReadOnlyDiary;
+import seedu.address.model.diary.components.Diary;
+import seedu.address.model.diary.components.DiaryName;
 
 /**
  * Contains utility methods for populating {@code DiaryRecords} with sample data.
