@@ -27,7 +27,7 @@
       <VBox>
             <HBox VBox.vgrow="NEVER">
                <children>
-              <MenuBar fx:id="menuBar" prefHeight="35.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
+              <MenuBar fx:id="menuBar" prefHeight="35.0" HBox.hgrow="ALWAYS">
                 <Menu mnemonicParsing="false" text="File">
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                 </Menu>
