@@ -72,7 +72,7 @@ class TaskListTest {
         TaskList one = new TaskList(tasksOne);
         TaskList two = new TaskList(tasksTwo);
 
-        assertTrue(one.equals(two));
+        assertEquals(one, two);
 
     }
 
