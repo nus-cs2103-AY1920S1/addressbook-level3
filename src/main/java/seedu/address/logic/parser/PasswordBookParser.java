@@ -11,6 +11,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeletePasswordCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.GeneratePasswordCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ReadPasswordCommand;
@@ -51,6 +52,8 @@ public class PasswordBookParser {
             return new HelpCommand();
         case GoToCommand.COMMAND_WORD:
             return new GoToCommandParser().parse(arguments);
+        case GeneratePasswordCommand.COMMAND_WORD:
+            return new GeneratePasswordCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
