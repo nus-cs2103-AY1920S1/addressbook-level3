@@ -78,7 +78,7 @@
                               </AnchorPane>
                           </content>
                         </Tab>
-                        <Tab id="reimbursementsTab" text="Reimbursements">
+                        <Tab id="reimbursementsTab" fx:id="reimbursementsTab" text="Reimbursements">
                           <content>
                             <AnchorPane fx:id="reimbursementsPlaceholder" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <padding>
@@ -91,7 +91,7 @@
                               </AnchorPane>
                           </content>
                         </Tab>
-                      <Tab id="inventoryTab" text="Inventory">
+                      <Tab id="inventoryTab" fx:id="inventoryTab" text="Inventory">
                         <content>
                           <AnchorPane fx:id="inventoryPlaceholder" prefWidth="692.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <padding>
@@ -104,7 +104,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                        <Tab id="cashierTab" text="Cashier">
+                        <Tab id="cashierTab" fx:id="cashierTab" text="Cashier">
                           <content>
                             <AnchorPane fx:id="cashierPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <padding>
@@ -117,7 +117,7 @@
                               </AnchorPane>
                           </content>
                         </Tab>
-                        <Tab id="overviewTab" text="Overview">
+                        <Tab id="overviewTab" fx:id="overviewTab" text="Overview">
                           <content>
                             <AnchorPane fx:id="overviewPlaceholder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <padding>

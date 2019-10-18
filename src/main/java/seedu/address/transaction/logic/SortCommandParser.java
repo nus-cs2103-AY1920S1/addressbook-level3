@@ -20,13 +20,13 @@ public class SortCommandParser {
      */
     public SortCommand parse(String args) throws NoSuchSortException {
         String[] argsArr = args.split(" ");
-        if (argsArr[1].equals("date")) {
+        if (argsArr.length > 1 && argsArr[1].equals("date")) {
             return new SortDateCommand();
-        } else if (argsArr[1].equals("name")) {
+        } else if (argsArr.length > 1 && argsArr[1].equals("name")) {
             return new SortNameCommand();
-        } else if (argsArr[1].equals("amount")) {
+        } else if (argsArr.length > 1 && argsArr[1].equals("amount")) {
             return new SortAmountCommand();
-        } else if (argsArr[1].equals("reset")) {
+        } else if (argsArr.length > 1 && argsArr[1].equals("reset")) {
             return new SortResetCommand();
         } else {
             throw new NoSuchSortException(TransactionMessages.MESSAGE_NO_SUCH_SORT_COMMAND);

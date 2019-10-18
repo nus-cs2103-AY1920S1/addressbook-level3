@@ -1,7 +1,8 @@
 package seedu.address.cashier.commands;
 
+import static seedu.address.cashier.ui.CashierMessages.CLEARED_SUCCESSFULLY;
+
 import seedu.address.cashier.model.ModelManager;
-import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.model.Model;
 
 /**
@@ -22,6 +23,6 @@ public class ClearCommand extends Command {
                                         seedu.address.transaction.model.Model transactionModel,
                                         seedu.address.inventory.model.Model inventoryModel) throws Exception {
         model.clearSalesList();
-        return new CommandResult(CashierMessages.CLEARED_SUCCESSFULLY);
+        return new CommandResult(CLEARED_SUCCESSFULLY);
     }
 }

@@ -15,7 +15,7 @@ public class LogicManager implements Logic {
     private final seedu.address.person.model.Model personModel;
     private final seedu.address.transaction.model.Model transactionModel;
     private final seedu.address.transaction.storage.StorageManager transactionStorage;
-    private ReimbursementTabParser parser;
+    private final ReimbursementTabParser parser;
 
 
     public LogicManager(Model reimbursementModel,
@@ -33,9 +33,6 @@ public class LogicManager implements Logic {
 
         this.transactionModel = transactionModel;
         this.transactionStorage = transactionStorage;
-
-        //reimbursementModel.updateReimbursementList(transactionModel.getTransactionList());
-        //reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
     }
 
     @Override
@@ -45,21 +42,6 @@ public class LogicManager implements Logic {
         transactionStorage.writeFile(transactionModel.getTransactionList());
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
         return commandResult;
-    }
-
-    @Override
-    public ReimbursementList readReimbursementListFromFile() {
-        return this.reimbursementStorage.readReimbursementList();
-    }
-
-    @Override
-    public void writeIntoReimbursementFile() throws Exception {
-        reimbursementStorage.writeFile(this.getReimbursementList());
-    }
-
-    @Override
-    public ReimbursementList getReimbursementList() {
-        return reimbursementModel.getReimbursementList();
     }
 
     @Override

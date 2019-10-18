@@ -1,5 +1,6 @@
 package seedu.address.inventory.model;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
@@ -7,26 +8,28 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
+
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     private final String category;
     private final String description;
-    private int quantity;
-    private final double cost;
-    private double totalCost;
-    private double price;
-    private double subtotal;
+    private Integer quantity;
+    private final Double cost;
+    private Double totalCost;
+    private Double price;
+    private Double subtotal;
     private String id;
 
     /**
      * Every field must be present and not null.
      */
-    public Item(String description, String category, int quantity, double cost, double price, int id) {
+    public Item(String description, String category, Integer quantity, Double cost, Double price, int id) {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.cost = cost;
-        this.totalCost = quantity * cost;
-        this.price = price;
-        this.subtotal = quantity * price;
+        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
+        this.price = Double.parseDouble(DECIMAL_FORMAT.format(price));
+        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * price));
         this.id = "" + id;
     }
 
@@ -37,10 +40,10 @@ public class Item {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.cost = cost;
-        this.totalCost = quantity * cost;
-        this.price = 0;
-        this.subtotal = 0;
+        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
+        this.price = 0.0;
+        this.subtotal = 0.0;
         this.id = "" + i;
     }
 
@@ -81,15 +84,23 @@ public class Item {
         updateSubtotal();
     }
 
+    public boolean getSellable() {
+        if (price == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * Updates the subtotal.
      */
     public void updateSubtotal() {
-        this.subtotal = this.price * this.quantity;
+        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(this.price * this.quantity));
     }
 
     public void updateTotalCost() {
-        this.totalCost = this.cost * this.quantity;
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(this.cost * this.quantity));
     }
 
     public String getId() {

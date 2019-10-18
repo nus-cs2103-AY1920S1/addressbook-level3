@@ -1,7 +1,8 @@
 package seedu.address.cashier.commands;
 
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_EDIT_SUCCESS;
+
 import seedu.address.cashier.model.ModelManager;
-import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.Model;
 
@@ -29,6 +30,6 @@ public class EditCommand extends Command {
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel) throws Exception {
         Item i = model.editItem(index, quantity);
-        return new CommandResult(CashierMessages.editSuccessfully(i));
+        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, i.getDescription(), i.getQuantity()));
     }
 }

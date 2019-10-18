@@ -1,12 +1,10 @@
 package seedu.address.cashier.commands;
 
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADDED_ITEM;
+
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
-
-import seedu.address.cashier.ui.CashierMessages;
-
 import seedu.address.inventory.model.Item;
-
 
 /**
  * Adds an item to the sales list.
@@ -32,9 +30,8 @@ public class AddCommand extends Command {
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchItemException {
-        CashierMessages cashierMessages = new CashierMessages();
         Item i = modelManager.addItem(description, quantity);
-        return new CommandResult(cashierMessages.addedItem(i));
+        return new CommandResult(String.format(MESSAGE_ADDED_ITEM, i));
     }
 }
 

@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import seedu.address.transaction.model.Transaction;
 
 /**
@@ -12,24 +15,27 @@ import seedu.address.transaction.model.Transaction;
  * Duplicates are allowed but are considered the same transaction when commands are done.
  */
 public class TransactionList {
-    private ArrayList<Transaction> tList;
-    private ArrayList<Transaction> original;
+    private final ArrayList<Transaction> original;
+    private ArrayList<Transaction> tArrList;
+    private ObservableList<Transaction> tList;
 
     /**
      * Initialises the transaction list when there are no prior transactions inputted.
      */
     public TransactionList() {
-        tList = new ArrayList<>();
-        original = new ArrayList<>();
+        this.tArrList = new ArrayList<>();
+        this.original = new ArrayList<>();
+        this.tList = FXCollections.observableList(tArrList);
     }
 
     /**
      * Initialises the transaction list when there are prior inputted transactions.
-     * @param tList Array list of the transactions saved.
+     * @param tArrList Array list of the transactions saved.
      */
-    public TransactionList(ArrayList<Transaction> tList) {
-        this.tList = tList;
-        this.original = new ArrayList<>(tList);
+    public TransactionList(ArrayList<Transaction> tArrList) {
+        this.tArrList = tArrList;
+        this.original = new ArrayList<>(tArrList);
+        this.tList = FXCollections.observableList(this.tArrList);
     }
 
 
@@ -80,14 +86,18 @@ public class TransactionList {
      * @param transaction Transaction to replace current transaction at specified index.
      */
     public void set(int index, Transaction transaction) {
+        Transaction trans = tList.get(index);
         tList.set(index, transaction);
+        int id = original.indexOf(trans);
+        original.set(id, transaction);
     }
 
     /**
      * Resets the order of the transactions in the transaction list to the original order of input when file was read.
      */
     public void unSort() {
-        tList = original;
+        tArrList = new ArrayList<>(original);
+        tList = FXCollections.observableList(tArrList);
     }
 
     /**

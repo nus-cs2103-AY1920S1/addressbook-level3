@@ -1,8 +1,9 @@
 package seedu.address.transaction.commands;
 
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_TRANSACTION;
+
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.ui.TransactionMessages;
 
 /**
  * Adds a transaction to the transaction list.
@@ -21,6 +22,6 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
         model.addTransaction(transaction);
-        return new CommandResult(TransactionMessages.addedTransaction(transaction));
+        return new CommandResult(String.format(MESSAGE_ADD_TRANSACTION, transaction));
     }
 }

@@ -1,11 +1,12 @@
 package seedu.address.transaction.logic;
 
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_PERSON;
+import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
+import java.time.format.DateTimeParseException;
 import java.util.stream.Stream;
 
 import seedu.address.person.model.Model;
@@ -16,6 +17,9 @@ import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -28,7 +32,7 @@ public class AddCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      * @throws NoSuchPersonException if user inputs a transaction done by someone not in date base
      */
-    public static AddCommand parse(String args, int transactionListSize, Model personModel)
+    public AddCommand parse(String args, int transactionListSize, Model personModel)
             throws ParseException, NoSuchPersonException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION,
@@ -52,6 +56,8 @@ public class AddCommandParser {
             return addCommand;
         } catch (PersonNotFoundException e) {
             throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
         } catch (Exception e) {
             throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
         }

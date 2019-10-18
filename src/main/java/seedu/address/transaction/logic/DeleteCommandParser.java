@@ -1,6 +1,6 @@
 package seedu.address.transaction.logic;
 
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_PERSON;
+import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.util.stream.Stream;
 
@@ -13,6 +13,9 @@ import seedu.address.transaction.commands.DeleteNameCommand;
 import seedu.address.transaction.logic.exception.NotANumberException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parses input arguments and creates a new DeleteIndexCommand object
@@ -27,7 +30,7 @@ public class DeleteCommandParser {
     public static DeleteCommand parse(String userInput, Model personModel) throws NotANumberException,
             NoSuchPersonException {
 
-        if (userInput.substring(1).matches("-?(0|[1-9]\\d*)")) {
+        if (userInput.length() > 1 && userInput.substring(1).matches("-?(0|[1-9]\\d*)")) {
             int index = Integer.parseInt(userInput.substring(1));
             DeleteIndexCommand deleteIndexCommand = new DeleteIndexCommand(index);
             return deleteIndexCommand;
@@ -35,7 +38,7 @@ public class DeleteCommandParser {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_PERSON);
         if (!arePrefixesPresent(argMultimap, PREFIX_PERSON) || !argMultimap.getPreamble().isEmpty()) {
-            throw new NotANumberException(TransactionMessages.MESSAGE_NOT_A_NUMBER);
+            throw new NotANumberException(TransactionMessages.MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
         }
 
         try {

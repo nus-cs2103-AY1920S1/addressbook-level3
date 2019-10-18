@@ -1,14 +1,16 @@
 package seedu.address.cashier.logic;
 
 import static seedu.address.cashier.logic.AddCommandParser.arePrefixesPresent;
-import static seedu.address.cashier.logic.CliSyntax.PREFIX_INDEX;
-import static seedu.address.cashier.logic.CliSyntax.PREFIX_QUANTITY;
+import static seedu.address.util.CliSyntax.PREFIX_INDEX;
+import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import seedu.address.cashier.commands.EditCommand;
 import seedu.address.cashier.logic.exception.NotANumberException;
 import seedu.address.cashier.logic.exception.ParseException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
 
 /**
  * Parses input arguments and creates a new EditCommand object

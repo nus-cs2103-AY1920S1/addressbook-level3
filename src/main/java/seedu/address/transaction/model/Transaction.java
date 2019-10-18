@@ -1,15 +1,21 @@
 package seedu.address.transaction.model;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 
 /**
  * Represents a transaction with its specified attributes.
  */
 public class Transaction {
+
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private LocalDate date;
     private String description;
     private String category;
@@ -34,7 +40,7 @@ public class Transaction {
         this.date = LocalDate.parse(date, DATE_TIME_FORMATTER);
         this.description = description;
         this.category = category;
-        this.amount = amount;
+        this.amount = Double.parseDouble(DECIMAL_FORMAT.format(amount));
         this.person = person;
         this.name = person.getName().toString();
         this.id = "" + id;
@@ -90,7 +96,7 @@ public class Transaction {
     }
 
     public void updateStatus() {
-        isReimbursed = true;
+        this.isReimbursed = true;
     }
 
     private String isOne(boolean isReimbursed) {

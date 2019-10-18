@@ -20,5 +20,5 @@ public interface Logic {
      * Returns the inventory list in the model manager.
      * @return Inventory List in the model manager.
      */
-    InventoryList getInventoryList() throws Exception;
+    InventoryList getInventoryList();
 }
