@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_Position;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_Gender;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_JoinDate;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,7 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
-                        PREFIX_Gender, PREFIX_JoinDate, PREFIX_Position);
+                        PREFIX_GENDER, PREFIX_JOIN_DATE, PREFIX_POSITION);
 
         Index index;
 
@@ -47,14 +47,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditEmployeeDescriptor editEmployeeDescriptor = new EditEmployeeDescriptor();
-        if (argMultimap.getValue(PREFIX_Gender).isPresent()) {
-            editEmployeeDescriptor.setEmployeeGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_Gender).get()));
+        if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+            editEmployeeDescriptor.setEmployeeGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
-        if (argMultimap.getValue(PREFIX_Position).isPresent()) {
-            editEmployeeDescriptor.setEmployeePosition(ParserUtil.parsePosition(argMultimap.getValue(PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_POSITION).isPresent()) {
+            editEmployeeDescriptor.setEmployeePosition(ParserUtil.parsePosition(
+                    argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_JoinDate).isPresent()) {
-            editEmployeeDescriptor.setEmployeeJoinDate(ParserUtil.parseJoinDate(argMultimap.getValue(PREFIX_JoinDate).get()));
+        if (argMultimap.getValue(PREFIX_JOIN_DATE).isPresent()) {
+            editEmployeeDescriptor.setEmployeeJoinDate(ParserUtil.parseJoinDate(
+                    argMultimap.getValue(PREFIX_JOIN_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editEmployeeDescriptor.setEmployeeName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
@@ -66,7 +68,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editEmployeeDescriptor.setEmployeeEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editEmployeeDescriptor.setEmployeeAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editEmployeeDescriptor.setEmployeeAddress(ParserUtil.parseAddress(
+                    argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editEmployeeDescriptor::setTags);
 

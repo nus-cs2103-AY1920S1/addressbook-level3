@@ -12,8 +12,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Employee.*;
-import seedu.address.model.Employee.EmployeeAddress;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeePosition;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -80,7 +87,7 @@ class JsonAdaptedEmployee {
         phone = source.getEmployeePhone().value;
         email = source.getEmployeeEmail().value;
         address = source.getEmployeeAddress().value;
-        id = source.getEmployeeID().id;
+        id = source.getEmployeeId().id;
         position = source.getEmployeePosition().fullPosition;
         gender = source.getEmployeeGender().gender;
         joindate = source.getEmployeeJoinDate().toString();
@@ -101,15 +108,17 @@ class JsonAdaptedEmployee {
         }
 
         if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeeID.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmployeeId.class.getSimpleName()));
         }
-        if (!EmployeeID.isValidId(id)) {
-            throw new IllegalValueException(EmployeeID.MESSAGE_CONSTRAINTS);
+        if (!EmployeeId.isValidId(id)) {
+            throw new IllegalValueException(EmployeeId.MESSAGE_CONSTRAINTS);
         }
-        final EmployeeID modelEmployeeID = new EmployeeID(id);
+        final EmployeeId modelEmployeeId = new EmployeeId(id);
 
         if (position == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeePosition.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmployeePosition.class.getSimpleName()));
         }
         if (!EmployeePosition.isValidPosition(position)) {
             throw new IllegalValueException(EmployeePosition.MESSAGE_CONSTRAINTS);
@@ -117,7 +126,8 @@ class JsonAdaptedEmployee {
         final EmployeePosition modelEmployeePosition = new EmployeePosition(position);
 
         if (gender == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeeGender.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmployeeGender.class.getSimpleName()));
         }
         if (!EmployeeGender.isValidGender(gender)) {
             throw new IllegalValueException(EmployeeGender.MESSAGE_CONSTRAINTS);
@@ -132,10 +142,11 @@ class JsonAdaptedEmployee {
             throw new IllegalValueException(EmployeeJoinDate.MESSAGE_CONSTRAINTS);
         }
         LocalDate newJoinDate = LocalDate.parse(joindate, FORMATTER);
-        final EmployeeJoinDate modelEmployeeJoinDate= new EmployeeJoinDate(newJoinDate);
+        final EmployeeJoinDate modelEmployeeJoinDate = new EmployeeJoinDate(newJoinDate);
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeeName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmployeeName.class.getSimpleName()));
         }
         if (!EmployeeName.isValidName(name)) {
             throw new IllegalValueException(EmployeeName.MESSAGE_CONSTRAINTS);
@@ -143,7 +154,8 @@ class JsonAdaptedEmployee {
         final EmployeeName modelEmployeeName = new EmployeeName(name);
 
         if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeePhone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmployeePhone.class.getSimpleName()));
         }
         if (!EmployeePhone.isValidPhone(phone)) {
             throw new IllegalValueException(EmployeePhone.MESSAGE_CONSTRAINTS);
@@ -151,7 +163,8 @@ class JsonAdaptedEmployee {
         final EmployeePhone modelEmployeePhone = new EmployeePhone(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeeEmail.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmployeeEmail.class.getSimpleName()));
         }
         if (!EmployeeEmail.isValidEmail(email)) {
             throw new IllegalValueException(EmployeeEmail.MESSAGE_CONSTRAINTS);
@@ -159,7 +172,8 @@ class JsonAdaptedEmployee {
         final EmployeeEmail modelEmployeeEmail = new EmployeeEmail(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeeAddress.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmployeeAddress.class.getSimpleName()));
         }
         if (!EmployeeAddress.isValidAddress(address)) {
             throw new IllegalValueException(EmployeeAddress.MESSAGE_CONSTRAINTS);
@@ -167,8 +181,8 @@ class JsonAdaptedEmployee {
         final EmployeeAddress modelEmployeeAddress = new EmployeeAddress(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Employee(modelEmployeeID,  modelEmployeeName, modelEmployeeGender, modelEmployeePosition,
-                modelEmployeePhone, modelEmployeeEmail, modelEmployeeAddress,  modelEmployeeJoinDate,modelTags);
+        return new Employee(modelEmployeeId, modelEmployeeName, modelEmployeeGender, modelEmployeePosition,
+                modelEmployeePhone, modelEmployeeEmail, modelEmployeeAddress, modelEmployeeJoinDate, modelTags);
     }
 
 }

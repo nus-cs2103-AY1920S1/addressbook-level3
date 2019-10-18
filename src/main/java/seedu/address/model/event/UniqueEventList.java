@@ -7,8 +7,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.Employee.exceptions.DuplicateEmployeeException;
-import seedu.address.model.Employee.exceptions.EmployeeNotFoundException;
+import seedu.address.model.employee.exceptions.DuplicateEmployeeException;
+import seedu.address.model.employee.exceptions.EmployeeNotFoundException;
 
 /**
  * A list of Events that enforces uniqueness

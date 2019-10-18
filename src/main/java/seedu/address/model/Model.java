@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Employee.Employee;
+import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
 /**
@@ -74,7 +74,8 @@ public interface Model {
     /**
      * Replaces the given employee {@code target} with {@code editedEmployee}.
      * {@code target} must exist in the address book.
-     * The employee identity of {@code editedEmployee} must not be the same as another existing employee in the address book.
+     * The employee identity of {@code editedEmployee} must not be the same
+     * as another existing employee in the address book.
      */
     void setEmployee(Employee target, Employee editedEmployee);
 

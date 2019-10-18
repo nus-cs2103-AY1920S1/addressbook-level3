@@ -3,7 +3,7 @@ package seedu.address.model.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.Employee.Employee;
+import seedu.address.model.employee.Employee;
 
 /**
  * List of employees allocated as manpower for the Event.

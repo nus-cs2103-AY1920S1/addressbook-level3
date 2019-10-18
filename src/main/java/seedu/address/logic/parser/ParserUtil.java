@@ -12,13 +12,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.Employee.EmployeeAddress;
-import seedu.address.model.Employee.EmployeeName;
-import seedu.address.model.Employee.EmployeePhone;
-import seedu.address.model.Employee.EmployeeID;
-import seedu.address.model.Employee.EmployeePosition;
-import seedu.address.model.Employee.EmployeeJoinDate;
-import seedu.address.model.Employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeePosition;
 import seedu.address.model.event.EventEndDate;
 import seedu.address.model.event.EventHoursNeeded;
 import seedu.address.model.event.EventId;
@@ -26,7 +27,6 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventStartDate;
 import seedu.address.model.event.EventVenue;
-import seedu.address.model.Employee.EmployeeEmail;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -175,8 +175,8 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static EmployeeID parseEmploteeID() {
-            return new EmployeeID();
+    public static EmployeeId parseEmployeeId() {
+        return new EmployeeId();
     }
 
     /**

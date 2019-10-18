@@ -3,15 +3,16 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POSITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_Position;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_Gender;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_JoinDate;
 
 import java.util.Collections;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +22,18 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Employee.*;
 import seedu.address.model.Model;
-import seedu.address.model.Employee.Employee;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeePosition;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Edits the details of an existing employee in the employeeAddress book.
@@ -38,12 +47,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_Gender + "GENDER] "
-            + "[" + PREFIX_Position + "POSITION] "
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_POSITION + "POSITION] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_JoinDate + "JOINDATE] "
+            + "[" + PREFIX_JOIN_DATE + "JOINDATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -93,21 +102,31 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Employee} with the details of {@code employeeToEdit}
      * edited with {@code editEmployeeDescriptor}.
      */
-    private static Employee createEditedEmployee(Employee employeeToEdit, EditEmployeeDescriptor editEmployeeDescriptor) {
+    private static Employee createEditedEmployee(Employee employeeToEdit,
+                                                 EditEmployeeDescriptor editEmployeeDescriptor) {
         assert employeeToEdit != null;
 
-        EmployeeName updatedEmployeeName = editEmployeeDescriptor.getEmployeeName().orElse(employeeToEdit.getEmployeeName());
-        EmployeePhone updatedEmployeePhone = editEmployeeDescriptor.getEmployeePhone().orElse(employeeToEdit.getEmployeePhone());
-        EmployeeEmail updatedEmployeeEmail = editEmployeeDescriptor.getEmployeeEmail().orElse(employeeToEdit.getEmployeeEmail());
-        EmployeeAddress updatedEmployeeAddress = editEmployeeDescriptor.getEmployeeAddress().orElse(employeeToEdit.getEmployeeAddress());
-        Set<Tag> updatedTags = editEmployeeDescriptor.getTags().orElse(employeeToEdit.getTags());
-        EmployeeID updatedEmployeeID = editEmployeeDescriptor.getEmployeeID().orElse(employeeToEdit.getEmployeeID());
-        EmployeePosition updatedEmployeePosition = editEmployeeDescriptor.getEmployeePosition().orElse(employeeToEdit.getEmployeePosition());
-        EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender().orElse(employeeToEdit.getEmployeeGender());
-        EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate().orElse(employeeToEdit.getEmployeeJoinDate());
+        EmployeeName updatedEmployeeName = editEmployeeDescriptor.getEmployeeName()
+                .orElse(employeeToEdit.getEmployeeName());
+        EmployeePhone updatedEmployeePhone = editEmployeeDescriptor.getEmployeePhone()
+                .orElse(employeeToEdit.getEmployeePhone());
+        EmployeeEmail updatedEmployeeEmail = editEmployeeDescriptor.getEmployeeEmail()
+                .orElse(employeeToEdit.getEmployeeEmail());
+        EmployeeAddress updatedEmployeeAddress = editEmployeeDescriptor.getEmployeeAddress()
+                .orElse(employeeToEdit.getEmployeeAddress());
+        Set<Tag> updatedTags = editEmployeeDescriptor.getTags()
+                .orElse(employeeToEdit.getTags());
+        EmployeeId updatedEmployeeId = editEmployeeDescriptor.getEmployeeId().orElse(employeeToEdit.getEmployeeId());
+        EmployeePosition updatedEmployeePosition = editEmployeeDescriptor.getEmployeePosition()
+                .orElse(employeeToEdit.getEmployeePosition());
+        EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender()
+                .orElse(employeeToEdit.getEmployeeGender());
+        EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate()
+                .orElse(employeeToEdit.getEmployeeJoinDate());
 
-        return new Employee(updatedEmployeeID, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePosition,
-                 updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress, updatedEmployeeJoinDate, updatedTags);
+        return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePosition,
+                 updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
+                updatedEmployeeJoinDate, updatedTags);
     }
 
     @Override
@@ -140,7 +159,7 @@ public class EditCommand extends Command {
         private EmployeeJoinDate employeeJoinDate;
         private EmployeePosition employeePosition;
         private EmployeeGender employeeGender;
-        private EmployeeID employeeID;
+        private EmployeeId employeeId;
         private Set<Tag> tags;
 
         public EditEmployeeDescriptor() {}
@@ -154,7 +173,7 @@ public class EditCommand extends Command {
             setEmployeePhone(toCopy.employeePhone);
             setEmployeeEmail(toCopy.employeeEmail);
             setEmployeeAddress(toCopy.employeeAddress);
-            setEmployeeID(toCopy.employeeID);
+            setEmployeeId(toCopy.employeeId);
             setEmployeeGender(toCopy.employeeGender);
             setEmployeePosition(toCopy.employeePosition);
             setEmployeeJoinDate(toCopy.employeeJoinDate);
@@ -184,8 +203,8 @@ public class EditCommand extends Command {
             return Optional.ofNullable(employeePhone);
         }
 
-        public void setEmployeeID(EmployeeID employeeID) {
-            this.employeeID = employeeID;
+        public void setEmployeeId(EmployeeId employeeId) {
+            this.employeeId = employeeId;
         }
 
         public void setEmployeePosition(EmployeePosition employeePosition) {
@@ -212,8 +231,8 @@ public class EditCommand extends Command {
             return Optional.ofNullable(employeeJoinDate);
         }
 
-        public Optional<EmployeeID> getEmployeeID() {
-            return Optional.ofNullable(employeeID);
+        public Optional<EmployeeId> getEmployeeId() {
+            return Optional.ofNullable(employeeId);
         }
 
         public void setEmployeeEmail(EmployeeEmail employeeEmail) {
@@ -270,7 +289,7 @@ public class EditCommand extends Command {
                     && getEmployeeAddress().equals(e.getEmployeeAddress())
                     && getTags().equals(e.getTags())
                     && getEmployeePosition().equals(e.getEmployeePosition())
-                    && getEmployeeID().equals(e.getEmployeeID())
+                    && getEmployeeId().equals(e.getEmployeeId())
                     && getEmployeeGender().equals(e.getEmployeeGender())
                     && getEmployeeJoinDate().equals(e.getEmployeeJoinDate());
         }

@@ -1,6 +1,4 @@
-package seedu.address.model.Employee;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+package seedu.address.model.employee;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,7 +17,7 @@ public class Employee {
     private final EmployeeName employeeName;
     private final EmployeePhone employeePhone;
     private final EmployeeEmail employeeEmail;
-    private final EmployeeID employeeID;
+    private final EmployeeId employeeId;
     private final EmployeePosition employeePosition;
     private final EmployeeGender employeeGender;
 
@@ -33,39 +31,39 @@ public class Employee {
     /**
      * Every field must be present and not null.
      */
-    public Employee( EmployeeID employeeID, EmployeeName employeeName,  EmployeeGender employeeGender,
+    public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
                      EmployeePosition employeePosition, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
-                     EmployeeAddress employeeAddress,  EmployeeJoinDate employeeJoinDate,Set<Tag> tags) {
+                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
         this.employeeAddress = employeeAddress;
-        this.employeeID = employeeID;
+        this.employeeId = employeeId;
         this.employeeGender = employeeGender;
         this.employeeJoinDate = employeeJoinDate;
         this.employeePosition = employeePosition;
         this.tags.addAll(tags);
     }
 
-    public Employee( EmployeeName employeeName, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
-                     EmployeeAddress employeeAddress,Set<Tag> tags) {
+    public Employee(EmployeeName employeeName, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                     EmployeeAddress employeeAddress, Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
         this.employeeAddress = employeeAddress;
-        this.employeeID = null;
+        this.employeeId = null;
         this.employeeGender = null;
         this.employeeJoinDate = null;
         this.employeePosition = null;
         this.tags.addAll(tags);
     }
 
-    public  Employee(){
+    public Employee() {
         this.employeeName = null;
         this.employeePhone = null;
         this.employeeEmail = null;
         this.employeeAddress = null;
-        this.employeeID = null;
+        this.employeeId = null;
         this.employeeGender = null;
         this.employeeJoinDate = null;
         this.employeePosition = null;
@@ -88,8 +86,8 @@ public class Employee {
         return employeeAddress;
     }
 
-    public EmployeeID getEmployeeID() {
-        return employeeID;
+    public EmployeeId getEmployeeId() {
+        return employeeId;
     }
 
     public EmployeePosition getEmployeePosition() {
@@ -122,7 +120,7 @@ public class Employee {
         }
 
         return otherEmployee != null
-                && otherEmployee.getEmployeeID().equals(getEmployeeID())
+                && otherEmployee.getEmployeeId().equals(getEmployeeId())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
                 && otherEmployee.getEmployeePosition().equals((getEmployeePosition()))
@@ -147,7 +145,7 @@ public class Employee {
         }
 
         Employee otherEmployee = (Employee) other;
-        return otherEmployee.getEmployeeID().equals(getEmployeeID())
+        return otherEmployee.getEmployeeId().equals(getEmployeeId())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
                 && otherEmployee.getEmployeePosition().equals(getEmployeePosition())
@@ -169,7 +167,7 @@ public class Employee {
         final StringBuilder builder = new StringBuilder();
         builder.append(getEmployeeName())
                 .append(" EmployeeID: ")
-                .append(getEmployeeID())
+                .append(getEmployeeId())
                 .append(" EmployeeGender: ")
                 .append(getEmployeeGender())
                 .append(" EmployeePosition: ")

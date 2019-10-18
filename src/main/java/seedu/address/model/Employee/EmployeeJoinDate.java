@@ -1,4 +1,4 @@
-package seedu.address.model.Employee;
+package seedu.address.model.employee;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

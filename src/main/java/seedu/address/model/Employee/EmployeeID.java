@@ -1,11 +1,11 @@
-package seedu.address.model.Employee;
+package seedu.address.model.employee;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represent's the unique identifying ID of an Employee Object
  */
-public class EmployeeID {
+public class EmployeeId {
     public static final String MESSAGE_CONSTRAINTS =
             "Employee IDs is a 3-digit unique number";
     private static final String VALIDATION_REGEX = "\\d{3}";
@@ -15,14 +15,14 @@ public class EmployeeID {
     /**
      * Constructs an {@code EmployeeID}.
      */
-    public EmployeeID() {
+    public EmployeeId() {
         String id = String.format("%03d", nextID);
         checkArgument(isValidId(id), MESSAGE_CONSTRAINTS);
         this.id = id;
         nextID++;
     }
 
-    public EmployeeID(String id) {
+    public EmployeeId(String id) {
         this.id = id;
     }
 
@@ -41,8 +41,8 @@ public class EmployeeID {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EmployeeID // instanceof handles nulls
-                && id.equals(((EmployeeID) other).id)); // state check
+                || (other instanceof EmployeeId // instanceof handles nulls
+                && id.equals(((EmployeeId) other).id)); // state check
     }
 
     @Override

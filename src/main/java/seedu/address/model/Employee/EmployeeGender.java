@@ -1,4 +1,4 @@
-package seedu.address.model.Employee;
+package seedu.address.model.employee;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -33,13 +33,13 @@ public class EmployeeGender {
      * Returns true if a given string is a valid gender.
      */
     public static boolean isValidGender(String test) {
-        if (test.equals("male")||test.equals("female")||test.equals("Male")||test.equals("Female")
-                ||test.equals("MALE")||test.equals("FEMALE")){
+        if (test.equals("male") || test.equals("female") || test.equals("Male") || test.equals("Female")
+                || test.equals("MALE") || test.equals("FEMALE")) {
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
-
 
     @Override
     public String toString() {
