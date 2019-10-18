@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 class NameContainsKeywordsPredicateTest {
 
-    private static String KEYWORD_NOT_IN_QUICK_SORT_NAME = "1mP0ss1ble";
+    private static final String KEYWORD_NOT_IN_QUICK_SORT_NAME = "1mP0ss1ble";
 
     @Test
     public void test_problemNameContainsKeywords_returnTrue() {

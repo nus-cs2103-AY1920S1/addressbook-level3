@@ -8,6 +8,31 @@ import seedu.algobase.model.Model;
  */
 public abstract class Command {
 
+    public static final Class[] COMMAND_LIST = {
+        AddCommand.class,
+        AddPlanCommand.class,
+        AddTagCommand.class,
+        ClearCommand.class,
+        DeleteCommand.class,
+        DeletePlanCommand.class,
+        DeleteTagCommand.class,
+        DeleteTaskCommand.class,
+        DoneTaskCommand.class,
+        EditCommand.class,
+        EditPlanCommand.class,
+        EditTagCommand.class,
+        ExitCommand.class,
+        FindCommand.class,
+        FindPlanCommand.class,
+        HelpCommand.class,
+        ListCommand.class,
+        ListPlanCommand.class,
+        ListTagCommand.class,
+        SortCommand.class,
+        SwitchCommand.class,
+        UndoneTaskCommand.class
+    };
+
     /**
      * Executes the command and returns the result message.
      *
