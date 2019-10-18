@@ -70,6 +70,7 @@ public class AutotagCommandTest {
         AutotagCommand command = new AutotagCommand(tagger);
 
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
+        expectedModel.saveMark();
         String expectedMessage = String.format(MESSAGE_AUTOTAG_ADDED, tagger);
 
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
@@ -86,6 +87,7 @@ public class AutotagCommandTest {
         Bookmark expectedBookmark1 = new BookmarkBuilder(ALICE).withTags("friends", "notTagged").build();
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
         expectedModel.setBookmark(ALICE, expectedBookmark1);
+        expectedModel.saveMark();
         String expectedMessage = String.format(MESSAGE_AUTOTAG_ADDED, tagger);
 
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
@@ -104,6 +106,7 @@ public class AutotagCommandTest {
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
         expectedModel.setBookmark(CARL, expectedBookmark1);
         expectedModel.setBookmark(FIONA, expectedBookmark2);
+        expectedModel.saveMark();
         String expectedMessage = String.format(MESSAGE_AUTOTAG_ADDED, tagger);
 
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
