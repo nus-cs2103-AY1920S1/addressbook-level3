@@ -55,19 +55,21 @@ LogicManager --> Model
 Command .right.> Model
 note left of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
+
 package statistics {
+Class StatsPayload
 Interface Statistics <<Statistics>>
 Class StatisticsManager
-Class StatsPayload
+
 
 }
 
 StatisticsManager .up.|> Statistics
-XYZCommand .down.> StatsPayload
-
+CommandResult .right.> StatsPayload : contains >
+XYZCommand .up.>StatsPayload : creates >
 Logic ..> CommandResult
-LogicManager .down.> Statistics
-LogicManager .down.> CommandResult
+LogicManager .up.> Statistics
+LogicManager .right.> CommandResult
 Command .up.> CommandResult
 CommandResult -[hidden]-> Parser
 @enduml

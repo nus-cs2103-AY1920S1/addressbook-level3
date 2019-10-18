@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes StatsCommand;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+if () then ([Has date input])
+     :parse date input;
+     :create StatsPayload Object;
+else ([else])
+
+endif
+:command sends feedback to Ui;
+:MainWindow triggers call to Logic Manager;
+:calculate statistic of choice using logic manager;
+:display Statistics;
+stop
+@enduml
