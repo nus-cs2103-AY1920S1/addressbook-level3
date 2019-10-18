@@ -3,6 +3,7 @@ package seedu.address.logic.parser.diary;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.diary.AppendDiaryEntryCommand;
 import seedu.address.logic.commands.diary.CreateDiaryEntryCommand;
 import seedu.address.logic.commands.diary.DoneEditDiaryEntryCommand;
 import seedu.address.logic.commands.diary.EditDiaryEntryCommand;
@@ -21,6 +22,7 @@ import seedu.address.logic.parser.navbar.NavbarViewParser;
 public class DiaryParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + FlipDiaryCommand.COMMAND_WORD + " "
+            + AppendDiaryEntryCommand.COMMAND_WORD + " "
             + EditDiaryEntryCommand.COMMAND_WORD + " "
             + CreateDiaryEntryCommand.COMMAND_WORD + " "
             + DoneEditDiaryEntryCommand.COMMAND_WORD + " "
@@ -42,6 +44,8 @@ public class DiaryParser implements PageParser {
             return new FlipDiaryParser().parse(arguments);
         case CREATE:
             return new CreateDiaryEntryParser().parse(arguments);
+        case APPEND:
+            return new AppendDiaryEntryParser().parse(arguments);
         case EDIT:
             return new EditDiaryEntryParser().parse(arguments);
         case DONE:

@@ -54,6 +54,16 @@ public class EditDiaryEntryDescriptor {
         this.diaryText = diaryText;
     }
 
+    /**
+     * Appends the a newline, with the specified {@link String} to the {@code diaryText}.
+     *
+     * @param textToAdd The {@link String} to append.
+     */
+    public void addNewTextLine(String textToAdd) {
+        this.diaryText += "\n";
+        this.diaryText += textToAdd;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

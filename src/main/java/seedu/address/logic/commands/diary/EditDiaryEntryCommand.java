@@ -37,16 +37,19 @@ public class EditDiaryEntryCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         DiaryEntry diaryEntry = model.getPageStatus().getDiaryEntry();
-        EditDiaryEntryDescriptor currentEditEntryDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
+        EditDiaryEntryDescriptor editDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
 
         if (diaryEntry == null) {
             throw new CommandException(MESSAGE_NO_DIARY_ENTRY);
         }
 
-        EditDiaryEntryDescriptor editDescriptor;
-
-        if (currentEditEntryDescriptor == null) {
+        if (editDescriptor == null) {
             editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);
+
+            if (!newText.trim().isEmpty()) {
+                editDescriptor.setDiaryText(newText);
+            }
+
             model.setPageStatus(model.getPageStatus()
                     .withNewEditDiaryEntryDescriptor(editDescriptor));
 
@@ -54,7 +57,7 @@ public class EditDiaryEntryCommand extends Command {
         } else if (newText.trim().isEmpty()) {
             return new CommandResult(MESSAGE_ALREADY_EDITING);
         } else {
-            currentEditEntryDescriptor.setDiaryText(newText);
+            editDescriptor.setDiaryText(newText);
 
             return new CommandResult(MESSAGE_SAVED_EDIT);
         }
