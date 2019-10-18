@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -72,12 +73,7 @@
                                     <AnchorPane prefHeight="968.0" prefWidth="667.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css">
                                         <children>
                                             <Circle fill="WHITE" layoutX="325.0" layoutY="157.0" radius="110.0" stroke="BLACK" strokeType="INSIDE" styleClass="wallet-circle" />
-                                            <Text layoutX="255.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="wallet-dark" text="Wallet" textAlignment="CENTER" wrappingWidth="137.30078125">
-                                                <font>
-                                                    <Font name="System Bold" size="40.0" />
-                                                </font>
-                                            </Text>
-                                            <Text fx:id="remainingBudgetPlaceholder" layoutX="236.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="wallet-dark" textAlignment="CENTER" wrappingWidth="175.0">
+                                            <Text fx:id="remainingBudgetPlaceholder" layoutX="236.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="wallet-dark-money" textAlignment="CENTER" wrappingWidth="175.0">
                                                 <font>
                                                     <Font name="Arial Black" size="27.0" />
                                                 </font>
@@ -88,7 +84,7 @@
                                                 </font>
                                             </Text>
                                             <HBox layoutX="175.0" layoutY="280.0">
-                                                <Text fill="white" text="Purchase History" textAlignment="CENTER">
+                                                <Text fill="white" styleClass="purchase-history-text" text="Purchase History" textAlignment="CENTER">
                                                     <font>
                                                         <Font name="System Bold" size="40.0" />
                                                     </font>
@@ -106,6 +102,14 @@
                                                     </StackPane>
                                                 </VBox>
                                             </VBox>
+                                 <ImageView fitHeight="101.0" fitWidth="82.0" layoutX="284.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@../images/dollar_sign.png" />
+                                    </image>
+                                    <effect>
+                                       <Glow />
+                                    </effect>
+                                 </ImageView>
                                         </children>
                                         <padding>
                                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

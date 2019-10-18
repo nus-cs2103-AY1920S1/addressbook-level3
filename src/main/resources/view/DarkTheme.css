@@ -22,8 +22,16 @@
 }
 
 .wallet-dark {
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Roboto";
     -fx-text-fill: #1d1d1d;
+}
+
+.wallet-dark-money {
+    -fx-font-family: "Arial Rounded MT Bold";
+}
+
+.purchase-history-text {
+    -fx-font-family: "Roboto";
 }
 
 .label-header {
@@ -134,14 +142,14 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Arial Black";
     -fx-font-size: 20px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14px;
     -fx-text-fill: #010504;
 }
 
