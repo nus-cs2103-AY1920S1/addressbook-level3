@@ -201,3 +201,18 @@
 .cell_small_label {
     -fx-font-size: 10px;
 }
+
+#budgetProgress {
+    -fx-accent: #00b894;
+}
+
+#budgetProgress .bar {
+    -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 10px;
+}
+
+#budgetProgress .track {
+    -fx-background-insets: 0;
+    -fx-background-color: #cfd8dc;
+}
