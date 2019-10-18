@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -112,7 +113,8 @@ public class EditObjectWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void saveNote() throws CommandException, ParseException {
+    private void saveNote() throws CommandException, ParseException,
+            DictionaryException { //TODO:Dictionary Exception unneeded?
         logic.execute("edit " + index + " c/" + noteContent.getText());
     }
 
