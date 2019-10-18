@@ -34,10 +34,12 @@ public class PreferenceCommand extends Command {
     public final Set<Tag> tagList;
     public final Set<Location> locationList;
 
+    private final boolean isList;
+
     /**
      * Creates an PreferenceCommand to add the user's recommendations
      */
-    public PreferenceCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+    public PreferenceCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList, boolean isList) {
         requireAllNonNull(categoryList, tagList, locationList);
 
         // Convert all to lowercase
@@ -47,6 +49,8 @@ public class PreferenceCommand extends Command {
                 .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet());
         this.locationList = locationList.stream()
                 .map(l -> new Location(l.location.toLowerCase())).collect(Collectors.toSet());
+
+        this.isList = isList;
     }
 
     @Override
@@ -61,12 +65,12 @@ public class PreferenceCommand extends Command {
      * @param isLike True if adding likes or false if adding dislikes
      * @return A success message including the list of likes and dislikes
      */
-    public CommandResult execute(Model model, boolean isLike) throws CommandException {
+    public CommandResult execute(Model model, boolean isLike, boolean isList) throws CommandException {
         StringBuilder result = new StringBuilder();
 
         RecommendationSystem recommendationSystem = model.getRecommendationSystem();
 
-        if (isLike) {
+        if (isLike && !isList) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
             if (recommendationSystem.getDislikedCategories().stream().anyMatch(categoryList::contains)
                     || recommendationSystem.getDislikedLocations().stream().anyMatch(locationList::contains)
@@ -75,8 +79,8 @@ public class PreferenceCommand extends Command {
             }
 
             model.addLikes(categoryList, tagList, locationList);
-            result.append(" Liked: ");
-        } else {
+            result.append("Liked: ");
+        } else if (!isLike && !isList) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
             if (recommendationSystem.getLikedCategories().stream().anyMatch(categoryList::contains)
                     || recommendationSystem.getLikedLocations().stream().anyMatch(locationList::contains)
@@ -85,41 +89,47 @@ public class PreferenceCommand extends Command {
             }
 
             model.addDislikes(categoryList, tagList, locationList);
-            result.append(" Disliked: ");
+            result.append("Disliked: ");
         }
 
-        String addedItems = "Categories: " + categoryList.stream()
+        if (!isList) {
+            String addedItems = "Categories: " + categoryList.stream()
                     .map(c -> c.category).collect(Collectors.joining(", "))
-                + " | Tags: " + tagList.stream()
+                    + " | Tags: " + tagList.stream()
                     .map(t -> t.tagName).collect(Collectors.joining(", "))
-                + " | Locations: " + locationList.stream()
+                    + " | Locations: " + locationList.stream()
                     .map(l -> l.location).collect(Collectors.joining(", ")) + "\n";
 
-        result.append(addedItems);
+            result.append(addedItems);
+        }
 
         String currentItems = "Current likes:"
                 + " Categories: " + recommendationSystem.getLikedCategories()
-                    .stream().map(c -> c.category)
-                    .collect(Collectors.joining(", "))
+                .stream().map(c -> c.category)
+                .collect(Collectors.joining(", "))
                 + " | Tags: " + recommendationSystem.getLikedTags()
-                    .stream().map(t -> t.tagName)
-                    .collect(Collectors.joining(", "))
+                .stream().map(t -> t.tagName)
+                .collect(Collectors.joining(", "))
                 + " | Locations: " + recommendationSystem.getLikedLocations()
-                    .stream().map(l -> l.location)
-                    .collect(Collectors.joining(", "))
+                .stream().map(l -> l.location)
+                .collect(Collectors.joining(", "))
                 + "\nCurrent dislikes:"
                 + " Categories: " + recommendationSystem.getDislikedCategories()
-                    .stream().map(c -> c.category)
-                    .collect(Collectors.joining(", "))
+                .stream().map(c -> c.category)
+                .collect(Collectors.joining(", "))
                 + " | Tags: " + recommendationSystem.getDislikedTags()
-                    .stream().map(t -> t.tagName)
-                    .collect(Collectors.joining(", "))
+                .stream().map(t -> t.tagName)
+                .collect(Collectors.joining(", "))
                 + " | Locations: " + recommendationSystem.getDislikedLocations()
-                    .stream().map(l -> l.location)
-                    .collect(Collectors.joining(", "));
+                .stream().map(l -> l.location)
+                .collect(Collectors.joining(", "));
 
         result.append(currentItems);
 
-        return new CommandResult(MESSAGE_SUCCESS + result);
+        if (!isList) {
+            return new CommandResult(MESSAGE_SUCCESS + " " + result);
+        } else {
+            return new CommandResult(result.toString());
+        }
     }
 }
