@@ -9,7 +9,13 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.WindowView;
 import seedu.address.model.classid.ClassId;
+import seedu.address.model.earnings.Amount;
+import seedu.address.model.earnings.Date;
+import seedu.address.model.earnings.Module;
+import seedu.address.model.earnings.Month;
+import seedu.address.model.earnings.Week;
 import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Participation;
@@ -27,6 +33,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    private static int viewIndexNumber;
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -53,6 +60,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String destination} into a {@code WindowView}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code destination} is invalid.
+     */
+    public static WindowView parseWindowView(String destination) throws ParseException {
+        requireNonNull(destination);
+        String trimmedDestination = destination.trim();
+        if (!WindowView.isValidWindowView(trimmedDestination)) {
+            throw new ParseException(WindowView.MESSAGE_CONSTRAINTS);
+        }
+        return new WindowView(trimmedDestination);
     }
 
     /**
@@ -130,7 +152,6 @@ public class ParserUtil {
         return new Participation(trimmedParticipation);
     }
 
-
     /**
      * Parses a {@code String taskDescription} into a {@code TaskDescription}.
      * Leading and trailing whitespaces will be trimmed.
@@ -183,4 +204,78 @@ public class ParserUtil {
         return new Marking(trimmedMarking);
     }
 
+    /**
+     * Parses a {@code String amount} into an {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        return new Amount(trimmedAmount);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDateNum(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String module} into an {@code Module}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code module} is invalid.
+     */
+    public static Module parseModule(String module) throws ParseException {
+        requireNonNull(module);
+        String trimmedModule = module.trim();
+        if (!Module.isValidModuleName(trimmedModule)) {
+            throw new ParseException(Module.MESSAGE_CONSTRAINTS);
+        }
+        return new Module(trimmedModule);
+    }
+
+    /**
+     * Parses a {@code String month} into an {@code Month}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code month} is invalid.
+     */
+    public static Month parseMonth(String month) throws ParseException {
+        requireNonNull(month);
+        String trimmedMonth = month.trim();
+        if (!Month.isValidMonth(trimmedMonth)) {
+            throw new ParseException(Month.MESSAGE_CONSTRAINTS);
+        }
+        return new Month(trimmedMonth);
+    }
+
+    /**
+     * Parses a {@code String week} into an {@code Week}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code week} is invalid.
+     */
+    public static Week parseWeek(String week) throws ParseException {
+        requireNonNull(week);
+        String trimmedWeek = week.trim();
+        if (!Week.isValidWeekNum(trimmedWeek)) {
+            throw new ParseException(Week.MESSAGE_CONSTRAINTS);
+        }
+        return new Week(trimmedWeek);
+    }
 }

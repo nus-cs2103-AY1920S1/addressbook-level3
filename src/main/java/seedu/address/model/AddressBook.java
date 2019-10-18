@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.earnings.Earnings;
+import seedu.address.model.earnings.UniqueEarningsList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,7 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
+    private final UniqueEarningsList earning;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -25,6 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        earning = new UniqueEarningsList();
     }
 
     public AddressBook() {}
@@ -47,6 +50,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    public void setEarnings(List<Earnings> earnings) {
+        this.earning.setEarnings(earnings);
+    }
+
+    /**
+     * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setEarnings(Earnings target, Earnings editedEarnings) {
+        requireNonNull(editedEarnings);
+
+        earning.setEarnings(target, editedEarnings);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -54,6 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setEarnings(newData.getEarningsList());
     }
 
     //// person-level operations
@@ -93,6 +112,30 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasEarnings(Earnings earnings) {
+        requireNonNull(earnings);
+        return earning.contains(earnings);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addEarnings(Earnings e) {
+        earning.add(e);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeEarnings(Earnings key) {
+        earning.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -104,6 +147,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Earnings> getEarningsList() {
+        return earning.asUnmodifiableObservableList();
     }
 
     @Override
