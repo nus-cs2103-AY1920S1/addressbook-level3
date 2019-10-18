@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_MERGE_COMMAND;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,11 +57,30 @@ public class AddressBookParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-
-
     private boolean isMerging = false;
     private MergeCommand currentMergeCommand;
     private String mergeType;
+
+    /**
+     * Parses user input and obtains the command word which determines the command being executed.
+     *
+     * @param userInput full user input string
+     * @return the command work based on the user input
+     * @throws ParseException if the user input does not conform to the expected format
+     */
+    public Optional<String> getCommandWord(String userInput) throws ParseException {
+        if (isMerging) {
+            return Optional.empty();
+        }
+
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        return Optional.of(commandWord);
+    }
 
     /**
      * Parses user input into command for execution. Calls the parseCommand(String, boolean) where the boolean's
@@ -194,6 +214,7 @@ public class AddressBookParser {
 
     /**
      * Parses the merge commands into commands for execution.
+     *
      * @param userInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
