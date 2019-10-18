@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.logic.commands.AddEarningsCommand.MESSAGE_DUPLICATE_EARNINGS;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +13,10 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
+import seedu.address.storage.earnings.JsonAdaptedEarnings;
+
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -22,13 +27,16 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedEarnings> earning = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("earning") List<JsonAdaptedEarnings> earning) {
         this.persons.addAll(persons);
+        this.earning.addAll(earning);
     }
 
     /**
@@ -38,6 +46,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        earning.addAll(source.getEarningsList().stream().map(JsonAdaptedEarnings::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +62,13 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        for (JsonAdaptedEarnings jsonAdaptedEarnings : earning) {
+            Earnings earnings = jsonAdaptedEarnings.toModelType();
+            if (addressBook.hasEarnings(earnings)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EARNINGS);
+            }
+            addressBook.addEarnings(earnings);
         }
         return addressBook;
     }
