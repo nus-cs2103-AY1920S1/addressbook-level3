@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private PolicyListPanel policyListPanel;
     private DisplayPanel displayPanel;
+    private HistoryListPanel historyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -45,10 +46,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    // TODO: add test case to ensure name doesn't change
-    // Don't rename this; breaks the application.
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane displayPlaceHolder;
@@ -120,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -200,12 +199,17 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isListPolicy()) {
                 policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
-                personListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
+                listPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
             }
 
             if (commandResult.isListPeople()) {
                 personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-                personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+                listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            }
+
+            if (commandResult.isListHistory()) {
+                historyListPanel = new HistoryListPanel(logic.getHistoryList());
+                listPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
             }
 
             if (commandResult.isExpandPerson()) {

@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -85,6 +86,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Policy> getFilteredPolicyList() {
         return model.getFilteredPolicyList();
+    }
+
+    @Override
+    public ObservableList<Pair<String, String>> getHistoryList() {
+        return commandHistory.getHistory();
     }
 
     @Override

@@ -36,6 +36,9 @@ public class CommandResult {
 
     private Policy policyToExpand;
 
+    /** Application should display history of commands */
+    private boolean listHistory;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -44,6 +47,7 @@ public class CommandResult {
                          boolean exit,
                          boolean listPolicy,
                          boolean listPeople,
+                         boolean listHistory,
                          boolean expandPerson,
                          boolean expandPolicy) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -51,19 +55,18 @@ public class CommandResult {
         this.exit = exit;
         this.listPolicy = listPolicy;
         this.listPeople = listPeople;
+        this.listHistory = listHistory;
         this.expandPerson = expandPerson;
         this.expandPolicy = expandPolicy;
     }
 
     public CommandResult(String feedbackToUser, Person personToExpand) {
-        this(feedbackToUser, false, false, false, false, true,
-                false);
+        this(feedbackToUser, false, false, false, false, false, true, false);
         this.personToExpand = personToExpand;
     }
 
     public CommandResult(String feedbackToUser, Policy policyToExpand) {
-        this(feedbackToUser, false, false, false, false, false,
-                true);
+        this(feedbackToUser, false, false, false, false, false, false, true);
         this.policyToExpand = policyToExpand;
     }
 
@@ -72,8 +75,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false,
-                false);
+        this(feedbackToUser, false, false, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -112,6 +114,10 @@ public class CommandResult {
         return policyToExpand;
     }
 
+    public boolean isListHistory() {
+        return listHistory;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -129,13 +135,15 @@ public class CommandResult {
                 && exit == otherCommandResult.exit
                 && listPolicy == otherCommandResult.listPolicy
                 && listPeople == otherCommandResult.listPeople
+                && listHistory == otherCommandResult.listHistory
                 && expandPerson == otherCommandResult.expandPerson
                 && expandPolicy == otherCommandResult.expandPolicy;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople, expandPerson, expandPolicy);
+        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople, listHistory,
+                expandPerson, expandPolicy);
     }
 
 }

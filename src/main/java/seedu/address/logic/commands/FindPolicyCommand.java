@@ -31,10 +31,7 @@ public class FindPolicyCommand extends Command {
         model.updateFilteredPolicyList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_POLICIES_LISTED_OVERVIEW, model.getFilteredPolicyList().size()),
-                false,
-                false,
-                true,
-                false, false, false);
+                false, false, true, false, false, false, false);
     }
 
     @Override
