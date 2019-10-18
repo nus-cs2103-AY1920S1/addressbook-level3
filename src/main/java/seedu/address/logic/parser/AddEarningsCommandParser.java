@@ -18,7 +18,7 @@ import seedu.address.model.earnings.Module;
 /**
  * Parses input arguments and creates a new AddEarningsCommand object
  */
-public class AddEarningsCommandParser {
+public class AddEarningsCommandParser implements Parser<AddEarningsCommand> {
 
     /**
      * Parses the given {@code String} of arguments
