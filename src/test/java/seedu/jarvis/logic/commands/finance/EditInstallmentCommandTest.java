@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.logic.commands.finance.EditInstallmentCommand.EditInstallmentDescriptor;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.CcaTracker;
@@ -58,7 +59,7 @@ public class EditInstallmentCommandTest {
     @Test
     public void hasInverseExecution() {
         Installment editedInstallment = new InstallmentBuilder().build();
-        EditInstallmentCommand.EditInstallmentDescriptor descriptor =
+        EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder(editedInstallment).build();
         EditInstallmentCommand editAddressCommand = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT, descriptor);
         assertTrue(editAddressCommand.hasInverseExecution());
@@ -71,7 +72,7 @@ public class EditInstallmentCommandTest {
                         .withDescription(new InstallmentDescription(VALID_DESC_SPOTIFY))
                         .withMoneySpent(new InstallmentMoneyPaid(VALID_MONEY_SPOTIFY))
                         .build();
-        EditInstallmentCommand.EditInstallmentDescriptor descriptor =
+        EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder(editedInstallment)
                         .build();
         EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT, descriptor);
@@ -102,7 +103,7 @@ public class EditInstallmentCommandTest {
                         new InstallmentMoneyPaid(VALID_MONEY_EARPHONES))
                 .build();
 
-        EditInstallmentCommand.EditInstallmentDescriptor descriptor =
+        EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder()
                         .withDescription(VALID_DESC_EARPHONES)
                         .withSubscriptionFee(VALID_MONEY_EARPHONES)
@@ -126,7 +127,7 @@ public class EditInstallmentCommandTest {
     @Test
     public void execute_noFieldsList_failure() throws CommandException {
         EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT,
-                new EditInstallmentCommand.EditInstallmentDescriptor());
+                new EditInstallmentDescriptor());
         Installment editedInstallment = model.getInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
 
         String expectedMessage = String.format(EditInstallmentCommand.MESSAGE_DUPLICATE_INSTALLMENT,
@@ -145,7 +146,7 @@ public class EditInstallmentCommandTest {
     @Test
     public void execute_duplicateInstallmentList_failure() throws CommandException {
         Installment firstInstallment = model.getInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
-        EditInstallmentCommand.EditInstallmentDescriptor descriptor =
+        EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder(firstInstallment).build();
         EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_SECOND_INSTALLMENT,
                 descriptor);
@@ -156,7 +157,7 @@ public class EditInstallmentCommandTest {
     @Test
     public void execute_invalidInstallmentIndexList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInstallmentList().size() + 1);
-        EditInstallmentCommand.EditInstallmentDescriptor descriptor = new EditInstallmentDescriptorBuilder()
+        EditInstallmentDescriptor descriptor = new EditInstallmentDescriptorBuilder()
                 .withDescription(VALID_DESC_EARPHONES)
                 .build();
         EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(outOfBoundIndex, descriptor);
@@ -170,7 +171,7 @@ public class EditInstallmentCommandTest {
                 new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT, INSTALL_NETFLIX);
 
         // same values -> returns true
-        EditInstallmentCommand.EditInstallmentDescriptor copyDescriptor =
+        EditInstallmentDescriptor copyDescriptor =
                 new EditInstallmentCommand.EditInstallmentDescriptor(INSTALL_NETFLIX);
         EditInstallmentCommand commandWithSameValues = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT,
                 copyDescriptor);

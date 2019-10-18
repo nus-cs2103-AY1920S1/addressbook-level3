@@ -1,6 +1,6 @@
 package seedu.jarvis.testutil.finance;
 
-import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.EditInstallmentCommand.EditInstallmentDescriptor;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
@@ -10,21 +10,21 @@ import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
  */
 public class EditInstallmentDescriptorBuilder {
 
-    private EditInstallmentCommand.EditInstallmentDescriptor descriptor;
+    private EditInstallmentDescriptor descriptor;
 
     public EditInstallmentDescriptorBuilder() {
-        descriptor = new EditInstallmentCommand.EditInstallmentDescriptor();
+        descriptor = new EditInstallmentDescriptor();
     }
 
-    public EditInstallmentDescriptorBuilder(EditInstallmentCommand.EditInstallmentDescriptor descriptor) {
-        this.descriptor = new EditInstallmentCommand.EditInstallmentDescriptor(descriptor);
+    public EditInstallmentDescriptorBuilder(EditInstallmentDescriptor descriptor) {
+        this.descriptor = new EditInstallmentDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditInstallmentDescriptor} with fields containing details of {@code installment}
      */
     public EditInstallmentDescriptorBuilder(Installment installment) {
-        descriptor = new EditInstallmentCommand.EditInstallmentDescriptor();
+        descriptor = new EditInstallmentDescriptor();
         descriptor.setDescription(installment.getDescription());
         descriptor.setMoneyPaid(installment.getMoneySpentOnInstallment());
     }
@@ -45,7 +45,7 @@ public class EditInstallmentDescriptorBuilder {
         return this;
     }
 
-    public EditInstallmentCommand.EditInstallmentDescriptor build() {
+    public EditInstallmentDescriptor build() {
         return descriptor;
     }
 }
