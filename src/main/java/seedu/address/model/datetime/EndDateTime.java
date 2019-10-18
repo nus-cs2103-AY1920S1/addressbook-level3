@@ -1,4 +1,4 @@
-package seedu.address.model.visit;
+package seedu.address.model.datetime;
 
 /**
  * Represents a Visit's end time in the application.
@@ -10,7 +10,7 @@ public class EndDateTime extends DateTime {
     public static final EndDateTime UNFINISHED_VISIT_END_DATE_TIME = null;
 
     /**
-     * Constructs an {@code StartDateTime}.
+     * Constructs an {@code EndDateTime}.
      *
      * @param dateTime A valid dateTime address.
      */
