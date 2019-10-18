@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalDiaries.getTypicalDiaryRecords;
-import static seedu.address.testutil.TypicalExercises.getTypicalWorkoutPlanner;
-import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
-import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.address.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
+import static seedu.address.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
+import static seedu.address.testutil.profile.TypicalProfiles.getTypicalProfiles;
+import static seedu.address.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 
 import java.nio.file.Path;
 
@@ -14,15 +14,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.DiaryRecords;
-import seedu.address.model.ReadOnlyDiary;
-import seedu.address.model.ReadOnlyRecipeBook;
-import seedu.address.model.ReadOnlyUserProfile;
-import seedu.address.model.ReadOnlyWorkoutPlanner;
-import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.UserProfile;
-import seedu.address.model.WorkoutPlanner;
+import seedu.address.model.diary.DiaryRecords;
+import seedu.address.model.diary.ReadOnlyDiary;
+import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.exercise.WorkoutPlanner;
+import seedu.address.model.profile.ReadOnlyUserProfile;
+import seedu.address.model.profile.UserProfile;
+import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.model.recipe.RecipeBook;
+import seedu.address.storage.diary.JsonDiaryStorage;
+import seedu.address.storage.exercise.JsonWorkoutPlannerStorage;
+import seedu.address.storage.health.JsonHealthRecordsStorage;
+import seedu.address.storage.profile.JsonUserProfileStorage;
+import seedu.address.storage.recipe.JsonRecipeBookStorage;
 
 public class StorageManagerTest {
 

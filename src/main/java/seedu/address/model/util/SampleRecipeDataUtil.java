@@ -4,15 +4,15 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.ReadOnlyRecipeBook;
-import seedu.address.model.RecipeBook;
 import seedu.address.model.common.Name;
-import seedu.address.model.recipe.Calories;
-import seedu.address.model.recipe.Carbs;
-import seedu.address.model.recipe.Fats;
-import seedu.address.model.recipe.Ingredient;
-import seedu.address.model.recipe.Protein;
-import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.model.recipe.RecipeBook;
+import seedu.address.model.recipe.components.Calories;
+import seedu.address.model.recipe.components.Carbs;
+import seedu.address.model.recipe.components.Fats;
+import seedu.address.model.recipe.components.Ingredient;
+import seedu.address.model.recipe.components.Protein;
+import seedu.address.model.recipe.components.Recipe;
 
 /**
  * Contains utility methods for populating {@code RecipeBook} with sample data.

@@ -10,22 +10,22 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Name;
-import seedu.address.model.diary.DiaryName;
-import seedu.address.model.diary.Title;
-import seedu.address.model.medical.MedicalHistory;
-import seedu.address.model.person.BloodType;
-import seedu.address.model.person.DoB;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.Height;
-import seedu.address.model.person.Weight;
-import seedu.address.model.recipe.Calories;
-import seedu.address.model.recipe.Carbs;
-import seedu.address.model.recipe.Fats;
-import seedu.address.model.recipe.Ingredient;
-import seedu.address.model.recipe.Protein;
-import seedu.address.model.records.Timestamp;
-import seedu.address.model.records.Type;
-import seedu.address.model.records.Value;
+import seedu.address.model.diary.components.DiaryName;
+import seedu.address.model.diary.components.Title;
+import seedu.address.model.health.components.Timestamp;
+import seedu.address.model.health.components.Type;
+import seedu.address.model.health.components.Value;
+import seedu.address.model.profile.medical.MedicalHistory;
+import seedu.address.model.profile.person.BloodType;
+import seedu.address.model.profile.person.DoB;
+import seedu.address.model.profile.person.Gender;
+import seedu.address.model.profile.person.Height;
+import seedu.address.model.profile.person.Weight;
+import seedu.address.model.recipe.components.Calories;
+import seedu.address.model.recipe.components.Carbs;
+import seedu.address.model.recipe.components.Fats;
+import seedu.address.model.recipe.components.Ingredient;
+import seedu.address.model.recipe.components.Protein;
 
 
 /**

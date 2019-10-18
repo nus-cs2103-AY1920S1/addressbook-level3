@@ -9,7 +9,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.RecipeBuilder;
+import seedu.address.model.recipe.components.RecipeNameContainsKeywordsPredicate;
+import seedu.address.testutil.recipe.RecipeBuilder;
 
 public class RecipeExerciseNameContainsKeywordsPredicateTest {
 

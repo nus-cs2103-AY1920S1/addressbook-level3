@@ -13,26 +13,26 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddRecipeCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteRecipeCommand;
-import seedu.address.logic.commands.EditProfileCommand;
-import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
-import seedu.address.logic.commands.EditRecipeCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindRecipeCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.profile.EditProfileCommand;
+import seedu.address.logic.commands.recipe.AddRecipeCommand;
+import seedu.address.logic.commands.recipe.DeleteRecipeCommand;
+import seedu.address.logic.commands.recipe.EditRecipeCommand;
+import seedu.address.logic.commands.recipe.EditRecipeCommand.EditRecipeDescriptor;
+import seedu.address.logic.commands.recipe.FindRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Person;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.EditRecipeDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
-import seedu.address.testutil.RecipeBuilder;
-import seedu.address.testutil.RecipeUtil;
+import seedu.address.model.profile.person.Person;
+import seedu.address.model.recipe.components.Recipe;
+import seedu.address.model.recipe.components.RecipeNameContainsKeywordsPredicate;
+import seedu.address.testutil.profile.EditPersonDescriptorBuilder;
+import seedu.address.testutil.profile.PersonBuilder;
+import seedu.address.testutil.profile.PersonUtil;
+import seedu.address.testutil.recipe.EditRecipeDescriptorBuilder;
+import seedu.address.testutil.recipe.RecipeBuilder;
+import seedu.address.testutil.recipe.RecipeUtil;
 
 public class DukeCooksParserTest {
 

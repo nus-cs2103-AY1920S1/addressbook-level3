@@ -5,11 +5,16 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.exercise.Exercise;
-import seedu.address.model.person.Person;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.records.Record;
+import seedu.address.model.diary.ReadOnlyDiary;
+import seedu.address.model.diary.components.Diary;
+import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.health.ReadOnlyHealthRecords;
+import seedu.address.model.health.components.Record;
+import seedu.address.model.profile.ReadOnlyUserProfile;
+import seedu.address.model.profile.person.Person;
+import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.model.recipe.components.Recipe;
 
 /**
  * The API of the Model component.

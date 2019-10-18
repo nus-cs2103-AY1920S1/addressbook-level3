@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static seedu.address.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.recipe.RecipeBook;
 
 public class ClearCommandTest {
 

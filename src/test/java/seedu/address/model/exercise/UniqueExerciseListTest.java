@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SETS_FIVE;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExercises.ABS_ROLLOUT;
-import static seedu.address.testutil.TypicalExercises.SITUP;
+import static seedu.address.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
+import static seedu.address.testutil.exercise.TypicalExercises.SITUP;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,9 +14,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.exercise.components.UniqueExerciseList;
 import seedu.address.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.address.model.exercise.exceptions.ExerciseNotFoundException;
-import seedu.address.testutil.ExerciseBuilder;
+import seedu.address.testutil.exercise.ExerciseBuilder;
 
 public class UniqueExerciseListTest {
 

@@ -9,7 +9,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.ExerciseBuilder;
+import seedu.address.model.exercise.components.ExerciseNameContainsKeywordsPredicate;
+import seedu.address.testutil.exercise.ExerciseBuilder;
 
 public class ExerciseExerciseNameContainsKeywordsPredicateTest {
 

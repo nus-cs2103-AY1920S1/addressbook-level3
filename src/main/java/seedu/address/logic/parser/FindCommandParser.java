@@ -6,8 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindRecipeCommand;
+import seedu.address.logic.commands.recipe.FindRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.recipe.FindRecipeCommandParser;
 
 /**
  * Parses input arguments and creates a new FindRecipeCommand object
