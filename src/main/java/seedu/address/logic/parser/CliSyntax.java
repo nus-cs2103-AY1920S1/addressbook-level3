@@ -16,7 +16,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_GENDER = new Prefix("g/");
     public static final Prefix PREFIX_EVENT_NAME = new Prefix("n/");
     public static final Prefix PREFIX_EVENT_VENUE = new Prefix("at/");
-    public static final Prefix PREFIX_EVENT_HOURS_NEEDED = new Prefix("h/");
     public static final Prefix PREFIX_EVENT_MANPOWER_NEEDED = new Prefix("m/");
     public static final Prefix PREFIX_EVENT_START_DATE = new Prefix("on/");
     public static final Prefix PREFIX_EVENT_END_DATE = new Prefix("till/");

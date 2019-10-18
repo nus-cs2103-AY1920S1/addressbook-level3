@@ -13,12 +13,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventEndDate;
-import seedu.address.model.event.EventHoursNeeded;
-import seedu.address.model.event.EventId;
+import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.EventStartDate;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
@@ -31,10 +28,8 @@ class JsonAdaptedEvent {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private final String eventId;
     private final String eventName;
     private final String eventVenue;
-    private final String hoursNeeded;
     private final String manpowerNeeded;
     private final String startDate;
     private final String endDate;
@@ -44,17 +39,15 @@ class JsonAdaptedEvent {
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
      */
     @JsonCreator
-    public JsonAdaptedEvent(@JsonProperty("eventId") String eventId, @JsonProperty("eventName") String eventName,
-                            @JsonProperty("eventVenue") String eventVenue,
-                            @JsonProperty("hoursNeeded") String hoursNeeded,
-                            @JsonProperty("manpowerNeeded") String manpowerNeeded,
-                            @JsonProperty("startDate") String startDate,
-                            @JsonProperty("endDate") String endDate,
-                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.eventId = eventId;
+    public JsonAdaptedEvent(
+            @JsonProperty("eventName") String eventName,
+            @JsonProperty("eventVenue") String eventVenue,
+            @JsonProperty("manpowerNeeded") String manpowerNeeded,
+            @JsonProperty("startDate") String startDate,
+            @JsonProperty("endDate") String endDate,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.eventName = eventName;
         this.eventVenue = eventVenue;
-        this.hoursNeeded = hoursNeeded;
         this.manpowerNeeded = manpowerNeeded;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -67,10 +60,8 @@ class JsonAdaptedEvent {
      * Converts a given {@code Employee} into this class for Jackson use.
      */
     public JsonAdaptedEvent(Event source) {
-        eventId = source.getEventId().id;
         eventName = source.getName().eventName;
         eventVenue = source.getVenue().venue;
-        hoursNeeded = source.getHoursNeeded().toString();
         manpowerNeeded = source.getManpowerNeeded().toString();
         startDate = source.getStartDate().toString();
         endDate = source.getEndDate().toString();
@@ -90,14 +81,6 @@ class JsonAdaptedEvent {
             eventTags.add(tag.toModelType());
         }
 
-        if (eventId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EventId.class.getSimpleName()));
-        }
-        if (!EventId.isValidId(eventId)) {
-            throw new IllegalValueException(EventId.MESSAGE_CONSTRAINTS);
-        }
-        final EventId modelId = new EventId();
-
         if (eventName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     EventName.class.getSimpleName()));
@@ -116,15 +99,6 @@ class JsonAdaptedEvent {
         }
         final EventVenue modelVenue = new EventVenue(eventVenue);
 
-        if (hoursNeeded == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EventHoursNeeded.class.getSimpleName()));
-        }
-        if (!EventHoursNeeded.isValidEventHours(hoursNeeded)) {
-            throw new IllegalValueException(EventHoursNeeded.MESSAGE_CONSTRAINTS);
-        }
-        final EventHoursNeeded modelHoursNeeded = new EventHoursNeeded(hoursNeeded);
-
         if (manpowerNeeded == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     EventManpowerNeeded.class.getSimpleName()));
@@ -136,26 +110,26 @@ class JsonAdaptedEvent {
 
         if (startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EventStartDate.class.getSimpleName()));
+                    EventDate.class.getSimpleName()));
         }
-        if (!EventStartDate.isValidStartDate(startDate)) {
-            throw new IllegalValueException(EventStartDate.MESSAGE_CONSTRAINTS);
+        if (!EventDate.isValidDate(startDate)) {
+            throw new IllegalValueException(EventDate.MESSAGE_CONSTRAINTS);
         }
         LocalDate newStartDate = LocalDate.parse(endDate, FORMATTER);
-        final EventStartDate modelStartDate = new EventStartDate(newStartDate);
+        final EventDate modelStartDate = new EventDate(newStartDate);
 
         if (endDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EventEndDate.class.getSimpleName()));
+                    EventDate.class.getSimpleName()));
         }
-        if (!EventEndDate.isValidEndDate(endDate)) {
-            throw new IllegalValueException(EventEndDate.MESSAGE_CONSTRAINTS);
+        if (!EventDate.isValidDate(endDate)) {
+            throw new IllegalValueException(EventDate.MESSAGE_CONSTRAINTS);
         }
         LocalDate newEndDate = LocalDate.parse(endDate, FORMATTER);
-        final EventEndDate modelEndDate = new EventEndDate(newEndDate);
+        final EventDate modelEndDate = new EventDate(newEndDate);
         final Set<Tag> modelTags = new HashSet<>(eventTags);
 
-        return new Event(modelId, modelName, modelVenue, modelHoursNeeded,
+        return new Event(modelName, modelVenue,
                 modelManpowerNeeded, modelStartDate, modelEndDate, modelTags);
     }
 

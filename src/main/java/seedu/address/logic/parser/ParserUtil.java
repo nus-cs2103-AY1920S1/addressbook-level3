@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+
 import seedu.address.model.employee.EmployeeAddress;
 import seedu.address.model.employee.EmployeeEmail;
 import seedu.address.model.employee.EmployeeGender;
@@ -25,7 +26,6 @@ import seedu.address.model.event.EventHoursNeeded;
 import seedu.address.model.event.EventId;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.EventStartDate;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
@@ -195,14 +195,6 @@ public class ParserUtil {
     }
 
     /**
-     * returns an EventId
-     *
-     */
-    public static EventId parseEventId() {
-        return new EventId();
-    }
-
-    /**
      * Parses a {@code String venueName} into a {@code EventVenue}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -265,20 +257,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Strin
-     g EventEndDate} into a {@code endDate}.
+     * Parses a {@code String EventEndDate} into a {@code endDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code EventEndDate} is invalid.
+     * @throws ParseException if the given {@code EventDate} is invalid.
      */
-    public static EventEndDate parseEndDate(String endDate) throws ParseException {
-        requireNonNull(endDate);
-        String trimmed = endDate.trim();
-        if (!EventEndDate.isValidEndDate(trimmed)) {
-            throw new ParseException(EventEndDate.MESSAGE_CONSTRAINTS);
+    public static EventDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmed = date.trim();
+        if (!EventDate.isValidDate(trimmed)) {
+            throw new ParseException(EventDate.MESSAGE_CONSTRAINTS);
         }
-        LocalDate newEndDate = LocalDate.parse(trimmed, FORMATTER);
-        return new EventEndDate(newEndDate);
+        LocalDate newDate = LocalDate.parse(trimmed, FORMATTER);
+        return new EventDate(newDate);
     }
 
     /**

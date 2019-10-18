@@ -38,7 +38,10 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-            new Event()
+            new Event(new EventName("Musical"), new EventVenue("NUS"), new EventManpowerNeeded("5"),
+                    new EventDate(LocalDate.of(2019, 10, 20)),
+                    new EventDate(LocalDate.of(2019, 10, 20)),
+                            getTagSet("Music"))
         };
     }
 

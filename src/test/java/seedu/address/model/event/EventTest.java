@@ -12,15 +12,13 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.tag.Tag;
 
 class EventTest {
-    private final EventId id = new EventId();
     private final EventName name = new EventName("Orchestra");
     private final EventVenue venue = new EventVenue("Esplanade");
-    private final EventHoursNeeded hoursNeeded = new EventHoursNeeded("20");
     private final EventManpowerNeeded manpowerNeeded = new EventManpowerNeeded("10");
-    private final EventStartDate startDate = new EventStartDate(LocalDate.of(2019, 10, 20));
-    private final EventEndDate endDate = new EventEndDate(LocalDate.of(2019, 10, 25));
+    private final EventDate startDate = new EventDate(LocalDate.of(2019, 10, 20));
+    private final EventDate endDate = new EventDate(LocalDate.of(2019, 10, 25));
     private final Set<Tag> tags = new HashSet<>();
-    private final Event eventTest = new Event(id, name, venue, hoursNeeded,
+    private final Event eventTest = new Event(name, venue,
             manpowerNeeded, startDate, endDate, tags);
 
     @Test
@@ -28,10 +26,9 @@ class EventTest {
         //same object --> Return true;
         assertTrue(eventTest.isSameEvent(eventTest));
 
-        Event newEventTest = new Event(new EventId(), name, venue,
-                hoursNeeded, manpowerNeeded, startDate, endDate, tags);
+        Event newEventTest = new Event(name, venue, manpowerNeeded,
+                new EventDate(LocalDate.of(2019, 10, 21)), endDate, tags);
 
-        //No two events have the same ID
         assertFalse(eventTest.isSameEvent(newEventTest));
     }
 
