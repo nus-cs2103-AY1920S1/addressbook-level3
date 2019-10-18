@@ -28,6 +28,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModelHistory;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -230,6 +231,21 @@ public class AddCommandTest {
 
         @Override
         public void setPrimary(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBudgetWithName(Description targetDescription) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Budget getPrimaryBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void switchBudgetTo(Description targetDescription) {
             throw new AssertionError("This method should not be called.");
         }
 

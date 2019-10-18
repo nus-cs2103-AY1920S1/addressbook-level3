@@ -50,7 +50,7 @@ public class ModelManager implements Model {
         this.modelHistory = new ModelHistory(modelHistory);
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
-       // filteredBudgets = new FilteredList<>(this.addressBook.getBudgetList());
+        //filteredBudgets = new FilteredList<>(this.addressBook.getBudgetList());
     }
 
     public ModelManager() {
@@ -359,15 +359,15 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
-  //  @Override
+    //@Override
     //public ObservableList<Budget> getFilteredBudgetList() {
-     //   return filteredBudgets;
+    //   return filteredBudgets;
     //}
 
     //@Override
     //public void updateFilteredBudgetList(Predicate<Budget> predicate) {
-      //  requireNonNull(predicate);
-        //filteredBudgets.setPredicate(predicate);
+    //  requireNonNull(predicate);
+    //  filteredBudgets.setPredicate(predicate);
     //}
 
     @Override

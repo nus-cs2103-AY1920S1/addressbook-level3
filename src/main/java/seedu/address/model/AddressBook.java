@@ -174,15 +174,29 @@ public class AddressBook implements ReadOnlyAddressBook {
         budgets.add(budget);
     }
 
+    /**
+     * Checks whether address book has a budget with the specified name.
+     * @param targetDescription The description (i.e. name) of the budget to check.
+     * @return A boolean indicating whether the address book has such budget.
+     */
     public boolean hasBudgetWithName(Description targetDescription) {
         requireNonNull(targetDescription);
         return budgets.hasBudgetWithName(targetDescription);
     }
 
+    /**
+     * Returns the primary budget in the address book.
+     * @return The primary budget in the address book.
+     */
     public Budget getPrimaryBudget() {
         return budgets.getPrimaryBudget();
     }
 
+    /**
+     * Switches the primary budget to the budget with the specified name.
+     *
+     * @param targetDescription The name of the budget to be switched to.
+     */
     public void switchBudgetTo(Description targetDescription) {
         Budget targetBudget = budgets.getBudgetWithName(targetDescription);
         budgets.setPrimary(targetBudget);
