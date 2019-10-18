@@ -50,7 +50,11 @@ public class JsonSerializableWasteList {
     public WasteList toModelType() throws IllegalValueException {
         /*********************************
          * CHANGE THIS PART
+         *
+         * Instead of returning a WasteList object, should return a TreeMap object, which is used to initialize
+         * the wasteArchive.
          **********************************/
+
         WasteList wasteList = new WasteList(new WasteMonth(LocalDate.now()));
         for (JsonAdaptedFood jsonAdaptedFood : this.wasteList) {
             GroceryItem food = jsonAdaptedFood.toModelType();

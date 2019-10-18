@@ -10,7 +10,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.food.Amount;
 import seedu.address.model.food.GroceryItem;
 
 /**
@@ -49,7 +48,6 @@ public class DeleteGroceryCommand extends Command {
         }
 
         model.deleteGroceryItem(groceryItemToDelete);
-        
         CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_GROCERY_ITEM_SUCCESS,
                 groceryItemToDelete));
         result.setWastelistCommand();
