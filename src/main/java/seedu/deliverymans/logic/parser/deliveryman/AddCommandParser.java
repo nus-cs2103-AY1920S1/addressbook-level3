@@ -3,7 +3,9 @@ package seedu.deliverymans.logic.parser.deliveryman;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.deliverymans.logic.commands.deliveryman.AddCommand;
@@ -15,6 +17,7 @@ import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
+import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
@@ -38,9 +41,9 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        // Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Deliveryman deliveryman = new Deliveryman(name, phone);
+        Deliveryman deliveryman = new Deliveryman(name, phone, tagList);
 
         return new AddCommand(deliveryman);
     }
