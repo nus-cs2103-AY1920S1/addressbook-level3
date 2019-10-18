@@ -1,9 +1,6 @@
-package seedu.deliverymans.model.deliveryman.exceptions;
+package seedu.deliverymans.model.deliveryman;
 
 import java.util.List;
-
-import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 
 /**
  * A list that primarily focuses on the status of the deliverymen.

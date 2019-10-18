@@ -7,7 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.deliveryman.AddCommand;
 import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeleteCommand;
 import seedu.deliverymans.logic.commands.deliveryman.EditCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListAvailCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListCommand;
@@ -41,11 +43,16 @@ public class DeliverymanParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
-        // case add??
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
         case AssignCommand.COMMAND_WORD:
             return new AssignCommandParser().parse(arguments);
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

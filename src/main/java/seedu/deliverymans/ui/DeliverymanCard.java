@@ -1,7 +1,10 @@
 package seedu.deliverymans.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -24,6 +27,8 @@ public class DeliverymanCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label phone;
+    @FXML
+    private FlowPane tags;
 
     public DeliverymanCard(Deliveryman deliveryman, int displayedIndex) {
         super(FXML);
@@ -31,6 +36,9 @@ public class DeliverymanCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(deliveryman.getName().fullName);
         phone.setText(deliveryman.getPhone().value);
+        deliveryman.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

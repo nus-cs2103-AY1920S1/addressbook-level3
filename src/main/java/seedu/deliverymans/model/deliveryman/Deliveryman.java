@@ -2,10 +2,14 @@ package seedu.deliverymans.model.deliveryman;
 
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
+import seedu.deliverymans.model.Tag;
 
 /**
  * Represents a deliveryman
@@ -19,17 +23,27 @@ public class Deliveryman {
 
     // Data fields
     private final DeliveryHistory deliveryHistory;
+    private final Set<Tag> tags = new HashSet<>();
     private final boolean isAvailable;
 
     /**
      * Every field must be present and not null.
      */
-    public Deliveryman(Name name, Phone phone) {
+    public Deliveryman(Name name, Phone phone, Set<Tag> tags) {
         requireAllNonNull(name, phone);
         this.name = name;
         this.phone = phone;
+        this.tags.addAll(tags);
         deliveryHistory = null;
         isAvailable = false;
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
     public void setStatusTo(String status) {} // this class should have all attributes as final?
@@ -54,6 +68,7 @@ public class Deliveryman {
         return otherDeliveryman != null
                 && otherDeliveryman.getName().equals(getName())
                 && otherDeliveryman.getPhone().equals(getPhone());
+
     }
 
     /**
@@ -72,13 +87,14 @@ public class Deliveryman {
 
         Deliveryman otherPerson = (Deliveryman) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone());
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone);
+        return Objects.hash(name, phone, tags);
     }
 
     @Override
@@ -86,7 +102,9 @@ public class Deliveryman {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ")
-                .append(getPhone().toString());
+                .append(getPhone().toString())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 }

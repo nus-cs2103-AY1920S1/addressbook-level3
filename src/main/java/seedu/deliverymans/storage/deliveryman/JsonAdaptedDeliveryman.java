@@ -1,12 +1,20 @@
 package seedu.deliverymans.storage.deliveryman;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
+import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.storage.JsonAdaptedTag;
 
 
 /**
@@ -18,14 +26,19 @@ public class JsonAdaptedDeliveryman {
 
     private final String name;
     private final String phone;
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedDeliveryman} with the given deliveryman details.
      */
     @JsonCreator
-    public JsonAdaptedDeliveryman(@JsonProperty("name") String name, @JsonProperty("phone") String phone) {
+    public JsonAdaptedDeliveryman(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                                  @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
     }
 
     /**
@@ -34,6 +47,9 @@ public class JsonAdaptedDeliveryman {
     public JsonAdaptedDeliveryman(Deliveryman source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
+        tagged.addAll(source.getTags().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -42,6 +58,11 @@ public class JsonAdaptedDeliveryman {
      * @throws IllegalValueException if there were any data constraints violated in the adapted deliveryman.
      */
     public Deliveryman toModelType() throws IllegalValueException {
+        final List<Tag> deliverymanTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tagged) {
+            deliverymanTags.add(tag.toModelType());
+        }
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -58,7 +79,8 @@ public class JsonAdaptedDeliveryman {
         }
         final Phone modelPhone = new Phone(phone);
 
-        return new Deliveryman(modelName, modelPhone);
+        final Set<Tag> modelTags = new HashSet<>(deliverymanTags);
+        return new Deliveryman(modelName, modelPhone, modelTags);
     }
 
 }

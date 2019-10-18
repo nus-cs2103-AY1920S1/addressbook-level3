@@ -77,11 +77,11 @@ public class MainApp extends Application {
                 new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CustomerDatabaseStorage customerDatabaseStorage =
                 new JsonCustomerDatabaseStorage(userPrefs.getCustomerDatabaseFilePath());
+        DeliverymenDatabaseStorage deliverymenDatabaseStorage =
+                new JsonDeliverymenDatabaseStorage(userPrefs.getDeliverymenDatabaseFilePath());
         RestaurantDatabaseStorage restaurantDatabaseStorage =
                 new JsonRestaurantDatabaseStorage(userPrefs.getRestaurantDatabaseFilePath());
         OrderDatabaseStorage orderDatabaseStorage = new JsonOrderDatabaseStorage(userPrefs.getOrderBookFilePath());
-        DeliverymenDatabaseStorage deliverymenDatabaseStorage =
-                new JsonDeliverymenDatabaseStorage(userPrefs.getDeliverymenDatabaseFilePath());
 
         storage = new StorageManager(addressBookStorage, customerDatabaseStorage, deliverymenDatabaseStorage,
                 restaurantDatabaseStorage, orderDatabaseStorage, userPrefsStorage);
