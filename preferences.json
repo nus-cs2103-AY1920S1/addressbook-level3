@@ -10,5 +10,6 @@
   "addressBookFilePath" : "data\\addressbook.json",
   "studentRecordFilePath" : "data\\students.json",
   "savedQuestionsFilePath" : "data\\questions.json",
-  "notesRecordFilePath" : "data\\notes.json"
+  "notesRecordFilePath" : "data\\notes.json",
+
 }
