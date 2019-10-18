@@ -2,10 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Reminder;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 import seedu.address.model.spending.UniqueSpendingList;
@@ -18,6 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueSpendingList spendings;
     private final Budget budget;
+    private List<Reminder> reminders;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         spendings = new UniqueSpendingList();
         budget = new Budget(0);
+        reminders = new ArrayList<>();
     }
 
     public AddressBook() {}
@@ -59,6 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setSpendings(newData.getSpendingList());
         setBudget(newData.getBudget());
+        setReminders(newData.getReminderList());
     }
 
     //// Spending-level operations
@@ -99,6 +104,30 @@ public class AddressBook implements ReadOnlyAddressBook {
         spendings.remove(key);
     }
 
+    //// Reminder-level operations
+
+    /**
+     * Replaces the contents of the Reminder list with {@code reminders}.
+     */
+    public void setReminders(List<Reminder> reminders) {
+        this.reminders = reminders;
+    }
+
+    /**
+     * Adds a Reminder to the reminder list.
+     */
+    public void addReminder(Reminder r) {
+        reminders.add(r);
+    }
+
+    /**
+     * Removes {@code key} from this {@code  Reminderlist}.
+     * {@code key} must exist in the Reminder list.
+     */
+    public void removeReminder(Reminder key) {
+        reminders.remove(key);
+    }
+
     //// Budget related operations
 
     @Override
@@ -124,6 +153,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Spending> getSpendingList() {
         return spendings.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public List<Reminder> getReminderList() {
+        return reminders;
     }
 
     @Override
