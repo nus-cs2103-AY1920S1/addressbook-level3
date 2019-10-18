@@ -3,8 +3,10 @@ package seedu.jarvis.model.financetracker;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.address.person.exceptions.DuplicateInstallmentException;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
@@ -14,52 +16,47 @@ import seedu.jarvis.model.financetracker.installment.Installment;
  * Manages a list of instalments saved by the user.
  */
 public class InstallmentList {
-    private ArrayList<Installment> allInstallments;
+    private ObservableList<Installment> internalInstallmentList = FXCollections.observableArrayList();
+    private final ObservableList<Installment> internalUnmodifiableInstallmentList =
+            FXCollections.unmodifiableObservableList(internalInstallmentList);
     private double totalMoneySpentOnInstallments;
 
     /**
      * Default constructor to be used when JARVIS starts up.
      */
-    public InstallmentList(ArrayList<Installment> allInstallments) {
-        this.allInstallments = allInstallments;
-        this.totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
+    public InstallmentList() {
+        totalMoneySpentOnInstallments = 0;
     }
 
     //=========== Reset Methods ==================================================================================
 
     /**
-     * Empty constructor to be used when there are no instalments previously stored by the user.
-     */
-    public InstallmentList() {
-        allInstallments = new ArrayList<>();
-        totalMoneySpentOnInstallments = 0;
-    }
-
-    /**
      * Constructs an InstallmentList with reference from another InstallmentList,
      * updating all existing fields from another InstallmentList.
      */
-    public InstallmentList(InstallmentList installmentList) {
-        this();
-        resetData(installmentList);
+    public InstallmentList(ObservableList<Installment> internalInstallmentList) {
+        requireNonNull(internalInstallmentList);
+        this.internalInstallmentList = internalInstallmentList;
     }
 
-    /**
-     * Resets all data from {@code allInstallments} and {@code totalMoneySpentOnInstallments}
-     * from the given {@code installmentList}.
-     *
-     * @param installmentList
-     */
-    public void resetData(InstallmentList installmentList) {
-        requireNonNull(installmentList);
-        this.allInstallments = installmentList.getAllInstallments();
-        this.totalMoneySpentOnInstallments = installmentList.getTotalMoneySpentOnInstallments();
+    public void setInstallments(List<Installment> listInstallments) {
+        requireNonNull(listInstallments);
+
+        internalInstallmentList.setAll(listInstallments);
     }
 
     //=========== Getter Methods ==================================================================================
 
     public double getTotalMoneySpentOnInstallments() {
-        return totalMoneySpentOnInstallments;
+        return calculateTotalInstallmentSpending();
+    }
+
+    public ObservableList<Installment> getInternalInstallmentList() {
+        return internalInstallmentList;
+    }
+
+    public ObservableList<Installment> asUnmodifiableObservableList() {
+        return internalUnmodifiableInstallmentList;
     }
 
     /**
@@ -72,52 +69,18 @@ public class InstallmentList {
     public Installment getInstallment(int installmentNumber) throws InstallmentNotFoundException {
         try {
             Index index = Index.fromOneBased(installmentNumber);
-            return allInstallments.get(index.getZeroBased());
+            return internalInstallmentList.get(index.getZeroBased());
         } catch (IndexOutOfBoundsException e) {
             throw new InstallmentNotFoundException();
         }
     }
 
-    public int getNumInstallments() {
-        return allInstallments.size();
-    }
-
-    public ArrayList<Installment> getAllInstallments() {
-        return allInstallments;
-    }
-
-    //=========== Command Methods ==================================================================================
-
     /**
-     * Add installment to the list of installments
-     * @param newInstallment to be added
+     * Returns true if the list contains an equivalent installment as the given argument.
      */
-    public void addInstallment(Installment newInstallment) {
-        allInstallments.add(newInstallment);
-        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
-    }
-
-    /**
-     * Replaces the installment {@code target} in the list with {@code editedInstallment}.
-     *
-     * {@code target} must exist in the list.
-     * The identity of {@code editedInstallment} must not be the same as another existing installment in the
-     * list.
-     */
-    public void setInstallment(Installment target, Installment editedInstallment) {
-        requireAllNonNull(target, editedInstallment);
-
-        int index = allInstallments.indexOf(target);
-        if (index == -1) {
-            throw new InstallmentNotFoundException();
-        }
-
-        if (!target.isSameInstallment(editedInstallment) && contains(editedInstallment)) {
-            throw new DuplicateInstallmentException();
-        }
-
-        allInstallments.set(index, editedInstallment);
-        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
+    private boolean contains(Installment toCheck) {
+        requireNonNull(toCheck);
+        return internalInstallmentList.stream().anyMatch(toCheck::isSameInstallment);
     }
 
     /**
@@ -130,14 +93,22 @@ public class InstallmentList {
         return this.contains(installment);
     }
 
-    /**
-     * Returns true if the list contains an equivalent installment as the given argument.
-     */
-    private boolean contains(Installment toCheck) {
-        requireNonNull(toCheck);
-        return allInstallments.stream().anyMatch(toCheck::isSameInstallment);
+    public int getNumInstallments() {
+        return internalInstallmentList.size();
     }
 
+    //=========== Command Methods ==================================================================================
+
+    /**
+     * Add installment to the list of installments.
+     *
+     * @param newInstallment to be added
+     */
+    public void addInstallment(Installment newInstallment) {
+        requireNonNull(newInstallment);
+        internalInstallmentList.add(newInstallment);
+        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
+    }
 
     /**
      * Deletes instalment from the list of instalments based on the instalment number.
@@ -149,11 +120,35 @@ public class InstallmentList {
     public Installment deleteInstallment(int installmentNumber) throws InstallmentNotFoundException {
         try {
             Index index = Index.fromOneBased(installmentNumber);
+            Installment deletedInstallment = internalInstallmentList.remove(index.getZeroBased());
             totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
-            return allInstallments.remove(index.getZeroBased());
+            return deletedInstallment;
         } catch (IndexOutOfBoundsException e) {
             throw new InstallmentNotFoundException();
         }
+    }
+
+    /**
+     * Replaces the installment {@code target} in the list with {@code editedInstallment}.
+     *
+     * {@code target} must exist in the list.
+     * The identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * list.
+     */
+    public void setInstallment(Installment target, Installment editedInstallment) {
+        requireAllNonNull(target, editedInstallment);
+
+        int index = internalInstallmentList.indexOf(target);
+        if (index == -1) {
+            throw new InstallmentNotFoundException();
+        }
+
+        if (!target.isSameInstallment(editedInstallment) && contains(editedInstallment)) {
+            throw new DuplicateInstallmentException();
+        }
+
+        internalInstallmentList.set(index, editedInstallment);
+        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
     }
 
     /**
@@ -163,7 +158,7 @@ public class InstallmentList {
      */
     private double calculateTotalInstallmentSpending() {
         double amount = 0;
-        for (Installment instalment : allInstallments) {
+        for (Installment instalment : internalInstallmentList) {
             amount += instalment.getMoneySpentOnInstallment().getInstallmentMoneyPaid();
         }
         return amount;
@@ -172,19 +167,20 @@ public class InstallmentList {
     //=========== Common Methods ==================================================================================
 
     @Override
-    public String toString() {
-        String lstInstallments = "Here are your current subscriptions: + \n";
-        int index = 1;
-        for (Installment installment : allInstallments) {
-            lstInstallments += index + ". " + installment.toString();
-        }
-        return lstInstallments;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof InstallmentList // instanceof handles nulls
-                && allInstallments.equals(((InstallmentList) other).allInstallments));
+                && internalInstallmentList.equals(((InstallmentList) other).internalInstallmentList));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are your current subscriptions: ");
+        for (Installment installment : internalInstallmentList) {
+            sb.append(installment);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

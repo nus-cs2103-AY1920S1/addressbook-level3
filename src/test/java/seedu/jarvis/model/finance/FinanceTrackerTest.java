@@ -3,14 +3,13 @@ package seedu.jarvis.model.finance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.InstallmentList;
-import seedu.jarvis.model.financetracker.PurchaseList;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
@@ -29,16 +28,16 @@ public class FinanceTrackerTest {
     @BeforeEach
     public void setUp() {
         financeTracker = new FinanceTracker();
-        ArrayList<Purchase> allPurchases = new ArrayList<>();
+        ObservableList<Purchase> allPurchases = FXCollections.observableArrayList();
         allPurchases.add(new PurchaseStub());
         allPurchases.add(new PurchaseStub());
         allPurchases.add(new PurchaseStub());
-        financeTracker.setPurchaseList(new PurchaseList(allPurchases));
-        ArrayList<Installment> allInstalments = new ArrayList<>();
+        financeTracker.setPurchaseList(allPurchases);
+        ObservableList<Installment> allInstalments = FXCollections.observableArrayList();;
         allInstalments.add(new InstallmentStub());
         allInstalments.add(new InstallmentStub());
         allInstalments.add(new InstallmentStub());
-        financeTracker.setInstallmentList(new InstallmentList(allInstalments));
+        financeTracker.setInstallmentList(allInstalments);
     }
 
     @Test

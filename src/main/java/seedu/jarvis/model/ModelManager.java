@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -205,24 +204,19 @@ public class ModelManager implements Model {
         return financeTracker;
     }
 
-    /**
-     * Replaces {@code FinanceTracker} data with the data in {@code FinanceTracker} given as argument.
-     *
-     * @param financeTracker {@code FinanceTracker} data to be used.
-     */
-    @Override
-    public void setFinanceTracker(FinanceTracker financeTracker) {
-        this.financeTracker.resetData(financeTracker);
-    }
-
     @Override
     public Purchase getPurchase(int paymentIndex) {
         return financeTracker.getPurchase(paymentIndex);
     }
 
     @Override
-    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
-        return financeTracker.getInstallment(instalIndex);
+    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+        financeTracker.updateFilteredPurchaseList(predicate);
+    }
+
+    @Override
+    public ObservableList<Purchase> getFilteredPurchaseList() {
+        return financeTracker.getFilteredPurchaseList();
     }
 
     /**
@@ -241,8 +235,23 @@ public class ModelManager implements Model {
      * @param itemNumber
      */
     @Override
-    public void deletePurchase(int itemNumber) throws PurchaseNotFoundException {
-        financeTracker.deleteSinglePurchase(itemNumber);
+    public Purchase deletePurchase(int itemNumber) throws PurchaseNotFoundException {
+        return financeTracker.deleteSinglePurchase(itemNumber);
+    }
+
+    @Override
+    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
+        return financeTracker.getInstallment(instalIndex);
+    }
+
+    @Override
+    public void updateFilteredInstallmentList(Predicate<Installment> predicate) {
+
+    }
+
+    @Override
+    public ObservableList<Installment> getFilteredInstallmentList() {
+        return financeTracker.getFilteredInstallmentList();
     }
 
     /**
@@ -273,26 +282,6 @@ public class ModelManager implements Model {
     @Override
     public void setInstallment(Installment target, Installment editedInstallment) {
         financeTracker.setInstallment(target, editedInstallment);
-    }
-
-    /**
-     * Retrieves list of all installments
-     *
-     * @return ArrayList
-     */
-    @Override
-    public ArrayList<Installment> getInstallmentList() {
-        return financeTracker.getInstallmentList();
-    }
-
-    /**
-     * Retrieves list of all installments
-     *
-     * @return ArrayList
-     */
-    @Override
-    public ArrayList<Purchase> getPurchaseList() {
-        return financeTracker.getPurchaseList();
     }
 
     /**
