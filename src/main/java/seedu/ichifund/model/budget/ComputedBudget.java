@@ -29,6 +29,13 @@ public class ComputedBudget extends Budget {
         this.spending = spending;
     }
 
+    public ComputedBudget(Budget budget, Amount spending) {
+        super(budget.getDescription(), budget.getAmount(), budget.getMonth(),
+                budget.getYear(), budget.getCategory());
+        requireAllNonNull(spending);
+        this.spending = spending;
+    }
+
     public Amount getSpending() {
         return spending;
     }
