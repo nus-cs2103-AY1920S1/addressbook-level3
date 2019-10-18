@@ -7,6 +7,9 @@ import java.util.Calendar;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Changes the view of the agenda to show the date specified by user.
+ */
 public class ScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "schedule";
