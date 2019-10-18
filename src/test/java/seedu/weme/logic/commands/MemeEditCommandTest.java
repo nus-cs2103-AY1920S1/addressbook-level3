@@ -47,6 +47,7 @@ public class MemeEditCommandTest {
         Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
                 new UserPrefs(), model.getStatsEngine());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
+        expectedModel.commitMemeBook();
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
@@ -81,8 +82,9 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
-                new UserPrefs(), model.getStatsEngine());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs(),
+                model.getStatsEngine());
+        expectedModel.commitMemeBook();
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
@@ -101,6 +103,7 @@ public class MemeEditCommandTest {
         Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
                 new UserPrefs(), model.getStatsEngine());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
+        expectedModel.commitMemeBook();
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }

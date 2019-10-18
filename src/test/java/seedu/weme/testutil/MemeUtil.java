@@ -3,7 +3,11 @@ package seedu.weme.testutil;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.weme.model.util.MemeUtil.copyMeme;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Set;
 
 import seedu.weme.logic.commands.MemeAddCommand;
@@ -41,7 +45,7 @@ public class MemeUtil {
      */
     public static String getEditMemeDescriptorDetails(EditMemeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getFilePath().ifPresent(path -> sb.append(PREFIX_FILEPATH).append(path.toString()).append(" "));
+        //descriptor.getFilePath().ifPresent(path -> sb.append(PREFIX_FILEPATH).append(path.toString()).append(" "));
         descriptor.getDescription().ifPresent(description ->
                 sb.append(PREFIX_DESCRIPTION).append(description.value).append(" "));
         if (descriptor.getTags().isPresent()) {
@@ -54,4 +58,19 @@ public class MemeUtil {
         }
         return sb.toString();
     }
+
+    /**
+     * Similar to {@link seedu.weme.model.util.MemeUtil#copyMeme(Meme, Path)}, except this method deletes the copied
+     * image file immediately afterwards.
+     *
+     * @param toCopy       the {@code Meme} to copy
+     * @param memeLocation the meme image location
+     * @return a new {@code Meme} with the new {@code ImagePath}.
+     */
+    public static Meme generateCopiedMeme(Meme toCopy, Path memeLocation) throws IOException {
+        Meme copied = copyMeme(toCopy, memeLocation);
+        Files.delete(copied.getFilePath().getFilePath());
+        return copied;
+    }
+
 }

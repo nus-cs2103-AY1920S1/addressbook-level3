@@ -39,14 +39,34 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' meme book file path.
+     * Returns the user prefs' data file path.
      */
-    Path getMemeBookFilePath();
+    Path getDataFilePath();
 
     /**
-     * Sets the user prefs' meme book file path.
+     * Sets the user prefs' data file path.
      */
-    void setMemeBookFilePath(Path memeBookFilePath);
+    void setDataFilePath(Path dataFilePath);
+
+    /**
+     * Returns the user prefs' meme image path.
+     */
+    Path getMemeImagePath();
+
+    /**
+     * Sets the user prefs' meme image path.
+     */
+    void setMemeImagePath(Path memeImagePath);
+
+    /**
+     * Returns the user prefs' template image path.
+     */
+    Path getTemplateImagePath();
+
+    /**
+     * Sets the user prefs' template image path.
+     */
+    void setTemplateImagePath(Path templateImagePath);
 
     /**
      * Replaces meme book data with the data in {@code memeBook}.
@@ -95,6 +115,31 @@ public interface Model {
      * Returns the context of the model.
      */
     SimpleObjectProperty<ModelContext> getContext();
+
+    /**
+     * Returns true if model has a previous state to restore.
+     */
+    boolean canUndoMemeBook();
+
+    /**
+     * Returns true if model has a undone state to restore.
+     */
+    boolean canRedoMemeBook();
+
+    /**
+     * Restores the model's meme book to its previous state.
+     */
+    void undoMemeBook();
+
+    /**
+     * Restores the mode's meme book to its previously undone state.
+     */
+    void redoMemeBook();
+
+    /**
+     * Saves the current meme book state for undo/redo.
+     */
+    void commitMemeBook();
 
     /**
      * Sets the context of the model.

@@ -110,4 +110,19 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredMemeList().size());
     }
 
+    /**
+     * Deletes
+     */
+    public static void deleteFirstMeme(Model model) {
+        int initialSize = model.getFilteredMemeList().size();
+
+        assertTrue(initialSize > 0);
+
+        Meme firstMeme = model.getFilteredMemeList().get(0);
+        model.deleteMeme(firstMeme);
+        model.commitMemeBook();
+
+        assertTrue(initialSize - 1 == model.getFilteredMemeList().size());
+    }
+
 }

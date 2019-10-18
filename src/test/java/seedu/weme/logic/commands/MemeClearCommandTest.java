@@ -17,6 +17,7 @@ public class MemeClearCommandTest {
     public void execute_emptyMemeBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
+        expectedModel.commitMemeBook();
 
         assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -26,6 +27,7 @@ public class MemeClearCommandTest {
         Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
         Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
         expectedModel.setMemeBook(new MemeBook());
+        expectedModel.commitMemeBook();
 
         assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

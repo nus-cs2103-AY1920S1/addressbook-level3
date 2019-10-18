@@ -7,5 +7,7 @@
       "y" : 100
     }
   },
-  "wemeFilePath" : "weme.json"
+  "dataFilePath" : "data/weme.json",
+  "memeImagePath": "data/memes",
+  "templateImagePath": "data/templates"
 }

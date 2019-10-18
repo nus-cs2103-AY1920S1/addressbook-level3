@@ -11,7 +11,11 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getMemeBookFilePath();
+    Path getDataFilePath();
+
+    Path getMemeImagePath();
+
+    Path getTemplateImagePath();
 
     Path getStatsDataFilePath();
 }

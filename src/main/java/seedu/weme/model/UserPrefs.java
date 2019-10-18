@@ -14,7 +14,9 @@ import seedu.weme.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path wemeFilePath = Paths.get("data" , "weme.json");
+    private Path dataFilePath = Paths.get("data" , "weme.json");
+    private Path memeImagePath = Paths.get("data", "memes");
+    private Path templateImagePath = Paths.get("data", "templates");
     private Path statsDataFilePath = Paths.get("data" , "stats.json");
 
     /**
@@ -36,7 +38,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setMemeBookFilePath(newUserPrefs.getMemeBookFilePath());
+        setDataFilePath(newUserPrefs.getDataFilePath());
+        setMemeImagePath(newUserPrefs.getMemeImagePath());
+        setTemplateImagePath(newUserPrefs.getTemplateImagePath());
         setStatsDataFilePath(newUserPrefs.getStatsDataFilePath());
     }
 
@@ -49,13 +53,33 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getMemeBookFilePath() {
-        return wemeFilePath;
+    public Path getDataFilePath() {
+        return dataFilePath;
     }
 
-    public void setMemeBookFilePath(Path memeBookFilePath) {
-        requireNonNull(memeBookFilePath);
-        this.wemeFilePath = memeBookFilePath;
+    public void setDataFilePath(Path dataFilePath) {
+        requireNonNull(dataFilePath);
+        this.dataFilePath = dataFilePath;
+    }
+
+    @Override
+    public Path getMemeImagePath() {
+        return memeImagePath;
+    }
+
+    public void setMemeImagePath(Path memeImagePath) {
+        requireNonNull(memeImagePath);
+        this.memeImagePath = memeImagePath;
+    }
+
+    @Override
+    public Path getTemplateImagePath() {
+        return templateImagePath;
+    }
+
+    public void setTemplateImagePath(Path templateImagePath) {
+        requireNonNull(templateImagePath);
+        this.templateImagePath = templateImagePath;
     }
 
     public Path getStatsDataFilePath() {
@@ -79,19 +103,23 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && wemeFilePath.equals(o.wemeFilePath);
+                && dataFilePath.equals(o.dataFilePath)
+                && memeImagePath.equals(o.memeImagePath)
+                && templateImagePath.equals(o.templateImagePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, wemeFilePath);
+        return Objects.hash(guiSettings, dataFilePath, memeImagePath, templateImagePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + wemeFilePath);
+        sb.append("\nLocal data file location : " + dataFilePath);
+        sb.append("\nMemes image location : " + memeImagePath);
+        sb.append("\nTemplate image location : " + templateImagePath);
         return sb.toString();
     }
 
