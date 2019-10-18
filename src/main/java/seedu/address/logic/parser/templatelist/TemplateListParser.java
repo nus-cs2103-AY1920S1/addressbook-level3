@@ -43,6 +43,9 @@ public class TemplateListParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        case TemplateItemParser.LIST_TYPE_WORD:
+            return new TemplateItemParser().parseCommand(arguments);
+
         case AddTemplateListCommand.COMMAND_WORD:
             return new AddTemplateListCommandParser().parse(arguments);
 
@@ -57,9 +60,6 @@ public class TemplateListParser {
 
         case ListTemplateListCommand.COMMAND_WORD:
             return new ListTemplateListCommand();
-
-        case TemplateItemParser.LIST_TYPE_WORD:
-            return new TemplateListParser().parseCommand(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.templatelist.template;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
 
@@ -25,10 +26,11 @@ public class DeleteTemplateItemCommandParser implements Parser<DeleteTemplateIte
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteTemplateItemCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ITEM_INDEX);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ITEM_INDEX) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ITEM_INDEX) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteTemplateItemCommand.MESSAGE_USAGE));
         }

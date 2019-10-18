@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.templatelist.template;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -29,6 +30,7 @@ public class AddTemplateItemCommandParser implements Parser<AddTemplateItemComma
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTemplateItemCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT);
 
@@ -41,7 +43,7 @@ public class AddTemplateItemCommandParser implements Parser<AddTemplateItemComma
                     AddTemplateItemCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTemplateItemCommand.MESSAGE_USAGE));
         }
