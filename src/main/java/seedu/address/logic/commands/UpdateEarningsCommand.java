@@ -65,7 +65,7 @@ public class UpdateEarningsCommand extends Command {
         List<Earnings> lastShownList = model.getFilteredEarningsList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EARNINGS_DISPLAYED_INDEX);
         }
 
         Earnings earningsToEdit = lastShownList.get(index.getZeroBased());
@@ -81,8 +81,8 @@ public class UpdateEarningsCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Person} with the details of {@code earningsToEdit}
+     * edited with {@code editEarningsDescriptor}.
      */
     private static Earnings createEditedEarnings(Earnings earningsToEdit,
                                                  EditEarningsDescriptor editEarningsDescriptor) {
@@ -103,7 +103,7 @@ public class UpdateEarningsCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof UpdateEarningsCommand)) {
             return false;
         }
 
