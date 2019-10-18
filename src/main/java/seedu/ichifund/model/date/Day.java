@@ -3,6 +3,8 @@ package seedu.ichifund.model.date;
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+
 /**
  * Represents a Day in a Date in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -34,6 +36,10 @@ public class Day implements Comparable<Day> {
      */
     public static boolean isValidDay(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public static Day getCurrent() {
+        return new Day(Integer.toString(LocalDate.now().getDayOfMonth()));
     }
 
     @Override

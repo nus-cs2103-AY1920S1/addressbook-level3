@@ -134,7 +134,8 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction transaction) {
         fundBook.addTransaction(transaction);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        TransactionContext newContext = transactionContext.getAccommodatingContext(transaction);
+        setTransactionContext(newContext);
     }
 
     @Override
@@ -211,7 +212,7 @@ public class ModelManager implements Model {
 
 
 
-    //=========== Filtered Repeater List Accessors =============================================================
+    //=========== Filtered Transaction List Accessors =============================================================
 
     @Override
     public ObservableList<Transaction> getFilteredTransactionList() {
@@ -229,8 +230,11 @@ public class ModelManager implements Model {
         updateFilteredTransactionList(transactionContext.getPredicate());
     }
 
-    @Override
-    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+    /**
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    private void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
     }

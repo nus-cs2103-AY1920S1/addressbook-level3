@@ -163,11 +163,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public TransactionContext getTransactionContext() {
             throw new AssertionError("This method should not be called.");
         }
