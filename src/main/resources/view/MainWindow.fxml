@@ -40,7 +40,10 @@
           </padding>		   
         </StackPane>
 		
-		<StackPane VBox.vgrow="NEVER" fx:id="test"  prefHeight="0">
+		<StackPane VBox.vgrow="NEVER" fx:id="editingRestaurantPlaceholder"  prefHeight="0" styleClass="pane-with-border">
+		  <padding>
+            <Insets top="10" right="10" bottom="0" left="10" />
+          </padding>
         </StackPane>
 		
 		<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="1" VBox.vgrow="ALWAYS">

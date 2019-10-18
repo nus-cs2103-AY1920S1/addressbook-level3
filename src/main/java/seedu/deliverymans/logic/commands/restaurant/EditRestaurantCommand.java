@@ -17,7 +17,7 @@ public class EditRestaurantCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the restaurant identified "
-            + "by the index number used in the displayed restaurant list. "
+            + "by the index number used in the displayed restaurant list.\n"
             + "Goes into editing mode for the identified restaurant.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";

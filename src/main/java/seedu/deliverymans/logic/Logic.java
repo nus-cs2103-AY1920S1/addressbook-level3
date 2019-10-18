@@ -67,6 +67,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of restaurants */
     ObservableList<Restaurant> getFilteredRestaurantList();
 
+    /** Returns an unmodifiable view of the editing restaurant */
+    ObservableList<Restaurant> getEditingRestaurantList();
+
     /**
      * Returns the user prefs' restaurant database file path.
      */

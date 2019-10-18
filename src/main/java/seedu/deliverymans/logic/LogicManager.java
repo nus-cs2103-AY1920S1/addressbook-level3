@@ -97,6 +97,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Restaurant> getEditingRestaurantList() {
+        return model.getEditingRestaurantList();
+    }
+
+    @Override
     public Path getRestaurantDatabaseFilePath() {
         return model.getRestaurantDatabaseFilePath();
     }

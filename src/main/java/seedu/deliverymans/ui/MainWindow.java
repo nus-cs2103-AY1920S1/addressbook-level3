@@ -47,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane editingRestaurantPlaceholder;
+
+    @FXML
     private StackPane listPanelPlaceholder;
 
     @FXML
@@ -182,6 +185,11 @@ public class MainWindow extends UiPart<Stage> {
         case RESTAURANT:
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+            break;
+        case EDITING:
+            editingRestaurantPlaceholder.setPrefHeight(125.0);
+            restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
+            editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
         default:
             // to be implemented with order list
