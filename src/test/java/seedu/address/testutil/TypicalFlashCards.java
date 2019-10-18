@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
 /**
@@ -99,5 +100,10 @@ public class TypicalFlashCards {
         return new ArrayList<>(
                 Arrays.asList(STORE_AND_FORWARD, DELAY, SOURCE_DELAY,
                         PROP_DELAY, TRANS_DELAY, THROUGHPUT, PROTOCOL));
+    }
+
+    public static List<Deadline> getTypicalDeadlines() {
+        return new ArrayList<>(
+                Arrays.asList());
     }
 }

@@ -9,4 +9,6 @@ public class TypicalIndexes {
     public static final Index INDEX_FIRST_FLASHCARD = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_FLASHCARD = Index.fromOneBased(2);
     public static final Index INDEX_THIRD_FLASHCARD = Index.fromOneBased(3);
+    public static final Index INDEX_FIRST_DEADLINE = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_DEADLINE = Index.fromOneBased(2);
 }
