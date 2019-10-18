@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="profile" styleClass="pane-with-border" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="profile" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
     <ImageView fx:id="displayPicture" fitHeight="76.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" />
       <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="true" styleClass="profile-scroll" HBox.hgrow="ALWAYS">
