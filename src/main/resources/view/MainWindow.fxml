@@ -46,7 +46,6 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
-
         <SplitPane dividerPositions="0.3492462311557789" focusTraversable="true" prefWidth="200.0">
           <VBox fx:id="foodList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
             <children>
@@ -65,7 +64,7 @@
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
           <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+          </VBox>
           <VBox fx:id="wasteList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
             <children>
               <Label text="Waste List"></Label>

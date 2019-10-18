@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -21,11 +22,15 @@ public class TemplateItemPanel extends UiPart<Region> {
 
     @FXML
     private ListView<TemplateItem> templateItemView;
+    //@FXML
+    //private Label name;
 
     public TemplateItemPanel(ObservableList<TemplateItem> templateItemList) {
         super(FXML);
         templateItemView.setItems(templateItemList);
         templateItemView.setCellFactory(listView -> new TemplateItemViewCell());
+        //name.setText(templateItemList.getName());
+
     }
 
     /**

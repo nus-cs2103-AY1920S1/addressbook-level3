@@ -25,7 +25,7 @@ public class DeleteTemplateItemCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS = "Deleted TemplateList Item: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted TemplateList Item: %1$s";
 
     private final Index targetTemplateIndex;
     private final Index targetItemIndex;
@@ -49,10 +49,14 @@ public class DeleteTemplateItemCommand extends Command {
         }
 
         TemplateItem itemToDelete = templateToEdit.get(targetItemIndex.getZeroBased());
-
         templateToEdit.remove(itemToDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS, itemToDelete));
+        model.setShownTemplate(templateToEdit);
+        model.updateFilteredTemplateToBeShown();
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, itemToDelete));
+        commandResult.setTemplateListItemCommand();
+
+        return commandResult;
     }
 
     @Override

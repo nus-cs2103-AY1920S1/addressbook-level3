@@ -17,7 +17,8 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    private boolean isTemplatelistCommand;
+    private boolean isTemplateListItemCommand;
+    private boolean isTemplateListCommand;
     private boolean isWastelistCommand;
 
     /**
@@ -49,13 +50,17 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isTemplatelistCommand() {
-        return isTemplatelistCommand;
+    public boolean isTemplateListItemCommand() {
+        return isTemplateListItemCommand;
     }
 
-    public void setTemplatelistCommand() {
-        isTemplatelistCommand = true;
+    public void setTemplateListItemCommand() {
+        isTemplateListItemCommand = true;
     }
+
+    public boolean isTemplateListCommand() { return isTemplateListCommand; }
+
+    public void setTemplateListCommand() {isTemplateListCommand = true; }
 
     public boolean isWastelistCommand() {
         return isWastelistCommand;

@@ -13,9 +13,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.food.GroceryItem;
-import seedu.address.model.food.ShoppingItem;
-import seedu.address.model.food.UniqueTemplateItems;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.food.*;
 import seedu.address.model.waste.WasteMonth;
 
 /**
@@ -31,8 +30,10 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<GroceryItem> filteredGroceryItems;
     private final FilteredList<UniqueTemplateItems> filteredTemplateList;
+    private FilteredList<TemplateItem> filteredShownTemplate;
     private FilteredList<GroceryItem> filteredWasteItems;
     private FilteredList<ShoppingItem> filteredShoppingItems;
+    private UniqueTemplateItems shownTemplate;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -51,10 +52,12 @@ public class ModelManager implements Model {
         this.wasteList = new WasteList(wasteList);
         this.shoppingList = new ShoppingList(shoppingList);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.shownTemplate = new UniqueTemplateItems(new Name("Displayed Template"));
         filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
         filteredTemplateList = new FilteredList<UniqueTemplateItems>(this.templateList.getTemplateList());
         filteredWasteItems = new FilteredList<GroceryItem>(this.wasteList.getWasteList());
         filteredShoppingItems = new FilteredList<ShoppingItem>(this.shoppingList.getShoppingList());
+        filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
 
     }
 
@@ -238,6 +241,14 @@ public class ModelManager implements Model {
         templateList.setTemplate(target, editedTemplate);
     }
 
+    //filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
+    // Methods supporting the toBeShown and FilteredTemplateToBeShown
+    @Override
+    public void setShownTemplate(UniqueTemplateItems templateToBeShown) {
+        requireNonNull(templateToBeShown);
+        shownTemplate = templateToBeShown;
+    }
+
     //=========== Filtered Template List Accessors =============================================================
 
     /**
@@ -253,6 +264,20 @@ public class ModelManager implements Model {
     public void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate) {
         requireNonNull(predicate);
         filteredTemplateList.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<TemplateItem> getFilteredTemplateToBeShown() {
+        filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
+
+        return filteredShownTemplate;
+    }
+
+    @Override
+    public ObservableList<TemplateItem> updateFilteredTemplateToBeShown() {
+        filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
+
+        return filteredShownTemplate;
     }
 
     //=========== WasteList ==================================================================================
@@ -385,6 +410,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredGroceryItems.equals(other.filteredGroceryItems)
                 && filteredTemplateList.equals(other.filteredTemplateList)
-                && filteredWasteItems.equals(other.filteredWasteItems);
+                && filteredWasteItems.equals(other.filteredWasteItems)
+                && filteredShownTemplate.equals(other.filteredShownTemplate);
     }
 }

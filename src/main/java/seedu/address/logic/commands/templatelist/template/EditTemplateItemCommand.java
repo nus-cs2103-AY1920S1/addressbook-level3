@@ -34,7 +34,7 @@ public class EditTemplateItemCommand extends Command {
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS = "Edited food item: %1$s";
+    public static final String MESSAGE_SUCCESS = "Food item %1$s edited to food item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index targetTemplateIndex;
@@ -75,7 +75,12 @@ public class EditTemplateItemCommand extends Command {
 
         templateToEdit.setTemplateItem(itemToEdit, editedItem);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS, editedItem));
+        model.setShownTemplate(templateToEdit);
+        model.updateFilteredTemplateToBeShown();
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, itemToEdit, editedItem));
+        commandResult.setTemplateListItemCommand();
+
+        return commandResult;
     }
 
     /**

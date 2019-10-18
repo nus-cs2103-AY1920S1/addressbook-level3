@@ -33,7 +33,7 @@ public class EditTemplateListCommand extends Command {
             + " " + PREFIX_NAME + "NAME "
             + "Example: " + COMMAND_WORD + " 1 n/Meat ";
 
-    public static final String MESSAGE_EDIT_TEMPLATE_SUCCESS = "Edited template: %1$s";
+    public static final String MESSAGE_SUCCESS = "Edited template: %1$s";
     public static final String MESSAGE_NOT_EDITED = "Name field must be provided.";
 
     private final Index index;
@@ -65,7 +65,11 @@ public class EditTemplateListCommand extends Command {
 
         model.setTemplate(templateToEdit, editedTemplate);
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
-        return new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
+
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, templateToEdit.getName()));
+        commandResult.setTemplateListCommand();
+
+        return commandResult;
     }
 
     /**

@@ -61,8 +61,13 @@ public class AddTemplateItemCommand extends Command {
         }
 
         templateToEdit.add(toAdd);
+        model.setShownTemplate(templateToEdit);
+        model.updateFilteredTemplateToBeShown();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        commandResult.setTemplateListItemCommand();
+
+        return commandResult;
     }
 
     @Override

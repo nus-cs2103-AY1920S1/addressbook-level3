@@ -172,7 +172,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
     }
 
     public ObservableList<TemplateItem> getTemplate() {
-        return internalUnmodifiableList;
+        return this.internalUnmodifiableList;
     }
 
     /**
