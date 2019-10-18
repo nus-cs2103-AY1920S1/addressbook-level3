@@ -149,7 +149,8 @@ public class StorageManager implements Storage {
         phoneBookStorage.savePhoneBook(phoneBook, filePath);
     }
 
-    // ================ ScheduleBook methods ==============================
+    // ================ Schedule DataBook
+    // methods ==============================
 
     @Override
     public Path getScheduleBookFilePath() {

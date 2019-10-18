@@ -387,7 +387,7 @@ public class ModelManager implements Model {
         filteredOrders.setPredicate(predicate);
     }
 
-    //=========== ScheduleBook ================================================================================
+    //=========== Schedule DataBook ================================================================================
 
     @Override
     public void setScheduleBook(ReadOnlyDataBook<Schedule> scheduleBook) {

@@ -20,7 +20,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ScheduleBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
@@ -158,7 +157,7 @@ public class MainApp extends Application {
         //ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
         //ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
         //ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
-        return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, new ScheduleBook(), userPrefs);
+        return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, new DataBook<>(), userPrefs);
     }
 
     private void initLogging(Config config) {

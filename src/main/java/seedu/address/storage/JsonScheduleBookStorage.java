@@ -16,7 +16,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.schedule.Schedule;
 
 /**
- * A class to access ScheduleBook data stored as a json file on the hard disk.
+ * A class to access Schedule DataBook data stored as a json file on the hard disk.
  */
 public class JsonScheduleBookStorage implements ScheduleBookStorage {
 
