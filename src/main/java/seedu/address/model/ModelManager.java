@@ -127,13 +127,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getWasteListFilePath() {
-        return userPrefs.getWasteListFilePath();
+        return userPrefs.getWasteArchiveFilePath();
     }
 
     @Override
     public void setWasteListFilePath(Path wasteListFilePath) {
         requireAllNonNull(wasteListFilePath);
-        userPrefs.setWasteListFilePath(wasteListFilePath);
+        userPrefs.setWasteArchiveFilePath(wasteListFilePath);
     }
 
     @Override

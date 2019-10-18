@@ -23,7 +23,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.ShoppingList;
 import seedu.address.model.TemplateList;
 import seedu.address.model.UserPrefs;
@@ -72,7 +71,7 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TemplateListStorage templateListStorage = new JsonTemplateListStorage(userPrefs.getTemplateListFilePath());
-        WasteListStorage wasteListStorage = new JsonWasteListStorage(userPrefs.getWasteListFilePath());
+        WasteListStorage wasteListStorage = new JsonWasteListStorage(userPrefs.getWasteArchiveFilePath());
         ShoppingListStorage shoppingListStorage = new JsonShoppingItemStorage(userPrefs.getShoppingListFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage, wasteListStorage,
                 shoppingListStorage);
@@ -137,29 +136,27 @@ public class MainApp extends Application {
     }
 
     private TreeMap<WasteMonth, WasteList> initModelManagerWaste(Storage storage) {
-        //For now, will demo with sample data first.
 
         Optional<TreeMap<WasteMonth, WasteList>> wasteListOptional;
         TreeMap<WasteMonth, WasteList> initialWasteArchiveData;
 
         WasteList.initialiseWasteArchive();
-        initialWasteArchiveData = SampleDataUtil.getSampleWasteArchive();
 
-        /*
+
         try {
             wasteListOptional = storage.readWasteList();
             if (!wasteListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample WasteList");
             }
-            initialWasteListData = wasteListOptional.orElseGet(SampleDataUtil::getSampleWasteList);
+            initialWasteArchiveData = wasteListOptional.orElseGet(SampleDataUtil::getSampleWasteArchive);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty WasteList");
-            initialWasteListData = new WasteList();
+            initialWasteArchiveData = new TreeMap<>();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty WasteList");
-            initialWasteListData = new WasteList();
+            initialWasteArchiveData = new TreeMap<>();
         }
-         */
+
 
         return initialWasteArchiveData;
 

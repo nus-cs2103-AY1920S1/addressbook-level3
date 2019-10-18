@@ -17,25 +17,25 @@ public class JsonSerializableWasteArchive {
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "Waste list storage contains duplicate waste list(s) "
             + "for the month of %s.";
 
-    private final List<JsonSerializableWasteList> wasteLists = new ArrayList<>();
+    private final List<JsonSerializableWasteList> wastearchive = new ArrayList<>();
 
 
     @JsonCreator
-    public JsonSerializableWasteArchive(@JsonProperty("wastearchive") List<JsonSerializableWasteList> wasteLists) {
-        this.wasteLists.addAll(wasteLists);
+    public JsonSerializableWasteArchive(@JsonProperty("wastearchive") List<JsonSerializableWasteList> wastearchive) {
+        this.wastearchive.addAll(wastearchive);
     }
 
     public JsonSerializableWasteArchive(TreeMap<WasteMonth, WasteList> source) {
         Set<WasteMonth> wasteMonths = source.keySet();
         for (WasteMonth wm : wasteMonths) {
             JsonSerializableWasteList wasteList = new JsonSerializableWasteList(source.get(wm));
-            wasteLists.add(wasteList);
+            wastearchive.add(wasteList);
         }
     }
 
     public TreeMap<WasteMonth, WasteList> toModelType() throws IllegalValueException {
         TreeMap<WasteMonth, WasteList> modelWasteArchive = new TreeMap<>();
-        for (JsonSerializableWasteList jsonSerializableWasteList : wasteLists) {
+        for (JsonSerializableWasteList jsonSerializableWasteList : wastearchive) {
             WasteList wasteList = jsonSerializableWasteList.toModelType();
             WasteMonth wasteMonth = wasteList.getWasteMonth();
             modelWasteArchive.put(wasteMonth, wasteList);

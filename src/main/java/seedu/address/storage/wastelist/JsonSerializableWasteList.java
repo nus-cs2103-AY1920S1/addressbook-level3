@@ -1,6 +1,5 @@
 package seedu.address.storage.wastelist;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,8 +21,8 @@ import seedu.address.storage.JsonAdaptedFood;
 @JsonRootName(value = "wastelist")
 public class JsonSerializableWasteList {
 
-    private final List<JsonAdaptedFood> wasteList = new ArrayList<>();
-    private final String wasteMonthString;
+    private final List<JsonAdaptedFood> wastelist = new ArrayList<>();
+    private final String wastemonth;
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
@@ -31,8 +30,8 @@ public class JsonSerializableWasteList {
     @JsonCreator
     public JsonSerializableWasteList(@JsonProperty("wastemonth") String wasteMonth,
                                      @JsonProperty("wastelist") List<JsonAdaptedFood> wasteitems) {
-        this.wasteMonthString = wasteMonth;
-        this.wasteList.addAll(wasteitems);
+        this.wastemonth = wasteMonth;
+        this.wastelist.addAll(wasteitems);
     }
 
     /**
@@ -41,8 +40,8 @@ public class JsonSerializableWasteList {
      * @param source future changes to this will not affect the created {@code JsonSerializableWasteList}.
      */
     public JsonSerializableWasteList(ReadOnlyWasteList source) {
-        this.wasteMonthString = source.getWasteMonth().toStorageFormat();
-        wasteList.addAll(source.getWasteList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
+        this.wastemonth = source.getWasteMonth().toStorageFormat();
+        wastelist.addAll(source.getWasteList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
     }
 
     /**
@@ -52,9 +51,9 @@ public class JsonSerializableWasteList {
      */
     public WasteList toModelType() throws IllegalValueException {
         
-        WasteMonth wasteMonth = new WasteMonth(this.wasteMonthString);
+        WasteMonth wasteMonth = new WasteMonth(this.wastemonth);
         WasteList wasteList = new WasteList(wasteMonth);
-        for (JsonAdaptedFood jsonAdaptedFood : this.wasteList) {
+        for (JsonAdaptedFood jsonAdaptedFood : this.wastelist) {
             GroceryItem food = jsonAdaptedFood.toModelType();
             wasteList.addWasteItem(food);
         }
