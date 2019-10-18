@@ -9,8 +9,7 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  */
 public class Question {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Questions should only contain alphanumeric characters and spaces, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Questions should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,

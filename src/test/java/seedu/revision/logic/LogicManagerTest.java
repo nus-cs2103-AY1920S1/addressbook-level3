@@ -8,7 +8,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
-import static seedu.revision.logic.commands.CommandTestUtil.WRONG_ANSWER_DESC;
+import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DESC;
 import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalAnswerables.ALPHA;
 
@@ -82,7 +82,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + CORRECT_ANSWER_DESC
-                + CATEGORY_DESC_UML + WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
+                + CATEGORY_DESC_UML + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
         Answerable expectedAnswerable = new AnswerableBuilder(ALPHA).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addAnswerable(expectedAnswerable);

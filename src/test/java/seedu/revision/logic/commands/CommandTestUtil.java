@@ -36,15 +36,15 @@ public class CommandTestUtil {
     public static final String VALID_DIFFICULTY_ALPHA = "1";
     public static final String VALID_DIFFICULTY_BETA = "3";
     public static final String VALID_CATEGORY_ALPHA = "Block 312, Amy Street 1";
-    public static final String VALID_CATEGORY_BETA = "Block 123, Bobby Street 3";
     public static final String VALID_CATEGORY_GREENFIELD = "greenfield";
     public static final String VALID_CATEGORY_UML = "UML";
 
     public static final String QUESTION_TYPE_MCQ = " " + PREFIX_QUESTION_TYPE + "mcq";
     public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_ALPHA;
     public static final String QUESTION_DESC_BETA = " " + PREFIX_QUESTION + VALID_QUESTION_BETA;
-    public static final String CORRECT_ANSWER_DESC = " " + PREFIX_CORRECT + "CORRECT";
-    public static final String WRONG_ANSWER_DESC = " " + PREFIX_WRONG + "WRONG";
+    public static final String CORRECT_ANSWER_DESC = " " + PREFIX_CORRECT + "Brownfield";
+    public static final String MCQ_WRONG_ANSWER_DESC = " " + PREFIX_WRONG + "Greenfield " + PREFIX_WRONG + "Blackfield "
+            + PREFIX_WRONG + "Whitefield";
     public static final String QUESTION_TYPE_DESC = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE;
     public static final String DIFFICULTY_DESC_ALPHA = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_ALPHA;
     public static final String DIFFICULTY_DESC_BETA = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_BETA;

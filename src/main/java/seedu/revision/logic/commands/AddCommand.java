@@ -2,8 +2,11 @@ package seedu.revision.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
@@ -18,14 +21,20 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to the test bank. "
             + "Parameters: "
+            + PREFIX_QUESTION_TYPE + "QUESTION TYPE "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_DIFFICULTY + "DIFFICULTY "
-            + "[" + PREFIX_CATEGORY + "category]...\n"
+            + PREFIX_CATEGORY + "[CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_QUESTION + "Which of the following is a valid sequence diagram? "
+            + PREFIX_QUESTION_TYPE + "mcq"
+            + PREFIX_QUESTION + "Which of the following gives us the highest intensity of testing? "
+            + PREFIX_WRONG + "50% statement coverage "
+            + PREFIX_CORRECT + "100% path coverage "
+            + PREFIX_WRONG + "70% branch coverage "
+            + PREFIX_WRONG + "80% condition coverage "
             + PREFIX_DIFFICULTY + "3 "
-            + PREFIX_CATEGORY + "UML "
-            + PREFIX_CATEGORY + "graphical";
+            + PREFIX_CATEGORY + "TestCoverage " + PREFIX_CATEGORY + "Week8 ";
+
 
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";
     public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This question already exists in the test bank";

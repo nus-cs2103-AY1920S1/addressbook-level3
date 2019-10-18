@@ -43,7 +43,11 @@ public class ParserUtil {
         requireNonNull(answers);
         final Set<Answer> answerSet = new HashSet<>();
         for (String answer : answers) {
-            answerSet.add(parseAnswer(answer));
+            Answer newAnswer = parseAnswer(answer);
+            if (answerSet.contains(newAnswer)) {
+                throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
+            }
+            answerSet.add(newAnswer);
         }
         return answerSet;
     }

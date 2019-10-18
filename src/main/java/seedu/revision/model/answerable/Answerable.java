@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 /**
  * Represents a Answerable in the Test Bank.
@@ -14,19 +15,18 @@ import seedu.revision.model.category.Category;
  */
 public abstract class Answerable {
 
-    // Identity fields
-    private final Question question;
-    private final Difficulty difficulty;
+    protected final Question question;
+    protected final Difficulty difficulty;
 
-    private final Set<Answer> correctAnswerSet;
-    private final Set<Answer> wrongAnswerSet;
-    private final Set<Category> categories = new HashSet<>();
+    protected final Set<Answer> correctAnswerSet;
+    protected final Set<Answer> wrongAnswerSet;
+    protected final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Answerable(Question question, Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet,
-              Difficulty difficulty, Set<Category> categories) {
+    public Answerable(Question question, Set<Answer> correctAnswerSet,
+              Set<Answer> wrongAnswerSet, Difficulty difficulty, Set<Category> categories) {
         requireAllNonNull(question, difficulty, categories);
         this.question = question;
         this.correctAnswerSet = correctAnswerSet;
@@ -53,6 +53,13 @@ public abstract class Answerable {
 
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public boolean isCorrect(String answer) {
+        if (correctAnswerSet.contains(answer)) {
+            return true;
+        }
+        return false;
     }
 
   
@@ -105,9 +112,9 @@ public abstract class Answerable {
         final StringBuilder builder = new StringBuilder();
         builder.append("Question: ")
                 .append(getQuestion())
-                .append(" Answers: ")
-                .append("Correct Answers: " + getCorrectAnswerSet())
-                .append("Wrong Answers: " + getWrongAnswerSet())
+                .append(" Answers:")
+                .append(" Correct Answers: " + getCorrectAnswerSet())
+                .append(" Wrong Answers: " + getWrongAnswerSet())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
                 .append(" Categories: ");

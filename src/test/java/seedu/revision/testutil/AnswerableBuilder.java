@@ -20,8 +20,8 @@ public class AnswerableBuilder {
     public static final String DEFAULT_QUESTION = "Greenfield projects are easier than brownfield projects";
     public static final String DEFAULT_DIFFICULTY = "1";
     public static final String DEFAULT_CATEGORY = "CATEGORY";
-    private static final Answer defaultCorrectAnswer = new Answer("CORRECT");
-    private static final Answer defaultWrongAnswer = new Answer("WRONG");
+    private static final Answer defaultCorrectAnswerSet = new Answer("CORRECT");
+    private static final Answer defaultWrongAnswerSet = new Answer("WRONG");
 
     private Question question;
     private Set<Answer> correctAnswerSet;
@@ -33,8 +33,11 @@ public class AnswerableBuilder {
         question = new Question(DEFAULT_QUESTION);
         //TODO: Implement Answerable
         difficulty = new Difficulty(DEFAULT_DIFFICULTY);
-        correctAnswerSet = new HashSet<>(Arrays.asList(defaultCorrectAnswer));
-        wrongAnswerSet = new HashSet<>(Arrays.asList(defaultWrongAnswer));
+        correctAnswerSet = new HashSet<>(Arrays.asList(defaultCorrectAnswerSet));
+        wrongAnswerSet = new HashSet<>();
+        wrongAnswerSet.add(new Answer("Wrong answer A"));
+        wrongAnswerSet.add(new Answer("Wrong answer B"));
+        wrongAnswerSet.add(new Answer("Wrong answer C"));
         categories = new HashSet<>();
         categories.add(new Category(DEFAULT_CATEGORY));
     }

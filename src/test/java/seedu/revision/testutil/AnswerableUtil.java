@@ -13,6 +13,7 @@ import seedu.revision.logic.commands.AddCommand;
 import seedu.revision.logic.commands.EditCommand;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.category.Category;
 
 /**
@@ -32,15 +33,18 @@ public class AnswerableUtil {
      */
     public static String getAnswerableDetails(Answerable answerable) {
         StringBuilder sb = new StringBuilder();
-        //TODO: Implement Answerable
-        sb.append(PREFIX_QUESTION_TYPE + "mcq" + " ");
+        if (answerable instanceof Mcq) {
+            sb.append(PREFIX_QUESTION_TYPE + "mcq" + " ");
+            answerable.getWrongAnswerSet().stream().forEach(
+                    s -> sb.append(PREFIX_WRONG + s.answer + " ")
+            );
+        } else {
+            sb.append(PREFIX_QUESTION_TYPE + "saq" + " ");
+        }
         sb.append(PREFIX_QUESTION + answerable.getQuestion().fullQuestion + " ");
         sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().value + " ");
         answerable.getCorrectAnswerSet().stream().forEach(
             s -> sb.append(PREFIX_CORRECT + s.answer + " ")
-        );
-        answerable.getWrongAnswerSet().stream().forEach(
-                s -> sb.append(PREFIX_WRONG + s.answer + " ")
         );
         answerable.getCategories().stream().forEach(
             s -> sb.append(PREFIX_CATEGORY + s.categoryName+ " ")

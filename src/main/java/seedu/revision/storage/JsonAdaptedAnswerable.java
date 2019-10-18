@@ -16,6 +16,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.category.Category;
 
 /**
@@ -62,9 +63,11 @@ class JsonAdaptedAnswerable {
         correctAnswerSet.addAll(source.getCorrectAnswerSet().stream()
                 .map(JsonAdaptedAnswer::new)
                 .collect(Collectors.toList()));
-        wrongAnswerSet.addAll(source.getWrongAnswerSet().stream()
-                .map(JsonAdaptedAnswer::new)
-                .collect(Collectors.toList()));
+        if (!(source instanceof Saq)) {
+            wrongAnswerSet.addAll(source.getWrongAnswerSet().stream()
+                    .map(JsonAdaptedAnswer::new)
+                    .collect(Collectors.toList()));
+        }
         categories.addAll(source.getCategories().stream()
                 .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
@@ -80,23 +83,22 @@ class JsonAdaptedAnswerable {
         for (JsonAdaptedCategory category : categories) {
             answerableTags.add(category.toModelType());
         }
-
         final List<Answer> correctAnswers = new ArrayList<>();
         for (JsonAdaptedAnswer correctAnswer : correctAnswerSet) {
             correctAnswers.add(correctAnswer.toModelType());
         }
-
         final List<Answer> wrongAnswers = new ArrayList<>();
         for (JsonAdaptedAnswer wrongAnswer : wrongAnswerSet) {
             wrongAnswers.add(wrongAnswer.toModelType());
         }
-
         if (question == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Question.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Question.class.getSimpleName()));
         }
         if (!Question.isValidQuestion(question)) {
             throw new IllegalValueException(Question.MESSAGE_CONSTRAINTS);
         }
+
         final Question modelQuestion = new Question(question);
 
         final Set<Answer> modelCorrectAnswerSet = new HashSet<>(correctAnswers);
@@ -104,7 +106,8 @@ class JsonAdaptedAnswerable {
         final Set<Answer> modelWrongAnswerSet = new HashSet<>(wrongAnswers);
 
         if (difficulty == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Difficulty.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Difficulty.class.getSimpleName()));
         }
         if (!Difficulty.isValidDifficulty(difficulty)) {
             throw new IllegalValueException(Difficulty.MESSAGE_CONSTRAINTS);
@@ -114,6 +117,7 @@ class JsonAdaptedAnswerable {
         final Set<Category> modelCategories = new HashSet<>(answerableTags);
 
         //TODO: Implement Answerable
-        return new Mcq(modelQuestion, modelCorrectAnswerSet, modelWrongAnswerSet, modelDifficulty, modelCategories);
+        return new Mcq(modelQuestion, modelCorrectAnswerSet, modelWrongAnswerSet,
+                modelDifficulty, modelCategories);
     }
 }

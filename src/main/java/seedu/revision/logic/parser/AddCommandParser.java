@@ -18,12 +18,19 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.category.Category;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+
+    private Question question;
+    private Set<Answer> correctAnswerSet;
+    private Set<Answer> wrongAnswerSet;
+    private Difficulty difficulty;
+    private Set<Category> categories;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -35,32 +42,64 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_QUESTION_TYPE, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG,
                 PREFIX_DIFFICULTY, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG, PREFIX_CATEGORY,
-                PREFIX_DIFFICULTY) || !argMultimap.getPreamble().isEmpty()) {
+        QuestionType questionType;
+        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION_TYPE)) {
+            questionType = ParserUtil.parseType(argMultimap.getValue(PREFIX_QUESTION_TYPE).get());
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        QuestionType questionType = ParserUtil.parseType(argMultimap.getValue(PREFIX_QUESTION_TYPE).get());
-        Question question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
-        Set<Answer> correctAnswerSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
-        Set<Answer> wrongAnswerSetSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
-        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
-        Set<Category> categories = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
+//        assert validifyQuestionType(questionType, argMultimap) : "question not valid according to type";
+        validifyQuestionType(questionType, argMultimap);
+
+        this.question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
+        this.correctAnswerSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
+        this.difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+        this.categories = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         Answerable answerable;
 
         switch (questionType.getType()) {
         case "mcq":
-            answerable = new Mcq(question, correctAnswerSet, wrongAnswerSetSet, difficulty, categories);
+            answerable = new Mcq(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
             return new AddCommand(answerable);
-//        case "saq":
-//            //TODO: Implement Saq
-//            answerable = new Saq(question, correctAnsweSet, difficulty, category, tagList);
-//            return new AddCommand(answerable);
+        case "saq":
+            answerable = new Saq(question, correctAnswerSet, difficulty, categories);
+            return new AddCommand(answerable);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+    }
 
+    private boolean validifyQuestionType(QuestionType questionType, ArgumentMultimap argMultimap) throws
+            ParseException{
+
+        switch (questionType.getType()) {
+        case "mcq":
+            if (arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG, PREFIX_CATEGORY,
+                    PREFIX_DIFFICULTY) && argMultimap.getPreamble().isEmpty()) {
+
+                int numCorrect = argMultimap.getAllValues(PREFIX_CORRECT).size();
+                int numWrong = argMultimap.getAllValues(PREFIX_WRONG).size();
+
+                if (numCorrect == 1 && numWrong == 3) {
+                    this.wrongAnswerSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
+                    return true;
+                } else {
+                    throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
+                }
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        case "saq":
+            if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_CATEGORY,
+                    PREFIX_DIFFICULTY) || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+            return true;
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
     }
 
     /**

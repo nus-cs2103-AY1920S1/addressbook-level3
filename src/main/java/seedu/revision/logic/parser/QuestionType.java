@@ -14,7 +14,7 @@ public class QuestionType {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "(?i)mcq|saq";
 
     private final String type;
 
@@ -25,7 +25,7 @@ public class QuestionType {
      */
     public QuestionType(String type) {
         requireNonNull(type);
-//        checkArgument(isValidQuestionType(type), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidQuestionType(type), MESSAGE_CONSTRAINTS);
         this.type = type.toLowerCase();
     }
 
@@ -33,7 +33,7 @@ public class QuestionType {
      * Returns true if a given string is a valid question.
      */
     public boolean isValidQuestionType(String test) {
-        switch(type) {
+        switch(test) {
         case "mcq":
         //fallthrough
         case "saq":

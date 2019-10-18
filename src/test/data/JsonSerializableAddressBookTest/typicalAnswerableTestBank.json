@@ -2,32 +2,32 @@
   "_comment": "Revision Tool save file which contains the same Answerable values as in TypicalAnswerables#getTypicalAddressBook()",
   "answerables" : [ {
     "question" : "If a subclass imposes more restrictive conditions than its parent class, it violates Liskov Substitution Principle.",
-    "correctAnswerSet": [ "CORRECT" ],
-    "wrongAnswerSet": [ "WRONG" ],
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
     "categories" : [ "LSP", "SOLID", "Week 9" ]
   }, {
     "question" : "Brownfield or Greenfield?",
-    "correctAnswerSet": [ "CORRECT" ],
-    "wrongAnswerSet": [ "WRONG" ],
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
     "categories" : [ "field", "introduction" ]
   }, {
     "question" : "Carl Kurz",
-    "correctAnswerSet": [ "CORRECT" ],
-    "wrongAnswerSet": [ "WRONG" ],
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
     "categories" : [ "CATEGORY" ]
   }, {
     "question" : "Elle Meyer",
-    "correctAnswerSet": [ "CORRECT" ],
-    "wrongAnswerSet": [ "WRONG" ],
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
     "categories" : [ "CATEGORY" ]
   }, {
     "question" : "Fiona Kunz",
-    "correctAnswerSet": [ "CORRECT" ],
-    "wrongAnswerSet": [ "WRONG" ],
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
     "categories" : [ "CATEGORY" ]
   } ]

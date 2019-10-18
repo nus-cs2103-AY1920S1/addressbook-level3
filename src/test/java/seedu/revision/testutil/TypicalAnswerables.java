@@ -21,10 +21,13 @@ import seedu.revision.model.answerable.Answerable;
  * A utility class containing a list of {@code Answerable} objects to be used in tests.
  */
 public class TypicalAnswerables {
-    private static final Answer correctAnswer = new Answer("CORRECT");
+    private static final Answer correctAnswer = new Answer("Brownfield");
     private static final Set<Answer> defaultCorrectAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
-    private static final Answer wrongAnswer = new Answer("WRONG");
-    private static final Set<Answer> defaultWrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
+    private static final Answer wrongAnswerA = new Answer("Greenfield");
+    private static final Answer wrongAnswerB = new Answer("Blackfield");
+    private static final Answer wrongAnswerC = new Answer("Whitefield");
+    private static final Set<Answer> defaultWrongAnswerSet = new HashSet<>(
+            Arrays.asList(wrongAnswerA, wrongAnswerB, wrongAnswerC));
 
     public static final Answerable A_ANSWERABLE = new AnswerableBuilder().withQuestion("If a subclass imposes more "
             + "restrictive conditions than its parent class, it violates Liskov Substitution Principle.")

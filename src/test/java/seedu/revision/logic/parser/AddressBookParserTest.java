@@ -7,12 +7,14 @@ import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.AddCommand;
 import seedu.revision.logic.commands.ClearCommand;
 import seedu.revision.logic.commands.DeleteCommand;
@@ -48,8 +50,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ANSWERABLE.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_ANSWERABLE), command);
+        DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ANSWERABLE.getOneBased());
+        ArrayList<Index> indexToDelete = new ArrayList<>();
+        indexToDelete.add(INDEX_FIRST_ANSWERABLE);
+        assertEquals(new DeleteCommand(indexToDelete), command);
     }
 
     @Test
