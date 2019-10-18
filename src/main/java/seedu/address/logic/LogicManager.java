@@ -10,7 +10,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
@@ -28,7 +27,8 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    public static final String ACCESS_CONTROL_MESSAGE = "Please login to access other commands.";
+    public static final String ACCESS_CONTROL_MESSAGE = "Only Add and Login commands available.\n"
+            + "Please login to access other commands. See help page for more information.";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -49,8 +49,9 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        if (!model.isLoggedIn() && !(command instanceof LoginCommand
-                || command instanceof AddCommand || command instanceof ListCommand)) {
+
+        // Guard Statement for available commands prior to login.
+        if (!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand)) {
             throw new CommandException(ACCESS_CONTROL_MESSAGE);
         }
         commandResult = command.execute(model);
