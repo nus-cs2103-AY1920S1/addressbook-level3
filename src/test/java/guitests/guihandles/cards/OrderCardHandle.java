@@ -1,4 +1,4 @@
-package guitests.guihandles.cardHandles;
+package guitests.guihandles.cards;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.order.Order;
 
+/**
+ * Provide handle for {@Code Order}
+ */
 public class OrderCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String CUSTOMER_NAME_FIELD_ID = "#customerName";

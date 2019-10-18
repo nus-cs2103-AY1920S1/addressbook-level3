@@ -1,4 +1,4 @@
-package guitests.guihandles.cardHandles;
+package guitests.guihandles.cards;
 
 import java.util.List;
 import java.util.stream.Collectors;
