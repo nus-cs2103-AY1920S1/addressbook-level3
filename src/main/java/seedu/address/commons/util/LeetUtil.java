@@ -42,7 +42,7 @@ public class LeetUtil {
      * @return the list of possible unleet passwords
      */
     public static List<String> translateLeet(String password) {
-        ArrayList<String> translations = new ArrayList();
+        ArrayList<String> translations = new ArrayList<>();
         final TreeMap<Integer, Character[]> replacements = new TreeMap<>();
         for (int i = 0; i < password.length(); i++) {
             Character[] replacement = defaultLeetTable.get(password.charAt(i));
