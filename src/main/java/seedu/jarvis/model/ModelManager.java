@@ -509,14 +509,50 @@ public class ModelManager implements Model {
         return planner.hasTask(t);
     }
 
+    /**
+     * Retrieves the Planner object
+     * @return the planner
+     */
     @Override
     public Planner getPlanner() {
         return planner;
     }
 
+    /**
+     * Clears all data in a planner to return a new planner
+     * @param planner {@code Planner} to take reference from.
+     */
     @Override
     public void resetData(Planner planner) {
         this.planner.resetData(planner);
+    }
+
+    /**
+     * Retrieves a task from the planner at the specified index
+     * @param index index of the task that is being retrieved
+     * @return the task at the given index
+     */
+    @Override
+    public Task getTask(Index index) {
+        return planner.getTask(index);
+    }
+
+    /**
+     * Deletes a task in the planner at the specified index
+     * @param index index of the task to be deleted
+     */
+    @Override
+    public void deleteTask(Index index) {
+        planner.deleteTask(index);
+    }
+
+    /**
+     * Retrieves the size of the planner, i.e. the number of tasks in the planner
+     * @return the size of the planner
+     */
+    @Override
+    public int size() {
+        return planner.size();
     }
     //=========== Course Planner ========================================================
 
@@ -529,4 +565,5 @@ public class ModelManager implements Model {
     public CoursePlanner getCoursePlanner() {
         return coursePlanner;
     }
+
 }
