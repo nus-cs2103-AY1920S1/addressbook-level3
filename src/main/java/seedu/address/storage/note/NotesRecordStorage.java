@@ -1,14 +1,14 @@
 package seedu.address.storage.note;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.note.ReadOnlyNotesRecord;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.note.ReadOnlyNotesRecord;
+
 /**
- * Represents a storage for {@link seedu.address.model.NotesRecord}.
+ * Represents a storage for {@link seedu.address.model.note.NotesRecord}.
  */
 public interface NotesRecordStorage {
 

@@ -56,7 +56,7 @@ public class ModelManager implements Model {
                         ReadOnlyNotesRecord notesRecord,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook,studentRecord, savedQuestions, notesRecord, userPrefs);
+        requireAllNonNull(addressBook, studentRecord, savedQuestions, notesRecord, userPrefs);
 
         logger.fine(
                 "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);

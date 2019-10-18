@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.note.Note;
-import seedu.address.model.student.Name;
-import seedu.address.model.student.Student;
 
 /**
  * Jackson-friendly version of {@link Note}.

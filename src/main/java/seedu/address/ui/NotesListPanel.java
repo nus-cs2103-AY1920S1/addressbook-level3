@@ -1,15 +1,18 @@
 package seedu.address.ui;
 
-import javafx.fxml.FXML;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
 
-import java.util.logging.Logger;
-
+/**
+ * Panel containing the list of notes.
+ */
 public class NotesListPanel extends UiPart<Region> {
 
     private static final String FXML = "NotesListPanel.fxml";

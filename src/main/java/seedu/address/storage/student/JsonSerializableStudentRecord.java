@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.student.ReadOnlyStudentRecord;
-import seedu.address.model.student.StudentRecord;
 import seedu.address.model.student.Student;
+import seedu.address.model.student.StudentRecord;
 
 /**
  * An Immutable studentRecord that is serializable to JSON format.

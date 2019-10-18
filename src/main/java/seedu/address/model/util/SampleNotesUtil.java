@@ -11,8 +11,8 @@ public class SampleNotesUtil {
 
     public static Note[] getSampleNotes() {
         return new Note[]{
-                new Note("tuesday class", "give back papers"),
-                new Note("thursday conference", "give presentation"),
+            new Note("tuesday class", "give back papers"),
+            new Note("thursday conference", "give presentation"),
         };
     }
 

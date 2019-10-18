@@ -1,10 +1,10 @@
 package seedu.address.model.note;
 
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the notes-record level
@@ -83,9 +83,9 @@ public class NotesRecord implements ReadOnlyNotesRecord {
     //// util methods
     @Override
     public String toString() {
-        return "You have " + notes.asUnmodifiableObservableList().size() +
-                " Notes\n" +
-                notes;
+        return "You have " + notes.asUnmodifiableObservableList().size()
+                + " Notes\n"
+                + notes;
     }
 
     @Override
