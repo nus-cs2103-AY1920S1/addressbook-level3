@@ -1,13 +1,8 @@
 {
   "answerables": [ {
     "question": "",
-    "answerSet": {
-      "correctAnswerSet": [
-        { "answer": "CORRECT" }
-      ],
-      "wrongAnswerSet": [
-        { "answer": "WRONG" }
-      ] },
-    "difficulty": "9482424",
+    "correctAnswerSet": [ "CORRECT" ],
+    "wrongAnswerSet": [ "WRONG" ],
+    "difficulty": "9482424"
   } ]
 }

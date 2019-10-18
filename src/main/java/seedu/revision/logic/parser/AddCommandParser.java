@@ -18,6 +18,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.category.Category;
 
 /**
@@ -47,16 +48,30 @@ public class AddCommandParser implements Parser<AddCommand> {
         Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
         Set<Category> categories = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
+        if (questionType.getType().equals("mcq")) {
+            if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG, PREFIX_CATEGORY,
+                    PREFIX_DIFFICULTY) || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        } else if (questionType.getType().equals("saq")) {
+            if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_CATEGORY,
+                    PREFIX_DIFFICULTY) || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
         Answerable answerable;
 
         switch (questionType.getType()) {
         case "mcq":
             answerable = new Mcq(question, correctAnswerSet, wrongAnswerSetSet, difficulty, categories);
             return new AddCommand(answerable);
-//        case "saq":
-//            //TODO: Implement Saq
-//            answerable = new Saq(question, correctAnsweSet, difficulty, category, tagList);
-//            return new AddCommand(answerable);
+        case "saq":
+            //TODO: Implement Saq properly i.e. remove need to add wrongAnswerSet
+            answerable = new Saq(question, correctAnswerSet, wrongAnswerSetSet, difficulty, categories);
+            return new AddCommand(answerable);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
