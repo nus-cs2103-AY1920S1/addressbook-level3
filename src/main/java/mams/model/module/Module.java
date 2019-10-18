@@ -145,7 +145,8 @@ public class Module {
         String []arr = test.split(",");
         for (String str : arr) {
             int temp = Integer.parseInt(str);
-            if (temp > lastTimeSlot || temp < firstTimeSlot) {
+            if (temp > lastTimeSlot || temp < firstTimeSlot || temp == 14
+                || temp == 28 || temp == 42 || temp == 56) {
                 return false;
             }
         }

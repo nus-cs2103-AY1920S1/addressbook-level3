@@ -1,33 +1,25 @@
 package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static mams.logic.parser.CliSyntax.PREFIX_NAME;
-import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
+
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
-import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-
+import mams.commons.core.Messages;
+import mams.commons.core.index.Index;
 import mams.logic.commands.AddModCommand;
-import mams.logic.commands.EditCommand;
+import mams.logic.commands.ModCommand;
 import mams.logic.parser.exceptions.ParseException;
-import mams.model.tag.Tag;
 
 /**
- * temp.
+ * Parses input arguments and creates a new AddModCommand object
  */
 public class AddModCommandParser implements Parser<AddModCommand> {
 
     /**
-     * Temp.
-     * @param args temp
-     * @return temp
-     * @throws ParseException temp
+     * Parses the given {@code String} of arguments in the context of the AddModCommand
+     * and returns an AddModCommand object for execution. (Only argument checking is done here)
+     * @throws ParseException if the user input does not conform the expected format
      */
     @Override
     public AddModCommand parse(String args) throws ParseException {
@@ -35,44 +27,26 @@ public class AddModCommandParser implements Parser<AddModCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE_CODE);
 
-        //TODO: Note that fields not changed(name,prevMods etc) will be retaken in EditCommand
-        // Here, only need to tokenize and push the strings to Addmodcommand
-        AddModCommand.EditStudentDescriptor editStudentDescriptor = new AddModCommand.EditStudentDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editStudentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
-            editStudentDescriptor.setCredits(ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PREVMODS).isPresent()) {
-            editStudentDescriptor.setPrevMods(ParserUtil.parsePrevMods(argMultimap.getValue(PREFIX_PREVMODS).get()));
-        }
-        if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
-            editStudentDescriptor.setMatricId(ParserUtil.parseMatricId(argMultimap.getValue(PREFIX_STUDENT).get()));
-        }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editStudentDescriptor::setTags);
+        Index index;
 
-        if (!editStudentDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        if (argMultimap.getValue(PREFIX_MODULE_CODE).isEmpty()) {
+            throw new ParseException(ModCommand.MESSAGE_INVALID_MODULE_CODE);
         }
 
-        return new AddModCommand(argMultimap.getValue(PREFIX_STUDENT).get(),
-                argMultimap.getValue(PREFIX_STUDENT).get(), editStudentDescriptor);
+        //priority: Matric > Index
+        if (argMultimap.getValue(PREFIX_STUDENT).isEmpty()) {
+            try {
+                index = ParserUtil.parseIndex(argMultimap.getPreamble());
+                return new AddModCommand(index, argMultimap.getAllValues(PREFIX_MODULE_CODE).get(0));
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddModCommand.MESSAGE_USAGE), pe);
+            }
+        } else if (argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
+            return new AddModCommand(argMultimap.getAllValues(PREFIX_STUDENT).get(0),
+                    argMultimap.getAllValues(PREFIX_MODULE_CODE).get(0));
+        } else {
+            throw new ParseException(ModCommand.MESSAGE_USAGE);
+        }
     }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
-    }
-
 }
