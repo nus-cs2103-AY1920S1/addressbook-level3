@@ -2,6 +2,7 @@ package seedu.address.logic.parser.visit;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.visit.UpdateOngoingVisitCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_TASK_FINISH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
 import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.visit.UpdateOngoingVisitCommand;
+import seedu.address.logic.commands.visit.UpdateOngoingVisitDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -44,8 +46,8 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
                 ArgumentTokenizer.tokenize(args, PREFIX_VISIT_REMARKS, PREFIX_VISIT_TASK_FINISH,
                         PREFIX_VISIT_TASK_UNFINISH, PREFIX_VISIT_TASK_INDEX_AND_DETAIL);
 
-        UpdateOngoingVisitCommand.UpdateOngoingVisitDescriptor updateOngoingVisitDescriptor =
-                new UpdateOngoingVisitCommand.UpdateOngoingVisitDescriptor();
+        UpdateOngoingVisitDescriptor updateOngoingVisitDescriptor =
+                new UpdateOngoingVisitDescriptor();
         if (argMultimap.getValue(PREFIX_VISIT_REMARKS).isPresent()) {
             updateOngoingVisitDescriptor.setRemark(
                     ParserUtil.parseRemark(argMultimap.getValue(PREFIX_VISIT_REMARKS).get()));
@@ -57,9 +59,9 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
         updateOngoingVisitDescriptor.setUpdatedVisitTaskDetails(
                 parseIndexAndDetailPairs(argMultimap.getAllValues(PREFIX_VISIT_TASK_INDEX_AND_DETAIL)));
 
-        if (!updateOngoingVisitDescriptor.isAnyFieldEdited()) {
+        if (!updateOngoingVisitDescriptor.isAnyFieldUpdated()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    UpdateOngoingVisitCommand.MESSAGE_USAGE));
+                    MESSAGE_USAGE));
         }
 
         return new UpdateOngoingVisitCommand(updateOngoingVisitDescriptor);
@@ -72,6 +74,7 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
      * @throws ParseException if an index is not of the right format.
      */
     private List<Index> parseIndexes(List<String> indexesToParse) throws ParseException {
+        requireNonNull(indexesToParse);
         List<Index> collector = new ArrayList<>();
         try {
             for (String value : indexesToParse) {
@@ -80,7 +83,7 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
             return collector;
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateOngoingVisitCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
         }
     }
 
@@ -92,6 +95,7 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
      */
     private List<Pair<Index, String>> parseIndexAndDetailPairs(List<String> indexAndDetailPairs)
             throws ParseException {
+        requireNonNull(indexAndDetailPairs);
         List<Pair<Index, String>> collector = new ArrayList<>();
         Pattern regex = Pattern.compile(INDEX_WHITESPACE_THEN_STRING_VALIDATION_REGEX);
         try {
@@ -111,7 +115,7 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
             return collector;
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateOngoingVisitCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
         }
     }
 }

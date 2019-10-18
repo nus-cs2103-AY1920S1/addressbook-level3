@@ -18,10 +18,10 @@ import seedu.address.model.visit.Visit;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private static final Pair<Integer, Integer> NO_CURRENT_PERSON_AND_VISIT = new Pair<>(-1, -1);
+    private static final Pair<Integer, Integer> NO_ONGOING_PATIENT_AND_VISIT_VAL = new Pair<>(-1, -1);
 
     private final UniquePersonList persons;
-    private Pair<Integer, Integer> indexPairOfCurrentPersonAndVisit = NO_CURRENT_PERSON_AND_VISIT;
+    private Pair<Integer, Integer> pairOfOngoingPatAndVisitIndexes = NO_ONGOING_PATIENT_AND_VISIT_VAL;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -61,17 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setIndexPairOfOngoingVisit(newData.getIndexPairOfCurrentPatientAndVisit());
-    }
-
-    /**
-     * Record ongoing visit of person.
-     * This will be saved until the visit is finished.
-     */
-    public void setOngoingVisit(Visit visit) {
-        requireNonNull(visit);
-        setIndexPairOfOngoingVisit(new Pair<>(persons.indexOf(visit.getPatient()),
-                visit.getPatient().indexOfVisit(visit)));
+        setPairOfOngoingPatAndVisitIndexes(newData.getIndexPairOfOngoingPatientAndVisit());
     }
 
     //// person-level operations
@@ -117,26 +107,24 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         requireNonNull(key);
-        if (!indexPairOfCurrentPersonAndVisit.equals(NO_CURRENT_PERSON_AND_VISIT)) {
+        //If no ongoing visit, just remove
+        if (pairOfOngoingPatAndVisitIndexes.equals(NO_ONGOING_PATIENT_AND_VISIT_VAL)) {
+            persons.remove(key);
+        } else {
             Optional<Visit> optionalVisit = getOngoingVisit();
             assert optionalVisit.isPresent();
-            Person currentPerson = optionalVisit.get().getPatient();
-            if (currentPerson.equals(key)) {
+            Person currentPatient = optionalVisit.get().getPatient();
+
+            if (currentPatient.equals(key)) {
+                //Code should have prevented this from reaching this stage
                 throw new PersonHasOngoingVisitException();
             } else {
+                //Remove and update
                 persons.remove(key);
-                //Update
-                int indexOfCurrentPerson = indexOfPerson(currentPerson);
-                setIndexPairOfOngoingVisit(new Pair<>(indexOfCurrentPerson,
-                        indexPairOfCurrentPersonAndVisit.getValue()));
+                setPairOfOngoingPatAndVisitIndexes(new Pair<>(indexOfPerson(currentPatient),
+                        pairOfOngoingPatAndVisitIndexes.getValue()));
             }
-        } else {
-            persons.remove(key);
         }
-    }
-
-    public void setIndexPairOfOngoingVisit(Pair<Integer, Integer> indexPairOfCurrentPersonAndVisit) {
-        this.indexPairOfCurrentPersonAndVisit = indexPairOfCurrentPersonAndVisit;
     }
 
     //// util methods
@@ -150,11 +138,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public Pair<Integer, Integer> getIndexPairOfCurrentPatientAndVisit() {
-        return indexPairOfCurrentPersonAndVisit;
     }
 
     @Override
@@ -173,20 +156,57 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Get optional pair of current person and visit if there is an ongoing visit.
      */
     public Optional<Visit> getOngoingVisit() {
-        if (indexPairOfCurrentPersonAndVisit.getKey() != -1
-                && indexPairOfCurrentPersonAndVisit.getValue() != -1) {
-            Person person = persons.getByIndex(indexPairOfCurrentPersonAndVisit.getKey());
-            Visit visit = person.getVisitByIndex(indexPairOfCurrentPersonAndVisit.getValue());
-            return Optional.of(visit);
+        if (pairOfOngoingPatAndVisitIndexes.getKey() == -1 || pairOfOngoingPatAndVisitIndexes.getValue() != -1) {
+            return Optional.empty();
         }
+        Optional<Person> patient = persons.getByIndex(pairOfOngoingPatAndVisitIndexes.getKey());
+        if (patient.isEmpty()) {
+            return Optional.empty();
+        }
+        return patient.get().getVisitByIndex(pairOfOngoingPatAndVisitIndexes.getValue());
+    }
 
-        return Optional.empty();
+    /**
+     * Verifies that the patient and visit indexes can be obtained from the visit i.e.
+     * Returns true if the visit can be found in the data.
+     */
+    public boolean visitIsInData(Visit visit) {
+        requireNonNull(visit);
+        Person patient = visit.getPatient();
+        int patientIndex = persons.indexOf(patient);
+        if (patientIndex <= -1) {
+            return false;
+        }
+        int visitIndex = patient.indexOfVisit(visit);
+        return visitIndex > -1;
+    }
+
+    /**
+     * Record ongoing visit of person.
+     * This will be saved until the visit is finished.
+     */
+    public void setOngoingVisit(Visit visit) {
+        requireNonNull(visit);
+        if (!visitIsInData(visit)) {
+            throw new IllegalArgumentException();
+        }
+        setPairOfOngoingPatAndVisitIndexes(new Pair<>(persons.indexOf(visit.getPatient()),
+                visit.getPatient().indexOfVisit(visit)));
     }
 
     /**
      * Unset current person and visit
      */
     public void unsetOngoingVisit() {
-        this.indexPairOfCurrentPersonAndVisit = NO_CURRENT_PERSON_AND_VISIT;
+        this.pairOfOngoingPatAndVisitIndexes = NO_ONGOING_PATIENT_AND_VISIT_VAL;
+    }
+
+    @Override
+    public Pair<Integer, Integer> getIndexPairOfOngoingPatientAndVisit() {
+        return pairOfOngoingPatAndVisitIndexes;
+    }
+
+    private void setPairOfOngoingPatAndVisitIndexes(Pair<Integer, Integer> pairOfOngoingPatAndVisitIndexes) {
+        this.pairOfOngoingPatAndVisitIndexes = pairOfOngoingPatAndVisitIndexes;
     }
 }

@@ -163,7 +163,12 @@ public class AddCommandTest {
 
 
         @Override
-        public void setOngoingVisit(Visit visit) {
+        public void setNewOngoingVisit(Visit visit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateOngoingVisit(Visit updatedVisit) {
             throw new AssertionError("This method should not be called.");
         }
 

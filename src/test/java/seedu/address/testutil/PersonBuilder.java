@@ -169,6 +169,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns a Person based on the functions called on this PersonBuilder object prior.
+     */
     public Person build() {
         Person person = new Person(name, phone, email, address, tags, visitTodos, visits);
         //populate with visits

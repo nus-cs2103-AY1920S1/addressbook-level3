@@ -56,17 +56,19 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Record ongoing visit of person in the model.
+     * Record a new ongoing visit of person in the model.
      * This will be saved until the visit is finished.
-     * Ongoing visit must be from a Patient unmodified for this to work.
+     * Ongoing visit must be from a Patient unmodified for this to work without throwing an exception,
+     * so only use this to begin visits.
      */
-    void setOngoingVisit(Visit visit);
+    void setNewOngoingVisit(Visit visit);
 
     /**
-     * Update an ongoing visit in the model. This will update the ongoing visit AND update the visit in the
-     * patient.
+     * Update an ongoing visit in the model. This will update the ongoing visit
+     * AND update the visit in the patient.
+     * Use this to update an ongoing visit when there is already a visit.
      */
-    void updateOngoingVisit(Visit target, Visit updatedVisit);
+    void updateOngoingVisit(Visit updatedVisit);
 
     /**
      * Set the ongoing visit of person in the model to null.

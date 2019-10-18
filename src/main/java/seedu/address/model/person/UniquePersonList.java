@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -144,13 +145,12 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Get a person by index.
-     * Throws a Person Not Found Exception if person not found at index.
+     * Get a person by index (Optional object).
      */
-    public Person getByIndex(int key) {
+    public Optional<Person> getByIndex(int key) {
         if (key >= 0 && key < internalList.size()) {
-            return internalList.get(key);
+            return Optional.of(internalList.get(key));
         }
-        throw new PersonNotFoundException();
+        return Optional.empty();
     }
 }

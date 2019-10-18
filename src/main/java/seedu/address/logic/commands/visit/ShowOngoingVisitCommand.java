@@ -22,7 +22,7 @@ public class ShowOngoingVisitCommand extends Command implements MutatorCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Visit visit = VisitUtil.verifyOngoingVisitExistsAndGet(model, MESSAGE_NO_ONGOING_VISIT);
+        Visit visit = VisitUtil.ensureOngoingVisitExistsAndGet(model, MESSAGE_NO_ONGOING_VISIT);
 
         //Todo: Display UI for ongoing visit
 

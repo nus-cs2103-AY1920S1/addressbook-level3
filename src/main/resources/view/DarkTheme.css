@@ -26,7 +26,7 @@
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-fa mily: "Segoe UI Semibold";
+    -fx-font-family: "Segoe UI Semibold";
 }
 
 .tab-pane {

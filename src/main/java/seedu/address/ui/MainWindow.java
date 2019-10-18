@@ -124,8 +124,6 @@ public class MainWindow extends UiPart<Stage> {
 
         ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
         ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
-        //personListPanel = new PersonListPanel(new FilteredList<>(FXCollections.emptyObservableList()));
-        //ongoingVisitPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

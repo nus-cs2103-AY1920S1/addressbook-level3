@@ -25,6 +25,9 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    //Placing ongoingVisitList here so that any changes to the ongoing visit will be reflected
+    //in the UI
     private final ObservableList<Visit> ongoingVisitList;
 
     //Previous predicate variable to keep track of the predicate used by FindCommands
@@ -42,6 +45,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        //Initializing ongoingVisitList here instead of in AddressBook as it is a wrapper of the data
         ongoingVisitList = FXCollections.observableArrayList();
         Optional<Visit> ongoingVisit = this.addressBook.getOngoingVisit();
         ongoingVisit.ifPresent(ongoingVisitList::add);
@@ -103,7 +108,8 @@ public class ModelManager implements Model {
      * This will be saved until the visit is finished.
      */
     @Override
-    public void setOngoingVisit(Visit visit) {
+    public void setNewOngoingVisit(Visit visit) {
+        requireNonNull(visit);
         ongoingVisitList.clear();
         ongoingVisitList.add(visit);
         addressBook.setOngoingVisit(visit);
@@ -116,9 +122,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateOngoingVisit(Visit target, Visit updatedVisit) {
-        target.getPatient().updateVisit(target, updatedVisit);
-        setOngoingVisit(updatedVisit);
+    public void updateOngoingVisit(Visit updatedVisit) {
+        requireNonNull(updatedVisit);
+        Optional<Visit> optionalOngoingVisit = getOngoingVisit();
+        if (optionalOngoingVisit.isPresent()) {
+            Visit ongoingVisit = optionalOngoingVisit.get();
+            ongoingVisit.getPatient().updateVisit(ongoingVisit, updatedVisit);
+            setNewOngoingVisit(updatedVisit);
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
@@ -130,10 +143,8 @@ public class ModelManager implements Model {
     public boolean patientHasOngoingVisit(Person patientToDelete) {
         requireNonNull(patientToDelete);
         Optional<Visit> optionalVisit = getOngoingVisit();
-        if (optionalVisit.isPresent()) {
-            return patientToDelete.equals(optionalVisit.get().getPatient());
-        }
-        return false;
+        return optionalVisit.isPresent()
+                && patientToDelete.equals(optionalVisit.get().getPatient());
     }
 
     @Override

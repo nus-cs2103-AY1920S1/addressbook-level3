@@ -100,7 +100,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public Pair<Integer, Integer> getIndexPairOfCurrentPatientAndVisit() {
+        public Pair<Integer, Integer> getIndexPairOfOngoingPatientAndVisit() {
             return new Pair<>(-1, -1);
         }
     }

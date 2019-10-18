@@ -40,6 +40,7 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
     private final Index patientIndex;
 
     public BeginVisitCommand(Index patientIndex) {
+        requireNonNull(patientIndex);
         this.patientIndex = patientIndex;
     }
 
@@ -68,7 +69,7 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
 
         patient.addVisit(visit);
 
-        model.setOngoingVisit(visit);
+        model.setNewOngoingVisit(visit);
 
         return new CommandResult(String.format(MESSAGE_START_VISIT_SUCCESS, patient));
     }

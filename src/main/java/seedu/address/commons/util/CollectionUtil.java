@@ -38,10 +38,11 @@ public class CollectionUtil {
      * Returns true if {@code item A} items are equal to {@code item B}.
      */
     public static boolean checkEqual(Collection<?> itemA, Collection<?> itemB) {
+        requireAllNonNull(itemA, itemB);
         Iterator itemBIterator = itemB.iterator();
         for (Object obj : itemA) {
-            if (!itemBIterator.hasNext() ||
-                    !obj.equals(itemBIterator.next())) {
+            if (!itemBIterator.hasNext()
+                    || !obj.equals(itemBIterator.next())) {
                 return false;
             }
         }

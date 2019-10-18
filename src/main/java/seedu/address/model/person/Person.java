@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -189,18 +190,18 @@ public class Person {
         if (indexOf > -1) {
             this.visits.set(indexOf, updatedVisit);
         } else {
+            //This should not happen under normal circumstances (code error)
             throw new VisitNotFoundException();
         }
     }
 
     /**
-     * Get visit by index from the visit list.
-     * Throws VisitNotFound Exception if visit not found.
+     * Get visit by index from the visit list (Optional object).
      */
-    public Visit getVisitByIndex(int value) {
+    public Optional<Visit> getVisitByIndex(int value) {
         if (value >= 0 && value < visits.size()) {
-            return visits.get(value);
+            return Optional.of(visits.get(value));
         }
-        throw new VisitNotFoundException();
+        return Optional.empty();
     }
 }

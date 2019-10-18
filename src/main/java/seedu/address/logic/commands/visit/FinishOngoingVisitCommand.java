@@ -22,7 +22,7 @@ public class FinishOngoingVisitCommand extends Command implements MutatorCommand
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        VisitUtil.verifyOngoingVisitExistsAndGet(model, MESSAGE_NO_ONGOING_VISIT);
+        VisitUtil.ensureOngoingVisitExistsAndGet(model, MESSAGE_NO_ONGOING_VISIT);
         model.unsetOngoingVisit();
         return new CommandResult(MESSAGE_SUCCESS);
     }
