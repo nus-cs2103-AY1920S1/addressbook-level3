@@ -19,4 +19,11 @@ public class Mcq extends Answerable {
                Difficulty difficulty, Set<Category> categories) {
         super(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
     }
+
+
+    //TODO: Update functionality
+    public boolean isCorrect() {
+        return true;
+    }
+
 }
