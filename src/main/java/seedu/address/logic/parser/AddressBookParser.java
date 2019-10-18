@@ -10,14 +10,18 @@ import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddConsultationRoomCommand;
 import seedu.address.logic.commands.AppointmentsCommand;
+import seedu.address.logic.commands.CancelAppCommand;
+import seedu.address.logic.commands.ChangeAppCommand;
 import seedu.address.logic.commands.DequeueCommand;
 import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MissAppCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveRoomCommand;
+import seedu.address.logic.commands.SettleAppCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
@@ -112,13 +116,25 @@ public class AddressBookParser {
             return new DequeueCommandParser(model).parse(arguments);
 
         case AddAppCommand.COMMAND_WORD:
-            return new AddAppCommandParser().parse(arguments);
+            return new AddAppCommandParser(model).parse(arguments);
 
         case AppointmentsCommand.COMMAND_WORD:
-            return new AppointmentsCommandParser().parse(arguments);
+            return new AppointmentsCommandParser(model).parse(arguments);
 
         case AckAppCommand.COMMAND_WORD:
-            return new AckAppCommandParser().parse(arguments);
+            return new AckAppCommandParser(model).parse(arguments);
+
+        case CancelAppCommand.COMMAND_WORD:
+            return new CancelAppCommandParser(model).parse(arguments);
+
+        case ChangeAppCommand.COMMAND_WORD:
+            return new ChangeAppCommandTimingParser(model).parse(arguments);
+
+        case MissAppCommand.COMMAND_WORD:
+            return new MissAppCommandParser().parse(arguments);
+
+        case SettleAppCommand.COMMAND_WORD:
+            return new SettleAppCommandParser(model).parse(arguments);
 
         case AddConsultationRoomCommand.COMMAND_WORD:
             return new AddConsultationRoomCommandParser().parse(arguments);

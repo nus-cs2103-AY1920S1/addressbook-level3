@@ -66,12 +66,12 @@ public class Room implements Identical<Room> {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == null || !(other instanceof Room)) {
-            return false;
-        }
-
         if (other == this) {
             return true;
+        }
+
+        if (!(other instanceof Room)) {
+            return false;
         }
 
         Room o = (Room) other;

@@ -38,7 +38,7 @@ class DateTimeTest {
         assertNotNull(sampleDate2);
         assertNotNull(sampleDate3);
 
-        assertTrue(DateTime.tryParseSimpleDateFormat("10/10/2020 0100").equals(sampleDate1));
+        assertTrue(DateTime.tryParseSimpleDateFormat("10/10/20 0100").equals(sampleDate1));
 
         assertNull(DateTime.tryParseSimpleDateFormat("10/10/20 0160"));
         assertNull(DateTime.tryParseSimpleDateFormat("101020 0100"));

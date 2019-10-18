@@ -114,7 +114,9 @@ public interface Model extends ReferenceIdResolver {
 
     //=========== Filtered Patient List Accessors =============================================================
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
@@ -251,12 +253,27 @@ public interface Model extends ReferenceIdResolver {
 
     //=========== Filtered Event List Accessors ==============================================================
 
-    /** Returns an unmodifiable view of the filtered event list */
+    /**
+     * Returns an unmodifiable view of the filtered event list
+     */
     ObservableList<Event> getFilteredEventList();
 
     /**
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    void updateFilteredEventList(ReferenceId referenceId);
+
+    void updateFilteredEventList();
+
+    void updateToMissedEventList();
+
+    void displayApprovedAndAckedPatientEvent(ReferenceId referenceId);
+
+    public Boolean isPatientList();
+
+    public Boolean isMissedList();
 }
