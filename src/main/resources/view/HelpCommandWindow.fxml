@@ -2,10 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,6 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
@@ -46,42 +50,103 @@
                </HBox>
                <TabPane prefHeight="267.0" prefWidth="496.0" tabClosingPolicy="UNAVAILABLE">
                  <tabs>
+                     <Tab text="Basic">
+                        <content>
+                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="496.0">
+                              <children>
+                                 <Text layoutX="11.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are the basics to navigate through itinerary:" />
+                                 <HBox layoutY="32.0" prefHeight="152.0" prefWidth="316.0">
+                                    <children>
+                                       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="196.0" prefWidth="496.0">
+                                          <children>
+                                             <ToolBar prefHeight="40.0" prefWidth="395.0">
+                                                <items>
+                                                   <Label text="greet: Always good to greet your itinerary page daily" />
+                                                   <Region prefHeight="20.0" prefWidth="97.0" />
+                                                   <Button fx:id="greetCommand" mnemonicParsing="false" onAction="#copyGreet" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                <items>
+                                                   <Label text="summary: Give relevant statistics on the itinerary list." />
+                                                   <Region prefHeight="20.0" prefWidth="94.0" />
+                                                   <Button fx:id="summaryCommand" mnemonicParsing="false" onAction="#copySummary" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="40.0" prefWidth="232.0">
+                                                <items>
+                                                   <Label text="help: Help window with the commands to use itinerary feature" />
+                                                   <Region prefHeight="20.0" prefWidth="40.0" />
+                                                   <Button fx:id="helpCommand" mnemonicParsing="false" onAction="#copyHelp" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="40.0" prefWidth="232.0">
+                                                <items>
+                                                   <Label text="goto [page]: Navigate to the desired page" />
+                                                   <Region prefHeight="20.0" prefWidth="162.0" />
+                                                   <Button fx:id="gotoCommand" mnemonicParsing="false" onAction="#copyGoto" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="68.0" prefWidth="496.0">
+                                                <items>
+                                                   <Text fontSmoothingType="LCD" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="exit: Quits TravEzy and closes the application">
+                                                      <font>
+                                                         <Font name="System Font" size="13.0" />
+                                                      </font></Text>
+                                                   <Region prefHeight="20.0" prefWidth="141.0" />
+                                                   <Button fx:id="exitCommand" mnemonicParsing="false" onAction="#copyExit" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                          </children>
+                                       </VBox>
+                                    </children>
+                                 </HBox>
+                              </children>
+                           </AnchorPane>
+                        </content>
+                     </Tab>
                    <Tab text="Commands">
                      <content>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="496.0">
                               <children>
-                                 <Text layoutX="11.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are the basic commands to the itinerary:" />
+                                 <Text layoutX="11.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are the commands which requires parameters in the itinerary:" />
                                  <HBox layoutY="32.0" prefHeight="152.0" prefWidth="316.0">
                                     <children>
-                                       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="178.0" prefWidth="496.0">
+                                       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="194.0" prefWidth="497.0">
                                           <children>
-                                             <ToolBar prefHeight="40.0" prefWidth="395.0">
+                                             <ToolBar prefHeight="29.0" prefWidth="493.0">
                                                <items>
-                                                   <Label text="Add event: add title/[title] time/[time] l/[location] d/[description]" />
-                                                   <Region prefHeight="20.0" prefWidth="26.0" />
+                                                   <Label text="Add event: add t/[title] date/[date] time/[time] l/[location] d/[desc]" />
+                                                   <Region prefHeight="20.0" prefWidth="11.0" />
                                                  <Button fx:id="addCommand" mnemonicParsing="false" onAction="#copyAdd" text="Copy" />
                                                </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                <items>
                                                    <Label text="Delete event: delete [index]" />
-                                                   <Region prefHeight="20.0" prefWidth="250.0" />
-                                                 <Button mnemonicParsing="false" text="Copy" />
+                                                   <Region prefHeight="20.0" prefWidth="249.0" />
+                                                 <Button fx:id="deleteCommand" mnemonicParsing="false" onAction="#copyDelete" text="Copy" />
                                                </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="232.0">
                                                <items>
-                                                 <Button mnemonicParsing="false" text="Button" />
+                                                   <Label text="Edit event: edit [index] [type]/[details]" />
+                                                   <Region prefHeight="20.0" prefWidth="184.0" />
+                                                 <Button fx:id="editCommand" mnemonicParsing="false" onAction="#copyEdit" text="Copy" />
                                                </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="232.0">
                                                 <items>
-                                                   <Button mnemonicParsing="false" text="Button" />
+                                                   <Label text="Done event: done [index]" />
+                                                   <Region prefHeight="20.0" prefWidth="264.0" />
+                                                   <Button fx:id="Command" mnemonicParsing="false" onAction="#copyDone" text="Copy" />
                                                 </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="68.0" prefWidth="496.0">
                                                 <items>
-                                                   <Button mnemonicParsing="false" text="Button" />
+                                                   <Label text="List event: list" />
+                                                   <Region prefHeight="20.0" prefWidth="333.0" />
+                                                   <Button fx:id="listCommand" mnemonicParsing="false" onAction="#copyList" text="Copy" />
                                                 </items>
                                              </ToolBar>
                                           </children>
@@ -92,23 +157,129 @@
                      </content>
                    </Tab>
                      <Tab text="Advanced">
-                       <content>
-                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <content>
+                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="496.0">
                               <children>
-                                 <Text layoutX="11.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commands for advanced users ONLY! Don't mess with it if you are a newbie!" />
-                              </children></AnchorPane>
-                       </content>
+                                 <Text layoutX="11.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are the command for advanced users ONLY! Strictly not for newbies!" />
+                                 <HBox layoutY="32.0" prefHeight="152.0" prefWidth="316.0">
+                                    <children>
+                                       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="194.0" prefWidth="493.0">
+                                          <children>
+                                             <ToolBar prefHeight="29.0" prefWidth="493.0">
+                                                <items>
+                                                   <Label text="Sort: sort by/[alphabetical | chronological | completion | duration]" />
+                                                   <Region prefHeight="20.0" prefWidth="18.0" />
+                                                   <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                <items>
+                                                   <Label text="Redo: Recall back the previous command using the &quot;up&quot; arrow key" />
+                                                   <Region prefHeight="20.0" prefWidth="11.0" />
+                                                   <Button fx:id="redoCommand" mnemonicParsing="false" onAction="#copyRedo" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="40.0" prefWidth="232.0">
+                                                <items>
+                                                   <Label text="Undo: Undo the previous few commands from itinerary page" />
+                                                   <Region prefHeight="20.0" prefWidth="48.0" />
+                                                   <Button fx:id="undoCommand" mnemonicParsing="false" onAction="#copyUndo" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="40.0" prefWidth="232.0">
+                                                <items>
+                                                   <Label text="Search event: search by/[title | date | time | location] [keyword]" />
+                                                   <Region prefHeight="20.0" prefWidth="29.0" />
+                                                   <Button fx:id="searchCommand" mnemonicParsing="false" onAction="#copySearch" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                             <ToolBar prefHeight="68.0" prefWidth="496.0">
+                                                <items>
+                                                   <Label text="Wish: Wish for the perfect event. Based on various conditions given. " />
+                                                   <Button fx:id="wishCommand" mnemonicParsing="false" onAction="#copyWish" text="Copy" />
+                                                </items>
+                                             </ToolBar>
+                                          </children>
+                                       </VBox>
+                                    </children>
+                                 </HBox>
+                              </children>
+                           </AnchorPane>
+                        </content>
                      </Tab>
-                     <Tab text="Contact Us">
+                     <Tab text="Contact Me">
                        <content>
                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                               <children>
-                                 <Text layoutX="170.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Our one's truly &lt;3" />
-                                 <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="24.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <ImageView fitHeight="185.0" fitWidth="149.0" layoutX="333.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                       <Image url="@../../../../docs/images/damithc.jpg" />
+                                       <Image url="@../../../../docs/images/ngzhaoming.png" />
                                     </image>
                                  </ImageView>
+                                 <Accordion layoutX="14.0" layoutY="14.0" prefHeight="216.0" prefWidth="305.0">
+                                   <panes>
+                                     <TitledPane animated="false" prefHeight="174.0" prefWidth="305.0" text="About itinerary">
+                                       <content>
+                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="34.0" prefWidth="200.0">
+                                                <children>
+                                                   <TextArea layoutX="2.0" layoutY="4.0" prefHeight="128.0" prefWidth="298.0" text="Thank you for using TravEzy itinerary. We &#10;ensure that you are on schedule and keep&#10;track of all your activities. Should there be &#10;any issue, please do not hesitate to file an &#10;issue report to my GitHub (provided below)!" />
+                                                </children></AnchorPane>
+                                       </content>
+                                     </TitledPane>
+                                     <TitledPane animated="false" prefHeight="138.0" prefWidth="305.0" text="Social Media">
+                                       <content>
+                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="303.0">
+                                                <children>
+                                                   <Label layoutX="14.0" layoutY="6.0" text="Find me through social media! :3" />
+                                                   <VBox layoutX="14.0" layoutY="29.0" prefHeight="81.0" prefWidth="279.0">
+                                                      <children>
+                                                         <ToolBar prefHeight="31.0" prefWidth="279.0">
+                                                           <items>
+                                                               <Label text="Instagram" />
+                                                               <Region prefHeight="20.0" prefWidth="112.0" />
+                                                             <Button fx:id="instagramCommand" mnemonicParsing="false" onAction="#gotoInstagram" text="Go to URL" />
+                                                           </items>
+                                                         </ToolBar>
+                                                         <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                           <items>
+                                                               <Label text="GitHub" />
+                                                               <Region prefHeight="20.0" prefWidth="130.0" />
+                                                             <Button fx:id="githubCommand" mnemonicParsing="false" onAction="#gotoGithub" text="Go to URL" />
+                                                           </items>
+                                                         </ToolBar>
+                                                      </children>
+                                                   </VBox>
+                                                </children>
+                                             </AnchorPane>
+                                       </content>
+                                     </TitledPane>
+                                     <TitledPane animated="false" prefHeight="153.0" prefWidth="305.0" text="Website">
+                                       <content>
+                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="72.0" prefWidth="303.0">
+                                                <children>
+                                                   <Label layoutX="9.0" layoutY="14.0" text="FIND MORE ABOUT ME THROUGH MY WEBSITE">
+                                                      <font>
+                                                         <Font name="Chalkboard" size="13.0" />
+                                                      </font>
+                                                   </Label>
+                                                   <ToolBar layoutX="52.0" layoutY="47.0" prefHeight="40.0" prefWidth="200.0">
+                                                     <items>
+                                                         <Label text="Website" />
+                                                         <Region prefHeight="20.0" prefWidth="45.0" />
+                                                       <Button fx:id="websiteCommand" mnemonicParsing="false" onAction="#gotoWebsite" text="Go to URL" />
+                                                     </items>
+                                                   </ToolBar>
+                                                </children>
+                                             </AnchorPane>
+                                       </content>
+                                     </TitledPane>
+                                   </panes>
+                                 </Accordion>
+                                 <Label layoutX="333.0" layoutY="212.0" text="Done By: Ng Zhao Ming">
+                                    <font>
+                                       <Font name="System Bold" size="13.0" />
+                                    </font>
+                                 </Label>
                               </children>
                            </AnchorPane>
                        </content>

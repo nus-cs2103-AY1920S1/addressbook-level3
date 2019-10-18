@@ -17,15 +17,13 @@
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" minHeight="105" prefHeight="105.0" prefWidth="194.0" GridPane.columnIndex="0">
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
       <HBox alignment="CENTER_LEFT" spacing="5">
         <ImageView fx:id="checkBox" fitHeight="17.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/cross.png" />
-               </image></ImageView>
+            </ImageView>
             <Region prefHeight="17.0" prefWidth="1.0" />
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
@@ -36,10 +34,21 @@
         <Label fx:id="title" lineSpacing="2.0" prefHeight="20.0" prefWidth="56.0" styleClass="cell_big_label" text="\\\$title" underline="true" wrapText="true">
                <font>
                   <Font name="Chalkboard" size="18.0" />
-               </font></Label>
+               </font>
+            </Label>
       </HBox>
          <VBox prefHeight="0.0" prefWidth="130.0">
             <children>
+               <HBox prefHeight="14.0" prefWidth="128.0">
+                  <children>
+                     <Label text="📅DATE: ">
+                        <font>
+                           <Font name="Chalkboard" size="13.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="date" prefHeight="17.0" prefWidth="57.0" styleClass="cell_small_label" text="\\\$date" />
+                  </children>
+               </HBox>
                <HBox prefHeight="14.0" prefWidth="128.0">
                   <children>
                      <Label text="⏰TIME: ">
@@ -55,7 +64,8 @@
                      <Label text="📍LOCATION: ">
                         <font>
                            <Font name="Chalkboard" size="13.0" />
-                        </font></Label>
+                        </font>
+                     </Label>
                   <Label fx:id="loc" styleClass="cell_small_label" text="\\\$loc" />
                   </children>
                </HBox>
@@ -64,7 +74,8 @@
                      <Label text="📓DESCRIPTION: ">
                         <font>
                            <Font name="Chalkboard SE Light" size="13.0" />
-                        </font></Label>
+                        </font>
+                     </Label>
                   <Label fx:id="desc" styleClass="cell_small_label" text="\\\$desc" />
                   </children>
                </HBox>

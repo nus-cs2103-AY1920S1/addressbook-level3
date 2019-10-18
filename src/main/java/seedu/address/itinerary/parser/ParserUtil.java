@@ -2,10 +2,7 @@ package seedu.address.itinerary.parser;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.itinerary.model.Event.Description;
-import seedu.address.itinerary.model.Event.Location;
-import seedu.address.itinerary.model.Event.Time;
-import seedu.address.itinerary.model.Event.Title;
+import seedu.address.itinerary.model.Event.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
 
@@ -97,5 +94,13 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
         return new Time(trimmedTime);
+    }
+
+    public static Date parseDate(String date) throws ParseException {
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
     }
 }

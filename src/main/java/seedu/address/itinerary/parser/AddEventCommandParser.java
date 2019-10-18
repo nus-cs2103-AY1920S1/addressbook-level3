@@ -8,10 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.util.stream.Stream;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.itinerary.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -25,19 +22,20 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
      */
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
         Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
 
-        Event event = new Event(title, location, description, time);
+        Event event = new Event(title, date, location, description, time);
 
         return new AddEventCommand(event);
     }

@@ -19,10 +19,13 @@ public class Itinerary {
 
     public void addEvent(Event event) {
         eventList.addEvent(event);
-        System.out.println(eventList.getSize());
     }
 
     public void deleteEvent(int index) {
         eventList.deleteEvent(index);
+    }
+
+    public void doneEvent(Event target, Event doneEvent) {
+        eventList.doneEvent(target, doneEvent);
     }
 }
