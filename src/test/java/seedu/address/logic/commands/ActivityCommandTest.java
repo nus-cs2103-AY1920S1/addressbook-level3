@@ -30,6 +30,9 @@ public class ActivityCommandTest {
         assertThrows(NullPointerException.class, () -> new ActivityCommand(null, null));
     }
 
+    /**
+     * TODO: put this back after abstracting out view change @Test
+     */
     public void execute_validActivityWithoutParticipants_addSuccessful() throws Exception {
         ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
         Activity validActivity = new ActivityBuilder().build();
@@ -43,6 +46,9 @@ public class ActivityCommandTest {
         assertEquals(Arrays.asList(validActivity), modelStub.activityList);
     }
 
+    /**
+     * TODO: put this back after abstracting out view change @Test
+     */
     public void execute_validActivityWithParticipant_addSuccessful() throws Exception {
         ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
         Activity validActivity = new ActivityBuilder().addPerson(TypicalPersons.ALICE).build();
@@ -58,7 +64,9 @@ public class ActivityCommandTest {
         assertEquals(Arrays.asList(validActivity), modelStub.activityList);
     }
 
-    // TODO: put this back after abstracting out view change @Test
+    /**
+     * TODO: put this back after abstracting out view change @Test
+     */
     public void execute_validActivityWithInvalidParticipant_multipleMatches() throws Exception {
         ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
         modelStub.addPerson(TypicalPersons.ANDY);
