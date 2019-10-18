@@ -107,14 +107,7 @@ public class Employee {
         }
 
         return otherEmployee != null
-                && otherEmployee.getEmployeeId().equals(getEmployeeId())
-                && otherEmployee.getEmployeeName().equals(getEmployeeName())
-                && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
-                && otherEmployee.getEmployeePosition().equals((getEmployeePosition()))
-                && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
-                && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
-                && otherEmployee.getEmployeeAddress().equals(getEmployeeAddress())
-                && otherEmployee.getEmployeeJoinDate().equals(getEmployeeJoinDate());
+            && otherEmployee.getEmployeeName().equals(getEmployeeName());
     }
 
     /**

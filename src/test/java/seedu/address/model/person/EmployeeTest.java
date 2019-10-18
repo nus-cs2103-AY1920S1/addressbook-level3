@@ -34,7 +34,7 @@ public class EmployeeTest {
 
         // different phone and email -> returns false
         Employee editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameEmployee(editedAlice));
+        assertTrue(ALICE.isSameEmployee(editedAlice));
 
         // different name -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();

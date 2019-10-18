@@ -1,13 +1,11 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.employee.Employee;
-import seedu.address.model.employee.EmployeeAddress;
-import seedu.address.model.employee.EmployeeEmail;
-import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,7 +14,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
@@ -87,7 +85,11 @@ public class PersonBuilder {
     }
 
     public Employee build() {
-        return new Employee(employeeName, employeePhone, employeeEmail, employeeAddress, tags);
+        return new Employee(new EmployeeId("000"), employeeName, new EmployeeGender("male"),
+                new EmployeePosition("manager"), employeePhone, employeeEmail, employeeAddress,
+                new EmployeeJoinDate(LocalDate.parse("11/12/2011", DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                , tags);
+
     }
 
 }
