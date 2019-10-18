@@ -43,6 +43,9 @@ public class CourseUtil {
 
     private static final String COURSE_FOLDER = "modinfo";
 
+    public static final String MESSAGE_COURSE_NOT_FOUND =
+            "These course(s) could not be found: %1$s";
+
     /**
      * Removes all spaces in a given {@code String} that are not within quotes.
      *
@@ -183,14 +186,14 @@ public class CourseUtil {
         }
 
         Map<String, Consumer<String>> mapper = Map.of(
-            "courseCode", (s) -> courseCode.set(new CourseCode((String) s)),
-            "title", (s) -> title.set(new Title((String) s)),
-            "courseCredit", (s) -> courseCredit.set(new CourseCredit((String) s)),
-            "description", (s) -> description.set(new Description((String) s)),
-            "faculty", (s) -> faculty.set(new Faculty((String) s)),
-            "preclusion", (s) -> preclusion.set(new Preclusion((String) s)),
-            "fulfillRequirements", (s) -> fulfillRequirements.set(new FulfillRequirements((String) s)),
-            "prereqTree", (s) -> prereqTree.set(new PrereqTree((String) s))
+            "courseCode", (prop) -> courseCode.set(new CourseCode(prop)),
+            "title", (prop) -> title.set(new Title(prop)),
+            "courseCredit", (prop) -> courseCredit.set(new CourseCredit(prop)),
+            "description", (prop) -> description.set(new Description(prop)),
+            "faculty", (prop) -> faculty.set(new Faculty(prop)),
+            "preclusion", (prop) -> preclusion.set(new Preclusion(prop)),
+            "fulfillRequirements", (prop) -> fulfillRequirements.set(new FulfillRequirements(prop)),
+            "prereqTree", (prop) -> prereqTree.set(new PrereqTree(prop))
         );
 
         courseInformation.forEach((k, v) -> {
