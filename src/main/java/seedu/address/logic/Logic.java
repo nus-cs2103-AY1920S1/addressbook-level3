@@ -44,7 +44,6 @@ public interface Logic {
      */
     ObservableList<Person> getFilteredPersonList();
 
-
     /**
      * Returns the a list of foods.
      *
@@ -56,18 +55,6 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of foods
      */
     ObservableList<Food> getFilterFoodList();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getUserListFilePath();
-
-    /**
-     * Returns the UserList.
-     *
-     * @see seedu.address.model.Model#getUserList()
-     */
-    ReadOnlyUserList getUserList();
     
     /**
      * Returns the user prefs' address book file path.
@@ -83,4 +70,19 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    //=========== User List =============================================================
+
+    /**
+     * Returns the user prefs' address book file path.
+     */
+    Path getUserListFilePath();
+
+    /**
+     * Returns the UserList.
+     *
+     * @see seedu.address.model.Model#getUserList()
+     */
+    ReadOnlyUserList getUserList();
+
 }

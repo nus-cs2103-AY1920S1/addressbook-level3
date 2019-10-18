@@ -93,29 +93,38 @@ public class MainApp extends Application {
         UniqueFoodList foodList = new UniqueFoodList();
         foodList.setFoods(FOODS);
         RecordBook recordBook = new RecordBook();
-        UserList userList = new UserList();
 
+
+        // Todo Following can eventually be abstracted in later versions if there's time.
         try {
             addressBookOptional = storage.readAddressBook();
-            userListOptional = storage.readUserList();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            if (!userListOptional.isPresent()) {
-                logger.info("Bio Data file not found. Will be starting with a sample user list containing "
-                        + " bio data");
-            }
-            initialUserData = userListOptional.orElseGet(SampleUserDataUtil::getSampleUserList);
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
-            initialUserData = new UserList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+        }
+
+        try {
+            userListOptional = storage.readUserList();
+            if (!userListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            initialUserData = userListOptional.orElseGet(SampleUserDataUtil::getSampleUserList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialUserData = new UserList();
+        } catch (IOException e) {
+            logger.info("Bio Data file not found. Will be starting with a sample user list containing "
+                    + " bio data");
             initialUserData = new UserList();
         }
+
         return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData);
     }
 

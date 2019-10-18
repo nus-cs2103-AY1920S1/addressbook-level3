@@ -30,6 +30,8 @@ public interface Storage extends AddressBookStorage, UserListStorage, UserPrefsS
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
+    // ================ UserList methods ==============================
+
     @Override
     Path getUserListFilePath();
 

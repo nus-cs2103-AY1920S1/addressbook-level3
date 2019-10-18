@@ -110,60 +110,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setUserList(ReadOnlyUserList userList) {
-        this.userList.resetData(userList);
-    }
-
-    @Override
-    public boolean bioExists() {
-        return !this.userList.isEmpty();
-    }
-
-    @Override
-    public ReadOnlyUserList getUserList() {
-        return userList;
-    }
-
-    @Override
-    public Path getUserListFilePath() {
-        return userPrefs.getUserListFilePath();
-    }
-
-    @Override
-    public boolean hasUser(User user) {
-        requireNonNull(user);
-        return userList.hasUser(user);
-    }
-
-    @Override
-    public void addUser(User user) {
-        userList.addUser(user);
-        updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code User} backed by the internal list of {@code
-     * versionedAddressBook}
-     */
-    @Override
-    public ObservableList<User> getFilteredUserList() {
-        return filteredUserList;
-    }
-
-    @Override
-    public void updateFilteredUserList(Predicate<User> predicate) {
-        requireNonNull(predicate);
-        filteredUserList.setPredicate(predicate);
-    }
-
-    @Override
-    public void setUser(User target, User editedUser) {
-        requireAllNonNull(target, editedUser);
-
-        userList.setUser(target, editedUser);
-    }
-
-    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
@@ -242,6 +188,62 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //=========== User List =============================================================
+
+    @Override
+    public void setUserList(ReadOnlyUserList userList) {
+        this.userList.resetData(userList);
+    }
+
+    @Override
+    public boolean bioExists() {
+        return !this.userList.isEmpty();
+    }
+
+    @Override
+    public ReadOnlyUserList getUserList() {
+        return userList;
+    }
+
+    @Override
+    public Path getUserListFilePath() {
+        return userPrefs.getUserListFilePath();
+    }
+
+    @Override
+    public boolean hasUser(User user) {
+        requireNonNull(user);
+        return userList.hasUser(user);
+    }
+
+    @Override
+    public void addUser(User user) {
+        userList.addUser(user);
+        updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code User} backed by the internal list of {@code
+     * versionedAddressBook}
+     */
+    @Override
+    public ObservableList<User> getFilteredUserList() {
+        return filteredUserList;
+    }
+
+    @Override
+    public void updateFilteredUserList(Predicate<User> predicate) {
+        requireNonNull(predicate);
+        filteredUserList.setPredicate(predicate);
+    }
+
+    @Override
+    public void setUser(User target, User editedUser) {
+        requireAllNonNull(target, editedUser);
+
+        userList.setUser(target, editedUser);
     }
 
     //=========== Food Map =============================================================

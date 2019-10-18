@@ -63,17 +63,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getUserListFilePath() {
-        return model.getUserListFilePath();
-    }
-
-    @Override
-    public ReadOnlyUserList getUserList() {
-        return model.getUserList();
-    }
-
-
-    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
@@ -107,4 +96,17 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    //=========== User List =============================================================
+
+    @Override
+    public Path getUserListFilePath() {
+        return model.getUserListFilePath();
+    }
+
+    @Override
+    public ReadOnlyUserList getUserList() {
+        return model.getUserList();
+    }
+
 }

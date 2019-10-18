@@ -78,6 +78,7 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ UserList methods ==============================
 
     @Override
     public Path getUserListFilePath() {
