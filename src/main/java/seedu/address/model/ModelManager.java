@@ -287,7 +287,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList() {
-        return getFilteredAutocorrectSuggestionList();
+        return filteredSuggestions;
     }
 
     @Override

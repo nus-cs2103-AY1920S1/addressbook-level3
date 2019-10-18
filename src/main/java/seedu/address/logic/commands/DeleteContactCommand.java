@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.contact.Contact;
 import seedu.address.storage.SuggestionsStorage;
 
@@ -42,8 +43,11 @@ public class DeleteContactCommand extends Command {
 
         Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteContact(contactToDelete);
+
         //delete the contact details off the suggestions list
-        SuggestionsStorage.deleteContactDetailsFromSuggestionList(contactToDelete);
+        AutocorrectSuggestion toDelete = new AutocorrectSuggestion(contactToDelete.getName().toString());
+        model.deleteAutocorrectSuggestion(toDelete);
+        SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete));
     }
 

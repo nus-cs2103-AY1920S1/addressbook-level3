@@ -284,8 +284,9 @@ public class FinSec implements ReadOnlyFinSec {
     }
 
     @Override
-    public ObservableList<AutocorrectSuggestion> getAutocorrectSuggestionList()
-    { return suggestions.asUnmodifiableObservableList(); }
+    public ObservableList<AutocorrectSuggestion> getAutocorrectSuggestionList() {
+        return suggestions.asUnmodifiableObservableList();
+    }
 
     /**
      * Checks whether if this FinSec object equals to another.

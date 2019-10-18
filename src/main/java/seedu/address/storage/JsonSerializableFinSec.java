@@ -57,8 +57,8 @@ class JsonSerializableFinSec {
         contacts.addAll(source.getContactList().stream().map(JsonAdaptedContact::new).collect(Collectors.toList()));
         claims.addAll(source.getClaimList().stream().map(JsonAdaptedClaim::new).collect(Collectors.toList()));
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
-        suggestions.addAll(source.getAutocorrectSuggestionList().stream().
-                                        map(JsonAdaptedAutocorrectSuggestion::new).collect(Collectors.toList()));
+        suggestions.addAll(source.getAutocorrectSuggestionList().stream()
+                                        .map(JsonAdaptedAutocorrectSuggestion::new).collect(Collectors.toList()));
     }
 
     /**
