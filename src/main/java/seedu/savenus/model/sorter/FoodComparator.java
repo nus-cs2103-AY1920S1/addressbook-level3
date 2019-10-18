@@ -1,7 +1,10 @@
-package seedu.savenus.model.food;
+package seedu.savenus.model.sorter;
 
 import java.util.Comparator;
 import java.util.List;
+
+import seedu.savenus.model.food.Field;
+import seedu.savenus.model.food.Food;
 
 /**
  * A simple Comparator to arrange Food based on their fields.

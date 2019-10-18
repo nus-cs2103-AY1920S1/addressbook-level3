@@ -13,6 +13,8 @@ import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_LESS_THAN;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.savenus.model.sorter.FieldComparator;
+
 /**
  * Creates a new FoodFilter to filter all Foods not following the defined quantifiers.
  */

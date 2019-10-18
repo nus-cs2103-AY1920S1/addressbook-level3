@@ -1,6 +1,8 @@
-package seedu.savenus.model.food;
+package seedu.savenus.model.sorter;
 
 import java.util.Comparator;
+
+import seedu.savenus.model.food.Field;
 
 /**
  * A Simple Comparator which compares two fields.

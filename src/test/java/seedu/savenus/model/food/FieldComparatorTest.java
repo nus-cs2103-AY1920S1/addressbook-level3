@@ -8,6 +8,8 @@ import static seedu.savenus.testutil.TypicalMenu.NASI_LEMAK;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.savenus.model.sorter.FieldComparator;
+
 public class FieldComparatorTest {
     private FieldComparator fieldComparator;
     @Test

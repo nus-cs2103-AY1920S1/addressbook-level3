@@ -9,7 +9,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.food.FoodComparator;
+import seedu.savenus.model.sorter.FoodComparator;
 
 /**
  * Sorts all the foods in the $aveNUS menu based on given criterion.
