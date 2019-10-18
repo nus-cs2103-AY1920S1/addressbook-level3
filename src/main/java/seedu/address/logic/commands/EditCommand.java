@@ -94,7 +94,7 @@ public class EditCommand extends Command {
         Title updatedTitle = editBookDescriptor.getTitle().orElse(bookToEdit.getTitle());
         SerialNumber updatedSerialNumber = editBookDescriptor.getSerialNumber().orElse(bookToEdit.getSerialNumber());
         Author updatedAuthor = editBookDescriptor.getAuthor().orElse(bookToEdit.getAuthor());
-        boolean bookHasLoan = bookToEdit.getLoan().isPresent();
+        boolean bookHasLoan = bookToEdit.isCurrentlyLoanedOut();
         Loan updatedLoan;
         if (bookHasLoan) {
             updatedLoan = editBookDescriptor.getLoan().orElse(bookToEdit.getLoan().get());

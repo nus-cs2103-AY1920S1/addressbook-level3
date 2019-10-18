@@ -234,17 +234,17 @@ public class BookPredicateTest {
         // white space keywords
         assertThrows(IllegalArgumentException.class, () -> new BookPredicate().setGenres("  "));
 
-        // Non-matching keyword
+        // Non-matching keyword will not pass
         BookPredicate predicate = new BookPredicate().setGenres(VALID_GENRE_NONFICTION);
         assertFalse(predicate.test(new BookBuilder().withGenres(VALID_GENRE_FICTION, VALID_GENRE_ACTION).build()));
 
-        // Only one matching keyword
+        // Only one matching keyword will not pass predicate
         predicate = new BookPredicate().setGenres(VALID_GENRE_ACTION, VALID_GENRE_NONFICTION);
         assertFalse(predicate.test(new BookBuilder().withGenres(VALID_GENRE_FICTION, VALID_GENRE_ACTION).build()));
 
-        // Mixed-case keywords
+        // Mixed-case keywords allowed
         predicate = new BookPredicate().setGenres("ficTion", "Action");
-        assertFalse(predicate.test(new BookBuilder().withGenres(VALID_GENRE_FICTION, VALID_GENRE_ACTION).build()));
+        assertTrue(predicate.test(new BookBuilder().withGenres(VALID_GENRE_FICTION, VALID_GENRE_ACTION).build()));
 
         // Keywords match title, author and serial number, but does not match genre
         predicate = new BookPredicate().setTitle(VALID_TITLE_BOOK_1)
