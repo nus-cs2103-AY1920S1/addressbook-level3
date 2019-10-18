@@ -34,9 +34,9 @@ import seedu.address.testutil.EditSpendingDescriptorBuilder;
 import seedu.address.testutil.SpendingBuilder;
 import seedu.address.testutil.SpendingUtil;
 
-public class AddressBookParserTest {
+public class SpendingBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final SpendingBookParser parser = new SpendingBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalSpendings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,14 +14,14 @@ import seedu.address.model.budget.Budget;
 
 class BudgetCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
 
     @Test
     public void execute_setNewBudget_success() {
         Budget budget = new Budget(10000);
         BudgetCommand budgetCommand = new BudgetCommand(budget);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
         expectedModel.setBudget(budget);
 
         String expectedMessage = BudgetCommand.MESSAGE_SUCCESS + budget.toString();

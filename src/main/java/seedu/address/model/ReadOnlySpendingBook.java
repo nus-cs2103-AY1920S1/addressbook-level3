@@ -7,7 +7,7 @@ import seedu.address.model.spending.Spending;
 /**
  * Unmodifiable view of the MoneyGoWhere list
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlySpendingBook {
 
     /**
      * Returns an unmodifiable view of the persons list.

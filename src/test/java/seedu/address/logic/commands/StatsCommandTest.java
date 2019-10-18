@@ -8,7 +8,7 @@ import static seedu.address.testutil.TypicalSpendings.DANIEL;
 import static seedu.address.testutil.TypicalSpendings.ELLE;
 import static seedu.address.testutil.TypicalSpendings.FIONA;
 import static seedu.address.testutil.TypicalSpendings.GEORGE;
-import static seedu.address.testutil.TypicalSpendings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,13 +23,13 @@ import seedu.address.model.budget.Budget;
  */
 class StatsCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
 
     //Testing logic of calculating totalCost, budget and budgetRemaining
     //Testing whether list has been filtered correctly (no date parameters specified)
     @Test
     public void execute_surplusBudgetRemaining_success() {
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
 
         double totalCost = Double.parseDouble(ALICE.getCost().toString())
             + Double.parseDouble(BENSON.getCost().toString()) + Double.parseDouble(CARL.getCost().toString())
@@ -51,7 +51,7 @@ class StatsCommandTest {
     //Testing whether list has been filtered correctly (no date parameters specified)
     @Test
     public void execute_deficitBudgetRemaining_success() {
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
         model.setBudget(new Budget(100));
         expectedModel.setBudget(new Budget(100));
 

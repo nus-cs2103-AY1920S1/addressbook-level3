@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.SpendingBook;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
@@ -61,10 +61,10 @@ public class TypicalSpendings {
     private TypicalSpendings() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical spendings.
+     * Returns an {@code SpendingBook} with all the typical spendings.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static SpendingBook getTypicalSpendingBook() {
+        SpendingBook ab = new SpendingBook();
         for (Spending spending : getTypicalSpendings()) {
             ab.addSpending(spending);
         }

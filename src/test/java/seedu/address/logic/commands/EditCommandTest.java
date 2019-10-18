@@ -12,16 +12,16 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showSpendingAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SPENDING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_SPENDING;
-import static seedu.address.testutil.TypicalSpendings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditSpendingDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.SpendingBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.spending.Spending;
 import seedu.address.testutil.EditSpendingDescriptorBuilder;
@@ -32,7 +32,7 @@ import seedu.address.testutil.SpendingBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +42,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SPENDING_SUCCESS, editedSpending);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendingBook(model.getSpendingBook()), new UserPrefs());
         expectedModel.setSpending(model.getFilteredSpendingList().get(0), editedSpending);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SPENDING_SUCCESS, editedSpending);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendingBook(model.getSpendingBook()), new UserPrefs());
         expectedModel.setSpending(lastSpending, editedSpending);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SPENDING_SUCCESS, editedSpending);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendingBook(model.getSpendingBook()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SPENDING_SUCCESS, editedSpending);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendingBook(model.getSpendingBook()), new UserPrefs());
         expectedModel.setSpending(model.getFilteredSpendingList().get(0), editedSpending);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -112,7 +112,7 @@ public class EditCommandTest {
         showSpendingAtIndex(model, INDEX_FIRST_SPENDING);
 
         // edit Spending in filtered list into a duplicate in the MoneyGoWhere list
-        Spending spendingInList = model.getAddressBook().getSpendingList().get(INDEX_SECOND_SPENDING.getZeroBased());
+        Spending spendingInList = model.getSpendingBook().getSpendingList().get(INDEX_SECOND_SPENDING.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_SPENDING,
                 new EditSpendingDescriptorBuilder(spendingInList).build());
 
@@ -137,7 +137,7 @@ public class EditCommandTest {
         showSpendingAtIndex(model, INDEX_FIRST_SPENDING);
         Index outOfBoundIndex = INDEX_SECOND_SPENDING;
         // ensures that outOfBoundIndex is still in bounds of the MoneyGoWhere list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getSpendingList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getSpendingBook().getSpendingList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditSpendingDescriptorBuilder().withName(VALID_NAME_BOB).build());

@@ -38,20 +38,20 @@ public interface Model {
     /**
      * Returns the user prefs' MoneyGoWhere file path.
      */
-    Path getAddressBookFilePath();
+    Path getSpendingBookFilePath();
 
     /**
      * Sets the user prefs' MoneyGoWhere file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setSpendingBookFilePath(Path spendingBookFilePath);
 
     /**
-     * Replaces MoneyGoWhere data with the data in {@code addressBook}.
+     * Replaces MoneyGoWhere data with the data in {@code spendingBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setSpendingBook(ReadOnlySpendingBook spendingBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the SpendingBook */
+    ReadOnlySpendingBook getSpendingBook();
 
     /**
      * Returns true if a Spending with the same identity as {@code Spending} exists in the MoneyGoWhere list.

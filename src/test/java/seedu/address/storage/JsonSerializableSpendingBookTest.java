@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.SpendingBook;
 import seedu.address.testutil.TypicalSpendings;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableSpendingBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_SPENDINGS_FILE = TEST_DATA_FOLDER.resolve("typicalSpendingsAddressBook.json");
@@ -23,25 +23,25 @@ public class JsonSerializableAddressBookTest {
 
     @Test
     public void toModelType_typicalSpendingsFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_SPENDINGS_FILE,
-                JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalSpendingsAddressBook = TypicalSpendings.getTypicalAddressBook();
+        JsonSerializableSpendingBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_SPENDINGS_FILE,
+                JsonSerializableSpendingBook.class).get();
+        SpendingBook addressBookFromFile = dataFromFile.toModelType();
+        SpendingBook typicalSpendingsAddressBook = TypicalSpendings.getTypicalSpendingBook();
         assertEquals(addressBookFromFile, typicalSpendingsAddressBook);
     }
 
     @Test
     public void toModelType_invalidSpendingFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_SPENDING_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableSpendingBook dataFromFile = JsonUtil.readJsonFile(INVALID_SPENDING_FILE,
+                JsonSerializableSpendingBook.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateSpendings_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_SPENDING_FILE,
-                JsonSerializableAddressBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_SPENDING,
+        JsonSerializableSpendingBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_SPENDING_FILE,
+                JsonSerializableSpendingBook.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableSpendingBook.MESSAGE_DUPLICATE_SPENDING,
                 dataFromFile::toModelType);
     }
 

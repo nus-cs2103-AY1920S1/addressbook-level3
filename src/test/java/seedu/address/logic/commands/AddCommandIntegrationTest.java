@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalSpendings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +22,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newSpending_success() {
         Spending validSpending = new SpendingBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
         expectedModel.addSpending(validSpending);
 
         assertCommandSuccess(new AddCommand(validSpending), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateSpending_throwsCommandException() {
-        Spending spendingInList = model.getAddressBook().getSpendingList().get(0);
+        Spending spendingInList = model.getSpendingBook().getSpendingList().get(0);
         assertCommandFailure(new AddCommand(spendingInList), model, AddCommand.MESSAGE_DUPLICATE_SPENDING);
     }
 

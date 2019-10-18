@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalSpendings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlySpendingBook;
+import seedu.address.model.SpendingBook;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonSpendingBookStorage spendingBookStorage = new JsonSpendingBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(spendingBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,23 +48,23 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void spendingBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
+         * {@link JsonSpendingBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
+        SpendingBook original = getTypicalSpendingBook();
+        storageManager.saveSpendingBook(original);
         System.out.println("debug");
-        System.out.println(storageManager.readAddressBook());
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        System.out.println(storageManager.readSpendingBook());
+        ReadOnlySpendingBook retrieved = storageManager.readSpendingBook().get();
+        assertEquals(original, new SpendingBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getSpendingBookFilePath() {
+        assertNotNull(storageManager.getSpendingBookFilePath());
     }
 
 }

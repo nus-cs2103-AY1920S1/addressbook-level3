@@ -14,7 +14,7 @@ import seedu.address.model.spending.UniqueSpendingList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class SpendingBook implements ReadOnlySpendingBook {
 
     private final UniqueSpendingList spendings;
     private final Budget budget;
@@ -31,12 +31,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         budget = new Budget(0);
     }
 
-    public AddressBook() {}
+    public SpendingBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a SpendingBook using Spending entries in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public SpendingBook(ReadOnlySpendingBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -52,9 +52,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code SpendingBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlySpendingBook newData) {
         requireNonNull(newData);
 
         setSpendings(newData.getSpendingList());
@@ -92,7 +92,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code SpendingBook}.
      * {@code key} must exist in the MoneyGoWhere list.
      */
     public void removeSpending(Spending key) {
@@ -129,9 +129,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && spendings.equals(((AddressBook) other).spendings)
-                && budget.equals(((AddressBook) other).budget));
+                || (other instanceof SpendingBook // instanceof handles nulls
+                && spendings.equals(((SpendingBook) other).spendings)
+                && budget.equals(((SpendingBook) other).budget));
     }
 
     @Override

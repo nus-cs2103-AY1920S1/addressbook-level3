@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showSpendingAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SPENDING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_SPENDING;
-import static seedu.address.testutil.TypicalSpendings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import seedu.address.model.spending.Spending;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_SPENDING_SUCCESS, spendingToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
         expectedModel.deleteSpending(spendingToDelete);
 
         System.out.println(model);
@@ -58,7 +58,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_SPENDING_SUCCESS, spendingToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
         expectedModel.deleteSpending(spendingToDelete);
         showNoSpending(expectedModel);
 
@@ -71,7 +71,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_SPENDING;
         // ensures that outOfBoundIndex is still in bounds of MoneyGoWhere list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getSpendingList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getSpendingBook().getSpendingList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

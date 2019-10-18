@@ -20,26 +20,26 @@ import seedu.address.model.spending.Spending;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final SpendingBook spendingBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Spending> filteredSpendings;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given spendingBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlySpendingBook spendingBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(spendingBook, userPrefs);
 
-        logger.fine("Initializing with MoneyGoWhere: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with MoneyGoWhere: " + spendingBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.spendingBook = new SpendingBook(spendingBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredSpendings = new FilteredList<>(this.addressBook.getSpendingList());
+        filteredSpendings = new FilteredList<>(this.spendingBook.getSpendingList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new SpendingBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -67,42 +67,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getSpendingBookFilePath() {
+        return userPrefs.getSpendingBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setSpendingBookFilePath(Path spendingBookFilePath) {
+        requireNonNull(spendingBookFilePath);
+        userPrefs.setSpendingBookFilePath(spendingBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== SpendingBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setSpendingBook(ReadOnlySpendingBook spendingBook) {
+        this.spendingBook.resetData(spendingBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlySpendingBook getSpendingBook() {
+        return spendingBook;
     }
 
     @Override
     public boolean hasSpending(Spending spending) {
         requireNonNull(spending);
-        return addressBook.hasSpending(spending);
+        return spendingBook.hasSpending(spending);
     }
 
     @Override
     public void deleteSpending(Spending target) {
-        addressBook.removeSpending(target);
+        spendingBook.removeSpending(target);
     }
 
     @Override
     public void addSpending(Spending spending) {
-        addressBook.addSpending(spending);
+        spendingBook.addSpending(spending);
         updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
     }
 
@@ -110,26 +110,26 @@ public class ModelManager implements Model {
     public void setSpending(Spending target, Spending editedSpending) {
         requireAllNonNull(target, editedSpending);
 
-        addressBook.setSpending(target, editedSpending);
+        spendingBook.setSpending(target, editedSpending);
     }
 
     //=========== Budget related things =====================================================================
 
     @Override
     public void setBudget(Budget budget) {
-        addressBook.setBudget(budget);
+        spendingBook.setBudget(budget);
     }
 
     @Override
     public Budget getBudget() {
-        return addressBook.getBudget();
+        return spendingBook.getBudget();
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedSpendingBook}
      */
     @Override
     public ObservableList<Spending> getFilteredSpendingList() {
@@ -156,7 +156,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return spendingBook.equals(other.spendingBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredSpendings.equals(other.filteredSpendings);
 

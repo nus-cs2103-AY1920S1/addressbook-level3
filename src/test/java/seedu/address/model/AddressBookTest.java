@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSpendings.ALICE;
-import static seedu.address.testutil.TypicalSpendings.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,7 +25,7 @@ import seedu.address.testutil.SpendingBuilder;
 
 public class AddressBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final SpendingBook addressBook = new SpendingBook();
 
     @Test
     public void constructor() {
@@ -40,7 +40,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        SpendingBook newData = getTypicalSpendingBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -51,7 +51,7 @@ public class AddressBookTest {
         Spending editedAlice = new SpendingBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Spending> newSpendings = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newSpendings);
+        SpendingBookStub newData = new SpendingBookStub(newSpendings);
 
         assertThrows(DuplicateSpendingException.class, () -> addressBook.resetData(newData));
     }
@@ -95,10 +95,10 @@ public class AddressBookTest {
     /**
      * A stub ReadOnlyAddressBook whose spendings list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class SpendingBookStub implements ReadOnlySpendingBook {
         private final ObservableList<Spending> spendings = FXCollections.observableArrayList();
         private final Budget budget = new Budget(0);
-        AddressBookStub(Collection<Spending> spendings) {
+        SpendingBookStub(Collection<Spending> spendings) {
             this.spendings.setAll(spendings);
         }
 
