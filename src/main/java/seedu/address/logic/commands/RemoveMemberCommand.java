@@ -27,7 +27,9 @@ public class RemoveMemberCommand extends Command {
         requireNonNull(model);
 
         Project projectToEdit = model.getWorkingProject().get();
+
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), projectToEdit.getTasks(), projectToEdit.getFinance());
+     
         editedProject.getMembers().addAll(projectToEdit.getMembers());
         editedProject.deleteMember(targetMember);
         model.setProject(projectToEdit, editedProject);
