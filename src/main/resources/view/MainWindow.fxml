@@ -38,9 +38,7 @@
 
                 <right>
                     <VBox minWidth="300" prefWidth="300" styleClass="container">
-                        <StackPane styleClass="plain-border-box" VBox.vgrow="ALWAYS">
-                            <Label>News Feed</Label>
-                        </StackPane>
+                        <StackPane fx:id="feedPostListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
                 </right>
 

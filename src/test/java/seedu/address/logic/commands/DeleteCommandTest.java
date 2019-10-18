@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showEateryAtIndex;
 import static seedu.address.testutil.TypicalEateries.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalFeeds.getTypicalFeedList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EATERY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EATERY;
 
@@ -24,7 +25,7 @@ import seedu.address.model.eatery.Eatery;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalFeedList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +34,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EATERY_SUCCESS, eateryToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
         expectedModel.deleteEatery(eateryToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +57,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EATERY_SUCCESS, eateryToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
         expectedModel.deleteEatery(eateryToDelete);
         showNoEatery(expectedModel);
 

@@ -19,8 +19,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFeedList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.eatery.Eatery;
+import seedu.address.model.feed.Feed;
 import seedu.address.testutil.EateryBuilder;
 
 public class AddCommandTest {
@@ -145,6 +147,47 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredEateryList(Predicate<Eatery> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public Path getFeedListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFeedListFilePath(Path feedListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addFeed(Feed feed) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFeedList(ReadOnlyFeedList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyFeedList getFeedList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasFeed(Feed feed) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteFeed(Feed feed) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFeed(Feed target, Feed editedFeed) {
             throw new AssertionError("This method should not be called.");
         }
     }
