@@ -40,6 +40,8 @@ public class MergeShoppingCommand extends Command {
         }
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
+        commandResult.setShoppingListCommand();
+        return commandResult;
     }
 }

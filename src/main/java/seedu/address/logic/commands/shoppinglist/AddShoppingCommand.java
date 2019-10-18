@@ -47,7 +47,9 @@ public class AddShoppingCommand extends Command {
         }
 
         model.addShoppingItem(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        commandResult.setShoppingListCommand();
+        return commandResult;
     }
 
     @Override
