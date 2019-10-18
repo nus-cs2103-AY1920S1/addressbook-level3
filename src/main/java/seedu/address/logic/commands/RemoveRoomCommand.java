@@ -44,7 +44,7 @@ public class RemoveRoomCommand extends ReversibleCommand {
         }
         model.removeRoom(doctorReferenceId);
 
-        if (!model.hasPerson(doctorReferenceId)) {
+        if (!model.hasStaff(doctorReferenceId)) {
             throw new CommandException(String.format(MESSAGE_DEQUEUE_PERSON_NOT_FOUND, doctorReferenceId));
         }
 

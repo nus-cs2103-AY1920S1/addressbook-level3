@@ -37,7 +37,7 @@ public class UndoRemoveRoomCommand extends ReversibleCommand {
 
         if (model.isPatientInQueue(doctorReferenceId)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (!model.hasPerson(doctorReferenceId)) {
+        } else if (!model.hasStaff(doctorReferenceId)) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, doctorReferenceId));
         }
 

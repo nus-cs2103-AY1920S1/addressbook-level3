@@ -41,7 +41,7 @@ public class UndoDequeueCommand extends ReversibleCommand {
 
         if (model.isPatientInQueue(patientReferenceId)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (!model.hasPerson(patientReferenceId)) {
+        } else if (!model.hasPatient(patientReferenceId)) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, patientReferenceId));
         }
 

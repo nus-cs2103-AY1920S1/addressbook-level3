@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -45,8 +46,8 @@ public class AddAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.hasPatient(appointment.getPersonId())) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, appointment.getPersonId()));
+        if (!model.hasPatient(toAdd.getPersonId())) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, toAdd.getPersonId()));
         }
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
