@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Expense;
 import seedu.address.model.activity.Title;
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.model.person.Person;
 
 /**
@@ -50,9 +51,24 @@ public class ActivityBuilder {
     }
 
     // TODO: Add functionality to add expenses once it is working
+    /**
+     * Adds an {@code Expense} into the {@code Activity} that we are building.
+     */
+    public ActivityBuilder addExpense(Expense expense) {
+        expenses.add(expense);
+        return this;
+    }
 
-    public Activity build() {
-        return new Activity(title, participantIds.toArray(new Integer[participantIds.size()]));
+    /**
+     * Builds the activity.
+     * @throws PersonNotInActivityException if any of the expenses are by a person not found in the activity.
+     */
+    public Activity build() throws PersonNotInActivityException {
+        Activity result = new Activity(title, participantIds.toArray(new Integer[participantIds.size()]));
+        if (!expenses.isEmpty()) {
+            result.addExpense(expenses.toArray(new Expense[1]));
+        }
+        return result;
     }
 
 }
