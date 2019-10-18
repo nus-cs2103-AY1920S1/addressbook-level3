@@ -50,7 +50,9 @@ public class BankCommand extends SwitchCommand {
         model.setWordBank(temp.getWordBank(name));
         WordBankStatistics wbStats = wbStatsList.getWordBankStatistics(name);
         if (wbStats == null) {
-            model.setWordBankStatistics(WordBankStatistics.getEmpty(name));
+            WordBankStatistics newWbStats = WordBankStatistics.getEmpty(name);
+            model.setWordBankStatistics(newWbStats);
+            wbStatsList.addWordBanksStatistics(newWbStats);
         } else {
             model.setWordBankStatistics(wbStats);
         }

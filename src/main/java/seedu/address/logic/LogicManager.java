@@ -146,6 +146,7 @@ public class LogicManager implements Logic {
 
     @Override
     public WordBankStatistics getActiveWordBankStatistics() {
+        System.out.println(model.getWordBankStatistics());
         return model.getWordBankStatistics();
     }
 
