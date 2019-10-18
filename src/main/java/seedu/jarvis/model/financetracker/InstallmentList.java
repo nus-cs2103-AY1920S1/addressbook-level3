@@ -67,12 +67,11 @@ public class InstallmentList {
      * @throws InstallmentNotFoundException if the index is greater than the number of installments
      */
     public Installment getInstallment(int installmentNumber) {
-        try {
-            Index index = Index.fromOneBased(installmentNumber);
-            return internalInstallmentList.get(index.getZeroBased());
-        } catch (IndexOutOfBoundsException e) {
+        Index index = Index.fromOneBased(installmentNumber);
+        if (index.getZeroBased() < 0 || index.getZeroBased() >= getNumInstallments()) {
             throw new InstallmentNotFoundException();
         }
+        return internalInstallmentList.get(index.getZeroBased());
     }
 
     /**

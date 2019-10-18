@@ -64,12 +64,11 @@ public class PurchaseList {
      * @throws PurchaseNotFoundException if the index is greater than the number of purchases
      */
     public Purchase getPurchase(int purchaseIndex) {
-        try {
-            Index index = Index.fromOneBased(purchaseIndex);
-            return internalPurchaseList.get(index.getZeroBased());
-        } catch (IndexOutOfBoundsException e) {
+        Index index = Index.fromOneBased(purchaseIndex);
+        if (index.getZeroBased() < 0 || index.getZeroBased() >= getNumPurchases()) {
             throw new PurchaseNotFoundException();
         }
+        return internalPurchaseList.get(index.getZeroBased());
     }
 
     /**
