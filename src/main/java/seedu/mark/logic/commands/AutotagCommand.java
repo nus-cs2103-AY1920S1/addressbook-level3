@@ -38,6 +38,7 @@ public class AutotagCommand extends Command {
 
         model.addTagger(tagger); // TODO: what if tagger already exists?
         model.applyAllTaggers();
+        model.saveMark();
 
         return new CommandResult(String.format(MESSAGE_AUTOTAG_ADDED, tagger));
     }
