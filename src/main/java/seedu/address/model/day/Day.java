@@ -15,7 +15,7 @@ import seedu.address.model.day.time.TimeInHalfHour;
  */
 public class Day {
     public static final String MESSAGE_CONSTRAINTS = "Number of days should be an integer greater than 0.";
-    public static final String VALIDATION_REGEX = "^[1-9]\\d*$\n";
+    public static final String VALIDATION_REGEX = "^[1-9]\\d*$";
 
     private final Timetable timetable;
 

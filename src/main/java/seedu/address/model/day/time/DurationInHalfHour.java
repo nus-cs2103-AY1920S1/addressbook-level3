@@ -26,7 +26,7 @@ public class DurationInHalfHour {
      */
     public static boolean isValidDuration(String test) throws ParseException {
         int duration = Integer.parseInt(test);
-        if (test.matches(VALIDATION_REGEX)) {
+        if (!test.matches(VALIDATION_REGEX)) {
             throw new ParseException(MESSAGE_INVALID);
         }
         if (duration % 30 != 0) {

@@ -15,6 +15,8 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListContactCommand;
+import seedu.address.logic.commands.ScheduleCommand;
+import seedu.address.logic.commands.UnscheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -68,6 +70,11 @@ public class PlannerParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case ScheduleCommand.COMMAND_WORD:
+            return new ScheduleCommandParser().parse(arguments);
+
+        case UnscheduleCommand.COMMAND_WORD:
+            return new UnscheduleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
