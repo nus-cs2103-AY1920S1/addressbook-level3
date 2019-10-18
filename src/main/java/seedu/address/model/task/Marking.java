@@ -12,6 +12,7 @@ public class Marking {
             "Marks should only be 'Y' or 'N'";
 
     private static boolean isMarked;
+    public static String status;
 
     public Marking(String marking) {
         requireNonNull(marking);
@@ -20,6 +21,15 @@ public class Marking {
             isMarked = true;
         } else if (marking.equals("N")) {
             isMarked = false;
+        }
+        setStatus();
+    }
+
+    private void setStatus() {
+        if (isMarked) {
+            status = "marked";
+        } else {
+            status = "unmarked";
         }
     }
 
