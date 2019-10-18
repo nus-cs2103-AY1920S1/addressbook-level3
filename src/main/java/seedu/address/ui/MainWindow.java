@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -214,6 +215,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void changeAgendaView(Calendar calendar) {
+        calendarPanel.setAgendaView(calendar);
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -252,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
                 this.showOrderPanel();
                 break;
             case SCHEDULE:
-                this.showSchedulePanel();
+                this.handleSchedule(input);
                 break;
             case HELP:
                 this.handleHelp();
@@ -292,9 +297,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * switch selected tab to schedule tab
+     * switch selected tab to schedule tab, configure the view of the agenda to the date specified (if any)
      */
-    private void showSchedulePanel() {
+    private void handleSchedule(CommandResult input) {
+        Calendar calendar;
+        if (input.hasCalendar()) {
+            calendar = input.getCalendar();
+        } else {
+            calendar = Calendar.getInstance();
+        }
+        calendarPanel.setAgendaView(calendar);
         tabPanel.switchTabSchedule();
     }
 

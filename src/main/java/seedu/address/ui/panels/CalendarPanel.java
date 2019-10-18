@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.key.LocalDateKeyDeserializer;
+
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -82,6 +84,18 @@ public class CalendarPanel extends UiPart<Region> {
 
     public Agenda getAgenda() {
         return agenda;
+    }
+
+    /**
+     * Switch the agenda view according to the date input by the user
+     */
+    public void setAgendaView(Calendar calendar) {
+        int year = calendar.get(Calendar.YEAR);
+        // offset to 1-based
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        LocalDateTime localDateTime = LocalDateTime.of(year, month, date, 0, 0);
+        agenda.setDisplayedLocalDateTime(localDateTime);
     }
 
 }
