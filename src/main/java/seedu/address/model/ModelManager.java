@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -158,9 +159,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void revertTo(HistoryRecord record) throws NoSuchElementException {
-        historyManager.popRecordsTo(record);
+    public List<HistoryRecord> revertTo(HistoryRecord record) throws NoSuchElementException {
+        List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record);
         changeBaseTo(record.getCopyOfAddressBook());
+        return poppedRecords;
     }
 
     @Override

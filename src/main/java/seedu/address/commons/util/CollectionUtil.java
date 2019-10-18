@@ -52,14 +52,36 @@ public class CollectionUtil {
      * by a newline.
      */
     public static <E> String collectionToString(Collection<E> items) {
+        return collectionToString(items, false);
+    }
+
+    /**
+     * Returns a String representation of {@code items} with each element separated
+     * by a newline.
+     */
+    private static <E> String collectionToString(Collection<E> items, boolean showIndexes) {
         StringBuilder sb = new StringBuilder();
+        int oneIndex = 1;
         for (E item : items) {
+            if (showIndexes) {
+                sb.append(oneIndex);
+                sb.append(". ");
+            }
             sb.append(item.toString());
             sb.append('\n');
+            oneIndex++;
         }
         if (sb.length() != 0) {
             sb.deleteCharAt(sb.length() - 1);
         }
         return sb.toString();
+    }
+
+    /**
+     * Returns a String representation of {@code items} with each element preceded by its
+     * one-based index number and separated by a newline.
+     */
+    public static <E> String collectionToStringShowingIndexes(Collection<E> items) {
+        return collectionToString(items, true);
     }
 }

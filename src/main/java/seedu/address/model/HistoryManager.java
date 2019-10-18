@@ -59,17 +59,22 @@ public class HistoryManager {
      * Reverts history to the state just before the specified record.
      *
      * @param record the record to revert to
+     * @return list of records popped with the first popped record at index 0
      * @throws NoSuchElementException if the specified record does not exist in the history
      */
-    public void popRecordsTo(HistoryRecord record) throws NoSuchElementException {
+    public List<HistoryRecord> popRecordsTo(HistoryRecord record) throws NoSuchElementException {
         int index = history.indexOf(record);
         if (index == -1) {
             throw new NoSuchElementException("Cannot pop to specified record: record not found in history");
         }
+
+        List<HistoryRecord> poppedRecords = new ArrayList<>();
         HistoryRecord curRecord = null;
         while (curRecord != record) {
             curRecord = popRecord().get();
+            poppedRecords.add(curRecord);
         }
+        return poppedRecords;
     }
 
     /** Returns an unmodifiable view of the history */

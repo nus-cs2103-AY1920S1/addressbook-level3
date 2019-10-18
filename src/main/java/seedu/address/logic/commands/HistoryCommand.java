@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.collectionToString;
+import static seedu.address.commons.util.CollectionUtil.collectionToStringShowingIndexes;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.HistoryRecord;
@@ -21,6 +21,6 @@ public class HistoryCommand extends Command {
         requireNonNull(model);
         ObservableList<HistoryRecord> history = model.getHistory();
         return new CommandResult(String.format("There are %d records in the history:\n%s",
-                history.size(), collectionToString(history)));
+                history.size(), collectionToStringShowingIndexes(history)));
     }
 }
