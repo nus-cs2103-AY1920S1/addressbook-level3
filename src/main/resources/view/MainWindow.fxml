@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root height="1080.0" maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false" title="\$aveNUS" type="javafx.stage.Stage" width="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" title="\$aveNUS" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/savenus_logo.png" />
     </icons>
@@ -25,7 +25,7 @@
                 <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <HBox prefHeight="1080.0" prefWidth="1920.0">
+            <HBox>
                 <children>
                     <AnchorPane styleClass="pane-with-border" stylesheets="@DarkTheme.css" HBox.hgrow="NEVER">
                         <children>
@@ -55,7 +55,7 @@
                             </Button>
                         </children>
                     </AnchorPane>
-                    <VBox prefHeight="1080.0" prefWidth="1830.0">
+                    <VBox prefWidth="1830.0">
                         <children>
                             <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                                 <padding>
@@ -94,7 +94,7 @@
                                                     </font>
                                                 </Text>
                                             </HBox>
-                                            <VBox alignment="BOTTOM_CENTER" layoutX="20" layoutY="355.0" prefHeight="340" prefWidth="670" HBox.hgrow="ALWAYS">
+                                            <VBox alignment="BOTTOM_CENTER" layoutX="20" layoutY="355.0" prefHeight="510.0" prefWidth="670" HBox.hgrow="ALWAYS">
                                                 <VBox fx:id="purchaseList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                                                     <padding>
                                                         <Insets bottom="10" left="10" right="10" top="10" />

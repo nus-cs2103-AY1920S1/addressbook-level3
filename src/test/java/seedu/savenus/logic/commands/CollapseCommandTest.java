@@ -13,14 +13,12 @@ public class CollapseCommandTest {
 
     @Test
     public void collapse_correctDefaultBoolean() {
-        assertEquals(false, CollapseCommand.getStatus());
+        assertEquals(true, CollapseCommand.getStatus());
     }
 
     @Test
     public void execute_correctReturnType() {
         CollapseCommand collapseCommand = new CollapseCommand();
-        assertEquals(true,
-                collapseCommand.execute(model) instanceof CommandResult);
         assertEquals(true,
                 collapseCommand.execute(model) instanceof CommandResult);
     }
