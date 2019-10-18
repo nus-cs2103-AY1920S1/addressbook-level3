@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ class JsonSerializableScheduleBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public ScheduleBook toModelType() throws IllegalValueException {
+    public ScheduleBook toModelType() throws IllegalValueException, ParseException {
         ScheduleBook scheduleBook = new ScheduleBook();
         for (JsonAdaptedSchedule jsonAdaptedSchedule : schedules) {
             Schedule schedule = jsonAdaptedSchedule.toModelType();
