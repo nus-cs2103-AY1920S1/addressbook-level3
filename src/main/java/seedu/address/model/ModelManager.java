@@ -59,6 +59,11 @@ public class ModelManager implements Model {
         return session;
     }
 
+    @Override
+    public boolean isLoggedIn() {
+        return session.getLoggedInPerson() != null;
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override

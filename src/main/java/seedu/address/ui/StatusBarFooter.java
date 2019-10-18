@@ -28,8 +28,12 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     public void setLoginDetails(Session session) {
-        sessionDetails.setText("Logged in as " + session.getLoggedInPerson().getUsername()
-                + " on " + session.getLoginTime());
+        if (session.getLoggedInPerson() != null) {
+            sessionDetails.setText("Logged in as " + session.getLoggedInPerson().getUsername()
+                    + " on " + session.getLoginTime());
+        } else {
+            sessionDetails.setText("Not Logged In");
+        }
     }
 
 }

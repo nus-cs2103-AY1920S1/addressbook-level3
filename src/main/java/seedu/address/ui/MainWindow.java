@@ -151,6 +151,7 @@ public class MainWindow extends UiPart<Stage> {
      * Hides Vehicle & Incident Panels.
      */
     void initPreLogin() {
+        logic.isPersonView(true);
         personListPanelPlaceholder.getParent().setVisible(true);
         personListPanelPlaceholder.getParent().setManaged(true);
         incidentListPanelPlaceholder.getParent().setVisible(false);
@@ -160,10 +161,23 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows Vehicle & Incident Panels.
+     */
+    void initPostLogin() {
+        logic.isPersonView(false);
+        personListPanelPlaceholder.getParent().setVisible(false);
+        personListPanelPlaceholder.getParent().setManaged(false);
+        incidentListPanelPlaceholder.getParent().setVisible(true);
+        incidentListPanelPlaceholder.getParent().setManaged(true);
+        vehicleListPanelPlaceholder.getParent().setVisible(true);
+        vehicleListPanelPlaceholder.getParent().setManaged(true);
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
@@ -191,14 +205,35 @@ public class MainWindow extends UiPart<Stage> {
      * Swaps the Persons view for Incidents and Vehicles.
      */
     @FXML
-    public void handleLogin() {
-        personListPanelPlaceholder.getParent().setVisible(false);
-        personListPanelPlaceholder.getParent().setManaged(false);
-        incidentListPanelPlaceholder.getParent().setVisible(true);
-        incidentListPanelPlaceholder.getParent().setManaged(true);
-        vehicleListPanelPlaceholder.getParent().setVisible(true);
-        vehicleListPanelPlaceholder.getParent().setManaged(true);
+    private void handleLogin() {
+        initPostLogin();
+        setStatus();
+    }
+
+    @FXML
+    private void setStatus() {
         statusBarFooter.setLoginDetails(logic.getSession());
+    }
+
+    /**
+     * Swaps the Incidents and Vehicles view for Persons view.
+     */
+    @FXML
+    private void handleLogout() {
+        initPreLogin();
+        setStatus();
+    }
+
+    /**
+     * Swaps the Incidents and Vehicles view for Persons view.
+     */
+    @FXML
+    private void handleSwap() {
+        if (logic.isPersonView()) {
+            initPostLogin();
+        } else {
+            initPreLogin();
+        }
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -234,6 +269,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isLogin()) {
                 handleLogin();
+            }
+
+            if (commandResult.isLogout()) {
+                handleLogout();
+            }
+
+            if (commandResult.isSwap()) {
+                handleSwap();
             }
 
             return commandResult;
