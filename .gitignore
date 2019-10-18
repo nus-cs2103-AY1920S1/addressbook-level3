@@ -2,7 +2,7 @@
 /.gradle/
 /build/
 src/main/resources/docs/
-/.sh
+.sh
 
 # IDEA files
 /.idea/
