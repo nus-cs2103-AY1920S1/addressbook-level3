@@ -3,13 +3,14 @@ package seedu.address.model.entity.fridge;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.FridgeBuilder.DEFAULT_BODY;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
 import static seedu.address.testutil.TypicalBodies.JOHN;
 import static seedu.address.testutil.TypicalFridges.ALICE_FRIDGE;
 import static seedu.address.testutil.TypicalFridges.BOB_FRIDGE;
 import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,8 +37,12 @@ public class FridgeTest {
 
     @Test
     public void equals() {
-        Fridge aliceFridgeCopy = new FridgeBuilder(ALICE_FRIDGE).build();
+        ALICE_FRIDGE.setBody(ALICE);
+        BOB_FRIDGE.setBody(BOB);
+        EMPTY_FRIDGE.setBody(null);
+
         Fridge emptyFridgeCopy = new FridgeBuilder(EMPTY_FRIDGE).build();
+        Fridge aliceFridgeCopy = new FridgeBuilder(ALICE_FRIDGE).build();
 
         assertTrue(ALICE_FRIDGE.equals(ALICE_FRIDGE));
         assertEquals(ALICE_FRIDGE.hashCode(), aliceFridgeCopy.hashCode());
@@ -54,8 +59,9 @@ public class FridgeTest {
         assertFalse(ALICE_FRIDGE.equals(BOB_FRIDGE));
         assertFalse(ALICE_FRIDGE.equals(EMPTY_FRIDGE));
 
-        Fridge editedAliceFridge = new FridgeBuilder(ALICE_FRIDGE).withBody(DEFAULT_BODY).build();
+        Fridge editedAliceFridge = new FridgeBuilder(ALICE_FRIDGE).withBody(BOB).build();
         assertFalse(ALICE_FRIDGE.equals(editedAliceFridge));
+
 
     }
 
@@ -73,18 +79,18 @@ public class FridgeTest {
 
     @Test
     void getBody() {
-        assertEquals(EMPTY_FRIDGE.getBody(), null);
-        assertEquals(ALICE_FRIDGE.getBody(), ALICE);
+        assertEquals(EMPTY_FRIDGE.getBody(), Optional.empty());
+        assertEquals(ALICE_FRIDGE.getBody().get(), ALICE);
     }
 
     @Test
     void getSetBody() {
         ALICE_FRIDGE.setBody(BOB);
-        assertTrue(ALICE_FRIDGE.getBody() == BOB);
+        assertTrue(ALICE_FRIDGE.getBody().equals(Optional.of(BOB)));
         ALICE_FRIDGE.setBody(ALICE);
 
         EMPTY_FRIDGE.setBody(BOB);
-        assertTrue(EMPTY_FRIDGE.getBody() == BOB);
+        assertTrue(EMPTY_FRIDGE.getBody().equals(Optional.of(BOB)));
         EMPTY_FRIDGE.setBody(null);
     }
 
@@ -104,11 +110,11 @@ public class FridgeTest {
     void toString_occupiedFridge() {
         Fridge occupiedFridge = new Fridge(true);
         occupiedFridge.setBody(JOHN);
-        assertEquals(" Fridge ID: F01 Status: OCCUPIED Body: " + JOHN, occupiedFridge.toString());
+        assertEquals(" Fridge ID: F01 Status: OCCUPIED Body: Optional[" + JOHN + "]", occupiedFridge.toString());
     }
 
     @Test
     void toString_emptyFridge() {
-        assertEquals(" Fridge ID: F01 Status: UNOCCUPIED", EMPTY_FRIDGE.toString());
+        assertEquals(" Fridge ID: F01 Status: UNOCCUPIED Body: Optional.empty", EMPTY_FRIDGE.toString());
     }
 }

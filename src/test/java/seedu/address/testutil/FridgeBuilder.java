@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
+
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 
@@ -23,7 +25,11 @@ public class FridgeBuilder {
      * @param fridgeToCopy
      */
     public FridgeBuilder(Fridge fridgeToCopy) {
-        body = fridgeToCopy.getBody();
+        if (!fridgeToCopy.getBody().equals(Optional.empty())) {
+            body = fridgeToCopy.getBody().get();
+        } else {
+            body = null;
+        }
     }
 
     /**

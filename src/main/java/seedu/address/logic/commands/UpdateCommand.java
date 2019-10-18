@@ -148,9 +148,25 @@ public class UpdateCommand extends UndoableCommand {
         try {
             this.originalEntityDescriptor = saveOriginalFields(entity);
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
+            if (originalEntityDescriptor instanceof UpdateBodyDescriptor) {
+                UpdateBodyDescriptor originalBodyDescriptor = (UpdateBodyDescriptor) originalEntityDescriptor;
+                UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
+                if (! originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
+                    List <Fridge> fridgeList = model.getFilteredFridgeList();
+                    for (Fridge fridge : fridgeList) {
+                        if (fridge.getIdNum().equals(originalBodyDescriptor.getFridgeId().get())) {
+                            fridge.setBody(null);
+                        }
+                        if (fridge.getIdNum().equals(updateBodyDescriptor.getFridgeId().get())) {
+                            fridge.setBody((Body) entity);
+                        }
+                    }
+                }
+            }
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
+
 
         //@@author arjavibahety
         if (!updateFromNotif) {

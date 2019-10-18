@@ -15,13 +15,13 @@ import seedu.address.model.entity.fridge.Fridge;
  */
 public class TypicalFridges {
 
-    public static final Fridge EMPTY_FRIDGE = new FridgeBuilder().build();
     public static final Fridge ALICE_FRIDGE = new FridgeBuilder().withBody(ALICE).build();
     public static final Fridge BOB_FRIDGE = new FridgeBuilder().withBody(BOB).build();
+    public static final Fridge EMPTY_FRIDGE = new FridgeBuilder().build();
 
     private TypicalFridges() {} // prevents instantiation
 
     public static List<Fridge> getTypicalFridges() {
-        return new ArrayList<>(Arrays.asList(EMPTY_FRIDGE, ALICE_FRIDGE, BOB_FRIDGE));
+        return new ArrayList<>(Arrays.asList(ALICE_FRIDGE, BOB_FRIDGE, EMPTY_FRIDGE));
     }
 }

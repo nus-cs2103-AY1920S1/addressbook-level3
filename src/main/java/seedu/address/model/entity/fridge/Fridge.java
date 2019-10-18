@@ -1,6 +1,7 @@
 package seedu.address.model.entity.fridge;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
@@ -17,13 +18,13 @@ public class Fridge implements Entity {
     private final IdentificationNumber fridgeIdNum;
 
     // Data field
-    private Body body;
+    private Optional<Body> body;
     private FridgeStatus fridgeStatus;
 
     public Fridge() {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
         this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        this.body = null;
+        this.body = Optional.ofNullable(null);
     }
 
     public Fridge(boolean isTestFridge) {
@@ -33,12 +34,12 @@ public class Fridge implements Entity {
             this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
         }
         this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        this.body = null;
+        this.body = Optional.ofNullable(null);
     }
 
     public Fridge(Body body) {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        this.body = body;
+        this.body = Optional.ofNullable(body);
         if (body == null) {
             this.fridgeStatus = FridgeStatus.UNOCCUPIED;
         } else {
@@ -52,7 +53,7 @@ public class Fridge implements Entity {
         } else {
             this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
         }
-        this.body = body;
+        this.body = Optional.ofNullable(body);
         if (body == null) {
             this.fridgeStatus = FridgeStatus.UNOCCUPIED;
         } else {
@@ -68,7 +69,7 @@ public class Fridge implements Entity {
         return fridgeStatus;
     }
 
-    public Body getBody() {
+    public Optional<Body> getBody() {
         return body;
     }
 
@@ -77,7 +78,7 @@ public class Fridge implements Entity {
     }
 
     public void setBody(Body body) {
-        this.body = body;
+        this.body = Optional.ofNullable(body);
         if (body == null) {
             setFridgeStatus(FridgeStatus.UNOCCUPIED);
         } else {
@@ -119,8 +120,8 @@ public class Fridge implements Entity {
 
         Fridge otherFridge = (Fridge) other;
         return otherFridge.getIdNum().toString().equals(getIdNum().toString())
-                && otherFridge.getFridgeStatus() == getFridgeStatus()
-                && otherFridge.getBody() == getBody();
+                && otherFridge.getFridgeStatus().equals(getFridgeStatus())
+                && otherFridge.getBody().equals(getBody());
     }
 
     @Override

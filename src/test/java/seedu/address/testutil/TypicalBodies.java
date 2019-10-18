@@ -47,7 +47,7 @@ public class TypicalBodies {
             .withCauseOfDeath("NECROSIS")
             .withOrgansForDonation("")
             .withStatus("ARRIVED")
-            .withFridgeId("F01")
+            .withFridgeId("F02")
             .withDateOfBirth("02/09/1982")
             .withDateOfDeath("01/06/1971")
             .withNextOfKin("Ben Chachki")

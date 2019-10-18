@@ -13,6 +13,7 @@ import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
 
 /**
@@ -59,6 +60,7 @@ public class DeleteCommand extends UndoableCommand {
             for (Body body : lastShownList) {
                 if (body.getIdNum().equals(targetIdNum)) {
                     entityToDelete = body;
+                    removeBodyFromFridge(body, model);
                     break;
                 }
             }
@@ -74,6 +76,9 @@ public class DeleteCommand extends UndoableCommand {
             List<Fridge> lastShownList = model.getFilteredFridgeList();
             for (Fridge fridge : lastShownList) {
                 if (fridge.getIdNum().equals(targetIdNum)) {
+                    if (fridge.getFridgeStatus().equals(FridgeStatus.OCCUPIED)) {
+                        throw new CommandException(Messages.MESSAGE_OCCUPIED_FRIDGE_CANNOT_BE_DELETED);
+                    }
                     entityToDelete = fridge;
                     break;
                 }
@@ -90,6 +95,21 @@ public class DeleteCommand extends UndoableCommand {
             return new CommandResult(String.format(MESSAGE_DELETE_ENTITY_SUCCESS, entityToDelete));
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+        }
+    }
+
+    /**
+     * Removes a body from the fridge when the body is deleted.
+     * @param body refers to the body being deleted.
+     * @param model refers to the model in use.
+     */
+    private void removeBodyFromFridge(Body body, Model model) {
+        IdentificationNumber fridgeId = body.getFridgeId().get();
+        List<Fridge> lastShownFridgeList = model.getFilteredFridgeList();
+        for (Fridge fridge : lastShownFridgeList) {
+            if (fridge.getIdNum().equals(fridgeId)) {
+                fridge.setBody(null);
+            }
         }
     }
 

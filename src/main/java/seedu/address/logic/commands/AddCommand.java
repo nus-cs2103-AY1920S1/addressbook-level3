@@ -20,12 +20,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.notif.Notif;
 
 /**
@@ -99,8 +103,18 @@ public class AddCommand extends UndoableCommand {
         model.addEntity(toAdd);
 
         if (toAdd instanceof Body) {
-            NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd), 5, TimeUnit.SECONDS);
+            Body body = (Body) toAdd;
+            NotifCommand notifCommand = new NotifCommand(new Notif(body), 5, TimeUnit.SECONDS);
             notifCommand.execute(model);
+            Optional<IdentificationNumber> fridgeId = body.getFridgeId();
+            if (!fridgeId.equals(Optional.empty())) {
+                List<Fridge> fridgeList = model.getFilteredFridgeList();
+                for (Fridge fridge : fridgeList) {
+                    if (fridge.getIdNum().equals(fridgeId.get())) {
+                        fridge.setBody(body);
+                    }
+                }
+            }
         }
         setUndoable();
         model.addExecutedCommand(this);
