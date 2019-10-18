@@ -67,7 +67,10 @@ public class BoughtShoppingCommand extends Command {
 
         model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
-        return new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, boughtShoppingItem));
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS,
+                boughtShoppingItem));
+        commandResult.setShoppingListCommand();
+        return commandResult;
     }
 
     /**

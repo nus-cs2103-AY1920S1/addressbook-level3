@@ -65,7 +65,9 @@ public class EditTemplateListCommand extends Command {
 
         model.setTemplate(templateToEdit, editedTemplate);
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
-        return new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
+        commandResult.setTemplateListCommand();
+        return commandResult;
     }
 
     /**

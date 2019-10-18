@@ -39,7 +39,7 @@ public class WasteListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(food, getIndex() + 1).getRoot());
+                setGraphic(new ExpiredGroceryCard(food, getIndex() + 1).getRoot());
             }
         }
     }

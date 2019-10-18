@@ -99,12 +99,30 @@
     -fx-padding: 0 0 0 0;
 }
 
+.has-expired {
+    -fx-background-color: #e88080;
+    -fx-border-radius: 2;
+    -fx-border-color: #d67676;
+}
+
+.is-expiring {
+    -fx-background-color: #e0ab84;
+    -fx-border-radius: 2;
+    -fx-border-color: #cf9a74;
+}
+
+.not-expiring {
+    -fx-background-color: #7db5bd;
+    -fx-border-radius: 2;
+    -fx-border-color: #76acb3;
+}
+
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #7db5bd;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #76acb3;
 }
 
 .list-cell:filled:selected {
@@ -112,7 +130,7 @@
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
+    -fx-border-color: #4f556b;
     -fx-border-width: 1;
 }
 
@@ -133,7 +151,7 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#4f556b, 20%);
 }
 
 .pane-with-border {
@@ -333,7 +351,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent, #4e5766, transparent, #4e5766;
     -fx-background-radius: 0;
 }
 
@@ -344,7 +362,7 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #33768a;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
