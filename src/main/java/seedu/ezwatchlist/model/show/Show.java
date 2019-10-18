@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 
@@ -26,11 +27,11 @@ public class Show {
     private final Description description;
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
-    private final String imageOfShow;
+    private String poster;
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
-        this.imageOfShow = POSTER_PLACEHOLDER_PNG_URL;
+        this.poster = POSTER_PLACEHOLDER_PNG_URL;
         CollectionUtil.requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
         this.description = description;
@@ -38,6 +39,14 @@ public class Show {
         this.dateOfRelease = dateOfRelease;
         this.runningTime = runningTime;
         this.actors.addAll(actors);
+    }
+
+    public void setImageOfShow(String imagePath) {
+        poster = imagePath;
+    }
+
+    public String getPoster() {
+        return poster;
     }
 
     public Name getName() {

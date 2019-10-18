@@ -61,7 +61,7 @@ public class ShowCard extends UiPart<Region> {
         dateOfRelease.setText(show.getDateOfRelease().value);
         description.setText(show.getDescription().fullDescription);
         runningTime.setText(Integer.toString(show.getRunningTime().value));
-        posterPlaceholder.setImage(new Image("/images/poster-placeholder.png"));
+        posterPlaceholder.setImage(new Image(show.getPoster())); //new Image("/images/poster-placeholder.png"));
         show.getActors().stream()
                 .sorted(Comparator.comparing(actor -> actor.actorName))
                 .forEach(actor -> actors.getChildren().add(new Label(actor.actorName)));

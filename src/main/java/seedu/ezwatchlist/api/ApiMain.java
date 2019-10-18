@@ -1,8 +1,12 @@
 package seedu.ezwatchlist.api;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TvResultsPage;
-import info.movito.themoviedbapi.model.Artwork;
 import info.movito.themoviedbapi.model.Credits;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -11,6 +15,7 @@ import info.movito.themoviedbapi.model.tv.TvEpisode;
 import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 import info.movito.themoviedbapi.tools.MovieDbException;
+
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.model.ApiInterface;
 import seedu.ezwatchlist.model.actor.Actor;
@@ -22,11 +27,6 @@ import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.TvShow;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * Main class for the API to connect to the server
@@ -73,7 +73,7 @@ public class ApiMain implements ApiInterface {
      *
      * @throws OnlineConnectionException
      */
-    public void notConnected() throws OnlineConnectionException {
+    private void notConnected() throws OnlineConnectionException {
         isConnected = false;
         throw new OnlineConnectionException(CONNECTION_ERROR_MESSAGE);
     }
@@ -91,13 +91,16 @@ public class ApiMain implements ApiInterface {
             ArrayList<Movie> movies = new ArrayList<>();
 
             for (MovieDb m : page.getResults()) {
-                movies.add(new Movie(new Name(m.getTitle()), new Description("placeholder")/*m.getTagline())*/, new IsWatched(false), new Date(m.getReleaseDate()),
-                        new RunningTime(m.getRuntime()), new HashSet<Actor>()));
-                m.getPosterPath();
-                List<Artwork> artworkTypes = m.getImages();
-                artworkTypes.get(0);
+                String movieName = m.getTitle();
+                Movie toAdd = new Movie(new Name(movieName), new Description(m.getTagline()), new IsWatched(false), new Date(m.getReleaseDate()),
+                        new RunningTime(m.getRuntime()), new HashSet<Actor>());
+
+                //retrieve image
+                ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
+                toAdd.setImageOfShow(instance.retrieveImage(movieName));
+
+                movies.add(toAdd);
             }
-            isConnected = true;
             return movies;
         } catch (MovieDbException e) {
             notConnected();
@@ -141,7 +144,6 @@ public class ApiMain implements ApiInterface {
                         new RunningTime(tv.getEpisodeRuntime().get(0)), null, 0,
                         tv.getNumberOfEpisodes(), seasonsList));
             }
-            isConnected = true;
             return tvShows;
         } catch (MovieDbException e) {
             notConnected();
