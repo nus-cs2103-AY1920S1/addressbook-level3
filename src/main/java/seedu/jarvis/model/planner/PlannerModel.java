@@ -1,6 +1,5 @@
 package seedu.jarvis.model.planner;
 
-import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
 /**
@@ -55,12 +54,18 @@ public interface PlannerModel {
      * @param index index of the task that is being retrieved
      * @return the task at the specified index
      */
-    Task getTask(Index index);
+    Task getTask(int index);
 
     /**
      * Deletes the task at the specified index
      *
      * @param index index of the task to be deleted
      */
-    void deleteTask(Index index);
+    void deleteTask(int index);
+
+    /**
+     * Retrieves the size of the planner, i.e. the number of tasks in the planner
+     * @return the size of the planner
+     */
+    int size();
 }

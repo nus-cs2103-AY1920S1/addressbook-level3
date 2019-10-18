@@ -37,6 +37,7 @@ public class ModelManagerTest {
         Assertions.assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         Assertions.assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         Assertions.assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        Assertions.assertEquals(new Planner(), modelManager.getPlanner());
     }
 
     @Test

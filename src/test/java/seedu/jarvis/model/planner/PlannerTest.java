@@ -1,5 +1,6 @@
 package seedu.jarvis.model.planner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,7 +26,6 @@ class PlannerTest {
         planner.addTask(new Todo("read book"));
 
         assertTrue(expected.isEqual(planner.getTasks()));
-
 
     }
 
@@ -71,4 +71,36 @@ class PlannerTest {
         assertFalse(pOne.isEqual(pTwo));
     }
 
+    @Test
+    void getTask() {
+        Task expected = new Todo("borrow book");
+
+        Planner testPlanner = new Planner();
+        testPlanner.addTask(new Todo("read book"));
+        testPlanner.addTask(new Todo("borrow book"));
+
+        assertEquals(expected, testPlanner.getTask(2));
+    }
+
+    @Test
+    void deleteTask() {
+        Planner testPlanner = new Planner();
+        testPlanner.addTask(new Todo("borrow"));
+        testPlanner.addTask(new Todo("read"));
+        testPlanner.addTask(new Todo("study"));
+
+        testPlanner.deleteTask(2);
+
+        assertEquals(2, testPlanner.size());
+    }
+
+    @Test
+    void size() {
+        Planner testPlanner = new Planner();
+        testPlanner.addTask(new Todo("borrow"));
+        testPlanner.addTask(new Todo("read"));
+        testPlanner.addTask(new Todo("study"));
+
+        assertEquals(3, testPlanner.size());
+    }
 }

@@ -75,16 +75,14 @@ public class TaskList {
      * @param index index of the task that is being retrieved
      * @return the task at that particular index
      */
-    //TODO test
-    public Task getTask(Index index) {
-        return tasks.get(index.getZeroBased());
+    public Task getTask(int index) {
+        return tasks.get(index - 1);
     }
 
     /**
      * Retrieves the number of tasks in the taskList
      * @return the size of the taskList, i.e. the number of tasks in the taskList
      */
-    //TODO test
     public int size() {
         return tasks.size();
     }
@@ -93,9 +91,8 @@ public class TaskList {
      * Removes the tasks at the specified index
      * @param index the index of that task that is being removed
      */
-    //TODO test
-    public void deleteTask(Index index) {
-        tasks.remove(index.getZeroBased());
+    public void deleteTask(int index) {
+        tasks.remove(index - 1);
     }
 
 }

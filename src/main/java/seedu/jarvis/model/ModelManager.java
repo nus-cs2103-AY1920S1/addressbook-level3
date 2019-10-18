@@ -492,32 +492,61 @@ public class ModelManager implements Model {
         return planner.hasTask(t);
     }
 
-    //TODO jdocs
+    /**
+     * Retrieves the Planner object
+     * @return the planner
+     */
     @Override
     public Planner getPlanner() {
         return planner;
     }
 
+    /**
+     * Clears all data in a planner to return a new planner
+     * @param planner {@code Planner} to take reference from.
+     */
     @Override
     public void resetData(Planner planner) {
         this.planner.resetData(planner);
     }
 
+    /**
+     * Checks if one planner is equal to the other planner
+     * @param other the other planner to be compared against
+     * @return true if both planners are equal, i.e. they both have the same tasks in the same order,
+     * or false if they are not equal
+     */
     @Override
     public boolean isEqual(Planner other) {
         return this.planner.isEqual(other);
     }
 
-    //TODO test
+    /**
+     * Retrieves a task from the planner at the specified index
+     * @param index index of the task that is being retrieved
+     * @return the task at the given index
+     */
     @Override
-    public Task getTask(Index index) {
+    public Task getTask(int index) {
         return planner.getTask(index);
     }
 
-    //TODO test
+    /**
+     * Deletes a task in the planner at the specified index
+     * @param index index of the task to be deleted
+     */
     @Override
-    public void deleteTask(Index index) {
+    public void deleteTask(int index) {
         planner.deleteTask(index);
+    }
+
+    /**
+     * Retrieves the size of the planner, i.e. the number of tasks in the planner
+     * @return the size of the planner
+     */
+    @Override
+    public int size() {
+        return planner.size();
     }
 
 }

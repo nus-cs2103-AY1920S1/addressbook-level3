@@ -92,4 +92,42 @@ class TaskListTest {
         assertFalse(one.isEqual(two));
 
     }
+
+    @Test
+    void getTask() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("borrow book"));
+        tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasks.add(new Todo("help"));
+        TaskList taskTest = new TaskList(tasks);
+
+        Task expected = new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat()));
+
+        assertEquals(expected, taskTest.getTask(2));
+    }
+
+    @Test
+    void size() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("borrow book"));
+        tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasks.add(new Todo("help"));
+        TaskList taskTest = new TaskList(tasks);
+
+        assertEquals(3, taskTest.size());
+    }
+
+    @Test
+    void deleteTask() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("borrow book"));
+        tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasks.add(new Todo("help"));
+        TaskList taskTest = new TaskList(tasks);
+
+        taskTest.deleteTask(2);
+
+        assertEquals(2, taskTest.size());
+        assertEquals(new Todo("help"), taskTest.getTask(2));
+    }
 }
