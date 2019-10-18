@@ -73,6 +73,8 @@ public class AssignPolicyCommand extends Command {
         Person assignedPerson = new PersonBuilder(person).addPolicies(copyPolicy).build();
 
         model.setPerson(person, assignedPerson);
+        // to maintain the model's state for undo/redo
+        model.commitPerson();
         return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS,
                 policy.getName(), assignedPerson.getName()));
     }

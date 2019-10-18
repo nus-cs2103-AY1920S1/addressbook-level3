@@ -72,8 +72,10 @@ public class UnassignPolicyCommand extends Command {
         Person assignedPerson = new PersonBuilder(person).removePolicies(policy).build();
 
         model.setPerson(person, assignedPerson);
-        return new CommandResult(String.format(MESSAGE_UNASSIGN_POLICY_SUCCESS,
-                policy.getName(), assignedPerson.getName()));
+        // to maintain the model's state for undo/redo
+        model.commitPerson();
+        return new CommandResult(String.format(MESSAGE_UNASSIGN_POLICY_SUCCESS, policy.getName(),
+                assignedPerson.getName()));
     }
 
     @Override

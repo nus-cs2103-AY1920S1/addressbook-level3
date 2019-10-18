@@ -98,6 +98,9 @@ public class DeletePolicyTagCommand extends Command {
             }
         }
 
+        // to maintain the model's state for undo/redo
+        model.commitPerson();
+        model.commitPolicy();
         return new CommandResult(generateSuccessMessage(editedPolicy, tagsRemoved));
     }
 

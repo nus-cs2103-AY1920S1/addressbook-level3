@@ -87,6 +87,8 @@ public class DeleteTagCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
+        // to maintain the model's state for undo/redo
+        model.commitPerson();
         return new CommandResult(generateSuccessMessage(editedPerson, tagsRemoved));
     }
 

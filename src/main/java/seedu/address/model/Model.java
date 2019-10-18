@@ -143,4 +143,33 @@ public interface Model {
      */
     void updateFilteredPolicyList(Predicate<Policy> predicate);
 
+    /**
+     * Checks whether an undo is possible in the address book.
+     */
+    boolean canUndo();
+
+    /**
+     * Checks whether a redo is possible in the address book.
+     */
+    boolean canRedo();
+
+    /**
+     * Undo to a previous state of the address book.
+     */
+    void undo();
+
+    /**
+     * Redo to a previous undone state of the address book.
+     */
+    void redo();
+
+    /**
+     * Commit a person to the stateful person list of the address book.
+     */
+    void commitPerson();
+
+    /**
+     * Commit a policy to the stateful person list of the address book.
+     */
+    void commitPolicy();
 }

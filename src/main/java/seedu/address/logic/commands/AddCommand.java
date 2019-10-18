@@ -69,6 +69,8 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        // to maintain the model's state for undo/redo
+        model.commitPerson();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

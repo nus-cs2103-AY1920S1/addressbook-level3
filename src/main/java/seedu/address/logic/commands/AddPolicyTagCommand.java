@@ -51,12 +51,7 @@ public class AddPolicyTagCommand extends Command {
         }
 
         if (tags.length == 0) {
-            throw new CommandException(
-                    String.format(
-                            Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                            MESSAGE_USAGE
-                    )
-            );
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         Policy policyToEdit = lastShownList.get(index.getZeroBased());
@@ -66,9 +61,7 @@ public class AddPolicyTagCommand extends Command {
             newTags.add(new Tag(tag));
         }
 
-        Policy editedPolicy = new PolicyBuilder(policyToEdit)
-                .addTags(newTags)
-                .build();
+        Policy editedPolicy = new PolicyBuilder(policyToEdit).addTags(newTags).build();
 
         model.setPolicy(policyToEdit, editedPolicy);
         model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
@@ -82,6 +75,9 @@ public class AddPolicyTagCommand extends Command {
             }
         }
 
+        // to maintain the model's state for undo/redo
+        model.commitPerson();
+        model.commitPolicy();
         return new CommandResult(generateSuccessMessage(editedPolicy));
     }
 

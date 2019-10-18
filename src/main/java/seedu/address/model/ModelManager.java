@@ -22,7 +22,6 @@ import seedu.address.model.policy.PolicyName;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final StatefulAddressBook statefulAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
@@ -37,11 +36,10 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
         this.statefulAddressBook = new StatefulAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredPolicies = new FilteredList<>(this.addressBook.getPolicyList());
+        filteredPersons = new FilteredList<>(this.statefulAddressBook.getPersonList());
+        filteredPolicies = new FilteredList<>(this.statefulAddressBook.getPolicyList());
     }
 
     public ModelManager() {
@@ -87,34 +85,34 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+        statefulAddressBook.resetData(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return statefulAddressBook;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return statefulAddressBook.hasPerson(person);
     }
 
     @Override
     public Person getPerson(Person person) {
         requireNonNull(person);
-        return addressBook.getPerson(person);
+        return statefulAddressBook.getPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        statefulAddressBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        statefulAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -122,40 +120,40 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        statefulAddressBook.setPerson(target, editedPerson);
     }
 
     @Override
     public boolean hasPolicy(Policy policy) {
         requireNonNull(policy);
-        return addressBook.hasPolicy(policy);
+        return statefulAddressBook.hasPolicy(policy);
     }
 
     @Override
     public boolean hasPolicyWithName(PolicyName policyName) {
-        return addressBook.hasPolicyWithName(policyName);
+        return statefulAddressBook.hasPolicyWithName(policyName);
     }
 
     @Override
     public Policy getPolicy(Policy policy) {
         requireNonNull(policy);
-        return addressBook.getPolicy(policy);
+        return statefulAddressBook.getPolicy(policy);
     }
 
     @Override
     public Policy getPolicyWithName(PolicyName policyName) {
         requireNonNull(policyName);
-        return addressBook.getPolicyWithName(policyName);
+        return statefulAddressBook.getPolicyWithName(policyName);
     }
 
     @Override
     public void deletePolicy(Policy target) {
-        addressBook.removePolicy(target);
+        statefulAddressBook.removePolicy(target);
     }
 
     @Override
     public void addPolicy(Policy policy) {
-        addressBook.addPolicy(policy);
+        statefulAddressBook.addPolicy(policy);
         updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
     }
 
@@ -163,7 +161,39 @@ public class ModelManager implements Model {
     public void setPolicy(Policy target, Policy editedPolicy) {
         requireAllNonNull(target, editedPolicy);
 
-        addressBook.setPolicy(target, editedPolicy);
+        statefulAddressBook.setPolicy(target, editedPolicy);
+    }
+
+    //=========== Functions related to undo/redo =============================================================
+
+    @Override
+    public boolean canUndo() {
+        return statefulAddressBook.canUndo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return statefulAddressBook.canRedo();
+    }
+
+    @Override
+    public void undo() {
+        statefulAddressBook.undo();
+    }
+
+    @Override
+    public void redo() {
+        statefulAddressBook.redo();
+    }
+
+    @Override
+    public void commitPerson() {
+        statefulAddressBook.commitPerson();
+    }
+
+    @Override
+    public void commitPolicy() {
+        statefulAddressBook.commitPolicy();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -212,7 +242,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return statefulAddressBook.equals(other.statefulAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredPolicies.equals(other.filteredPolicies);
