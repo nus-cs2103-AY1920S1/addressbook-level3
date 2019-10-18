@@ -16,18 +16,18 @@ public class TypicalTransactions {
             .withDescription("Room rental").withId(4)
             .build();
     public static final Transaction BENSON_TRANSACTION_2 = new TransactionBuilder(TypicalPersons.BENSON)
-            .withId(2)
+            .withId(2).withDate("03-Sep-2019")
             .build();
     public static final Transaction CARL_TRANSACTION_5 = new TransactionBuilder(TypicalPersons.ALICE)
-            .withId(5).build();
+            .withId(5).withAmount(22.0).build();
     public static final Transaction ELLE_TRANSACTION_6 = new TransactionBuilder(TypicalPersons.ALICE)
-            .withId(6).build();
+            .withId(6).withDescription("food").build();
     public static final Transaction GEORGE_TRANSACTION_7 = new TransactionBuilder(TypicalPersons.ALICE)
-            .withId(7).build();
+            .withId(7).withDate("01-Jun-2019").build();
     public static final Transaction FIONA_TRANSACTION_8 = new TransactionBuilder(TypicalPersons.ALICE)
-            .withId(8).build();
-    public static final Transaction DANIEL_TRANSACTION_9 = new TransactionBuilder(TypicalPersons.ALICE)
-            .withId(9).build();
+            .withId(8).withAmount(33.0).build();
+    /*public static final Transaction DANIEL_TRANSACTION_9 = new TransactionBuilder(TypicalPersons.ALICE)
+            .withId(9).withAmount(44.0).build();*/
 
     /**
      * Returns an {@code TransactionList} with all the typical transactions.
@@ -43,7 +43,7 @@ public class TypicalTransactions {
     public static ArrayList<Transaction> getTypicalTransactions() {
         return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_1, BENSON_TRANSACTION_2,
                 ALICE_TRANSACTION_3, ALICE_TRANSACTION_4, CARL_TRANSACTION_5, ELLE_TRANSACTION_6, GEORGE_TRANSACTION_7,
-                FIONA_TRANSACTION_8, DANIEL_TRANSACTION_9));
+                FIONA_TRANSACTION_8));
     }
 
 }

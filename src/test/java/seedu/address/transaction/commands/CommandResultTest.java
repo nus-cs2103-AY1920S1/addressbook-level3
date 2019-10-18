@@ -38,9 +38,9 @@ class CommandResultTest {
         // same values -> returns true
         assertFalse(commandResult.isExit());
 
-        CommandResult commandResult2 = new CommandResult("feedback", true);
+        CommandResult commandResult1 = new CommandResult("feedback", true);
         // same values -> returns true
-        assertTrue(commandResult.isExit());
+        assertTrue(commandResult1.isExit());
     }
 
 

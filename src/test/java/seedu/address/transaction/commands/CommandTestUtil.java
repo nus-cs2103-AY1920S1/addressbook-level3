@@ -17,11 +17,14 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model transactionModel,
-                                           CommandResult expectedCommandResult,
+                                            CommandResult expectedCommandResult,
                                             Model expectedModel, seedu.address.person.model.Model personModel) {
         try {
             CommandResult result = command.execute(transactionModel, personModel);
+            System.out.println("inside test util:" + expectedCommandResult.getFeedbackToUser());
+            System.out.println(result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
+            System.out.println("did first assert equals");
             assertEquals(expectedModel, transactionModel);
             //consider checking the filtered list
         } catch (Exception ce) {
@@ -65,8 +68,9 @@ public class CommandTestUtil {
      */
     public static void showTransactionsOfPerson(Model model, String name) {
         assertTrue(model.hasTransactionWithName(name));
-
         final String[] splitName = name.split("\\s+");
         model.updatePredicate(new TransactionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        //to apply the predicate on the filtered list
+        model.getFilteredList();
     }
 }

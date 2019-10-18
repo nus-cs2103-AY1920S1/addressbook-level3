@@ -45,6 +45,7 @@ public class ModelManager implements Model {
                 transactionList.set(i, editedTransaction);
             }
         }
+        filteredList = getFilteredList();
     }
 
     @Override
@@ -60,6 +61,7 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction trans) {
         transactionList.add(trans);
+        filteredList = getFilteredList();
     }
 
     @Override
@@ -80,6 +82,7 @@ public class ModelManager implements Model {
                 transactionList.delete(i);
             }
         }
+        filteredList = getFilteredList();
     }
 
     @Override
@@ -87,6 +90,7 @@ public class ModelManager implements Model {
         for (int i = 0; i < transactionList.size(); i++) {
             transactionList.get(i).setId(i + 1);
         }
+        filteredList = getFilteredList();
     }
 
     @Override
@@ -123,6 +127,7 @@ public class ModelManager implements Model {
                 i--;
             }
         }
+        filteredList = getFilteredList();
     }
 
     @Override

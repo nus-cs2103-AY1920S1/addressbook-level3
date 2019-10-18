@@ -1,6 +1,7 @@
 package seedu.address.transaction.commands;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.transaction.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.commands.CommandTestUtil.showTransactionsOfPerson;
@@ -8,6 +9,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_TR
 
 import java.util.function.Predicate;
 
+import seedu.address.person.model.UserPrefs;
 import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
 import seedu.address.stubs.TransactionModelStubAcceptingTransactionAdded;
 import seedu.address.testutil.TypicalPersons;
@@ -26,25 +28,27 @@ class DeleteIndexCommandTest {
             new TransactionModelStubAcceptingTransactionAdded(TypicalTransactions.getTypicalTransactions());
     private PersonModelStubAcceptingPersonAdded modelStubWithPerson=
             new PersonModelStubAcceptingPersonAdded(TypicalPersons.getTypicalPersons());
-
+    private seedu.address.person.model.Model personModel =
+            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
     @Test
     //this uses model stub
-    void execute_unfilteredList_successful() {
+    void execute_validIndexUnfilteredList_successful() {
         DeleteIndexCommand deleteIndexCommand = new DeleteIndexCommand(1);
         String message = String.format(MESSAGE_DELETE_TRANSACTION, TypicalTransactions.ALICE_TRANSACTION_1);
-        TransactionModelStubAcceptingTransactionAdded expectedModel = new
-                TransactionModelStubAcceptingTransactionAdded(TypicalTransactions.getTypicalTransactions());
+        ModelManager expectedModel = new
+                ModelManager(TypicalTransactions.getTypicalTransactionList());
+        System.out.println(expectedModel.getTransactionList().get(0));
         expectedModel.deleteTransaction(1);
-        assertCommandSuccess(deleteIndexCommand, modelStubWithTransaction, message,
-                expectedModel, modelStubWithPerson);
+        assertCommandSuccess(deleteIndexCommand, model, message,
+                expectedModel, personModel);
     }
 
     @Test
     //this uses model stub
-    void execute_unfilteredList_unsuccessful_outOfBounds() {
+    void execute_UnfilteredList_unsuccessful_outOfBounds() {
         DeleteIndexCommand deleteIndexCommand = new DeleteIndexCommand(20);
         String message = TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
-        assertCommandFailure(deleteIndexCommand, modelStubWithTransaction, message, modelStubWithPerson);
+        assertCommandFailure(deleteIndexCommand, model, message, personModel);
     }
 
     @Test
@@ -59,7 +63,8 @@ class DeleteIndexCommandTest {
         Model expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.deleteTransaction(2);
         showNoTransaction(expectedModel);
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel, modelStubWithPerson);
+        //System.out.println(expectedMessage);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel, personModel);
     }
 
     @Test
@@ -67,13 +72,10 @@ class DeleteIndexCommandTest {
     public void execute_validIndexFilteredList_unsuccessful_outOfBounds() {
         //transaction list index is 2 but it is index 1 in filtered list (BENSON)
         showTransactionsOfPerson(model, TypicalPersons.BENSON.getName().toString());
-
-        Transaction transactionToDelete = model.getFilteredList().get(2);
         DeleteIndexCommand deleteCommand = new DeleteIndexCommand(2);
 
         String message = TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
-
-        assertCommandFailure(deleteCommand, model, message, modelStubWithPerson);
+        assertCommandFailure(deleteCommand, model, message, personModel);
     }
 
     /**

@@ -1,7 +1,6 @@
 package seedu.address.transaction.commands;
 
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_PERSON;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
 
 import java.time.LocalDate;
@@ -40,17 +39,21 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException {
-        Transaction transactionToEdit = model.findTransactionInFilteredListByIndex(index);
+        Transaction transactionToEdit;
+        try {
+            transactionToEdit = model.findTransactionInFilteredListByIndex(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(MESSAGE_NO_SUCH_TRANSACTION);
+        }
         logger.info("trans to edit: " + transactionToEdit.toString());
         Transaction editedTransaction = createdEditedTransaction(transactionToEdit,
                 editTransactionDescriptor, personModel);
 
-        if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
+        //allow for duplicates
+        /*if (transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
-        }
-        if (!personModel.hasPerson(editedTransaction.getPerson())) {
-            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
-        }
+        }*/
+
         try {
             LocalDate.parse(editedTransaction.getDate(), Transaction.DATE_TIME_FORMATTER);
         } catch (Exception e) {
@@ -69,15 +72,22 @@ public class EditCommand extends Command {
      */
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
                                                         EditTransactionDescriptor editTransactionDescriptor,
-                                                        seedu.address.person.model.Model personModel) {
+                                                        seedu.address.person.model.Model personModel)
+            throws NoSuchPersonException {
 
         String updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         String updatedDescription =
                 editTransactionDescriptor.getDescription().orElse(transactionToEdit.getDescription());
         String updatedCategory = editTransactionDescriptor.getCategory().orElse(transactionToEdit.getCategory());
         double updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
-        Person updatedPerson =
-                personModel.getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
+        Person updatedPerson = personModel
+                .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));;
+        /*try {
+            updatedPerson = personModel
+                    .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
+        } catch (PersonNotFoundException e) {
+            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
+        }*/
         boolean updatedIsReimbursed =
                 editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());
         return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount,

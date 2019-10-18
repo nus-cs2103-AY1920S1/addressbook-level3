@@ -46,6 +46,10 @@ public class TransactionList {
         return original;
     }
 
+    public ObservableList<Transaction> gettList() {
+        return tList;
+    }
+
     /**
      * Returns the transaction of given index.
      * @param index Index
@@ -140,8 +144,9 @@ public class TransactionList {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TransactionList // instanceof handles nulls
-                && tArrList.equals(((TransactionList) other).gettArrList()))
-                && original.equals(((TransactionList) other).getOriginal());
+                && tArrList.equals(((TransactionList) other).gettArrList())
+                && original.equals(((TransactionList) other).getOriginal())
+                && tList.equals(((TransactionList) other).gettList()));
     }
 }
 

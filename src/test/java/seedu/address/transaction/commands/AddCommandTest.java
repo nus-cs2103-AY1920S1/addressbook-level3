@@ -29,7 +29,7 @@ class AddCommandTest {
         Transaction validTransaction = new TransactionBuilder(validPerson).build();
         TransactionModelStubAcceptingTransactionAdded modelStubWithTrans =
                 new TransactionModelStubAcceptingTransactionAdded();
-        modelStubWithTrans.addTransaction(validTransaction);
+        //modelStubWithTrans.addTransaction(validTransaction);
         CommandResult commandResult = new AddCommand(validTransaction).execute(modelStubWithTrans, modelStubWithPerson);
         assertEquals(String.format(TransactionMessages.MESSAGE_ADD_TRANSACTION, validTransaction),
                 commandResult.getFeedbackToUser());
@@ -41,5 +41,4 @@ class AddCommandTest {
     public void execute_duplicatePerson_throwsCommandException() {
         assertEquals(1,1);
     }
-
 }

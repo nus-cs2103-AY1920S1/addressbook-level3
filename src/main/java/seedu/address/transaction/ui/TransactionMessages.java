@@ -53,6 +53,9 @@ public class TransactionMessages {
     public static final String MESSAGE_NO_SUCH_TRANSACTION = "Sorry! There is no such transaction of the inputted "
             + "index.\nPlease make sure the index is in the table.";
 
+    public static final String MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON = "Sorry! There is no such transaction of the "
+            + "inputted person.";
+
     public static final String MESSAGE_TRANSACTION_EDITED = "Edited Transaction:\n%s";
 
     public static final String MESSAGE_FIND_COMMAND = "I've found %s matching transactions!";

@@ -28,4 +28,5 @@ public class TransactionModelStubAcceptingTransactionAdded extends TransactionMo
     public void deleteTransaction(int index) {
         transactionsAdded.remove(index - 1);
     }
+
 }

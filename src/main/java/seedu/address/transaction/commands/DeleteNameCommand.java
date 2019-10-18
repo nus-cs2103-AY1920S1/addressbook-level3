@@ -20,6 +20,10 @@ public class DeleteNameCommand extends DeleteCommand {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
+        /*if (!model.hasTransactionWithName(person.getName().toString())) {
+            throw new NoSuchPersonException(String.format(MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON,
+                    person.getName().toString()));
+        }*/
         model.deleteAllTransactionOfPerson(person);
         return new CommandResult(String.format(MESSAGE_DELETE_BY_PERSON, person));
     }
