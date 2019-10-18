@@ -155,11 +155,20 @@ Format: `undo`
 redo the previous command.  +
 Format: `redo`
 
-==== Generate stats : `generate`
-Generates the statistics either in normal viewing format or chart format (in pop-up modal dialog). +
-Format: `generate -s s/STAT -d d/ -t t/TYPE` +
-Possible stats: `general` , `bestseller` etc +
-Possible type: `view` , `graph`
+==== Generate stats : `generate-s`
+
+Accepts two types of input: Without date input and with date input +
+
+Generates the statistics with no date input. +
+Used for calculating `total profit` , `total Revenue` and `total Cost`. +
+Format: `generate-s s/STAT` +
+Type for `STAT` includes: `PROFIT`, `REVENUE`, `COST` +
+
+Generates the statistics with date input in chart format (in pop-up modal dialog). +
+Format: `generate-s s/STAT d1/YYYY.MM.DD d2/YYYY.MM.DD` +
+Example: `generate-s s/REVENUE d1/2019.10.16 d2/2019.11.21` +
+Format for date is in YYYY.MM.DD e.g `2019.05.12`
+
 
 ==== Check : `check`
 Check for stock etc. For stock, see the phones that have < threshold quantity.   +
