@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.AddEventCommandBuilder.OPTION_TAGS;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 class AddEventCommandTest {
@@ -43,8 +42,8 @@ class AddEventCommandTest {
         String start = "11/11/1111 11:00";
         assertDoesNotThrow(() -> {
             // TODO: Create stub
-            Model model = new ModelManager();
-            assertEquals(model.getEventList().getReadOnlyList().size(), 0);
+            ModelManager model = new ModelManager();
+            assertEquals(model.getEventList().size(), 0);
 
             Command command = AddEventCommand.newBuilder(model)
                 .acceptSentence(description)
@@ -53,7 +52,7 @@ class AddEventCommandTest {
 
             // TODO: Equality test
             command.execute();
-            assertEquals(model.getEventList().getReadOnlyList().size(), 1);
+            assertEquals(model.getEventList().size(), 1);
         });
     }
 }

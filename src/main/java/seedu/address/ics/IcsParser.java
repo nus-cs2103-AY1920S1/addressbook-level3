@@ -1,14 +1,13 @@
 package seedu.address.ics;
 
+import static seedu.address.commons.util.IcsUtil.parseTimeStamp;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.TimeZone;
 
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
@@ -23,6 +22,7 @@ public class IcsParser {
     private static final String FILE_CANNOT_BE_FOUND = "Sorry, the file specified cannot be found!";
     private static final String INVALID_FILE_EXTENSION = "The file specified is not an ICS file!";
     private static final String FILE_IS_CORRUPTED = "The ICS file is corrupted!";
+    private static final String EVENT_DESC_CANNOT_BE_EMPTY = "The description of an event cannot be empty!";
 
     /**
      * This enum represents the different types of objects the IcsParser could be parsing at any given point in time.
@@ -33,6 +33,10 @@ public class IcsParser {
 
     private IcsParser(String path) throws IcsException {
         this.icsFile = getIcsFile(path);
+    }
+
+    public static IcsParser getParser(String path) throws IcsException {
+        return new IcsParser(path);
     }
 
     private File getIcsFile(String path) throws IcsException {
@@ -47,38 +51,37 @@ public class IcsParser {
         return file;
     }
 
-    public static IcsParser parse(String path) throws IcsException {
-        return new IcsParser(path);
+    /**
+     * Parses the file provided in the file path and returns an ArrayList of EventSources.
+     * @return An ArrayList of EventSources from the file.
+     * @throws IcsException Thrown if the file cannot be found or read,
+     * is not a proper Ics file, or if a description for an event in the file is empty.
+     */
+    public ArrayList<EventSource> parse() throws IcsException {
+        String fileContent = getFileContent();
+        return parseFileContent(fileContent);
     }
 
-    public ArrayList<EventSource> getEvents() throws IcsException {
-        ArrayList<EventSource> events = new ArrayList<>();
+    /**
+     * Obtains the file content of the ics file specified in the filepath.
+     * @return A single String of the whole file.
+     * @throws IcsException Thrown if the file cannot be found or read.
+     */
+    private String getFileContent() throws IcsException {
         try {
-            ParseState currentlyParsing = ParseState.None;
             BufferedReader br = new BufferedReader(new FileReader(icsFile));
-            StringBuilder stringBuilder = new StringBuilder("");
+            StringBuilder sb = new StringBuilder("");
+            boolean first = true;
             while (br.ready()) {
                 String line = br.readLine();
-                if (currentlyParsing == ParseState.Event) {
-                    if (line.startsWith("END:VEVENT")) {
-                        currentlyParsing = ParseState.None;
-                        EventSource eventSource = createEvent(stringBuilder.toString());
-                        events.add(eventSource);
-                    } else {
-                        stringBuilder.append(line).append("\n");
-                    }
+                if (first) {
+                    sb.append(line);
+                    first = false;
                 } else {
-                    if (line.equals("BEGIN:VEVENT")) {
-                        if (currentlyParsing != ParseState.None) {
-                            throw new IcsException(FILE_IS_CORRUPTED);
-                        } else {
-                            currentlyParsing = ParseState.Event;
-                            stringBuilder = new StringBuilder("");
-                        }
-                    }
+                    sb.append("\n").append(line);
                 }
             }
-            return events;
+            return sb.toString();
         } catch (FileNotFoundException e) {
             throw new IcsException(FILE_CANNOT_BE_FOUND);
         } catch (IOException e) {
@@ -87,19 +90,40 @@ public class IcsParser {
     }
 
     /**
-     * Converts the timestamp from the format given in the ICS file to a DateTime object.
-     * @param timestamp A timestamp in the default ICS file specification format.
-     * @return A DateTime object representing the timestamp.
-     * @throws IcsException Thrown when the timestamp provided is invalid.
+     * Parses the Ics file.
+     * @param fileContent The contents of the Ics file.
+     * @return An ArrayList of EventSources provided by the Ics file.
+     * @throws IcsException If the file is not a proper Ics file, or if a description for an event is empty.
      */
-    private DateTime parseTimeStamp(String timestamp) throws IcsException {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-            return new DateTime(sdf.parse(timestamp).toInstant());
-        } catch (ParseException e) {
-            throw new IcsException("The timestamp provided is invalid!");
+    public ArrayList<EventSource> parseFileContent(String fileContent) throws IcsException {
+        ArrayList<EventSource> events = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder("");
+
+        ParseState currentlyParsing = ParseState.None;
+        String[] lines = fileContent.split("\\r?\\n");
+
+        for (int i = 0; i < lines.length; i++) {
+            String line = lines[i];
+            if (currentlyParsing == ParseState.Event) {
+                if (line.startsWith("END:VEVENT")) {
+                    currentlyParsing = ParseState.None;
+                    EventSource eventSource = parseSingleEvent(stringBuilder.toString());
+                    events.add(eventSource);
+                } else {
+                    stringBuilder.append(line).append("\n");
+                }
+            } else {
+                if (line.equals("BEGIN:VEVENT")) {
+                    if (currentlyParsing != ParseState.None) {
+                        throw new IcsException(FILE_IS_CORRUPTED);
+                    } else {
+                        currentlyParsing = ParseState.Event;
+                        stringBuilder = new StringBuilder("");
+                    }
+                }
+            }
         }
+        return events;
     }
 
     /**
@@ -109,25 +133,28 @@ public class IcsParser {
      * @return an EventSource object representing the data provided.
      * @throws IcsException Exception thrown when there was an issue while making the EventSource object.
      */
-    public EventSource createEvent(String segment) throws IcsException {
+    public EventSource parseSingleEvent(String segment) throws IcsException {
         String[] lines = segment.split("\\r?\\n");
         String description = "";
-        DateTime dateTime = null;
+        DateTime eventStart = null;
+        DateTime eventEnd = null;
         for (String line : lines) {
             if (line.startsWith("DESCRIPTION:")) {
                 description = line.replaceFirst("DESCRIPTION:", "");
+                if (description.equals("")) {
+                    throw new IcsException(EVENT_DESC_CANNOT_BE_EMPTY);
+                }
             } else if (line.startsWith("DTSTART:")) {
                 String timestamp = line.replaceFirst("DTSTART:", "");
-                dateTime = parseTimeStamp(timestamp);
-            } else if (line.equals("END:VCALENDAR")) {
-                if (description.equals("") || dateTime == null) {
-                    throw new IcsException(FILE_IS_CORRUPTED);
-                }
+                eventStart = parseTimeStamp(timestamp);
+            } else if (line.startsWith("DTEND:")) {
+                String timestamp = line.replaceFirst("DTEND:", "");
+                eventEnd = parseTimeStamp(timestamp);
+            } else if (line.equals("END:VCALENDAR") && !line.equals(lines[lines.length - 1])) {
+                throw new IcsException(FILE_IS_CORRUPTED);
             }
         }
-        if (description.equals("")) {
-            throw new IcsException("The description of an event cannot be empty!");
-        }
-        return new EventSource(description, dateTime);
+        return EventSource.newBuilder(description, eventStart)
+            .build();
     }
 }
