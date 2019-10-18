@@ -51,9 +51,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    //@FXML
-    //private StackPane personListPanelPlaceholder;
-
     @FXML
     private StackPane sideBarPlaceholder;
 
@@ -157,7 +154,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Handles change of sidepanel view.
      */
-    public void handleChangeOnSidePanelView() {
+    public void handleChangeToTabsPanel() {
         sideBarPlaceholder.getChildren().clear();
         personListPanel = new PersonListPanel(logic.getFilteredPersonDisplayList());
         TabPanel tabPanel = new TabPanel();
@@ -181,6 +178,14 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             //Tabpane remain the same.
         }
+    }
+
+    /**
+     * Handles switching tabs to view person's or group's detail.
+     */
+    public void handleSidePanelChange(Node details) {
+        sideBarPlaceholder.getChildren().clear();
+        sideBarPlaceholder.getChildren().add(details);
     }
 
     /**
@@ -266,21 +271,26 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            handleChangeOnSidePanelView();
             DetailWindowDisplay detailWindowDisplay = logic.getMainWindowDisplay();
             DetailWindowDisplayType displayType = detailWindowDisplay.getDetailWindowDisplayType();
-            handleTabSwitch(displayType);
             switch(displayType) {
             case PERSON:
                 PersonDetailsView personDetailsView = new PersonDetailsView(detailWindowDisplay);
                 handleChangeOnDetailsView(personDetailsView.getRoot());
+                handleSidePanelChange(
+                        new PersonDetailCard(detailWindowDisplay
+                                .getWeekSchedules()
+                                .get(0)
+                                .getPersonDisplay())
+                                .getRoot());
                 break;
             case GROUP:
                 GroupDetailsView groupDetailsView = new GroupDetailsView(detailWindowDisplay);
                 handleChangeOnDetailsView(groupDetailsView.getRoot());
+                handleSidePanelChange(new GroupInformation(detailWindowDisplay).getRoot());
                 break;
             case EMPTY:
-                //Nothing to update
+                handleChangeToTabsPanel();
                 break;
             default:
                 //Nothing to show

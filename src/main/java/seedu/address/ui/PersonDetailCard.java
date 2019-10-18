@@ -26,7 +26,7 @@ public class PersonDetailCard extends UiPart<Region> {
     private final PersonDisplay person;
 
     @FXML
-    private HBox detailCard;
+    private HBox personDetailContainer;
     @FXML
     private Label name;
     @FXML

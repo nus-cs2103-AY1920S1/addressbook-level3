@@ -364,12 +364,20 @@
     -fx-text-fill: white;
 }
 
-#detailsView {
-    -fx-background-color: transparent;
-}
-
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+#freeTimeslot {
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-color: rgba(152,251,152, 0.7);
+}
+
+#groupDetailCard, #detailCard, #listHeaderContainer, #listMemberContainer {
+    -fx-background: #383838;
+    -fx-background-color: #383838;
 }
 
 #resultDisplay .content {
