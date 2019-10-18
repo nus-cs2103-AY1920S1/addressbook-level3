@@ -1,12 +1,16 @@
-package seedu.address.model;
+package seedu.address.model.undo;
 
 import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_REDO;
 import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_UNDO;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.events.EventList;
+import seedu.address.model.events.EventSource;
+import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.UndoRedoListener;
 
 /**
  * UndoRedoManager contains all EventList states
@@ -18,15 +22,7 @@ import seedu.address.model.events.EventList;
  * Whenever an undo or redo command is executed, mainEventList restores itself to a
  * past/future state by copying the data in its duplicate over to itself.
  */
-public class UndoRedoManager {
-
-    /** The eventList that the GUI is in sync with.
-     * This mainEventList is updated every time an
-     * undo or redo occurs. It is important that ModelManager
-     * works only with the mainEventList object and not
-     * duplicates due to its synchronisation with the GUI.
-     */
-    private EventList mainEventList;
+public class UndoRedoManager implements EventListListener {
 
     /**
      * Deep-copies of mainEventList are stored to this list
@@ -35,68 +31,61 @@ public class UndoRedoManager {
      * from any of these past or future states when an
      * undo or redo command is called.
      */
-    private ArrayList<EventList> eventListStateList;
+    private List<UndoRedoState> undoStateList;
     private int currentStateIndex;
 
-    UndoRedoManager(EventList eventList) {
-        mainEventList = eventList;
-        eventListStateList = new ArrayList<>();
-        // Store a deep-copy of the mainEventList to the list by using EventList's copy-constructor
-        eventListStateList.add(new EventList(mainEventList));
+    private List<UndoRedoListener> undoRedoListeners;
+
+    public UndoRedoManager() {
+        undoStateList = new ArrayList<>();
+        undoStateList.add(new UndoRedoState());
         currentStateIndex = 0;
+
+        undoRedoListeners = new ArrayList<>();
     }
 
-    /**
-     * Returns the current state of the EventList.
-     *
-     * @return EventList mainEventList.
-     */
-    EventList getCurrentState() {
-        return mainEventList;
+    public void addUndoRedoListener(UndoRedoListener listener) {
+        this.undoRedoListeners.add(listener);
     }
 
     /**
      * Restores the previous event list state from UndoRedoManager.
      */
-    void undo() throws CommandException {
+    public void undo() throws CommandException {
         if (!canUndo()) {
             throw new CommandException(MESSAGE_NOTHING_TO_UNDO);
         }
         currentStateIndex--;
-        // Retrieve data from duplicate of its past state
-        mainEventList.resetData(eventListStateList.get(currentStateIndex));
+        notifyUndoRedoListeners();
     }
 
     /**
      * Restores the previously undone event list state from UndoRedoManager.
      */
-    void redo() throws CommandException {
+    public void redo() throws CommandException {
         if (!canRedo()) {
             throw new CommandException(MESSAGE_NOTHING_TO_REDO);
         }
         currentStateIndex++;
-        // Retrieve data from duplicate of its future state
-        mainEventList.resetData(eventListStateList.get(currentStateIndex));
+        notifyUndoRedoListeners();
     }
 
     /**
-     * Creates a deep-copy of the current event list state and saves that copy to the UndoRedoManager.
+     * Appends a copy of a UndoState to this UndoRedoManager.
      */
-    void commit(EventList eventList) {
-        // Store a deep-copy of the mainEventList to the list by using EventList's copy-constructor
-        EventList deepCopy = new EventList(eventList);
-        assert currentStateIndex >= eventListStateList.size() - 1
+    private void commit(UndoRedoState state) {
+        assert currentStateIndex >= undoStateList.size() - 1
                 : "Pointer always points to end of list during commit; All future states must have been discarded.";
-        eventListStateList.add(deepCopy);
+        undoStateList.add(state);
         currentStateIndex++;
     }
 
     /**
      * Clears all future event list states in eventListStateList beyond the index given by currentStateIndex
      */
-    void clearFutureHistory() {
-        eventListStateList =
-                new ArrayList<>(eventListStateList.subList(0, currentStateIndex + 1));
+    private void clearFutureHistory() {
+        undoStateList =
+                new ArrayList<>(undoStateList.subList(0, currentStateIndex + 1));
     }
 
     /**
@@ -114,12 +103,42 @@ public class UndoRedoManager {
      * @return boolean
      */
     private boolean canRedo() {
-        return currentStateIndex < eventListStateList.size() - 1;
+        return currentStateIndex < undoStateList.size() - 1;
+    }
+
+    private UndoRedoState getCurrentState() {
+        return undoStateList.get(currentStateIndex);
+    }
+
+    /**
+     * Notify all UndoRedoListeners that undo/redo was called, and provide them with the current UndoState.
+     */
+    private void notifyUndoRedoListeners() {
+        UndoRedoState state = getCurrentState();
+        for (UndoRedoListener listener : undoRedoListeners) {
+            listener.onUndoRedo(state);
+        }
+    }
+
+    @Override
+    public void onEventListChange(List<EventSource> events) {
+        /*
+        Ignores the EventList when it is equal to getCurrentState().
+        This will be true every undo/redo.
+        Explanation: undo/redo will update ModelManager's EventList, which in turn will notify this method,
+        causing an unwanted feedback loop.
+         */
+        if (Objects.equals(getCurrentState().getEvents(), events)) {
+            return;
+        }
+
+        clearFutureHistory();
+        commit(new UndoRedoState(events));
     }
 
     @Override
     public String toString() {
-        return eventListStateList.size() + " states in history";
+        return undoStateList.size() + " states in history";
     }
 
     @Override
@@ -132,16 +151,15 @@ public class UndoRedoManager {
             }
             UndoRedoManager otherHistory = ((UndoRedoManager) other);
             if (currentStateIndex != otherHistory.currentStateIndex
-                    || eventListStateList.size() != otherHistory.eventListStateList.size()) {
+                    || undoStateList.size() != otherHistory.undoStateList.size()) {
                 return false;
             }
-            for (int i = 0; i < eventListStateList.size(); i++) {
-                if (!eventListStateList.get(i).equals(otherHistory.eventListStateList.get(i))) {
+            for (int i = 0; i < undoStateList.size(); i++) {
+                if (!undoStateList.get(i).equals(otherHistory.undoStateList.get(i))) {
                     return false;
                 }
             }
             return true;
         }
     }
-
 }

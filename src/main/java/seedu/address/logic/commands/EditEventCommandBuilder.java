@@ -13,7 +13,7 @@ import seedu.address.logic.commands.arguments.StringVariableArguments;
 import seedu.address.logic.commands.arguments.StringVariableArgumentsBuilder;
 import seedu.address.logic.commands.options.Option;
 import seedu.address.logic.commands.options.OptionBuilder;
-import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.DateTime;
 
 /**
@@ -34,7 +34,7 @@ class EditEventCommandBuilder extends CommandBuilder {
     private static final String ARGUMENT_REMIND_DATE_TIME = "REMIND_DATE_TIME";
     private static final String ARGUMENT_TAGS = "TAGS";
 
-    private final Model model;
+    private final ModelManager model;
 
     private final IndexVariableArgumentsBuilder indexes;
     private final StringArgumentBuilder description;
@@ -43,7 +43,7 @@ class EditEventCommandBuilder extends CommandBuilder {
     private final DateTimeArgumentBuilder remind;
     private final StringVariableArgumentsBuilder tags;
 
-    EditEventCommandBuilder(Model model) {
+    EditEventCommandBuilder(ModelManager model) {
         this.model = model;
 
         this.indexes = IndexVariableArguments.newBuilder(ARGUMENT_INDEXES);
@@ -76,7 +76,7 @@ class EditEventCommandBuilder extends CommandBuilder {
         );
     }
 
-    Model getModel() {
+    ModelManager getModel() {
         return model;
     }
 

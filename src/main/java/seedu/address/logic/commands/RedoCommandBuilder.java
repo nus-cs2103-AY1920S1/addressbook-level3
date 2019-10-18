@@ -4,17 +4,17 @@ import java.util.Map;
 
 import seedu.address.logic.commands.options.Option;
 import seedu.address.logic.commands.options.OptionBuilder;
-import seedu.address.model.Model;
+import seedu.address.model.undo.UndoRedoManager;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
  */
 class RedoCommandBuilder extends CommandBuilder {
 
-    private final Model model;
+    private final UndoRedoManager manager;
 
-    RedoCommandBuilder(Model model) {
-        this.model = model;
+    RedoCommandBuilder(UndoRedoManager manager) {
+        this.manager = manager;
     }
 
     @Override
@@ -27,8 +27,8 @@ class RedoCommandBuilder extends CommandBuilder {
         return Map.of();
     }
 
-    Model getModel() {
-        return model;
+    UndoRedoManager getManager() {
+        return manager;
     }
 
     @Override
