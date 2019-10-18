@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.core.Messages.MESSAGE_UNDO_SUCCESS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 
+import seedu.address.model.undo.UndoRedoManager;
 import seedu.address.ui.UserOutput;
 
 /**
@@ -12,19 +12,19 @@ import seedu.address.ui.UserOutput;
  */
 public class UndoCommand extends Command {
 
-    private final Model model;
+    private final UndoRedoManager manager;
 
     UndoCommand(UndoCommandBuilder builder) {
-        this.model = builder.getModel();
+        this.manager = builder.getManager();
     }
 
-    public static CommandBuilder newBuilder(Model model) {
-        return new UndoCommandBuilder(model).init();
+    public static CommandBuilder newBuilder(UndoRedoManager manager) {
+        return new UndoCommandBuilder(manager).init();
     }
 
     @Override
     public UserOutput execute() throws CommandException {
-        model.undoFromHistory();
+        manager.undo();
         return new UserOutput(MESSAGE_UNDO_SUCCESS);
     }
 }

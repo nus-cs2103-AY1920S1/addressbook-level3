@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.core.Messages.MESSAGE_REDO_SUCCESS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 
+import seedu.address.model.undo.UndoRedoManager;
 import seedu.address.ui.UserOutput;
 
 /**
@@ -12,19 +12,19 @@ import seedu.address.ui.UserOutput;
  */
 public class RedoCommand extends Command {
 
-    private final Model model;
+    private final UndoRedoManager manager;
 
     RedoCommand(RedoCommandBuilder builder) {
-        this.model = builder.getModel();
+        this.manager = builder.getManager();
     }
 
-    public static CommandBuilder newBuilder(Model model) {
-        return new RedoCommandBuilder(model).init();
+    public static CommandBuilder newBuilder(UndoRedoManager manager) {
+        return new RedoCommandBuilder(manager).init();
     }
 
     @Override
     public UserOutput execute() throws CommandException {
-        model.redoFromHistory();
+        manager.redo();
         return new UserOutput(MESSAGE_REDO_SUCCESS);
     }
 }
