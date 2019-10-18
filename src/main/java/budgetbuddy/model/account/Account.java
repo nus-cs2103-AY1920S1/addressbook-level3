@@ -2,12 +2,8 @@ package budgetbuddy.model.account;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-import budgetbuddy.model.tag.Tag;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
@@ -20,17 +16,13 @@ public class Account {
     private final Name name;
     private final Transaction transaction;
 
-    // Data fields
-    private final Set<Tag> tags = new HashSet<>();
-
     /**
      * Every field must be present and not null.
      */
-    public Account(Name name, Transaction transaction, Set<Tag> tags) {
-        requireAllNonNull(name, transaction, tags);
+    public Account(Name name, Transaction transaction) {
+        requireAllNonNull(name, transaction);
         this.name = name;
         this.transaction = transaction;
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -41,13 +33,6 @@ public class Account {
         return transaction;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
 
     /**
      * Returns true if both accounts of the same name have at least one other identity field that is the same.
@@ -79,22 +64,17 @@ public class Account {
 
         Account otherAccount = (Account) other;
         return otherAccount.getName().equals(getName())
-                && otherAccount.getTransaction().equals(getTransaction())
-                && otherAccount.getTags().equals(getTags());
+                && otherAccount.getTransaction().equals(getTransaction());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, transaction, tags);
+        return Objects.hash(name, transaction);
     }
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        return builder.toString();
+        return getName().toString();
     }
 
 }
