@@ -39,7 +39,7 @@ public interface CapStorage {
     void saveCapLog(ReadOnlyModulo capLog) throws IOException;
 
     /**
-     * @see #saveCapLog(ReadOnlyModulo, Path) 
+     * @see #saveCapLog(ReadOnlyModulo, Path)
      */
     void saveCapLog(ReadOnlyModulo capLog, Path filePath) throws IOException;
 
