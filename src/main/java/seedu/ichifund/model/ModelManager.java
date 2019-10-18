@@ -8,6 +8,9 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,7 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<Repeater> filteredRepeaters;
     private final FilteredList<Budget> filteredBudgets;
 
-    private ObjectProperty<TransactionContext> transactionContext;
+    private ReadOnlyObjectWrapper<TransactionContext> transactionContext;
 
     /**
      * Initializes a ModelManager with the given fundBook and userPrefs.
@@ -51,7 +54,7 @@ public class ModelManager implements Model {
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
         TransactionContext transactionContext = new TransactionContext(this.fundBook.getLatestTransaction());
         updateFilteredTransactionList(transactionContext.getPredicate());
-        this.transactionContext = new SimpleObjectProperty<>(transactionContext);
+        this.transactionContext = new ReadOnlyObjectWrapper<>(transactionContext);
     }
 
     public ModelManager() {
@@ -242,6 +245,10 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
     }
+
+    public ReadOnlyProperty<TransactionContext> getTransactionContextProperty() {
+        return transactionContext.getReadOnlyProperty();
+    };
 
     //=========== Filtered Repeater List Accessors =============================================================
 

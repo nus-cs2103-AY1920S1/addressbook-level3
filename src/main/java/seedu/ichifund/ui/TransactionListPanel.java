@@ -2,12 +2,18 @@ package seedu.ichifund.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.Property;
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.ichifund.commons.core.LogsCenter;
+import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
@@ -20,10 +26,29 @@ public class TransactionListPanel extends UiPart<Region> {
     @FXML
     private ListView<Transaction> transactionListView;
 
-    public TransactionListPanel(ObservableList<Transaction> transactionList) {
+    @FXML
+    private Label transactionContextView;
+
+    public TransactionListPanel(ObservableList<Transaction> transactionList,
+                                ReadOnlyProperty<TransactionContext> transactionContext) {
         super(FXML);
         transactionListView.setItems(transactionList);
         transactionListView.setCellFactory(listView -> new TransactionListViewCell());
+        transactionContextView.setText(transactionContext.getValue().toString());
+        transactionContext.addListener(new TransactionContextChangeListener(transactionContextView));
+    }
+
+    class TransactionContextChangeListener implements InvalidationListener {
+        private Label label;
+
+        public TransactionContextChangeListener(Label label) {
+            this.label = label;
+        }
+
+        @Override
+        public void invalidated(Observable observable) {
+            label.setText(((Property) observable).getValue().toString());
+        }
     }
 
     /**
