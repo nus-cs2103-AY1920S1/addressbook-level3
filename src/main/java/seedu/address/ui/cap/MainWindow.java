@@ -24,7 +24,7 @@ import seedu.address.logic.cap.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "WindowCap.fxml";
+    private static final String FXML = "CapWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

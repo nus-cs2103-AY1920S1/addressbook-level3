@@ -8,6 +8,7 @@ import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.person.Credit;
 import seedu.address.model.cap.person.Description;
 import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Title;
 
@@ -89,5 +90,17 @@ public class ParserUtil {
         requireNonNull(description);
         String trimmedTag = description.trim();
         return new Description(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String phone} into a {@code Phone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     */
+    public static Grade parseGrade(String grade) {
+        requireNonNull(grade);
+        String trimmedGrade = grade.trim();
+        return new Grade(trimmedGrade);
     }
 }

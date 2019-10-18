@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.address.model.cap.person.Credit;
 import seedu.address.model.cap.person.Description;
 import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Title;
 
@@ -22,6 +23,7 @@ public class Module {
     private boolean isSu;
     private String preclusion;
     private String prerequisite;
+    private Grade grade;
 
     /**
      *  Constructs a {@code Module}.
@@ -33,7 +35,7 @@ public class Module {
      * @param isSu Satisfactory and unsatisfactory option for grade
      */
     public Module(ModuleCode moduleCode, Title title, Description description, Credit credit, Faculty faculty,
-                  boolean isSu, String preclusion, String prerequisite) {
+                  boolean isSu, String preclusion, String prerequisite, Grade grade) {
         requireNonNull(moduleCode);
         requireNonNull(title);
         requireNonNull(credit);
@@ -47,6 +49,7 @@ public class Module {
         this.isSu = isSu;
         this.preclusion = preclusion;
         this.prerequisite = prerequisite;
+        this.grade = grade;
     }
 
     /**
@@ -56,10 +59,12 @@ public class Module {
      * @param description
      * @param credit
      * @param faculty
+     * @param grade
      */
-    public Module(ModuleCode moduleCode, Title title, Description description, Credit credit, Faculty faculty) {
-        this(moduleCode, title, description, credit,
-                faculty, true, "None", "None");
+    public Module(ModuleCode moduleCode, Title title, Description description, Credit credit,
+        Faculty faculty, Grade grade) {
+            this(moduleCode, title, description, credit,
+                faculty, true, "None", "None", grade);
     }
 
     public ModuleCode getModuleCode() {
@@ -80,6 +85,10 @@ public class Module {
 
     public Description getDescription() {
         return description;
+    }
+
+    public Grade getGrade() {
+        return grade;
     }
 
     /**
@@ -111,13 +120,14 @@ public class Module {
         return otherModule.getModuleCode().equals(getModuleCode())
                 && otherModule.getTitle().equals(getTitle())
                 && otherModule.getCredit() == (getCredit())
-                && otherModule.getFaculty().equals(getFaculty());
+                && otherModule.getFaculty().equals(getFaculty())
+                && otherModule.getGrade().equals(getGrade());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, title, credit, faculty);
+        return Objects.hash(moduleCode, title, credit, faculty, grade);
     }
 
     @Override
@@ -129,7 +139,9 @@ public class Module {
                 .append(" Credit: ")
                 .append(getCredit())
                 .append(" Faculty: ")
-                .append(getFaculty());
+                .append(getFaculty())
+                .append(" Grade: ")
+                .append(getGrade());
         return builder.toString();
     }
 

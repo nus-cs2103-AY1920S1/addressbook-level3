@@ -1,9 +1,10 @@
 {
   "modules" : [ {
     "title" : "Programming",
+    "description" : "description",
     "credit" : 4,
     "faculty" : "Computing",
-    "moduleCode" : "cs2013",
-    "description" : "cool"
+    "grade" : "A",
+    "moduleCode" : "2103"
   } ]
 }

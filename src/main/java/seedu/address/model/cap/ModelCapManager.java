@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.common.Module;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the Cap Log data.
  */
 public class ModelCapManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelCapManager.class);
@@ -24,15 +24,15 @@ public class ModelCapManager implements Model {
     private final FilteredList<Module> filteredModules;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given CapLog and userPrefs.
      */
-    public ModelCapManager(ReadOnlyModulo addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelCapManager(ReadOnlyModulo capLog, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(capLog, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with cap log: " + capLog + " and user prefs " + userPrefs);
 
-        this.capLog = new CapLog(addressBook);
+        this.capLog = new CapLog(capLog);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<Module>(this.capLog.getModuleList());
     }
@@ -71,16 +71,16 @@ public class ModelCapManager implements Model {
     }
 
     @Override
-    public void setCapLogFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setCapLogFilePath(addressBookFilePath);
+    public void setCapLogFilePath(Path capLogFilePath) {
+        requireNonNull(capLogFilePath);
+        userPrefs.setCapLogFilePath(capLogFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== CapLog ================================================================================
 
     @Override
-    public void setCapLog(ReadOnlyModulo addressBook) {
-        this.capLog.resetData(addressBook);
+    public void setCapLog(ReadOnlyModulo capLog) {
+        this.capLog.resetData(capLog);
     }
 
     @Override
@@ -112,11 +112,11 @@ public class ModelCapManager implements Model {
         capLog.setModule(target, editedModule);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Module List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedCapLog}
      */
     @Override
     public ObservableList<Module> getFilteredModuleList() {

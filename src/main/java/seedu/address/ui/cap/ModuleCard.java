@@ -10,9 +10,9 @@ import seedu.address.model.common.Module;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class ModuleCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ModuleListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -34,14 +34,17 @@ public class PersonCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label faculty;
+    @FXML
+    private Label grade;
 
-    public PersonCard(Module module, int displayedIndex) {
+    public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
         moduleCode.setText(module.getModuleCode().toString());
         title.setText(module.getTitle().toString());
         description.setText(module.getDescription().toString());
         faculty.setText(module.getFaculty().toString());
+        grade.setText(module.getGrade().toString());
     }
 
     @Override
@@ -52,12 +55,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ModuleCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        ModuleCard card = (ModuleCard) other;
         return moduleCode.getText().equals(card.moduleCode.getText())
                 && module.equals(card.module);
     }

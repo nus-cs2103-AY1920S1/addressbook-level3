@@ -30,7 +30,7 @@ public class FindCommand extends Command {
         requireNonNull(calendarModel);
         calendarModel.updateFilteredPersonList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, calendarModel.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW, calendarModel.getFilteredPersonList().size()));
     }
 
     @Override

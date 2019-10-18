@@ -9,6 +9,7 @@ import seedu.address.model.cap.ReadOnlyModulo;
 import seedu.address.model.cap.person.Credit;
 import seedu.address.model.cap.person.Description;
 import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Title;
 import seedu.address.model.cap.tag.Tag;
@@ -28,11 +29,11 @@ public class SampleDataUtil {
                 + "and testing, with emphasis on system modelling and design "
                 + "and implementation of software modules that work "
                 + "cooperatively to fulfill the requirements of the system."),
-                new Credit(4), new Faculty("Computing")),
+                new Credit(4), new Faculty("Computing"), new Grade("A")),
             new Module(new ModuleCode("CS2030"), new Title("Programming Methodology II"), new Description(
                 "This module is a follow up to CS1010. It explores two modern programming paradigms, "
                 + "object-oriented programming and functional programming."),
-                new Credit(4), new Faculty("Computing"))
+                new Credit(4), new Faculty("Computing"), new Grade("A"))
         };
     }
 

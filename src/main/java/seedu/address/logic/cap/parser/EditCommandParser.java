@@ -5,12 +5,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.cap.commands.EditCommand;
-import seedu.address.logic.cap.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.cap.commands.EditCommand.EditModuleDescriptor;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 
 
@@ -38,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditModuleDescriptor editPersonDescriptor = new EditModuleDescriptor();
         if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
             editPersonDescriptor.setModuleCode(ParserUtil.parseModuleCode(
                     argMultimap.getValue(PREFIX_MODULE_CODE).get()));
@@ -57,7 +58,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setDescription(ParserUtil.parseDescription(
                     argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
-
+        if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
+            editPersonDescriptor.setDescription(ParserUtil.parseDescription(
+                    argMultimap.getValue(PREFIX_GRADE).get()));
+        }
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }

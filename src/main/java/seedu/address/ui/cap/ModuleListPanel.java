@@ -38,7 +38,7 @@ public class ModuleListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(module, getIndex() + 1).getRoot());
+                setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
             }
         }
     }

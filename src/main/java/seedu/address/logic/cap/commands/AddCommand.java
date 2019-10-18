@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
 
@@ -24,9 +25,10 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_MODULE_CODE + "MODULE CODE "
             + PREFIX_TITLE + "TITLE "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_FACULTY + "FACULTY "
             + PREFIX_CREDIT + "CREDIT "
-            + PREFIX_DESCRIPTION + "DESCRIPTION ";
+            + PREFIX_GRADE + "GRADE ";
 
     public static final String MESSAGE_SUCCESS = "New module added to modulo tracker: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in this semester";
