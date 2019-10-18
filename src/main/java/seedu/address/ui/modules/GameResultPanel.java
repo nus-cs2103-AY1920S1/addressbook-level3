@@ -4,21 +4,14 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
-import seedu.address.commons.util.AppUtil;
 import seedu.address.model.card.Card;
 import seedu.address.statistics.GameStatistics;
-import seedu.address.statistics.ScoreData;
 import seedu.address.statistics.ScoreGrade;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
@@ -29,16 +22,7 @@ import seedu.address.ui.UiPart;
  */
 public class GameResultPanel extends UiPart<Region> {
 
-    public static final int PROGRESS_GAMES_NUM = 30;
     private static final String FXML = "GameResultPanel.fxml";
-
-    private static final String BADGE_PATH = "/images/badges/";
-    private static final Image BADGE_1_BNW = AppUtil.getImage(BADGE_PATH + "normal_badge_bnw.png");
-    private static final Image BADGE_2_BNW = AppUtil.getImage(BADGE_PATH + "medium_badge_bnw.png");
-    private static final Image BADGE_3_BNW = AppUtil.getImage(BADGE_PATH + "hard_badge_bnw.png");
-    private static final Image BADGE_1_COLOR = AppUtil.getImage(BADGE_PATH + "normal_badge.png");
-    private static final Image BADGE_2_COLOR = AppUtil.getImage(BADGE_PATH + "medium_badge.png");
-    private static final Image BADGE_3_COLOR = AppUtil.getImage(BADGE_PATH + "hard_badge.png");
 
     @FXML
     private Label title;
@@ -83,9 +67,9 @@ public class GameResultPanel extends UiPart<Region> {
         title.setText(gameStatistics.getTitle());
 
         // set badges todo set depending on received badges
-        badge1.setImage(BADGE_1_BNW);
-        badge2.setImage(BADGE_2_BNW);
-        badge3.setImage(BADGE_3_BNW);
+        badge1.setImage(WordBankStatisticsPanel.BADGE_1_BNW);
+        badge2.setImage(WordBankStatisticsPanel.BADGE_2_BNW);
+        badge3.setImage(WordBankStatisticsPanel.BADGE_3_BNW);
 
         // init score text
         int score = gameStatistics.getScore();
@@ -128,48 +112,7 @@ public class GameResultPanel extends UiPart<Region> {
         }
 
         // init progress chart
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
-            @Override
-            public String toString(Number object) {
-                if (object.intValue() != object.doubleValue() || object.intValue() % 5 != 0) {
-                    return "";
-                }
-                return "" + object.intValue();
-            }
-
-            @Override
-            public Number fromString(String string) {
-                Number val = Double.parseDouble(string);
-                return val.intValue();
-            }
-        });
-        xAxis.setTickUnit(1);
-        xAxis.setMinorTickVisible(false);
-        xAxis.setAutoRanging(false);
-        xAxis.setUpperBound(Math.max(PROGRESS_GAMES_NUM, wbStatistics.getGamesPlayed()) + 0.5);
-        xAxis.setLowerBound(Math.max(0, wbStatistics.getGamesPlayed() - PROGRESS_GAMES_NUM + 0.5));
-
-        yAxis.setAutoRanging(false);
-        yAxis.setUpperBound(ScoreData.MAX_SCORE + 9); // give some room at the top
-        yAxis.setLowerBound(ScoreData.MIN_SCORE);
-        yAxis.setTickUnit(10);
-
-        LineChart<Number, Number> progressChart = new LineChart<>(xAxis, yAxis);
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-
-        List<ScoreData> scoreStats = wbStatistics.getScoreStats();
-        for (int i = Math.max(0, scoreStats.size() - PROGRESS_GAMES_NUM); i < scoreStats.size(); ++i) {
-            int gameIndex = i + 1;
-            int curScore = scoreStats.get(i).getScore();
-            series.getData().add(new XYChart.Data<>(gameIndex, curScore));
-        }
-
-        progressChart.setLegendVisible(false);
-        progressChart.getData().add(series);
-        progressChart.setMinHeight(200);
-
-        progressChartPlaceholder.getChildren().add(progressChart);
+        progressChartPlaceholder.getChildren().add(
+                new WordBankProgressChart(wbStatistics).getRoot());
     }
 }

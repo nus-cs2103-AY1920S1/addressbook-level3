@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<StackPane fx:id="progressChartPlaceholder" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox prefHeight="0.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="title121" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header2" stylesheets="@DarkTheme.css" text="Progress" textAlignment="CENTER">
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="6.0" left="16.0" top="8.0" />
+               </HBox.margin>
+            </Label>
+            <ComboBox id="progressChartModeSelector" fx:id="progressChartModeSelector" stylesheets="@DarkTheme.css">
+               <HBox.margin>
+                  <Insets bottom="6.0" top="8.0" />
+               </HBox.margin>
+            </ComboBox>
+         </children>
+      </HBox>
+      <StackPane fx:id="progressChartPlaceholder" prefHeight="1000.0" prefWidth="200.0" />
+   </children>
+</VBox>

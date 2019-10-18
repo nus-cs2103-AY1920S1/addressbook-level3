@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.CardWithInfoCard"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox maxHeight="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox id="cardPane" fx:id="cardPane" maxHeight="1.7976931348623157E308">
+         <children>
+            <VBox fx:id="cardContainer" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="cardWord" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="Word" />
+                  <FlowPane fx:id="tags" stylesheets="@DarkTheme.css" />
+                  <Label fx:id="cardMeaning" maxHeight="1.7976931348623157E308" styleClass="cell_small_label" stylesheets="@DarkTheme.css" text="Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning " wrapText="true" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_RIGHT" fillWidth="false" prefHeight="0.0" HBox.hgrow="NEVER">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="0.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="correctRate" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="60.0" styleClass="label-header2" stylesheets="@DarkTheme.css" text="XX%" textAlignment="CENTER" textOverrun="CLIP">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets left="8.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="4.0" />
+         </padding>
+      </HBox>
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets top="2.0" />
+         </VBox.margin></Separator>
+   </children>
+   <cursor>
+      <Cursor fx:constant="CROSSHAIR" />
+   </cursor>
+   <padding>
+      <Insets bottom="4.0" />
+   </padding>
+</VBox>

@@ -41,4 +41,17 @@ public class CardStatistics {
         ++numCorrect;
         ++numShown;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("id:")
+                .append(cardId)
+                .append("\nnumShown:")
+                .append(numShown)
+                .append("\nnumCorrect:")
+                .append(numCorrect)
+                .toString();
+
+    }
 }

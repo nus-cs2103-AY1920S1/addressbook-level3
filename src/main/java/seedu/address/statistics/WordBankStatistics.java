@@ -95,8 +95,8 @@ public class WordBankStatistics {
                 .reduce(new ScoreData(0), ScoreData::max);
     }
 
-    public List<Card> getMostMissedCards(int num) {
-        return null; //todo
+    public List<CardStatistics> getMostMissedCardStats() {
+        return cardStats;
     }
 
     /**

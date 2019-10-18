@@ -6,16 +6,26 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.util.AppUtil;
+import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.statistics.CardStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
+
+
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  * Panel containing the word bank statistics
  */
 public class WordBankStatisticsPanel extends UiPart<Region> {
 
-    public static final int PROGRESS_GAMES_NUM = 30;
+    private static final int HARDEST_CARDS_NUM_SHOW = 5;
 
     private static final String FXML = "WordBankStatisticsPanel.fxml";
 
@@ -52,9 +62,12 @@ public class WordBankStatisticsPanel extends UiPart<Region> {
     StackPane progressChartPlaceholder;
 
     @FXML
-    StackPane mostMissedListPlaceholder;
+    VBox mostMissedBox;
 
-    public WordBankStatisticsPanel(WordBankStatistics wbStatistics) {
+    @FXML
+    VBox mostMissedList;
+
+    public WordBankStatisticsPanel(WordBankStatistics wbStatistics, ReadOnlyWordBank wordBank) {
         super(FXML);
         this.title.setText(wbStatistics.getWordBankName());
 
@@ -74,9 +87,43 @@ public class WordBankStatisticsPanel extends UiPart<Region> {
 
         // init progress chart
         progressChartPlaceholder.getChildren().add(
-                new WordBankProgressChart(wbStatistics, PROGRESS_GAMES_NUM).getRoot());
+                new WordBankProgressChart(wbStatistics).getRoot());
 
+        // init most missed list
+        Map<CardStatistics, Card> mostMissedMap = new TreeMap<>((x, y) -> {
+            double xCorrectRate = x.getNumCorrect() * 1.0 / x.getNumShown();
+            double yCorrectRate = y.getNumCorrect() * 1.0 / y.getNumShown();
+            if (Math.abs(xCorrectRate - yCorrectRate) < 1e-9) {
+                if (y.getNumShown() == x.getNumShown()) {
+                    return x.getCardId().compareTo(y.getCardId());
+                } else {
+                    return y.getNumShown() - x.getNumShown();
+                }
+            } else if (xCorrectRate > yCorrectRate) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
 
-        // todo set most missed cards
+        List<CardStatistics> mostMissedCardStats = wbStatistics.getMostMissedCardStats();
+        for (CardStatistics cardStats : mostMissedCardStats) {
+            wordBank.getCardList().stream()
+                    .filter(x -> x.getId().equals(cardStats.getCardId()))
+                    .findFirst()
+                    .ifPresent(x -> {
+                        mostMissedMap.put(cardStats, x);
+                    });
+        }
+        if (mostMissedMap.isEmpty()) {
+            mostMissedBox.setVisible(false);
+            mostMissedBox.setMaxHeight(0);
+        } else {
+            mostMissedList.getChildren().addAll(mostMissedMap.entrySet().stream()
+                    .limit(HARDEST_CARDS_NUM_SHOW)
+                    .map(x -> new CardWithInfoCard(x.getValue(), x.getKey()).getRoot())
+                    .collect(Collectors.toList()));
+        }
+
     }
 }

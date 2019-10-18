@@ -11,6 +11,7 @@ import seedu.address.ui.modules.CardListPanel;
 import seedu.address.ui.modules.GameResultPanel;
 import seedu.address.ui.modules.LoadBankPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
+import seedu.address.ui.modules.WordBankStatisticsPanel;
 
 /**
  * Displays the screen for Dukemon.
@@ -63,15 +64,17 @@ public class ModularDisplay {
      * @param paneToDisplay The view to change.
      */
     public void swapToBankDisplay(StackPane paneToDisplay) {
-        //I'm gonna need a way to get current wb name from gameManager as well.
-        bankLabelPanel = new BankLabelPanel("HELLO");
-        TitleScreenPanel localStatsPlaceholder = new TitleScreenPanel();
+        bankLabelPanel = new BankLabelPanel(gameManager.getSelectedWbName());
+        //  TitleScreenPanel localStatsPlaceholder = new TitleScreenPanel();
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
 
-        twoSplitRowLayout.addToTopPane(bankLabelPanel.getRoot());
-        twoSplitRowLayout.addToBottomPane(localStatsPlaceholder.getRoot());
-        twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
+        //  twoSplitRowLayout.addToTopPane(bankLabelPanel.getRoot ());
+        //  twoSplitRowLayout.addToBottomPane(localStatsPlaceholder.getRoot());
+        //  twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
+        twoSplitColumnLayout.addToLeftPane(
+                new WordBankStatisticsPanel(gameManager.getActiveWordBankStatistics(),
+                        gameManager.getActiveWordBank()).getRoot());
         twoSplitColumnLayout.addToRightPane(cardListPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }

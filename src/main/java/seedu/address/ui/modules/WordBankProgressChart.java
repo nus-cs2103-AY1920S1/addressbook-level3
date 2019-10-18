@@ -1,9 +1,12 @@
 package seedu.address.ui.modules;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.StringConverter;
@@ -11,6 +14,7 @@ import seedu.address.statistics.ScoreData;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,8 +27,33 @@ public class WordBankProgressChart extends UiPart<Region> {
     @FXML
     StackPane progressChartPlaceholder;
 
-    public WordBankProgressChart(WordBankStatistics wbStatistics, int numGames) {
+    @FXML
+    ComboBox<String> progressChartModeSelector;
+
+    public WordBankProgressChart(WordBankStatistics wbStatistics) {
         super(FXML);
+        NumGamesValues[] numGamesValues = NumGamesValues.values();
+        for (NumGamesValues numGamesValue : numGamesValues) {
+            progressChartModeSelector.getItems().add(numGamesValue.getMsg());
+        }
+        progressChartModeSelector.getSelectionModel().selectFirst();
+        progressChartModeSelector.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Arrays.stream(NumGamesValues.values())
+                        .filter(x -> x.getMsg().equals(newValue))
+                        .findFirst()
+                        .ifPresent(x -> initProgressChart(wbStatistics, x.getNumGames()));
+            }
+        });
+
+//        progressChartModeSelector.on
+
+        initProgressChart(wbStatistics, numGamesValues[0].getNumGames());
+    }
+
+    private void initProgressChart(WordBankStatistics wbStatistics, int numGames) {
+        progressChartPlaceholder.getChildren().clear();
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
@@ -49,7 +78,7 @@ public class WordBankProgressChart extends UiPart<Region> {
         xAxis.setLowerBound(Math.max(0, wbStatistics.getGamesPlayed() - numGames + 0.5));
 
         yAxis.setAutoRanging(false);
-        yAxis.setUpperBound(ScoreData.MAX_SCORE + 9); // give some room at the top
+        yAxis.setUpperBound(ScoreData.MAX_SCORE + 2); // give some room at the top
         yAxis.setLowerBound(ScoreData.MIN_SCORE);
         yAxis.setTickUnit(10);
 
@@ -69,5 +98,26 @@ public class WordBankProgressChart extends UiPart<Region> {
         progressChart.setCreateSymbols(false);
 
         progressChartPlaceholder.getChildren().add(progressChart);
+    }
+
+    private enum NumGamesValues {
+        THIRTY(30, "Last 30 games"),
+        ONE_HUNDRED(100, "Last 100 games");
+
+        int numGames;
+        String msg;
+
+        NumGamesValues(int numGames, String msg) {
+            this.numGames = numGames;
+            this.msg = msg;
+        }
+
+        int getNumGames() {
+            return numGames;
+        }
+
+        String getMsg() {
+            return msg;
+        }
     }
 }

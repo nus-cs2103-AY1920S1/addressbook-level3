@@ -15,6 +15,7 @@ import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
@@ -101,8 +102,17 @@ public class GameManager {
         return commandResult;
     }
 
+    // todo implement this method properly ???
+    public String getSelectedWbName() {
+        return logic.getActiveWordBankStatistics().getWordBankName();
+    }
+
     public Logic getLogic() {
         return logic;
+    }
+
+    public ReadOnlyWordBank getActiveWordBank() {
+        return logic.getActiveWordBank();
     }
 
     public GameStatistics getGameStatistics() {
@@ -113,8 +123,8 @@ public class GameManager {
         gameStatisticsBuilder = new GameStatisticsBuilder(title);
     }
 
-    public WordBankStatistics getWordBankStatistics() {
-        return logic.getWordBankStatistics();
+    public WordBankStatistics getActiveWordBankStatistics() {
+        return logic.getActiveWordBankStatistics();
     }
 
     public ObservableList<Card> getFilteredPersonList() {

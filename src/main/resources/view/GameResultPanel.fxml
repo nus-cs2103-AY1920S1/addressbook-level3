@@ -96,19 +96,11 @@
                   <Insets bottom="8.0" top="25.0" />
                </VBox.margin>
             </Separator>
-            <VBox prefHeight="0.0" prefWidth="100.0">
-               <children>
-                  <Label fx:id="title121" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header2" text="Progress" textAlignment="CENTER">
-                     <VBox.margin>
-                        <Insets bottom="6.0" left="16.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <StackPane fx:id="progressChartPlaceholder" prefHeight="1000.0" prefWidth="200.0" />
-               </children>
+            <StackPane fx:id="progressChartPlaceholder">
                <VBox.margin>
                   <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
                </VBox.margin>
-            </VBox>
+            </StackPane>
                </children>
       </VBox>
    </content>

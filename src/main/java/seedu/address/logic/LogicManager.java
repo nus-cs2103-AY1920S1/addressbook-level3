@@ -145,8 +145,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public WordBankStatistics getWordBankStatistics() {
+    public WordBankStatistics getActiveWordBankStatistics() {
         return model.getWordBankStatistics();
+    }
+
+    @Override
+    public ReadOnlyWordBank getActiveWordBank() {
+        return model.getWordBank();
     }
 
     @Override
