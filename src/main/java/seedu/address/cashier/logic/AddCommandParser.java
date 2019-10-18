@@ -2,12 +2,15 @@ package seedu.address.cashier.logic;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT;
-import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
+import static seedu.address.cashier.ui.CashierMessages.itemsByCategory;
+import static seedu.address.cashier.ui.CashierMessages.noSuchItemRecommendation;
+import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import seedu.address.cashier.commands.AddCommand;
@@ -25,6 +28,8 @@ import seedu.address.util.Prefix;
  */
 public class AddCommandParser {
 
+    private static ArgumentMultimap argMultimap;
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -33,12 +38,25 @@ public class AddCommandParser {
      * @throws Exception if the user input does not conform the expected format
      */
     public static AddCommand parse(String args, ModelManager modelManager) throws Exception {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);
+        if (!args.contains(" c/")) {
+            argMultimap =
+                    ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_QUANTITY)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_QUANTITY)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            }
+        } else {
+            argMultimap =
+                    ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESCRIPTION, PREFIX_QUANTITY);
+
+            String category = argMultimap.getValue(PREFIX_CATEGORY).get();
+
+            if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_QUANTITY)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                ArrayList<String> listItems = modelManager.getDescriptionByCategory(category);
+                throw new ParseException(itemsByCategory(listItems));
+            }
         }
 
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
@@ -53,7 +71,8 @@ public class AddCommandParser {
         modelManager.updateRecentInventory();
         // if the item with the specified description is not present
         if (!modelManager.hasItemInInventory(description)) {
-            throw new NoSuchItemException(NO_SUCH_ITEM_CASHIER);
+            ArrayList<String> recommendedItems = modelManager.getRecommendedItems(description);
+            throw new NoSuchItemException(noSuchItemRecommendation(recommendedItems));
         }
         // if the item with the specified description is not available for sale
         if (!modelManager.isSellable(description)) {

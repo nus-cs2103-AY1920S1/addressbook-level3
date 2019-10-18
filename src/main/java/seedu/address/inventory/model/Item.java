@@ -85,6 +85,11 @@ public class Item {
         updateSubtotal();
     }
 
+    /**
+     * Checks if the item is available for sales.
+     *
+     * @return true if the item is available for sales. Else, return false
+     */
     public boolean isSellable() {
         if (price == 0) {
             return false;

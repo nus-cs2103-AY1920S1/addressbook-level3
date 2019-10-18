@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import seedu.address.cashier.logic.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.ui.CashierMessages;
@@ -282,6 +283,12 @@ public class ModelManager implements Model {
         return Double.parseDouble(Item.DECIMAL_FORMAT.format(i.getPrice() * i.getQuantity()));
     }
 
+    /**
+     * Returns true if the item with the specified description is available for sale. Else, returns false.
+     * @param description of the item
+     * @return true if available for sale
+     * @throws NoSuchItemException if not for sale
+     */
     public boolean isSellable(String description) throws NoSuchItemException {
         Item i = inventoryList.getOriginalItem(description);
         return i.isSellable();
@@ -298,6 +305,45 @@ public class ModelManager implements Model {
             this.inventoryList = new InventoryList();
         }
     }
+
+    /**
+     * Returns a list of sales items according to their category.
+     * @param category of the items
+     * @return a list of sales items according to their category
+     */
+    public ArrayList<String> getDescriptionByCategory(String category) {
+        readInUpdatedList();
+        return inventoryList.getAllSalesDescriptionByCategory(category);
+    }
+
+    /**
+     * Returns a list of recommended items based on the initial input description.
+     * @param description of the item
+     * @return a list of recommended items
+     * @throws NoSuchIndexException if inventory list is invalid
+     */
+    public ArrayList<String> getRecommendedItems(String description) throws NoSuchIndexException {
+        readInUpdatedList();
+        ArrayList<String> recommendedItems = new ArrayList<>();
+        for (int i = 0; i < inventoryList.size(); i++) {
+            Item item = inventoryList.getItemByIndex(i);
+            if (item.getDescription().startsWith(description)) {
+                recommendedItems.add(item.getDescription());
+                continue;
+            }
+            if (description.length() >= 3
+                    && ((item.getDescription().contains(description)) || description.contains(item.getDescription()))) {
+                recommendedItems.add(item.getDescription());
+                continue;
+            }
+            if (item.getDescription().endsWith(description)) {
+                recommendedItems.add(item.getDescription());
+                continue;
+            }
+        }
+        return recommendedItems;
+    }
+
 }
 
 
