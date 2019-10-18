@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EARNINGS;
 
 import java.util.List;
@@ -14,10 +14,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
-import seedu.address.model.classid.ClassId;
 
 /**
  * Edits earnings to the address book.
@@ -84,7 +84,8 @@ public class UpdateEarningsCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Earnings createEditedEarnings(Earnings earningsToEdit, EditEarningsDescriptor editEarningsDescriptor) {
+    private static Earnings createEditedEarnings(Earnings earningsToEdit,
+                                                 EditEarningsDescriptor editEarningsDescriptor) {
         assert earningsToEdit != null;
 
         Date updatedDate = editEarningsDescriptor.getDate().orElse(earningsToEdit.getDate());
@@ -112,6 +113,11 @@ public class UpdateEarningsCommand extends Command {
                 && editEarningsDescriptor.equals(e.editEarningsDescriptor);
     }
 
+    /**
+     * Stores the details to edit the earnings with.
+     * Each non-empty field value will replace the
+     * corresponding field value of the earnings.
+     */
     public static class EditEarningsDescriptor {
         private Date date;
         private ClassId classId;

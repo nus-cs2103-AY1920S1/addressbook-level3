@@ -3,17 +3,17 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddEarningsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
-import seedu.address.model.classid.ClassId;
 
 /**
  * Parses input arguments and creates a new AddEarningsCommand object
