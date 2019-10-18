@@ -17,6 +17,7 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
+import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.tag.Tag;
 
 /**
@@ -53,7 +54,7 @@ public class PreferenceCommandTest {
         testLocation.add(FIRST_LOCATION);
         testLocation.add(SECOND_LOCATION);
 
-        model = new ModelManager(getTypicalMenu(), new UserPrefs());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
         model.clearDislikes();
         model.clearLikes();
     }
