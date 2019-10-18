@@ -14,10 +14,13 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Task;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.item.*;
+
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
  * and space where other JavaFX elements can be placed.
@@ -153,24 +156,20 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the view.
      *
-     * @param targetView
+     * @param list
      */
-    private void handleSwitchView(String targetView) {
-        switch (targetView) {
-        case "T":
+    private void handleSwitchView(VisualizeList list) {
+        if (list instanceof TaskList) {
             viewsPlaceholder.getSelectionModel().select(0);
-            break;
-        case "E":
+        }
+        else if (list instanceof EventList) {
             viewsPlaceholder.getSelectionModel().select(1);
-            break;
-        case "R":
+        }
+        else if (list instanceof ReminderList) {
             viewsPlaceholder.getSelectionModel().select(2);
-            break;
-        case "C":
+        }
+        else if (list instanceof CalendarList) {
             viewsPlaceholder.getSelectionModel().select(3);
-            break;
-        default:
-            break;
         }
     }
 
@@ -217,10 +216,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitchViews()) {
-                handleSwitchView(commandResult.getTargetView().trim());
-            }
-
+            handleSwitchView(logic.getVisualList());
             updatePanels();
 
             return commandResult;
