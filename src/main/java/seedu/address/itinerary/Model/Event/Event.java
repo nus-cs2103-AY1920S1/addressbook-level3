@@ -47,4 +47,15 @@ public class Event {
     public void markIsDone() {
         isDone = true;
     }
+
+    public boolean isSameEvent(Event otherEvent) {
+        if (otherEvent == this) {
+            return true;
+        }
+
+        return otherEvent != null
+                && (otherEvent.getTitle().equals(getTitle())
+                || otherEvent.getDate().equals(getDate())
+                || otherEvent.getTime().equals(getTime()));
+    }
 }

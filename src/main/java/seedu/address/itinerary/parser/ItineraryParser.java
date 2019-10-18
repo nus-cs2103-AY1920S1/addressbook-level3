@@ -38,15 +38,6 @@ public class ItineraryParser {
             case GreetCommand.COMMAND_WORD:
                 return new GreetCommand();
 
-            case AddEventCommand.COMMAND_WORD:
-                return new AddEventCommandParser().parse(arguments);
-
-            case DeleteEventCommand.COMMAND_WORD:
-                return new DeleteEventCommandParser().parse(arguments);
-
-            case DoneEventCommand.COMMAND_WORD:
-                return new DoneEventCommandParser().parse(arguments);
-
             case SummaryCommand.COMMAND_WORD:
                 return new SummaryCommand();
 
@@ -58,6 +49,18 @@ public class ItineraryParser {
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+
+            case AddEventCommand.COMMAND_WORD:
+                return new AddEventCommandParser().parse(arguments);
+
+            case DeleteEventCommand.COMMAND_WORD:
+                return new DeleteEventCommandParser().parse(arguments);
+
+            case DoneEventCommand.COMMAND_WORD:
+                return new DoneEventCommandParser().parse(arguments);
+
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
 
             default:
                 throw new ParseException("I know you like travelling but the input command is out of this "

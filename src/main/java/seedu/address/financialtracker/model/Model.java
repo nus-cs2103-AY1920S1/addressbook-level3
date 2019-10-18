@@ -1,16 +1,13 @@
 package seedu.address.financialtracker.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.financialtracker.model.expense.Expense;
 
-/**
- * Represents the in-memory model of the financial tracker data.
- */
+import java.util.function.Predicate;
+
+import static java.util.Objects.requireNonNull;
+
 public class Model {
 
     private FinancialTracker financialTracker;
@@ -36,4 +33,8 @@ public class Model {
         return filteredExpenses;
     }
 
+    public void updateFilteredExpenseList(Predicate<Expense> predicate) {
+        requireNonNull(predicate);
+        filteredExpenses.setPredicate(predicate);
+    }
 }

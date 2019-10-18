@@ -2,6 +2,9 @@ package seedu.address.itinerary.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.itinerary.model.Event.Event;
+import seedu.address.itinerary.model.Exceptions.ItineraryException;
+
+import static java.util.Objects.requireNonNull;
 
 public class Itinerary {
     /**
@@ -27,5 +30,16 @@ public class Itinerary {
 
     public void doneEvent(Event target, Event doneEvent) {
         eventList.doneEvent(target, doneEvent);
+    }
+
+    public boolean hasEvent(Event editedEvent) {
+        requireNonNull(editedEvent);
+        return eventList.contains(editedEvent);
+    }
+
+    public void setEvent(Event eventToEdit, Event editedEvent) throws ItineraryException {
+        requireNonNull(editedEvent);
+
+        eventList.setEvent(eventToEdit, editedEvent);
     }
 }
