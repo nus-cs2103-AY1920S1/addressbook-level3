@@ -43,6 +43,7 @@ public class LogicManager implements Logic {
         Command command = menuParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
+
         try {
             storage.saveMenu(model.getMenu());
         } catch (IOException ioe) {
