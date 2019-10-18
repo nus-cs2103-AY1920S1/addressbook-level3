@@ -5,7 +5,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.model.datetime.DateTime;
+import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.RecurringDateTime;
+import seedu.address.model.datetime.StartDateTime;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 
@@ -16,8 +18,8 @@ import seedu.address.model.person.Person;
 public class Appointment {
 
     // Identity fields
-    private final DateTime startDateTime;
-    private final DateTime endDateTime;
+    private final StartDateTime startDateTime;
+    private final EndDateTime endDateTime;
     private final RecurringDateTime frequency;
 
     // Data fields
@@ -25,7 +27,7 @@ public class Appointment {
     private final String description;
     // private final List<Medicine> medicinePackingList;
 
-    public Appointment(DateTime startDateTime, DateTime endDateTime, RecurringDateTime frequency,
+    public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, RecurringDateTime frequency,
                        Person patient, String description) {
         requireAllNonNull(startDateTime, endDateTime, frequency, patient, description);
         this.startDateTime = startDateTime;
@@ -35,11 +37,11 @@ public class Appointment {
         this.description = description;
     }
 
-    public DateTime getStartDateTime() {
+    public StartDateTime getStartDateTime() {
         return startDateTime;
     }
 
-    public DateTime getEndDateTime() {
+    public EndDateTime getEndDateTime() {
         return endDateTime;
     }
 

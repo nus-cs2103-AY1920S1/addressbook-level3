@@ -87,15 +87,14 @@ public class JsonAdaptedVisit {
         if (endDateTime == null) {
             modelEndDateTime = null;
         } else {
-            if (!EndDateTime.isValidEndDateTime(endDateTime)) {
+            if (!EndDateTime.isValidDateTime(endDateTime)) {
                 throw new IllegalValueException(EndDateTime.MESSAGE_CONSTRAINTS);
             }
-            modelEndDateTime = new EndDateTime(endDateTime);
-
             //Other constraints e.g. EndDateTime cannot be earlier than startDateTime
-            if (modelEndDateTime.dateTime.isBefore(modelStartDateTime.dateTime)) {
+            if (!EndDateTime.isValidEndDateTime(endDateTime, startDateTime)) {
                 throw new IllegalValueException(END_DATE_EARLIER_THAN_START_DATE);
             }
+            modelEndDateTime = new EndDateTime(endDateTime);
         }
 
         return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks);

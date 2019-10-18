@@ -16,8 +16,8 @@ public class DateTime {
     public static final String MESSAGE_CONSTRAINTS_BODY = "Date Time should be of the format dd-MM-yyyy HHmm "
             + "and adhere to the following constraints:\n"
             + "1. The values that substitute 'dd', 'MM', 'yyyy', 'HH' and 'mm' must all be numerical numbers.";
-    static final DateTimeFormatter DATE_DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-    static final DateTimeFormatter DATE_PARSER_VALIDATOR = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    public static final DateTimeFormatter DATE_DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    public static final DateTimeFormatter DATE_PARSER_VALIDATOR = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     public final LocalDateTime dateTime;
 
