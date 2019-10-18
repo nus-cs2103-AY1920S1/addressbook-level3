@@ -32,21 +32,21 @@
                   <Insets bottom="8.0" />
                </VBox.margin>
             </HBox>
-            <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
+            <HBox fx:id="highScoreHbox" minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
                <children>
-                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                  <Label fx:id="title111" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="High Score: " textAlignment="CENTER" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="title111" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="High Score: " textAlignment="CENTER" />
                   <Label fx:id="highScoreText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="XX" textAlignment="CENTER" />
-                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+                  <Region HBox.hgrow="ALWAYS" />
                </children>
                <padding>
                   <Insets top="10.0" />
                </padding>
             </HBox>
-            <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
+            <HBox fx:id="fastestClearHbox" minWidth="0.0" prefHeight="30.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
                <children>
                   <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                  <Label fx:id="title1111" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Fastest Clear: " textAlignment="CENTER" />
+                  <Label fx:id="title1111" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Fastest Clear: " textAlignment="CENTER" />
                   <Label fx:id="fastestClearText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="XXs" textAlignment="CENTER" />
                   <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
                </children>
