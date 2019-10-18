@@ -68,6 +68,9 @@ public class Cca {
         }
 
         Cca otherCca = (Cca) other;
+        System.out.println("Cca names equals: " + otherCca.getName().equals(getName()));
+        System.out.println("Cca type equals: " + otherCca.getCcaType().equals(getCcaType()));
+        System.out.println("Cca equipment equals: " + otherCca.getEquipmentList().equals(getEquipmentList()));
         return otherCca.getName().equals(getName())
                 && otherCca.getCcaType().equals(getCcaType())
                 && otherCca.getEquipmentList().equals(getEquipmentList());
@@ -83,7 +86,9 @@ public class Cca {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append("-")
                 .append(getCcaType())
+                .append(". ")
                 .append(getEquipmentList());
         return builder.toString();
     }

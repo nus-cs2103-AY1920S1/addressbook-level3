@@ -6,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,23 +17,12 @@ import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
-import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
-import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.cca.Cca;
-import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.history.HistoryManager;
-import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.TaskList;
-import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.testutil.InstallmentBuilder;
+import seedu.jarvis.testutil.ModelStub;
 
 public class SetInstallmentCommandTest {
 
@@ -378,7 +365,7 @@ public class SetInstallmentCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithInstallment extends SetInstallmentCommandTest.ModelStub {
+    private class ModelStubWithInstallment extends ModelStub {
         private final Installment installment;
 
         ModelStubWithInstallment(Installment installment) {
@@ -396,7 +383,7 @@ public class SetInstallmentCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingInstallmentAdded extends SetInstallmentCommandTest.ModelStub {
+    private class ModelStubAcceptingInstallmentAdded extends ModelStub {
         final ArrayList<Installment> installmentsAdded = new ArrayList<>();
 
         @Override

@@ -43,7 +43,7 @@ public class TaskList {
      */
     public boolean hasTask(Task t) {
         for (Task task : tasks) {
-            if (task.isEqual(t)) {
+            if (task.equals(t)) {
                 return true;
             }
         }
@@ -55,14 +55,23 @@ public class TaskList {
      * @param other the TaskList to be compared to
      * @return true if both TaskLists are equal, false if they are not
      */
-    public boolean isEqual(TaskList other) {
-        ArrayList<Task> otherTasks = other.getTasks();
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TaskList)) {
+            return false;
+        }
+
+        ArrayList<Task> otherTasks = ((TaskList) other).getTasks();
         if (otherTasks.size() != tasks.size()) {
             return false;
         }
 
         for (int i = 0; i < tasks.size(); i++) {
-            if (!tasks.get(i).isEqual(otherTasks.get(i))) {
+            if (!tasks.get(i).equals(otherTasks.get(i))) {
                 return false;
             }
         }

@@ -71,9 +71,20 @@ public class Planner {
      * @param other the planner to be compared against
      * @return true if both planners are equal, false if they are not
      */
-    public boolean isEqual(Planner other) {
-        requireNonNull(other);
-        return this.taskList.isEqual(other.getTasks());
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if it is the same object.
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls.
+        if (!(other instanceof Planner)) {
+            return false;
+        }
+
+        other = (Planner) other;
+        return taskList.equals(((Planner) other).getTasks());
     }
 
     /**

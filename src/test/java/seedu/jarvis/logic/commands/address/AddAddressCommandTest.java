@@ -7,10 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,21 +19,10 @@ import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
-import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.cca.Cca;
-import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Purchase;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.history.HistoryManager;
-import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.TaskList;
-import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class AddAddressCommandTest {

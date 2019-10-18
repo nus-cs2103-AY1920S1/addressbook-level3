@@ -14,11 +14,14 @@ import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
@@ -40,7 +43,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
-
+    private final CoursePlanner coursePlanner;
     private final CcaTracker ccaTracker;
     private final FilteredList<Person> filteredPersons;
     private final Planner planner;
@@ -49,8 +52,9 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager, FinanceTracker financeTracker,
-                ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Planner planner) {
+    public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager,
+                        FinanceTracker financeTracker, ReadOnlyAddressBook addressBook,
+                        ReadOnlyUserPrefs userPrefs, Planner planner, CoursePlanner coursePlanner) {
         super();
         requireAllNonNull(ccaTracker, historyManager, financeTracker, addressBook, userPrefs, planner);
 
@@ -63,11 +67,12 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
+        this.coursePlanner = new CoursePlanner(coursePlanner);
     }
 
     public ModelManager() {
-        this(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new AddressBook(), new UserPrefs(),
-                new Planner());
+        this(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new AddressBook(),
+                new UserPrefs(), new Planner(), new CoursePlanner());
     }
 
 
@@ -419,10 +424,11 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return historyManager.equals(other.historyManager)
                 && financeTracker.equals(other.financeTracker)
-                && planner.isEqual(other.planner)
+                && planner.equals(other.planner)
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
-                && userPrefs.equals(other.userPrefs);
+                && userPrefs.equals(other.userPrefs)
+                && coursePlanner.equals(other.coursePlanner);
     }
 
 
@@ -459,6 +465,17 @@ public class ModelManager implements Model {
     @Override
     public CcaTracker getCcaTracker() {
         return ccaTracker;
+    }
+
+    @Override
+    public int getNumberOfCcas() {
+        return ccaTracker.getNumberOfCcas();
+    }
+
+    @Override
+    public Cca getCca(Index index) throws CommandException {
+        requireNonNull(index.getZeroBased());
+        return ccaTracker.getCca(index);
     }
 
     //=========== Planner =============================================================
@@ -509,6 +526,12 @@ public class ModelManager implements Model {
     public void resetData(Planner planner) {
         this.planner.resetData(planner);
     }
+    //=========== Course Planner ========================================================
+
+    @Override
+    public void lookUpCourse(Course course) {
+        coursePlanner.lookUpCourse(course);
+    }
 
     /**
      * Checks if one planner is equal to the other planner
@@ -517,8 +540,8 @@ public class ModelManager implements Model {
      * or false if they are not equal
      */
     @Override
-    public boolean isEqual(Planner other) {
-        return this.planner.isEqual(other);
+    public CoursePlanner getCoursePlanner() {
+        return coursePlanner;
     }
 
     /**

@@ -1,9 +1,9 @@
 package seedu.jarvis.logic.parser.cca;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.cca.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
-import static seedu.jarvis.logic.parser.cca.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
-import static seedu.jarvis.logic.parser.cca.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
 
 import java.util.stream.Stream;
 
@@ -29,7 +29,7 @@ public class AddCcaCommandParser implements Parser <AddCcaCommand> {
         ArgumentMultimap argumentMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_CCA_NAME, PREFIX_CCA_TYPE, PREFIX_EQUIPMENT_NAME);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_CCA_NAME, PREFIX_CCA_TYPE, PREFIX_EQUIPMENT_NAME)
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_CCA_NAME, PREFIX_CCA_TYPE)
                 || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCcaCommand.MESSAGE_USAGE));
         }

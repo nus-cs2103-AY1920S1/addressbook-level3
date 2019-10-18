@@ -1,5 +1,6 @@
 package seedu.jarvis.testutil.cca;
 
+import static seedu.jarvis.testutil.cca.TypicalEquipments.BOAT;
 import static seedu.jarvis.testutil.cca.TypicalEquipments.GUITAR;
 import static seedu.jarvis.testutil.cca.TypicalEquipments.PADDLE;
 
@@ -11,6 +12,8 @@ import seedu.jarvis.model.cca.EquipmentList;
 public class TypicalEquipmentList {
 
     public static final EquipmentList CANOEING_EQUIPMENT_LIST = buildCanoeingEquipmentList();
+    public static final EquipmentList CANOEING_EQUIPMENT_LIST_WITH_TWO_EQUIPMENT =
+            buildCanoeingEquipmentListWithTwoEquipment();
     public static final EquipmentList GUITAR_ENSEMBLE_EQUIPMENT_LIST = buildGuitarEnsembleEquipmentList();
 
     private TypicalEquipmentList() {}; //prevents instantiation
@@ -21,6 +24,16 @@ public class TypicalEquipmentList {
     public static EquipmentList buildCanoeingEquipmentList() {
         EquipmentList canoeingEquipmentList = new EquipmentList();
         canoeingEquipmentList.addEquipment(PADDLE);
+        return canoeingEquipmentList;
+    }
+
+    /**
+     * Builds and returns a typical{@code EquipmentList} for the canoeing {@code Cca}.
+     */
+    public static EquipmentList buildCanoeingEquipmentListWithTwoEquipment() {
+        EquipmentList canoeingEquipmentList = new EquipmentList();
+        canoeingEquipmentList.addEquipment(PADDLE);
+        canoeingEquipmentList.addEquipment(BOAT);
         return canoeingEquipmentList;
     }
 

@@ -7,10 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,17 +24,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
-import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.cca.Cca;
-import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Purchase;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.TaskList;
-import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.testutil.ModelStub;
 
 /**
  * Tests the behaviour of {@code HistoryManagerTest}.

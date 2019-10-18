@@ -6,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,21 +17,10 @@ import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
-import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
-import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.cca.Cca;
-import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.history.HistoryManager;
-import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.TaskList;
-import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.PurchaseBuilder;
 
 public class PaidCommandTest {
@@ -87,7 +74,6 @@ public class PaidCommandTest {
         // different purchase -> returns false
         assertFalse(addMovieCommand.equals(addKaraokeCommand));
     }
-
 
     /**
      * A default model stub that have all of the methods failing.
@@ -377,7 +363,7 @@ public class PaidCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPurchase extends PaidCommandTest.ModelStub {
+    private class ModelStubWithPurchase extends ModelStub {
         private final Purchase purchase;
 
         ModelStubWithPurchase(Purchase purchase) {
@@ -395,7 +381,7 @@ public class PaidCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPurchaseAdded extends PaidCommandTest.ModelStub {
+    private class ModelStubAcceptingPurchaseAdded extends ModelStub {
         final ArrayList<Purchase> purchasesAdded = new ArrayList<>();
 
         @Override

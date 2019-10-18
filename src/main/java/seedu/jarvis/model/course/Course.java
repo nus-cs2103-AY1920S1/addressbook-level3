@@ -1,18 +1,32 @@
 package seedu.jarvis.model.course;
 
+import static java.util.Objects.isNull;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.jarvis.commons.util.StringUtil;
+
 
 /**
  * Represents a Course in the course planner.
  */
 public class Course {
+    /** formatting strings */
+    private static final String DISPLAYABLE_CODE_TITLE_FORMAT = "%s \"%s\"";
+    private static final String DISPLAYABLE_CREDITS_FORMAT = "%s MCs";
+    private static final String DISPLAYABLE_FACULTY_FORMAT = "Offered by: %s";
+    private static final String DISPLAYABLE_PRECLUSION_FORMAT = "Preclusion: %s";
+    private static final String DISPLAYABLE_FULFILLREQ_FORMAT = "Required for: %s";
+
     private final Title title;
     private final Faculty faculty;
     private final Description description;
     private final CourseCode courseCode;
     private final CourseCredit courseCredit;
+
+    // can be null
     private final PrereqTree prereqTree;
     private final Preclusion preclusion;
     private final FulfillRequirements fulfillRequirements;
@@ -75,8 +89,7 @@ public class Course {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, faculty, description, courseCode, courseCredit, prereqTree,
-                preclusion, fulfillRequirements);
+        return Objects.hash(title, faculty, courseCode, courseCredit, description);
     }
 
     @Override
@@ -98,29 +111,29 @@ public class Course {
      */
     public String toDisplayableString() {
         final int limit = 100;
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getCourseCode()).append(" ")
-                .append(getTitle()).append("\n")
-                .append(getCourseCredit()).append(" MCs\n")
-                .append("Offered by: ").append(getFaculty()).append("\n")
-                .append("Preclusion: ").append(getPreclusion()).append("\n")
-                .append("Required for: ").append(getFulfillRequirements()).append("\n")
-                .append("\n") // newline for better readability
-                .append(StringUtil.asLimitedCharactersPerLine(getDescription().toString(), limit));
-        return builder.toString();
+        List<String> toRender = new ArrayList<>();
+        toRender.add(String.format(DISPLAYABLE_CODE_TITLE_FORMAT, getCourseCode(), getTitle()));
+        toRender.add(String.format(DISPLAYABLE_CREDITS_FORMAT, getCourseCredit()));
+        toRender.add(String.format(DISPLAYABLE_FACULTY_FORMAT, getFaculty()));
+        if (!isNull(getPreclusion())) {
+            toRender.add(String.format(DISPLAYABLE_PRECLUSION_FORMAT, getPreclusion()));
+        }
+        if (!isNull(getFulfillRequirements())) {
+            toRender.add(String.format(DISPLAYABLE_FULFILLREQ_FORMAT, getFulfillRequirements()));
+        }
+        toRender.add("\n" + StringUtil.asLimitedCharactersPerLine(getDescription().toString(), limit));
+        return StringUtil.listToString(toRender);
     }
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("[Title]: ").append(getTitle())
-                .append(" [Faculty]: ").append(getFaculty())
-                .append(" [Description]: ").append(getDescription())
-                .append(" [CourseCode]: ").append(getCourseCode())
-                .append(" [CourseCredit]: ").append(getCourseCredit())
-                .append(" [PrereqTree]: ").append(getPrereqTree())
-                .append(" [Preclusions]: ").append(getPreclusion())
-                .append(" [FulfillRequirements]: ").append(getFulfillRequirements());
-        return builder.toString();
+        return "[Title]: " + getTitle()
+            + " [Faculty]: " + getFaculty()
+            + " [Description]: " + getDescription()
+            + " [CourseCode]: " + getCourseCode()
+            + " [CourseCredit]: " + getCourseCredit()
+            + " [PrereqTree]: " + getPrereqTree()
+            + " [Preclusions]: " + getPreclusion()
+            + " [FulfillRequirements]: " + getFulfillRequirements();
     }
 }
