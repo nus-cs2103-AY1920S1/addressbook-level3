@@ -9,7 +9,6 @@ import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_PHONE;
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_TAG;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
-import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -43,16 +42,6 @@ public class CommandTestUtil {
 
     public static final String VALID_DESC_NETFLIX = "Netflix";
     public static final String VALID_MONEY_NETFLIX = "13.50";
-
-    public static final String VALID_TASK_TYPE_TODO = " " + PREFIX_TASK_TYPE + "todo";
-    public static final String VALID_TASK_TYPE_DEADLINE = " " + PREFIX_TASK_TYPE + "deadline";
-    public static final String VALID_TASK_DES = "borrow book";
-    public static final String VALID_TASK_DATE = "20/10/2019";
-    public static final String VALID_TASK_TAG_SCHOOL = "school";
-    public static final String VALID_TASK_TAG_WORK = "#work";
-
-
-
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
