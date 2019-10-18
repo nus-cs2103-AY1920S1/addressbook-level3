@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RecordBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -82,6 +83,7 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialData;
         UniqueFoodList foodList = new UniqueFoodList();
         foodList.setFoods(FOODS);
+        RecordBook recordBook = new RecordBook();
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -95,7 +97,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-        return new ModelManager(initialData, userPrefs, foodList);
+        return new ModelManager(initialData, userPrefs, foodList, recordBook);
     }
 
     private void initLogging(Config config) {

@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -17,6 +19,9 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    //TODO: check what this means
+    Predicate<Record> PREDICATE_SHOW_ALL_RECORDS = unused -> true;
 
     /**
      * Returns the user prefs.
@@ -126,4 +131,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFoodList(Predicate<Food> predicate);
+    void addRecord(Record toAdd);
+
+    boolean hasRecord(Record toAdd);
+
+    void updateFilteredRecordList(Predicate<Record> predicate);
+
+    ReadOnlyRecordBook getRecordBook();
+
+    boolean hasReminder(Reminder reminder);
+
+    void addReminder(Reminder reminder);
 }

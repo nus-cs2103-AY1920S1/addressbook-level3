@@ -210,7 +210,7 @@ Format: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
 AVERAGE_TYPE is either day/week/month.
 Displays a graph of the AVERAGE_TYPE average value of a particular RECORD_TYPE. COUNT is an integer value.
 If COUNT is given, show only the latest COUNT number of average values.
-Else, show only latest 3 average values.
+Else, COUNT is set to 5 and show only latest 5 average values by default.
 
 ==== Display interesting statistics: `summary`
 

@@ -18,8 +18,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRecordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.testutil.FoodBuilder;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
@@ -83,12 +86,12 @@ class AddFoodCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -118,12 +121,12 @@ class AddFoodCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -153,35 +156,68 @@ class AddFoodCommandTest {
         }
 
         @Override
+        public void addRecord(Record toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasRecord(Record toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyRecordBook getRecordBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasFood(Food food) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addFood(Food food) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteFood(Food food) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Food> getFoodList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setFoodList(UniqueFoodList newFoodList) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Food> getFilterFoodList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredFoodList(Predicate<Food> predicate) {
-
+            throw new AssertionError("This method should not be called.");
         }
     }
 

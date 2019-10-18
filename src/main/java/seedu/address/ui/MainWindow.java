@@ -1,13 +1,20 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.ui.MainDisplayPane.DisplayPane.ACHVM;
+import static seedu.address.ui.MainDisplayPane.DisplayPane.BIO;
+import static seedu.address.ui.MainDisplayPane.DisplayPane.MAIN;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -35,6 +42,10 @@ public class MainWindow extends UiPart<Stage> {
     private FoodFlowPanel foodFlowPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private MainDisplayPane mainDisplayPane;
+
+    @FXML
+    private Scene scene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -47,8 +58,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
     */
 
-    @FXML
     private StackPane foodFlowPanelPlaceholder;
+
+    @FXML
+    private StackPane mainDisplayPanePlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -68,11 +81,17 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        mainDisplayPane = new MainDisplayPane();
+
         helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     private void setAccelerators() {
@@ -116,10 +135,14 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        /*
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         foodFlowPanel = new FoodFlowPanel(logic.getFilterFoodList());
         foodFlowPanelPlaceholder.getChildren().add(foodFlowPanel.getRoot());
+        */
+        mainDisplayPanePlaceholder.getChildren().add(personListPanel.getRoot());
+        mainDisplayPane = new MainDisplayPane(MAIN, personListPanel);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -154,9 +177,20 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
+    /**
+     * Switches the main display pane to the specified UI part.
+     */
+    public void switchToMainDisplayPane(UiPart<Region> mainDisplayPane) {
+        mainDisplayPanePlaceholder.getChildren().clear();
+        mainDisplayPanePlaceholder.getChildren().add(mainDisplayPane.getRoot());
+    }
 
     void show() {
         primaryStage.show();
+    }
+
+    public void hide() {
+        getRoot().hide();
     }
 
     /**
@@ -182,7 +216,21 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             CommandResult commandResult = logic.execute(commandText);
+
+            if (commandResult.isShowBio()) {
+                if (mainDisplayPane.getCurrPane() != BIO) {
+                    switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(BIO)));
+                }
+            } else if (commandResult.isShowAchvm()) {
+                if (mainDisplayPane.getCurrPane() != ACHVM) {
+                    switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(ACHVM)));
+                }
+            } else if (mainDisplayPane.getCurrPane() != MAIN) {
+                switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(MAIN)));
+            }
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

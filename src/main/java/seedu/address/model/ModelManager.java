@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -24,13 +26,16 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final RecordBook recordBook;
+    private final FilteredList<Record> filteredRecords;
     private final UniqueFoodList foodList;
     private final FilteredList<Food> filteredFoodList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, UniqueFoodList foodList) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, UniqueFoodList foodList,
+                        RecordBook recordBook) {
         super();
         requireAllNonNull(addressBook, userPrefs, foodList);
 
@@ -40,12 +45,14 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.recordBook = recordBook;
+        this.filteredRecords = new FilteredList<>(this.recordBook.getRecordList());
         this.foodList = foodList;
         this.filteredFoodList = new FilteredList<>(this.foodList.asUnmodifiableObservableList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new UniqueFoodList());
+        this(new AddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -91,14 +98,29 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return addressBook.hasPerson(person);
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyRecordBook getRecordBook() {
+        return recordBook;
+    }
+
+    @Override
+    public boolean hasReminder(Reminder reminder) {
+        return false;
+    }
+
+    @Override
+    public void addReminder(Reminder reminder) {
+
     }
 
     @Override
@@ -197,5 +219,23 @@ public class ModelManager implements Model {
     public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);
         filteredFoodList.setPredicate(predicate);
+    }
+
+    @Override
+    public void addRecord(Record record) {
+        recordBook.addRecord(record);
+        updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
+    }
+
+    @Override
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return recordBook.hasRecord(record);
+    }
+
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        requireNonNull(predicate);
+        filteredRecords.setPredicate(predicate);
     }
 }
