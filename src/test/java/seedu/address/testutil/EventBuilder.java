@@ -16,8 +16,9 @@ import seedu.address.model.event.EventStartDate;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
-
- * A utility class to help with building Event objects.
+/**
+ *  A utility class to help with building Event objects.
+ */
 
 public class EventBuilder {
 
