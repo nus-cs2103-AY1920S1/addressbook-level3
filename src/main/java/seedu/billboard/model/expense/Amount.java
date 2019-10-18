@@ -11,7 +11,7 @@ public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain a float number and it should not be blank";
 
-    //TODO: Add parsing money logic
+
     public final BigDecimal amount;
 
     public Amount(String amount) {

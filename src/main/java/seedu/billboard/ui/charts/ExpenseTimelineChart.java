@@ -61,6 +61,11 @@ public class ExpenseTimelineChart extends ExpenseChart<ExpenseTimeline> {
         series.getData().setAll(data);
     }
 
+    /**
+     * Extracts a list of {@code XYChart.Data} of {@code String} and {@code BigDecimal} from the input map of
+     * {@code DateRange} to {@code Amount}. The date range is formatted as a string according to the given
+     * date interval.
+     */
     private List<XYChart.Data<String, BigDecimal>> getData(Map<DateRange, Amount> timeline, DateInterval interval) {
         return timeline.entrySet()
                 .stream()
@@ -68,12 +73,19 @@ public class ExpenseTimelineChart extends ExpenseChart<ExpenseTimeline> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Transforms a single map entry of {@code DateRange} and {@code Amount} to a data object. The date range is
+     * formatted as a string according to the given date interval.
+     */
     private XYChart.Data<String, BigDecimal> entryToData(Map.Entry<DateRange, Amount> entry,
                                                          DateInterval interval) {
 
         return new XYChart.Data<>(formatDate(entry.getKey().getStartDate(), interval), entry.getValue().amount);
     }
 
+    /**
+     * Formats a date as a string using the given date interval, as defined in {@code dateIntervalFormats}.
+     */
     private String formatDate(LocalDate date, DateInterval dateInterval) {
         return dateIntervalFormats.get(dateInterval).format(date);
     }
