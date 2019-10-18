@@ -245,11 +245,11 @@ Format: `recommend`
 ==== Likes and Dislikes
 Allows users to specify their liked categories, tags and/or locations. The
 recommendation system (as mentioned above) will then be able to generate more
-accurate recommendations with your preferences.
+accurate recommendations with your preferences. Users can provide multiple
+categories, tags and/or locations with each command. To list the user's likes and
+dislikes, use the command without providing any arguments.
 
-Your likes and dislikes will be saved into your hard disk for your convenience.
-
-To list your likes and dislikes, use the command without providing any arguments.
+The user's likes and dislikes will be saved into the hard disk for their convenience.
 
 *To list likes/dislikes*:
 
