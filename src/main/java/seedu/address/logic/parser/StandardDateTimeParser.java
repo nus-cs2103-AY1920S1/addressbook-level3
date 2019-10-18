@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parse string Date Time in the standard way using LocalDateTime.parse().

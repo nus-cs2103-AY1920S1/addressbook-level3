@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -139,13 +142,13 @@ public class EditCommand extends Command {
             itemBuilder.setReminder(updatedReminder.get());
         }
 
-        if (editItemDescriptor.hasDeleteTask) {
+        if (editItemDescriptor.getHasDeleteTask()) {
             itemBuilder.setTask(null);
         }
-        if (editItemDescriptor.hasDeleteEvent) {
+        if (editItemDescriptor.getHasDeleteEvent()) {
             itemBuilder.setEvent(null);
         }
-        if (editItemDescriptor.hasDeleteReminder) {
+        if (editItemDescriptor.getHasDeleteReminder()) {
             itemBuilder.setReminder(null);
         }
 
@@ -169,9 +172,9 @@ public class EditCommand extends Command {
         private Reminder reminder;
         private Priority priority;
         private Set<Tag> tags;
-        public boolean hasDeleteTask = false;
-        public boolean hasDeleteEvent = false;
-        public boolean hasDeleteReminder = false;
+        private boolean hasDeleteTask = false;
+        private boolean hasDeleteEvent = false;
+        private boolean hasDeleteReminder = false;
 
         public EditItemDescriptor() {}
 
@@ -263,12 +266,24 @@ public class EditCommand extends Command {
             this.hasDeleteTask = bool;
         }
 
+        public boolean getHasDeleteTask() {
+            return this.hasDeleteTask;
+        }
+
         public void setHasDeleteEvent(boolean bool) {
             this.hasDeleteEvent = bool;
         }
 
+        public boolean getHasDeleteEvent() {
+            return this.hasDeleteEvent;
+        }
+
         public void setHasDeleteReminder(boolean bool) {
             this.hasDeleteReminder = bool;
+        }
+
+        public boolean getHasDeleteReminder() {
+            return this.hasDeleteReminder;
         }
     }
 }

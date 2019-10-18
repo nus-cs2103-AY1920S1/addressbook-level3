@@ -2,14 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_EVENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TASK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -82,13 +82,13 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         // if delete tag is present, even if edits are made above, relevant subitems should still be deleted.
         if (argMultiMap.getValue(PREFIX_DELETE_TASK).isPresent()) {
-            editItemDescriptor.hasDeleteTask = true;
+            editItemDescriptor.setHasDeleteTask(true);
         }
         if (argMultiMap.getValue(PREFIX_DELETE_REMINDER).isPresent()) {
-            editItemDescriptor.hasDeleteReminder = true;
+            editItemDescriptor.setHasDeleteReminder(true);
         }
         if (argMultiMap.getValue(PREFIX_DELETE_EVENT).isPresent()) {
-            editItemDescriptor.hasDeleteEvent = true;
+            editItemDescriptor.setHasDeleteEvent(true);
         }
 
         if ((!editItemDescriptor.isAnyFieldEdited()) && (!editItemDescriptor.hasAnyDelete())) {

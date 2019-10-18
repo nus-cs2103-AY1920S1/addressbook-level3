@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.time.LocalDateTime;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a Parser that is able to parse DateTime input into a {@code LocalDateTime}.
