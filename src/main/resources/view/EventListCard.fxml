@@ -28,7 +28,7 @@
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
-            <Label fx:id="eventId" styleClass="cell_small_label" text="\$eventId" />
+<!--            <Label fx:id="eventId" styleClass="cell_small_label" text="\$eventId" />-->
             <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
             <Label fx:id="venue" styleClass="cell_small_label" text="\$venue" />
         </VBox>

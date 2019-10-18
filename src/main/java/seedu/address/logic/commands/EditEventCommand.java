@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_HOURS_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
@@ -22,13 +21,10 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventEndDate;
-import seedu.address.model.event.EventHoursNeeded;
-import seedu.address.model.event.EventId;
+import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.EventStartDate;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
@@ -45,7 +41,6 @@ public class EditEventCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_NAME + "EVENT NAME] "
             + "[" + PREFIX_EVENT_VENUE + "VENUE] "
-            + "[" + PREFIX_EVENT_HOURS_NEEDED + "HOURS NEEDED] "
             + "[" + PREFIX_EVENT_MANPOWER_NEEDED + "MANPOWER NEEDED] "
             + "[" + PREFIX_EVENT_START_DATE + "START DATE] "
             + "[" + PREFIX_EVENT_END_DATE + "END DATE] "
@@ -62,7 +57,7 @@ public class EditEventCommand extends Command {
     private final EditEventDescriptor editEventDescriptor;
 
     /**
-     * @param index of the event in the filtered event list to edit
+     * @param index               of the event in the filtered event list to edit
      * @param editEventDescriptor details to edit the event with
      */
     public EditEventCommand(Index index, EditEventDescriptor editEventDescriptor) {
@@ -101,19 +96,16 @@ public class EditEventCommand extends Command {
     private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         assert eventToEdit != null;
 
-        EventId updatedEventId = editEventDescriptor.getEventId().orElse(eventToEdit.getEventId());
         EventName updatedEventName = editEventDescriptor.getName().orElse(eventToEdit.getName());
         EventVenue updatedEventVenue = editEventDescriptor.getVenue().orElse(eventToEdit.getVenue());
-        EventHoursNeeded updatedHoursNeeded = editEventDescriptor.getHoursNeeded()
-                .orElse(eventToEdit.getHoursNeeded());
         EventManpowerNeeded updatedManpowerNeeded = editEventDescriptor.getManpowerNeeded()
                 .orElse(eventToEdit.getManpowerNeeded());
-        EventStartDate updatedStartDate = editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
-        EventEndDate updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
+        EventDate updatedStartDate = editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
+        EventDate updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
 
-        return new Event(updatedEventId, updatedEventName, updatedEventVenue,
-                updatedHoursNeeded, updatedManpowerNeeded, updatedStartDate,
+        return new Event(updatedEventName, updatedEventVenue,
+                updatedManpowerNeeded, updatedStartDate,
                 updatedEndDate, updatedTags);
     }
 
@@ -140,31 +132,26 @@ public class EditEventCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditEventDescriptor {
-        //Identity Fields
-        private EventId eventId;
-
         //Data Fields
         private EventName name;
         private EventVenue venue;
         private EventManpowerNeeded manpowerNeeded;
-        private EventHoursNeeded hoursNeeded;
-        private EventStartDate startDate;
-        private EventEndDate endDate;
+        private EventDate startDate;
+        private EventDate endDate;
         private EventManpowerAllocatedList manpowerAllocatedList;
         private Set<Tag> tags;
 
-        public EditEventDescriptor() {}
+        public EditEventDescriptor() {
+        }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
         public EditEventDescriptor(EditEventDescriptor toCopy) {
-            setEventId(toCopy.eventId);
             setName(toCopy.name);
             setVenue(toCopy.venue);
             setManpowerNeeded(toCopy.manpowerNeeded);
-            setHoursNeeded(toCopy.hoursNeeded);
             setStartDate(toCopy.startDate);
             setEndDate(toCopy.endDate);
             setTags(toCopy.tags);
@@ -174,16 +161,8 @@ public class EditEventCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(eventId, name, venue, manpowerNeeded,
-                    hoursNeeded, startDate, endDate, tags);
-        }
-
-        public void setEventId(EventId id) {
-            this.eventId = id;
-        }
-
-        public Optional<EventId> getEventId() {
-            return Optional.ofNullable(eventId);
+            return CollectionUtil.isAnyNonNull(name, venue, manpowerNeeded,
+                    startDate, endDate, tags);
         }
 
         public void setName(EventName name) {
@@ -210,27 +189,19 @@ public class EditEventCommand extends Command {
             return Optional.ofNullable(manpowerNeeded);
         }
 
-        public void setHoursNeeded(EventHoursNeeded hoursNeeded) {
-            this.hoursNeeded = hoursNeeded;
-        }
-
-        public Optional<EventHoursNeeded> getHoursNeeded() {
-            return Optional.ofNullable(hoursNeeded);
-        }
-
-        public void setStartDate(EventStartDate startDate) {
+        public void setStartDate(EventDate startDate) {
             this.startDate = startDate;
         }
 
-        public Optional<EventStartDate> getStartDate() {
+        public Optional<EventDate> getStartDate() {
             return Optional.ofNullable(startDate);
         }
 
-        public void setEndDate(EventEndDate endDate) {
+        public void setEndDate(EventDate endDate) {
             this.endDate = endDate;
         }
 
-        public Optional<EventEndDate> getEndDate() {
+        public Optional<EventDate> getEndDate() {
             return Optional.ofNullable(endDate);
         }
 
@@ -266,11 +237,9 @@ public class EditEventCommand extends Command {
             // state check
             EditEventDescriptor e = (EditEventDescriptor) other;
 
-            return getEventId().equals(e.getEventId())
-                    && getName().equals(e.getName())
+            return getName().equals(e.getName())
                     && getVenue().equals(e.getVenue())
                     && getManpowerNeeded().equals(e.getManpowerNeeded())
-                    && getHoursNeeded().equals(e.getHoursNeeded())
                     && getStartDate().equals(e.getStartDate())
                     && getEndDate().equals(e.getEndDate())
                     && getTags().equals(e.getTags());

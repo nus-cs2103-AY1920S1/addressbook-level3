@@ -6,13 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventEndDate;
-import seedu.address.model.event.EventHoursNeeded;
-import seedu.address.model.event.EventId;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
-import seedu.address.model.event.EventStartDate;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
@@ -21,33 +19,30 @@ import seedu.address.model.tag.Tag;
  */
 public class EventBuilder {
 
-    public static final String DEFAULT_ID = "000";
     public static final String DEFAULT_NAME = "Party";
     public static final String DEFAULT_VENUE = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DATE = "11/11/2019";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private EventId id;
     private EventName name;
+    private EventDate startDate;
+    private EventDate endDate;
     private EventVenue venue;
     private EventManpowerNeeded manpowerNeeded;
-    private EventHoursNeeded hoursNeeded;
-    private EventStartDate startDate;
-    private EventEndDate endDate;
     private EventManpowerAllocatedList manpowerAllocatedList;
+    private EventDateTimeMap eventDateTimeMap;
     private Set<Tag> tags = new HashSet<>();
 
     public EventBuilder() {
-        id = new EventId(DEFAULT_ID);
         name = new EventName(DEFAULT_NAME);
+        startDate = new EventDate(LocalDate.parse(DEFAULT_DATE, FORMATTER));
+        endDate = new EventDate(LocalDate.parse(DEFAULT_DATE, FORMATTER));
         venue = new EventVenue(DEFAULT_VENUE);
         manpowerNeeded = new EventManpowerNeeded("5");
-        hoursNeeded = new EventHoursNeeded("5");
-        startDate = new EventStartDate(LocalDate.parse(DEFAULT_DATE, FORMATTER));
-        endDate = new EventEndDate(LocalDate.parse(DEFAULT_DATE, FORMATTER));
+        manpowerAllocatedList = new EventManpowerAllocatedList();
+        eventDateTimeMap = new EventDateTimeMap();
         tags = new HashSet<>();
     }
-
 
     /**
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
@@ -89,9 +84,8 @@ public class EventBuilder {
     }
     */
     public Event build() {
-        return new Event(id, name, venue, hoursNeeded, manpowerNeeded, startDate, endDate, tags);
+        return new Event(name, venue, manpowerNeeded, startDate, endDate, tags);
     }
-
 
 
 }
