@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -23,6 +26,7 @@ public class TimelineDayView extends UiPart<Region> {
 
     private static final String FXML = "TimelineDayView.fxml";
     private static final Integer SPACING = 62;
+    private static final Integer TIMING = 25;
 
     private UiParser uiParser;
     private HashMap<Integer, EventSource> eventMap; // The Key is the Hour of the day
@@ -146,12 +150,37 @@ public class TimelineDayView extends UiPart<Region> {
 
         // Set Constraints for the grid pane
         RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventHour);
-        rowConstraints.setPrefHeight(timeBox.getHeight() + SPACING);
+
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(TIMING);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                rowConstraints.setPrefHeight(timeBox.getHeight() + SPACING);
+            }
+        });
+        new Thread(sleeper).start();
         // For the last row
         if (eventHour.equals(23)) {
-            rowConstraints.setPrefHeight(rowConstraints.getPrefHeight() + SPACING);
+            // rowConstraints.setPrefHeight();
         }
 
+    }
+
+    public void resizeTimelineDayView() {
+        for(int eventHour = 0; eventHour < timeBoxes.size(); eventHour++) {
+            VBox timeBox = timeBoxes.get(eventHour);
+            RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventHour);
+            rowConstraints.setPrefHeight(timeBox.getHeight() + SPACING);
+        }
     }
 
     /**

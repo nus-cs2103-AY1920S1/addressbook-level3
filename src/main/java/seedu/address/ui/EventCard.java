@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import com.sun.javafx.scene.control.skin.Utils;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+
+import javafx.scene.text.Font;
 import seedu.address.model.events.EventSource;
 
 /**
@@ -43,6 +47,6 @@ public class EventCard extends UiPart<Region> {
 
         eventCardName.setText(this.eventName);
         eventCardDate.setText(this.eventDate);
+        eventCardName.setMinHeight(Region.USE_PREF_SIZE);
     }
-
 }

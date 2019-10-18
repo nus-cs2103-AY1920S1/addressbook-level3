@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.security.Key;
 import java.time.Instant;
 import java.util.List;
 import java.util.function.Consumer;
@@ -9,10 +10,14 @@ import java.util.logging.Logger;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -32,8 +37,9 @@ import seedu.address.ui.panel.log.LogPanel;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener {
-    public static final int WIDTH_PADDING = 20;
+
     private static final String FXML = "MainWindow.fxml";
+    private static final String WELCOME_MESSAGE = "Welcome to Horo";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -119,6 +125,9 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         // Set the stage width and height
         primaryStage.setMaxWidth(screenWidth);
         primaryStage.setMaxHeight(screenHeight);
+
+        addResizingListeners();
+        welcomeMessage();
     }
 
     /**
@@ -192,20 +201,39 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Creates a pop-up of the output using the same LogBox in the LogPanel
+     * Creates a pop-up of the output using the same LogBox in the LogPanel and animates it.
      */
     private void createOutputLogBox(String feedbackToUser, String color) {
         requireNonNull(feedbackToUser);
         PopUpBox popUpBox = new PopUpBox(feedbackToUser, color);
-        popUpPanel.getChildren().clear();
-        popUpPanel.getChildren().add(popUpBox.getRoot());
-
-        Timeline beat = new Timeline(
-                new KeyFrame(Duration.seconds(2.5), event -> popUpPanel.getChildren().clear())
+        Region popUpBoxRoot = popUpBox.getRoot();
+        Timeline popUpAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0), event -> {
+                    popUpPanel.getChildren().add(popUpBoxRoot);
+                    popUpBoxRoot.setTranslateY(popUpBoxRoot.getTranslateY() - 40);
+                    TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
+                    double initialPos = popUpBoxRoot.getTranslateY();
+                    translateTransition.setFromY(initialPos);
+                    translateTransition.setToY(initialPos + 40);
+                    translateTransition.setCycleCount(1);
+                    translateTransition.setAutoReverse(true);
+                    translateTransition.play();
+                }),
+                new KeyFrame(Duration.seconds(5), event -> {
+                    TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
+                    double initialPos = popUpBoxRoot.getTranslateY();
+                    translateTransition.setFromY(initialPos);
+                    translateTransition.setToY(initialPos - 40);
+                    translateTransition.setCycleCount(1);
+                    translateTransition.setAutoReverse(true);
+                    translateTransition.play();
+                }),
+                new KeyFrame(Duration.seconds(8), event -> {
+                    popUpPanel.getChildren().clear();
+                })
         );
-        beat.setCycleCount(Timeline.INDEFINITE);
-        beat.play();
-
+        popUpAnimation.setCycleCount(1);
+        popUpAnimation.play();
     }
 
     /**
@@ -219,6 +247,8 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
             return "-logBoxColor";
         case FAILURE:
             return "-errorColor";
+        case WELCOME:
+            return "-welcomeColor";
         default:
             // Not suppose to happen;
             return "-logBoxColor";
@@ -237,6 +267,19 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
      */
     public void changeCalendarScreenDate(Instant dateTime) {
         calendarPanel.changeCalendarScreenDate(dateTime);
+    }
+
+    private void addResizingListeners() {
+        primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                calendarPanel.resizeTimelineDayView();
+            }
+        });
+    }
+
+    private void welcomeMessage() {
+        onUserOutput(new UserOutput(WELCOME_MESSAGE), ColorTheme.WELCOME);
     }
 
     @Override

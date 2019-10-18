@@ -36,14 +36,6 @@
                         <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                  <StackPane fx:id="popUpPanel" minHeight="-Infinity" prefHeight="25.0" GridPane.vgrow="ALWAYS">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <GridPane.margin>
-                        <Insets top="5.0" />
-                     </GridPane.margin>
-                  </StackPane>
                         <StackPane fx:id="viewTitlePane" layoutX="10.0" layoutY="43.0" GridPane.rowIndex="1">
                             <children>
                                 <Label fx:id="viewTitle" text="View" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="CENTER">
@@ -72,6 +64,14 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                         </StackPane>
+                  <StackPane fx:id="popUpPanel" minHeight="-Infinity" prefHeight="25.0" GridPane.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets top="5.0" />
+                     </GridPane.margin>
+                  </StackPane>
                     </children>
                 </GridPane>
             </VBox>

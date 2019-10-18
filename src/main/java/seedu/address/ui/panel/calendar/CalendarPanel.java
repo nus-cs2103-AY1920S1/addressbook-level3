@@ -90,6 +90,10 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
         calendarPlaceholder.getChildren().add(calendarScreen.getRoot());
     }
 
+    public void resizeTimelineDayView() {
+        timelineDayView.resizeTimelineDayView();
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
         this.timelineDayView.eventChange(events);

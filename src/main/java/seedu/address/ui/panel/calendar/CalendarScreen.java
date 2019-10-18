@@ -76,7 +76,6 @@ public class CalendarScreen extends UiPart<Region> {
                 if (index > totalDays) {
                     break;
                 }
-                // TODO: Change Total Events to fit actual list.
                 CalendarGridDay calendarGridDay = new CalendarGridDay(index, 0);
                 calendarGrid.add(calendarGridDay.getRoot(), days, weeks);
                 dayIndexList.add(calendarGridDay);
@@ -96,14 +95,14 @@ public class CalendarScreen extends UiPart<Region> {
     private void changeColor(List<EventSource> events) {
         for(EventSource event : events) {
             if(sameMonthYear(event)) {
-                Integer day = uiParser.getDay(event.getStartDateTime().getDateTime());
+                Integer day = uiParser.getDay(event.getStartDateTime().toInstant());
                 dayIndexList.get(day - 1).addAnEvent();
             }
         }
     }
 
     private boolean sameMonthYear(EventSource event) {
-        Integer[] monthYear = uiParser.getDateToNumbers(event.getStartDateTime().getDateTime());
+        Integer[] monthYear = uiParser.getDateToNumbers(event.getStartDateTime().toInstant());
         return monthYear[1].equals(this.month) && monthYear[2].equals(this.year);
     }
 }

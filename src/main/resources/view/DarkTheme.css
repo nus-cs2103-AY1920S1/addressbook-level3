@@ -29,6 +29,7 @@
     -errorColor: #CF6679;       /** Red Error **/
     -lineColor: #FF7597;        /** Some Redish Pink **/
     -calendarDayColor: #607080; /** Light Purple Blue Box **/
+    -welcomeColor: #7FC9FD;     /** Light Sky Blue **/
     -eventCardColor1: #FFAF5F;
     -eventCardColor2: #4ACFAC;
     -eventCardColor3: #7E8CE0;
@@ -281,8 +282,8 @@
 }
 
 #popUp {
-    -fx-font-family: "Roboto Regular";
-    -fx-font-size: 11pt;
+    -fx-font-family: "Roboto Medium";
+    -fx-font-size: 12pt;
     -fx-text-fill: -primaryColor;
     -fx-background-color: -logBoxColor;
     -fx-background-radius: 8;
@@ -295,6 +296,7 @@
 /** For LogPanel **/
 #logPanelBase, #scrollLog, #boxLog {
     -fx-background-color: -surfaceColor;
+    -fx-base: -surfaceColor;
 }
 
 #logPanelBase, #scrollLog {
@@ -302,7 +304,7 @@
 }
 
 #scrollLog .corner {
-    -fx-background-color: transparent ;
+    -fx-background-color: transparent;
 }
 
 #box {
