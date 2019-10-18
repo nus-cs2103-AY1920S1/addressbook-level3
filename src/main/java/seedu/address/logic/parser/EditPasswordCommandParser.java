@@ -51,7 +51,7 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
         EditPasswordDescriptor editPasswordDescriptor = new EditPasswordDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editPasswordDescriptor.setDescription(
-                    ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+                    ParserUtil.parsePasswordDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_USERNAME).isPresent()) {
             editPasswordDescriptor.setUsername(

@@ -22,13 +22,13 @@ import seedu.address.model.FileBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.NoteBook;
+import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.PasswordBook;
 import seedu.address.model.util.SampleDataPasswordUtil;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -38,10 +38,9 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCardBookStorage;
 import seedu.address.storage.JsonFileBookStorage;
 import seedu.address.storage.JsonNoteBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.NoteBookStorage;
 import seedu.address.storage.JsonPasswordBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.NoteBookStorage;
 import seedu.address.storage.PasswordBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -129,7 +128,7 @@ public class MainApp extends Application {
         }
         ReadOnlyFileBook initialDataFile = initFileBook(storage);
         ReadOnlyNoteBook initialNoteData = initNoteBook(storage);
-        PasswordBook initialDataPassword = initPasswordBook(storage);
+        ReadOnlyPasswordBook initialDataPassword = initPasswordBook(storage);
         return new ModelManager(initialAddressData, initialDataFile, new CardBook(), initialNoteData,
                 initialDataPassword, userPrefs);
     }

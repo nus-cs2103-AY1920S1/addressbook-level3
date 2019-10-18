@@ -22,9 +22,11 @@ import seedu.address.model.Model;
 import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
+import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -236,6 +238,56 @@ public class AddCommandTest {
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyNoteBook getNoteBook() {
+            return null;
+        }
+
+        @Override
+        public void setNoteBook(ReadOnlyNoteBook noteBook) {
+
+        }
+
+        @Override
+        public boolean hasNote(Note note) {
+            return false;
+        }
+
+        @Override
+        public void deleteNote(Note target) {
+
+        }
+
+        @Override
+        public void addNote(Note note) {
+
+        }
+
+        @Override
+        public void setNote(Note target, Note editedNote) {
+
+        }
+
+        @Override
+        public ObservableList<Note> getFilteredNoteList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+
+        }
+
+        @Override
+        public Path getNoteBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setNoteBookFilePath(Path noteBookFilePath) {
+
         }
 
         public ObservableList<Password> getFilteredPasswordList() {

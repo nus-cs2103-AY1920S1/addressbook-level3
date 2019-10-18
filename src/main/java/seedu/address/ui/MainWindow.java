@@ -127,9 +127,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         fillInnerPartsWithMode();
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        passwordListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        fillInnerPartsWithMode();
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -159,7 +156,8 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case "password":
             passwordListPanel = new PasswordListPanel(logic.getFilteredPasswordList());
-            objectListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
+            objectListPanelPlaceholder.getChildren().add(passwordListPanel.getRoot());
+            break;
         default:
             personListPanel = new PersonListPanel(logic.getFilteredPersonList());
             objectListPanelPlaceholder.getChildren().add(personListPanel.getRoot());

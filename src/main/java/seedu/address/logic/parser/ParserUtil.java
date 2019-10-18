@@ -17,7 +17,6 @@ import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Title;
-import seedu.address.model.password.Description;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.person.Address;
@@ -146,7 +145,7 @@ public class ParserUtil {
         requireNonNull(cvc);
         String trimmedCvc = cvc.trim();
         if (!Cvc.isValidCvc(trimmedCvc)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Cvc.MESSAGE_CONSTRAINTS);
         }
         return new Cvc(trimmedCvc);
     }
@@ -260,13 +259,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Description parseDescription(String description) throws ParseException {
+    public static seedu.address.model.password.Description parsePasswordDescription(String description)
+            throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
         if (!Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Description(trimmedDescription);
+        return new seedu.address.model.password.Description(trimmedDescription);
     }
 
     /**

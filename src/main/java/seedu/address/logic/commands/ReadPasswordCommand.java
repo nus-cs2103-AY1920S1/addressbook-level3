@@ -40,9 +40,8 @@ public class ReadPasswordCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
         }
 
-        Password passwordToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePassword(passwordToDelete);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, passwordToDelete.toNonAsterixString()));
+        Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, passwordToRead.toNonAsterixString()));
 
     }
 }

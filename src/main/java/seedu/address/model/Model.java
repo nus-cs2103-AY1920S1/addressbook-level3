@@ -19,15 +19,14 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-<<<<<<< HEAD
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
-=======
+
     Predicate<Password> PREDICATE_SHOW_ALL_PASSWORDS = unused -> true;
->>>>>>> Add support for EditPasswordCommand and EditPasswordCommandParser
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */

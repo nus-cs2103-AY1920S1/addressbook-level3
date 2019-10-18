@@ -39,7 +39,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyFileBook fileBook,
-                        CardBook cardBook, ReadOnlyNoteBook noteBook, PasswordBook passwordBook,
+                        CardBook cardBook, ReadOnlyNoteBook noteBook, ReadOnlyPasswordBook passwordBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, fileBook, cardBook, passwordBook, userPrefs);
