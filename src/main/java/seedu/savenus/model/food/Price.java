@@ -33,11 +33,6 @@ public class Price implements Field {
      */
     public static boolean isValidPrice(String test) {
         if (test.matches(VALIDATION_REGEX)) {
-            try {
-                Double.parseDouble(test);
-            } catch (NumberFormatException e) {
-                return false;
-            }
             if (Double.parseDouble(test) > 5000.00) {
                 return false;
             }
@@ -72,13 +67,6 @@ public class Price implements Field {
         } else {
             return String.format("%.2f", Double.parseDouble(price));
         }
-    }
-
-    /**
-     * Returns a price as a double.
-     */
-    public double toDouble() {
-        return Double.parseDouble(value);
     }
 
     /**
