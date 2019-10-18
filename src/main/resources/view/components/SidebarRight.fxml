@@ -1,28 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #3e4d52#3e4d52;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="Sidebar" stylesheets="@Sidebar.css" translateX="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="itineraryLabel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleEnterItinerary" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: #79a0ab#79a0ab;" stylesheets="@../DarkTheme.css" text="Itinerary" textFill="WHITE" wrapText="true">
+      <Button fx:id="itineraryLabel" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleEnterItinerary" text="Itinerary" textFill="WHITE" wrapText="true">
          <font>
             <Font size="6.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/navbar_icons/schedule_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button fx:id="contactsLabel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleEnterContactsManager" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: #79a0ab#79a0ab;" stylesheets="@../DarkTheme.css" text="Contacts" textFill="WHITE" wrapText="true">
+      <Button fx:id="expenditureLabel" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleEnterExpenditureManager" text="Expenditure" textFill="WHITE" wrapText="true">
          <font>
             <Font size="6.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/navbar_icons/expense_icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="diaryLabel" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleEnterDiary" text="Diary" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="6.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/navbar_icons/diary_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button fx:id="expenditureLabel" mnemonicParsing="false" onMouseClicked="#handleEnterExpenditureManager" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: #79a0ab#79a0ab;" stylesheets="@../DarkTheme.css" text="Expenditure" textFill="WHITE" wrapText="true">
-         <font>
-            <Font size="6.0" />
-         </font></Button>
-      <Button fx:id="diaryLabel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleEnterDiary" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: #79a0ab#79a0ab;" stylesheets="@../DarkTheme.css" text="Diary" textFill="WHITE" wrapText="true">
+      <Button fx:id="contactsLabel" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleOpenHelp" text="Help" textFill="WHITE" wrapText="true">
          <font>
             <Font size="6.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/navbar_icons/help_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
    </children>
 </VBox>
