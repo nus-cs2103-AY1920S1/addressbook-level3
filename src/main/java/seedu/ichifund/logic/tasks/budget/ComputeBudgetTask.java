@@ -38,7 +38,7 @@ public class ComputeBudgetTask extends Task {
      * @return A predicate according to the budget criteria.
      */
     private Predicate<Transaction> createPredicateForBudget(Budget budget) {
-        Predicate<Transaction> predicate = transaction -> true;
+        Predicate<Transaction> predicate = Transaction::isExpenditure;
         if (budget.getCategory() != null) {
             predicate = predicate.and(transaction -> transaction.isIn(budget.getCategory()));
         }
