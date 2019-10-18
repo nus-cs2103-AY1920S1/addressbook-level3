@@ -63,7 +63,4 @@ public class AddCommand extends Command {
                 && toAdd.equals(((AddCommand) other).toAdd));
     }
 
-    public String toString() {
-        return toAdd.toString();
-    }
 }
