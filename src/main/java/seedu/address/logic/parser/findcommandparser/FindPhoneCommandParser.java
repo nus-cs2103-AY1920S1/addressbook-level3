@@ -12,8 +12,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
-
 import java.util.function.Predicate;
+
 import seedu.address.logic.commands.findcommand.FindPhoneCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -47,14 +47,14 @@ public class FindPhoneCommandParser implements Parser<FindPhoneCommand> {
 
         //dummy predicate
         Predicate<Phone> predicate = x -> true;
-        if (! argMultimap.getValue(PREFIX_IDENTITYNUM).isPresent()
-                && ! argMultimap.getValue(PREFIX_SERIALNUM).isPresent()
-                && ! argMultimap.getValue(PREFIX_PHONENAME).isPresent()
-                && ! argMultimap.getValue(PREFIX_BRAND).isPresent()
-                && ! argMultimap.getValue(PREFIX_CAPACITY).isPresent()
-                && ! argMultimap.getValue(PREFIX_COLOUR).isPresent()
-                && ! argMultimap.getValue(PREFIX_COST).isPresent()
-                && ! argMultimap.getValue(PREFIX_TAG).isPresent()) {
+        if (!argMultimap.getValue(PREFIX_IDENTITYNUM).isPresent()
+                && !argMultimap.getValue(PREFIX_SERIALNUM).isPresent()
+                && !argMultimap.getValue(PREFIX_PHONENAME).isPresent()
+                && !argMultimap.getValue(PREFIX_BRAND).isPresent()
+                && !argMultimap.getValue(PREFIX_CAPACITY).isPresent()
+                && !argMultimap.getValue(PREFIX_COLOUR).isPresent()
+                && !argMultimap.getValue(PREFIX_COST).isPresent()
+                && !argMultimap.getValue(PREFIX_TAG).isPresent()) {
 
             String trimmedArgs = args.trim();
             if (trimmedArgs.isEmpty()) {

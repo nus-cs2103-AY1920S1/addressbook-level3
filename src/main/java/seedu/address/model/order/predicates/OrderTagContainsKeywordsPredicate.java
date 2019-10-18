@@ -23,7 +23,7 @@ public class OrderTagContainsKeywordsPredicate implements Predicate<Order> {
         Set<Tag> tags = order.getTags();
         return keywords.stream()
                 .anyMatch(keyword -> order.getTags().stream().anyMatch(
-                        tag -> StringUtil.containsWordIgnoreCase(tag.toString(), keyword)
+                    tag -> StringUtil.containsWordIgnoreCase(tag.toString(), keyword)
                 ));
     }
 

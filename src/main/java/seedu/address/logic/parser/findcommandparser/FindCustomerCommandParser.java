@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
-
 import java.util.function.Predicate;
+
 import seedu.address.logic.commands.findcommand.FindCustomerCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -39,10 +39,10 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
         //dummy predicate
         Predicate<Customer> predicate = x -> true;
 
-        if (! argMultimap.getValue(PREFIX_NAME).isPresent()
-                && ! argMultimap.getValue(PREFIX_CONTACT).isPresent()
-                && ! argMultimap.getValue(PREFIX_EMAIL).isPresent()
-                && ! argMultimap.getValue(PREFIX_TAG).isPresent()) {
+        if (!argMultimap.getValue(PREFIX_NAME).isPresent()
+                && !argMultimap.getValue(PREFIX_CONTACT).isPresent()
+                && !argMultimap.getValue(PREFIX_EMAIL).isPresent()
+                && !argMultimap.getValue(PREFIX_TAG).isPresent()) {
 
             String trimmedArgs = args.trim();
             if (trimmedArgs.isEmpty()) {

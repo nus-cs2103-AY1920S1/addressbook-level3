@@ -23,7 +23,7 @@ public class PhoneTagContainsKeywordsPredicate implements Predicate<Phone> {
         Set<Tag> tags = phone.getTags();
         return keywords.stream()
                 .anyMatch(keyword -> phone.getTags().stream().anyMatch(
-                        tag -> StringUtil.containsWordIgnoreCase(tag.toString(), keyword)
+                    tag -> StringUtil.containsWordIgnoreCase(tag.toString(), keyword)
                 ));
     }
 

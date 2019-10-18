@@ -23,7 +23,7 @@ public class CustomerTagContainsKeywordsPredicate implements Predicate<Customer>
         Set<Tag> tags = customer.getTags();
         return keywords.stream()
                 .anyMatch(keyword -> customer.getTags().stream().anyMatch(
-                        tag -> StringUtil.containsWordIgnoreCase(tag.toString(), keyword)
+                    tag -> StringUtil.containsWordIgnoreCase(tag.toString(), keyword)
                 ));
     }
 
