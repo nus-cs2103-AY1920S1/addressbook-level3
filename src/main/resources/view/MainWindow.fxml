@@ -57,18 +57,20 @@
           <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
 
-        <HBox fx:id="statistics" styleClass="pane-with-border" alignment="TOP_RIGHT" minWidth="600" prefWidth="600" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <Text text="Njoy Statistics" styleClass="cell_big_label" textAlignment="CENTER"/>
-        </HBox>
+        <HBox fx:id="bottomRow" HBox.hgrow="ALWAYS">
+          <HBox fx:id="statistics" styleClass="pane-with-border" alignment="TOP_RIGHT" minWidth="600" prefWidth="600" HBox.hgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Text text="Njoy Statistics" styleClass="cell_big_label" textAlignment="CENTER"/>
+          </HBox>
 
-        <HBox fx:id="notesList" styleClass="pane-with-border" alignment="TOP_RIGHT" minWidth="600" prefWidth="600" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="notesListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <HBox fx:id="notesList" styleClass="pane-with-border" alignment="TOP_RIGHT" minWidth="600" prefWidth="600" HBox.hgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="notesListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </HBox>
         </HBox>
 
         <StackPane fx:id="statusbarPlaceholder" alignment="BOTTOM_CENTER" VBox.vgrow="NEVER" />

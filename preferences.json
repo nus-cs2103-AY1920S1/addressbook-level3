@@ -1,14 +1,14 @@
 {
-  "guiSettings": {
-    "windowWidth": 1550.4000244140625,
-    "windowHeight": 838.4000244140625,
-    "windowCoordinates": {
-      "x": -7,
-      "y": -7
+  "guiSettings" : {
+    "windowWidth" : 1550.4000244140625,
+    "windowHeight" : 838.4000244140625,
+    "windowCoordinates" : {
+      "x" : -7,
+      "y" : -7
     }
   },
-  "addressBookFilePath": "data\\addressbook.json",
-  "studentRecordFilePath": "data\\students.json",
-  "savedQuestionsFilePath": "data\\questions.json",
-  "notesRecordFilePath": "data\\notes.json"
+  "addressBookFilePath" : "data\\addressbook.json",
+  "studentRecordFilePath" : "data\\students.json",
+  "savedQuestionsFilePath" : "data\\questions.json",
+  "notesRecordFilePath" : "data\\notes.json"
 }
