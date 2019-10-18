@@ -5,7 +5,7 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Transaction's type in the transaction recorder.
- * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTransactionType(String)}
  */
 public class TransactionType {
 
@@ -63,6 +63,17 @@ public class TransactionType {
     @Override
     public int hashCode() {
         return transactionType.hashCode();
+    }
+
+    public String toExtendedString() {
+        switch(transactionType) {
+        case "exp":
+            return "Expenditure";
+        case "in":
+            return "Income";
+        default:
+            return "!all";
+        }
     }
 }
 

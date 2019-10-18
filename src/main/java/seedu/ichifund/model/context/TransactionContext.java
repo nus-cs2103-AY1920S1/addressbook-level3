@@ -171,6 +171,20 @@ public class TransactionContext implements Context<Transaction> {
     }
 
     @Override
+    public String toString() {
+        String string = getMonth().wordString().toUpperCase() + " " + getYear().toString();
+        if(transactionType.isPresent()) {
+            string += " " + transactionType.get().toExtendedString().toUpperCase();
+        }
+
+        if (category.isPresent()) {
+            string += " - " + category.get().toString().toUpperCase();
+        }
+
+        return string;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TransactionContext // instanceof handles nulls
