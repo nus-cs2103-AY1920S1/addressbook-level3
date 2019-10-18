@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
-import seedu.address.model.earnings.Module;
+import seedu.address.model.classid.ClassId;
 
 /**
  * Jackson-friendly version of {@link Earnings}.
@@ -18,17 +18,17 @@ public class JsonAdaptedEarnings {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String date;
-    private final String module;
+    private final String classId;
     private final String amount;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedEarnings(@JsonProperty("date") String date, @JsonProperty("module") String module,
+    public JsonAdaptedEarnings(@JsonProperty("date") String date, @JsonProperty("classId") String classId,
                              @JsonProperty("amount") String amount) {
         this.date = date;
-        this.module = module;
+        this.classId = classId;
         this.amount = amount;
     }
 
@@ -37,7 +37,7 @@ public class JsonAdaptedEarnings {
      */
     public JsonAdaptedEarnings(Earnings source) {
         date = source.getDate().dateNum;
-        module = source.getModule().moduleName;
+        classId = source.getClassId().value;
         amount = source.getAmount().amount;
     }
 
@@ -56,13 +56,13 @@ public class JsonAdaptedEarnings {
         }
         final Date modelDate = new Date(date);
 
-        if (module == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Module.class.getSimpleName()));
+        if (classId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ClassId.class.getSimpleName()));
         }
-        if (!Module.isValidModuleName(module)) {
-            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS);
+        if (!ClassId.isValidClassId(classId)) {
+            throw new IllegalValueException(ClassId.MESSAGE_CONSTRAINTS);
         }
-        final Module modelModule = new Module(module);
+        final ClassId modelClassId = new ClassId(classId);
 
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
@@ -72,6 +72,6 @@ public class JsonAdaptedEarnings {
         }
         final Amount modelAmount = new Amount(amount);
 
-        return new Earnings(modelDate, modelModule, modelAmount);
+        return new Earnings(modelDate, modelClassId, modelAmount);
     }
 }

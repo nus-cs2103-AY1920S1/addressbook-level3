@@ -18,7 +18,7 @@ public class EarningsCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label module;
+    private Label classId;
     @FXML
     private Label id;
     @FXML
@@ -30,9 +30,9 @@ public class EarningsCard extends UiPart<Region> {
         super(FXML);
         this.earnings = earnings;
         id.setText(displayedIndex + ". ");
-        module.setText(earnings.getModule().moduleName);
-        date.setText(earnings.getDate().dateNum);
-        amount.setText(earnings.getAmount().amount);
+        classId.setText("ClassId: " + earnings.getClassId().value);
+        date.setText("Date: " + earnings.getDate().dateNum);
+        amount.setText("Amount: " + earnings.getAmount().amount);
     }
 
     @Override

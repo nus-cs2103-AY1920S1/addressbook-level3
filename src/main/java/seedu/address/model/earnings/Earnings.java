@@ -1,5 +1,7 @@
 package seedu.address.model.earnings;
 
+import seedu.address.model.classid.ClassId;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -12,16 +14,16 @@ public class Earnings {
 
     // Identity fields
     private final Date date;
-    private final Module module;
+    private final ClassId classId;
     private final Amount amount;
 
     /**
      * Every field must be present and not null.
      */
-    public Earnings(Date date, Module module, Amount amount) {
-        requireAllNonNull(date, module, amount);
+    public Earnings(Date date, ClassId classId, Amount amount) {
+        requireAllNonNull(date, classId, amount);
         this.date = date;
-        this.module = module;
+        this.classId = classId;
         this.amount = amount;
     }
 
@@ -29,8 +31,8 @@ public class Earnings {
         return date;
     }
 
-    public Module getModule() {
-        return module;
+    public ClassId getClassId() {
+        return classId;
     }
 
     public Amount getAmount() {
@@ -38,7 +40,7 @@ public class Earnings {
     }
 
     /**
-     * Returns true if both earnings of the same date and module have an identity field that is the same.
+     * Returns true if both earnings of the same date and classId have an identity field that is the same.
      * This defines a weaker notion of equality between two earnings.
      */
     public boolean isSameEarnings(Earnings otherEarnings) {
@@ -48,7 +50,7 @@ public class Earnings {
 
         return otherEarnings != null
                 && otherEarnings.getDate().equals(getDate())
-                && otherEarnings.getModule().equals(getModule());
+                && otherEarnings.getClassId().equals(getClassId());
     }
 
     /**
@@ -67,14 +69,14 @@ public class Earnings {
 
         Earnings otherEarnings = (Earnings) other;
         return otherEarnings.getDate().equals(getDate())
-                && otherEarnings.getModule().equals(getModule())
+                && otherEarnings.getClassId().equals(getClassId())
                 && otherEarnings.getAmount().equals(getAmount());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, module, amount);
+        return Objects.hash(date, classId, amount);
     }
 
     @Override
@@ -82,8 +84,8 @@ public class Earnings {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Date: ")
                 .append(getDate())
-                .append(" Module: ")
-                .append(getModule())
+                .append(" ClassId: ")
+                .append(getClassId())
                 .append(" Amount: ")
                 .append(getAmount());
         return builder.toString();

@@ -35,7 +35,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * *`help`* : gives you a list of commands that are available.
-* **`add`**`CS2103T Lecture /at 20/9/2019 16:00` : adds a module named CS2103T that is on 20th September 2019 4pm.
+* **`add`**`CS2103T Lecture /at 20/9/2019 16:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
 
@@ -189,32 +189,59 @@ Examples:
 
 === Earnings
 
-==== Add Earnings: `addEarnings`
+==== Add Earnings: `add_earnings`
 
 Adds Earnings to the list of earnings. +
-Format: `addEarnings d/DATE mod/MODULE amt/AMOUNT`
+Format: `add_earnings d/DATE c/CLASSID amt/AMOUNT`
 
 Examples:
 
-* `addEarnings d/19/09/2019 mod/CS2103T amt/50.70`
+* `add_earnings d/19/09/2019 c/CS2103T amt/50.70`
 
-==== Update Earnings: `updateEarnings`
+==== Update Earnings: `update_earnings`
 
 Update Earnings in the list of earnings. +
-Format: `updateEarnings d/DATE mod/MODULE amt/(NEW_AMOUNT)`
+Format: `update_earnings d/DATE c/CLASSID amt/(NEW_AMOUNT)`
 
 Examples:
 
-* `updateEarnings d/14/04/2020 mod/CS2103T amt/63.20`
+* `update_earnings d/14/04/2020 C/CS2103T amt/63.20`
 
-==== Delete Earnings: `deleteEarnings`
+==== Delete Earnings: `delete_earnings`
 
 Delete Earnings in the list of earnings. +
-Format: `deleteEarnings d/DATE mod/MODULE`
+Format: `delete_earnings d/DATE c/CLASSID`
 
 Examples:
 
-* `deleteEarnings d/24/04/2020 mod/CS2103T`
+* `delete_earnings d/24/04/2020 c/CS2103T`
+
+==== Find Earnings: `find_earnings`
+
+Find Earnings in the list of earnings. +
+Format: `find_earnings k/keywords, ...`
+
+Examples:
+
+* `find_earnings k/CS2103T, k/CS1231`
+
+==== Claim Earnings: `claim_earnings`
+
+Tick off that user has claimed Earnings in the list of earnings. +
+Format: `claim_earnings d/DATE c/CLASSID`
+
+Examples:
+
+* `claim_earnings k/CS2103T, c/CS1231`
+
+==== Filter Earnings: `filter_earnings`
+
+Filters Earnings in the list of earnings based on either classid/date/week/month. +
+Format: `filter_earnings variable`
+
+Examples:
+
+* `claim_earnings k/CS2103T, c/CS1231`
 
 // end::delete[]
 === Clearing all entries : `clear`
