@@ -8,7 +8,7 @@ import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.engagement.Engagement;
 import com.typee.ui.Tab;
 
@@ -28,11 +28,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the engagement list.
      *
      * @see Model#getHistoryManager()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyEngagementList getEngagementList();
 
     /** Returns an unmodifiable view of the filtered list of engagements */
     ObservableList<Engagement> getFilteredEngagementList();
@@ -41,9 +41,9 @@ public interface Logic {
     ObservableList<Tab> getTabList() throws DataConversionException;
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' engagement list file path.
      */
-    Path getAddressBookFilePath();
+    Path getEngagementListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

@@ -174,7 +174,7 @@ public abstract class Engagement {
      * @param otherEngagement {@code Engagement} to check equality with.
      * @return true if the engagements are equal.
      */
-    private boolean isEqualEngagement(Engagement otherEngagement) {
+    public boolean isEqualEngagement(Engagement otherEngagement) {
         return otherEngagement.location.equals(location)
                 && otherEngagement.attendees.equals(attendees)
                 && otherEngagement.description.equals(description)

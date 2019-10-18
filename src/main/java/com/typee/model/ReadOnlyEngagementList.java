@@ -5,9 +5,9 @@ import com.typee.model.engagement.Engagement;
 import javafx.collections.ObservableList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an engagement list
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyEngagementList {
 
     /**
      * Returns an unmodifiable view of the list of engagements.

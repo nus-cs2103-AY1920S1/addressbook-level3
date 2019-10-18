@@ -1,12 +1,209 @@
 package com.typee.logic.commands;
 
-/*
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
+
+import com.typee.commons.core.GuiSettings;
+import com.typee.logic.commands.exceptions.NullRedoableActionException;
+import com.typee.logic.commands.exceptions.NullUndoableActionException;
+import com.typee.model.EngagementList;
+import com.typee.model.Model;
+import com.typee.model.ReadOnlyEngagementList;
+import com.typee.model.ReadOnlyUserPrefs;
+import com.typee.model.engagement.Engagement;
+import com.typee.testutil.EngagementBuilder;
+
+import javafx.collections.ObservableList;
+
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullEngagement_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
+
+    @Test
+    public void execute_appointmentAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEngagementAdded modelStub = new ModelStubAcceptingEngagementAdded();
+        Engagement validAppointment = new EngagementBuilder().buildAsAppointment();
+        CommandResult commandResult = new AddCommand(validAppointment).execute(modelStub);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validAppointment),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validAppointment), modelStub.engagementsAdded);
+    }
+
+    @Test
+    public void execute_interviewAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEngagementAdded modelStub = new ModelStubAcceptingEngagementAdded();
+        Engagement validInterview = new EngagementBuilder().buildAsInterview();
+        CommandResult commandResult = new AddCommand(validInterview).execute(modelStub);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validInterview),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validInterview), modelStub.engagementsAdded);
+    }
+
+    @Test
+    public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEngagementAdded modelStub = new ModelStubAcceptingEngagementAdded();
+        Engagement validMeeting = new EngagementBuilder().buildAsMeeting();
+        CommandResult commandResult = new AddCommand(validMeeting).execute(modelStub);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validMeeting),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validMeeting), modelStub.engagementsAdded);
+    }
+
+    /**
+     * A default model stub that have all of the methods failing.
+     */
+    private class ModelStub implements Model {
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getEngagementListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setEngagementListFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addEngagement(Engagement engagement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setHistoryManager(ReadOnlyEngagementList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyEngagementList getHistoryManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEngagement(Engagement engagement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEngagement(Engagement target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setEngagement(Engagement target, Engagement editedEngagement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Engagement> getFilteredEngagementList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredEngagementList(Predicate<Engagement> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNoUndoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoEngagementList() throws NullUndoableActionException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNoRedoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoEngagementList() throws NullRedoableActionException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveEngagementList() {
+        }
+    }
+
+    /**
+     * A Model stub that contains a single engagement.
+     */
+    private class ModelStubWithEngagement extends ModelStub {
+        private final Engagement engagement;
+
+        ModelStubWithEngagement(Engagement engagement) {
+            requireNonNull(engagement);
+            this.engagement = engagement;
+        }
+
+        @Override
+        public boolean hasEngagement(Engagement engagement) {
+            requireNonNull(engagement);
+            return this.engagement.isEqualEngagement(engagement);
+        }
+    }
+
+    /**
+     * A Model stub that always accepts the engagement being added.
+     */
+    private class ModelStubAcceptingEngagementAdded extends ModelStub {
+        final ArrayList<Engagement> engagementsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasEngagement(Engagement engagement) {
+            requireNonNull(engagement);
+            return engagementsAdded.stream().anyMatch(engagement::isEqualEngagement);
+        }
+
+        @Override
+        public void addEngagement(Engagement engagement) {
+            requireNonNull(engagement);
+            engagementsAdded.add(engagement);
+        }
+
+        @Override
+        public ReadOnlyEngagementList getHistoryManager() {
+            return new EngagementList();
+        }
+    }
+
+}
+
+/*
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
@@ -53,152 +250,5 @@ public class AddCommandTest {
     }
 
  */
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    /*
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
 
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setHistoryManager(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getHistoryManager() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasEngagement(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteEngagement(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setEngagement(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredEngagementList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredEngagementList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasNoUndoableCommand() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoEngagementList() throws NullUndoableActionException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasNoRedoableCommand() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoEngagementList() throws NullRedoableActionException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void saveEngagementList() {
-        }
-    }
-
-
-     */
-    /**
-     * A Model stub that contains a single person.
-     */
-    /*
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
-
-        @Override
-        public boolean hasEngagement(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-    }
-
-
-     */
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    /*
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasEngagement(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getHistoryManager() {
-            return new AddressBook();
-        }
-    }
-   */
 //}

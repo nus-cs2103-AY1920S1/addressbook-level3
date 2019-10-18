@@ -3,8 +3,8 @@ package com.typee.model.util;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import com.typee.model.AddressBook;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.EngagementList;
+import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
@@ -15,7 +15,7 @@ import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code EngagementList} with sample data.
  */
 public class SampleDataUtil {
     public static Engagement[] getSampleEngagements() {
@@ -30,11 +30,11 @@ public class SampleDataUtil {
         }
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyEngagementList getSampleEngagementList() {
+        EngagementList sampleEngagementList = new EngagementList();
         for (Engagement sampleEngagement : getSampleEngagements()) {
-            sampleAb.addEngagement(sampleEngagement);
+            sampleEngagementList.addEngagement(sampleEngagement);
         }
-        return sampleAb;
+        return sampleEngagementList;
     }
 }
