@@ -19,14 +19,6 @@ public class InviteCommandParser implements Parser<InviteCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PARTICIPANT);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InviteCommand.MESSAGE_USAGE), pe);
-        }
-
         if (!arePrefixesPresent(argMultimap, PREFIX_PARTICIPANT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InviteCommand.MESSAGE_USAGE));
@@ -34,7 +26,7 @@ public class InviteCommandParser implements Parser<InviteCommand> {
 
         List<String> participants = argMultimap.getAllValues(PREFIX_PARTICIPANT);
 
-        return new InviteCommand(index, participants);
+        return new InviteCommand(participants);
     }
 
     /**
