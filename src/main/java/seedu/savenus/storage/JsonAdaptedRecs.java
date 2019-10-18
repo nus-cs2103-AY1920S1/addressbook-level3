@@ -1,6 +1,5 @@
 package seedu.savenus.storage;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,24 +19,24 @@ import seedu.savenus.model.tag.Tag;
 class JsonAdaptedRecs {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "User Recommendation's %s field is missing!";
 
-    private Set<Location> likedLocations;
-    private Set<Tag> likedTags;
-    private Set<Category> likedCategories;
+    private Set<String> likedLocations;
+    private Set<String> likedTags;
+    private Set<String> likedCategories;
 
-    private Set<Location> dislikedLocations;
-    private Set<Tag> dislikedTags;
-    private Set<Category> dislikedCategories;
+    private Set<String> dislikedLocations;
+    private Set<String> dislikedTags;
+    private Set<String> dislikedCategories;
 
     /**
      * Constructs a {@code JsonAdaptedRecs} with the given user's recommendations.
      */
     @JsonCreator
-    public JsonAdaptedRecs(@JsonProperty("likedCategories") HashSet<Category> likedCategories,
-                           @JsonProperty("likedTags") HashSet<Tag> likedTags,
-                           @JsonProperty("likedLocations") HashSet<Location> likedLocations,
-                           @JsonProperty("dislikedCategories") HashSet<Category> dislikedCategories,
-                           @JsonProperty("dislikedTags") HashSet<Tag> dislikedTags,
-                           @JsonProperty("dislikedLocations") HashSet<Location> dislikedLocations) {
+    public JsonAdaptedRecs(@JsonProperty("likedCategories") Set<String> likedCategories,
+                           @JsonProperty("likedTags") Set<String> likedTags,
+                           @JsonProperty("likedLocations") Set<String> likedLocations,
+                           @JsonProperty("dislikedCategories") Set<String> dislikedCategories,
+                           @JsonProperty("dislikedTags") Set<String> dislikedTags,
+                           @JsonProperty("dislikedLocations") Set<String> dislikedLocations) {
         this.likedCategories = likedCategories;
         this.likedTags = likedTags;
         this.likedLocations = likedLocations;
@@ -51,13 +50,13 @@ class JsonAdaptedRecs {
      * Converts a given {@code UserRecommendations} into this class for Jackson use.
      */
     public JsonAdaptedRecs(UserRecommendations source) {
-        likedCategories = source.getLikedCategories();
-        likedTags = source.getLikedTags();
-        likedLocations = source.getLikedLocations();
+        likedCategories = source.getLikedCategories().stream().map(c -> c.category).collect(Collectors.toSet());
+        likedTags = source.getLikedTags().stream().map(t -> t.tagName).collect(Collectors.toSet());
+        likedLocations = source.getLikedLocations().stream().map(l -> l.location).collect(Collectors.toSet());
 
-        dislikedCategories = source.getDislikedCategories();
-        dislikedTags = source.getDislikedTags();
-        dislikedLocations = source.getDislikedLocations();
+        dislikedCategories = source.getDislikedCategories().stream().map(c -> c.category).collect(Collectors.toSet());
+        dislikedTags = source.getDislikedTags().stream().map(t -> t.tagName).collect(Collectors.toSet());
+        dislikedLocations = source.getDislikedLocations().stream().map(l -> l.location).collect(Collectors.toSet());
     }
 
     /**
@@ -76,23 +75,23 @@ class JsonAdaptedRecs {
             // Convert all to lowercase, and parse into new category / tag / location
             // This will throw IllegalArgumentExceptions if there are any problems with the saved data
             Set<Category> newLikedCategories = likedCategories.stream()
-                    .map(c -> new Category(c.category.toLowerCase()))
+                    .map(c -> new Category(c.toLowerCase()))
                     .collect(Collectors.toSet());
             Set<Tag> newLikedTags = likedTags.stream()
-                    .map(t -> new Tag(t.tagName.toLowerCase()))
+                    .map(t -> new Tag(t.toLowerCase()))
                     .collect(Collectors.toSet());
             Set<Location> newLikedLocation = likedLocations.stream()
-                    .map(l -> new Location(l.location.toLowerCase()))
+                    .map(l -> new Location(l.toLowerCase()))
                     .collect(Collectors.toSet());
 
             Set<Category> newDislikedCategories = dislikedCategories.stream()
-                    .map(c -> new Category(c.category.toLowerCase()))
+                    .map(c -> new Category(c.toLowerCase()))
                     .collect(Collectors.toSet());
             Set<Tag> newDislikedTags = dislikedTags.stream()
-                    .map(t -> new Tag(t.tagName.toLowerCase()))
+                    .map(t -> new Tag(t.toLowerCase()))
                     .collect(Collectors.toSet());
             Set<Location> newDislikedLocation = dislikedLocations.stream()
-                    .map(l -> new Location(l.location.toLowerCase()))
+                    .map(l -> new Location(l.toLowerCase()))
                     .collect(Collectors.toSet());
 
             // Check for no overlaps

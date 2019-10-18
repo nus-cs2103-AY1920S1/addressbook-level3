@@ -103,4 +103,23 @@ public class UserRecommendations {
     public Set<Category> getDislikedCategories() {
         return dislikedCategories;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof UserRecommendations)) {
+            return false;
+        }
+
+        UserRecommendations otherRec = (UserRecommendations) other;
+        return getLikedCategories().equals(otherRec.getLikedCategories())
+                && getLikedTags().equals(otherRec.getLikedTags())
+                && getLikedLocations().equals(otherRec.getLikedLocations())
+                && getDislikedCategories().equals(otherRec.getDislikedCategories())
+                && getDislikedTags().equals(otherRec.getDislikedTags())
+                && getDislikedLocations().equals(otherRec.getDislikedLocations());
+    }
 }
