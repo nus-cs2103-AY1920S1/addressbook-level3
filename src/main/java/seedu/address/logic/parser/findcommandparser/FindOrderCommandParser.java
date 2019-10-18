@@ -3,8 +3,10 @@ package seedu.address.logic.parser.findcommandparser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
@@ -37,14 +39,17 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
 
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_CUSTOMER, PREFIX_PRICE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_ORDERID, PREFIX_PHONE, PREFIX_CUSTOMER,
+                        PREFIX_PRICE, PREFIX_STATUS, PREFIX_TAG);
 
         //dummy predicate
         Predicate<Order> predicate = x -> true;
 
-        if (!argMultimap.getValue(PREFIX_PHONE).isPresent()
+        if (!argMultimap.getValue(PREFIX_ORDERID).isPresent()
+                && !argMultimap.getValue(PREFIX_PHONE).isPresent()
                 && !argMultimap.getValue(PREFIX_CUSTOMER).isPresent()
                 && !argMultimap.getValue(PREFIX_PRICE).isPresent()
+                && !argMultimap.getValue(PREFIX_STATUS).isPresent()
                 && !argMultimap.getValue(PREFIX_TAG).isPresent()) {
 
             String trimmedArgs = args.trim();
@@ -56,13 +61,20 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
             String[] keywords = trimmedArgs.split("\\s+");
 
             predicate = new IdContainsKeywordsPredicate(Arrays.asList(keywords))
+                    .or(new PhoneContainsKeywordsPredicate(Arrays.asList(keywords)))
+                    .or(new CustomerContainsKeywordsPredicate(Arrays.asList(keywords)))
                     .or(new PriceContainsKeywordsPredicate(Arrays.asList(keywords)))
                     .or(new StatusContainsKeywordsPredicate(Arrays.asList(keywords)))
-                    .or(new CustomerContainsKeywordsPredicate(Arrays.asList(keywords)))
-                    .or(new PhoneContainsKeywordsPredicate(Arrays.asList(keywords)));
+                    .or(new OrderTagContainsKeywordsPredicate(Arrays.asList(keywords)));
 
             return new FindOrderCommand(predicate);
 
+        }
+
+        if (argMultimap.getValue(PREFIX_ORDERID).isPresent()) {
+            String[] keywords = argMultimap.getValue(PREFIX_ORDERID).get().split("\\s+");
+
+            predicate = predicate.and(new IdContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
@@ -81,6 +93,12 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
             String[] keywords = argMultimap.getValue(PREFIX_PRICE).get().split("\\s+");
 
             predicate = predicate.and(new PriceContainsKeywordsPredicate(Arrays.asList(keywords)));
+        }
+
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            String[] keywords = argMultimap.getValue(PREFIX_STATUS).get().split("\\s+");
+
+            predicate = predicate.and(new StatusContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
