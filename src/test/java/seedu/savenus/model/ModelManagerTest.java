@@ -9,6 +9,7 @@ import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 import static seedu.savenus.testutil.TypicalMenu.TONKATSU_RAMEN;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.MenuBuilder;
 
 public class ModelManagerTest {
@@ -142,6 +144,20 @@ public class ModelManagerTest {
         modelManager.setRecommendationSystemInUse(false);
 
         assertNotEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
+    }
+
+    @Test
+    public void get_wallet_test() {
+        Wallet wallet = modelManager.getWallet();
+        assertEquals(wallet, new Wallet());
+        assertNotEquals(wallet, null);
+    }
+
+    @Test
+    public void get_remainingAmount_test() {
+        Wallet wallet = modelManager.getWallet();
+        assertEquals(modelManager.getRemainingBudget(), wallet.getRemainingBudgetAmount());
+        assertNotEquals(modelManager.getRemainingBudget(), new BigDecimal(0));
     }
 
     @Test
