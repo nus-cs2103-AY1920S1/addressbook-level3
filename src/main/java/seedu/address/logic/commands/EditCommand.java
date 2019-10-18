@@ -138,9 +138,8 @@ public class EditCommand extends Command {
         if (updatedReminder.isPresent()) {
             itemBuilder.setReminder(updatedReminder.get());
         }
-        System.out.println("Before checking boolean, hasDeleteTask=" + editItemDescriptor.hasDeleteTask);
+
         if (editItemDescriptor.hasDeleteTask) {
-            System.out.println("entered delete task");
             itemBuilder.setTask(null);
         }
         if (editItemDescriptor.hasDeleteEvent) {
