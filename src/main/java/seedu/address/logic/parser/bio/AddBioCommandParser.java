@@ -23,17 +23,17 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.user.Address;
-import seedu.address.model.user.DateOfBirth;
-import seedu.address.model.user.Gender;
-import seedu.address.model.user.Goal;
-import seedu.address.model.user.MedicalCondition;
-import seedu.address.model.user.Name;
-import seedu.address.model.user.Nric;
-import seedu.address.model.user.OtherInfo;
-import seedu.address.model.user.Phone;
-import seedu.address.model.user.ProfileDesc;
-import seedu.address.model.user.User;
+import seedu.address.model.bio.Address;
+import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.Gender;
+import seedu.address.model.bio.Goal;
+import seedu.address.model.bio.MedicalCondition;
+import seedu.address.model.bio.Name;
+import seedu.address.model.bio.Nric;
+import seedu.address.model.bio.OtherBioInfo;
+import seedu.address.model.bio.Phone;
+import seedu.address.model.bio.ProfileDesc;
+import seedu.address.model.bio.User;
 
 /**
  * Parses input arguments and creates a new AddBioCommand object
@@ -67,7 +67,7 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
         List<MedicalCondition> medicalConditionList = ParserUtil.parseMedicalConditions(argMultimap.getAllValues(PREFIX_MEDICAL_CONDITION));
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS));
         List<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOALS));
-        OtherInfo otherInfo = ParserUtil.parseOtherInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO));
+        OtherBioInfo otherInfo = ParserUtil.parseOtherBioInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO));
 
         User user = new User(name, profileDesc, nric, gender, dateOfBirth, contactNumberList, emergencyContactList,
                 medicalConditionList, address, goalList, otherInfo);

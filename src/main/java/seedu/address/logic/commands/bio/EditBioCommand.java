@@ -28,18 +28,18 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.user.Address;
-import seedu.address.model.user.DateOfBirth;
-import seedu.address.model.user.Gender;
-import seedu.address.model.user.Goal;
-import seedu.address.model.user.ListableField;
-import seedu.address.model.user.MedicalCondition;
-import seedu.address.model.user.Name;
-import seedu.address.model.user.Nric;
-import seedu.address.model.user.OtherInfo;
-import seedu.address.model.user.Phone;
-import seedu.address.model.user.ProfileDesc;
-import seedu.address.model.user.User;
+import seedu.address.model.bio.Address;
+import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.Gender;
+import seedu.address.model.bio.Goal;
+import seedu.address.model.bio.ListableField;
+import seedu.address.model.bio.MedicalCondition;
+import seedu.address.model.bio.Name;
+import seedu.address.model.bio.Nric;
+import seedu.address.model.bio.OtherBioInfo;
+import seedu.address.model.bio.Phone;
+import seedu.address.model.bio.ProfileDesc;
+import seedu.address.model.bio.User;
 import seedu.address.ui.DisplayPaneType;
 
 /**
@@ -137,10 +137,10 @@ public class EditBioCommand extends Command {
                 editUserDescriptor.getMedicalConditions(), editUserDescriptor.getIndividualMedicalConditionsMap()).stream()
                 .map(MedicalCondition.class::cast).collect(Collectors.toList());
         
-        OtherInfo updatedOtherInfo = editUserDescriptor.getOtherInfo().orElse(userToEdit.getOtherInfo());
+        OtherBioInfo updatedOtherBioInfo = editUserDescriptor.getOtherBioInfo().orElse(userToEdit.getOtherBioInfo());
         
         return new User(updatedName, updatedProfileDesc, updatedNric, updatedGender, updatedDateOfBirth, updatedContactNumbers,
-                updatedEmergencyContacts, updatedMedicalConditions, updatedAddress, updatedGoals, updatedOtherInfo);
+                updatedEmergencyContacts, updatedMedicalConditions, updatedAddress, updatedGoals, updatedOtherBioInfo);
     }
 
     /**
@@ -218,7 +218,7 @@ public class EditBioCommand extends Command {
         private Address address;
         private List<Goal> goals;
         private List<HashMap<Index, Goal>> individualGoalsMap;
-        private OtherInfo otherInfo;
+        private OtherBioInfo otherBioInfo;
 
         public EditUserDescriptor() {}
 
@@ -241,7 +241,7 @@ public class EditBioCommand extends Command {
             setAddress(toCopy.address);
             setGoals(toCopy.goals);
             setIndividualGoalsMap(toCopy.individualGoalsMap);
-            setOtherInfo(toCopy.otherInfo);
+            setOtherBioInfo(toCopy.otherBioInfo);
         }
 
         /**
@@ -252,7 +252,7 @@ public class EditBioCommand extends Command {
                     contactNumbers, individualContactNumbersMap,
                     emergencyContacts, individualEmergencyContactsMap,
                     medicalConditions, individualMedicalConditionsMap,
-                    address, goals, individualGoalsMap, otherInfo);
+                    address, goals, individualGoalsMap, otherBioInfo);
         }
 
         public void setName(Name name) {
@@ -487,12 +487,12 @@ public class EditBioCommand extends Command {
                     Optional.of(individualGoalsMap) : Optional.empty();
         }
 
-        public void setOtherInfo(OtherInfo otherInfo) {
-            this.otherInfo = otherInfo;
+        public void setOtherBioInfo(OtherBioInfo otherBioInfo) {
+            this.otherBioInfo = otherBioInfo;
         }
 
-        public Optional<OtherInfo> getOtherInfo() {
-            return Optional.ofNullable(otherInfo);
+        public Optional<OtherBioInfo> getOtherBioInfo() {
+            return Optional.ofNullable(otherBioInfo);
         }
 
         @Override
@@ -520,7 +520,7 @@ public class EditBioCommand extends Command {
                     && getMedicalConditions().equals(e.getMedicalConditions())
                     && getAddress().equals(e.getAddress())
                     && getGoals().equals(e.getGoals())
-                    && getOtherInfo().equals(e.getOtherInfo());
+                    && getOtherBioInfo().equals(e.getOtherBioInfo());
         }
     }
 

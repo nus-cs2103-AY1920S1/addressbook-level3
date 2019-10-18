@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.person.Person;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
@@ -56,6 +57,18 @@ public interface Logic {
      */
     ObservableList<Food> getFilterFoodList();
 
+    /**
+     * Returns the user prefs' address book file path.
+     */
+    Path getUserListFilePath();
+
+    /**
+     * Returns the UserList.
+     *
+     * @see seedu.address.model.Model#getUserList()
+     */
+    ReadOnlyUserList getUserList();
+    
     /**
      * Returns the user prefs' address book file path.
      */

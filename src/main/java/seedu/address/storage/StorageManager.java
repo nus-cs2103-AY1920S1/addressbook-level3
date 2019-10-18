@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -18,12 +19,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private UserListStorage userListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          UserListStorage userListStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.userListStorage = userListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -72,6 +76,34 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+
+    @Override
+    public Path getUserListFilePath() {
+        return userListStorage.getUserListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyUserList> readUserList() throws DataConversionException, IOException {
+        return readUserList(userListStorage.getUserListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyUserList> readUserList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return userListStorage.readUserList(filePath);
+    }
+
+    @Override
+    public void saveUserList(ReadOnlyUserList userList) throws IOException {
+        saveUserList(userList, userListStorage.getUserListFilePath());
+    }
+
+    @Override
+    public void saveUserList(ReadOnlyUserList userList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        userListStorage.saveUserList(userList, filePath);
     }
 
 }

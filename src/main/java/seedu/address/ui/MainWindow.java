@@ -209,6 +209,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+                return commandResult;
             }
 
             switchToMainDisplayPane(logic.getDisplayPaneType());

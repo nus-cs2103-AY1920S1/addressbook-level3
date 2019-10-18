@@ -5,23 +5,29 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.bio.Address;
+import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.Gender;
+import seedu.address.model.bio.Goal;
+import seedu.address.model.bio.MedicalCondition;
+import seedu.address.model.bio.Name;
+import seedu.address.model.bio.Nric;
+import seedu.address.model.bio.OtherBioInfo;
+import seedu.address.model.bio.Phone;
+import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.calendar.DateTime;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
-import seedu.address.model.tag.Tag;
 import seedu.sgm.model.food.Calorie;
 import seedu.sgm.model.food.Fat;
 import seedu.sgm.model.food.FoodName;
@@ -66,7 +72,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -77,6 +84,202 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String profileDesc} into a {@code ProfileDesc}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code profileDesc} is invalid.
+     */
+    public static ProfileDesc parseProfileDesc(Optional<String> profileDesc) throws ParseException {
+        requireNonNull(profileDesc);
+        if (!profileDesc.isEmpty()) {
+            String trimmedProfileDesc = profileDesc.get().trim();
+            if (!ProfileDesc.isValidProfileDesc(trimmedProfileDesc)) {
+                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            }
+            return new ProfileDesc(trimmedProfileDesc);
+        } else {
+            return new ProfileDesc("");
+        }
+    }
+
+    /**
+     * Parses a {@code String nric} into a {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static Nric parseNric(Optional<String> nric) throws ParseException {
+        requireNonNull(nric);
+        if (!nric.isEmpty()) {
+            String trimmedNric = nric.get().trim();
+            if (!Nric.isValidNric(trimmedNric)) {
+                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            }
+            return new Nric(trimmedNric);
+        } else {
+            return new Nric("");
+        }
+    }
+
+    /**
+     * Parses a {@code String gender} into a {@code Gender}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code gender} is invalid.
+     */
+    public static Gender parseGender(Optional<String> gender) throws ParseException {
+        requireNonNull(gender);
+        if (!gender.isEmpty()) {
+            String trimmedGender = gender.get().trim();
+            if (!Gender.isValidGender(trimmedGender)) {
+                throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+            }
+            return new Gender(trimmedGender);
+        } else {
+            return new Gender("");
+        }
+    }
+
+    /**
+     * Parses a {@code String dateOfBirth} into a {@code DateOfBirth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateOfBirth} is invalid.
+     */
+    public static DateOfBirth parseDateOfBirth(Optional<String> dateOfBirth) throws ParseException {
+        requireNonNull(dateOfBirth);
+        if (!dateOfBirth.isEmpty()) {
+            String trimmedDateOfBirth = dateOfBirth.get().trim();
+            if (!DateOfBirth.isValidDateOfBirth(trimmedDateOfBirth)) {
+                throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+            }
+            return new DateOfBirth(trimmedDateOfBirth);
+        } else {
+            return new DateOfBirth("");
+        }
+    }
+
+    /**
+     * Parses a {@code String phone} into a {@code Phone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     */
+    public static Phone parsePhone(String phone) throws ParseException {
+        requireNonNull(phone);
+        String trimmedPhone = phone.trim();
+        if (!Phone.isValidPhone(trimmedPhone)) {
+            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        }
+        return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses {@code Collection<String> phones} into a {@code List<Phone>}.
+     */
+    public static List<Phone> parsePhones(Collection<String> phones) throws ParseException {
+        requireNonNull(phones);
+        final List<Phone> phoneList = new ArrayList<>();
+        for (String phoneNumber : phones) {
+            phoneList.add(parsePhone(phoneNumber));
+        }
+        return phoneList;
+    }
+
+    /**
+     * Parses a {@code String medicalCondition} into a {@code MedicalCondition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medicalCondition} is invalid.
+     */
+    public static MedicalCondition parseMedicalCondition(String medicalCondition) throws ParseException {
+        requireNonNull(medicalCondition);
+        String trimmedMedicalCondition = medicalCondition.trim();
+        if (!MedicalCondition.isValidMedicalCondition(trimmedMedicalCondition)) {
+            throw new ParseException(MedicalCondition.MESSAGE_CONSTRAINTS);
+        }
+        return new MedicalCondition(trimmedMedicalCondition);
+    }
+
+    /**
+     * Parses {@code Collection<String> medicalConditions} into a {@code List<MedicalCondition>}.
+     */
+    public static List<MedicalCondition> parseMedicalConditions(Collection<String> medicalConditions) throws ParseException {
+        requireNonNull(medicalConditions);
+        final List<MedicalCondition> medicalConditionList = new ArrayList<>();
+        for (String medicalConditionName : medicalConditions) {
+            medicalConditionList.add(parseMedicalCondition(medicalConditionName));
+        }
+        return medicalConditionList;
+    }
+
+    /**
+     * Parses a {@code String address} into a {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Address parseAddress(Optional<String> address) throws ParseException {
+        requireNonNull(address);
+        if (!address.isEmpty()) {
+            String trimmedAddress = address.get().trim();
+            if (!Address.isValidAddress(trimmedAddress)) {
+                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            }
+            return new Address(trimmedAddress);
+        } else {
+            return new Address("");
+        }
+    }
+
+
+    /**
+     * Parses a {@code String goal} into a {@code Goal}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code goal} is invalid.
+     */
+    public static Goal parseGoal(String goal) throws ParseException {
+        requireNonNull(goal);
+        String trimmedGoal = goal.trim();
+        if (!Goal.isValidGoal(trimmedGoal)) {
+            throw new ParseException(Goal.MESSAGE_CONSTRAINTS);
+        }
+        return new Goal(trimmedGoal);
+    }
+
+    /**
+     * Parses {@code Collection<String> goals} into a {@code List<Goal>}.
+     */
+    public static List<Goal> parseGoals(Collection<String> goals) throws ParseException {
+        requireNonNull(goals);
+        final List<Goal> goalList = new ArrayList<>();
+        for (String goalName : goals) {
+            goalList.add(parseGoal(goalName));
+        }
+        return goalList;
+    }
+
+    /**
+     * Parses a {@code String otherInfo} into a {@code OtherBioInfo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code otherBioInfo} is invalid.
+     */
+    public static OtherBioInfo parseOtherBioInfo(Optional<String> otherInfo) throws ParseException {
+        if (!otherInfo.isEmpty()) {
+            requireNonNull(otherInfo);
+            String trimmedOtherInfo = otherInfo.get().trim();
+            if (!OtherBioInfo.isValidOtherInfo(trimmedOtherInfo)) {
+                throw new ParseException(OtherBioInfo.MESSAGE_CONSTRAINTS);
+            }
+            return new OtherBioInfo(trimmedOtherInfo);
+        } else {
+            return new OtherBioInfo("");
+        }
     }
 
     /**
@@ -93,73 +296,59 @@ public class ParserUtil {
         return new FoodName(trimmedName);
     }
 
-    /**
-     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
-    }
+//    /**
+//     * Parses a {@code String address} into an {@code Address}. Leading and trailing whitespaces will be trimmed.
+//     *
+//     * @throws ParseException if the given {@code address} is invalid.
+//     */
+//    public static Address parseAddress(String address) throws ParseException {
+//        requireNonNull(address);
+//        String trimmedAddress = address.trim();
+//        if (!Address.isValidAddress(trimmedAddress)) {
+//            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Address(trimmedAddress);
+//    }
 
-    /**
-     * Parses a {@code String address} into an {@code Address}. Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
+//    /**
+//     * Parses a {@code String email} into an {@code Email}. Leading and trailing whitespaces will be trimmed.
+//     *
+//     * @throws ParseException if the given {@code email} is invalid.
+//     */
+//    public static Email parseEmail(String email) throws ParseException {
+//        requireNonNull(email);
+//        String trimmedEmail = email.trim();
+//        if (!Email.isValidEmail(trimmedEmail)) {
+//            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Email(trimmedEmail);
+//    }
 
-    /**
-     * Parses a {@code String email} into an {@code Email}. Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
-
-    /**
-     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
-    }
+//    /**
+//     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing whitespaces will be trimmed.
+//     *
+//     * @throws ParseException if the given {@code tag} is invalid.
+//     */
+//    public static Tag parseTag(String tag) throws ParseException {
+//        requireNonNull(tag);
+//        String trimmedTag = tag.trim();
+//        if (!Tag.isValidTagName(trimmedTag)) {
+//            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Tag(trimmedTag);
+//    }
+//
+//    /**
+//     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+//     */
+//    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+//        requireNonNull(tags);
+//        final Set<Tag> tagSet = new HashSet<>();
+//        for (String tagName : tags) {
+//            tagSet.add(parseTag(tagName));
+//        }
+//        return tagSet;
+//    }
 
 
     /**
