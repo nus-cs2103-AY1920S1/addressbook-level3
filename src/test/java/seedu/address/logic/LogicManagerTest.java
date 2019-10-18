@@ -31,9 +31,9 @@ import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.userprefs.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonAppointmentBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.address.JsonAddressBookStorage;
+import seedu.address.storage.event.JsonAppointmentBookStorage;
+import seedu.address.storage.event.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
@@ -172,7 +172,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void savePatientAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

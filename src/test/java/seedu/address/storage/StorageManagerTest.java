@@ -14,6 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.storage.address.JsonAddressBookStorage;
+import seedu.address.storage.event.JsonAppointmentBookStorage;
+import seedu.address.storage.event.JsonUserPrefsStorage;
+import seedu.address.storage.userprefs.JsonUserPrefsStorage;
 
 public class StorageManagerTest {
 
@@ -57,14 +61,14 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
         AddressBook original = getTypicalAddressBook();
-        storageManager.savePatientAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readPatientAddressBook().get();
+        storageManager.saveAddressBook(original);
+        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getPatientAddressBookFilePath());
+        assertNotNull(storageManager.getAddressBookFilePath());
     }
 
 }
