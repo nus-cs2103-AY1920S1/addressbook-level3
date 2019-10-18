@@ -83,6 +83,13 @@ public class AddTransactionCommand extends Command {
         this.transactionType = transactionType;
     }
 
+    /**
+     * Returns a {@code Transaction} object based on fields, as well as the given context.
+     *
+     * @param context Context from which values of unspecified fields are inferred.
+     * @return {@code Transaction} object generated.
+     * @throws CommandException If date generated is not valid.
+     */
     private Transaction generateTransaction(TransactionContext context) throws CommandException {
         Category category = this.category.orElseGet(context::getCategory);
         Date date = generateDate(context);
@@ -90,6 +97,13 @@ public class AddTransactionCommand extends Command {
         return new Transaction(description, amount, category, date, transactionType);
     }
 
+    /**
+     * Returns a {@code Date} object based on fields, as well as the given context.
+     *
+     * @param context Context form which values of unspecified fields are inferred.
+     * @return {@code Date} object generated.
+     * @throws CommandException If date generated is not valid.
+     */
     private Date generateDate(TransactionContext context) throws CommandException {
         Day day = this.day.orElseGet(Day::getCurrent);
         Month month = this.month.orElseGet(context::getMonth);
@@ -123,14 +137,17 @@ public class AddTransactionCommand extends Command {
                 && transactionType.equals(((AddTransactionCommand) other).transactionType));
     }
 
-    static public class AddTransactionCommandBuilder {
-        Description description;
-        Amount amount;
-        Optional<Category> category;
-        Optional<Day> day;
-        Optional<Month> month;
-        Optional<Year> year;
-        Optional<TransactionType> transactionType;
+    /**
+     * Builder class to construct an AddTransactionCommand.
+     */
+    public static class AddTransactionCommandBuilder {
+        private Description description;
+        private Amount amount;
+        private Optional<Category> category;
+        private Optional<Day> day;
+        private Optional<Month> month;
+        private Optional<Year> year;
+        private Optional<TransactionType> transactionType;
 
         public void setDescription(Description description) {
             this.description = description;
@@ -160,6 +177,12 @@ public class AddTransactionCommand extends Command {
             this.transactionType = transactionType;
         }
 
+        /**
+         * Returns a {@code AddTransactionCommand} built from the builder.
+         * All fields must be non-null.
+         *
+         * @return The command corresponding to the builder
+         */
         public AddTransactionCommand build() {
             requireAllNonNull(description, amount, category, day, month, year, transactionType);
             return new AddTransactionCommand(description, amount, category, day, month, year, transactionType);

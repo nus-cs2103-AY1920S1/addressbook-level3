@@ -107,7 +107,7 @@ public class FilterTransactionCommand extends Command {
         }
 
         /**
-         * Builds a {@code FilterTransactionCommand} from the builder.
+         * Returns a {@code FilterTransactionCommand} built from the builder.
          * All fields must be non-null.
          *
          * @return The command corresponding to the builder

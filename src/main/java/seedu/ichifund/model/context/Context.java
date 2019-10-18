@@ -12,7 +12,7 @@ public interface Context<T> {
     Predicate<T> getPredicate();
 
     /** Returns a suitably modified context that shows the given object.
-     * 
+     *
      * @param object Object to be accommodated.
      */
     Context<T> getAccommodatingContext(T object);
