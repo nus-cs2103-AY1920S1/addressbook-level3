@@ -212,7 +212,7 @@ public class ParserUtil {
         requireNonNull(venueName);
         String trimmedName = venueName.trim();
         if (!EventVenue.isValidVenue(trimmedName)) {
-            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
+            throw new ParseException(EventVenue.MESSAGE_CONSTRAINTS);
         }
         return new EventVenue(trimmedName);
     }
@@ -227,7 +227,7 @@ public class ParserUtil {
         requireNonNull(hoursNeeded);
         String trimmed = hoursNeeded.trim();
         if (!EventHoursNeeded.isValidEventHours(trimmed)) {
-            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
+            throw new ParseException(EventHoursNeeded.MESSAGE_CONSTRAINTS);
         }
         return new EventHoursNeeded(trimmed);
     }
@@ -242,7 +242,7 @@ public class ParserUtil {
         requireNonNull(startDate);
         String trimmed = startDate.trim();
         if (!EventStartDate.isValidStartDate(trimmed)) {
-            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
+            throw new ParseException(EventStartDate.MESSAGE_CONSTRAINTS);
         }
         LocalDate newStartDate = LocalDate.parse(trimmed, FORMATTER);
         return new EventStartDate(newStartDate);
@@ -265,7 +265,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String EventEndDate} into a {@code endDate}.
+     * Parses a {@code Strin
+     g EventEndDate} into a {@code endDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code EventEndDate} is invalid.
@@ -274,7 +275,7 @@ public class ParserUtil {
         requireNonNull(endDate);
         String trimmed = endDate.trim();
         if (!EventEndDate.isValidEndDate(trimmed)) {
-            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
+            throw new ParseException(EventEndDate.MESSAGE_CONSTRAINTS);
         }
         LocalDate newEndDate = LocalDate.parse(trimmed, FORMATTER);
         return new EventEndDate(newEndDate);
@@ -290,7 +291,7 @@ public class ParserUtil {
         requireNonNull(manpowerNeeded);
         String trimmed = manpowerNeeded.trim();
         if (!EventManpowerNeeded.isValidEventManpowerNeeded(trimmed)) {
-            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
+            throw new ParseException(EventManpowerNeeded.MESSAGE_CONSTRAINTS);
         }
         return new EventManpowerNeeded(trimmed);
     }
