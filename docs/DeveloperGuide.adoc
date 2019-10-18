@@ -16,7 +16,6 @@ endif::[]
 
 By: `Team CaloFit (AY1920S1-CS2103T-W11-4)`      Since: `Sep 2019`      Licence: `MIT`
 
-////
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -155,7 +154,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::report[]
+tag::report[]
 === [Proposed] Report feature
 ==== Proposed Implementation
 
@@ -202,14 +201,14 @@ The following sequence diagram shows how the "report" command works.
 ** Pros: The statistics can be updated easily through the `Model` itself by updating the elements in the list. Accessing the statistics to display is easier as well.
 ** Cons: Burdens the `Model` with a responsibility that is largely irrelevant to its current ones, which is to keep track of the Objects that make up the CaloFit model.
 * **Explanation of Choice:** To try and enforce Single Responsibility Principle as much as possible and avoid adding irrelavant functionality to `Model`.
-// end::report[]
+end::report[]
 
-// tag::dataencryption[]
+tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
-// end::dataencryption[]
+end::dataencryption[]
 
 === Logging
 
@@ -242,7 +241,6 @@ Refer to the guide <<Testing#, here>>.
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
-////
 
 [appendix]
 == Product Scope
@@ -352,11 +350,8 @@ Windows, Linux, macOS
 An entry representing a eaten meal.
 Contains meal name, calories, and date/time consumed.
 
-// [[meal-db]] Meal database::
+[[meal-db]] Meal database::
 
-
-
-////
 [appendix]
 == Product Survey
 
