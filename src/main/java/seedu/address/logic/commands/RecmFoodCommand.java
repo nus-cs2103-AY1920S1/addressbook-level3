@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.FoodTypeIsWantedPredicate;
 
@@ -40,6 +41,10 @@ public class RecmFoodCommand extends Command {
         return new CommandResult("Hope you like what I've found for you~");
     }
 
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.RECM_FOOD;
+    }
 
     @Override
     public boolean equals(Object other) {
