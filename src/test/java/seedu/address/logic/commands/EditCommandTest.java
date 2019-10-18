@@ -103,7 +103,6 @@ public class EditCommandTest {
         Employee firstEmployee = model.getFilteredEmployeeList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditEmployeeDescriptor descriptor = new EditPersonDescriptorBuilder(firstEmployee).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
-
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

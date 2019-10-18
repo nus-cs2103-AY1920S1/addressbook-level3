@@ -1,5 +1,7 @@
 package seedu.address.model.employee;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -45,16 +47,29 @@ public class Employee {
         this.tags.addAll(tags);
     }
 
+<<<<<<< HEAD
     public Employee(EmployeeName employeeName, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
                      EmployeeAddress employeeAddress, Set<Tag> tags) {
+=======
+    public Employee( EmployeeName employeeName, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                     EmployeeAddress employeeAddress,Set<Tag> tags) {
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+>>>>>>> c806dd709324ca0d073f9c108ac2febc19d37e65
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
         this.employeeAddress = employeeAddress;
+<<<<<<< HEAD
         this.employeeId = null;
         this.employeeGender = null;
         this.employeeJoinDate = null;
         this.employeePosition = null;
+=======
+        this.employeeID = new EmployeeID("000");
+        this.employeeGender = new EmployeeGender("male");
+        this.employeeJoinDate = new EmployeeJoinDate(LocalDate.parse("11/11/2011", FORMATTER));
+        this.employeePosition = new EmployeePosition("manager");
+>>>>>>> c806dd709324ca0d073f9c108ac2febc19d37e65
         this.tags.addAll(tags);
     }
 
@@ -120,7 +135,10 @@ public class Employee {
         }
 
         return otherEmployee != null
+<<<<<<< HEAD
                 && otherEmployee.getEmployeeId().equals(getEmployeeId())
+=======
+>>>>>>> c806dd709324ca0d073f9c108ac2febc19d37e65
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
                 && otherEmployee.getEmployeePosition().equals((getEmployeePosition()))
@@ -145,8 +163,13 @@ public class Employee {
         }
 
         Employee otherEmployee = (Employee) other;
+<<<<<<< HEAD
         return otherEmployee.getEmployeeId().equals(getEmployeeId())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
+=======
+        return //otherEmployee.getEmployeeID().equals(getEmployeeID())
+                otherEmployee.getEmployeeName().equals(getEmployeeName())
+>>>>>>> c806dd709324ca0d073f9c108ac2febc19d37e65
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
                 && otherEmployee.getEmployeePosition().equals(getEmployeePosition())
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
