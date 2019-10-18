@@ -14,12 +14,18 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.item.Item;
-import seedu.address.commons.core.item.Task;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.*;
+import seedu.address.model.item.TaskList;
+import seedu.address.model.item.EventList;
+import seedu.address.model.item.ReminderList;
+import seedu.address.model.item.CalendarList;
+import seedu.address.model.item.VisualizeList;
+
+
+
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -160,14 +166,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleSwitchView(VisualizeList list) {
         if (list instanceof TaskList) {
             viewsPlaceholder.getSelectionModel().select(0);
-        }
-        else if (list instanceof EventList) {
+        } else if (list instanceof EventList) {
             viewsPlaceholder.getSelectionModel().select(1);
-        }
-        else if (list instanceof ReminderList) {
+        } else if (list instanceof ReminderList) {
             viewsPlaceholder.getSelectionModel().select(2);
-        }
-        else if (list instanceof CalendarList) {
+        } else if (list instanceof CalendarList) {
             viewsPlaceholder.getSelectionModel().select(3);
         }
     }

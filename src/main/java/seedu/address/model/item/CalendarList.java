@@ -1,5 +1,8 @@
 package seedu.address.model.item;
 
+/**
+ * Object class to store all the items that are calendars within the program
+ */
 public class CalendarList extends VisualizeList {
     public CalendarList() {
         super();
