@@ -36,6 +36,10 @@ public class PriceTest {
         // valid price numbers
         assertTrue(Price.isValidPrice("911.10")); // small amount
         assertTrue(Price.isValidPrice("4999.10")); // big amount
+
+        // other prices
+        assertFalse(Price.isValidPrice("5002.00"));
+
     }
 
     @Test

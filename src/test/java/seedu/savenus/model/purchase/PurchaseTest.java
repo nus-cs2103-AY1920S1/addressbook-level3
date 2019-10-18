@@ -1,8 +1,11 @@
 package seedu.savenus.model.purchase;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.TypicalMenu.NASI_LEMAK;
+
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +16,19 @@ public class PurchaseTest {
     private final String testTimeOfPurchaseInMillisSinceEpoch = "1570680000000"; // 2019/10/10 12:00:00
     private final TimeOfPurchase testTimeOfPurchase = new TimeOfPurchase(testTimeOfPurchaseInMillisSinceEpoch);
     private final Purchase testPurchase = new Purchase(new Name("testFoodName"), new Price("1.50"), testTimeOfPurchase);
+
+    @Test
+    public void test_timeOfPurchase() {
+        LocalDateTime time = testPurchase.getTimeOfPurchaseInLocalDateTime();
+        LocalDateTime accurateTime = testPurchase.getTimeOfPurchase().getTimeOfPurchaseInLocalDateTime();
+        assertEquals(time, accurateTime);
+    }
+
+    @Test
+    public void test_timeAgo() {
+        String timeAgo = testPurchase.getTimeAgoString();
+        assertEquals(timeAgo, "Thu, 10 Oct");
+    }
 
     @Test
     public void equals() {
