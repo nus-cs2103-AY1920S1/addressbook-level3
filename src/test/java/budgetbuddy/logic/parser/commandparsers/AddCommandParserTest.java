@@ -20,7 +20,7 @@ import static budgetbuddy.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import budgetbuddy.logic.commands.AddCommand;
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.tag.Tag;
 import budgetbuddy.testutil.PersonBuilder;

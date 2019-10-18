@@ -39,7 +39,7 @@ public class AccountCard extends UiPart<Region> {
         super(FXML);
         this.account = account;
         id.setText(displayedIndex + ". ");
-        name.setText(account.getName().accountName);
+        name.setText(account.getName().name);
         account.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

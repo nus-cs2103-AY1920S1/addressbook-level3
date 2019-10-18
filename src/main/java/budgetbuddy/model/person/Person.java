@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.tag.Tag;
@@ -160,7 +161,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return getName().fullName;
+        return getName().name;
     }
 
 }

@@ -14,7 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.tag.Tag;
 
 public class CommandParserUtilTest {

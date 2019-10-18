@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.tag.Tag;
 import budgetbuddy.model.transaction.Transaction;
 

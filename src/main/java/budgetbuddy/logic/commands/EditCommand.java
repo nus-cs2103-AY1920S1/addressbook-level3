@@ -16,7 +16,7 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.CollectionUtil;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.tag.Tag;
 
