@@ -49,7 +49,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private DiaryPage diaryPage;
     private AchievementsPage achievementsPage;
 
-
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -90,11 +89,11 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
         mainScene = primaryStage.getScene();
 
-
         // todo-this-week: call the PageScene constructor with your page scene instead,
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage, financialTrackerPage, achievementsPage);
+        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage,
+                financialTrackerPage, achievementsPage);
 
     }
 
@@ -108,6 +107,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
     /**
      * Sets the accelerator of a MenuItem.
+     * 
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {

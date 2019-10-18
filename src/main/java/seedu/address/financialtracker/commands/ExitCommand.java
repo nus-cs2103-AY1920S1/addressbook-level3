@@ -1,7 +1,7 @@
 package seedu.address.financialtracker.commands;
 
+import seedu.address.financialtracker.model.Model;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.financialtracker.Model.Model;
 
 /**
  * Terminates the program.
