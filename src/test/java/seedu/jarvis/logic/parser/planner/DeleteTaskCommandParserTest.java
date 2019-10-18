@@ -1,5 +1,7 @@
 package seedu.jarvis.logic.parser.planner;
 
+import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,10 @@ class DeleteTaskCommandParserTest {
 
     @Test
     void parse_invalidIndex_exceptionThrown() {
+        DeleteTaskCommandParser parser = new DeleteTaskCommandParser();
+        String userInput = " not a number";
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE);
 
+        assertParseFailure(parser, userInput, expectedMessage);
     }
 }

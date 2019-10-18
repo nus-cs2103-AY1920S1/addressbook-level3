@@ -17,7 +17,6 @@ import seedu.jarvis.model.planner.tasks.Todo;
 
 class DeleteTaskCommandTest {
 
-    //TODO
     @Test
     void getCommandWord() throws ParseException {
         DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("2"));
