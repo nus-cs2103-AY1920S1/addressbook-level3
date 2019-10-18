@@ -18,7 +18,7 @@ public class HelpCommand extends Command {
         + ": Shows program usage instructions.\n"
         + "Parameter:\n"
         + "COMMAND_NAME (can be empty if you want a list of possible commands)\n"
-        + "Example: " + COMMAND_WORD + "find";
+        + "Example: " + COMMAND_WORD + " find";
 
     private final boolean isListAllCommands;
     private final Class commandClass;
@@ -50,7 +50,6 @@ public class HelpCommand extends Command {
             }
             String commandPrompt = "Available commands are: " + commandWords.toString() + "\n"
                 + "More information can be found in the popup window.";
-            System.out.println(commandPrompt);
             return new CommandResult(commandPrompt, true, false);
         } else {
             String commandUsage = getClassStringField(commandClass, "MESSAGE_USAGE");

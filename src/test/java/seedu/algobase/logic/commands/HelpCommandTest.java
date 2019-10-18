@@ -13,7 +13,7 @@ import seedu.algobase.model.UserPrefs;
 class HelpCommandTest {
 
     private static final String EXPECTED_COMMAND_LIST = "Available commands are: [add, addplan, addtag, "
-        + "addtag, clear, delete, deleteplan, deletetag, deletetask, donetask, edit, editplan, edittag, exit, "
+        + "clear, delete, deleteplan, deletetag, deletetask, donetask, edit, editplan, edittag, exit, "
         + "find, findplan, help, list, listplan, listtag, sort, switch, undonetask]\n"
         + "More information can be found in the popup window.";
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
@@ -27,9 +27,8 @@ class HelpCommandTest {
     @Test
     void constructor_nullCommandClassWithListingAllCommands_success() {
         HelpCommand command = new HelpCommand(null, true);
-        // Help command does nothing to the model
-        // The line below breaks for unknown reason...
-        // assertCommandSuccess(command, model, EXPECTED_COMMAND_LIST, expectedModel);
+        assertCommandSuccess(command, model,
+            new CommandResult(EXPECTED_COMMAND_LIST, true, false), expectedModel);
     }
 
     @Test

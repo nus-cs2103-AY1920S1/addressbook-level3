@@ -12,7 +12,6 @@ public abstract class Command {
         AddCommand.class,
         AddPlanCommand.class,
         AddTagCommand.class,
-        AddTagCommand.class,
         ClearCommand.class,
         DeleteCommand.class,
         DeletePlanCommand.class,
