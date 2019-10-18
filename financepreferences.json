@@ -7,5 +7,5 @@
       "y" : 200
     }
   },
-  "financeLogFilePath" : "data/financelog.json"
+  "financeLogFilePath" : "data\\financelog.json"
 }
