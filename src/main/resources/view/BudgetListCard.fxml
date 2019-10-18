@@ -9,30 +9,37 @@
 
 <?import javafx.scene.control.ProgressBar?>
 
+<?import javafx.scene.layout.ColumnConstraints?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
-        <VBox alignment="CENTER_LEFT" minHeight="80" GridPane.columnIndex="0">
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Label fx:id="description" text="\$description" styleClass="cell_big_label" />
-            </HBox>
-            <Label fx:id="criterion" styleClass="cell_small_label" text="\$criterion" />
-            <VBox>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <HBox GridPane.columnIndex="0">
+            <VBox alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="id" styleClass="cell_big_label">
+                        <minWidth>
+                            <!-- Ensures that the label text is never truncated -->
+                            <Region fx:constant="USE_PREF_SIZE" />
+                        </minWidth>
+                    </Label>
+                    <Label fx:id="description" text="\$description" styleClass="cell_big_label" />
+                </HBox>
+                <Label fx:id="criterion" styleClass="cell_small_label" text="\$criterion" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <VBox alignment="CENTER_RIGHT">
                 <padding>
                     <Insets top="5" />
                 </padding>
                 <Label fx:id="amount" text="\$amount" />
-                <ProgressBar fx:id="budgetProgress" progress="0" prefWidth="200">
+                <ProgressBar fx:id="budgetProgress" progress="0" prefWidth="200" prefHeight="10">
                     <VBox.margin>
                         <Insets top="5" />
                     </VBox.margin>
                 </ProgressBar>
             </VBox>
-        </VBox>
+        </HBox>
     </GridPane>
 </HBox>

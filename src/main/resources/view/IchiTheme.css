@@ -196,10 +196,15 @@
 
 #budgetProgress {
     -fx-accent: #00b894;
-    -fx-margin: 5px;
 }
 
 #budgetProgress .bar {
-    -fx-background-insets: 1 1 2 1;
-    -fx-padding: 3px;
+    -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 10px;
+}
+
+#budgetProgress .track {
+    -fx-background-insets: 0;
+    -fx-background-color: #cfd8dc;
 }
