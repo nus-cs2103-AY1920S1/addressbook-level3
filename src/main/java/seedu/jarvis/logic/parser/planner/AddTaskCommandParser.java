@@ -35,11 +35,14 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
                                                                     PREFIX_FREQ, PREFIX_PRIORITY, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK_TYPE, PREFIX_TASK_DES)
-            || !argMultimap.getPreamble().isEmpty() || (isEventOrDeadline(argMultimap)
-                && !arePrefixesPresent(argMultimap, PREFIX_DATE))) {
-
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
+
+        if (isEventOrDeadline(argMultimap) && !arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
+        }
+
         Priority priority = null;
         if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
@@ -53,11 +56,15 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         String taskType = argMultimap.getValue(PREFIX_TASK_TYPE).get();
         String taskDes = argMultimap.getValue(PREFIX_TASK_DES).get();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        System.out.println("hello there");
         LocalDate[] dates = new LocalDate[2];
         if (isEventOrDeadline(argMultimap)) {
-            System.out.println("hi there");
             dates = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+            if (taskType.equals("event")) {
+                if (dates[1] == null) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            AddTaskCommand.MESSAGE_USAGE));
+                }
+            }
         }
 
         Task task = ParserUtil.buildTask(taskType, taskDes, dates);
