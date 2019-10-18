@@ -16,6 +16,7 @@ import seedu.address.model.project.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.timetable.TimeRange;
 
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,7 @@ import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static seedu.address.model.finance.Spending.DATE_FORMAT;
 
 /**
