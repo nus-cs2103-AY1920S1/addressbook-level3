@@ -129,16 +129,16 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         dayIndexLabel.setText("Day " + currentEntry.getDayIndex().getOneBased());
         editDiaryEntryDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
         if (editDiaryEntryDescriptor == null) {
-            fillRightWithGallery();
             refreshDiaryEntry(FXCollections.observableArrayList(currentEntry.getDiaryText().split("\n")),
                     currentEntry.getPhotoList());
             isUsingEditBox = false;
+            fillRightWithGallery();
         } else {
-            fillRightWithEditBox();
             if (!isUsingEditBox) {
                 refreshDiaryEntry(diaryEntryEditBox.getObservableParagraphs(), currentEntry.getPhotoList());
                 isUsingEditBox = true;
             }
+            fillRightWithEditBox();
         }
 
         fillButtonBar();

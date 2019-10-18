@@ -26,6 +26,11 @@ public class DiaryEditBox extends UiPart<VBox> {
         this.textChangeHandler = textChangeHandler;
         textEditor.prefWidthProperty().bind(getRoot().widthProperty());
         textEditor.prefHeightProperty().bind(getRoot().heightProperty());
+        textEditor.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            if (oldValue && !newValue) {
+                textChangeHandler.accept(textEditor.getText());
+            }
+        }));
     }
 
     String getText() {
@@ -38,10 +43,5 @@ public class DiaryEditBox extends UiPart<VBox> {
 
     void setText(String text) {
         textEditor.setText(text);
-    }
-
-    @FXML
-    private void handleTextChange() {
-        textChangeHandler.accept(textEditor.getText());
     }
 }

@@ -37,7 +37,7 @@ public class FlipDiaryCommand extends Command {
         Optional<DiaryEntry> diaryEntry = model.getPageStatus().getTrip()
                 .getDiary().getDiaryEntry(indexToFlipTo);
 
-        if (!diaryEntry.isPresent()) {
+        if (diaryEntry.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
