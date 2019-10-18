@@ -33,7 +33,14 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /** Returns the current session information */
     Session getSession();
+
+    /** Returns true if currently in person view mode */
+    boolean isPersonView();
+
+    /** Toggles the current view mode */
+    void isPersonView(boolean isPersonView);
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();

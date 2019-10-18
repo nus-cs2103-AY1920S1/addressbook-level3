@@ -30,6 +30,11 @@ public interface Model {
     Session getSession();
 
     /**
+     * Returns true if a user is logged in.
+     */
+    boolean isLoggedIn();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
