@@ -20,7 +20,7 @@ import seedu.address.model.tag.UserTag;
  */
 public class TagModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "tag";
+    public static final String COMMAND_WORD = "addtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds the specified tag to the specified module. "
             + "Parameters: "
