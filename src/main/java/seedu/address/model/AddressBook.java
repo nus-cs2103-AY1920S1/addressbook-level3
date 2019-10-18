@@ -19,6 +19,7 @@ import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultList;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -256,6 +257,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<QuizResult> getQuizResultList() {
         return quizResults.asUnmodifiableObservableList();
+    }
+
+    public int getTotalQuestionsDone() {
+        return quizResults.getTotalQuestionsDone();
+    }
+
+    public int getTotalQuestionsCorrect() {
+        return quizResults.getTotalQuestionsCorrect();
+    }
+
+    public int getTotalQuestionsIncorrect() {
+        return quizResults.getTotalQuestionsIncorrect();
+    }
+
+    public ObservableList<TempStatsQnsModel> getCorrectQns() {
+        return quizResults.getCorrectQns();
+    }
+
+    public ObservableList<TempStatsQnsModel> getIncorrectQns() {
+        return quizResults.getIncorrectQns();
     }
 
     @Override

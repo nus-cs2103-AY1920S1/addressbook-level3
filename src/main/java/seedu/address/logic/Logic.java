@@ -11,6 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -36,7 +37,17 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of lecture notes */
     ObservableList<Note> getFilteredNoteList();
 
+    /**
+     * Returns an unmodifiable view of the pie chart data.
+     */
     ObservableList<PieChart.Data> getStatsChartData();
+
+    ObservableList<TempStatsQnsModel> getStatsQnsList();
+
+    /**
+     * Returns the total number of quiz questions done.
+     */
+    int getTotalQuestionsDone();
 
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();

@@ -12,6 +12,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -120,10 +121,6 @@ public interface Model {
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
 
-    void getStatistics();
-
-    ObservableList<PieChart.Data> getStatsChartData();
-
     /**
      * Updates the filter of the filtered task list to filter by the given {@code predicate}.
      *
@@ -211,4 +208,36 @@ public interface Model {
      * Returns an answer for question in quiz with specific {@code index}.
      */
     Answer showQuizAnswer(int index);
+
+    /**
+     * Returns the total number of questions answered.
+     */
+    int getTotalQuestionsDone();
+
+    /**
+     * Returns the total number of questions answered correctly.
+     */
+    int getTotalQuestionsCorrect();
+
+    /**
+     * Returns the total number of questions answered incorrectly.
+     */
+    int getTotalQuestionsIncorrect();
+
+    /**
+     * Returns an unmodifiable view of a list correct questions.
+     */
+    void setCorrectQnsList();
+
+    /**
+     * Returns an unmodifiable view of a list incorrect questions.
+     */
+    void setIncorrectQnsList();
+
+    /**
+     * Returns an unmodifiable view of the pie chart data.
+     */
+    ObservableList<PieChart.Data> getStatsChartData();
+
+    ObservableList<TempStatsQnsModel> getStatsQnsList();
 }

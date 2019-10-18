@@ -307,6 +307,15 @@
     -fx-padding: 8 1 8 1;
 }
 
+.chart-pie-label {
+    -fx-fill: white;
+    -fx-font-size: 1em;
+}
+
+.stats-pane-color {
+    -fx-background-color: #383838;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;

@@ -27,6 +27,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
@@ -177,11 +178,6 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public void getStatistics() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public ObservableList<PieChart.Data> getStatsChartData() {
             throw new AssertionError("This method should not be called");
         }
@@ -278,6 +274,36 @@ public class AddNoteCommandTest {
 
         @Override
         public ObservableList getFilteredQuizResultList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getTotalQuestionsDone() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getTotalQuestionsCorrect() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getTotalQuestionsIncorrect() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCorrectQnsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setIncorrectQnsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TempStatsQnsModel> getStatsQnsList() {
             throw new AssertionError("This method should not be called.");
         }
     }
