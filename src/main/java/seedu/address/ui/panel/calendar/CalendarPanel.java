@@ -93,5 +93,6 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
     @Override
     public void onEventListChange(List<EventSource> events) {
         this.timelineDayView.eventChange(events);
+        this.calendarScreen.eventChange(events);
     }
 }

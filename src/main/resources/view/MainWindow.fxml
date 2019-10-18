@@ -53,9 +53,9 @@
                                     <StackPane.margin>
                                         <Insets />
                                     </StackPane.margin>
-                                    <padding>
-                                        <Insets bottom="10.0" />
-                                    </padding>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
                                 </Label>
                             </children>
                      <GridPane.margin>

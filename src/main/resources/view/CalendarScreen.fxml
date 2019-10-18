@@ -13,7 +13,7 @@
    <children>
       <StackPane minHeight="50.0">
          <children>
-            <Label fx:id="monthYearTitle" text="\$month" textFill="WHITE">
+            <Label fx:id="monthYearTitle" text="\$month" textFill="WHITE" underline="true">
                <font>
                   <Font size="14.0" />
                </font>

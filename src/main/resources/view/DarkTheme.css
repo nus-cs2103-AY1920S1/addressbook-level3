@@ -14,18 +14,24 @@
     src: url("Roboto-Medium.ttf");
 }
 
+@font-face {
+    font-family: Roboto Medium;
+    src: url("Roboto-MediumItalic.ttf");
+}
+
 .root {
     /** Colors **/
     -backgroundColor: #121212;  /** Default Dark **/
     -surfaceColor: #1E1E1E;     /** Lighter Dark **/
     -topColor: #383838;         /** Lightest Dark **/
     -primaryColor: #262833;     /** Dark tinted blue **/
-    -logBoxColor: #7E8CE0;      /** Light Purple Blue **/
+    -logBoxColor: #4ACFAC;      /** Light Green **/
     -errorColor: #CF6679;       /** Red Error **/
     -lineColor: #FF7597;        /** Some Redish Pink **/
+    -calendarDayColor: #607080; /** Light Purple Blue Box **/
     -eventCardColor1: #FFAF5F;
     -eventCardColor2: #4ACFAC;
-    -eventCardColor3: #36C7D0;
+    -eventCardColor3: #7E8CE0;
     -eventCardColor4: #FFA48E;
     -white: #FFFFFF;
     -black: #000000;
@@ -268,6 +274,12 @@
     -fx-background-color: -surfaceColor;
 }
 
+#viewTitle {
+    -fx-font-family: "Roboto Medium";
+    -fx-font-size: 24px;
+    -fx-font-style: italic;
+}
+
 #popUp {
     -fx-font-family: "Roboto Regular";
     -fx-font-size: 11pt;
@@ -309,9 +321,9 @@
     -fx-text-fill: -white;
 }
 
-#calendarCircle {
+#calendarDayCircle {
     -fx-opacity: 0;
-    -fx-fill: -white;
+    -fx-fill: -calendarDayColor;
 }
 
 #calendarBase {

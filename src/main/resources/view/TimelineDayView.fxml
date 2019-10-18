@@ -13,7 +13,7 @@
    <children>
       <StackPane>
          <children>
-            <Label fx:id="timelineTitle" alignment="CENTER" contentDisplay="CENTER" text="Timeline" underline="true" />
+            <Label fx:id="timelineTitle" alignment="CENTER" contentDisplay="CENTER" text="Timeline" />
          </children>
          <VBox.margin>
             <Insets />
@@ -55,7 +55,7 @@
                <children>
                   <StackPane alignment="CENTER_LEFT" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Label text="00:00">
+                        <Label text="00:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -67,7 +67,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="1">
                      <children>
-                        <Label text="01:00">
+                        <Label text="01:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -79,7 +79,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="2">
                      <children>
-                        <Label text="02:00">
+                        <Label text="02:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -91,7 +91,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="3">
                      <children>
-                        <Label text="03:00">
+                        <Label text="03:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -103,7 +103,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="4">
                      <children>
-                        <Label text="04:00">
+                        <Label text="04:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -115,7 +115,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="5">
                      <children>
-                        <Label text="05:00">
+                        <Label text="05:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -127,7 +127,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="6">
                      <children>
-                        <Label text="06:00">
+                        <Label text="06:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -139,7 +139,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="7">
                      <children>
-                        <Label text="07:00">
+                        <Label text="07:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -151,7 +151,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="8">
                      <children>
-                        <Label text="08:00">
+                        <Label text="08:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -163,7 +163,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="9">
                      <children>
-                        <Label text="09:00">
+                        <Label text="09:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -175,7 +175,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="10">
                      <children>
-                        <Label text="10:00">
+                        <Label text="10:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -187,7 +187,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="11">
                      <children>
-                        <Label text="11:00">
+                        <Label text="11:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -199,7 +199,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="12">
                      <children>
-                        <Label text="12:00">
+                        <Label text="12:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -211,7 +211,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="13">
                      <children>
-                        <Label text="13:00">
+                        <Label text="13:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -223,7 +223,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="14">
                      <children>
-                        <Label text="14:00">
+                        <Label text="14:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -235,7 +235,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="15">
                      <children>
-                        <Label text="15:00">
+                        <Label text="15:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -247,7 +247,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="16">
                      <children>
-                        <Label text="16:00">
+                        <Label text="16:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -259,7 +259,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="17">
                      <children>
-                        <Label text="17:00">
+                        <Label text="17:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -271,7 +271,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="18">
                      <children>
-                        <Label text="18:00">
+                        <Label text="18:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -283,7 +283,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="19">
                      <children>
-                        <Label text="19:00">
+                        <Label text="19:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -295,7 +295,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="20">
                      <children>
-                        <Label text="20:00">
+                        <Label text="20:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -307,7 +307,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="21">
                      <children>
-                        <Label text="21:00">
+                        <Label text="21:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -319,7 +319,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="22">
                      <children>
-                        <Label text="22:00">
+                        <Label text="22:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -331,7 +331,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="23">
                      <children>
-                        <Label text="23:00">
+                        <Label text="23:00" wrapText="true">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>

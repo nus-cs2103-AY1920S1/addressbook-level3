@@ -3,6 +3,7 @@ package seedu.address.ui.panel.calendar;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
 import javafx.scene.layout.StackPane;
+import seedu.address.model.events.EventSource;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
@@ -18,7 +20,7 @@ import seedu.address.ui.UiPart;
  */
 public class CalendarScreen extends UiPart<Region> {
 
-    private static final String FXML = "Calendar.fxml";
+    private static final String FXML = "CalendarScreen.fxml";
 
     private Integer month;
     private Integer year;
@@ -74,11 +76,34 @@ public class CalendarScreen extends UiPart<Region> {
                 if (index > totalDays) {
                     break;
                 }
-                CalendarGridDay calendarGridDay = new CalendarGridDay(index);
+                // TODO: Change Total Events to fit actual list.
+                CalendarGridDay calendarGridDay = new CalendarGridDay(index, 0);
                 calendarGrid.add(calendarGridDay.getRoot(), days, weeks);
                 dayIndexList.add(calendarGridDay);
                 index++;
             }
         }
+    }
+
+    /**
+     * Changes the color scheme for each day of the calendar screen.
+     * @param events The list of events.
+     */
+    public void eventChange(List<EventSource> events) {
+        changeColor(events);
+    }
+
+    private void changeColor(List<EventSource> events) {
+        for(EventSource event : events) {
+            if(sameMonthYear(event)) {
+                Integer day = uiParser.getDay(event.getStartDateTime().getDateTime());
+                dayIndexList.get(day - 1).addAnEvent();
+            }
+        }
+    }
+
+    private boolean sameMonthYear(EventSource event) {
+        Integer[] monthYear = uiParser.getDateToNumbers(event.getStartDateTime().getDateTime());
+        return monthYear[1].equals(this.month) && monthYear[2].equals(this.year);
     }
 }
