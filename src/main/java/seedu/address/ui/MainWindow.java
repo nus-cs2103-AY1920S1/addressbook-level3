@@ -94,7 +94,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
         updatePanels();
 
         resultDisplay = new ResultDisplay();
@@ -222,7 +221,6 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             updatePanels();
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
