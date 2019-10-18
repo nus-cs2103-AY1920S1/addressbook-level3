@@ -25,7 +25,7 @@ public class UndoCommandParser implements Parser<UndoCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new UndoCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE), pe);
         }
     }
 }

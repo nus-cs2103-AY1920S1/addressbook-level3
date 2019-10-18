@@ -18,8 +18,17 @@ public class UndoCommand extends Command implements MutatorCommand {
 
     public static final String COMMAND_WORD = "undo";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Undoes the previous data-modifying command. If an index is specified, undoes commands up to"
+            + "and including the command identified by that index as used in the displayed history list.\n"
+            + "Parameters: [INDEX (must be a positive integer)]\n"
+            + "Examples:\n"
+            + COMMAND_WORD + "\n"
+            + COMMAND_WORD + " 3";
+
     public static final String MESSAGE_UNDO_SUCCESS = "Undid command:\n%s";
-    public static final String MESSAGE_NO_MORE_HISTORY = "Cannot undo: no more undo history";
+    public static final String MESSAGE_NO_MORE_HISTORY = "No more undo history.";
+    public static final String MESSAGE_NO_SUCH_INDEX = "There is no command with that index.";
 
     private Index targetIndex;
 
@@ -45,7 +54,13 @@ public class UndoCommand extends Command implements MutatorCommand {
             targetIndex = Index.fromZeroBased(history.size() - 1);
         }
 
-        HistoryRecord targetRecord = history.get(targetIndex.getZeroBased());
+        HistoryRecord targetRecord;
+        try {
+            targetRecord = history.get(targetIndex.getZeroBased());
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(MESSAGE_NO_SUCH_INDEX);
+        }
+
         List<HistoryRecord> poppedRecords = model.revertTo(targetRecord);
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS,
                 CollectionUtil.collectionToStringShowingIndexes(poppedRecords)));
