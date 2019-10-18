@@ -162,7 +162,7 @@ The Report feature is implemented through a `ReportCommand` that extends from th
 It interacts with the object that implements the `Model` interface by updating it with the statistics which are wrapped in a `Statistics` object.
 The following operations are added to the `Model` interface to facilitate the interaction:
 
-* `Model#updateStatistics()` -- updates the statistics of the objecting implementing the `Model` interface.
+* `Model#updateStatistics()` -- updates the statistics of the object implementing the `Model` interface.
 * `Model#getStatistics()` -- gets the statistics of the current object.
 
 Given below is an example usage scenario and how the Report feature behaves at each step.
@@ -180,6 +180,8 @@ The `Statistics` field in `ModelManager` does not change when any command other 
 Step 3. The user enters "report" in the Command Line Input to generate the report of CaloFit. The `ReportCommand` created will call `Model#updateStatistics()`, causing a `Statistics` object to be created through `Statistics#generateStatistics()` and a `CommandResult` object to be returned.
 
 The following sequence diagram shows how the "report" command works.
+
+image::ReportCommand.png[]
 
 ==== Design Considerations
 

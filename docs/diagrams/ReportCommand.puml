@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":Ui" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":CommandParser" as parser LOGIC_COLOR
+Participant "reportCommand:Command" as command LOGIC_COLOR
+Participant "model:Model" as model MODEL_COLOR
+Participant ":Statistics" as statistics MODEL_COLOR
+Participant "result:CommandResult" as result LOGIC_COLOR
+
+user -[USER_COLOR]> ui : "report"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("report")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> parser : parseCommand("report")
+activate parser LOGIC_COLOR
+
+parser -[LOGIC_COLOR]> command : ReportCommand()
+activate command LOGIC_COLOR
+
+command -[LOGIC_COLOR]-> parser : reportCommand
+deactivate command
+
+parser -[LOGIC_COLOR]-> logic : reportCommand
+deactivate parser
+
+logic -[LOGIC_COLOR]> command : execute(model)
+activate command LOGIC_COLOR
+
+command -[LOGIC_COLOR]> model : updateStatistics()
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> statistics : Statistics.generateStatistics()
+activate statistics MODEL_COLOR
+
+statistics -[MODEL_COLOR]> statistics : Statistics()
+activate statistics MODEL_COLOR
+
+statistics -[MODEL_COLOR]-> statistics : s
+deactivate statistics
+
+statistics -[MODEL_COLOR]-> model : s
+deactivate statistics
+
+model -[MODEL_COLOR]> result : CommandResult()
+activate result
+
+result -[MODEL_COLOR]-> model : result
+deactivate result
+
+model -[MODEL_COLOR]-> logic : result
+deactivate model
+
+logic -[LOGIC_COLOR]-> ui : result
+deactivate logic
+@enduml
