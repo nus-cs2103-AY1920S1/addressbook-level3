@@ -66,7 +66,7 @@ public class InstallmentList {
      * @return Installment
      * @throws InstallmentNotFoundException if the index is greater than the number of installments
      */
-    public Installment getInstallment(int installmentNumber) throws InstallmentNotFoundException {
+    public Installment getInstallment(int installmentNumber) {
         try {
             Index index = Index.fromOneBased(installmentNumber);
             return internalInstallmentList.get(index.getZeroBased());
@@ -117,7 +117,7 @@ public class InstallmentList {
      * @return Instalment object that has been removed from the list
      * @throws InstallmentNotFoundException if the installment does not exist
      */
-    public Installment deleteInstallment(int installmentNumber) throws InstallmentNotFoundException {
+    public Installment deleteInstallment(int installmentNumber) {
         try {
             Index index = Index.fromOneBased(installmentNumber);
             Installment deletedInstallment = internalInstallmentList.remove(index.getZeroBased());

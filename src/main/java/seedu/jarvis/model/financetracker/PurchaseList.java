@@ -102,7 +102,7 @@ public class PurchaseList {
      * @param purchaseIndex
      * @return Purchase that was just deleted from the user's list of purchases
      */
-    public Purchase deletePurchase(int purchaseIndex) throws PurchaseNotFoundException {
+    public Purchase deletePurchase(int purchaseIndex) {
         try {
             Index index = Index.fromOneBased(purchaseIndex);
             return internalPurchaseList.remove(index.getZeroBased());
