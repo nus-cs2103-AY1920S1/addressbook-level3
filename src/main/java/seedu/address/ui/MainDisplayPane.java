@@ -5,47 +5,38 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import javafx.scene.layout.Region;
+import seedu.address.logic.Logic;
 
 /**
  * A class containing enumerations, storing the possible Main Display Panes to be displayed to the user.
  */
 public class MainDisplayPane {
 
-    /**
-     * Enumerated main display pane names that are used as keys to generate UiParts to be displayed.
-     */
-    enum DisplayPane {
-        MAIN,
-        BIO,
-        ACHVM;
-    }
+    private Map<DisplayPaneType, UiPart<Region>> map;
+    private DisplayPaneType currPaneType;
+    private Logic logic;
 
-    private Map<DisplayPane, UiPart<Region>> map;
-    private DisplayPane currPane;
-
-    public MainDisplayPane() {
+    public MainDisplayPane(Logic logic) {
+        this.logic = logic;
         map = new HashMap<>();
-    }
-
-    public MainDisplayPane(DisplayPane displayPane, UiPart<Region> mainPane) {
-        this();
-        map.put(displayPane, mainPane);
-        currPane = displayPane;
+        currPaneType = DisplayPaneType.MAIN;
     }
 
     /**
      * Returns a UiPart representing the Main Display Pane observed by the user.
-     * @param displayPane An enumerated display pane to retrieve or store the corresponding type of UiPart.
+     * @param displayPaneType An enumerated display pane to retrieve or store the corresponding type of UiPart.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
-    public UiPart<Region> get(DisplayPane displayPane) {
-        switch (displayPane) {
+    public UiPart<Region> get(DisplayPaneType displayPaneType) {
+        switch (displayPaneType) {
         case MAIN:
-            return getMappedPane(displayPane, () -> null);
+            return getMappedPane(displayPaneType, () -> new PersonListPanel(logic.getFilteredPersonList()));
         case BIO:
-            return getMappedPane(displayPane, BioPane::new);
+            return getMappedPane(displayPaneType, BioPane::new);
         case ACHVM:
-            return getMappedPane(displayPane, AchievementsPane::new);
+            return getMappedPane(displayPaneType, AchievementsPane::new);
+        case RECM_FOOD:
+            return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()));
         default:
             return null;
         }
@@ -53,25 +44,23 @@ public class MainDisplayPane {
 
     /**
      * Returns a UiPart to be displayed to the user, after adding it to the map of display panes, if not yet added.
-     * @param displayPane An enumerated display pane to retrieve or store the corresponding type of UiPart.
+     * @param displayPaneType An enumerated display pane to retrieve or store the corresponding type of UiPart.
      * @param newPaneSupplier A Supplier object containing the UiPart to be returned if a mapping for it does
      *                        not exist yet.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
-    private UiPart<Region> getMappedPane(DisplayPane displayPane, Supplier<UiPart<Region>> newPaneSupplier) {
-        UiPart<Region> mappedPane = map.get(displayPane);
-        currPane = displayPane;
-        if (mappedPane != null) {
-            return mappedPane;
-        } else {
+    private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType, Supplier<UiPart<Region>> newPaneSupplier) {
+        UiPart<Region> mappedPane = map.get(displayPaneType);
+        currPaneType = displayPaneType;
+        if (mappedPane == null) {
             mappedPane = newPaneSupplier.get();
-            map.put(displayPane, mappedPane);
-            return mappedPane;
+            map.put(displayPaneType, mappedPane);
         }
+        return mappedPane;
     }
 
 
-    public DisplayPane getCurrPane() {
-        return currPane;
+    public DisplayPaneType getCurrPaneType() {
+        return currPaneType;
     }
 }

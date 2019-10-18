@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
 
 /**
@@ -52,6 +53,11 @@ public class AddFoodCommand extends Command {
 
         model.addFood(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.RECM_FOOD;
     }
 
     @Override
