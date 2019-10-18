@@ -3,6 +3,7 @@ package seedu.address.cashier.logic;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_CASHIER;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
@@ -50,10 +51,15 @@ public class AddCommandParser {
         }
 
         modelManager.updateRecentInventory();
-
+        // if the item with the specified description is not present
         if (!modelManager.hasItemInInventory(description)) {
             throw new NoSuchItemException(NO_SUCH_ITEM_CASHIER);
         }
+        // if the item with the specified description is not available for sale
+        if (!modelManager.isSellable(description)) {
+            throw new NoSuchItemException(NO_SUCH_ITEM_FOR_SALE_CASHIER);
+        }
+
         if (!modelManager.hasSufficientQuantity(description, quantity)) {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));

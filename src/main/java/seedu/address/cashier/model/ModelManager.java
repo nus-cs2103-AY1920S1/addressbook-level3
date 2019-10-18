@@ -282,6 +282,11 @@ public class ModelManager implements Model {
         return Double.parseDouble(Item.DECIMAL_FORMAT.format(i.getPrice() * i.getQuantity()));
     }
 
+    public boolean isSellable(String description) throws NoSuchItemException {
+        Item i = inventoryList.getOriginalItem(description);
+        return i.isSellable();
+    }
+
     /**
      * Updates the inventory list from the data file.
      */

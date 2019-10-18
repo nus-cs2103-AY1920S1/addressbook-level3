@@ -18,6 +18,8 @@ public class CashierMessages {
 
     public static final String NO_SUCH_INDEX_CASHIER = "There is no item at the inputted index.";
 
+    public static final String NO_SUCH_ITEM_FOR_SALE_CASHIER = "Sorry! This item is not available for sale!";
+
     public static final String NO_SUCH_ITEM_CASHIER = "There is no such item available. Please input a valid item.";
 
     public static final String NO_SUCH_PERSON = "Sorry! There is no such person. Please enter a valid name.";

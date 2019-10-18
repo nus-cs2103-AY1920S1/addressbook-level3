@@ -19,6 +19,7 @@ public class Item {
     private Double subtotal;
     private String id;
 
+
     /**
      * Every field must be present and not null.
      */
@@ -84,7 +85,7 @@ public class Item {
         updateSubtotal();
     }
 
-    public boolean getSellable() {
+    public boolean isSellable() {
         if (price == 0) {
             return false;
         } else {
