@@ -56,11 +56,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
             <children>
-              <VBox fx:id="mainList" styleClass="pane-with-border">
+              <VBox fx:id="resultList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                 <padding>
-                  <Insets bottom="10" left="10" right="10" top="10" />
+                  <Insets top="10" right="10" bottom="10" left="10" />
                 </padding>
-                <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"/>
               </VBox>
               <StackPane fx:id="displayPlaceHolder" styleClass="pane-with-border" GridPane.columnIndex="1" />
            </children>
