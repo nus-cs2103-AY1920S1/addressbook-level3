@@ -65,6 +65,9 @@ public class Month implements Comparable<Month> {
         return false;
     }
 
+    /**
+     * Returns the word representation of the {@code Month}.
+     */
     public String wordString() {
         switch(monthNumber) {
         case 1:

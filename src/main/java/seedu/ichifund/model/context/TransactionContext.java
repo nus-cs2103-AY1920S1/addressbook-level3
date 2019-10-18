@@ -173,7 +173,7 @@ public class TransactionContext implements Context<Transaction> {
     @Override
     public String toString() {
         String string = getMonth().wordString().toUpperCase() + " " + getYear().toString();
-        if(transactionType.isPresent()) {
+        if (transactionType.isPresent()) {
             string += " " + transactionType.get().toExtendedString().toUpperCase();
         }
 

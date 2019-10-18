@@ -45,7 +45,7 @@ public class TransactionCard extends UiPart<Region> {
         amount.setText("$" + transaction.getAmount().toString());
         date.setText(transaction.getDate().toFullString());
         category.setText(transaction.getCategory().toString().toUpperCase());
-        if(transaction.isExpenditure()) {
+        if (transaction.isExpenditure()) {
             amount.setTextFill(Paint.valueOf("#ff7675"));
         } else {
             amount.setTextFill(Paint.valueOf("#00b894"));

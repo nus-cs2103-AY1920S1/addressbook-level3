@@ -65,6 +65,9 @@ public class TransactionType {
         return transactionType.hashCode();
     }
 
+    /**
+     * Returns an extended {@code String} for the {@code TransactionType}.
+     */
     public String toExtendedString() {
         switch(transactionType) {
         case "exp":

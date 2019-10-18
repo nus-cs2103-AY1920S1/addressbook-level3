@@ -35,13 +35,16 @@ public class TransactionListPanel extends UiPart<Region> {
         transactionListView.setItems(transactionList);
         transactionListView.setCellFactory(listView -> new TransactionListViewCell());
         transactionContextView.setText(transactionContext.getValue().toString());
-        transactionContext.addListener(new TransactionContextChangeListener(transactionContextView));
+        transactionContext.addListener(new TransactionContextInvalidationListener(transactionContextView));
     }
 
-    class TransactionContextChangeListener implements InvalidationListener {
+    /**
+     * Listener for invalidation of the transition context.
+     */
+    class TransactionContextInvalidationListener implements InvalidationListener {
         private Label label;
 
-        public TransactionContextChangeListener(Label label) {
+        public TransactionContextInvalidationListener(Label label) {
             this.label = label;
         }
 

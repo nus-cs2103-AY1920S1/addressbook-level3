@@ -13,7 +13,9 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.FundBook;
@@ -228,6 +230,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredBudgetList(Predicate<Budget> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<TransactionContext> getTransactionContextProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
