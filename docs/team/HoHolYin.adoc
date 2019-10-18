@@ -23,17 +23,19 @@ image::Ui.png[width="150", align="center"]
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to add books*
+* *Major enhancement*: Implemented the ability to *add books*
 ** What it does: allows the user to add books to the system.
-** Justification: This feature is a core functionality of any library management system and will greatly enhance the efficiency of the system if implemented and designed well.
-** Highlights: This implementation is slightly challenging. This is mainly because of four requirements we set for ourselves, which will require us to implement an efficient way of storing the books and their serial numbers.
-*** We want our system to be able to support up to 10,000 books
-*** We require all books to have a unique serial number tagged to it
-*** We allow librarians to assign books any custom serial number that is valid to a new book addition should they wish so.
-*** We want all input commands to return results in less than 1 second
-** Credits: This feature is adapted from the 'add person' feature from Address Book 3, but there are many changes to it to allow books to, for example, be loaned or tagged with a unique serial number.
+** Justification: This feature is the core functionality of any library management system and will greatly enhance the efficiency of the system if implemented and designed well.
+** Highlights: This feature is challenging to implement as it will require us to store the books and their serial numbers in an efficient way due to the following 4 requirements:
+*** We want our system to be able to *support up to 10,000 books*
+*** We require all books to have a *unique serial number* tagged to it
+*** We allow librarians to assign new books *any valid serial number* should they wish so.
+*** We want all input commands to return results in *less than 1 second*
+** Credits: This feature is adapted from the 'add person' feature from Address Book 3. However, we have made many changes to it to allow books to, for example, be loaned out or tagged with a unique serial number.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+** Implemented the ability to *delete books*
+** Implemented the ab
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
