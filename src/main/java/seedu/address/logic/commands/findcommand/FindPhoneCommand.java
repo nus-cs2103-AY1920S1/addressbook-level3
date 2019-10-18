@@ -34,7 +34,7 @@ public class FindPhoneCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPhoneList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PHONE_LISTED_OVERVIEW, model.getFilteredPhoneList().size()));
     }
 
     @Override

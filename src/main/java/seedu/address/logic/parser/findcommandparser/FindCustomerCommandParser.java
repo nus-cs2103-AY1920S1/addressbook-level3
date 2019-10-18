@@ -18,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.predicates.ContactNumberContainsKeywordsPredicate;
 import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerTagContainsKeywordsPredicate;
 import seedu.address.model.customer.predicates.EmailContainsKeywordsPredicate;
 
 /**
@@ -33,7 +34,7 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
     public FindCustomerCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CONTACT, PREFIX_EMAIL);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CONTACT, PREFIX_EMAIL, PREFIX_TAG);
 
         //dummy predicate
         Predicate<Customer> predicate = x -> true;
@@ -49,31 +50,37 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_USAGE));
             }
 
-            String[] nameKeywords = trimmedArgs.split("\\s+");
-            predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList(nameKeywords))
-                    .or(new ContactNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)))
-                    .or(new EmailContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            String[] keywords = trimmedArgs.split("\\s+");
+            predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList(keywords))
+                    .or(new ContactNumberContainsKeywordsPredicate(Arrays.asList(keywords)))
+                    .or(new EmailContainsKeywordsPredicate(Arrays.asList(keywords)))
+                    .or(new CustomerTagContainsKeywordsPredicate(Arrays.asList(keywords)));
 
             return new FindCustomerCommand(predicate);
 
         }
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
 
-            predicate = predicate.and(new CustomerNameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new CustomerNameContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_CONTACT).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_CONTACT).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_CONTACT).get().split("\\s+");
 
-            predicate = predicate.and(new ContactNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new ContactNumberContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+");
 
-            predicate = predicate.and(new EmailContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new EmailContainsKeywordsPredicate(Arrays.asList(keywords)));
+        }
+
+        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            String[] keywords = argMultimap.getValue(PREFIX_TAG).get().split("\\s+");
+            predicate = predicate.and(new CustomerTagContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         return new FindCustomerCommand(predicate);

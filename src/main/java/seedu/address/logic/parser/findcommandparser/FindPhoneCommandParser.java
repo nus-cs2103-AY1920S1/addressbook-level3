@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 
@@ -25,6 +26,7 @@ import seedu.address.model.phone.predicates.ColourContainsKeywordsPredicate;
 import seedu.address.model.phone.predicates.CostContainsKeywordsPredicate;
 import seedu.address.model.phone.predicates.IdentityNumberContainsKeywordsPredicate;
 import seedu.address.model.phone.predicates.PhoneNameContainsKeywordsPredicate;
+import seedu.address.model.phone.predicates.PhoneTagContainsKeywordsPredicate;
 import seedu.address.model.phone.predicates.SerialNumberContainsKeywordsPredicate;
 
 /**
@@ -41,7 +43,7 @@ public class FindPhoneCommandParser implements Parser<FindPhoneCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_IDENTITYNUM, PREFIX_SERIALNUM, PREFIX_PHONENAME,
-                        PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST);
+                        PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST, PREFIX_TAG);
 
         //dummy predicate
         Predicate<Phone> predicate = x -> true;
@@ -51,7 +53,8 @@ public class FindPhoneCommandParser implements Parser<FindPhoneCommand> {
                 && ! argMultimap.getValue(PREFIX_BRAND).isPresent()
                 && ! argMultimap.getValue(PREFIX_CAPACITY).isPresent()
                 && ! argMultimap.getValue(PREFIX_COLOUR).isPresent()
-                && ! argMultimap.getValue(PREFIX_COST).isPresent()) {
+                && ! argMultimap.getValue(PREFIX_COST).isPresent()
+                && ! argMultimap.getValue(PREFIX_TAG).isPresent()) {
 
             String trimmedArgs = args.trim();
             if (trimmedArgs.isEmpty()) {
@@ -59,60 +62,66 @@ public class FindPhoneCommandParser implements Parser<FindPhoneCommand> {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPhoneCommand.MESSAGE_USAGE));
             }
 
-            String[] nameKeywords = trimmedArgs.split("\\s+");
+            String[] keywords = trimmedArgs.split("\\s+");
 
-            predicate = new PhoneNameContainsKeywordsPredicate(Arrays.asList(nameKeywords))
-                            .or(new BrandContainsKeywordsPredicate(Arrays.asList(nameKeywords)))
-                            .or(new CapacityContainsKeywordsPredicate(Arrays.asList(nameKeywords)))
-                            .or(new ColourContainsKeywordsPredicate(Arrays.asList(nameKeywords)))
-                            .or(new CostContainsKeywordsPredicate(Arrays.asList(nameKeywords)))
-                            .or(new IdentityNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)))
-                            .or(new SerialNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = new PhoneNameContainsKeywordsPredicate(Arrays.asList(keywords))
+                            .or(new BrandContainsKeywordsPredicate(Arrays.asList(keywords)))
+                            .or(new CapacityContainsKeywordsPredicate(Arrays.asList(keywords)))
+                            .or(new ColourContainsKeywordsPredicate(Arrays.asList(keywords)))
+                            .or(new CostContainsKeywordsPredicate(Arrays.asList(keywords)))
+                            .or(new IdentityNumberContainsKeywordsPredicate(Arrays.asList(keywords)))
+                            .or(new SerialNumberContainsKeywordsPredicate(Arrays.asList(keywords)))
+                            .or(new PhoneTagContainsKeywordsPredicate(Arrays.asList(keywords)));
 
             return new FindPhoneCommand(predicate);
 
         }
 
         if (argMultimap.getValue(PREFIX_IDENTITYNUM).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_IDENTITYNUM).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_IDENTITYNUM).get().split("\\s+");
 
-            predicate = predicate.and(new IdentityNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new IdentityNumberContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_SERIALNUM).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_SERIALNUM).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_SERIALNUM).get().split("\\s+");
 
-            predicate = predicate.and(new SerialNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new SerialNumberContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_PHONENAME).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_PHONENAME).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_PHONENAME).get().split("\\s+");
 
-            predicate = predicate.and(new PhoneNameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new PhoneNameContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_BRAND).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_BRAND).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_BRAND).get().split("\\s+");
 
-            predicate = predicate.and(new BrandContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new BrandContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_CAPACITY).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_CAPACITY).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_CAPACITY).get().split("\\s+");
 
-            predicate = predicate.and(new CapacityContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new CapacityContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_COLOUR).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_COLOUR).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_COLOUR).get().split("\\s+");
 
-            predicate = predicate.and(new ColourContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new ColourContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_COST).get().split("\\s+");
+            String[] keywords = argMultimap.getValue(PREFIX_COST).get().split("\\s+");
 
-            predicate = predicate.and(new CostContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicate = predicate.and(new CostContainsKeywordsPredicate(Arrays.asList(keywords)));
+        }
+
+        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            String[] keywords = argMultimap.getValue(PREFIX_TAG).get().split("\\s+");
+            predicate = predicate.and(new PhoneTagContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         return new FindPhoneCommand(predicate);
