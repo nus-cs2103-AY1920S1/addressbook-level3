@@ -50,7 +50,7 @@ public class DeleteGroceryCommand extends Command {
         model.deleteGroceryItem(groceryItemToDelete);
         CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_GROCERY_ITEM_SUCCESS,
                 groceryItemToDelete));
-        result.setWastelistCommand();
+        result.setWasteListCommand();
         return result;
     }
 

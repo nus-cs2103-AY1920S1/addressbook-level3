@@ -44,7 +44,9 @@ public class AddTemplateListCommand extends Command {
         }
 
         model.addTemplate(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        commandResult.setTemplateListCommand();
+        return commandResult;
     }
 
     @Override
