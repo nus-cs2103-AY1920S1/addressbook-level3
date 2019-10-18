@@ -11,12 +11,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
 import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.StartDateTime;
+import seedu.address.model.person.Person;
 import seedu.address.model.visit.Remark;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visittask.VisitTask;
+
 
 /**
  * Jackson-friendly version of {@link Visit}.

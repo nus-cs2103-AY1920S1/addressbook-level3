@@ -15,10 +15,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.datetime.EndDateTime;
+import seedu.address.model.datetime.StartDateTime;
 import seedu.address.model.person.Person;
-import seedu.address.model.visit.EndDateTime;
 import seedu.address.model.visit.Remark;
-import seedu.address.model.visit.StartDateTime;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visittask.VisitTask;
 
