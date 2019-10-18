@@ -22,7 +22,8 @@ public class DeleteExpenditureCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)";
 
     public static final String MESSAGE_DELETE_EXPENDITURE_FAILURE = "Failed to delete your expenditure, "
-            + "the index you specified is likely out of bounds!";
+            + "the expenditure you are trying to remove is likely to be associated with an event, please go to"
+            + " the corresponding event to delete the expenditure";
     public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "Deleted your expenditure : %1$s!";
 
     private final Index indexToDelete;
@@ -45,7 +46,7 @@ public class DeleteExpenditureCommand extends Command {
         // References preserved by PageStatus
         Expenditure expenditureToDelete = lastShownList.get(indexToDelete.getZeroBased());
         try {
-            model.getPageStatus().getTrip().getExpenditureList().remove(indexToDelete);
+            model.getPageStatus().getTrip().getExpenditureList().removeByUser(expenditureToDelete);
         } catch (Exception ex) {
             return new CommandResult(MESSAGE_DELETE_EXPENDITURE_FAILURE);
         }
