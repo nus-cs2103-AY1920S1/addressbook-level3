@@ -8,9 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.util.Pair;
-import seedu.address.model.CommandHistory;
-import seedu.address.model.policy.EndAge;
-import seedu.address.model.policy.StartAge;
 
 /**
  * An UI component that displays information of a {@code Pair<String, String>}.
@@ -34,13 +31,13 @@ public class HistoryCard extends UiPart<Region> {
     @FXML
     private Label userInput;
     @FXML
-    private FlowPane commandWord;
+    private FlowPane tags;
 
     public HistoryCard(Pair<String, String> command) {
         super(FXML);
         this.command = command;
         userInput.setText(command.getValue());
-        commandWord.getChildren().add(new Label(command.getKey()));
+        tags.getChildren().add(new Label(command.getKey()));
     }
 
     @Override
@@ -58,6 +55,6 @@ public class HistoryCard extends UiPart<Region> {
         // state check
         HistoryCard card = (HistoryCard) other;
         return userInput.equals(card.userInput)
-                && commandWord.equals(card.commandWord);
+                && tags.equals(card.tags);
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -45,6 +46,11 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
+
+        Optional<String> commandWord = addressBookParser.getCommandWord(commandText);
+        if (commandWord.isPresent()) {
+            commandHistory.addCommand(commandWord.get(), commandText);
+        }
         commandResult = command.execute(model);
 
         try {
@@ -62,6 +68,11 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText, isSystemInput);
+
+        Optional<String> commandWord = addressBookParser.getCommandWord(commandText);
+        if (commandWord.isPresent()) {
+            commandHistory.addCommand(commandWord.get(), commandText);
+        }
         commandResult = command.execute(model);
 
         try {

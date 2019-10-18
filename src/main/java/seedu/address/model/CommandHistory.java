@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
-import seedu.address.model.util.ObjectType;
 
 /**
  * Used to store a list of previously entered commands.
@@ -15,8 +14,6 @@ import seedu.address.model.util.ObjectType;
 public class CommandHistory {
 
     private final ObservableList<Pair<String, String>> userInputHistory = FXCollections.observableArrayList();
-    private final ObservableList<Pair<String, String>> unmodifiableUserInputHistory =
-            FXCollections.unmodifiableObservableList(userInputHistory);
 
     public CommandHistory() {}
 
@@ -34,7 +31,9 @@ public class CommandHistory {
      * Gets the history of previously entered commands.
      */
     public ObservableList<Pair<String, String>> getHistory() {
-        return unmodifiableUserInputHistory;
+        ObservableList<Pair<String, String>> reversedList = FXCollections.observableList(userInputHistory);
+        FXCollections.reverse(reversedList);
+        return FXCollections.unmodifiableObservableList(reversedList);
     }
 
     @Override
