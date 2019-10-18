@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.exceptions.CourseNotFoundException;
 
-
 /**
  * @author ryanYtan
  */
@@ -47,6 +46,20 @@ public class CourseUtilTest {
     };
 
     @Test
+    public void getCourse_validInput_success() {
+        for (String course : VALID_COURSE_CODES) {
+            assertDoesNotThrow(() -> CourseUtil.getCourse(course));
+        }
+    }
+
+    @Test
+    public void getCourse_invalidInput_throwsException() {
+        for (String course : INVALID_COURSE_CODES) {
+            assertThrows(CourseNotFoundException.class, () -> CourseUtil.getCourse(course));
+        }
+    }
+
+    @Test
     public void courseExists_validInput_doesNotThrowException() {
         for (String course : VALID_COURSE_CODES) {
             assertDoesNotThrow(() -> CourseUtil.courseExists(course));
@@ -60,48 +73,4 @@ public class CourseUtilTest {
         }
     }
 
-    @Test
-    public void getCourseJsonString_validInput_doesNotThrowException() {
-        for (String course : VALID_COURSE_CODES) {
-            assertDoesNotThrow(() -> CourseUtil.getCourseJsonString(course));
-        }
-    }
-
-
-    @Test
-    public void getCourseJsonString_invalidInput_throwsException() {
-        for (String course : INVALID_COURSE_CODES) {
-            assertThrows(
-                CourseNotFoundException.class, () -> CourseUtil.getCourseJsonString(course));
-        }
-    }
-
-    @Test
-    public void getJsonMap_validInput_doesNotThrowException() {
-        for (String course : VALID_COURSE_CODES) {
-            assertDoesNotThrow(() -> CourseUtil.getCourseMap(course));
-        }
-    }
-
-    @Test
-    public void getJsonMap_invalidInput_throwsException() {
-        for (String course : INVALID_COURSE_CODES) {
-            assertThrows(
-                CourseNotFoundException.class, () -> CourseUtil.getCourseJsonString(course));
-        }
-    }
-
-    @Test
-    public void getCourse_validInput_success() {
-        for (String course : VALID_COURSE_CODES) {
-            assertDoesNotThrow(() -> CourseUtil.getCourse(course));
-        }
-    }
-
-    @Test
-    public void getCourse_invalidInput_throwsException() {
-        for (String course : INVALID_COURSE_CODES) {
-            assertThrows(CourseNotFoundException.class, () -> CourseUtil.getCourse(course));
-        }
-    }
 }

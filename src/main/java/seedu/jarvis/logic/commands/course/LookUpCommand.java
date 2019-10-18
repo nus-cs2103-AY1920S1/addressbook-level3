@@ -30,9 +30,6 @@ public class LookUpCommand extends Command {
 
     public static final String MESSAGE_NO_INVERSE = "The command " + COMMAND_WORD + " cannot be undone";
 
-    public static final String MESSAGE_COURSE_NOT_FOUND =
-        "%s: The given course could not be found!";
-
     public static final boolean HAS_INVERSE = false;
 
     private final Course toShow;
@@ -60,17 +57,8 @@ public class LookUpCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        try {
-            CourseUtil.getCourse(toShow.getCourseCode().toString());
-        } catch (CourseNotFoundException e) {
-            throw new CommandException(MESSAGE_COURSE_NOT_FOUND);
-        }
-
         model.lookUpCourse(toShow);
-
         String toDisplay = toShow.toDisplayableString();
-
         // TODO display a success instead of showing result via CommandResult
         return new CommandResult(toDisplay);
     }
