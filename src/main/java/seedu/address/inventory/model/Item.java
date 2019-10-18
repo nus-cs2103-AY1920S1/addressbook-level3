@@ -84,6 +84,14 @@ public class Item {
         updateSubtotal();
     }
 
+    public boolean getSellable() {
+        if (price == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * Updates the subtotal.
      */
