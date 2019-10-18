@@ -20,7 +20,7 @@ import seedu.address.model.ReadOnlySpendingBook;
 import seedu.address.model.SpendingBook;
 
 public class JsonSpendingBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSpendingBookStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -47,17 +47,17 @@ public class JsonSpendingBookStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatSpendingBook.json"));
     }
 
     @Test
     public void readAddressBook_invalidSpendingAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidSpendingAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("invalidSpendingSpendingBook.json"));
     }
 
     @Test
     public void readAddressBook_invalidAndValidSpendingAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidSpendingAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidSpendingSpendingBook.json"));
     }
 
     @Test
