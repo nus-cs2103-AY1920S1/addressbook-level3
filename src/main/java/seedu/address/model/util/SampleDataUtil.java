@@ -7,9 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import seedu.address.model.CustomerBook;
-import seedu.address.model.OrderBook;
-import seedu.address.model.PhoneBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
@@ -29,6 +27,8 @@ import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
+
+import javax.xml.crypto.Data;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -83,9 +83,9 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyDataBook<Customer> getSampleCustomerBook() {
-        CustomerBook sampleCustBook = new CustomerBook();
+        DataBook<Customer> sampleCustBook = new DataBook<>();
         for (Customer sampleCustomer : getSampleCustomers()) {
-            sampleCustBook.addCustomer(sampleCustomer);
+            sampleCustBook.add(sampleCustomer);
         }
         return sampleCustBook;
     }
@@ -120,9 +120,9 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyDataBook<Phone> getSamplePhoneBook() {
-        PhoneBook samplePhoneBook = new PhoneBook();
+        DataBook<Phone> samplePhoneBook = new DataBook<>();
         for (Phone samplePhone : getSamplePhones()) {
-            samplePhoneBook.addPhone(samplePhone);
+            samplePhoneBook.add(samplePhone);
         }
         return samplePhoneBook;
     }
@@ -186,9 +186,9 @@ public class SampleDataUtil {
 
 
     public static ReadOnlyDataBook<Order> getSampleOrderBook() {
-        OrderBook sampleOrderBook = new OrderBook();
+        DataBook<Order> sampleOrderBook = new DataBook<>();
         for (Order sampleOrder : getSampleOrders()) {
-            sampleOrderBook.addOrder(sampleOrder);
+            sampleOrderBook.add(sampleOrder);
         }
         return sampleOrderBook;
     }

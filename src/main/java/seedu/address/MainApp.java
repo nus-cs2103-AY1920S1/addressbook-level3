@@ -15,7 +15,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.CustomerBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
@@ -107,17 +107,17 @@ public class MainApp extends Application {
             customerBookOptional = storage.readCustomerBook();
 
             if (!customerBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample CustomerBook");
+                logger.info("Data file not found. Will be starting with a sample Customer DataBook");
             }
             initialCustomerData = customerBookOptional.orElseGet(SampleDataUtil::getSampleCustomerBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty CustomerBook");
-            initialCustomerData = new CustomerBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Customer DataBook");
+            initialCustomerData = new DataBook<>();
 
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty CustomerBook");
-            initialCustomerData = new CustomerBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Customer DataBook");
+            initialCustomerData = new DataBook<>();
         }
 
         try {

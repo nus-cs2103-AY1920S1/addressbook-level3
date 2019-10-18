@@ -89,7 +89,7 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-    // ================ CustomerBook methods ==============================
+    // ================ Customer DataBook methods ==============================
 
     @Override
     public Path getCustomerBookFilePath() {

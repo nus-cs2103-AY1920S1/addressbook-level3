@@ -108,7 +108,7 @@ public interface Model {
      */
     void setCustomerBook(ReadOnlyDataBook<Customer> customerBook);
 
-    /** Returns the CustomerBook */
+    /** Returns the customer DataBook */
     ReadOnlyDataBook<Customer> getCustomerBook();
 
     /**
