@@ -16,7 +16,8 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Switches the current view to list all contacts or activities.\n"
+            + ": Switches the current view to list all contacts or activities. "
+            + "If an argument is supplied with a parameter, it is ignored.\n"
             + "Parameters: " + PREFIX_CONTACT + " OR " + PREFIX_ACTIVITY + "\n"
             + "Example: list " + PREFIX_CONTACT;
 
