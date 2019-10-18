@@ -21,7 +21,7 @@ public class AddTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "addTask";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the planner. "
             + "Parameters: "
             + PREFIX_TASK_TYPE + "TASK TYPE "
             + PREFIX_TASK_DES + "TASK DES "
