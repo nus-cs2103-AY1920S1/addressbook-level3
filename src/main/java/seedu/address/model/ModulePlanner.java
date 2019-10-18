@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -259,10 +260,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return moduleInfo == null ? null : moduleInfo.getInformation();
     }
 
+    //=========== Module Information and Verification =============================================================
+
     /**
      * Returns this module planner's ModulesInfo object.
-     *
-     * @return This module planner's ModulesInfo object.
      */
     public ModulesInfo getModulesInfo() {
         return modulesInfo;
@@ -270,6 +271,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     public void updatePrereqs() {
         this.activeStudyPlan.updatePrereqs();
+    }
+
+    public List<String> getValidMods(SemesterName semName) {
+        if (this.activeStudyPlan == null) {
+            return new ArrayList<>(); // TODO: might want to change it to an assertion, this should not be called maybe?
+        }
+        return this.activeStudyPlan.getValidMods(semName);
     }
 
     public void changeActiveStudyPlanTitle(String title) {

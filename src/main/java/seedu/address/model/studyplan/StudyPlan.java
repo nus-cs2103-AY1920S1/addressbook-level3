@@ -1,6 +1,7 @@
 package seedu.address.model.studyplan;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -288,10 +289,41 @@ public class StudyPlan implements Cloneable {
             for (Module mod : sem.getModules()) {
                 String moduleCode = mod.getModuleCode().toString();
                 thisSemCodes.add(moduleCode);
-                mod.verify(prevSemCodes);
+                mod.verifyAndUpdate(prevSemCodes);
             }
             prevSemCodes.addAll(thisSemCodes);
         }
+    }
+
+    /**
+     * Returns a list of valid modules that can be taken in a given semester.
+     * This will return all valid modules for the semester, even if they're already in the study plan.
+     */
+    public List<String> getValidMods(SemesterName semName) {
+        ArrayList<String> prevSemCodes = new ArrayList<>();
+        for (Semester sem : semesters) {
+            if (sem.getSemesterName() == semName) {
+                break;
+            }
+            for (Module mod : sem.getModules()) {
+                prevSemCodes.add(mod.getModuleCode().toString());
+            }
+        }
+
+        ArrayList<String> result = new ArrayList<>();
+        for (Module mod : modules.values()) {
+            String moduleCode = mod.getModuleCode().toString();
+            if (prevSemCodes.contains(moduleCode)) {
+                continue;
+            }
+            // At this point, mod should not be inside prevSemCodes -- if verify, add to result
+            if (mod.verify(prevSemCodes)) {
+                result.add(moduleCode);
+            }
+        }
+
+        Collections.sort(result);
+        return result;
     }
 
     /**
