@@ -12,6 +12,7 @@ import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.logic.parser.IchiFundParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
+import seedu.ichifund.logic.tasks.TaskManager;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
@@ -29,11 +30,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final IchiFundParser ichiFundParser;
+    private final TaskManager taskManager;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         ichiFundParser = new IchiFundParser();
+        taskManager = new TaskManager();
     }
 
     @Override
@@ -43,6 +46,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = ichiFundParser.parseCommand(commandText);
         commandResult = command.execute(model);
+        taskManager.executeAll(model);
 
         try {
             storage.saveFundBook(model.getFundBook());
@@ -51,6 +55,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public void executeAllTasks() {
+        taskManager.executeAll(model);
     }
 
     @Override

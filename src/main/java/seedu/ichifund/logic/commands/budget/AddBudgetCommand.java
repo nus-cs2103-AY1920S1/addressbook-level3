@@ -2,7 +2,10 @@ package seedu.ichifund.logic.commands.budget;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
@@ -17,11 +20,15 @@ public class AddBudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "badd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a budget to IchiFund. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a budget to IchiFund.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_AMOUNT + "AMOUNT\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_AMOUNT + "AMOUNT "
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
+            + "[" + PREFIX_MONTH + "MONTH "
+            + PREFIX_YEAR + "YEAR]\n"
+            + "Example: "
+            + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Saving for my future "
             + PREFIX_AMOUNT + "200.00";
 
