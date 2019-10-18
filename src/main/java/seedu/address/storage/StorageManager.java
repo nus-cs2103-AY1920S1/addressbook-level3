@@ -119,7 +119,7 @@ public class StorageManager implements Storage {
         customerBookStorage.saveCustomerBook(customerBook, filePath);
     }
 
-    // ================ PhoneBook methods ==============================
+    // ================ Phone DataBook methods ==============================
 
     @Override
     public Path getPhoneBookFilePath() {
@@ -179,7 +179,7 @@ public class StorageManager implements Storage {
         scheduleBookStorage.saveScheduleBook(scheduleBook, filePath);
     }
 
-    // ================ OrderBook methods ==============================
+    // ================ Order DataBook methods ==============================
 
     @Override
     public Path getOrderBookFilePath() {

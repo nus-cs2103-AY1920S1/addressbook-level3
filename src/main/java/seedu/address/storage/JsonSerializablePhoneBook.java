@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.PhoneBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.phone.Phone;
 
 /**
- * An Immutable PhoneBook that is serializable to JSON format.
+ * An Immutable Phone DataBook that is serializable to JSON format.
  */
 @JsonRootName(value = "phonebook")
 class JsonSerializablePhoneBook {
@@ -41,18 +41,18 @@ class JsonSerializablePhoneBook {
     }
 
     /**
-     * Converts this phone book into the model's {@code PhoneBook} object.
+     * Converts this phone book into the model's {@code DataBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public PhoneBook toModelType() throws IllegalValueException {
-        PhoneBook phoneBook = new PhoneBook();
+    public DataBook<Phone> toModelType() throws IllegalValueException {
+        DataBook<Phone> phoneBook = new DataBook<>();
         for (JsonAdaptedPhone jsonAdaptedPhone : phones) {
             Phone phone = jsonAdaptedPhone.toModelType();
-            if (phoneBook.hasPhone(phone)) {
+            if (phoneBook.has(phone)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PHONE);
             }
-            phoneBook.addPhone(phone);
+            phoneBook.add(phone);
         }
         return phoneBook;
     }

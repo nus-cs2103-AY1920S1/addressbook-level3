@@ -330,7 +330,7 @@ public class ModelManager implements Model {
         filteredPhones.setPredicate(predicate);
     }
 
-    //=========== OrderBook ================================================================================
+    //=========== Order DataBook ================================================================================
 
     @Override
     public void setOrderBook(ReadOnlyDataBook<Order> orderBook) {

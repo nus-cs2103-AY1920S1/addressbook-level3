@@ -9,7 +9,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 
 /**
- * Represents a storage for {@link seedu.address.model.DataBook<Customer>}.
+ * Represents a storage for {@link Customer} {@link seedu.address.model.DataBook}.
  */
 public interface CustomerBookStorage {
 

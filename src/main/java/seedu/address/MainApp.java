@@ -18,8 +18,6 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.OrderBook;
-import seedu.address.model.PhoneBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ScheduleBook;
@@ -124,37 +122,37 @@ public class MainApp extends Application {
             phoneBookOptional = storage.readPhoneBook();
 
             if (!phoneBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample PhoneBook");
+                logger.info("Data file not found. Will be starting with a sample Phone DataBook");
             }
 
             initialPhoneData = phoneBookOptional.orElseGet(SampleDataUtil::getSamplePhoneBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty PhoneBook");
-            initialPhoneData = new PhoneBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Phone DataBook");
+            initialPhoneData = new DataBook<>();
 
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty PhoneBook");
-            initialPhoneData = new PhoneBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Phone DataBook");
+            initialPhoneData = new DataBook<>();
         }
 
         try {
             orderBookOptional = storage.readOrderBook();
 
             if (!orderBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample OrderBook");
+                logger.info("Data file not found. Will be starting with a sample Order DataBook");
             }
 
             initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Order DataBook");
 
-            initialOrderData = new OrderBook();
+            initialOrderData = new DataBook<>();
 
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
-            initialOrderData = new OrderBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Order DataBook");
+            initialOrderData = new DataBook<>();
         }
 
         //ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();

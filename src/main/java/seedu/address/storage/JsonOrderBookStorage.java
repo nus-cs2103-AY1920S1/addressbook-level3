@@ -16,7 +16,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 
 /**
- * A class to access OrderBook data stored as a json file on the hard disk.
+ * A class to access Order DataBook data stored as a json file on the hard disk.
  */
 public class JsonOrderBookStorage implements OrderBookStorage {
 

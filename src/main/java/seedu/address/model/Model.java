@@ -151,7 +151,7 @@ public interface Model {
      */
     void setPhoneBook(ReadOnlyDataBook<Phone> phoneBook);
 
-    /** Returns the PhoneBook */
+    /** Returns the Phone DataBook */
     ReadOnlyDataBook<Phone> getPhoneBook();
 
     /**
