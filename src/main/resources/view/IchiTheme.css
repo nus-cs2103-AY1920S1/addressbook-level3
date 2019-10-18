@@ -180,3 +180,13 @@
 .cell_small_label {
     -fx-font-size: 10px;
 }
+
+#budgetProgress {
+    -fx-accent: #00b894;
+    -fx-margin: 5px;
+}
+
+#budgetProgress .bar {
+    -fx-background-insets: 1 1 2 1;
+    -fx-padding: 3px;
+}

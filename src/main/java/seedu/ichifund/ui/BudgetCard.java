@@ -2,8 +2,10 @@ package seedu.ichifund.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.budget.ComputedBudget;
 
@@ -34,6 +36,8 @@ public class BudgetCard extends UiPart<Region> {
     private Label amount;
     @FXML
     private Label criterion;
+    @FXML
+    private ProgressBar budgetProgress;
 
     public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
@@ -43,11 +47,20 @@ public class BudgetCard extends UiPart<Region> {
         criterion.setText(budget.toCriterionString());
 
         if (budget instanceof ComputedBudget) {
-            amount.setText("$" + ((ComputedBudget) budget).getSpending().toString()
-                    + " / $" + budget.getAmount().toString());
+            Amount spending = ((ComputedBudget) budget).getSpending();
+            Amount limit = budget.getAmount();
+            double ratio = (double) spending.valueInCents / limit.valueInCents;
+            amount.setText("$" + spending.toString() + " / $" + limit.toString());
+            budgetProgress.setProgress(ratio);
+            budgetProgress.setStyle("-fx-accent: " + getBarColor(ratio));
         } else {
             amount.setText("$" + budget.getAmount().toString());
+            budgetProgress.setProgress(0.0);
         }
+    }
+
+    private String getBarColor(double ratio) {
+        return ratio > 0.8 ? "#ff7675" : "#00b894";
     }
 
     @Override

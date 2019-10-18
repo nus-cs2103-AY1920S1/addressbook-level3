@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ProgressBar?>
+
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -26,10 +28,18 @@
                 </Label>
                 <Label fx:id="description" text="\$description" styleClass="cell_big_label" />
             </HBox>
-            <HBox>
-                <Label fx:id="amount" text="\$amount" />
-            </HBox>
             <Label fx:id="criterion" styleClass="cell_small_label" text="\$criterion" />
+            <VBox>
+                <padding>
+                    <Insets top="5" />
+                </padding>
+                <Label fx:id="amount" text="\$amount" />
+                <ProgressBar fx:id="budgetProgress" progress="0" prefWidth="200">
+                    <VBox.margin>
+                        <Insets top="5" />
+                    </VBox.margin>
+                </ProgressBar>
+            </VBox>
         </VBox>
     </GridPane>
 </HBox>
