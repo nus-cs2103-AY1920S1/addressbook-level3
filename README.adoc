@@ -1,6 +1,7 @@
 # Milestone v1.3
 
 Free Time
+
 - [ ] Show Free Time
 - [ ] Popup
 - [ ] NusMods + GMaps
