@@ -1,12 +1,21 @@
 package seedu.address.logic.parser.findcommandparser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 
+import java.util.function.Predicate;
 import seedu.address.logic.commands.findcommand.FindCustomerCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.predicates.ContactNumberContainsKeywordsPredicate;
 import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
 import seedu.address.model.customer.predicates.EmailContainsKeywordsPredicate;
@@ -22,18 +31,52 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCustomerCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_USAGE));
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CONTACT, PREFIX_EMAIL);
+
+        //dummy predicate
+        Predicate<Customer> predicate = x -> true;
+
+        if (! argMultimap.getValue(PREFIX_NAME).isPresent()
+                && ! argMultimap.getValue(PREFIX_CONTACT).isPresent()
+                && ! argMultimap.getValue(PREFIX_EMAIL).isPresent()
+                && ! argMultimap.getValue(PREFIX_TAG).isPresent()) {
+
+            String trimmedArgs = args.trim();
+            if (trimmedArgs.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_USAGE));
+            }
+
+            String[] nameKeywords = trimmedArgs.split("\\s+");
+            predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList(nameKeywords))
+                    .or(new ContactNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)))
+                    .or(new EmailContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+
+            return new FindCustomerCommand(predicate);
+
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            String[] nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
 
-        return new FindCustomerCommand(
-                new CustomerNameContainsKeywordsPredicate(Arrays.asList(nameKeywords))
-                        .or(new ContactNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)))
-                        .or(new EmailContainsKeywordsPredicate(Arrays.asList(nameKeywords))));
+            predicate = predicate.and(new CustomerNameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        }
+
+        if (argMultimap.getValue(PREFIX_CONTACT).isPresent()) {
+            String[] nameKeywords = argMultimap.getValue(PREFIX_CONTACT).get().split("\\s+");
+
+            predicate = predicate.and(new ContactNumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        }
+
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            String[] nameKeywords = argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+");
+
+            predicate = predicate.and(new EmailContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        }
+
+        return new FindCustomerCommand(predicate);
     }
 
 }
