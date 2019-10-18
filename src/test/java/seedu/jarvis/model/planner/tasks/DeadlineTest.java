@@ -51,21 +51,21 @@ class DeadlineTest {
     }
 
     @Test
-    void isEqual_validInput_true() {
+    void equals_validInput_true() {
         LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline deadlineOne = new Deadline("borrow book", deadlineOneCal);
         Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
-        assertTrue(deadlineOne.isEqual(deadlineTwo));
+        assertTrue(deadlineOne.equals(deadlineTwo));
     }
 
     @Test
-    void isEqual_validInput_false() {
+    void equals_validInput_false() {
         LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline deadlineOne = new Deadline("borrow hello", deadlineOneCal);
         Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
-        assertFalse(deadlineOne.isEqual(deadlineTwo));
+        assertFalse(deadlineOne.equals(deadlineTwo));
     }
 
     @Test
