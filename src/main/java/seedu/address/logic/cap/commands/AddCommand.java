@@ -20,13 +20,13 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a person to the address book. "
+            + ": Adds a module to the study tracker. "
             + "Parameters: "
             + PREFIX_MODULE_CODE + "MODULE CODE "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_FACULTY + "FACULTY "
             + PREFIX_CREDIT + "CREDIT "
-            + PREFIX_DESCRIPTION + "ADDRESS ";
+            + PREFIX_DESCRIPTION + "DESCRIPTION ";
 
     public static final String MESSAGE_SUCCESS = "New module added to modulo tracker: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in this semester";
