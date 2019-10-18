@@ -19,6 +19,10 @@ import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.employee.EmployeePosition;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventManpowerNeeded;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
 /**

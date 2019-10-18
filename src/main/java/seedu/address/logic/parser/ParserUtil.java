@@ -12,7 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
 import seedu.address.model.employee.EmployeeAddress;
 import seedu.address.model.employee.EmployeeEmail;
 import seedu.address.model.employee.EmployeeGender;
@@ -21,9 +20,7 @@ import seedu.address.model.employee.EmployeeJoinDate;
 import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.employee.EmployeePosition;
-import seedu.address.model.event.EventEndDate;
-import seedu.address.model.event.EventHoursNeeded;
-import seedu.address.model.event.EventId;
+import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
@@ -143,6 +140,32 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String phone} into a {@code EmployeePhone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     */
+    public static EmployeeId parseEmployeeId() {
+        return new EmployeeId();
+    }
+
+    /**
+     * Parses a {@code String EmployeeJoinDate} into a {@code joinDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code EmployeeJoinDate} is invalid.
+     */
+    public static EmployeeJoinDate parseJoinDate(String joinDate) throws ParseException {
+        requireNonNull(joinDate);
+        String trimmed = joinDate.trim();
+        if (!EmployeeJoinDate.isValidJoinDate(trimmed)) {
+            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
+        }
+        LocalDate newJoinDate = LocalDate.parse(trimmed, FORMATTER);
+        return new EmployeeJoinDate(newJoinDate);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -170,16 +193,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code EmployeePhone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static EmployeeId parseEmployeeId() {
-        return new EmployeeId();
-    }
-
-    /**
      * Parses a {@code String Eventname} into a {@code EventName}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -188,8 +201,8 @@ public class ParserUtil {
     public static EventName parseEventName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!EmployeeName.isValidName(trimmedName)) {
-            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
+        if (!EventName.isValidName(trimmedName)) {
+            throw new ParseException(EventName.MESSAGE_CONSTRAINTS);
         }
         return new EventName(trimmedName);
     }
@@ -210,54 +223,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String hoursNeeded} into a {@code EventHoursNeeded}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code EventHoursNeeded} is invalid.
-     */
-    public static EventHoursNeeded parseHoursNeeded(String hoursNeeded) throws ParseException {
-        requireNonNull(hoursNeeded);
-        String trimmed = hoursNeeded.trim();
-        if (!EventHoursNeeded.isValidEventHours(trimmed)) {
-            throw new ParseException(EventHoursNeeded.MESSAGE_CONSTRAINTS);
-        }
-        return new EventHoursNeeded(trimmed);
-    }
-
-    /**
-     * Parses a {@code String EventStartDate} into a {@code startDate}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code EventStartDate} is invalid.
-     */
-    public static EventStartDate parseStartDate(String startDate) throws ParseException {
-        requireNonNull(startDate);
-        String trimmed = startDate.trim();
-        if (!EventStartDate.isValidStartDate(trimmed)) {
-            throw new ParseException(EventStartDate.MESSAGE_CONSTRAINTS);
-        }
-        LocalDate newStartDate = LocalDate.parse(trimmed, FORMATTER);
-        return new EventStartDate(newStartDate);
-    }
-
-    /**
-     * Parses a {@code String EmployeeJoinDate} into a {@code joinDate}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code EmployeeJoinDate} is invalid.
-     */
-    public static EmployeeJoinDate parseJoinDate(String joinDate) throws ParseException {
-        requireNonNull(joinDate);
-        String trimmed = joinDate.trim();
-        if (!EmployeeJoinDate.isValidJoinDate(trimmed)) {
-            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
-        }
-        LocalDate newJoinDate = LocalDate.parse(trimmed, FORMATTER);
-        return new EmployeeJoinDate(newJoinDate);
-    }
-
-    /**
-     * Parses a {@code String EventEndDate} into a {@code endDate}.
+     * Parses a {@code String date} into a {@code EventDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code EventDate} is invalid.
@@ -286,6 +252,4 @@ public class ParserUtil {
         }
         return new EventManpowerNeeded(trimmed);
     }
-
-
 }
