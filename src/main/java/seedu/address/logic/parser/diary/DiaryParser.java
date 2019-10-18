@@ -25,7 +25,7 @@ public class DiaryParser implements PageParser {
             + CreateDiaryEntryCommand.COMMAND_WORD + " "
             + DoneEditDiaryEntryCommand.COMMAND_WORD + " "
             + AddPhotoCommand.COMMAND_WORD + " "
-            + DeletePhotoCommand.COMMAND_WORD + " "
+            + DeletePhotoCommand.COMMAND_WORD + " | "
             + NavbarViewParser.MESSAGE_COMMAND_TYPES;
 
     @Override

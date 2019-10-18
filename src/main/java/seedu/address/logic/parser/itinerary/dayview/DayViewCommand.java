@@ -7,9 +7,5 @@ public enum DayViewCommand {
     CREATE,
     GOTO,
     EDIT,
-    DELETE,
-    HOME,
-    DAYS,
-    ITINERARY,
-    EXPENSE
+    DELETE
 }
