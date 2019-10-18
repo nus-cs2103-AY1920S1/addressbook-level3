@@ -6,7 +6,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.financialtracker.Model.Expense.Expense;
+import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.ui.UiPart;
 
 import java.util.logging.Logger;

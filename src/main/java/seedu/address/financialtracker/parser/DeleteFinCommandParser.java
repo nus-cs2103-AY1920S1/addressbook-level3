@@ -7,13 +7,13 @@ import seedu.address.financialtracker.commands.DeleteFinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteFinCommand object
  */
 public class DeleteFinCommandParser implements Parser<DeleteFinCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteFinCommand
+     * and returns a DeleteFinCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteFinCommand parse(String args) throws ParseException {

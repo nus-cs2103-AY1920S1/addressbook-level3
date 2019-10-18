@@ -386,4 +386,3 @@ public class HelpCommandWindow extends UiPart<Stage> {
         }
     }
 }
-

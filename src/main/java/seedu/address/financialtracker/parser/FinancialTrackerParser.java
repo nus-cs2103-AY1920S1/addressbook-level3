@@ -7,11 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.financialtracker.commands.AddFinCommand;
-import seedu.address.financialtracker.commands.DeleteFinCommand;
-import seedu.address.financialtracker.commands.MainCommand;
-import seedu.address.financialtracker.commands.SummaryCommand;
 import seedu.address.financialtracker.commands.Command;
+import seedu.address.financialtracker.commands.DeleteFinCommand;
 import seedu.address.financialtracker.commands.ExitCommand;
+import seedu.address.financialtracker.commands.SummaryCommand;
+import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -41,24 +41,23 @@ public class FinancialTrackerParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        case AddFinCommand.COMMAND_WORD:
+            return new AddFinCommandParser().parse(arguments);
 
-            case AddFinCommand.COMMAND_WORD:
-                return new AddFinCommandParser().parse(arguments);
+        case DeleteFinCommand.COMMAND_WORD:
+            return new DeleteFinCommandParser().parse(arguments);
 
-            case DeleteFinCommand.COMMAND_WORD:
-                return new DeleteFinCommandParser().parse(arguments);
+        case SummaryCommand.COMMAND_WORD:
+            return new SummaryCommand();
 
-            case SummaryCommand.COMMAND_WORD:
-                return new SummaryCommand();
+        case GoToCommand.COMMAND_WORD:
+            return new GoToCommandParser().parse(arguments);
 
-            case MainCommand.COMMAND_WORD:
-                return new MainCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

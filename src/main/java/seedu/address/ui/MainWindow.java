@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.diaryfeature.diaryUI.DiaryPage;
 import seedu.address.financialtracker.ui.FinancialTrackerPage;
 import seedu.address.itinerary.ui.ItineraryPage;
 import seedu.address.logic.Logic;
@@ -45,6 +46,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private FinancialTrackerPage financialTrackerPage;
     private CalendarPage calendarPage;
     private ItineraryPage itineraryPage;
+    private DiaryPage diaryPage;
     private AchievementsPage achievementsPage;
 
     @FXML
@@ -82,6 +84,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         financialTrackerPage = new FinancialTrackerPage();
         calendarPage = new CalendarPage();
         itineraryPage = new ItineraryPage();
+        diaryPage = new DiaryPage();
         achievementsPage = new AchievementsPage();
 
         mainScene = primaryStage.getScene();
@@ -89,7 +92,9 @@ public class MainWindow extends UiPart<Stage> implements Page {
         // todo-this-week: call the PageScene constructor with your page scene instead,
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage, financialTrackerPage, achievementsPage);
+        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage,
+                financialTrackerPage, achievementsPage);
+
     }
 
     public Stage getPrimaryStage() {
@@ -102,6 +107,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
     /**
      * Sets the accelerator of a MenuItem.
+     * 
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
