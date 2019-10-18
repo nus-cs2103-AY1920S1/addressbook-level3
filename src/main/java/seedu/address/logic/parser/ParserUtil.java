@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.WindowView;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
@@ -32,6 +33,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    private static int viewIndexNumber;
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -58,6 +60,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String destination} into a {@code WindowView}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code destination} is invalid.
+     */
+    public static WindowView parseWindowView(String destination) throws ParseException {
+        requireNonNull(destination);
+        String trimmedDestination = destination.trim();
+        if (!WindowView.isValidWindowView(trimmedDestination)) {
+            throw new ParseException(WindowView.MESSAGE_CONSTRAINTS);
+        }
+        return new WindowView(trimmedDestination);
     }
 
     /**
