@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.logic.parser.ParserUtil;
+import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
@@ -91,5 +93,43 @@ class TaskListTest {
 
         assertFalse(one.equals(two));
 
+    }
+
+    @Test
+    void getTask() throws ParseException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("borrow book"));
+        tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasks.add(new Todo("help"));
+        TaskList taskTest = new TaskList(tasks);
+
+        Task expected = new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat()));
+
+        assertTrue(expected.isEqual(taskTest.getTask(ParserUtil.parseIndex("2"))));
+    }
+
+    @Test
+    void size() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("borrow book"));
+        tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasks.add(new Todo("help"));
+        TaskList taskTest = new TaskList(tasks);
+
+        assertEquals(3, taskTest.size());
+    }
+
+    @Test
+    void deleteTask() throws ParseException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("borrow book"));
+        tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasks.add(new Todo("help"));
+        TaskList taskTest = new TaskList(tasks);
+
+        taskTest.deleteTask(ParserUtil.parseIndex("2"));
+
+        assertEquals(2, taskTest.size());
+        assertTrue(new Todo("help").isEqual(taskTest.getTask(ParserUtil.parseIndex("2"))));
     }
 }
