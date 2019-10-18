@@ -15,7 +15,7 @@ public class AutotagController {
     private final List<SelectiveBookmarkTagger> taggers;
 
     /**
-     * Create a new {@code AutotagController} with an empty list of taggers.
+     * Creates a new {@code AutotagController} with an empty list of taggers.
      */
     public AutotagController() {
         this.taggers = new ArrayList<>();
