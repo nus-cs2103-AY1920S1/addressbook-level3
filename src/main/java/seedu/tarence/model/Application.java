@@ -14,6 +14,7 @@ import seedu.tarence.logic.commands.Command;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.module.UniqueModuleList;
+import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.person.UniquePersonList;
 import seedu.tarence.model.student.Student;
@@ -244,6 +245,28 @@ public class Application implements ReadOnlyApplication {
                 break;
             }
         }
+    }
+
+    /**
+     * Checks whether a combination of the given student name, tutorial name, and module code exists in the application.
+     */
+    public boolean hasStudentInTutorialAndModule(Name studName, TutName tutName, ModCode modCode) {
+        for (Module module : modules) {
+            if (!module.getModCode().equals(modCode)) {
+                continue;
+            }
+            for (Tutorial tutorial : module.getTutorials()) {
+                if (!tutorial.getTutName().equals(tutName)) {
+                    continue;
+                }
+                for (Student student : tutorial.getStudents()) {
+                    if (student.getName().equals(studName)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     ////=================== module-level operations    =================================================================

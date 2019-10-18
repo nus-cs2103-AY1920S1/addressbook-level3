@@ -1,12 +1,25 @@
 package seedu.tarence.ui;
 
-import java.util.logging.Logger;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -18,9 +31,10 @@ import seedu.tarence.logic.Logic;
 import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
-import seedu.tarence.model.module.Module;
 import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Attendance;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.Week;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -41,9 +55,9 @@ public class MainWindow extends UiPart<Stage> {
     private StudentListPanel studentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ObservableList<Module> modList;
-    private ObservableList<Student> studentList;
-    private ObservableList<Tutorial> tutorialList;
+
+    @FXML
+    private TableView attendancePlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -82,6 +96,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        attendancePlaceholder.setPlaceholder(getPlaceHolderLabel());
     }
 
     public Stage getPrimaryStage() {
@@ -158,6 +174,79 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Displays the given attendance to the user
+     * @param tutorialAttendance
+     */
+    public void showAttendance(Tutorial tutorialAttendance) {
+        attendancePlaceholder.getItems().clear();
+        try {
+            ObservableList<String[]> observableAttendance = generateData(tutorialAttendance);
+            attendancePlaceholder.setItems(observableAttendance);
+            attendancePlaceholder.getColumns().setAll(createColumns());
+            logger.info("successfully displayed:)");
+        } catch (NullPointerException e) {
+            attendancePlaceholder.getItems().clear();
+        }
+    }
+
+    /**
+     * Generates an observable list based on the given tutorial attendane
+     * Solution below adopted from:
+     * {https://stackoverflow.com/questions/41771098/how-to-plot-a-simple-double-matrix-into-tableview-in-javafx}
+     */
+    private ObservableList<String[]> generateData(Tutorial tutorialAttendance) {
+        ObservableList<String[]> list = FXCollections.observableArrayList();
+
+        String checkMark = Character.toString((char) 0x2713);
+        String uncheckedSlot = "";
+        int totalNumOfWeeks = 13;
+
+        Set<Week> weeks = tutorialAttendance.getTimeTable().getWeeks();
+        List<Student> students = tutorialAttendance.getStudents();
+        Attendance attendance = tutorialAttendance.getAttendance();
+
+        // TODO: to be refactored
+        for (Student student : students) {
+            List<String> attendanceList = new ArrayList<>();
+            attendanceList.add(student.getName().toString());
+            for (int i = 0; i < totalNumOfWeeks; i++) {
+                Week week = new Week(i + 1);
+                if (weeks.contains(week) && attendance.isPresent(week, student)) {
+                    attendanceList.add(checkMark);
+                } else {
+                    attendanceList.add(uncheckedSlot);
+                }
+            }
+            String[] arr = attendanceList.toArray(new String[0]);
+            list.add(arr);
+        }
+        return list;
+    }
+
+    private List<TableColumn<String[], String>> createColumns() {
+        return IntStream.range(0, 14)
+                .mapToObj(this::createColumn)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Creates and returns a valid table column containing information from each column
+     * of the attendance
+     */
+    private TableColumn<String[], String> createColumn(int col) {
+        String header;
+        if (col == 0) {
+            header = "Name";
+        } else {
+            header = Integer.toString(col);
+        }
+        TableColumn<String[], String> column = new TableColumn<>(header);
+        column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()[col]));
+
+        return column;
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -171,6 +260,18 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
+    }
+
+    private Label getPlaceHolderLabel() {
+        String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
+                + "To see all user commands, type \"help\"\n"
+                + "To view a class attendance, type:\n"
+                + " displayAttendance "
+                + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
+                + PREFIX_MODULE + "MODULE_CODE \n";
+
+        Label placeholder = new Label(defaultMessage);
+        return placeholder;
     }
 
     /**
@@ -199,6 +300,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            showAttendance(commandResult.getTutorialAttendance());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -213,21 +315,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        }
-    }
-
-    /**
-     * TODO: to be updated
-     */
-    private void updateStudList(int idx) {
-        if (idx == -1) {
-            this.studentList.clear();
-            for (int i = 0; i < this.tutorialList.size(); i++) {
-                this.studentList.addAll(this.tutorialList.get(i).getStudents());
-            }
-        } else {
-            this.studentList.clear();
-            this.studentList.addAll(this.tutorialList.get(idx).getStudents());
         }
     }
 

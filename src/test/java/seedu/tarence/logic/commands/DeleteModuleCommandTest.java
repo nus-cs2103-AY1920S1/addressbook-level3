@@ -1,5 +1,6 @@
 package seedu.tarence.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -10,10 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
+import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
 import seedu.tarence.model.builder.ModuleBuilder;
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 
 /**
@@ -24,6 +27,7 @@ public class DeleteModuleCommandTest {
 
     public static final String VALID_MODCODE = "GET1029";
     public static final String VALID_MODCODE_ALT = "CS2040";
+    public static final String SIMILAR_MODCODE = "GET1028";
     public static final String VALID_TUTNAME = "WhyIsThisClassAt8am";
     private Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
 
@@ -48,6 +52,19 @@ public class DeleteModuleCommandTest {
         DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteModuleCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_similarModuleSuggested_promptSuggestionSelection() throws CommandException {
+        ModuleBuilder.DEFAULT_TUTORIALS.clear();
+        Module similarModule = new ModuleBuilder().withModCode(SIMILAR_MODCODE).build();
+        model.addModule(similarModule);
+
+        String expectedMessage = String.format(Messages.MESSAGE_SUGGESTED_CORRECTIONS, "Module", VALID_MODCODE)
+                + "1. " + SIMILAR_MODCODE + "\n";
+
+        CommandResult commandResult = new DeleteModuleCommand(new ModCode(VALID_MODCODE)).execute(model);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 
     /* TODO: implement later?

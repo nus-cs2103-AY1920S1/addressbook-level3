@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.tarence.testutil.Assert.assertThrows;
 
@@ -40,8 +41,11 @@ import seedu.tarence.model.tutorial.Week;
 public class MarkAttendanceCommandTest {
 
     public static final String VALID_MOD_CODE = "ES1601";
+    public static final String SIMILAR_MOD_CODE = "ES1061";
     public static final String VALID_TUT_NAME = "T02";
     public static final Integer VALID_TUT_INDEX = 1;
+    public static final String VALID_STUD_NAME = "Lady Gaga";
+    public static final String SIMILAR_STUD_NAME = "Lady Gagaa";
 
     @Test
     public void execute_personAcceptedByModel_markAttendanceSuccessful() throws Exception {
@@ -73,6 +77,43 @@ public class MarkAttendanceCommandTest {
                 commandResult.getFeedbackToUser());
         assertTrue(validTutorial.getAttendance().isPresent(validWeek, validStudent));
     }
+
+    // Todo: Fix test
+    //     @Test
+    //     public void execute_similarModule_suggestSimilarCommands() throws Exception {
+    //         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+
+    //         final Module similarModule = new ModuleBuilder().withModCode(SIMILAR_MOD_CODE).build();
+    //         final Student validStudent = new StudentBuilder()
+    //                 .withModCode(SIMILAR_MOD_CODE)
+    //                 .withTutName(VALID_TUT_NAME)
+    //                 .build();
+    //         final Tutorial validTutorial = new TutorialBuilder()
+    //                 .withModCode(SIMILAR_MOD_CODE)
+    //                 .withTutName(VALID_TUT_NAME)
+    //                 .withStudents(new ArrayList<>(Arrays.asList(validStudent)))
+    //                 .build();
+    //         modelStub.addModule(similarModule);
+    //         modelStub.addTutorial(validTutorial);
+    //         modelStub.addTutorialToModule(validTutorial);
+
+    //         final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+    //         final TutName validTutName = new TutName(VALID_TUT_NAME);
+    //         final Week validWeek = new Week(3);
+    //         final Name validStudName = validStudent.getName();
+
+    //         CommandResult commandResult = new MarkAttendanceCommand(
+    //                 validModCode, validTutName, null, validWeek, validStudName).execute(modelStub);
+
+    //         MarkAttendanceCommand expectedSuggestedCommand = new MarkAttendanceCommand(
+    //                 new ModCode(SIMILAR_MOD_CODE), validTutName, null, validWeek, validStudName);
+
+    //         assertEquals(String.format(MESSAGE_SUGGESTED_CORRECTIONS, "Tutorial",
+    //                 VALID_MOD_CODE + " " + VALID_TUT_NAME)
+    //                 + "1. " + SIMILAR_MOD_CODE + ", " + VALID_TUT_NAME + "\n",
+    //                 commandResult.getFeedbackToUser());
+    //         assertEquals(modelStub.getSuggestedCommands().get(0), expectedSuggestedCommand);
+    //     }
 
     @Test
     public void execute_invalidModule_throwsCommandException() {
@@ -112,6 +153,45 @@ public class MarkAttendanceCommandTest {
 
         assertThrows(CommandException.class,
             Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE, () -> markAttendanceCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_similarStudent_suggestSimilarCommands() throws Exception {
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+
+        final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        final Student similarStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .withName(SIMILAR_STUD_NAME)
+                .build();
+        final Student validStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .withName(VALID_STUD_NAME)
+                .build();
+        final Tutorial validTutorial = new TutorialBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+        modelStub.addModule(validModule);
+        modelStub.addTutorial(validTutorial);
+        modelStub.addTutorialToModule(validTutorial);
+        modelStub.addStudent(similarStudent);
+        modelStub.addStudentToTutorial(similarStudent);
+
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
+        final Week validWeek = new Week(3);
+        final Name validStudName = validStudent.getName();
+        MarkAttendanceCommand markAttendanceCommand = new MarkAttendanceCommand(
+                validModCode, validTutName, null, validWeek, validStudName);
+
+        CommandResult commandResult = markAttendanceCommand.execute(modelStub);
+
+        assertEquals(String.format(MESSAGE_SUGGESTED_CORRECTIONS, "Student",
+                VALID_STUD_NAME) + "1. " + SIMILAR_STUD_NAME + "\n",
+                commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -303,6 +383,11 @@ public class MarkAttendanceCommandTest {
         }
 
         @Override
+        public boolean hasStudentInTutorialAndModule(Name studName, TutName tutName, ModCode modCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasModule(Module module) {
             return false;
         }
@@ -419,6 +504,7 @@ public class MarkAttendanceCommandTest {
         final ArrayList<Student> studentsAdded = new ArrayList<>();
         final ArrayList<Module> modules = new ArrayList<>();
         final ArrayList<Tutorial> tutorials = new ArrayList<>();
+        private List<Command> suggestedCommands = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -497,6 +583,26 @@ public class MarkAttendanceCommandTest {
         }
 
         @Override
+        public boolean hasStudentInTutorialAndModule(Name studName, TutName tutName, ModCode modCode) {
+            for (Module module : modules) {
+                if (!module.getModCode().equals(modCode)) {
+                    continue;
+                }
+                for (Tutorial tutorial : module.getTutorials()) {
+                    if (!tutorial.getTutName().equals(tutName)) {
+                        continue;
+                    }
+                    for (Student student : tutorial.getStudents()) {
+                        if (student.getName().equals(studName)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        @Override
         public ReadOnlyApplication getApplication() {
             return new Application();
         }
@@ -508,8 +614,27 @@ public class MarkAttendanceCommandTest {
         }
 
         @Override
+        public void storeSuggestedCommands(List<Command> suggestedCommands, String suggestedCorrections) {
+            this.suggestedCommands = suggestedCommands;
+        }
+        @Override
+        public List<Command> getSuggestedCommands() {
+            return suggestedCommands;
+        }
+
+        @Override
+        public ObservableList<Student> getFilteredStudentList() {
+            return FXCollections.observableArrayList(studentsAdded);
+        }
+
+        @Override
         public ObservableList<Tutorial> getFilteredTutorialList() {
             return FXCollections.observableArrayList(tutorials);
+        }
+
+        @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            return FXCollections.observableArrayList(modules);
         }
     }
 

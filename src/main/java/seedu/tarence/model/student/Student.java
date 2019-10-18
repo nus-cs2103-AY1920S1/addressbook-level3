@@ -89,7 +89,9 @@ public class Student extends Person {
         return otherStudent.getName().equals(getName())
                 && otherStudent.getEmail().equals(getEmail())
                 && otherStudent.getMatricNum().equals(getMatricNum())
-                && otherStudent.getNusnetId().equals(getNusnetId());
+                && otherStudent.getNusnetId().equals(getNusnetId())
+                && otherStudent.getTutName().equals(getTutName())
+                && otherStudent.getModCode().equals(getModCode());
     }
 
     @Override

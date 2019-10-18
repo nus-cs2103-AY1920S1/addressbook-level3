@@ -1,11 +1,13 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -63,6 +65,14 @@ public class MarkAttendanceCommand extends Command {
         this.week = week;
     }
 
+    private MarkAttendanceCommand(ModCode modCode, TutName tutName, Index index, Week week, Optional<Name> studName) {
+        this.targetModCode = Optional.ofNullable(modCode);
+        this.targetTutName = Optional.ofNullable(tutName);
+        this.targetIndex = Optional.ofNullable(index);
+        this.targetStudName = studName;
+        this.week = week;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -78,7 +88,7 @@ public class MarkAttendanceCommand extends Command {
                     .findFirst()
                     .orElse(null);
             if (targetTutorial == null) {
-                throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
+                return handleSuggestedClassCommands(targetModCode.get(), targetTutName.get(), targetStudName, model);
             }
         } else if (targetIndex.isPresent()) {
             // format with tutorial index
@@ -117,14 +127,140 @@ public class MarkAttendanceCommand extends Command {
             .orElse(null);
 
         if (targetStudent == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_IN_TUTORIAL);
+            return handleSuggestedStudentCommands(
+                    targetModCode.get(), targetTutName.get(), targetStudName.get(), model);
         }
 
         model.setAttendance(targetTutorial, week, targetStudent);
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
-                targetStudent.getName(), isPresent));
+                targetStudent.getName(), isPresent), targetTutorial);
+    }
+
+    /**
+     * Handles the creating and processing of suggested {@code MarkAttendanceCommand}s, if the user's input does not
+     * match any combination of modules and tutorials.
+     *
+     * @param modCode The module code entered by the user.
+     * @param tutName The tutorial name entered by the user.
+     * @param studName The student name entered by the user, if any.
+     * @param model The model to search in.
+     * @return a string representation of the suggested alternative commands to the user's invalid input.
+     * @throws CommandException if no suggested commands can be found.
+     */
+    private CommandResult handleSuggestedClassCommands(
+            ModCode modCode, TutName tutName, Optional<Name> studName, Model model) throws CommandException {
+        // find tutorials with same name and similar modcodes, and similar names and same modcode
+        List<ModCode> similarModCodes = getSimilarModCodesWithTutorial(modCode, tutName, model);
+        List<TutName> similarTutNames = getSimilarTutNamesWithModule(modCode, tutName, model);
+        if (similarModCodes.size() == 0 && similarTutNames.size() == 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
+        }
+
+        String suggestedCorrections = createSuggestedClassCommands(similarModCodes, modCode,
+                similarTutNames, tutName, targetStudName, model);
+        model.storePendingCommand(new SelectSuggestionCommand());
+        return new CommandResult(String.format(MESSAGE_SUGGESTED_CORRECTIONS, "Tutorial",
+                modCode.toString() + " " + tutName.toString()) + suggestedCorrections);
+    }
+
+    /**
+     * Handles the creating and processing of suggested {@code MarkAttendanceCommand}s, if the user's input does not
+     * match any combination of modules, tutorials and students.
+     *
+     * @param modCode The module code entered by the user.
+     * @param tutName The tutorial name entered by the user.
+     * @param studName The student name entered by the user.
+     * @param model The model to search in.
+     * @return a string representation of the suggested alternative commands to the user's invalid input.
+     * @throws CommandException if no suggested commands can be found.
+     */
+    private CommandResult handleSuggestedStudentCommands(
+            ModCode modCode, TutName tutName, Name studName, Model model) throws CommandException {
+        // find students with similar names in the given module/tutorial combination.
+        List<Name> similarNames = getSimilarStudNamesWithTutorialAndModule(modCode, tutName, studName, model);
+        if (similarNames.size() == 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_IN_TUTORIAL);
+        }
+
+        String suggestedCorrections = createSuggestedStudentCommands(modCode, tutName, similarNames, model);
+        model.storePendingCommand(new SelectSuggestionCommand());
+        return new CommandResult(String.format(MESSAGE_SUGGESTED_CORRECTIONS, "Student",
+                studName.toString()) + suggestedCorrections);
+    }
+
+    /**
+     * Generates and stores {@code MarkAttendanceCommand}s from a list of {@code ModCode}s and {@code TutName}s.
+     *
+     * @param similarModCodes List of {@code ModCode}s similar to the user's input.
+     * @param originalModCode Original modcode input from user.
+     * @param similarTutNames List of {@code TutName}s similar to the user's input.
+     * @param originalTutName Original tutorial name input from user.
+     * @param studName Name of target student, if any.
+     * @param model The {@code Model} in which to store the generated commands.
+     * @return string representing the generated suggestions and their corresponding indexes for user selection.
+     */
+    private String createSuggestedClassCommands(List<ModCode> similarModCodes, ModCode originalModCode,
+                                           List<TutName> similarTutNames, TutName originalTutName,
+                                           Optional<Name> studName, Model model) {
+        List<Command> suggestedCommands = new ArrayList<>();
+        StringBuilder s = new StringBuilder();
+        int index = 1;
+        for (ModCode similarModCode : similarModCodes) {
+            if (studName.isPresent()
+                    && !model.hasStudentInTutorialAndModule(studName.get(), originalTutName, similarModCode)) {
+                // if student name is specified, make sure the student exists in the tutorial/module combination.
+                // else, skip the check as desired action is to mark attendance for all students.
+                continue;
+            }
+            suggestedCommands.add(new MarkAttendanceCommand(similarModCode, originalTutName, null,
+                    week, studName));
+            s.append(index).append(". ").append(similarModCode).append(", ").append(originalTutName).append("\n");
+            index++;
+        }
+        for (TutName similarTutName: similarTutNames) {
+            if (studName.isPresent()
+                    && !model.hasStudentInTutorialAndModule(studName.get(), similarTutName, originalModCode)) {
+                continue;
+            }
+            MarkAttendanceCommand newCommand = new MarkAttendanceCommand(originalModCode, similarTutName, null,
+                    week, studName);
+            if (suggestedCommands.stream()
+                    .anyMatch(existingCommand -> existingCommand.equals(newCommand))) {
+                continue;
+            }
+            suggestedCommands.add(newCommand);
+            s.append(index).append(". ").append(originalModCode).append(", ").append(similarTutName).append("\n");
+            index++;
+        }
+        String suggestedCorrections = s.toString();
+        model.storeSuggestedCommands(suggestedCommands, suggestedCorrections);
+        return suggestedCorrections;
+    }
+
+    /**
+     * Generates and stores {@code MarkAttendanceCommand}s from a list of {@code Name}s.
+     *
+     * @param modCode Code of module that suggested student must be in.
+     * @param tutName Name of tutorial that suggested student must be in.
+     * @param similarNames List of similar student names.
+     * @param model The {@code Model} to search in.
+     * @return string representing the generated suggestions and their corresponding indexes for user selection.
+     */
+    private String createSuggestedStudentCommands(
+            ModCode modCode, TutName tutName, List<Name> similarNames, Model model) {
+        List<Command> suggestedCommands = new ArrayList<>();
+        StringBuilder s = new StringBuilder();
+        int index = 1;
+        for (Name similarName : similarNames) {
+            suggestedCommands.add(new MarkAttendanceCommand(modCode, tutName, null, week, similarName));
+            s.append(index).append(". ").append(similarName).append("\n");
+            index++;
+        }
+        String suggestedCorrections = s.toString();
+        model.storeSuggestedCommands(suggestedCommands, suggestedCorrections);
+        return suggestedCorrections;
     }
 
     @Override

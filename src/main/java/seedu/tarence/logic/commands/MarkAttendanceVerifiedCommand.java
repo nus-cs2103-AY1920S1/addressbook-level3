@@ -31,7 +31,7 @@ public class MarkAttendanceVerifiedCommand extends Command {
         return new CommandResult(
                 String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(),
-                isPresent ? "present" : "absent"));
+                isPresent ? "present" : "absent"), targetTutorial);
     }
 
     @Override

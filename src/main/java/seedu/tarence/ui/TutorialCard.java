@@ -30,18 +30,18 @@ public class TutorialCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label module;
-    @FXML
     private Label day;
     @FXML
     private Label weeks;
+    @FXML
+    private Label module;
 
     public TutorialCard(Tutorial tutorial, int displayedIndex) {
         super(FXML);
         this.tutorial = tutorial;
         id.setText(displayedIndex + ". ");
         name.setText(tutorial.getTutName().toString());
-        module.setText("Module code: " + tutorial.getModCode().toString());
+        module.setText(tutorial.getModCode().toString());
 
         // Get day format
         String tutorialDay = tutorial.getTimeTable().getDay().toString();

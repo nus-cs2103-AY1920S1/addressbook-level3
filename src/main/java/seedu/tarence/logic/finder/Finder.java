@@ -1,7 +1,5 @@
 package seedu.tarence.logic.finder;
 
-import static seedu.tarence.logic.commands.AddTutorialCommand.MESSAGE_INVALID_MODULE;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +8,8 @@ import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.Name;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
@@ -24,6 +24,7 @@ public class Finder {
     // thresholds for similarity differ between parameters due to their varying expected lengths
     private int thresholdModCode = 80;
     private int thresholdTutName = 70;
+    private int thresholdStudentName = 80;
 
     public Finder(Model model) {
         this.model = model;
@@ -41,9 +42,6 @@ public class Finder {
                 similarModCodes.add(module.getModCode());
             }
         }
-        if (similarModCodes.size() == 0) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
-        }
         return similarModCodes;
     }
 
@@ -54,15 +52,27 @@ public class Finder {
      */
     public List<TutName> findSimilarTutNames (TutName tutName) throws CommandException {
         List<TutName> similarTutNames = new ArrayList<>();
-        for (Tutorial tutorial : model.getApplication().getTutorialList()) {
+        for (Tutorial tutorial : model.getFilteredTutorialList()) {
             if (FuzzySearch.ratio(tutName.toString(), tutorial.getTutName().toString()) > thresholdTutName) {
                 similarTutNames.add(tutorial.getTutName());
             }
         }
-        if (similarTutNames.size() == 0) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
-        }
         return similarTutNames;
+    }
+
+    /**
+     * Searches for students in the application with a {@code Name} similar to the given one.
+     * @param name target name to match against.
+     * @return a {@code List} of similar {@code Name}s.
+     */
+    public List<Name> findSimilarNames (Name name) throws CommandException {
+        List<Name> similarNames = new ArrayList<>();
+        for (Student student : model.getFilteredStudentList()) {
+            if (FuzzySearch.ratio(name.toString(), student.getName().toString()) > thresholdStudentName) {
+                similarNames.add(student.getName());
+            }
+        }
+        return similarNames;
     }
 
 }

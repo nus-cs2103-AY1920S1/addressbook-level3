@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
+import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Application;
@@ -29,6 +30,7 @@ import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.person.Name;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
@@ -39,7 +41,9 @@ import seedu.tarence.model.tutorial.Week;
 public class AddStudentCommandTest {
 
     public static final String VALID_MOD_CODE = "ES1601";
+    public static final String SIMILAR_MOD_CODE = "ES1061";
     public static final String VALID_TUT_NAME = "T02";
+    public static final String SIMILAR_TUT_NAME = "T03";
     public static final Index VALID_TUT_INDEX = Index.fromOneBased(1);
 
 
@@ -56,20 +60,43 @@ public class AddStudentCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        final String validModCode = "ES1601";
-        final String validTutName = "T02";
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        modelStub.addModule(new ModuleBuilder().withModCode(validModCode).build());
-        modelStub.addTutorial(new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
+        modelStub.addModule(new ModuleBuilder().withModCode(VALID_MOD_CODE).build());
+        modelStub.addTutorial(new TutorialBuilder().withModCode(VALID_MOD_CODE).withTutName(VALID_TUT_NAME).build());
         modelStub.addTutorialToModule(
-                new TutorialBuilder().withModCode(validModCode).withTutName(validTutName).build());
-        Student validStudent = new StudentBuilder().withModCode(validModCode).withTutName(validTutName).build();
+                new TutorialBuilder().withModCode(VALID_MOD_CODE).withTutName(VALID_TUT_NAME).build());
+        Student validStudent = new StudentBuilder().withModCode(VALID_MOD_CODE).withTutName(VALID_TUT_NAME).build();
 
         CommandResult commandResult = new AddStudentCommand(validStudent).execute(modelStub);
 
         assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
+    }
+
+    @Test
+    public void execute_similarModuleSuggested_promptSuggestionSelection() throws Exception {
+        ModelStubStudentCommand modelStub = new ModelStubStudentCommand();
+
+        ModuleBuilder.DEFAULT_TUTORIALS.clear();
+        Module similarModule = new ModuleBuilder().withModCode(SIMILAR_MOD_CODE).build();
+        Tutorial validTutorial = new TutorialBuilder().withModCode(SIMILAR_MOD_CODE).withTutName(VALID_TUT_NAME)
+                .build();
+        similarModule.addTutorial(validTutorial);
+        modelStub.addModule(similarModule);
+        modelStub.addTutorial(validTutorial);
+
+        List<Command> suggestedCommands = new ArrayList<>();
+        suggestedCommands.add(new AddStudentCommand(
+                new StudentBuilder().withModCode(SIMILAR_MOD_CODE).withTutName(VALID_TUT_NAME).build()));
+
+        CommandResult commandResult = new AddStudentCommand(new StudentBuilder().withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME).build()).execute(modelStub);
+        String expectedMessage = String.format(Messages.MESSAGE_SUGGESTED_CORRECTIONS, "Tutorial",
+                VALID_MOD_CODE + " " + VALID_TUT_NAME) + "1. " + SIMILAR_MOD_CODE + ", " + VALID_TUT_NAME + "\n";
+
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+        assertEquals(suggestedCommands, modelStub.getSuggestedCommands());
     }
 
     @Test
@@ -275,6 +302,11 @@ public class AddStudentCommandTest {
         public void setStudent(Student target, Student editedStudent) {
             throw new AssertionError("This method should not be called.");
 
+        }
+
+        @Override
+        public boolean hasStudentInTutorialAndModule(Name studName, TutName tutName, ModCode modCode) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -494,6 +526,94 @@ public class AddStudentCommandTest {
         @Override
         public ObservableList<Tutorial> getFilteredTutorialList() {
             return FXCollections.observableArrayList(tutorials);
+        }
+    }
+
+    private static class ModelStubStudentCommand extends seedu.tarence.logic.commands.ModelStub {
+        final ArrayList<Module> modules = new ArrayList<>();
+        final ArrayList<Tutorial> tutorials = new ArrayList<>();
+        final ArrayList<Student> students = new ArrayList<>();
+        private List<Command> suggestedCommands = new ArrayList<>();
+
+        @Override
+        public void addModule(Module module) {
+            modules.add(module);
+        }
+
+        @Override
+        public void addTutorial(Tutorial tutorial) {
+            tutorials.add(tutorial);
+        }
+
+        @Override
+        public void addStudent(Student student) {
+            students.add(student);
+        }
+
+        @Override
+        public boolean hasModuleOfCode(ModCode modCode) {
+            for (Module module : modules) {
+                if (module.getModCode().equals(modCode)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
+            requireAllNonNull(modCode, tutName);
+            Module module = null;
+            for (Module currModule : modules) {
+                if (currModule.getModCode().equals(modCode)) {
+                    module = currModule;
+                    break;
+                }
+            }
+            if (module == null) {
+                return false;
+            }
+            boolean hasTut = false;
+            for (Tutorial tutorial : module.getTutorials()) {
+                if (tutorial.getTutName().equals(tutName)) {
+                    hasTut = true;
+                    break;
+                }
+            }
+            return hasTut;
+        }
+
+        @Override
+        public void addTutorialToModule(Tutorial tutorial) {
+            for (Module module : modules) {
+                if (module.getModCode().equals(tutorial.getModCode())) {
+                    module.addTutorial(tutorial);
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            ObservableList<Module> list = FXCollections.observableArrayList();
+            list.addAll(modules);
+            return list;
+        }
+
+        @Override
+        public ObservableList<Tutorial> getFilteredTutorialList() {
+            ObservableList<Tutorial> list = FXCollections.observableArrayList();
+            list.addAll(tutorials);
+            return list;
+        }
+
+        @Override
+        public void storeSuggestedCommands(List<Command> suggestedCommands, String suggestedCorrections) {
+            this.suggestedCommands = suggestedCommands;
+        }
+        @Override
+        public List<Command> getSuggestedCommands() {
+            return suggestedCommands;
         }
     }
 
