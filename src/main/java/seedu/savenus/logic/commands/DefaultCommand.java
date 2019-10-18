@@ -13,7 +13,7 @@ import seedu.savenus.model.food.Food;
  * Sorts all the foods in the $aveNUS menu based on their default ordering, which is:
  * category, followed by name, then by price.
  */
-public class  DefaultCommand extends Command {
+public class DefaultCommand extends Command {
 
     public static final String COMMAND_WORD = "default";
     public static final String MESSAGE_SUCCESS = "Food items back in natural order.";
