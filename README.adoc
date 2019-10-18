@@ -1,3 +1,14 @@
+# Milestone v1.3
+
+Free Time
+- [ ] Show Free Time
+- [ ] Popup
+- [ ] NusMods + GMaps
+- [ ] Suggestion Params
+- [ ] Calender Invite
+- [ ] Test case(60%)
+- [ ] UG + DG
+
 = TimeBook
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
