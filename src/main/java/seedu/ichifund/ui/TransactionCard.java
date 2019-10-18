@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
@@ -34,8 +35,7 @@ public class TransactionCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label category;
-    @FXML
-    private Label transactionType;
+
 
     public TransactionCard(Transaction transaction, int displayedIndex) {
         super(FXML);
@@ -43,9 +43,13 @@ public class TransactionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(transaction.getDescription().toString());
         amount.setText("$" + transaction.getAmount().toString());
-        date.setText(transaction.getDate().toString());
+        date.setText(transaction.getDate().toFullString());
         category.setText(transaction.getCategory().toString());
-        transactionType.setText(transaction.getTransactionType().toString());
+        if(transaction.isExpenditure()) {
+            amount.setTextFill(Paint.valueOf("#ff7675"));
+        } else {
+            amount.setTextFill(Paint.valueOf("#81ecec"));
+        }
     }
 
     @Override
