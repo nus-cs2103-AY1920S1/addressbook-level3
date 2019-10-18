@@ -46,6 +46,8 @@ public class DiaryParser implements PageParser {
             return new CreateDiaryEntryParser().parse(arguments);
         case APPEND:
             return new AppendDiaryEntryParser().parse(arguments);
+        case DELETE:
+            return new DeleteDiaryEntryParser().parse(arguments);
         case EDIT:
             return new EditDiaryEntryParser().parse(arguments);
         case DONE:

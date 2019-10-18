@@ -2,6 +2,7 @@ package seedu.address.logic.commands.diary;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -10,26 +11,25 @@ import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
 /**
- * {@link Command} that adds the new text specified by the user, and commits the data in the
- * current {@link EditDiaryEntryDescriptor} (if any) to the user diary entry.
+ * {@link Command} that deletes a line of text in the diary entry by a provided {@link Index},
+ * and commits the change to the current diary entry.
  */
-public class AppendDiaryEntryCommand extends Command {
-    public static final String COMMAND_WORD = "append";
+public class DeleteDiaryEntryCommand extends Command {
+    public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Appends and commits text to the current diary entry\n"
-            + "Parameters: Text line to append\n"
-            + "OR Text line with '<images (positive integer of a photo according to the gallery order)>'\n"
-            + "OR <images (positive integers of photos according to the gallery order separated by spaces)>";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a line of text and commits to the "
+            + "current diary entry\n"
+            + "Parameters: One based index (must be a valid positive integer)";
 
     public static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
 
-    public static final String MESSAGE_APPEND_SUCCESS = "Appended your new line! %1$s";
+    public static final String MESSAGE_DELETE_SUCCESS = "Deleted line %d! %1$d";
 
-    private String textToAppend;
+    private Index lineIndexToDelete;
 
-    public AppendDiaryEntryCommand(String textToAppend) {
-        requireNonNull(textToAppend);
-        this.textToAppend = textToAppend;
+    public DeleteDiaryEntryCommand(Index lineIndexToDelete) {
+        requireNonNull(lineIndexToDelete);
+        this.lineIndexToDelete = lineIndexToDelete;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class AppendDiaryEntryCommand extends Command {
                 ? new EditDiaryEntryDescriptor(diaryEntry)
                 : currentEditEntryDescriptor;
 
-        editDescriptor.addNewTextLine(this.textToAppend);
+        editDescriptor.deleteTextParagraph(this.lineIndexToDelete.getZeroBased());
         DiaryEntry newDiaryEntry = editDescriptor.buildDiaryEntry();
 
         model.getPageStatus().getTrip().getDiary().setDiaryEntry(diaryEntry, newDiaryEntry);
@@ -54,13 +54,13 @@ public class AppendDiaryEntryCommand extends Command {
                 .withNewEditDiaryEntryDescriptor(null)
                 .withNewDiaryEntry(newDiaryEntry));
 
-        return new CommandResult(String.format(MESSAGE_APPEND_SUCCESS, this.textToAppend));
+        return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, this.lineIndexToDelete.getOneBased()));
     }
 
     @Override
     public boolean equals(Object obj) {
         return this == obj
-                || (obj instanceof AppendDiaryEntryCommand
-                        && ((AppendDiaryEntryCommand) obj).textToAppend.equals(textToAppend));
+                || (obj instanceof DeleteDiaryEntryCommand
+                && ((DeleteDiaryEntryCommand) obj).lineIndexToDelete.equals(lineIndexToDelete));
     }
 }

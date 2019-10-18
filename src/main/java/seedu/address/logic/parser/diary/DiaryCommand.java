@@ -7,6 +7,7 @@ public enum DiaryCommand {
     FLIP,
     CREATE,
     APPEND,
+    DELETE,
     EDIT,
     DONE,
     ADDPHOTO,

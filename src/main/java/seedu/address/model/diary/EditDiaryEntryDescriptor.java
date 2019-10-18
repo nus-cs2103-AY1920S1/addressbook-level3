@@ -64,6 +64,32 @@ public class EditDiaryEntryDescriptor {
         this.diaryText += textToAdd;
     }
 
+    /**
+     * Deletes the paragraph of text at the specified zero based index.
+     * Paragraphs are ordered by the number of newlines in its prefix.
+     *
+     * @return True if there a paragraph of text at the specified index exists and was deleted.
+     */
+    public boolean deleteTextParagraph(int lineToDelete) {
+        String[] paragraphs = this.diaryText.split("\n");
+        StringBuilder diaryTextBuilder = new StringBuilder();
+        boolean didDelete = false;
+
+        for (int i = 0; i < paragraphs.length; i++) {
+            if (i == lineToDelete) {
+                didDelete = true;
+                continue;
+            }
+
+            diaryTextBuilder
+                    .append(paragraphs[i])
+                    .append(i == (paragraphs.length - 1) ? "" : "\n");
+        }
+        this.diaryText = diaryTextBuilder.toString();
+
+        return didDelete;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
