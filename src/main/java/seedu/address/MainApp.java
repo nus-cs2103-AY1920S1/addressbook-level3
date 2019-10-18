@@ -155,7 +155,7 @@ public class MainApp extends Application {
             initialScheduleData = new ScheduleBook();
 
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty PhoneBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ScheduleBook");
             initialScheduleData = new ScheduleBook();
         }
 

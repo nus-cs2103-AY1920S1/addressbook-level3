@@ -81,7 +81,7 @@ class JsonAdaptedOrder {
         phone = new JsonAdaptedPhone(source.getPhone());
         price = source.getPrice().value;
         status = source.getStatus().toString();
-        if (!source.getSchedule().isEmpty()) {
+        if (source.getSchedule().isPresent()) {
             schedule = new JsonAdaptedSchedule(source.getSchedule().get());
         }
         tagged.addAll(source.getTags().stream()
