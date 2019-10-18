@@ -134,7 +134,8 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction transaction) {
         fundBook.addTransaction(transaction);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        TransactionContext newContext = transactionContext.getAccommodatingContext(transaction);
+        setTransactionContext(newContext);
     }
 
     @Override

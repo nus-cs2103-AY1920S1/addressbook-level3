@@ -17,7 +17,6 @@ import seedu.ichifund.model.transaction.Transaction;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
     Predicate<Repeater> PREDICATE_SHOW_ALL_REPEATERS = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
@@ -93,7 +92,7 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Adds the given transaction.
+     * Adds the given transaction. Changes the view of the list to show the new transaction.
      */
     void addTransaction(Transaction transaction);
 
