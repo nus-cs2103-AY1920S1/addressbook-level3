@@ -28,8 +28,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String description, String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_DATETIME,
-                        PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args + " ", PREFIX_DESCRIPTION, PREFIX_DATETIME, PREFIX_REMINDER,
+                        PREFIX_PRIORITY, PREFIX_TAG, PREFIX_DELETE_TASK, PREFIX_DELETE_REMINDER, PREFIX_DELETE_EVENT);
 
         Index index;
 
@@ -62,7 +62,21 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editItemDescriptor::setTags);
 
-        if (!editItemDescriptor.isAnyFieldEdited()) {
+        System.out.println("Before checking isPresent");
+        if (argMultimap.getValue(PREFIX_DELETE_TASK).isPresent()) {
+            System.out.println("Delete tag prefix is present");
+            editItemDescriptor.hasDeleteTask = true;
+        }
+        if (argMultimap.getValue(PREFIX_DELETE_REMINDER).isPresent()) {
+            editItemDescriptor.hasDeleteReminder = true;
+        }
+        if (argMultimap.getValue(PREFIX_DELETE_EVENT).isPresent()) {
+            editItemDescriptor.hasDeleteEvent = true;
+        }
+
+        System.out.println("editItemDescriptor.hasDeleteTask= " + editItemDescriptor.hasDeleteTask);
+
+        if ((!editItemDescriptor.isAnyFieldEdited()) || (!editItemDescriptor.hasAnyDelete())) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 

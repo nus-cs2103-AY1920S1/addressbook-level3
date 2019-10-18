@@ -45,6 +45,7 @@ public class ArgumentTokenizer {
      * {@see findAllPrefixPositions}
      */
     private static List<PrefixPosition> findPrefixPositions(String argsString, Prefix prefix) {
+        System.out.println("argString= " + argsString);cl
         List<PrefixPosition> positions = new ArrayList<>();
 
         int prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), 0);
@@ -103,7 +104,18 @@ public class ArgumentTokenizer {
             // Extract and store prefixes and their arguments
             Prefix argPrefix = prefixPositions.get(i).getPrefix();
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
-            argMultimap.put(argPrefix, argValue);
+
+            if (argPrefix.equals(CliSyntax.PREFIX_DELETE_TASK)
+                    || argPrefix.equals(CliSyntax.PREFIX_DELETE_EVENT)
+                    || argPrefix.equals(CliSyntax.PREFIX_DELETE_REMINDER)) {
+                System.out.println("Put value for: " + argPrefix.getPrefix());
+                argMultimap.put(argPrefix, "Dummy Value");
+                System.out.println(argMultimap.getValue(CliSyntax.PREFIX_DELETE_TASK).get());
+            } else {
+                System.out.println("ELSE Put value for: " + argPrefix.getPrefix());
+                argMultimap.put(argPrefix, argValue);
+            }
+
         }
 
         return argMultimap;

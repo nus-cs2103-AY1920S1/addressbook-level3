@@ -138,6 +138,17 @@ public class EditCommand extends Command {
         if (updatedReminder.isPresent()) {
             itemBuilder.setReminder(updatedReminder.get());
         }
+        System.out.println("Before checking boolean, hasDeleteTask=" + editItemDescriptor.hasDeleteTask);
+        if (editItemDescriptor.hasDeleteTask) {
+            System.out.println("entered delete task");
+            itemBuilder.setTask(null);
+        }
+        if (editItemDescriptor.hasDeleteEvent) {
+            itemBuilder.setEvent(null);
+        }
+        if (editItemDescriptor.hasDeleteReminder) {
+            itemBuilder.setReminder(null);
+        }
 
         Item updatedItem;
         try {
@@ -159,6 +170,9 @@ public class EditCommand extends Command {
         private Reminder reminder;
         private Priority priority;
         private Set<Tag> tags;
+        public boolean hasDeleteTask = false;
+        public boolean hasDeleteEvent = false;
+        public boolean hasDeleteReminder = false;
 
         public EditItemDescriptor() {}
 
@@ -173,6 +187,9 @@ public class EditCommand extends Command {
             setReminder(toCopy.reminder);
             setPriority(toCopy.priority);
             setTags(toCopy.tags);
+            setHasDeleteTask(toCopy.hasDeleteTask);
+            setHasDeleteEvent(toCopy.hasDeleteEvent);
+            setHasDeleteReminder(toCopy.hasDeleteReminder);
         }
 
         /**
@@ -237,6 +254,22 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        public boolean hasAnyDelete() {
+            return (hasDeleteEvent || hasDeleteReminder || hasDeleteTask);
+        }
+
+        public void setHasDeleteTask(boolean bool) {
+            this.hasDeleteTask = bool;
+        }
+
+        public void setHasDeleteEvent(boolean bool) {
+            this.hasDeleteEvent = bool;
+        }
+
+        public void setHasDeleteReminder(boolean bool) {
+            this.hasDeleteReminder = bool;
         }
     }
 }
