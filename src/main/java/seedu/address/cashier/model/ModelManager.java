@@ -68,6 +68,18 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Updates the inventory list from the data file.
+     */
+    @Override
+    public void readInUpdatedList() {
+        try {
+            this.inventoryList = storage.getInventoryList();
+        } catch (Exception e) {
+            this.inventoryList = new InventoryList();
+        }
+    }
+
+    /**
      * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
      * Else, return false.
      *
@@ -76,7 +88,6 @@ public class ModelManager implements Model {
      * @return true if sufficient quantity in inventory
      * @throws NoSuchItemException if there is no such item in the inventory
      */
-
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         Item originalItem = inventoryList.getOriginalItem(description);
         for (Item i : salesList) {
@@ -126,14 +137,6 @@ public class ModelManager implements Model {
      */
     public boolean hasItemInInventory(String description) {
         return inventoryList.hasItem(description);
-    }
-
-    /**
-     * Updates the {@code InventoryList} from the data file.
-     * @throws Exception
-     */
-    public void updateRecentInventory() throws Exception {
-        this.inventoryList = storage.getInventoryList();
     }
 
     @Override
@@ -218,25 +221,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Creates a new {@code Transaction} and append it to the data file.
-     * Adds the transaction to the transaction model.
-     *
-     * @param amount to paid by customer
-     * @param person cashier who is in-charge
-     * @param transactionModel the transaction model being used
-     * @return the new transaction made from the sales
-     * @throws Exception if the user input is invalid
-     */
-    public Transaction checkoutAsTransaction(double amount, Person person,
-                                             seedu.address.transaction.model.Model transactionModel) throws Exception {
-        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
-                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionList.size(), false);
-        storage.appendToTransaction(transaction);
-        transactionModel.addTransaction(transaction);
-        return transaction;
-    }
-
-    /**
      * Returns the total amount of all the items in the Sales List.
      * @return the total amount of all the items in the Sales List
      */
@@ -295,18 +279,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Updates the inventory list from the data file.
-     */
-    @Override
-    public void readInUpdatedList() {
-        try {
-            this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
-            this.inventoryList = new InventoryList();
-        }
-    }
-
-    /**
      * Returns a list of sales items according to their category.
      * @param category of the items
      * @return a list of sales items according to their category
@@ -315,6 +287,7 @@ public class ModelManager implements Model {
         readInUpdatedList();
         return inventoryList.getAllSalesDescriptionByCategory(category);
     }
+
 
     /**
      * Returns a list of recommended items based on the initial input description.
@@ -342,6 +315,26 @@ public class ModelManager implements Model {
             }
         }
         return recommendedItems;
+    }
+
+
+    /**
+     * Creates a new {@code Transaction} and append it to the data file.
+     * Adds the transaction to the transaction model.
+     *
+     * @param amount to paid by customer
+     * @param person cashier who is in-charge
+     * @param transactionModel the transaction model being used
+     * @return the new transaction made from the sales
+     * @throws Exception if the user input is invalid
+     */
+    public Transaction checkoutAsTransaction(double amount, Person person,
+                                             seedu.address.transaction.model.Model transactionModel) throws Exception {
+        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
+                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionList.size(), false);
+        storage.appendToTransaction(transaction);
+        transactionModel.addTransaction(transaction);
+        return transaction;
     }
 
 }

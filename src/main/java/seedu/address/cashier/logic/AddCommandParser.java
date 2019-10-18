@@ -68,7 +68,7 @@ public class AddCommandParser {
             throw new NotANumberException(QUANTITY_NOT_A_NUMBER);
         }
 
-        modelManager.updateRecentInventory();
+        modelManager.readInUpdatedList();
         // if the item with the specified description is not present
         if (!modelManager.hasItemInInventory(description)) {
             ArrayList<String> recommendedItems = modelManager.getRecommendedItems(description);
