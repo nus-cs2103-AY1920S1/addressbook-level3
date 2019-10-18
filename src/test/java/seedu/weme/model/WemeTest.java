@@ -98,6 +98,7 @@ public class WemeTest {
         private final ObservableList<Meme> importList = FXCollections.observableArrayList();
         private final ObservableList<Template> templates = FXCollections.observableArrayList();
         private final Stats stats = new StatsManager();
+        private final Records records = new RecordsManager();
 
         WemeStub() {
         }
@@ -128,6 +129,11 @@ public class WemeTest {
 
         public ObservableList<Template> getTemplateList() {
             return templates;
+        }
+
+        @Override
+        public Records getRecords() {
+            return records;
         }
     }
 

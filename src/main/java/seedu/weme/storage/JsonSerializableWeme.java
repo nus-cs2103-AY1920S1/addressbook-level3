@@ -26,6 +26,7 @@ class JsonSerializableWeme {
     private final List<JsonAdaptedMeme> memes = new ArrayList<>();
     private final List<JsonAdaptedTemplate> templates = new ArrayList<>();
     private final JsonSerializableStats stats;
+    private final JsonSerializableRecords records;
 
     /**
      * Constructs a {@code JsonSerializableWeme} with the given memes and templates.
@@ -33,10 +34,12 @@ class JsonSerializableWeme {
     @JsonCreator
     public JsonSerializableWeme(@JsonProperty("memes") List<JsonAdaptedMeme> memes,
                                 @JsonProperty("templates") List<JsonAdaptedTemplate> templates,
-                                @JsonProperty("stats") JsonSerializableStats stats) {
+                                @JsonProperty("stats") JsonSerializableStats stats,
+                                @JsonProperty("records") JsonSerializableRecords records) {
         this.memes.addAll(memes);
         this.templates.addAll(templates);
         this.stats = stats;
+        this.records = records;
     }
 
     /**
@@ -47,7 +50,8 @@ class JsonSerializableWeme {
     public JsonSerializableWeme(ReadOnlyWeme source) {
         memes.addAll(source.getMemeList().stream().map(JsonAdaptedMeme::new).collect(Collectors.toList()));
         templates.addAll(source.getTemplateList().stream().map(JsonAdaptedTemplate::new).collect(Collectors.toList()));
-        this.stats = new JsonSerializableStats(source.getStats());
+        stats = new JsonSerializableStats(source.getStats());
+        records = new JsonSerializableRecords(source.getRecords());
     }
 
     /**
@@ -72,6 +76,7 @@ class JsonSerializableWeme {
             weme.addTemplate(template);
         }
         weme.setStats(stats.toModelType());
+        weme.setRecords(records.toModelType());
         return weme;
     }
 

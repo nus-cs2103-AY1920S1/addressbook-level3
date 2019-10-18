@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.weme.logic.prompter.LastArgument;
+
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
  *     e.g. {@code some preamble text t/ 11.00 t/12.00 k/ m/ July}  where prefixes are {@code t/ k/ m/}.<br>
@@ -26,6 +28,25 @@ public class ArgumentTokenizer {
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
+    }
+
+    /**
+     * Parse the given arguments to obtain the last prefix with its arguments.
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @param prefixes   Prefixes to tokenize the arguments string with
+     * @return           LastArgument in the argument string
+     */
+    public static LastArgument getLastArgument(String argsString, Prefix... prefixes) {
+        List<PrefixPosition> prefixPositions = findAllPrefixPositions(argsString, prefixes);
+        if (prefixPositions.isEmpty()) {
+            return null;
+        }
+
+        prefixPositions.sort((prefix1, prefix2) -> prefix2.getStartPosition() - prefix1.getStartPosition());
+        PrefixPosition lastPrefixPosition = prefixPositions.get(0);
+        Prefix lastPrefix = lastPrefixPosition.prefix;
+        PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
+        return new LastArgument(lastPrefix, extractArgumentValue(argsString, lastPrefixPosition, endPositionMarker));
     }
 
     /**

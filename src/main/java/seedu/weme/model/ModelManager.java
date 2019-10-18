@@ -291,6 +291,40 @@ public class ModelManager implements Model {
         versionedWeme.clearMemeStats(meme);
     }
 
+    //=========== Records method ================================================================================
+
+    @Override
+    public Records getRecords() {
+        return versionedWeme.getRecords();
+    }
+
+    @Override
+    public Set<String> getPathRecords() {
+        return versionedWeme.getPaths();
+    }
+
+    @Override
+    public Set<String> getDescriptionRecords() {
+        return versionedWeme.getDescriptions();
+    }
+
+    @Override
+    public Set<String> getTagRecords() {
+        return versionedWeme.getTags();
+    }
+
+    @Override
+    public Set<String> getNameRecords() {
+        return versionedWeme.getNames();
+    }
+
+    @Override
+    public void addMemeToRecord(Meme meme) {
+        versionedWeme.addPath(meme.getImagePath());
+        versionedWeme.addDescription(meme.getDescription());
+        versionedWeme.addTags(meme.getTags());
+    }
+
     @Override
     public void cleanMemeStorage() {
         try {

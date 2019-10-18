@@ -10,10 +10,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.weme.commons.util.FileUtil;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.ReadOnlyWeme;
+import seedu.weme.model.Records;
+import seedu.weme.model.RecordsManager;
 import seedu.weme.model.Weme;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
@@ -54,6 +57,48 @@ public class SampleDataUtil {
                 "templates/51460170-ef3e-41ad-8243-d0890e838cff.jpg")
         );
         return createSampleTemplates(templateFields, userPrefs);
+    }
+
+    public static Records getSampleRecords() {
+        Set<String> pathRecords = Stream.of(
+                "/home/me/Pictures/weme.jpg",
+                "/home/me/Pictures/cutie.jpg",
+                "/home/me/Pictures/hey.jpg",
+                "/home/me/Pictures/hey.png",
+                "/home/me/Downloads/favorite_meme.jpg",
+                "/home/me/CS/Y2S1/ProgrammingMemes/CS2103.jpg")
+                .collect(Collectors.toSet());
+        Set<String> descriptionRecords = Stream.of(
+                "OMG my favorite meme!!!",
+                "T$T: head = null",
+                "CS2103 is so fun!",
+                "My first self-made meme",
+                "My second self-made meme")
+                .collect(Collectors.toSet());
+        Set<String> tagRecords = Stream.of(
+                "CS2103",
+                "GoT",
+                "CS",
+                "CS Lectures",
+                "programming",
+                "cute animals",
+                "CUTE cats",
+                "best",
+                "favorite",
+                "weme",
+                "wow")
+                .collect(Collectors.toSet());
+        Set<String> nameRecords = Stream.of(
+                "disaster girl",
+                "hey girl",
+                "sponge bob",
+                "LOLcats",
+                "Double Rainbow",
+                "Gangnam Style",
+                "doge",
+                "TheDress")
+                .collect(Collectors.toSet());
+        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords);
     }
 
     /**
@@ -109,14 +154,15 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyWeme getSampleWeme(ReadOnlyUserPrefs userPrefs) {
-        Weme sampleMb = new Weme();
+        Weme sampleWeme = new Weme();
         for (Meme sampleMeme : getSampleMemes(userPrefs)) {
-            sampleMb.addMeme(sampleMeme);
+            sampleWeme.addMeme(sampleMeme);
         }
         for (Template sampleTemplate : getSampleTemplates(userPrefs)) {
-            sampleMb.addTemplate(sampleTemplate);
+            sampleWeme.addTemplate(sampleTemplate);
         }
-        return sampleMb;
+        sampleWeme.setRecords(getSampleRecords());
+        return sampleWeme;
     }
 
     /**

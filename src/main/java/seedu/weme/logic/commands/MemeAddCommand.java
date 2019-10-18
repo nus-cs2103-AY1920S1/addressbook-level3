@@ -52,6 +52,7 @@ public class MemeAddCommand extends Command {
         Meme copiedMeme;
         try {
             copiedMeme = ImageUtil.copyMeme(toAdd, model.getMemeImagePath());
+            model.addMemeToRecord(toAdd);
         } catch (IOException e) {
             throw new CommandException(MESSAGE_COPY_FAILURE);
         }

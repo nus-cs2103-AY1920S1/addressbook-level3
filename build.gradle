@@ -67,6 +67,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.controlsfx/controlsfx
     compile group: 'org.controlsfx', name: 'controlsfx', version: '11.0.0'
+
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.8'
 }
 
 shadowJar {

@@ -17,7 +17,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path dataFilePath = Paths.get("data" , "weme.json");
     private Path memeImagePath = Paths.get("data", "memes");
     private Path templateImagePath = Paths.get("data", "templates");
-    private Path statsDataFilePath = Paths.get("data" , "stats.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -41,7 +40,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setDataFilePath(newUserPrefs.getDataFilePath());
         setMemeImagePath(newUserPrefs.getMemeImagePath());
         setTemplateImagePath(newUserPrefs.getTemplateImagePath());
-        setStatsDataFilePath(newUserPrefs.getStatsDataFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -80,15 +78,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setTemplateImagePath(Path templateImagePath) {
         requireNonNull(templateImagePath);
         this.templateImagePath = templateImagePath;
-    }
-
-    public Path getStatsDataFilePath() {
-        return statsDataFilePath;
-    }
-
-    public void setStatsDataFilePath(Path statsDataFilePath) {
-        requireNonNull(statsDataFilePath);
-        this.statsDataFilePath = statsDataFilePath;
     }
 
     @Override

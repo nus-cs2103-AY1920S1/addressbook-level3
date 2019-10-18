@@ -3,6 +3,7 @@ package seedu.weme.model;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.beans.value.ObservableValue;
@@ -230,7 +231,37 @@ public interface Model {
 
 
     /**
-     * Clears the image data folder of any memes that are not referenced in Weme.
+     * Returns past records of command arguments.
+     */
+    Records getRecords();
+
+    /**
+     * Returns all past records of file paths.
+     */
+    Set<String> getPathRecords();
+
+    /**
+     * Returns all past records of descriptions.
+     */
+    Set<String> getDescriptionRecords();
+
+    /**
+     * Returns all past records of tags.
+     */
+    Set<String> getTagRecords();
+
+    /**
+     * Returns all past records of names.
+     */
+    Set<String> getNameRecords();
+
+    /**
+     * Add information of a meme to the records.
+     */
+    void addMemeToRecord(Meme meme);
+
+    /**
+     * Clears the image data folder of any memes that are not referenced in weme.
      */
     void cleanMemeStorage();
 }
