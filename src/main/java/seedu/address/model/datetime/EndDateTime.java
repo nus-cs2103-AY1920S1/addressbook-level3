@@ -1,7 +1,5 @@
 package seedu.address.model.datetime;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 /**
  * Represents a Visit's end time in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}

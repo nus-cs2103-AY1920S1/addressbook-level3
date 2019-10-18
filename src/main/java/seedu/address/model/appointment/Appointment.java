@@ -4,7 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.datetime.DateTime;
 import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.RecurringDateTime;
 import seedu.address.model.datetime.StartDateTime;
