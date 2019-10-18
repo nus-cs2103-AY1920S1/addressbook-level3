@@ -18,6 +18,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path fileBookFilePath = Paths.get("data" , "filebook.json");
     private Path cardBookFilePath = Paths.get("data", "cardbook.json");
     private Path noteBookFilePath = Paths.get("data" , "notebook.json");
+    private Path passwordBookFilePath = Paths.get("data", "passwordbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -41,6 +42,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setCardBookFilePath(newUserPrefs.getCardBookFilePath());
         setNoteBookFilePath(newUserPrefs.getNoteBookFilePath());
+        setPasswordBookFilePath(newUserPrefs.getPasswordBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,14 +58,24 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return addressBookFilePath;
     }
 
+
     public Path getNoteBookFilePath() {
         return noteBookFilePath;
     }
 
-
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    @Override
+    public Path getPasswordBookFilePath() {
+        return passwordBookFilePath;
+    }
+
+    public void setPasswordBookFilePath(Path passwordBookFilePath) {
+        requireNonNull(passwordBookFilePath);
+        this.passwordBookFilePath = passwordBookFilePath;
     }
     public void setNoteBookFilePath(Path noteBookFilePath) {
         requireNonNull(noteBookFilePath);

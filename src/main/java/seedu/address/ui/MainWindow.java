@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private FileListPanel fileListPanel;
     private CardListPanel cardListPanel;
     private NoteListPanel noteListPanel;
+    private PasswordListPanel passwordListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private EditObjectWindow editObjectWindow;
@@ -46,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane objectListPanelPlaceholder;
+
+    @FXML
     private StackPane personListPanelPlaceholder;
 
     @FXML
@@ -55,7 +59,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane noteListPanelPlaceholder;
 
     @FXML
-    private StackPane objectListPanelPlaceholder;
+    private StackPane passwordListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -123,9 +127,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         fillInnerPartsWithMode();
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        objectListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        fillInnerPartsWithMode();
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -153,6 +154,10 @@ public class MainWindow extends UiPart<Stage> {
             noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
             objectListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
             break;
+        case "password":
+            passwordListPanel = new PasswordListPanel(logic.getFilteredPasswordList());
+            objectListPanelPlaceholder.getChildren().add(passwordListPanel.getRoot());
+            break;
         default:
             personListPanel = new PersonListPanel(logic.getFilteredPersonList());
             objectListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -164,7 +169,8 @@ public class MainWindow extends UiPart<Stage> {
      * Handle UI changes on mode change.
      */
     void handleModeChange() {
-
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPasswordBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         objectListPanelPlaceholder.getChildren().clear();
         fillInnerPartsWithMode();
     }

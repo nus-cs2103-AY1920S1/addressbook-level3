@@ -14,15 +14,18 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.CardBookParser;
 import seedu.address.logic.parser.FileBookParser;
 import seedu.address.logic.parser.NoteBookParser;
+import seedu.address.logic.parser.PasswordBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.note.Note;
+import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -39,6 +42,7 @@ public class LogicManager implements Logic {
     private final FileBookParser fileBookParser;
     private final CardBookParser cardBookParser;
     private final NoteBookParser noteBookParser;
+    private final PasswordBookParser passwordBookParser;
 
     private String mode;
 
@@ -50,6 +54,7 @@ public class LogicManager implements Logic {
         cardBookParser = new CardBookParser();
         mode = "home";
         noteBookParser = new NoteBookParser();
+        passwordBookParser = new PasswordBookParser();
     }
 
     @Override
@@ -67,11 +72,13 @@ public class LogicManager implements Logic {
         case "note":
             command = noteBookParser.parseCommand(commandText);
             break;
+        case "password":
+            command = passwordBookParser.parseCommand(commandText);
+            break;
         default:
             command = addressBookParser.parseCommand(commandText);
             break;
         }
-
         commandResult = command.execute(model);
 
         try {
@@ -84,6 +91,9 @@ public class LogicManager implements Logic {
                 break;
             case "note":
                 storage.saveNoteBook(model.getNoteBook());
+                break;
+            case "password":
+                storage.savePasswordBook(model.getPasswordBook());
                 break;
             default:
                 storage.saveAddressBook(model.getAddressBook());
@@ -160,7 +170,7 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-    @Override
+
     public void setMode(String newMode) {
         mode = newMode;
     }
@@ -168,5 +178,19 @@ public class LogicManager implements Logic {
     @Override
     public String getMode() {
         return mode;
+    }
+
+    public ReadOnlyPasswordBook getPasswordBook() {
+        return model.getPasswordBook();
+    }
+
+    @Override
+    public Path getPasswordBookFilePath() {
+        return model.getPasswordBookFilePath();
+    }
+
+    @Override
+    public ObservableList<Password> getFilteredPasswordList() {
+        return model.getFilteredPasswordList();
     }
 }

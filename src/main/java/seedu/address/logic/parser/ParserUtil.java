@@ -17,6 +17,8 @@ import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Title;
+import seedu.address.model.password.PasswordValue;
+import seedu.address.model.password.Username;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -143,7 +145,7 @@ public class ParserUtil {
         requireNonNull(cvc);
         String trimmedCvc = cvc.trim();
         if (!Cvc.isValidCvc(trimmedCvc)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Cvc.MESSAGE_CONSTRAINTS);
         }
         return new Cvc(trimmedCvc);
     }
@@ -174,6 +176,7 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
     /**
      * Parses a {@code String fullPath} into a {@code FileName}.
      * Leading and trailing whitespaces will be trimmed.
@@ -248,5 +251,51 @@ public class ParserUtil {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
         return new Content(trimmedContent);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static seedu.address.model.password.Description parsePasswordDescription(String description)
+            throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.password.Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String username} into a {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Username} is invalid.
+     */
+    public static Username parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Username.isValidUsername(trimmedUsername)) {
+            throw new ParseException(Username.MESSAGE_CONSTRAINTS);
+        }
+        return new Username(trimmedUsername);
+    }
+
+    /**
+     * Parses a {@code String passwordValue} into a {@code PasswordValue}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code PasswordValue} is invalid.
+     */
+    public static PasswordValue parsePasswordValue(String passwordValue) throws ParseException {
+        requireNonNull(passwordValue);
+        String trimmedPasswordValue = passwordValue.trim();
+        if (!PasswordValue.isValidPasswordValue(trimmedPasswordValue)) {
+            throw new ParseException(PasswordValue.MESSAGE_CONSTRAINTS);
+        }
+        return new PasswordValue(trimmedPasswordValue);
     }
 }

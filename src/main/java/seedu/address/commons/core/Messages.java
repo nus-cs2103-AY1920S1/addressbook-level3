@@ -17,4 +17,5 @@ public class Messages {
 
 
 
+    public static final String MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX = "The password index provided is invalid";
 }

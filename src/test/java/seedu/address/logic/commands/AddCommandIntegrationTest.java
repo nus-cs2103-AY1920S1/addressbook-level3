@@ -12,6 +12,7 @@ import seedu.address.model.CardBook;
 import seedu.address.model.FileBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PasswordBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -26,7 +27,7 @@ public class AddCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new FileBook(),
-                new CardBook(), getTypicalNoteBook(), new UserPrefs());
+                new CardBook(), getTypicalNoteBook(), new PasswordBook(), new UserPrefs());
     }
 
     @Test
@@ -34,7 +35,7 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new FileBook(),
-                new CardBook(), getTypicalNoteBook(), new UserPrefs());
+                new CardBook(), getTypicalNoteBook(), new PasswordBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,

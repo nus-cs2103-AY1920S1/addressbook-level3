@@ -81,4 +81,31 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns the encrypted Password with asterixs.
+     * @param toBeChanged
+     * @return encrypted Password
+     */
+    public static String changeToAsterix(String toBeChanged) {
+        int len = toBeChanged.length();
+        if (len <= 3) {
+            return asterix(len);
+        } else {
+            return toBeChanged.substring(0, 2) + asterix(len - 2);
+        }
+    }
+
+    /**
+     * Returns a string with the asterix of length length.
+     * @param length
+     * @return String with asterix of length length
+     */
+    public static String asterix(int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.append("*");
+        }
+        return sb.toString();
+    }
 }

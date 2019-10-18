@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.note.Note;
+import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,6 +24,9 @@ public interface Model {
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
+
+    Predicate<Password> PREDICATE_SHOW_ALL_PASSWORDS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -132,6 +136,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+
     /** Returns an unmodifiable view of the filtered file list */
     ObservableList<EncryptedFile> getFilteredFileList();
 
@@ -237,4 +242,46 @@ public interface Model {
     public Path getNoteBookFilePath();
 
     public void setNoteBookFilePath(Path noteBookFilePath);
+
+    ObservableList<Password> getFilteredPasswordList();
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPasswordList(Predicate<Password> predicate);
+
+    void addPassword(Password password);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void deletePassword(Password password);
+
+    /** Returns the PasswordBook */
+    PasswordBook getPasswordBook();
+
+    /**
+     * Returns true if a password with the same identity as {@code password} exists in the password book.
+     */
+    boolean hasPassword(Password password);
+
+    /**
+     * Sets the user prefs' password book file path.
+     */
+    void setPasswordBookFilePath(Path passwordBookFilePath);
+
+    /**
+     * Returns the user prefs' password book file path.
+     */
+    Path getPasswordBookFilePath();
+
+    /**
+     * Replaces the given password {@code target} with {@code editedPassword}.
+     * {@code target} must exist in the password book.
+     * The password identity of {@code editedPassword} must not be the same as another existing password
+     * in the password book.
+     */
+    void setPassword(Password target, Password editedPassword);
 }

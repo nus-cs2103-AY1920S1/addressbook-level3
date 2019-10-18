@@ -19,11 +19,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.CardBook;
 import seedu.address.model.Model;
+import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
+import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.note.Note;
+import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -183,7 +187,6 @@ public class AddCommandTest {
         }
 
         @Override
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandTest.java
         public ObservableList<EncryptedFile> getFilteredFileList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -235,9 +238,65 @@ public class AddCommandTest {
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
-=======
+        }
+
+        @Override
+        public ReadOnlyNoteBook getNoteBook() {
+            return null;
+        }
+
+        @Override
+        public void setNoteBook(ReadOnlyNoteBook noteBook) {
+
+        }
+
+        @Override
+        public boolean hasNote(Note note) {
+            return false;
+        }
+
+        @Override
+        public void deleteNote(Note target) {
+
+        }
+
+        @Override
+        public void addNote(Note note) {
+
+        }
+
+        @Override
+        public void setNote(Note target, Note editedNote) {
+
+        }
+
+        @Override
+        public ObservableList<Note> getFilteredNoteList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+
+        }
+
+        @Override
+        public Path getNoteBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setNoteBookFilePath(Path noteBookFilePath) {
+
+        }
+
         public ObservableList<Password> getFilteredPasswordList() {
             return null;
+        }
+
+        @Override
+        public void updateFilteredPasswordList(Predicate<Password> predicate) {
+
         }
 
         @Override
@@ -253,7 +312,26 @@ public class AddCommandTest {
         @Override
         public PasswordBook getPasswordBook() {
             return null;
->>>>>>> fixed up some notes test stubs:src/test/java/seedu/address/logic/commands/AddCommandTest
+        }
+
+        @Override
+        public boolean hasPassword(Password password) {
+            return false;
+        }
+
+        @Override
+        public void setPasswordBookFilePath(Path passwordBookFilePath) {
+
+        }
+
+        @Override
+        public Path getPasswordBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setPassword(Password target, Password editedPassword) {
+
         }
     }
 
