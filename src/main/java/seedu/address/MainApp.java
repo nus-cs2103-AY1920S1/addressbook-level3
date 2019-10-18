@@ -3,6 +3,7 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -28,6 +29,7 @@ import seedu.address.model.TemplateList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WasteList;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.waste.WasteMonth;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonTemplateListStorage;
@@ -93,7 +95,7 @@ public class MainApp extends Application {
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTemplateList> templateListOptional;
-        Optional<ReadOnlyWasteList> wasteListOptional;
+        Optional<TreeMap<WasteMonth, WasteList>> wasteListOptional;
         Optional<ReadOnlyShoppingList> shoppingListOptional;
         ReadOnlyAddressBook initialAddressBookData;
         ReadOnlyTemplateList initialTemplateListData;

@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -13,6 +14,8 @@ import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.WasteList;
+import seedu.address.model.waste.WasteMonth;
 import seedu.address.storage.shoppinglist.ShoppingListStorage;
 import seedu.address.storage.wastelist.WasteListStorage;
 
@@ -125,26 +128,26 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyWasteList> readWasteList() throws DataConversionException, IOException {
+    public Optional<TreeMap<WasteMonth, WasteList>> readWasteList() throws DataConversionException, IOException {
         return readWasteList(wasteListStorage.getWasteListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyWasteList> readWasteList(Path filePath)
+    public Optional<TreeMap<WasteMonth, WasteList>> readWasteList(Path filePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return wasteListStorage.readWasteList(filePath);
     }
 
     @Override
-    public void saveWasteList(ReadOnlyWasteList wasteList) throws IOException {
-        saveWasteList(wasteList, wasteListStorage.getWasteListFilePath());
+    public void saveWasteList(TreeMap<WasteMonth, WasteList> wasteArchive) throws IOException {
+        saveWasteList(wasteArchive, wasteListStorage.getWasteListFilePath());
     }
 
     @Override
-    public void saveWasteList(ReadOnlyWasteList wasteList, Path filePath) throws IOException {
+    public void saveWasteList(TreeMap<WasteMonth, WasteList> wasteArchive, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        wasteListStorage.saveWasteList(wasteList, filePath);
+        wasteListStorage.saveWasteList(wasteArchive, filePath);
     }
 
     // ================ ShoppingList methods ==============================
