@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,12 +18,35 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.answerable.Answer;
+import seedu.address.model.answerable.AnswerSet;
+import seedu.address.model.answerable.Category;
+import seedu.address.model.answerable.Difficulty;
+import seedu.address.model.answerable.Mcq;
+import seedu.address.model.answerable.Question;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
+
+    private AnswerSet setDefaultAnswerSet() {
+        Set<Answer> correctAnswerSet = new HashSet<>();
+        correctAnswerSet.add(new Answer("20"));
+        Set<Answer> wrongAnswerSet = new HashSet<>();
+        wrongAnswerSet.add(new Answer("idk"));
+        wrongAnswerSet.add(new Answer("2103"));
+        wrongAnswerSet.add(new Answer("long answers will have error ):"));
+        return new AnswerSet(correctAnswerSet, wrongAnswerSet);
+    }
+
+
+    private final Mcq DEFAULT_QUESTION =
+            new Mcq(new Question("what is 10 + 10?"), setDefaultAnswerSet(), new Difficulty("1"),
+                    new Category("math"), new HashSet<>());
+
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -34,6 +59,8 @@ public class MainWindow extends UiPart<Stage> {
     private AnswerableListPanel answerableListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private AnswersGridPane answersGridPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,6 +76,8 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -107,8 +136,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
-        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
+
+//        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
+//        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
+
+        answersGridPane = new AnswersGridPane(DEFAULT_QUESTION);
+        answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
