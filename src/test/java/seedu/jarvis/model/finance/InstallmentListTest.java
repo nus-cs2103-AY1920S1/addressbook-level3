@@ -3,10 +3,11 @@ package seedu.jarvis.model.finance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import seedu.jarvis.model.financetracker.InstallmentList;
 import seedu.jarvis.model.financetracker.installment.Installment;
@@ -23,7 +24,7 @@ public class InstallmentListTest {
 
     @BeforeEach
     public void setUp() {
-        ArrayList<Installment> listInstallments = new ArrayList<>();
+        ObservableList<Installment> listInstallments = FXCollections.observableArrayList();
         listInstallments.add(new InstallmentStub());
         listInstallments.add(new InstallmentStub());
         listInstallments.add(new InstallmentStub());

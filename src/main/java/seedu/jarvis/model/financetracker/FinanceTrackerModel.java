@@ -1,8 +1,9 @@
 package seedu.jarvis.model.financetracker;
 
-import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
 
@@ -12,6 +13,7 @@ import seedu.jarvis.model.financetracker.purchase.Purchase;
 public interface FinanceTrackerModel {
 
     Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
+    Predicate<Installment> PREDICATE_SHOW_ALL_INSTALLMENTS = unused -> true;
 
     /**
      * Gets the {@code FinanceTracker}.
@@ -20,21 +22,16 @@ public interface FinanceTrackerModel {
      */
     FinanceTracker getFinanceTracker();
 
-    /**
-     * Replaces {@code FinanceTracker} data with the data in {@code FinanceTracker} given as argument.
-     *
-     * @param financeTracker {@code FinanceTracker} data to be used.
-     */
-    void setFinanceTracker(FinanceTracker financeTracker);
+    Purchase getPurchase(int paymentIndex) throws CommandException;
 
-    Purchase getPurchase(int paymentIndex);
+    void updateFilteredPurchaseList(Predicate<Purchase> predicate);
 
     /**
      * Retrieves list of all purchases
      *
-     * @return ArrayList
+     * @return ObservableList
      */
-    ArrayList<Purchase> getPurchaseList();
+    ObservableList<Purchase> getFilteredPurchaseList();
 
     /**
      * Adds single use payment.
@@ -48,16 +45,18 @@ public interface FinanceTrackerModel {
      *
      * @param itemNumber
      */
-    void deletePurchase(int itemNumber);
+    Purchase deletePurchase(int itemNumber);
 
-    Installment getInstallment(int instalIndex);
+    Installment getInstallment(int instalIndex) throws CommandException;
+
+    void updateFilteredInstallmentList(Predicate<Installment> predicate);
 
     /**
      * Retrieves list of all installments
      *
-     * @return ArrayList
+     * @return ObservableList
      */
-    ArrayList<Installment> getInstallmentList();
+    ObservableList<Installment> getFilteredInstallmentList();
 
     /**
      * Adds instalment.

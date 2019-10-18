@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.CcaTracker;
@@ -46,7 +47,7 @@ public class RemovePaidCommandTest {
     }
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredList_success() throws CommandException {
         Purchase purchaseToDelete = model.getPurchase(INDEX_FIRST_PURCHASE.getOneBased());
         RemovePaidCommand removePaidCommand = new RemovePaidCommand(INDEX_FIRST_PURCHASE);
 
@@ -56,9 +57,6 @@ public class RemovePaidCommandTest {
         ModelManager expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
                 model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
                 model.getPlanner(), model.getCoursePlanner());
-        expectedModel.addPurchase(new PurchaseStub());
-        expectedModel.addPurchase(new PurchaseStub());
-        expectedModel.addPurchase(new PurchaseStub());
         expectedModel.deletePurchase(INDEX_FIRST_PURCHASE.getOneBased());
 
         assertCommandSuccess(removePaidCommand, model, expectedMessage, expectedModel);
@@ -66,7 +64,7 @@ public class RemovePaidCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getPurchaseList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPurchaseList().size() + 1);
         RemovePaidCommand removePaidCommand = new RemovePaidCommand(outOfBoundIndex);
 
         assertCommandFailure(removePaidCommand, model, Messages.MESSAGE_INVALID_PURCHASE_DISPLAYED_INDEX);

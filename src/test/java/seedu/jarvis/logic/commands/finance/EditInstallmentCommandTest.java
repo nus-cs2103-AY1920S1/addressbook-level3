@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.CcaTracker;
@@ -83,14 +84,14 @@ public class EditInstallmentCommandTest {
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
-        expectedModel.setInstallment(model.getInstallmentList().get(0), editedInstallment);
+        expectedModel.setInstallment(model.getFilteredInstallmentList().get(0), editedInstallment);
 
         assertCommandSuccess(editInstallmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_someFieldsList_success() {
-        Index indexLastInstallment = Index.fromOneBased(model.getInstallmentList().size());
+    public void execute_someFieldsList_success() throws CommandException {
+        Index indexLastInstallment = Index.fromOneBased(model.getFilteredInstallmentList().size());
         Installment lastInstallment = model.getInstallment(indexLastInstallment.getOneBased());
 
         InstallmentBuilder installmentInList = new InstallmentBuilder(lastInstallment);
@@ -123,7 +124,7 @@ public class EditInstallmentCommandTest {
     }
 
     @Test
-    public void execute_noFieldsList_failure() {
+    public void execute_noFieldsList_failure() throws CommandException {
         EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT,
                 new EditInstallmentCommand.EditInstallmentDescriptor());
         Installment editedInstallment = model.getInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
@@ -142,7 +143,7 @@ public class EditInstallmentCommandTest {
     }
 
     @Test
-    public void execute_duplicateInstallmentList_failure() {
+    public void execute_duplicateInstallmentList_failure() throws CommandException {
         Installment firstInstallment = model.getInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
         EditInstallmentCommand.EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder(firstInstallment).build();
@@ -154,7 +155,7 @@ public class EditInstallmentCommandTest {
 
     @Test
     public void execute_invalidInstallmentIndexList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getInstallmentList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInstallmentList().size() + 1);
         EditInstallmentCommand.EditInstallmentDescriptor descriptor = new EditInstallmentDescriptorBuilder()
                 .withDescription(VALID_DESC_EARPHONES)
                 .build();

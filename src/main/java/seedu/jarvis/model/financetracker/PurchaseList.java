@@ -3,8 +3,10 @@ package seedu.jarvis.model.financetracker;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
@@ -13,60 +15,73 @@ import seedu.jarvis.model.financetracker.purchase.Purchase;
  * Manages list of monthly expenditures made by the user.
  */
 public class PurchaseList {
-    private ArrayList<Purchase> allPurchases;
-
-    /**
-     * Default constructor to be used when JARVIS starts up.
-     */
-    public PurchaseList(ArrayList<Purchase> allPurchases) {
-        this.allPurchases = allPurchases;
-    }
+    private ObservableList<Purchase> internalPurchaseList = FXCollections.observableArrayList();
+    private final ObservableList<Purchase> internalUnmodifiablePurchaseList =
+            FXCollections.unmodifiableObservableList(internalPurchaseList);
 
     //=========== Reset Methods ==================================================================================
 
     /**
-     * Empty constructor to be used when there are no purchases previously stored by the user.
+     * Default constructor to be used when JARVIS starts up.
      */
     public PurchaseList() {
-        this.allPurchases = new ArrayList<>();
+
     }
 
     /**
      * Constructs an PurchaseList with reference from another PurchaseList,
      * updating all existing fields from another PurchaseList.
      */
-    public PurchaseList(PurchaseList purchaseList) {
-        this();
-        resetData(purchaseList);
+    public PurchaseList(ObservableList<Purchase> internalPurchaseList) {
+        requireNonNull(internalPurchaseList);
+        this.internalPurchaseList = internalPurchaseList;
     }
 
-    /**
-     * Resets all data from {@code allPurchases} from the given {@code purchaseList}.
-     *
-     * @param purchaseList
-     */
-    public void resetData(PurchaseList purchaseList) {
-        requireNonNull(purchaseList);
-        this.allPurchases = purchaseList.getAllPurchases();
+    public void setPurchases(List<Purchase> listPurchases) {
+        requireAllNonNull(listPurchases);
+
+        internalPurchaseList.setAll(listPurchases);
     }
 
     //=========== Getter Methods ==================================================================================
 
+    public ObservableList<Purchase> getInternalPurchaseList() {
+        return internalPurchaseList;
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Purchase> asUnmodifiableObservableList() {
+        return internalUnmodifiablePurchaseList;
+    }
+
+    /**
+     * Returns the {@code Purchase} based on its {@code Index}.
+     *
+     * @param purchaseIndex of the purchase to be retrieved as seen on the list of purchases
+     * @return Purchase
+     * @throws PurchaseNotFoundException if the index is greater than the number of purchases
+     */
     public Purchase getPurchase(int purchaseIndex) {
         try {
             Index index = Index.fromOneBased(purchaseIndex);
-            return allPurchases.get(index.getZeroBased());
+            return internalPurchaseList.get(index.getZeroBased());
         } catch (IndexOutOfBoundsException e) {
             throw new PurchaseNotFoundException();
         }
     }
 
-    public int getNumPurchases() {
-        return allPurchases.size();
+    /**
+     * Checks whether the purchase matches any purchase that already exists in the list.
+     */
+    public boolean contains(Purchase toCheck) {
+        requireNonNull(toCheck);
+        return internalPurchaseList.stream().anyMatch(toCheck::isSamePurchase);
     }
 
-    public ArrayList<Purchase> getAllPurchases() {
-        return allPurchases;
+    public int getNumPurchases() {
+        return internalPurchaseList.size();
     }
 
     //=========== Command Methods ==================================================================================
@@ -77,11 +92,12 @@ public class PurchaseList {
      * @param newPurchase object from newly added single-use payment
      */
     public void addSinglePurchase(Purchase newPurchase) {
-        allPurchases.add(newPurchase);
+        requireNonNull(newPurchase);
+        internalPurchaseList.add(newPurchase);
     }
 
     /**
-     * Removes a particular purchase from the list and returns purchase.
+     * Removes purchase from the list of purchases based on the purchase number.
      *
      * @param purchaseIndex
      * @return Purchase that was just deleted from the user's list of purchases
@@ -89,7 +105,7 @@ public class PurchaseList {
     public Purchase deletePurchase(int purchaseIndex) throws PurchaseNotFoundException {
         try {
             Index index = Index.fromOneBased(purchaseIndex);
-            return allPurchases.remove(index.getZeroBased());
+            return internalPurchaseList.remove(index.getZeroBased());
         } catch (IndexOutOfBoundsException e) {
             throw new PurchaseNotFoundException();
         }
@@ -105,12 +121,12 @@ public class PurchaseList {
     public void setPurchase(Purchase target, Purchase editedPurchase) {
         requireAllNonNull(target, editedPurchase);
 
-        int index = allPurchases.indexOf(target);
+        int index = internalPurchaseList.indexOf(target);
         if (index == -1) {
             throw new PurchaseNotFoundException();
         }
 
-        allPurchases.set(index, editedPurchase);
+        internalPurchaseList.set(index, editedPurchase);
     }
 
     /**
@@ -120,7 +136,7 @@ public class PurchaseList {
      */
     public double totalSpending() {
         double total = 0;
-        for (Purchase purchase : allPurchases) {
+        for (Purchase purchase : internalPurchaseList) {
             total += purchase.getMoneySpent().getPurchaseAmount();
         }
         return total;
@@ -132,6 +148,17 @@ public class PurchaseList {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PurchaseList // instanceof handles nulls
-                && allPurchases.equals(((PurchaseList) other).allPurchases));
+                && internalPurchaseList.equals(((PurchaseList) other).internalPurchaseList));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are your purchases for this month: ");
+        for (Purchase purchase : internalPurchaseList) {
+            sb.append(purchase);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
