@@ -22,7 +22,7 @@ public class ExpandCommand extends Command {
      * Obtains the status of the food card.
      * @return Expand status.
      */
-    public boolean getStatus() {
+    public static boolean getStatus() {
         return isExpand;
     }
 
