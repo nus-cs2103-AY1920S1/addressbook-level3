@@ -42,7 +42,7 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
         } else {
             ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
 
-            if (!model.hasPerson(referenceId)) {
+            if (!model.hasPatient(referenceId)) {
                 throw new ParseException(MESSAGE_INVALID_REFERENCEID);
             }
 
