@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.userprefs;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,7 +28,7 @@ public interface UserPrefsStorage {
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link seedu.address.model.ReadOnlyUserPrefs} to the storage.
+     * Saves the given {@link ReadOnlyUserPrefs} to the storage.
      *
      * @param userPrefs cannot be null.
      * @throws IOException if there was any problem writing to the file.

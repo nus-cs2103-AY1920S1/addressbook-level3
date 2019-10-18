@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.address;
 
 import static java.util.Objects.requireNonNull;
 
@@ -21,28 +21,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
 
-    private Path filePath;
-
-    public JsonAddressBookStorage(Path filePath) {
-        this.filePath = filePath;
-    }
-
-    public Path getPatientAddressBookFilePath() {
-        return filePath;
-    }
-
     @Override
-    public Optional<ReadOnlyAddressBook> readPatientAddressBook() throws DataConversionException {
-        return readPatientAddressBook(filePath);
-    }
-
-    /**
-     * Similar to {@link #readPatientAddressBook()}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
-     */
-    public Optional<ReadOnlyAddressBook> readPatientAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
@@ -60,16 +40,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void savePatientAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        savePatientAddressBook(addressBook, filePath);
-    }
-
-    /**
-     * Similar to {@link #savePatientAddressBook(ReadOnlyAddressBook)}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     */
-    public void savePatientAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,23 +13,13 @@ import seedu.address.model.ReadOnlyAddressBook;
 public interface AddressBookStorage {
 
     /**
-     * Returns the file path of the data file.
-     */
-    Path getPatientAddressBookFilePath();
-
-    /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException             if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readPatientAddressBook() throws DataConversionException, IOException;
-
-    /**
-     * @see #getPatientAddressBookFilePath()
-     */
-    Optional<ReadOnlyAddressBook> readPatientAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
@@ -37,11 +27,6 @@ public interface AddressBookStorage {
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void savePatientAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
-
-    /**
-     * @see #savePatientAddressBook(ReadOnlyAddressBook)
-     */
-    void savePatientAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
 }

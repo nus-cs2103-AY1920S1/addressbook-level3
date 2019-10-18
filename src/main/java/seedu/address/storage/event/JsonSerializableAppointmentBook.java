@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import seedu.address.model.events.Event;
  * An Immutable AppointmentBook that is serializable to JSON format.
  */
 @JsonRootName(value = "appointmentbook")
-public class JsonSerializableAppointmentBook {
+class JsonSerializableAppointmentBook {
 
     public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";
 

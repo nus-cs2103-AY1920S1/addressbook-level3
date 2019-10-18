@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.event;
 
 import static java.util.Objects.requireNonNull;
 
@@ -21,27 +21,7 @@ public class JsonAppointmentBookStorage implements AppointmentBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAppointmentBookStorage.class);
 
-    private Path filePath;
-
-    public JsonAppointmentBookStorage(Path filePath) {
-        this.filePath = filePath;
-    }
-
-    public Path getAppointmentBookFilePath() {
-        return filePath;
-    }
-
     @Override
-    public Optional<ReadOnlyAppointmentBook> readAppointmentBook() throws DataConversionException {
-        return readAppointmentBook(filePath);
-    }
-
-    /**
-     * Similar to {@link #readAppointmentBook()}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
-     */
     public Optional<ReadOnlyAppointmentBook> readAppointmentBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
@@ -60,15 +40,6 @@ public class JsonAppointmentBookStorage implements AppointmentBookStorage {
     }
 
     @Override
-    public void saveAppointmentBook(ReadOnlyAppointmentBook addressBook) throws IOException {
-        saveAppointmentBook(addressBook, filePath);
-    }
-
-    /**
-     * Similar to {@link #saveAppointmentBook(ReadOnlyAppointmentBook)}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     */
     public void saveAppointmentBook(ReadOnlyAppointmentBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
