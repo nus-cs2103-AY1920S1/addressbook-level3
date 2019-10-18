@@ -71,12 +71,20 @@ public abstract class Answerable {
         if (otherAnswerable == this) {
             return true;
         }
+        if (!(otherAnswerable.getClass().equals(this.getClass()))) {
+            return false;
+        }
+
+        boolean isSameMCq = true;
+        if (this instanceof Mcq) {
+            isSameMCq = otherAnswerable.getWrongAnswerSet().equals(getWrongAnswerSet());
+        }
 
         return otherAnswerable != null
-                && otherAnswerable.getQuestion().equals(getQuestion())
-                && otherAnswerable.getCorrectAnswerSet().equals(getCorrectAnswerSet())
-                && otherAnswerable.getWrongAnswerSet().equals(getWrongAnswerSet())
-                && otherAnswerable.getDifficulty().equals(getDifficulty());
+            && otherAnswerable.getQuestion().equals(getQuestion())
+            && otherAnswerable.getCorrectAnswerSet().equals(getCorrectAnswerSet())
+            && otherAnswerable.getDifficulty().equals(getDifficulty())
+            && isSameMCq;
     }
 
     /**

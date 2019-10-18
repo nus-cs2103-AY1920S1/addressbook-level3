@@ -26,6 +26,7 @@ class JsonAdaptedAnswerable {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Answerable's %s field is missing!";
 
+    private final String questionType;
     private final String question;
     private final List<JsonAdaptedAnswer> correctAnswerSet = new ArrayList<>();
     private final List<JsonAdaptedAnswer> wrongAnswerSet = new ArrayList<>();
@@ -36,18 +37,16 @@ class JsonAdaptedAnswerable {
      * Constructs a {@code JsonAdaptedAnswerable} with the given answerable details.
      */
     @JsonCreator
-    public JsonAdaptedAnswerable(@JsonProperty("question") String question,
+    public JsonAdaptedAnswerable( @JsonProperty("questionType") String questionType,
+             @JsonProperty("question") String question,
              @JsonProperty("correctAnswerSet") List<JsonAdaptedAnswer> correctAnswerSet,
              @JsonProperty("wrongAnswerSet") List<JsonAdaptedAnswer> wrongAnswerSet,
              @JsonProperty("difficulty") String difficulty,
              @JsonProperty("categories") List<JsonAdaptedCategory> categories) {
+        this.questionType = questionType;
         this.question = question;
-        if (correctAnswerSet != null) {
-            this.correctAnswerSet.addAll(correctAnswerSet);
-        }
-        if (wrongAnswerSet != null) {
-            this.wrongAnswerSet.addAll(wrongAnswerSet);
-        }
+        this.correctAnswerSet.addAll(correctAnswerSet);
+        this.wrongAnswerSet.addAll(wrongAnswerSet);
         this.difficulty = difficulty;
         if (categories != null) {
             this.categories.addAll(categories);
@@ -58,16 +57,20 @@ class JsonAdaptedAnswerable {
      * Converts a given {@code Answerable} into this class for Jackson use.
      */
     public JsonAdaptedAnswerable(Answerable source) {
+        if (source instanceof Mcq) {
+            questionType = "mcq";
+            wrongAnswerSet.addAll(source.getWrongAnswerSet().stream()
+                    .map(JsonAdaptedAnswer::new)
+                    .collect(Collectors.toList()));
+        } else {
+            questionType = "saq";
+        }
+
         question = source.getQuestion().fullQuestion;
         difficulty = source.getDifficulty().value;
         correctAnswerSet.addAll(source.getCorrectAnswerSet().stream()
                 .map(JsonAdaptedAnswer::new)
                 .collect(Collectors.toList()));
-        if (!(source instanceof Saq)) {
-            wrongAnswerSet.addAll(source.getWrongAnswerSet().stream()
-                    .map(JsonAdaptedAnswer::new)
-                    .collect(Collectors.toList()));
-        }
         categories.addAll(source.getCategories().stream()
                 .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
@@ -116,8 +119,11 @@ class JsonAdaptedAnswerable {
 
         final Set<Category> modelCategories = new HashSet<>(answerableTags);
 
-        //TODO: Implement Answerable
-        return new Mcq(modelQuestion, modelCorrectAnswerSet, modelWrongAnswerSet,
-                modelDifficulty, modelCategories);
+        if (wrongAnswerSet.isEmpty()) {
+            return new Saq (modelQuestion, modelCorrectAnswerSet, modelDifficulty, modelCategories);
+        } else {
+            return new Mcq(modelQuestion, modelCorrectAnswerSet, modelWrongAnswerSet,
+                    modelDifficulty, modelCategories);
+        }
     }
 }
