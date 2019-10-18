@@ -7,5 +7,8 @@ public enum NavbarCommand {
     HOME,
     DAYS,
     ITINERARY,
-    DIARY
+    DIARY,
+    INVENTORY,
+    BOOKINGS,
+    EXPENSE
 }
