@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+                <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
+         <HBox alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <Label fx:id="id" styleClass="cell_big_label">
+                  <minWidth>
+                     <Region fx:constant="USE_PREF_SIZE" />
+                  </minWidth>
+               </Label>
+            </children>
+         </HBox>
+            <Label fx:id="country" styleClass="cell_small_label" text="\\$country" />
+            <Label fx:id="amount" styleClass="cell_small_label" text="\\$amount" />
+            <Label fx:id="desc" styleClass="cell_small_label" text="\\$desc" />
+        </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+</HBox>

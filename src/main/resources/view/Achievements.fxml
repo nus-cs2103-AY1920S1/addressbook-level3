@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.image.ImageView?>
+<fx:root fx:id="achievementsPane" stylesheets="@DarkTheme.css" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" styleClass="achievement-pane" xmlns:fx="http://javafx.com/fxml/1">
+  <top>
+    <HBox alignment="CENTER" prefHeight="150">
+      <ImageView preserveRatio="true" fitHeight="150" fx:id="title"></ImageView>
+    </HBox>
+  </top>
+  <left>
+    <VBox prefWidth="50">
+    </VBox>
+  </left>
+  <center >
+    <HBox prefWidth="340" style="-fx-background-color:#9E9E9E;-fx-opacity: 0.5;">
+    </HBox>
+  </center>
+  <right>
+    <VBox prefWidth="50">
+    </VBox>
+  </right>
+  <bottom>
+    <VBox>
+      <HBox>
+        <children>
+          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" HBox.hgrow="ALWAYS" VBox.vgrow="NEVER">
+            <padding>
+              <Insets bottom="5" left="50" right="50" top="5" />
+            </padding>
+          </StackPane>
+        </children>
+      </HBox>
+      <HBox fillHeight="true">
+        <children>
+          <StackPane fx:id="commandBoxPlaceholder" HBox.hgrow="ALWAYS" >
+            <padding>
+              <Insets bottom="5" left="50" right="50" top="5" />
+            </padding>
+          </StackPane>
+        </children>
+      </HBox>
+    </VBox>
+  </bottom>
+</fx:root>

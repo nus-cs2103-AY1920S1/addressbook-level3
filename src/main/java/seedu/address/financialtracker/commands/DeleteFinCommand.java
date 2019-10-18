@@ -1,20 +1,27 @@
 package seedu.address.financialtracker.commands;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.commons.core.index.Index;
+import seedu.address.financialtracker.model.Model;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 
 /**
- * add financial expenses command for Financial Tracker.
+ * delete a financial expense, command for Financial Tracker.
  */
 public class DeleteFinCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String MESSAGE_SUCCESS = "Your expense has been deleted";
+    public static final String MESSAGE_USAGE = ": delete an expense.\n"
+            + "e.g. delete [index]";
+    private final Index index;
 
-    public static final String MESSAGE_FAIL = "Unknown error, your expenses are not deleted.";
+    public DeleteFinCommand(Index index) {
+        this.index = index;
+    }
 
-    public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(MESSAGE_FAIL, false, false);
+    @Override
+    public CommandResult execute(Model model) {
+        model.deleteExpense(index.getOneBased());
+        return new CommandResult(MESSAGE_SUCCESS, false, false);
     }
 }

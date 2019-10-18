@@ -10,34 +10,44 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.financialtracker.ui.FinancialTrackerWindow;
+import seedu.address.diaryfeature.diaryUI.DiaryPage;
+import seedu.address.financialtracker.ui.FinancialTrackerPage;
+import seedu.address.itinerary.ui.ItineraryPage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.achievements.ui.AchievementsPage;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> implements Page {
 
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Scene primaryScene;
+    private Scene mainScene;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private FinancialTrackerWindow financialTrackerWindow;
+    private CodeWindow codeWindow;
+    private FinancialTrackerPage financialTrackerPage;
+    private CalendarPage calendarPage;
+    private ItineraryPage itineraryPage;
+    private DiaryPage diaryPage;
+    private AchievementsPage achievementsPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -54,6 +64,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private Scene commonScene;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -67,15 +80,25 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        financialTrackerWindow = new FinancialTrackerWindow(this);
+        codeWindow = new CodeWindow();
+        financialTrackerPage = new FinancialTrackerPage();
+        calendarPage = new CalendarPage();
+        itineraryPage = new ItineraryPage();
+        diaryPage = new DiaryPage();
+        achievementsPage = new AchievementsPage();
+
+        mainScene = primaryStage.getScene();
+
+        // todo-this-week: call the PageScene constructor with your page scene instead,
+        // e.g. Pages(primaryScene, diaryScene)
+        // note that one of the PageScene's constructor is a vararg
+        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage,
+                financialTrackerPage, achievementsPage);
+
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public Scene getPrimaryScene() {
-        return primaryScene;
     }
 
     private void setAccelerators() {
@@ -84,6 +107,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     * 
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -91,18 +115,18 @@ public class MainWindow extends UiPart<Stage> {
 
         /*
          * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
+         * https://bugs.openjdk.java.net/browse/JDK-8131666 is fixed in later version of
+         * SDK.
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will not
+         * work when the focus is in them because the key event is consumed by the
+         * TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
+         * help window purposely so to support accelerators even when focus is in
+         * CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -138,6 +162,18 @@ public class MainWindow extends UiPart<Stage> {
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Opens the code window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCode() {
+        if (!codeWindow.isShowing()) {
+            codeWindow.show();
+        } else {
+            codeWindow.focus();
         }
     }
 
@@ -192,10 +228,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitch()) {
-                handleSwitchToFinancialTracker();
-            }
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -204,8 +236,13 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void handleSwitchToFinancialTracker() {
-        primaryScene = primaryStage.getScene();
-        primaryStage.setScene(financialTrackerWindow.getFinancialTracker());
+    @Override
+    public Scene getScene() {
+        return mainScene;
+    }
+
+    @Override
+    public PageType getPageType() {
+        return PageType.MAIN;
     }
 }

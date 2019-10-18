@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+
+<VBox fx:id="itineraryPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+   <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+      <Menu mnemonicParsing="false" text="Itinerary">
+         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+      </Menu>
+   </MenuBar>
+
+   <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+      <padding>
+         <Insets bottom="5" left="10" right="10" top="5" />
+      </padding>
+   </StackPane>
+
+   <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+      <padding>
+         <Insets bottom="5" left="10" right="10" top="5" />
+      </padding>
+   </StackPane>
+
+   <VBox fx:id="eventList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+      <padding>
+         <Insets bottom="10" left="10" right="10" top="10" />
+      </padding>
+      <StackPane fx:id="eventPlaceHolder" VBox.vgrow="ALWAYS" />
+   </VBox>
+
+   <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+</VBox>
