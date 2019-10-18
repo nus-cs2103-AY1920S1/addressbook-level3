@@ -13,23 +13,22 @@ import budgetbuddy.model.account.Account;
 /**
  * Adds an account.
  */
-public class AddAccountCommand extends Command {
+public class AccountAddCommand extends Command {
 
     public static final String COMMAND_WORD = "account";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an account.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Japan trip "
             + PREFIX_DESCRIPTION + "Expense in Japan. ";
 
-    public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New account added: %1$s";
 
     private final Account toAdd;
 
-    public AddAccountCommand(Account account) {
+    public AccountAddCommand(Account account) {
         requireNonNull(account);
         toAdd = account;
     }
@@ -48,11 +47,12 @@ public class AddAccountCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof AddAccountCommand)) {
+        if (!(other instanceof AccountAddCommand)) {
             return false;
         }
 
-        AddAccountCommand otherCommand = (AddAccountCommand) other;
+        AccountAddCommand otherCommand = (AccountAddCommand) other;
         return toAdd.equals(otherCommand.toAdd);
     }
 }
+
