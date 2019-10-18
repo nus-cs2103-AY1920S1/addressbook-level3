@@ -21,6 +21,8 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.FoodFilter;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -40,7 +42,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
      */
-    public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs) {
         super();
         requireAllNonNull(menu, userPrefs);
 
@@ -52,10 +54,11 @@ public class ModelManager implements Model {
         purchaseHistory = this.menu.getPurchaseHistory();
 
         this.recommendationSystem = new RecommendationSystem();
+        this.recommendationSystem.setUserRecommendations(userRecs);
     }
 
     public ModelManager() {
-        this(new Menu(), new UserPrefs());
+        this(new Menu(), new UserPrefs(), new UserRecommendations());
     }
 
     //=========== UserPrefs ==================================================================================

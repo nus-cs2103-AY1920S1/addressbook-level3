@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
+import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.MenuBuilder;
 
@@ -164,10 +165,11 @@ public class ModelManagerTest {
         Menu menu = new MenuBuilder().withfood(CARBONARA).withfood(TONKATSU_RAMEN).build();
         Menu differentMenu = new Menu();
         UserPrefs userPrefs = new UserPrefs();
+        UserRecommendations userRecs = new UserRecommendations();
 
         // same values -> returns true
-        modelManager = new ModelManager(menu, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(menu, userPrefs);
+        modelManager = new ModelManager(menu, userPrefs, userRecs);
+        ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -180,12 +182,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs, userRecs)));
 
         // different filteredList -> returns false
         String[] keywords = CARBONARA.getName().fullName.split("\\s+");
         modelManager.updateFilteredFoodList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(menu, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
@@ -193,6 +195,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMenuFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs, userRecs)));
     }
 }

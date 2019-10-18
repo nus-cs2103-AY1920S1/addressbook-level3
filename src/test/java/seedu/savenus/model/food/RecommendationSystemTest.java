@@ -6,7 +6,7 @@ import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.savenus.model.RecommendationSystem;
+import seedu.savenus.model.recommend.RecommendationSystem;
 
 public class RecommendationSystemTest {
     private RecommendationSystem recommendationSystem;

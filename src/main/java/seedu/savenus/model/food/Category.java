@@ -20,6 +20,11 @@ public class Category implements Field {
 
     public final String category;
 
+    // Needed for Jackson
+    public Category() {
+        category = "No specified category.";
+    }
+
     /**
      * Constructs a {@code Category}.
      *

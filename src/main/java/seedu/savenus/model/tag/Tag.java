@@ -14,6 +14,11 @@ public class Tag {
 
     public final String tagName;
 
+    // Needed for Jackson
+    public Tag() {
+        tagName = "none";
+    }
+
     /**
      * Constructs a {@code Tag}.
      *

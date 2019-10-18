@@ -1,0 +1,10 @@
+{
+  "userRecommendations" : {
+    "likedCategories" : [ "chinese", "western" ],
+    "likedTags" : [ "secondtag", "     " ],
+    "likedLocations" : [ "the deck", "the terrace" ],
+    "dislikedCategories" : [ "korean", "international" ],
+    "dislikedTags" : [ "12345", "anothertag" ],
+    "dislikedLocations" : [ "atas place", "frontier canteen" ]
+  }
+}
