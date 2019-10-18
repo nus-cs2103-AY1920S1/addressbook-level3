@@ -24,6 +24,8 @@ public class ReminderListPanel extends UiPart<Region> {
         super(FXML);
         reminderListView.setItems(itemList);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
+        reminderListView.scrollTo(itemList.size());
+
     }
 
     /**
