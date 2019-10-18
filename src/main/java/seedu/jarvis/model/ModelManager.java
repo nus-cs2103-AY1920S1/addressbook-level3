@@ -526,23 +526,6 @@ public class ModelManager implements Model {
     public void resetData(Planner planner) {
         this.planner.resetData(planner);
     }
-    //=========== Course Planner ========================================================
-
-    @Override
-    public void lookUpCourse(Course course) {
-        coursePlanner.lookUpCourse(course);
-    }
-
-    /**
-     * Checks if one planner is equal to the other planner
-     * @param other the other planner to be compared against
-     * @return true if both planners are equal, i.e. they both have the same tasks in the same order,
-     * or false if they are not equal
-     */
-    @Override
-    public CoursePlanner getCoursePlanner() {
-        return coursePlanner;
-    }
 
     /**
      * Retrieves a task from the planner at the specified index
@@ -570,6 +553,17 @@ public class ModelManager implements Model {
     @Override
     public int size() {
         return planner.size();
+    }
+    //=========== Course Planner ========================================================
+
+    @Override
+    public void lookUpCourse(Course course) {
+        coursePlanner.lookUpCourse(course);
+    }
+
+    @Override
+    public CoursePlanner getCoursePlanner() {
+        return coursePlanner;
     }
 
 }

@@ -1,18 +1,19 @@
 package seedu.jarvis.logic.commands.planner;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.jarvis.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DeleteTaskCommandTest {
 
@@ -20,9 +21,9 @@ class DeleteTaskCommandTest {
     @Test
     void getCommandWord() throws ParseException {
         DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("2"));
-        String actual_command = command.getCommandWord();
+        String actualCommand = command.getCommandWord();
 
-        assertEquals("deleteTask", actual_command);
+        assertEquals("deleteTask", actualCommand);
     }
 
     @Test

@@ -1,5 +1,7 @@
 package seedu.jarvis.logic.commands.planner;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -8,8 +10,6 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a task from JARVIS
@@ -77,7 +77,7 @@ public class DeleteTaskCommand extends Command {
 
         TaskList tasks = model.getTasks();
 
-        if(targetIndex.getZeroBased() >= tasks.size()) {
+        if (targetIndex.getZeroBased() >= tasks.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 

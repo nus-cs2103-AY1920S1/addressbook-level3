@@ -1,5 +1,13 @@
 package seedu.jarvis.logic.parser.planner;
 
+import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.parser.ParserUtil;
@@ -11,21 +19,10 @@ import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
-import java.time.LocalDate;
-
-import javax.swing.*;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
 class AddTaskCommandParserTest {
 
     @Test
-    void parse_allFields_present_success() {
+    void parse_allFieldsPresent_success() {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/todo des/borrow book f/weekly p/high #school";
 
@@ -39,7 +36,7 @@ class AddTaskCommandParserTest {
     }
 
     @Test
-    void parse_essentialFieldsTodo_present_success() {
+    void parse_essentialFieldsTodoPresent_success() {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/todo des/borrow book";
 
@@ -50,7 +47,7 @@ class AddTaskCommandParserTest {
     }
 
     @Test
-    void parse_essentialFieldsDeadline_present_success() {
+    void parse_essentialFieldsDeadlinePresent_success() {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/deadline des/borrow book d/20/10/2019";
 
@@ -61,7 +58,7 @@ class AddTaskCommandParserTest {
     }
 
     @Test
-    void parse_essentialFieldsEvent_present_success() {
+    void parse_essentialFieldsEventPresent_success() {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/event des/bday d/20/10/2019//21/10/2019";
 

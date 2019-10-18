@@ -53,9 +53,9 @@ class AddTaskCommandTest {
     void getCommandWord() {
         Task t = new Todo("borrow book");
         AddTaskCommand command = new AddTaskCommand(t);
-        String actual_command = command.getCommandWord();
+        String actualCommand = command.getCommandWord();
 
-        assertEquals("addTask", actual_command);
+        assertEquals("addTask", actualCommand);
 
     }
 }

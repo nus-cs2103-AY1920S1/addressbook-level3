@@ -1,15 +1,13 @@
 package seedu.jarvis.logic.parser.planner;
 
-import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
-import seedu.jarvis.logic.commands.planner.DeleteTaskCommand;
-import seedu.jarvis.logic.parser.ParserUtil;
-import seedu.jarvis.logic.parser.exceptions.ParseException;
+import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.logic.commands.planner.DeleteTaskCommand;
+import seedu.jarvis.logic.parser.ParserUtil;
+import seedu.jarvis.logic.parser.exceptions.ParseException;
 
 class DeleteTaskCommandParserTest {
 
