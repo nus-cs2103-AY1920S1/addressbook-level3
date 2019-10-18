@@ -105,7 +105,7 @@ class TaskListTest {
 
         Task expected = new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat()));
 
-        assertEquals(expected, taskTest.getTask(ParserUtil.parseIndex("2")));
+        assertTrue(expected.isEqual(taskTest.getTask(ParserUtil.parseIndex("2"))));
     }
 
     @Test
@@ -130,6 +130,6 @@ class TaskListTest {
         taskTest.deleteTask(ParserUtil.parseIndex("2"));
 
         assertEquals(2, taskTest.size());
-        assertEquals(new Todo("help"), taskTest.getTask(ParserUtil.parseIndex("2")));
+        assertTrue(new Todo("help").isEqual(taskTest.getTask(ParserUtil.parseIndex("2"))));
     }
 }

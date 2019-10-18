@@ -81,7 +81,7 @@ class PlannerTest {
         testPlanner.addTask(new Todo("read book"));
         testPlanner.addTask(new Todo("borrow book"));
 
-        assertEquals(expected, testPlanner.getTask(ParserUtil.parseIndex("2")));
+        assertTrue(expected.isEqual(testPlanner.getTask(ParserUtil.parseIndex("2"))));
     }
 
     @Test
