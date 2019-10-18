@@ -2,6 +2,7 @@ package seedu.address.itinerary.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -41,6 +42,9 @@ public class EventCard extends UiPart<Region> {
     private Label desc;
 
     @FXML
+    private Label date;
+
+    @FXML
     private Label time;
 
     @FXML
@@ -53,7 +57,18 @@ public class EventCard extends UiPart<Region> {
         title.setText(event.getTitle().title);
         desc.setText(event.getDesc().desc);
         loc.setText(event.getLocation().location);
+        date.setText(event.getDate().date);
         time.setText(event.getTime().time);
+
+        Image image;
+
+        if (event.getIsDone() == true) {
+            image = new Image("/images/tick.png");
+        } else {
+            image = new Image("/images/cross.png");
+        }
+
+        checkBox.setImage(image);
     }
 
     @Override

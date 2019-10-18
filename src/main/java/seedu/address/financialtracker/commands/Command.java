@@ -1,8 +1,8 @@
 package seedu.address.financialtracker.commands;
 
+import seedu.address.financialtracker.model.Model;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.financialtracker.Model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
