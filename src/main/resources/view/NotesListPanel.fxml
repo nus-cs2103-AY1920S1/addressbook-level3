@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <BorderPane xmlns:fx="http://javafx.com/fxml"
+                prefHeight="500" prefWidth="400">
+        <top>
+            <Text text="Njoy Notes" styleClass="cell_big_label" textAlignment="CENTER"/>
+        </top>
+        <center>
+            <ListView fx:id="notesListView" VBox.vgrow="ALWAYS"/>
+        </center>
+    </BorderPane>
+
+</VBox>

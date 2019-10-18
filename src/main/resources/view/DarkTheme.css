@@ -3,6 +3,14 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.header {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-text-color: white;
+    -fx-opacity: 0.9;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
