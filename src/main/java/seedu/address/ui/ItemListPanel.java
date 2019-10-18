@@ -24,6 +24,8 @@ public class ItemListPanel extends UiPart<Region> {
         super(FXML);
         itemListView.setItems(itemList);
         itemListView.setCellFactory(listView -> new ItemListViewCell());
+        itemListView.scrollTo(itemList.size());
+
     }
 
     /**

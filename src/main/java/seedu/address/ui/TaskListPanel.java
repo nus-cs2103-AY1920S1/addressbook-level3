@@ -24,6 +24,8 @@ public class TaskListPanel extends UiPart<Region> {
         super(FXML);
         taskListView.setItems(itemList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
+        taskListView.scrollTo(itemList.size());
+
     }
 
     /**
