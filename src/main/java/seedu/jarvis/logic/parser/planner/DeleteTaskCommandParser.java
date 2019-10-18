@@ -21,7 +21,6 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
      * @return DeleteTaskCommand Object
      * @throws ParseException if the user input does not conform to the expected format
      */
-    //TODO tests
     public DeleteTaskCommand parse(String userInput) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(userInput);

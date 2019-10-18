@@ -7,8 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeleteTaskCommandParserTest {
 
     @Test
-    void parse() {
-        //TODO test
+    void parse_validInput_success() {
+
     }
 
+    @Test
+    void parse_invalidIndex_exceptionThrown() {
+
+    }
 }

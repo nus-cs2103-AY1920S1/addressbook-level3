@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.planner;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -46,5 +47,15 @@ class AddTaskCommandTest {
         Task t = new Todo("borrow book");
         AddTaskCommand command = new AddTaskCommand(t);
         assertDoesNotThrow(() -> command.executeInverse(planner));
+    }
+
+    @Test
+    void getCommandWord() {
+        Task t = new Todo("borrow book");
+        AddTaskCommand command = new AddTaskCommand(t);
+        String actual_command = command.getCommandWord();
+
+        assertEquals("addTask", actual_command);
+
     }
 }
