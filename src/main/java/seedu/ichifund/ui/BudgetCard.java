@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.budget.ComputedBudget;
 
 /**
  * An UI component that displays information of a {@code Budget}.
@@ -39,8 +40,14 @@ public class BudgetCard extends UiPart<Region> {
         this.budget = budget;
         id.setText(displayedIndex + ". ");
         description.setText(budget.getDescription().toString());
-        amount.setText(budget.getAmount().toString());
         criterion.setText(budget.toCriterionString());
+
+        if (budget instanceof ComputedBudget) {
+            amount.setText("$" + ((ComputedBudget) budget).getSpending().toString()
+                    + " / $" + budget.getAmount().toString());
+        } else {
+            amount.setText("$" + budget.getAmount().toString());
+        }
     }
 
     @Override
