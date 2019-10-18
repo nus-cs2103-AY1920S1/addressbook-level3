@@ -102,10 +102,11 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         UniqueFoodList foodList = new UniqueFoodList();
         foodList.setFoods(FOODS);
+        RecordBook recordBook = new RecordBook();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, foodList);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, foodList);
+        modelManager = new ModelManager(addressBook, userPrefs, foodList, recordBook);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, foodList, recordBook);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -118,12 +119,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, foodList)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, foodList, recordBook)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, foodList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, foodList, recordBook)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -131,6 +132,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, foodList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, foodList, recordBook)));
     }
 }

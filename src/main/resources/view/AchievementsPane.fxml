@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox fx:id="achievementsTitlePlaceholder" styleClass="pane-with-border">
+        <padding>
+          <Insets bottom="5" left="10" right="10" top="5" />
+        </padding>
+      </HBox>
+
+      <HBox fx:id="achievementsPlaceholder" styleClass="pane-with-border" HBox.Hgrow="ALWAYS">
+        <padding>
+          <Insets bottom="5" left="10" right="10" top="5" />
+        </padding>
+      </HBox>
+   </children>
+</VBox>

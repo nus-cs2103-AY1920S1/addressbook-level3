@@ -8,6 +8,19 @@ import java.util.List;
  */
 public class CliSyntax {
 
+    /* Prefix definitions */
+    public static final Prefix PREFIX_RECORDTYPE = new Prefix("rt/");
+    public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
+
+    public static final Prefix PREFIX_BLOODSUGAR_CONCENTRATION = new Prefix("con/");
+
+    public static final Prefix PREFIX_BMI_HEIGHT = new Prefix("h/");
+    public static final Prefix PREFIX_BMI_WEIGHT = new Prefix("w/");
+
+    public static final Prefix PREFIX_CALENDAR_DESCRIPTION = new Prefix("d/");
+    public static final Prefix PREFIX_CALENDAR_REPETITION = new Prefix("r/");
+    public static final Prefix PREFIX_TIME_PERIOD = new Prefix("tp/");
+
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
@@ -35,5 +48,7 @@ public class CliSyntax {
     public static final Flag FLAG_S = new Flag(FLAG_SIGNAL + ABBR_SNACK);
     public static final Flag FLAG_M = new Flag(FLAG_SIGNAL + ABBR_MEAL);
     public static final List<Flag> FLAGS = Arrays.asList(new Flag[]{FLAG_NSV, FLAG_SV, FLAG_F, FLAG_P, FLAG_S, FLAG_M});
+    public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
+    public static final Prefix PREFIX_COUNT = new Prefix("n/");
 
 }
