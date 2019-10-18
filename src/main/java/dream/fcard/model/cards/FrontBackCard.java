@@ -1,13 +1,14 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.util.json.JsonInterface;
+import dream.fcard.logic.storage.Schema;
+import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import javafx.scene.Node;
 
 /**
  * Card that evaluates input to match back of card.
  */
-public class FrontBackCard implements FlashCard, JsonInterface {
+public class FrontBackCard implements FlashCard {
 
     protected String back;
     protected String front;
@@ -19,21 +20,43 @@ public class FrontBackCard implements FlashCard, JsonInterface {
 
     @Override
     public JsonValue toJson() {
-        return null;
+        JsonObject obj = new JsonObject();
+        obj.put(Schema.TYPE_FIELD, Schema.FRONT_BACK_TYPE);
+        obj.put(Schema.FRONT_FIELD, front);
+        obj.put(Schema.BACK_FIELD, back);
+        return new JsonValue(obj);
     }
 
     @Override
     public Node renderFront() {
+        // temporary
         return null;
     }
 
     @Override
     public Node renderBack() {
+        // temporary
         return null;
     }
 
     @Override
     public Boolean evaluate(String in) {
         return in.equals(back);
+    }
+
+    public void editFront(String newText) {
+        front = newText;
+    }
+
+    public void editBack(String newText) {
+        back = newText;
+    }
+
+    public String getFront() {
+        return front;
+    }
+
+    public String getBack() {
+        return back;
     }
 }
