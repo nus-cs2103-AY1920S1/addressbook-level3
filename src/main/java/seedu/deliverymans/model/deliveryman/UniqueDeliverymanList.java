@@ -63,8 +63,8 @@ public class UniqueDeliverymanList implements Iterable<Deliveryman> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent deliveryman from the list.
+     * The deliveryman must exist in the list.
      */
     public void remove(Deliveryman toRemove) {
         requireNonNull(toRemove);

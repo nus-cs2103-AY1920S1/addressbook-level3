@@ -67,8 +67,8 @@ public class Deliveryman {
 
         return otherDeliveryman != null
                 && otherDeliveryman.getName().equals(getName())
-                && otherDeliveryman.getPhone().equals(getPhone())
-                && otherDeliveryman.getTags().equals(getTags());
+                && otherDeliveryman.getPhone().equals(getPhone());
+
     }
 
     /**
