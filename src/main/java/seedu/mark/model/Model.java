@@ -111,6 +111,11 @@ public interface Model {
     void addFolders(FolderStructure foldersToAdd);
 
     /**
+     * Checks whether Mark contains this {@code tagger}.
+     */
+    boolean hasTagger(SelectiveBookmarkTagger tagger);
+
+    /**
      * Adds a {@code tagger} to Mark.
      */
     void addTagger(SelectiveBookmarkTagger tagger);

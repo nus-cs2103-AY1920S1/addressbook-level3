@@ -3,6 +3,8 @@ package seedu.mark.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.commands.AutotagCommand.MESSAGE_AUTOTAG_ADDED;
+import static seedu.mark.logic.commands.AutotagCommand.MESSAGE_AUTOTAG_EXISTS;
+import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.testutil.TypicalBookmarks.ALICE;
 import static seedu.mark.testutil.TypicalBookmarks.CARL;
@@ -29,7 +31,7 @@ import seedu.mark.testutil.BookmarkBuilder;
  */
 public class AutotagCommandTest {
 
-    private Storage storage = new StorageStub();
+    private final Storage storage = new StorageStub();
 
     @Test
     public void equals() {
@@ -58,7 +60,18 @@ public class AutotagCommandTest {
         assertFalse(firstCommand.equals(secondCommand));
     }
 
-    // TODO: execute_taggerAlreadyExists_throwsException()
+    @Test
+    public void execute_taggerAlreadyExists_throwsException() {
+        NameContainsKeywordsPredicate predicate = prepareNamePredicate("zzz");
+        SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(new Tag("notTagged"), predicate);
+        AutotagCommand command = new AutotagCommand(tagger);
+
+        Model model = new ModelManager(getTypicalMark(), new UserPrefs());
+        SelectiveBookmarkTagger existingTagger = new SelectiveBookmarkTagger(new Tag("notTagged"), predicate);
+        model.addTagger(existingTagger);
+
+        assertCommandFailure(command, model, storage, String.format(MESSAGE_AUTOTAG_EXISTS, tagger));
+    }
 
     @Test
     public void execute_newTaggerDoesNotMatchBookmarks_successNoBookmarksTagged() {
@@ -81,10 +94,10 @@ public class AutotagCommandTest {
         Model model = new ModelManager(getTypicalMark(), new UserPrefs());
 
         NameContainsKeywordsPredicate predicate = prepareNamePredicate("Alice Pauline");
-        SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(new Tag("notTagged"), predicate);
+        SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(new Tag("oneTagged"), predicate);
         AutotagCommand command = new AutotagCommand(tagger);
 
-        Bookmark expectedBookmark1 = new BookmarkBuilder(ALICE).withTags("friends", "notTagged").build();
+        Bookmark expectedBookmark1 = new BookmarkBuilder(ALICE).withTags("friends", "oneTagged").build();
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
         expectedModel.setBookmark(ALICE, expectedBookmark1);
         expectedModel.saveMark();

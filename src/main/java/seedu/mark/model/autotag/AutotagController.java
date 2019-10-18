@@ -35,6 +35,19 @@ public class AutotagController {
     }
 
     /**
+     * Checks whether the given {@code SelectiveBookmarkTagger} exists in this
+     * {@code AutotagController}.
+     *
+     * @param tagger SelectiveBookmarkTagger to be checked.
+     * @return true if the {@code tagger} exists, and false otherwise.
+     */
+    public boolean hasTagger(SelectiveBookmarkTagger tagger) {
+        requireNonNull(tagger);
+
+        return taggers.stream().anyMatch(tagger::equals);
+    }
+
+    /**
      * Adds a {@code SelectiveBookmarkTagger} to the existing list of taggers
      * to apply.
      *

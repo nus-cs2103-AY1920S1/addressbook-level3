@@ -175,6 +175,10 @@ public class Mark implements ReadOnlyMark {
 
     //// autotag controller operations
 
+    public boolean hasTagger(SelectiveBookmarkTagger tagger) {
+        return autotagController.hasTagger(tagger);
+    }
+
     public void addTagger(SelectiveBookmarkTagger tagger) {
         autotagController.addTagger(tagger);
     }

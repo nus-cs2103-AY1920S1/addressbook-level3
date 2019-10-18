@@ -3,6 +3,7 @@ package seedu.mark.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
@@ -23,6 +24,7 @@ public class AutotagCommand extends Command {
             + "Example: " + COMMAND_WORD + " StackOverflow u/stackoverflow.com";
 
     public static final String MESSAGE_AUTOTAG_ADDED = "An autotag was added successfully: %1$s";
+    public static final String MESSAGE_AUTOTAG_EXISTS = "An autotag with this name already exists: %1$s";
     public static final String MESSAGE_NO_CONDITION_SPECIFIED = "At least one name or URL condition must be specified";
 
     private final SelectiveBookmarkTagger tagger;
@@ -33,12 +35,16 @@ public class AutotagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, Storage storage) {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireAllNonNull(model, storage);
 
-        model.addTagger(tagger); // TODO: what if tagger already exists?
+        if (model.hasTagger(tagger)) {
+            throw new CommandException(String.format(MESSAGE_AUTOTAG_EXISTS, tagger));
+        }
+
+        model.addTagger(tagger);
         model.applyAllTaggers();
-        model.saveMark();
+        model.saveMark(); // TODO: Don't save Mark if no taggers were actually applied
 
         return new CommandResult(String.format(MESSAGE_AUTOTAG_ADDED, tagger));
     }
