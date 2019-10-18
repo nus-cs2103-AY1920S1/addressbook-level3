@@ -36,9 +36,9 @@ public class JsonAdaptedDeliveryman {
                                   @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
-        if(tagged != null)
+        if (tagged != null) {
             this.tagged.addAll(tagged);
-
+        }
     }
 
     /**
