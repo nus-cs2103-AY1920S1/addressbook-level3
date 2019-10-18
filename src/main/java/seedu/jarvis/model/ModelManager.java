@@ -527,7 +527,7 @@ public class ModelManager implements Model {
      * @return the task at the given index
      */
     @Override
-    public Task getTask(int index) {
+    public Task getTask(Index index) {
         return planner.getTask(index);
     }
 
@@ -536,7 +536,7 @@ public class ModelManager implements Model {
      * @param index index of the task to be deleted
      */
     @Override
-    public void deleteTask(int index) {
+    public void deleteTask(Index index) {
         planner.deleteTask(index);
     }
 

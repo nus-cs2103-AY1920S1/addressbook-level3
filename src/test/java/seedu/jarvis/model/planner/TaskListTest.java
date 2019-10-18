@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.logic.parser.ParserUtil;
+import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
@@ -94,7 +96,7 @@ class TaskListTest {
     }
 
     @Test
-    void getTask() {
+    void getTask() throws ParseException {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("borrow book"));
         tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
@@ -103,7 +105,7 @@ class TaskListTest {
 
         Task expected = new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat()));
 
-        assertEquals(expected, taskTest.getTask(2));
+        assertEquals(expected, taskTest.getTask(ParserUtil.parseIndex("2")));
     }
 
     @Test
@@ -118,16 +120,16 @@ class TaskListTest {
     }
 
     @Test
-    void deleteTask() {
+    void deleteTask() throws ParseException {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("borrow book"));
         tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
         tasks.add(new Todo("help"));
         TaskList taskTest = new TaskList(tasks);
 
-        taskTest.deleteTask(2);
+        taskTest.deleteTask(ParserUtil.parseIndex("2"));
 
         assertEquals(2, taskTest.size());
-        assertEquals(new Todo("help"), taskTest.getTask(2));
+        assertEquals(new Todo("help"), taskTest.getTask(ParserUtil.parseIndex("2")));
     }
 }

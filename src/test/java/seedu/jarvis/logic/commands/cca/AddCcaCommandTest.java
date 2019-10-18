@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -359,6 +360,21 @@ public class AddCcaCommandTest {
 
         @Override
         public boolean isEqual(Planner other) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Task getTask(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTask(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int size() {
             throw new AssertionError("This method should not be called.");
         }
     }

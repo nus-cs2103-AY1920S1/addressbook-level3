@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.logic.parser.ParserUtil;
+import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
@@ -72,24 +74,24 @@ class PlannerTest {
     }
 
     @Test
-    void getTask() {
+    void getTask() throws ParseException {
         Task expected = new Todo("borrow book");
 
         Planner testPlanner = new Planner();
         testPlanner.addTask(new Todo("read book"));
         testPlanner.addTask(new Todo("borrow book"));
 
-        assertEquals(expected, testPlanner.getTask(2));
+        assertEquals(expected, testPlanner.getTask(ParserUtil.parseIndex("2")));
     }
 
     @Test
-    void deleteTask() {
+    void deleteTask() throws ParseException {
         Planner testPlanner = new Planner();
         testPlanner.addTask(new Todo("borrow"));
         testPlanner.addTask(new Todo("read"));
         testPlanner.addTask(new Todo("study"));
 
-        testPlanner.deleteTask(2);
+        testPlanner.deleteTask(ParserUtil.parseIndex("2"));
 
         assertEquals(2, testPlanner.size());
     }

@@ -75,8 +75,8 @@ public class TaskList {
      * @param index index of the task that is being retrieved
      * @return the task at that particular index
      */
-    public Task getTask(int index) {
-        return tasks.get(index - 1);
+    public Task getTask(Index index) {
+        return tasks.get(index.getZeroBased());
     }
 
     /**
@@ -91,8 +91,8 @@ public class TaskList {
      * Removes the tasks at the specified index
      * @param index the index of that task that is being removed
      */
-    public void deleteTask(int index) {
-        tasks.remove(index - 1);
+    public void deleteTask(Index index) {
+        tasks.remove(index.getZeroBased());
     }
 
 }
