@@ -1,5 +1,6 @@
 package seedu.address.storage.wastelist;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.waste.WasteMonth;
 import seedu.address.storage.JsonAdaptedFood;
 
 /**
@@ -46,7 +48,10 @@ public class JsonSerializableWasteList {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public WasteList toModelType() throws IllegalValueException {
-        WasteList wasteList = new WasteList();
+        /*********************************
+         * CHANGE THIS PART
+         **********************************/
+        WasteList wasteList = new WasteList(new WasteMonth(LocalDate.now()));
         for (JsonAdaptedFood jsonAdaptedFood : this.wasteList) {
             GroceryItem food = jsonAdaptedFood.toModelType();
             wasteList.addWasteItem(food);

@@ -42,8 +42,14 @@ public class DeleteGroceryCommand extends Command {
         }
 
         GroceryItem groceryItemToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        model.addWasteItem(groceryItemToDelete);
+
         model.deleteGroceryItem(groceryItemToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_GROCERY_ITEM_SUCCESS, groceryItemToDelete));
+        CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_GROCERY_ITEM_SUCCESS,
+                groceryItemToDelete));
+        result.setWastelistCommand();
+        return result;
     }
 
     @Override

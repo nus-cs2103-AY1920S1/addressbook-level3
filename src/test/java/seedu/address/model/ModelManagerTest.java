@@ -16,12 +16,14 @@ import static seedu.address.testutil.TypicalWasteList.BANANA;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.food.NameContainsKeywordsPredicate;
+import seedu.address.model.waste.WasteMonth;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ShoppingListBuilder;
 import seedu.address.testutil.TemplateListBuilder;
@@ -110,7 +112,7 @@ public class ModelManagerTest {
                 .withTemplateItem(BIRTHDAY_PARTY).build();
         TemplateList differentTemplateList = new TemplateList();
         WasteList wasteList = new WasteListBuilder().withWasteItem(APPLE).withWasteItem(BANANA).build();
-        WasteList differentWasteList = new WasteList();
+        WasteList differentWasteList = new WasteList(new WasteMonth(LocalDate.now()));
         ShoppingList shoppingList = new ShoppingListBuilder().withShoppingItem(CAKE).withShoppingItem(DATES).build();
         ShoppingList differentShoppingList = new ShoppingList();
 
