@@ -7,7 +7,8 @@ public enum Context {
     GLOBAL,
     CUSTOMER,
     DELIVERYMEN,
-    RESTAURANT;
+    RESTAURANT,
+    EDITING;
 
     public String toLowerCaseString() {
         return name().toLowerCase();

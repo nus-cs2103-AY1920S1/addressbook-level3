@@ -14,4 +14,6 @@ public interface ReadOnlyRestaurantDatabase {
      * This list will not contain any duplicate restaurants.
      */
     ObservableList<Restaurant> getRestaurantList();
+
+    ObservableList<Restaurant> getEditingRestaurantList();
 }

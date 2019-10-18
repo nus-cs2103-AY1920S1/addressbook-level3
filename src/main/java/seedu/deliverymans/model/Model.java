@@ -238,8 +238,13 @@ public interface Model {
      */
     void setRestaurant(Restaurant target, Restaurant editedRestaurant);
 
+    void setEditingRestaurant(Restaurant editingRestaurant);
+
     /** Returns an unmodifiable view of the filtered restaurant list */
     ObservableList<Restaurant> getFilteredRestaurantList();
+
+    /** Returns an unmodifiable view of the editing restaurant list */
+    ObservableList<Restaurant> getEditingRestaurantList();
 
     /**
      * Updates the filter of the filtered restaurant list to filter by the given {@code predicate}.
