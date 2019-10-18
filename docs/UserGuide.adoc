@@ -275,17 +275,20 @@ Displays a list of all tags. +
 Format: `ltags`
 
 === Setting monthly budget : `budget`
-Sets a budget for the current month in Singapore dollars. +
-
-Format: `budget m/MONTHLY_BUDGET` +
+Sets a monthly budget for the current month in Singapore dollars. +
+Format: `budget MONTHLY_BUDGET` +
 
 [NOTE]
 Existing budget of current month is overwritten if budget has already been set.
 
 Example:
 
-* `budget m/500000` +
-Sets a budget of $`500,000` for this month
+* `budget 500000` +
+Sets a budget of `$500,000` for this month
+
+=== Showing current budget : `showbudget`
+Returns the currently set monthly budget. +
+Format: `showbudget`
 
 === Generating statistics : `stats`
 Returns an overview of the spending which enables the user to analyze what they have spent their money on.
@@ -481,8 +484,10 @@ e.g. `sort d/DESC c/ASC` +
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
 e.g. `find n/apple orange c/1.00-200 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
 | *List all tags*| `ltags` +
-| *Budget* | `budget m/MONTHLY_BUDGET` +
-e.g. `goal m/1800` +
+| *Budget* | `budget MONTHLY_BUDGET` +
+e.g. `budget 18000`
+| *Show Budget* | `showbudget` +
+e.g. `showbudget`
 | *Generate statistics*| `stats d/STARTDATE d/ENDDATE` +
 e.g. `stats d/01/01/2019 d/07/01/2019` +
 | *Graph*| `graph d/STARTDATE d/ENDDATE` +
