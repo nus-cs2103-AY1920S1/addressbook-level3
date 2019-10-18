@@ -18,7 +18,7 @@ import seedu.address.storage.SuggestionsStorage;
 /**
  * Represents a TextField which implements an "autocomplete" functionality, based on a supplied list of suggestions.
  */
-public class AutoCompleteTextField extends TextField {
+public class AutocorrectTextField extends TextField {
 
     /** The existing autocomplete suggestions. */
     private final SortedSet<String> suggestions;
@@ -26,14 +26,11 @@ public class AutoCompleteTextField extends TextField {
     /** The popup used to select an entry. */
     private ContextMenu suggestionsPopup;
 
-    /** Construct a new AutoCompleteTextField. */
-    public AutoCompleteTextField() {
+    /** Construct a new AutocorrectTextField. */
+    public AutocorrectTextField() {
         super();
         //tree set of suggestions to be shown when user is entering
         suggestions = SuggestionsStorage.getSuggestions();
-        suggestions.add("add_contact");
-        suggestions.add("add_claim");
-        suggestions.add("add_income");
         suggestionsPopup = new ContextMenu();
         textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -46,7 +43,7 @@ public class AutoCompleteTextField extends TextField {
                     if (suggestions.size() > 0) {
                         populatePopup(searchResult);
                         if (!suggestionsPopup.isShowing()) {
-                            suggestionsPopup.show(AutoCompleteTextField.this, Side.BOTTOM,
+                            suggestionsPopup.show(AutocorrectTextField.this, Side.BOTTOM,
                                     0, 0);
                         }
                     } else {

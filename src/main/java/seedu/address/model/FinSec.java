@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
+import seedu.address.model.autocorrectsuggestion.UniqueAutocorrectSuggestionList;
 import seedu.address.model.claim.ApprovedClaim;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.RejectedClaim;
@@ -24,6 +26,7 @@ public class FinSec implements ReadOnlyFinSec {
     private final UniqueContactsList persons;
     private final UniqueClaimsList claims;
     private final UniqueIncomesList incomes;
+    private final UniqueAutocorrectSuggestionList suggestions;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -36,6 +39,8 @@ public class FinSec implements ReadOnlyFinSec {
         persons = new UniqueContactsList();
         claims = new UniqueClaimsList();
         incomes = new UniqueIncomesList();
+        suggestions = new UniqueAutocorrectSuggestionList();
+
     }
 
     public FinSec() {}
@@ -75,6 +80,14 @@ public class FinSec implements ReadOnlyFinSec {
     }
 
     /**
+     * Replaces the contents of the income list with {@code incomes}.
+     * {@code incomes} must not contain duplicate incomes.
+     */
+    public void setAutocorrectSuggestions(List<AutocorrectSuggestion> suggestions) {
+        this.suggestions.setAutocorrectSuggestions(suggestions);
+    }
+
+    /**
      * Resets the existing data of this {@code FinSec} with {@code newData}.
      */
     public void resetData(ReadOnlyFinSec newData) {
@@ -83,6 +96,7 @@ public class FinSec implements ReadOnlyFinSec {
         setContacts(newData.getContactList());
         setClaims(newData.getClaimList());
         setIncomes(newData.getIncomeList());
+        setAutocorrectSuggestions(newData.getAutocorrectSuggestionList());
 
     }
 
@@ -214,6 +228,38 @@ public class FinSec implements ReadOnlyFinSec {
         incomes.remove(income);
     }
 
+    /**
+     * Returns true if an income with the same identity as {@code income} exists in the address book.
+     */
+    public boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
+        return suggestions.contains(suggestion);
+    }
+
+    /**
+     * Adds an income to the address book.
+     * The income must not already be existing in the address book.
+     */
+    public void addAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
+        suggestions.add(suggestion);
+    }
+
+    /**
+     * Replaces the income {@code target} in the list with {@code editedIncome}.
+     * {@code target} must exist in the address book.
+     * The income identity of {@code editedClaim} must not be the same as another existing income in the address book.
+     */
+    public void setAutocorrectSuggestion(AutocorrectSuggestion target, AutocorrectSuggestion editedSuggestion) {
+
+        suggestions.setAutocorrectSuggestion(target, editedSuggestion);
+    }
+
+    /**
+     * Removes {@code income} from this {@code FinSec}.
+     * {@code income} must already exist in the address book.
+     */
+    public void removeAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
+        suggestions.remove(suggestion);
+    }
     //// util methods
 
     @Override
@@ -235,6 +281,11 @@ public class FinSec implements ReadOnlyFinSec {
     @Override
     public ObservableList<Claim> getClaimList() {
         return claims.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<AutocorrectSuggestion> getAutocorrectSuggestionList() {
+        return suggestions.asUnmodifiableObservableList();
     }
 
     /**

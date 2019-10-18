@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.contact.Contact;
 import seedu.address.storage.SuggestionsStorage;
 
@@ -45,8 +46,6 @@ public class AddContactCommand extends Command {
     public AddContactCommand(Contact contact) {
         requireNonNull(contact);
         toAdd = contact;
-        //add contact details to the suggestions list
-        SuggestionsStorage.addContactDetailsToSuggestionList(contact);
     }
 
     @Override
@@ -58,6 +57,10 @@ public class AddContactCommand extends Command {
         }
 
         model.addContact(toAdd);
+        //adding the contact's name into the suggestion list.
+        AutocorrectSuggestion addName = new AutocorrectSuggestion(toAdd.getName().toString());
+        model.addAutocorrectSuggestion(addName);
+        SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

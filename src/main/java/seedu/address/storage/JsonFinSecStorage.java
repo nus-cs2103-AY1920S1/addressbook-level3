@@ -16,6 +16,7 @@ import seedu.address.model.ReadOnlyFinSec;
 
 /**
  * A class to access FinSec data stored as a json file on the hard disk.
+ * A write and read for the json file.
  */
 public class JsonFinSecStorage implements FinSecStorage {
 

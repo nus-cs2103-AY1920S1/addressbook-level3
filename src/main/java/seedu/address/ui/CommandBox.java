@@ -20,7 +20,7 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
 
     @FXML
-    private AutoCompleteTextField commandTextField;
+    private AutocorrectTextField commandTextField;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);

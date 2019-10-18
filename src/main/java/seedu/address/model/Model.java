@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
@@ -22,6 +23,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<AutocorrectSuggestion> PREDICATE_SHOW_ALL_AUTOCORRECTSUGGESTIONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -149,6 +153,15 @@ public interface Model {
      */
     void setIncome(Income target, Income editedIncome);
 
+    boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion);
+
+    void deleteAutocorrectSuggestion(AutocorrectSuggestion suggestion);
+
+    void addAutocorrectSuggestion(AutocorrectSuggestion suggestion);
+
+    void setAutocorrectSuggestion(AutocorrectSuggestion target, AutocorrectSuggestion editedSuggestion);
+
+
 
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();
@@ -176,5 +189,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredIncomeList(Predicate<Income> predicate);
+
+    ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList();
+
+    void updateFilteredAutocorrectSuggestionList(Predicate<AutocorrectSuggestion> predicate);
 
 }
