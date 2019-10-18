@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -39,7 +40,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook groceryList, ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyTemplateList templateList, ReadOnlyWasteList wasteList,
+                        ReadOnlyTemplateList templateList, TreeMap<WasteMonth, WasteList> wasteArchive,
                         ReadOnlyShoppingList shoppingList) {
         super();
         requireAllNonNull(groceryList, userPrefs, templateList);
@@ -48,6 +49,7 @@ public class ModelManager implements Model {
             + " and template list " + templateList);
 
         WasteList.initialiseWasteArchive();
+        WasteList.addWasteArchive(wasteArchive);
 
         this.groceryList = new AddressBook(groceryList);
         this.templateList = new TemplateList(templateList);
@@ -63,7 +65,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new TemplateList(),
-                new WasteList(WasteMonth.getCurrentWasteMonth()), new ShoppingList());
+                new TreeMap<WasteMonth, WasteList>(), new ShoppingList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -125,13 +127,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getWasteListFilePath() {
-        return userPrefs.getWasteListFilePath();
+        return userPrefs.getWasteArchiveFilePath();
     }
 
     @Override
     public void setWasteListFilePath(Path wasteListFilePath) {
         requireAllNonNull(wasteListFilePath);
-        userPrefs.setWasteListFilePath(wasteListFilePath);
+        userPrefs.setWasteArchiveFilePath(wasteListFilePath);
     }
 
     @Override
@@ -277,6 +279,11 @@ public class ModelManager implements Model {
             WasteList.addWastelistToArchive(currentWasteMonth, newMonthWasteList);
         }
         return wasteList;
+    }
+
+    @Override
+    public TreeMap<WasteMonth, WasteList> getWasteArchive() {
+        return WasteList.getWasteArchive();
     }
 
     @Override

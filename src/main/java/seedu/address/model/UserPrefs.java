@@ -17,7 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path templateListFilePath = Paths.get("data" , "templateList.json");
-    private Path wasteListFilePath = Paths.get("data", "wastelist.json");
+    private Path wasteArchiveFilePath = Paths.get("data", "wastearchive.json");
     private Path shoppingListFilePath = Paths.get("data", "shoppingList.json");
     private IFridgeSettings iFridgeSettings = new IFridgeSettings();
 
@@ -44,6 +44,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setIFridgeSettings(newUserPrefs.getIFridgeSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setWasteArchiveFilePath(newUserPrefs.getWasteArchiveFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -82,13 +83,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.templateListFilePath = templateListFilePath;
     }
 
-    public Path getWasteListFilePath() {
-        return wasteListFilePath;
+    public Path getWasteArchiveFilePath() {
+        return wasteArchiveFilePath;
     }
 
-    public void setWasteListFilePath(Path wasteListFilePath) {
-        requireNonNull(wasteListFilePath);
-        this.wasteListFilePath = wasteListFilePath;
+    public void setWasteArchiveFilePath(Path wasteArchiveFilePath) {
+        requireNonNull(wasteArchiveFilePath);
+        this.wasteArchiveFilePath = wasteArchiveFilePath;
     }
 
     public Path getShoppingListFilePath() {
@@ -113,7 +114,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
-                && templateListFilePath.equals(o.templateListFilePath);
+                && templateListFilePath.equals(o.templateListFilePath)
+                && wasteArchiveFilePath.equals(o.wasteArchiveFilePath);
     }
 
     @Override
@@ -128,6 +130,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nIFridge settings : " + iFridgeSettings);
         sb.append("\nLocal data file location (AddressBook): " + addressBookFilePath);
         sb.append("\nLocal data file location (TemplateList): " + templateListFilePath);
+        sb.append("\nLocal data file location (WasteList): " + wasteArchiveFilePath);
         return sb.toString();
     }
 }

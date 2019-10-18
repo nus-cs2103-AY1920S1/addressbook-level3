@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
-import static seedu.address.testutil.TypicalWasteList.getTypicalWasteList;
+import static seedu.address.testutil.TypicalWasteArchive.getTypicalWasteArchive;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,7 @@ import seedu.address.testutil.EditFoodDescriptorBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteList(), getTypicalShoppingList());
+            getTypicalWasteArchive(), getTypicalShoppingList());
 
     /*@Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

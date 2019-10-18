@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import java.time.LocalDate;
-
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.waste.WasteMonth;
@@ -13,8 +11,8 @@ public class WasteListBuilder {
 
     private WasteList wasteList;
 
-    public WasteListBuilder() {
-        wasteList = new WasteList(new WasteMonth(LocalDate.now()));
+    public WasteListBuilder(WasteMonth wasteMonth) {
+        wasteList = new WasteList(wasteMonth);
     }
 
     /**
