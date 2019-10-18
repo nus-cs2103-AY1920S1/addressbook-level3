@@ -103,7 +103,7 @@ public class Deliveryman {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone().toString())
-                .append(" Status: ");
+                .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

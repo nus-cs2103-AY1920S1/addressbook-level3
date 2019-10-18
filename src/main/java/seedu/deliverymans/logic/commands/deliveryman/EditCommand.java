@@ -46,18 +46,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_DELIVERYMEN = "This deliveryman already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditDeliverymanDescriptor editDeliverymanDescriptor;
 
     /**
-     * @param index of the person in the filtered deliverymen list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the deliveryman in the filtered deliverymen list to edit
+     * @param editDeliverymanDescriptor details to edit the deliveryman with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditDeliverymanDescriptor editDeliverymanDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editDeliverymanDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editDeliverymanDescriptor = new EditDeliverymanDescriptor(editDeliverymanDescriptor);
     }
 
     @Override
@@ -69,28 +69,29 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_DELIVERYMAN_DISPLAYED_INDEX);
         }
 
-        Deliveryman personToEdit = lastShownList.get(index.getZeroBased());
-        Deliveryman editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Deliveryman deliverymanToEdit = lastShownList.get(index.getZeroBased());
+        Deliveryman editedDeliveryman = createEditedDeliveryman(deliverymanToEdit, editDeliverymanDescriptor);
 
-        if (!personToEdit.isSameDeliveryman(editedPerson) && model.hasDeliveryman(editedPerson)) {
+        if (!deliverymanToEdit.isSameDeliveryman(editedDeliveryman) && model.hasDeliveryman(editedDeliveryman)) {
             throw new CommandException(MESSAGE_DUPLICATE_DELIVERYMEN);
         }
 
-        model.setDeliveryman(personToEdit, editedPerson);
+        model.setDeliveryman(deliverymanToEdit, editedDeliveryman);
         model.updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
-        return new CommandResult(String.format(MESSAGE_EDIT_DELIVERYMAN_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_EDIT_DELIVERYMAN_SUCCESS, editedDeliveryman));
     }
 
     /**
-     * Creates and returns a {@code Deliveryman} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Deliveryman} with the details of {@code deliverymanToEdit}
+     * edited with {@code editDeliverymanDescriptor}.
      */
-    private static Deliveryman createEditedPerson(Deliveryman personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Deliveryman createEditedDeliveryman(Deliveryman deliverymanToEdit,
+                                                  EditDeliverymanDescriptor editDeliverymanDescriptor) {
+        assert deliverymanToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Name updatedName = editDeliverymanDescriptor.getName().orElse(deliverymanToEdit.getName());
+        Phone updatedPhone = editDeliverymanDescriptor.getPhone().orElse(deliverymanToEdit.getPhone());
+        Set<Tag> updatedTags = editDeliverymanDescriptor.getTags().orElse(deliverymanToEdit.getTags());
 
         return new Deliveryman(updatedName, updatedPhone, updatedTags);
     }
@@ -110,28 +111,28 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editDeliverymanDescriptor.equals(e.editDeliverymanDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
+     * Stores the details to edit the deliveryman with. Each non-empty field value will replace the
      * corresponding field value of the person.
      */
-    public static class EditPersonDescriptor {
+    public static class EditDeliverymanDescriptor {
         private Name name;
         private Phone phone;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditDeliverymanDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditDeliverymanDescriptor(EditDeliverymanDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setTag(toCopy.tags);
+            setTags(toCopy.tags);
         }
 
         /**
@@ -161,7 +162,7 @@ public class EditCommand extends Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTag(Set<Tag> tags) {
+        public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
@@ -182,12 +183,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditDeliverymanDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditDeliverymanDescriptor e = (EditDeliverymanDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
