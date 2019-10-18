@@ -1,9 +1,6 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.ui.MainDisplayPane.DisplayPane.ACHVM;
-import static seedu.address.ui.MainDisplayPane.DisplayPane.BIO;
-import static seedu.address.ui.MainDisplayPane.DisplayPane.MAIN;
 
 import java.util.logging.Logger;
 
@@ -12,9 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -39,7 +36,6 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private FoodFlowPanel foodFlowPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
@@ -53,21 +49,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    /*
-    @FXML
-    private StackPane personListPanelPlaceholder;
-    */
-
-    private StackPane foodFlowPanelPlaceholder;
-
     @FXML
     private StackPane mainDisplayPanePlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -81,8 +68,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        mainDisplayPane = new MainDisplayPane();
-
+        mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
     }
 
@@ -132,23 +118,15 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillInnerParts(String imagePath) {
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        /*
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        foodFlowPanel = new FoodFlowPanel(logic.getFilterFoodList());
-        foodFlowPanelPlaceholder.getChildren().add(foodFlowPanel.getRoot());
-        */
-        mainDisplayPanePlaceholder.getChildren().add(personListPanel.getRoot());
-        mainDisplayPane = new MainDisplayPane(MAIN, personListPanel);
+        ImageView imageView = new ImageView(imagePath);
+        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
+        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
+        mainDisplayPanePlaceholder.getChildren().add(imageView);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -180,9 +158,12 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the main display pane to the specified UI part.
      */
-    public void switchToMainDisplayPane(UiPart<Region> mainDisplayPane) {
-        mainDisplayPanePlaceholder.getChildren().clear();
-        mainDisplayPanePlaceholder.getChildren().add(mainDisplayPane.getRoot());
+    public void switchToMainDisplayPane(DisplayPaneType displayPaneType) {
+        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType())) {
+            mainDisplayPanePlaceholder.getChildren().clear();
+            mainDisplayPanePlaceholder.getChildren()
+                .add(requireNonNull(mainDisplayPane.get(displayPaneType).getRoot()));
+        }
     }
 
     void show() {
@@ -218,18 +199,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
 
             CommandResult commandResult = logic.execute(commandText);
-
-            if (commandResult.isShowBio()) {
-                if (mainDisplayPane.getCurrPane() != BIO) {
-                    switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(BIO)));
-                }
-            } else if (commandResult.isShowAchvm()) {
-                if (mainDisplayPane.getCurrPane() != ACHVM) {
-                    switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(ACHVM)));
-                }
-            } else if (mainDisplayPane.getCurrPane() != MAIN) {
-                switchToMainDisplayPane(requireNonNull(mainDisplayPane.get(MAIN)));
-            }
+            switchToMainDisplayPane(logic.getDisplayPaneType());
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());

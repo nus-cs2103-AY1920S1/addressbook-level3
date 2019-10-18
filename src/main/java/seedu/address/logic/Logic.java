@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
 
 /**
@@ -24,6 +25,11 @@ public interface Logic {
      * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Returns the {@code DisplayPaneType} for updating the main pane based on different commands.
+     */
+    DisplayPaneType getDisplayPaneType();
 
     /**
      * Returns the AddressBook.
