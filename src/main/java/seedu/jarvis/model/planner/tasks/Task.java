@@ -14,8 +14,11 @@ import seedu.jarvis.model.planner.Priority;
 public abstract class Task {
     //add t/TASK TYPE/TASK DES [d/DATE] [#TAG]... [p/PRIORITY LEVEL] [r/FREQ]
 
-
+    public static final String EVENT = "event";
+    public static final String DEADLINE = "deadline";
+    public static final String TODO = "todo";
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     protected String taskDes;
     protected Priority priority = null;
     protected Frequency frequency = null;

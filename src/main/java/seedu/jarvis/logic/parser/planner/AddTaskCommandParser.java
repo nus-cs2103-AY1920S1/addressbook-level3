@@ -7,6 +7,8 @@ import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_PRIORITY;
 import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TAG;
 import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_DES;
 import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
+import static seedu.jarvis.model.planner.tasks.Task.DEADLINE;
+import static seedu.jarvis.model.planner.tasks.Task.EVENT;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -36,32 +38,25 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK_TYPE, PREFIX_TASK_DES)
             || !argMultimap.getPreamble().isEmpty()
-            || (isEventOrDeadline(argMultimap) && !arePrefixesPresent(argMultimap, PREFIX_DATE))) {
+            || !isValidDeadline(argMultimap)
+            || !isValidEvent(argMultimap)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
 
-        Priority priority = null;
-        if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
-            priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        }
+        Priority priority = argMultimap.getValue(PREFIX_PRIORITY).isPresent()
+                            ? ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get())
+                            : null;
 
-        Frequency frequency = null;
-        if (arePrefixesPresent(argMultimap, PREFIX_FREQ)) {
-            frequency = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get());
-        }
+        Frequency frequency = argMultimap.getValue(PREFIX_FREQ).isPresent()
+                              ? ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get())
+                              : null;
 
         String taskType = argMultimap.getValue(PREFIX_TASK_TYPE).get();
         String taskDes = argMultimap.getValue(PREFIX_TASK_DES).get();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         LocalDate[] dates = new LocalDate[2];
-        if (isEventOrDeadline(argMultimap)) {
+        if (taskType.equals(DEADLINE) || taskType.equals(EVENT)) {
             dates = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-            if (taskType.equals("event")) {
-                if (dates[1] == null) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            AddTaskCommand.MESSAGE_USAGE));
-                }
-            }
         }
 
         Task task = ParserUtil.buildTask(taskType, taskDes, dates);
@@ -81,9 +76,39 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    private static boolean isEventOrDeadline(ArgumentMultimap argMultimap) {
+    /**
+     * Checks to see if given task is a valid event
+     * @param argMultimap {@code ArgumentMultimap}
+     * @return true if task is an event, and has two valid dates - one start date and one end date
+     * @throws ParseException
+     */
+    private static boolean isValidEvent(ArgumentMultimap argMultimap) throws ParseException {
         String type = argMultimap.getValue(PREFIX_TASK_TYPE).get();
-        return type.equals("event") || type.equals("deadline");
+        if (type.equals(EVENT)) {
 
+            if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+                return false;
+            }
+
+            LocalDate[] dates;
+            dates = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+            return dates[1] != null;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks to see if the given task is a valid deadline
+     * @param argMultimap {@code ArgumentMultiMap}
+     * @return true if task is a deadline & has a valid date, and false if it does not
+     */
+    private static boolean isValidDeadline(ArgumentMultimap argMultimap) {
+        String type = argMultimap.getValue(PREFIX_TASK_TYPE).get();
+        if (type.equals(DEADLINE)) {
+            return arePrefixesPresent(argMultimap, PREFIX_DATE);
+        }
+
+        return true;
     }
 }
