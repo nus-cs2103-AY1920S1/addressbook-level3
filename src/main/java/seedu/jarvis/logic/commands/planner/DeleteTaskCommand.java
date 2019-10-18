@@ -92,4 +92,11 @@ public class DeleteTaskCommand extends Command {
     public CommandResult executeInverse(Model model) throws CommandException {
         return null;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteTaskCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex));
+    }
 }

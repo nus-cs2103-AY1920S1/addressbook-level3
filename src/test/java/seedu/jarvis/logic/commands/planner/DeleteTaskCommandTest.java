@@ -60,4 +60,14 @@ class DeleteTaskCommandTest {
         DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("1"));
         assertDoesNotThrow(() -> command.executeInverse(planner));
     }
+
+    @Test
+    void testEquals_success() throws ParseException {
+        DeleteTaskCommand commandOne = new DeleteTaskCommand(ParserUtil.parseIndex("1"));
+        DeleteTaskCommand commandTwo = new DeleteTaskCommand(ParserUtil.parseIndex("1"));
+
+        assertEquals(commandOne, commandTwo);
+
+
+    }
 }
