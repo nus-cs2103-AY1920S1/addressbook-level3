@@ -41,7 +41,7 @@ public interface WasteListStorage {
     void saveWasteList(TreeMap<WasteMonth, WasteList> wasteArchive) throws IOException;
 
     /**
-     * @see #saveWasteList(TreeMap<WasteMonth, WasteList>)
+     * @see #saveWasteList
      */
     void saveWasteList(TreeMap<WasteMonth, WasteList> wasteArchive, Path filePath) throws IOException;
 }

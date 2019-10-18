@@ -20,9 +20,14 @@ public class WasteArchiveBuilder {
         this.wasteArchive = wasteArchive;
     }
 
+    /**
+     * Adds a new waste list to the waste archive.
+     * @param wasteList the waste list to be added
+     * @return an updated WasteArchiveBuilder
+     */
     public WasteArchiveBuilder withWasteList(WasteList wasteList) {
-        WasteMonth WlMonth = wasteList.getWasteMonth();
-        wasteArchive.put(WlMonth, wasteList);
+        WasteMonth wlMonth = wasteList.getWasteMonth();
+        wasteArchive.put(wlMonth, wasteList);
         return this;
     }
 

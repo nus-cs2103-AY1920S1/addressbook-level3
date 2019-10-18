@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import java.time.LocalDate;
-
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.waste.WasteMonth;

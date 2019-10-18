@@ -50,7 +50,6 @@ public class JsonSerializableWasteList {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public WasteList toModelType() throws IllegalValueException {
-        
         WasteMonth wasteMonth = new WasteMonth(this.wastemonth);
         WasteList wasteList = new WasteList(wasteMonth);
         for (JsonAdaptedFood jsonAdaptedFood : this.wastelist) {

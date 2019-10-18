@@ -135,6 +135,9 @@ public class MainApp extends Application {
                 initialShoppingListData);
     }
 
+    /**
+     * Returns the initial waste list archive.
+     */
     private TreeMap<WasteMonth, WasteList> initModelManagerWaste(Storage storage) {
 
         Optional<TreeMap<WasteMonth, WasteList>> wasteListOptional;

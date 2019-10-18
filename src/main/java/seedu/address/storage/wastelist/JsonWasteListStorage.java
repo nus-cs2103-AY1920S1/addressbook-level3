@@ -13,7 +13,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.WasteList;
 import seedu.address.model.waste.WasteMonth;
 
@@ -69,7 +68,7 @@ public class JsonWasteListStorage implements WasteListStorage {
     }
 
     /**
-     * Similar to {@link #saveWasteList(TreeMap<WasteMonth, WasteList>)}.
+     * Similar to {@link #saveWasteList}.
      *
      * @param filePath location of the data. Cannot be null.
      */

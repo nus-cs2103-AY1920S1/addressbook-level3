@@ -13,12 +13,9 @@ import static seedu.address.testutil.TypicalTemplateList.BIRTHDAY_PARTY;
 import static seedu.address.testutil.TypicalTemplateList.DIET_PLAN;
 import static seedu.address.testutil.TypicalWasteArchive.CURRENT_WASTE_LIST;
 import static seedu.address.testutil.TypicalWasteArchive.LAST_MONTH_WASTE_LIST;
-import static seedu.address.testutil.TypicalWasteList.APPLE;
-import static seedu.address.testutil.TypicalWasteList.BANANA;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.TreeMap;
 
@@ -31,7 +28,6 @@ import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ShoppingListBuilder;
 import seedu.address.testutil.TemplateListBuilder;
 import seedu.address.testutil.WasteArchiveBuilder;
-import seedu.address.testutil.WasteListBuilder;
 
 public class ModelManagerTest {
 
@@ -126,7 +122,8 @@ public class ModelManagerTest {
 
         // same values -> returns true
         modelManager = new ModelManager(addressBook, userPrefs, templateList, wasteArchive, shoppingList);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, templateList, wasteArchive, shoppingList);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, templateList,
+                wasteArchive, shoppingList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true

@@ -12,7 +12,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WasteList;
 import seedu.address.model.waste.WasteMonth;

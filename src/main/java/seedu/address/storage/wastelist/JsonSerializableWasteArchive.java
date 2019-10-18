@@ -8,10 +8,14 @@ import java.util.TreeMap;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.WasteList;
 import seedu.address.model.waste.WasteMonth;
 
+/**
+ * An Immutable waste archive that is serializable to JSON format.
+ */
 @JsonRootName(value = "wastearchive")
 public class JsonSerializableWasteArchive {
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "Waste list storage contains duplicate waste list(s) "
@@ -33,6 +37,11 @@ public class JsonSerializableWasteArchive {
         }
     }
 
+    /**
+     * Converts this waste archive into the model's waste archive.
+     *
+     * @throws IllegalValueException if there are any data constraints violated
+     */
     public TreeMap<WasteMonth, WasteList> toModelType() throws IllegalValueException {
         TreeMap<WasteMonth, WasteList> modelWasteArchive = new TreeMap<>();
         for (JsonSerializableWasteList jsonSerializableWasteList : wastearchive) {

@@ -62,6 +62,9 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return this.compareTo(otherWasteMonth) < 0;
     }
 
+    /**
+     * Returns the format which the waste month will be stored in storage.
+     */
     public String toStorageFormat() {
         String month = (this.month < 10) ? "0" + String.valueOf(this.month) : String.valueOf(this.month);
         String year = String.valueOf(this.year);

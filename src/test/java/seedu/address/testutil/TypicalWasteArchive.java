@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.address.model.WasteList;
 import seedu.address.model.waste.WasteMonth;
 
+/**
+ * A typical waste archive.
+ */
 public class TypicalWasteArchive {
     public static final WasteList CURRENT_WASTE_LIST = new WasteListBuilder(
             new WasteMonth(LocalDate.now()))
