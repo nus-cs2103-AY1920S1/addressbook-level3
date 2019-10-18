@@ -59,7 +59,7 @@ public class EditCommand extends Command {
         Engagement editedEngagement = createEditedEngagement(engagementToEdit, editEngagementDescriptor);
 
         if (!engagementToEdit.isConflictingWith(editedEngagement) && model.hasEngagement(editedEngagement)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_ENGAGEMENT);
         }
 
         model.setEngagement(engagementToEdit, editedEngagement);
