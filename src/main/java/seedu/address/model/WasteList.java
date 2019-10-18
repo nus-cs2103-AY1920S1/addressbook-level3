@@ -96,6 +96,9 @@ public class WasteList implements ReadOnlyWasteList {
             return;
         }
         wasteArchive = new TreeMap<>();
+        /*******************************************************************
+         * REMOVE THIS BOTTOM LINE LATER
+         */
         currentWasteMonth = new WasteMonth(LocalDate.now());
     }
 
@@ -133,6 +136,10 @@ public class WasteList implements ReadOnlyWasteList {
 
     public static void addWastelistToArchive(WasteMonth wm, WasteList wasteList) {
         wasteArchive.put(wm, wasteList);
+    }
+
+    public static void addWasteArchive(TreeMap<WasteMonth, WasteList> existingWasteArchive) {
+        wasteArchive.putAll(existingWasteArchive);
     }
     /**
      * Returns the current waste list.

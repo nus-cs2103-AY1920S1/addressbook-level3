@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
@@ -31,11 +32,11 @@ public class TypicalWasteList {
     private TypicalWasteList() {} // prevents instantiation
 
     public static WasteList getTypicalWasteList() {
-        WasteList ab = new WasteList(new WasteMonth(LocalDate.now()));
-        for (GroceryItem wasteItem: getTypicalWasteItems()) {
-            ab.addWasteItem(wasteItem);
+        WasteList wasteList = new WasteList(new WasteMonth(LocalDate.now()));
+        for (GroceryItem item : getTypicalWasteItems()) {
+            wasteList.addWasteItem(item);
         }
-        return ab;
+        return wasteList;
     }
 
     public static List<GroceryItem> getTypicalWasteItems() {

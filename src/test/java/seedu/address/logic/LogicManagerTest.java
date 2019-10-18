@@ -130,7 +130,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
-                model.getWasteList(), model.getShoppingList());
+                model.getWasteArchive(), model.getShoppingList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

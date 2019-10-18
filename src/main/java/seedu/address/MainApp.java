@@ -95,17 +95,15 @@ public class MainApp extends Application {
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTemplateList> templateListOptional;
-        Optional<TreeMap<WasteMonth, WasteList>> wasteListOptional;
         Optional<ReadOnlyShoppingList> shoppingListOptional;
         ReadOnlyAddressBook initialAddressBookData;
         ReadOnlyTemplateList initialTemplateListData;
-        ReadOnlyWasteList initialWasteListData;
+        TreeMap<WasteMonth, WasteList> initialWasteArchiveData;
         ReadOnlyShoppingList initialShoppingListData;
 
         try {
             addressBookOptional = storage.readAddressBook();
             templateListOptional = storage.readTemplateList();
-            wasteListOptional = storage.readWasteList();
             shoppingListOptional = storage.readShoppingList();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
@@ -131,10 +129,21 @@ public class MainApp extends Application {
             initialShoppingListData = new ShoppingList();
         }
 
+        initialWasteArchiveData = initModelManagerWaste(storage);
+
+
+        return new ModelManager(initialAddressBookData, userPrefs, initialTemplateListData, initialWasteArchiveData,
+                initialShoppingListData);
+    }
+
+    private TreeMap<WasteMonth, WasteList> initModelManagerWaste(Storage storage) {
         //For now, will demo with sample data first.
+
+        Optional<TreeMap<WasteMonth, WasteList>> wasteListOptional;
+        TreeMap<WasteMonth, WasteList> initialWasteArchiveData;
+
         WasteList.initialiseWasteArchive();
-        SampleDataUtil.setSampleWasteItems();
-        initialWasteListData = SampleDataUtil.getSampleWasteList();
+        initialWasteArchiveData = SampleDataUtil.getSampleWasteArchive();
 
         /*
         try {
@@ -152,8 +161,9 @@ public class MainApp extends Application {
         }
          */
 
-        return new ModelManager(initialAddressBookData, userPrefs, initialTemplateListData, initialWasteListData,
-                initialShoppingListData);
+        return initialWasteArchiveData;
+
+
     }
 
     private void initLogging(Config config) {

@@ -13,8 +13,8 @@ public class WasteListBuilder {
 
     private WasteList wasteList;
 
-    public WasteListBuilder() {
-        wasteList = new WasteList(new WasteMonth(LocalDate.now()));
+    public WasteListBuilder(WasteMonth wasteMonth) {
+        wasteList = new WasteList(wasteMonth);
     }
 
     /**
