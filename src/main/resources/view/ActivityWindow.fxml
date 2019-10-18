@@ -7,21 +7,21 @@
 
 <StackPane stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-       <TabPane fx:id="ActivityWindow" tabClosingPolicy="UNAVAILABLE">
+       <TabPane fx:id="activityWindow" tabClosingPolicy="UNAVAILABLE">
            <tabs>
                <Tab text="EmptyTab">
                    <content>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                    </content>
                </Tab>
-               <Tab fx:id="FlashcardTab" text="FlashcardTab">
-                   <fx:include fx:id="FlashcardTabController" source="FlashcardTabWindow.fxml" />
+               <Tab text="FlashcardTab">
+                   <fx:include fx:id="flashcardTabWindow" source="FlashcardTabWindow.fxml" />
                </Tab>
-               <Tab fx:id="NotesTab" text="NotesTab">
-                   <fx:include fx:id="NotesTabController" source="NotesTabWindow.fxml" />
+               <Tab text="NotesTab">
+                   <fx:include fx:id="notesTabWindow" source="NotesTabWindow.fxml" />
                </Tab>
-               <Tab fx:id="CheatsheetTab" text="CheatsheetTab">
-                   <fx:include fx:id="CheatsheetTabController" source="CheatsheetTabWindow.fxml" />
+               <Tab text="CheatsheetTab">
+                   <fx:include fx:id="cheatsheetTabWindow" source="CheatsheetTabWindow.fxml" />
                </Tab>
            </tabs>
        </TabPane>

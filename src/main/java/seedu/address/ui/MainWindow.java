@@ -38,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ActivityWindow ActivityWindow;
+    private ActivityWindow activityWindow;
 
     @FXML
     private StackPane activityWindowPlaceholder;
@@ -87,7 +87,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        ActivityWindow = new ActivityWindow();
+        activityWindow = new ActivityWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -132,8 +132,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ActivityWindow = new ActivityWindow();
-        activityWindowPlaceholder.getChildren().add(ActivityWindow.getRoot());
+        activityWindow = new ActivityWindow();
+        activityWindowPlaceholder.getChildren().add(activityWindow.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -213,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFlashcard().isPresent()) {
-                ActivityWindow.displayFlashcard(commandResult.getFlashcard().get());
+                activityWindow.displayFlashcard(commandResult.getFlashcard().get());
             }
 
             if (commandResult.getNote().isPresent()) {
@@ -246,7 +246,7 @@ public class MainWindow extends UiPart<Stage> {
         default:
         }
 
-        ActivityWindow.switchWindowTo(targetMode);
+        activityWindow.switchWindowTo(targetMode);
         highlightCircle(currentHighlightedCircle);
     }
 

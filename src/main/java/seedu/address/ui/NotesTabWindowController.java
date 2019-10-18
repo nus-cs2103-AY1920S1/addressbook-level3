@@ -5,7 +5,7 @@ import java.awt.TextField;
 import javafx.fxml.FXML;
 import seedu.address.model.note.Note;
 
-public class NotesTabController {
+public class NotesTabWindowController {
 
     @FXML
     private TextField noteCardTitleTextField;

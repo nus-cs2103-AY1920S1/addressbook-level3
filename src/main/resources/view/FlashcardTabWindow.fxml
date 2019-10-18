@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane style="-fx-background-color: #383838; -fx-border-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="flashcardTabWindow" style="-fx-background-color: #383838; -fx-border-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <HBox style="-fx-border-color: #383838;" BorderPane.alignment="CENTER">
          <children>
@@ -18,7 +18,7 @@
                   <Insets />
                </HBox.margin>
             </TextArea>
-            <Separator fx:id="qnsTextArea" orientation="VERTICAL" />
+            <Separator fx:id="flashcardSeparator" orientation="VERTICAL" />
             <TextArea fx:id="ansTextArea" editable="false" style="-fx-border-color: #383838;" styleClass="pane-with-border" stylesheets="@DarkTheme.css" />
          </children>
       </HBox>

@@ -3,7 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import seedu.address.logic.FunctionMode;
 import seedu.address.model.flashcard.Flashcard;
@@ -16,35 +16,29 @@ public class ActivityWindow extends UiPart<Region> {
     private static final int NOTES_TAB_INDEX = 3;
 
     @FXML
-    private TabPane ActivityWindow;
+    private TabPane activityWindow;
 
     @FXML
-    private Tab FlashcardTab;
+    private BorderPane flashcardTabWindow;
 
     @FXML
-    private Tab CheatsheetTab;
+    private BorderPane cheatsheetTabWindow;
 
     @FXML
-    private TextArea qnsTextArea;
+    private BorderPane notesTabWindow;
 
     @FXML
-    private TextArea ansTextArea;
+    private FlashcardTabWindowController flashcardTabWindowController;
 
     @FXML
-    private Tab NotesTab;
+    private CheatsheetTabWindowController cheatsheetTabWindowController;
 
     @FXML
-    private FlashcardTabController flashcardTabController;
-
-    @FXML
-    private CheatsheetTabController cheatsheetTabController;
-
-    @FXML
-    private NotesTabController notesTabController;
+    private NotesTabWindowController notesTabWindowController;
 
     public ActivityWindow() {
         super(FXML);
-        flashcardTabController = new FlashcardTabController();
+        flashcardTabWindowController = new FlashcardTabWindowController(this);
     }
 
     /**
@@ -54,20 +48,20 @@ public class ActivityWindow extends UiPart<Region> {
     public void switchWindowTo(FunctionMode targetMode) {
         switch (targetMode) {
             case FLASHCARD:
-                ActivityWindow.getSelectionModel().select(FLASHCARD_TAB_INDEX);
+                activityWindow.getSelectionModel().select(FLASHCARD_TAB_INDEX);
                 break;
             case CHEATSHEET:
-                ActivityWindow.getSelectionModel().select(CHEATSHEET_TAB_INDEX);
+                activityWindow.getSelectionModel().select(CHEATSHEET_TAB_INDEX);
                 break;
             case NOTE:
-                ActivityWindow.getSelectionModel().select(NOTES_TAB_INDEX);
+                activityWindow.getSelectionModel().select(NOTES_TAB_INDEX);
                 break;
             default:
         }
     }
 
     public void displayFlashcard(Flashcard flashcard) {
-        flashcardTabController.loadFlashcard(flashcard);
+        flashcardTabWindowController.loadFlashcard(flashcard);
     }
 
 }
