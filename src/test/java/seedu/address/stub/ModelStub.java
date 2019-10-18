@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ActivityBook;
+import seedu.address.model.Context;
 import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -135,6 +136,16 @@ public class ModelStub implements Model {
 
     @Override
     public void deleteActivity(Activity target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setContext(Context context) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Context getContext() {
         throw new AssertionError("This method should not be called.");
     }
 }
