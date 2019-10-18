@@ -161,7 +161,8 @@ public class UniqueEmployeeListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Employee> listWithDuplicateEmployees = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateEmployeeException.class, () -> uniqueEmployeeList.setEmployees(listWithDuplicateEmployees));
+        assertThrows(DuplicateEmployeeException.class, () ->
+                uniqueEmployeeList.setEmployees(listWithDuplicateEmployees));
     }
 
     @Test
