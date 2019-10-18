@@ -124,7 +124,7 @@ public class ParserUtil {
             Date dateInDateFormat = dateGroup.getDates().get(0);
             LocalDate dateInLocalDateFormat = dateInDateFormat.toInstant()
                     .atZone(ZoneId.systemDefault()).toLocalDate();
-            return new WasteMonth(dateInLocalDateFormat.getMonthValue(), dateInLocalDateFormat.getYear());
+            return new WasteMonth(dateInLocalDateFormat);
         } catch (Exception e) {
             throw new ParseException(WasteMonth.MESSAGE_CONSTRAINTS);
         }

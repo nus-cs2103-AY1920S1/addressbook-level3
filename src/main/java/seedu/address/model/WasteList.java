@@ -81,6 +81,7 @@ public class WasteList implements ReadOnlyWasteList {
         return WasteStatistic.getWasteStatistic(this.wasteList);
     }
 
+    @Override
     public WasteMonth getWasteMonth() {
         return wasteList.getWasteMonth();
     }

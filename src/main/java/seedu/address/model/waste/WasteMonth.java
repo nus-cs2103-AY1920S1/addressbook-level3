@@ -1,6 +1,11 @@
 package seedu.address.model.waste;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
+
+import seedu.address.model.waste.exceptions.WasteMonthException;
 
 /**
  * The Waste Month to index the list of waste lists.
@@ -9,11 +14,19 @@ public class WasteMonth implements Comparable<WasteMonth> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Month of year can be in any format permissible by the Natty library.";
+    public static final Pattern VALIDATION_REGEX = Pattern.compile("^(0[1-9]|1[012])-((19|2[0-9])[0-9]{2})$");
 
     private int month;
     private int year;
 
     public WasteMonth(int month, int year) {
+        boolean isValidMonth = month > 0 && month < 13;
+        boolean isValidYear = year > 1900 && year < 3000;
+        if (!isValidMonth || !isValidYear) {
+            String errorMessage = isValidMonth ? "Month is valid, " : "Month is not valid, ";
+            errorMessage += isValidYear ? "Year is valid." : "Year is not valid.";
+            throw new WasteMonthException(errorMessage);
+        }
         this.month = month;
         this.year = year;
     }
@@ -21,6 +34,16 @@ public class WasteMonth implements Comparable<WasteMonth> {
     public WasteMonth(LocalDate date) {
         this.month = date.getMonthValue();
         this.year = date.getYear();
+    }
+
+    public WasteMonth(String wasteMonthString) {
+        if (!VALIDATION_REGEX.matcher(wasteMonthString).matches()) {
+            throw new WasteMonthException("Invalid Format.");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-yyyy");
+        YearMonth ym = YearMonth.parse(wasteMonthString, formatter);
+        this.month = ym.getMonthValue();
+        this.year = ym.getYear();
     }
 
     public int getMonth() {
@@ -39,8 +62,14 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return this.compareTo(otherWasteMonth) < 0;
     }
 
+    public String toStorageFormat() {
+        String month = (this.month < 10) ? "0" + String.valueOf(this.month) : String.valueOf(this.month);
+        String year = String.valueOf(this.year);
+        return month + "-" + year;
+    }
+
     public static WasteMonth getCurrentWasteMonth() {
-        return new WasteMonth(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+        return new WasteMonth(LocalDate.now());
     }
 
     @Override
@@ -62,6 +91,6 @@ public class WasteMonth implements Comparable<WasteMonth> {
 
     @Override
     public String toString() {
-        return month + "/" + year;
+        return month + "-" + year;
     }
 }

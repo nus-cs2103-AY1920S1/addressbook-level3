@@ -38,6 +38,8 @@ public class IfridgeParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
+
+
         final String listType = matcher.group("listType");
         final String listCommand = matcher.group("listCommand");
         switch (listType) {

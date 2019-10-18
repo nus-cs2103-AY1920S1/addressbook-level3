@@ -43,6 +43,10 @@ public class JsonWasteListStorage implements WasteListStorage {
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyWasteList> readWasteList(Path filePath) throws DataConversionException {
+
+        /************************************
+         * This part will return the treemap thing.
+         */
         requireNonNull(filePath);
 
         Optional<JsonSerializableWasteList> jsonWasteList = JsonUtil.readJsonFile(
