@@ -24,8 +24,7 @@ public class CommandHistory {
      * Adds a triplet of {@code objectType, @code CommandWord, @code userInput}
      * in the command history.
      */
-    public void addCommand(ObjectType objectType, String commandWord, String userInput) {
-        requireNonNull(objectType);
+    public void addCommand(String commandWord, String userInput) {
         requireNonNull(commandWord);
         requireNonNull(userInput);
         userInputHistory.add(new Pair(commandWord, userInput));
