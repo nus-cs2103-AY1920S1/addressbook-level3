@@ -12,6 +12,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
+import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.EventCard;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
@@ -19,7 +20,7 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays the feedback to the user.
  */
-public class TimelineDayView extends UiPart<Region> {
+public class TimelineDayView extends UiPart<Region> implements EventListListener {
 
     private static final String FXML = "TimelineDayView.fxml";
     private static final Integer SPACING = 62;
@@ -109,19 +110,6 @@ public class TimelineDayView extends UiPart<Region> {
     }
 
     /**
-     * Changes the event in the timeline.
-     * @param eventList Represents the list of events.
-     */
-    public void eventChange(List<EventSource> eventList) {
-        resetTimeline();
-        for (EventSource event : eventList) {
-            if (sameDay(event)) {
-                addEventCard(event);
-            }
-        }
-    }
-
-    /**
      * Returns true if the event is the same day as the current timeline.
      * @param event The given event.
      * @return True if the event is the same day as the current timeline.
@@ -197,5 +185,15 @@ public class TimelineDayView extends UiPart<Region> {
         this.timeBoxes.add(timeBox21);
         this.timeBoxes.add(timeBox22);
         this.timeBoxes.add(timeBox23);
+    }
+
+    @Override
+    public void onEventListChange(List<EventSource> events) {
+        resetTimeline();
+        for (EventSource event : events) {
+            if (sameDay(event)) {
+                addEventCard(event);
+            }
+        }
     }
 }
