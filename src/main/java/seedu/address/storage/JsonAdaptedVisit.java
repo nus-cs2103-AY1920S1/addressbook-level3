@@ -67,6 +67,8 @@ public class JsonAdaptedVisit {
     /**
      * Converts this Jackson-friendly adapted visit object into the model's {@code Visit} object
      * with a reference to its patient object.
+     * Because this patient object is not saved together with the Visit, it is only passed in when the visit
+     * object needs to be converted to its model type.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
