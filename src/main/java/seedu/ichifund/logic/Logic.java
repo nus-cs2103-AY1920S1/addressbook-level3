@@ -26,6 +26,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
+     * Executes all the tasks.
+     */
+    void executeAllTasks();
+
+    /**
      * Returns the FundBook.
      *
      * @see seedu.ichifund.model.Model#getFundBook()
