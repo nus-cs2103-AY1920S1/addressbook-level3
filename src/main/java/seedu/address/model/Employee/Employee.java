@@ -47,6 +47,19 @@ public class Employee {
         this.tags.addAll(tags);
     }
 
+    public Employee( EmployeeName employeeName, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                     EmployeeAddress employeeAddress,Set<Tag> tags) {
+        this.employeeName = employeeName;
+        this.employeePhone = employeePhone;
+        this.employeeEmail = employeeEmail;
+        this.employeeAddress = employeeAddress;
+        this.employeeID = null;
+        this.employeeGender = null;
+        this.employeeJoinDate = null;
+        this.employeePosition = null;
+        this.tags.addAll(tags);
+    }
+
     public  Employee(){
         this.employeeName = null;
         this.employeePhone = null;
