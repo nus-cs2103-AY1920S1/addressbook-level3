@@ -27,9 +27,9 @@
                </Label>
             </children>
          </HBox>
+            <Label fx:id="country" styleClass="cell_small_label" text="\\$country" />
             <Label fx:id="amount" styleClass="cell_small_label" text="\\$amount" />
             <Label fx:id="desc" styleClass="cell_small_label" text="\\$desc" />
-            <Label fx:id="country" styleClass="cell_small_label" text="\\$country" />
         </VBox>
       <rowConstraints>
          <RowConstraints />

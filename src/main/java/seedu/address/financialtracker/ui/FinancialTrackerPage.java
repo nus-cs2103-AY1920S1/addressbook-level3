@@ -5,9 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.financialtracker.Model.Model;
+import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.commands.Command;
 import seedu.address.financialtracker.parser.FinancialTrackerParser;
 import seedu.address.logic.commands.CommandResult;
@@ -100,23 +99,12 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
                 handleExit();
             }
 
-            if (commandResult.isShowPage()) {
-                handlePageChange(commandResult);
-            }
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
-    }
-
-    /**
-     * Changes application page.
-     */
-    @FXML
-    private void handlePageChange(CommandResult commandResult) {
     }
 
     /**

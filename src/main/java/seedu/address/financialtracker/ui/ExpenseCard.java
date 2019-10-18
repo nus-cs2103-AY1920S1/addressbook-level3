@@ -4,11 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.financialtracker.Model.Expense.Expense;
+import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Expense}.
  */
 public class ExpenseCard extends UiPart<Region> {
 
@@ -39,8 +39,8 @@ public class ExpenseCard extends UiPart<Region> {
         super(FXML);
         this.expense = expense;
         id.setText(displayedIndex + ". ");
-        amount.setText(expense.getAmount().value);
-        desc.setText(expense.getDesc().value);
+        amount.setText("Amount: " + expense.getAmount().value);
+        desc.setText("Details: " + expense.getDesc().value);
         country.setText(expense.getCountry().value);
     }
 

@@ -1,28 +1,28 @@
 package seedu.address.financialtracker.parser;
 
-import seedu.address.financialtracker.Model.Expense.Amount;
-import seedu.address.financialtracker.Model.Expense.Country;
-import seedu.address.financialtracker.Model.Expense.Description;
-import seedu.address.financialtracker.Model.Expense.Expense;
-import seedu.address.financialtracker.commands.AddFinCommand;
-import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_COUNTRY;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DESCRIPTION;
 
+import java.util.stream.Stream;
+
+import seedu.address.financialtracker.commands.AddFinCommand;
+import seedu.address.financialtracker.model.expense.Amount;
+import seedu.address.financialtracker.model.expense.Country;
+import seedu.address.financialtracker.model.expense.Description;
+import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddFinCommand.
  */
 public class AddFinCommandParser implements Parser<AddFinCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddFinCommand
+     * and returns an AddFinCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFinCommand parse(String args) throws ParseException {

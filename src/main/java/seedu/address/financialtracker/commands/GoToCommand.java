@@ -1,11 +1,15 @@
 package seedu.address.financialtracker.commands;
 
+import seedu.address.financialtracker.model.Model;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.financialtracker.Model.Model;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 
+/**
+ * Switch to another page.
+ */
 public class GoToCommand extends Command {
+
     public static final String COMMAND_WORD = "goto";
     public static final String MESSAGE_CHANGE_SUCCESS = "Switching to %s page";
     public static final String MESSAGE_USAGE = COMMAND_WORD
