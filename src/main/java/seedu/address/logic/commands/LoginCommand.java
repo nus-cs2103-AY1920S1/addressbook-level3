@@ -8,7 +8,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.LoginCredentialsPredicate;
-import seedu.address.model.person.Person;
 
 /**
  * Logs a user into the incident management system with a valid username and password.
@@ -35,20 +34,18 @@ public class LoginCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
-        boolean success = model.getFilteredPersonList().size() == 1;
-        Person user = model.getFilteredPersonList().get(0);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        if (!success) {
-            throw new CommandException(MESSAGE_FAILURE);
-        }
-
         if (model.isLoggedIn()) {
             throw new CommandException(MESSAGE_MISUSE);
         }
 
-        model.setSession(user); // Sets session to person remaining in list
+        model.updateFilteredPersonList(predicate);
+        if (model.getFilteredPersonList().size() != 1) {
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            throw new CommandException(MESSAGE_FAILURE);
+        }
+
+        model.setSession(model.getFilteredPersonList().get(0)); // Sets session to person remaining in list
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS, true, false, false);
     }
 

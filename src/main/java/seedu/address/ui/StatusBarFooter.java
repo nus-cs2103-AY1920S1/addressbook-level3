@@ -2,11 +2,12 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.Session;
+import seedu.address.model.person.Person;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -27,10 +28,10 @@ public class StatusBarFooter extends UiPart<Region> {
         sessionDetails.setText("Not Logged In");
     }
 
-    public void setLoginDetails(Session session) {
-        if (session.getLoggedInPerson() != null) {
-            sessionDetails.setText("Logged in as " + session.getLoggedInPerson().getUsername()
-                    + " on " + session.getLoginTime());
+    public void setLoginDetails(Person person, Date time) {
+        if (person != null) {
+            sessionDetails.setText("Logged in as " + person.getUsername()
+                    + " on " + time);
         } else {
             sessionDetails.setText("Not Logged In");
         }

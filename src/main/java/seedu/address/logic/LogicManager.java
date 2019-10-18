@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,7 +17,6 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.Session;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Vehicle;
@@ -71,8 +71,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Session getSession() {
-        return model.getSession();
+    public Person getLoggedInPerson() {
+        return model.getLoggedInPerson();
+    }
+
+    @Override
+    public Date getLoginTime() {
+        return model.getLoginTime();
     }
 
     @Override

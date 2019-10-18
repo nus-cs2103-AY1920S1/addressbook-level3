@@ -212,7 +212,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void setStatus() {
-        statusBarFooter.setLoginDetails(logic.getSession());
+        statusBarFooter.setLoginDetails(logic.getLoggedInPerson(), logic.getLoginTime());
     }
 
     /**
