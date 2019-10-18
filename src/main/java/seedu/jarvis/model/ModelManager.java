@@ -424,7 +424,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return historyManager.equals(other.historyManager)
                 && financeTracker.equals(other.financeTracker)
-                && planner.isEqual(other.planner)
+                && planner.equals(other.planner)
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
                 && userPrefs.equals(other.userPrefs)
@@ -553,10 +553,5 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Course> getUnfilteredCourseList() {
         return coursePlanner.getCourseList();
-    }
-
-    @Override
-    public boolean isEqual(Planner other) {
-        return this.planner.isEqual(other);
     }
 }
