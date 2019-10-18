@@ -27,9 +27,13 @@ public class Name {
      * @param name A valid name.
      */
     public Name(String name) {
-        requireNonNull(name);
+        //requireNonNull(name);
         AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         showName = name;
+    }
+
+    public String getName() {
+        return showName;
     }
 
     /**
