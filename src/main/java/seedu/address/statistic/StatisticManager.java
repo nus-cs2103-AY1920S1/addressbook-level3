@@ -9,7 +9,6 @@ import org.apache.commons.math3.stat.StatUtils;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.MoneyUtil;
-import seedu.address.commons.util.StatsPayload;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;

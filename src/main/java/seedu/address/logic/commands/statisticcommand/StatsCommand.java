@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STAT_TYPE;
 
 import java.util.Calendar;
 
-import seedu.address.commons.util.StatsPayload;
+import seedu.address.statistic.StatsPayload;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;

@@ -1,6 +1,5 @@
 package seedu.address.statistic;
 
-import seedu.address.commons.util.StatsPayload;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 
