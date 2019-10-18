@@ -28,32 +28,32 @@ public class JsonCapStorage implements CapStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getCapLogFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyModulo> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyModulo> readCapLog() throws DataConversionException {
+        return readCapLog(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readCapLog()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyModulo> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyModulo> readCapLog(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableAddressBook> jsonCapLog = JsonUtil.readJsonFile(
                 filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonCapLog.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonCapLog.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,16 +61,16 @@ public class JsonCapStorage implements CapStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyModulo addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveCapLog(ReadOnlyModulo addressBook) throws IOException {
+        saveCapLog(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyModulo)}.
+     * Similar to {@link #saveCapLog(ReadOnlyModulo)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyModulo addressBook, Path filePath) throws IOException {
+    public void saveCapLog(ReadOnlyModulo addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

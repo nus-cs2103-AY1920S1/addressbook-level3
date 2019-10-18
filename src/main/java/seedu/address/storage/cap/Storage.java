@@ -22,12 +22,12 @@ public interface Storage extends CapStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getCapLogFilePath();
 
     @Override
-    Optional<ReadOnlyModulo> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyModulo> readCapLog() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyModulo addressBook) throws IOException;
+    void saveCapLog(ReadOnlyModulo addressBook) throws IOException;
 
 }

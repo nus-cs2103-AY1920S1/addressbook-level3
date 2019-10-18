@@ -15,7 +15,7 @@ import seedu.address.model.common.Module;
 /**
  * Jackson-friendly version of {@link ModuleCode}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedModule {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
@@ -29,7 +29,7 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("module_code") String moduleCode, @JsonProperty("title") String title,
+    public JsonAdaptedModule(@JsonProperty("module_code") String moduleCode, @JsonProperty("title") String title,
                              @JsonProperty("credit") int credit, @JsonProperty("faculty") String faculty,
                              @JsonProperty("faculty") String description) {
         this.moduleCode = moduleCode;
@@ -42,7 +42,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Module source) {
+    public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().moduleCode;
         title = source.getTitle().title;
         credit = source.getCredit().getCredit();

@@ -47,7 +47,7 @@ public class LogicCapManager implements Logic {
         try {
             //We can deduce that the previous line of code modifies model in some way
             // since it's being stored here.
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveCapLog(model.getCapLog());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -56,8 +56,8 @@ public class LogicCapManager implements Logic {
     }
 
     @Override
-    public ReadOnlyModulo getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyModulo getCapLog() {
+        return model.getCapLog();
     }
 
     @Override
@@ -66,8 +66,8 @@ public class LogicCapManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getCapLogFilePath() {
+        return model.getCapLogFilePath();
     }
 
     @Override

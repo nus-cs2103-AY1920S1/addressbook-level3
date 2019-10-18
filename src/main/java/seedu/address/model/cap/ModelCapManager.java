@@ -66,12 +66,12 @@ public class ModelCapManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getCapLogFilePath() {
         return userPrefs.getCapLogFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setCapLogFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setCapLogFilePath(addressBookFilePath);
     }
@@ -79,12 +79,12 @@ public class ModelCapManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyModulo addressBook) {
+    public void setCapLog(ReadOnlyModulo addressBook) {
         this.capLog.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyModulo getAddressBook() {
+    public ReadOnlyModulo getCapLog() {
         return capLog;
     }
 

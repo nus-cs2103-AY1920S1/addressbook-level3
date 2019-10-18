@@ -21,13 +21,13 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_MODULE = "Module list contains duplicate person(s).";
 
-    private final List<JsonAdaptedPerson> modules = new ArrayList<>();
+    private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("modules") List<JsonAdaptedPerson> modules) {
+    public JsonSerializableAddressBook(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
         this.modules.addAll(modules);
     }
 
@@ -38,7 +38,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyModulo source) {
         modules.addAll(source.getModuleList()
-                .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+                .stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
     }
 
     /**
@@ -48,8 +48,8 @@ class JsonSerializableAddressBook {
      */
     public CapLog toModelType() throws IllegalValueException {
         CapLog addressBook = new CapLog();
-        for (JsonAdaptedPerson jsonAdaptedPerson : modules) {
-            Module module = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedModule jsonAdaptedModule : modules) {
+            Module module = jsonAdaptedModule.toModelType();
             if (addressBook.hasModule(module)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }

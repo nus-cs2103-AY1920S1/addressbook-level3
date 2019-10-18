@@ -351,7 +351,7 @@ public class SwitchOperation {
         Optional<seedu.address.model.cap.ReadOnlyModulo> addressBookOptional;
         seedu.address.model.cap.ReadOnlyModulo initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readCapLog();
             if (!addressBookOptional.isPresent()) {
                 System.out.println("Data file not found. Will be starting with a sample AddressBook");
             }

@@ -9,14 +9,14 @@ import seedu.address.model.cap.ReadOnlyModulo;
 
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link seedu.address.model.cap.CapLog}.
  */
 public interface CapStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getCapLogFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyModulo}.
@@ -24,23 +24,23 @@ public interface CapStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyModulo> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyModulo> readCapLog() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getCapLogFilePath()
      */
-    Optional<ReadOnlyModulo> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyModulo> readCapLog(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyModulo} to the storage.
-     * @param addressBook cannot be null.
+     * @param capLog cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyModulo addressBook) throws IOException;
+    void saveCapLog(ReadOnlyModulo capLog) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyModulo)
+     * @see #saveCapLog(ReadOnlyModulo, Path) 
      */
-    void saveAddressBook(ReadOnlyModulo addressBook, Path filePath) throws IOException;
+    void saveCapLog(ReadOnlyModulo capLog, Path filePath) throws IOException;
 
 }
