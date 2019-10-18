@@ -443,7 +443,13 @@ public class ItemModelManager implements ItemModel {
             sortedTask = new PriorityQueue<>((item1, item2) -> {
                 Task task1 = item1.getTask().get();
                 Task task2 = item2.getTask().get();
-                return task1.getPriority().compareTo(task2.getPriority());
+                if (task1.isComplete() && !task2.isComplete()) {
+                    return 1;
+                } else if (!task1.isComplete() && task2.isComplete()) {
+                    return -1;
+                } else {
+                    return task1.getPriority().compareTo(task2.getPriority());
+                }
             });
             for (int i = 0; i < taskList.size(); i++) {
                 Item item = taskList.get(i);
@@ -451,7 +457,7 @@ public class ItemModelManager implements ItemModel {
                     sortedTask.add(item);
                 }
             }
-            System.out.println(sortedTask.size());
+
             if (sortedTask.size() == 0) {
                 priorityMode = false;
                 return priorityMode;
@@ -463,11 +469,8 @@ public class ItemModelManager implements ItemModel {
 
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
-        if (sortedTask.peek().getTask().get().isComplete()) {
-            sortedTask.poll();
-        }
 
-        if (sortedTask.size() == 0) {
+        if (sortedTask.peek().getTask().get().isComplete()) {
             priorityMode = false;
             return taskList;
         }
