@@ -79,7 +79,7 @@ class JsonAdaptedRecs {
                     Category.class.getSimpleName()));
         }
 
-            try {
+        try {
             // Convert all to lowercase, and parse into new category / tag / location
             // This will throw IllegalArgumentExceptions if there are any problems with the saved data
             Set<Category> newLikedCategories = likedCategories.stream()
@@ -104,8 +104,8 @@ class JsonAdaptedRecs {
 
             // Check for no overlaps
             if (newLikedCategories.stream().anyMatch(newDislikedCategories::contains)
-                || newLikedTags.stream().anyMatch(newDislikedTags::contains)
-                || newLikedLocation.stream().anyMatch(newDislikedLocation::contains)) {
+                    || newLikedTags.stream().anyMatch(newDislikedTags::contains)
+                    || newLikedLocation.stream().anyMatch(newDislikedLocation::contains)) {
                 throw new IllegalArgumentException(DUPLICATE_ENTRY_OPPOSING_FOUND);
             }
 
