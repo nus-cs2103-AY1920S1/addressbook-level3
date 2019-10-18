@@ -43,12 +43,34 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
-* Words in UPPER_CASE are the parameters to be supplied by the user e.g. in add -td, DESCRIPTION is a parameter which can be used as add -td bathe.
-* Items in square brackets are optional e.g -td DESCRIPTION [-t TAG] can be used as -td bath -t home or as -t bathe.
-* Items with …​ after them can be used multiple times including zero times e.g. [-t TAG]…​ can be used as   (i.e. 0 times), -t friend, -t friend -t family etc.
-* Parameters can be in any order e.g. if the command specifies  -td DESCRIPTION -t TAG, -t TAG -td DESCRIPTION is also acceptable.
+.Command Guidelines
+|===
+|Guidelines: |Description: |Correct usage:
+|Words in UPPER_CASE are the parameters to be supplied by the user | If given `task DESCRIPTION` description is to be provided. |`task shower`
+|All flags *MUST* have a _space_ after them | `task shower -d10.min.later` is *incorrect*. It should be `task shower -d 10.min.later` | `task shower -d 10.min.later`
+|Flags in square brackets are optional | If given `task DESCRIPTION [-t TAG]` tag is optional | `task shower` `task shower -t clean`
+|Flags can be in any order, given that they are accepted by the command | If given `task DESCRIPTION [-d DATETIME] [-r REMINDER]` -r can come before -d | `task shower -d 1.hour.later -r 30.min.later` `task shower -r 30.min.later -d 1.hour.later`
+|Flags must not be repeated in the same input | `task shower -p high -p low` is *incorrect* as -p appears twice | `task shower -p high`
+|===
+
+.Flags Overview
+|===
+|Flag: |Parameter: |Parameter Format: |Possible Parameters: | Example Usage:
+|-d | DATETIME |yyyy-MM-ddTHHmm or dd/MM/yyyy HHmm or mm.min.later or HH.hour.later or dd.day.later |2019-09-25T19:34 or 25/09/2019 1934 or 10.min.later| -d 25/09/2019 1934
+|-r | REMINDER |yyyy-MM-ddTHHmm or dd/MM/yyyy HHmm or mm.min.later or HH.hour.later or dd.day.later |2019-09-25T19:34 or 25/09/2019 1934 or 10.min.later| -r 25/09/2019 1934
+|-p | PRIORITY |high, medium, low| HIGH, medium, LOW | -p high
+|-t | TAG |alphanumeric only | happy123 | -t happy123
+|-desc | DESCRIPTION | alphanumeric only | drink 5 litres of water | -desc
+|--tk | _none_ | _none_ | _none_ | --tk
+|--e | _none_ | _none_ | _none_ | --e
+|--r | _none_ | _none_ | _none_ | --r
+|===
+
+[NOTE]
+Not all tags work for every command. Please check the specific command for more details.
+
 ====
+
 
 === Viewing help : `help`
 
@@ -56,77 +78,75 @@ Format: `help`
 
 === Adding a task: `task`
 
-Adds a task to the task list
-Format: `task DESCRIPTION [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]...`
+Adds a task to the task list +
+Format: `task DESCRIPTION [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]`
 
 [TIP]
-A task can have any number of tags (including 0)
+To create a task quickly, just include the description as Task can have no flags (ie `task shower`).
 
 Examples:
 
 * `task eat my vitamins`
-* `task eat my vitamins -r at 2pm`
-* `task eat my vitamins -d by midnight -p low -t healthy`
+* `task eat my vitamins -r 5.hour.later`
+* `task eat my vitamins -d 10.hour.later -p low -t healthy`
 
 === Adding an event: `event`
 
-Adds an event to events list and calendar
-Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG]...`
-
-[TIP]
-An event can have any number of tags (including 0)
+Adds an event to events list and calendar +
+Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG]`
 
 Examples:
 
-* `event John’s Birthday -d 20/09/2019`
-* `event John’s Birthday -d 20/09/2019 -r at 2pm`
-* `event John’s Birthday -d 20/09/2019 -p high -t friend`
+* `event John’s Birthday -d 20/09/2019 1800`
+* `event John’s Birthday -d 20/09/2019 1800 -r 19/09/2019 1800`
+* `event John’s Birthday -d 3.day.later -r 2.day.later -p high -t friend`
 
 === Adding a reminder: `reminder`
 
-Adds a reminder to the reminder list
-Format: `reminder DESCRIPTION -r REMINDER [-t TAG]...`
-
-[TIP]
-A reminder can have any number of tags (including 0)
+Adds a reminder to the reminder list +
+Format: `reminder DESCRIPTION -r REMINDER [-t TAG]`
 
 Examples:
 
 * `reminder John’s Birthday -r 19/09/2019 14:00`
-* `reminder John’s Birthday -r 19/09/2019  14:00 -p high -t friend`
+* `reminder John’s Birthday -r 2019-09-19T14:00 -t friend`
+* `reminder John's Birthday -r 3.day.later`
 
 === Show the specified category : `show`
 
-Shows the specified category. For example show -t will show the tasks list and show -e will show the events list. The view will be toggled between the respective pages.
-Format: `show [-t] [-e] [-c] [-r] (at least one and only one flag must be used with this command)''
+Shows the specified category by switching the view to the given list. +
+Format: `show [t] [e] [c] [r] (Exactly one flag must be used with this command)''
 
 Examples:
 
-* `show -t`
-* `show -e`
-* `show -r`
-* `show -c`
+* `show t`
+* `show e`
+* `show r`
+* `show c`
 
 === Editing an item : `edit`
 
-This command is used to edit any of the items that you might have. However, you are only able to edit the item when the list is currently in view. For example, you are able to edit a task when the current view is that of the task list as index is used to reference the item. However, you are not able to edit a task for the event list.
-+
-Format: `edit INDEX [-td DESCRIPTION] [-ed DESCRIPTION] [-rd DESCRIPTION] [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]...`
+This command is used to edit any of the items that you might have. +
+
+====== *Limitations* +
+
+* You are only able to edit the item currently shown in your view. For example, when you're on the task list, you can only edit the tasks shown. You will not be able to edit events or reminders.
+* The new item with the edited fields must not already exist.
+
+Format: `edit INDEX [-desc DESCRIPTION] [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]...`
 
 ****
 * Edits the task at the specified `INDEX`. The index refers to the index number shown in currently viewed list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
-* You can remove all the item's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 -td read books -d by tmr` +
-Edits the task description and deadline of the 1st task to be `read books` and `by tmr` respectively.
-* `edit 3 -ed CS2103 team meeting -p high` +
-Edits the event description and the priority of the 2nd event to be `CS2103 team meeting` and `high` respectively.
+* `edit 1 -desc read books -d 3.day.later -p low` +
+Edits item 1 of the current list. Changes the description to `read books`, deadline to `3.day.later` and priority to `low`.
+* `edit 3 -desc CS2103 team meeting -r 3.hour.later -p high` +
+Edits item 2 of the current list. Changes the description to `CS2103 team meeting`, reminder to `3.hour.later` and priority to `high`.
 
 // tag::delete[]
 === Deleting a reminder/task/event : `delete`
@@ -135,39 +155,21 @@ Deletes the reminder/task/event from ELISA. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the item at the specified `INDEX` of the current list shown.
 * The index refers to the index number shown in the list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* No flags should be given with this command.
 ****
 
 Examples:
 
-* `show -R` +
+* `show r` +
 `delete 2` +
 Deletes the 2nd reminder in the shown reminder list.
 
-// end::delete[]
-
-// tag::show[]
-=== Swapping the view : `show`
-
-Swaps the current view. +
-Format: `show -VIEW`
-
-****
-* Swaps the current view to the specified `VIEW`.
-* VIEW must be the first letter bracketed in the tabs.
-****
-
-Examples:
-
-* `show -R` +
-Swaps the current view to the reminder list view.
-
-// end::show[]
 
 // tag::undo[]
-=== Undoing the latest command(s) : `undo`
+=== Undoing the latest modification(s) : `undo`
 
 Reverts the latest commands given on the ELISA. +
 Format: `undo [number of commands]`
@@ -185,7 +187,6 @@ Undoes the last command
 * `undo 2` +
 Undoes the last 2 commands
 
-// end::undo[]
 
 === Exiting the program : `exit`
 
