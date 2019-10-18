@@ -13,7 +13,7 @@ import seedu.address.model.budget.Budget;
 /**
  * Adds a budget to Moolah.
  */
-public class BudgetCommand extends UndoableCommand {
+public class AddBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "budget";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an budget to the address book. "
@@ -33,7 +33,7 @@ public class BudgetCommand extends UndoableCommand {
 
     private final Budget toAdd;
 
-    public BudgetCommand(Budget budget) {
+    public AddBudgetCommand(Budget budget) {
         requireNonNull(budget);
         toAdd = budget;
     }
@@ -59,7 +59,7 @@ public class BudgetCommand extends UndoableCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof BudgetCommand // instanceof handles nulls
-                && toAdd.equals(((BudgetCommand) other).toAdd));
+                || (other instanceof AddBudgetCommand // instanceof handles nulls
+                && toAdd.equals(((AddBudgetCommand) other).toAdd));
     }
 }

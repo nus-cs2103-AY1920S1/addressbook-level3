@@ -7,10 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Alias;
+import seedu.address.logic.commands.AddBudgetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AliasCommand;
-import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -23,6 +23,7 @@ import seedu.address.logic.commands.ListEventsCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.StatsCompareCommand;
+import seedu.address.logic.commands.SwitchBudgetCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -60,8 +61,8 @@ public class AddressBookParser {
             return new AddCommandParser().parse(arguments);
         case AliasCommand.COMMAND_WORD:
             return new AliasCommandParser().parse(arguments);
-        case BudgetCommand.COMMAND_WORD:
-            return new BudgetCommandParser().parse(arguments);
+        case AddBudgetCommand.COMMAND_WORD:
+            return new AddBudgetCommandParser().parse(arguments);
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
@@ -88,6 +89,8 @@ public class AddressBookParser {
             return new StatsCommandParser().parse(arguments);
         case StatsCompareCommand.COMMAND_WORD:
             return new StatsCompareCommandParser().parse(arguments);
+        case SwitchBudgetCommand.COMMAND_WORD:
+            return new SwitchBudgetCommandParser().parse(arguments);
         default:
             // check if alias exists
             if (readOnlyUserPrefs.hasAlias(commandWord)) {

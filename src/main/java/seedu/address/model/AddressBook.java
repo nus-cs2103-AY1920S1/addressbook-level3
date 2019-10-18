@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.UniqueBudgetList;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueEventList;
@@ -93,7 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setEvents(newData.getEventList());
     }
 
-    //// expense-level operations
+    //=========== Expense-level operations =============================================================
 
     /**
      * Returns true if an expense with the same identity as {@code expense}
@@ -154,6 +155,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    //=========== Budget-level operations ================================================================
     /**
      * Returns true if a budget with the same identity as {@code budget}
      * exists in Moolah.
@@ -168,10 +170,39 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The budget must not already exist in Moolah.
      */
     public void addBudget(Budget budget) {
+        requireNonNull(budget);
         budgets.add(budget);
     }
 
-    //// event-level operations
+    /**
+     * Checks whether address book has a budget with the specified name.
+     * @param targetDescription The description (i.e. name) of the budget to check.
+     * @return A boolean indicating whether the address book has such budget.
+     */
+    public boolean hasBudgetWithName(Description targetDescription) {
+        requireNonNull(targetDescription);
+        return budgets.hasBudgetWithName(targetDescription);
+    }
+
+    /**
+     * Returns the primary budget in the address book.
+     * @return The primary budget in the address book.
+     */
+    public Budget getPrimaryBudget() {
+        return budgets.getPrimaryBudget();
+    }
+
+    /**
+     * Switches the primary budget to the budget with the specified name.
+     *
+     * @param targetDescription The name of the budget to be switched to.
+     */
+    public void switchBudgetTo(Description targetDescription) {
+        Budget targetBudget = budgets.getBudgetWithName(targetDescription);
+        budgets.setPrimary(targetBudget);
+    }
+
+    //=========== Event-level operations ================================================================
 
     /**
      * Returns true if an event with the same identity as {@code event}

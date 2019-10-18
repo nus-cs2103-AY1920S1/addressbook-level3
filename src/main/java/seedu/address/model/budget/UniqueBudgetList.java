@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.budget.exceptions.DuplicateBudgetException;
+import seedu.address.model.expense.Description;
 
 /**
  * A list of budgets that enforces uniqueness between its elements and does not allow nulls.
@@ -77,12 +78,28 @@ public class UniqueBudgetList implements Iterable<Budget> {
         Budget primaryBudget = null;
         for (int i = 0; i < internalList.size(); i++) {
             Budget b = internalList.get(i);
-            if (b.isPrimary() == true) {
+            if (b.isPrimary()) {
                 primaryBudget = b;
                 break;
             }
         }
         return primaryBudget;
+    }
+
+    public boolean hasBudgetWithName(Description targetDescription) {
+        return internalList.stream().anyMatch(b -> b.getDescription().equals(targetDescription));
+    }
+
+    public Budget getBudgetWithName(Description targetDescription) {
+        Budget targetBudget = null;
+        for (int i = 0; i < internalList.size(); i++) {
+            Budget b = internalList.get(i);
+            if (b.getDescription().equals(targetDescription)) {
+                targetBudget = b;
+                break;
+            }
+        }
+        return targetBudget;
     }
 
     public boolean isEmpty() {
