@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+
+<HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+      <ImageView fx:id="badge1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="badge2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="badge3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+      <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+   </children>
+</HBox>

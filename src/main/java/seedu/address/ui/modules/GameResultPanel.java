@@ -5,7 +5,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -28,13 +27,7 @@ public class GameResultPanel extends UiPart<Region> {
     private Label title;
 
     @FXML
-    private ImageView badge1;
-
-    @FXML
-    private ImageView badge2;
-
-    @FXML
-    private ImageView badge3;
+    private StackPane badgesRowPlaceholder;
 
     @FXML
     private Label scoreText;
@@ -66,10 +59,7 @@ public class GameResultPanel extends UiPart<Region> {
         AnchorPane.setLeftAnchor(title, 0.0);
         title.setText(gameStatistics.getTitle());
 
-        // set badges todo set depending on received badges
-        badge1.setImage(WordBankStatisticsPanel.BADGE_1_BNW);
-        badge2.setImage(WordBankStatisticsPanel.BADGE_2_BNW);
-        badge3.setImage(WordBankStatisticsPanel.BADGE_3_BNW);
+        badgesRowPlaceholder.getChildren().add(new BadgesRow(true, true, false).getRoot());
 
         // init score text
         int score = gameStatistics.getScore();

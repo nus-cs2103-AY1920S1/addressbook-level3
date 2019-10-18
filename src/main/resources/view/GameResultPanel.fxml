@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
@@ -15,15 +14,7 @@
       <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@DarkTheme.css">
           <children>
               <Label fx:id="title" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header" text="Title" textAlignment="CENTER" />
-            <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
-               <children>
-                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                  <ImageView fx:id="badge1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="badge2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="badge3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
+            <StackPane fx:id="badgesRowPlaceholder" />
             <Region prefHeight="20.0" />
             <Label fx:id="title1" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Score:" textAlignment="CENTER" />
             <Label fx:id="scoreText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header" text="XX" textAlignment="CENTER" />
