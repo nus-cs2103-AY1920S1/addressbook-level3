@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_BURGER;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalRecipes.BURGER;
-import static seedu.address.testutil.TypicalRecipes.MILO;
+import static seedu.address.testutil.recipe.TypicalRecipes.BURGER;
+import static seedu.address.testutil.recipe.TypicalRecipes.MILO;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,9 +14,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.recipe.components.Recipe;
+import seedu.address.model.recipe.components.UniqueRecipeList;
 import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.address.model.recipe.exceptions.RecipeNotFoundException;
-import seedu.address.testutil.RecipeBuilder;
+import seedu.address.testutil.recipe.RecipeBuilder;
 
 public class UniqueRecipeListTest {
 

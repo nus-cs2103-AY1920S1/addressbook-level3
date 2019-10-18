@@ -6,8 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddRecipeCommand;
+import seedu.address.logic.commands.recipe.AddRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.recipe.AddRecipeCommandParser;
 
 /**
  * Parses input arguments and creates a new AddRecipeCommand object

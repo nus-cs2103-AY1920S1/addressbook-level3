@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PUSHUP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SITUP;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExercises.ABS_ROLLOUT;
-import static seedu.address.testutil.TypicalExercises.SITUP;
+import static seedu.address.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
+import static seedu.address.testutil.exercise.TypicalExercises.SITUP;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.ExerciseBuilder;
+import seedu.address.model.exercise.components.Exercise;
+import seedu.address.testutil.exercise.ExerciseBuilder;
 
 public class ExerciseTest {
 

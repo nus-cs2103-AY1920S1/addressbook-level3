@@ -8,15 +8,15 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyDiary;
-import seedu.address.model.ReadOnlyRecipeBook;
-import seedu.address.model.ReadOnlyUserProfile;
-import seedu.address.model.ReadOnlyWorkoutPlanner;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.exercise.Exercise;
-import seedu.address.model.person.Person;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.records.Record;
+import seedu.address.model.diary.ReadOnlyDiary;
+import seedu.address.model.diary.components.Diary;
+import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.health.components.Record;
+import seedu.address.model.profile.ReadOnlyUserProfile;
+import seedu.address.model.profile.person.Person;
+import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.model.recipe.components.Recipe;
 
 /**
  * API of the Logic component

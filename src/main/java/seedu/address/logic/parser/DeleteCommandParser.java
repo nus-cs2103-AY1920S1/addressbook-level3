@@ -6,8 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteRecipeCommand;
+import seedu.address.logic.commands.recipe.DeleteRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.recipe.DeleteRecipeCommandParser;
 
 /**
  * Parses input arguments and creates a new DeleteRecipeCommand object

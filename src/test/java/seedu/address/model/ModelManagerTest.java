@@ -7,14 +7,14 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalDiaries.ALL_MEAT;
-import static seedu.address.testutil.TypicalDiaries.BOB_DIARY;
-import static seedu.address.testutil.TypicalExercises.ABS_ROLLOUT;
-import static seedu.address.testutil.TypicalExercises.BURPEES;
-import static seedu.address.testutil.TypicalProfiles.ALICE;
-import static seedu.address.testutil.TypicalProfiles.BENSON;
-import static seedu.address.testutil.TypicalRecipes.MILO;
-import static seedu.address.testutil.TypicalRecipes.OMELETTE;
+import static seedu.address.testutil.diary.TypicalDiaries.ALL_MEAT;
+import static seedu.address.testutil.diary.TypicalDiaries.BOB_DIARY;
+import static seedu.address.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
+import static seedu.address.testutil.exercise.TypicalExercises.BURPEES;
+import static seedu.address.testutil.profile.TypicalProfiles.ALICE;
+import static seedu.address.testutil.profile.TypicalProfiles.BENSON;
+import static seedu.address.testutil.recipe.TypicalRecipes.MILO;
+import static seedu.address.testutil.recipe.TypicalRecipes.OMELETTE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,12 +23,16 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.diary.DiaryNameContainsKeywordsPredicate;
-import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
-import seedu.address.testutil.DiaryRecordBuilder;
-import seedu.address.testutil.DukeCooksBuilder;
-import seedu.address.testutil.RecipeBookBuilder;
-import seedu.address.testutil.WorkoutPlannerBuilder;
+import seedu.address.model.diary.DiaryRecords;
+import seedu.address.model.diary.components.DiaryNameContainsKeywordsPredicate;
+import seedu.address.model.exercise.WorkoutPlanner;
+import seedu.address.model.profile.UserProfile;
+import seedu.address.model.recipe.RecipeBook;
+import seedu.address.model.recipe.components.RecipeNameContainsKeywordsPredicate;
+import seedu.address.testutil.diary.DiaryRecordBuilder;
+import seedu.address.testutil.exercise.WorkoutPlannerBuilder;
+import seedu.address.testutil.profile.UserProfileBuilder;
+import seedu.address.testutil.recipe.RecipeBookBuilder;
 
 public class ModelManagerTest {
 
@@ -164,7 +168,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        UserProfile userProfile = new DukeCooksBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        UserProfile userProfile = new UserProfileBuilder().withPerson(ALICE).withPerson(BENSON).build();
         UserProfile differentUserProfile = new UserProfile();
 
         RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
