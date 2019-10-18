@@ -36,9 +36,11 @@ public class MainWindow extends UiPart<Stage> {
         Set<Answer> correctAnswerSet = new HashSet<>();
         correctAnswerSet.add(new Answer("20"));
         Set<Answer> wrongAnswerSet = new HashSet<>();
-        wrongAnswerSet.add(new Answer("idk"));
-        wrongAnswerSet.add(new Answer("2103"));
-        wrongAnswerSet.add(new Answer("long answers will have error ):"));
+        wrongAnswerSet.add(new Answer("srksthjdasdfjjgsjsjaasvjfhbgdnsdfdhsjrgjthsj rjgetj grjhfdjrgtjsjg segjthjtr nfbgjd"
+               + "mrgetjrh egtjhrj vrketrjyn"
+               + "rmgetjhry rmtrj"));
+        wrongAnswerSet.add(new Answer("100"));
+        wrongAnswerSet.add(new Answer("50"));
         return new AnswerSet(correctAnswerSet, wrongAnswerSet);
     }
 

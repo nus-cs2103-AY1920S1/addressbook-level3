@@ -6,20 +6,82 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 <GridPane fx:id="cardPane"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
           alignment="center" hgap="10" vgap="10">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
+    </columnConstraints>
 
-    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+    <rowConstraints>
+        <RowConstraints vgrow="ALWAYS" minHeight="10.0" percentHeight="50.0"/>
+        <RowConstraints vgrow="ALWAYS" minHeight="10.0" percentHeight="50.0"/>
+    </rowConstraints>
 
-    <Label fx:id="option1" text="\$option1"
-           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-    <Label fx:id="option2" text="\$option2"
-           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-    <Label fx:id="option3" text="\$option3"
-           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <Label fx:id="option4" text="\$option4"
-           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <children>
+        <Label fx:id="option1" maxHeight="Infinity" maxWidth="1.7976931348623157E308"
+               style="-fx-background-color: #f8b1b1; -fx-background-radius: 10;
+                   -fx-padding: 10; -fx-border-radius: 10;
+                   -fx-border-color: #fbf3f3; -fx-border-width: 3;"
+               text="\$option1" wrapText="true"
+               GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <effect>
+                <DropShadow/>
+            </effect>
+            <font>
+                <Font name="Lucida Bright Demibold" size="12.0"/>
+            </font>
+        </Label>
+
+        <Label fx:id="option2" maxHeight="Infinity" maxWidth="1.7976931348623157E308"
+               style="-fx-background-color: #f8b1b1; -fx-background-radius: 10;
+                   -fx-padding: 10; -fx-border-radius: 10;
+                   -fx-border-color: #fbf3f3; -fx-border-width: 3;"
+               text="\$option2" wrapText="true"
+               GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <effect>
+                <DropShadow/>
+            </effect>
+            <font>
+                <Font name="Lucida Bright Demibold" size="12.0"/>
+            </font>
+        </Label>
+
+        <Label fx:id="option3" maxHeight="Infinity" maxWidth="1.7976931348623157E308"
+               style="-fx-background-color: #f8b1b1; -fx-background-radius: 10;
+                   -fx-padding: 10; -fx-border-radius: 10;
+                   -fx-border-color: #fbf3f3; -fx-border-width: 3;"
+               text="\$option3" wrapText="true"
+               GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <effect>
+                <DropShadow/>
+            </effect>
+            <font>
+                <Font name="Lucida Bright Demibold" size="12.0"/>
+            </font>
+        </Label>
+
+
+        <Label fx:id="option4" maxHeight="Infinity" maxWidth="1.7976931348623157E308"
+               style="-fx-background-color: #f8b1b1; -fx-background-radius: 10;
+                   -fx-padding: 10; -fx-border-radius: 10;
+                   -fx-border-color: #fbf3f3; -fx-border-width: 3;"
+               text="\$option4" wrapText="true"
+               GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <effect>
+                <DropShadow/>
+            </effect>
+            <font>
+                <Font name="Lucida Bright Demibold" size="12.0"/>
+            </font>
+        </Label>
+    </children>
+
 
 </GridPane>
 
