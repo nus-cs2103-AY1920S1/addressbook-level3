@@ -17,6 +17,7 @@ import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.commands.DislikeCommand;
 import seedu.savenus.logic.commands.EditCommand;
 import seedu.savenus.logic.commands.ExitCommand;
+import seedu.savenus.logic.commands.ExpandCommand;
 import seedu.savenus.logic.commands.FilterCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
@@ -113,6 +114,9 @@ public class MenuParser {
 
         case CollapseCommand.COMMAND_WORD:
             return new CollapseCommand();
+
+        case ExpandCommand.COMMAND_WORD:
+            return new ExpandCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
