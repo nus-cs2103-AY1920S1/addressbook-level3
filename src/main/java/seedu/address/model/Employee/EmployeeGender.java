@@ -40,6 +40,13 @@ public class EmployeeGender {
         else return false;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EmployeeGender // instanceof handles nulls
+                && gender.equals(((EmployeeGender) other).gender)); // state check
+    }
+
 
     @Override
     public String toString() {

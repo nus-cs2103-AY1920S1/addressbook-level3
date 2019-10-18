@@ -2,6 +2,8 @@ package seedu.address.model.Employee;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -49,14 +51,15 @@ public class Employee {
 
     public Employee( EmployeeName employeeName, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
                      EmployeeAddress employeeAddress,Set<Tag> tags) {
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
         this.employeeAddress = employeeAddress;
-        this.employeeID = null;
-        this.employeeGender = null;
-        this.employeeJoinDate = null;
-        this.employeePosition = null;
+        this.employeeID = new EmployeeID("000");
+        this.employeeGender = new EmployeeGender("male");
+        this.employeeJoinDate = new EmployeeJoinDate(LocalDate.parse("11/11/2011", FORMATTER));
+        this.employeePosition = new EmployeePosition("manager");
         this.tags.addAll(tags);
     }
 
@@ -122,7 +125,6 @@ public class Employee {
         }
 
         return otherEmployee != null
-                && otherEmployee.getEmployeeID().equals(getEmployeeID())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
                 && otherEmployee.getEmployeePosition().equals((getEmployeePosition()))
@@ -147,8 +149,8 @@ public class Employee {
         }
 
         Employee otherEmployee = (Employee) other;
-        return otherEmployee.getEmployeeID().equals(getEmployeeID())
-                && otherEmployee.getEmployeeName().equals(getEmployeeName())
+        return //otherEmployee.getEmployeeID().equals(getEmployeeID())
+                otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
                 && otherEmployee.getEmployeePosition().equals(getEmployeePosition())
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
