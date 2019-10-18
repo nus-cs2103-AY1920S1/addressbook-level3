@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.GroceryItem;
-import seedu.address.model.food.UniqueFoodList;
+import seedu.address.model.food.UniqueWasteList;
 
 /**
  * The WasteStatistic for given waste list.
@@ -26,7 +26,7 @@ public class WasteStatistic {
         this.totalQuantity = totalQuantity;
     }
 
-    public static WasteStatistic getWasteStatistic(UniqueFoodList wasteList) {
+    public static WasteStatistic getWasteStatistic(UniqueWasteList wasteList) {
         float weight = 0;
         float volume = 0;
         float quantity = 0;

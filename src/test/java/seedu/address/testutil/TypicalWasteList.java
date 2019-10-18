@@ -1,11 +1,13 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.waste.WasteMonth;
 
 /**
  * A Typical Waste List
@@ -29,7 +31,7 @@ public class TypicalWasteList {
     private TypicalWasteList() {} // prevents instantiation
 
     public static WasteList getTypicalWasteList() {
-        WasteList ab = new WasteList();
+        WasteList ab = new WasteList(new WasteMonth(LocalDate.now()));
         for (GroceryItem wasteItem: getTypicalWasteItems()) {
             ab.addWasteItem(wasteItem);
         }
