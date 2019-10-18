@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -39,16 +38,16 @@
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                     </Menu>
                 </MenuBar>
-                <VBox styleClass="padded-container">
+                <VBox>
                     <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" />
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" />
-                    <TabPane fx:id="mainTabPane" side="LEFT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                         <tabs>
                             <Tab text="Transaction">
                                 <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0">
                                         <children>
-                                            <VBox fx:id="transactionList" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <VBox fx:id="transactionList" styleClass="content-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <StackPane fx:id="transactionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                             </VBox>
                                         </children>
@@ -59,7 +58,7 @@
                                 <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0">
                                         <children>
-                                            <VBox fx:id="repeaterList" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <VBox fx:id="repeaterList" styleClass="content-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <StackPane fx:id="repeaterListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                             </VBox>
                                         </children>
@@ -70,7 +69,7 @@
                                 <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0">
                                         <children>
-                                            <VBox fx:id="budgetList" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <VBox fx:id="budgetList" styleClass="content-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <StackPane fx:id="budgetListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                             </VBox>
                                         </children>
@@ -81,7 +80,7 @@
                                 <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0">
                                         <children>
-                                            <VBox fx:id="loanList" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <VBox fx:id="loanList" styleClass="content-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <StackPane fx:id="loanListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                             </VBox>
                                         </children>
@@ -92,7 +91,7 @@
                                 <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0">
                                         <children>
-                                            <VBox fx:id="analyticsBoard" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <VBox fx:id="analyticsBoard" styleClass="content-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <StackPane fx:id="analyticsBoardPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                             </VBox>
                                         </children>
