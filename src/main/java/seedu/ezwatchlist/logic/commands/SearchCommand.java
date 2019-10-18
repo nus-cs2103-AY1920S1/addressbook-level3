@@ -17,12 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+
 /**
  * Finds and lists all shows in watchlist whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class SearchCommand extends Command {
-
     public static final String COMMAND_WORD = "search";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for shows online whose names contain any of "
@@ -31,23 +32,24 @@ public class SearchCommand extends Command {
             + "Example: " + COMMAND_WORD + " Joker";
 
     private final String EMPTY_STRING = "";
-    private Name name;
-    /*private String type;
-    private IsWatched isWatched;
+    private Name showName;
+    private String type;
+    /*private IsWatched isWatched;
+
     private List<String> actorList;*/
 
     public SearchCommand(Optional<String> name/*, Optional<String> type, Optional<String> isWatched,
                          List<String> actorList*/) {
         if (name.isPresent()) {
-            this.name = new Name(name.get().trim());
+            this.showName = new Name(name.get().trim());
         } else {
-            this.name = new Name(EMPTY_STRING);
+            this.showName = new Name(EMPTY_STRING);
         }
 
-
-        /*this.type = EMPTY_STRING;
-        if (type.isPresent()) {
+        /*if (type.isPresent()) {
             this.type = type.get().trim();
+        } else {
+            this.type = EMPTY_STRING;
         }
 
         this.isWatched = new IsWatched(false);
@@ -64,8 +66,8 @@ public class SearchCommand extends Command {
         //try {
             List<Show> searchResult = new ArrayList<>();
 
-            if (!name.equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
-                List<Show> filteredShowList = model.getShowIfSameNameAs(name);
+            if (!showName.getName().equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
+                List<Show> filteredShowList = model.getShowIfSameNameAs(showName);
                 for (Show show : filteredShowList) {
                     searchResult.add(show);
                 }
@@ -95,7 +97,7 @@ public class SearchCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SearchCommand // instanceof handles nulls
-                && name.equals(((SearchCommand) other).name)
+                && showName.equals(((SearchCommand) other).showName)
                 /*&& type.equals(((SearchCommand) other).type)
                 && isWatched.equals(((SearchCommand) other).isWatched)
                 && actorList.equals(((SearchCommand) other).actorList)*/); // state check
