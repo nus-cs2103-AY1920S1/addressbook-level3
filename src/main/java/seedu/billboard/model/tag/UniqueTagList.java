@@ -101,4 +101,12 @@ public class UniqueTagList {
         }
     }
 
+    public void setList(Map<String, Tag> tagList) {
+        requireNonNull(tagList);
+        this.tagList = tagList;
+    }
+
+    public Map<String, Tag> getTagList() {
+        return tagList;
+    }
 }

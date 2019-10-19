@@ -3,6 +3,7 @@ package seedu.billboard.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
@@ -31,6 +32,8 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_TAXES = "paid income tax";
     public static final String VALID_AMOUNT_DINNER = "21.50";
     public static final String VALID_AMOUNT_TAXES = "320.50";
+    public static final String VALID_DATE_DINNER = "23/04/2018 1900";
+    public static final String VALID_DATE_TAXES = "11/05/2018";
     public static final String VALID_TAG_DINNER = "food";
     public static final String VALID_TAG_TAXES = "bills";
     public static final String VALID_ARCHIVE_DINNER = "";
@@ -42,11 +45,14 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_TAXES = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TAXES;
     public static final String AMOUNT_DESC_DINNER = " " + PREFIX_AMOUNT + VALID_AMOUNT_DINNER;
     public static final String AMOUNT_DESC_TAXES = " " + PREFIX_AMOUNT + VALID_AMOUNT_TAXES;
+    public static final String DATE_DESC_DINNER = " " + PREFIX_DATE + VALID_DATE_DINNER;
+    public static final String DATE_DESC_TAXES = " " + PREFIX_DATE + VALID_DATE_TAXES;
     public static final String TAG_DESC_DINNER = " " + PREFIX_TAG + VALID_TAG_DINNER;
     public static final String TAG_DESC_TAXES = " " + PREFIX_TAG + VALID_TAG_TAXES;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "25.20abc"; // alphabet not allowed in amount
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "23.12.19 1231";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -58,10 +64,11 @@ public class CommandTestUtil {
     static {
         DESC_DINNER = new EditExpenseDescriptorBuilder().withName(VALID_NAME_DINNER)
                 .withDescription(VALID_DESCRIPTION_DINNER).withAmount(VALID_AMOUNT_DINNER)
-                .withTags(VALID_TAG_TAXES).build();
+                .withCreatedDateTime(VALID_DATE_DINNER).withTags(VALID_TAG_TAXES).build();
+
         DESC_TAXES = new EditExpenseDescriptorBuilder().withName(VALID_NAME_TAXES)
                 .withDescription(VALID_DESCRIPTION_TAXES).withAmount(VALID_AMOUNT_TAXES)
-                .withTags(VALID_TAG_DINNER, VALID_TAG_TAXES).build();
+                .withCreatedDateTime(VALID_DATE_TAXES).withTags(VALID_TAG_DINNER, VALID_TAG_TAXES).build();
     }
 
     /**

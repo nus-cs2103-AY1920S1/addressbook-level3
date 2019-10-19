@@ -37,7 +37,7 @@ public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagCommand.MESSAGE_USAGE), ive);
         }
 
         tagNames = ParserUtil.parseTagNames(argMultimap.getAllValues(PREFIX_TAG));

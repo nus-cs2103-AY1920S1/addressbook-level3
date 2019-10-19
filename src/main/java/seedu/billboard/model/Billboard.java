@@ -2,7 +2,9 @@ package seedu.billboard.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -56,6 +58,15 @@ public class Billboard implements ReadOnlyBillboard {
         this.expenses.setExpenses(expense);
     }
 
+    public void setUniqueTagList(Map<String, Tag> tagList) {
+        this.tags.setList(tagList);
+    }
+
+    public void setCountManager(Map<Tag, Integer> count) {
+        this.count.setCount(count);
+    }
+
+
     /**
      * Resets the existing data of this {@code Billboard} with {@code newData}.
      */
@@ -63,6 +74,8 @@ public class Billboard implements ReadOnlyBillboard {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenses());
+        setUniqueTagList(newData.getUniqueTagList());
+        setCountManager(newData.getCountManager());
     }
 
     @Override
@@ -77,6 +90,8 @@ public class Billboard implements ReadOnlyBillboard {
                 .stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
         Billboard billboard = new Billboard();
         billboard.setExpenses(nonArchiveExpenses);
+        billboard.setCountManager(count.getCount());
+        billboard.setUniqueTagList(tags.getTagList());
         return billboard;
     }
 
@@ -162,6 +177,16 @@ public class Billboard implements ReadOnlyBillboard {
         return other == this // short circuit if same object
                 || (other instanceof Billboard // instanceof handles nulls
                 && expenses.equals(((Billboard) other).expenses));
+    }
+
+    @Override
+    public Map<String, Tag> getUniqueTagList() {
+        return tags.getTagList();
+    }
+
+    @Override
+    public Map<Tag, Integer> getCountManager() {
+        return count.getCount();
     }
 
     @Override

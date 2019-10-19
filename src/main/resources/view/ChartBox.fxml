@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            minHeight="300.0" prefHeight="300.0" maxHeight="300.0"
+            minWidth="540.0" prefWidth="540.0" maxWidth="540.0"
+            fx:id="chartContainer">
+
+</AnchorPane>

@@ -152,7 +152,7 @@ Usage:
 
 {nbsp} +
 
-=== Finding and sorting of expenses: `find`
+=== Finding expenses by attributes: `find`
 
 . _Find in everything: find all_ +
 Find expenses that contain the keyword/s in any of its attributes. +
@@ -166,16 +166,16 @@ Example: +
 Finds all expenses that contain the keyword ‘lunch’ in any of its attributes. +
 {nbsp} +
 
-. _Find by description: find desc_ +
-Find expenses that contains the keyword/s in its description. +
+. _Find by name: find name_ +
+Find expenses that contains the keyword/s in its name. +
 {nbsp} +
 Usage:
 
- find desc [KEYWORD] [KEYWORD…]
+ find name [KEYWORD] [KEYWORD…]
 +
 Example: +
-`find desc lunch bread` +
-Finds the expenses that contain the keywords ‘lunch’  and ‘bread’ in its description. +
+`find name lunch bread` +
+Finds the expenses that contain the keywords ‘lunch’  and ‘bread’ in its name. +
 {nbsp} +
 
 . _Find tag: find tag_ +
@@ -191,19 +191,8 @@ Finds the expenses that contain the tags ‘school’ and ‘lunch’. +
 {nbsp} +
 
 . _Find date: find date_ +
-Find expenses that occurred on a certain date, formatted as dd/MM/yy. +
+Find expenses that occurred within a range of date, with various date formats. +
 {nbsp} +
-Usage:
-
- find date [DATE]
-+
-Example: +
-`find date 10/9/19` +
-Finds the expenses that were made on 10 September, 2019. +
-{nbsp} +
-
-. _Find period: find period_ +
-Find expenses that occurred within a certain period, with dates formatted as dd/MM/yy. +
 Usage:
 
  find period [START DATE] [END DATE]
@@ -214,21 +203,6 @@ Example: +
 Finds the expenses that occurred between 10 September and 20 September, 2019. +
 `find period 10/9/19` +
 Finds the expenses that occurred between 10 September, 19 and the current date. +
-{nbsp} +
-
-. _Find recent: find recent_ +
-Finds the most recent __n__ expenses, where the default value for n is 10. +
-{nbsp} +
-Usage:
-
- find recent [NUM_ENTRIES, DEFAULT = 10]
-
-+
-Example: +
-`find recent 5` +
-Finds the most recent 5 expenses. +
-`find recent` +
-By default, finds the most recent 10 expenses. +
 {nbsp} +
 
 . _Find by amount: find amt_ +
@@ -243,6 +217,31 @@ Example: +
 Finds the expenses that cost more than $50. +
 `find amt 30 50` +
 Finds the expenses that cost between $30 and $50 +
+{nbsp} +
+
+=== Sorting expenses by attributes: `sort`
+
+. _Sort by name:_ +
+Sort expenses by name in alphabetical order. +
+{nbsp} +
+Usage:
+
+ sort name
+
+. _Sort by date:_ +
+Sort expenses by date from newest to oldest +
+{nbsp} +
+Usage:
+
+ sort date
+
+. _Sort by amount_ +
+Sort expenses by amount of expense in from largest to smallest. +
+{nbsp} +
+Usage:
+
+ sort amt
+
 {nbsp} +
 
 === Archiving past expenses: `archive`

@@ -64,7 +64,7 @@ public class AddTagCommand extends TagCommand {
         model.incrementCount(toIncrement);
 
         Expense editedExpense = new Expense(expenseToEdit.getName(), expenseToEdit.getDescription(),
-                expenseToEdit.getAmount(), mergedSet);
+                expenseToEdit.getAmount(), expenseToEdit.getCreated(), mergedSet);
 
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);

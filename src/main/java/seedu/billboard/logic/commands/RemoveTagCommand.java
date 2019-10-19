@@ -63,7 +63,7 @@ public class RemoveTagCommand extends TagCommand {
         model.decreaseCount(new ArrayList<>(toRemove));
 
         Expense editedExpense = new Expense(expenseToEdit.getName(), expenseToEdit.getDescription(),
-                expenseToEdit.getAmount(), remaining);
+                expenseToEdit.getAmount(), expenseToEdit.getCreated(), remaining);
 
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);

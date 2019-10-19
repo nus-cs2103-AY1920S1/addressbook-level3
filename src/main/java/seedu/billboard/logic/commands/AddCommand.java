@@ -2,6 +2,7 @@ package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
@@ -19,14 +20,17 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a expense to the billboard. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME"
+            + PREFIX_NAME + "NAME "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_DATE + "DATE"
+            + "[" + PREFIX_TAG + "TAG]..."
+            + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Bought "
             + PREFIX_DESCRIPTION + "Buy a book "
-            + PREFIX_AMOUNT + "9.00" + " "
+            + PREFIX_AMOUNT + "9.00 "
+            + PREFIX_DATE + "25/3/2019 1200 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 

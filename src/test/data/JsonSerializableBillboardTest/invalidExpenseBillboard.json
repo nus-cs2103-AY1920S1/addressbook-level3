@@ -3,6 +3,7 @@
     "name" : "movie tickets",
     "description" : null,
     "amount" : "blah",
+    "created" : "bluh",
     "tagged" : [ "leisure" ],
     "archiveName" : ""
   } ]

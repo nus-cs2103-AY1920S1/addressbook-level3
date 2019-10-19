@@ -2,6 +2,7 @@ package seedu.billboard.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,6 +13,7 @@ import seedu.billboard.commons.exceptions.IllegalValueException;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.tag.Tag;
 
 /**
  * An Immutable Billboard that is serializable to JSON format.
@@ -52,7 +54,14 @@ class JsonSerializableBillboard {
             if (billboard.hasExpense(expense)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
             }
-            billboard.addExpense(expense);
+            List<String> tagNames = expense.getTags().stream()
+                    .map(x -> x.tagName).collect(Collectors.toList());
+            Set<Tag> tags = billboard.retrieveTags(tagNames);
+            Expense edited = new Expense(expense.getName(), expense.getDescription(), expense.getAmount(),
+                    expense.getCreated(), tags);
+            billboard.incrementCount(new ArrayList<>(tags));
+
+            billboard.addExpense(edited);
         }
         return billboard;
     }

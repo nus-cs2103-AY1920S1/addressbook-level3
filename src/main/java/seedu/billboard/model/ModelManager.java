@@ -55,6 +55,7 @@ public class ModelManager implements Model {
             filteredArchives.put(archiveName,
                     new FilteredList<>(this.archives.getArchiveExpenses(archiveName)));
         }
+
     }
 
     public ModelManager() {
@@ -212,6 +213,7 @@ public class ModelManager implements Model {
         requireNonNull(toDecrease);
         billboard.decreaseCount(toDecrease);
     }
+
     //=========== Filtered Expense List Accessors =============================================================
 
     /**
@@ -260,5 +262,4 @@ public class ModelManager implements Model {
                 && filteredExpense.equals(other.filteredExpense)
                 && filteredArchives.equals(other.filteredArchives);
     }
-
 }

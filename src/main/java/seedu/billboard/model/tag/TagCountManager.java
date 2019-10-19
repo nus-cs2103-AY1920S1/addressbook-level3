@@ -3,6 +3,7 @@ package seedu.billboard.model.tag;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -108,4 +109,12 @@ public class TagCountManager {
     }
 
 
+    public void setCount(Map<Tag, Integer> count) {
+        requireNonNull(count);
+        this.count = count;
+    }
+
+    public Map<Tag, Integer> getCount() {
+        return count;
+    }
 }
