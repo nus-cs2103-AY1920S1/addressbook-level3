@@ -3,7 +3,7 @@ package seedu.jarvis.logic.commands.course;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
-import static seedu.jarvis.testutil.course.CourseTestUtil.CourseStub;
+import static seedu.jarvis.testutil.course.TypicalCourses.MA1521;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class LookUpCommandTest {
                 new UserPrefs(), new Planner(), new CoursePlanner());
         expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(), model.getFinanceTracker(),
                 model.getAddressBook(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
-        luc = new LookUpCommand(new CourseStub("somecourse"));
+        luc = new LookUpCommand(MA1521);
     }
 
     /**
@@ -38,7 +38,7 @@ public class LookUpCommandTest {
      */
     @Test
     public void hasInverseExecution() {
-        LookUpCommand luc = new LookUpCommand(new CourseStub("aaa"));
+        LookUpCommand luc = new LookUpCommand(MA1521);
         assertFalse(luc.hasInverseExecution());
     }
 
@@ -48,7 +48,7 @@ public class LookUpCommandTest {
      */
     @Test
     public void inverseExecute_throwsCommandException() {
-        LookUpCommand luc = new LookUpCommand(new CourseStub("aaa"));
+        LookUpCommand luc = new LookUpCommand(MA1521);
         assertThrows(CommandException.class,
             LookUpCommand.MESSAGE_NO_INVERSE, () -> luc.executeInverse(model));
     }
