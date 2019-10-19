@@ -1,17 +1,22 @@
 package seedu.address.ui;
 
+import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.Region;
-import seedu.address.logic.CommandBoxManager;
+import seedu.address.logic.actions.Action;
+import seedu.address.logic.CommandBoxHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-// import org.controlsfx.control.textfield.TextFields;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -22,7 +27,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private CommandBoxManager commandBoxManager;
+    private CommandBoxHelper commandBoxHelper;
 
     @FXML
     private TextField commandTextField;
@@ -34,31 +39,66 @@ public class CommandBox extends UiPart<Region> {
     private ComboBox<String> commandComboField;
 
     private Menu temp;
-    //private ObservableList<String> list = FXCollections.observableArrayList("app", "game", "load");
+    private List<Menu> currentMenus;
+    private List<String> currentCombos;
 
-    public CommandBox(CommandExecutor commandExecutor, CommandBoxManager commandBoxManager) {
+    public CommandBox(CommandExecutor commandExecutor, CommandBoxHelper commandBoxHelper) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.commandBoxManager = commandBoxManager;
+        this.commandBoxHelper = commandBoxHelper;
+
+
+        initialiseText();
+        fillMenu();
+        fillCombo();
+
+    }
+
+    private void initialiseText() {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        //String[] prompts = {"load", "home", "start"};
-        //TextFields.bindAutoCompletion(commandTextField, prompts);
+
         commandTextField.textProperty().addListener((observable, oldCommand, newCommand) -> {
             System.out.println("command changing from " + oldCommand + " to " + newCommand);
-            if (oldCommand.equals("") && newCommand.equals("s")) {
-                commandTextField.setText("start ");
-                // commandTextField.positionCaret(6);
-            }
-
-            if (oldCommand.equals("start ") && newCommand.equals("start")) {
-                commandTextField.setText("");
-
-            }
+            updateMenu(oldCommand, newCommand);
         });
-        temp = new Menu("Menu 1");
-        commandMenuField.getMenus().add(temp);
-        commandComboField.getItems().add("app");
+    }
+
+    private void updateMenu(String oldCommand, String newCommand) {
+
+    }
+
+    private void fillMenu() {
+        for (Action temp : commandBoxHelper.getMenuItems("")) {
+            Label label = new Label(temp.toString());
+            label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    commandTextField.setText(temp.toString() + " ");
+                }
+            });
+            Menu button = new Menu();
+            button.setGraphic(label);
+            commandMenuField.getMenus().add(button);
+        }
+    }
+
+    private void fillCombo() {
+        EventHandler<ActionEvent> event =
+                new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        try {
+                            commandExecutor.execute(commandComboField.getValue());
+                        } catch (CommandException | ParseException ex) {
+                            setStyleToIndicateCommandFailure();
+                        }
+
+                    }
+                };
+        commandComboField.setOnAction(event);
+        commandComboField.getItems().add("home");
+        commandComboField.getItems().add("load");
+        commandComboField.getItems().add("start");
     }
 
 
@@ -67,7 +107,6 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered() {
-        commandMenuField.getMenus().remove(temp);
         try {
             commandExecutor.execute(commandTextField.getText());
         } catch (CommandException | ParseException e) {

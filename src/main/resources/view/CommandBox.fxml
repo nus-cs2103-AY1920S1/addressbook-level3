@@ -14,8 +14,8 @@
                <children>
                   <VBox prefHeight="100.0" prefWidth="234.0">
                      <children>
-                        <Label text="Mode" />
-                        <ComboBox fx:id="commandComboField" prefWidth="150.0" promptText="settings" stylesheets="@DarkTheme.css" />
+                        <Label text="Mode" textFill="WHITE" />
+                        <ComboBox fx:id="commandComboField" prefWidth="150.0" promptText="load" stylesheets="@DarkTheme.css" />
                      </children>
                   </VBox>
                  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" prefHeight="40.0" prefWidth="1017.0" promptText="Enter command here..." text="setting" HBox.hgrow="ALWAYS" />
