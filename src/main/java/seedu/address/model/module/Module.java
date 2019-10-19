@@ -147,12 +147,20 @@ public class Module implements Cloneable {
      * {@code prereqsSatisfied} property accordingly.
      * @param prevSemCodes Codes of modules taken in previous semesters
      */
-    public void verify(List<String> prevSemCodes) {
+    public void verifyAndUpdate(List<String> prevSemCodes) {
+        this.prereqsSatisfied = verify(prevSemCodes);
+    }
+
+    /**
+     * This method verifies previous semester codes against the prerequisite tree, but does not update its
+     * {@code prereqsSatisfied} property, instead returning a boolean value.
+     * @param prevSemCodes Codes of modules taken in previous semesters
+     */
+    public boolean verify(List<String> prevSemCodes) {
         if (this.prereqTree == null) {
-            this.prereqsSatisfied = true;
-        } else {
-            this.prereqsSatisfied = this.prereqTree.verify(prevSemCodes);
+            return true;
         }
+        return this.prereqTree.verify(prevSemCodes);
     }
 
     /**

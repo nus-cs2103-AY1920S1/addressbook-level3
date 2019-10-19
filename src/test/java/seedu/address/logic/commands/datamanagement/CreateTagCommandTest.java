@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -197,6 +198,11 @@ public class CreateTagCommandTest {
 
         @Override
         public String getModuleInformation(String moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getValidMods(SemesterName semName) {
             throw new AssertionError("This method should not be called.");
         }
 
