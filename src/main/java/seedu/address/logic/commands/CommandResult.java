@@ -33,8 +33,8 @@ public class CommandResult {
     /** The application should addVisit. */
     private final boolean addVisit;
 
-    /** The application should deleteVisit. */
-    private final boolean deleteVisit;
+    /** The application should showVisitList. */
+    private final boolean showVisitList;
 
     /** The application should editVisit. */
     private final boolean editVisit;
@@ -51,12 +51,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean deleteVisit,
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean showVisitList,
                          boolean editVisit, boolean profile, boolean exit, boolean showMotd) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.addVisit = addVisit;
-        this.deleteVisit = deleteVisit;
+        this.showVisitList = showVisitList;
         this.editVisit = editVisit;
         this.profile = profile;
         this.exit = exit;
@@ -139,8 +139,8 @@ public class CommandResult {
         return addVisit;
     }
 
-    public boolean isDeleteVisit() {
-        return deleteVisit;
+    public boolean isShowVisitList() {
+        return showVisitList;
     }
 
     public boolean isEditVisit() {

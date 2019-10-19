@@ -20,7 +20,7 @@ public class EditVisitCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the visitation record of the person identified "
             + "by the index number used in the last person listing.\n "
-            + COMMAND_WORD + "[PERSON INDEX]"
+            + COMMAND_WORD + "[PERSON INDEX] "
             + PREFIX_EDIT_VISIT + "[REPORT INDEX]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EDIT_VISIT + "2";

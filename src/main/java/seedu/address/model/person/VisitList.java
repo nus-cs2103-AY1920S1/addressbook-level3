@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
@@ -27,7 +28,8 @@ public class VisitList {
      *
      */
     public VisitList addRecord(VisitReport report) {
-        records.add(report);
+        this.records.add(report);
+        Collections.sort(this.records);
         return this;
     }
 

@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Visit Report object with name, date, medication, diagnosis and remarks field.
  */
-public class VisitReport {
+public class VisitReport implements Comparable<VisitReport> {
 
     public static final String MESSAGE_CONSTRAINTS = "Visit date should follow dd/mm/yyyy format";
 
@@ -74,6 +74,25 @@ public class VisitReport {
                 && medication.equals(((VisitReport) other).medication)
                 && diagnosis.equals(((VisitReport) other).diagnosis)
                 && remarks.equals(((VisitReport) other).remarks); // state check
+    }
+    @Override
+    public int compareTo(VisitReport otherReport) {
+        String[] reportDate = this.date.split("/");
+        String[] otherDate = otherReport.date.split("/");
+        int reportYear = Integer.parseInt(reportDate[2]);
+        int otherYear = Integer.parseInt(otherDate[2]);
+        int reportMth = Integer.parseInt(reportDate[1]);
+        int otherMth = Integer.parseInt(otherDate[1]);
+        int reportDay = Integer.parseInt(reportDate[0]);
+        int otherDay = Integer.parseInt(otherDate[0]);
+
+        if (reportYear != otherYear) {
+            return otherYear - reportYear;
+        } else if (reportMth != otherMth) {
+            return otherMth - reportMth;
+        } else {
+            return otherDay - reportDay;
+        }
     }
 
     @Override
