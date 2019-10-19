@@ -125,20 +125,27 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Contact contact = new Contact(name, phone, email, address, tagList);
-
-        return new AddContactCommand(contact);
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+            if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+                return new AddContactCommand(new Contact(name, phone, email, address, tagList));
+            } else {
+                return new AddContactCommand(new Contact(name, phone, email, null, tagList));
+            }
+        } else if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            return new AddContactCommand(new Contact(name, phone, null, address, tagList));
+        } else {
+            return new AddContactCommand(new Contact(name, phone, null, null, tagList));
+        }
     }
-
 }

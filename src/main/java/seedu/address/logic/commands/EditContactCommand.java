@@ -95,8 +95,8 @@ public class EditContactCommand extends EditCommand {
 
         Name updatedName = editContactDescriptor.getName().orElse(contactToEdit.getName());
         Phone updatedPhone = editContactDescriptor.getPhone().orElse(contactToEdit.getPhone());
-        Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail().get());
-        Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress().get());
+        Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail().orElse(null));
+        Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress().orElse(null));
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
 
         return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
