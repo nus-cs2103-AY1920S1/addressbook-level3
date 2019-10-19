@@ -291,11 +291,10 @@ public class MainWindow extends UiPart<Stage> {
      * Resets the templateListPanel to show the templateItemPanel whenever a templateItem command is executed
      */
     private void displayTemplateItemPanel() {
-        // To be improved, work on adding the name of the template as well
         Name templateName = logic.getNameTemplateToBeShown();
         templateItemPanel = new TemplateItemPanel(logic.getFilteredTemplateToBeShown(), templateName.toString());
-        templateListPanelPlaceholder.getChildren().add(templateItemPanel.getRoot());
-        logger.info("Showing template panel instead of templatelist.");
+        templateItemPanelPlaceholder.getChildren().add(templateItemPanel.getRoot());
+        logger.info("Showing template panel instead of templateList.");
     }
 
 }

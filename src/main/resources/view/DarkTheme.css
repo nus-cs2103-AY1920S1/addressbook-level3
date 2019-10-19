@@ -164,6 +164,14 @@
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 
+.template-item-display {
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+    -fx-min-width: 1000;
+}
+
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";

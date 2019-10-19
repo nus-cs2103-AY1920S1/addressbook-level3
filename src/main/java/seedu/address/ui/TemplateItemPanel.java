@@ -29,7 +29,7 @@ public class TemplateItemPanel extends UiPart<Region> {
         super(FXML);
         templateItemView.setItems(templateItemList);
         templateItemView.setCellFactory(listView -> new TemplateItemViewCell());
-        //name.setText(templateName);
+        name.setText(templateName);
     }
 
     /**
