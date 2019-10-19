@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ACCOMMODATIONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,7 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.activity.Activity;
+import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
@@ -26,12 +26,13 @@ import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing activity in the itinerary.
+ * Edits the details of an existing accommodation in the itinerary.
  */
-public class EditActivityCommand extends EditCommand {
-    public static final String SECOND_COMMAND_WORD = "activity";
+public class EditAccommodationCommand extends EditCommand {
+    public static final String SECOND_COMMAND_WORD = "accommodation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the activity identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD
+            + ": Edits the details of the accommodation identified "
             + "by the index number used in the displayed activity list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -41,62 +42,63 @@ public class EditActivityCommand extends EditCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 ";
 
-    public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Activity: %1$s";
+    public static final String MESSAGE_EDIT_ACCOMMODATION_SUCCESS = "Edited Accommodation: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the itinerary.";
+    public static final String MESSAGE_DUPLICATE_ACCOMMODATION = "This accommodation already exists in the itinerary.";
 
     private final Index index;
-    private final EditActivityDescriptor editActivityDescriptor;
+    private final EditAccommodationDescriptor editAccommodationDescriptor;
 
     /**
-     * @param index of the activity in the filtered activity list to edit
+     * @param index of the accommodation in the filtered accommodation list to edit
      */
-    public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor) {
+    public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor) {
         requireNonNull(index);
-        requireNonNull(editActivityDescriptor);
+        requireNonNull(editAccommodationDescriptor);
         this.index = index;
-        this.editActivityDescriptor = editActivityDescriptor;
+        this.editAccommodationDescriptor = editAccommodationDescriptor;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Activity> lastShownList = model.getFilteredActivityList();
+        List<Accommodation> lastShownList = model.getFilteredAccommodationList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ACCOMMODATION_DISPLAYED_INDEX);
         }
 
-        Activity activityToEdit = lastShownList.get(index.getZeroBased());
-        Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
+        Accommodation accommodationToEdit = lastShownList.get(index.getZeroBased());
+        Accommodation editedAccommodation = createEditedAccommodation(accommodationToEdit, editAccommodationDescriptor);
 
-        if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
+        if (!accommodationToEdit.isSameAccommodation(editedAccommodation)
+                && model.hasAccommodation(editedAccommodation)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ACCOMMODATION);
         }
 
-        model.setActivity(activityToEdit, editedActivity);
-        model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity));
+        model.setAccommodation(accommodationToEdit, editedAccommodation);
+        model.updateFilteredAccommodationList(PREDICATE_SHOW_ALL_ACCOMMODATIONS);
+        return new CommandResult(String.format(MESSAGE_EDIT_ACCOMMODATION_SUCCESS, editedAccommodation));
     }
 
     /**
-     * Creates and returns a {@code Activity} with the details of {@code activityToEdit}
-     * edited with {@code editActivityDescriptor}.
+     * Creates and returns a {@code Accommodation} with the details of {@code accommodationToEdit}
+     * edited with {@code editAccommodationDescriptor}.
      */
-    private static Activity createEditedActivity(Activity activityToEdit,
-                                                 EditActivityDescriptor editActivityDescriptor) {
-        assert activityToEdit != null;
+    private static Accommodation createEditedAccommodation(Accommodation accommodationToEdit,
+                                                      EditAccommodationDescriptor editAccommodationDescriptor) {
+        assert accommodationToEdit != null;
 
-        Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
-        Address updatedAddress = editActivityDescriptor.getAddress().orElse(activityToEdit.getAddress());
-        Contact updatedContact = editActivityDescriptor.getPhone().isPresent()
-                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>())
-                : activityToEdit.getContact().isPresent()
-                    ? activityToEdit.getContact().get()
-                    : null;
-        Set<Tag> updatedTags = editActivityDescriptor.getTags().orElse(activityToEdit.getTags());
+        Name updatedName = editAccommodationDescriptor.getName().orElse(accommodationToEdit.getName());
+        Address updatedAddress = editAccommodationDescriptor.getAddress().orElse(accommodationToEdit.getAddress());
+        Contact updatedContact = editAccommodationDescriptor.getPhone().isPresent()
+                ? new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>())
+                : accommodationToEdit.getContact().isPresent()
+                ? accommodationToEdit.getContact().get()
+                : null;
+        Set<Tag> updatedTags = editAccommodationDescriptor.getTags().orElse(accommodationToEdit.getTags());
 
-        return new Activity(updatedName, updatedAddress, updatedContact, updatedTags);
+        return new Accommodation(updatedName, updatedAddress, updatedContact, updatedTags);
     }
 
     @Override
@@ -106,31 +108,31 @@ public class EditActivityCommand extends EditCommand {
             return true;
         }
 
-        if (!(other instanceof EditActivityCommand)) {
+        if (!(other instanceof EditAccommodationCommand)) {
             return false;
         }
 
         // state check
-        EditActivityCommand e = (EditActivityCommand) other;
+        EditAccommodationCommand e = (EditAccommodationCommand) other;
         return other == this
-                || other instanceof EditActivityCommand
+                || other instanceof EditAccommodationCommand
                 && index.equals(e.index)
-                && editActivityDescriptor.equals(e.editActivityDescriptor);
+                && editAccommodationDescriptor.equals(e.editAccommodationDescriptor);
     }
 
     /**
-     * Stores the details to edit the activity with. Each non-empty field value will replace the
-     * corresponding field value of the activity.
+     * Stores the details to edit the accommodation with. Each non-empty field value will replace the
+     * corresponding field value of the accommodation.
      */
-    public static class EditActivityDescriptor {
+    public static class EditAccommodationDescriptor {
         private Name name;
         private Address address;
         private Phone phone;
         private Set<Tag> tags;
 
-        public EditActivityDescriptor() {}
+        public EditAccommodationDescriptor() {}
 
-        public EditActivityDescriptor(EditActivityDescriptor toCopy) {
+        public EditAccommodationDescriptor(EditAccommodationDescriptor toCopy) {
             setName(toCopy.name);
             setAddress(toCopy.address);
             setPhone(toCopy.phone);
@@ -181,12 +183,12 @@ public class EditActivityCommand extends EditCommand {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditActivityCommand.EditActivityDescriptor)) {
+            if (!(other instanceof EditAccommodationDescriptor)) {
                 return false;
             }
 
             // state check
-            EditActivityCommand.EditActivityDescriptor e = (EditActivityCommand.EditActivityDescriptor) other;
+            EditAccommodationDescriptor e = (EditAccommodationDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
@@ -195,4 +197,3 @@ public class EditActivityCommand extends EditCommand {
         }
     }
 }
-

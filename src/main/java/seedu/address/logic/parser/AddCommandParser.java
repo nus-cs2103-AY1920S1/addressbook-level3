@@ -14,13 +14,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.AddAccommodationCommand;
 import seedu.address.logic.commands.AddActivityCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddDayCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
+import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -52,12 +53,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         final String arguments = matcher.group("arguments");
 
         switch(type) {
-        case AddDayCommand.SECOND_COMMAND_WORD:
-            return parseDay(arguments);
+        case AddAccommodationCommand.SECOND_COMMAND_WORD:
+            return parseAccommodation(arguments);
         case AddActivityCommand.SECOND_COMMAND_WORD:
             return parseActivity(arguments);
         case AddContactCommand.SECOND_COMMAND_WORD:
             return parseContact(arguments);
+        case AddDayCommand.SECOND_COMMAND_WORD:
+            return parseDay(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -72,24 +75,36 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddDayCommand for a Day
-     * and returns an AddDayCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddAccommodationCommand for an Accommodation
+     * and returns an AddAccommodationCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private AddDayCommand parseDay(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DAY);
+    private AddAccommodationCommand parseAccommodation(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
+                PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DAY)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddAccommodationCommand.MESSAGE_USAGE));
         }
 
-        int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAY).get());
-        return new AddDayCommand(numDays);
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+            Contact contact = new Contact(name, phone, null, null, new HashSet<Tag>());
+            Accommodation accommodation = new Accommodation(name, address, contact, tagList);
+            return new AddAccommodationCommand(accommodation);
+        } else {
+            Accommodation accommodation = new Accommodation(name, address, null, tagList);
+            return new AddAccommodationCommand(accommodation);
+        }
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddActivityCommand for a Activity
+     * Parses the given {@code String} of arguments in the context of the AddActivityCommand for an Activity
      * and returns an AddActivityCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -98,7 +113,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddActivityCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -117,11 +132,11 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand for a Person
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddCommand for a Contact and returns an
+     * AddContactCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private AddCommand parseContact(String args) throws ParseException {
+    private AddContactCommand parseContact(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -147,5 +162,22 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             return new AddContactCommand(new Contact(name, phone, null, null, tagList));
         }
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddDayCommand for a Day and returns an
+     * AddDayCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private AddDayCommand parseDay(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DAY);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_DAY)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDayCommand.MESSAGE_USAGE));
+        }
+
+        int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAY).get());
+        return new AddDayCommand(numDays);
     }
 }
