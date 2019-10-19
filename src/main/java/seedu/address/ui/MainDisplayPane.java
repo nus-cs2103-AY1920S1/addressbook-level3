@@ -32,7 +32,7 @@ public class MainDisplayPane {
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneToBeCreated) {
         switch (displayPaneType) {
         case MAIN:
-            return getMappedPane(displayPaneType, () -> new PersonListPanel(logic.getFilteredPersonList()), 
+            return getMappedPane(displayPaneType, () -> new PersonListPanel(logic.getFilteredPersonList()),
                     newPaneToBeCreated);
         case BIO:
             System.out.println(logic.getFilteredUserList());
@@ -56,7 +56,7 @@ public class MainDisplayPane {
      *                           pane of the same type already exists.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
-    private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType, 
+    private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
                                          Supplier<UiPart<Region>> newPaneSupplier, boolean newPaneToBeCreated) {
         UiPart<Region> mappedPane = map.get(displayPaneType);
         currPaneType = displayPaneType;

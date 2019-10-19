@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RecordBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.bio.UserList;
 import seedu.sgm.model.food.UniqueFoodList;
 
 /**
@@ -24,9 +25,10 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook(),
+                new UserList());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UniqueFoodList(),
-            new RecordBook());
+            new RecordBook(), new UserList());
     }
 
     @Test

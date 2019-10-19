@@ -48,7 +48,7 @@ import seedu.address.ui.DisplayPaneType;
 public class EditBioCommand extends Command {
 
     public static final String COMMAND_WORD = "editbio";
-    
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the user identified "
             + "by the index number used in the displayed user list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -109,7 +109,8 @@ public class EditBioCommand extends Command {
      * Creates and returns a {@code User} with the details of {@code userToEdit}
      * edited with {@code editUserDescriptor}.
      */
-    private static User createEditedUser(User userToEdit, EditUserDescriptor editUserDescriptor) throws CommandException {
+    private static User createEditedUser(User userToEdit, EditUserDescriptor editUserDescriptor)
+            throws CommandException {
         assert userToEdit != null;
 
         Name updatedName = editUserDescriptor.getName().orElse(userToEdit.getName());
@@ -124,7 +125,8 @@ public class EditBioCommand extends Command {
                 .map(Phone.class::cast).collect(Collectors.toList());
 
         List<Phone> updatedEmergencyContacts = updateListableFields(userToEdit.getEmergencyContacts(),
-                editUserDescriptor.getEmergencyContacts(), editUserDescriptor.getIndividualEmergencyContactsMap()).stream()
+                editUserDescriptor.getEmergencyContacts(),
+                editUserDescriptor.getIndividualEmergencyContactsMap()).stream()
                 .map(Phone.class::cast).collect(Collectors.toList());
 
         List<Goal> updatedGoals = updateListableFields(userToEdit.getGoals(),
@@ -134,13 +136,14 @@ public class EditBioCommand extends Command {
         Address updatedAddress = editUserDescriptor.getAddress().orElse(userToEdit.getAddress());
 
         List<MedicalCondition> updatedMedicalConditions = updateListableFields(userToEdit.getMedicalConditions(),
-                editUserDescriptor.getMedicalConditions(), editUserDescriptor.getIndividualMedicalConditionsMap()).stream()
-                .map(MedicalCondition.class::cast).collect(Collectors.toList());
-        
+                editUserDescriptor.getMedicalConditions(), editUserDescriptor.getIndividualMedicalConditionsMap())
+                .stream().map(MedicalCondition.class::cast).collect(Collectors.toList());
+
         OtherBioInfo updatedOtherBioInfo = editUserDescriptor.getOtherBioInfo().orElse(userToEdit.getOtherBioInfo());
-        
-        return new User(updatedName, updatedProfileDesc, updatedNric, updatedGender, updatedDateOfBirth, updatedContactNumbers,
-                updatedEmergencyContacts, updatedMedicalConditions, updatedAddress, updatedGoals, updatedOtherBioInfo);
+
+        return new User(updatedName, updatedProfileDesc, updatedNric, updatedGender, updatedDateOfBirth,
+                updatedContactNumbers, updatedEmergencyContacts, updatedMedicalConditions, updatedAddress,
+                updatedGoals, updatedOtherBioInfo);
     }
 
     /**
@@ -304,7 +307,7 @@ public class EditBioCommand extends Command {
             }
             this.individualContactNumbersMap.add(hashMap);
         }
-        
+
         /**
          * Sets {@code contactNumbers} to this object's {@code contactNumbers}.
          * A defensive copy of {@code contactNumbers} is used internally.
@@ -318,17 +321,20 @@ public class EditBioCommand extends Command {
          * A defensive copy of {@code individualContactNumbersMaps} is used internally.
          */
         public void setIndividualContactNumbersMap(List<HashMap<Index, Phone>> individualContactNumbersMap) {
-            this.individualContactNumbersMap = (individualContactNumbersMap != null) ? 
-                    new ArrayList<>(individualContactNumbersMap) : null;
+            this.individualContactNumbersMap = (individualContactNumbersMap != null)
+                    ? new ArrayList<>(individualContactNumbersMap)
+                    : null;
         }
-        
+
         /**
          * Returns an unmodifiable contactNumber set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code contactNumbers} is null.
          */
         public Optional<List<Phone>> getContactNumbers() {
-            return (contactNumbers != null) ? Optional.of(Collections.unmodifiableList(contactNumbers)) : Optional.empty();
+            return (contactNumbers != null)
+                    ? Optional.of(Collections.unmodifiableList(contactNumbers))
+                    : Optional.empty();
         }
 
         /**
@@ -337,8 +343,9 @@ public class EditBioCommand extends Command {
          * Returns {@code Optional#empty()} if {@code individualContactNumbersMap} is null.
          */
         public Optional<List<HashMap<Index, Phone>>> getIndividualContactNumbersMap() {
-            return (individualContactNumbersMap != null) ?
-                    Optional.of(individualContactNumbersMap) : Optional.empty();
+            return (individualContactNumbersMap != null)
+                    ? Optional.of(individualContactNumbersMap)
+                    : Optional.empty();
         }
 
         /**
@@ -356,7 +363,9 @@ public class EditBioCommand extends Command {
          * A defensive copy of {@code emergencyContacts} is used internally.
          */
         public void setEmergencyContacts(List<Phone> emergencyContacts) {
-            this.emergencyContacts = (emergencyContacts != null) ? new ArrayList<>(emergencyContacts) : null;
+            this.emergencyContacts = (emergencyContacts != null)
+                    ? new ArrayList<>(emergencyContacts)
+                    : null;
         }
 
         /**
@@ -364,29 +373,32 @@ public class EditBioCommand extends Command {
          * A defensive copy of {@code individualEmergencyContactsMaps} is used internally.
          */
         public void setIndividualEmergencyContactsMap(List<HashMap<Index, Phone>> individualEmergencyContactsMap) {
-            this.individualEmergencyContactsMap = (individualEmergencyContactsMap != null) ?
-                    new ArrayList<>(individualEmergencyContactsMap) : null;
+            this.individualEmergencyContactsMap = (individualEmergencyContactsMap != null)
+                    ? new ArrayList<>(individualEmergencyContactsMap) : null;
         }
-        
+
         /**
          * Returns an unmodifiable emergencyContact set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code emergencyContacts} is null.
          */
         public Optional<List<Phone>> getEmergencyContacts() {
-            return (emergencyContacts != null) ? Optional.of(Collections.unmodifiableList(emergencyContacts)) : Optional.empty();
+            return (emergencyContacts != null)
+                    ? Optional.of(Collections.unmodifiableList(emergencyContacts))
+                    : Optional.empty();
         }
-        
+
         /**
-         * Returns an unmodifiable individualEmergencyContactsMap set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable individualEmergencyContactsMap set, which throws
+         * {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code individualEmergencyContactsMap} is null.
          */
         public Optional<List<HashMap<Index, Phone>>> getIndividualEmergencyContactsMap() {
-            return (individualEmergencyContactsMap != null) ?
-                    Optional.of(individualEmergencyContactsMap) : Optional.empty();
+            return (individualEmergencyContactsMap != null)
+                    ? Optional.of(individualEmergencyContactsMap) : Optional.empty();
         }
-        
+
         /**
          * Adds {@code hashMap} to the this object's {@code individualMedicalConditionsMap}.
          */
@@ -402,7 +414,9 @@ public class EditBioCommand extends Command {
          * A defensive copy of {@code medicalConditions} is used internally.
          */
         public void setMedicalConditions(List<MedicalCondition> medicalConditions) {
-            this.medicalConditions = (medicalConditions != null) ? new ArrayList<>(medicalConditions) : null;
+            this.medicalConditions = (medicalConditions != null)
+                    ? new ArrayList<>(medicalConditions)
+                    : null;
         }
 
         /**
@@ -410,27 +424,32 @@ public class EditBioCommand extends Command {
          * A defensive copy of {@code individualGoalsMaps} is used internally.
          */
         public void setIndividualGoalsMap(List<HashMap<Index, Goal>> individualGoalsMap) {
-            this.individualGoalsMap = (individualGoalsMap != null) ?
-                    new ArrayList<>(individualGoalsMap) : null;
+            this.individualGoalsMap = (individualGoalsMap != null)
+                    ? new ArrayList<>(individualGoalsMap)
+                    : null;
         }
-        
+
         /**
          * Returns an unmodifiable medicalCondition set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code medicalConditions} is null.
          */
         public Optional<List<MedicalCondition>> getMedicalConditions() {
-            return (medicalConditions != null) ? Optional.of(Collections.unmodifiableList(medicalConditions)) : Optional.empty();
+            return (medicalConditions != null)
+                    ? Optional.of(Collections.unmodifiableList(medicalConditions))
+                    : Optional.empty();
         }
 
         /**
-         * Returns an unmodifiable individualMedicalConditionsMap set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable individualMedicalConditionsMap set, which throws
+         * {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code individualMedicalConditionsMap} is null.
          */
         public Optional<List<HashMap<Index, MedicalCondition>>> getIndividualMedicalConditionsMap() {
-            return (individualMedicalConditionsMap != null) ?
-                    Optional.of(individualMedicalConditionsMap) : Optional.empty();
+            return (individualMedicalConditionsMap != null)
+                    ? Optional.of(individualMedicalConditionsMap)
+                    : Optional.empty();
         }
 
         public void setAddress(Address address) {
@@ -463,9 +482,11 @@ public class EditBioCommand extends Command {
          * Sets {@code individualMedicalConditionsMaps} to this object's {@code individualMedicalConditionsMaps}.
          * A defensive copy of {@code individualMedicalConditionsMaps} is used internally.
          */
-        public void setIndividualMedicalConditionsMap(List<HashMap<Index, MedicalCondition>> individualMedicalConditionsMap) {
-            this.individualMedicalConditionsMap = (individualMedicalConditionsMap != null) ?
-                    new ArrayList<>(individualMedicalConditionsMap) : null;
+        public void setIndividualMedicalConditionsMap(List<HashMap<Index, MedicalCondition>>
+                                                              individualMedicalConditionsMap) {
+            this.individualMedicalConditionsMap = (individualMedicalConditionsMap != null)
+                    ? new ArrayList<>(individualMedicalConditionsMap)
+                    : null;
         }
 
         /**
@@ -483,8 +504,9 @@ public class EditBioCommand extends Command {
          * Returns {@code Optional#empty()} if {@code individualGoalsMap} is null.
          */
         public Optional<List<HashMap<Index, Goal>>> getIndividualGoalsMap() {
-            return (individualGoalsMap != null) ?
-                    Optional.of(individualGoalsMap) : Optional.empty();
+            return (individualGoalsMap != null)
+                    ? Optional.of(individualGoalsMap)
+                    : Optional.empty();
         }
 
         public void setOtherBioInfo(OtherBioInfo otherBioInfo) {

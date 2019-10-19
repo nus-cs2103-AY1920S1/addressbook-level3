@@ -96,12 +96,6 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    @Override
-    public void setUserListFilePath(Path userListFilePath) {
-        requireNonNull(userListFilePath);
-        userPrefs.setUserListFilePath(userListFilePath);
-    }
-
     //=========== AddressBook ================================================================================
 
     @Override
@@ -245,6 +239,13 @@ public class ModelManager implements Model {
 
         userList.setUser(target, editedUser);
     }
+
+    @Override
+    public void setUserListFilePath(Path userListFilePath) {
+        requireNonNull(userListFilePath);
+        userPrefs.setUserListFilePath(userListFilePath);
+    }
+
 
     //=========== Food Map =============================================================
 

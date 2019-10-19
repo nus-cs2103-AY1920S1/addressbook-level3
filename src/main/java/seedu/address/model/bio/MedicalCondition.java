@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class MedicalCondition implements ListableField {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Medical Condition should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Medical condition can take any values, and it should not be blank.";
 
     /*
      * The first character of the medicalCondition must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "\"^$|[^\\\\s].*";
 
     public final String medicalCondition;
 
@@ -35,6 +35,7 @@ public class MedicalCondition implements ListableField {
      * Returns true if a given string is a valid medicalCondition.
      */
     public static boolean isValidMedicalCondition(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -62,7 +62,7 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of foods
      */
     ObservableList<Food> getFilterFoodList();
-    
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -96,6 +96,5 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of users
      */
     ObservableList<User> getFilteredUserList();
-    
 
 }

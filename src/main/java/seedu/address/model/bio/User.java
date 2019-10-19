@@ -31,8 +31,9 @@ public class User {
     /**
      * Every field must be present and not null.
      */
-    public User(Name name, ProfileDesc profileDesc, Nric nric, Gender gender, DateOfBirth dateOfBirth, List<Phone> contactNumbers,
-                List<Phone> emergencyContacts, List<MedicalCondition> medicalConditions, Address address, List<Goal> goals,
+    public User(Name name, ProfileDesc profileDesc, Nric nric, Gender gender, DateOfBirth dateOfBirth,
+                List<Phone> contactNumbers, List<Phone> emergencyContacts, List<MedicalCondition> medicalConditions,
+                Address address, List<Goal> goals,
                 OtherBioInfo otherBioInfo) {
         requireAllNonNull(name, nric, gender, dateOfBirth, contactNumbers, emergencyContacts, medicalConditions,
                 goals, otherBioInfo);

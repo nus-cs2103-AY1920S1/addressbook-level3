@@ -120,16 +120,16 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts(String imagePath) {
 
-//        ImageView imageView = new ImageView(imagePath);
-//        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
-//        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
-//        imageView.setPreserveRatio(true);
-//        mainDisplayPanePlaceholder.getChildren().add(imageView);
+        //        ImageView imageView = new ImageView(imagePath);
+        //        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
+        //        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
+        //        imageView.setPreserveRatio(true);
+        //        mainDisplayPanePlaceholder.getChildren().add(imageView);
 
-        mainDisplayPanePlaceholder.setStyle("-fx-background-image: url('" + imagePath + "'); " +
-                "-fx-background-position: center center; " +
-                "-fx-background-repeat: no-repeat;" +
-                "-fx-background-size: contain;");
+        mainDisplayPanePlaceholder.setStyle("-fx-background-image: url('" + imagePath + "'); "
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: no-repeat;"
+                + "-fx-background-size: contain;");
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

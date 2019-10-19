@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Goal implements ListableField {
 
-    public static final String MESSAGE_CONSTRAINTS = "Goals names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String MESSAGE_CONSTRAINTS = "Goals names can take any values.";
+    public static final String VALIDATION_REGEX = "\"^$|[^\\\\s].*";
 
     public final String goal;
 

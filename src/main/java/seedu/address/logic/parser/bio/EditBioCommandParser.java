@@ -52,9 +52,9 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
     public EditBioCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROFILE_DESC, PREFIX_NRIC, PREFIX_GENDER, PREFIX_DATE_OF_BIRTH,
-                        PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT, PREFIX_MEDICAL_CONDITION, PREFIX_ADDRESS,
-                        PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROFILE_DESC, PREFIX_NRIC, PREFIX_GENDER,
+                        PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT, PREFIX_MEDICAL_CONDITION,
+                        PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
 
         EditUserDescriptor editUserDescriptor = new EditBioCommand.EditUserDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -77,48 +77,49 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
 
         if (!argMultimap.getAllValues(PREFIX_CONTACT_NUMBER).isEmpty()) {
             List<String> contactNumberStringList = argMultimap.getAllValues(PREFIX_CONTACT_NUMBER);
-            if (hasIndexes(contactNumberStringList, PREFIX_CONTACT_NUMBER))
+            if (hasIndexes(contactNumberStringList, PREFIX_CONTACT_NUMBER)) {
                 addIndividualEdits(contactNumberStringList, PREFIX_CONTACT_NUMBER, editUserDescriptor);
-            else {
+            } else {
                 parsePhonesForEdit(contactNumberStringList).ifPresent(editUserDescriptor::setContactNumbers);
             }
         }
 
         if (!argMultimap.getAllValues(PREFIX_EMERGENCY_CONTACT).isEmpty()) {
             List<String> emergencyContactStringList = argMultimap.getAllValues(PREFIX_EMERGENCY_CONTACT);
-            if (hasIndexes(emergencyContactStringList, PREFIX_EMERGENCY_CONTACT))
+            if (hasIndexes(emergencyContactStringList, PREFIX_EMERGENCY_CONTACT)) {
                 addIndividualEdits(emergencyContactStringList, PREFIX_EMERGENCY_CONTACT, editUserDescriptor);
-            else {
+            } else {
                 parsePhonesForEdit(emergencyContactStringList).ifPresent(editUserDescriptor::setEmergencyContacts);
             }
         }
-        
+
         if (!argMultimap.getAllValues(PREFIX_MEDICAL_CONDITION).isEmpty()) {
             List<String> medicalConditionStringList = argMultimap.getAllValues(PREFIX_MEDICAL_CONDITION);
-            if (hasIndexes(medicalConditionStringList, PREFIX_MEDICAL_CONDITION))
+            if (hasIndexes(medicalConditionStringList, PREFIX_MEDICAL_CONDITION)) {
                 addIndividualEdits(medicalConditionStringList, PREFIX_MEDICAL_CONDITION, editUserDescriptor);
-            else {
-                parseMedicalConditionsForEdit(medicalConditionStringList).
-                        ifPresent(editUserDescriptor::setMedicalConditions);
+            } else {
+                parseMedicalConditionsForEdit(medicalConditionStringList)
+                        .ifPresent(editUserDescriptor::setMedicalConditions);
             }
         }
-        
+
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editUserDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)));
         }
-        
+
         if (!argMultimap.getAllValues(PREFIX_GOALS).isEmpty()) {
             List<String> goalStringList = argMultimap.getAllValues(PREFIX_GOALS);
-            if (hasIndexes(goalStringList, PREFIX_GOALS))
+            if (hasIndexes(goalStringList, PREFIX_GOALS)) {
                 addIndividualEdits(goalStringList, PREFIX_GOALS, editUserDescriptor);
-            else {
-                parseGoalsForEdit(goalStringList).
-                        ifPresent(editUserDescriptor::setGoals);
+            } else {
+                parseGoalsForEdit(goalStringList)
+                        .ifPresent(editUserDescriptor::setGoals);
             }
         }
-        
+
         if (argMultimap.getValue(PREFIX_OTHER_BIO_INFO).isPresent()) {
-            editUserDescriptor.setOtherBioInfo(ParserUtil.parseOtherBioInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO)));
+            editUserDescriptor.setOtherBioInfo(ParserUtil
+                    .parseOtherBioInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO)));
         }
 
         if (!editUserDescriptor.isAnyFieldEdited()) {
@@ -143,22 +144,22 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
             Index index = indexMap.keySet().iterator().next();
             if (PREFIX_CONTACT_NUMBER.equals(prefix)) {
                 Phone contactNumber = ParserUtil.parsePhone(indexMap.get(index));
-                HashMap<Index,Phone> indexContactNumberMap = new HashMap<>();
+                HashMap<Index, Phone> indexContactNumberMap = new HashMap<>();
                 indexContactNumberMap.put(index, contactNumber);
                 editUserDescriptor.addToIndividualContactNumberEdit(indexContactNumberMap);
             } else if (PREFIX_EMERGENCY_CONTACT.equals(prefix)) {
                 Phone emergencyContact = ParserUtil.parsePhone(indexMap.get(index));
-                HashMap<Index,Phone> indexEmergencyContactMap = new HashMap<>();
+                HashMap<Index, Phone> indexEmergencyContactMap = new HashMap<>();
                 indexEmergencyContactMap.put(index, emergencyContact);
                 editUserDescriptor.addToIndividualEmergencyContactsEdit(indexEmergencyContactMap);
             } else if (PREFIX_MEDICAL_CONDITION.equals(prefix)) {
                 MedicalCondition medicalCondition = ParserUtil.parseMedicalCondition(indexMap.get(index));
-                HashMap<Index,MedicalCondition> indexMedicalConditionMap = new HashMap<>();
+                HashMap<Index, MedicalCondition> indexMedicalConditionMap = new HashMap<>();
                 indexMedicalConditionMap.put(index, medicalCondition);
                 editUserDescriptor.addToIndividualMedicalConditionsEdit(indexMedicalConditionMap);
             } else if (PREFIX_GOALS.equals(prefix)) {
                 Goal goal = ParserUtil.parseGoal(indexMap.get(index));
-                HashMap<Index,Goal> indexGoalMap = new HashMap<>();
+                HashMap<Index, Goal> indexGoalMap = new HashMap<>();
                 indexGoalMap.put(index, goal);
                 editUserDescriptor.addToIndividualGoalsEdit(indexGoalMap);
             } else {
@@ -195,7 +196,8 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
      * @return A HashMap containing a validated one-based index and value for the prefix's value.
      * @throws ParseException if the tokens are of invalid size, or index cannot be parsed.
      */
-    private static HashMap<Index, String> getValidatedIndexValueMap(String subArgs, Prefix prefix) throws ParseException {
+    private static HashMap<Index, String> getValidatedIndexValueMap(String subArgs, Prefix prefix)
+            throws ParseException {
         String[] tokens = subArgs.split(SEPARATOR);
 
         if (tokens.length != 2) {
@@ -236,17 +238,21 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> medicalConditions} into a {@code List<MedicalCondition>} if {@code medicalConditions} is non-empty.
+     * Parses {@code Collection<String> medicalConditions} into a {@code List<MedicalCondition>} if
+     * {@code medicalConditions} is non-empty.
      * If {@code medicalConditions} contain only one element which is an empty string, it will be parsed into a
      * {@code List<MedicalCondition>} containing zero medicalConditions.
      */
-    private Optional<List<MedicalCondition>> parseMedicalConditionsForEdit(Collection<String> medicalConditions) throws ParseException {
+    private Optional<List<MedicalCondition>> parseMedicalConditionsForEdit(Collection<String> medicalConditions)
+            throws ParseException {
         assert medicalConditions != null;
 
         if (medicalConditions.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> medicalConditionList = medicalConditions.size() == 1 && medicalConditions.contains("") ? Collections.emptyList() : medicalConditions;
+        Collection<String> medicalConditionList = medicalConditions.size() == 1 && medicalConditions.contains("")
+                ? Collections.emptyList()
+                : medicalConditions;
         return Optional.of(ParserUtil.parseMedicalConditions(medicalConditionList));
     }
 

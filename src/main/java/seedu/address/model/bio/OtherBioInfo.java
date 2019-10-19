@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class OtherBioInfo {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "OtherBioInfo should only contain alphanumeric characters and spaces.";
-    public static final String VALIDATION_REGEX = "^$|[\\p{Alnum}][\\p{Alnum} ]*";
+            "OtherBioInfo can take any values.";
+    public static final String VALIDATION_REGEX = "\"^$|[^\\\\s].*";
 
     public final String otherInfo;
 

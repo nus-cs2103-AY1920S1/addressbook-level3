@@ -71,6 +71,11 @@ public class BioPane extends UiPart<Region> {
         bioTablePlaceholder.getChildren().add(bioTable.getRoot());
     }
 
+    /**
+     * Returns the String representation of a list that is to be displayed in this BioPane.
+     * @param list A list for which its String representation is to be representation.
+     * @return String representation of a list that is to be displayed in this BioPane.
+     */
     private static String listToString(List<? extends Object> list) {
         StringBuilder stringBuilder = new StringBuilder();
 

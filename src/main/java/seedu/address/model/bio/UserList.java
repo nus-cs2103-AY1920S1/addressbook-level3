@@ -40,11 +40,11 @@ public class UserList implements ReadOnlyUserList {
 
     /**
      * Returns whether or not the user list is empty.
-     */    
+     */
     public boolean isEmpty() {
         return users.isEmpty();
     }
-    
+
     /**
      * Replaces the contents of the user list with {@code users}.
      * {@code users} must not contain duplicate users.

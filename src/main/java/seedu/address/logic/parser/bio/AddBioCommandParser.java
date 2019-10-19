@@ -39,7 +39,7 @@ import seedu.address.model.bio.User;
  * Parses input arguments and creates a new AddBioCommand object
  */
 public class AddBioCommandParser implements Parser<AddBioCommand> {
-    
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddBioCommand
      * and returns an AddBioCommand object for execution.
@@ -47,9 +47,9 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
      */
     public AddBioCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROFILE_DESC, PREFIX_NRIC, PREFIX_GENDER, PREFIX_DATE_OF_BIRTH,
-                        PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT, PREFIX_MEDICAL_CONDITION, PREFIX_ADDRESS, PREFIX_GOALS,
-                        PREFIX_OTHER_BIO_INFO);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROFILE_DESC, PREFIX_NRIC, PREFIX_GENDER,
+                        PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT, PREFIX_MEDICAL_CONDITION,
+                        PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT,
                 PREFIX_MEDICAL_CONDITION)
@@ -64,7 +64,8 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
         DateOfBirth dateOfBirth = ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DATE_OF_BIRTH));
         List<Phone> contactNumberList = ParserUtil.parsePhones(argMultimap.getAllValues(PREFIX_CONTACT_NUMBER));
         List<Phone> emergencyContactList = ParserUtil.parsePhones(argMultimap.getAllValues(PREFIX_EMERGENCY_CONTACT));
-        List<MedicalCondition> medicalConditionList = ParserUtil.parseMedicalConditions(argMultimap.getAllValues(PREFIX_MEDICAL_CONDITION));
+        List<MedicalCondition> medicalConditionList = ParserUtil.parseMedicalConditions(argMultimap
+                .getAllValues(PREFIX_MEDICAL_CONDITION));
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS));
         List<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOALS));
         OtherBioInfo otherInfo = ParserUtil.parseOtherBioInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO));

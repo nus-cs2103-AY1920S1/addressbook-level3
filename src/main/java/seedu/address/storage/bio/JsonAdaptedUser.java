@@ -122,7 +122,7 @@ class JsonAdaptedUser {
             throw new IllegalValueException(ProfileDesc.MESSAGE_CONSTRAINTS);
         }
         final ProfileDesc modelProfileDesc = new ProfileDesc(profileDesc);
-        
+
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
@@ -140,7 +140,8 @@ class JsonAdaptedUser {
         final Gender modelGender = new Gender(gender);
 
         if (dateOfBirth == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateOfBirth.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DateOfBirth.class.getSimpleName()));
         }
         if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
             throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
@@ -166,14 +167,14 @@ class JsonAdaptedUser {
         final List<MedicalCondition> modelMedicalConditions = new ArrayList<>(userMedicalCondition);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.
-                    class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address
+                    .class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-        
+
         final List<Goal> userGoals = new ArrayList<>();
         for (JsonAdaptedGoals goal : goals) {
             userGoals.add(goal.toModelType());
