@@ -590,6 +590,26 @@ You may edit John Doe’s profile using the edit command. For more information, 
 
 Displays a list of people whose policies are expiring in the current month on the start up page. This list will be updated every month.
 
+=== Expanding a profile
+Expands the profile details on the right panel.
+
+Format:
+`expandperson INDEX`
+
+Examples:
+
+`expandperson 1`
+
+=== Expanding a policy
+Expands the policy details on the right panel.
+
+Format:
+`expandpolicy INDEX`
+
+Examples:
+
+`expandpolicy 1`
+
 === Generate Report: `report`
 Generates report of key performance indicators (KPI). Report is saved in the same directory as the application, or the file path if specified.
 
@@ -837,6 +857,10 @@ e.g. `unassignpolicy 2 pol/Health insurance`
 e.g. `deletetag 3 t/high_priority`
 * *Delete Tag From Policy* : `deletepolicytag INDEX t/TAG [MORE_TAGS]` +
 e.g. `deletepolicytag 2 t/lifeinsurance`
+* *Expanding a profile* : `expandperson INDEX` +
+e.g. `expandperson 1`
+* *Expanding a policy* : `expandpolicy INDEX` +
+e.g. `expandpolicy 1`
 * *Generate Report*: `report [f/FILEPATH]` +
 e.g. `report f/~/reports/`
 * *Export to Excel*: `export [name] [phone] [email] [address] [insurance] [f/FILEPATH]` +
