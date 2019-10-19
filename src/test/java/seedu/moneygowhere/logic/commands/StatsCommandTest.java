@@ -1,14 +1,17 @@
 package seedu.moneygowhere.logic.commands;
 
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.moneygowhere.testutil.TypicalSpendings.*;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
+import static seedu.moneygowhere.testutil.TypicalSpendings.CATFOOD;
+import static seedu.moneygowhere.testutil.TypicalSpendings.DESSERT;
+import static seedu.moneygowhere.testutil.TypicalSpendings.ENCYCLOPEDIA;
+import static seedu.moneygowhere.testutil.TypicalSpendings.FLIGHTTICKET;
+import static seedu.moneygowhere.testutil.TypicalSpendings.GLASSES;
+import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
-import javax.crypto.EncryptedPrivateKeyInfo;
-
-import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import seedu.moneygowhere.commons.util.StringUtil;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.UserPrefs;

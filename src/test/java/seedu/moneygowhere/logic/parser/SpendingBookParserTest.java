@@ -21,6 +21,7 @@ import seedu.moneygowhere.logic.commands.EditCommand;
 import seedu.moneygowhere.logic.commands.EditCommand.EditSpendingDescriptor;
 import seedu.moneygowhere.logic.commands.ExitCommand;
 import seedu.moneygowhere.logic.commands.FindCommand;
+import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.ImportCommand;
 import seedu.moneygowhere.logic.commands.ListCommand;
@@ -91,6 +92,12 @@ public class SpendingBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_graph() throws Exception {
+        assertTrue(parser.parseCommand(GraphCommand.COMMAND_WORD) instanceof GraphCommand);
+        assertTrue(parser.parseCommand(GraphCommand.COMMAND_WORD + " 3") instanceof GraphCommand);
     }
 
     @Test

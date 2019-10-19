@@ -1,6 +1,7 @@
 package seedu.moneygowhere.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_SPENDING_DISPLAYED_INDEX;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.COST_DESC_AMY;
@@ -12,6 +13,7 @@ import static seedu.moneygowhere.testutil.TypicalSpendings.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.moneygowhere.logic.commands.AddCommand;
 import seedu.moneygowhere.logic.commands.CommandResult;
+import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.commands.ListCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
@@ -26,6 +29,7 @@ import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.UserPrefs;
+import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.storage.JsonSpendingBookStorage;
 import seedu.moneygowhere.storage.JsonUserPrefsStorage;
@@ -87,6 +91,12 @@ public class LogicManagerTest {
         expectedModel.addSpending(expectedSpending);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void getGraphData_validCommand_success() throws Exception {
+        Map<Date, Double> data = logic.getGraphData(GraphCommand.COMMAND_WORD);
+        assertTrue(data != null);
     }
 
     @Test

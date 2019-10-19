@@ -2,7 +2,7 @@ package seedu.moneygowhere.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.TreeMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -15,6 +15,7 @@ import seedu.moneygowhere.logic.parser.SpendingBookParser;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
+import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.storage.Storage;
 
@@ -52,15 +53,10 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-
     @Override
-    public TreeMap<String, Double> getGraphData(String commandText) throws ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-
+    public Map<Date, Double> getGraphData(String commandText) throws ParseException {
         Command command = spendingBookParser.parseCommand(commandText);
-        TreeMap<String, Double> graphData = command.getGraphData(model);
-
-        return graphData;
+        return command.getGraphData(model);
     }
 
     @Override

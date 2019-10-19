@@ -1,7 +1,7 @@
 package seedu.moneygowhere.ui;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -12,6 +12,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.moneygowhere.commons.core.LogsCenter;
+import seedu.moneygowhere.model.spending.Date;
 
 /**
  * Controller for a help page
@@ -43,13 +44,13 @@ public class GraphWindow extends UiPart<Stage> {
         this(new Stage());
     }
 
-    public void loadData(TreeMap<String, Double> graphData) {
+    public void loadData(Map<Date, Double> graphData) {
         paneView.getChildren().clear();
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Day");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Amount spent ($)");
-        LineChart<String, Number> spendingChart = new LineChart<String, Number>(xAxis, yAxis);
+        LineChart<String, Number> spendingChart = new LineChart<>(xAxis, yAxis);
         spendingChart.setTitle("Current month's spending");
         XYChart.Series series = new XYChart.Series();
         series.setName("spending");

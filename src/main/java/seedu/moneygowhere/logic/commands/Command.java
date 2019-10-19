@@ -1,9 +1,10 @@
 package seedu.moneygowhere.logic.commands;
 
-import java.util.TreeMap;
+import java.util.Map;
 
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
+import seedu.moneygowhere.model.spending.Date;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -19,7 +20,7 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 
-    public TreeMap<String, Double> getGraphData(Model model) {
+    public Map<Date, Double> getGraphData(Model model) {
         return null;
     }
 

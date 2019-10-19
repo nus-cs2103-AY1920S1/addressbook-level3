@@ -1,7 +1,7 @@
 package seedu.moneygowhere.ui;
 
 import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -190,7 +190,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowGraph()) {
-                TreeMap<String, Double> graphData = logic.getGraphData(commandText);
+                Map<Date, Double> graphData = logic.getGraphData(commandText);
                 graphWindow.loadData(graphData);
                 handleGraph();
             }

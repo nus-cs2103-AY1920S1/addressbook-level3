@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_SPENDINGS_LISTED_OVERVIEW;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.moneygowhere.testutil.TypicalSpendings.*;
+import static seedu.moneygowhere.testutil.TypicalSpendings.CATFOOD;
+import static seedu.moneygowhere.testutil.TypicalSpendings.ENCYCLOPEDIA;
+import static seedu.moneygowhere.testutil.TypicalSpendings.FLIGHTTICKET;
+import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.util.Arrays;
 import java.util.Collections;
