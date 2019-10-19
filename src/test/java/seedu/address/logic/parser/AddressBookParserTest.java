@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 public class AddressBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final TimeBookParser parser = new TimeBookParser();
 
     /*@Test
     public void parseCommand_add() throws Exception {

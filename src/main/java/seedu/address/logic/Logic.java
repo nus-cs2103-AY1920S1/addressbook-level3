@@ -68,13 +68,6 @@ public interface Logic {
     //=========== Legacy =============================================================
 
     /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
      * Returns an unmodifiable view of the filtered list of persons
      */
     ObservableList<Person> getFilteredPersonList();

@@ -12,6 +12,8 @@ import seedu.address.model.Model;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 
 
@@ -20,19 +22,20 @@ import seedu.address.model.person.schedule.Event;
  */
 public class AddEventCommand extends Command {
     public static final String COMMAND_WORD = "addevent";
-    public static final String MESSAGE_SUCCESS = "New event added: ";
-    public static final String MESSAGE_FAILURE = "Unable to add event: ";
-    public static final String MESSAGE_FAILURE_WRONG_TIMINGS = "Invalid timing arguments\n"
-            + "Time format: ddMMyyyy:HHmm";
-    public static final String MESSAGE_FAILURE_UNABLE_TO_FIND_PERSON = "Unable to find person";
-    public static final String MESSAGE_FAILURE_CLASH_IN_EVENTS = "Clash in events";
-
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME "
             + PREFIX_EVENTNAME + " EVENTNAME "
             + PREFIX_TIMING + " STARTTIME-ENDTIME-LOCATION"
             + "\n"
             + "Time format: ddMMyyyy:HHmm";
+
+    public static final String MESSAGE_SUCCESS = "New event added: %s";
+    public static final String MESSAGE_FAILURE = "Unable to add event: %s";
+
+    public static final String MESSAGE_WRONG_TIMINGS = "Invalid timing arguments\n"
+            + "Time format: ddMMyyyy:HHmm";
+    public static final String MESSAGE_UNABLE_TO_FIND_PERSON = "Unable to find person";
+    public static final String MESSAGE_CLASH_IN_EVENTS = "Clash in events";
 
     public final Event event;
     public final Name name;
@@ -47,22 +50,24 @@ public class AddEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (event == null) {
-            return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_WRONG_TIMINGS);
-        } else if (model.findPerson(name) == null) {
-            return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_UNABLE_TO_FIND_PERSON);
-        } else if (model.isEventClash(name, event)) {
-            return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_CLASH_IN_EVENTS);
-        } else if (model.addEvent(name, event)) {
-
-            // updates main window
-            model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
-
-            // updates side panel
-            model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
-
-            return new CommandResult(MESSAGE_SUCCESS + event.toString());
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_WRONG_TIMINGS));
         } else {
-            return new CommandResult(MESSAGE_FAILURE + MESSAGE_FAILURE_UNABLE_TO_FIND_PERSON);
+            try{
+                model.addEvent(name, event);
+
+                // updates main window
+                model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+
+                // updates side panel
+                model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+
+                return new CommandResult(String.format(MESSAGE_SUCCESS, event.getEventName().trim()));
+
+            } catch (PersonNotFoundException e) {
+                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_UNABLE_TO_FIND_PERSON));
+            } catch (EventClashException e) {
+                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_CLASH_IN_EVENTS));
+            }
         }
     }
 

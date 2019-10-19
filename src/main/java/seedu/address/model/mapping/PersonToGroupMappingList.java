@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.GroupId;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.person.PersonId;
 
 /**
@@ -14,7 +16,7 @@ public class PersonToGroupMappingList {
     private ArrayList<PersonToGroupMapping> mappings;
 
     public PersonToGroupMappingList() {
-        this.mappings = new ArrayList<PersonToGroupMapping>();
+        this.mappings = new ArrayList<>();
     }
 
     /**
@@ -23,15 +25,14 @@ public class PersonToGroupMappingList {
      * @param map mapping to be added
      * @return true when mapping is added, false when mapping already exists
      */
-    public boolean addPersonToGroupMapping(PersonToGroupMapping map) {
-        int i;
-        for (i = 0; i < mappings.size(); i++) {
-            if (mappings.get(i).equals(map)) {
-                return false;
-            }
+    public void addPersonToGroupMapping(PersonToGroupMapping map) throws DuplicateMappingException {
+        try {
+            findPersonToGroupMapping(map.getPersonId(), map.getGroupId());
+            throw new DuplicateMappingException();
+        } catch (MappingNotFoundException e) {
+            this.mappings.add(map);
         }
-        this.mappings.add(map);
-        return true;
+
     }
 
     /**
@@ -41,14 +42,14 @@ public class PersonToGroupMappingList {
      * @param groupId  of the mapping
      * @return mapping found
      */
-    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) {
-        int i;
-        for (i = 0; i < mappings.size(); i++) {
+    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) throws MappingNotFoundException {
+
+        for (int i = 0; i < mappings.size(); i++) {
             if (mappings.get(i).getPersonId().equals(personId) && mappings.get(i).getGroupId().equals(groupId)) {
                 return mappings.get(i);
             }
         }
-        return null;
+        throw new MappingNotFoundException();
     }
 
     /**
@@ -57,15 +58,15 @@ public class PersonToGroupMappingList {
      * @param mapping to be deleted
      * @return true when mapping found and deleted
      */
-    public boolean deletePersonToGroupMapping(PersonToGroupMapping mapping) {
+    public void deletePersonToGroupMapping(PersonToGroupMapping mapping) throws MappingNotFoundException {
         int i;
         for (i = 0; i < mappings.size(); i++) {
             if (mappings.get(i).equals(mapping)) {
                 mappings.remove(i);
-                return true;
+                return;
             }
         }
-        return false;
+        throw new MappingNotFoundException();
     }
 
     /**
@@ -164,12 +165,14 @@ public class PersonToGroupMappingList {
      * @param groupId  of the mapping
      * @return Role
      */
-    public Role findRole(PersonId personId, GroupId groupId) {
+    public Role findRole(PersonId personId, GroupId groupId) throws MappingNotFoundException {
+
         for (int i = 0; i < mappings.size(); i++) {
             if (mappings.get(i).getGroupId().equals(groupId) && mappings.get(i).getPersonId().equals(personId)) {
                 return mappings.get(i).getRole();
             }
         }
-        return null;
+
+        throw new MappingNotFoundException();
     }
 }

@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.modelutil.TypicalModel;
 
 
@@ -19,7 +22,7 @@ class DeleteGroupCommandTest {
     private ModelManager model;
 
     @BeforeEach
-    void init() {
+    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
     }
 
@@ -35,7 +38,7 @@ class DeleteGroupCommandTest {
                 new DeleteGroupCommand(GROUPNAME1).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(DeleteGroupCommand.MESSAGE_SUCCESS);
+                new CommandResult(String.format(DeleteGroupCommand.MESSAGE_SUCCESS, GROUPNAME1.toString()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -47,7 +50,8 @@ class DeleteGroupCommandTest {
                 new DeleteGroupCommand(GROUPNAME0).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(DeleteGroupCommand.MESSAGE_FAILURE);
+                new CommandResult(String.format(DeleteGroupCommand.MESSAGE_FAILURE,
+                        DeleteGroupCommand.MESSAGE_GROUP_NOT_FOUND));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

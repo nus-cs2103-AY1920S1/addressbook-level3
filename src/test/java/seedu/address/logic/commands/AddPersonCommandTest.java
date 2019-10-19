@@ -13,9 +13,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.modelutil.TypicalModel;
-
 
 
 public class AddPersonCommandTest {
@@ -23,7 +26,7 @@ public class AddPersonCommandTest {
     private ModelManager model;
 
     @BeforeEach
-    void init() {
+    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
     }
 
@@ -33,13 +36,13 @@ public class AddPersonCommandTest {
     }
 
     @Test
-    void execute_personAcceptedByModel() throws CommandException {
+    void execute_personAcceptedByModel() throws CommandException, PersonNotFoundException {
 
         CommandResult actualCommandResult = new AddPersonCommand(ZACK).execute(model);
         Person person = model.findPerson(ZACK.getName());
         assertNotNull(person);
         CommandResult expectedCommandResult =
-                new CommandResult(AddPersonCommand.MESSAGE_SUCCESS + person.details());
+                new CommandResult(String.format(AddPersonCommand.MESSAGE_SUCCESS, person.getName().toString()));
 
         assertTrue(expectedCommandResult.equals(actualCommandResult));
     }
@@ -48,7 +51,7 @@ public class AddPersonCommandTest {
     void execute_duplicatedPerson() throws CommandException {
         CommandResult actualCommandResult = new AddPersonCommand(ALICE).execute(model);
         CommandResult expectedCommandResult = new CommandResult(
-                AddPersonCommand.MESSAGE_FAILURE + AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
+                String.format(AddPersonCommand.MESSAGE_FAILURE, AddPersonCommand.MESSAGE_DUPLICATE_PERSON));
 
         assertTrue(expectedCommandResult.equals(actualCommandResult));
     }

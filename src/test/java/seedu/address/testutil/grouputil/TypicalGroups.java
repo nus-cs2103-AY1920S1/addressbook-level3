@@ -5,6 +5,7 @@ import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
 
 /**
  * Typical Groups.
@@ -38,7 +39,7 @@ public class TypicalGroups {
      *
      * @return GroupList
      */
-    public static GroupList generateTypicalGroupList() {
+    public static GroupList generateTypicalGroupList() throws DuplicateGroupException {
         GroupList groupList = new GroupList();
         groupList.addGroup(GROUP1);
         groupList.addGroup(GROUP2);

@@ -21,11 +21,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonTimeBookStorage timeBookStorage = new JsonTimeBookStorage(getTempFilePath("tbs"));
 
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage);
+        storageManager = new StorageManager(userPrefsStorage, timeBookStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -58,10 +57,10 @@ public class StorageManagerTest {
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
     }*/
-
+/*
     @Test
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());
-    }
+    }*/
 
 }

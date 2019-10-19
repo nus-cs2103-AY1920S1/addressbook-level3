@@ -19,6 +19,9 @@ import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -35,11 +38,12 @@ public class EditPersonCommand extends Command {
             + "[" + PREFIX_REMARK + "REMARK] "
             + "[" + PREFIX_TAG + "TAG]...\n";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_SUCCESS = "Edited Person success: %s edited";
+    public static final String MESSAGE_FAILURE = "Unable to edit person: %s";
 
-    public static final String MESSAGE_SUCCESS = "Edited Person: \n\n";
-    public static final String MESSAGE_FAILURE = "Unable to edit person";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "Unable to find person";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Name name;
     private final PersonDescriptor personDescriptor;
@@ -56,27 +60,25 @@ public class EditPersonCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!personDescriptor.isAnyFieldEdited()) {
-            return new CommandResult(MESSAGE_NOT_EDITED);
-        }
+        try{
+            Person person = model.editPerson(name, personDescriptor);
 
-        if (model.findPerson(name) == null) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
-
-        Person person = model.editPerson(name, personDescriptor);
-
-        if (person == null) {
-            return new CommandResult(MESSAGE_FAILURE);
-        } else {
             // update main window display
             model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), DetailWindowDisplayType.PERSON);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
 
-            return new CommandResult(MESSAGE_SUCCESS + person.details());
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name.toString()));
+
+        } catch (PersonNotFoundException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+        } catch (NoPersonFieldsEditedException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED));
+        } catch (DuplicatePersonException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON));
         }
+
     }
 
     @Override

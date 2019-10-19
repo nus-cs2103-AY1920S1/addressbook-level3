@@ -9,16 +9,20 @@ import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Deletes a person.
  */
 public class DeletePersonCommand extends Command {
     public static final String COMMAND_WORD = "deleteperson";
-    public static final String MESSAGE_SUCCESS = "Delete person success";
-    public static final String MESSAGE_FAILURE = "Unable to delete person";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME";
+
+    public static final String MESSAGE_SUCCESS = "Delete person success: %s deleted";
+    public static final String MESSAGE_FAILURE = "Unable to delete person: %s";
+
+    public static final String MESSAGE_PERSON_NOT_FOUND = "Unable to find person to delete";
 
     public final Name name;
 
@@ -29,20 +33,22 @@ public class DeletePersonCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Person toDelete = model.findPerson(name);
-        if (toDelete != null) {
-            if (model.deletePerson(toDelete.getPersonId())) {
 
-                // update main window display
-                model.updateDetailWindowDisplay(new DetailWindowDisplay());
+        try {
+            model.deletePerson(name);
 
-                // update side panel display
-                model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+            // update main window display
+            model.updateDetailWindowDisplay(new DetailWindowDisplay());
 
-                return new CommandResult(MESSAGE_SUCCESS);
-            }
+            // update side panel display
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name.toString()));
+
+        } catch (PersonNotFoundException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
         }
-        return new CommandResult(MESSAGE_FAILURE);
+
     }
 
     @Override

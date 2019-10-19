@@ -9,16 +9,20 @@ import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 
 /**
  * Deletes a group.
  */
 public class DeleteGroupCommand extends Command {
     public static final String COMMAND_WORD = "deletegroup";
-    public static final String MESSAGE_SUCCESS = "Delete group success";
-    public static final String MESSAGE_FAILURE = "Unable to delete group";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_GROUPNAME + " GROUPNAME";
+
+    public static final String MESSAGE_SUCCESS = "Delete group success: %s deleted";
+    public static final String MESSAGE_FAILURE = "Unable to delete group: %s";
+
+    public static final String MESSAGE_GROUP_NOT_FOUND = "Group does not exist";
 
     public final GroupName groupName;
 
@@ -29,20 +33,23 @@ public class DeleteGroupCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Group toDelete = model.findGroup(groupName);
-        if (toDelete != null) {
-            if (model.deleteGroup(toDelete.getGroupId())) {
 
-                // update main window display
-                model.updateDetailWindowDisplay(new DetailWindowDisplay());
+        try {
 
-                // update side panel display
-                model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
+            model.deleteGroup(groupName);
 
-                return new CommandResult(MESSAGE_SUCCESS);
-            }
+            // update main window display
+            model.updateDetailWindowDisplay(new DetailWindowDisplay());
+
+            // update side panel display
+            model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString()));
+
+        } catch (GroupNotFoundException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND));
         }
-        return new CommandResult(MESSAGE_FAILURE);
+
     }
 
     @Override

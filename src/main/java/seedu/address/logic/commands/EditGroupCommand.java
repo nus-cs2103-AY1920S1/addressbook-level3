@@ -13,6 +13,9 @@ import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
 
 /**
  * Edits a group details.
@@ -24,9 +27,12 @@ public class EditGroupCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_EDIT + " GROUP_NAME "
             + "[" + PREFIX_REMARK + " REMARK]\n";
 
+    public static final String MESSAGE_SUCCESS = "Edit Group success: %s edited";
+    public static final String MESSAGE_FAILURE = "Unable to edit Group: %s";
+
+    public static final String MESSAGE_DUPLICATE_GROUP = "Group already exists";
+    public static final String MESSAGE_GROUP_NOT_FOUND = "Group does not exist";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_SUCCESS = "Edited Group: \n\n";
-    public static final String MESSAGE_FAILURE = "Unable to edit Group";
 
     private final GroupName groupName;
     private final GroupDescriptor groupDescriptor;
@@ -43,19 +49,8 @@ public class EditGroupCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!groupDescriptor.isAnyFieldEdited()) {
-            return new CommandResult(MESSAGE_NOT_EDITED);
-        }
-
-        if (model.findGroup(groupName) == null) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
-
-        Group group = model.editGroup(groupName, groupDescriptor);
-
-        if (group == null) {
-            return new CommandResult(MESSAGE_FAILURE);
-        } else {
+        try {
+            Group group = model.editGroup(groupName, groupDescriptor);
 
             // update main window display
             model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.GROUP);
@@ -63,8 +58,16 @@ public class EditGroupCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
 
-            return new CommandResult(MESSAGE_SUCCESS + group.details());
+            return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString().trim()));
+
+        } catch (DuplicateGroupException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_GROUP));
+        } catch (GroupNotFoundException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND));
+        } catch (NoGroupFieldsEditedException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED));
         }
+
     }
 
     @Override

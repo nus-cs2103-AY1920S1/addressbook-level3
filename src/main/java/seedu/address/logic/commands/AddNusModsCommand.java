@@ -29,6 +29,7 @@ import seedu.address.model.module.Weeks;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Timeslot;
 import seedu.address.model.person.schedule.Venue;
@@ -105,7 +106,11 @@ public class AddNusModsCommand extends Command {
         }
 
         for (Event event : eventsToAdd) {
-            person.addEvent(event);
+            try{
+                person.addEvent(event);
+            } catch (EventClashException e) {
+
+            }
         }
 
         return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());

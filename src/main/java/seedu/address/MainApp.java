@@ -16,20 +16,15 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.internal.gmaps.ClosestLocation;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.NusModsData;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.ModuleList;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonTimeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -57,7 +52,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing TimeBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -65,9 +60,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TimeBookStorage timeBookStorage = new JsonTimeBookStorage(userPrefs.getTimeBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage);
+        storage = new StorageManager(userPrefsStorage, timeBookStorage);
 
         Cache.setFolderPath(userPrefs.getCacheFolderPath());
 
@@ -87,24 +81,6 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
 
-        // legacy code: to be deleted
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
-
-
         Optional<TimeBook> timeBookOptional;
         TimeBook timeBook;
 
@@ -123,7 +99,7 @@ public class MainApp extends Application {
 
         ClosestLocation closestLocation = new ClosestLocation();
 
-        return new ModelManager(initialData, timeBook, nusModsData, userPrefs, closestLocation);
+        return new ModelManager(timeBook, userPrefs, nusModsData, closestLocation);
     }
 
     /**

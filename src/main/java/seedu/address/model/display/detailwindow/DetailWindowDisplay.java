@@ -52,4 +52,8 @@ public class DetailWindowDisplay {
     public GroupDisplay getGroupDisplay() {
         return this.groupDisplay;
     }
+
+    public FreeSchedule getFreeSchedule() {
+        return this.freeSchedule;
+    }
 }

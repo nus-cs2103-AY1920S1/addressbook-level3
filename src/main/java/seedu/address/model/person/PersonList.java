@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.schedule.Event;
 
 /**
  * List of Persons.
@@ -21,13 +26,15 @@ public class PersonList {
      * @param personDescriptor to be added
      * @return return true when successfully added
      */
-    public Person addPerson(PersonDescriptor personDescriptor) {
-        if (findPerson(personDescriptor.getName()) == null) {
+    public Person addPerson(PersonDescriptor personDescriptor) throws DuplicatePersonException{
+        try{
+            findPerson(personDescriptor.getName());
+        } catch (PersonNotFoundException e) {
             Person person = new Person(personDescriptor);
             this.persons.add(person);
             return person;
         }
-        return null;
+        throw new DuplicatePersonException(personDescriptor.getName());
     }
 
     public void addPerson(Person person) {
@@ -40,15 +47,20 @@ public class PersonList {
      * @param personId of the person to delete
      * @return true when successfully deleted
      */
-    public boolean deletePerson(PersonId personId) {
+    public void deletePerson(PersonId personId) throws PersonNotFoundException {
         int i;
         for (i = 0; i < persons.size(); i++) {
             if (persons.get(i).getPersonId().equals(personId)) {
                 persons.remove(i);
-                return true;
+                return;
             }
         }
-        return false;
+        throw new PersonNotFoundException();
+    }
+
+    public void deletePerson(Name name) throws PersonNotFoundException {
+        Person person = findPerson(name);
+        deletePerson(person.getPersonId());
     }
 
     /**
@@ -58,13 +70,19 @@ public class PersonList {
      * @param personDescriptor how the person should be edited
      * @return person
      */
-    public Person editPerson(Name name, PersonDescriptor personDescriptor) {
+    public Person editPerson(Name name, PersonDescriptor personDescriptor) throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException {
         Person toEdit = findPerson(name);
+
+        if(!personDescriptor.isAnyFieldEdited()){
+            throw new NoPersonFieldsEditedException();
+        }
 
         if (!personDescriptor.getName().equals(Name.emptyName())) {
             Name otherName = personDescriptor.getName();
-            if (findPerson(otherName) != null) {
-                return null;
+            try{
+                findPerson(otherName);
+            } catch (PersonNotFoundException e) {
+                throw new DuplicatePersonException();
             }
             toEdit.setName(personDescriptor.getName());
         }
@@ -86,20 +104,25 @@ public class PersonList {
         return toEdit;
     }
 
+    public void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException {
+        Person person = findPerson(name);
+        person.addEvent(event);
+    }
+
     /**
      * Finds a person with Name and returns the person.
      *
      * @param name of the person to find
      * @return person found
      */
-    public Person findPerson(Name name) {
+    public Person findPerson(Name name) throws PersonNotFoundException {
         int i;
         for (i = 0; i < persons.size(); i++) {
             if (persons.get(i).getName().equals(name)) {
                 return persons.get(i);
             }
         }
-        return null;
+        throw new PersonNotFoundException(name);
     }
 
     /**

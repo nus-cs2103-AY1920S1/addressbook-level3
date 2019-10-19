@@ -1,18 +1,15 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -29,9 +26,14 @@ import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleId;
@@ -44,6 +46,10 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.websocket.Cache;
@@ -55,11 +61,7 @@ import seedu.address.websocket.Cache;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    //To Do.
-    //private final FilteredList<Group> groupFilteredList;
 
     private TimeBook timeBook = null;
 
@@ -77,28 +79,10 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook,
-                        PersonList personList,
-                        GroupList groupList,
-                        PersonToGroupMappingList personToGroupMappingList,
-                        ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.personList = personList;
-        this.groupList = groupList;
-        this.personToGroupMappingList = personToGroupMappingList;
-    }
-
-    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook,
-                        NusModsData nusModsData, ReadOnlyUserPrefs userPrefs, ClosestLocation closestLocation) {
-        this.addressBook = new AddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+    public ModelManager(TimeBook timeBook,
+                        ReadOnlyUserPrefs userPrefs,
+                        NusModsData nusModsData,
+                        ClosestLocation closestLocation) {
 
         this.timeBook = timeBook;
         this.personList = timeBook.getPersonList();
@@ -128,22 +112,12 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this(addressBook, new PersonList(), new GroupList(), new PersonToGroupMappingList(), userPrefs);
-    }
-
-    public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
-        this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
-        //this.addressBook.setPersons(personList.getPersons());
-        this.timeBook = new TimeBook(personList, groupList, personToGroupMappingList);
-    }
-
     public ModelManager(TimeBook timeBook) {
-        this(new AddressBook(), timeBook, new NusModsData(), new UserPrefs(), new ClosestLocation());
+        this(timeBook, new UserPrefs(), new NusModsData(), new ClosestLocation());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new PersonList(), new GroupList(), new PersonToGroupMappingList(), new UserPrefs());
+        this(new TimeBook());
     }
 
     @Override
@@ -159,10 +133,12 @@ public class ModelManager implements Model {
         }
 
         // state check
-        ModelManager other = (ModelManager) obj;
+        /*ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons);*/
+
+        return false;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -221,27 +197,6 @@ public class ModelManager implements Model {
         return userPrefs.getSemesterNo();
     }
 
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-
     //=========== Person Accessors =============================================================
 
     @Override
@@ -255,13 +210,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person addPerson(PersonDescriptor personDescriptor) {
+    public Person addPerson(PersonDescriptor personDescriptor) throws DuplicatePersonException {
         Person isAdded = this.personList.addPerson(personDescriptor);
         return isAdded;
     }
 
     @Override
-    public Person findPerson(Name name) {
+    public Person findPerson(Name name) throws PersonNotFoundException{
         Person person = personList.findPerson(name);
         if (person != null) {
             return person;
@@ -281,25 +236,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addEvent(Name name, Event event) {
-        Person p = personList.findPerson(name);
-        if (p != null) {
-            p.addEvent(event);
-            return true;
-        } else {
-            return false;
-        }
+    public void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException {
+        personList.addEvent(name, event);
     }
 
     @Override
-    public Person editPerson(Name name, PersonDescriptor personDescriptor) {
+    public Person editPerson(Name name, PersonDescriptor personDescriptor) throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException {
         return personList.editPerson(name, personDescriptor);
     }
 
     @Override
-    public boolean deletePerson(PersonId personId) {
+    public void deletePerson(PersonId personId) throws PersonNotFoundException {
         deletePersonFromMapping(personId);
-        return personList.deletePerson(personId);
+        personList.deletePerson(personId);
+    }
+
+    @Override
+    public void deletePerson(Name name) throws PersonNotFoundException {
+        Person person = findPerson(name);
+        deletePerson(person.getPersonId());
     }
 
     @Override
@@ -308,7 +263,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean isEventClash(Name name, Event event) {
+    public boolean isEventClash(Name name, Event event) throws PersonNotFoundException{
         Person person = findPerson(name);
         Schedule schedule = person.getSchedule();
         if (schedule.isClash(event)) {
@@ -331,40 +286,36 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Group addGroup(GroupDescriptor groupDescriptor) {
+    public Group addGroup(GroupDescriptor groupDescriptor) throws DuplicateGroupException {
         Group isAdded = this.groupList.addGroup(groupDescriptor);
         return isAdded;
     }
 
     @Override
-    public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor) {
+    public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor) throws GroupNotFoundException, NoGroupFieldsEditedException, DuplicateGroupException {
         return groupList.editGroup(groupName, groupDescriptor);
     }
 
     @Override
-    public Group findGroup(GroupName groupName) {
-        Group group = groupList.findGroup(groupName);
-        if (group != null) {
-            return group;
-        } else {
-            return null;
-        }
+    public Group findGroup(GroupName groupName) throws GroupNotFoundException {
+        return groupList.findGroup(groupName);
     }
 
     @Override
-    public Group findGroup(GroupId groupId) {
-        Group group = groupList.findGroup(groupId);
-        if (group != null) {
-            return group;
-        } else {
-            return null;
-        }
+    public Group findGroup(GroupId groupId) throws GroupNotFoundException{
+        return groupList.findGroup(groupId);
     }
 
     @Override
-    public boolean deleteGroup(GroupId groupId) {
+    public void deleteGroup(GroupId groupId) throws GroupNotFoundException {
         deleteGroupFromMapping(groupId);
-        return groupList.deleteGroup(groupId);
+        groupList.deleteGroup(groupId);
+    }
+
+    @Override
+    public void deleteGroup(GroupName groupName) throws GroupNotFoundException {
+        Group group = groupList.findGroup(groupName);
+        deleteGroup(group.getGroupId());
     }
 
     @Override
@@ -380,18 +331,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addPersonToGroupMapping(PersonToGroupMapping mapping) {
-        return personToGroupMappingList.addPersonToGroupMapping(mapping);
+    public void addPersonToGroupMapping(PersonToGroupMapping mapping) throws DuplicateMappingException {
+        personToGroupMappingList.addPersonToGroupMapping(mapping);
     }
 
     @Override
-    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) {
+    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) throws MappingNotFoundException {
         return personToGroupMappingList.findPersonToGroupMapping(personId, groupId);
     }
 
     @Override
-    public boolean deletePersonToGroupMapping(PersonToGroupMapping mapping) {
-        return personToGroupMappingList.deletePersonToGroupMapping(mapping);
+    public void deletePersonToGroupMapping(PersonToGroupMapping mapping) throws MappingNotFoundException {
+        personToGroupMappingList.deletePersonToGroupMapping(mapping);
     }
 
     @Override
@@ -405,7 +356,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Role findRole(PersonId personId, GroupId groupId) {
+    public Role findRole(PersonId personId, GroupId groupId) throws MappingNotFoundException {
         return personToGroupMappingList.findRole(personId, groupId);
     }
 
@@ -427,32 +378,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
+    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type)  {
         ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name), Role.emptyRole());
-        weekSchedules.add(weekSchedule);
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
-        updateDetailWindowDisplay(detailWindowDisplay);
+        try{
+            WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name), Role.emptyRole());
+            weekSchedules.add(weekSchedule);
+            DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
+            updateDetailWindowDisplay(detailWindowDisplay);
+        } catch (PersonNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
-        Group group = groupList.findGroup(groupName);
-        GroupId groupId = group.getGroupId();
-        GroupDisplay groupDisplay = new GroupDisplay(group);
-        ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
-        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-        for (int i = 0; i < personIds.size(); i++) {
-            Person person = findPerson(personIds.get(i));
-            Role role = findRole(personIds.get(i), groupId);
-            if (role == null) {
-                role = Role.emptyRole();
+        try{
+            Group group = groupList.findGroup(groupName);
+            GroupId groupId = group.getGroupId();
+            GroupDisplay groupDisplay = new GroupDisplay(group);
+            ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
+            ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
+            for (int i = 0; i < personIds.size(); i++) {
+                Person person = findPerson(personIds.get(i));
+                Role role = findRole(personIds.get(i), groupId);
+                if (role == null) {
+                    role = Role.emptyRole();
+                }
+                WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person, role);
+                weekSchedules.add(weekSchedule);
             }
-            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person, role);
-            weekSchedules.add(weekSchedule);
+            DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
+            updateDetailWindowDisplay(detailWindowDisplay);
+        } catch (GroupNotFoundException | MappingNotFoundException e) {
+
         }
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
-        updateDetailWindowDisplay(detailWindowDisplay);
+
     }
 
     @Override
@@ -495,10 +456,13 @@ public class ModelManager implements Model {
 
     @Override
     public ArrayList<String> personSuggester(String prefix, String groupName) {
+
         ArrayList<String> suggestions = new ArrayList<>();
 
-        Group group = findGroup(new GroupName(groupName));
-        if (group == null) {
+        Group group;
+        try{
+            group = findGroup(new GroupName(groupName));
+        } catch (GroupNotFoundException e) {
             return suggestions;
         }
 

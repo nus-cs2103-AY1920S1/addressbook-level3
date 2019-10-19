@@ -12,6 +12,7 @@ import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 
 /**
  * Gives the schedule for the week of a group.
@@ -32,8 +33,11 @@ public class ScheduleCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Group group = model.findGroup(groupName);
-        if (group == null) {
+
+        Group group;
+        try {
+            group = model.findGroup(groupName);
+        } catch (GroupNotFoundException e) {
             return new CommandResult(MESSAGE_FAILURE);
         }
 

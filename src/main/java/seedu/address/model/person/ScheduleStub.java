@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.mapping.Role;
+import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.person.schedule.Timeslot;
@@ -48,7 +49,11 @@ public class ScheduleStub {
         Timeslot timeslot5 = new Timeslot(startTime5, endTime5, venue);
         Event monday1pmTo3pm = new Event("Test", new ArrayList<>(List.of(timeslot1, timeslot2, timeslot3,
                 timeslot4, timeslot5)));
-        schedule.addEvent(monday1pmTo3pm);
+        try{
+            schedule.addEvent(monday1pmTo3pm);
+        } catch (EventClashException e) {
+            return null;
+        }
         p.setSchedule(schedule);
         return new WeekSchedule("TestSchedule", LocalDateTime.now(), p, Role.emptyRole());
     }

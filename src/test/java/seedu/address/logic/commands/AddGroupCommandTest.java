@@ -13,6 +13,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.modelutil.TypicalModel;
 
 
@@ -22,7 +26,7 @@ class AddGroupCommandTest {
     private ModelManager model;
 
     @BeforeEach
-    void init() {
+    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
     }
 
@@ -32,12 +36,13 @@ class AddGroupCommandTest {
     }
 
     @Test
-    void execute_success() throws CommandException {
+    void execute_success() throws CommandException, GroupNotFoundException {
 
         CommandResult actualCommandResult = new AddGroupCommand(GROUP0).execute(model);
         Group group = model.findGroup(GROUPNAME0);
         assertNotNull(group);
-        CommandResult expectedCommandResult = new CommandResult(AddGroupCommand.MESSAGE_SUCCESS + group.details());
+        CommandResult expectedCommandResult = new CommandResult(String.format(AddGroupCommand.MESSAGE_SUCCESS,
+                group.getGroupName().toString()));
 
         assertTrue(expectedCommandResult.equals(actualCommandResult));
     }
@@ -46,7 +51,8 @@ class AddGroupCommandTest {
     void execute_duplicateGroup() throws CommandException {
 
         CommandResult actualCommandResult = new AddGroupCommand(GROUP1).execute(model);
-        CommandResult expectedCommandResult = new CommandResult(AddGroupCommand.MESSAGE_FAILURE);
+        CommandResult expectedCommandResult = new CommandResult(String.format(AddGroupCommand.MESSAGE_FAILURE,
+                AddGroupCommand.MESSAGE_DUPLICATE_GROUP));
         assertTrue(expectedCommandResult.equals(actualCommandResult));
     }
 

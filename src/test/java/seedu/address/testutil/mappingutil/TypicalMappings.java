@@ -3,6 +3,7 @@ package seedu.address.testutil.mappingutil;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.PersonId;
 
 /**
@@ -36,7 +37,7 @@ public class TypicalMappings {
      *
      * @return PersonToGroupMappingList
      */
-    public static PersonToGroupMappingList generateTypicalMappingList() {
+    public static PersonToGroupMappingList generateTypicalMappingList() throws DuplicateMappingException {
         PersonToGroupMappingList mappingList = new PersonToGroupMappingList();
         mappingList.addPersonToGroupMapping(MAP00);
         mappingList.addPersonToGroupMapping(MAP01);

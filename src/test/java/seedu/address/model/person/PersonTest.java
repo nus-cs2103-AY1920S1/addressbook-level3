@@ -15,6 +15,7 @@ import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.testutil.personutil.PersonBuilder;
@@ -112,7 +113,7 @@ public class PersonTest {
     }
 
     @Test
-    void addEvent() {
+    void addEvent() throws EventClashException {
         alice.addEvent(TypicalEvents.generateTypicalEvent1());
         Schedule schedule = alice.getSchedule();
         assertNotNull(schedule);
@@ -192,7 +193,7 @@ public class PersonTest {
     }
 
     @Test
-    void setSchedule() {
+    void setSchedule() throws EventClashException {
         Schedule schedule = TypicalSchedule.generateTypicalSchedule(alice.getPersonId());
         alice.setSchedule(schedule);
         assertTrue(alice.getSchedule().getPersonId().equals(alice.getPersonId()));
