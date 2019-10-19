@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import seedu.address.model.activity.exceptions.PersonNotInActivityException;
-import seedu.address.model.person.Person;
 
 /**
  * Represents an Activity class containing participants ID and expenses.
