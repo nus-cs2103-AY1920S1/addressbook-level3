@@ -83,7 +83,7 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the given {@code cost} is invalid.
      */
-    public static Cost parseCost (String cost) throws ParseException {
+    public static Cost parseCost(String cost) throws ParseException {
         requireNonNull(cost);
         String trimmedCost = cost.trim();
         if (!Cost.isValidCost(trimmedCost)) {
@@ -93,11 +93,33 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String cost} delimited by a '-' into an {@code cost}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code cost} is invalid.
+     */
+    public static List<Cost> parseCosts(Collection<String> costs) throws ParseException {
+        requireNonNull(costs);
+
+        List<Cost> result = new ArrayList<>();
+        for (String tempCost : costs) {
+            String[] costTokens = tempCost.split("-");
+            for (String cost : costTokens) {
+                if (!Cost.isValidCost(cost)) {
+                    throw new ParseException(Cost.MESSAGE_CONSTRAINTS);
+                }
+
+                result.add(new Cost(cost));
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * Parses a {@code String remark} into an {@code remark}.
      * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the given {@code remark} is invalid.
      */
-    public static Remark parseRemark(String remark) throws ParseException {
+    public static Remark parseRemark(String remark) {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
         return new Remark(trimmedRemark);
