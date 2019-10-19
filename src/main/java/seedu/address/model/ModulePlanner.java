@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
 import seedu.address.model.versiontracking.StudyPlanCommitManagerList;
@@ -233,6 +235,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public void setCurrentSemester(SemesterName semesterName) {
         currentSemester = semesterName;
+        activeStudyPlan.setCurrentSemester(semesterName);
     }
 
     /**
@@ -260,17 +263,29 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return moduleInfo == null ? null : moduleInfo.getInformation();
     }
 
+    //=========== Module Information and Verification =============================================================
+
     /**
      * Returns this module planner's ModulesInfo object.
-     *
-     * @return This module planner's ModulesInfo object.
      */
     public ModulesInfo getModulesInfo() {
         return modulesInfo;
     }
 
+    /**
+     * Updates prerequisites of the active study plan, if it exists.
+     */
     public void updatePrereqs() {
-        this.activeStudyPlan.updatePrereqs();
+        if (this.activeStudyPlan != null) {
+            this.activeStudyPlan.updatePrereqs();
+        }
+    }
+
+    public List<String> getValidMods(SemesterName semName) {
+        if (this.activeStudyPlan == null) {
+            return new ArrayList<>(); // TODO: might want to change it to an assertion, this should not be called maybe?
+        }
+        return this.activeStudyPlan.getValidMods(semName);
     }
 
     public void changeActiveStudyPlanTitle(String title) {
@@ -303,6 +318,44 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public void deleteStudyPlanCommitManagerByIndex(int index) throws StudyPlanCommitManagerNotFoundException {
         versionTrackingManager.deleteStudyPlanCommitManagerByIndex(index);
+    }
+
+    //// tagging methods
+
+    public boolean addTagToActiveSp(UserTag tag, String moduleCode) {
+        return activeStudyPlan.addTag(tag, moduleCode);
+    }
+
+    public boolean activeSpContainsTag(String tagName) {
+        return activeStudyPlan.containsTag(tagName);
+    }
+
+    public Tag getTagFromActiveSp(String tagName) {
+        return activeStudyPlan.getTag(tagName);
+    }
+
+    public UniqueTagList getTagsFromActiveSp() {
+        return activeStudyPlan.getTags();
+    }
+
+    public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
+        return activeStudyPlan.getModuleTags(moduleCode);
+    }
+
+    public void deleteTagFromActiveSp(UserTag toDelete) {
+        activeStudyPlan.deleteTag(toDelete);
+    }
+
+    public void removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+        activeStudyPlan.removeTagFromAllModules(toRemove);
+    }
+
+    public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {
+        return activeStudyPlan.removeTagFromModule(toRemove, moduleCode);
+    }
+
+    public void updateAllCompletedTags() {
+        activeStudyPlan.updateAllCompletedTags();
     }
 
     //// util methods
