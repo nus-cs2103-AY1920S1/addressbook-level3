@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
+import org.jfree.data.time.Month;
 import seedu.address.model.waste.exceptions.WasteMonthException;
 
 /**
@@ -62,6 +63,24 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return this.compareTo(otherWasteMonth) < 0;
     }
 
+    public WasteMonth nextWasteMonth() {
+        return addWasteMonth(1);
+    }
+
+    public WasteMonth addWasteMonth(int numberOfMonths) {
+        LocalDate currentWasteMonthDate = LocalDate.of(this.year, this.month, 1);
+        return new WasteMonth(currentWasteMonthDate.plusMonths(numberOfMonths));
+    }
+
+    public WasteMonth previousWasteMonth() {
+        return minusWasteMonth(1);
+    }
+
+    public WasteMonth minusWasteMonth(int numberOfMonths) {
+        LocalDate currentWasteMonthDate = LocalDate.of(this.year, this.month, 1);
+        return new WasteMonth(currentWasteMonthDate.minusMonths(numberOfMonths));
+    }
+
     /**
      * Returns the format which the waste month will be stored in storage.
      */
@@ -71,8 +90,20 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return month + "-" + year;
     }
 
+    public Month toJFreeMonth() {
+        return new Month(this.month, this.year);
+    }
+
     public static WasteMonth getCurrentWasteMonth() {
         return new WasteMonth(LocalDate.now());
+    }
+
+    public static WasteMonth earlier(WasteMonth wm1, WasteMonth wm2) {
+        return (wm1.isBefore(wm2)) ? wm1 : wm2;
+    }
+
+    public static WasteMonth later(WasteMonth wm1, WasteMonth wm2) {
+        return (wm1.isAfter(wm2)) ? wm1 : wm2;
     }
 
     @Override
@@ -94,6 +125,8 @@ public class WasteMonth implements Comparable<WasteMonth> {
 
     @Override
     public String toString() {
-        return month + "-" + year;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM yyyy");
+        YearMonth yearMonth = YearMonth.of(this.year, this.month);
+        return formatter.format(yearMonth);
     }
 }

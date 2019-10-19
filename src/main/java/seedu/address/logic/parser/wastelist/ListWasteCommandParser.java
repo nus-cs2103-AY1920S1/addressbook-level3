@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.wastelist;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 
 import seedu.address.logic.commands.wastelist.ListWasteCommand;
@@ -24,7 +25,7 @@ public class ListWasteCommandParser implements Parser<ListWasteCommand> {
     public ListWasteCommand parse(String userInput) throws ParseException {
         String args = userInput;
 
-        if (args.isEmpty()) {
+        if (args.trim().isEmpty()) {
             WasteMonth.getCurrentWasteMonth();
             return new ListWasteCommand(WasteMonth.getCurrentWasteMonth());
         }
@@ -32,7 +33,14 @@ public class ListWasteCommandParser implements Parser<ListWasteCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MONTH);
 
-        WasteMonth wasteMonth = ParserUtil.parseWasteMonth(argMultimap.getValue(PREFIX_MONTH).get());
+        WasteMonth wasteMonth;
+
+        try {
+            wasteMonth = ParserUtil.parseWasteMonth(argMultimap.getValue(PREFIX_MONTH).get());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListWasteCommand.MESSAGE_USAGE), pe);
+        }
 
         return new ListWasteCommand(wasteMonth);
     }

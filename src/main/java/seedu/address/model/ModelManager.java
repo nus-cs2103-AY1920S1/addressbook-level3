@@ -19,6 +19,7 @@ import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
+import seedu.address.model.waste.WasteReport;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
     private final FilteredList<UniqueTemplateItems> filteredTemplateList;
     private FilteredList<GroceryItem> filteredWasteItems;
     private FilteredList<ShoppingItem> filteredShoppingItems;
+    private WasteReport wasteReport;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -325,6 +327,35 @@ public class ModelManager implements Model {
     @Override
     public Set<WasteMonth> getListOfWasteMonths() {
         return WasteList.getWasteArchive().keySet();
+    }
+
+    @Override
+    public boolean hasWasteMonth(WasteMonth wasteMonth) {
+        return WasteList.getWasteArchive().containsKey(wasteMonth);
+    }
+
+    @Override
+    public WasteMonth getEarliestWasteMonth() {
+        return WasteList.getWasteArchive().firstKey();
+    }
+
+    @Override
+    public WasteMonth getLatestWasteMonth() {
+        return WasteList.getWasteArchive().lastKey();
+    }
+
+    //=========== Waste Report Accessors =============================================================
+
+    @Override
+    public WasteReport getWasteReport() {
+        requireNonNull(this.wasteReport);
+        return this.wasteReport;
+    }
+
+    @Override
+    public void setWasteReport(WasteReport wasteReport) {
+        requireNonNull(wasteReport);
+        this.wasteReport = wasteReport;
     }
 
     //=========== ShoppingList ================================================================================

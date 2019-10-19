@@ -1,9 +1,11 @@
 package seedu.address.ui;
 
+import java.awt.*;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -12,12 +14,26 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.block.BlockBorder;
+import org.jfree.chart.fx.ChartViewer;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.ui.HorizontalAlignment;
+import org.jfree.data.time.Month;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYDataset;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.waste.WasteReport;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -261,6 +277,8 @@ public class MainWindow extends UiPart<Stage> {
                 displayTemplateListPanel();
             } else if (commandResult.isShoppingListCommand()) {
                 displayShoppingListPanel();
+            } else if (commandResult.isWasteReportCommand()) {
+                displayWasteReport(logic.getWasteReport());
             }
 
             return commandResult;
@@ -269,5 +287,11 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void displayWasteReport(WasteReport wasteReport) {
+        ReportWasteWindow wasteWindow = new ReportWasteWindow(wasteReport);
+        wasteWindow.showWasteReport();
+
     }
 }
