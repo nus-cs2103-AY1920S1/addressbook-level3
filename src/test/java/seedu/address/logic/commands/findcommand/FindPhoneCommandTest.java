@@ -3,13 +3,13 @@ package seedu.address.logic.commands.findcommand;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_PHONE_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCustomers.CARL;
-import static seedu.address.testutil.TypicalCustomers.ELLE;
-import static seedu.address.testutil.TypicalCustomers.FIONA;
 import static seedu.address.testutil.TypicalCustomers.getTypicalCustomerBook;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalPhones.IPHONEONE;
+import static seedu.address.testutil.TypicalPhones.IPHONETWO;
+import static seedu.address.testutil.TypicalPhones.IPHONEXR;
 import static seedu.address.testutil.TypicalPhones.getTypicalPhoneBook;
 import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
 
@@ -22,13 +22,13 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.phone.Phone;
+import seedu.address.model.phone.predicates.PhoneNameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class FindCustomerCommandTest {
+public class FindPhoneCommandTest {
 
 
     private Model model = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
@@ -39,19 +39,19 @@ public class FindCustomerCommandTest {
 
     @Test
     public void equals() {
-        Predicate<Customer> firstPredicate =
-                new CustomerNameContainsKeywordsPredicate(Collections.singletonList("first"));
-        Predicate<Customer> secondPredicate =
-                new CustomerNameContainsKeywordsPredicate(Collections.singletonList("second"));
+        Predicate<Phone> firstPredicate =
+                new PhoneNameContainsKeywordsPredicate(Collections.singletonList("first"));
+        Predicate<Phone> secondPredicate =
+                new PhoneNameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCustomerCommand findFirstCommand = new FindCustomerCommand(firstPredicate);
-        FindCustomerCommand findSecondCommand = new FindCustomerCommand(secondPredicate);
+        FindPhoneCommand findFirstCommand = new FindPhoneCommand(firstPredicate);
+        FindPhoneCommand findSecondCommand = new FindPhoneCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCustomerCommand findFirstCommandCopy = new FindCustomerCommand(firstPredicate);
+        FindPhoneCommand findFirstCommandCopy = new FindPhoneCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -60,34 +60,34 @@ public class FindCustomerCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different customer -> returns false
+        // different phone -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 0);
-        CustomerNameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCustomerCommand command = new FindCustomerCommand(predicate);
-        expectedModel.updateFilteredCustomerList(predicate);
+        String expectedMessage = String.format(MESSAGE_PHONE_LISTED_OVERVIEW, 0);
+        PhoneNameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        FindPhoneCommand command = new FindPhoneCommand(predicate);
+        expectedModel.updateFilteredPhoneList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredCustomerList());
+        assertEquals(Collections.emptyList(), model.getFilteredPhoneList());
     }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 3);
-        CustomerNameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCustomerCommand command = new FindCustomerCommand(predicate);
-        expectedModel.updateFilteredCustomerList(predicate);
+        String expectedMessage = String.format(MESSAGE_PHONE_LISTED_OVERVIEW, 3);
+        PhoneNameContainsKeywordsPredicate predicate = preparePredicate("iPhone");
+        FindPhoneCommand command = new FindPhoneCommand(predicate);
+        expectedModel.updateFilteredPhoneList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCustomerList());
+        assertEquals(Arrays.asList(IPHONEONE, IPHONETWO, IPHONEXR), model.getFilteredPhoneList());
     }
 
     /**
      * Parses {@code userInput} into a {@code CustomerNameContainsKeywordsPredicate}.
      */
-    private CustomerNameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new CustomerNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private PhoneNameContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new PhoneNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
