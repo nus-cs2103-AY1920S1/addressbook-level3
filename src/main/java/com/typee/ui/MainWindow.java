@@ -12,6 +12,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.calendar.CalendarWindow;
 import com.typee.ui.game.StartWindow;
+import com.typee.ui.report.ReportWindow;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
