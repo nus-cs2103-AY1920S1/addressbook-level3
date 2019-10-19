@@ -40,7 +40,6 @@ public class ExpandPolicyCommand extends Command {
         }
 
         Policy policyToExpand = lastShownList.get(index.getZeroBased());
-        model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, policyToExpand), policyToExpand);
     }

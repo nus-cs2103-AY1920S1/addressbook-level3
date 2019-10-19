@@ -40,7 +40,6 @@ public class ExpandPersonCommand extends Command {
         }
 
         Person personToExpand = lastShownList.get(index.getZeroBased());
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToExpand), personToExpand);
     }
