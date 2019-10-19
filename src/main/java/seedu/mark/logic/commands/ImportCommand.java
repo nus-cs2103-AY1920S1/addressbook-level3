@@ -147,7 +147,7 @@ public class ImportCommand extends Command {
          */
         public static Bookmark setToRootFolder(Bookmark bookmark) {
             return new Bookmark(bookmark.getName(), bookmark.getUrl(), bookmark.getRemark(),
-                    Folder.ROOT_FOLDER, bookmark.getTags());
+                    Folder.ROOT_FOLDER, bookmark.getTags(), bookmark.getCachedCopies());
         }
 
         /**

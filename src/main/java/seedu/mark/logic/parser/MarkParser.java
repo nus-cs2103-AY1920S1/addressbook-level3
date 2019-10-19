@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AddReminderCommand;
+import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteCommand;
@@ -20,6 +21,7 @@ import seedu.mark.logic.commands.GotoCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ImportCommand;
 import seedu.mark.logic.commands.ListCommand;
+import seedu.mark.logic.commands.OfflineCommand;
 import seedu.mark.logic.commands.RedoCommand;
 import seedu.mark.logic.commands.TabCommand;
 import seedu.mark.logic.commands.UndoCommand;
@@ -99,6 +101,12 @@ public class MarkParser {
 
         case AddReminderCommand.COMMAND_WORD:
             return new AddReminderCommandParser().parse(arguments);
+
+        case CacheCommand.COMMAND_WORD:
+            return new CacheCommandParser().parse(arguments);
+
+        case OfflineCommand.COMMAND_WORD:
+            return new OfflineCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

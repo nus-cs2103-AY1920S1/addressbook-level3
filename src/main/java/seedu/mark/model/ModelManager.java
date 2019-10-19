@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -48,17 +49,7 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
-        annotatedDocument = new SortedList<Paragraph>(
-                //TODO: change this to link to proper offline document
-                FXCollections.observableArrayList(
-                        new OfflineDocument("example doc",
-                                OfflineDocument.OFFLINE_DOC_EXAMPLE).getCollection()), (
-            Paragraph p1, Paragraph p2) -> {
-            ParagraphIdentifier pid1 = p1.getId();
-            ParagraphIdentifier pid2 = p2.getId();
-            return pid1.compareTo(pid2);
-        }
-        );
+        annotatedDocument = FXCollections.observableList(new ArrayList<>());
     }
 
     public ModelManager() {
@@ -251,7 +242,15 @@ public class ModelManager implements Model {
 
     @Override
     public void updateDocument(OfflineDocument doc) {
-        //TODO: replace observable list with the updated paragraphs in doc (can be new bookmark doc too)
+        annotatedDocument.setAll(new SortedList<>(
+                //TODO: change this to link to proper offline document
+                FXCollections.observableArrayList(doc.getCollection()), (
+                Paragraph p1, Paragraph p2) -> {
+            ParagraphIdentifier pid1 = p1.getId();
+            ParagraphIdentifier pid2 = p2.getId();
+            return pid1.compareTo(pid2);
+        }
+        ));
     }
 
     @Override

@@ -21,6 +21,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
@@ -101,8 +102,9 @@ public class EditCommand extends Command {
         Remark updatedRemark = editBookmarkDescriptor.getRemark().orElse(bookmarkToEdit.getRemark());
         Set<Tag> updatedTags = editBookmarkDescriptor.getTags().orElse(bookmarkToEdit.getTags());
         Folder updatedFolder = editBookmarkDescriptor.getFolder().orElse(bookmarkToEdit.getFolder());
+        List<CachedCopy> unchangedCachedCopies = bookmarkToEdit.getCachedCopies();
 
-        return new Bookmark(updatedName, updatedUrl, updatedRemark, updatedFolder, updatedTags);
+        return new Bookmark(updatedName, updatedUrl, updatedRemark, updatedFolder, updatedTags, unchangedCachedCopies);
     }
 
     @Override

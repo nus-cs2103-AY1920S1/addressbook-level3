@@ -40,6 +40,7 @@ public class JsonSerializableMarkTest {
         JsonSerializableMark dataFromFile = JsonUtil.readJsonFile(TYPICAL_BOOKMARKS_FILE,
                 JsonSerializableMark.class).get();
         Mark markFromFile = dataFromFile.toModelType();
+
         Mark typicalBookmarksMark = TypicalBookmarks.getTypicalMark();
         assertEquals(markFromFile, typicalBookmarksMark);
     }
