@@ -9,6 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.commands.Command;
 import seedu.address.financialtracker.parser.FinancialTrackerParser;
+import seedu.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -82,7 +83,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see AddressBookLogic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {

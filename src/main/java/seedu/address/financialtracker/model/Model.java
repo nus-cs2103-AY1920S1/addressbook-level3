@@ -9,7 +9,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.financialtracker.model.expense.Expense;
 
 /**
- * Represents the in-memory model of the financial tracker data.
+ * Represents the in-memory addressBookModel of the financial tracker data.
  */
 public class Model {
 

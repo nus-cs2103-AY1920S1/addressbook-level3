@@ -10,6 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.itinerary.commands.Command;
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.parser.ItineraryParser;
+import seedu.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -93,7 +94,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see AddressBookLogic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {

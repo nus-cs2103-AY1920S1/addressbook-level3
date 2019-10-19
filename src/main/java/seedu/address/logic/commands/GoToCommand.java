@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
+import seedu.address.model.AddressBookModel;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 
+/**
+ * GoTo a specific page with user input entered by the user.
+ */
 public class GoToCommand extends Command {
     public static final String COMMAND_WORD = "goto";
     public static final String MESSAGE_CHANGE_SUCCESS = "Switching to %s page";
@@ -19,7 +22,7 @@ public class GoToCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(AddressBookModel addressBookModel) {
         PageManager.getPage(pageType);
         String respondMessage = String.format(MESSAGE_CHANGE_SUCCESS, pageType.toString().toLowerCase());
         return new CommandResult(respondMessage, false, false);
