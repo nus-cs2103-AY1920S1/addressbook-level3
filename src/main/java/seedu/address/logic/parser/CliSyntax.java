@@ -14,4 +14,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_DELETE_EVENT = new Prefix("--e");
     public static final Prefix PREFIX_DELETE_TASK = new Prefix("--tk");
     public static final Prefix PREFIX_DELETE_REMINDER = new Prefix("--r");
+    public static final Prefix PREFIX_AUTO_RESCHEDULE = new Prefix("-auto");
 }

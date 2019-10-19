@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.AutoReschedulePeriod;
 
 /**
  * Represents an Item's Event in ELISA.
@@ -24,6 +25,8 @@ public class Event {
     private final LocalDateTime endDateTime;
     //Duration chosen over Period as Events are unlikely to exceed a day.
     private final Duration duration;
+    private final boolean isAutoReschedule;
+    private final AutoReschedulePeriod period;
 
     /**
      * Constructs an {@code Event}.
@@ -32,6 +35,14 @@ public class Event {
      * @param duration A Duration of the event. Defaults to Duration.ZERO if null.
      */
     public Event(LocalDateTime startDateTime, Duration duration) throws IllegalArgumentException {
+        this(startDateTime, duration, false, null);
+    }
+
+    public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule) throws IllegalArgumentException {
+        this(startDateTime, duration, false, null);
+    }
+
+    public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule, AutoReschedulePeriod period) throws IllegalArgumentException {
         requireNonNull(startDateTime);
         if (duration != null) {
             this.duration = duration;
@@ -41,6 +52,8 @@ public class Event {
 
         this.startDateTime = startDateTime;
         this.endDateTime = startDateTime.plus(this.duration);
+        this.isAutoReschedule = isAutoReschedule;
+        this.period = period;
     }
 
     public LocalDateTime getStartDateTime() {
@@ -53,6 +66,22 @@ public class Event {
 
     public Duration getDuration() {
         return duration;
+    }
+
+    public boolean hasAutoReschedule() {
+        return isAutoReschedule;
+    }
+
+    public Event setAutoReschedule(boolean bool) {
+        return new Event(getStartDateTime(), getDuration(), bool);
+    }
+
+    public AutoReschedulePeriod getPeriod() {
+        return this.period;
+    }
+
+    public Event setReschedulePeriod(AutoReschedulePeriod period) {
+        return new Event(getStartDateTime(), getDuration(), true, period);
     }
 
     public Event changeStartDateTime(LocalDateTime newStartDateTime) {

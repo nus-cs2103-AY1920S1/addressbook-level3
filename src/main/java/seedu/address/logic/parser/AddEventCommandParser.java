@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO_RESCHEDULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
@@ -19,6 +20,7 @@ import seedu.address.commons.core.item.Reminder;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AutoReschedulePeriod;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,7 +35,8 @@ public class AddEventCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String desc, String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY,
+                        PREFIX_TAG, PREFIX_AUTO_RESCHEDULE);
 
         // Event must have a deadline.
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME)
@@ -48,6 +51,16 @@ public class AddEventCommandParser implements Parser<AddCommand> {
         Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
+        try {
+            Optional<AutoReschedulePeriod> reschedulePeriod = ParserUtil.parseReschedule(argMultimap.getValue(PREFIX_AUTO_RESCHEDULE).orElse(null));
+    System.out.println("Reschedule Period: " + reschedulePeriod.get().getPeriod());
+            if (reschedulePeriod.isPresent()) {
+                event = event.setAutoReschedule(true).setReschedulePeriod(reschedulePeriod.get());
+            }
+        } catch (Exception e) {
+            System.out.println("Issue with parsing -auto ");
+        }
+
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(description);
         itemBuilder.setTags(tagList);
@@ -56,6 +69,7 @@ public class AddEventCommandParser implements Parser<AddCommand> {
             itemBuilder.setItemPriority(priority.get());
         }
         itemBuilder.setEvent(event);
+
 
         if (itemReminder.isPresent()) {
             itemBuilder.setReminder(itemReminder.get());

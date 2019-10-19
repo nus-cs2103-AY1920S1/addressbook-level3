@@ -18,6 +18,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AutoRescheduleManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemStorage;
 import seedu.address.model.item.VisualizeList;
@@ -34,11 +35,13 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final ScheduledThreadPoolExecutor checker;
+    private final AutoRescheduleManager autoRescheduleManager;
 
     public LogicManager(ItemModel model, Storage storage) {
         this.storage = storage;
         this.model = model;
         addressBookParser = new AddressBookParser(model.getElisaCommandHistory());
+        autoRescheduleManager = AutoRescheduleManager.getInstance();
 
         //Create new thread class to check
         /*
@@ -97,6 +100,7 @@ public class LogicManager implements Logic {
 
     public final void shutdown() {
         checker.shutdown();
+        autoRescheduleManager.shutdown();
     }
 
     @Override
