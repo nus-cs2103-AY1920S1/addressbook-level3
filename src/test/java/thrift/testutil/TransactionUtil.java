@@ -3,10 +3,13 @@ package thrift.testutil;
 import java.util.Set;
 
 import thrift.logic.commands.AddExpenseCommand;
+import thrift.logic.commands.AddIncomeCommand;
 import thrift.logic.commands.UpdateCommand;
 import thrift.logic.parser.CliSyntax;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Expense;
+import thrift.model.transaction.Income;
+import thrift.model.transaction.Transaction;
 
 /**
  * A utility class for Transaction.
@@ -17,17 +20,24 @@ public class TransactionUtil {
      * Returns an add command string for adding the {@code Expense}.
      */
     public static String getAddExpenseCommand(Expense expense) {
-        return AddExpenseCommand.COMMAND_WORD + " " + getExpenseDetails(expense);
+        return AddExpenseCommand.COMMAND_WORD + " " + getTransactionDetails(expense);
     }
 
     /**
-     * Returns the part of command string for the given {@code transaction}'s details.
+     * Returns an add command string for adding the {@code Income}.
      */
-    public static String getExpenseDetails(Expense expense) {
+    public static String getAddIncomeCommand(Income income) {
+        return AddIncomeCommand.COMMAND_WORD + " " + getTransactionDetails(income);
+    }
+
+    /**
+     * Returns the part of command string for the given {@code Transaction}'s details.
+     */
+    public static String getTransactionDetails(Transaction transaction) {
         StringBuilder sb = new StringBuilder();
-        sb.append(CliSyntax.PREFIX_NAME + expense.getDescription().toString() + " ");
-        sb.append(CliSyntax.PREFIX_COST + expense.getValue().toString() + " ");
-        expense.getTags().stream().forEach(
+        sb.append(CliSyntax.PREFIX_NAME + transaction.getDescription().toString() + " ");
+        sb.append(CliSyntax.PREFIX_COST + transaction.getValue().toString() + " ");
+        transaction.getTags().stream().forEach(
             s -> sb.append(CliSyntax.PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();

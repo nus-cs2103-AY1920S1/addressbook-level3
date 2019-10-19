@@ -91,17 +91,19 @@ public class UpdateCommandParserTest {
         assertDoesNotThrow(() -> new UpdateTransactionDescriptorBuilder()
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS)
                 .withValue(CommandTestUtil.VALID_VALUE_AIRPODS)
-                .withTags(CommandTestUtil.VALID_TAG_ACCESSORY).build());
+                .withTags(CommandTestUtil.VALID_TAG_ACCESSORY)
+                .withRemark(CommandTestUtil.VALID_REMARK_AIRPODS).build());
     }
 
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = TypicalIndexes.INDEX_FIRST_TRANSACTION;
         String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.VALUE_LAKSA
-                + CommandTestUtil.TAG_LAKSA;
+                + CommandTestUtil.REMARK_LAKSA + CommandTestUtil.TAG_LAKSA;
 
         UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
-                .withValue(CommandTestUtil.VALID_VALUE_LAKSA).withTags(CommandTestUtil.VALID_TAG_LUNCH).build();
+                .withValue(CommandTestUtil.VALID_VALUE_LAKSA).withRemark(CommandTestUtil.VALID_REMARK_LAKSA)
+                .withTags(CommandTestUtil.VALID_TAG_LUNCH).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
