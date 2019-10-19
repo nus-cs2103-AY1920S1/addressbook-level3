@@ -12,6 +12,7 @@ import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.logic.parser.IchiFundParser;
+import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.logic.tasks.TaskManager;
 import seedu.ichifund.model.Model;
@@ -62,6 +63,16 @@ public class LogicManager implements Logic {
 
     public void executeAllTasks() {
         taskManager.executeAll(model);
+    }
+
+    @Override
+    public ObservableValue<ParserManager> getCurrentParserManager() {
+        return ichiFundParser.getCurrentParserManager();
+    }
+
+    @Override
+    public void setParserManager(int index) {
+        ichiFundParser.setParserManager(index);
     }
 
     @Override

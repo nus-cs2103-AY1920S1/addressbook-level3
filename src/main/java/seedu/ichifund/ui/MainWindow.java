@@ -2,9 +2,13 @@ package seedu.ichifund.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,6 +20,7 @@ import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.logic.Logic;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
+import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
@@ -30,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private ObservableValue<ParserManager> currentParserManager;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -83,6 +89,8 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.currentParserManager = logic.getCurrentParserManager();
+        setupParserSwitching();
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -90,6 +98,14 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+    }
+
+    private void setupParserSwitching() {
+        this.currentParserManager.addListener(new ParserManagerListener(mainTabPane));
+        mainTabPane.setOnMouseClicked(event -> {
+            int selectedIndex = mainTabPane.getSelectionModel().getSelectedIndex();
+            logic.setParserManager(selectedIndex);
+        });
     }
 
     public Stage getPrimaryStage() {
@@ -189,7 +205,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowTransaction() {
-        mainTabPane.getSelectionModel().select(0);
+        logic.setParserManager(0);
     }
 
     /**
@@ -197,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowRepeater() {
-        mainTabPane.getSelectionModel().select(1);
+        logic.setParserManager(1);
     }
 
     /**
@@ -205,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowBudget() {
-        mainTabPane.getSelectionModel().select(2);
+        logic.setParserManager(2);
     }
 
     /**
@@ -213,7 +229,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowLoan() {
-        mainTabPane.getSelectionModel().select(3);
+        logic.setParserManager(3);
     }
 
     /**
@@ -221,7 +237,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowAnalytics() {
-        mainTabPane.getSelectionModel().select(4);
+        logic.setParserManager(4);
     }
 
     /**
@@ -272,6 +288,22 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    private class ParserManagerListener implements InvalidationListener {
+        private TabPane tabPane;
+
+        public ParserManagerListener(TabPane tabpane) {
+            this.tabPane = tabpane;
+        }
+
+        @Override
+        public void invalidated(Observable observable) {
+            this.tabPane.getSelectionModel().select(
+                    ((ObservableValue<ParserManager>) currentParserManager)
+                            .getValue()
+                            .getTabIndex());
         }
     }
 }

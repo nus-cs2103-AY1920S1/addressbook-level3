@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
+import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
@@ -31,6 +32,10 @@ public interface Logic {
      * Executes all the tasks.
      */
     void executeAllTasks();
+
+    ObservableValue<ParserManager> getCurrentParserManager();
+
+    void setParserManager(int index);
 
     /**
      * Returns the FundBook.
