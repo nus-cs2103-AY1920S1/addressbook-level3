@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.PhoneBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Phone;
 
@@ -34,12 +34,12 @@ public class TypicalPhones {
             .withCapacity(Capacity.SIZE_128GB).withColour("Black").withCost("$1000").withTags("Used").build();
 
     /**
-     * Returns an {@code Book} with all the typical phones.
+     * Returns a {@code DataBook} with all the typical phones.
      */
-    public static PhoneBook getTypicalPhoneBook() {
-        PhoneBook pb = new PhoneBook();
+    public static DataBook<Phone> getTypicalPhoneBook() {
+        DataBook<Phone> pb = new DataBook<>();
         for (Phone p: getTypicalPhones()) {
-            pb.addPhone(p);
+            pb.add(p);
         }
         return pb;
     }

@@ -24,6 +24,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
+import seedu.address.model.phone.Phone;
+import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.CustomerBookBuilder;
 import seedu.address.testutil.OrderBookBuilder;
 import seedu.address.testutil.PhoneBookBuilder;
@@ -191,16 +195,16 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         //AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        CustomerBook customerBook = new CustomerBookBuilder().withCustomer(DANIEL).withCustomer(FIONA).build();
-        PhoneBook phoneBook = new PhoneBookBuilder().withPhone(IPHONEONE).withPhone(IPHONEXR).build();
-        OrderBook orderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
-        ScheduleBook scheduleBook = new ScheduleBookBuilder().withSchedule(CBD_SCHEDULE)
+        DataBook<Customer> customerBook = new CustomerBookBuilder().withCustomer(DANIEL).withCustomer(FIONA).build();
+        DataBook<Phone> phoneBook = new PhoneBookBuilder().withPhone(IPHONEONE).withPhone(IPHONEXR).build();
+        DataBook<Order> orderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
+        DataBook<Schedule> scheduleBook = new ScheduleBookBuilder().withSchedule(CBD_SCHEDULE)
                 .withSchedule(SCHEDULEONE).build();
 
-        CustomerBook differentCustomerBook = new CustomerBook();
-        PhoneBook differentPhoneBook = new PhoneBook();
-        OrderBook differentOrderBook = new OrderBook();
-        ScheduleBook differentScheduleBook = new ScheduleBook();
+        DataBook<Customer> differentCustomerBook = new DataBook<>();
+        DataBook<Phone> differentPhoneBook = new DataBook<>();
+        DataBook<Order> differentOrderBook = new DataBook<>();
+        DataBook<Schedule> differentScheduleBook = new DataBook<>();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
