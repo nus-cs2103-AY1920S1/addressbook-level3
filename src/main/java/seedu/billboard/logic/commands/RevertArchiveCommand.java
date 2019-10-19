@@ -69,6 +69,6 @@ public class RevertArchiveCommand extends ArchiveCommand {
         return other == this // short circuit if same object
                 || (other instanceof RevertArchiveCommand // instanceof handles nulls
                 && index.equals(((RevertArchiveCommand) other).index)
-                && archiveName.equals(((RevertArchiveCommand) other).index)); // state check
+                && archiveName.equals(((RevertArchiveCommand) other).archiveName)); // state check
     }
 }
