@@ -17,7 +17,6 @@ import seedu.billboard.logic.Logic;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
-import seedu.billboard.model.statistics.StatisticsGenerator;
 import seedu.billboard.ui.charts.ChartBox;
 
 /**

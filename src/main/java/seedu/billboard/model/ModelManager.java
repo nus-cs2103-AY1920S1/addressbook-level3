@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
@@ -238,7 +237,7 @@ public class ModelManager implements Model {
         filteredArchives.get(archiveName).setPredicate(predicate);
     }
 
-    //=========== Statistics Chart Methods =============================================================
+    //=========== StatisticsGenerator Chart Methods =============================================================
     public ObservableData<StatisticsType> getStatisticsType() {
         return statsType;
     }

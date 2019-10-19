@@ -9,7 +9,7 @@ import seedu.billboard.ui.UiPart;
 /**
  * Represents a chart showing a certain statistic for expenses.
  */
-public abstract class ExpenseChart<T> extends UiPart<Region> {
+public abstract class ExpenseChart extends UiPart<Region> {
 
     protected ObservableList<? extends Expense> expenses;
 
@@ -18,6 +18,4 @@ public abstract class ExpenseChart<T> extends UiPart<Region> {
 
         this.expenses = expenses;
     }
-
-    public abstract void onDataChange(T newData);
 }

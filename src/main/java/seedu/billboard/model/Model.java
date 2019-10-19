@@ -97,7 +97,7 @@ public interface Model {
      */
     void updateFilteredExpenses(Predicate<Expense> predicate);
 
-    // ================ Statistics Chart methods ======================
+    // ================ StatisticsGenerator Chart methods ======================
 
     /**
      * Returns the statistics type wrapped in an observable wrapper.

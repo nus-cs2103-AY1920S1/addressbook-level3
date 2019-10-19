@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.commons.core.observable.Observer;
 
@@ -20,7 +21,7 @@ import seedu.billboard.commons.core.observable.Observer;
 public class ObservableDataTest {
 
     @Mock
-    Observer<Object> observerMock;
+    private Observer<Object> observerMock;
 
     @BeforeEach
     public void init() {
