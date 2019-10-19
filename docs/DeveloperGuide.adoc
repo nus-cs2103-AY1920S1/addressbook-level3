@@ -337,6 +337,7 @@ The diary entry is capable of displaying text with inline images, or lines consi
 There are two primary facets of input styles to this feature, one being one-shot commands that edits
 a part or the whole of the entry, and the other being the JavaFX text editor.
 
+[[diary_text_editing_model]]
 ==== Aspect : Models
 The main model abstraction holding the data of an entry is the `DiaryEntry` class. +
 It stores three key fields, namely: +
@@ -369,9 +370,98 @@ Internally, it uses a JavaFX `ListView<CharSequence>` with a custom cell factory
 In both facets of input styles, special entry text parsing is required to display the various formats of lines, and
 dynamic text updates that occur when the text in the text editor is changed should propagate to the display immediately.
 
-To accomplish this, the internal `ListView` is set to observe the paragraphs of the `DiaryEditBox`, which is done in the
-constructor of `DiaryEntryDisplay`.
+image::diary/DiaryEntryParsing.png[]
 
+To accomplish this, the internal `ListView` is set to observe the paragraphs of the `DiaryEditBox`, which is done in the
+constructor of `DiaryEntryDisplay` in the initialisation of `DiaryPage`.
+
+The two facets of inputs dictate two separate ways the paragraphs can change.
+
+====== 1. Changes as a result of edits by the user in the text edit box
+1. The edits to the `TextArea` input in `DiaryEditBox` are immediately propagated to the observable paragraphs, since the
+`ListView` was set to observe the same list provided by `DiaryEditBox`.
+
+====== 2. Changes as a result of user commands
+[[DiaryPageFillPage]]
+image::diary/DiaryFillPageCallback.png[title = "Sequence diagram of updating of DiaryPage UI post command execution"]
+
+1. The `model` is updated, depending on whether the edit box is currently shown to the user. +
+1.1. The edited but uncommitted text stored in the current `EditDiaryEntryDescriptor` will be updated if the edit box is shown. (branch 2 of branch 2 in <<DiaryPageFillPage>>) +
+1.2. Otherwise, the current `DiaryEntry` in the `PageStatus` of the `model` is updated immediately. (branch 1 of branch 2 in the figu)
+2. The text in the `DiaryEntryEditBox` is then updated with the updated `model` in the `fillPage` callback function executed by `MainWindow` as per
+the `Page` api, resulting in the changes reflecting in the observable paragraphs.
+
+====== Graphic of `ListView` cells in `DiaryEntryDisplay`
+The `ListView` of `DiaryEntryDisplay` uses a custom cell factory and cell implementation, that is, `DiaryTextLineCell`.
+
+Once the data has been updated in the above two ways, the `ListView` receives the notification for which cell(s) to update.
+
+The parsing is done in the inner class `DiaryTextLineCell` based on the text line received, using a
+customised regex pattern, creating new instances of `DiaryLines` based on the parsed input.
+
+NOTE: For `DiaryLines` with photos, the parsing process uses the photoList as set in the `DiaryPage's`
+`fillPage` method. (see branch 1 of branch 2 in <<DiaryPageFillPage>>)
+
+==== Design considerations
+Numerous design decisions and comprimised had to be made due to the desired specifications of text editing and displaying. +
+Specifically, the following had to be achieved :
+
+* Changes to text in the `DiaryEntryEditBox` must reflect immediately in the `DiaryEntryDisplay` to provide visual cue to the user.
+* While the `DiaryEntryEditBox` is active, commands that edit the entry must behave like they edit the `DiaryEntryEditBox` directly.
+That is, the changes should not be committed immediately.
+* In general, where mentioned below, performance was favoured because of how a singular diary line can present both
+multimedia and text to the user, which puts considerable strain on the system than other areas of the application.
+
+[width="100%", options="header" cols="2, 4, 4, 4"]
+|========================================================================================
+|Aspect      |Alternative 1 | Alternative 2 | Alternative 3
+|Updating of UI
+|The first option was to abide by the `fillPage` api of `Page`. The `ListView` would have all its items cleared and updated
+with the new text after each command execution.
+
+However, this implies updating all `DiaryLineTextCell` inside the list view after each command execution, which puts a clear
+burden on the system, and defeats the intended way `ListView` is to be used (as specified in JavaFX documentation).
+
+**Alternative 2** attempts to solve this performance bottleneck.
+
+|The second option, was to implement the `DiaryEntry model` (see <<diary_text_editing_model>>) using an `ObservableList` of
+strings. The `ListView` would then be set to observe this list, and when the current entry changed, a new `DiaryEntryDisplay`
+would be created (as `ListView` does not support changing the `ObservableList` instance after set).
+
+For user commands, this solves the problem posed by **alternative 1**, since user commands can make edits only where needed in
+the `ObservableList`, allowing the `ListView` to only update the relavant `DiaryLineTextCell`.
+
+However, this meant that user edits to the `DiaryEntryEditBox` could not be reflected directly to the `DiaryEntryDisplay`.
+
+The first instinct was to add a separate listener to the `ObservableList` of `DiaryEntryEditBox`, executing a UI initiated command that
+edited only a specific line of text inside the `DiaryEntry model` pertaining to the edited text paragraph. +
+Subsequent iterations of development showed that this was clearly unfeasible, for the following reasons:
+
+* `DiaryEntryEditBox` would have to be populated with
+
+Although this option limited the validation to only the 'addphoto' command, it allows for leeway in
+image path validation in other areas such as `JsonAdaptedPhoto`, where it is possible for deletion of an
+image file by the user, outside of the application, to invalidate the stored file path and erroneous data to be loaded on application start.
+
+Moreover, Since the function for parsing the image file can and was abstracted into a single utility function,
+any other areas in future development needing this functionality can simply reuse this code.
+
+Overall, this leads to a more robust behaviour of the application, while providing the same level of
+extensibility as the first option.
+
+
+|2
+|Item 2
+|Item 2
+
+|3
+|Item 3
+|Item 3
+
+|4
+|Item 4
+|Item 4
+|========================================================================================
 
 === Logging
 
