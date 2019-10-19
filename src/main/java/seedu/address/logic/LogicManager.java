@@ -132,7 +132,19 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public XYChart.Series<String, Number> calculateTotalProfitGraph(StatsPayload statsPayload) {
+        return this.statistic.calculateTotalProfitOnCompletedGraph(this.getOrderBook(), statsPayload);
+    }
+
+    @Override
     public XYChart.Series<String, Number> calculateTotalRevenueGraph(StatsPayload statsPayload) {
         return this.statistic.calculateTotalRevenueOnCompletedGraph(this.getOrderBook(), statsPayload);
     }
+
+    @Override
+    public XYChart.Series<String, Number> calculateTotalCostGraph(StatsPayload statsPayload) {
+        return this.statistic.calculateTotalCostOnCompletedGraph(this.getOrderBook(), statsPayload);
+    }
+
+
 }

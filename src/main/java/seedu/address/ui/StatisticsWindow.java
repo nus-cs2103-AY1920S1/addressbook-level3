@@ -16,30 +16,29 @@ import javafx.stage.Stage;
  */
 public class StatisticsWindow extends UiPart<Stage> {
     private static final String FXML = "StatisticsWindow.fxml";
-
+    private XYChart.Series<String, Number> axisSeries;
     @FXML
     private Label statsLabel;
     @FXML
     private Label testLabel;
     @FXML
-    CategoryAxis xAxis;
+    private CategoryAxis xAxis;
     @FXML
-    NumberAxis yAxis;
+    private NumberAxis yAxis;
     @FXML
     private LineChart<String, Number> testChart;
 
-    XYChart.Series<String, Number> axisSeries;
 
     /**
      * Create a new Statistic window
      * @param root Stage in which the window will use
      */
-    public StatisticsWindow(Stage root,  Optional<XYChart.Series<String, Number>> axisSeriesOptional) {
+    public StatisticsWindow(Stage root, Optional<XYChart.Series<String, Number>> axisSeriesOptional) {
         super(FXML, root);
         if (axisSeriesOptional.isPresent()) {
             this.axisSeries = axisSeriesOptional.get();
             buildChart();
-        } else{
+        } else {
 
         }
 
@@ -48,6 +47,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     /**
      * utility method to create statistic window with the data
      * @param statsLabel the title of the stats
+     * @param axisSeries  graph data from logic
      */
     public StatisticsWindow(String statsLabel, XYChart.Series<String, Number> axisSeries) {
         this(new Stage(), Optional.of(axisSeries));
@@ -60,7 +60,7 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statsLabel the title of the stats
      */
     public StatisticsWindow(String statisticsResult, String statsLabel) {
-        this(new Stage(),Optional.empty());
+        this(new Stage(), Optional.empty());
 
         this.testLabel.setText(statisticsResult);
         this.statsLabel.setText(statsLabel);
@@ -68,6 +68,9 @@ public class StatisticsWindow extends UiPart<Stage> {
     }
 
 
+    /**
+     * intialize the chart in the fxml file
+     */
     private void buildChart() {
         //Defining the x axis
         xAxis.setLabel("Months");

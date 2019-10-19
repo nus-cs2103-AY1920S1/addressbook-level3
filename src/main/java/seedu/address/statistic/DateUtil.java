@@ -3,7 +3,6 @@ package seedu.address.statistic;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-;
 
 import seedu.address.commons.util.StatsPayload;
 import seedu.address.model.order.Order;
@@ -27,11 +26,11 @@ public class DateUtil {
         Calendar endDate = statsPayload.getEndingDate();
 
 
-        while(startDate.before(endDate)) {
+        while (startDate.before(endDate)) {
             //System.out.println(convertCalendarDateToString(startDate));
             Calendar temp = (Calendar) startDate.clone();
             listOfYearMonth.add(temp);
-            startDate.add(Calendar.MONTH,1);
+            startDate.add(Calendar.MONTH, 1);
         }
         listOfYearMonth.add(endDate);
         return listOfYearMonth;

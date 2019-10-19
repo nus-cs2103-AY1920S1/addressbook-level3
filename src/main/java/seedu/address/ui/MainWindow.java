@@ -197,15 +197,19 @@ public class MainWindow extends UiPart<Stage> {
             switch (statsPayload.getStatisticType()) {
             case PROFIT:
                 String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
+                this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
                 this.statsWindow.show();
                 break;
             case REVENUE:
                 String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
-                this.statsWindow = new StatisticsWindow(totalRevenueResult,"Total Revenue");
+                this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
                 this.statsWindow.show();
+                break;
             case COST:
                 String totalCostResult = this.logic.calculateTotalCost(statsPayload);
+                this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
                 this.statsWindow.show();
+                break;
             default:
                 throw new EnumNotPresentException("Enum not present in stat command");
             }
@@ -214,7 +218,6 @@ public class MainWindow extends UiPart<Stage> {
             switch (statsPayload.getStatisticType()) {
             case PROFIT:
                 String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
-                this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
                 this.statsWindow.show();
                 break;
             case REVENUE:
@@ -223,8 +226,8 @@ public class MainWindow extends UiPart<Stage> {
                 this.statsWindow.show();
                 break;
             case COST:
-                String totalCostResult = this.logic.calculateTotalCost(statsPayload);
-                //this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
+                XYChart.Series<String, Number> costResult = this.logic.calculateTotalCostGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Cost", costResult);
                 this.statsWindow.show();
                 break;
             default:

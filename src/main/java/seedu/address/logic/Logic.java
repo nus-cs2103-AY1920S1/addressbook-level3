@@ -97,9 +97,21 @@ public interface Logic {
      */
     String calculateTotalCost(StatsPayload statsPayload);
 
-    /**
+     /**
      * Gets logic to calculate total profit based on user input
      * return a XYChart.series
      */
      XYChart.Series<String, Number> calculateTotalRevenueGraph(StatsPayload statsPayload);
+
+    /**
+     * Gets logic to calculate total cost based on user input
+     * return a XYChart.series
+     */
+    XYChart.Series<String, Number> calculateTotalCostGraph(StatsPayload statsPayload);
+
+    /**
+     * Gets logic to calculate total cost based on user input
+     * return a XYChart.series
+     */
+    XYChart.Series<String, Number> calculateTotalProfitGraph(StatsPayload statsPayload);
 }
