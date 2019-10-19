@@ -21,11 +21,11 @@ public class AppendDiaryEntryCommand extends Command {
             + "OR Text line with '<images (positive integer of a photo according to the gallery order)>'\n"
             + "OR <images (positive integers of photos according to the gallery order separated by spaces)>";
 
-    public static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
+    private static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
 
-    public static final String MESSAGE_APPEND_SUCCESS = "Appended your new line! %1$s";
+    private static final String MESSAGE_APPEND_SUCCESS = "Appended your new line! %1$s";
 
-    private String textToAppend;
+    private final String textToAppend;
 
     public AppendDiaryEntryCommand(String textToAppend) {
         requireNonNull(textToAppend);

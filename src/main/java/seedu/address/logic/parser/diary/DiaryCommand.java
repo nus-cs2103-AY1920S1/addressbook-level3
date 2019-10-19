@@ -9,6 +9,7 @@ public enum DiaryCommand {
     APPEND,
     DELETE,
     EDIT,
+    EDITOR,
     DONE,
     ADDPHOTO,
     DELPHOTO

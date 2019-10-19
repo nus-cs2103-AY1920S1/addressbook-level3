@@ -65,6 +65,32 @@ public class EditDiaryEntryDescriptor {
     }
 
     /**
+     * Edits the line of text specified at {@code lineToEdit} to the {@code newText}.
+     * Asserts the zero based index of {@code lineToEdit} is not less than zero.
+     *
+     * @param newText {@link String} of new text to replace the specified line with.
+     * @param lineToEdit The {@link Index} of the line of text to edit.
+     * @return True if there a paragraph of text at the specified index exists and was edited.
+     */
+    public boolean editTextLine(String newText, Index lineToEdit) {
+        assert lineToEdit.getZeroBased() >= 0;
+        String[] paragraphs = this.diaryText.split("\n");
+        if (lineToEdit.getZeroBased() >= paragraphs.length) {
+            return false;
+        }
+        paragraphs[lineToEdit.getZeroBased()] = newText;
+        StringBuilder diaryTextBuilder = new StringBuilder();
+
+        for (int i = 0; i < paragraphs.length; i++) {
+            diaryTextBuilder
+                    .append(paragraphs[i])
+                    .append(i == (paragraphs.length - 1) ? "" : "\n");
+        }
+        this.diaryText = diaryTextBuilder.toString();
+        return true;
+    }
+
+    /**
      * Deletes the paragraph of text at the specified zero based index.
      * Paragraphs are ordered by the number of newlines in its prefix.
      *

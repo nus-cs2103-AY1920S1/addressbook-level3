@@ -13,17 +13,14 @@ import seedu.address.ui.UiPart;
  * Custom JavaFX component controller for the edit box in the diary page.
  * It is backed by a {@link TextArea}.
  */
-public class DiaryEditBox extends UiPart<VBox> {
+class DiaryEditBox extends UiPart<VBox> {
     private static final String FXML = "diary/DiaryEditBox.fxml";
-
-    private Consumer<String> textChangeHandler;
 
     @FXML
     private TextArea textEditor;
 
     DiaryEditBox(Consumer<String> textChangeHandler) {
         super(FXML);
-        this.textChangeHandler = textChangeHandler;
         textEditor.prefWidthProperty().bind(getRoot().widthProperty());
         textEditor.prefHeightProperty().bind(getRoot().heightProperty());
         textEditor.focusedProperty().addListener(((observable, oldValue, newValue) -> {

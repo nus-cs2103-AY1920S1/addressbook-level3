@@ -20,7 +20,7 @@ class DiaryEntryPhotoCard extends UiPart<AnchorPane> {
     private static final double MIN_ROTATION = -10.0;
     private static final double MAX_ROTATION = 10.0;
 
-    private Photo photo;
+    private final Photo photo;
 
     @FXML
     private ImageView photoImageView;

@@ -15,7 +15,7 @@ import seedu.address.ui.components.PersonCard;
 /**
  * Abstraction of a diary gallery card able to display a {@link Photo}.
  */
-public class DiaryGalleryCard extends UiPart<AnchorPane> {
+class DiaryGalleryCard extends UiPart<AnchorPane> {
 
     private static final String FXML = "diary/DiaryGalleryCard.fxml";
 

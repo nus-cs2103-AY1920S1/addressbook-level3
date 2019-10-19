@@ -12,7 +12,8 @@ import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
 /**
  * {@link Command} that deletes a line of text in the diary entry by a provided {@link Index},
- * and commits the change to the current diary entry.
+ * and commits the change to the current diary entry immediately if there is no {@link EditDiaryEntryDescriptor}
+ * currently in use.
  */
 public class DeleteDiaryEntryCommand extends Command {
     public static final String COMMAND_WORD = "delete";
@@ -21,11 +22,13 @@ public class DeleteDiaryEntryCommand extends Command {
             + "current diary entry\n"
             + "Parameters: One based index (must be a valid positive integer)";
 
-    public static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
+    private static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
 
-    public static final String MESSAGE_DELETE_SUCCESS = "Deleted line %d! %1$d";
+    private static final String MESSAGE_DELETE_SUCCESS = "Deleted line %d! %1$d";
 
-    private Index lineIndexToDelete;
+    private static final String MESSAGE_LINE_DOES_NOT_EXIST = "The line specified at %d does not exist!";
+
+    private final Index lineIndexToDelete;
 
     public DeleteDiaryEntryCommand(Index lineIndexToDelete) {
         requireNonNull(lineIndexToDelete);
@@ -36,25 +39,39 @@ public class DeleteDiaryEntryCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         DiaryEntry diaryEntry = model.getPageStatus().getDiaryEntry();
-        EditDiaryEntryDescriptor currentEditEntryDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
+        EditDiaryEntryDescriptor editDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
 
         if (diaryEntry == null) {
             throw new CommandException(MESSAGE_NO_DIARY_ENTRY);
         }
 
-        EditDiaryEntryDescriptor editDescriptor = currentEditEntryDescriptor == null
-                ? new EditDiaryEntryDescriptor(diaryEntry)
-                : currentEditEntryDescriptor;
+        if (editDescriptor == null) {
+            editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);
+            boolean didDelete = editDescriptor.deleteTextParagraph(this.lineIndexToDelete.getZeroBased());
 
-        editDescriptor.deleteTextParagraph(this.lineIndexToDelete.getZeroBased());
-        DiaryEntry newDiaryEntry = editDescriptor.buildDiaryEntry();
+            if (didDelete) {
+                DiaryEntry newDiaryEntry = editDescriptor.buildDiaryEntry();
 
-        model.getPageStatus().getTrip().getDiary().setDiaryEntry(diaryEntry, newDiaryEntry);
-        model.setPageStatus(model.getPageStatus()
-                .withNewEditDiaryEntryDescriptor(null)
-                .withNewDiaryEntry(newDiaryEntry));
+                model.getPageStatus().getTrip().getDiary().setDiaryEntry(diaryEntry, newDiaryEntry);
+                model.setPageStatus(model.getPageStatus()
+                        .withNewEditDiaryEntryDescriptor(null)
+                        .withNewDiaryEntry(newDiaryEntry));
 
-        return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, this.lineIndexToDelete.getOneBased()));
+                return new CommandResult(
+                        String.format(MESSAGE_DELETE_SUCCESS, this.lineIndexToDelete.getOneBased()));
+            } else {
+                return new CommandResult(
+                        String.format(MESSAGE_LINE_DOES_NOT_EXIST, this.lineIndexToDelete.getOneBased()));
+            }
+        } else {
+            boolean didDelete = editDescriptor.deleteTextParagraph(this.lineIndexToDelete.getZeroBased());
+
+            return didDelete
+                    ? new CommandResult(
+                            String.format(MESSAGE_DELETE_SUCCESS, this.lineIndexToDelete.getOneBased()))
+                    : new CommandResult(
+                            String.format(MESSAGE_LINE_DOES_NOT_EXIST, this.lineIndexToDelete.getOneBased()));
+        }
     }
 
     @Override

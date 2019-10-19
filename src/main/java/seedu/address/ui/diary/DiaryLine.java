@@ -17,7 +17,7 @@ import seedu.address.ui.UiPart;
  * Custom JavaFX component controller representing a single line of items to be displayed in the diary.
  * These items can be a {@link Photo}, or a simple string.
  */
-public class DiaryLine extends UiPart<HBox> {
+class DiaryLine extends UiPart<HBox> {
 
     private static final String FXML = "diary/DiaryLine.fxml";
 

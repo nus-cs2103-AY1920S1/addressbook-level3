@@ -13,10 +13,10 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #403F4C;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <left>
-        <VBox fx:id="sideBarLeft" prefHeight="200.0" prefWidth="100.0" />
+        <VBox fx:id="sideBarLeft" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" />
     </left>
     <right>
-        <VBox fx:id="sideBarRight" prefHeight="200.0" prefWidth="100.0" />
+        <VBox fx:id="sideBarRight" alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" />
     </right>
    <bottom>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #121420;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">

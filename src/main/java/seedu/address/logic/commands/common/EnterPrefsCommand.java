@@ -17,7 +17,7 @@ public class EnterPrefsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the preferences page of TravelPal.";
 
-    public static final String MESSAGE_SUCCESS = "Entered the preferences screen.";
+    private static final String MESSAGE_SUCCESS = "Entered the preferences screen.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

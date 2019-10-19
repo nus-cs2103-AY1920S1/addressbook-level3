@@ -23,9 +23,9 @@ public class FlipDiaryCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_FLIP_PAGE_SUCCESS = "Flipped the current diary page!\n:%1$s";
+    private static final String MESSAGE_FLIP_PAGE_SUCCESS = "Flipped the current diary page!\n:%1$s";
 
-    private Index indexToFlipTo;
+    private final Index indexToFlipTo;
 
     public FlipDiaryCommand(Index indexToFlipTo) {
         this.indexToFlipTo = indexToFlipTo;

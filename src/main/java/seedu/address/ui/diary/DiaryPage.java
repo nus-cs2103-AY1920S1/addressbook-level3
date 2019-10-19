@@ -1,6 +1,7 @@
 package seedu.address.ui.diary;
 
 import static seedu.address.commons.util.AppUtil.getImage;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_CHOOSER;
 
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ import seedu.address.logic.commands.diary.CreateDiaryEntryCommand;
 import seedu.address.logic.commands.diary.DoneEditDiaryEntryCommand;
 import seedu.address.logic.commands.diary.EditDiaryEntryCommand;
 import seedu.address.logic.commands.diary.FlipDiaryCommand;
+import seedu.address.logic.commands.diary.ShowTextEditorCommand;
 import seedu.address.logic.commands.diary.gallery.AddPhotoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
@@ -75,7 +77,8 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     private void initPlaceholders() {
         diaryGallery = new DiaryGallery();
         diaryEntryEditBox = new DiaryEditBox(editBoxText ->
-                mainWindow.executeGuiCommand(EditDiaryEntryCommand.COMMAND_WORD + " " + editBoxText));
+                mainWindow.executeGuiCommand(EditDiaryEntryCommand.COMMAND_WORD + " "
+                        + PREFIX_DESCRIPTION + editBoxText));
         //bind widths and heights
         diaryGallery.getRoot().prefHeightProperty().bind(diaryRightPlaceholder.heightProperty());
         diaryEntryEditBox.getRoot().prefWidthProperty().bind(diaryRightPlaceholder.widthProperty());
@@ -117,6 +120,8 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
             diaryEntryDisplay.setPhotoList(currentEntry.getPhotoList());
             fillRightWithEditBox();
             diaryEntryEditBox.requestFocus();
+        } else {
+            diaryEntryEditBox.setText(editDiaryEntryDescriptor.getDiaryText());
         }
 
         fillButtonBar();
@@ -182,7 +187,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.LEFT);
         ButtonBar.setButtonData(addPhotoButton, ButtonBar.ButtonData.LEFT);
 
-        editButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(EditDiaryEntryCommand.COMMAND_WORD));
+        editButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(ShowTextEditorCommand.COMMAND_WORD));
         addPhotoButton.setOnMouseClicked(buttonEvent ->
                 mainWindow.executeGuiCommand(AddPhotoCommand.COMMAND_WORD + " " + PREFIX_FILE_CHOOSER));
 
@@ -210,10 +215,5 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         placeHolderChildren.clear();
         diaryGallery.setPhotoList(currentEntry.getPhotoList());
         placeHolderChildren.add(diaryGallery.getRoot());
-    }
-
-    @FXML
-    private void handleEdit() {
-        mainWindow.executeGuiCommand(EditDiaryEntryCommand.COMMAND_WORD + " " + diaryEntryEditBox.getText());
     }
 }

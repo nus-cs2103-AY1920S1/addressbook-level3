@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
 /**
  * Abstraction of a gallery for displaying the {@code Photo}s of a {@code DiaryEntry}.
  */
-public class DiaryGallery extends UiPart<VBox> {
+class DiaryGallery extends UiPart<VBox> {
     private static final String FXML = "diary/DiaryGallery.fxml";
 
     @FXML

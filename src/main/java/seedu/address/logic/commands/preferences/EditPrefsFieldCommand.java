@@ -50,7 +50,7 @@ public class EditPrefsFieldCommand extends Command {
             + PREFIX_WINDOW_HEIGHT + "600";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
-    public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
+    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditPrefsDescriptor editPrefsDescriptor;
 
@@ -156,7 +156,7 @@ public class EditPrefsFieldCommand extends Command {
          * @param oldDescriptor Old {@code EditTripDescriptor} to use.
          * @param newDescriptor New {@code EditTripDescriptor} to use.
          */
-        public EditPrefsDescriptor(EditPrefsDescriptor oldDescriptor, EditPrefsDescriptor newDescriptor) {
+        EditPrefsDescriptor(EditPrefsDescriptor oldDescriptor, EditPrefsDescriptor newDescriptor) {
             this();
             newDescriptor.windowWidth.ifPresentOrElse(
                     this::setWindowWidth, () ->
@@ -248,7 +248,7 @@ public class EditPrefsFieldCommand extends Command {
             return this.windowYPosition;
         }
 
-        public void setDataFilePath(String dataFilePath) {
+        void setDataFilePath(String dataFilePath) {
             this.dataFilePath = Optional.of(dataFilePath);
         }
 

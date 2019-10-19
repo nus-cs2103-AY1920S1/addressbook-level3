@@ -44,7 +44,7 @@ public class DoubleFormItem extends FormItem<Double> {
         });
 
         formDoubleSpinner.valueProperty().addListener((observableVal, oldVal, newVal) -> {
-            if (oldVal != newVal) {
+            if (!oldVal.equals(newVal)) {
                 executeChangeHandler.accept(getValue());
             }
         });
