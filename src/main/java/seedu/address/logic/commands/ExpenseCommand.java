@@ -111,7 +111,9 @@ public class ExpenseCommand extends Command {
 
             // Contextual behaviour
             if (model.getContext().getType() != Context.Type.VIEW_ACTIVITY) {
-                activity.invite(person.getPrimaryKey());
+                if (!activity.hasPerson(person.getPrimaryKey())) {
+                    activity.invite(person.getPrimaryKey());
+                }
             }
         }
 
