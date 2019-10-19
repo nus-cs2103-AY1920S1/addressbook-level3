@@ -114,4 +114,14 @@ public class UniqueIdentificationNumberMaps {
         uniqueBodyMap.clear();
         uniqueWorkerMap.clear();
     }
+
+    public static Entity getMapping(String typeOfEntity, int id) {
+        if (typeOfEntity.equals("W")) {
+            return uniqueWorkerMap.get(id);
+        } else if (typeOfEntity.equals("B")) {
+            return uniqueBodyMap.get(id);
+        } else {
+            return uniqueFridgeMap.get(id);
+        }
+    }
 }

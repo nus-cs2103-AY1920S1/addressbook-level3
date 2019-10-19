@@ -17,4 +17,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_ENTITY_DISPLAYED_ID = "The identification number provided is invalid "
             + "for the selected type of entity.";
     public static final String MESSAGE_INVALID_TEST_PARAMETERS = "Test parameters are invalid";
+    public static final String MESSAGE_INVALID_FRIDGE_ID = "Fridge ID is not valid.";
+    public static final String MESSAGE_INEXISTENT_FRIDGE = "Fridge ID does not exist. Please enter an empty fridge's ID"
+            + " or create a fridge before adding the body";
 }

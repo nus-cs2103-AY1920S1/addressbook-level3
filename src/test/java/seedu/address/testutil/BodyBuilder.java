@@ -69,7 +69,7 @@ public class BodyBuilder {
         causeOfDeath = DEFAULT_CAUSE_OF_DEATH;
         organsForDonation = Arrays.asList(DEFAULT_ORGANS_FOR_DONATION.split(" "));
         bodyStatus = DEFAULT_BODY_STATUS;
-        fridgeId = IdentificationNumber.customGenerateId("F", DEFAULT_FRIDGE_ID);
+        fridgeId = null;
 
         nextOfKin = new Name(DEFAULT_NEXT_OF_KIN);
         relationship = DEFAULT_RELATIONSHIP;
