@@ -35,8 +35,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
+    private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
-    private StatisticsCard statsCard;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,9 +49,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane notesListPanelPlaceholder;
-
-    @FXML
-    private StackPane statisticsPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -73,6 +70,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         slideShowWindow = new SlideshowWindow();
+        statsReportWindow = new StatsReportWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -124,9 +122,6 @@ public class MainWindow extends UiPart<Stage> {
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
 
-        statsCard  = new StatisticsCard(logic.getProcessedStatistics());
-        statisticsPanelPlaceholder.getChildren().add(statsCard.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -143,7 +138,6 @@ public class MainWindow extends UiPart<Stage> {
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
-        //primaryStage.setFullScreen(true);
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
@@ -171,6 +165,20 @@ public class MainWindow extends UiPart<Stage> {
             slideShowWindow.show();
         } else {
             slideShowWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the statistics report window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats() {
+        StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
+        statsReportWindow.setStatsCard(statsCard);
+        if (!statsReportWindow.isShowing()) {
+            statsReportWindow.show();
+        } else {
+            statsReportWindow.focus();
         }
     }
 
@@ -219,7 +227,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowStatistic()) {
-                statsCard.updateData(logic.getProcessedStatistics());
+                handleStats();
             }
 
             return commandResult;

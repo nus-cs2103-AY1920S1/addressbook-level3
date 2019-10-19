@@ -19,6 +19,7 @@ public class SlideshowWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(SlideshowWindow.class);
     private static final String FXML = "SlideshowWindow.fxml";
 
+
     @FXML
     private Label questionLabel;
     @FXML
