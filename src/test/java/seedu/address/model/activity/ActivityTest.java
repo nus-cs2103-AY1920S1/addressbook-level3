@@ -12,6 +12,17 @@ import seedu.address.testutil.TypicalPersons;
 public class ActivityTest {
 
     @Test
+    public void hasPerson() {
+        Activity lunch = TypicalActivities.LUNCH;
+
+        // Person exists -> Return true
+        assertTrue(lunch.hasPerson(TypicalPersons.BENSON.getPrimaryKey()));
+
+        // Person doesn't exist -> return false
+        assertFalse(lunch.hasPerson(TypicalPersons.ALICE.getPrimaryKey()));
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Activity lunch = TypicalActivities.LUNCH;
