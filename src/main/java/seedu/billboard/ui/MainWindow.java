@@ -1,5 +1,5 @@
 package seedu.billboard.ui;
-t
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
