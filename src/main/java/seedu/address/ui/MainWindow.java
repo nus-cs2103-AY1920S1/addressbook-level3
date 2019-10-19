@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.food.Name;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -259,7 +260,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private void displayTemplateItemPanel() {
         // To be improved, work on adding the name of the template as well
-        templateItemPanel = new TemplateItemPanel(logic.getFilteredTemplateToBeShown());
+        Name templateName = logic.getNameTemplateToBeShown();
+        templateItemPanel = new TemplateItemPanel(logic.getFilteredTemplateToBeShown(), templateName.toString());
         templateListPanelPlaceholder.getChildren().add(templateItemPanel.getRoot());
         logger.info("Showing template panel instead of templatelist.");
     }

@@ -22,15 +22,14 @@ public class TemplateItemPanel extends UiPart<Region> {
 
     @FXML
     private ListView<TemplateItem> templateItemView;
-    //@FXML
-    //private Label name;
+    @FXML
+    private Label name;
 
-    public TemplateItemPanel(ObservableList<TemplateItem> templateItemList) {
+    public TemplateItemPanel(ObservableList<TemplateItem> templateItemList, String templateName) {
         super(FXML);
         templateItemView.setItems(templateItemList);
         templateItemView.setCellFactory(listView -> new TemplateItemViewCell());
-        //name.setText(templateItemList.getName());
-
+        name.setText(templateName);
     }
 
     /**

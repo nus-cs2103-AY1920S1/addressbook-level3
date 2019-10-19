@@ -7,10 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
-import seedu.address.model.food.GroceryItem;
-import seedu.address.model.food.ShoppingItem;
-import seedu.address.model.food.TemplateItem;
-import seedu.address.model.food.UniqueTemplateItems;
+import seedu.address.model.food.*;
 import seedu.address.model.waste.WasteMonth;
 
 /**
@@ -164,6 +161,8 @@ public interface Model {
     ObservableList<TemplateItem> updateFilteredTemplateToBeShown();
 
     ObservableList<TemplateItem> getFilteredTemplateToBeShown();
+
+    Name getNameTemplateToBeShown();
 
     //=========== WasteList ==================================================================================
     /**

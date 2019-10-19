@@ -241,12 +241,14 @@ public class ModelManager implements Model {
         templateList.setTemplate(target, editedTemplate);
     }
 
-    //filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
     // Methods supporting the toBeShown and FilteredTemplateToBeShown
     @Override
     public void setShownTemplate(UniqueTemplateItems templateToBeShown) {
         requireNonNull(templateToBeShown);
-        shownTemplate = templateToBeShown;
+
+        UniqueTemplateItems editedTemplate = new UniqueTemplateItems(templateToBeShown.getName());
+        editedTemplate.setTemplateItems(templateToBeShown);
+        shownTemplate = editedTemplate;
     }
 
     //=========== Filtered Template List Accessors =============================================================
@@ -278,6 +280,11 @@ public class ModelManager implements Model {
         filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
 
         return filteredShownTemplate;
+    }
+
+    @Override
+    public Name getNameTemplateToBeShown() {
+        return shownTemplate.getName();
     }
 
     //=========== WasteList ==================================================================================
