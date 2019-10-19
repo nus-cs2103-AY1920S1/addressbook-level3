@@ -19,7 +19,7 @@ public class Date {
 
     public final LocalDate date;
 
-    public Date (String value) {
+    public Date(String value) {
         requireNonNull(value);
         checkArgument(isValidDate(value), MESSAGE_CONSTRAINTS);
         this.date = LocalDate.parse(value, DATE_FORMATTER);
