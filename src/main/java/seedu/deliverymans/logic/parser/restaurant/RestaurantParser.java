@@ -8,8 +8,10 @@ import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.restaurant.AddCommand;
+import seedu.deliverymans.logic.commands.restaurant.EditRestaurantCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.logic.parser.universal.Context;
 
 /**
  * Parses user input in restaurant context
@@ -20,6 +22,8 @@ public class RestaurantParser {
      */
     public static final String COMMAND_WORD = "restaurant";
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private static Context currentContext = Context.RESTAURANT;
 
     /**
      * Parses user input into command for execution.
@@ -40,6 +44,10 @@ public class RestaurantParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case EditRestaurantCommand.COMMAND_WORD:
+            this.currentContext = Context.EDITING;
+            return new EditRestaurantCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

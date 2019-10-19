@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -48,6 +49,7 @@ public class ModelManager implements Model {
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
+    private final FilteredList<Restaurant> editingRestaurant;
     private final UndoHistory<Data> undoHistory;
 
     private Context context;
@@ -77,6 +79,7 @@ public class ModelManager implements Model {
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
+        editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
         undoHistory = new UndoHistory<>(new Data(this));
 
@@ -247,6 +250,16 @@ public class ModelManager implements Model {
 
         restaurantDatabase.setRestaurant(target, editedRestaurant);
     }
+
+    @Override
+    public void setEditingRestaurant(Restaurant editingRestaurant) {
+        requireAllNonNull(editingRestaurant);
+        ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+        list.add(editingRestaurant);
+        restaurantDatabase.setEditingRestaurant(list);
+    }
+
+
     //=========== Deliveryman Methods =============================================================
 
     @Override
@@ -405,6 +418,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {
         return filteredRestaurants;
+    }
+
+    @Override
+    public ObservableList<Restaurant> getEditingRestaurantList() {
+        return editingRestaurant;
     }
 
     @Override
