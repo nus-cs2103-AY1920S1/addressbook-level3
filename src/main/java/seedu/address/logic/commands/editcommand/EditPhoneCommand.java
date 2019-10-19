@@ -162,7 +162,8 @@ public class EditPhoneCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPhoneDescriptor(EditPhoneDescriptor toCopy) {
-
+            setIdentityNumber(toCopy.identityNumber);
+            setSerialNumber(toCopy.serialNumber);
             setPhoneName(toCopy.phoneName);
             setBrand(toCopy.brand);
             setCapacity(toCopy.capacity);

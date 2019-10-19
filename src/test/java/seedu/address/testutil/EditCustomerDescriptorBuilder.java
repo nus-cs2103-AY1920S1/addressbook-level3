@@ -38,7 +38,7 @@ public class EditCustomerDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditCustomerDescriptor} that we are building.
+     * Sets the {@code CustomerName} of the {@code EditCustomerDescriptor} that we are building.
      */
     public EditCustomerDescriptorBuilder withCustomerName(String name) {
         descriptor.setCustomerName(new CustomerName(name));
@@ -46,7 +46,7 @@ public class EditCustomerDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditCustomerDescriptor} that we are building.
+     * Sets the {@code ContactNumber} of the {@code EditCustomerDescriptor} that we are building.
      */
     public EditCustomerDescriptorBuilder withContactNumber(String contactNumber) {
         descriptor.setContactNumber(new ContactNumber(contactNumber));
