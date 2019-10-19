@@ -51,7 +51,7 @@ public class CalendarPanel extends UiPart<Region> {
             int orderIndex = 0;
             for (Order order : orderList) {
                 Optional<Schedule> s = order.getSchedule();
-                if (s.isPresent() && s.get().isSameSchedule(schedule)) {
+                if (s.isPresent() && s.get().isSameAs(schedule)) {
                     // change to 1-based
                     orderIndex = orderList.indexOf(order) + 1;
                     break;

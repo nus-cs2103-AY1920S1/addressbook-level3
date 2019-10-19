@@ -9,7 +9,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.phone.Phone;
 
 /**
- * Represents a storage for {@link seedu.address.model.PhoneBook}.
+ * Represents a storage for {@link Phone} {@link seedu.address.model.DataBook}.
  */
 public interface PhoneBookStorage {
 
@@ -19,7 +19,7 @@ public interface PhoneBookStorage {
     Path getPhoneBookFilePath();
 
     /**
-     * Returns PhoneBook data as a {@link ReadOnlyDataBook}.
+     * Returns Phone DataBook data as a {@link ReadOnlyDataBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.

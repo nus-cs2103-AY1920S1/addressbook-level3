@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.OrderBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 
 /**
- * An Immutable OrderBook that is serializable to JSON format.
+ * An Immutable Order DataBook that is serializable to JSON format.
  */
 @JsonRootName(value = "orderbook")
 class JsonSerializableOrderBook {
@@ -42,18 +42,18 @@ class JsonSerializableOrderBook {
     }
 
     /**
-     * Converts this order book into the model's {@code OrderBook} object.
+     * Converts this order book into the model's {@code DataBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public OrderBook toModelType() throws IllegalValueException, ParseException {
-        OrderBook orderBook = new OrderBook();
+    public DataBook<Order> toModelType() throws IllegalValueException, ParseException {
+        DataBook<Order> orderBook = new DataBook<>();
         for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
             Order order = jsonAdaptedOrder.toModelType();
-            if (orderBook.hasOrder(order)) {
+            if (orderBook.has(order)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ORDER);
             }
-            orderBook.addOrder(order);
+            orderBook.add(order);
         }
         return orderBook;
     }

@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.address.model.CustomerBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.customer.Customer;
 
 /**
- * A utility class to help with building CustomerBook objects.
+ * A utility class to help with building {@code Customer} {@code DataBook}.
  * Example usage: <br>
- *     {@code CustomerBook ab = new CustomerBookBuilder().withCustomer("John", "Doe").build();}
+ *     {@code DataBook<Customer> ab = new CustomerBookBuilder().withCustomer("John", "Doe").build();}
  */
 public class CustomerBookBuilder {
 
-    private CustomerBook customerBook;
+    private DataBook<Customer> customerBook;
 
     public CustomerBookBuilder() {
-        customerBook = new CustomerBook();
+        customerBook = new DataBook<>();
     }
 
-    public CustomerBookBuilder(CustomerBook customerBook) {
+    public CustomerBookBuilder(DataBook<Customer> customerBook) {
         this.customerBook = customerBook;
     }
 
     /**
-     * Adds a new {@code Customer} to the {@code CustomerBook} that we are building.
+     * Adds a new {@code Customer} to the {@code DataBook} that we are building.
      */
     public CustomerBookBuilder withCustomer(Customer customer) {
-        customerBook.addCustomer(customer);
+        customerBook.add(customer);
         return this;
     }
 
-    public CustomerBook build() {
+    public DataBook<Customer> build() {
         return customerBook;
     }
 }

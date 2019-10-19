@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.Identifiable;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Phone in the SML.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Phone {
+public class Phone implements Identifiable<Phone> {
 
     // Identity fields
     private final IdentityNumber identityNumber;
@@ -77,20 +78,6 @@ public class Phone {
     }
 
     /**
-     * Returns true if both phones have the same identity fields.
-     * This defines a weaker notion of equality between two phones.
-     */
-    public boolean isSamePhone(Phone otherPhone) {
-        if (otherPhone == this) {
-            return true;
-        }
-
-        return otherPhone != null
-                && otherPhone.getIdentityNumber().equals(getIdentityNumber())
-                && otherPhone.getSerialNumber().equals(getSerialNumber());
-    }
-
-    /**
      * Returns true if both phones have the same identity and data fields.
      * This defines a stronger notion of equality between two phones.
      */
@@ -141,6 +128,17 @@ public class Phone {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    @Override
+    public boolean isSameAs(Phone other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other != null
+                && other.getIdentityNumber().equals(getIdentityNumber())
+                && other.getSerialNumber().equals(getSerialNumber());
     }
 
 }
