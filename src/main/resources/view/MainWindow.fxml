@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" height="600.0" minHeight="600.0" minWidth="800.0" onCloseRequest="#handleExit" resizable="false" title="Address App" type="javafx.stage.Stage" width="800.0">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" height="720.0" minHeight="720.0" minWidth="960.0" onCloseRequest="#handleExit" resizable="false" title="IchiFund" type="javafx.stage.Stage" width="960.0">
     <icons>
         <Image url="@/images/fund_book_32.png" />
     </icons>
@@ -22,7 +22,7 @@
             <stylesheets>
                 <URL value="@IchiTheme.css" />
             </stylesheets>
-            <VBox prefHeight="600.0" prefWidth="800.0">
+            <VBox prefHeight="720.0" prefWidth="960.0">
                 <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -38,9 +38,9 @@
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                     </Menu>
                 </MenuBar>
-                <VBox>
+                <VBox VBox.vgrow="ALWAYS">
                     <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" />
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" />
+                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="120" prefHeight="120" />
                     <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                         <tabs>
                             <Tab text="Transaction">

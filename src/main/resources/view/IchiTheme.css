@@ -1,5 +1,24 @@
+@font-face {
+    font-family: "Roboto Mono";
+    src: url('../fonts/RobotoMono.ttf');
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url('../fonts/Roboto.ttf');
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url('../fonts/RobotoBold.ttf');
+}
+
 .root {
     -fx-background: white;
+}
+
+.text{
+    -fx-font-smoothing-type: gray;
 }
 
 .error {
@@ -19,7 +38,7 @@
 
 .menu-bar {
     -fx-background-color: white;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Roboto";
 }
 
 .menu {
@@ -36,11 +55,12 @@
 
 .context-menu {
     -fx-background-color: white;
-    -fx-padding: 3px 0;
+    -fx-padding: 0;
 }
 
 .menu-item {
     -fx-background-color: white;
+    -fx-padding: 10px 20px;
 }
 
 .menu-item:focused {
@@ -53,29 +73,29 @@
 
 #commandTextField {
     -fx-background-color: white;
-    -fx-font-family: "monospace";
-    -fx-width
+    -fx-font-family: "Roboto Mono";
 }
 
 #resultDisplayPlaceholder {
-    -fx-background-color: #263238;
+    -fx-background-color: #37474f;
 }
 
 #resultDisplay {
     -fx-background-insets: 0;
-    -fx-background-color: #263238;
+    -fx-background-color: #37474f;
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Roboto Mono";
+    -fx-font-size: 9pt;
 }
 
 #resultDisplay .content {
-    -fx-background-color: #263238;
+    -fx-background-color: #37474f;
     -fx-background-radius: 0;
     -fx-padding: 15px;
 }
 
 #resultDisplay:focused .content {
-    -fx-background-color: #263238;
+    -fx-background-color: #37474f;
     -fx-background-radius: 0;
     -fx-padding: 15px;
 }
@@ -86,6 +106,8 @@
 
 .tab-pane .tab-header-area {
     -fx-padding: 0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #eceff1;
 }
 
 .tab-pane .tab-header-area .tab-header-background {
@@ -100,6 +122,7 @@
     -fx-border-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-focus-color: transparent;
+    -fx-font-family: "Roboto";
     -fx-padding: 5px 10px;
 }
 
@@ -108,16 +131,20 @@
 }
 
 .tab-pane .tab:focused .label {
-    -fx-background-color: transparent
+    -fx-background-color: transparent;
 }
 
 .tab-pane .tab .tab-label {
     -fx-alignment: center;
+    -fx-text-fill: #b0bec5;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: black;
 }
 
 .content-pane {
     -fx-background-color: transparent;
-    -fx:padding: 10px;
 }
 
 .scroll-bar {
@@ -161,9 +188,10 @@
 }
 
 .list-cell {
-    -fx-label-padding: 0 0 0 0;
+    -fx-label-padding: 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0;
+    -fx-font-family: "Roboto";
 }
 
 .list-cell:empty {
@@ -171,10 +199,13 @@
 }
 
 .list-cell:filled #cardPane {
-    -fx-padding: 15px;
+    -fx-padding: 20px 30px;
     -fx-background-color: white;
-    -fx-border-width: 0 0 1px 0;
-    -fx-border-color: #cfd8dc;
+    -fx-border-width: 0;
+}
+
+.list-cell:filled #cardPane .label {
+    -fx-font-family: "Roboto";
 }
 
 .list-cell:filled:selected #cardPane {
@@ -186,24 +217,29 @@
 }
 
 .list-title {
-    -fx-font-size: 18px;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-background-color: white;
-    -fx-border-width: 0 0 1px 0;
-    -fx-border-color: #cfd8dc;
+    -fx-border-width: 0;
+    -fx-padding: 15px 30px;
+}
+
+.list-title .label {
+    -fx-text-fill: #b0bec5;
 }
 
 .cell_big_label {
-    -fx-font-size: 15px;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
 
 .cell_small_label {
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
 }
 
 #budgetProgress {
-    -fx-accent: #00b894;
+    -fx-accent: #cfd8dc;
 }
 
 #budgetProgress .bar {
@@ -215,4 +251,10 @@
 #budgetProgress .track {
     -fx-background-insets: 0;
     -fx-background-color: #cfd8dc;
+}
+
+#statusbarPlaceholder {
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: #cfd8dc;
+    -fx-padding: 2px;
 }

@@ -60,7 +60,7 @@ public class BudgetCard extends UiPart<Region> {
     }
 
     private String getBarColor(double ratio) {
-        return ratio > 0.8 ? "#ff7675" : "#00b894";
+        return ratio > 0.8 ? "#ef5350" : "#4caf50";
     }
 
     @Override
