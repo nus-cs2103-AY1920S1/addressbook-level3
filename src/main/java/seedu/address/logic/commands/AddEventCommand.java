@@ -37,6 +37,6 @@ public class AddEventCommand extends AddCommand {
         }
 
         //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), SHOW_EVENT_VIEW);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

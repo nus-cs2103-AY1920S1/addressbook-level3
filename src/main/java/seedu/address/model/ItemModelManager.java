@@ -13,6 +13,7 @@ import seedu.address.commons.core.item.Task;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.ActiveRemindersList;
+import seedu.address.model.item.CalendarList;
 import seedu.address.model.item.EventList;
 import seedu.address.model.item.ReminderList;
 import seedu.address.model.item.TaskList;
@@ -25,6 +26,7 @@ public class ItemModelManager implements ItemModel {
     private TaskList taskList;
     private EventList eventList;
     private ReminderList reminderList;
+    private CalendarList calendarList;
     // The list to be used for visualizing in the Ui
     private VisualizeList visualList;
     private final UserPrefs userPrefs;
@@ -44,6 +46,7 @@ public class ItemModelManager implements ItemModel {
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
+        this.calendarList = new CalendarList();
         this.visualList = taskList;
         this.itemStorage = itemStorage;
         this.userPrefs = new UserPrefs(userPrefs);
@@ -332,6 +335,9 @@ public class ItemModelManager implements ItemModel {
             break;
         case "R":
             setVisualList(reminderList);
+            break;
+        case "C":
+            setVisualList(calendarList);
             break;
         default:
             throw new IllegalValueException(String.format("%s is no a valid list", listString));
