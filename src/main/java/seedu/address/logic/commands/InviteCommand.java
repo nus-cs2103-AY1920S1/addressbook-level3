@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Context;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.Person;
 
 public class InviteCommand extends Command {
@@ -26,9 +27,14 @@ public class InviteCommand extends Command {
             + "[" + PREFIX_PARTICIPANT + "PARTICIPANT]...\n"
             + "Example: invite p/Ben p/David";
 
-    public static final String MESSAGE_INVITE_PERSON_SUCCESS = "Invited Person: %1$s";
+    public static final String MESSAGE_RESULT =
+            "Invited the following participants successfully to the activity:\n%s\n%s";
     public static final String MESSAGE_NO_VIEWED_ACTIVITY = "There is no viewed activity currently.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This contact already exists in the activity.";
+    public static final String MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY =
+            "Unable to invite \"%s\" as he/she already exists in the activity.";
+    public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
+            "Unable to invite \"%s\" as he/she has no unique search result in the contacts.";
+
 
     private final List<String> peopleToInvite;
 
@@ -47,25 +53,50 @@ public class InviteCommand extends Command {
 
         Activity activityToInviteTo = model.getContext().getActivity().get();
         ArrayList<Integer> participantIds = activityToInviteTo.getParticipantIds();
-        model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
-        List<Person> members = model.getFilteredPersonList();
 
         List<String> keywords;
         List<Person> findResult;
+        List<Integer> idsToInvite = new ArrayList<>();
+        StringBuilder messageNotInvited = new StringBuilder();
+        StringBuilder messageInvited = new StringBuilder();
+
         for (String name : peopleToInvite) {
+
             keywords = Arrays.asList(name.split(" "));
+            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
 
+            try {
+                findResult = model.findPersonAll(predicate);
+                if (findResult.size() != 1) {
+                    throw new CommandException(String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name));
+                }
+            } catch (CommandException e) {
+                messageNotInvited.append(e.getMessage() + "\n");
+                continue;
+            }
 
+            Person personToInvite = findResult.get(0);
+            Integer idOfPersonToInvite = personToInvite.getPrimaryKey();
 
+            try {
+                if (activityToInviteTo.hasPerson(idOfPersonToInvite)) {
+                    throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY, name));
+                }
+                idsToInvite.add(idOfPersonToInvite);
+                messageInvited.append(personToInvite.getName() + "\n");
+            } catch (CommandException e) {
+                messageNotInvited.append(e.getMessage() + "\n");
+                continue;
+            }
         }
 
+        for (Integer id : idsToInvite) {
+            activityToInviteTo.invite(id);
+        }
 
+        model.updateFilteredPersonList(x -> activityToInviteTo.getParticipantIds().contains(x.getPrimaryKey()));
 
-
-        //////
-
-
-        return null;
+        return new CommandResult(String.format(MESSAGE_RESULT, messageInvited, messageNotInvited));
     }
 
     @Override
