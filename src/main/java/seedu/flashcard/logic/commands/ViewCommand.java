@@ -44,6 +44,7 @@ public class ViewCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_FLASHCARD_INDEX);
         }
         Flashcard cardToView = lastShownList.get(targetIndex.getZeroBased());
+        model.updateLastViewedFlashcard(cardToView);
         return new CommandResult(cardToView.toString());
     }
 
