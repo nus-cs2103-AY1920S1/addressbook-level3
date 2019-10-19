@@ -2,10 +2,9 @@ package budgetbuddy.model.account;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
-import budgetbuddy.model.transaction.Transaction;
+import budgetbuddy.model.transaction.TransactionList;
 
 /**
  * Represents an account in the account book.
@@ -15,23 +14,23 @@ public class Account {
 
     // Identity fields
     private Name name;
-    private final ArrayList<Transaction> transaction;
+    private final TransactionList transactionList;
 
     /**
      * Every field must be present and not null.
      */
-    public Account(Name name, ArrayList<Transaction> transaction) {
-        requireAllNonNull(name, transaction);
+    public Account(Name name, TransactionList transactionList) {
+        requireAllNonNull(name, transactionList);
         this.name = name;
-        this.transaction = transaction;
+        this.transactionList = transactionList;
     }
 
     public Name getName() {
         return name;
     }
 
-    public ArrayList<Transaction> getTransaction() {
-        return transaction;
+    public TransactionList getTransaction() {
+        return transactionList;
     }
 
     public void setName(Account account, Name name) {
@@ -73,7 +72,7 @@ public class Account {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, transaction);
+        return Objects.hash(name, transactionList);
     }
 
     @Override
