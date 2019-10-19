@@ -1,6 +1,7 @@
 package seedu.jarvis.model.planner.tasks;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -46,14 +47,37 @@ class TodoTest {
     void equals_validInput_true() {
         Todo tOne = new Todo("borrow book");
         Todo tTwo = new Todo("borrow book");
-        assertTrue(tOne.equals(tTwo));
+        assertEquals(tOne, tTwo);
     }
 
     @Test
     void equals_validInput_false() {
         Todo tOne = new Todo("hello");
         Todo tTwo = new Todo("hi there");
-        assertFalse(tOne.equals(tTwo));
+        assertNotEquals(tOne, tTwo);
 
+    }
+
+    @Test
+    void toString_withAllAttributesPresent() {
+        Todo t = new Todo("homework");
+        t.addFrequency(Frequency.DAILY);
+        t.addPriority(Priority.HIGH);
+        t.addTag(new Tag("help"));
+
+        String expected = "Todo: homework\nPriority: HIGH\nFrequency: DAILY"
+                            + "\nTags: [[help]]";
+
+        assertEquals(expected, t.toString());
+
+    }
+
+    @Test
+    void toString_withNoAttributesPresent() {
+        Todo t = new Todo("homework");
+
+        String expected = "Todo: homework";
+
+        assertEquals(expected, t.toString());
     }
 }
