@@ -72,7 +72,7 @@ class JsonAdaptedTask {
     public long retrieveId(String id) throws IllegalValueException {
         if (id == null) {
             throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
 
         try {
@@ -92,7 +92,7 @@ class JsonAdaptedTask {
     private LocalDate retrieveDate(String date) throws IllegalValueException {
         if (date == null) {
             throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "Date"));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "Date"));
         }
 
         try {
@@ -112,7 +112,7 @@ class JsonAdaptedTask {
     private boolean retrieveIsSolved(String isSolved) throws IllegalValueException {
         if (isSolved == null) {
             throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "IsSolved"));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "IsSolved"));
         }
 
         return Boolean.parseBoolean(isSolved);
