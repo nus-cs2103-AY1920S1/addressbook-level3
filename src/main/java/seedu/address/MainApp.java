@@ -11,6 +11,7 @@ import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.ExportIcsCommand;
 import seedu.address.logic.commands.ImportIcsCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -35,6 +36,7 @@ public class MainApp extends Application {
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
     private static final String COMMAND_IMPORT_ICS = "import";
+    private static final String COMMAND_EXPORT_ICS = "export";
 
     private UiManager uiManager;
 
@@ -55,6 +57,7 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_UNDO, () -> UndoCommand.newBuilder(undoRedoManager));
         commandManager.addCommand(COMMAND_REDO, () -> RedoCommand.newBuilder(undoRedoManager));
         commandManager.addCommand(COMMAND_IMPORT_ICS, () -> ImportIcsCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_EXPORT_ICS, () -> ExportIcsCommand.newBuilder(modelManager));
 
         // Add Listeners
         commandManager.addUserOutputListener(uiManager);
