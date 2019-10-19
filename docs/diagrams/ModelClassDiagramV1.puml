@@ -1,0 +1,121 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class HashSet
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyAddressBook <<Interface>>
+Interface Model <<Interface>>
+Interface Identical <<Interface>>
+
+Class AddressBook
+Class ReadOnlyAddressBook
+Class AppointmentBook
+Class ReadOnlyAppointmentBook
+Class Model
+Class ModelManager
+
+
+Package UserPrefs {
+Class UserPrefs
+Class ReadOnlyUserPrefs
+}
+
+Package ReferenceId {
+Interface ReferenceId <<Interface>>
+Class PersonReferenceId
+Class PatientReferenceId
+Class StaffReferenceId
+}
+
+Package UniqueList {
+Class UniqueTreeList
+Class UniqueElementList
+Class UniquePersonList
+}
+
+Package Person {
+Class Person
+Class Address
+Class Email
+Class Name
+Class Phone
+Class UniquePersonList
+}
+
+Package Tag {
+Class Tag
+}
+
+Package Events {
+Class Appointment
+Class DutyShift
+Class Event
+Class Timing
+Class DateTime
+Class Status
+}
+
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+AddressBook .up.|> ReadOnlyAddressBook
+
+AppointmentBook .up.|> ReadOnlyAppointmentBook
+
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+Model .up.> ObservableList
+ModelManager .up.|> Model
+
+AddressBook *--> "1" UniquePersonList
+AppointmentBook *.right.> "1" UniqueElementList
+
+UniqueTreeList .up.-|> Identical
+UniqueElementList *.up-> "1" UniqueTreeList
+UniquePersonList *.up-> "1" UniqueElementList
+UniquePersonList o.down-> "1" HashSet
+
+ReferenceId .up|> Identical
+PersonReferenceId .up.|> ReferenceId
+PatientReferenceId *.up-> PersonReferenceId
+StaffReferenceId *.left-> PersonReferenceId
+
+Person .up.-|> Identical
+Person *-> ReferenceId
+Person *-down-> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person *-up-> "*" Tag
+
+Name -[hidden]right-> Phone
+Name -[hidden]down-> Tag
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
+
+Appointment *-> Event
+Appointment *-> "1" ReferenceId : Doctor
+DutyShift *-> Event
+
+Timing *--> DateTime
+Timing -[hidden]right-> Status
+
+Event .up.|> Identical
+Event *---> ReferenceId
+Event *--> Timing
+Event *--> Status
+
+
+ModelManager o.left.--> "1" AddressBook : staff
+ModelManager o.left.--> "1" AddressBook : patients
+ModelManager o.down.--> "1" AppointmentBook : Appointments
+ModelManager o.down.--> "1" AppointmentBook : DutyRoster
+ModelManager o.-> "1" UserPrefs
+
+@enduml
