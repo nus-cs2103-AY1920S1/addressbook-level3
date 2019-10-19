@@ -56,9 +56,7 @@ public class HelpCommand extends Command {
         + "viewtags - Viewing tags for a specific module\n"
         + "findmod - Finding modules using the module code\n"
         + "getmodcode - Finding module code using keywords\n"
-        + "prereq - Viewing prerequisites of a module\n"
         + "mcs - Viewing total completed MCs\n"
-        + "viewfocusarea - Viewing focus area\n"
         + "validmods - Viewing modules that can be taken in a given semester\n"
         + "\nRegarding verification:\n"
         + "check - Checking a study plan's feasibility";
