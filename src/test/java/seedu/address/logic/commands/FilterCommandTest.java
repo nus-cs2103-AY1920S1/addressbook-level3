@@ -17,8 +17,8 @@ import seedu.address.model.transaction.TransactionContainsTagsPredicate;
  */
 public class FilterCommandTest {
 
-    // private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
-    // private Model expectedModel = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalBankAccount(), new UserPrefs());
 
     @Test
     public void equals() {
