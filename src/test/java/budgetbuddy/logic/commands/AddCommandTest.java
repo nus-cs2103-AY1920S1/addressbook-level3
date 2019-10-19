@@ -20,6 +20,7 @@ import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.ReadOnlyUserPrefs;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.PersonBuilder;
 import javafx.collections.ObservableList;
@@ -81,6 +82,11 @@ public class AddCommandTest {
     private class ModelStub implements Model {
         @Override
         public LoansManager getLoansManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public RuleManager getRuleManager() {
             throw new AssertionError("This method should not be called.");
         }
 

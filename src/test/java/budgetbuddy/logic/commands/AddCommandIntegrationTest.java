@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.PersonBuilder;
@@ -23,14 +24,15 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new LoansManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new LoansManager(), new RuleManager(), getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getLoansManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLoansManager(), model.getRuleManager(),
+                model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,

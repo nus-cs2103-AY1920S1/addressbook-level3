@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.person.NameContainsKeywordsPredicate;
 
@@ -25,8 +26,10 @@ import budgetbuddy.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(new LoansManager(), getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(model.getLoansManager(), getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(new LoansManager(), new RuleManager(),
+            getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(model.getLoansManager(), model.getRuleManager(),
+            getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
