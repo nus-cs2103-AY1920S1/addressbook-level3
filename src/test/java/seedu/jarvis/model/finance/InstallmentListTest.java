@@ -3,15 +3,17 @@ package seedu.jarvis.model.finance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import seedu.jarvis.model.financetracker.InstallmentList;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**
  * Tests logic of instalment list class.
@@ -22,7 +24,7 @@ public class InstallmentListTest {
 
     @BeforeEach
     public void setUp() {
-        ArrayList<Installment> listInstallments = new ArrayList<>();
+        ObservableList<Installment> listInstallments = FXCollections.observableArrayList();
         listInstallments.add(new InstallmentStub());
         listInstallments.add(new InstallmentStub());
         listInstallments.add(new InstallmentStub());
@@ -67,31 +69,24 @@ public class InstallmentListTest {
 
     @Test
     public void editInstallment_normalInputs_editedCorrectly() {
-        installmentList.editInstallment(1, "Spotify subscription", 13.0);
-        assertEquals("Spotify subscription",
-                installmentList
-                        .getInstallment(1)
-                        .getDescription()
-                        .toString());
-        assertEquals(13.0,
-                installmentList
-                        .getInstallment(1)
-                        .getMoneySpentOnInstallment()
-                        .getInstallmentMoneyPaid());
+        Installment installment = installmentList.getInstallment(1);
+        Installment editedInstallment = new InstallmentBuilder()
+                .withDescription(new InstallmentDescription("Spotify"))
+                .withMoneySpent(new InstallmentMoneyPaid("9.50"))
+                .build();
+        installmentList.setInstallment(installment, editedInstallment);
+        assertEquals(installmentList.getInstallment(1), editedInstallment);
     }
 
     @Test
-    public void editInstallment_indexNonexistent_throwsError() {
+    public void editInstallment_nonExistentInstallment_throwsError() {
+        Installment installment = new InstallmentBuilder()
+                .withDescription(new InstallmentDescription("something"))
+                .build();
+
         assertThrows(RuntimeException.class, (
 
-        ) -> installmentList.editInstallment(5, "Spotify", 9.50));
-    }
-
-    @Test
-    public void editInstalment_emptyDescription_throwsError() {
-        assertThrows(NullPointerException.class, (
-
-        ) -> installmentList.editInstallment(3, null, 9.50));
+        ) -> installmentList.setInstallment(installment, new InstallmentStub()));
     }
 
     @Test

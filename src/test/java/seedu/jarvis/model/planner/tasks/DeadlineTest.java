@@ -51,21 +51,21 @@ class DeadlineTest {
     }
 
     @Test
-    void isEqual_validInput_true() {
+    void equals_validInput_true() {
         LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline deadlineOne = new Deadline("borrow book", deadlineOneCal);
         Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
-        assertTrue(deadlineOne.isEqual(deadlineTwo));
+        assertTrue(deadlineOne.equals(deadlineTwo));
     }
 
     @Test
-    void isEqual_validInput_false() {
+    void equals_validInput_false() {
         LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline deadlineOne = new Deadline("borrow hello", deadlineOneCal);
         Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
-        assertFalse(deadlineOne.isEqual(deadlineTwo));
+        assertFalse(deadlineOne.equals(deadlineTwo));
     }
 
     @Test
@@ -73,5 +73,30 @@ class DeadlineTest {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
         assertEquals(due, d.getDueDate());
+    }
+
+    @Test
+    void toString_withAllAttributesPresent() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+        d.addPriority(Priority.LOW);
+        d.addFrequency(Frequency.MONTHLY);
+        d.addTag(new Tag("school"));
+        d.addTag(new Tag("cs"));
+
+        String expected = "Deadline: homework by 2019-10-10\nPriority: LOW\nFrequency: MONTHLY"
+                            + "\nTags: [[cs], [school]]";
+
+        assertEquals(expected, d.toString());
+    }
+
+    @Test
+    void toString_withNoAttributesPresent() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        String expected = "Deadline: homework by 2019-10-10";
+
+        assertEquals(expected, d.toString());
     }
 }

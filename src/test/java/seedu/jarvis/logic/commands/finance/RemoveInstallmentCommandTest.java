@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.CcaTracker;
@@ -46,7 +47,7 @@ public class RemoveInstallmentCommandTest {
     }
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredList_success() throws CommandException {
         Installment installmentToDelete = model.getInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
         RemoveInstallmentCommand removeInstallmentCommand = new RemoveInstallmentCommand(INDEX_FIRST_INSTALLMENT);
 
@@ -63,7 +64,7 @@ public class RemoveInstallmentCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getInstallmentList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInstallmentList().size() + 1);
         RemoveInstallmentCommand removeInstallmentCommand = new RemoveInstallmentCommand(outOfBoundIndex);
 
         assertCommandFailure(removeInstallmentCommand, model, Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);

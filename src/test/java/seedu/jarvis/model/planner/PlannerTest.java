@@ -1,5 +1,6 @@
 package seedu.jarvis.model.planner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.logic.parser.ParserUtil;
+import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
@@ -24,8 +27,7 @@ class PlannerTest {
         planner.addTask(new Todo("borrow book"));
         planner.addTask(new Todo("read book"));
 
-        assertTrue(expected.isEqual(planner.getTasks()));
-
+        assertTrue(expected.equals(planner.getTasks()));
 
     }
 
@@ -51,24 +53,56 @@ class PlannerTest {
     }
 
     @Test
-    void isEqual_true() {
+    void equals_true() {
         Planner pOne = new Planner();
         pOne.addTask(new Todo("borrow book"));
 
         Planner pTwo = new Planner();
         pTwo.addTask(new Todo("borrow book"));
 
-        assertTrue(pOne.isEqual(pTwo));
+        assertTrue(pOne.equals(pTwo));
     }
 
     @Test
-    void isEqual_false() {
+    void equals_false() {
         Planner pOne = new Planner();
         pOne.addTask(new Todo("borrow book"));
 
         Planner pTwo = new Planner();
 
-        assertFalse(pOne.isEqual(pTwo));
+        assertFalse(pOne.equals(pTwo));
     }
 
+    @Test
+    void getTask() throws ParseException {
+        Task expected = new Todo("borrow book");
+
+        Planner testPlanner = new Planner();
+        testPlanner.addTask(new Todo("read book"));
+        testPlanner.addTask(new Todo("borrow book"));
+
+        assertTrue(expected.equals(testPlanner.getTask(ParserUtil.parseIndex("2"))));
+    }
+
+    @Test
+    void deleteTask() throws ParseException {
+        Planner testPlanner = new Planner();
+        testPlanner.addTask(new Todo("borrow"));
+        testPlanner.addTask(new Todo("read"));
+        testPlanner.addTask(new Todo("study"));
+
+        testPlanner.deleteTask(ParserUtil.parseIndex("2"));
+
+        assertEquals(2, testPlanner.size());
+    }
+
+    @Test
+    void size() {
+        Planner testPlanner = new Planner();
+        testPlanner.addTask(new Todo("borrow"));
+        testPlanner.addTask(new Todo("read"));
+        testPlanner.addTask(new Todo("study"));
+
+        assertEquals(3, testPlanner.size());
+    }
 }

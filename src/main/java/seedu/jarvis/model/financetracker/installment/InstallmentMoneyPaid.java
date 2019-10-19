@@ -13,6 +13,9 @@ public class InstallmentMoneyPaid {
             "Subscription fee of installments should Names should only contain alphanumeric characters and spaces, "
                     + "and it should not be blank";
 
+    public static final String MONEY_CONSTRAINTS =
+            "Money spent cannot be equal to or less than 0.";
+
     public static final String VALIDATION_REGEX = "[0-9]{1,13}(\\.[0-9]*)?";
 
     public final double installmentMoneyPaid;

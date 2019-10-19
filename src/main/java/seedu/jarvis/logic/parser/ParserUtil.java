@@ -1,6 +1,14 @@
 package seedu.jarvis.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.model.planner.Frequency.FREQ_DAILY;
+import static seedu.jarvis.model.planner.Frequency.FREQ_MONTHLY;
+import static seedu.jarvis.model.planner.Frequency.FREQ_WEEKLY;
+import static seedu.jarvis.model.planner.Priority.PRIORITY_HIGH;
+import static seedu.jarvis.model.planner.Priority.PRIORITY_MED;
+import static seedu.jarvis.model.planner.tasks.Task.DEADLINE;
+import static seedu.jarvis.model.planner.tasks.Task.EVENT;
+import static seedu.jarvis.model.planner.tasks.Task.TODO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -132,7 +140,7 @@ public class ParserUtil {
      * Parses a {@code String description}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code description} is invalid.
+     * @throws ParseException if the given {@code money} is invalid.
      */
     public static InstallmentMoneyPaid parseMoneySpent(String money) throws ParseException {
         requireNonNull(money);
@@ -141,6 +149,29 @@ public class ParserUtil {
             throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
         }
         return new InstallmentMoneyPaid(trimmedMoney);
+    }
+
+    /**
+     * Parses a {@code String description}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parsePurchaseDes(String description) {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return trimmedDescription;
+    }
+
+    /**
+     * Parses a {@code String moneySpent}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static double parsePurchaseAmount(String moneySpent) throws ParseException {
+        requireNonNull(moneySpent);
+        String trimmedMoney = moneySpent.trim();
+        if (Double.parseDouble(moneySpent) < 0) {
+            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
+        }
+        return Double.parseDouble(trimmedMoney);
     }
 
     /**
@@ -182,9 +213,9 @@ public class ParserUtil {
             throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
 
-        if (priority.equals("high")) {
+        if (priority.equals(PRIORITY_HIGH)) {
             return Priority.HIGH;
-        } else if (priority.equals("med")) {
+        } else if (priority.equals(PRIORITY_MED)) {
             return Priority.MED;
         } else {
             return Priority.LOW;
@@ -204,11 +235,11 @@ public class ParserUtil {
         }
 
         switch (frequency) {
-        case "daily":
+        case FREQ_DAILY:
             return Frequency.DAILY;
-        case "weekly":
+        case FREQ_WEEKLY:
             return Frequency.WEEKLY;
-        case "monthly":
+        case FREQ_MONTHLY:
             return Frequency.MONTHLY;
         default:
             return Frequency.YEARLY;
@@ -249,11 +280,11 @@ public class ParserUtil {
      */
     public static Task buildTask(String taskType, String taskDes, LocalDate[] dates) throws ParseException {
         Task t;
-        if (taskType.equals("event")) {
+        if (taskType.equals(EVENT)) {
             t = new Event(taskDes, dates[0], dates[1]);
-        } else if (taskType.equals("deadline")) {
+        } else if (taskType.equals(DEADLINE)) {
             t = new Deadline(taskDes, dates[0]);
-        } else if (taskType.equals("todo")) {
+        } else if (taskType.equals(TODO)) {
             t = new Todo(taskDes);
         } else {
             throw new ParseException(MESSAGE_INVALID_TASK_TYPE);

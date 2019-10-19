@@ -1,5 +1,6 @@
 package seedu.jarvis.model.planner;
 
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
 /**
@@ -42,9 +43,23 @@ public interface PlannerModel {
     void resetData(Planner planner);
 
     /**
-     * Checks if this planner is equal to another planner
-     * @param other the other planner to be compared against
-     * @return true if the planners are equal, false if they are not
+     * Retrieves the task at the specified index
+     *
+     * @param index index of the task that is being retrieved
+     * @return the task at the specified index
      */
-    boolean isEqual(Planner other);
+    Task getTask(Index index);
+
+    /**
+     * Deletes the task at the specified index
+     *
+     * @param index index of the task to be deleted
+     */
+    void deleteTask(Index index);
+
+    /**
+     * Retrieves the size of the planner, i.e. the number of tasks in the planner
+     * @return the size of the planner
+     */
+    int size();
 }

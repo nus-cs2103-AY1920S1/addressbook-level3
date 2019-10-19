@@ -11,8 +11,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "Todo: " + this.taskDes + "\nPriority: " + priority + "\nFrequency: " + frequency + "\nTags:"
-                + getTags().toString();
+        return "Todo: " + this.taskDes + attributesString();
     }
 
     /**
@@ -22,7 +21,11 @@ public class Todo extends Task {
      * @return true if both tasks are equal, false if they are not
      */
     @Override
-    public boolean isEqual(Task other) {
-        return (other instanceof Todo) && taskDes.equals(other.taskDes);
+    public boolean equals(Object other) {
+        if (!(other instanceof Todo)) {
+            return false;
+        }
+
+        return taskDes.equals(((Todo) other).taskDes);
     }
 }

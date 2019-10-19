@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -23,9 +22,10 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
+import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
@@ -204,24 +204,19 @@ public class ModelManager implements Model {
         return financeTracker;
     }
 
-    /**
-     * Replaces {@code FinanceTracker} data with the data in {@code FinanceTracker} given as argument.
-     *
-     * @param financeTracker {@code FinanceTracker} data to be used.
-     */
-    @Override
-    public void setFinanceTracker(FinanceTracker financeTracker) {
-        this.financeTracker.resetData(financeTracker);
-    }
-
     @Override
     public Purchase getPurchase(int paymentIndex) {
         return financeTracker.getPurchase(paymentIndex);
     }
 
     @Override
-    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
-        return financeTracker.getInstallment(instalIndex);
+    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+        financeTracker.updateFilteredPurchaseList(predicate);
+    }
+
+    @Override
+    public ObservableList<Purchase> getFilteredPurchaseList() {
+        return financeTracker.getFilteredPurchaseList();
     }
 
     /**
@@ -240,20 +235,23 @@ public class ModelManager implements Model {
      * @param itemNumber
      */
     @Override
-    public void deletePurchase(int itemNumber) {
-        financeTracker.deleteSinglePurchase(itemNumber);
+    public Purchase deletePurchase(int itemNumber) throws PurchaseNotFoundException {
+        return financeTracker.deleteSinglePurchase(itemNumber);
     }
 
-    /**
-     * Checks for the existence of the same purchase. Purchases are allowed to be duplicated, thus method always returns
-     * false.
-     *
-     * @param purchase to be added
-     * @return boolean that is always false
-     */
     @Override
-    public boolean hasPurchase(Purchase purchase) {
-        return false;
+    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
+        return financeTracker.getInstallment(instalIndex);
+    }
+
+    @Override
+    public void updateFilteredInstallmentList(Predicate<Installment> predicate) {
+
+    }
+
+    @Override
+    public ObservableList<Installment> getFilteredInstallmentList() {
+        return financeTracker.getFilteredInstallmentList();
     }
 
     /**
@@ -281,26 +279,9 @@ public class ModelManager implements Model {
         return financeTracker.hasInstallment(installment);
     }
 
-    /**
-     * Edits an existing installment by its value.
-     *
-     * @param installmentNumber
-     * @param description
-     * @param value
-     */
     @Override
-    public void editInstallmentByValue(int installmentNumber, String description, double value) {
-        financeTracker.editInstallment(installmentNumber, description, value);
-    }
-
-    /**
-     * Retrieves list of all installments
-     *
-     * @return InstallmentList
-     */
-    @Override
-    public ArrayList<Installment> getInstallmentList() {
-        return financeTracker.getInstallmentList();
+    public void setInstallment(Installment target, Installment editedInstallment) {
+        financeTracker.setInstallment(target, editedInstallment);
     }
 
     /**
@@ -320,20 +301,6 @@ public class ModelManager implements Model {
     @Override
     public void listSpending() {
         financeTracker.listSpending();
-    }
-
-    public ObservableList<Purchase> getPurchasesList() {
-        return financeTracker.getPurchasesList();
-    }
-
-    @Override
-    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
-        financeTracker.updateFilteredPurchaseList(predicate);
-    }
-
-    @Override
-    public ObservableList<Purchase> getFilteredPurchaseList() {
-        return financeTracker.getFilteredPurchaseList();
     }
 
     //=========== AddressBook ================================================================================
@@ -424,7 +391,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return historyManager.equals(other.historyManager)
                 && financeTracker.equals(other.financeTracker)
-                && planner.isEqual(other.planner)
+                && planner.equals(other.planner)
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
                 && userPrefs.equals(other.userPrefs)
@@ -509,14 +476,50 @@ public class ModelManager implements Model {
         return planner.hasTask(t);
     }
 
+    /**
+     * Retrieves the Planner object
+     * @return the planner
+     */
     @Override
     public Planner getPlanner() {
         return planner;
     }
 
+    /**
+     * Clears all data in a planner to return a new planner
+     * @param planner {@code Planner} to take reference from.
+     */
     @Override
     public void resetData(Planner planner) {
         this.planner.resetData(planner);
+    }
+
+    /**
+     * Retrieves a task from the planner at the specified index
+     * @param index index of the task that is being retrieved
+     * @return the task at the given index
+     */
+    @Override
+    public Task getTask(Index index) {
+        return planner.getTask(index);
+    }
+
+    /**
+     * Deletes a task in the planner at the specified index
+     * @param index index of the task to be deleted
+     */
+    @Override
+    public void deleteTask(Index index) {
+        planner.deleteTask(index);
+    }
+
+    /**
+     * Retrieves the size of the planner, i.e. the number of tasks in the planner
+     * @return the size of the planner
+     */
+    @Override
+    public int size() {
+        return planner.size();
     }
     //=========== Course Planner ========================================================
 
@@ -530,8 +533,4 @@ public class ModelManager implements Model {
         return coursePlanner;
     }
 
-    @Override
-    public boolean isEqual(Planner other) {
-        return this.planner.isEqual(other);
-    }
 }

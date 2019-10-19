@@ -14,8 +14,11 @@ import seedu.jarvis.model.planner.Priority;
 public abstract class Task {
     //add t/TASK TYPE/TASK DES [d/DATE] [#TAG]... [p/PRIORITY LEVEL] [r/FREQ]
 
-
+    public static final String EVENT = "event";
+    public static final String DEADLINE = "deadline";
+    public static final String TODO = "todo";
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     protected String taskDes;
     protected Priority priority = null;
     protected Frequency frequency = null;
@@ -33,7 +36,8 @@ public abstract class Task {
      * @param other the task to be compared to
      * @return true if both tasks are equal, false if they are not
      */
-    public abstract boolean isEqual(Task other);
+    @Override
+    public abstract boolean equals(Object other);
 
     /**
      * Sets the Priority Level of a Task
@@ -72,5 +76,18 @@ public abstract class Task {
      */
     public static DateTimeFormatter getDateFormat() {
         return dateFormat;
+    }
+
+    /**
+     * To show all the attributes (priority, frequency and tags) present in a task
+     * It will not return any attributes if the task does not contain any, i.e. it will not show null
+     * @return a string of all the attributes present in a task.
+     */
+    protected String attributesString() {
+        String priority = this.priority == null ? "" : "\nPriority: " + this.priority;
+        String frequency = this.frequency == null ? "" : "\nFrequency: " + this.frequency;
+        String tags = this.tags.isEmpty() ? "" : "\nTags: " + getTags();
+
+        return priority + frequency + tags;
     }
 }

@@ -2,6 +2,7 @@ package seedu.jarvis.model.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
 /**
@@ -70,8 +71,46 @@ public class Planner {
      * @param other the planner to be compared against
      * @return true if both planners are equal, false if they are not
      */
-    public boolean isEqual(Planner other) {
-        requireNonNull(other);
-        return this.taskList.isEqual(other.getTasks());
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if it is the same object.
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls.
+        if (!(other instanceof Planner)) {
+            return false;
+        }
+
+        other = (Planner) other;
+        return taskList.equals(((Planner) other).getTasks());
+    }
+
+    /**
+     * Retrieves the task at the specified index
+     *
+     * @param index index of the task that is being retrieved
+     * @return the task at the specified index
+     */
+    public Task getTask(Index index) {
+        return taskList.getTask(index);
+    }
+
+    /**
+     * Deletes the task at the specified index
+     *
+     * @param index index of the task to be deleted
+     */
+    public void deleteTask(Index index) {
+        taskList.deleteTask(index);
+    }
+
+    /**
+     * Retrieves the size of the planner
+     * @return the size of the planner, i.e. the number of tasks in the planner
+     */
+    public int size() {
+        return taskList.size();
     }
 }
