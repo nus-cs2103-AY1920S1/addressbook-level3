@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.model.Color;
 import seedu.address.model.ModuleInfo;
@@ -20,6 +21,7 @@ import seedu.address.model.semester.exceptions.SemesterAlreadyBlockedException;
 import seedu.address.model.semester.exceptions.SemesterNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 
 /**
  * Represents a study plan in the module planner.
@@ -316,6 +318,49 @@ public class StudyPlan implements Cloneable {
         clone.tags = (UniqueTagList) tags.clone();
 
         return clone;
+    }
+
+    public boolean addTag(UserTag tag, String moduleCode) {
+        if (!tags.contains(tag)) {
+            tags.addTag(tag);
+        }
+        Module targetModule = modules.get(moduleCode);
+        return targetModule.addTag(tag);
+    }
+
+    public boolean containsTag(String tagName) {
+        return tags.containsTagWithName(tagName);
+    }
+
+    public Tag getTag(String tagName) {
+        return tags.getTag(tagName);
+    }
+
+    public void deleteTag(UserTag toDelete) {
+        tags.remove(toDelete);
+        Set<String> moduleCodes = modules.keySet();
+        for (String moduleCode: moduleCodes) {
+            Module currentModule = modules.get(moduleCode);
+            currentModule.deleteUserTag(toDelete);
+        }
+    }
+
+    public void removeTagFromAllModules(UserTag toRemove) {
+        Set<String> moduleCodes = modules.keySet();
+        for (String moduleCode: moduleCodes) {
+            Module currentModule = modules.get(moduleCode);
+            currentModule.deleteUserTag(toRemove);
+        }
+    }
+
+    public boolean removeTagFromModule(UserTag toRemove, String moduleCode) {
+        Module targetModule = modules.get(moduleCode);
+        return targetModule.deleteUserTag(toRemove);
+    }
+
+    public UniqueTagList getModuleTags(String moduleCode) {
+        Module targetModule = modules.get(moduleCode);
+        return targetModule.getTags();
     }
 
     @Override

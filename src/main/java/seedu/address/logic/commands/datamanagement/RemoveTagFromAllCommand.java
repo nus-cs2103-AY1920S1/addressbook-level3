@@ -29,8 +29,8 @@ public class RemoveTagFromAllCommand extends Command {
         + "Example: "
         + "removeall t/exchange";
 
-    public static final String MESSAGE_SUCCESS = "Tag removed from all modules: %1$s";
-    public static final String MESSAGE_TAG_CANNOT_BE_FOUND = "This tag does not exist";
+    public static final String MESSAGE_SUCCESS = "Tag %1$s hass been removed from all modules";
+    public static final String MESSAGE_TAG_CANNOT_BE_FOUND = "There is no [%1$s] tag in this study plan";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be removed";
 
     private final String tagName;
@@ -52,27 +52,15 @@ public class RemoveTagFromAllCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }
 
-        StudyPlan activeStudyPlan = model.getActiveStudyPlan();
-        UniqueTagList uniqueTagList = activeStudyPlan.getTags();
-
-        if (!uniqueTagList.containsTagWithName(tagName)) {
-            throw new CommandException(MESSAGE_TAG_CANNOT_BE_FOUND);
+        if (!model.activeSpContainsTag(tagName)) {
+            throw new CommandException(String.format(MESSAGE_TAG_CANNOT_BE_FOUND, tagName));
         }
 
-        UserTag toDelete = (UserTag) uniqueTagList.getTag(tagName);
+        UserTag toRemove = (UserTag) model.getTagFromActiveSp(tagName);
 
-        // delete from list in every module
-        HashMap<String, Module> moduleHashMap = activeStudyPlan.getModules();
-        Set<String> moduleCodes = moduleHashMap.keySet();
-        for (String moduleCode: moduleCodes) {
-            Module currentModule = moduleHashMap.get(moduleCode);
-            UniqueTagList moduleTagList = currentModule.getTags();
-            if (moduleTagList.containsTagWithName(tagName)) {
-                moduleTagList.remove((UserTag) moduleTagList.getTag(tagName));
-            }
-        }
+        model.removeTagFromAllModulesInActiveSp(toRemove);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }
 
 }

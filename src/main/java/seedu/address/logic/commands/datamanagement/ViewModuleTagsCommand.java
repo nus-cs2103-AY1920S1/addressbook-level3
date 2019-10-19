@@ -40,11 +40,7 @@ public class ViewModuleTagsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        StudyPlan activeStudyPlan = model.getActiveStudyPlan();
-
-        Module module = activeStudyPlan.getModules().get(moduleCode);
-
-        UniqueTagList tags = module.getTags();
+        UniqueTagList tags = model.getModuleTagsFromActiveSp(moduleCode);
 
         final String stringOfTags = tags.asUnmodifiableObservableList().stream()
             .map(item -> item.toString())

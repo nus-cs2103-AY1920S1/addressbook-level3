@@ -12,11 +12,11 @@ import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.DeleteModuleCommand;
 import seedu.address.logic.commands.cli.NameUeFromSemesterCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
+import seedu.address.logic.commands.datamanagement.AddTagCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
-import seedu.address.logic.commands.datamanagement.TagModuleCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
@@ -105,7 +105,7 @@ public class ModulePlannerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteStudyPlanParser().parse(arguments);
 
-        case TagModuleCommand.COMMAND_WORD:
+        case AddTagCommand.COMMAND_WORD:
             return new TagModuleCommandParser().parse(arguments);
 
         case ViewCommitHistoryCommand.COMMAND_WORD:
