@@ -24,9 +24,16 @@ public class Event implements Identical<Event> {
      */
     public Event(ReferenceId personId, Timing timing, Status status) {
         requireAllNonNull(personId, timing, status);
+
         this.personId = personId;
         this.timing = timing;
-        this.status = status;
+
+
+        if (!status.equals(new Status(Status.AppointmentStatuses.SETTLED)) && timing.hasMissedTiming()) {
+            this.status = new Status(Status.AppointmentStatuses.MISSED);
+        } else {
+            this.status = status;
+        }
     }
 
     public ReferenceId getPersonId() {
@@ -45,6 +52,7 @@ public class Event implements Identical<Event> {
         return getEventTiming().conflictsWith(otherEvent.getEventTiming());
     }
 
+
     /**
      * Returns true if both Event of the same patient and timing.
      * This defines a weaker notion of equality between two events.
@@ -56,7 +64,8 @@ public class Event implements Identical<Event> {
 
         return otherEvent != null
                 && otherEvent.getPersonId().equals(getPersonId())
-                && otherEvent.getEventTiming().equals(getEventTiming());
+                && otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(status);
     }
 
     /**

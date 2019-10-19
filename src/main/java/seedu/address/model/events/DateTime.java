@@ -14,7 +14,7 @@ public class DateTime implements Comparable<DateTime> {
 
     public static final String DATETIME_FORMAT = "dd/MM/yy HHmm";
     public static final String MESSAGE_CONSTRAINTS =
-        "date time must be follow the format of'" + DATETIME_FORMAT + "'.";
+            "date time must be follow the format of'" + DATETIME_FORMAT + "'.";
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATETIME_FORMAT);
     private final Date time;
 
@@ -31,7 +31,6 @@ public class DateTime implements Comparable<DateTime> {
      * Parses a simple date format as described by {@code DATETIME_FORMAT}, else returns null.
      *
      * @param dateString a simple date format
-     *
      * @return a {@code DateTime} if valid, otherwise, returns null.
      */
     public static DateTime tryParseSimpleDateFormat(String dateString) {
@@ -39,6 +38,9 @@ public class DateTime implements Comparable<DateTime> {
 
         DateTime parsedDateTime;
         try {
+            if (dateString.length() != DATETIME_FORMAT.length()) {
+                throw new ParseException("invalid date format", -1);
+            }
             DATE_FORMATTER.setLenient(false);
             Date parseDate = DATE_FORMATTER.parse(dateString);
             parsedDateTime = new DateTime(parseDate);

@@ -1,10 +1,11 @@
 package seedu.address.ui;
 
+import java.util.function.Consumer;
+
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.common.CommandResult;
@@ -20,24 +21,22 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private final AutoCompleterUpdater autoCompleterUpdater;
-    private final KeyPressedNotifier keyPressedNotifier;
+    private final AutoComplete autoComplete;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, AutoCompleterUpdater autoCompleterUpdater,
-                      KeyPressedNotifier autoCompleterSelector) {
+    public CommandBox(CommandExecutor commandExecutor, AutoComplete autoComplete) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.autoCompleterUpdater = autoCompleterUpdater;
-        this.keyPressedNotifier = autoCompleterSelector;
+        this.autoComplete = autoComplete;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
         // EventFilter was used as FXML callback onKeyPressed cannot consume keyEvent.
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override public void handle(KeyEvent keyEvent) {
+            @Override
+            public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
                 case UP:
                 case DOWN:
@@ -45,7 +44,7 @@ public class CommandBox extends UiPart<Region> {
                     break;
                 default:
                 }
-                keyPressedNotifier.notify(keyEvent.getCode());
+                autoComplete.updateSelectionKeyPressedCommandBox(keyEvent.getCode());
             }
         });
     }
@@ -67,7 +66,7 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleTextChanged() {
-        autoCompleterUpdater.update(commandTextField.getText());
+        autoComplete.updateCommandAutoComplete(commandTextField.getText());
     }
 
     /**
@@ -104,30 +103,8 @@ public class CommandBox extends UiPart<Region> {
         /**
          * Executes the command and returns the result.
          *
-         * @see seedu.address.logic.Logic#execute(String)
+         * @see seedu.address.logic.Logic#execute(String, Consumer)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
-    }
-
-    /**
-     * Represents a function that updates the AutoCompleter.
-     */
-    @FunctionalInterface
-    public interface AutoCompleterUpdater {
-        /**
-         * Updates AutoCompleter of the command text.
-         */
-        void update(String commandText);
-    }
-
-    /**
-     * Represents a function that updates the AutoCompleter.
-     */
-    @FunctionalInterface
-    public interface KeyPressedNotifier {
-        /**
-         * Updates AutoCompleter of the command text.
-         */
-        void notify(KeyCode keyCode);
     }
 }
