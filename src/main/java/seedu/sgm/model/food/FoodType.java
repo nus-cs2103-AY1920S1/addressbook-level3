@@ -21,24 +21,14 @@ public enum FoodType {
     SNACK("Snack", ABBR_SNACK),
     MEAL("Meal", ABBR_MEAL);
 
-    private String type;
-    private String shortHand;
-
     public static final String MESSAGE_CONSTRAINTS = "Food types should only be one of the following"
         + "nsv(Non-starchy vegetable); sv(Starchy vegetable); f(Fruit); p(Protein); s(Snack); m(Meal) ";
+    private String type;
+    private String shortHand;
 
     FoodType(String type, String shortHand) {
         this.type = type;
         this.shortHand = shortHand;
-    }
-
-
-    public String getTypeName() {
-        return type;
-    }
-
-    public String getShortHand() {
-        return shortHand;
     }
 
     public static FoodType getFrom(String shortHandType) throws ParseException {
@@ -64,5 +54,13 @@ public enum FoodType {
         default:
             throw new ParseException("Invalid food type");
         }
+    }
+
+    public String getTypeName() {
+        return type;
+    }
+
+    public String getShortHand() {
+        return shortHand;
     }
 }

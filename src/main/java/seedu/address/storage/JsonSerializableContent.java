@@ -5,7 +5,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 /**
  * Represents one type of Immutable content that is serializable to JSON format.
  */
-public interface JsonSerializableContent<T>{
+public interface JsonSerializableContent<T> {
+
     /**
      * Converts the content into the model's corresponding object.
      *

@@ -77,11 +77,11 @@ public class SampleDataUtil {
     }
 
     public static UniqueFoodList getSampleFoodList() {
-        UniqueFoodList sampleFL = new UniqueFoodList();
+        UniqueFoodList sampleFl = new UniqueFoodList();
         for (Food sampleFood : getSampleFoods()) {
-            sampleFL.add(sampleFood);
+            sampleFl.add(sampleFood);
         }
-        return sampleFL;
+        return sampleFl;
     }
 
     /**

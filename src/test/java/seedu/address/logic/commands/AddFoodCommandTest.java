@@ -201,6 +201,11 @@ class AddFoodCommandTest {
         }
 
         @Override
+        public UniqueFoodList getUniqueFoodListObject() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Food> getFoodList() {
             throw new AssertionError("This method should not be called.");
         }

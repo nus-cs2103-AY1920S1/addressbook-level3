@@ -16,7 +16,7 @@ import seedu.sgm.model.food.UniqueFoodList;
  * Represents an Immutable FoodList that is serializable to JSON format.
  */
 @JsonRootName(value = "foodlist")
-class JsonSerializableFoodList implements JsonSerializableContent<UniqueFoodList>{
+public class JsonSerializableFoodList implements JsonSerializableContent<UniqueFoodList> {
 
     public static final String MESSAGE_DUPLICATE_FOOD = "Food list contains duplicate food(s).";
 
