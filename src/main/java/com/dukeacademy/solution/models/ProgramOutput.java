@@ -7,11 +7,14 @@ import java.util.Optional;
  */
 public class ProgramOutput {
     private String output;
-    private Optional<RuntimeError> error;
+    private RuntimeError error;
 
-    public ProgramOutput() {
+    private ProgramOutput() {
         this.output = "";
-        this.error = Optional.empty();
+    }
+
+    private ProgramOutput(String output, RuntimeError error) {
+        this.output = output;
     }
 
     public String getOutput() {
@@ -19,20 +22,34 @@ public class ProgramOutput {
     }
 
     public Optional<RuntimeError> getRuntimeError() {
-        return this.error;
+        return Optional.ofNullable(this.error);
     }
 
-    public void append(String output) {
-        this.output += output;
+    public ProgramOutput append(String output) {
+        String newOutput = this.output += output;
+        return new ProgramOutput(newOutput, this.error);
     }
 
-    public void appendNewLine(String output) {
-        this.output += output + "\n";
+    public ProgramOutput append(ProgramOutput output) {
+        return this.append(output.getOutput());
+    }
+
+    public ProgramOutput appendNewLine(String output) {
+        String newOutput = this.output += output + "\n";
+        return new ProgramOutput(newOutput, this.error);
+    }
+
+    public ProgramOutput appendNewLine(ProgramOutput output) {
+        return this.appendNewLine(output.getOutput());
+    }
+
+    public static ProgramOutput getEmptyProgramOutput() {
+        return new ProgramOutput();
     }
 
     public static ProgramOutput getErroredProgramOutput(String errorMessage) {
         ProgramOutput output = new ProgramOutput();
-        output.error = Optional.of(new RuntimeError(errorMessage));
+        output.error = new RuntimeError(errorMessage);
         return output;
     }
 }

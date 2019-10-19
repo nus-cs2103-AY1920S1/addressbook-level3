@@ -109,15 +109,16 @@ public class TestExecutor {
         if (output.getRuntimeError().isPresent()) {
             String expected = testcase.getExpectedResult();
             String errorMessage = output.getRuntimeError().get().getErrorMessage();
-            return TestCaseResult.getErroredTestCaseResult(expected, errorMessage);
+            return TestCaseResult.getErroredTestCaseResult(testcase.getInput(), expected, errorMessage);
         }
 
+        String input = testcase.getInput();
         String expected = testcase.getExpectedResult();
         String actual = output.getOutput();
         if (expected.equals(actual)) {
-            return new TestCaseResult(true, expected, actual);
+            return TestCaseResult.getSuccessfulTestCaseResult(input, expected, actual);
         } else {
-            return new TestCaseResult(false, expected, actual);
+            return TestCaseResult.getFailedTestCaseResult(input, expected, actual);
         }
     }
 }

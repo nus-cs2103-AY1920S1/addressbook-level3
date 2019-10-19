@@ -82,10 +82,10 @@ public class StandardProgramExecutor implements ProgramExecutor {
 
         // Read the output of the process
         BufferedReader reader = new BufferedReader(new InputStreamReader(stdout));
-        ProgramOutput programOutput = new ProgramOutput();
+        ProgramOutput programOutput = ProgramOutput.getEmptyProgramOutput();
 
         // Append the output to our model
-        reader.lines().forEachOrdered(programOutput::appendNewLine);
+        programOutput = reader.lines().reduce(programOutput, ProgramOutput::appendNewLine, ProgramOutput::appendNewLine);
 
         return programOutput;
     }

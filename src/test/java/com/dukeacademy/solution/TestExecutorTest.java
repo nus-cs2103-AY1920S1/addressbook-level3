@@ -120,8 +120,9 @@ class TestExecutorTest {
 
         result.getResults().stream().forEach(testCaseResult -> {
             assertFalse(testCaseResult.isSuccessful());
+            assertTrue(testCaseResult.getActualOutput().isPresent());
             assertEquals("Correct solution\n", testCaseResult.getExpectedOutput());
-            assertEquals("Wrong solution\n", testCaseResult.getActualOutput());
+            assertEquals("Wrong solution\n", testCaseResult.getActualOutput().get());
 
             System.out.print("Expected result: " + testCaseResult.getExpectedOutput());
             System.out.println("Actual result: " + testCaseResult.getActualOutput());
@@ -156,7 +157,7 @@ class TestExecutorTest {
         System.out.println("IndexOutOfBoundsException:\n");
         Path programPath = Paths.get("src", "test", "data",
                 "TestPrograms", "errors", "indexoutofbounds.txt");
-        UserProgram program = new UserProgram("Main" , Files.readString(programPath));
+        UserProgram program = new UserProgram("Main", Files.readString(programPath));
 
 
         TestCase mockTestCase = new TestCase("", "");
@@ -184,6 +185,7 @@ class TestExecutorTest {
      * Load test cases from a root folder. Each test case is generated from an input text file following
      * the naming convention "test1.txt", "test2.txt", etc and its corresponding expected value text file
      * following the naming convention "expected1.txt", "expected2.txt", etc.
+     *
      * @param rootFolder the path to the root folder that contains the text files.
      * @return a list of corresponding test cases.
      * @throws IOException if the files cannot be found or read.
@@ -214,8 +216,9 @@ class TestExecutorTest {
     /**
      * Compares a list of test cases and results sequentially and checks that each result is successful and that
      * its actual and expected outputs matches those specified in the test case.
+     *
      * @param testCases the list of test cases to be checked against.
-     * @param results the list of results to be checked.
+     * @param results   the list of results to be checked.
      * @return true if all the results match the criteria.
      */
     private boolean matchTestCaseAndResults(List<TestCase> testCases, List<TestCaseResult> results) {
@@ -228,7 +231,8 @@ class TestExecutorTest {
                     System.out.println(testCase);
                     System.out.println(result);
 
-                    return testCase.getExpectedResult().equals(result.getActualOutput())
+                    return result.getActualOutput().isPresent()
+                            && testCase.getExpectedResult().equals(result.getActualOutput().get())
                             && testCase.getExpectedResult().equals(result.getExpectedOutput())
                             && result.isSuccessful();
                 }).reduce((x, y) -> x && y)

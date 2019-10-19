@@ -36,7 +36,7 @@ public class RunCodeResult extends UiPart<Region> {
         input.setText(inputString);
         String expectedOutputString = testCaseResult.getExpectedOutput();
         expectedOutput.setText(expectedOutputString);
-        String actualOutputString = testCaseResult.getActualOutput();
+        String actualOutputString = testCaseResult.getActualOutput().get();
         userOutput.setText(actualOutputString);
 
         String title = "title of test case pane";
