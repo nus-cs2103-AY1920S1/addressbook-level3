@@ -95,6 +95,11 @@ Format: `listpeople`
 Shows a list of all current policies. +
 Format: `listpolicy`
 
+=== Listing command history : `history`
+
+Shows a list of all previously entered (valid) commands.
+Format: `history`
+
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -829,6 +834,7 @@ e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, 
 e.g. `add pol n/SeniorCare d/care for seniors c/months/10 p/$50000 [sa/50 ea/75]`
 * *List People* : `listpeople`
 * *List Policy* : `listpolicy`
+* *List Command History*: `history`
 * *Edit Person* : `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE_OF_BIRTH]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Edit Policy* : `edit INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] ] [p/PRICE]` +

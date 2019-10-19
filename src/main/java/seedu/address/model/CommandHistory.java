@@ -6,8 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
 
-// TODO: Add tests for command history.
-
 /**
  * Used to store a list of previously entered commands.
  * Used in the command history listing, and also used to determine which stateful list to undo/redo

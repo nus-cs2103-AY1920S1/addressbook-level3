@@ -23,6 +23,9 @@ class RedoCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel;
 
+    /**
+     * Performs an undo for expectedModel and model.
+     */
     private void performUndo() {
         expectedModel.undoAddressBook();
         expectedModel.undoAddressBook();

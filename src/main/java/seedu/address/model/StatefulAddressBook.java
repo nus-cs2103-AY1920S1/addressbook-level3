@@ -1,10 +1,7 @@
 package seedu.address.model;
 
-import javax.swing.undo.CannotUndoException;
 import java.util.ArrayList;
 import java.util.List;
-
-// TODO: Add tests for stateful address book.
 
 /**
  * An {@code AddressBook} which maintains a stateful list of address book.
