@@ -283,6 +283,10 @@ public class ModelManager implements Model {
         return modulePlanner.getTagFromActiveSp(tagName);
     }
 
+    public UniqueTagList getTagsFromActiveSp() {
+        return modulePlanner.getTagsFromActiveSp();
+    }
+
     public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
         return modulePlanner.getModuleTagsFromActiveSp(moduleCode);
     }

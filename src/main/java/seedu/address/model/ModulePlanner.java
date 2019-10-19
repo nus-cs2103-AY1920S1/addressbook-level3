@@ -320,6 +320,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return activeStudyPlan.getTag(tagName);
     }
 
+    public UniqueTagList getTagsFromActiveSp() {
+        return activeStudyPlan.getTags();
+    }
+
     public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
         return activeStudyPlan.getModuleTags(moduleCode);
     }

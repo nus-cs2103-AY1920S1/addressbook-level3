@@ -207,6 +207,8 @@ public interface Model {
 
     Tag getTagFromActiveSp(String tagName);
 
+    UniqueTagList getTagsFromActiveSp();
+
     UniqueTagList getModuleTagsFromActiveSp(String moduleCode);
 
     void updateAllCompletedTags();

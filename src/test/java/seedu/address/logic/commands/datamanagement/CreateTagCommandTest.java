@@ -192,6 +192,11 @@ public class CreateTagCommandTest {
         }
 
         @Override
+        public UniqueTagList getTagsFromActiveSp() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
             throw new AssertionError("This method should not be called.");
         }
