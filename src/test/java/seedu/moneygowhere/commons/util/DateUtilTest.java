@@ -38,6 +38,9 @@ class DateUtilTest {
         Date parsedDate3 = DateUtil.parseDate("12/10/2019 midnight");
         assertEquals(DateUtil.formatDate(date), DateUtil.formatDate(parsedDate3));
 
+        Date parsedDate4 = DateUtil.parseDate("12-10-2019 midnight");
+        assertEquals(DateUtil.formatDate(date), DateUtil.formatDate(parsedDate4));
+
         assertThrows(ParseException.class, () -> DateUtil.parseDate("does not work"));
     }
 
@@ -47,6 +50,7 @@ class DateUtilTest {
         assertFalse(DateUtil.isValidDate("2"));
         assertFalse(DateUtil.isValidDate("2/2/79"));
         assertTrue(DateUtil.isValidDate("2/2"));
+        assertTrue(DateUtil.isValidDate("2-2"));
     }
 
     @Test
