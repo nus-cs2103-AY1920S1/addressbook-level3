@@ -30,7 +30,6 @@ import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.customer.Customer;
 import seedu.address.model.phone.Phone;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
 import seedu.address.testutil.PhoneBuilder;
