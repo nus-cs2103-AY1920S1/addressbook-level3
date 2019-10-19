@@ -1,8 +1,9 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.tag.Tag;
-
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.tag.Tag;
 
 /**
  * Tests that a {@code Transaction}'s {@code Tag} matches the tag given.
@@ -17,10 +18,10 @@ public class TransactionContainsTagsPredicate implements Predicate<Transaction> 
 
     @Override
     public boolean test(Transaction transaction) {
-        return transaction.getTags().contains(keyTag);
-
-        // return keywords.stream()
-        //         .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(transaction.getTags(), keyword));
+        return transaction
+                .getTags()
+                .stream()
+                .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.getTagName(), keyTag.getTagName()));
     }
 
     @Override
