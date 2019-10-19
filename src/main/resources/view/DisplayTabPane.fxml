@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.TabPane?>
-
 <?import javafx.scene.layout.AnchorPane?>
+
 <AnchorPane fx:id="displayTabPanePlaceholder" xmlns:fx="http://javafx.com/fxml/1">
   <TabPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-         minHeight="360.0" minWidth="300.0" side="TOP" tabClosingPolicy="UNAVAILABLE"
-         xmlns:fx="http://javafx.com/fxml/1" fx:id="tabsPlaceholder" />
+         minHeight="360.0" minWidth="300.0" side="TOP" tabClosingPolicy="UNAVAILABLE"  fx:id="tabsPlaceholder" />
 </AnchorPane>
