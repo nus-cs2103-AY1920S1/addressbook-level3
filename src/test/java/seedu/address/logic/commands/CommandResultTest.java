@@ -14,7 +14,8 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false, false, false, false, false)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false, false,
+                false, false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -54,10 +55,10 @@ public class CommandResultTest {
 
     @Test
     public void getters() {
-        CommandResult commandResult = new CommandResult("feedback", false, false, false, false,false, false, false);
+        CommandResult commandResult = new CommandResult("feedback", false, false, false, false, false, false, false);
 
         assertEquals(commandResult.isAddVisit(), false);
-        assertEquals(commandResult.isDeleteVisit(), false);
+        assertEquals(commandResult.isShowVisitList(), false);
         assertEquals(commandResult.isExit(), false);
         assertEquals(commandResult.isShowHelp(), false);
 

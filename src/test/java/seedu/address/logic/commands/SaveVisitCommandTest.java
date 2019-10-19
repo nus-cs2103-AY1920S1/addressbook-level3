@@ -23,7 +23,7 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalVisits;
 
 public class SaveVisitCommandTest {
-    private int INVALID_REPORT_IDX = -1;
+    private static final int INVALID_REPORT_INDEX = -1;
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private VisitReport report = TypicalVisits.REPORT_2;
 
@@ -33,7 +33,7 @@ public class SaveVisitCommandTest {
         Person editedPerson = new PersonBuilder(firstPerson)
                 .withVisitList(TypicalVisits.getLongTypicalVisitList(firstPerson.getName().toString())).build();
 
-        SaveVisitCommand saveVisitCommand = new SaveVisitCommand(INDEX_FIRST_PERSON.getOneBased(), INVALID_REPORT_IDX,
+        SaveVisitCommand saveVisitCommand = new SaveVisitCommand(INDEX_FIRST_PERSON.getOneBased(), INVALID_REPORT_INDEX,
                 report.date, report.getMedication(), report.getDiagnosis(), report.getRemarks());
 
         String expectedMessage = String.format(SaveVisitCommand.MESSAGE_SAVE_VISIT_SUCCESS, editedPerson);
@@ -47,7 +47,7 @@ public class SaveVisitCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        SaveVisitCommand saveVisitCommand = new SaveVisitCommand(outOfBoundIndex.getOneBased(), INVALID_REPORT_IDX,
+        SaveVisitCommand saveVisitCommand = new SaveVisitCommand(outOfBoundIndex.getOneBased(), INVALID_REPORT_INDEX,
                 report.date, report.getMedication(), report.getDiagnosis(), report.getRemarks());
 
         assertCommandFailure(saveVisitCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -64,7 +64,8 @@ public class SaveVisitCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        SaveVisitCommand saveVisitCommand = new SaveVisitCommand(outOfBoundIndex.getOneBased(), INVALID_REPORT_IDX, report.date,
+        SaveVisitCommand saveVisitCommand = new SaveVisitCommand(outOfBoundIndex.getOneBased(),
+                INVALID_REPORT_INDEX, report.date,
                 report.getMedication(), report.getDiagnosis(), report.getRemarks());
         assertCommandFailure(saveVisitCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -73,14 +74,14 @@ public class SaveVisitCommandTest {
     public void equals() {
 
         SaveVisitCommand saveVisitCommand =
-                new SaveVisitCommand(1, INVALID_REPORT_IDX, "12/12/2012", "meds", "diagnosis", "remarks");
+                new SaveVisitCommand(1, INVALID_REPORT_INDEX, "12/12/2012", "meds", "diagnosis", "remarks");
 
         // same object -> returns true
         assertTrue(saveVisitCommand.equals(saveVisitCommand));
 
         // same values -> returns true
         SaveVisitCommand saveVisitCommand2 =
-                new SaveVisitCommand(1, INVALID_REPORT_IDX,"12/12/2012", "meds", "diagnosis", "remarks");
+                new SaveVisitCommand(1, INVALID_REPORT_INDEX, "12/12/2012", "meds", "diagnosis", "remarks");
 
         assertTrue(saveVisitCommand.equals(saveVisitCommand2));
 
@@ -92,23 +93,23 @@ public class SaveVisitCommandTest {
 
         // different idx -> returns false
         SaveVisitCommand saveVisitCommandIdx =
-                new SaveVisitCommand(2, INVALID_REPORT_IDX,"12/12/2012", "meds", "diagnosis", "remarks");
+                new SaveVisitCommand(2, INVALID_REPORT_INDEX, "12/12/2012", "meds", "diagnosis", "remarks");
         assertFalse(saveVisitCommand2.equals(saveVisitCommandIdx));
 
         SaveVisitCommand saveVisitCommandDate =
-                new SaveVisitCommand(1, INVALID_REPORT_IDX,"13/12/2012", "meds", "diagnosis", "remarks");
+                new SaveVisitCommand(1, INVALID_REPORT_INDEX, "13/12/2012", "meds", "diagnosis", "remarks");
         assertFalse(saveVisitCommand2.equals(saveVisitCommandDate));
 
         SaveVisitCommand saveVisitCommandMeds =
-                new SaveVisitCommand(1, INVALID_REPORT_IDX,"12/12/2012", "medicine", "diagnosis", "remarks");
+                new SaveVisitCommand(1, INVALID_REPORT_INDEX, "12/12/2012", "medicine", "diagnosis", "remarks");
         assertFalse(saveVisitCommand2.equals(saveVisitCommandMeds));
 
         SaveVisitCommand saveVisitCommandDiagnosis =
-                new SaveVisitCommand(1, INVALID_REPORT_IDX,"12/12/2012", "meds", "dg", "remarks");
+                new SaveVisitCommand(1, INVALID_REPORT_INDEX, "12/12/2012", "meds", "dg", "remarks");
         assertFalse(saveVisitCommand2.equals(saveVisitCommandDiagnosis));
 
         SaveVisitCommand saveVisitCommandRemark =
-                new SaveVisitCommand(1, INVALID_REPORT_IDX,"12/12/2012", "meds", "dg", "rm");
+                new SaveVisitCommand(1, INVALID_REPORT_INDEX, "12/12/2012", "meds", "dg", "rm");
 
         assertFalse(saveVisitCommand2.equals(saveVisitCommandRemark));
 

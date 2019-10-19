@@ -29,7 +29,7 @@ public class SaveVisitCommand extends Command {
     public SaveVisitCommand(int index, int reportIdx, String date, String meds, String dg, String rmk) {
         requireAllNonNull(index, reportIdx, date);
         this.index = Index.fromOneBased(index);
-        this.reportIdx= reportIdx;
+        this.reportIdx = reportIdx;
         this.visitReport = new VisitReport(date);
         this.medication = meds;
         this.diagnosis = dg;
@@ -50,10 +50,12 @@ public class SaveVisitCommand extends Command {
         Person editedPerson = null;
         if (reportIdx == INVALID_REPORT_INDEX) {
             editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                    personToEdit.getAddress(), personToEdit.getVisitList().addRecord(visitReport), personToEdit.getTags());
+                    personToEdit.getAddress(), personToEdit.getVisitList().addRecord(visitReport),
+                    personToEdit.getTags());
         } else {
             editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                    personToEdit.getAddress(), personToEdit.getVisitList().editRecord(reportIdx, visitReport), personToEdit.getTags());
+                    personToEdit.getAddress(), personToEdit.getVisitList().editRecord(reportIdx, visitReport),
+                    personToEdit.getTags());
 
         }
 

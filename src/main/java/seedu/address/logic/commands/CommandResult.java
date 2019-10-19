@@ -74,18 +74,22 @@ public class CommandResult {
     }
 
     public CommandResult(String feedbackToUser, int idx, String date) {
-        this(feedbackToUser, false, true, false, false, false, false, false);
+        this(feedbackToUser, false, true, false, false,
+                false, false, false);
         this.index = idx;
         this.date = date;
     }
 
     public CommandResult(String feedbackToUser, ObservableList<VisitReport> lst) {
-        this(feedbackToUser, false, false, true, false, false, false, false);
+        this(feedbackToUser, false, false, true, false,
+                false, false, false);
         this.reports = lst;
     }
 
-    public CommandResult(String feedbackToUser, ObservableList<VisitReport> lst, int idx, int reportIdx, VisitReport report) {
-        this(feedbackToUser, false, false, false, true, false, false, false);
+    public CommandResult(String feedbackToUser, ObservableList<VisitReport> lst,
+                         int idx, int reportIdx, VisitReport report) {
+        this(feedbackToUser, false, false, false, true,
+                false, false, false);
         this.reports = lst;
         this.index = idx;
         this.reportIdx = reportIdx;
@@ -171,6 +175,7 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && addVisit == otherCommandResult.addVisit
                 && editVisit == otherCommandResult.editVisit
+                && showVisitList == otherCommandResult.showVisitList
                 && profile == otherCommandResult.profile
                 && exit == otherCommandResult.exit
                 && showMotd == otherCommandResult.showMotd;

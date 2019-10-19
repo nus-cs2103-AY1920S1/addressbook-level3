@@ -57,6 +57,9 @@ public class VisitList {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Edits record from the list by index.
+     */
     public VisitList editRecord(int reportIdx, VisitReport visitReport) {
         this.records.set(reportIdx - 1, visitReport);
         return this;

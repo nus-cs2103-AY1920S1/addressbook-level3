@@ -246,7 +246,8 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isEditVisit()) {
-                visitWindow.setOldReportInfo(commandResult.getIdx(), commandResult.getReportIdx(), commandResult.getOldReport(), logic);
+                visitWindow.setOldReportInfo(commandResult.getIdx(), commandResult.getReportIdx(),
+                        commandResult.getOldReport(), logic);
                 handleShowVisitForm();
             }
 
