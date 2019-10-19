@@ -57,6 +57,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
         setupDateIntervalFormats(dateIntervalFormats);
 
         series = new XYChart.Series<>();
+        series.setName("All expenses");
         initChart();
     }
 
