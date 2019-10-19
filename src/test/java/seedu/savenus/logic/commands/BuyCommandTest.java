@@ -59,7 +59,7 @@ public class BuyCommandTest {
 
     @Test
     public void execute_success() throws CommandException {
-        Purchase purchaseToAdd = new Purchase(CARBONARA.getName(), CARBONARA.getPrice());
+        Purchase purchaseToAdd = new Purchase(CARBONARA);
         String expectedMessage = String.format(BuyCommand.MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString());
         BuyCommand correctCommand = new BuyCommand(INDEX_FIRST_FOOD);
         CommandResult result = correctCommand.execute(model);
