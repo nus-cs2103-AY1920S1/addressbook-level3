@@ -1,4 +1,4 @@
-package seedu.savenus.model.food;
+package seedu.savenus.model.sorter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.savenus.model.sorter.FoodComparator;
 
 public class FoodComparatorTest {
     private List<String> fields = new ArrayList<String>();

@@ -12,6 +12,7 @@ import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
 import seedu.savenus.logic.commands.CollapseCommand;
 import seedu.savenus.logic.commands.Command;
+import seedu.savenus.logic.commands.CustomSortCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.commands.DislikeCommand;
@@ -25,6 +26,7 @@ import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
+import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
@@ -117,6 +119,12 @@ public class MenuParser {
 
         case ExpandCommand.COMMAND_WORD:
             return new ExpandCommand();
+
+        case CustomSortCommand.COMMAND_WORD:
+            return new CustomSortCommand();
+
+        case MakeSortCommand.COMMAND_WORD:
+            return new MakeSortCommand(new SortCommandParser().parse(arguments).getFields());
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

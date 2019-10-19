@@ -1,4 +1,4 @@
-package seedu.savenus.model.food;
+package seedu.savenus.model.sorter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -7,8 +7,6 @@ import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 import static seedu.savenus.testutil.TypicalMenu.NASI_LEMAK;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.savenus.model.sorter.FieldComparator;
 
 public class FieldComparatorTest {
     private FieldComparator fieldComparator;

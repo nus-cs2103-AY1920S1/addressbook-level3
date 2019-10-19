@@ -23,6 +23,7 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
     private final FilteredList<Food> filteredFoods;
     private final ObservableList<Purchase> purchaseHistory;
     private final RecommendationSystem recommendationSystem;
+    private final CustomSorter customSorter;
 
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
@@ -55,6 +57,7 @@ public class ModelManager implements Model {
 
         this.recommendationSystem = new RecommendationSystem();
         this.recommendationSystem.setUserRecommendations(userRecs);
+        this.customSorter = new CustomSorter();
     }
 
     public ModelManager() {
@@ -229,6 +232,17 @@ public class ModelManager implements Model {
         filteredFoods.setPredicate(new FoodFilter(fieldList));
     }
 
+    //=========== CustomSorter ========================================================================
+
+    @Override
+    public void setCustomSorter(List<String> fields) {
+        customSorter.setComparator(fields);
+    }
+
+    @Override
+    public CustomSorter getCustomSorter() {
+        return customSorter;
+    }
     //=========== Recommendation System =============================================================
     @Override
     public RecommendationSystem getRecommendationSystem() {
