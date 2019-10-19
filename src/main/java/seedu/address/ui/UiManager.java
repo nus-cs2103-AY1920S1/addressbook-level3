@@ -50,6 +50,13 @@ public class UiManager implements Ui {
     }
 
     /**
+     * Gets the MainWindow
+     */
+    public static MainWindow getMainWindow() {
+        return mainWindow;
+    }
+
+    /**
      * Get state
      */
     public static String getState() {
