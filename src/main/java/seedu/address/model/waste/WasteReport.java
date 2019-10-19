@@ -3,7 +3,10 @@ package seedu.address.model.waste;
 import java.util.Iterator;
 import java.util.Map;
 
-public class WasteReport implements Iterable<Map.Entry<WasteMonth, WasteStatistic>>{
+/**
+ * Creates a Waste Report
+ */
+public class WasteReport implements Iterable<Map.Entry<WasteMonth, WasteStatistic>> {
 
     private Map<WasteMonth, WasteStatistic> historicalData;
 

@@ -2,11 +2,8 @@ package seedu.address.logic.commands.wastelist;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -33,7 +30,7 @@ public class ReportWasteCommand extends Command {
     private WasteMonth startWasteMonth;
     private WasteMonth endWasteMonth;
 
-    public ReportWasteCommand(WasteMonth startWm, WasteMonth endWm){
+    public ReportWasteCommand(WasteMonth startWm, WasteMonth endWm) {
         requireNonNull(startWm);
         requireNonNull(endWm);
         this.startWasteMonth = startWm;

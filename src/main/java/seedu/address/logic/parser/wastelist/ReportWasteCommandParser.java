@@ -40,7 +40,8 @@ public class ReportWasteCommandParser implements Parser<ReportWasteCommand> {
         boolean startMonthGiven = startWmString.isPresent();
         boolean endMonthGiven = endWmString.isPresent();
 
-        WasteMonth startWasteMonth, endWasteMonth;
+        WasteMonth startWasteMonth;
+        WasteMonth endWasteMonth;
         if (startMonthGiven && endMonthGiven) {
             startWasteMonth = ParserUtil.parseWasteMonth(startWmString.get());
             endWasteMonth = ParserUtil.parseWasteMonth(endWmString.get());

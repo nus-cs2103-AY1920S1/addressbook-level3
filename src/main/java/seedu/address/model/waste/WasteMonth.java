@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 import org.jfree.data.time.Month;
+
 import seedu.address.model.waste.exceptions.WasteMonthException;
 
 /**
@@ -67,6 +68,9 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return addWasteMonth(1);
     }
 
+    /**
+     * Adds the specified number of months from the current waste month and returns a new waste month object
+     */
     public WasteMonth addWasteMonth(int numberOfMonths) {
         LocalDate currentWasteMonthDate = LocalDate.of(this.year, this.month, 1);
         return new WasteMonth(currentWasteMonthDate.plusMonths(numberOfMonths));
@@ -76,6 +80,9 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return minusWasteMonth(1);
     }
 
+    /**
+     * Subtracts the specified number of months from the current waste month and returns a new waste month object
+     */
     public WasteMonth minusWasteMonth(int numberOfMonths) {
         LocalDate currentWasteMonthDate = LocalDate.of(this.year, this.month, 1);
         return new WasteMonth(currentWasteMonthDate.minusMonths(numberOfMonths));

@@ -7,13 +7,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Map;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-//import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.block.BlockBorder;
@@ -27,10 +20,21 @@ import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.stage.Stage;
+
 import seedu.address.model.waste.WasteMonth;
 import seedu.address.model.waste.WasteReport;
 import seedu.address.model.waste.WasteStatistic;
 
+/**
+ * Displays the waste report window.
+ */
 public class ReportWasteWindow {
 
     public static final String WEIGHT_TITLE = "Wastage in Kilograms";
@@ -52,6 +56,9 @@ public class ReportWasteWindow {
         stage.setHeight(390);
     }
 
+    /**
+     * Sets the stage and shows the report
+     */
     public void showWasteReport() {
         TimeSeries historicalWeightData = new TimeSeries("Waste in kilograms");
         TimeSeries historicalVolumeData = new TimeSeries("Volume in litres");
@@ -100,13 +107,15 @@ public class ReportWasteWindow {
         return viewer;
     }
 
+    /**
+     * Creates a JFreeChart using the given dataset.
+     * @param dataset the dataset used to generate the chart
+     * @param title the title of the chart
+     * @param valueAxisLabel the y axis label.
+     */
     private static JFreeChart createChart(XYDataset dataset, String title, String valueAxisLabel) {
 
-        JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                title,               // title
-                null,   // x-axis label
-                valueAxisLabel,      // y-axis label
-                dataset);
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(title, null, valueAxisLabel, dataset);
         String fontName = "Helvetica";
         chart.getTitle().setFont(new Font(fontName, Font.BOLD, 18));
         chart.addSubtitle(new TextTitle("For more details on reducing food waste, "
