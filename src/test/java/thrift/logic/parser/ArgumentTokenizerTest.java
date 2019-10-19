@@ -1,11 +1,15 @@
 package thrift.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import thrift.logic.parser.exceptions.ParseException;
 
 public class ArgumentTokenizerTest {
 
@@ -124,6 +128,15 @@ public class ArgumentTokenizerTest {
         assertArgumentPresent(argMultimap, pSlash, "pSlash value");
         assertArgumentPresent(argMultimap, dashT, "dashT-Value", "another dashT value", "");
         assertArgumentPresent(argMultimap, hatQ, "", "");
+    }
+
+    @Test
+    public void tokenize_multipleArgumentsWithIllegalRepeats() {
+        // Assume all values shouldn't be repeated. dashT violates, pSlash doesn't
+        String argsString = "SomePreambleString -t dashT-Value ^Q ^Q -t another dashT value p/ pSlash value -t";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
+        assertThrows(ParseException.class, () -> argMultimap.getSingleValue(dashT));
+        assertDoesNotThrow(() -> argMultimap.getSingleValue(pSlash));
     }
 
     @Test
