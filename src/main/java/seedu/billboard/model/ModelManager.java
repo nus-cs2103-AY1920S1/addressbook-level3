@@ -184,6 +184,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteArchive(String archiveName) {
+        archives.removeArchive(archiveName);
+    }
+
+    @Override
     public void deleteArchiveExpense(String archiveName, Expense target) {
         archives.removeArchiveExpense(archiveName, target);
     }

@@ -135,6 +135,12 @@ public interface Model {
     boolean hasArchive(String archive);
 
     /**
+     * Deletes the given archive.
+     * The given {@code archiveName} must exist.
+     */
+    void deleteArchive(String archiveName);
+
+    /**
      * Deletes the given expense in the given archive.
      * The given {@code archiveName} must exist.
      */

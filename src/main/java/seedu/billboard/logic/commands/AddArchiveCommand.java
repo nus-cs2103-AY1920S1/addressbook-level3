@@ -2,6 +2,7 @@ package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +18,14 @@ import seedu.billboard.model.expense.Expense;
  * Adds an expense to an existing archive.
  * If the archive does not exist, create a new archive to store the expense.
  */
-public class AddArchiveCommand extends Command {
+public class AddArchiveCommand extends ArchiveCommand {
 
-    public static final String COMMAND_WORD = "add-arc";
+    public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD
             + ": Creates an archive of the given name and\n"
             + "Adds the expense identified by the index number used in the displayed expense list to the archive\n"
-            + "Example: " + COMMAND_WORD + " 2 arc/Groceries";
+            + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 2 " + PREFIX_ARCHIVE + "Groceries";
 
     public static final String MESSAGE_SUCCESS_EXISTING_ARCHIVE = "[%1$s] added to [%2$s] archive";
     public static final String MESSAGE_SUCCESS_CREATE_ARCHIVE =
