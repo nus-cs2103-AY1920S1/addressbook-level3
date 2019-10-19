@@ -1,6 +1,5 @@
 package seedu.jarvis.logic.parser.course;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -10,6 +9,7 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.logic.commands.course.AddCourseCommand;
 import seedu.jarvis.model.course.Course;
