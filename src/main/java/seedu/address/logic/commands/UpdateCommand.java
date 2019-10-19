@@ -151,7 +151,7 @@ public class UpdateCommand extends UndoableCommand {
             if (originalEntityDescriptor instanceof UpdateBodyDescriptor) {
                 UpdateBodyDescriptor originalBodyDescriptor = (UpdateBodyDescriptor) originalEntityDescriptor;
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
-                if (! originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
+                if (!originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
                     List <Fridge> fridgeList = model.getFilteredFridgeList();
                     for (Fridge fridge : fridgeList) {
                         if (fridge.getIdNum().equals(originalBodyDescriptor.getFridgeId().get())) {
