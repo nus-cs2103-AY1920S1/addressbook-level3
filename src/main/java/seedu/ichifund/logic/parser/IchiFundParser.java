@@ -100,8 +100,7 @@ public class IchiFundParser {
             return new HelpCommand();
 
         default:
-            handleFeatureCommand(commandWord, arguments);
-            return new EmptyCommand();
+            return handleFeatureCommand(commandWord, arguments);
         }
     }
 
