@@ -164,12 +164,12 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the main display pane to the specified UI part.
      */
-    public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneToBeCreated) {
-        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneToBeCreated == true) {
+    public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
+        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated == true) {
             mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(displayPaneType, newPaneToBeCreated).getRoot()));
+                .add(requireNonNull(mainDisplayPane.get(displayPaneType, newPaneIsToBeCreated).getRoot()));
         }
     }
 
@@ -220,12 +220,12 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             } else {
                 try {
-                  switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneToBeCreated());
-                  logger.info("Result: " + commandResult.getFeedbackToUser());
-                  resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                    switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getnewPaneIsToBeCreated());
+                    logger.info("Result: " + commandResult.getFeedbackToUser());
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 } catch (NullPointerException e) {
                     return new CommandResult("Unable to load window");
-                }                  
+                }
             }
 
             return commandResult;

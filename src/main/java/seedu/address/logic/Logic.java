@@ -37,7 +37,7 @@ public interface Logic {
      * Returns a boolean indicating whether a new pane is to be created, regardless of whether an existing one already
      * exists.
      */
-    boolean getNewPaneToBeCreated();
+    boolean getnewPaneIsToBeCreated();
 
     /**
      * Returns the AddressBook.
