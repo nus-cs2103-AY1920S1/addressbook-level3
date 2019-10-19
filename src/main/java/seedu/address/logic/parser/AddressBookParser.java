@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_MERGE_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ARGUMENTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND_WORD;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -187,7 +190,9 @@ public class AddressBookParser {
                 return new ExpandPolicyCommandParser().parse(arguments);
 
             default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                String argumentToParse = " " + PREFIX_COMMAND_WORD + commandWord + " " + PREFIX_ARGUMENTS
+                        + arguments.trim();
+                return new SuggestionCommandParser().parse(argumentToParse);
             }
         }
     }

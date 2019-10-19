@@ -27,5 +27,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_AGE = new Prefix("ea/");
     public static final Prefix PREFIX_CRITERIA = new Prefix("cr/");
 
-    public static final Prefix PREFIX_MERGE = new Prefix("m/");
+    // To be used internally for suggestion command
+    public static final Prefix PREFIX_COMMAND_WORD = new Prefix("command/");
+    public static final Prefix PREFIX_ARGUMENTS = new Prefix("arguments/");
+
 }
