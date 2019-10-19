@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -13,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Context;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.Person;
 
 public class InviteCommand extends Command {
 
@@ -27,11 +30,11 @@ public class InviteCommand extends Command {
     public static final String MESSAGE_NO_VIEWED_ACTIVITY = "There is no viewed activity currently.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This contact already exists in the activity.";
 
-    private final List<String> participants;
+    private final List<String> peopleToInvite;
 
-    public InviteCommand(List<String> participants) {
-        requireNonNull(participants);
-        this.participants = participants;
+    public InviteCommand(List<String> peopleToInvite) {
+        requireNonNull(peopleToInvite);
+        this.peopleToInvite = peopleToInvite;
     }
 
     @Override
@@ -44,6 +47,17 @@ public class InviteCommand extends Command {
 
         Activity activityToInviteTo = model.getContext().getActivity().get();
         ArrayList<Integer> participantIds = activityToInviteTo.getParticipantIds();
+        model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
+        List<Person> members = model.getFilteredPersonList();
+
+        List<String> keywords;
+        List<Person> findResult;
+        for (String name : peopleToInvite) {
+            keywords = Arrays.asList(name.split(" "));
+
+
+
+        }
 
 
 
@@ -58,7 +72,7 @@ public class InviteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof InviteCommand // instanceof handles nulls
-                && participants.equals(((InviteCommand) other).participants));
+                && peopleToInvite.equals(((InviteCommand) other).peopleToInvite));
     }
 
 }
