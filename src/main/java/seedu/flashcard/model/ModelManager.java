@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final FlashcardList flashcardList;
     private final UserPrefs userPrefs;
     private final FilteredList<Flashcard> filteredFlashcards;
+    private Flashcard viewedFlashcard;
 
     /**
      * Default initializer
@@ -42,6 +43,7 @@ public class ModelManager implements Model {
         this.flashcardList = new FlashcardList(flashcardList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFlashcards = new FilteredList<Flashcard>(this.flashcardList.getFlashcardList());
+        this.viewedFlashcard = null;
     }
 
     @Override
@@ -140,6 +142,16 @@ public class ModelManager implements Model {
     public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
         requireNonNull(predicate);
         filteredFlashcards.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateLastViewedFlashcard(Flashcard flashcard) {
+        this.viewedFlashcard = flashcard;
+    }
+
+    @Override
+    public Flashcard getLastViewedFlashcard() {
+        return this.viewedFlashcard;
     }
 
     @Override

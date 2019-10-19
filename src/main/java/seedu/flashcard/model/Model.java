@@ -112,4 +112,15 @@ public interface Model {
      * @throws NullPointerException is {@code predicate} is null
      */
     void updateFilteredFlashcardList(Predicate<Flashcard> predicate);
+
+    /**
+     * Updates the last viewed flashcard.
+     */
+    void updateLastViewedFlashcard(Flashcard flashcard);
+
+    /**
+     * Retrieves the last viewed flashcard.
+     * @return Last viewed flashcard.
+     */
+    Flashcard getLastViewedFlashcard();
 }
