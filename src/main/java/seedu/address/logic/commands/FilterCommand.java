@@ -2,9 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.TransactionContainsTagsPredicate;
 
 /**
  * Filters the transactions in the bank account.
@@ -22,17 +23,20 @@ public class FilterCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Bank Account has been filtered!";
 
-    public final Tag toFilter;
+    private final TransactionContainsTagsPredicate pred;
 
-    public FilterCommand(Tag tag) {
-        requireNonNull(tag);
-        this.toFilter = tag;
+    public FilterCommand(TransactionContainsTagsPredicate pred) {
+        requireNonNull(pred);
+        this.pred = pred;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toFilter));
+        model.updateFilteredTransactionList(pred);
+        return new CommandResult(
+                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
+                        model.getFilteredTransactionList().size()));
     }
 
     @Override
@@ -41,7 +45,7 @@ public class FilterCommand extends Command {
             return true;
         } else if (obj instanceof FilterCommand) {
             FilterCommand filterCommand = (FilterCommand) obj;
-            return toFilter.equals(filterCommand.toFilter);
+            return pred.equals(filterCommand.pred);
         } else {
             return false;
         }
