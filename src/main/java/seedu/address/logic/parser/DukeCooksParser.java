@@ -19,6 +19,8 @@ import seedu.address.logic.commands.exercise.AddExerciseCommand;
 import seedu.address.logic.commands.exercise.ClearExerciseCommand;
 import seedu.address.logic.commands.exercise.DeleteExerciseCommand;
 import seedu.address.logic.commands.exercise.EditExerciseCommand;
+import seedu.address.logic.commands.exercise.FindExerciseByIntensityCommand;
+import seedu.address.logic.commands.exercise.FindExerciseByMuscleCommand;
 import seedu.address.logic.commands.exercise.FindExerciseCommand;
 import seedu.address.logic.commands.exercise.ListExerciseCommand;
 import seedu.address.logic.commands.health.AddHealthCommand;
@@ -35,6 +37,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.exercise.AddExerciseCommandParser;
 import seedu.address.logic.parser.exercise.DeleteExerciseCommandParser;
 import seedu.address.logic.parser.exercise.EditExerciseCommandParser;
+import seedu.address.logic.parser.exercise.FindExerciseByIntensityCommandParser;
+import seedu.address.logic.parser.exercise.FindExerciseByMuscleCommandParser;
 import seedu.address.logic.parser.exercise.FindExerciseCommandParser;
 import seedu.address.logic.parser.health.AddHealthCommandParser;
 import seedu.address.logic.parser.profile.AddProfileCommandParser;
@@ -87,6 +91,12 @@ public class DukeCooksParser {
 
         case FindExerciseCommand.COMMAND_WORD:
             return new FindExerciseCommandParser().parse(arguments);
+
+        case FindExerciseByMuscleCommand.COMMAND_WORD:
+            return new FindExerciseByMuscleCommandParser().parse(arguments);
+
+        case FindExerciseByIntensityCommand.COMMAND_WORD:
+            return new FindExerciseByIntensityCommandParser().parse(arguments);
 
         case AddHealthCommand.COMMAND_WORD:
             return new AddHealthCommandParser().parse(arguments);
