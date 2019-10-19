@@ -46,5 +46,11 @@ public abstract class AddCommand extends Command {
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd));
     }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.removeItem(toAdd);
+        model.getItemStorage().remove(toAdd);
+    }
 }
 

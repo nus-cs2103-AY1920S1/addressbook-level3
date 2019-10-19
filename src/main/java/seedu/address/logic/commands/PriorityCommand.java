@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 import seedu.address.model.exceptions.IllegalListException;
 
@@ -21,5 +22,10 @@ public class PriorityCommand extends Command {
         } catch (IllegalListException e) {
             return new CommandResult(PRIORITY_MODE_ERROR);
         }
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+//TODO
     }
 }

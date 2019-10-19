@@ -58,6 +58,9 @@ public class EditCommand extends Command {
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;
 
+    private Item oldItem;
+    private Item editedItem;
+
     /**
      * @param index of the person in the filtered person list to edit
      * @param editItemDescriptor details to edit the person with
@@ -80,11 +83,18 @@ public class EditCommand extends Command {
         }
 
         Item oldItem = lastShownList.get(index.getZeroBased());
+        this.oldItem = oldItem;
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
+        this.editedItem = editedItem;
 
         model.replaceItem(oldItem, editedItem);
         //model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.replaceItem(editedItem, oldItem);
     }
 
     /**

@@ -18,8 +18,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 
-import seedu.address.model.ElisaStateHistory;
-import seedu.address.model.ElisaStateHistoryManager;
+import seedu.address.model.ElisaCommandHistory;
+import seedu.address.model.ElisaCommandHistoryManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemModelManager;
 import seedu.address.model.ItemStorage;
@@ -49,7 +49,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected ItemModel model;
     protected Config config;
-    protected ElisaStateHistory stateHistory;
+    protected ElisaCommandHistory commandHistory;
 
     @Override
     public void init() throws Exception {
@@ -66,9 +66,9 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        stateHistory = new ElisaStateHistoryManager();
+        commandHistory = new ElisaCommandHistoryManager();
 
-        model = initModelManager(storage, userPrefs, stateHistory);
+        model = initModelManager(storage, userPrefs, commandHistory);
 
         logic = new LogicManager(model, storage);
 
@@ -80,7 +80,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private ItemModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory stateHistory) {
+    private ItemModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ElisaCommandHistory stateHistory) {
         ItemStorage initialData;
         try {
             initialData = storage.toModelType();

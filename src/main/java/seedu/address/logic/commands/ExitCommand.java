@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 
 /**
@@ -15,5 +16,8 @@ public class ExitCommand extends Command {
     public CommandResult execute(ItemModel model) {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException { }
 
 }

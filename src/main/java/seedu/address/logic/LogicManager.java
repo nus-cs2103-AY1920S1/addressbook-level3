@@ -40,7 +40,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.model = model;
 
-        addressBookParser = new AddressBookParser(model.getElisaStateHistory());
+        addressBookParser = new AddressBookParser(model.getElisaCommandHistory());
 
         //Create new thread class to check
         /*
@@ -118,17 +118,7 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
-        if (commandResult.isUndo()) {
-            model.setToCurrState();
-        } else if (command instanceof ShowCommand) {
-        //} else if (commandResult.isSwitchViews()) {
-            /*switching view is not counted as a change in state,
-            hence this block is left blank*/
-        } else {
-            model.updateState();
-        }
-
-        model.updateModelLists();
+        model.updateCommandHistory(command);
 
         return commandResult;
     }

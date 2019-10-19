@@ -56,5 +56,10 @@ public class ShowCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetView), targetView);
     }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+//TODO
+    }
 }
 

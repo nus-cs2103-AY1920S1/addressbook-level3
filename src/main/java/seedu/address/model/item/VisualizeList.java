@@ -27,6 +27,14 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
         }
     }
 
+    public void add(int targetIndex, Item item) {
+        if (hasItem(item)) {
+            return;
+        } else {
+            list.add(targetIndex, item);
+        }
+    }
+
     /**
      * Check if the list contains the item.
      * @param item the item to be checked for.
@@ -62,8 +70,9 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      * Removes an item from the list.
      * @param item the item to be removed from the list
      */
-    public void remove(Item item) {
+    public Item remove(Item item) {
         list.remove(item);
+        return item;
     }
 
     @Override

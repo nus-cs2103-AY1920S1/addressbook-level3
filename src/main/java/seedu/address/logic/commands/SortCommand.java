@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 
 /**
@@ -18,5 +19,10 @@ public class SortCommand extends Command {
         requireNonNull(model);
         model.sort();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+//TODO
     }
 }

@@ -24,6 +24,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
 
     private final Index targetIndex;
+    private Item itemDeleted;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -39,7 +40,13 @@ public class DeleteCommand extends Command {
         }
 
         Item itemDeleted = model.deleteItem(targetIndex.getZeroBased());
+        this.itemDeleted = itemDeleted;
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemDeleted));
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.addItem(targetIndex.getZeroBased(), itemDeleted);
     }
 
     @Override

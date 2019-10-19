@@ -49,6 +49,15 @@ public class DoneCommand extends Command {
     }
 
     @Override
+    public void reverse(ItemModel model) throws CommandException {
+        try {
+            model.markIncomplete(targetIndex.getZeroBased());
+        } catch (IllegalListException e) {
+            throw new CommandException("Done/unDone can only be done on the task list.");
+        }
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DoneCommand // instanceof handles nulls
