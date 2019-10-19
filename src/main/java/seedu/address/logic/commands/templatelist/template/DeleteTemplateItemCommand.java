@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.templatelist.template;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
 
 import java.util.List;
 
@@ -20,12 +21,13 @@ public class DeleteTemplateItemCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = "tlist template " + COMMAND_WORD
             + ": Deletes the template item identified by the index number used in the displayed template list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_ITEM_INDEX + "ITEMINDEX\n"
+            + "Example: tlist template " + COMMAND_WORD + " 1 " + PREFIX_ITEM_INDEX + " 1 ";
 
-    public static final String MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS = "Deleted TemplateList Item: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted TemplateList Item: %1$s";
 
     private final Index targetTemplateIndex;
     private final Index targetItemIndex;
@@ -49,10 +51,14 @@ public class DeleteTemplateItemCommand extends Command {
         }
 
         TemplateItem itemToDelete = templateToEdit.get(targetItemIndex.getZeroBased());
-
         templateToEdit.remove(itemToDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS, itemToDelete));
+        model.setShownTemplate(templateToEdit);
+        model.updateFilteredTemplateToBeShown();
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, itemToDelete));
+        commandResult.setTemplateListItemCommand();
+
+        return commandResult;
     }
 
     @Override

@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.TemplateList;
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
@@ -210,6 +211,26 @@ public class AddTemplateItemCommandTest {
         public void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate) {
             throw new AssertionError("This method should not be called.");
         };
+
+        @Override
+        public void setShownTemplate(UniqueTemplateItems templateToBeShown) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TemplateItem> getFilteredTemplateToBeShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TemplateItem> updateFilteredTemplateToBeShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Name getNameTemplateToBeShown() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public Path getWasteListFilePath() {

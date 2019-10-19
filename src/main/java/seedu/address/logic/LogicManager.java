@@ -19,7 +19,9 @@ import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
+import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteReport;
 import seedu.address.storage.Storage;
@@ -89,6 +91,16 @@ public class LogicManager implements Logic {
     @Override
     public Path getTemplateListFilePath() {
         return model.getTemplateListFilePath();
+    }
+
+    @Override
+    public ObservableList<TemplateItem> getFilteredTemplateToBeShown() {
+        return model.getFilteredTemplateToBeShown();
+    }
+
+    @Override
+    public Name getNameTemplateToBeShown() {
+        return model.getNameTemplateToBeShown();
     }
 
     @Override

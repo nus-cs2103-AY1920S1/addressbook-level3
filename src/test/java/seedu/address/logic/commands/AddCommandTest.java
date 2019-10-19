@@ -26,9 +26,12 @@ import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.WasteList;
+
 import seedu.address.model.food.Food;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
+import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
 import seedu.address.model.waste.WasteReport;
@@ -200,6 +203,11 @@ public class AddCommandTest {
         };
 
         @Override
+        public void setShownTemplate(UniqueTemplateItems templateToBeShown) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<UniqueTemplateItems> getFilteredTemplateList() {
             throw new AssertionError("This method should not be called.");
         };
@@ -208,6 +216,21 @@ public class AddCommandTest {
         public void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate) {
             throw new AssertionError("This method should not be called.");
         };
+
+        @Override
+        public ObservableList<TemplateItem> getFilteredTemplateToBeShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TemplateItem> updateFilteredTemplateToBeShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Name getNameTemplateToBeShown() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public Path getWasteListFilePath() {
