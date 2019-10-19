@@ -97,9 +97,9 @@ public class CcaTracker {
      *
      * @param toCheck
      */
-    public boolean contains(Cca toCheck) {
+    public boolean containsCca(Cca toCheck) {
         requireNonNull(toCheck);
-        return ccaList.contains(toCheck);
+        return ccaList.containsCca(toCheck);
     }
 
     /**

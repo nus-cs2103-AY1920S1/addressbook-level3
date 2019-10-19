@@ -76,7 +76,7 @@ public class CcaList {
     /**
      * Returns true if the list contains an equivalent cca as the given argument.
      */
-    public boolean contains(Cca toCheck) {
+    public boolean containsCca(Cca toCheck) {
         requireNonNull(toCheck);
         return internalCcaList.stream().anyMatch(toCheck::isSameCca);
     }
@@ -117,7 +117,7 @@ public class CcaList {
             throw new CcaNotFoundException();
         }
 
-        if (!toBeUpdatedCca.isSameCca(updatedCca) && contains(updatedCca)) {
+        if (!toBeUpdatedCca.isSameCca(updatedCca) && containsCca(updatedCca)) {
             throw new DuplicateCcaException();
         }
 

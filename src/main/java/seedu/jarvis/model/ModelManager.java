@@ -435,8 +435,8 @@ public class ModelManager implements Model {
     //=========== Cca Tracker ================================================================================
 
     @Override
-    public boolean contains(Cca cca) {
-        return ccaTracker.contains(cca);
+    public boolean containsCca(Cca cca) {
+        return ccaTracker.containsCca(cca);
     }
 
     @Override

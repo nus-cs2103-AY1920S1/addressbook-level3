@@ -237,7 +237,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean contains(Cca cca) {
+    public boolean containsCca(Cca cca) {
         throw new AssertionError("This method should not be called.");
     }
 

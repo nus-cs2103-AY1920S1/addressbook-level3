@@ -19,7 +19,7 @@ public interface CcaTrackerModel {
     /**
      * Checks if cca tracker contains the given cca.
      */
-    public boolean contains(Cca cca);
+    public boolean containsCca(Cca cca);
 
     /**
      * Adds the given cca {@code cca} to the cca tracker.

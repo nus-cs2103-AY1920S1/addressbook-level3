@@ -28,13 +28,13 @@ public class CcaTrackerTest {
 
     @Test
     public void contains_ccaNotInList_returnsFalse() {
-        assertFalse(ccaTracker.contains(CANOEING));
+        assertFalse(ccaTracker.containsCca(CANOEING));
     }
 
     @Test
     public void addCca_normalInput_addedCorrectly() {
         ccaTracker.addCca(GUITAR_ENSEMBLE);
-        assertTrue(ccaTracker.contains(GUITAR_ENSEMBLE));
+        assertTrue(ccaTracker.containsCca(GUITAR_ENSEMBLE));
     }
 
     @Test
@@ -59,15 +59,15 @@ public class CcaTrackerTest {
         ccaTracker.addCca(CANOEING);
         ccaTracker.removeCca(CANOEING);
         assertEquals(ccaTracker.getNumberOfCcas(), 0);
-        assertFalse(ccaTracker.contains(CANOEING));
+        assertFalse(ccaTracker.containsCca(CANOEING));
     }
 
     @Test
     public void updateCca_newFields_success() {
         ccaTracker.addCca(CANOEING);
         ccaTracker.updateCca(CANOEING, GUITAR_ENSEMBLE);
-        assertTrue(ccaTracker.contains(GUITAR_ENSEMBLE));
-        assertFalse(ccaTracker.contains(CANOEING));
+        assertTrue(ccaTracker.containsCca(GUITAR_ENSEMBLE));
+        assertFalse(ccaTracker.containsCca(CANOEING));
     }
 
     @Test
