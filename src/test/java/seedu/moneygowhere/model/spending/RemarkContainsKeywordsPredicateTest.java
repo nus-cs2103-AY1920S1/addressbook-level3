@@ -35,7 +35,7 @@ public class RemarkContainsKeywordsPredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
 
         // different predicate list -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));

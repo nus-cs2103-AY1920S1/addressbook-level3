@@ -27,7 +27,7 @@ public class DateInRangePredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
     }
 
     @Test

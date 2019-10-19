@@ -14,7 +14,7 @@ public class CostInRangePredicate implements Predicate<Spending> {
         this.maxCost = Double.parseDouble(maxCost.value);
 
         if (this.minCost > this.maxCost) {
-            throw new RuntimeException("This should not happen");
+            throw new IllegalArgumentException("Min cost should not be larger than max cost");
         }
     }
 
