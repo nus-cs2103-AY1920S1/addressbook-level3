@@ -1,4 +1,4 @@
-package seedu.address.achievements.logic.parser;
+package seedu.achievements.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -12,6 +12,9 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses user input.
+ */
 public class AchievementsParser {
 
     /**
@@ -35,11 +38,11 @@ public class AchievementsParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            case GoToCommand.COMMAND_WORD:
-                return new GoToParser().parse(arguments);
+        case GoToCommand.COMMAND_WORD:
+            return new GoToParser().parse(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

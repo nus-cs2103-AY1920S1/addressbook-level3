@@ -67,7 +67,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -104,6 +104,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Country} of the {@code Person} that we are building.
+     */
     public PersonBuilder withCountry(String country) {
         this.country = new Country(country);
         return this;

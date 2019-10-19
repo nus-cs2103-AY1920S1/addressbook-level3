@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
+import seedu.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -16,7 +16,7 @@ public class ItineraryWindow extends UiPart<Scene> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private ResultDisplay resultDisplay;
-    private Logic logic;
+    private AddressBookLogic addressBookLogic;
 
     @javafx.fxml.FXML
     private StackPane commandBoxPlaceholder;
@@ -30,10 +30,10 @@ public class ItineraryWindow extends UiPart<Scene> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public ItineraryWindow(Logic logic) {
+    public ItineraryWindow(AddressBookLogic addressBookLogic) {
         super(FXML);
 
-        this.logic = logic;
+        this.addressBookLogic = addressBookLogic;
     }
 
     /**
@@ -43,7 +43,7 @@ public class ItineraryWindow extends UiPart<Scene> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(addressBookLogic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -52,7 +52,7 @@ public class ItineraryWindow extends UiPart<Scene> {
 
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = addressBookLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

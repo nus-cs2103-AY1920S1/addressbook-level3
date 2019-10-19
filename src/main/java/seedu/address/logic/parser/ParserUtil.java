@@ -139,6 +139,12 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses {@code String pageType} into a {@code PageType}.
+     * @param pageType
+     * @return a {@code PageType} object.
+     * @throws ParseException if the given {@code pageType} is invalid.
+     */
     public static PageType parsePageType(String pageType) throws ParseException {
         requireNonNull(pageType);
         String trimmedPageType = pageType.trim();
