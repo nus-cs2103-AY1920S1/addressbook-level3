@@ -16,11 +16,16 @@ import seedu.address.model.person.Person;
 public class Activity {
 
     private final Title title;
+    private final ArrayList<Expense> expenses;
+
     // Id, Balance, Transfers arrays are supposed to be one-to-one.
     private final ArrayList<Integer> participantIds;
     private final ArrayList<Double> participantBalances;
+    // Each [i][j] entry with value E means i owes j -E amount.
+    // The actual personid has to be obtained from the id array, and i, j just
+    // represent the indices in that array where you can find them.
     private final ArrayList<ArrayList<Double>> transferMatrix;
-    private final ArrayList<Expense> expenses;
+    private final ArrayList<ArrayList<Double>> debtMatrix;
 
     /**
      * Constructor for Activity.
@@ -33,11 +38,13 @@ public class Activity {
         expenses = new ArrayList<>();
         participantBalances = new ArrayList<>();
         transferMatrix = new ArrayList<>();
+        debtMatrix = new ArrayList<>();
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);
             participantBalances.add(0.0);
             transferMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
+            debtMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
         }
     }
 
@@ -66,6 +73,15 @@ public class Activity {
     }
 
     /**
+     * Gets the transfer matrix. Every (i, j) entry reflects how much i receives
+     * from j. Negative amounts means i has to give j money.
+     */
+    public ArrayList<ArrayList<Double>> getTransferMatrix() {
+        simplifyExpenses();
+        return transferMatrix;
+    }
+
+    /**
      * Invite people to the activity.
      * @param people The people that will be added into the activity.
      */
@@ -78,8 +94,10 @@ public class Activity {
                 participantIds.add(p.getPrimaryKey());
                 participantBalances.add(0.0); // newcomers don't owe.
                 for (int j = 0; j < len; j++) {
+                    debtMatrix.get(j).add(0.0); // extend columns
                     transferMatrix.get(j).add(0.0); // extend columns
                 }
+                debtMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
                 transferMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
             }
         }
@@ -91,7 +109,7 @@ public class Activity {
      */
     public void disinvite(Person ... people) {
         // haven't implemented what if list does not contain that specific person
-        // TODO: also care about transfermatrix
+        // TODO: also care about transfermatrix and debtmatrix
     }
 
     /**
@@ -113,17 +131,19 @@ public class Activity {
             int payer = expense.getPersonId();
             double amount = expense.getAmount().getValue();
             double splitAmount = amount / participantIds.size();
-            for (int i = 0; i < participantIds.size(); i++) {
-                double temp = participantBalances.get(i);
-                // negative balance means you lent more than you borrowed.
+            int i = 0;
+            for (; i < participantIds.size(); i++) {
                 if (participantIds.get(i) == payer) {
-                    participantBalances.set(i, temp - amount + splitAmount);
-                } else {
-                    participantBalances.set(i, temp + splitAmount);
+                    break;
+                }
+            }
+
+            for (int j = 0; j < debtMatrix.size(); j++) {
+                if (j != i) {
+                    debtMatrix.get(j).set(i, debtMatrix.get(j).get(i) + splitAmount);
                 }
             }
         }
-        simplifyExpenses();
     }
 
     /**
@@ -134,6 +154,19 @@ public class Activity {
         int i = 0;
         int j = 0;
         int n = participantBalances.size();
+
+        // negative balance means you lent more than you borrowed.
+        for (int a = 0; a < debtMatrix.size(); a++) {
+            double acc = 0;
+            for (int b = 0; b < debtMatrix.size(); b++) {
+                acc += debtMatrix.get(a).get(b);
+                acc -= debtMatrix.get(b).get(a);
+                transferMatrix.get(a).set(b, 0.0);
+            }
+            participantBalances.set(a, acc);
+        }
+
+        System.out.println("Balances: " + participantBalances.toString());
 
         while (i != n && j != n) {
             double bi;
@@ -152,9 +185,10 @@ public class Activity {
             transferMatrix.get(j).set(i, transferMatrix.get(j).get(i) + m);
             participantBalances.set(i, bi - m);
             participantBalances.set(j, bj + m);
-            for (ArrayList<Double> a : transferMatrix) {
-                System.out.println(a.toString());
-            }
+        }
+        System.out.println("Transfer matrix:");
+        for (ArrayList<Double> a : transferMatrix) {
+            System.out.println(a.toString());
         }
     }
 
