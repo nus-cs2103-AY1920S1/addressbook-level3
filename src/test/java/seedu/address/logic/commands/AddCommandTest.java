@@ -289,6 +289,9 @@ public class AddCommandTest {
         }
 
         @Override
+        public void saveAddressBookState() {}
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }

@@ -283,6 +283,9 @@ public class AddPolicyCommandTest {
         }
 
         @Override
+        public void saveAddressBookState() {}
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
