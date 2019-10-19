@@ -71,7 +71,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
                                         + events.get(index).getExpenditure().get().getBudget()
                                         .toString());
                             } else {
-                                totalBudgetLabel.setText("NO BUDGET SET");
+                                totalBudgetLabel.setText("Total Budget: 0");
                             }
                             nameLabel.setText(events.get(index).getName().toString());
                         }
