@@ -234,43 +234,56 @@ moved into the waste list if it has not been fully used (the amount of food rema
 By default, every time the application is launched, Food Orchestra helps you check which items
 are expired and automatically moves them into the waste list.
 
-==== Viewing the waste list: `wlist`
+==== Viewing the waste list: `wlist list`
 
 Shows a list of the food items which have been wasted +
-Format: `wlist [m/MONTH_OF_YEAR]` +
+Format: `wlist list [m/MONTH_OF_YEAR]` +
 ****
 * If a particular month is specified, the food waste of the particular month will be displayed.
 Otherwise, the food waste of the current month is displayed.
-* The `MONTH_OF_YEAR` should be in the format `mmyyyy`, e.g. `032018` indicates March of 2018.
+* The `MONTH_OF_YEAR` permits formats allowable by the Natty library. This includes both relative months
+and the exact month. We recommend specifying the format in the style of `MMM yyyy`, e.g. `sep 2019`.
+
 ****
 
 Examples:
 
 * `wlist`
-* `wlist m/022019`
+* `wlist m/sep 2019`
 
 ==== Displaying food wastage statistics: `wlist report`
 
 Shows a charted report detailing your food wastage statistics across a time frame.
-Format: `wlist report [sd/START_DATE] [ed/END_DATE]`
+Format: `wlist report [sm/START_MONTH] [em/END_MONTH]`
 
 ****
 * The report will display 3 charts: kg, litres and units of food wasted per month across the
 time frame.
-* If both the start date and the end date are not specified, the default will be for the time
-frame of 1 year, from 1 year before to the current time.
-* If only the starting date is specified, the report will show the statistics from start date
-to the year following the start_date or the current time, whichever is earlier.
-* If only the end date is specified, the report will show the statistics from the year before the
-end date to the end date.
+
+[width="100%",cols="^2,^2,10",options="header"]
+|==========================
+|Start Month |End Month |Result
+|&#10003; |&#10003; |The start and end month would follow that specified by the user.
+|&#10003; |&#10007; |The start month follows that specified by the user, and the end month
+will by one year from the start month or the current month, whichever is earlier.
+|&#10007; |&#10003; |The end month follows that specified by the user, and the start month
+will be one year before the end month of the earliest month found in your waste archive,
+whichever is later.
+|&#10007; |&#10007; |The end month would be the current month, and the start month would be
+one year ago or the earliest month found in your waste archive, whichever is later.
+|==========================
+
 * If you wish to specify both the start and end dates, please ensure that they are at least one
 month apart.
+
+* The dates can be specified in any format permissible by the Natty library. If you only wish to
+see your waste report starting 5 months ago, you can consider the command `wlist report sm/5 months ago`
 ****
 
 Examples:
 
-* `wlist report sd/3 Mar 2019`
-* `wlist report sd/3 Mar 2019 ed/4 Oct 2019`
+* `wlist report sm/Mar 2019`
+* `wlist report sm/Mar 2019 em/Oct 2019`
 
 The allowable date formats can be found in the Natty library documentation.
 
@@ -284,6 +297,13 @@ Shows the current month’s wastage statistics:
 * Predicted wastage for the month
 * Feedback on how user is managing food waste compared to the average food waste management across the past year
 ****
+
+Our prediction algorithm: +
+We first interpolate your current month's waste statistics to arrive at an estimate. Following which,
+we take a weighted average of your waste statistics across the past couple of months to provide you with
+a more reliable prediction.
+
+As with any other application, our prediction algorithm will be more accurate with more frequent usage.
 
 ==== View most commonly wasted food items: `wlist food`
 
