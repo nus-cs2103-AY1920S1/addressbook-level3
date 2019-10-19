@@ -18,6 +18,10 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelEnum;
+import seedu.algobase.ui.details.DetailsTab;
+import seedu.algobase.ui.details.DetailsTabPane;
+import seedu.algobase.ui.display.DisplayTab;
+import seedu.algobase.ui.display.DisplayTabPane;
 
 /**
  * The Main Window. Provides the basic application layout containing

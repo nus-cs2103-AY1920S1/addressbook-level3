@@ -17,7 +17,16 @@ public class ProblemDetails extends UiPart<Region> {
 
     @FXML
     private TextField name;
-
+    @FXML
+    private TextField author;
+    @FXML
+    private TextField weblink;
+    @FXML
+    private TextField difficulty;
+    @FXML
+    private TextField remark;
+    @FXML
+    private TextField source;
     @FXML
     private TextArea description;
 
@@ -25,6 +34,10 @@ public class ProblemDetails extends UiPart<Region> {
         super(FXML);
         this.problem = problem;
         name.setText(problem.getName().fullName);
+        author.setText(problem.getAuthor().value);
+        weblink.setText(problem.getWebLink().value);
         description.setText(problem.getDescription().value);
+        remark.setText(problem.getRemark().value);
+        source.setText(problem.getRemark().value);
     }
 }

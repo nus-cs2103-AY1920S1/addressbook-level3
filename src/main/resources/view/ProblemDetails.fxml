@@ -1,13 +1,97 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.ScrollPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <Label layoutX="47.0" layoutY="39.0" text="Name" />
-    <TextField fx:id="name" layoutX="47.0" layoutY="65.0" />
-    <Label layoutX="47.0" layoutY="106.0" text="Description" />
-    <TextArea fx:id="description" layoutX="47.0" layoutY="135.0" prefHeight="200.0" prefWidth="492.0" />
-  </children>
-</Pane>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane styleClass="transparent-background">
+  <ScrollPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge">
+      <VBox alignment="CENTER_LEFT">
+        <padding>
+          <Insets top="10" right="10" bottom="5" left="10" />
+        </padding>
+
+        <!-- Name-->
+        <StackPane alignment="CENTER_LEFT">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+          <Label text="Name" />
+        </StackPane>
+        <StackPane>
+          <TextField fx:id="name"/>
+        </StackPane>
+
+        <!-- Author-->
+        <StackPane alignment="CENTER_LEFT">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+          <Label text="Author" />
+        </StackPane>
+        <StackPane>
+          <TextField fx:id="author"/>
+        </StackPane>
+
+        <!-- Weblink-->
+        <StackPane alignment="CENTER_LEFT">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+          <Label text="Weblink" />
+        </StackPane>
+        <StackPane>
+          <TextField fx:id="weblink"/>
+        </StackPane>
+
+        <!-- Difficulty-->
+        <StackPane alignment="CENTER_LEFT">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+          <Label text="Difficulty" />
+        </StackPane>
+        <StackPane>
+          <TextField fx:id="difficulty"/>
+        </StackPane>
+
+        <!-- Remark-->
+        <StackPane alignment="CENTER_LEFT">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+          <Label text="Remark" />
+        </StackPane>
+        <StackPane>
+          <TextField fx:id="remark"/>
+        </StackPane>
+
+        <!-- Source-->
+        <StackPane alignment="CENTER_LEFT">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+          <Label text="Source" />
+        </StackPane>
+        <StackPane>
+          <TextField fx:id="source"/>
+        </StackPane>
+
+        <!-- Description-->
+        <StackPane alignment="CENTER_LEFT">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+          <Label text="Description" />
+        </StackPane>
+        <StackPane>
+          <TextArea fx:id="description" wrapText="true" layoutX="47.0" layoutY="135.0" prefHeight="200.0" prefWidth="492.0" />
+        </StackPane>
+      </VBox>
+  </ScrollPane>
+</AnchorPane>

@@ -1,8 +1,9 @@
-package seedu.algobase.ui;
+package seedu.algobase.ui.details;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
+import seedu.algobase.ui.UiPart;
 
 /**
  * Contains details about a specific model.

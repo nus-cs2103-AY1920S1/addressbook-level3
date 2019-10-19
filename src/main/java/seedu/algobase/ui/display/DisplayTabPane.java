@@ -1,4 +1,4 @@
-package seedu.algobase.ui;
+package seedu.algobase.ui.display;
 
 import java.util.function.Consumer;
 
@@ -10,6 +10,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.GuiState;
+import seedu.algobase.ui.UiPart;
 
 /**
  * Pane containing the different tabs.
