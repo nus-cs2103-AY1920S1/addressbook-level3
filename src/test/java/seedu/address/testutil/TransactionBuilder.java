@@ -97,7 +97,7 @@ public class TransactionBuilder {
 
     // TODO: Change constructor
     public Transaction build() {
-        return new InTransaction(amount, date);
+        return new InTransaction(amount, date, tags);
     }
 
 }
