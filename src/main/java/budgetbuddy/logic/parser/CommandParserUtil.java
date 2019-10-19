@@ -84,11 +84,14 @@ public class CommandParserUtil {
         }
 
         Long parsedCents = 0L;
-        if (dollarCentArray.length > 1) {
-            if (StringUtil.isNonNegativeUnsignedLong(dollarCentArray[1])) {
-                parsedCents = Long.parseLong(dollarCentArray[1]);
+        if (dollarCentArray.length == 2) {
+            if (dollarCentArray[1].length() <= 2
+                    && StringUtil.isNonNegativeUnsignedLong(dollarCentArray[1])) {
+                parsedCents = dollarCentArray[1].length() == 1
+                        ? Long.parseLong(dollarCentArray[1] + "0")
+                        : Long.parseLong(dollarCentArray[1]);
             } else {
-                throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+                throw new ParseException(Amount.MESSAGE_CENTS_PARSE_ERROR);
             }
         }
 

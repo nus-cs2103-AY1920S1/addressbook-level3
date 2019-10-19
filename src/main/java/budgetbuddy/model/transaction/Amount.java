@@ -10,6 +10,8 @@ public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amounts should be non-negative numbers and should not be blank.";
+    public static final String MESSAGE_CENTS_PARSE_ERROR =
+            "Cents should be at most two decimal places long.";
 
     public static final String VALIDATION_REGEX = "^\\d+$";
 
