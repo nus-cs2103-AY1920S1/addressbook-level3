@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROFILE_DESC;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -26,6 +28,15 @@ public class Profile extends UiPart<Region> {
         super(FXML);
         this.displayPicture.setImage(displayPicture);
         this.name.setText(name);
-        this.description.setText(description);
+        if (description != null) {
+            if (description.equals("")) {
+                this.description.setText("No profile description added. But that's okay, "
+                        + "you may use the [" + PREFIX_PROFILE_DESC
+                        + "] prefix to add a profile descripion anytime! :)");
+                this.description.setStyle("-fx-font-family: Arial; -fx-font-style: italic");
+            } else {
+                this.description.setText(description);
+            }
+        }
     }
 }

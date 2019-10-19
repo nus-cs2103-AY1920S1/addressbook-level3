@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.sgm.model.food.TypicalFoods.FOODS;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -20,10 +22,13 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.record.UniqueRecordList;
+import seedu.address.model.bio.UserList;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleUserDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonFoodListStorage;
@@ -31,7 +36,9 @@ import seedu.address.storage.JsonRecordListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserListStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.bio.JsonUserListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 import seedu.sgm.model.food.UniqueFoodList;
@@ -62,9 +69,10 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        UserListStorage userListStorage = new JsonUserListStorage(userPrefs.getUserListFilePath());
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(userPrefs.getRecordListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, jsonFoodListStorage, jsonRecordListStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage, jsonRecordListStorage);
 
         initLogging(config);
 
@@ -83,11 +91,19 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyUserList> userListOptional;
         ReadOnlyAddressBook initialData;
+        ReadOnlyUserList initialUserData;
+        UniqueFoodList foodList = new UniqueFoodList();
+        foodList.setFoods(FOODS);
         Optional<UniqueFoodList> foodListOptional;
         UniqueFoodList initialFoodListData;
         Optional<UniqueRecordList> recordListOptional;
         UniqueRecordList initialRecordListData;
+        RecordBook recordBook = new RecordBook();
+
+
+        // Todo Following can eventually be abstracted in later versions if there's time.
         try {
             addressBookOptional = storage.readAddressBook();
             foodListOptional = storage.readFoodList();
@@ -115,7 +131,23 @@ public class MainApp extends Application {
             initialFoodListData = new UniqueFoodList();
             initialRecordListData = new UniqueRecordList();
         }
-        return new ModelManager(initialData, userPrefs, initialFoodListData, initialRecordListData);
+      
+        try {
+            userListOptional = storage.readUserList();
+            if (!userListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            initialUserData = userListOptional.orElseGet(SampleUserDataUtil::getSampleUserList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialUserData = new UserList();
+        } catch (IOException e) {
+            logger.info("Bio Data file not found. Will be starting with a sample user list containing "
+                    + " bio data");
+            initialUserData = new UserList();
+        }
+
+        return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData, initialRecordListData);
     }
 
     private void initLogging(Config config) {

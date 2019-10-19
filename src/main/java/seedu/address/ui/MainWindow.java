@@ -9,9 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -120,10 +120,16 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts(String imagePath) {
 
-        ImageView imageView = new ImageView(imagePath);
-        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
-        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
-        mainDisplayPanePlaceholder.getChildren().add(imageView);
+        //        ImageView imageView = new ImageView(imagePath);
+        //        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
+        //        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
+        //        imageView.setPreserveRatio(true);
+        //        mainDisplayPanePlaceholder.getChildren().add(imageView);
+
+        mainDisplayPanePlaceholder.setStyle("-fx-background-image: url('" + imagePath + "'); "
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: no-repeat;"
+                + "-fx-background-size: contain;");
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -158,11 +164,12 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the main display pane to the specified UI part.
      */
-    public void switchToMainDisplayPane(DisplayPaneType displayPaneType) {
-        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType())) {
+    public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
+        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated == true) {
+            mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(displayPaneType).getRoot()));
+                .add(requireNonNull(mainDisplayPane.get(displayPaneType, newPaneIsToBeCreated).getRoot()));
         }
     }
 
@@ -200,16 +207,25 @@ public class MainWindow extends UiPart<Stage> {
 
             CommandResult commandResult = logic.execute(commandText);
 
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
+                return commandResult;
             }
 
             if (commandResult.isExit()) {
                 handleExit();
+                return commandResult;
             } else {
-                switchToMainDisplayPane(logic.getDisplayPaneType());
-                logger.info("Result: " + commandResult.getFeedbackToUser());
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                try {
+                    switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getnewPaneIsToBeCreated());
+                    logger.info("Result: " + commandResult.getFeedbackToUser());
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                } catch (NullPointerException e) {
+                    return new CommandResult("Unable to load window");
+                }
             }
 
             return commandResult;

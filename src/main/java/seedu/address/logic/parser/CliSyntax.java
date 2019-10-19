@@ -9,6 +9,21 @@ import java.util.List;
 public class CliSyntax {
 
     /* Prefix definitions */
+
+    // Biography Prefixes
+    public static final Prefix PREFIX_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_PROFILE_DESC = new Prefix("desc/");
+    public static final Prefix PREFIX_NRIC = new Prefix("nric/");
+    public static final Prefix PREFIX_GENDER = new Prefix("gender/");
+    public static final Prefix PREFIX_DATE_OF_BIRTH = new Prefix("dob/");
+    public static final Prefix PREFIX_CONTACT_NUMBER = new Prefix("p/");
+    public static final Prefix PREFIX_EMERGENCY_CONTACT = new Prefix("e/");
+    public static final Prefix PREFIX_MEDICAL_CONDITION = new Prefix("m/");
+    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
+    public static final Prefix PREFIX_GOALS = new Prefix("goal/");
+    public static final Prefix PREFIX_OTHER_BIO_INFO = new Prefix("o/");
+
+    // Record Prefixes
     public static final Prefix PREFIX_RECORDTYPE = new Prefix("rt/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
 
@@ -17,14 +32,12 @@ public class CliSyntax {
     public static final Prefix PREFIX_BMI_HEIGHT = new Prefix("h/");
     public static final Prefix PREFIX_BMI_WEIGHT = new Prefix("w/");
 
+    // Calendar Prefixes
     public static final Prefix PREFIX_CALENDAR_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_CALENDAR_REPETITION = new Prefix("r/");
     public static final Prefix PREFIX_TIME_PERIOD = new Prefix("tp/");
 
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
+    // Stats Prefixes
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_FOOD = new Prefix("fn/");
     public static final Prefix PREFIX_FOOD_TYPE = new Prefix("ft/");
@@ -33,6 +46,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_SUGAR = new Prefix("s/");
     public static final Prefix PREFIX_FAT = new Prefix("f/");
 
+    // Food Recommendation Prefixes
     public static final String ABBR_NON_STARCHY_VEGETABLE = "nsv";
     public static final String ABBR_STARCHY_VEGETABLE = "sv";
     public static final String ABBR_FRUIT = "f";
@@ -50,5 +64,8 @@ public class CliSyntax {
     public static final List<Flag> FLAGS = Arrays.asList(new Flag[]{FLAG_NSV, FLAG_SV, FLAG_F, FLAG_P, FLAG_S, FLAG_M});
     public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
     public static final Prefix PREFIX_COUNT = new Prefix("n/");
+
+    public static final Prefix PREFIX_PHONE = new Prefix("p/");
+    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
 
 }

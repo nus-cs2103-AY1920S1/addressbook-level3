@@ -27,4 +27,9 @@ public abstract class Command {
     public DisplayPaneType getDisplayPaneType() {
         return null;
     }
+
+    public boolean getnewPaneIsToBeCreated() {
+        return false;
+    }
+
 }

@@ -26,6 +26,7 @@ import seedu.address.storage.JsonFoodListStorage;
 import seedu.address.storage.JsonRecordListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.bio.JsonUserListStorage;
 import seedu.sgm.model.food.UniqueFoodList;
 
 public class LogicManagerTest {
@@ -42,11 +43,12 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
             new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        JsonUserListStorage userListStorage = new JsonUserListStorage(temporaryFolder.resolve("userList.json"));
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(temporaryFolder.resolve("foodList.json"));
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(
             temporaryFolder.resolve("recordList.json")
         );
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, jsonFoodListStorage,
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
             jsonRecordListStorage);
         logic = new LogicManager(model, storage);
     }
@@ -134,8 +136,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UniqueFoodList(),
-            new UniqueRecordList());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getUserList(), 
+                                               new UniqueFoodList(), new UniqueRecordList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

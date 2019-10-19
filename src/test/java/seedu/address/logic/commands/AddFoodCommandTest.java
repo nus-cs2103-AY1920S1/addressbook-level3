@@ -18,7 +18,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRecordBook;
+import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.bio.User;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
@@ -243,6 +246,59 @@ class AddFoodCommandTest {
         @Override
         public void setRecordList(UniqueRecordList newRecordList) {
 
+        }
+      
+        //=========== User List =============================================================
+        @Override
+        public void setUserList(ReadOnlyUserList userList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean bioExists() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserList getUserList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getUserListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasUser(User user) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addUser(User user) {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public ObservableList<User> getFilteredUserList() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public void updateFilteredUserList(Predicate<User> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUser(User target, User editedUser) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserListFilePath(Path userListFilePath) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
