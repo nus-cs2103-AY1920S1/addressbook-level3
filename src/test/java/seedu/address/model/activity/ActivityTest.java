@@ -1,7 +1,10 @@
 package seedu.address.model.activity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +13,16 @@ import seedu.address.testutil.TypicalActivities;
 import seedu.address.testutil.TypicalPersons;
 
 public class ActivityTest {
+
+    @Test
+    public void getParticipantIds() {
+        Activity lunch = TypicalActivities.LUNCH;
+        ArrayList<Integer> expectedIds = new ArrayList<Integer>();
+        expectedIds.add(TypicalPersons.BENSON.getPrimaryKey());
+        expectedIds.add(TypicalPersons.CARL.getPrimaryKey());
+
+        assertEquals(lunch.getParticipantIds(), expectedIds);
+    }
 
     @Test
     public void hasPerson() {
