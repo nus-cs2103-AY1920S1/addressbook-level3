@@ -3,8 +3,10 @@ package io.xpire.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.commons.core.Messages;
+import io.xpire.logic.parser.XpireParser;
 import io.xpire.model.Model;
 import io.xpire.model.item.ContainsKeywordsPredicate;
+import io.xpire.model.item.Name;
 
 /**
  * Searches and displays all items whose name contains any of the argument keywords.
@@ -29,8 +31,16 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredItemList(this.predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, model.getFilteredItemList().size()));
+        StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
+                model.getFilteredItemList().size()));
+        if (model.getFilteredItemList().size() == 0) {
+            for (String s: predicate.getKeywords()) {
+                sb.append(XpireParser.findSimilar(s, Name.getAllNames(), 2));
+            }
+            //TODO: save and find tags
+            //TODO: remove names for deleted items
+        }
+        return new CommandResult(sb.toString());
     }
 
     @Override

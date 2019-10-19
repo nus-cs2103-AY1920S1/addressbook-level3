@@ -54,4 +54,8 @@ public class ContainsKeywordsPredicate implements Predicate<Item> {
     public int hashCode() {
         return this.keywords.hashCode();
     }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
 }

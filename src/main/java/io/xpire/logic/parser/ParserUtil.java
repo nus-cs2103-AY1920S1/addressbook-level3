@@ -126,7 +126,9 @@ public class ParserUtil {
         requireNonNull(key);
         String trimmedMethodOfSorting = key.trim();
         if (!MethodOfSorting.isValidMethodOfSorting(trimmedMethodOfSorting)) {
-            throw new ParseException(MethodOfSorting.MESSAGE_CONSTRAINTS);
+            Set<String> allowedArgs = new TreeSet<>(Arrays.asList(new String[]{"name", "date"}));
+            String output = XpireParser.findSimilar(key, allowedArgs, 2);
+            throw new ParseException(MethodOfSorting.MESSAGE_CONSTRAINTS + output);
         }
         return new MethodOfSorting(trimmedMethodOfSorting);
     }

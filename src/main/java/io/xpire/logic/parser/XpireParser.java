@@ -3,6 +3,10 @@ package io.xpire.logic.parser;
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+
 import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.commands.AddCommand;
 import io.xpire.logic.commands.CheckCommand;
@@ -94,22 +98,32 @@ public class XpireParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseUnknownCommandWord(String command) throws ParseException {
+    public static Command parseUnknownCommandWord(String command) throws ParseException {
 
         StringBuilder sb = new StringBuilder(MESSAGE_UNKNOWN_COMMAND);
         String[] allCommandWords = new String[] {
-                AddCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
-                ClearCommand.COMMAND_WORD, SearchCommand.COMMAND_WORD,
-                ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-                HelpCommand.COMMAND_WORD, SortCommand.COMMAND_WORD,
-                SetReminderCommand.COMMAND_WORD, TagCommand.COMMAND_WORD
+            AddCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
+            ClearCommand.COMMAND_WORD, SearchCommand.COMMAND_WORD,
+            ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+            HelpCommand.COMMAND_WORD, SortCommand.COMMAND_WORD,
+            SetReminderCommand.COMMAND_WORD, TagCommand.COMMAND_WORD
         };
-        if (!StringUtil.getSuggestions(command, allCommandWords).isEmpty()){
-            sb.append(". Did you perhaps mean ")
-              .append(StringUtil.getSuggestions(command, allCommandWords))
-              .append("?");
-        }
-        //Arrays.asList(allCommands).indexOf(commandWord);
+        Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
+        sb.append(findSimilar(command, allCommandsSet, 1));
         throw new ParseException(sb.toString());
+    }
+
+    /**
+     * Finds similar words to the word specified.
+     * @param word The word specified to find similar words for.
+     * @param allWordsToCompare The set that contains all words to compare the word to.
+     * @param limit The maximum degree of polarity between words acceptable.
+     * @return The string which contains all similar words.
+     */
+    public static String findSimilar(String word, Set<String> allWordsToCompare, int limit) {
+        if (!StringUtil.getSuggestions(word, allWordsToCompare, limit).isEmpty()) {
+            return " Did you perhaps mean " + StringUtil.getSuggestions(word, allWordsToCompare, limit) + "?";
+        }
+        return "";
     }
 }
