@@ -188,7 +188,8 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isFetch()) {
-                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(), logic.getFilteredEventList().get(0));
+                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(),
+                        logic.getFilteredEventList(), logic.getFilteredEventList().get(0));
                 listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
             } else {
                 listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());

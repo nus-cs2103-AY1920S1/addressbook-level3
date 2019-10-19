@@ -37,7 +37,8 @@ public class ManualAllocateCommand extends Command {
     private final Index eventIndex;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param eventIndex of the event in the filtered event list to edit
+     * @param index of the person in the filtered person list to add to event
      */
     public ManualAllocateCommand(Index eventIndex, Index index) {
         requireNonNull(index);
@@ -63,6 +64,9 @@ public class ManualAllocateCommand extends Command {
 
         Employee personToAdd = lastShownList.get(index.getZeroBased());
         Event eventToEdit = lastShownEventList.get(eventIndex.getZeroBased());
+        if (!eventToEdit.isAvailableForEvent(personToAdd, model.getFilteredEventList())) {
+            throw new CommandException(Messages.MESSAGE_UNAVAILABLE_MANPOWER);
+        }
         eventToEdit.getManpowerAllocatedList().allocateEmployee(personToAdd.getEmployeeId().id);
 
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
@@ -80,7 +84,7 @@ public class ManualAllocateCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof ManualAllocateCommand)) {
             return false;
         }
 

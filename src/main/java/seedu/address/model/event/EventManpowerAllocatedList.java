@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * List of employees allocated as manpower for the Event.
  */
 public class EventManpowerAllocatedList {
-    public List<String> manpowerList;
+    private List<String> manpowerList;
 
     /**
      * Constructs a {@code Name}.
@@ -18,20 +18,20 @@ public class EventManpowerAllocatedList {
         manpowerList = new ArrayList<>();
     }
 
-    /*public EventManpowerAllocatedList(String unprocessedList) {
-        if (unprocessedList == null) {
-            return;
-        }
-        String[] personIds = unprocessedList.split(" ");
-        manpowerList = Arrays.stream(personIds).collect(Collectors.toList());
-    }*/
+    public List<String> getManpowerList() {
+        return manpowerList;
+    }
 
     public void setManpowerAllocatedList(String unprocessedList) {
-        if (unprocessedList == null) {
+        if (unprocessedList.equals("")) {
             return;
         }
         String[] personIds = unprocessedList.split(" ");
         manpowerList = Arrays.stream(personIds).collect(Collectors.toList());
+    }
+
+    public int getCurrentManpowerCount() {
+        return manpowerList.size();
     }
 
     /**
@@ -68,4 +68,7 @@ public class EventManpowerAllocatedList {
     public int hashCode() {
         return manpowerList.hashCode();
     }
+
+
+
 }

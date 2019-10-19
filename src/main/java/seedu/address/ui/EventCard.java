@@ -29,6 +29,8 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label startDate;
     @FXML
+    private Label manpowerCount;
+    @FXML
     private FlowPane tags;
 
     public EventCard(Event event, int displayedIndex) {
@@ -37,6 +39,8 @@ public class EventCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().eventName);
         venue.setText(event.getVenue().venue);
+        manpowerCount.setText("Manpower: " + event.getManpowerAllocatedList().getCurrentManpowerCount() + " / "
+                + event.getManpowerNeeded().value);
         startDate.setText(event.getStartDate().date + " to "
                 + event.getEndDate().date);
         event.getTags().stream()

@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import java.net.URL;
-import java.util.Collections;
-import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -28,23 +25,23 @@ public class ListPanelForFetch extends UiPart<Region> {
     private ListView<Employee> personListView;
 
     @FXML
-    private ListView<Employee>  eventListView;
+    private ListView<Employee> eventListView;
 
     @FXML
     private Text eventDescription;
 
-
     /**
      * Constructor for fetch command
      */
-    public ListPanelForFetch(ObservableList<Employee> employeeList, Event event) { //supposed to filter unavailable employees
+    public ListPanelForFetch(ObservableList<Employee> employeeList,
+                             ObservableList<Event> filteredEventList, Event event) {
 
         super(FXML);
-        ObservableList<Employee> list = event.getManpowerAllocatedList().manpowerList.stream()
+        ObservableList<Employee> list = event.getManpowerAllocatedList().getManpowerList().stream()
                 .flatMap(x -> employeeList.stream().map(y -> y.getEmployeeId().id.equals(x) ? y : new Employee()))
                 .filter(employee -> employee.getEmployeeName() != null)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        personListView.setItems(employeeList);
+        personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
         personListView.setCellFactory(listView -> new PersonListViewCell());
         eventListView.setItems(list);
         eventListView.setCellFactory(listView -> new PersonListViewCell());

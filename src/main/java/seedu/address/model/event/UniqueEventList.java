@@ -27,8 +27,7 @@ public class UniqueEventList {
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
-        //return internalList.stream().anyMatch(toCheck::isSameEvent);
-        return false;
+        return internalList.stream().anyMatch(toCheck::isSameEvent);
     }
 
     /**
@@ -48,19 +47,19 @@ public class UniqueEventList {
      * {@code target} must exist in the list.
      * The employee identity of {@code editedPerson} must not be the same as another existing employee in the list.
      */
-    public void setEvent(Event target, Event editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new EmployeeNotFoundException();
         }
 
-        if (!target.isSameEvent(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
             throw new DuplicateEmployeeException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedEvent);
     }
 
     /**

@@ -1,11 +1,7 @@
 package seedu.address.ui;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -62,7 +58,6 @@ public class ListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Event event, boolean empty) {
             super.updateItem(event, empty);
-            //setGraphic(new EventCard(event, getIndex() + 1).getRoot());
             if (empty || event == null) {
                 setGraphic(null);
                 setText(null);
