@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
@@ -53,11 +53,20 @@ public class TypicalMentors {
                                               new Name("Organization C"),
                                               SubjectName.ENVIRONMENTAL);
 
+    /**
+     * Gets the Typical Mentors in the form of a List.
+     * @return List of Typical Mentors
+     */
     public static List<Mentor> getTypicalMentors() {
         return new ArrayList<>(Arrays.asList(A, B, C));
     }
 
-    public static MentorList getTypicalMentorList() throws AlfredException {
+    /**
+     * Gets the Typical Mentors in the form of a MentorList.
+     * @return MentorList containing Typical Mentors
+     * @throws AlfredModelException
+     */
+    public static MentorList getTypicalMentorList() throws AlfredModelException {
         MentorList mList = new MentorList();
         for (Mentor m: getTypicalMentors()) {
             mList.add(m);

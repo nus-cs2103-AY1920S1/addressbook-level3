@@ -2,10 +2,11 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Name;
@@ -71,17 +72,88 @@ public class TypicalTeams {
                                           ProjectType.PLACEHOLDER,
                                           new Location(3));
 
+    //With empty Optional<Mentor>
+    public static final Team D = new Team(new Id(PrefixType.T, 4),
+                                          new Name("Team D"),
+                                          TypicalParticipants.getTypicalParticipants(),
+                                          Optional.empty(),
+                                          SubjectName.HEALTH,
+                                          new Score(5),
+                                          new Name("Project Delta"),
+                                          ProjectType.PLACEHOLDER,
+                                          new Location(4));
+
+    //With empty ParticipantList
+    public static final Team E = new Team(new Id(PrefixType.T, 5),
+                                          new Name("Team E"),
+                                          new LinkedList<Participant>(),
+                                          Optional.of(TypicalMentors.C),
+                                          SubjectName.HEALTH,
+                                          new Score(5),
+                                          new Name("Project Epsilon"),
+                                          ProjectType.PLACEHOLDER,
+                                          new Location(5));
+
+    /**
+     * Retrieves a List of Typical Teams.
+     * @return List of Typical Teams
+     */
     public static List<Team> getTypicalTeams() {
         return new ArrayList<>(Arrays.asList(A, B, C));
     }
 
-    public static TeamList getTypicalTeamList() throws AlfredException {
+    /**
+     * Retrieves a typical TeamList.
+     * @return typical TeamList
+     */
+    public static TeamList getTypicalTeamList() throws AlfredModelException {
         TeamList tList = new TeamList();
         for (Team t: getTypicalTeams()) {
             tList.add(t);
         }
         return tList;
     }
+
+    /**
+     * Retrieves a List of Teams with a single Team that contains an Optional Mentor.
+     * @return List of Teams with a single Team that contains an Optional Mentor
+     */
+    public static List<Team> getTypicalTeamsWithOptionalMentor() {
+        return new ArrayList<>(Arrays.asList(A, B, D)); //D contains the Optional Mentor
+    }
+
+    /**
+     * Retrieves a TeamList with a single Team that contains an Optional Mentor.
+     * @return TeamList with a single Team that contains an Optional Mentor
+     */
+    public static TeamList getTeamListWithOptionalMentor() throws AlfredModelException {
+        TeamList tList = new TeamList();
+        for (Team t: getTypicalTeamsWithOptionalMentor()) {
+            tList.add(t);
+        }
+        return tList;
+    }
+
+    /**
+     * Retrieves a List of Teams with a single Team that contains an empty ParticipantList.
+     * @return List of Teams with a single Team that contains an empty ParticipantList
+     */
+    public static List<Team> getTypicalTeamsWithEmptyParticipantList() {
+        return new ArrayList<>(Arrays.asList(A, B, E)); //E contains the empty ParticipantList
+    }
+
+    /**
+     * Retrieves a TeamList with a single Team that contains an empty ParticipantList.
+     * @return TeamList with a single Team that contains an empty ParticipantList
+     */
+    public static TeamList getTeamListWithEmptyParticipantList() throws AlfredModelException {
+        TeamList tList = new TeamList();
+        for (Team t: getTypicalTeamsWithEmptyParticipantList()) {
+            tList.add(t);
+        }
+        return tList;
+    }
+
 
     /**
      * Initialize the listA with the values needed.
