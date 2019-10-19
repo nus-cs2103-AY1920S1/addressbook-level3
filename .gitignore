@@ -9,11 +9,15 @@ src/main/resources/docs/
 /*.iml
 
 # Storage/log files
-/data/
+/data/addressbookquiz.json
+/data/calendardata.json
+/data/financelog.json
 /config.json
 /preferences.json
-/preferencesQuiz.json
 /preferencesFinance.json
+/cappreferences.json
+/calendarpreferences.json
+/preferencesQuiz.json
 /*.log.*
 /.settings/
 

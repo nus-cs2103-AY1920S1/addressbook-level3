@@ -7,8 +7,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.calendar.commands.CommandResult;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
-import seedu.address.model.calendar.person.Person;
+import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
+import seedu.address.model.calendar.person.Task;
 
 /**
  * API of the Logic component
@@ -24,14 +24,14 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the CalendarAddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyCalendarAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Task> getFilteredPersonList();
 
     /**
      * Returns the user prefs' address book file path.

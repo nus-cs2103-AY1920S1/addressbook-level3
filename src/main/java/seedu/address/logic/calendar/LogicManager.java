@@ -12,11 +12,10 @@ import seedu.address.logic.calendar.commands.CommandResult;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.logic.calendar.parser.AddressBookParser;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.Model;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
-import seedu.address.model.calendar.person.Person;
+import seedu.address.model.calendar.CalendarModel;
+import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
+import seedu.address.model.calendar.person.Task;
 import seedu.address.storage.calendar.Storage;
-
 
 /**
  * The main LogicManager of the app.
@@ -25,12 +24,12 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    private final CalendarModel calendarModel;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public LogicManager(Model model, Storage storage) {
-        this.model = model;
+    public LogicManager(CalendarModel calendarModel, Storage storage) {
+        this.calendarModel = calendarModel;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
     }
@@ -43,12 +42,12 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         //Parse user input from String to a Command
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        commandResult = command.execute(calendarModel);
 
         try {
-            //We can deduce that the previous line of code modifies model in some way
+            //We can deduce that the previous line of code modifies calendarModel in some way
             // since it's being stored here.
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(calendarModel.getCalendarAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -57,27 +56,27 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyCalendarAddressBook getAddressBook() {
+        return calendarModel.getCalendarAddressBook();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Task> getFilteredPersonList() {
+        return calendarModel.getFilteredPersonList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return calendarModel.getAddressBookFilePath();
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
+        return calendarModel.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
+        calendarModel.setGuiSettings(guiSettings);
     }
 }

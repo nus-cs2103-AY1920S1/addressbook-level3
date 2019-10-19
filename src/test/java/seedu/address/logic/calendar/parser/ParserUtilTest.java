@@ -15,11 +15,11 @@
 //
 //import seedu.address.logic.parser.ParserUtil;
 //import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.person.Address;
-//import seedu.address.model.person.Email;
-//import seedu.address.model.person.Name;
-//import seedu.address.model.person.Phone;
-//import seedu.address.model.tag.Tag;
+//import seedu.address.calendarModel.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskDescription;
+//import seedu.address.calendarModel.task.TaskTitle;
+//import seedu.address.calendarModel.task.TaskTime;
+//import seedu.address.calendarModel.tag.TaskTag;
 //
 //
 //
@@ -72,14 +72,14 @@
 //
 //    @Test
 //    public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-//        Name expectedName = new Name(VALID_NAME);
+//        TaskTitle expectedName = new TaskTitle(VALID_NAME);
 //        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
 //    }
 //
 //    @Test
 //    public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
 //        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-//        Name expectedName = new Name(VALID_NAME);
+//        TaskTitle expectedName = new TaskTitle(VALID_NAME);
 //        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
 //    }
 //
@@ -95,14 +95,14 @@
 //
 //    @Test
 //    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-//        Phone expectedPhone = new Phone(VALID_PHONE);
+//        TaskTime expectedPhone = new TaskTime(VALID_PHONE);
 //        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
 //    }
 //
 //    @Test
 //    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
 //        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-//        Phone expectedPhone = new Phone(VALID_PHONE);
+//        TaskTime expectedPhone = new TaskTime(VALID_PHONE);
 //        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
 //    }
 //
@@ -118,14 +118,14 @@
 //
 //    @Test
 //    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-//        Address expectedAddress = new Address(VALID_ADDRESS);
+//        TaskPlace expectedAddress = new TaskPlace(VALID_ADDRESS);
 //        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
 //    }
 //
 //    @Test
 //    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
 //        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-//        Address expectedAddress = new Address(VALID_ADDRESS);
+//        TaskPlace expectedAddress = new TaskPlace(VALID_ADDRESS);
 //        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
 //    }
 //
@@ -141,14 +141,14 @@
 //
 //    @Test
 //    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-//        Email expectedEmail = new Email(VALID_EMAIL);
+//        TaskDescription expectedEmail = new TaskDescription(VALID_EMAIL);
 //        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
 //    }
 //
 //    @Test
 //    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
 //        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-//        Email expectedEmail = new Email(VALID_EMAIL);
+//        TaskDescription expectedEmail = new TaskDescription(VALID_EMAIL);
 //        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
 //    }
 //
@@ -164,14 +164,14 @@
 //
 //    @Test
 //    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-//        Tag expectedTag = new Tag(VALID_TAG_1);
+//        TaskTag expectedTag = new TaskTag(VALID_TAG_1);
 //        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
 //    }
 //
 //    @Test
 //    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
 //        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-//        Tag expectedTag = new Tag(VALID_TAG_1);
+//        TaskTag expectedTag = new TaskTag(VALID_TAG_1);
 //        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
 //    }
 //
@@ -192,8 +192,9 @@
 //
 //    @Test
 //    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-//        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-//        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+//        Set<TaskTag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+//        Set<TaskTag> expectedTagSet
+//                = new HashSet<TaskTag>(Arrays.asList(new TaskTag(VALID_TAG_1), new TaskTag(VALID_TAG_2)));
 //
 //        assertEquals(expectedTagSet, actualTagSet);
 //    }
