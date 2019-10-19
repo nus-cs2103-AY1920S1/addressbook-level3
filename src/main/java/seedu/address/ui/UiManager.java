@@ -11,6 +11,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.model.dashboard.components.Dashboard;
 
 /**
  * The manager of the UI component.
@@ -27,6 +28,7 @@ public class UiManager implements Ui {
     private TempWindow tempWindow;
     private RecipeBookWindow recipeBookWindow;
     private DiaryWindow diaryWindow;
+    private DashboardWindow dashboardWindow;
 
     public UiManager(Logic logic) {
         super();

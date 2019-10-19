@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.dashboard.components.Dashboard;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -166,8 +167,9 @@ public class WorkoutPlannerWindow extends UiPart<Stage> {
     @FXML
     private void switchHome() {
         primaryStage.hide();
-        TempWindow tempWindow = new TempWindow(getPrimaryStage(), logic);
-        tempWindow.show();
+        DashboardWindow dashboardWindow = new DashboardWindow(getPrimaryStage(), logic);
+        dashboardWindow.show();
+        dashboardWindow.fillInnerParts();
     }
 
     /**
