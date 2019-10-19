@@ -28,8 +28,12 @@ public class ClassFile {
         return this.classPath;
     }
 
+    public String getAbsolutePath() {
+        return classPath + canonicalName.replace(".", File.separator) + ".class";
+    }
+
     public File getFile() {
-        String absolutePath = classPath + canonicalName.replace(".", File.separator) + ".class";
+        String absolutePath = this.getAbsolutePath();
         return new File(absolutePath);
     }
 }

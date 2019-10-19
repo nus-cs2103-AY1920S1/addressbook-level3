@@ -94,7 +94,9 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
             // Discard any references to previously created files
             this.createdFiles.clear();
-            logger.info("Compiler environment successfully cleared.");
+
+            String path = locationPath.toUri().getPath();
+            logger.info("Compiler environment successfully cleared: " + path);
         } catch (IOException e) {
             throw new CompilerEnvironmentException(messageClearEnvironmentFailed);
         }
@@ -111,7 +113,9 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
             // Discard any references to previously created files
             this.createdFiles.clear();
-            logger.info("Compiler environment successfully closed.");
+
+            String path = locationPath.toUri().getPath();
+            logger.info("Compiler environment successfully closed: " + path);
         } catch (IOException e) {
             logger.info(messageClearEnvironmentFailed);
         }
@@ -136,7 +140,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                 throw new CompilerEnvironmentException(messageCreateEnvironmentFailed);
             }
 
-            logger.info("Created root directory for compiler environment");
+            logger.info("Created root directory for compiler environment: " + directoryPath);
         } catch (SecurityException e) {
             throw new CompilerEnvironmentException(messageNoPermissions, e);
         }
@@ -150,7 +154,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
      * @throws JavaFileCreationException if the file creation fails.
      */
     private File createEmptyJavaFileInEnvironment(String canonicalName) throws JavaFileCreationException {
-        logger.info("Creating temporary Java file: " + canonicalName);
+        String path = locationPath.toUri().getPath();
 
         // Split the canonical name into individual subpackages and create a corresponding path.
         Path filePath = Arrays.stream(canonicalName.split("\\."))
@@ -159,6 +163,8 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
         // Add .java extension to the file path
         filePath = filePath.resolveSibling(filePath.getFileName() + ".java");
         File file = filePath.toFile();
+
+        logger.info("Creating temporary Java file: " + file.getPath());
 
         // Create the directories and file
         try {
@@ -173,7 +179,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             throw new JavaFileCreationException(messageCreateJavaFileFailed);
         }
 
-        logger.info("Java file created: " + canonicalName);
+        logger.info("Java file created: " + file.getPath());
 
         return file;
     }
@@ -185,7 +191,8 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
      * @throws JavaFileCreationException if the program write fails.
      */
     private void writeProgramToJavaFile(File javaFile, String program) throws JavaFileCreationException {
-        logger.info("Writing source code to file: " + javaFile.getName());
+        String path = locationPath.toUri().getPath();
+        logger.info("Writing source code to file: " + javaFile.getPath());
 
         try {
             // Get an output writer to the file
@@ -204,6 +211,6 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             throw new JavaFileCreationException(messageWriteJavaFileFailed);
         }
 
-        logger.info("Source code successfully written to file: " + javaFile.getName());
+        logger.info("Source code successfully written to file: " + javaFile.getPath());
     }
 }

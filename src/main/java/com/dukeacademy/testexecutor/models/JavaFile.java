@@ -28,14 +28,22 @@ public class JavaFile {
         return this.classPath;
     }
 
+    public String getAbsolutePath() {
+        String trimmedClassPath = classPath;
+        if (classPath.lastIndexOf(File.separator) == classPath.length() - 1) {
+            trimmedClassPath = classPath.substring(0, classPath.length() - 1);
+        }
+
+        return trimmedClassPath + File.separator + canonicalName.replace(".", File.separator) + ".java";
+    }
+
     public File getFile() {
         String trimmedClassPath = classPath;
         if (classPath.lastIndexOf(File.separator) == classPath.length() - 1) {
             trimmedClassPath = classPath.substring(0, classPath.length() - 1);
         }
 
-        String absolutePath = trimmedClassPath + File.separator + canonicalName.replace(".", File.separator) + ".java";
-        return new File(absolutePath);
+        return new File(this.getAbsolutePath());
     }
 
     @Override

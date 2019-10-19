@@ -27,6 +27,10 @@ public class StandardObservable<T> implements Observable<T> {
         this.listeners.forEach(listener -> listener.onUpdate(value));
     }
 
+    public void clearListeners() {
+        this.listeners.clear();
+    }
+
     @Override
     public void addListener(Listener<T> listener) {
         this.listeners.add(listener);

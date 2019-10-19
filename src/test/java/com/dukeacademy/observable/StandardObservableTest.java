@@ -48,9 +48,19 @@ class StandardObservableTest {
     @Test
     void addListener() {
         TestListener<String> stringTestListener = new TestListener<>();
+        TestListener<String> stringTestListener1 = new TestListener<>();
+        TestListener<String> stringTestListener2 = new TestListener<>();
         stringStandardObservable.addListener(stringTestListener);
+        stringStandardObservable.addListener(stringTestListener1);
+        stringStandardObservable.addListener(stringTestListener2);
         stringStandardObservable.setValue("DukeAcademy");
         assertEquals("DukeAcademy", stringTestListener.getLatestValue());
+        assertEquals("DukeAcademy", stringTestListener1.getLatestValue());
+        assertEquals("DukeAcademy", stringTestListener2.getLatestValue());
+        stringStandardObservable.setValue("CS2103T rocks");
+        assertEquals("CS2103T rocks", stringTestListener.getLatestValue());
+        assertEquals("CS2103T rocks", stringTestListener1.getLatestValue());
+        assertEquals("CS2103T rocks", stringTestListener2.getLatestValue());
 
         TestListener<Integer> integerTestListener = new TestListener<>();
         integerStandardObservable.addListener(integerTestListener);
@@ -82,5 +92,21 @@ class StandardObservableTest {
         booleanStandardObservable.removeListener(booleanTestListener);
         booleanStandardObservable.setValue(true);
         assertNull(booleanTestListener.getLatestValue());
+    }
+
+    @Test
+    void clearListeners() {
+        TestListener<String> stringTestListener = new TestListener<>();
+        TestListener<String> stringTestListener1 = new TestListener<>();
+        TestListener<String> stringTestListener2 = new TestListener<>();
+        stringStandardObservable.addListener(stringTestListener);
+        stringStandardObservable.addListener(stringTestListener1);
+        stringStandardObservable.addListener(stringTestListener2);
+
+        stringStandardObservable.clearListeners();
+        stringStandardObservable.setValue("DukeAcademy");
+        assertNull(stringTestListener.getLatestValue());
+        assertNull(stringTestListener1.getLatestValue());
+        assertNull(stringTestListener2.getLatestValue());
     }
 }

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -57,5 +58,17 @@ class JavaFileTest {
         tempFolder.resolve("Foo.java").toFile().createNewFile();
         JavaFile javaFile3 = new JavaFile("Foo", basePath);
         assertNotEquals(javaFile1, javaFile3);
+    }
+
+    @Test
+    void getAbsolutePath() throws IOException {
+        String basePath = tempFolder.toUri().getPath();
+
+        tempFolder.resolve("nested").toFile().mkdir();
+        tempFolder.resolve("nested").resolve("Bar.java").toFile().createNewFile();
+        JavaFile file = new JavaFile("nested.Bar", basePath);
+
+        String expectedPath = basePath + "nested" + File.separator + "Bar.java";
+        assertEquals(expectedPath, file.getAbsolutePath());
     }
 }

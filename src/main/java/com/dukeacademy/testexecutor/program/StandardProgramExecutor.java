@@ -32,10 +32,17 @@ public class StandardProgramExecutor implements ProgramExecutor {
     @Override
     public ProgramOutput executeProgram(ClassFile program, ProgramInput input) throws ProgramExecutorException {
         Process process = this.getExecutionProcess(program);
-        logger.info("Starting program execution.");
+
+        logger.info("Starting program execution: " + program.getAbsolutePath());
+        logger.info("Feeding program input: " + program.getAbsolutePath());
+
         this.feedProgramInput(process, input);
 
-        return this.getProgramOutput(process);
+        logger.info("Processing program output: " + program.getAbsolutePath());
+        ProgramOutput output = this.getProgramOutput(process);
+
+        logger.info("Program successfully executed: " + program.getAbsolutePath());
+        return output;
     }
 
     @Override
@@ -91,8 +98,6 @@ public class StandardProgramExecutor implements ProgramExecutor {
         // Append the output to our model
         programOutput = reader.lines().reduce(programOutput, ProgramOutput::appendNewLine, ProgramOutput::appendNewLine);
 
-        logger.info("Processing program output");
-
         return programOutput;
     }
 
@@ -113,7 +118,6 @@ public class StandardProgramExecutor implements ProgramExecutor {
             writer.flush();
             writer.close();
 
-            logger.info("Feeding program input.");
         } catch (IOException e) {
             throw new ProgramExecutorException(MESSAGE_PROGRAM_EXECUTION_FAILED);
         }

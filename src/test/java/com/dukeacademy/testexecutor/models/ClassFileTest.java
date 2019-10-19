@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -40,5 +41,16 @@ class ClassFileTest {
         String basePath = tempFolder.toUri().getPath();
 
         assertThrows(FileNotFoundException.class, () -> new ClassFile("Foobar", basePath));
+    }
+
+    @Test
+    void getAbsolutePath() throws IOException {
+        String basePath = tempFolder.toUri().getPath();
+
+        tempFolder.resolve("nested").toFile().mkdir();
+        tempFolder.resolve("nested").resolve("Bar.class").toFile().createNewFile();
+        ClassFile file = new ClassFile("nested.Bar", basePath);
+        String expectedPath = basePath + "nested" + File.separator + "Bar.class";
+        assertEquals(expectedPath, file.getAbsolutePath());
     }
 }

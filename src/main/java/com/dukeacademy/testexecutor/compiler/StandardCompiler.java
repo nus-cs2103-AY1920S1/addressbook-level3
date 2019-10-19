@@ -91,7 +91,7 @@ public class StandardCompiler implements Compiler {
         // Start the compilation task
         compilationTask.call();
 
-        logger.info("Compiling java files.");
+        sources.iterator().forEachRemaining(javaFile -> logger.info("Compiling java file: " + javaFile.getName()));
 
         // Ensure that the DiagnosticCollector did not collect any errors
         List<Diagnostic<? extends JavaFileObject>> errors = compilerDiagnostics.getDiagnostics();
@@ -99,13 +99,11 @@ public class StandardCompiler implements Compiler {
                     .map(diagnostic -> diagnostic.getMessage(null))
                     .reduce((m1, m2) -> m1 + "\n" + m2);
 
-        logger.info("Checking for compilation errors.");
-
         if (errorMessages.isPresent()) {
             throw new CompilerFileContentException(errorMessages.get());
         }
 
-        logger.info("Java files successfully compiled.");
+        sources.iterator().forEachRemaining(javaFile -> logger.info("Successfully compiled: " + javaFile.getName()));
     }
 
 
