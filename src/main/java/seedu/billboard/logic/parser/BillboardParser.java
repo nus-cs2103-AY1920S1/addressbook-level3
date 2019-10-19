@@ -6,8 +6,8 @@ import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.billboard.logic.commands.AddArchiveCommand;
 import seedu.billboard.logic.commands.AddCommand;
+import seedu.billboard.logic.commands.ArchiveCommand;
 import seedu.billboard.logic.commands.ClearCommand;
 import seedu.billboard.logic.commands.Command;
 import seedu.billboard.logic.commands.DeleteCommand;
@@ -15,8 +15,6 @@ import seedu.billboard.logic.commands.EditCommand;
 import seedu.billboard.logic.commands.ExitCommand;
 import seedu.billboard.logic.commands.FindCommand;
 import seedu.billboard.logic.commands.HelpCommand;
-import seedu.billboard.logic.commands.ListArchiveCommand;
-import seedu.billboard.logic.commands.ListArchiveNamesCommand;
 import seedu.billboard.logic.commands.ListCommand;
 import seedu.billboard.logic.commands.TagCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -72,14 +70,8 @@ public class BillboardParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AddArchiveCommand.COMMAND_WORD:
-            return new AddArchiveCommandParser().parse(arguments);
-
-        case ListArchiveCommand.COMMAND_WORD:
-            return new ListArchiveCommandParser().parse(arguments);
-
-        case ListArchiveNamesCommand.COMMAND_WORD:
-            return new ListArchiveNamesCommand();
+        case ArchiveCommand.COMMAND_WORD:
+            return new ArchiveCommandParser().parse(arguments);
 
         case TagCommand.COMMAND_WORD:
             return new TagCommandParser().parse(arguments);

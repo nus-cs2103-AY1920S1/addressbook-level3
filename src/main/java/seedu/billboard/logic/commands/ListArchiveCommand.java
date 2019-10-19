@@ -9,14 +9,14 @@ import seedu.billboard.model.Model;
 /**
  * Displays the list of expenses in an archive.
  */
-public class ListArchiveCommand extends Command {
+public class ListArchiveCommand extends ArchiveCommand {
 
-    public static final String COMMAND_WORD = "list-arc";
+    public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD
             + ": Lists the archive identified by the archive name used in the displayed list of archives.\n"
             + "Parameters: ARCHIVE NAME\n"
-            + "Example: " + COMMAND_WORD + " 2016 expenses";
+            + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 2016 expenses";
 
     public final String messageSuccess;
 
@@ -46,13 +46,8 @@ public class ListArchiveCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        } else if (other instanceof ListArchiveCommand) {
-            ListArchiveCommand command = (ListArchiveCommand) other;
-            return archiveName.equals(command.archiveName);
-        } else {
-            return false;
-        }
+        return other == this // short circuit if same object
+                || (other instanceof ListArchiveCommand // instanceof handles nulls
+                && archiveName.equals(((ListArchiveCommand) other).archiveName));
     }
 }

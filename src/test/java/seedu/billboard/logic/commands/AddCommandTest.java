@@ -189,6 +189,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteArchive(String archiveName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteArchiveExpense(String archiveName, Expense target) {
             throw new AssertionError("This method should not be called.");
         }
