@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,7 +41,7 @@ public class EditGroceryCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: glist " + COMMAND_WORD + " 1 n/Pisang Goreng t/fried";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited food item: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited grocery item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field (name, expiry date, or tag) must be provided.";
 
     private final Index index;
@@ -72,7 +72,7 @@ public class EditGroceryCommand extends Command {
         GroceryItem editedGroceryItem = createdEditedGroceryItem(groceryItemToEdit, editGroceryItemDescriptor);
 
         model.setGroceryItem(groceryItemToEdit, editedGroceryItem);
-        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedGroceryItem));
     }
 

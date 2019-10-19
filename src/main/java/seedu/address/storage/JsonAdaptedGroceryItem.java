@@ -20,9 +20,9 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Food}.
  */
-public class JsonAdaptedFood {
+public class JsonAdaptedGroceryItem {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Grocery item's %s field is missing!";
 
     private final String name;
     private final String amount;
@@ -34,7 +34,7 @@ public class JsonAdaptedFood {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedFood(
+    public JsonAdaptedGroceryItem(
             @JsonProperty("name") String name,
             @JsonProperty("amount") String amount,
             @JsonProperty("expiryDate") String expiryDate,
@@ -50,7 +50,7 @@ public class JsonAdaptedFood {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedFood(GroceryItem source) {
+    public JsonAdaptedGroceryItem(GroceryItem source) {
         name = source.getName().fullName;
         amount = source.getAmount().fullAmt;
         expiryDate = source.getExpiryDate().expiryDate;
@@ -65,9 +65,9 @@ public class JsonAdaptedFood {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public GroceryItem toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> groceryListTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            groceryListTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -80,7 +80,7 @@ public class JsonAdaptedFood {
         final Amount modelAmount = new Amount(amount);
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(groceryListTags);
         return new GroceryItem(modelName, modelAmount, modelExpiryDate, modelTags);
     }
 

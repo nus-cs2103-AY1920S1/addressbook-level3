@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalGroceryItems.ALICE;
 import static seedu.address.testutil.TypicalGroceryItems.BENSON;
@@ -37,7 +37,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getGroceryList()));
+        assertEquals(new GroceryList(), new GroceryList(modelManager.getGroceryList()));
     }
 
     @Test
@@ -48,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setGroceryListFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setGroceryListFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,14 +73,14 @@ public class ModelManagerTest {
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setGroceryListFilePath(null));
     }
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setGroceryListFilePath(path);
+        assertEquals(path, modelManager.getGroceryListFilePath());
     }
 
     @Test
@@ -106,8 +106,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        GroceryList groceryList = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        GroceryList differentGroceryList = new GroceryList();
         TemplateList templateList = new TemplateListBuilder().withTemplateItem(DIET_PLAN)
                 .withTemplateItem(BIRTHDAY_PARTY).build();
         TemplateList differentTemplateList = new TemplateList();
@@ -121,8 +121,8 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, templateList, wasteArchive, shoppingList);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, templateList,
+        modelManager = new ModelManager(groceryList, userPrefs, templateList, wasteArchive, shoppingList);
+        ModelManager modelManagerCopy = new ModelManager(groceryList, userPrefs, templateList,
                 wasteArchive, shoppingList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
@@ -136,26 +136,26 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, templateList, wasteArchive,
+        assertFalse(modelManager.equals(new ModelManager(differentGroceryList, userPrefs, templateList, wasteArchive,
                 differentShoppingList)));
 
         // different templateList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, differentTemplateList,
+        assertFalse(modelManager.equals(new ModelManager(groceryList, userPrefs, differentTemplateList,
                 differentWasteArchive, differentShoppingList)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredGroceryItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, templateList, wasteArchive,
+        assertFalse(modelManager.equals(new ModelManager(groceryList, userPrefs, templateList, wasteArchive,
                 shoppingList)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, templateList, wasteArchive,
+        differentUserPrefs.setGroceryListFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(groceryList, differentUserPrefs, templateList, wasteArchive,
                 shoppingList)));
     }
 }

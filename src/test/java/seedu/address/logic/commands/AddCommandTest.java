@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
-import seedu.address.model.AddressBook;
+import seedu.address.model.GroceryList;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getGroceryListFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setGroceryListFilePath(Path groceryListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -129,12 +129,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setGroceryList(ReadOnlyAddressBook newData) {
+        public void setGroceryList(ReadOnlyGroceryList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getGroceryList() {
+        public ReadOnlyGroceryList getGroceryList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -400,8 +400,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getGroceryList() {
-            return new AddressBook();
+        public ReadOnlyGroceryList getGroceryList() {
+            return new GroceryList();
         }
     }
 

@@ -25,15 +25,15 @@ public class AddGroceryCommand extends Command {
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_EXPIRY_DATE + "EXPIRY_DATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: glist " + COMMAND_WORD + " "
             + PREFIX_NAME + "Apples "
             + PREFIX_AMOUNT + "300g"
-            + PREFIX_EXPIRY_DATE + "30.11.2019"
+            + PREFIX_EXPIRY_DATE + "30/11/2019"
             + PREFIX_TAG + "healthy "
             + PREFIX_TAG + "fruit";
 
-    public static final String MESSAGE_SUCCESS = "New food item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This food item already exists in the grocery list";
+    public static final String MESSAGE_SUCCESS = "New grocery item added: %1$s";
+    public static final String MESSAGE_DUPLICATE_GROCERY_ITEM = "This food item already exists in the grocery list";
 
     private final GroceryItem toAdd;
 
@@ -50,7 +50,7 @@ public class AddGroceryCommand extends Command {
         requireNonNull(model);
 
         if (model.hasGroceryItem(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_GROCERY_ITEM);
         }
 
         model.addGroceryItem(toAdd);

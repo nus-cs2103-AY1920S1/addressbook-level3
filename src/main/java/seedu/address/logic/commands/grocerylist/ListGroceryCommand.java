@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.grocerylist;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -20,7 +20,7 @@ public class ListGroceryCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

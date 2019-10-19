@@ -13,9 +13,9 @@ import seedu.address.model.food.GroceryItem;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class GroceryItemCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "GroceryItemCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -40,7 +40,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Food food, int displayedIndex) {
+    public GroceryItemCard(Food food, int displayedIndex) {
         super(FXML);
         this.food = food;
         id.setText(displayedIndex + ". ");
@@ -61,12 +61,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof GroceryItemCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        GroceryItemCard card = (GroceryItemCard) other;
         return id.getText().equals(card.id.getText())
                 && food.equals(card.food);
     }

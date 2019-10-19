@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableGroceryListTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalTemplatesTemplateList.json");

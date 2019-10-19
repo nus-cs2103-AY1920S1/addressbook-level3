@@ -39,7 +39,7 @@ public class WasteList implements ReadOnlyWasteList {
      * Replaces the contents of the waste list with {@code foods}.
      */
     public void setWasteList(List<GroceryItem> foods) {
-        this.wasteList.setPersons(foods);
+        this.wasteList.setGroceryList(foods);
     }
 
     /**

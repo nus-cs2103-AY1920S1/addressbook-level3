@@ -18,7 +18,7 @@ public class ReminderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display list with all food expiring within r days "
             + "Parameters: "
             + PREFIX_REMINDER + "REMINDER \n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: glist " + COMMAND_WORD + " "
             + PREFIX_REMINDER + "3";
 
     private final NameContainsCloseExpiryDatePredicate predicate;

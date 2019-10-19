@@ -7,7 +7,7 @@ import seedu.address.model.waste.WasteMonth;
 /**
  * A waste list.
  */
-public class UniqueWasteList extends UniqueFoodList {
+public class UniqueWasteList extends UniqueGroceryList {
 
     private final WasteMonth wasteMonth;
 

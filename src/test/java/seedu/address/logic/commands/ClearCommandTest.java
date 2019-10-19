@@ -8,7 +8,7 @@ import static seedu.address.testutil.TypicalWasteArchive.getTypicalWasteArchive;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.GroceryList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -29,7 +29,7 @@ public class ClearCommandTest {
                 getTypicalWasteArchive(), getTypicalShoppingList());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
                 getTypicalWasteArchive(), getTypicalShoppingList());
-        expectedModel.setGroceryList(new AddressBook());
+        expectedModel.setGroceryList(new GroceryList());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

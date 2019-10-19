@@ -15,7 +15,7 @@ import seedu.address.commons.core.IFridgeSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path groceryListFilePath = Paths.get("data" , "grocerylist.json");
     private Path templateListFilePath = Paths.get("data" , "templateList.json");
     private Path wasteArchiveFilePath = Paths.get("data", "wastearchive.json");
     private Path shoppingListFilePath = Paths.get("data", "shoppingList.json");
@@ -43,7 +43,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setIFridgeSettings(newUserPrefs.getIFridgeSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setGroceryListFilePath(newUserPrefs.getGroceryListFilePath());
         setWasteArchiveFilePath(newUserPrefs.getWasteArchiveFilePath());
     }
 
@@ -65,13 +65,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.iFridgeSettings = iFridgeSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getGroceryListFilePath() {
+        return groceryListFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setGroceryListFilePath(Path groceryListFilePath) {
+        requireNonNull(groceryListFilePath);
+        this.groceryListFilePath = groceryListFilePath;
     }
 
     public Path getTemplateListFilePath() {
@@ -113,14 +113,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath)
+                && groceryListFilePath.equals(o.groceryListFilePath)
                 && templateListFilePath.equals(o.templateListFilePath)
                 && wasteArchiveFilePath.equals(o.wasteArchiveFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, templateListFilePath);
+        return Objects.hash(guiSettings, groceryListFilePath, templateListFilePath);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nIFridge settings : " + iFridgeSettings);
-        sb.append("\nLocal data file location (AddressBook): " + addressBookFilePath);
+        sb.append("\nLocal data file location (GroceryList): " + groceryListFilePath);
         sb.append("\nLocal data file location (TemplateList): " + templateListFilePath);
         sb.append("\nLocal data file location (WasteList): " + wasteArchiveFilePath);
         return sb.toString();

@@ -22,9 +22,9 @@ public class DeleteGroceryCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the grocery item identified by the index number used in the displayed grocery list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: glist " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_GROCERY_ITEM_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_GROCERY_ITEM_SUCCESS = "Deleted grocery item: %1$s";
 
     private final Index targetIndex;
 

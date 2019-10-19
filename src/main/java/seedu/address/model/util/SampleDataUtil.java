@@ -6,8 +6,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.GroceryList;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ShoppingList;
@@ -44,12 +44,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyGroceryList getSampleGroceryList() {
+        GroceryList sampleGl = new GroceryList();
         for (GroceryItem groceryItem : getSampleGroceryItems()) {
-            sampleAb.addPerson(groceryItem);
+            sampleGl.addGroceryItem(groceryItem);
         }
-        return sampleAb;
+        return sampleGl;
     }
 
     /**

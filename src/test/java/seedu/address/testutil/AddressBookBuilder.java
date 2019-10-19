@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.GroceryList;
 import seedu.address.model.food.GroceryItem;
 
 /**
@@ -10,25 +10,25 @@ import seedu.address.model.food.GroceryItem;
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private GroceryList groceryList;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        groceryList = new GroceryList();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+    public AddressBookBuilder(GroceryList groceryList) {
+        this.groceryList = groceryList;
     }
 
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
     public AddressBookBuilder withPerson(GroceryItem food) {
-        addressBook.addPerson(food);
+        groceryList.addGroceryItem(food);
         return this;
     }
 
-    public AddressBook build() {
-        return addressBook;
+    public GroceryList build() {
+        return groceryList;
     }
 }

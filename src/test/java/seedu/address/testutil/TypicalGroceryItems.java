@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.GroceryList;
 import seedu.address.model.food.GroceryItem;
 
 /**
@@ -51,10 +51,10 @@ public class TypicalGroceryItems {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static GroceryList getTypicalAddressBook() {
+        GroceryList ab = new GroceryList();
         for (GroceryItem food : getTypicalPersons()) {
-            ab.addPerson(food);
+            ab.addGroceryItem(food);
         }
         return ab;
     }

@@ -2,7 +2,7 @@ package seedu.address.logic.commands.grocerylist;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,7 +33,7 @@ public class UseGroceryCommand extends Command {
             + "by the index number used in the displayed grocery list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: glist " + COMMAND_WORD + " 1 a/100g";
 
     public static final String MESSAGE_USE_GROCERY_ITEM_SUCCESS = "Used grocery item: %1$s";
     public static final String MESSAGE_NOT_USED = "At least amount field must be provided.";
@@ -66,7 +66,7 @@ public class UseGroceryCommand extends Command {
         GroceryItem usedGroceryItem = createdUsedGroceryItem(groceryItemToUse, useGroceryItemDescriptor);
 
         model.setGroceryItem(groceryItemToUse, usedGroceryItem);
-        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         return new CommandResult(String.format(MESSAGE_USE_GROCERY_ITEM_SUCCESS, usedGroceryItem));
     }
 
