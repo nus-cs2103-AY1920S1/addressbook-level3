@@ -33,8 +33,10 @@ public class FlipCommand extends Command {
         }
         Answer correctAnswer = lastViewedFlashcard.getAnswer();
         if (answer.equals(correctAnswer)) {
-            return new CommandResult("Your answer: " + answer.toString() + " is correct.");
+            lastViewedFlashcard.getScore().incrementCorrectAnswer();
+            return new CommandResult("Your answer: " + answer.toString() + " is correct.\n");
         } else {
+            lastViewedFlashcard.getScore().incrementWrongAnswer();
             return new CommandResult("Your answer: " + answer.toString() + " is incorrect.\n"
                 + "The correct answer is: " + correctAnswer.toString());
         }
