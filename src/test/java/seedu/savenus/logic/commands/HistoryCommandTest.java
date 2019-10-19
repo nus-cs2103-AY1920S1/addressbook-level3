@@ -11,13 +11,14 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 public class HistoryCommandTest {
     private Model model;
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new CustomSorter());
     }
 
     @Test

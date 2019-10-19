@@ -18,6 +18,7 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,7 +26,8 @@ import seedu.savenus.model.recommend.UserRecommendations;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
+    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
+            new CustomSorter());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +36,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations());
+        ModelManager expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
+                new CustomSorter());
         expectedModel.deleteFood(foodToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -65,7 +68,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
 
-        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations());
+        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(),
+                new UserRecommendations(), new CustomSorter());
         expectedModel.deleteFood(foodToDelete);
         showNoFood(expectedModel);
 

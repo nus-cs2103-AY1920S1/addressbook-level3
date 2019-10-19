@@ -18,6 +18,7 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -29,7 +30,8 @@ public class BuyCommandTest {
     // history separately...
     // Please refer to the wallet and purchase history tests
 
-    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
+    private Model model = new ModelManager(getTypicalMenu(),
+            new UserPrefs(), new UserRecommendations(), new CustomSorter());
 
     @Test
     public void equals() {

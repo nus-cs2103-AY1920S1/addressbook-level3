@@ -44,7 +44,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
      */
-    public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs) {
+    public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
+                        CustomSorter customSorter) {
         super();
         requireAllNonNull(menu, userPrefs);
 
@@ -57,11 +58,11 @@ public class ModelManager implements Model {
 
         this.recommendationSystem = new RecommendationSystem();
         this.recommendationSystem.setUserRecommendations(userRecs);
-        this.customSorter = new CustomSorter();
+        this.customSorter = customSorter;
     }
 
     public ModelManager() {
-        this(new Menu(), new UserPrefs(), new UserRecommendations());
+        this(new Menu(), new UserPrefs(), new UserRecommendations(), new CustomSorter());
     }
 
     //=========== UserPrefs ==================================================================================

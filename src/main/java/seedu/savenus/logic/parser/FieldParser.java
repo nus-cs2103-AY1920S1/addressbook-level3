@@ -37,17 +37,34 @@ public class FieldParser {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        if (areFieldsInvalid(nameKeywords)) {
-            throw new ParseException(INVALID_FIELD_USAGE);
-        } else if (areFieldsDuplicate(nameKeywords)) {
-            throw new ParseException(DUPLICATE_FIELD_USAGE);
-        } else if (areDirectionsMissing(nameKeywords)) {
-            throw new ParseException(MISSING_DIRECTION_USAGE);
-        } else if (areDirectionsInaccurate(nameKeywords)) {
-            throw new ParseException(INVALID_DIRECTION_USAGE);
-        }
+        checkKeywords(nameKeywords);
 
         return (Arrays.asList(nameKeywords));
+    }
+
+    /**
+     * Checks if the keywords are valid or not.
+     * @param keywords array of fields.
+     * @throws ParseException if the keywords contain wrong values.
+     */
+    public void checkKeywords(String[] keywords) throws ParseException {
+        if (areFieldsInvalid(keywords)) {
+            throw new ParseException(INVALID_FIELD_USAGE);
+        } else if (areFieldsDuplicate(keywords)) {
+            throw new ParseException(DUPLICATE_FIELD_USAGE);
+        } else if (areDirectionsMissing(keywords)) {
+            throw new ParseException(MISSING_DIRECTION_USAGE);
+        } else if (areDirectionsInaccurate(keywords)) {
+            throw new ParseException(INVALID_DIRECTION_USAGE);
+        }
+    }
+
+    /**
+     * Checks if the keywords are valid or not.
+     * @param keywords list of keywords
+     */
+    public void checkKeywords(List<String> keywords) throws ParseException {
+        checkKeywords(keywords.toArray(new String[keywords.size()]));
     }
 
     /**

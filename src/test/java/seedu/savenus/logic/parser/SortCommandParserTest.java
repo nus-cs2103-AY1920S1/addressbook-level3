@@ -6,7 +6,6 @@ import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseFailur
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.logic.commands.SortCommand;
-import seedu.savenus.logic.parser.exceptions.ParseException;
 
 public class SortCommandParserTest {
     private SortCommandParser parser = new SortCommandParser();

@@ -124,7 +124,7 @@ public class MenuParser {
             return new CustomSortCommand();
 
         case MakeSortCommand.COMMAND_WORD:
-            return new MakeSortCommand(new SortCommandParser().parse(arguments).getFields());
+            return new MakeSortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
