@@ -61,27 +61,31 @@ public class PreferenceCommandTest {
 
     @Test
     public void likeConstructor_nullSet_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new LikeCommand(null, null, null));
-        assertThrows(NullPointerException.class, () -> new LikeCommand(null, new HashSet<>(), new HashSet<>()));
-        assertThrows(NullPointerException.class, () -> new LikeCommand(new HashSet<>(), null, new HashSet<>()));
-        assertThrows(NullPointerException.class, () -> new LikeCommand(new HashSet<>(), new HashSet<>(), null));
+        assertThrows(NullPointerException.class, () -> new LikeCommand(null, null, null, false));
+        assertThrows(NullPointerException.class, () -> new LikeCommand(null, new HashSet<>(), new HashSet<>(), false));
+        assertThrows(NullPointerException.class, () -> new LikeCommand(new HashSet<>(), null, new HashSet<>(), false));
+        assertThrows(NullPointerException.class, () -> new LikeCommand(new HashSet<>(), new HashSet<>(), null, false));
     }
 
     @Test
-    public void dislikConstructor_nullSet_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DislikeCommand(null, null, null));
-        assertThrows(NullPointerException.class, () -> new DislikeCommand(null, new HashSet<>(), new HashSet<>()));
-        assertThrows(NullPointerException.class, () -> new DislikeCommand(new HashSet<>(), null, new HashSet<>()));
-        assertThrows(NullPointerException.class, () -> new DislikeCommand(new HashSet<>(), new HashSet<>(), null));
+    public void dislikeConstructor_nullSet_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                new DislikeCommand(null, null, null, false));
+        assertThrows(NullPointerException.class, () ->
+                new DislikeCommand(null, new HashSet<>(), new HashSet<>(), false));
+        assertThrows(NullPointerException.class, () ->
+                new DislikeCommand(new HashSet<>(), null, new HashSet<>(), false));
+        assertThrows(NullPointerException.class, () ->
+                new DislikeCommand(new HashSet<>(), new HashSet<>(), null, false));
     }
 
     @Test
     public void likeCommand_equals() {
-        LikeCommand first = new LikeCommand(testCategory, testTag, testLocation);
-        LikeCommand second = new LikeCommand(testCategory, testTag, testLocation);
-        LikeCommand third = new LikeCommand(new HashSet<>(), testTag, testLocation);
-        LikeCommand fourth = new LikeCommand(testCategory, new HashSet<>(), testLocation);
-        LikeCommand fifth = new LikeCommand(testCategory, testTag, new HashSet<>());
+        LikeCommand first = new LikeCommand(testCategory, testTag, testLocation, false);
+        LikeCommand second = new LikeCommand(testCategory, testTag, testLocation, false);
+        LikeCommand third = new LikeCommand(new HashSet<>(), testTag, testLocation, false);
+        LikeCommand fourth = new LikeCommand(testCategory, new HashSet<>(), testLocation, false);
+        LikeCommand fifth = new LikeCommand(testCategory, testTag, new HashSet<>(), false);
 
         assertTrue(first.equals(first));
         assertTrue(first.equals(second));
@@ -92,11 +96,11 @@ public class PreferenceCommandTest {
 
     @Test
     public void dislikeCommand_equals() {
-        DislikeCommand first = new DislikeCommand(testCategory, testTag, testLocation);
-        DislikeCommand second = new DislikeCommand(testCategory, testTag, testLocation);
-        DislikeCommand third = new DislikeCommand(new HashSet<>(), testTag, testLocation);
-        DislikeCommand fourth = new DislikeCommand(testCategory, new HashSet<>(), testLocation);
-        DislikeCommand fifth = new DislikeCommand(testCategory, testTag, new HashSet<>());
+        DislikeCommand first = new DislikeCommand(testCategory, testTag, testLocation, false);
+        DislikeCommand second = new DislikeCommand(testCategory, testTag, testLocation, false);
+        DislikeCommand third = new DislikeCommand(new HashSet<>(), testTag, testLocation, false);
+        DislikeCommand fourth = new DislikeCommand(testCategory, new HashSet<>(), testLocation, false);
+        DislikeCommand fifth = new DislikeCommand(testCategory, testTag, new HashSet<>(), false);
 
         assertTrue(first.equals(first));
         assertTrue(first.equals(second));
@@ -107,21 +111,21 @@ public class PreferenceCommandTest {
 
     @Test
     public void likeCommand_executeSuccess() throws CommandException {
-        CommandResult result = new LikeCommand(testCategory, testTag, testLocation).execute(model);
+        CommandResult result = new LikeCommand(testCategory, testTag, testLocation, false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
     }
 
     @Test
     public void dislikeCommand_executeSuccess() throws CommandException {
-        CommandResult result = new DislikeCommand(testCategory, testTag, testLocation).execute(model);
+        CommandResult result = new DislikeCommand(testCategory, testTag, testLocation, false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
     }
 
     @Test
     public void likeCommand_addCategory_contains() throws CommandException {
-        CommandResult result = new LikeCommand(testCategory, new HashSet<>(), new HashSet<>()).execute(model);
+        CommandResult result = new LikeCommand(testCategory, new HashSet<>(), new HashSet<>(), false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
         for (Category c : testCategory) {
@@ -131,7 +135,7 @@ public class PreferenceCommandTest {
 
     @Test
     public void dislikeCommand_addCategory_contains() throws CommandException {
-        CommandResult result = new DislikeCommand(testCategory, new HashSet<>(), new HashSet<>()).execute(model);
+        CommandResult result = new DislikeCommand(testCategory, new HashSet<>(), new HashSet<>(), false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
         for (Category c : testCategory) {
@@ -141,7 +145,7 @@ public class PreferenceCommandTest {
 
     @Test
     public void likeCommand_addTags_contains() throws CommandException {
-        CommandResult result = new LikeCommand(new HashSet<>(), testTag, new HashSet<>()).execute(model);
+        CommandResult result = new LikeCommand(new HashSet<>(), testTag, new HashSet<>(), false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
         for (Tag t : testTag) {
@@ -151,7 +155,7 @@ public class PreferenceCommandTest {
 
     @Test
     public void dislikeCommand_addTags_contains() throws CommandException {
-        CommandResult result = new DislikeCommand(new HashSet<>(), testTag, new HashSet<>()).execute(model);
+        CommandResult result = new DislikeCommand(new HashSet<>(), testTag, new HashSet<>(), false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
         for (Tag t : testTag) {
@@ -161,7 +165,7 @@ public class PreferenceCommandTest {
 
     @Test
     public void likeCommand_addLocation_contains() throws CommandException {
-        CommandResult result = new LikeCommand(new HashSet<>(), new HashSet<>(), testLocation).execute(model);
+        CommandResult result = new LikeCommand(new HashSet<>(), new HashSet<>(), testLocation, false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
         for (Location l : testLocation) {
@@ -171,7 +175,7 @@ public class PreferenceCommandTest {
 
     @Test
     public void dislikeCommand_addLocation_contains() throws CommandException {
-        CommandResult result = new DislikeCommand(new HashSet<>(), new HashSet<>(), testLocation).execute(model);
+        CommandResult result = new DislikeCommand(new HashSet<>(), new HashSet<>(), testLocation, false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
         for (Location l : testLocation) {
@@ -186,7 +190,7 @@ public class PreferenceCommandTest {
         Set<Category> addCategory = new HashSet<>();
         addCategory.add(SECOND_CATEGORY);
 
-        LikeCommand likeCommand = new LikeCommand(addCategory, new HashSet<>(), new HashSet<>());
+        LikeCommand likeCommand = new LikeCommand(addCategory, new HashSet<>(), new HashSet<>(), false);
         assertThrows(CommandException.class, LikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 likeCommand.execute(model));
     }
@@ -197,7 +201,7 @@ public class PreferenceCommandTest {
         Set<Category> addCategory = new HashSet<>();
         addCategory.add(SECOND_CATEGORY);
 
-        DislikeCommand dislikeCommand = new DislikeCommand(addCategory, new HashSet<>(), new HashSet<>());
+        DislikeCommand dislikeCommand = new DislikeCommand(addCategory, new HashSet<>(), new HashSet<>(), false);
         assertThrows(CommandException.class, DislikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 dislikeCommand.execute(model));
     }
@@ -209,7 +213,7 @@ public class PreferenceCommandTest {
         Set<Tag> addTag = new HashSet<>();
         addTag.add(FIRST_TAG);
 
-        LikeCommand likeCommand = new LikeCommand(new HashSet<>(), addTag, new HashSet<>());
+        LikeCommand likeCommand = new LikeCommand(new HashSet<>(), addTag, new HashSet<>(), false);
         assertThrows(CommandException.class, LikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 likeCommand.execute(model));
     }
@@ -221,7 +225,7 @@ public class PreferenceCommandTest {
         Set<Tag> addTag = new HashSet<>();
         addTag.add(FIRST_TAG);
 
-        DislikeCommand dislikeCommand = new DislikeCommand(new HashSet<>(), addTag, new HashSet<>());
+        DislikeCommand dislikeCommand = new DislikeCommand(new HashSet<>(), addTag, new HashSet<>(), false);
         assertThrows(CommandException.class, DislikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 dislikeCommand.execute(model));
     }
@@ -233,7 +237,7 @@ public class PreferenceCommandTest {
         Set<Location> addLocation = new HashSet<>();
         addLocation.add(SECOND_LOCATION);
 
-        LikeCommand likeCommand = new LikeCommand(new HashSet<>(), new HashSet<>(), addLocation);
+        LikeCommand likeCommand = new LikeCommand(new HashSet<>(), new HashSet<>(), addLocation, false);
         assertThrows(CommandException.class, LikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 likeCommand.execute(model));
     }
@@ -245,7 +249,7 @@ public class PreferenceCommandTest {
         Set<Location> addLocation = new HashSet<>();
         addLocation.add(SECOND_LOCATION);
 
-        DislikeCommand dislikeCommand = new DislikeCommand(new HashSet<>(), new HashSet<>(), addLocation);
+        DislikeCommand dislikeCommand = new DislikeCommand(new HashSet<>(), new HashSet<>(), addLocation, false);
         assertThrows(CommandException.class, DislikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 dislikeCommand.execute(model));
     }
@@ -253,7 +257,7 @@ public class PreferenceCommandTest {
     @Test
     public void wrong_execute_error() {
         assertThrows(
-            AssertionError.class, () -> new PreferenceCommand(testCategory, testTag, testLocation).execute(model)
+            AssertionError.class, () -> new PreferenceCommand(testCategory, testTag, testLocation, false).execute(model)
         );
     }
 }
