@@ -16,9 +16,10 @@ import budgetbuddy.logic.rules.RuleProcessingUtil;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
+import budgetbuddy.model.rule.expression.ActionExpression;
 import budgetbuddy.model.rule.expression.Attribute;
-import budgetbuddy.model.rule.expression.ExpressionPredicate;
 import budgetbuddy.model.rule.expression.Operator;
+import budgetbuddy.model.rule.expression.PredicateExpression;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.tag.Tag;
 import budgetbuddy.model.transaction.Amount;
@@ -201,29 +202,52 @@ public class CommandParserUtil {
     }
 
     /**
-     * Parses a {@code String expr} into an {@code ExpressionPredicate}.
+     * Parses a {@code String expr} into an {@code PredicateExpression}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code expr} is invalid.
      */
-    public static ExpressionPredicate parseExprPredicate(String expr) throws ParseException {
+    public static PredicateExpression parsePredicateExpr(String expr) throws ParseException {
         requireNonNull(expr);
         String trimmedExpr = expr.trim();
 
-        Matcher matcher = ExpressionPredicate.FORMAT_REGEX.matcher(trimmedExpr);
+        Matcher matcher = PredicateExpression.FORMAT_REGEX.matcher(trimmedExpr);
         if (!matcher.matches()) {
-            throw new ParseException(ExpressionPredicate.MESSAGE_CONSTRAINTS);
+            throw new ParseException(PredicateExpression.MESSAGE_CONSTRAINTS);
         }
 
         Attribute attribute = parseAttribute(matcher.group("exprAttribute"));
         Operator operator = parseOperator(matcher.group("exprOperator"));
         Value value = parseValue(matcher.group("exprValue"));
 
-
-        if (!RuleProcessingUtil.isValidExprPredicate(attribute, operator, value)) {
-            throw new ParseException(ExpressionPredicate.MESSAGE_TYPE_REQUIREMENTS);
+        if (!RuleProcessingUtil.isValidPredicateExpr(attribute, operator, value)) {
+            throw new ParseException(PredicateExpression.MESSAGE_TYPE_REQUIREMENTS);
         }
-        return new ExpressionPredicate(attribute, operator, value);
+        return new PredicateExpression(attribute, operator, value);
+    }
+
+    /**
+     * Parses a {@code String expr} into an {@code ActionExpression}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code expr} is invalid.
+     */
+    public static ActionExpression parseActionExpr(String expr) throws ParseException {
+        requireNonNull(expr);
+        String trimmedExpr = expr.trim();
+
+        Matcher matcher = ActionExpression.FORMAT_REGEX.matcher(trimmedExpr);
+        if (!matcher.matches()) {
+            throw new ParseException(ActionExpression.MESSAGE_CONSTRAINTS);
+        }
+
+        Operator operator = parseOperator(matcher.group("exprOperator"));
+        Value value = parseValue(matcher.group("exprValue"));
+
+        if (!RuleProcessingUtil.isValidActionExpr(operator, value)) {
+            throw new ParseException(ActionExpression.MESSAGE_TYPE_REQUIREMENTS);
+        }
+        return new ActionExpression(operator, value);
     }
 
     /**
@@ -232,7 +256,7 @@ public class CommandParserUtil {
     public static RulePredicate parsePredicate(String predicate, String type) throws ParseException {
         requireNonNull(predicate);
         if (type.equals(TYPE_EXPRESSION)) {
-            return parseExprPredicate(predicate);
+            return parsePredicateExpr(predicate);
         } else {
             throw new ParseException(RulePredicate.MESSAGE_CONSTRAINTS);
         }
@@ -244,7 +268,12 @@ public class CommandParserUtil {
      *
      * @throws ParseException if the given {@code action} is invalid.
      */
-    public static RuleAction parseAction(String action) {
-        return null;
+    public static RuleAction parseAction(String action, String type) throws ParseException {
+        requireNonNull(action);
+        if (type.equals(TYPE_EXPRESSION)) {
+            return parseActionExpr(action);
+        } else {
+            throw new ParseException(RuleAction.MESSAGE_CONSTRAINTS);
+        }
     }
 }
