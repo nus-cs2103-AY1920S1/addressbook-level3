@@ -115,6 +115,19 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     }
 
     /**
+     * Removes completed tags. Should only be used when updating current semesters.
+     */
+    public void removeCompletedTag(DefaultTag toRemove) {
+        if (!toRemove.getDefaultTagType().equals(DefaultTagType.COMPLETED)) {
+            throw new InvalidTagModificationException();
+        }
+        if (!internalList.remove(toRemove)) {
+            throw new TagNotFoundException();
+        }
+        mapTags.remove(toRemove.getTagName());
+    }
+
+    /**
      * Removes the equivalent UserTag from the list.
      * The UserTag must exist in the list.
      */

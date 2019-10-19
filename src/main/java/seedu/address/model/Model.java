@@ -210,4 +210,6 @@ public interface Model {
 
     UniqueTagList getModuleTagsFromActiveSp(String moduleCode);
 
+    void updateAllCompletedTags();
+
 }

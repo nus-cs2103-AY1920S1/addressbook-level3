@@ -233,6 +233,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public void setCurrentSemester(SemesterName semesterName) {
         currentSemester = semesterName;
+        activeStudyPlan.setCurrentSemester(semesterName);
     }
 
     /**
@@ -333,6 +334,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {
         return activeStudyPlan.removeTagFromModule(toRemove, moduleCode);
+    }
+
+    public void updateAllCompletedTags() {
+        activeStudyPlan.updateAllCompletedTags();
     }
 
     //// util methods

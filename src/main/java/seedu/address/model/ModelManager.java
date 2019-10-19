@@ -300,4 +300,8 @@ public class ModelManager implements Model {
         return modulePlanner.removeTagFromModuleInActiveSp(toRemove, moduleCode);
     }
 
+    public void updateAllCompletedTags() {
+        modulePlanner.updateAllCompletedTags();
+    }
+
 }

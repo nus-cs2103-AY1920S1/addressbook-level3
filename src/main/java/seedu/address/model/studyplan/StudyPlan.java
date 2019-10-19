@@ -19,6 +19,7 @@ import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.semester.exceptions.SemesterAlreadyBlockedException;
 import seedu.address.model.semester.exceptions.SemesterNotFoundException;
+import seedu.address.model.tag.DefaultTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
@@ -153,6 +154,10 @@ public class StudyPlan implements Cloneable {
         semesters.add(new Semester(SemesterName.Y4S2));
     }
 
+    public void setCurrentSemester(SemesterName currentSemester) {
+        this.currentSemester = currentSemester;
+    }
+
     /**
      * Given a {@code ModuleInfo} object, convert it to a {@code Module}.
      */
@@ -175,28 +180,41 @@ public class StudyPlan implements Cloneable {
     // made public so as to be accessible from activate method from ModulePlanner
     public UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
         UniqueTagList moduleTagList = new UniqueTagList();
-        UniqueTagList studyPlanTagList = getTags();
+        UniqueTagList studyPlanTagList = tags;
+
         // assign focus primary tags
-        List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
-        for (String focusPrimary : focusPrimaries) {
-            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
-        }
+        assignFocusPrimaryTags(moduleInfo, moduleTagList, studyPlanTagList);
+
         // assign focus elective tags
-        List<String> focusElectives = moduleInfo.getFocusElectives();
-        for (String focusElective : focusElectives) {
-            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective + ":E"));
-        }
+        assignFocusElectiveTags(moduleInfo, moduleTagList, studyPlanTagList);
+
         // assign s/u-able tag
-        boolean canSu = moduleInfo.getSuEligibility();
-        if (canSu) {
-            moduleTagList.addTag(studyPlanTagList.getDefaultTag("S/U-able"));
-        }
+        assignSuTag(moduleInfo, moduleTagList, studyPlanTagList);
+
         // assign completed tag
+        assignCompletedTag(moduleInfo, moduleTagList, studyPlanTagList);
+
+        // assign core tag
+        assignCoreTag(moduleInfo, moduleTagList, studyPlanTagList);
+
+        //TODO ue and ulr tags?
+
+        return moduleTagList;
+    }
+
+    private void assignCoreTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList, UniqueTagList studyPlanTagList) {
+        boolean isCore = moduleInfo.getIsCore();
+        if (isCore) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag("Core"));
+        }
+    }
+
+    private void assignCompletedTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
+            UniqueTagList studyPlanTagList) {
         for (Semester semester : semesters) {
             UniqueModuleList uniqueModuleList = semester.getModules();
             for (Module module : uniqueModuleList) {
                 if (module.getModuleCode().toString().equals(moduleInfo.getCode())) {
-                    // System.out.println(semester);
                     if (semester.getSemesterName().compareTo(currentSemester) < 0) {
                         moduleTagList.addTag(studyPlanTagList.getDefaultTag("Completed"));
                     }
@@ -204,15 +222,62 @@ public class StudyPlan implements Cloneable {
                 }
             }
         }
-        // assign core tag
-        boolean isCore = moduleInfo.getIsCore();
-        if (isCore) {
-            moduleTagList.addTag(studyPlanTagList.getDefaultTag("Core"));
+    }
+
+    private void assignSuTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList, UniqueTagList studyPlanTagList) {
+        boolean canSu = moduleInfo.getSuEligibility();
+        if (canSu) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag("S/U-able"));
         }
+    }
 
-        //TODO add ue?, ulr? tags
+    private void assignFocusElectiveTags(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
+            UniqueTagList studyPlanTagList) {
+        List<String> focusElectives = moduleInfo.getFocusElectives();
+        for (String focusElective : focusElectives) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective + ":E"));
+        }
+    }
 
-        return moduleTagList;
+    private void assignFocusPrimaryTags(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
+            UniqueTagList studyPlanTagList) {
+        List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
+        for (String focusPrimary : focusPrimaries) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
+        }
+    }
+
+    public void updateAllCompletedTags() {
+        for (Semester semester : semesters) {
+            if (semester.getSemesterName().compareTo(currentSemester) < 0) {
+                addCompletedTags(semester);
+            } else {
+                removeCompletedTags(semester);
+            }
+        }
+    }
+
+    private void addCompletedTags(Semester semester) {
+        UniqueModuleList uniqueModuleList = semester.getModules();
+        for (Module module: uniqueModuleList) {
+            UniqueTagList uniqueTagList = module.getTags();
+            DefaultTag completedTag = tags.getDefaultTag("Completed");
+            if (uniqueTagList.contains(completedTag)) {
+                continue;
+            }
+            uniqueTagList.addTag(completedTag);
+        }
+    }
+
+    private void removeCompletedTags(Semester semester) {
+        UniqueModuleList uniqueModuleList = semester.getModules();
+        for (Module module: uniqueModuleList) {
+            UniqueTagList uniqueTagList = module.getTags();
+            DefaultTag completedTag = tags.getDefaultTag("Completed");
+            if (uniqueTagList.contains(completedTag)) {
+                uniqueTagList.removeCompletedTag(completedTag);
+            }
+        }
     }
 
     private void setMegaModuleHashMap(ModulesInfo modulesInfo) {
