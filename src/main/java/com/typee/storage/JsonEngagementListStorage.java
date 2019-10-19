@@ -12,41 +12,41 @@ import com.typee.commons.exceptions.DataConversionException;
 import com.typee.commons.exceptions.IllegalValueException;
 import com.typee.commons.util.FileUtil;
 import com.typee.commons.util.JsonUtil;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyEngagementList;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access EngagementList data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonEngagementListStorage implements EngagementListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonEngagementListStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonEngagementListStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getEngagementListFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyEngagementList> readEngagementList() throws DataConversionException {
+        return readEngagementList(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readEngagementList()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyEngagementList> readEngagementList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializableEngagementList> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableEngagementList.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -60,21 +60,21 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveEngagementList(ReadOnlyEngagementList engagementList) throws IOException {
+        saveEngagementList(engagementList, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     * Similar to {@link #saveEngagementList(ReadOnlyEngagementList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveEngagementList(ReadOnlyEngagementList engagementList, Path filePath) throws IOException {
+        requireNonNull(engagementList);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableEngagementList(engagementList), filePath);
     }
 
 }

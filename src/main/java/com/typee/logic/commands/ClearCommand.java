@@ -2,7 +2,7 @@ package com.typee.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.typee.model.AddressBook;
+import com.typee.model.EngagementList;
 import com.typee.model.Model;
 
 /**
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setHistoryManager(new AddressBook());
+        model.setHistoryManager(new EngagementList());
         model.saveEngagementList();
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -10,10 +10,10 @@ import com.typee.model.engagement.UniqueEngagementList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the engagement-list level
  * Duplicates are not allowed (by .isConflictingWith comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class EngagementList implements ReadOnlyEngagementList {
 
     private final UniqueEngagementList engagements;
 
@@ -28,12 +28,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         engagements = new UniqueEngagementList();
     }
 
-    public AddressBook() {}
+    public EngagementList() {}
 
     /**
-     * Creates an AddressBook using the Engagements in the {@code toBeCopied}
+     * Creates an EngagementList using the Engagements in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public EngagementList(ReadOnlyEngagementList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -49,9 +49,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code EngagementList} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyEngagementList newData) {
         requireNonNull(newData);
 
         setEngagements(newData.getEngagementList());
@@ -60,7 +60,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Returns true if an engagement with the same identity as {@code engagement} exists in the address book.
+     * Returns true if an engagement with the same identity as {@code engagement}
+     * exists in the engagement list.
      */
     public boolean hasEngagement(Engagement engagement) {
         requireNonNull(engagement);
@@ -68,8 +69,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds an engagement to the address book.
-     * The engagement must not already exist in the address book.
+     * Adds an engagement to the engagement list.
+     * The engagement must not already exist in the engagement list.
      */
     public void addEngagement(Engagement engagement) {
         engagements.add(engagement);
@@ -77,19 +78,19 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given engagement {@code target} in the list with {@code editedEngagement}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the engagement list.
      * The engagement identity of {@code editedEngagement} must not be the same
-     * as another existing engagement in the address book.
+     * as another existing engagement in the engagement list.
      */
-    public void setPerson(Engagement target, Engagement editedEngagement) {
+    public void setEngagement(Engagement target, Engagement editedEngagement) {
         requireNonNull(editedEngagement);
 
         engagements.setEngagement(target, editedEngagement);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code EngagementList}.
+     * {@code key} must exist in the engagement list.
      */
     public void removeEngagement(Engagement key) {
         engagements.remove(key);
@@ -111,8 +112,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && engagements.equals(((AddressBook) other).engagements));
+                || (other instanceof EngagementList // instanceof handles nulls
+                && engagements.equals(((EngagementList) other).engagements));
     }
 
     @Override
