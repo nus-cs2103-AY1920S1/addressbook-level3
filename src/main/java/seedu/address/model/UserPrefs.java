@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path addressBookFilePath = Paths.get("data", "addressbook.json");
     private Path userListFilePath = Paths.get("data", "userList.json");
     private Path foodListFilePath = Paths.get("data", "foodlist.json");
+    private Path recordListFilePath = Paths.get("data", "recordlist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -72,9 +73,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return foodListFilePath;
     }
 
+    public Path getRecordListFilePath() {
+        return recordListFilePath;
+    }
+
     public void setFoodListFilePath(Path foodListFilePath) {
         this.foodListFilePath = foodListFilePath;
     }
+
+    public void setRecordListFilePath(Path recordListFilePath) {
+        this.recordListFilePath = recordListFilePath;
+    }
+
 
     @Override
     public boolean equals(Object other) {
