@@ -19,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.food.Name;
+import seedu.address.model.waste.WasteReport;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -269,6 +270,8 @@ public class MainWindow extends UiPart<Stage> {
                 displayTemplateListPanel();
             } else if (commandResult.isShoppingListCommand()) {
                 displayShoppingListPanel();
+            } else if (commandResult.isWasteReportCommand()) {
+                displayWasteReport(logic.getWasteReport());
             }
 
             return commandResult;
@@ -279,6 +282,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void displayWasteReport(WasteReport wasteReport) {
+        ReportWasteWindow wasteWindow = new ReportWasteWindow(wasteReport);
+        wasteWindow.showWasteReport();
+
+    }
     /**
      * Resets the templateListPanel to show the templateItemPanel whenever a templateItem command is executed
      */

@@ -14,6 +14,7 @@ import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
+import seedu.address.model.waste.WasteReport;
 
 /**
  * The API of the Model component.
@@ -204,9 +205,19 @@ public interface Model {
     /** Returns an unmodifiable view of a specific month's filtered waste list */
     ObservableList<GroceryItem> getFilteredWasteItemListByMonth(WasteMonth wasteMonth);
 
-    public Set<WasteMonth> getListOfWasteMonths();
+    Set<WasteMonth> getListOfWasteMonths();
+
+    boolean hasWasteMonth(WasteMonth wasteMonth);
+
+    WasteMonth getEarliestWasteMonth();
+
+    WasteMonth getLatestWasteMonth();
 
     void updateFilteredWasteItemList(WasteMonth wasteMonth);
+
+    void setWasteReport(WasteReport wasteReport);
+
+    WasteReport getWasteReport();
 
     //=========== ShoppingList ==================================================================================
     /**

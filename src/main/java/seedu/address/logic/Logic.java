@@ -17,6 +17,7 @@ import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
+import seedu.address.model.waste.WasteReport;
 
 /**
  * API of the Logic component
@@ -68,6 +69,8 @@ public interface Logic {
     ReadOnlyWasteList getWasteList();
 
     ObservableList<GroceryItem> getFilteredWasteList();
+
+    WasteReport getWasteReport();
 
     Path getWasteListFilePath();
 

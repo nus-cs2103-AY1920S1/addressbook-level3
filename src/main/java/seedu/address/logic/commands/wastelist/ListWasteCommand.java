@@ -14,7 +14,7 @@ import seedu.address.model.waste.WasteMonth;
  */
 public class ListWasteCommand extends Command {
 
-    public static final String COMMAND_WORD = "show";
+    public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = "wlist " + COMMAND_WORD
             + ": Lists out your current food waste for a given month. "
@@ -25,7 +25,7 @@ public class ListWasteCommand extends Command {
     private static final String MESSAGE_MONTH_RESTRICTION = "The given month must not"
             + " be after the current month";
 
-    private static final String MESSAGE_SUCCESS = "Listed all waste items for the month ";
+    private static final String MESSAGE_SUCCESS = "Listed all waste items for the month %1$s.";
 
     private WasteMonth wasteMonth;
 
@@ -49,7 +49,7 @@ public class ListWasteCommand extends Command {
         }
         model.updateFilteredWasteItemList(this.wasteMonth);
 
-        CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, this.wasteMonth));
         commandResult.setWasteListCommand();
         return commandResult;
     }

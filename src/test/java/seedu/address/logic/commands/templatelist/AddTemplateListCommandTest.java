@@ -32,6 +32,7 @@ import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
+import seedu.address.model.waste.WasteReport;
 import seedu.address.testutil.TemplateItemBuilder;
 
 
@@ -276,7 +277,22 @@ public class AddTemplateListCommandTest {
         @Override
         public Set<WasteMonth> getListOfWasteMonths() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
+
+        @Override
+        public boolean hasWasteMonth(WasteMonth wasteMonth) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public WasteMonth getEarliestWasteMonth() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public WasteMonth getLatestWasteMonth() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public TreeMap<WasteMonth, WasteList> getWasteArchive() {
@@ -286,7 +302,17 @@ public class AddTemplateListCommandTest {
         @Override
         public void updateFilteredWasteItemList(WasteMonth wasteMonth) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
+
+        @Override
+        public void setWasteReport(WasteReport wasteReport) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public WasteReport getWasteReport() {
+            throw new AssertionError("This method should not be called.");
+        }
 
 
         @Override

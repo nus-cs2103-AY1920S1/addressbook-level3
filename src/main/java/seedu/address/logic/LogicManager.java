@@ -23,6 +23,7 @@ import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
+import seedu.address.model.waste.WasteReport;
 import seedu.address.storage.Storage;
 
 /**
@@ -110,6 +111,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<GroceryItem> getFilteredWasteList() {
         return model.getFilteredWasteItemList();
+    }
+
+    @Override
+    public WasteReport getWasteReport() {
+        return model.getWasteReport();
     }
 
     @Override

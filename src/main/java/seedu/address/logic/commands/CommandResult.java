@@ -21,6 +21,7 @@ public class CommandResult {
     private boolean isTemplateListCommand;
     private boolean isWasteListCommand;
     private boolean isShoppingListCommand;
+    private boolean isWasteReportCommand;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -71,6 +72,14 @@ public class CommandResult {
         return isWasteListCommand;
     }
 
+    public boolean isWasteReportCommand() {
+        return isWasteReportCommand;
+    }
+
+    public void setWasteReportCommand() {
+        this.isWasteReportCommand = true;
+    }
+
     public void setWasteListCommand() {
         isWasteListCommand = true;
     }
@@ -82,6 +91,7 @@ public class CommandResult {
     public void setShoppingListCommand() {
         isShoppingListCommand = true;
     }
+
 
     @Override
     public boolean equals(Object other) {
