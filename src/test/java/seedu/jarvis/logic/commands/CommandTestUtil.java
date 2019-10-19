@@ -41,6 +41,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+
     public static final String VALID_DESC_NETFLIX = "Netflix";
     public static final String VALID_MONEY_NETFLIX = "13.50";
     public static final String VALID_DESC_SPOTIFY = "Spotify";
