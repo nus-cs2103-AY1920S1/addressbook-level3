@@ -20,7 +20,7 @@ public class GroupDetailsView extends UiPart<Region> {
 
     public GroupDetailsView(DetailWindowDisplay detailWindowDisplay, ArrayList<String> colors) {
         super(FXML);
-        ScheduleView scheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules(), colors);
+        ScheduleView scheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules(), colors, detailWindowDisplay.getGroupDisplay().getGroupName());
         groupSchedule.getChildren().add(scheduleView.getRoot());
     }
 

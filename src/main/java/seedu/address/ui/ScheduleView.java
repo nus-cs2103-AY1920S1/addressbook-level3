@@ -19,7 +19,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.DayTimeslot;
 import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.group.GroupName;
 import seedu.address.model.person.ScheduleStub;
+import seedu.address.ui.util.CustomToolTip;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
 
@@ -32,6 +34,9 @@ public class ScheduleView extends UiPart<Region> {
     private static final String FXML = "ScheduleView.fxml";
     private static ArrayList<String> listOfColors = new ArrayList<String>(List.of("darkred", "navy", "darkgreen",
             "darkorange", "lightslategray", "orchid", "teal", "darkmagenta"));
+
+    @FXML
+    private Label title;
 
     @FXML
     private VBox scheduleContainer;
@@ -58,6 +63,7 @@ public class ScheduleView extends UiPart<Region> {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
+        this.title.setText(weekSchedule.getPersonDisplay().getName().fullName + "'s Schedule");
         initialise();
         initialiseHeaders();
         initialiseTimeslotHeaders();
@@ -74,11 +80,12 @@ public class ScheduleView extends UiPart<Region> {
         scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
     }
 
-    public ScheduleView(ArrayList<WeekSchedule> weekSchedules, List<String> colors) {
+    public ScheduleView(ArrayList<WeekSchedule> weekSchedules, List<String> colors, GroupName groupName) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
         this.colors = colors;
+        this.title.setText(groupName.toString() + "'s Schedule");
         initialise();
         initialiseHeaders();
         initialiseTimeslotHeaders();
@@ -344,7 +351,14 @@ public class ScheduleView extends UiPart<Region> {
         return scheduleView;
     }
 
-    public ScrollPane getScheduleContents() {
-        return scheduleContents;
+    /**
+     * Method to invoke scrolling events to the schedule view.
+     */
+    public void scrollNext() {
+        if (scheduleContents.getVvalue() == 0) {
+            scheduleContents.setVvalue(1);
+        } else {
+            scheduleContents.setVvalue(0);
+        }
     }
 }

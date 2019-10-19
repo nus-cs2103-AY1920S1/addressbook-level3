@@ -32,6 +32,11 @@ public class CommandResult {
     private final boolean scroll;
 
     /**
+     * The application should have a popup.
+     */
+    private final boolean popUp;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
@@ -40,6 +45,7 @@ public class CommandResult {
         this.exit = exit;
         this.export = false;
         this.scroll = false;
+        this.popUp = false;
     }
 
     /**
@@ -51,6 +57,7 @@ public class CommandResult {
         this.exit = exit;
         this.export = export;
         this.scroll = false;
+        this.popUp = false;
     }
 
     /**
@@ -62,6 +69,20 @@ public class CommandResult {
         this.exit = exit;
         this.export = export;
         this.scroll = scroll;
+        this.popUp = false;
+    }
+
+    /**
+     * Constructs an alternative CommandResult that would affect the UI.
+     */
+    public CommandResult(String feedbackToUser,
+                         boolean showHelp, boolean exit, boolean export, boolean scroll, boolean popUp) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.export = export;
+        this.scroll = scroll;
+        this.popUp = popUp;
     }
 
 
@@ -91,6 +112,10 @@ public class CommandResult {
 
     public boolean isScroll() {
         return scroll;
+    }
+
+    public boolean isPopUp() {
+        return popUp;
     }
 
     @Override

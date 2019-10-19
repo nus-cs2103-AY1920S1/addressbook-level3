@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.*;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -102,6 +101,9 @@ public class AddressBookParser {
 
         case ScrollCommand.COMMAND_WORD:
             return new ScrollCommand();
+
+        case PopupCommand.COMMAND_WORD:
+            return new PopupCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
