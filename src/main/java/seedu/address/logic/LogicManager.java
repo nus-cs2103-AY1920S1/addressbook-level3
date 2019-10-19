@@ -7,10 +7,30 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPolicyCommand;
+import seedu.address.logic.commands.AddPolicyTagCommand;
+import seedu.address.logic.commands.AddTagCommand;
+import seedu.address.logic.commands.AssignPolicyCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeletePolicyCommand;
+import seedu.address.logic.commands.DeletePolicyTagCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPolicyCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListPeopleCommand;
+import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -33,6 +53,18 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        initialiseCommandsInParserUtil();
+    }
+
+    public void initialiseCommandsInParserUtil() {
+        ParserUtil.addCommands(AddCommand.COMMAND_WORD, AddPolicyCommand.COMMAND_WORD, AddPolicyTagCommand.COMMAND_WORD,
+                AddTagCommand.COMMAND_WORD, AssignPolicyCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
+                DeleteCommand.COMMAND_WORD, DeletePolicyCommand.COMMAND_WORD, DeletePolicyTagCommand.COMMAND_WORD,
+                DeleteTagCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, EditPolicyCommand.COMMAND_WORD,
+                ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD, FindPolicyCommand.COMMAND_WORD,
+                HelpCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
+                UnassignPolicyCommand.COMMAND_WORD);
+
     }
 
     @Override

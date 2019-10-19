@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CommandWordException;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithoutMergeException;
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
@@ -55,6 +56,11 @@ public class CommandBox extends UiPart<Region> {
             try {
                 commandExecutor.execute(command + " ", false);
                 commandTextField.setText("");
+            } catch (CommandWordException e) {
+                String commandSuggestion = e.getCommandSuggestion();
+                commandTextField.setText(commandSuggestion);
+                commandTextField.positionCaret(commandSuggestion.length());
+                setStyleToIndicateCommandFailure();
             } catch (DuplicatePersonWithMergeException e) {
                 commandTextField.setText("");
                 setStyleToIndicateCommandFailure();
