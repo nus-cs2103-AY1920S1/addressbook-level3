@@ -2,17 +2,22 @@ package seedu.deliverymans.logic.parser.universal;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.deliverymans.logic.commands.universal.AddOrderCommand.MESSAGE_ADD_ORDER_USAGE;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_DELIVERYMAN;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_ORDER;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
+
+import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.deliverymans.logic.commands.universal.AddOrderCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.Parser;
+import seedu.deliverymans.logic.parser.ParserUtil;
+import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.order.Order;
 
 /**
@@ -26,26 +31,28 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddOrderCommand parse(String args) throws ParseException {
-        String orderName;
-        String customer;
-        String restaurant;
-        String deliveryman;
-
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ORDER, PREFIX_CUSTOMER,
-                PREFIX_RESTAURANT, PREFIX_DELIVERYMAN);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER,
+                PREFIX_RESTAURANT, PREFIX_FOOD);
 
-        try {
-            orderName = argMultimap.getValue(PREFIX_ORDER).orElse("");
-            customer = argMultimap.getValue(PREFIX_CUSTOMER).orElseThrow(Exception::new);
-            restaurant = argMultimap.getValue(PREFIX_RESTAURANT).orElseThrow(Exception::new);
-            deliveryman = argMultimap.getValue(PREFIX_DELIVERYMAN).orElseThrow(Exception::new);
-        } catch (Exception ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_ADD_ORDER_USAGE));
+        if (!arePrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));
         }
 
-        Order order = new Order(orderName, customer, restaurant, deliveryman);
+        Name customerName = ParserUtil.parseName(argMultimap.getValue(PREFIX_CUSTOMER).get());
+        Name restaurantName = ParserUtil.parseName(argMultimap.getValue(PREFIX_RESTAURANT).get());
+        Set<Tag> foodList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_FOOD));
+
+        Order order = new Order(customerName, restaurantName, foodList);
         return new AddOrderCommand(order);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

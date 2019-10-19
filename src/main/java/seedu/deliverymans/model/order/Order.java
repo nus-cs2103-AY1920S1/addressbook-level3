@@ -1,11 +1,14 @@
 package seedu.deliverymans.model.order;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.deliverymans.model.food.Food;
+import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Tag;
 
 /**
  * Represents an Order in the application.
@@ -14,62 +17,78 @@ import seedu.deliverymans.model.food.Food;
 public class Order {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-
-    public final String orderName;
+    private static int counter = 1;
 
     // Identity fields
-    private final String customer;
-    private final String restaurant;
-    private final String deliveryman;
+    private final Name orderName;
+    private final Name customer;
+    private final Name restaurant;
+    private Name deliveryman;
     private boolean isCompleted;
 
     // Data fields
-    private final Set<Food> foods = new HashSet<>();
+    private final Set<Tag> foods = new HashSet<>();
 
     /**
      * Constructs a {@code Order}
      *
      * @param customer   The customer who made the order.
-     * @param restaurant The restaurant...
+     * @param restaurant The restaurant.
      */
-    public Order(String orderName, String customer, String restaurant, String deliveryman) {
-        // requireNonNull(orderName);
-        // checkArgument(isValidOrderName(orderName), MESSAGE_CONSTRAINTS);
+    public Order(Name customer, Name restaurant, Set<Tag> foodList) {
+        requireNonNull(customer);
+        requireNonNull(restaurant);
+
+        this.orderName = new Name(String.format("Order no: %d", counter));
+        ++counter;
+        this.customer = customer;
+        this.restaurant = restaurant;
+        this.foods.addAll(foodList);
+    }
+
+    public Order(Name orderName, Name customer, Name restaurant, Set<Tag> foodList) {
+        requireNonNull(customer);
+        requireNonNull(restaurant);
+
         this.orderName = orderName;
         this.customer = customer;
         this.restaurant = restaurant;
-        this.deliveryman = deliveryman;
+        this.foods.addAll(foodList);
     }
 
-    public void addFood(Food food) {
+    public void addFood(Tag food) {
         foods.add(food);
     }
 
-    public void addFood(Set<Food> foods) {
+    public void addFood(Set<Tag> foods) {
         this.foods.addAll(foods);
     }
 
-    public String getOrderName() {
+    public Name getOrderName() {
         return orderName;
     }
 
-    public String getCustomer() {
+    public Name getCustomer() {
         return customer;
     }
 
-    public String getDeliveryman() {
+    public Name getDeliveryman() {
         return deliveryman;
+    }
+
+    public void setDeliveryman(Name deliveryman) {
+        this.deliveryman = deliveryman;
     }
 
     /**
      * Returns an immutable food set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Food> getFood() {
+    public Set<Tag> getFood() {
         return Collections.unmodifiableSet(foods);
     }
 
-    public String getRestaurant() {
+    public Name getRestaurant() {
         return restaurant;
     }
 
@@ -134,7 +153,8 @@ public class Order {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Customer: ")
+        builder.append(getOrderName())
+                .append(" Customer: ")
                 .append(getCustomer())
                 .append(" Restaurant: ")
                 .append(getRestaurant())
@@ -142,6 +162,7 @@ public class Order {
                 .append(getDeliveryman())
                 .append(" Food: ");
         getFood().forEach(builder::append);
+        builder.append(" Delivery status: ").append(isCompleted());
         return builder.toString();
     }
 }

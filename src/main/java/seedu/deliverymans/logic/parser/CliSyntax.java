@@ -16,12 +16,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_DELIVERYMAN = new Prefix("d/");
     public static final Prefix PREFIX_RESTAURANT = new Prefix("r/");
     public static final Prefix PREFIX_FOOD = new Prefix("f/");
-
+    public static final Prefix PREFIX_BOOLEAN_COMPLETED = new Prefix("completed/");
     // Prefix for universal commands
 
-
-    // Prefix for customer commands
-    public static final Prefix PREFIX_ORDER = new Prefix("o/");
 
     // Prefix for deliveryman commands
 

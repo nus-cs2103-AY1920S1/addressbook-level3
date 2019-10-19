@@ -107,4 +107,14 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    public static boolean parseBoolean(String bool) throws ParseException {
+        requireNonNull(bool);
+        String trimmedBool = bool.trim();
+        boolean isCompleted = Boolean.parseBoolean(trimmedBool);
+        if (!isCompleted && trimmedBool.equalsIgnoreCase("false")) {
+            throw new ParseException("Completed should be true or false");
+        }
+        return isCompleted;
+    }
 }
