@@ -129,6 +129,11 @@ public class ParserUtil {
         return new Amount(Double.parseDouble(s));
     }
 
+    /**
+     * Parses {@code String date} into a {@code Date}.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
     public static Date parseDate(String s) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         Date date;
