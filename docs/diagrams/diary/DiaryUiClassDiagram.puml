@@ -4,7 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
-package UI.diary <<Rectangle>>{
+package UI.diary <<Rectangle>> {
 Class DiaryPage
 Class DiaryGallery
 Class DiaryGalleryCard
@@ -17,6 +17,10 @@ Class DiaryEditBox
 
 }
 
+
+package UI <<Rectangle>> {
+    Class MainWindow
+}
 
 package Ui.template <<Rectangle>> {
     Class "{abstract}\nPageWithSidebar" as PageWithSidebar
