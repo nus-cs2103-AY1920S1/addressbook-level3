@@ -84,11 +84,11 @@ public class StringUtil {
     /**
      * Utility Method to convert date in calendar to string for display without Day
      */
-    public static String convertCalendarMonthToString(Calendar inputDate) {
+    public static String convertCalendarDateToGraphDisplay(Calendar inputDate) {
         StringBuilder display = new StringBuilder();
-        display.append(inputDate.get(Calendar.YEAR) + ".");
         //offset month
-        display.append((inputDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())) + ".");
+        display.append((inputDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())) + " ");
+        display.append(inputDate.get(Calendar.YEAR) + "");
         return display.toString();
     }
 }

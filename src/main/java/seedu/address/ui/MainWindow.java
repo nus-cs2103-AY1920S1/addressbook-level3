@@ -197,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
         switch (statsPayload.getStatisticType()) {
         case PROFIT:
             String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
+            //this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
             this.statsWindow.show();
             break;
         case REVENUE:
@@ -209,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case COST:
             String totalCostResult = this.logic.calculateTotalCost(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
+            //this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
             this.statsWindow.show();
             break;
         default:

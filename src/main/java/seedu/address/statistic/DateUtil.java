@@ -17,6 +17,10 @@ public class DateUtil {
         return order.getSchedule().get().getCalendar().get(Calendar.MONTH);
     }
 
+    public static int extractYear(Order order) {
+        return order.getSchedule().get().getCalendar().get(Calendar.YEAR);
+    }
+
     public static List<Calendar> getListOfYearMonth(StatsPayload statsPayload) {
         List<Calendar> listOfYearMonth = new ArrayList<>();
         Calendar startDate = statsPayload.getStartingDate();

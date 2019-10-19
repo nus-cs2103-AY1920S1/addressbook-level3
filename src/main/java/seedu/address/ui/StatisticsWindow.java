@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -19,21 +20,21 @@ public class StatisticsWindow extends UiPart<Stage> {
     @FXML
     private Label testLabel;
     @FXML
-    NumberAxis xAxis;
+    CategoryAxis xAxis;
     @FXML
     NumberAxis yAxis;
     @FXML
     private LineChart<String, Number> testChart;
 
-    XYChart.Data<String, Number> axisData;
+    XYChart.Series<String, Number> axisSeries;
 
     /**
      * Create a new Statistic window
      * @param root Stage in which the window will use
      */
-    public StatisticsWindow(Stage root, XYChart.Data<String, Number> axisData) {
+    public StatisticsWindow(Stage root,  XYChart.Series<String, Number> axisSeries) {
         super(FXML, root);
-        this.axisData = axisData;
+        this.axisSeries = axisSeries;
         buildChart();
     }
 
@@ -42,8 +43,8 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statisticsResult the result of the statistic
      * @param statsLabel the title of the stats
      */
-    public StatisticsWindow(String statisticsResult, String statsLabel, XYChart.Data<String, Number> axisData) {
-        this(new Stage(), axisData);
+    public StatisticsWindow(String statisticsResult, String statsLabel, XYChart.Series<String, Number> axisSeries) {
+        this(new Stage(), axisSeries);
         //this.testLabel.setText(statisticsResult);
         //this.statsLabel.setText(statsLabel);
         this.testChart.setTitle(statsLabel);
@@ -51,12 +52,11 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     private void buildChart() {
         //Defining the x axis
-        xAxis.setLabel("testXLabel");
+        xAxis.setLabel("Months");
         //Defining the y axis
-        yAxis.setLabel("testYLabel");
-        this.testChart.getData().add(this.axisData);
+        yAxis.setLabel("Value in $");
+        this.testChart.getData().add(axisSeries);
     }
-
 
     /**
      * Shows the Statistics Window.

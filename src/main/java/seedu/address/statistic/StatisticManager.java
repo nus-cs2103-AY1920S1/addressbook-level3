@@ -58,7 +58,7 @@ public class StatisticManager implements Statistic {
     // utility function to help with extract the relevant data to an XYChar.Data<A,B> object
     private XYChart.Data<String, Number> processMonth(List<Order> listOfOrders, Calendar month) {
         return new XYChart.Data<String, Number>(
-                StringUtil.convertCalendarMonthToString(month),
+                StringUtil.convertCalendarDateToGraphDisplay(month),
                 StatisticManager.calculateRevenueByMonth(listOfOrders, month));
     }
 
@@ -98,7 +98,9 @@ public class StatisticManager implements Statistic {
     private static double calculateRevenueByMonth(List<Order> orderList, Calendar month) {
         double[] doubleRevenueList =
                 StatisticManager.checkIfOrderIsPresent(orderList.stream())
-                .filter(currentOrder -> extractMonth(currentOrder) == month.get(2) )
+                .filter(currentOrder ->
+                        DateUtil.extractMonth(currentOrder) == month.get(2)
+                        && DateUtil.extractYear(currentOrder) == month.get(1) )
                 .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
                 .collect(Collectors.toList())
                 .stream()

@@ -18,9 +18,9 @@
                 <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" minWidth="650" minHeight="500">
                 <children>
-                    <VBox alignment="CENTER">
+                    <VBox alignment="CENTER" minWidth="650" minHeight="500">
                         <Label fx:id="statsLabel"  styleClass="label"></Label>
                         <Label fx:id="testLabel" styleClass="label" ></Label>
                         <LineChart fx:id="testChart" title="">
@@ -33,9 +33,6 @@
                         </LineChart>
                     </VBox>
                 </children>
-                <opaqueInsets>
-                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-                </opaqueInsets>
                 <padding>
                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                 </padding>
