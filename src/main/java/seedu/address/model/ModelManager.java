@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -42,6 +44,7 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
+    private ScheduleTime scheduleTime;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -66,6 +69,7 @@ public class ModelManager implements Model {
         this.filteredOrders = new FilteredList<>(this.orderBook.getList());
         this.filteredSchedules = new FilteredList<>(this.scheduleBook.getList());
 
+        this.scheduleTime = new ScheduleTime(Calendar.getInstance());
     }
 
     public ModelManager() {
@@ -86,6 +90,7 @@ public class ModelManager implements Model {
         this.scheduleBook = new ScheduleBook(scheduleBook);
 
         this.userPrefs = new UserPrefs(userPrefs);
+        this.scheduleTime = new ScheduleTime(Calendar.getInstance());
 
         this.filteredCustomers = new FilteredList<>(this.customerBook.getList());
         this.filteredPhones = new FilteredList<>(this.phoneBook.getList());
@@ -408,6 +413,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteSchedule(Schedule target) {
         scheduleBook.removeSchedule(target);
+        setScheduleTime(target.getCalendar());
 
         // cascade
         List<Order> orders = orderBook.getList();
@@ -425,6 +431,7 @@ public class ModelManager implements Model {
     @Override
     public void addSchedule(Schedule schedule) {
         scheduleBook.addSchedule(schedule);
+        setScheduleTime(schedule.getCalendar());
         updateFilteredScheduleList(PREDICATE_SHOW_ALL_SCHEDULE);
     }
 
@@ -433,6 +440,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedSchedule);
 
         scheduleBook.setSchedule(target, editedSchedule);
+        setScheduleTime(editedSchedule.getCalendar());
 
         // cascade
         List<Order> orders = orderBook.getList();
@@ -487,6 +495,18 @@ public class ModelManager implements Model {
                 && filteredPhones.equals(other.filteredPhones)
                 && filteredOrders.equals(other.filteredOrders)
                 && filteredSchedules.equals(other.filteredSchedules);
+    }
+
+    //=========== ScheduleTime ================================================================================
+
+    @Override
+    public void setScheduleTime(Calendar calendar) {
+        scheduleTime.setCalendar(calendar);
+    }
+
+    @Override
+    public ScheduleTime getScheduleTime() {
+        return scheduleTime;
     }
 
 }

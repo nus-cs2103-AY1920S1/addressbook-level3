@@ -2,8 +2,10 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Calendar;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDataBook;
+import seedu.address.model.ScheduleTime;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
@@ -128,5 +131,10 @@ public class LogicManager implements Logic {
     @Override
     public String calculateTotalCost(StatsPayload statsPayload) {
         return this.statistic.calculateTotalCostOnCompleted(this.getOrderBook(), statsPayload);
+    }
+
+    @Override
+    public ScheduleTime getScheduleTime() {
+        return model.getScheduleTime();
     }
 }

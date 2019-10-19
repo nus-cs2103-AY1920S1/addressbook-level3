@@ -59,8 +59,7 @@ public class DeleteScheduleCommand extends Command {
         Schedule toDelete = orderToUnschedule.getSchedule().get();
         model.deleteSchedule(toDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_SCHEDULE_SUCCESS, toDelete), toDelete.getCalendar(),
-                UiChange.SCHEDULE);
+        return new CommandResult(String.format(MESSAGE_DELETE_SCHEDULE_SUCCESS, toDelete), UiChange.SCHEDULE);
     }
 
     @Override

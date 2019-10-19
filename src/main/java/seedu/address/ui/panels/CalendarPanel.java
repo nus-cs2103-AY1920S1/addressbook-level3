@@ -4,12 +4,15 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import jfxtras.scene.control.agenda.Agenda;
+import seedu.address.model.ScheduleTime;
 import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.ui.UiPart;
@@ -22,23 +25,26 @@ public class CalendarPanel extends UiPart<Region> {
     private Agenda agenda;
     private ObservableList<Schedule> scheduleList;
     private ObservableList<Order> orderList;
+    private ScheduleTime scheduleTime;
 
     @FXML
     private VBox calendarBox;
 
-    public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList) {
+    public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList, ScheduleTime scheduleTime) {
         super(FXML);
 
         this.scheduleList = scheduleList;
         this.orderList = orderList;
+        this.scheduleTime = scheduleTime;
 
         agenda = new Agenda();
         calendarBox.getChildren().add(agenda);
         populateAgenda();
+        setAgendaView(Calendar.getInstance());
 
         // set up listener
         scheduleList.addListener((ListChangeListener<Schedule>) change -> populateAgenda());
-
+        scheduleTime.getProperty().addListener((observableValue, calendar, t1) -> setAgendaView(t1));
     }
 
     /**
@@ -87,7 +93,7 @@ public class CalendarPanel extends UiPart<Region> {
     /**
      * Switch the agenda view according to the date input by the user
      */
-    public void setAgendaView(Calendar calendar) {
+    private void setAgendaView(Calendar calendar) {
         int year = calendar.get(Calendar.YEAR);
         // offset to 1-based
         int month = calendar.get(Calendar.MONTH) + 1;

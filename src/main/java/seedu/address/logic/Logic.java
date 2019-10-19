@@ -1,8 +1,11 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.Calendar;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import jfxtras.scene.layout.HBox;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.CommandResult;
@@ -10,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDataBook;
+import seedu.address.model.ScheduleTime;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
@@ -95,4 +99,6 @@ public interface Logic {
      * Gets logic to calculate total profit based on user input
      */
     String calculateTotalCost(StatsPayload statsPayload);
+
+    ScheduleTime getScheduleTime();
 }

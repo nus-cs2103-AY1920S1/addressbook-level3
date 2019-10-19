@@ -1,8 +1,10 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Calendar;
 import java.util.function.Predicate;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.Customer;
@@ -273,4 +275,7 @@ public interface Model {
      */
     void updateFilteredScheduleList(Predicate<Schedule> predicate);
 
+    ScheduleTime getScheduleTime();
+
+    void setScheduleTime(Calendar calendar);
 }

@@ -133,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
         phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList());
+        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList(), logic.getScheduleTime());
 
         tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, calendarPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
@@ -215,10 +215,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void changeAgendaView(Calendar calendar) {
-        calendarPanel.setAgendaView(calendar);
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -257,7 +253,7 @@ public class MainWindow extends UiPart<Stage> {
                 this.showOrderPanel();
                 break;
             case SCHEDULE:
-                this.handleSchedule(input);
+                this.showSchedulePanel();
                 break;
             case HELP:
                 this.handleHelp();
@@ -297,16 +293,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * switch selected tab to schedule tab, configure the view of the agenda to the date specified (if any)
+     * switch selected tab to order tab
      */
-    private void handleSchedule(CommandResult input) {
-        Calendar calendar;
-        if (input.hasCalendar()) {
-            calendar = input.getCalendar();
-        } else {
-            calendar = Calendar.getInstance();
-        }
-        calendarPanel.setAgendaView(calendar);
+    private void showSchedulePanel() {
         tabPanel.switchTabSchedule();
     }
 

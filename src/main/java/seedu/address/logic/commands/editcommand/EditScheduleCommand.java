@@ -95,8 +95,7 @@ public class EditScheduleCommand extends Command {
 
         model.setSchedule(scheduleToEdit, editedSchedule);
         model.updateFilteredScheduleList(PREDICATE_SHOW_ALL_SCHEDULE);
-        return new CommandResult(String.format(MESSAGE_EDIT_SCHEDULE_SUCCESS, editedSchedule),
-                editedSchedule.getCalendar(), UiChange.SCHEDULE);
+        return new CommandResult(String.format(MESSAGE_EDIT_SCHEDULE_SUCCESS, editedSchedule), UiChange.SCHEDULE);
     }
 
     /**

@@ -84,7 +84,7 @@ public class AddScheduleCommand extends Command {
         model.setOrder(orderToSchedule, scheduledOrder);
         model.addSchedule(toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), toAdd.getCalendar(), UiChange.SCHEDULE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiChange.SCHEDULE);
     }
 
     @Override
