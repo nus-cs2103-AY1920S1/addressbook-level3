@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -72,6 +73,20 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Finds Person objects with matching keywords, returning all matches in an ArrayList.
      */
     public ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate) {
+        ArrayList<Person> matches = new ArrayList<Person>();
+        for (Person person : persons.asUnmodifiableObservableList()) {
+            if (predicate.test(person)) {
+                matches.add(person);
+            }
+        }
+
+        return matches;
+    }
+
+    /**
+     * Finds Person objects with matching keywords, returning all matches in an ArrayList.
+     */
+    public ArrayList<Person> findPerson(NameContainsAllKeywordsPredicate predicate) {
         ArrayList<Person> matches = new ArrayList<Person>();
         for (Person person : persons.asUnmodifiableObservableList()) {
             if (predicate.test(person)) {

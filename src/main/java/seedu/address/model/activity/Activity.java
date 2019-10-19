@@ -4,6 +4,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Stream;
+
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
+import seedu.address.model.person.Person;
 
 /**
  * Represents an Activity class containing participants ID and expenses.
@@ -11,16 +15,18 @@ import java.util.Objects;
 public class Activity {
 
     private final Title title;
-    private final ArrayList<Integer> participantIds = new ArrayList<>();
-    private final ArrayList<Expense> expenses = new ArrayList<>();
+    private final ArrayList<Integer> participantIds;
+    private final ArrayList<Expense> expenses;
 
     /**
      * Constructor for Activity.
      * @param title Title of the activity.
-     * @param people The people participating in the activity.
+     * @param ids The people participating in the activity.
      */
     public Activity(Title title, Integer ... ids) {
         requireAllNonNull(title);
+        participantIds = new ArrayList<>();
+        expenses = new ArrayList<>();
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);
@@ -79,8 +85,15 @@ public class Activity {
     /**
      * Add expense to the activity
      * @param expenditures The expense(s) to be added.
+     * @throws PersonNotInActivityException if any person is not found
      */
-    public void addExpense(Expense ... expenditures) {
+    public void addExpense(Expense ... expenditures) throws PersonNotInActivityException {
+        boolean allPresent = Stream.of(expenditures)
+                .map(x -> x.getPersonId())
+                .allMatch(x -> participantIds.contains(x));
+        if (!allPresent) {
+            throw new PersonNotInActivityException();
+        }
         for (int i = 0; i < expenditures.length; i++) {
             expenses.add(expenditures[i]);
         }
