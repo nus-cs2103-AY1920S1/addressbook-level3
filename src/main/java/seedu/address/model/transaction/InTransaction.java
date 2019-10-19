@@ -1,6 +1,6 @@
 package seedu.address.model.transaction;
 
-import java.util.Date;
+import seedu.address.model.Date;
 
 /**
  * Handles in transactions.
