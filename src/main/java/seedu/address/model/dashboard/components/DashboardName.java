@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a to-do's name in Duke Cooks.
+ * Represents a dashboard's name in Duke Cooks.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class TodoName {
+public class DashboardName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -21,11 +21,11 @@ public class TodoName {
     public final String fullName;
 
     /**
-     * Constructs a {@code TodoName}.
+     * Constructs a {@code DashboardName}.
      *
      * @param name A valid name.
      */
-    public TodoName(String name) {
+    public DashboardName(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
@@ -47,8 +47,8 @@ public class TodoName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TodoName // instanceof handles nulls
-                && fullName.equals(((TodoName) other).fullName)); // state check
+                || (other instanceof DashboardName // instanceof handles nulls
+                && fullName.equals(((DashboardName) other).fullName)); // state check
     }
 
     @Override

@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.diary.ReadOnlyDashboard;
-import seedu.address.model.diary.components.Diary;
-import seedu.address.model.diary.components.UniqueDiaryList;
+import seedu.address.model.dashboard.components.Dashboard;
+import seedu.address.model.dashboard.components.UniqueDashboardList;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
 
 /**
  * Wraps all data at the dashboard level
@@ -15,7 +15,7 @@ import seedu.address.model.diary.components.UniqueDiaryList;
  */
 public class DashboardRecords implements ReadOnlyDashboard {
 
-    private final UniqueDiaryList diaries;
+    private final UniqueDashboardList dashboards;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,13 +25,13 @@ public class DashboardRecords implements ReadOnlyDashboard {
      *   among constructors.
      */
     {
-        diaries = new UniqueDiaryList();
+        dashboards = new UniqueDashboardList();
     }
 
     public DashboardRecords() {}
 
     /**
-     * Creates a DiaryRecords using the Persons in the {@code toBeCopied}
+     * Creates a DashboardRecords using the Dashboards in the {@code toBeCopied}
      */
     public DashboardRecords(ReadOnlyDashboard toBeCopied) {
         this();
@@ -41,81 +41,81 @@ public class DashboardRecords implements ReadOnlyDashboard {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the diary list with {@code diaries}.
+     * Replaces the contents of the dashboard list with {@code dashboards}.
      * {@code diaries} must not contain duplicate diaries.
      */
-    public void setDiaries(List<Diary> diaries) {
-        this.diaries.setDiaries(diaries);
+    public void setDashboards(List<Dashboard> diaries) {
+        this.dashboards.setDashboards(dashboards);
     }
 
     /**
-     * Resets the existing data of this {@code DiaryRecords} with {@code newData}.
+     * Resets the existing data of this {@code DashboardRecords} with {@code newData}.
      */
     public void resetData(ReadOnlyDashboard newData) {
         requireNonNull(newData);
 
-        setDiaries(newData.getDiaryList());
+        setDashboards(newData.getDashboardList());
     }
 
-    //// diary-level operations
+    //// dashboard-level operations
 
     /**
-     * Returns true if a diary with the same identity as {@code diary} exists in Duke Cooks.
+     * Returns true if a dashboard with the same identity as {@code dashboard} exists in Duke Cooks.
      */
-    public boolean hasDiary(Diary diary) {
-        requireNonNull(diary);
-        return diaries.contains(diary);
+    public boolean hasDashboard(Dashboard dashboard) {
+        requireNonNull(dashboard);
+        return dashboards.contains(dashboard);
     }
 
     /**
-     * Adds a diary to Duke Cooks.
-     * The diary must not already exist in Duke Cooks.
+     * Adds a dashboard to Duke Cooks.
+     * The dashboard must not already exist in Duke Cooks.
      */
-    public void addDiary(Diary p) {
-        diaries.add(p);
+    public void addDashboard(Dashboard p) {
+        dashboards.add(p);
     }
 
     /**
-     * Replaces the given diary {@code target} in the list with {@code editedDiary}.
+     * Replaces the given dashboard {@code target} in the list with {@code editedDashboard}.
      * {@code target} must exist in Duke Cooks.
-     * The diary identity of {@code editedDiary} must not be the same as another existing diary in Duke Cooks.
+     * The dashboard identity of {@code editedDashboard} must not be the same as another existing dashboard in Duke Cooks.
      */
-    public void setDiary(Diary target, Diary editedDiary) {
-        requireNonNull(editedDiary);
+    public void setDashboard(Dashboard target, Dashboard editedDashboard) {
+        requireNonNull(editedDashboard);
 
-        diaries.setDiary(target, editedDiary);
+        dashboards.setDashboard(target, editedDashboard);
     }
 
     /**
-     * Removes {@code key} from this {@code DiaryRecords}.
+     * Removes {@code key} from this {@code DashboardRecords}.
      * {@code key} must exist in Duke Cooks.
      */
-    public void removeDiary(Diary key) {
-        diaries.remove(key);
+    public void removeDashboard(Dashboard key) {
+        dashboards.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return diaries.asUnmodifiableObservableList().size() + " diaries";
+        return dashboards.asUnmodifiableObservableList().size() + " dashboards";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Diary> getDiaryList() {
-        return diaries.asUnmodifiableObservableList();
+    public ObservableList<Dashboard> getDashboardList() {
+        return dashboards.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DashboardRecords // instanceof handles nulls
-                && diaries.equals(((DashboardRecords) other).diaries));
+                && dashboards.equals(((DashboardRecords) other).dashboards));
     }
 
     @Override
     public int hashCode() {
-        return diaries.hashCode();
+        return dashboards.hashCode();
     }
 }

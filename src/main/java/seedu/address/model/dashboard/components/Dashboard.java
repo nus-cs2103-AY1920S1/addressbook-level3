@@ -1,46 +1,45 @@
 package seedu.address.model.dashboard.components;
 
-import seedu.address.model.dashboard.components.TodoName;
+import seedu.address.model.common.Name;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Represents a to-do in Duke Cooks.
+ * Represents a dashboard in Duke Cooks.
  * Guarantees: details are present and not null, field values validated and immutable.
  */
-public class Todo {
+public class Dashboard {
 
     // Identity fields
-    private final TodoName todoName;
+    private final DashboardName dashboardName;
 
     /**
      * Every field must be present and not null.
      */
-    public Todo(TodoName diaryName) {
-        requireAllNonNull(diaryName);
-        this.todoName = diaryName;
+    public Dashboard(DashboardName dashboardName) {
+        requireAllNonNull(dashboardName);
+        this.dashboardName = dashboardName;
     }
 
 
-    public TodoName getTodoName() {
-        return todoName;
+    public DashboardName getDashboardName() {
+        return dashboardName;
     }
 
     /**
      * Returns true if both todos of the same todoName have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two todos.
      */
-    public boolean isSameTodo(Todo otherTodo) {
-        if (otherTodo == this) {
+    public boolean isSameDashboard(Dashboard otherDashboard) {
+        if (otherDashboard == this) {
             return true;
         }
 
-        return otherTodo != null
-                && otherTodo.getTodoName().equals(getTodoName());
+        return otherDashboard != null
+                && otherDashboard.getDashboardName().equals(getDashboardName());
     }
 
 
@@ -54,24 +53,24 @@ public class Todo {
             return true;
         }
 
-        if (!(other instanceof Todo)) {
+        if (!(other instanceof Dashboard)) {
             return false;
         }
 
-        Todo otherTodo = (Todo) other;
-        return otherTodo.getTodoName().equals(getTodoName());
+        Dashboard otherDashboard = (Dashboard) other;
+        return otherDashboard.getDashboardName().equals(getDashboardName());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(todoName);
+        return Objects.hash(dashboardName);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTodoName());
+        builder.append(getDashboardName());
         return builder.toString();
     }
 
