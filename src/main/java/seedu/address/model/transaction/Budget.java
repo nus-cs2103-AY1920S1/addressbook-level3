@@ -1,11 +1,14 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.tag.Tag;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.tag.Tag;
+
+/**
+ * Handles Budget of a BankAccount.
+ */
 public class Budget {
     private Amount amount;
     private Date deadline;
