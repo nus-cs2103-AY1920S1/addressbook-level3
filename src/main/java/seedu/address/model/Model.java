@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
+import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.diary.components.Diary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
@@ -34,6 +36,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Diary> PREDICATE_SHOW_ALL_DIARIES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Dashboard> PREDICATE_SHOW_ALL_DASHBOARD = unused -> true;
 
     //=========== UserPrefs ==================================================================================
 
@@ -108,6 +113,16 @@ public interface Model {
      * Sets the user prefs' Duke Cooks file path.
      */
     void setDiaryFilePath(Path diaryFilePath);
+
+    /**
+     * Returns the user prefs' DashboardRecords file path.
+     */
+    Path getDashboardFilePath();
+
+    /**
+     * Sets the user prefs' Duke Cooks file path.
+     */
+    void setDashboardFilePath(Path dashboardFilePath);
 
     //=========== User Profile ================================================================================
 
@@ -260,6 +275,39 @@ public interface Model {
      */
     void setDiary(Diary target, Diary editedDiary);
 
+//=========== Dashboard ======================================================================================
+
+    /**
+     * Replaces Duke Cooks data with the data in {@code dashboardRecords}.
+     */
+    void setDashboardRecords(ReadOnlyDashboard dashboardRecords);
+
+    /** Returns Dashboard records */
+    ReadOnlyDashboard getDashboardRecords();
+
+    /**
+     * Returns true if a dashboard with the same identity as {@code dashboard} exists in Duke Cooks.
+     */
+    boolean hasDashboard(Dashboard dashboard);
+
+    /**
+     * Deletes the given dashboard.
+     * The diary must exist in Duke Cooks.
+     */
+    void deleteDashboard(Dashboard target);
+
+    /**
+     * Adds the given dashboard.
+     * {@code diary} must not already exist in Duke Cooks.
+     */
+    void addDashboard(Dashboard dashboard);
+
+    /**
+     * Replaces the given dashboard {@code target} with {@code editedDashboard}.
+     * {@code target} must exist in Duke Cooks.
+     * The dashboard identity of {@code editedDashboard} must not be the same as another existing dashboard in the Duke Cooks.
+     */
+    void setDashboard(Dashboard target, Dashboard editedDashboard);
 
 
     //=========== Filtered Person List Accessors =============================================================
@@ -316,4 +364,18 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDiaryList(Predicate<Diary> predicate);
+
+
+//=========== Filtered Dashboard Records List Accessors =============================================================
+
+    /** Returns an unmodifiable view of the filtered dashboard list */
+    ObservableList<Dashboard> getFilteredDashboardList();
+
+    /**
+     * Updates the filter of the filtered dashboard list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDashboardList(Predicate<Dashboard> predicate);
+
+
 }

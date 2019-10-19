@@ -1,10 +1,5 @@
 package seedu.address;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -19,6 +14,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.dashboard.DashboardRecords;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
 import seedu.address.model.diary.DiaryRecords;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
@@ -29,6 +26,7 @@ import seedu.address.model.profile.ReadOnlyUserProfile;
 import seedu.address.model.profile.UserProfile;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;
 import seedu.address.model.recipe.RecipeBook;
+import seedu.address.model.util.DashboardSampleDataUtil;
 import seedu.address.model.util.DiarySampleDataUtil;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleRecipeDataUtil;
@@ -36,6 +34,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.dashboard.DashboardStorage;
+import seedu.address.storage.dashboard.JsonDashboardStorage;
 import seedu.address.storage.diary.DiaryStorage;
 import seedu.address.storage.diary.JsonDiaryStorage;
 import seedu.address.storage.exercise.JsonWorkoutPlannerStorage;
@@ -48,6 +48,11 @@ import seedu.address.storage.recipe.JsonRecipeBookStorage;
 import seedu.address.storage.recipe.RecipeBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * Runs the application.
@@ -79,8 +84,9 @@ public class MainApp extends Application {
         HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
         WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(userPrefs.getExercisesFilePath());
         DiaryStorage diaryStorage = new JsonDiaryStorage(userPrefs.getDiaryFilePath());
+        DashboardStorage dashboardStorage = new JsonDashboardStorage(userPrefs.getDashboardFilePath());
         storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage,
-                workoutPlannerStorage, diaryStorage, userPrefsStorage);
+                workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -112,8 +118,11 @@ public class MainApp extends Application {
         ReadOnlyDiary initialDiary;
         initialDiary = initDiary(storage);
 
+        ReadOnlyDashboard initialDashboard;
+        initialDashboard = initDashboard(storage);
+
         return new ModelManager(initialDukeCooks, initialHealthRecords, initialRecipeBook, initialWorkoutPlanner,
-                initialDiary, userPrefs);
+                initialDiary,userPrefs, initialDashboard);
     }
 
     /**
@@ -242,6 +251,32 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
             initialData = new DiaryRecords();
+        }
+
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ReadOnlyDiary} with the data from {@code storage}'s Diary Records. <br>
+     * The data from the sample diary will be used instead if {@code storage}'s diary records are not found,
+     * or an empty Diary Record will be used instead if errors occur when reading {@code storage}'s Diary Records.
+     */
+    private ReadOnlyDashboard initDashboard(Storage storage) {
+        Optional<ReadOnlyDashboard> dashboardRecordsOptional;
+        ReadOnlyDashboard initialData;
+
+        try {
+            dashboardRecordsOptional = storage.readDashboard();
+            if (!dashboardRecordsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample Dashboard");
+            }
+            initialData = dashboardRecordsOptional.orElseGet(DashboardSampleDataUtil::getSampleDashboardRecords);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
+            initialData = new DashboardRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            initialData = new DashboardRecords();
         }
 
         return initialData;

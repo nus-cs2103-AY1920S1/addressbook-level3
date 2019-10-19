@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
+import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.diary.components.Diary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
@@ -239,6 +241,7 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+
     @Override
     public Path getDiaryFilePath() {
         throw new AssertionError("This method should not be called.");
@@ -281,6 +284,59 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredDiaryList(Predicate<Diary> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+
+    // ======================================= Dashboard Records ==============================================
+
+    @Override
+    public void setDashboardRecords(ReadOnlyDashboard dashboardRecords) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDashboardFilePath(Path dashboardFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getDashboardFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyDashboard getDashboardRecords() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasDashboard(Dashboard dashboard) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteDashboard(Dashboard target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addDashboard(Dashboard dashboard) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDashboard(Dashboard target, Dashboard editedDashboard) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Dashboard> getFilteredDashboardList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredDashboardList(Predicate<Dashboard> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 }
