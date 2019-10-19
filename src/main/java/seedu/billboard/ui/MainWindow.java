@@ -2,6 +2,8 @@ package seedu.billboard.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -17,6 +19,7 @@ import seedu.billboard.logic.Logic;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.ui.charts.ChartBox;
 
 /**
@@ -31,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private ObservableList<Expense> displayedExpenses;
 
     // Independent Ui parts residing in this Ui container
     private ExpenseListPanel expenseListPanel;
@@ -62,6 +66,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.displayedExpenses = FXCollections.observableArrayList(logic.getFilteredExpenseList());
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -113,10 +118,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
+        expenseListPanel = new ExpenseListPanel(displayedExpenses);
         expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
 
-        chartBox = new ChartBox(logic.getStatisticsType(), logic.getFilteredExpenseList());
+        chartBox = new ChartBox(logic.getStatisticsType(), displayedExpenses);
         chartBoxPlaceholder.getChildren().add(chartBox.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -186,9 +191,11 @@ public class MainWindow extends UiPart<Stage> {
 
             String listNameToBeDisplayed = commandResult.getListToBeDisplayed();
             if (!(listNameToBeDisplayed.equals(""))) {
-                expenseListPanel.setExpenseListView(logic.getFilteredArchiveExpenseList(listNameToBeDisplayed));
+                displayedExpenses.setAll(logic.getFilteredArchiveExpenseList(listNameToBeDisplayed));
+           //     expenseListPanel.setExpenseListView(logic.getFilteredArchiveExpenseList(listNameToBeDisplayed));
             } else {
-                expenseListPanel.setExpenseListView(logic.getFilteredExpenseList());
+                displayedExpenses.setAll(logic.getFilteredExpenseList());
+           //     expenseListPanel.setExpenseListView(logic.getFilteredExpenseList());
             }
 
             if (commandResult.isShowHelp()) {
