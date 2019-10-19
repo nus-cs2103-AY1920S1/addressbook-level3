@@ -18,8 +18,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.waste.WasteReport;
 import seedu.address.model.food.Name;
+import seedu.address.model.waste.WasteReport;
 
 /**
  * The Main Window. Provides the basic application layout containing
