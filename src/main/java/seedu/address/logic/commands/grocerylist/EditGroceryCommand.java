@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.grocerylist;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -38,13 +37,12 @@ public class EditGroceryCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: glist " + COMMAND_WORD + " 1 n/Pisang Goreng t/fried";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited food item: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field (name, expiry date, or tag) must be provided.";
 
     private final Index index;
     private final EditGroceryItemDescriptor editGroceryItemDescriptor;
@@ -67,7 +65,7 @@ public class EditGroceryCommand extends Command {
         List<GroceryItem> lastShownList = model.getFilteredGroceryItemList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_GROCERY_ITEM_DISPLAYED_INDEX);
         }
 
         GroceryItem groceryItemToEdit = lastShownList.get(index.getZeroBased());
@@ -122,7 +120,7 @@ public class EditGroceryCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, tags);
+            return CollectionUtil.isAnyNonNull(name, expiryDate, tags);
         }
 
         public void setName(Name name) {

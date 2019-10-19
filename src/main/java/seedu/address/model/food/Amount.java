@@ -26,7 +26,7 @@ public class Amount {
     public static final String UNIT_LITRE = "l";
     public static final String UNIT_MILLILITRE = "ml";
     public static final String UNIT_QUANTITY = "units";
-    public static final String UNIT = "(lbs?|g|kgs|oz?|L|ml|units?)+";
+    public static final String UNIT = "(lbs?|g|kg|oz?|L|ml|units?)+";
     public static final String VALIDATION_REGEX = VALUE_BEFORE_DECIMAL + "\\.?" + VALUE_AFTER_DECIMAL + "\\s*" + UNIT;
     public static final float KG_FROM_GRAM = 0.001f;
     public static final float KG_FROM_POUND = 0.453592f;

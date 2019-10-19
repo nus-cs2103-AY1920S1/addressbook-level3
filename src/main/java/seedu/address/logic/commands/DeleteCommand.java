@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
         List<GroceryItem> lastShownList = model.getFilteredGroceryItemList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_GROCERY_ITEM_DISPLAYED_INDEX);
         }
 
         GroceryItem foodToDelete = lastShownList.get(targetIndex.getZeroBased());

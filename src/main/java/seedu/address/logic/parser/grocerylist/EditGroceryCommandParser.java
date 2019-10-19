@@ -49,6 +49,9 @@ public class EditGroceryCommandParser implements Parser<EditGroceryCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editGroceryItemDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
+        if (argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()) {
+            editGroceryItemDescriptor.setExpiryDate(ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get()));
+        }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editGroceryItemDescriptor::setTags);
 
         if (!editGroceryItemDescriptor.isAnyFieldEdited()) {
