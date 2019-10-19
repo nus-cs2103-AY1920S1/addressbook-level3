@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private PolicyListPanel policyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReportPanel reportPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -189,16 +190,20 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isListPolicy()) {
                 policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
+                personListPanelPlaceholder.getChildren().clear();
                 personListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
             }
 
             if (commandResult.isListPeople()) {
                 personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+                personListPanelPlaceholder.getChildren().clear();
                 personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             }
 
             if (commandResult.isReport()) {
-
+                reportPanel = new ReportPanel();
+                personListPanelPlaceholder.getChildren().clear();
+                personListPanelPlaceholder.getChildren().add(reportPanel.getRoot());
             }
 
             return commandResult;
