@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collection;
@@ -31,7 +31,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_TAG, PREFIX_TIMESTAMP);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP);
 
         Index index;
 
@@ -52,7 +52,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                     ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
         }
 
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
                 .ifPresent(editExpenseDescriptor::setCategories);
 
         if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {

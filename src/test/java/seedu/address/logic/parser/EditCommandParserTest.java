@@ -14,7 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DISCOUNTED;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
@@ -33,7 +33,7 @@ import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String TAG_EMPTY = " " + PREFIX_CATEGORY;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);

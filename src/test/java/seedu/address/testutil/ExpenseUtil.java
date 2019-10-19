@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Set;
@@ -32,7 +32,7 @@ public class ExpenseUtil {
         sb.append(PREFIX_DESCRIPTION + expense.getDescription().fullDescription + " ");
         sb.append(PREFIX_PRICE + expense.getPrice().value + " ");
         expense.getCategories().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.categoryName + " ")
+            s -> sb.append(PREFIX_CATEGORY + s.categoryName + " ")
         );
         sb.append(PREFIX_TIMESTAMP + expense.getTimestamp().toString() + " ");
         return sb.toString();
@@ -49,9 +49,9 @@ public class ExpenseUtil {
         if (descriptor.getCategories().isPresent()) {
             Set<Category> categories = descriptor.getCategories().get();
             if (categories.isEmpty()) {
-                sb.append(PREFIX_TAG);
+                sb.append(PREFIX_CATEGORY);
             } else {
-                categories.forEach(s -> sb.append(PREFIX_TAG).append(s.categoryName).append(" "));
+                categories.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
             }
         }
         descriptor.getTimestamp()

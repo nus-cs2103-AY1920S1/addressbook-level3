@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
@@ -38,7 +38,7 @@ public class EditCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_PRICE + "PRICE] "
-            + "[" + PREFIX_TAG + "TAG]"
+            + "[" + PREFIX_CATEGORY + "TAG]"
             + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "3512.123 ";
