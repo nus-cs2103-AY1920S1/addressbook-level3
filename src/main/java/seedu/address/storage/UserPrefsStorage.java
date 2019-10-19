@@ -11,7 +11,8 @@ import seedu.address.model.UserPrefs;
 /**
  * Represents a storage for {@link seedu.address.model.UserPrefs}.
  */
-public interface UserPrefsStorage {
+public interface
+UserPrefsStorage {
 
     /**
      * Returns the file path of the UserPrefs data file.

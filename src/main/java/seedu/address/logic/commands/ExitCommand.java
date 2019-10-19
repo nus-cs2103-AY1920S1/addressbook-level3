@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
+import seedu.address.ui.DisplayPaneType;
 
 /**
  * Terminates the program.
@@ -15,5 +16,4 @@ public class ExitCommand extends Command {
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
-
 }

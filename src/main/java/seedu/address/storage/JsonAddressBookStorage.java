@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -46,7 +47,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+            filePath, JsonSerializableAddressBook.class);
+
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -58,6 +60,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
             throw new DataConversionException(ive);
         }
     }
+
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {

@@ -12,6 +12,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.sgm.model.food.Food;
+import seedu.sgm.model.food.FoodBuilder;
+import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -40,12 +43,45 @@ public class SampleDataUtil {
         };
     }
 
+    public static Food[] getSampleFoods() {
+        return new Food[]{
+        new FoodBuilder().build(),
+        new FoodBuilder().withFoodName("Potatodfafadfafadf").withFoodType("sv").build(),
+        new FoodBuilder().withFoodName("Banana").withFoodType("f").build(),
+        new FoodBuilder().withFoodName("Chicken").withFoodType("p").build(),
+        new FoodBuilder().withFoodName("Potato chips").withFoodType("s").build(),
+        new FoodBuilder().withFoodName("Chicken Rice").withFoodType("m").build(),
+        new FoodBuilder().withFoodName("Broccoli2").build(),
+        new FoodBuilder().withFoodName("Potato2").withFoodType("sv").build(),
+        new FoodBuilder().withFoodName("Banana2").withFoodType("f").build(),
+        new FoodBuilder().withFoodName("Chicken2").withFoodType("p").build(),
+        new FoodBuilder().withFoodName("Potato chips2").withFoodType("s").build(),
+        new FoodBuilder().withFoodName("Chicken Rice2").withFoodType("m").build(),
+        new FoodBuilder().withFoodName("Broccoli3").build(),
+        new FoodBuilder().withFoodName("Potato3").withFoodType("sv").build(),
+        new FoodBuilder().withFoodName("Banana3").withFoodType("f").build(),
+        new FoodBuilder().withFoodName("Chicken3").withFoodType("p").build(),
+        new FoodBuilder().withFoodName("Potato chips3").withFoodType("s").build(),
+        new FoodBuilder().withFoodName("Chicken Rice3").withFoodType("m").build()
+        };
+    }
+
+
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static UniqueFoodList getSampleFoodList() {
+        UniqueFoodList sampleFL = new UniqueFoodList();
+        for (Food sampleFood : getSampleFoods()) {
+            sampleFL.add(sampleFood);
+        }
+        return sampleFL;
     }
 
     /**
