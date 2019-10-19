@@ -23,8 +23,8 @@ import seedu.address.storage.diary.JsonAdaptedDiary;
 /**
  * Jackson friendly version of {@code Trip}.
  */
-public class JsonAdaptedTrip {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Trip's %s field is missing!";
+class JsonAdaptedTrip {
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Trip's %s field is missing!";
 
     private final String name;
     private final LocalDateTime startDate;

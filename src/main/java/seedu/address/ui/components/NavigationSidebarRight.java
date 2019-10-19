@@ -1,7 +1,7 @@
 package seedu.address.ui.components;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 import seedu.address.logic.commands.diary.EnterDiaryCommand;
 import seedu.address.logic.commands.sidebar.EnterExpenseManagerCommand;
@@ -12,11 +12,11 @@ import seedu.address.ui.UiPart;
 /**
  * Abstraction of a vertical sidebar displayed on the right side.
  */
-public class NavigationSidebarRight extends UiPart<Region> {
+public class NavigationSidebarRight extends UiPart<VBox> {
 
-    private static final String FXML = "/components/SidebarRight.fxml";
+    private static final String FXML = "components/SidebarRight.fxml";
 
-    private MainWindow mainWindow;
+    private final MainWindow mainWindow;
 
     public NavigationSidebarRight(MainWindow mainWindow) {
         super(FXML);
@@ -29,7 +29,8 @@ public class NavigationSidebarRight extends UiPart<Region> {
     }
 
     @FXML
-    private void handleEnterContactsManager() {
+    private void handleOpenHelp() {
+        mainWindow.handleHelp();
     }
 
     @FXML

@@ -23,8 +23,8 @@ import seedu.address.commons.core.index.Index;
  */
 public class DiaryEntryList {
 
-    private SortedList<DiaryEntry> diaryEntrySortedList;
-    private ObservableList<DiaryEntry> diaryEntryObservableList;
+    private final SortedList<DiaryEntry> diaryEntrySortedList;
+    private final ObservableList<DiaryEntry> diaryEntryObservableList;
 
     DiaryEntryList() {
         diaryEntryObservableList = FXCollections.observableArrayList();
@@ -68,7 +68,7 @@ public class DiaryEntryList {
     /**
      * Adds the specified {@link DiaryEntry} to the {@code diaryEntryObservableList}.
      *
-     * @param diaryEntry
+     * @param diaryEntry The {@link DiaryEntry} to add.
      */
     public void addDiaryEntry(DiaryEntry diaryEntry) {
         requireNonNull(diaryEntry);

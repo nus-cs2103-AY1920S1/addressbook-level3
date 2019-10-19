@@ -19,9 +19,8 @@ public class DoneEditPrefsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits your edited preferneces.";
 
-    public static final String MESSAGE_EDIT_PREFERENCES_SUCCESS = "Edited Preferences: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "All the fields must be provided!";
-    public static final String MESSAGE_CLASHING_TRIP = "This trip clashes with one of your other trips!";
+    private static final String MESSAGE_EDIT_PREFERENCES_SUCCESS = "Edited Preferences: %1$s";
+    private static final String MESSAGE_NOT_EDITED = "All the fields must be provided!";
 
     public DoneEditPrefsCommand() { }
 

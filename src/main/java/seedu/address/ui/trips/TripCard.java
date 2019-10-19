@@ -29,8 +29,8 @@ public class TripCard extends UiPart<GridPane> {
     private Label tripEndDateLabel;
 
 
-    private Trip trip;
-    private Index displayedIndex;
+    private final Trip trip;
+    private final Index displayedIndex;
 
     public TripCard(Trip trip, Index displayedIndex) {
         super(FXML);

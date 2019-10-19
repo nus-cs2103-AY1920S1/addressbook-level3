@@ -21,7 +21,7 @@ import seedu.address.ui.UiPart;
 /**
  * Custom JavaFX component controller for displaying the text of a diary entry.
  */
-public class DiaryEntryDisplay extends UiPart<VBox> {
+class DiaryEntryDisplay extends UiPart<VBox> {
     private static final String FXML = "diary/DiaryTextFlow.fxml";
 
     private static final Pattern IMAGE_SEPARATOR_PATTERN = Pattern.compile(
@@ -29,20 +29,21 @@ public class DiaryEntryDisplay extends UiPart<VBox> {
                     + "(?<numbers>([^>][0-9]*[\\s]*)*)>)(?<posttext>.*)");
     private static final String IMAGE_POSITION_LEFT_PATTERN = "left";
 
-    private Logger logger = LogsCenter.getLogger(DiaryEntryDisplay.class);
+    private final Logger logger = LogsCenter.getLogger(DiaryEntryDisplay.class);
     private PhotoList photoList;
-
-    private ObservableList<CharSequence> diaryTextLines;
 
     @FXML
     private ListView<CharSequence> diaryTextLinesList;
 
-    DiaryEntryDisplay(ObservableList<CharSequence> diaryTextLines, PhotoList photoList) {
+    DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
         super(FXML);
-        this.photoList = photoList;
-
-        diaryTextLinesList.setItems(diaryTextLines);
+        this.photoList = new PhotoList();
+        diaryTextLinesList.setItems(observableParagraphs);
         diaryTextLinesList.setCellFactory(listViewCell -> new DiaryTextLineCell());
+    }
+
+    void setPhotoList(PhotoList photoList) {
+        this.photoList = photoList;
     }
 
     /**

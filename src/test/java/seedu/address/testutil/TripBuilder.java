@@ -47,7 +47,10 @@ public class TripBuilder {
                 .setStartDate(trip.getStartDate())
                 .setEndDate(trip.getEndDate())
                 .setLocation(trip.getDestination())
-                .setTotalBudget(trip.getBudget());
+                .setTotalBudget(trip.getBudget())
+                .setDayList(trip.getDayList())
+                .setExpenditureList(trip.getExpenditureList())
+                .setDiary(trip.getDiary());
         //.setDayList(trip.getDayList());
     }
 
@@ -83,6 +86,11 @@ public class TripBuilder {
 
     public TripBuilder setExpenditureList(ExpenditureList expenditureList) {
         this.expenditureList = expenditureList;
+        return this;
+    }
+
+    public TripBuilder setDiary(Diary diary) {
+        this.diary = diary;
         return this;
     }
 
