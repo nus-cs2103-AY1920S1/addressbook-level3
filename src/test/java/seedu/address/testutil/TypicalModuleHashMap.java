@@ -42,6 +42,7 @@ public class TypicalModuleHashMap {
         int moduleMcCount = moduleInfo.getMc();
         Color moduleColor = Color.RED;
         PrereqTree modulePrereqTree = moduleInfo.getPrereqTree();
+        // TODO: get tags from moduleinfo
         UniqueTagList moduleTags = new UniqueTagList();
         return new Module(moduleName, moduleCode, moduleMcCount, moduleColor, modulePrereqTree, moduleTags);
     }
