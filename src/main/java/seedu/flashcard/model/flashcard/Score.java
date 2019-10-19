@@ -1,5 +1,8 @@
 package seedu.flashcard.model.flashcard;
 
+/**
+ * Score of each Flashcard
+ */
 public class Score {
     private int correctAnswers;
     private int wrongAnswers;

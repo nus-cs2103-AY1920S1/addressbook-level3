@@ -59,7 +59,9 @@ public class Flashcard {
      * Returns an immutable score, which throws {@code UnsupportedOperationException}
      * if modification attempted
      */
-    public Score getScore() { return score; }
+    public Score getScore() {
+        return score;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

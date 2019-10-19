@@ -6,6 +6,9 @@ import seedu.flashcard.logic.commands.FlipCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.flashcard.Answer;
 
+/**
+ * Parse input arguments to generate a {@Code FlipCommand}
+ */
 public class FlipCommandParser implements Parser<FlipCommand> {
 
     @Override

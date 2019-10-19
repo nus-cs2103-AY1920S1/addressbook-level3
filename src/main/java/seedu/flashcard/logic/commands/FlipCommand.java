@@ -7,6 +7,9 @@ import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Flashcard;
 
+/**
+ * Command to input an answer to the last viewed flashcard and see the correct answer.
+ */
 public class FlipCommand extends Command {
 
     public static final String COMMAND_WORD = "flip";
@@ -14,7 +17,7 @@ public class FlipCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Takes in an answer as a parameter "
             + "and displays the correct answer of the flashcard that is being viewed.\n"
             + "Parameters: ANSWER\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + "1";
 
     public static final String MESSAGE_SUCCESS = "Flashcard flipped";
     private static final String MESSAGE_NULL_VIEW_FLASHCARD = "There are no viewed flashcards";
