@@ -2,13 +2,16 @@ package seedu.moneygowhere.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -19,8 +22,8 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
  * Contains utility methods used for parsing dates with natural language processing.
  */
 public class DateUtil {
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-    private static final DateFormat DATE_FORMAT_PRETTY = new SimpleDateFormat("EE dd/MM/yyyy");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter DATE_FORMAT_PRETTY = DateTimeFormatter.ofPattern("EE dd/MM/yyyy");
 
     /** Date pattern which allows leading zeroes to be omitted. **/
     private static final Pattern DATE_PATTERN = Pattern.compile("([0-9]{1,2})(?:[/\\-])([0-9]{1,2})"
@@ -36,7 +39,7 @@ public class DateUtil {
      * @return Formatted date as Date type
      * @throws ParseException If the input cannot be parsed
      */
-    public static Date parseDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
 
         // Normalises this date input.
@@ -54,7 +57,12 @@ public class DateUtil {
             throw new ParseException("No possible dates from input date");
         }
 
-        return possibleDates.get(0);
+        List<LocalDate> convertedDate = dateGroups.get(0).getDates()
+                .stream()
+                .map(d -> d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .collect(Collectors.toList());
+
+        return convertedDate.get(0);
     }
 
     /**
@@ -63,7 +71,7 @@ public class DateUtil {
      * @param date Input date
      * @return List of formatted dates
      */
-    public static List<Date> parseDates(String date) {
+    public static List<LocalDate> parseDates(String date) {
         requireNonNull(date);
 
         // Normalises this date input.
@@ -75,7 +83,10 @@ public class DateUtil {
             return null;
         }
 
-        return dateGroups.get(0).getDates();
+        return dateGroups.get(0).getDates()
+                .stream()
+                .map(d -> d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -158,8 +169,8 @@ public class DateUtil {
      * @param date Input date
      * @return A formatted date string
      */
-    public static String formatDate(Date date) {
-        return DATE_FORMAT.format(date);
+    public static String formatDate(LocalDate date) {
+        return date.format(DATE_FORMAT);
     }
 
     /**
@@ -171,9 +182,9 @@ public class DateUtil {
      */
     public static String prettyFormatDate(String date) {
         try {
-            Date parsedDate = DATE_FORMAT.parse(date);
+            LocalDate parsedDate = LocalDate.parse(date, DATE_FORMAT);
             return DATE_FORMAT_PRETTY.format(parsedDate);
-        } catch (java.text.ParseException e) {
+        } catch (DateTimeParseException e) {
             return "";
         }
     }
