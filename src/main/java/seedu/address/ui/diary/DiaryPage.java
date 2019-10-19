@@ -79,7 +79,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         diaryEntryEditBox = new DiaryEditBox(editBoxText ->
                 mainWindow.executeGuiCommand(EditDiaryEntryCommand.COMMAND_WORD + " "
                         + PREFIX_DESCRIPTION + editBoxText));
-        //bind widths and heights
+        //bind widths and heights of gallery and edit box
         diaryGallery.getRoot().prefHeightProperty().bind(diaryRightPlaceholder.heightProperty());
         diaryEntryEditBox.getRoot().prefWidthProperty().bind(diaryRightPlaceholder.widthProperty());
         diaryEntryEditBox.getRoot().prefHeightProperty().bind(diaryRightPlaceholder.heightProperty());
@@ -94,7 +94,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
                         new BackgroundSize(BACKGROUND_REPEAT_LENGTH, BACKGROUND_REPEAT_LENGTH,
                                 false, false, false, false))));
 
-        //
+        //Initialise and bind diaryEntryDisplay's data to the edit box
         diaryEntryDisplay = new DiaryEntryDisplay(diaryEntryEditBox.getObservableParagraphs());
         AnchorPane.setTopAnchor(diaryEntryDisplay.getRoot(), 40.0);
         AnchorPane.setBottomAnchor(diaryEntryDisplay.getRoot(), 0.0);
@@ -113,13 +113,11 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         dayIndexLabel.setText("Day " + currentEntry.getDayIndex().getOneBased());
         editDiaryEntryDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
         if (editDiaryEntryDescriptor == null) {
+            diaryEntryDisplay.setPhotoList(currentEntry.getPhotoList());
             diaryEntryEditBox.setText(currentEntry.getDiaryText());
-            diaryEntryDisplay.setPhotoList(currentEntry.getPhotoList());
-            fillRightWithGallery();
+            swapRightToGallery();
         } else if (!diaryRightPlaceholder.getChildren().contains(diaryEntryEditBox.getRoot())) {
-            diaryEntryDisplay.setPhotoList(currentEntry.getPhotoList());
-            fillRightWithEditBox();
-            diaryEntryEditBox.requestFocus();
+            swapRightToEditBox();
         } else {
             diaryEntryEditBox.setText(editDiaryEntryDescriptor.getDiaryText());
         }
@@ -140,7 +138,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         for (DiaryEntry diaryEntry : diaryEntryList.getReadOnlyDiaryEntries()) {
             nextDayToAdd = Math.max(diaryEntry.getDayIndex().getOneBased(), nextDayToAdd);
             Button b = new Button(diaryEntry.getDayIndex().getOneBased() + "");
-            ButtonBar.setButtonData(b, ButtonBar.ButtonData.LEFT);
+            ButtonBar.setButtonData(b, ButtonBar.ButtonData.BIG_GAP);
             b.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(
                     FlipDiaryCommand.COMMAND_WORD + " " + diaryEntry.getDayIndex().getOneBased()));
 
@@ -149,7 +147,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         nextDayToAdd++;
         //Add + button
         Button addButton = new Button("+");
-        ButtonBar.setButtonData(addButton, ButtonBar.ButtonData.APPLY);
+        ButtonBar.setButtonData(addButton, ButtonBar.ButtonData.RIGHT);
         int finalNextDayToAdd = nextDayToAdd;
         addButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(
                 CreateDiaryEntryCommand.COMMAND_WORD + " " + finalNextDayToAdd));
@@ -199,21 +197,24 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
      * Fills the {@code diaryRightPlaceholder} {@link VBox} with the {@code diaryEntryEditBox},
      * removing the {@code diaryGallery}.
      */
-    private void fillRightWithEditBox() {
+    private void swapRightToEditBox() {
         ObservableList<Node> placeHolderChildren = diaryRightPlaceholder.getChildren();
         placeHolderChildren.remove(diaryGallery.getRoot());
         diaryEntryEditBox.setText(editDiaryEntryDescriptor.getDiaryText());
         placeHolderChildren.add(diaryEntryEditBox.getRoot());
+        diaryEntryEditBox.requestFocus();
     }
 
     /**
      * Fills the {@code diaryRightPlaceholder} {@link VBox} with the {@code diaryGallery},
-     * removing the {@code diaryEntryEditBox}.
+     * removing the {@code diaryEntryEditBox}, if the {@code diaryGallery} is not already inside.
      */
-    private void fillRightWithGallery() {
-        ObservableList<Node> placeHolderChildren = diaryRightPlaceholder.getChildren();
-        placeHolderChildren.clear();
-        diaryGallery.setPhotoList(currentEntry.getPhotoList());
-        placeHolderChildren.add(diaryGallery.getRoot());
+    private void swapRightToGallery() {
+        if (!diaryRightPlaceholder.getChildren().contains(diaryGallery.getRoot())) {
+            ObservableList<Node> placeHolderChildren = diaryRightPlaceholder.getChildren();
+            placeHolderChildren.clear();
+            diaryGallery.setPhotoList(currentEntry.getPhotoList());
+            placeHolderChildren.add(diaryGallery.getRoot());
+        }
     }
 }
