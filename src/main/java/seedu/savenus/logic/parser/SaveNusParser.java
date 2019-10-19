@@ -26,6 +26,7 @@ import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
+import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
 import seedu.savenus.logic.parser.exceptions.ParseException;
@@ -117,6 +118,9 @@ public class SaveNusParser {
 
         case ExpandCommand.COMMAND_WORD:
             return new ExpandCommand();
+
+        case SaveCommand.COMMAND_WORD:
+            return new SaveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

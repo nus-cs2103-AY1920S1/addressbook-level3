@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import seedu.savenus.commons.core.Messages;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Price;
+import seedu.savenus.model.savings.Savings;
 
 
 /**
@@ -117,16 +118,33 @@ public class Wallet {
     }
 
     /**
-     * Pay the input {@code Price} out of wallet.
+     * Deduct the input {@code Price} out of wallet.
      * @param price {@code Price} to be deducted
      * @throws CommandException Throws {@code CommandException} if there are insufficient funds in user's {@code Wallet}
      */
-    public void pay(Price price) throws CommandException {
+    public void deduct(Price price) throws CommandException {
         // Check whether wallet has enough funds
         if (new BigDecimal(price.toString()).compareTo(getRemainingBudgetAmount()) == 1) {
-            throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS);
+            throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS + " to make purchase!");
         } else {
             BigDecimal remainingBudgetInCents = getRemainingBudgetAmount().subtract(new BigDecimal(price.toString()));
+            setRemainingBudget(remainingBudgetInCents.toString());
+        }
+    }
+
+    /**
+     * Overloaded method to allow deduction of {@code Savings} out of wallet.
+     *
+     * @param savings {@code Savings} to be deducted
+     * @throws CommandException Throws {@code CommandException} if there are insufficient funds in user's {@code Wallet}
+     */
+    public void deduct(Savings savings) throws CommandException {
+        // Check whether wallet has enough funds to be saved
+        if (new BigDecimal(savings.toString()).compareTo(getRemainingBudgetAmount()) == 1) {
+            throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS + " to add to savings account!");
+        } else {
+            // If enough funds, subtract from the wallet the amount to be saved.
+            BigDecimal remainingBudgetInCents = getRemainingBudgetAmount().subtract(new BigDecimal(savings.toString()));
             setRemainingBudget(remainingBudgetInCents.toString());
         }
     }

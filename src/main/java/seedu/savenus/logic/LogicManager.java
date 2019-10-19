@@ -40,12 +40,8 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-
-        // if command is save/budget/buy then use a
-
         Command command = saveNusParser.parseCommand(commandText);
         commandResult = command.execute(model);
-
 
         try {
             storage.saveMenu(model.getMenu());
