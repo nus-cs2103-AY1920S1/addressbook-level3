@@ -202,8 +202,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case REVENUE:
             XYChart.Series<String, Number> dummy = this.logic.calculateTotalRevenueGraph(statsPayload);
+
             String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
+            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue", dummy);
             this.statsWindow.show();
             break;
         case COST:

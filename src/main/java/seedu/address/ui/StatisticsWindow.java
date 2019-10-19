@@ -23,14 +23,18 @@ public class StatisticsWindow extends UiPart<Stage> {
     @FXML
     NumberAxis yAxis;
     @FXML
-    private LineChart<Number, Number> testChart;
+    private LineChart<String, Number> testChart;
+
+    XYChart.Data<String, Number> axisData;
 
     /**
      * Create a new Statistic window
      * @param root Stage in which the window will use
      */
-    public StatisticsWindow(Stage root) {
+    public StatisticsWindow(Stage root, XYChart.Data<String, Number> axisData) {
         super(FXML, root);
+        this.axisData = axisData;
+        buildChart();
     }
 
     /**
@@ -38,8 +42,8 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statisticsResult the result of the statistic
      * @param statsLabel the title of the stats
      */
-    public StatisticsWindow(String statisticsResult, String statsLabel) {
-        this(new Stage());
+    public StatisticsWindow(String statisticsResult, String statsLabel, XYChart.Data<String, Number> axisData) {
+        this(new Stage(), axisData);
         //this.testLabel.setText(statisticsResult);
         //this.statsLabel.setText(statsLabel);
         this.testChart.setTitle(statsLabel);
@@ -50,19 +54,9 @@ public class StatisticsWindow extends UiPart<Stage> {
         xAxis.setLabel("testXLabel");
         //Defining the y axis
         yAxis.setLabel("testYLabel");
-        this.testChart.getData().add(getSeries());
+        this.testChart.getData().add(this.axisData);
     }
 
-    private XYChart.Series<Number, Number> getSeries() {
-        //System.out.println("TESTT");
-        XYChart.Series<Number, Number> series = new XYChart.Series<Number,Number>();
-        series.getData().add(new XYChart.Data<Number,Number>(10,5));
-        series.getData().add(new XYChart.Data<Number,Number>(20,10));
-        series.getData().add(new XYChart.Data<Number,Number>(30,20));
-        series.getData().add(new XYChart.Data<Number,Number>(40,50));
-        series.getData().add(new XYChart.Data<Number,Number>(50,40));
-        return series;
-    }
 
     /**
      * Shows the Statistics Window.
@@ -83,7 +77,6 @@ public class StatisticsWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
-        buildChart();
         getRoot().show();
         getRoot().centerOnScreen();
     }

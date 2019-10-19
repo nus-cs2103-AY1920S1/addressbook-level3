@@ -25,7 +25,7 @@
                         <Label fx:id="testLabel" styleClass="label" ></Label>
                         <LineChart fx:id="testChart" title="">
                             <xAxis>
-                                <NumberAxis fx:id="xAxis" side="BOTTOM" />
+                                <CategoryAxis fx:id="xAxis" side="BOTTOM" />
                             </xAxis>
                             <yAxis>
                                 <NumberAxis fx:id="yAxis" side="LEFT" />

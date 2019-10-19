@@ -1,7 +1,5 @@
 package seedu.address.statistic;
 
-import static seedu.address.commons.util.StringUtil.convertCalendarDateToString;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -19,7 +17,7 @@ public class DateUtil {
         return order.getSchedule().get().getCalendar().get(Calendar.MONTH);
     }
 
-    public static List<Calendar> getListOfYearMonth(List<Order> order, StatsPayload statsPayload) {
+    public static List<Calendar> getListOfYearMonth(StatsPayload statsPayload) {
         List<Calendar> listOfYearMonth = new ArrayList<>();
         Calendar startDate = statsPayload.getStartingDate();
         Calendar endDate = statsPayload.getEndingDate();

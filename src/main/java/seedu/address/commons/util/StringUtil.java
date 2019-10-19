@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Helper functions for handling strings.
@@ -87,7 +88,7 @@ public class StringUtil {
         StringBuilder display = new StringBuilder();
         display.append(inputDate.get(Calendar.YEAR) + ".");
         //offset month
-        display.append((inputDate.get(Calendar.MONTH) + 1) + ".");
+        display.append((inputDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())) + ".");
         return display.toString();
     }
 }
