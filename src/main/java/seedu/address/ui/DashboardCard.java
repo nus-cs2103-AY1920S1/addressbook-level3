@@ -5,10 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.diary.components.Diary;
 
 /**
- * An UI component that displays information of a {@code Diary}.
+ * An UI component that displays information of a {@code Dashboard}.
  */
 public class DashboardCard extends UiPart<Region> {
 
@@ -22,25 +23,20 @@ public class DashboardCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Diary diary;
+    public final Dashboard dashboard;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label diaryName;
+    private Label dashboardName;
     @FXML
     private Label id;
-    @FXML
-    private FlowPane pages;
 
-    public DashboardCard(Diary diary, int displayedIndex) {
+    public DashboardCard(Dashboard dashboard, int displayedIndex) {
         super(FXML);
-        this.diary = diary;
+        this.dashboard = dashboard;
         id.setText(displayedIndex + ". ");
-        diaryName.setText(diary.getDiaryName().fullName);
-
-        diary.getPages().stream()
-                .forEach(page -> pages.getChildren().add(new Label(page.getTitle().toString())));
+        dashboardName.setText(dashboard.getDashboardName().fullName);
     }
 
     @Override
@@ -58,6 +54,6 @@ public class DashboardCard extends UiPart<Region> {
         // state check
         DashboardCard card = (DashboardCard) other;
         return id.getText().equals(card.id.getText())
-                && diary.equals(card.diary);
+                && dashboard.equals(card.dashboard);
     }
 }

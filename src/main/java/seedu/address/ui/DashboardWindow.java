@@ -24,7 +24,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class DashboardWindow extends UiPart<Stage> {
 
-    private static final String FXML = "UserProfileWindow.fxml";
+    private static final String FXML = "DashboardWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -186,8 +186,9 @@ public class DashboardWindow extends UiPart<Stage> {
     @FXML
     private void switchHome() {
         primaryStage.hide();
-        TempWindow tempWindow = new TempWindow(getPrimaryStage(), logic);
-        tempWindow.show();
+        DashboardWindow dashboardWindow = new DashboardWindow(getPrimaryStage(), logic);
+        dashboardWindow.show();
+        dashboardWindow.fillInnerParts();
     }
 
     /**
