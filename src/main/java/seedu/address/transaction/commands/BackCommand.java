@@ -10,6 +10,7 @@ public class BackCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
+        model.resetPredicate();
         return new CommandResult("");
     }
 }

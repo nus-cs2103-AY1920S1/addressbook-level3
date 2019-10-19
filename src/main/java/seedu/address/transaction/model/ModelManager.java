@@ -29,12 +29,18 @@ public class ModelManager implements Model {
             actualList.add(transactionList.get(i));
         }
         this.filteredList = new TransactionList(actualList);
+        //this.filteredList = new TransactionList(transactionList.gettArrList());
         this.predicate = transaction -> true;
     }
 
     @Override
     public TransactionList getTransactionList() {
         return this.transactionList;
+    }
+
+    @Override
+    public Predicate<Transaction> getPredicate() {
+        return this.predicate;
     }
 
     @Override
@@ -96,21 +102,25 @@ public class ModelManager implements Model {
     @Override
     public void sortByDate() {
         transactionList.sortByDate();
+        filteredList.sortByDate();
     }
 
     @Override
     public void sortByName() {
         transactionList.sortByName();
+        filteredList.sortByName();
     }
 
     @Override
     public void sortByAmount() {
         transactionList.sortByAmount();
+        filteredList.sortByAmount();
     }
 
     @Override
     public void sortReset() {
         transactionList.unSort();
+        filteredList.unSort();
     }
 
     @Override
@@ -133,7 +143,7 @@ public class ModelManager implements Model {
     @Override
     public TransactionList getFilteredList() {
         List<Transaction> list = this.transactionList.stream().filter(predicate).collect(Collectors.toList());
-        ArrayList<Transaction> arrayList = new ArrayList<Transaction>(list);
+        ArrayList<Transaction> arrayList = new ArrayList<>(list);
         this.filteredList = new TransactionList(arrayList);
         return filteredList;
     }

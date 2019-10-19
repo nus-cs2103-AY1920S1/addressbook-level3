@@ -63,6 +63,7 @@ class DeleteIndexCommandTest {
         Model expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.deleteTransaction(2);
         showNoTransaction(expectedModel);
+
         //System.out.println(expectedMessage);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel, personModel);
     }

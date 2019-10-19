@@ -3,6 +3,11 @@ package seedu.address.transaction.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.util.CliSyntax.PREFIX_NAME;
 
 import java.util.Arrays;
 
@@ -11,6 +16,21 @@ import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 import seedu.address.transaction.util.TransactionList;
 
 public class CommandTestUtil {
+    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+    public static final String VALID_NAME_ALICE = "Alice Pauline";
+    public static final String VALID_NAME_BENSEN= "Benson Meier";
+    public static final String VALID_DATE = "03-Sep-2019";
+    public static final String VALID_AMOUNT = "20";
+    public static final String VALID_DESC = "DeScRiPtIoN @12345";
+    public static final String VALID_CATEGORY = "cAtEgOrY @12345";
+
+    public static final String DESC_NAME_ALICE = PREFIX_NAME + "Alice Pauline";
+    public static final String DESC_NAME_BENSEN= PREFIX_NAME + "Benson Meier";
+    public static final String DESC_DATE = PREFIX_DATETIME + "03-Sep-2019";
+    public static final String DESC_AMOUNT = PREFIX_AMOUNT + "20";
+    public static final String DESC_DESC = PREFIX_DESCRIPTION + "DeScRiPtIoN @12345";
+    public static final String DESC_CATEGORY = PREFIX_CATEGORY + "cAtEgOrY @12345";
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link seedu.address.person.logic.commands.CommandResult} matches {@code expectedCommandResult} <br>

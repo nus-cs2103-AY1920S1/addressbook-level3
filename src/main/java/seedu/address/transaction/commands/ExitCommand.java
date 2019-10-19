@@ -12,6 +12,7 @@ public class ExitCommand extends Command {
     @Override
     public CommandResult execute(seedu.address.transaction.model.Model model,
                                  seedu.address.person.model.Model personModel) {
+        model.resetPredicate();
         return new CommandResult(TransactionMessages.MESSAGE_EXIT_ACKNOWLEDGEMENT, true);
     }
 

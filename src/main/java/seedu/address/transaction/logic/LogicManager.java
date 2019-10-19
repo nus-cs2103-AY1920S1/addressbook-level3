@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText)
             throws Exception {
-        model.resetPredicate();
+        //model.resetPredicate();
         Command command = parser.parseCommand(commandText,
                 model.getTransactionList().size(), personModel);
         CommandResult commandResult = command.execute(model, personModel);

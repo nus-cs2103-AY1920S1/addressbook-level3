@@ -23,6 +23,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
+        model.resetPredicate();
         model.addTransaction(transaction);
         return new CommandResult(String.format(MESSAGE_ADD_TRANSACTION, transaction));
     }

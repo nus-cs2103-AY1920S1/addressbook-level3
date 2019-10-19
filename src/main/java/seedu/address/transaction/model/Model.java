@@ -104,4 +104,6 @@ public interface Model {
      * @return Boolean on whether there is such a transaction related to the person.
      */
     boolean hasTransactionWithName(String name);
+
+    Predicate<Transaction> getPredicate();
 }

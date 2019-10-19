@@ -87,4 +87,9 @@ public class TransactionModelStub implements Model {
     public boolean hasTransactionWithName(String name) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public Predicate<Transaction> getPredicate() {
+        throw new AssertionError("This method should not be called.");
+    }
 }

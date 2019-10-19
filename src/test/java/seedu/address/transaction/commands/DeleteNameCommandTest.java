@@ -57,8 +57,8 @@ class DeleteNameCommandTest {
         DeleteNameCommand deleteNameCommand = new DeleteNameCommand(TypicalPersons.BENSON);
         String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.BENSON));
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+        showTransactionsOfPerson(expectedModel, TypicalPersons.ALICE.getName().toString());
         expectedModel.deleteAllTransactionOfPerson(TypicalPersons.BENSON);
-        showTransactionsOfPerson(model, TypicalPersons.ALICE.getName().toString());
         assertCommandSuccess(deleteNameCommand, model, message, expectedModel, personModel);
     }
 
