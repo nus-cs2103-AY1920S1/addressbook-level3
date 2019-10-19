@@ -5,10 +5,13 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -30,7 +33,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
     private static final String FXML = "itinerary/events/EventsPage.fxml";
 
     @FXML
-    private VBox eventCardContainer;
+    private ListView<Event> eventListView;
 
     private Label inventoryLabel;
 
@@ -46,6 +49,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
 
     public EventsPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
+        fillPage();
     }
 
     /**
@@ -53,31 +57,48 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
      */
     public void fillPage() {
         // Filling events
-        eventCardContainer.getChildren().clear();
-        List<Event> events = model.getPageStatus().getDay().getEventList().internalUnmodifiableList;
-
-        List<Node> eventCards = IntStream.range(0, events.size())
-                .mapToObj(i -> Index.fromZeroBased(i))
-                .map(index -> {
-                    EventCard eventCard = new EventCard(events.get(index.getZeroBased()), index);
-                    eventCard.getRoot().addEventFilter(MouseEvent.MOUSE_CLICKED,
-                            new EventHandler<javafx.scene.input.MouseEvent>() {
-                                @Override
-                                public void handle(javafx.scene.input.MouseEvent event) {
-                                    if (events.get(index.getZeroBased()).getExpenditure().isPresent()) {
-                                        totalBudgetLabel.setText("Total Budget: "
-                                                + events.get(index.getZeroBased()).getExpenditure().get().getBudget()
-                                                .toString());
-                                    } else {
-                                        totalBudgetLabel.setText("NO BUDGET SET");
-                                    }
-                                    nameLabel.setText(events.get(index.getZeroBased()).getName().toString());
-                                }
-                            });
-                    return eventCard.getRoot();
-                }).collect(Collectors.toList());
-        eventCardContainer.getChildren().addAll(FXCollections.observableArrayList(eventCards));
+        ObservableList<Event> events = model.getPageStatus().getDay().getEventList().internalUnmodifiableList;
+        eventListView.setItems(events);
+        eventListView.setCellFactory(listView -> {
+            EventListViewCell eventListViewCell = new EventListViewCell();
+            eventListViewCell.addEventFilter(MouseEvent.MOUSE_CLICKED,
+                    new EventHandler<javafx.scene.input.MouseEvent>() {
+                        @Override
+                        public void handle(javafx.scene.input.MouseEvent e) {
+                            int index = listView.getSelectionModel().getSelectedIndex();
+                            if (events.get(index).getExpenditure().isPresent()) {
+                                totalBudgetLabel.setText("Total Budget: "
+                                        + events.get(index).getExpenditure().get().getBudget()
+                                        .toString());
+                            } else {
+                                totalBudgetLabel.setText("NO BUDGET SET");
+                            }
+                            nameLabel.setText(events.get(index).getName().toString());
+                        }
+                    });
+            return eventListViewCell;
+        });
     }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code PersonCard}.
+     */
+    static class EventListViewCell extends ListCell<Event> {
+        @Override
+        protected void updateItem(Event event, boolean empty) {
+            super.updateItem(event, empty);
+
+            if (empty || event == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                EventCard eventCard = new EventCard(event, Index.fromZeroBased(getIndex()));
+
+                setGraphic(eventCard.getRoot());
+            }
+        }
+    }
+
 
     @FXML
     private void handleAddEvent() {
