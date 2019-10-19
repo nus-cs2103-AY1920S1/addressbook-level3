@@ -3,14 +3,19 @@ package seedu.ichifund.logic.parser;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
+import seedu.ichifund.logic.Logic;
 import seedu.ichifund.logic.commands.AddCommand;
 import seedu.ichifund.logic.commands.ClearCommand;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.DeleteCommand;
 import seedu.ichifund.logic.commands.EditCommand;
+import seedu.ichifund.logic.commands.EmptyCommand;
 import seedu.ichifund.logic.commands.ExitCommand;
 import seedu.ichifund.logic.commands.FindCommand;
 import seedu.ichifund.logic.commands.HelpCommand;
@@ -19,11 +24,16 @@ import seedu.ichifund.logic.commands.budget.AddBudgetCommand;
 import seedu.ichifund.logic.commands.budget.DeleteBudgetCommand;
 import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
 import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
+import seedu.ichifund.logic.parser.analytics.AnalyticsParserManager;
 import seedu.ichifund.logic.parser.budget.AddBudgetCommandParser;
+import seedu.ichifund.logic.parser.budget.BudgetParserManager;
 import seedu.ichifund.logic.parser.budget.DeleteBudgetCommandParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
+import seedu.ichifund.logic.parser.loans.LoansParserManager;
+import seedu.ichifund.logic.parser.repeater.RepeaterParserManager;
 import seedu.ichifund.logic.parser.transaction.AddTransactionCommandParser;
 import seedu.ichifund.logic.parser.transaction.FilterTransactionCommandParser;
+import seedu.ichifund.logic.parser.transaction.TransactionParserManager;
 
 /**
  * Parses user input.
@@ -34,6 +44,19 @@ public class IchiFundParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private final ArrayList<ParserManager> parserManagers;
+    private SimpleObjectProperty<ParserManager> currentParserManager;
+
+    public IchiFundParser() {
+        parserManagers = new ArrayList<>();
+        parserManagers.add(new TransactionParserManager());
+        parserManagers.add(new RepeaterParserManager());
+        parserManagers.add(new BudgetParserManager());
+        parserManagers.add(new LoansParserManager());
+        parserManagers.add(new AnalyticsParserManager());
+        currentParserManager = new SimpleObjectProperty<>(parserManagers.get(0));
+    }
 
     /**
      * Parses user input into command for execution.
@@ -76,22 +99,36 @@ public class IchiFundParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AddTransactionCommand.COMMAND_WORD:
-            return new AddTransactionCommandParser().parse(arguments);
-
-        case FilterTransactionCommand.COMMAND_WORD:
-            return new FilterTransactionCommandParser().parse(arguments);
-
-        case AddBudgetCommand.COMMAND_WORD:
-            return new AddBudgetCommandParser().parse(arguments);
-
-        case DeleteBudgetCommand.COMMAND_WORD:
-            return new DeleteBudgetCommandParser().parse(arguments);
-
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            handleFeatureCommand(commandWord, arguments);
+            return new EmptyCommand();
         }
-
     }
 
+    private Command handleFeatureCommand(String commandWord, String arguments) throws ParseException {
+        boolean isTabSwitchCommand = false;
+
+        for (ParserManager parserManager : parserManagers) {
+            if (parserManager.getTabSwitchCommandWord().equals(commandWord)) {
+                isTabSwitchCommand = true;
+                setParserManager(parserManager.getTabIndex());
+            }
+        }
+
+        if (!isTabSwitchCommand) {
+            return currentParserManager.getValue().parseCommand(commandWord, arguments);
+        }
+
+        return new EmptyCommand();
+    }
+
+    public void setParserManager(int index) {
+        ParserManager parserManager = parserManagers.get(index);
+        assert(parserManager.getTabIndex() == index);
+        currentParserManager.setValue(parserManager);
+    }
+
+    public ObservableValue<ParserManager> getCurrentParserManager() {
+        return currentParserManager;
+    }
 }
