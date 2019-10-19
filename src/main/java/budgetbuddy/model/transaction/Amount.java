@@ -40,7 +40,7 @@ public class Amount {
 
     @Override
     public String toString() {
-        return String.format("%d.%02d", amount / 100, amount %100);
+        return String.format("%d.%02d", amount / 100, amount % 100);
     }
 
     @Override
