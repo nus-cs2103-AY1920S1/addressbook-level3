@@ -37,4 +37,26 @@ public class DateTest {
         assertTrue(Date.isValidDate("19112019")); // numerical digits only
         assertTrue(Date.isValidDate("01012069"));
     }
+
+    @Test
+    public void equals() {
+        Date firstDate = new Date("21032019");
+        Date secondDate = new Date("19112019");
+
+        // same object -> returns true
+        assertTrue(firstDate.equals(firstDate));
+
+        // same values -> returns true
+        assertTrue(firstDate.equals(new Date("21032019")));
+
+        // different types -> returns false
+        assertFalse(firstDate.equals(1));
+
+        // null -> returns false
+        assertFalse(firstDate.equals(null));
+
+        // different Date -> returns false
+        assertFalse(firstDate.equals(secondDate));
+    }
+
 }
