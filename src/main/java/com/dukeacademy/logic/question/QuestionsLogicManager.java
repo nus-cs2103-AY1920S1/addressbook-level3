@@ -1,4 +1,4 @@
-package com.dukeacademy.logic;
+package com.dukeacademy.logic.question;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,15 +21,15 @@ import javafx.collections.ObservableList;
 /**
  * The main LogicManager of the app.
  */
-public class LogicManager implements Logic {
+public class QuestionsLogicManager implements QuestionsLogic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private final Logger logger = LogsCenter.getLogger(QuestionsLogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final QuestionBankParser questionBankParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public QuestionsLogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         questionBankParser = new QuestionBankParser();

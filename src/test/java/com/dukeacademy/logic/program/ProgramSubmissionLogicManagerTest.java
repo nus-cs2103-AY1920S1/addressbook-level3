@@ -1,17 +1,23 @@
 package com.dukeacademy.testexecutor;
 
+import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
+import com.dukeacademy.logic.program.exceptions.LogicCreationException;
+import com.dukeacademy.model.question.Difficulty;
+import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.Status;
 import com.dukeacademy.model.question.TestCase;
-import com.dukeacademy.model.solutions.TestCaseResult;
-import com.dukeacademy.model.solutions.TestResult;
-import com.dukeacademy.model.solutions.UserProgram;
-import com.dukeacademy.observable.Observable;
+import com.dukeacademy.model.program.TestCaseResult;
+import com.dukeacademy.model.program.TestResult;
+import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.Title;
+import com.dukeacademy.model.question.Topic;
+import com.dukeacademy.model.tag.Tag;
 import com.dukeacademy.observable.TestListener;
-import com.dukeacademy.testexecutor.exceptions.ServiceInitializationException;
-import com.dukeacademy.testexecutor.exceptions.ServiceNotInitializedException;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.io.TempDir;
@@ -21,40 +27,37 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class StandardTestExecutorServiceTest {
+class ProgramSubmissionLogicManagerTest {
     @TempDir
     public static Path tempPath;
 
 
-    private StandardTestExecutorService testExecutorService;
+    private ProgramSubmissionLogicManager logicManager;
 
-    @Order(1)
-    @Test
-    void initializeTestExecutorService() throws ServiceInitializationException {
-        assertThrows(ServiceNotInitializedException.class, StandardTestExecutorService::getStandardTestExecutorService);
-        StandardTestExecutorService.initializeTestExecutorService(tempPath.toUri().getPath());
+    @BeforeEach
+    void initializeTest() throws LogicCreationException {
+        this.logicManager = new ProgramSubmissionLogicManager(tempPath.toUri().getPath());
     }
 
-    @Order(2)
-    @Test
-    void getTestResultObservable() throws ServiceNotInitializedException {
-        this.testExecutorService = StandardTestExecutorService.getStandardTestExecutorService();
-        assertNotNull(testExecutorService.getTestResultObservable());
+    @AfterEach
+    void closeTest() {
+        this.logicManager.closeProgramSubmissionLogicManager();
     }
 
-    @Order(3)
+
     @Test
-    void runTestCasesAgainstUserProgram() throws ServiceNotInitializedException, IOException {
-        this.testExecutorService = StandardTestExecutorService.getStandardTestExecutorService();
+    void submitUserProgram() throws IOException {
         TestListener<TestResult> resultListener = new TestListener<>();
-        this.testExecutorService.getTestResultObservable().addListener(resultListener);
+        this.logicManager.getTestResultObservable().addListener(resultListener);
 
         // Test for fib
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
@@ -64,7 +67,9 @@ class StandardTestExecutorServiceTest {
         String sourceCode = Files.readString(program);
         UserProgram userProgram = new UserProgram("Fib", sourceCode);
 
-        this.testExecutorService.runTestCasesAgainstUserProgram(testCases, userProgram);
+        Question question = this.createMockQuestion(testCases);
+        this.logicManager.setCurrentQuestion(question);
+        this.logicManager.submitUserProgram(userProgram);
 
         TestResult result = resultListener.getLatestValue();
         assertNotNull(result);
@@ -80,7 +85,9 @@ class StandardTestExecutorServiceTest {
         String sourceCode1 = Files.readString(program1);
         UserProgram userProgram1 = new UserProgram("Nested", sourceCode1);
 
-        this.testExecutorService.runTestCasesAgainstUserProgram(testCases1, userProgram1);
+        Question question1 = this.createMockQuestion(testCases1);
+        this.logicManager.setCurrentQuestion(question1);
+        this.logicManager.submitUserProgram(userProgram1);
 
         TestResult result1 = resultListener.getLatestValue();
         assertNotNull(result1);
@@ -97,7 +104,10 @@ class StandardTestExecutorServiceTest {
 
         // Test for compile error
         UserProgram program2 = new UserProgram("CompileError", "foobar");
-        this.testExecutorService.runTestCasesAgainstUserProgram(mockTestCases, program2);
+        Question question2 = this.createMockQuestion(mockTestCases);
+        this.logicManager.setCurrentQuestion(question2);
+        this.logicManager.submitUserProgram(program2);
+
         TestResult result2 = resultListener.getLatestValue();
         assertTrue(result2.getCompileError().isPresent());
 
@@ -106,7 +116,7 @@ class StandardTestExecutorServiceTest {
                 "TestPrograms", "errors", "indexoutofbounds.txt");
         UserProgram program3 = new UserProgram("Main", Files.readString(programPath));
 
-        this.testExecutorService.runTestCasesAgainstUserProgram(mockTestCases, program3);
+        this.logicManager.submitUserProgram(program3);
         TestResult result3 = resultListener.getLatestValue();
         assertTrue(result3.getCompileError().isEmpty());
         assertEquals(0, result3.getNumPassed());
@@ -116,15 +126,6 @@ class StandardTestExecutorServiceTest {
             assertFalse(testCaseResult.isSuccessful());
             assertTrue(testCaseResult.getRuntimeError().isPresent());
         });
-    }
-
-    @Order(4)
-    @Test
-    void closeTestExecutorService() throws ServiceNotInitializedException {
-        StandardTestExecutorService.closeTestExecutorService();
-        assertThrows(ServiceNotInitializedException.class, StandardTestExecutorService::getStandardTestExecutorService);
-        assertTrue(tempPath.toFile().exists());
-        assertEquals(0, Objects.requireNonNull(tempPath.toFile().listFiles()).length);
     }
 
     /**
@@ -179,5 +180,15 @@ class StandardTestExecutorServiceTest {
                             && result.isSuccessful();
                 }).reduce((x, y) -> x && y)
                 .orElse(false);
+    }
+
+    private Question createMockQuestion(List<TestCase> testCases) {
+        Title title = new Title("Test");
+        Topic topic = new Topic("Test");
+        Status status = new Status("Test");
+        Difficulty difficulty = new Difficulty("Test");
+        Set<Tag> tags = new HashSet<>();
+
+        return new Question(title, topic, status, difficulty, tags,testCases);
     }
 }

@@ -1,12 +1,12 @@
-package com.dukeacademy.testexecutor;
+package com.dukeacademy.logic;
 
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.model.question.TestCase;
-import com.dukeacademy.model.solutions.TestResult;
-import com.dukeacademy.model.solutions.UserProgram;
-import com.dukeacademy.observable.Listener;
+import com.dukeacademy.model.program.TestResult;
+import com.dukeacademy.model.program.UserProgram;
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.StandardObservable;
+import com.dukeacademy.testexecutor.TestExecutor;
 import com.dukeacademy.testexecutor.compiler.Compiler;
 import com.dukeacademy.testexecutor.compiler.StandardCompiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
@@ -15,20 +15,20 @@ import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.ServiceInitializationException;
 import com.dukeacademy.testexecutor.exceptions.ServiceNotInitializedException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
-import com.dukeacademy.testexecutor.program.ProgramExecutor;
-import com.dukeacademy.testexecutor.program.StandardProgramExecutor;
+import com.dukeacademy.testexecutor.executor.ProgramExecutor;
+import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 
 import java.io.File;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class StandardTestExecutorService implements TestExecutorService {
+public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     private static final String messageInitializationError = "Failed to initialize standard test executor service.";
     private static final String messageInvalidDirectoryError = "Could not locate give directory";
     private static final String messageCouldNotClearEnvironmentWarning = "Warning: Could not clear compiler environment, some test files may persist.";
-    private static final Logger logger = LogsCenter.getLogger(StandardTestExecutorService.class);
+    private static final Logger logger = LogsCenter.getLogger(ProgramSubmissionLogicManager.class);
 
-    private static StandardTestExecutorService standardTestExecutorService;
+    private static ProgramSubmissionLogicManager standardTestExecutorService;
 
     private StandardObservable<TestResult> resultObservable;
     private CompilerEnvironment compilerEnvironment;
@@ -46,33 +46,33 @@ public class StandardTestExecutorService implements TestExecutorService {
             Compiler compiler = new StandardCompiler();
             ProgramExecutor executor = new StandardProgramExecutor();
 
-            StandardTestExecutorService.standardTestExecutorService = new StandardTestExecutorService(environment,
+            ProgramSubmissionLogicManager.standardTestExecutorService = new ProgramSubmissionLogicManager(environment,
                     compiler, executor);
         } catch (CompilerEnvironmentException e) {
             throw new ServiceInitializationException(messageInitializationError, e);
         }
     }
 
-    public static StandardTestExecutorService getStandardTestExecutorService() throws ServiceNotInitializedException {
+    public static ProgramSubmissionLogicManager getStandardTestExecutorService() throws ServiceNotInitializedException {
         if (standardTestExecutorService == null) {
             throw new ServiceNotInitializedException();
         }
 
-        return StandardTestExecutorService.standardTestExecutorService;
+        return ProgramSubmissionLogicManager.standardTestExecutorService;
     }
 
     public static void closeTestExecutorService() {
         try {
-            StandardTestExecutorService.standardTestExecutorService.compilerEnvironment.close();
+            ProgramSubmissionLogicManager.standardTestExecutorService.compilerEnvironment.close();
         } catch (CompilerEnvironmentException e) {
             logger.info(messageCouldNotClearEnvironmentWarning);
         } finally {
-            StandardTestExecutorService.standardTestExecutorService.resultObservable.clearListeners();
-            StandardTestExecutorService.standardTestExecutorService = null;
+            ProgramSubmissionLogicManager.standardTestExecutorService.resultObservable.clearListeners();
+            ProgramSubmissionLogicManager.standardTestExecutorService = null;
         }
     }
 
-    private StandardTestExecutorService(CompilerEnvironment environment, Compiler compiler, ProgramExecutor executor) {
+    private ProgramSubmissionLogicManager(CompilerEnvironment environment, Compiler compiler, ProgramExecutor executor) {
         this.compilerEnvironment = environment;
         this.testExecutor = new TestExecutor(environment, compiler, executor);
         this.resultObservable = new StandardObservable<>();

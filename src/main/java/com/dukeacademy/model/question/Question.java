@@ -2,8 +2,10 @@ package com.dukeacademy.model.question;
 
 import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,10 +25,21 @@ public class Question {
     // Data fields
     private final Difficulty difficulty;
     private final Set<Tag> tags = new HashSet<>();
+    private final List<TestCase> testCases = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
+    public Question(Title title, Topic topic, Status status, Difficulty difficulty, Set<Tag> tags, List<TestCase> testCases) {
+        requireAllNonNull(title, topic, status, difficulty, tags, testCases);
+        this.title = title;
+        this.topic = topic;
+        this.status = status;
+        this.difficulty = difficulty;
+        this.tags.addAll(tags);
+        this.testCases.addAll(testCases);
+    }
+
     public Question(Title title, Topic topic, Status status, Difficulty difficulty, Set<Tag> tags) {
         requireAllNonNull(title, topic, status, difficulty, tags);
         this.title = title;
@@ -34,8 +47,8 @@ public class Question {
         this.status = status;
         this.difficulty = difficulty;
         this.tags.addAll(tags);
+        this.testCases.addAll(testCases);
     }
-
     public Title getTitle() {
         return title;
     }
@@ -118,4 +131,8 @@ public class Question {
         return builder.toString();
     }
 
+    public List<TestCase> getTestCases() {
+        List<TestCase> copy = new ArrayList<>(this.testCases);
+        return copy;
+    }
 }

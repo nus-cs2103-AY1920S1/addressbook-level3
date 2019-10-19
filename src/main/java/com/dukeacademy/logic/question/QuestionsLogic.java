@@ -1,4 +1,4 @@
-package com.dukeacademy.logic;
+package com.dukeacademy.logic.question;
 
 import java.nio.file.Path;
 
@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 /**
  * API of the Logic component
  */
-public interface Logic {
+public interface QuestionsLogic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
