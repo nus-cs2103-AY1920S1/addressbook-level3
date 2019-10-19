@@ -52,8 +52,8 @@ class JsonAdaptedContact {
     public JsonAdaptedContact(Contact source) {
         name = source.getName().toString();
         phone = source.getPhone().value;
-        email = source.getEmail().isPresent() ? source.getEmail().get().value : "";
-        address = source.getAddress().isPresent() ? source.getAddress().get().value : "";
+        email = source.getEmail().isPresent() ? source.getEmail().get().value : null;
+        address = source.getAddress().isPresent() ? source.getAddress().get().value : null;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -86,21 +86,15 @@ class JsonAdaptedContact {
         }
         final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
+        if (email != null && !Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Email modelEmail = email != null ? new Email(email) : null;
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
+        if (address != null && !Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Address modelAddress = address != null ? new Address(address) : null;
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelTags);
