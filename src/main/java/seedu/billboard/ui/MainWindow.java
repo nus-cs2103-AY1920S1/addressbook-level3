@@ -192,10 +192,8 @@ public class MainWindow extends UiPart<Stage> {
             String listNameToBeDisplayed = commandResult.getListToBeDisplayed();
             if (!(listNameToBeDisplayed.equals(""))) {
                 displayedExpenses.setAll(logic.getFilteredArchiveExpenseList(listNameToBeDisplayed));
-           //     expenseListPanel.setExpenseListView(logic.getFilteredArchiveExpenseList(listNameToBeDisplayed));
             } else {
                 displayedExpenses.setAll(logic.getFilteredExpenseList());
-           //     expenseListPanel.setExpenseListView(logic.getFilteredExpenseList());
             }
 
             if (commandResult.isShowHelp()) {
