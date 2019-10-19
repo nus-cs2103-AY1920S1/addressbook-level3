@@ -380,30 +380,6 @@ Examples:
 * `getmodcode algorithms`
 * `getmodcode programming`
 
-==== Viewing prerequisites of a module : `prereq`
-Shows all prerequisite modules for the specified module. +
-Format: `prereq MODULE_CODE`
-
-Example:
-
-* `prereq cs2040`
-
-==== Viewing total completed MCs : `mcs`
-Shows the current total MCs for all *completed* modules. +
-Format: `mcs`
-
-==== Viewing focus area : `viewfocusarea`
-Shows the focus area that the user has previously declared. +
-Format: `viewfocusarea`
-
-==== Viewing modules that can be taken in a given semester : `validmods`
-Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
-Format: `validmods SEMESTER`
-
-Example:
-
-* `validmods y2s1`
-
 === Verification
 
 ==== Error messages
@@ -423,6 +399,14 @@ Examples:
 * `check mc` +
 * `check MODULE` -- checks if the module is valid, listing issues with its prerequisites +
 * `check SEMESTER` -- checks if all modules in the semester are valid
+
+==== Viewing modules that can be taken in a given semester : `validmods`
+Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
+Format: `validmods SEMESTER`
+
+Example:
+
+* `validmods y2s1`
 
 ==== Displays
 Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules as tags.
