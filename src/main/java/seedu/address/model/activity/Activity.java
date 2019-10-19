@@ -4,7 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Stream;
 
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.model.person.Person;
 
 /**
@@ -13,16 +15,18 @@ import seedu.address.model.person.Person;
 public class Activity {
 
     private final Title title;
-    private final ArrayList<Integer> participantIds = new ArrayList<>();
-    private final ArrayList<Expense> expenses = new ArrayList<>();
+    private final ArrayList<Integer> participantIds;
+    private final ArrayList<Expense> expenses;
 
     /**
      * Constructor for Activity.
      * @param title Title of the activity.
-     * @param people The people participating in the activity.
+     * @param ids The people participating in the activity.
      */
     public Activity(Title title, Integer ... ids) {
         requireAllNonNull(title);
+        participantIds = new ArrayList<>();
+        expenses = new ArrayList<>();
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);
@@ -58,8 +62,11 @@ public class Activity {
      * @param people The people that will be added into the activity.
      */
     public void invite(Person ... people) {
-        // TODO: implement check for person with same name, add only if
-        // different name
+        for (Person p : people) {
+            if (!participantIds.contains(p.getPrimaryKey())) {
+                participantIds.add(p.getPrimaryKey());
+            }
+        }
     }
 
     /**
@@ -73,8 +80,15 @@ public class Activity {
     /**
      * Add expense to the activity
      * @param expenditures The expense(s) to be added.
+     * @throws PersonNotInActivityException if any person is not found
      */
-    public void addExpense(Expense ... expenditures) {
+    public void addExpense(Expense ... expenditures) throws PersonNotInActivityException {
+        boolean allPresent = Stream.of(expenditures)
+                .map(x -> x.getPersonId())
+                .allMatch(x -> participantIds.contains(x));
+        if (!allPresent) {
+            throw new PersonNotInActivityException();
+        }
         for (int i = 0; i < expenditures.length; i++) {
             expenses.add(expenditures[i]);
         }

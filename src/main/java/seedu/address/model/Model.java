@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
@@ -78,7 +79,12 @@ public interface Model {
     /**
        Finds Person objects with matching keywords, returning matches in ArrayList.
      */
-    ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate);
+    ArrayList<Person> findPersonAny(NameContainsKeywordsPredicate predicate);
+
+    /**
+     Finds Person objects with names matching all keywords, returning matches in ArrayList.
+     */
+    ArrayList<Person> findPersonAll(NameContainsAllKeywordsPredicate predicate);
 
     /**
      * Deletes the given person.

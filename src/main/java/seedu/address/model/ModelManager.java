@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
@@ -138,7 +139,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate) {
+    public ArrayList<Person> findPersonAny(NameContainsKeywordsPredicate predicate) {
+        requireNonNull(predicate);
+        return addressBook.findPerson(predicate);
+    }
+
+    @Override
+    public ArrayList<Person> findPersonAll(NameContainsAllKeywordsPredicate predicate) {
         requireNonNull(predicate);
         return addressBook.findPerson(predicate);
     }
