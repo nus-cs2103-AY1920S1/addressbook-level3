@@ -21,6 +21,8 @@ import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExpandPersonCommand;
+import seedu.address.logic.commands.ExpandPolicyCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -177,6 +179,12 @@ public class AddressBookParser {
 
             case DoNotMergePolicyCommand.COMMAND_WORD:
                 return new DoNotMergePolicyCommandParser().parse(arguments);
+
+            case ExpandPersonCommand.COMMAND_WORD:
+                return new ExpandPersonCommandParser().parse(arguments);
+
+            case ExpandPolicyCommand.COMMAND_WORD:
+                return new ExpandPolicyCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

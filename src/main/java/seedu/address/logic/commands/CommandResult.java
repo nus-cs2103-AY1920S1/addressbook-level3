@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
+
 /**
  * Represents the result of a command execution.
  */
@@ -23,6 +26,16 @@ public class CommandResult {
     /** Application should display list of people */
     private boolean listPeople;
 
+    /** Application should expand the person on the right panel */
+    private boolean expandPerson;
+
+    /** Application should expand the policy on the right panel */
+    private boolean expandPolicy;
+
+    private Person personToExpand;
+
+    private Policy policyToExpand;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -30,12 +43,28 @@ public class CommandResult {
                          boolean showHelp,
                          boolean exit,
                          boolean listPolicy,
-                         boolean listPeople) {
+                         boolean listPeople,
+                         boolean expandPerson,
+                         boolean expandPolicy) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.listPolicy = listPolicy;
         this.listPeople = listPeople;
+        this.expandPerson = expandPerson;
+        this.expandPolicy = expandPolicy;
+    }
+
+    public CommandResult(String feedbackToUser, Person personToExpand) {
+        this(feedbackToUser, false, false, false, false, true,
+                false);
+        this.personToExpand = personToExpand;
+    }
+
+    public CommandResult(String feedbackToUser, Policy policyToExpand) {
+        this(feedbackToUser, false, false, false, false, false,
+                true);
+        this.policyToExpand = policyToExpand;
     }
 
     /**
@@ -43,7 +72,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false,
+                false);
     }
 
     public String getFeedbackToUser() {
@@ -66,6 +96,22 @@ public class CommandResult {
         return listPeople;
     }
 
+    public boolean isExpandPerson() {
+        return expandPerson;
+    }
+
+    public boolean isExpandPolicy() {
+        return expandPolicy;
+    }
+
+    public Person getPersonToExpand() {
+        return personToExpand;
+    }
+
+    public Policy getPolicyToExpand() {
+        return policyToExpand;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -82,12 +128,14 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && listPolicy == otherCommandResult.listPolicy
-                && listPeople == otherCommandResult.listPeople;
+                && listPeople == otherCommandResult.listPeople
+                && expandPerson == otherCommandResult.expandPerson
+                && expandPolicy == otherCommandResult.expandPolicy;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople);
+        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople, expandPerson, expandPolicy);
     }
 
 }

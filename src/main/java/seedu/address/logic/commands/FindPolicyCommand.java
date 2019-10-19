@@ -34,7 +34,7 @@ public class FindPolicyCommand extends Command {
                 false,
                 false,
                 true,
-                false);
+                false, false, false);
     }
 
     @Override
