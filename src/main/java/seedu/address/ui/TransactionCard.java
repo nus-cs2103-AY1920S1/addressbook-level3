@@ -44,7 +44,7 @@ public class TransactionCard extends UiPart<Region> {
         this.transaction = transaction;
         id.setText(displayedIndex + ". ");
         amount.setText(transaction.getAmount().toString());
-        date.setText(transaction.getDateTime().toString());
+        date.setText(transaction.getDate().toString());
         people.setText(transaction.getPeopleInvolved().getName().fullName);
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

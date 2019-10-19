@@ -55,4 +55,7 @@ public class Date {
         return this.date.format(DATE_FORMATTER);
     }
 
+    public LocalDate toLocalDate() {
+        return this.date;
+    }
 }

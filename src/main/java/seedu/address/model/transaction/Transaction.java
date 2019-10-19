@@ -45,7 +45,7 @@ public abstract class Transaction {
         return amount;
     }
 
-    public Date getDateTime() {
+    public Date getDate() {
         return date;
     }
 
@@ -74,7 +74,7 @@ public abstract class Transaction {
 
         return otherTransaction != null
                 && otherTransaction.getAmount().equals(getAmount())
-                && otherTransaction.getDateTime().equals(getDateTime())
+                && otherTransaction.getDate().equals(getDate())
                 && otherTransaction.getPeopleInvolved().equals(getPeopleInvolved());
     }
 

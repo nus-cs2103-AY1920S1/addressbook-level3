@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Date;
 import seedu.address.model.Model;
+import seedu.address.model.Projection;
+import seedu.address.model.transaction.DateComparator;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -32,12 +34,11 @@ public class ProjectCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        ObservableList<Transaction> transactionHistory = model.getBankAccount().getTransactionHistory();
+        ObservableList<Transaction> transactionHistory =
+                model.getBankAccount().getTransactionHistory().sorted(new DateComparator());
 
-        transactionHistory.sorted();
+        Projection projection = new Projection(transactionHistory, date);
 
-        String projection = "102"; //TODO replace stub
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, projection));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString()));
     }
 }

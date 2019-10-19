@@ -52,7 +52,7 @@ class JsonAdaptedTransaction {
      */
     public JsonAdaptedTransaction(Transaction source) {
         amount = source.getAmount().toString();
-        date = source.getDateTime().toString();
+        date = source.getDate().toString();
         peopleInvolved = new JsonAdaptedPerson(source.getPeopleInvolved());
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
