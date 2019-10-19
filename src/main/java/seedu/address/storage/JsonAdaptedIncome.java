@@ -81,7 +81,7 @@ class JsonAdaptedIncome {
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Income(modelDesc, modelAmt, modelTime, modelTags);
+        return new Income(modelDesc, modelTime, modelAmt, modelTags);
     }
 
 }

@@ -18,7 +18,7 @@ public class Entry {
     // Identity fields
     private final Description desc;
     private final Amount amt;
-
+    private final Time time;
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -26,10 +26,11 @@ public class Entry {
      * Every field must be present and not null.
      */
 
-    public Entry(Description desc, Amount amount, Set<Tag> tags) {
+    public Entry(Description desc, Time time, Amount amount, Set<Tag> tags) {
         requireAllNonNull(desc, amount, tags);
         this.desc = desc;
         this.amt = amount;
+        this.time = time;
         this.tags.addAll(tags);
     }
 
@@ -43,6 +44,10 @@ public class Entry {
 
     public String getType() {
         return "Not like this";
+    }
+
+    public Time getTime() {
+        return this.time;
     }
 
     /**
@@ -65,7 +70,8 @@ public class Entry {
 
         return otherEntry != null
                 && otherEntry.getDesc().equals(getDesc())
-                && otherEntry.getAmount().equals(getAmount());
+                && otherEntry.getAmount().equals(getAmount())
+                && this.equals(otherEntry);
     }
 
     /**
@@ -78,14 +84,36 @@ public class Entry {
             return true;
         }
 
-        if (!(other instanceof Entry)) {
+        if (!(equalClass(other))) {
             return false;
+        } else {
+            if (this instanceof Expense) {
+                return ((Expense) this).equals((Expense) other);
+            } else if (this instanceof Income) {
+                return ((Income) this).equals((Income) other);
+            } else if (this instanceof Wish) {
+                return ((Wish) this).equals((Wish) other);
+            } else {
+                return false;
+            }
         }
+    }
 
-        Entry otherEntry = (Entry) other;
-        return otherEntry.getDesc().equals(getDesc())
-                && otherEntry.getAmount().equals(getAmount())
-                && otherEntry.getTags().equals(getTags());
+    /**
+     * Checks if children class of this instance is same as that of other.
+     * @param other object to compare to.
+     * @return boolean.
+     */
+    protected boolean equalClass(Object other) {
+        if (this instanceof Expense && !(other instanceof Expense)) {
+            return false;
+        } else if (this instanceof Income && !(other instanceof Income)) {
+            return false;
+        } else if (this instanceof Wish && !(other instanceof Wish)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

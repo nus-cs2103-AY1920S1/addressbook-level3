@@ -7,14 +7,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddExpenseReminderCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteExpenseReminderCommand;
+import seedu.address.logic.commands.DeleteWishCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditExpenseCommand;
+import seedu.address.logic.commands.EditExpenseReminderCommand;
+import seedu.address.logic.commands.EditIncomeCommand;
+import seedu.address.logic.commands.EditWishCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindWishCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.WishListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -50,8 +60,20 @@ public class AddressBookParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case EditExpenseCommand.COMMAND_WORD:
+            return new EditExpenseCommandParser().parse(arguments);
+
+        case EditIncomeCommand.COMMAND_WORD:
+            return new EditIncomeCommandParser().parse(arguments);
+
+        case EditWishCommand.COMMAND_WORD:
+            return new EditWishCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteWishCommand.COMMAND_WORD:
+            return new DeleteWishCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -59,14 +81,32 @@ public class AddressBookParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case FindWishCommand.COMMAND_WORD:
+            return new FindWishCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case WishListCommand.COMMAND_WORD:
+            return new WishListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddExpenseReminderCommand.COMMAND_WORD:
+            return new AddExpenseReminderCommandParser().parse(arguments);
+
+        case EditExpenseReminderCommand.COMMAND_WORD:
+            return new EditExpenseReminderCommandParser().parse(arguments);
+
+        case DeleteExpenseReminderCommand.COMMAND_WORD:
+            return new DeleteExpenseReminderCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -10,19 +10,13 @@ import seedu.address.model.tag.Tag;
 public class Income extends Entry {
 
     private static final String ENTRY_TYPE = "Income";
-    private final Time time;
 
-    public Income(Description desc, Amount amt, Time time, Set<Tag> tags) {
-        super(desc, amt, tags);
-        this.time = time;
+    public Income(Description desc, Time time, Amount amt, Set<Tag> tags) {
+        super(desc, time, amt, tags);
     }
 
     public String getType() {
         return this.ENTRY_TYPE;
-    }
-
-    public Time getTime() {
-        return this.time;
     }
 
     /**
@@ -36,6 +30,8 @@ public class Income extends Entry {
         }
 
         if (!(other instanceof Income)) {
+            return false;
+        } else if (!(other instanceof Wish)) {
             return false;
         }
 
@@ -55,7 +51,7 @@ public class Income extends Entry {
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + time + ")");
+        builder.append("(" + getTime() + ")");
         return builder.toString();
     }
 

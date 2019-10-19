@@ -18,6 +18,7 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Time;
+import seedu.address.model.person.Wish;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,7 +35,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_TIME, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_DESC, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_TIME, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -48,6 +49,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Entry entry;
         /*if (type.equalsIgnoreCase("Expense")) {
             entry = new Expense(name, time, amt, tagList);
+        } else if (type.equalsIgnoreCase("Income")) {
+            entry = new Income(name, time, amt, tagList);
+        } else if (type.equalsIgnoreCase("Wish")) {
+            entry = new Wish(name, time, amt, tagList);
         } else {
             entry = new Expense(name, time, amt, tagList);
         }*/
@@ -56,7 +61,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             entry = new Expense(desc, time, amt, tagList);
             break;
         case "income":
-            entry = new Income(desc, amt, time, tagList);
+            entry = new Income(desc, time, amt, tagList);
+            break;
+        case "wish":
+            entry = new Wish(desc, time, amt, tagList);
             break;
         default:
             throw new ParseException("invalid command");

@@ -12,6 +12,8 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
+import seedu.address.model.person.Wish;
+
 
 /**
  * Adds a person to the address book.
@@ -24,16 +26,16 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_DESC + "DESCRIPTION "
-            + PREFIX_TIME + "TIME "
             + PREFIX_AMOUNT + "AMOUNT "
+            + PREFIX_TIME + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "expense "
-            + PREFIX_DESC + "deck mala "
-            + PREFIX_TIME + "13:00 "
+            + PREFIX_TYPE + "Expense "
+            + PREFIX_DESC + "Mala "
             + PREFIX_AMOUNT + "5.50 "
+            + PREFIX_TIME + "2019-09-09 "
             + PREFIX_TAG + "food "
-            + PREFIX_TAG + "mala";
+            + PREFIX_TAG + "indulgence";
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
 
@@ -50,7 +52,6 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         String type = toAdd.getType().toLowerCase();
         switch (type) {
         case "expense":
@@ -59,15 +60,13 @@ public class AddCommand extends Command {
         case "income":
             model.addIncome((Income) toAdd);
             break;
+        case "wish":
+            model.addWish((Wish) toAdd);
+            break;
         default:
             throw new CommandException("command not found");
         }
 
-        /*if (toAdd.getType().equalsIgnoreCase("Expense")) {
-
-        } else {
-            model.addEntry(toAdd);
-        }*/
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -32,11 +32,11 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the entry identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TYPE
+            + PREFIX_TYPE + " "
             + "[" + PREFIX_DESC + "DESCRIPTION] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
@@ -44,9 +44,9 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "5.60";
 
-    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the finance app.";
 
     private final Index index;
     private final EditEntryDescriptor editEntryDescriptor;
@@ -91,11 +91,12 @@ public class EditCommand extends Command {
     private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
         assert entryToEdit != null;
 
-        Description updatedDesc = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
+        Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
+        Time updatedTime = editEntryDescriptor.getTime().orElse(entryToEdit.getTime());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
-        return new Entry(updatedDesc, updatedAmount, updatedTags);
+        return new Entry(updatedName, updatedTime, updatedAmount, updatedTags);
     }
 
     @Override
@@ -135,6 +136,7 @@ public class EditCommand extends Command {
         public EditEntryDescriptor(EditEntryDescriptor toCopy) {
             setDesc(toCopy.desc);
             setAmount(toCopy.amt);
+            setTime(toCopy.time);
             setTags(toCopy.tags);
         }
 
