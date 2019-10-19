@@ -1,5 +1,9 @@
 package seedu.deliverymans.logic.commands.restaurant;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.Command;
@@ -9,10 +13,9 @@ import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Goes into editing mode for a restaurant
+ */
 public class EditRestaurantCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
