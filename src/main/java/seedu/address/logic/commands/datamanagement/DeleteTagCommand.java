@@ -23,7 +23,7 @@ public class DeleteTagCommand extends Command {
         + "delete t/exchange";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been deleted";
-    public static final String MESSAGE_TAG_CANNOT_BE_FOUND = "There is no [%1$s] tag in this study plan";
+    public static final String MESSAGE_TAG_NOT_FOUND = "There is no [%1$s] tag in this study plan";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be deleted";
 
     private final String tagName;
@@ -46,7 +46,7 @@ public class DeleteTagCommand extends Command {
         }
 
         if (!model.activeSpContainsTag(tagName)) {
-            throw new CommandException(String.format(MESSAGE_TAG_CANNOT_BE_FOUND, tagName));
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagName));
         }
 
         UserTag toDelete = (UserTag) model.getTagFromActiveSp(tagName);
