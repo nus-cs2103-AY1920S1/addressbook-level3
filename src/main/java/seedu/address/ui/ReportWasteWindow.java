@@ -2,10 +2,17 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.Map;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+//import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -25,6 +32,13 @@ import seedu.address.model.waste.WasteReport;
 import seedu.address.model.waste.WasteStatistic;
 
 public class ReportWasteWindow {
+
+    public static final String WEIGHT_TITLE = "Wastage in Kilograms";
+    public static final String WEIGHT_UNIT = "Kilograms";
+    public static final String VOLUME_TITLE = "Wastage in Litres";
+    public static final String VOLUME_UNIT = "Litres";
+    public static final String QUANTITY_TITLE = "Quantity in Units";
+    public static final String QUANTITY_UNIT = "Units";
 
     private WasteReport wasteReport;
     private Stage stage;
@@ -53,40 +67,37 @@ public class ReportWasteWindow {
             historicalQuantityData.add(wasteMonthInJFree, totalQuantity);
         }
 
-        TimeSeriesCollection weightDataset = new TimeSeriesCollection();
-        weightDataset.addSeries(historicalWeightData);
-        JFreeChart weightChart = createChart(weightDataset, "Wastage in kilograms", "Kilograms");
-        ChartViewer weightViewer = new ChartViewer(weightChart);
 
-        TimeSeriesCollection volumeDataset = new TimeSeriesCollection();
-        volumeDataset.addSeries(historicalVolumeData);
-        JFreeChart volumeChart = createChart(volumeDataset, "Wastage in litres", "Litres");
-        ChartViewer volumeViewer = new ChartViewer(volumeChart);
+        ChartViewer weightViewer = getChartViewer(historicalWeightData, WEIGHT_TITLE, WEIGHT_UNIT);
+        weightViewer.setBackground(new Background(new BackgroundFill(
+                javafx.scene.paint.Color.rgb(202, 229, 230), null, null)));
+        ChartViewer volumeViewer = getChartViewer(historicalVolumeData, VOLUME_TITLE, VOLUME_UNIT);
+        ChartViewer quantityViewer = getChartViewer(historicalQuantityData, QUANTITY_TITLE, QUANTITY_UNIT);
 
-        TimeSeriesCollection quantityDataset = new TimeSeriesCollection();
-        quantityDataset.addSeries(historicalQuantityData);
-        JFreeChart quantityChart = createChart(quantityDataset, "Wastage in units", "Units");
-        ChartViewer quantityViewer = new ChartViewer(quantityChart);
 
-        stage.setScene(new Scene(weightViewer));
+        TabPane tabPane = new TabPane();
+        Tab weightTab = new Tab("Weight");
+        weightTab.setContent(weightViewer);
+        tabPane.getTabs().add(weightTab);
+
+        Tab volumeTab = new Tab("Volume");
+        volumeTab.setContent(volumeViewer);
+        tabPane.getTabs().add(volumeTab);
+
+        Tab quantityTab = new Tab("Quantity");
+        quantityTab.setContent(quantityViewer);
+        tabPane.getTabs().add(quantityTab);
+
+        stage.setScene(new Scene(tabPane));
         stage.show();
-
-
-
-        showWeightGraph();
-        showVolumeGraph();
-        showQuantityGraph();
     }
 
-    private void showQuantityGraph() {
-        TimeSeries historicalData = new TimeSeries("Waste in kg");
-
-    }
-
-    private void showVolumeGraph() {
-    }
-
-    private void showWeightGraph() {
+    private ChartViewer getChartViewer(TimeSeries data, String title, String xAxisLabel) {
+        TimeSeriesCollection dataset = new TimeSeriesCollection();
+        dataset.addSeries(data);
+        JFreeChart chart = createChart(dataset, title, xAxisLabel);
+        ChartViewer viewer = new ChartViewer(chart);
+        return viewer;
     }
 
     private static JFreeChart createChart(XYDataset dataset, String title, String valueAxisLabel) {
@@ -96,10 +107,10 @@ public class ReportWasteWindow {
                 null,   // x-axis label
                 valueAxisLabel,      // y-axis label
                 dataset);
-
         String fontName = "Helvetica";
         chart.getTitle().setFont(new Font(fontName, Font.BOLD, 18));
-        chart.addSubtitle(new TextTitle("Source: http://www.ico.org/historical/2010-19/PDF/HIST-PRICES.pdf",
+        chart.addSubtitle(new TextTitle("For more details on reducing food waste, "
+                + "visit https://www.thinkeatsave.org/top-tips-on-reducing-food-waste/",
                 new Font(fontName, Font.PLAIN, 14)));
 
         XYPlot plot = (XYPlot) chart.getPlot();
@@ -123,7 +134,7 @@ public class ReportWasteWindow {
             // set the default stroke for all series
             renderer.setAutoPopulateSeriesStroke(false);
             renderer.setDefaultStroke(new BasicStroke(3.0f));
-            renderer.setSeriesPaint(0, Color.RED);
+            renderer.setSeriesPaint(0, Color.BLACK);
             renderer.setSeriesPaint(1, new Color(24, 123, 58));
             renderer.setSeriesPaint(2, new Color(149, 201, 136));
             renderer.setSeriesPaint(3, new Color(1, 62, 29));
