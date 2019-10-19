@@ -148,7 +148,7 @@ public class MainWindow extends UiPart<Stage> {
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
         repeaterListPanel = new RepeaterListPanel(logic.getFilteredRepeaterList());
-        repeaterListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
+        repeaterListPanelPlaceholder.getChildren().add(repeaterListPanel.getRoot());
 
         budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
         budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
