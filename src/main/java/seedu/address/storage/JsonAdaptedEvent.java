@@ -33,6 +33,7 @@ class JsonAdaptedEvent {
     private final String manpowerNeeded;
     private final String startDate;
     private final String endDate;
+    private final String manpowerList;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -45,12 +46,14 @@ class JsonAdaptedEvent {
             @JsonProperty("manpowerNeeded") String manpowerNeeded,
             @JsonProperty("startDate") String startDate,
             @JsonProperty("endDate") String endDate,
+            @JsonProperty("manpowerList") String manpowerList,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.eventName = eventName;
         this.eventVenue = eventVenue;
         this.manpowerNeeded = manpowerNeeded;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.manpowerList = manpowerList;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -65,6 +68,7 @@ class JsonAdaptedEvent {
         manpowerNeeded = source.getManpowerNeeded().toString();
         startDate = source.getStartDate().toString();
         endDate = source.getEndDate().toString();
+        manpowerList = source.getManpowerAllocatedList().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -127,10 +131,17 @@ class JsonAdaptedEvent {
         }
         LocalDate newEndDate = LocalDate.parse(endDate, FORMATTER);
         final EventDate modelEndDate = new EventDate(newEndDate);
+
+        //final EventManpowerAllocatedList manpowerAllocatedList = new EventManpowerAllocatedList(manpowerList);
+
         final Set<Tag> modelTags = new HashSet<>(eventTags);
 
-        return new Event(modelName, modelVenue,
+        Event modelEvent = new Event(modelName, modelVenue,
                 modelManpowerNeeded, modelStartDate, modelEndDate, modelTags);
+
+        modelEvent.getManpowerAllocatedList().setManpowerAllocatedList(manpowerList);
+
+        return modelEvent;
     }
 
 }

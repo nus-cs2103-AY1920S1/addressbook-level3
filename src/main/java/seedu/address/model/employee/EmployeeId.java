@@ -23,7 +23,12 @@ public class EmployeeId {
     }
 
     public EmployeeId(String id) {
-        this.id = id;
+        this.id = String.format("%03d", Integer.valueOf(id));
+    }
+
+
+    public static void setNextId(int nextId) {
+        EmployeeId.nextID = nextId;
     }
 
     /**

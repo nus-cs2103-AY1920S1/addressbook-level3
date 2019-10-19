@@ -7,27 +7,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.employee.Employee;
-import seedu.address.testutil.PersonBuilder;
-
 class EventManpowerAllocatedListTest {
 
     @Test
     void allocateEmployee() {
-        Employee employeeOne = new PersonBuilder().build();
+        String employeeIdOne = "000";
         EventManpowerAllocatedList allocatedList = new EventManpowerAllocatedList();
-        assertTrue(allocatedList.allocateEmployee(employeeOne));
-        assertFalse(allocatedList.allocateEmployee(employeeOne)); //Cannot add same employee
+        assertTrue(allocatedList.allocateEmployee("000"));
+        assertFalse(allocatedList.allocateEmployee(employeeIdOne)); //Cannot add same employee
     }
 
     @Test
     void eventManpowerAllocatedListEquals() {
-        Employee employeeOne = new PersonBuilder().build();
+        String employeeIdOne = "000";
         EventManpowerAllocatedList allocatedListA = new EventManpowerAllocatedList();
         EventManpowerAllocatedList allocatedListB = new EventManpowerAllocatedList();
 
         assertEquals(allocatedListA, allocatedListB);
-        allocatedListA.allocateEmployee(employeeOne);
+        allocatedListA.allocateEmployee(employeeIdOne);
         assertNotEquals(allocatedListA, allocatedListB);
     }
 }

@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeId;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -53,6 +54,13 @@ class JsonSerializableAddressBook {
             }
             addressBook.addEmployee(employee);
         }
+
+        int currentMax = addressBook.getEmployeeList()
+                .stream()
+                .mapToInt(x -> Integer.parseInt(x.getEmployeeId().id))
+                .max()
+                .orElse(0);
+        EmployeeId.setNextId(currentMax + 1);
         return addressBook;
     }
 
