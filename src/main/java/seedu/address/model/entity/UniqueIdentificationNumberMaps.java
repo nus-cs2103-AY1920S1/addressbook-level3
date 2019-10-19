@@ -31,6 +31,21 @@ public class UniqueIdentificationNumberMaps {
     }
 
     /**
+     * Adds the {@code entity} to the respective map with the given ID.
+     */
+    public static void addEntity(Entity entity, int id) {
+        assert(entity != null);
+        if (entity instanceof Body) {
+            putBody((Body) entity, id);
+        } else if (entity instanceof Worker) {
+            putWorker((Worker) entity, id);
+        }
+        //        else {
+        //            return putFridge((Fridge) entity);
+        //        }
+    }
+
+    /**
      * Adds the {@code worker} into the Map at an empty id or the next largest id.
      */
     private static Integer putWorker(Worker worker) {
@@ -45,6 +60,17 @@ public class UniqueIdentificationNumberMaps {
         int newId = numOfKeys + 1;
         uniqueWorkerMap.put(newId, worker);
         return newId;
+    }
+
+    /**
+     * Adds the {@code Worker} into the Map at the given ID.
+     */
+    private static void putWorker(Worker worker, int id) {
+        Set<Integer> keys = uniqueBodyMap.keySet();
+        System.out.println(keys);
+        if (uniqueWorkerMap.get(id) == null) {
+            uniqueWorkerMap.put(id, worker);
+        }
     }
 
     /**
@@ -80,6 +106,17 @@ public class UniqueIdentificationNumberMaps {
         int newId = numOfKeys + 1;
         uniqueBodyMap.put(newId, body);
         return newId;
+    }
+
+    /**
+     * Adds the {@code body} into the Map at the given ID.
+     */
+    private static void putBody(Body body, int id) {
+        Set<Integer> keys = uniqueBodyMap.keySet();
+        System.out.println(keys);
+        if (uniqueBodyMap.get(id) == null) {
+            uniqueBodyMap.put(id, body);
+        }
     }
 
     public boolean containsWorkerId(int id) {

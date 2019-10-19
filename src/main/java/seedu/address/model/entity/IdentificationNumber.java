@@ -41,6 +41,19 @@ public class IdentificationNumber {
         }
     }
 
+    protected IdentificationNumber(Entity entity, int id) {
+        requireNonNull(entity);
+        idNum = id;
+        UniqueIdentificationNumberMaps.addEntity(entity, id);
+        if (entity instanceof Worker) {
+            typeOfEntity = "W";
+        } else if (entity instanceof Body) {
+            typeOfEntity = "B";
+        } else {
+            typeOfEntity = "F"; // todo: add fridge support
+        }
+    }
+
     private IdentificationNumber(String typeOfEntity, int idNum, boolean isTestId) {
         this.typeOfEntity = typeOfEntity;
         this.idNum = idNum;
@@ -51,8 +64,16 @@ public class IdentificationNumber {
         return new IdentificationNumber(body);
     }
 
+    public static IdentificationNumber generateNewBodyId(Body body, int id) {
+        return new IdentificationNumber(body, id);
+    }
+
     public static IdentificationNumber generateNewWorkerId(Worker worker) {
         return new IdentificationNumber(worker);
+    }
+
+    public static IdentificationNumber generateNewWorkerId(Worker worker, int id) {
+        return new IdentificationNumber(worker, id);
     }
 
     public static IdentificationNumber generateNewFridgeId(Fridge fridge) {

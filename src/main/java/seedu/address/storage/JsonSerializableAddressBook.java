@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,15 +22,25 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_BODY = "Persons list contains duplicate body(s).";
+    public static final String MESSAGE_DUPLICATE_WORKER = "Persons list contains duplicate worker(s).";
+    public static final String MESSAGE_DUPLICATE_FRIDGE = "Persons list contains duplicate fridge(s).";
+
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedBody> bodies = new ArrayList<>();
+    private final List<JsonAdaptedWorker> workers = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("bodies") List<JsonAdaptedBody> bodies,
+                                       @JsonProperty("workers") List<JsonAdaptedWorker> workers) {
         this.persons.addAll(persons);
+        this.bodies.addAll(bodies);
+        this.workers.addAll(workers);
     }
 
     /**
@@ -38,6 +50,8 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        bodies.addAll(source.getBodyList().stream().map(JsonAdaptedBody::new).collect(Collectors.toList()));
+        workers.addAll(source.getWorkerList().stream().map(JsonAdaptedWorker::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +68,25 @@ class JsonSerializableAddressBook {
             }
             addressBook.addEntity(person);
         }
+
+        //@@author ambervoong
+        for (JsonAdaptedBody jsonAdaptedBody : bodies) {
+            Body body = jsonAdaptedBody.toModelType();
+            if (addressBook.hasEntity(body)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BODY);
+            }
+            addressBook.addEntity(body);
+        }
+
+        for (JsonAdaptedWorker jsonAdaptedWorker : workers) {
+            Worker worker = jsonAdaptedWorker.toModelType();
+            if (addressBook.hasEntity(worker)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_WORKER);
+            }
+            addressBook.addEntity(worker);
+        }
+        //@@author
+
         return addressBook;
     }
 

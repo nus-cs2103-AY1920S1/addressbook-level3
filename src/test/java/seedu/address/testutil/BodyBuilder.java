@@ -100,7 +100,7 @@ public class BodyBuilder {
         relationship = bodyToCopy.getRelationship().orElse(null);
         kinPhoneNumber = bodyToCopy.getKinPhoneNumber().orElse(null);
 
-        dateOfDeath = bodyToCopy.getDateOfDeath();
+        dateOfDeath = bodyToCopy.getDateOfDeath().orElse(null);
         dateOfBirth = bodyToCopy.getDateOfBirth().orElse(null);
         dateOfAdmission = bodyToCopy.getDateOfAdmission();
     }

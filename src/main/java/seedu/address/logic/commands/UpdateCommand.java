@@ -144,10 +144,10 @@ public class UpdateCommand extends UndoableCommand {
                 return new CommandResult(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
             }
         }
+        this.originalEntityDescriptor = saveOriginalFields(entity);
+        model.setEntity(entity, updateEntityDescriptor.apply(entity));
 
         try {
-            this.originalEntityDescriptor = saveOriginalFields(entity);
-            model.setEntity(entity, updateEntityDescriptor.apply(entity));
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
