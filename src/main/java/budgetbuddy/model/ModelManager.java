@@ -14,12 +14,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the budget buddy data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final LoansManager loansManager;
+    private final RuleManager ruleManager;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
@@ -28,20 +29,22 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(LoansManager loansManager, ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(LoansManager loansManager, RuleManager ruleManager,
+                        ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(loansManager, addressBook, userPrefs);
+        requireAllNonNull(loansManager, ruleManager, addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.loansManager = new LoansManager(loansManager.getPersonsList());
+        this.ruleManager = new RuleManager(ruleManager);
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new LoansManager(), new AddressBook(), new UserPrefs());
+        this(new LoansManager(), new RuleManager(), new AddressBook(), new UserPrefs());
     }
 
     //=========== Loan Manager ===============================================================================
@@ -49,6 +52,11 @@ public class ModelManager implements Model {
     @Override
     public LoansManager getLoansManager() {
         return loansManager;
+    }
+
+    @Override
+    public RuleManager getRuleManager() {
+        return ruleManager;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -153,7 +161,8 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return loansManager.equals(loansManager)
+        return ruleManager.equals(other.ruleManager)
+                && loansManager.equals(other.loansManager)
                 && addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);

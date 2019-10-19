@@ -20,6 +20,11 @@ public interface Model {
     LoansManager getLoansManager();
 
     /**
+     * Returns the rule manager.
+     */
+    RuleManager getRuleManager();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
