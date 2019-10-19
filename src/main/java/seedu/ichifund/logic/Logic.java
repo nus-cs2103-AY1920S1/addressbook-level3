@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.logic.commands.CommandResult;
+import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
