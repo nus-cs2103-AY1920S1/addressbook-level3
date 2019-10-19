@@ -1,7 +1,6 @@
 package seedu.ichifund.logic.parser;
 
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -9,7 +8,6 @@ import java.util.regex.Pattern;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
-import seedu.ichifund.logic.Logic;
 import seedu.ichifund.logic.commands.AddCommand;
 import seedu.ichifund.logic.commands.ClearCommand;
 import seedu.ichifund.logic.commands.Command;
@@ -20,19 +18,11 @@ import seedu.ichifund.logic.commands.ExitCommand;
 import seedu.ichifund.logic.commands.FindCommand;
 import seedu.ichifund.logic.commands.HelpCommand;
 import seedu.ichifund.logic.commands.ListCommand;
-import seedu.ichifund.logic.commands.budget.AddBudgetCommand;
-import seedu.ichifund.logic.commands.budget.DeleteBudgetCommand;
-import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
-import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
 import seedu.ichifund.logic.parser.analytics.AnalyticsParserManager;
-import seedu.ichifund.logic.parser.budget.AddBudgetCommandParser;
 import seedu.ichifund.logic.parser.budget.BudgetParserManager;
-import seedu.ichifund.logic.parser.budget.DeleteBudgetCommandParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.logic.parser.loans.LoansParserManager;
 import seedu.ichifund.logic.parser.repeater.RepeaterParserManager;
-import seedu.ichifund.logic.parser.transaction.AddTransactionCommandParser;
-import seedu.ichifund.logic.parser.transaction.FilterTransactionCommandParser;
 import seedu.ichifund.logic.parser.transaction.TransactionParserManager;
 
 /**
@@ -104,6 +94,13 @@ public class IchiFundParser {
         }
     }
 
+    /**
+     * Checks if user input is for tab switching and performs tab switching.
+     * Otherwise, passes user input into the current {@code ParserManager} for parsing.
+     *
+     * @return The command based on the user input. EmptyCommand for tab switching.
+     * @throws ParseException If the user input does not conform the expected format for the {@code ParserManager}
+     */
     private Command handleFeatureCommand(String commandWord, String arguments) throws ParseException {
         boolean isTabSwitchCommand = false;
 

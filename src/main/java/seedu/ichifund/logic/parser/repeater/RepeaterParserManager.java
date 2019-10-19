@@ -6,6 +6,9 @@ import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
+/**
+ * Passes user input to the appropriate Parser for commands related to the repeater feature.
+ */
 public class RepeaterParserManager implements ParserManager {
 
     private final int tabIndex = 1;

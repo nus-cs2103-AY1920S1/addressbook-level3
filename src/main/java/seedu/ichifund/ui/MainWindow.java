@@ -8,7 +8,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -291,6 +290,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Listener for invalidation of currentParserManager.
+     */
     private class ParserManagerListener implements InvalidationListener {
         private TabPane tabPane;
 
@@ -300,8 +302,7 @@ public class MainWindow extends UiPart<Stage> {
 
         @Override
         public void invalidated(Observable observable) {
-            this.tabPane.getSelectionModel().select(
-                    ((ObservableValue<ParserManager>) currentParserManager)
+            this.tabPane.getSelectionModel().select(((ObservableValue<ParserManager>) currentParserManager)
                             .getValue()
                             .getTabIndex());
         }

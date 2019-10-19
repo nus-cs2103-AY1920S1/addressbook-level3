@@ -6,6 +6,9 @@ import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
+/**
+ * Passes user input to the appropriate Parser for commands related to the analytics feature.
+ */
 public class AnalyticsParserManager implements ParserManager {
 
     private final int tabIndex = 4;

@@ -8,6 +8,9 @@ import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
 import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
+/**
+ * Passes user input to the appropriate Parser for commands related to the transaction feature.
+ */
 public class TransactionParserManager implements ParserManager {
 
     private final int tabIndex = 0;
