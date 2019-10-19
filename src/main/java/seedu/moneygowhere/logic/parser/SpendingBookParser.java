@@ -77,7 +77,7 @@ public class SpendingBookParser {
             return new StatsCommandParser().parse(arguments);
 
         case GraphCommand.COMMAND_WORD:
-            return new GraphCommand();
+            return new GraphCommandParser().parse(arguments);
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommand();

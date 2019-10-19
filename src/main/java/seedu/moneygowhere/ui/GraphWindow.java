@@ -1,6 +1,5 @@
 package seedu.moneygowhere.ui;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -15,7 +14,7 @@ import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.model.spending.Date;
 
 /**
- * Controller for a help page
+ * Controller for a graph page
  */
 public class GraphWindow extends UiPart<Stage> {
 

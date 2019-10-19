@@ -3,7 +3,7 @@ package seedu.moneygowhere.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moneygowhere.logic.commands.GraphCommand.SHOWING_GRAPH_MESSAGE;
-import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
+import static seedu.moneygowhere.testutil.TypicalSpendings.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +28,12 @@ public class GraphCommandTest {
     }
 
     @Test
+    public void execute_graphMessageValidDateRange_success() {
+        CommandResult expectedCommandResult = new CommandResult(SHOWING_GRAPH_MESSAGE, true, false);
+        assertCommandSuccess(new GraphCommand(APPLE.getDate(), GLASSES.getDate()), model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
     public void getGraphData_graphData_success() {
         Map<Date, Double> costPerDateList = new HashMap<>();
         List<Spending> lastShownList = expectedModel.getFilteredSpendingList();
@@ -35,5 +41,13 @@ public class GraphCommandTest {
             costPerDateList.put(i.getDate(), Double.parseDouble(i.getCost().toString()));
         }
         assertEquals(costPerDateList, new GraphCommand().getGraphData(model));
+    }
+
+    @Test
+    public void getGraphData_graphDataValidDateRange_success() {
+        Map<Date, Double> costPerDateList = new HashMap<>();
+        costPerDateList.put(APPLE.getDate(), Double.parseDouble(APPLE.getCost().toString()));
+        costPerDateList.put(BANANA.getDate(), Double.parseDouble(BANANA.getCost().toString()));
+        assertEquals(costPerDateList, new GraphCommand(APPLE.getDate(), BANANA.getDate()).getGraphData(model));
     }
 }
