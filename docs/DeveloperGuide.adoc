@@ -247,10 +247,8 @@ The photo manager, which supports adding and displaying user specified photos on
 
 Specifically, `DiaryParser` returns either `AddPhotoParser`, `DeletePhotoParser` when the appropriate command word is parsed.
 
-==== Implementation
-
 [[photo_model]]
-===== Aspect : Model of photos
+==== Aspect : Model of photos
 The model for a photo stored in memory is stored in the `Photo` class.
 
 It contains three key fields, that is, the `imagePath`, `description`, and `dateTaken` fields which are used to display key information of the image to the user.
@@ -263,7 +261,7 @@ Playing to the robust java apis of `Path` and `LocalDateTime`, `imagePath` and `
 * While the image file path is parsed and checked using the java `Files` api, it is non-strict in that a path to an invalid image will result in the `Image` field referring to the default class level variable that specifies a placeholder image.
 ** However, the original user entered file path is still stored inside the Model, to guard against accidental file deletion.
 
-===== Aspect : Adding photos (through command line file path or os file chooser)
+==== Aspect : Adding photos (through command line file path or os file chooser)
 Following `DiaryParser` returning an instance of `AddPhotoParser` that calls `parse()` on the user specified arguments, a number of operations happen, as per the UML activity diagram below.
 
 
@@ -286,7 +284,7 @@ date parsing failure, by `ParserDateUtil`.
 current `PhotoList` of the `DiaryEntry`.
 
 
-===== Aspect : Deleting photos
+==== Aspect : Deleting photos
 Following `DiaryParser` parsing the 'delphoto' command from the user, an instance of `DeletePhotoParser` is created, which parses the received arguments.
 
 1. The `DeletePhotoParser` simply parses the arguments for a valid integer, failing which a `ParseException` is thrown.
@@ -333,7 +331,47 @@ extensibility as the first option.
 |Item 4
 |========================================================================================
 
-=== [Diary] Text editor parsing
+=== [Diary] Diary Entry Text Editing
+The diary entry is capable of displaying text with inline images, or lines consisting of only images.
+
+There are two primary facets of input styles to this feature, one being one-shot commands that edits
+a part or the whole of the entry, and the other being the JavaFX text editor.
+
+==== Aspect : Models
+The main model abstraction holding the data of an entry is the `DiaryEntry` class. +
+It stores three key fields, namely: +
+1. An `Index` denoting the day the entry is for +
+2. A `String` written by the user in the domain specific language (see <<diary-entry-parsing>>) required by the user interface. +
+3. A `PhotoList` storing the photos of the entry, as described in <<photo_model>>.
+
+The `DiaryEntry` models are contained within a `DiaryEntryList`, which enforces the uniqueness of the `Index` (denoting the day index)
+of each `DiaryEntry`, and supports common list operations.
+
+image::diary/DiaryModelClassDiagram.png[]
+
+[[diary-entry-ui]]
+==== Aspect : User interface
+The diary entry UI abides by the `DiaryPage` implementation, and is thus contained within in one
+of its placeholders as a `UiPart`.
+
+image::diary/DiaryUiClassDiagram.png[]
+
+In the diagram above, all parts and subparts of the composition of `DiaryPage` extend from `UiPart`, although not shown.
+
+The `DiaryEntryDisplay` is the component responsible for displaying the content of the `DiaryEntry` model.
+Internally, it uses a JavaFX `ListView<CharSequence>` with a custom cell factory that returns `DiaryTextLineCell`, which uses
+`DiaryLine` as its graphic.
+
+`DiaryTextLineCell`
+
+[[diary-entry-parsing]]
+===== Entry text parsing
+In both facets of input styles, special entry text parsing is required to display the various formats of lines, and
+dynamic text updates that occur when the text in the text editor is changed should propagate to the display immediately.
+
+To accomplish this, the internal `ListView` is set to observe the paragraphs of the `DiaryEditBox`, which is done in the
+constructor of `DiaryEntryDisplay`.
+
 
 === Logging
 

@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI.diary <<Rectangle>>{
+Class DiaryPage
+Class DiaryGallery
+Class DiaryGalleryCard
+Class DiaryEntryDisplay
+Class DiaryEntryPhotoCard
+Class DiaryLine {
+    lineTextLabel : Label
+}
+Class DiaryEditBox
+
+}
+
+
+package Ui.template <<Rectangle>> {
+    Class "{abstract}\nPageWithSidebar" as PageWithSidebar
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MainWindow
+MainWindow *--> DiaryPage
+
+DiaryPage *--> DiaryGallery
+DiaryPage *--> DiaryEntryDisplay
+DiaryPage *--> DiaryEditBox
+DiaryPage -up-> HiddenModel
+DiaryPage -up-> HiddenLogic
+
+DiaryGallery *--> "*" DiaryGalleryCard
+
+DiaryLine *--> "*" DiaryEntryPhotoCard
+
+DiaryEntryDisplay *--> "*" DiaryLine
+
+DiaryPage -|> PageWithSidebar
+@enduml
+DiaryLine -|> UiPart
+DiaryEntryPhotoCard -|> UiPart
+DiaryGalleryCard -|> UiPart
+DiaryGallery -|> UiPart
+DiaryLine -|> UiPart
+DiaryEntryDisplay -|> UiPart
+DiaryEditBox -|> UiPart
+
+package Ui <<Rectangle>> {
+    Class "{abstract}\nUiPart" as UiPart
+}
+
+
+
+
+
+MainWindow -[hidden]-|> UiPart
+
+PersonListPanel -[hidden]left- HelpWindow
+UiManager .left.|> Ui
+UiManager -down-> MainWindow
+MainWindow --> HelpWindow
+
+PersonListPanel -down-> PersonCard
+MainWindow -left-|> UiPart
+
+HelpWindow -down-|> UiPart
+
+PersonCard ..> Model
+UiManager -right-> Logic
+MainWindow -left-> Logic
