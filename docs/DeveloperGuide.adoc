@@ -16,7 +16,7 @@ endif::[]
 
 By: `Team CaloFit (AY1920S1-CS2103T-W11-4)`      Since: `Sep 2019`      Licence: `MIT`
 
-////
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -156,42 +156,27 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=== [Proposed] Suggest feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The suggest mechanism is implemented through a `SuggestCommand` that extends from the abstract `Command` class. It interacts with the object that implements the `Model` interface by updating it with dishes that are within the calories budget. The calories budget is obtained from `Model#getRemainingCalories()`.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+Additionally, it implements the following operation:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `Model#getRemainingCalories` -- gets the current allowed calories budget.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+This operation is exposed in the `Model` interface as `Model#getRemainingCalories()`.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is an example usage scenario and how the suggest mechanism behaves at each step.
 
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+Step 1. The user starts up CaloFit for the first time. The `DishDatabase` will be loaded with the initial data by calling `MainApp#loadDishDatabase`.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If the DishDatabase is empty, or the daily calorie budget have exceeded the set amount, or there are no dishes that is within the amount, nothing will be display.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 2. The user enters `"suggest"` in the Command Line Input to invoke the `SuggestCommand` command which will run `SuggestCommand#execute()`. `Model#getRemainingCalories()` will be executed to get the remaining calories, which will provide `#Model#updateFilteredDishList` with the calories budget to update the list accordingly.
 
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Step 3. The success message will be return, while at the same time print the updated dish list on CaloFit.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -275,7 +260,6 @@ Refer to the guide <<Testing#, here>>.
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
-////
 
 [appendix]
 == Product Scope
