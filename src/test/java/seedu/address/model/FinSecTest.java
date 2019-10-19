@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
@@ -93,6 +94,7 @@ public class FinSecTest {
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
         private final ObservableList<Income> incomes = FXCollections.observableArrayList();
         private final ObservableList<Claim> claims = FXCollections.observableArrayList();
+        private final ObservableList<AutocorrectSuggestion> suggestions = FXCollections.observableArrayList();
 
         ContactStub(Collection<Contact> contacts) {
             this.contacts.setAll(contacts);
@@ -111,6 +113,11 @@ public class FinSecTest {
         @Override
         public ObservableList<Claim> getClaimList() {
             return claims;
+        }
+
+        @Override
+        public ObservableList<AutocorrectSuggestion> getAutocorrectSuggestionList() {
+            return suggestions;
         }
     }
 

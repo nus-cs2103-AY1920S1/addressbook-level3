@@ -2,7 +2,10 @@ package seedu.address.storage;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -22,6 +25,10 @@ public class SuggestionsStorage {
         suggestions.add(contact.getAddress().toString());
     }
 
+    public static void setSuggestionList(ObservableList<AutocorrectSuggestion> list) {
+        suggestions.clear();
+        suggestions.addAll(list.stream().map(x->x.getWord()).collect(Collectors.toSet()));
+    }
     /**
      * Deletes details of contact from the treeset of suggestions
      * @param contact

@@ -14,10 +14,12 @@ import seedu.address.logic.parser.FinSecParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.storage.Storage;
+import seedu.address.storage.SuggestionsStorage;
 
 /**
  * The main LogicManager of the app.
@@ -34,6 +36,8 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         finSecParser = new FinSecParser();
+        //set the suggestions list
+        SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
     }
 
     @Override
@@ -71,6 +75,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Income> getFilteredIncomeList() {
         return model.getFilteredIncomeList();
+    }
+
+    @Override
+    public ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList() {
+        return model.getFilteredAutocorrectSuggestionList();
     }
 
     @Override

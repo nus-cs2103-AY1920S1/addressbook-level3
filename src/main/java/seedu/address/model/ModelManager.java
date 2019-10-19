@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Contact> filteredContacts;
     private final FilteredList<Claim> filteredClaims;
     private final FilteredList<Income> filteredIncomes;
+    private final FilteredList<AutocorrectSuggestion> filteredSuggestions;
 
     /**
      * Initializes a ModelManager with the given finSec and userPrefs.
@@ -43,6 +45,7 @@ public class ModelManager implements Model {
         filteredContacts = new FilteredList<>(this.finSec.getContactList());
         filteredClaims = new FilteredList<>(this.finSec.getClaimList());
         filteredIncomes = new FilteredList<>(this.finSec.getIncomeList());
+        filteredSuggestions = new FilteredList<>(this.finSec.getAutocorrectSuggestionList());
     }
 
     public ModelManager() {
@@ -157,6 +160,28 @@ public class ModelManager implements Model {
         finSec.rejectClaim(claim);
     }
 
+    //=========== Suggestions ================================================================================
+    @Override
+    public boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
+        return finSec.hasAutocorrectSuggestion(suggestion);
+    }
+
+    @Override
+    public void deleteAutocorrectSuggestion(AutocorrectSuggestion target) {
+        finSec.removeAutocorrectSuggestion(target);
+    }
+
+    @Override
+    public void addAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
+        finSec.addAutocorrectSuggestion(suggestion);
+        updateFilteredAutocorrectSuggestionList(PREDICATE_SHOW_ALL_AUTOCORRECTSUGGESTIONS);
+    }
+
+    @Override
+    public void setAutocorrectSuggestion(AutocorrectSuggestion target, AutocorrectSuggestion editedSuggestion) {
+        finSec.setAutocorrectSuggestion(target, editedSuggestion);
+    }
+
     //=========== Incomes ================================================================================
     @Override
     public boolean hasIncome(Income income) {
@@ -253,6 +278,21 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredIncomes.setPredicate(predicate);
         UiManager.startWithIncomes();
+    }
+
+    //=========== Filtered suggestions list accessors =============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Income} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList() {
+        return filteredSuggestions;
+    }
+
+    @Override
+    public void updateFilteredAutocorrectSuggestionList(Predicate<AutocorrectSuggestion> predicate) {
+        filteredSuggestions.setPredicate(predicate);
     }
 
 }

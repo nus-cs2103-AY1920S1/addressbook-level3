@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.FinSec;
 import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
@@ -30,6 +31,7 @@ class JsonSerializableFinSec {
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedContact> contacts = new ArrayList<>();
     private final List<JsonAdaptedClaim> claims = new ArrayList<>();
+    private final List<JsonAdaptedAutocorrectSuggestion> suggestions = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableFinSec} with the given views.
@@ -37,10 +39,12 @@ class JsonSerializableFinSec {
     @JsonCreator
     public JsonSerializableFinSec(@JsonProperty("contacts") List<JsonAdaptedContact> contacts,
                                   @JsonProperty("incomes") List<JsonAdaptedIncome> incomes,
-                                  @JsonProperty("claims") List<JsonAdaptedClaim> claims) {
+                                  @JsonProperty("claims") List<JsonAdaptedClaim> claims,
+                                  @JsonProperty("suggestions") List<JsonAdaptedAutocorrectSuggestion> suggestions) {
         this.contacts.addAll(contacts);
         this.claims.addAll(claims);
         this.incomes.addAll(incomes);
+        this.suggestions.addAll(suggestions);
     }
 
     /**
@@ -53,6 +57,8 @@ class JsonSerializableFinSec {
         contacts.addAll(source.getContactList().stream().map(JsonAdaptedContact::new).collect(Collectors.toList()));
         claims.addAll(source.getClaimList().stream().map(JsonAdaptedClaim::new).collect(Collectors.toList()));
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
+        suggestions.addAll(source.getAutocorrectSuggestionList().stream()
+                                        .map(JsonAdaptedAutocorrectSuggestion::new).collect(Collectors.toList()));
     }
 
     /**
@@ -84,6 +90,11 @@ class JsonSerializableFinSec {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_CLAIM);
             }
             finSec.addClaim(claim);
+        }
+        for (JsonAdaptedAutocorrectSuggestion jsonAdaptedAutocorrectSuggestion : suggestions) {
+            AutocorrectSuggestion suggestion = jsonAdaptedAutocorrectSuggestion.toModelType();
+
+            finSec.addAutocorrectSuggestion(suggestion);
         }
         return finSec;
     }

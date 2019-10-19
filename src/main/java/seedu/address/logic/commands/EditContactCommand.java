@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -19,12 +20,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.SuggestionsStorage;
 
 /**
  * Edits the details of an existing contact in the address book.
@@ -83,6 +86,13 @@ public class EditContactCommand extends Command {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+
+        //update the suggestion list
+        AutocorrectSuggestion suggestionToEdit = new AutocorrectSuggestion(contactToEdit.getName().toString());
+        AutocorrectSuggestion editedSuggestion = new AutocorrectSuggestion(editedContact.getName().toString());
+        model.setAutocorrectSuggestion(suggestionToEdit, editedSuggestion);
+        SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
+
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedContact));
     }
 
