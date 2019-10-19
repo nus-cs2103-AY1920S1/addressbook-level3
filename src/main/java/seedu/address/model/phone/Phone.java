@@ -86,8 +86,8 @@ public class Phone {
         }
 
         return otherPhone != null
-                && otherPhone.getIdentityNumber().equals(getIdentityNumber())
-                && otherPhone.getSerialNumber().equals(getSerialNumber());
+                && (otherPhone.getIdentityNumber().equals(getIdentityNumber())
+                || otherPhone.getSerialNumber().equals(getSerialNumber()));
     }
 
     /**
