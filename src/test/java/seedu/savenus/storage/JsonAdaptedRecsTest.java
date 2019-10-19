@@ -43,6 +43,17 @@ public class JsonAdaptedRecsTest {
     }
 
     @Test
+    public void toModelType_validRecDetails_jsonAdaptedRecs() throws Exception {
+        UserRecommendations recs =
+                new UserRecommendations(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET,
+                        DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET);
+        JsonAdaptedRecs expectedRecs = new JsonAdaptedRecs(recs);
+
+        assertEquals(expectedRecs.toModelType(), expectedRecs.toModelType());
+        assertEquals(expectedRecs.toModelType(), recs);
+    }
+
+    @Test
     public void toModelType_invalidCategory_throwsIllegalValueException() {
         JsonAdaptedRecs recs =
                 new JsonAdaptedRecs(INVALID_CATEGORY_SET, LIKED_TAG_SET_STRING, LIKED_LOCATION_SET_STRING,

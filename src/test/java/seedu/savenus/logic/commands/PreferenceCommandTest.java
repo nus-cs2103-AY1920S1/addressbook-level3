@@ -68,7 +68,7 @@ public class PreferenceCommandTest {
     }
 
     @Test
-    public void dislikConstructor_nullSet_throwsNullPointerException() {
+    public void dislikeConstructor_nullSet_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new DislikeCommand(null, null, null));
         assertThrows(NullPointerException.class, () -> new DislikeCommand(null, new HashSet<>(), new HashSet<>()));
         assertThrows(NullPointerException.class, () -> new DislikeCommand(new HashSet<>(), null, new HashSet<>()));
