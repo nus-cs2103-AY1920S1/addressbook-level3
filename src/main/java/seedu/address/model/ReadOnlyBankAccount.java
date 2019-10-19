@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -14,4 +15,5 @@ public interface ReadOnlyBankAccount {
      */
     ObservableList<Transaction> getTransactionHistory();
 
+    Amount getBalance();
 }

@@ -1,8 +1,8 @@
 package seedu.address.model.transaction;
 
-import java.util.Date;
 import java.util.Set;
 
+import seedu.address.model.Date;
 import seedu.address.model.tag.Tag;
 
 /**

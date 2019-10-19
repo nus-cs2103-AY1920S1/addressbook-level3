@@ -1,10 +1,10 @@
 package seedu.address.model.transaction;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.Date;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -34,7 +34,6 @@ public abstract class Transaction {
                 new Email("person@gmail.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 new HashSet<Tag>());
-
     }
 
     public Transaction(Amount amount, Date date, Set<Tag> tags) {
@@ -42,11 +41,17 @@ public abstract class Transaction {
         this.tags.addAll(tags);
     }
 
+    public Transaction(Amount amount, Date date, Person personInvolved) {
+        this(amount, date);
+        this.peopleInvolved = personInvolved;
+    }
+
     public Transaction(Amount amount, Date date, Set<Tag> tags, Person personInvolved) {
         this(amount, date);
         this.tags.addAll(tags);
         this.peopleInvolved = personInvolved;
     }
+
 
     public Amount getAmount() {
         return amount;

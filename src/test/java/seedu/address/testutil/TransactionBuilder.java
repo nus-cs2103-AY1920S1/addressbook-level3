@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.Date;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -21,7 +21,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class TransactionBuilder {
 
     public static final String DEFAULT_AMOUNT = "1";
-    public static final String DEFAULT_DATE = "1";
+    public static final String DEFAULT_DATE = "10102019";
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -29,14 +29,14 @@ public class TransactionBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Amount amount;
-    private Date date;
+    private seedu.address.model.Date date;
     private Person peopleInvolved;
     private Set<Tag> tags;
 
     public TransactionBuilder() {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
         // date = new Date(DEFAULT_DATE);
-        date = new Date();
+        date = new Date(DEFAULT_DATE);
         peopleInvolved = new Person(
                 new Name(DEFAULT_NAME),
                 new Phone(DEFAULT_PHONE),
@@ -76,7 +76,7 @@ public class TransactionBuilder {
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public TransactionBuilder withDate(String date) {
-        this.date = new Date();
+        this.date = new Date(date);
         return this;
     }
 

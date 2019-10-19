@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Date;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -85,7 +85,7 @@ class JsonAdaptedTransaction {
 
         final Set<Tag> modelTags = new HashSet<>(transactionTags);
         // temporary return InTransaction to store transaction (should eventually return in or out transaction)
-        return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(), modelTags);
+        return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date), modelTags);
     }
 
 }

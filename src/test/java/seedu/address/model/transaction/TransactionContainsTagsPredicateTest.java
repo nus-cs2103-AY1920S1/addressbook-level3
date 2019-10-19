@@ -73,9 +73,9 @@ public class TransactionContainsTagsPredicateTest {
         assertFalse(predicate.test(new TransactionBuilder().withTags("Alice", "Bob").build()));
 
         // Keywords match amount and date, but does not match tag
-        predicate = new TransactionContainsTagsPredicate(Arrays.asList("12345", "1"));
+        predicate = new TransactionContainsTagsPredicate(Arrays.asList("12345", "19112019"));
         assertFalse(predicate.test(new TransactionBuilder().withTags("Alice").withAmount("12345")
-                .withDate("1").build()));
+                .withDate("19112019").build()));
     }
 
 }

@@ -61,6 +61,10 @@ public class BankAccount implements ReadOnlyBankAccount {
         return transactions.asUnmodifiableObservableList();
     }
 
+    public Amount getBalance() {
+        return this.balance;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
