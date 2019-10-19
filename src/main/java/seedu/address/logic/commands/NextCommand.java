@@ -2,34 +2,50 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.queue.Room;
 
 /**
  * Serves the next patient in queue.
  */
 public class NextCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "next";
-    public static final String MESSAGE_SUCCESS = "Next patient has been allocated";
-    public static final String MESSAGE_UNDO_NEXT_SUCCESS = "Allocation has been undone";
-    public static final String MESSAGE_UNDO_NEXT_ERROR = "Changes cannot be undone!";
+    public static final String MESSAGE_SUCCESS = "Next patient has been allocated to room ";
 
-    private Person personToDelete;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allocates next patient in queue to a room. "
+            + "Parameters: INDEX (must be a positive integer)";
 
-    public NextCommand() {
-        this.personToDelete = null;
+    private final Index targetIndex;
+
+    public NextCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return new CommandResult("dsadsad");
+        List<Room> lastShownList = model.getConsultationRoomList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ROOM_INDEX);
+        }
+        model.serveNextPatient(targetIndex.getOneBased());
+        return new CommandResult(MESSAGE_SUCCESS + targetIndex);
     }
 
     @Override
-    public CommandResult undo(Model model) {
-        return new CommandResult("dsadsad");
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof NextCommand // instanceof handles nulls
+                && targetIndex.equals(((NextCommand) other).targetIndex)); // state check
     }
 }

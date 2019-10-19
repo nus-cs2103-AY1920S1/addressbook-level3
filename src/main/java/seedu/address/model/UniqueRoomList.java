@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.exceptions.DuplicateEntryException;
+import seedu.address.model.exceptions.EntryNotFoundException;
 import seedu.address.model.queue.Room;
 
 /**
@@ -30,15 +30,27 @@ public class UniqueRoomList implements Iterable<Room> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a room to the list.
+     * The room must not already exist in the list.
      */
     public void add(Room toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntryException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds a room to the list based on the index given.
+     * The room must not already exist in the list.
+     */
+    public void add(Room toAdd, int index) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateEntryException();
+        }
+        internalList.add(index, toAdd);
     }
 
     public Room get(int index) {
@@ -55,11 +67,11 @@ public class UniqueRoomList implements Iterable<Room> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new EntryNotFoundException();
         }
 
         if (!target.equals(editedRoom) && contains(editedRoom)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntryException();
         }
 
         internalList.set(index, editedRoom);
@@ -72,7 +84,7 @@ public class UniqueRoomList implements Iterable<Room> {
     public void remove(Room toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new EntryNotFoundException();
         }
     }
 
@@ -91,8 +103,8 @@ public class UniqueRoomList implements Iterable<Room> {
      */
     public void setPersons(List<Room> persons) {
         requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
-            throw new DuplicatePersonException();
+        if (!roomsAreUnique(persons)) {
+            throw new DuplicateEntryException();
         }
 
         internalList.setAll(persons);
@@ -125,7 +137,7 @@ public class UniqueRoomList implements Iterable<Room> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<Room> rooms) {
+    private boolean roomsAreUnique(List<Room> rooms) {
         for (int i = 0; i < rooms.size() - 1; i++) {
             for (int j = i + 1; j < rooms.size(); j++) {
                 if (rooms.get(i).equals(rooms.get(j))) {

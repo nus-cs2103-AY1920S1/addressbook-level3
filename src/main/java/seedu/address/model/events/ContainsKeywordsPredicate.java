@@ -1,9 +1,11 @@
 package seedu.address.model.events;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.common.ReferenceId;
 
 
 /**
@@ -16,15 +18,21 @@ public class ContainsKeywordsPredicate implements Predicate<Event> {
         this.keywords = keywords;
     }
 
+    public ContainsKeywordsPredicate(Event appointment) {
+        ReferenceId referenceId = appointment.getPersonId();
+        keywords = Arrays.asList((referenceId.toString().split("\\s+")));
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(keywords);
+    }
+
+    public ContainsKeywordsPredicate(ReferenceId referenceId) {
+        keywords = Arrays.asList((referenceId.toString().split("\\s+")));
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(keywords);
+    }
+
     @Override
     public boolean test(Event event) {
         return keywords.stream()
-                .anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(event.getPersonId().toString(), keyword)
-                                || (keyword.length() >= 3
-                                && StringUtil.containsIgnoreCase(event.getPersonId().toString(), keyword))
-                                || (keyword.length() >= 4
-                                && StringUtil.containsIgnoreCase(event.getPersonId().toString(), keyword)));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(event.getPersonId().toString(), keyword));
     }
 
     @Override

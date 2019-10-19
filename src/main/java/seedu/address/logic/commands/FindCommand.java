@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
 
@@ -12,7 +12,7 @@ import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand extends NonActionableCommand {
 
     public static final String COMMAND_WORD = "find";
 

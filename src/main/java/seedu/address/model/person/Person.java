@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -7,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.common.Identical;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.parameters.Address;
@@ -19,7 +21,7 @@ import seedu.address.model.person.parameters.Phone;
  * Represents a Person who can be either a patient or staff doctor.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Person implements Identical<Person> {
 
     // Identity fields
     private final ReferenceId referenceId;
@@ -77,7 +79,7 @@ public class Person {
      * Returns true if both persons of the same reference id and name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(ReferenceId id) {
+    public boolean isSameAs(ReferenceId id) {
         return getReferenceId().equals(id);
     }
 
@@ -85,8 +87,15 @@ public class Person {
      * Returns true if both persons of the same reference id and name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        return otherPerson == this || (otherPerson != null && isSamePerson(otherPerson.getReferenceId()));
+    @Override
+    public boolean isSameAs(Person otherPerson) {
+        return otherPerson == this || (otherPerson != null && isSameAs(otherPerson.getReferenceId()));
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        requireNonNull(o);
+        return getReferenceId().compareTo(o.getReferenceId());
     }
 
     /**

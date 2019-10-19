@@ -25,56 +25,41 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_END + "PREFIX_EVENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "001A "
-            + PREFIX_START + "01/11/2019 1800 "
-            + PREFIX_END + "01/11/2019 1900";
+            + PREFIX_START + "01/11/19 1800 "
+            + PREFIX_END + "01/11/19 1900";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This appointment already exists in the address book";
-    public static final String MESSAGE_INVAILD_REFERENCEID = "this referenceId does not belong to any person";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
-    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled.";
+    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
 
-    private final Event appointment;
+    private final Event toAdd;
 
     /**
      * Creates an AddAppCommand to add the specified {@code Person}
      */
-    public AddAppCommand(Event appt) {
-        requireNonNull(appt);
-        appointment = appt;
+    public AddAppCommand(Event toAdd) {
+        requireNonNull(toAdd);
+        this.toAdd = toAdd;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.hasPerson(appointment.getPersonId())) {
-            throw new CommandException(MESSAGE_INVAILD_REFERENCEID);
-        }
-        if (model.hasEvent(appointment)) {
+
+        if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        model.addEvent(appointment);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
-    }
-
-    @Override
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (!model.hasEvent(appointment)) {
-            throw new CommandException(String.format(MESSAGE_UNDO_ADD_ERROR, appointment));
-        }
-
-        model.deleteEvent(appointment);
-        return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, appointment));
+        model.addEvent(toAdd);
+        model.updateFilteredEventList(toAdd.getPersonId());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddAppCommand // instanceof handles nulls
-                && appointment.equals(((AddAppCommand) other).appointment));
+                && toAdd.equals(((AddAppCommand) other).toAdd));
     }
 }
 
