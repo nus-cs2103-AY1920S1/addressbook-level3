@@ -9,11 +9,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
 import seedu.address.model.health.ReadOnlyHealthRecords;
 import seedu.address.model.profile.ReadOnlyUserProfile;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.storage.dashboard.DashboardStorage;
 import seedu.address.storage.diary.DiaryStorage;
 import seedu.address.storage.exercise.WorkoutPlannerStorage;
 import seedu.address.storage.health.HealthRecordsStorage;
@@ -31,18 +33,20 @@ public class StorageManager implements Storage {
     private RecipeBookStorage recipeBookStorage;
     private WorkoutPlannerStorage workoutPlannerStorage;
     private DiaryStorage diaryStorage;
+    private DashboardStorage dashboardStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(UserProfileStorage userProfileStorage, HealthRecordsStorage healthRecordsStorage,
                           RecipeBookStorage recipeBookStorage, WorkoutPlannerStorage workoutPlannerStorage,
-                          DiaryStorage diaryStorage, UserPrefsStorage userPrefsStorage) {
+                          DiaryStorage diaryStorage, DashboardStorage dashboardStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.userProfileStorage = userProfileStorage;
         this.healthRecordsStorage = healthRecordsStorage;
         this.recipeBookStorage = recipeBookStorage;
         this.workoutPlannerStorage = workoutPlannerStorage;
         this.diaryStorage = diaryStorage;
+        this.dashboardStorage = dashboardStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -211,5 +215,34 @@ public class StorageManager implements Storage {
         diaryStorage.saveDiary(diary, filePath);
     }
 
+    // ================ DashboardRecords methods ==============================
+
+    @Override
+    public Path getDashboardFilePath() {
+        return dashboardStorage.getDashboardFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyDashboard> readDashboard() throws DataConversionException, IOException {
+        return readDashboard(dashboardStorage.getDashboardFilePath());
+    }
+
+
+    @Override
+    public Optional<ReadOnlyDashboard> readDashboard(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read dashboard data from file: " + filePath);
+        return dashboardStorage.readDashboard(filePath);
+    }
+
+    @Override
+    public void saveDashboard(ReadOnlyDashboard dashboard) throws IOException {
+        saveDashboard(dashboard, dashboardStorage.getDashboardFilePath());
+    }
+
+    @Override
+    public void saveDashboard(ReadOnlyDashboard dashboard, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        dashboardStorage.saveDashboard(dashboard, filePath);
+    }
 
 }

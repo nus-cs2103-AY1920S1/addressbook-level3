@@ -7,11 +7,13 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
 import seedu.address.model.health.ReadOnlyHealthRecords;
 import seedu.address.model.profile.ReadOnlyUserProfile;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.storage.dashboard.DashboardStorage;
 import seedu.address.storage.diary.DiaryStorage;
 import seedu.address.storage.exercise.WorkoutPlannerStorage;
 import seedu.address.storage.health.HealthRecordsStorage;
@@ -22,7 +24,7 @@ import seedu.address.storage.recipe.RecipeBookStorage;
  * API of the Storage component
  */
 public interface Storage extends RecipeBookStorage, UserPrefsStorage,
-        UserProfileStorage, WorkoutPlannerStorage, HealthRecordsStorage, DiaryStorage {
+        UserProfileStorage, WorkoutPlannerStorage, HealthRecordsStorage, DiaryStorage, DashboardStorage {
 
     // ================ UserPrefs methods ==============================
 
@@ -83,4 +85,15 @@ public interface Storage extends RecipeBookStorage, UserPrefsStorage,
 
     @Override
     void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks) throws IOException;
+
+    // ================ Dashboard methods ==============================
+
+    @Override
+    Path getDashboardFilePath();
+
+    @Override
+    Optional<ReadOnlyDashboard> readDashboard() throws DataConversionException, IOException;
+
+    @Override
+    void saveDashboard(ReadOnlyDashboard dukeCooks) throws IOException;
 }
