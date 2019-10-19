@@ -9,10 +9,10 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
+import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.exceptions.CommandException;
-import seedu.exercise.logic.commands.history.EventHistory;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.resource.Exercise;
 
 /**
  * Adds an exercise to the exercise book.
@@ -20,21 +20,21 @@ import seedu.exercise.model.exercise.Exercise;
 public class AddExerciseCommand extends AddCommand {
 
     public static final String MESSAGE_USAGE_EXERCISE = "Parameters: "
-            + PREFIX_CATEGORY + "CATEGORY "
-            + PREFIX_NAME + "EXERCISE NAME "
-            + PREFIX_DATE + "DATE "
-            + PREFIX_CALORIES + "CALORIES "
-            + PREFIX_QUANTITY + "QUANTITY "
-            + PREFIX_UNIT + "UNITS "
-            + "[" + PREFIX_MUSCLE + "MUSCLE]...\n"
-            + "\t\tExample: " + COMMAND_WORD + " "
-            + PREFIX_CATEGORY + "exercise"
-            + PREFIX_NAME + "Run "
-            + PREFIX_DATE + "22/09/2019 "
-            + PREFIX_CALORIES + "1500 "
-            + PREFIX_QUANTITY + "2.4 "
-            + PREFIX_UNIT + "km "
-            + PREFIX_MUSCLE + "Leg";
+        + PREFIX_CATEGORY + "CATEGORY "
+        + PREFIX_NAME + "EXERCISE NAME "
+        + PREFIX_DATE + "DATE "
+        + PREFIX_CALORIES + "CALORIES "
+        + PREFIX_QUANTITY + "QUANTITY "
+        + PREFIX_UNIT + "UNITS "
+        + "[" + PREFIX_MUSCLE + "MUSCLE]...\n"
+        + "\t\tExample: " + COMMAND_WORD + " "
+        + PREFIX_CATEGORY + "exercise "
+        + PREFIX_NAME + "Run "
+        + PREFIX_DATE + "22/09/2019 "
+        + PREFIX_CALORIES + "1500 "
+        + PREFIX_QUANTITY + "2.4 "
+        + PREFIX_UNIT + "km "
+        + PREFIX_MUSCLE + "Leg";
 
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in the exercise book";
@@ -73,7 +73,7 @@ public class AddExerciseCommand extends AddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddExerciseCommand // instanceof handles nulls
-                && toAdd.equals(((AddExerciseCommand) other).toAdd));
+            || (other instanceof AddExerciseCommand // instanceof handles nulls
+            && toAdd.equals(((AddExerciseCommand) other).toAdd));
     }
 }

@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.exercise.commons.exceptions.DataConversionException;
-import seedu.exercise.model.exercise.PropertyManager;
+import seedu.exercise.model.property.PropertyManager;
 
 /**
  * Represents a storage for {@code PropertyManager}

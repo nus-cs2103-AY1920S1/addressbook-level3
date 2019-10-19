@@ -1,9 +1,9 @@
 package seedu.exercise.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.exercise.storage.JsonAdaptedExercise.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.exercise.storage.resource.JsonAdaptedExercise.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.TypicalExercises.SWIM;
+import static seedu.exercise.testutil.exercise.TypicalExercises.SWIM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,12 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.exceptions.IllegalValueException;
-import seedu.exercise.model.exercise.Calories;
-import seedu.exercise.model.exercise.Date;
-import seedu.exercise.model.exercise.Name;
-import seedu.exercise.model.exercise.Quantity;
-import seedu.exercise.model.exercise.Unit;
+import seedu.exercise.model.property.Calories;
+import seedu.exercise.model.property.Date;
+import seedu.exercise.model.property.Name;
+import seedu.exercise.model.property.Quantity;
+import seedu.exercise.model.property.Unit;
+import seedu.exercise.storage.resource.JsonAdaptedExercise;
 
 public class JsonAdaptedExerciseTest {
     private static final String INVALID_NAME = "D@nce";

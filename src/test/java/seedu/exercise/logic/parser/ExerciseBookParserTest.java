@@ -25,11 +25,11 @@ import seedu.exercise.logic.commands.FindCommand;
 import seedu.exercise.logic.commands.HelpCommand;
 import seedu.exercise.logic.commands.ListCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.exercise.Exercise;
-import seedu.exercise.model.exercise.NameContainsKeywordsPredicate;
-import seedu.exercise.testutil.EditExerciseDescriptorBuilder;
-import seedu.exercise.testutil.ExerciseBuilder;
-import seedu.exercise.testutil.ExerciseUtil;
+import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
+import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
+import seedu.exercise.testutil.exercise.ExerciseBuilder;
+import seedu.exercise.testutil.exercise.ExerciseUtil;
 
 public class ExerciseBookParserTest {
 
@@ -51,8 +51,8 @@ public class ExerciseBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteExerciseCommand command = (DeleteExerciseCommand) parser.parseCommand(
-                DeleteExerciseCommand.COMMAND_WORD + " " + CATEGORY_DESC_EXERCISE + " "
-                        + PREFIX_INDEX + INDEX_FIRST_EXERCISE.getOneBased());
+            DeleteExerciseCommand.COMMAND_WORD + " " + CATEGORY_DESC_EXERCISE + " "
+                + PREFIX_INDEX + INDEX_FIRST_EXERCISE.getOneBased());
         assertEquals(new DeleteExerciseCommand(INDEX_FIRST_EXERCISE), command);
     }
 
@@ -61,7 +61,7 @@ public class ExerciseBookParserTest {
         Exercise build = new ExerciseBuilder().build();
         EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(build).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_EXERCISE.getOneBased() + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
+            + INDEX_FIRST_EXERCISE.getOneBased() + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_EXERCISE, descriptor), command);
     }
 
@@ -75,7 +75,7 @@ public class ExerciseBookParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+            FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 

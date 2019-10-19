@@ -12,26 +12,25 @@ import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.exercise.Exercise;
-import seedu.exercise.model.exercise.UniqueExerciseList;
-import seedu.exercise.model.regime.Regime;
-import seedu.exercise.model.regime.RegimeName;
+import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.property.Name;
+import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Regime;
 
 /**
- *
  * Adds a regime to the regime book.
  */
 public class AddRegimeCommand extends AddCommand {
 
     public static final String MESSAGE_USAGE_REGIME = "Parameters: "
-            + PREFIX_CATEGORY + "CATEGORY "
-            + PREFIX_NAME + "REGIME NAME "
-            + PREFIX_INDEX + "INDEX\n"
-            + "\t\tExample: " + COMMAND_WORD + " "
-            + PREFIX_CATEGORY + "regime "
-            + PREFIX_NAME + "power set"
-            + PREFIX_INDEX + "1 "
-            + PREFIX_INDEX + "2";
+        + PREFIX_CATEGORY + "CATEGORY "
+        + PREFIX_NAME + "REGIME NAME "
+        + PREFIX_INDEX + "INDEX\n"
+        + "\t\tExample: " + COMMAND_WORD + " "
+        + PREFIX_CATEGORY + "regime "
+        + PREFIX_NAME + "power set "
+        + PREFIX_INDEX + "1 "
+        + PREFIX_INDEX + "2";
 
     public static final String MESSAGE_SUCCESS_NEW_REGIME = "Added new regime to regime list.";
     public static final String MESSAGE_SUCCESS_ADD_EXERCISE_TO_REGIME = "Added exercises to regime.";
@@ -40,9 +39,9 @@ public class AddRegimeCommand extends AddCommand {
     public static final String MESSAGE_DUPLICATE_INDEX_WHEN_CREATING_REGIME = "There is duplicate index.";
 
     private List<Index> toAddIndexes;
-    private RegimeName name;
+    private Name name;
 
-    public AddRegimeCommand(List<Index> indexes, RegimeName name) {
+    public AddRegimeCommand(List<Index> indexes, Name name) {
         requireAllNonNull(indexes, name);
         toAddIndexes = indexes;
         this.name = name;
@@ -62,10 +61,10 @@ public class AddRegimeCommand extends AddCommand {
         }
 
         //create new regime
-        Regime regime = new Regime(name, new UniqueExerciseList());
+        Regime regime = new Regime(name, new UniqueResourceList<Exercise>());
         if (!model.hasRegime(regime)) {
             for (Index index : toAddIndexes) {
-                if (regime.getExercises().contains(lastShownList.get(index.getZeroBased()))) {
+                if (regime.getRegimeExercises().contains(lastShownList.get(index.getZeroBased()))) {
                     throw new CommandException(MESSAGE_DUPLICATE_INDEX_WHEN_CREATING_REGIME);
                 }
                 regime.addExercise(lastShownList.get(index.getZeroBased()));
@@ -82,7 +81,7 @@ public class AddRegimeCommand extends AddCommand {
             List<Regime> regimes = model.getFilteredRegimeList();
             Regime regimeToAddExercises = regimes.get(indexOfRegime);
 
-            UniqueExerciseList currentExerciseList = regimeToAddExercises.getExercises();
+            UniqueResourceList<Exercise> currentExerciseList = regimeToAddExercises.getRegimeExercises();
 
             //check whether exercise is in current exercise list in regime
             for (Index index : toAddIndexes) {
@@ -105,7 +104,9 @@ public class AddRegimeCommand extends AddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddRegimeCommand // instanceof handles nulls
-                && toAddIndexes.equals(((AddRegimeCommand) other).toAddIndexes));
+            || (other instanceof AddRegimeCommand // instanceof handles nulls
+            && toAddIndexes.equals(((AddRegimeCommand) other).toAddIndexes));
     }
+
+
 }

@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.exercise.commons.core.LogsCenter;
-import seedu.exercise.model.schedule.Schedule;
+import seedu.exercise.model.resource.Schedule;
 
 /**
  * Panel containing the list of schedules.

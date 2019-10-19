@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public class CliSyntax {
 
-    /* Prefix definitions */
+    /* Prefix definitions for default commands and properties */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_CALORIES = new Prefix("c/");
@@ -17,7 +17,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_UNIT = new Prefix("u/");
     public static final Prefix PREFIX_CATEGORY = new Prefix("t/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
-    public static final Prefix PREFIX_SHORT_NAME = new Prefix("s/");
+    public static final Prefix PREFIX_CUSTOM_NAME = new Prefix("s/");
     public static final Prefix PREFIX_FULL_NAME = new Prefix("f/");
     public static final Prefix PREFIX_PARAMETER_TYPE = new Prefix("p/");
     public static final Prefix PREFIX_SUGGEST = new Prefix("g/");

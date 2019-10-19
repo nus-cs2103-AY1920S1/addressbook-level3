@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.resource.Exercise;
 
 /**
  * A utility class for test cases.

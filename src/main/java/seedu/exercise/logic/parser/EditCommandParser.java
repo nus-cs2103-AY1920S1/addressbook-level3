@@ -22,7 +22,7 @@ import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.EditCommand.EditExerciseDescriptor;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.exercise.Muscle;
+import seedu.exercise.model.property.Muscle;
 
 /**
  * Parses input arguments and creates a new EditCommand object

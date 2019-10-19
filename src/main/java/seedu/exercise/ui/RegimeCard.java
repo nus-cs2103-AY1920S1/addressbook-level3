@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.resource.Regime;
 
 /**
  *  An UI component that displays informatino of a {@code Regime}.

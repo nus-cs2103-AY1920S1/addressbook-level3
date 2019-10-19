@@ -9,7 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.exercise.commons.core.LogsCenter;
-import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.resource.Regime;
 
 /**
  * Panel containing list of regimes.

@@ -1,34 +1,34 @@
 package seedu.exercise.testutil;
 
-import seedu.exercise.model.ExerciseBook;
-import seedu.exercise.model.exercise.Exercise;
+import seedu.exercise.model.ReadOnlyResourceBook;
+import seedu.exercise.model.resource.Exercise;
 
 /**
  * A utility class to help with building ExerciseBook objects.
  * Example usage: <br>
- * {@code ExerciseBook eb = new ExerciseBookBuilder().withExercise("Dance", "Swim").build();}
+ * {@code ReadOnlyResourceBook<Exercise> eb = new ExerciseBookBuilder().withExercise("Dance", "Swim").build();}
  */
 public class ExerciseBookBuilder {
 
-    private ExerciseBook exerciseBook;
+    private ReadOnlyResourceBook<Exercise> exerciseBook;
 
     public ExerciseBookBuilder() {
-        exerciseBook = new ExerciseBook();
+        exerciseBook = new ReadOnlyResourceBook<>();
     }
 
-    public ExerciseBookBuilder(ExerciseBook exerciseBook) {
+    public ExerciseBookBuilder(ReadOnlyResourceBook<Exercise> exerciseBook) {
         this.exerciseBook = exerciseBook;
     }
 
     /**
-     * Adds a new {@code Exercise} to the {@code ExerciseBook} that we are building.
+     * Adds a new {@code Exercise} to the {@code ReadOnlyResourceBook<Exercise>} that we are building.
      */
     public ExerciseBookBuilder withExercise(Exercise exercise) {
-        exerciseBook.addExercise(exercise);
+        exerciseBook.addResource(exercise);
         return this;
     }
 
-    public ExerciseBook build() {
+    public ReadOnlyResourceBook<Exercise> build() {
         return exerciseBook;
     }
 }

@@ -1,7 +1,9 @@
 package seedu.exercise.logic.commands.exceptions;
 
+import seedu.exercise.logic.commands.Command;
+
 /**
- * Represents an error which occurs during execution of a {@link Command}.
+ * Represents an exception which occurs during execution of a {@link Command}.
  */
 public class CommandException extends Exception {
     public CommandException(String message) {

@@ -1,6 +1,6 @@
 package seedu.exercise.logic.parser;
 
-import static seedu.exercise.model.exercise.PropertyManager.getCustomProperties;
+import static seedu.exercise.model.property.PropertyManager.getCustomProperties;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import seedu.exercise.model.exercise.CustomProperty;
+import seedu.exercise.model.property.CustomProperty;
 
 /**
  * Stores mapping of prefixes to their respective arguments.

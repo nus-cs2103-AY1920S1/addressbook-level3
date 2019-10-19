@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.logic.parser.Prefix;
-import seedu.exercise.model.exercise.CustomProperty;
-import seedu.exercise.model.exercise.ParameterType;
+import seedu.exercise.model.property.CustomProperty;
+import seedu.exercise.model.property.ParameterType;
 
 /**
  * Jackson-friendly version of {@link CustomProperty};
@@ -15,7 +15,7 @@ public class JsonAdaptedCustomProperty {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "CustomProperty's %s field is missing!";
 
-    private final String shortName;
+    private final String prefixName;
     private final String fullName;
     private final String parameterType;
 
@@ -23,10 +23,10 @@ public class JsonAdaptedCustomProperty {
      * Constructs a {@code JsonAdaptedCustomProperty} with the given custom property details.
      */
     @JsonCreator
-    public JsonAdaptedCustomProperty(@JsonProperty("shortName") String shortName,
+    public JsonAdaptedCustomProperty(@JsonProperty("prefixName") String prefixName,
                                      @JsonProperty("fullName") String fullName,
                                      @JsonProperty("parameterType") String parameterType) {
-        this.shortName = shortName;
+        this.prefixName = prefixName;
         this.fullName = fullName;
         this.parameterType = parameterType;
     }
@@ -35,39 +35,39 @@ public class JsonAdaptedCustomProperty {
      * Constructs a given {@code CustomProperty} into this class for Jackson use.
      */
     public JsonAdaptedCustomProperty(CustomProperty source) {
-        this.shortName = source.getPrefix().getPrefixName();
+        this.prefixName = source.getPrefix().getPrefixName();
         this.fullName = source.getFullName();
         this.parameterType = source.getParameterType().getParameterName();
     }
 
     /**
-     * Converts the short name of a Jackson-friendly adapted custom property object into its corresponding
-     * model's {@code Prefix} object.
+     * Converts a Jackson-friendly adapted custom property object into its corresponding
+     * model's {@code CustomProperty} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted custom property
      */
     public CustomProperty toModelType() throws IllegalValueException {
-        final Prefix modelShortName = toModelShortName();
+        final Prefix modelPrefix = toModelPrefix();
         final String modelFullName = toModelFullName();
         final ParameterType modelParameterType = toModelParameterType();
-        return new CustomProperty(modelShortName, modelFullName, modelParameterType);
+        return new CustomProperty(modelPrefix, modelFullName, modelParameterType);
     }
 
     /**
-     * Converts the short name of a Jackson-friendly adapted custom property object into its corresponding
+     * Converts the prefix name of a Jackson-friendly adapted custom property object into its corresponding
      * model's {@code Prefix} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted custom property
      */
-    private Prefix toModelShortName() throws IllegalValueException {
-        if (shortName == null) {
+    private Prefix toModelPrefix() throws IllegalValueException {
+        if (prefixName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Prefix.class.getSimpleName()));
         }
-        if (!CustomProperty.isValidShortName(shortName)) {
-            throw new IllegalValueException(CustomProperty.SHORT_NAME_CONSTRAINTS);
+        if (!CustomProperty.isValidPrefixName(prefixName)) {
+            throw new IllegalValueException(CustomProperty.PREFIX_NAME_CONSTRAINTS);
         }
-        return new Prefix(shortName + "/");
+        return new Prefix(prefixName + "/");
     }
 
     /**

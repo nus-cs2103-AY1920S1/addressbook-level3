@@ -17,11 +17,11 @@ import java.util.List;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
-import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.exercise.Exercise;
-import seedu.exercise.model.exercise.NameContainsKeywordsPredicate;
-import seedu.exercise.testutil.EditExerciseDescriptorBuilder;
+import seedu.exercise.model.ReadOnlyResourceBook;
+import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
+import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -114,7 +114,8 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        ExerciseBook expectedExerciseBook = new ExerciseBook(actualModel.getExerciseBookData());
+        ReadOnlyResourceBook<Exercise> expectedExerciseBook =
+            new ReadOnlyResourceBook<>(actualModel.getExerciseBookData());
         List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExerciseList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));

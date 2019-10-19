@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.exercise.NameContainsKeywordsPredicate;
+import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all exercises in exercise book whose name contains any of the argument keywords.

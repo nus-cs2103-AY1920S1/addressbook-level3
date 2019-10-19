@@ -1,6 +1,6 @@
 {
   "_comment": "ExerciseBook save file which contains the same Exercise values as in TypicalExercises#getTypicalExerciseBook()",
-  "exercises" : [ {
+  "jsonResources" : [ {
     "name" : "Walking",
     "date" : "26/09/2019",
     "calories" : "222",

@@ -5,67 +5,82 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.exercise.commons.exceptions.DataConversionException;
-import seedu.exercise.model.ReadOnlyExerciseBook;
-import seedu.exercise.model.ReadOnlyRegimeBook;
-import seedu.exercise.model.ReadOnlyScheduleBook;
+import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Regime;
+import seedu.exercise.model.resource.Schedule;
 
 /**
- * API of the Storage component
+ * API of the Storage component.
+ * The Storage component is a container that contains all of the different storage for the different resources in
+ * ExerHealth.
  */
-public interface Storage extends ExerciseBookStorage, RegimeBookStorage,
-        ScheduleBookStorage, UserPrefsStorage, PropertyManagerStorage {
+public interface Storage extends UserPrefsStorage, PropertyManagerStorage {
 
+    // ================ UserPref methods ==============================
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    @Override
+
+    // ================ ExerciseBook methods ==============================
     Path getExerciseBookFilePath();
 
-    @Override
-    Optional<ReadOnlyExerciseBook> readExerciseBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyResourceBook<Exercise>> readExerciseBook() throws DataConversionException, IOException;
 
-    @Override
-    void saveExerciseBook(ReadOnlyExerciseBook exerciseBook) throws IOException;
+    Optional<ReadOnlyResourceBook<Exercise>> readExerciseBook(Path filePath)
+        throws DataConversionException, IOException;
 
-    @Override
+    void saveExerciseBook(ReadOnlyResourceBook<Exercise> exerciseBook) throws IOException;
+
+    void saveExerciseBook(ReadOnlyResourceBook<Exercise> exerciseBook, Path filePath) throws IOException;
+
+    Path getExerciseDatabaseFilePath();
+
+    /**
+     * Returns AllExerciseBook data as a {@link ReadOnlyResourceBook}.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    Optional<ReadOnlyResourceBook<Exercise>> readExerciseDatabase() throws DataConversionException, IOException;
+
+    /**
+     * @see #getExerciseDatabaseFilePath()
+     */
+    Optional<ReadOnlyResourceBook<Exercise>> readExerciseDatabase(Path filePath)
+        throws DataConversionException, IOException;
+
+
+    // ================ RegimeBook methods ==============================
     Path getRegimeBookFilePath();
 
-    @Override
-    Optional<ReadOnlyRegimeBook> readRegimeBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyResourceBook<Regime>> readRegimeBook() throws DataConversionException, IOException;
 
-    @Override
-    void saveRegimeBook(ReadOnlyRegimeBook regimeBook) throws IOException;
+    Optional<ReadOnlyResourceBook<Regime>> readRegimeBook(Path filePath)
+        throws DataConversionException, IOException;
 
-    @Override
+    void saveRegimeBook(ReadOnlyResourceBook<Regime> regimeBook) throws IOException;
+
+    void saveRegimeBook(ReadOnlyResourceBook<Regime> exerciseBook, Path filePath) throws IOException;
+
+
+    // ================ ScheduleBook methods ==============================
     Path getScheduleBookFilePath();
 
-    @Override
-    Optional<ReadOnlyScheduleBook> readScheduleBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyResourceBook<Schedule>> readScheduleBook() throws DataConversionException, IOException;
 
-    @Override
-    void saveScheduleBook(ReadOnlyScheduleBook scheduleBook) throws IOException;
+    Optional<ReadOnlyResourceBook<Schedule>> readScheduleBook(Path filePath)
+        throws DataConversionException, IOException;
 
-    /**
-     * Returns the file path of the data file.
-     * @return
-     */
-    Path getAllExerciseBookFilePath();
+    void saveScheduleBook(ReadOnlyResourceBook<Schedule> scheduleBook) throws IOException;
 
-    /**
-     * Returns AllExerciseBook data as a {@link ReadOnlyExerciseBook}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any prolbem when reading from the storage.
-     */
-    Optional<ReadOnlyExerciseBook> readAllExerciseBook() throws DataConversionException, IOException;
+    void saveScheduleBook(ReadOnlyResourceBook<Schedule> exerciseBook, Path filePath) throws IOException;
 
-    /**
-     * @see #getAllExerciseBookFilePath()
-     */
-    Optional<ReadOnlyExerciseBook> readAllExerciseBook(Path filePath) throws DataConversionException, IOException;
+
 }

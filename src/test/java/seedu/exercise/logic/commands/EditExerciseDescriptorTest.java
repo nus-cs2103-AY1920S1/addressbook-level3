@@ -12,7 +12,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_BASKE
 
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.testutil.EditExerciseDescriptorBuilder;
+import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
 
 public class EditExerciseDescriptorTest {
 

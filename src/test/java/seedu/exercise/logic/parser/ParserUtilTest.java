@@ -14,12 +14,12 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.exercise.Calories;
-import seedu.exercise.model.exercise.Date;
-import seedu.exercise.model.exercise.Muscle;
-import seedu.exercise.model.exercise.Name;
-import seedu.exercise.model.exercise.Quantity;
-import seedu.exercise.model.exercise.Unit;
+import seedu.exercise.model.property.Calories;
+import seedu.exercise.model.property.Date;
+import seedu.exercise.model.property.Muscle;
+import seedu.exercise.model.property.Name;
+import seedu.exercise.model.property.Quantity;
+import seedu.exercise.model.property.Unit;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "D@nce";

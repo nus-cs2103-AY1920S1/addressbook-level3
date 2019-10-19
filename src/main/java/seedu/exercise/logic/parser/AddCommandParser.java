@@ -20,14 +20,13 @@ import seedu.exercise.logic.commands.AddCommand;
 import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.AddRegimeCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.exercise.Calories;
-import seedu.exercise.model.exercise.Date;
-import seedu.exercise.model.exercise.Exercise;
-import seedu.exercise.model.exercise.Muscle;
-import seedu.exercise.model.exercise.Name;
-import seedu.exercise.model.exercise.Quantity;
-import seedu.exercise.model.exercise.Unit;
-import seedu.exercise.model.regime.RegimeName;
+import seedu.exercise.model.property.Calories;
+import seedu.exercise.model.property.Date;
+import seedu.exercise.model.property.Muscle;
+import seedu.exercise.model.property.Name;
+import seedu.exercise.model.property.Quantity;
+import seedu.exercise.model.property.Unit;
+import seedu.exercise.model.resource.Exercise;
 
 /**
  * Parses input arguments and creates a new AddExerciseCommand object
@@ -94,7 +93,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRegimeCommand.MESSAGE_USAGE));
         }
 
-        RegimeName regimeName = ParserUtil.parseRegimeName(argMultimap.getValue(PREFIX_NAME).get());
+        Name regimeName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         List<Index> indexes = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
 
         return new AddRegimeCommand(indexes, regimeName);

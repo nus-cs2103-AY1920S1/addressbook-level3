@@ -267,10 +267,11 @@ Format: `redo`
 
 Adds in a custom property which you can define for the exercises.
 
-Once a new custom property is created, you can simply use the short name which you defined for the
+Once a new custom property is created, you can simply use the prefix name which you defined for the
 property to the `add` and `edit` command to include information for the new property.
 
 ****
+* The prefix name can only contain alphabets and should not contain spaces.
 * You must choose exactly one of the following as the parameter type for your custom property:
 `Text`, `Number`, `Date`.
 * Every word in the full name of each custom property will be changed to Start Case style, where the first letter of each
@@ -279,7 +280,7 @@ word is capitalised with the other letters in lower case e.g. `enD DaTe` will be
 * You need not include the custom properties when adding a new exercise to the app.
 ****
 
-Format: `custom s/SHORT_NAME f/FULL_NAME p/PARAMETER_TYPE`
+Format: `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
 
 Example:
 
@@ -293,7 +294,7 @@ a number.
 
 Creates a `Remark` property for each exercise.
 Information for this property can be updated for each exercise by using `b/TEXT` in the relevant command where
-`TEXT` refers to a non-empty sentence.
+`TEXT` refers to a text sentence.
 
 * `custom s/c f/End Date p/Date`
 
@@ -488,6 +489,6 @@ e.g. `resolve n/cardio`
 e.g. `suggest t/possible m/chest`
 * *Suggest intensity* : `suggest s/intensity i/INDEX`
 eg. `suggest intensity 1`
-* *Custom* : `custom s/SHORT_NAME f/FULL_NAME p/PARAMETER_TYPE`
+* *Custom* : `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
 e.g. `custom s/c f/End Date p/Date`
 * *Exit* : `exit`

@@ -10,8 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.commons.util.JsonUtil;
-import seedu.exercise.model.ExerciseBook;
-import seedu.exercise.testutil.TypicalExercises;
+import seedu.exercise.model.ReadOnlyResourceBook;
+import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.storage.serializablebook.JsonSerializableExerciseBook;
+import seedu.exercise.testutil.exercise.TypicalExercises;
 
 public class JsonSerializableExerciseBookTest {
 
@@ -23,25 +25,25 @@ public class JsonSerializableExerciseBookTest {
     @Test
     public void toModelType_typicalExercisesFile_success() throws Exception {
         JsonSerializableExerciseBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXERCISES_FILE,
-                JsonSerializableExerciseBook.class).get();
-        ExerciseBook exerciseBookFromFile = dataFromFile.toModelType();
-        ExerciseBook typicalExerciseBook = TypicalExercises.getTypicalExerciseBook();
+            JsonSerializableExerciseBook.class).get();
+        ReadOnlyResourceBook<Exercise> exerciseBookFromFile = dataFromFile.toModelType(Exercise.class);
+        ReadOnlyResourceBook<Exercise> typicalExerciseBook = TypicalExercises.getTypicalExerciseBook();
         assertEquals(exerciseBookFromFile, typicalExerciseBook);
     }
 
     @Test
     public void toModelType_invalidExerciseFile_throwsIllegalValueException() throws Exception {
         JsonSerializableExerciseBook dataFromFile = JsonUtil.readJsonFile(INVALID_EXERCISE_FILE,
-                JsonSerializableExerciseBook.class).get();
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+            JsonSerializableExerciseBook.class).get();
+        assertThrows(IllegalValueException.class, () -> dataFromFile.toModelType(Exercise.class));
     }
 
     @Test
     public void toModelType_duplicateExercise_throwsIllegalValueException() throws Exception {
         JsonSerializableExerciseBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXERCISE_FILE,
-                JsonSerializableExerciseBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableExerciseBook.MESSAGE_DUPLICATE_EXERCISE,
-                dataFromFile::toModelType);
+            JsonSerializableExerciseBook.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableExerciseBook.MESSAGE_DUPLICATE_RESOURCE, ()
+            -> dataFromFile.toModelType(Exercise.class));
     }
 
 }

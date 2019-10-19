@@ -12,7 +12,7 @@ import seedu.exercise.commons.exceptions.DataConversionException;
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.commons.util.FileUtil;
 import seedu.exercise.commons.util.JsonUtil;
-import seedu.exercise.model.exercise.PropertyManager;
+import seedu.exercise.model.property.PropertyManager;
 
 /**
  * A class to access PropertyManager data stored as a json file in the hard disk.

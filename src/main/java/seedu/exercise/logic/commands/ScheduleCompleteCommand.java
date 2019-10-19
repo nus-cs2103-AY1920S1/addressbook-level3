@@ -8,7 +8,7 @@ import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.schedule.Schedule;
+import seedu.exercise.model.resource.Schedule;
 
 /**
  * Completes a schedule and removes it from the schedule list.

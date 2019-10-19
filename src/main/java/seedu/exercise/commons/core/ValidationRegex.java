@@ -8,6 +8,6 @@ public class ValidationRegex {
     public static final String ONLY_NUMBERS = "\\d+(\\.\\d+)?";
     public static final String ONLY_ALPHABETS_AND_SPACE = "^[ A-Za-z]+$";
     public static final String ONLY_ALPHABETS = "^[A-Za-z]+$";
-    public static final String ONLY_ALPHABETS_AND_NUMBERS = "^[ A-Za-z0-9]+$";
+    public static final String ONLY_ALPHABETS_NUMBERS_AND_SPACE = "^[ A-Za-z0-9]+$";
 
 }

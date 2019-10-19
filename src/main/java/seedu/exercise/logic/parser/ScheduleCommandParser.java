@@ -5,15 +5,13 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.stream.Stream;
-
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.ScheduleCommand;
 import seedu.exercise.logic.commands.ScheduleCompleteCommand;
 import seedu.exercise.logic.commands.ScheduleRegimeCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.exercise.Date;
-import seedu.exercise.model.regime.RegimeName;
+import seedu.exercise.model.property.Date;
+import seedu.exercise.model.property.Name;
 
 /**
  * Parses input arguments and creates a new ScheduleCommand object
@@ -29,9 +27,9 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
     @Override
     public ScheduleCommand parse(String userInput) throws ParseException {
         ArgumentMultimap regimeCommandMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_NAME, PREFIX_DATE);
+            ArgumentTokenizer.tokenize(userInput, PREFIX_NAME, PREFIX_DATE);
         ArgumentMultimap completeCommandMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_INDEX);
+            ArgumentTokenizer.tokenize(userInput, PREFIX_INDEX);
 
         checkValidScheduleCommand(regimeCommandMultimap, completeCommandMultimap);
 
@@ -46,7 +44,7 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
      * Parses a valid {@code ScheduleRegimeCommand}.
      */
     private ScheduleCommand parseScheduleRegimeCommand(ArgumentMultimap regimeMultimap) throws ParseException {
-        RegimeName regimeName = ParserUtil.parseRegimeName(regimeMultimap.getValue(PREFIX_NAME).get());
+        Name regimeName = ParserUtil.parseName(regimeMultimap.getValue(PREFIX_NAME).get());
         Date date = ParserUtil.parseDate(regimeMultimap.getValue(PREFIX_DATE).get());
 
         return new ScheduleRegimeCommand(regimeName, date);
@@ -64,22 +62,18 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
      * @throws ParseException when prefix for either commands are missing.
      */
     private void checkValidScheduleCommand(ArgumentMultimap regimeCommand, ArgumentMultimap completeCommand)
-            throws ParseException {
+        throws ParseException {
         if (!areScheduleCompletePrefixesPresent(completeCommand) && !areScheduleRegimePrefixesPresent(regimeCommand)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
         }
     }
 
     private static boolean areScheduleRegimePrefixesPresent(ArgumentMultimap multimap) {
-        return arePrefixesPresent(multimap, PREFIX_NAME, PREFIX_DATE) && multimap.getPreamble().isEmpty();
+        return multimap.arePrefixesPresent(PREFIX_NAME, PREFIX_DATE) && multimap.getPreamble().isEmpty();
     }
 
     private static boolean areScheduleCompletePrefixesPresent(ArgumentMultimap multimap) {
-        return arePrefixesPresent(multimap, PREFIX_INDEX) && multimap.getPreamble().isEmpty();
+        return multimap.arePrefixesPresent(PREFIX_INDEX) && multimap.getPreamble().isEmpty();
     }
 
-    private static boolean arePrefixesPresent(ArgumentMultimap multimap, Prefix... prefixes) {
-        return Stream.of(prefixes)
-                .allMatch(prefix -> multimap.getValue(prefix).isPresent());
-    }
 }

@@ -13,7 +13,7 @@ import seedu.exercise.logic.commands.DeleteCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.DeleteRegimeCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.regime.RegimeName;
+import seedu.exercise.model.property.Name;
 
 /**
  * Parses input arguments and creates a new DeleteExerciseCommand object
@@ -69,16 +69,16 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                     DeleteRegimeCommand.MESSAGE_USAGE));
         }
 
-        RegimeName name = ParserUtil.parseRegimeName(argMultimap.getValue(PREFIX_NAME).get());
+        Name regimeName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         // index present, delete exercise in regime
         if (arePrefixesPresent(argMultimap, PREFIX_INDEX)) {
 
             List<Index> indexes = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
-            return new DeleteRegimeCommand(name, indexes);
+            return new DeleteRegimeCommand(regimeName, indexes);
 
         } else { //index not present delete regime
-            return new DeleteRegimeCommand(name, null);
+            return new DeleteRegimeCommand(regimeName, null);
         }
     }
 

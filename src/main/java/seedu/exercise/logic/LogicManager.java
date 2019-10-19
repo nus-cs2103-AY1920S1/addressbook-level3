@@ -13,11 +13,10 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.parser.ExerciseBookParser;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.ReadOnlyExerciseBook;
-import seedu.exercise.model.ReadOnlyRegimeBook;
-import seedu.exercise.model.exercise.Exercise;
-import seedu.exercise.model.regime.Regime;
-import seedu.exercise.model.schedule.Schedule;
+import seedu.exercise.model.ReadOnlyResourceBook;
+import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Regime;
+import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.storage.Storage;
 
 /**
@@ -55,7 +54,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyExerciseBook getExerciseBook() {
+    public ReadOnlyResourceBook<Exercise> getExerciseBook() {
         return model.getExerciseBookData();
     }
 
@@ -65,7 +64,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyRegimeBook getRegimeBook() {
+    public ReadOnlyResourceBook<Regime> getRegimeBook() {
         return model.getAllRegimeData();
     }
 

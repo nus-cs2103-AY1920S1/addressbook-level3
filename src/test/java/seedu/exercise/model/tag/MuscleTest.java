@@ -4,7 +4,7 @@ import static seedu.exercise.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.model.exercise.Muscle;
+import seedu.exercise.model.property.Muscle;
 
 public class MuscleTest {
 

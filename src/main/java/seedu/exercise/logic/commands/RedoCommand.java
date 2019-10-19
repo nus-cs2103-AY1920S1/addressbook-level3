@@ -2,9 +2,9 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.exercise.logic.commands.events.Event;
+import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.exceptions.CommandException;
-import seedu.exercise.logic.commands.history.Event;
-import seedu.exercise.logic.commands.history.EventHistory;
 import seedu.exercise.model.Model;
 
 /**
@@ -28,7 +28,7 @@ public class RedoCommand extends Command {
 
         Event eventToRedo = eventHistory.redo(model);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, eventToRedo));
+            String.format(MESSAGE_SUCCESS, eventToRedo));
     }
 
 }

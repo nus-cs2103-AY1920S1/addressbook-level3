@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.exercise.commons.exceptions.IllegalValueException;
-import seedu.exercise.model.exercise.Muscle;
+import seedu.exercise.model.property.Muscle;
 
 /**
  * Jackson-friendly version of {@link Muscle}.
  */
-class JsonAdaptedMuscle {
+public class JsonAdaptedMuscle {
 
     private final String muscle;
 
