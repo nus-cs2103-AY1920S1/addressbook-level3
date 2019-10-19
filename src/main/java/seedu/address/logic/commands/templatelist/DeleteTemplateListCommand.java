@@ -19,10 +19,10 @@ public class DeleteTemplateListCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = "tlist " + COMMAND_WORD
             + ": Deletes the template  identified by the index number used in the displayed template list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: tlist " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Deleted Template: %1$s";
 

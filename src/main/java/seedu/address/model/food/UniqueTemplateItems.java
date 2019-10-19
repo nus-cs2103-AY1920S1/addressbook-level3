@@ -141,7 +141,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
     }
 
     public Name getName() {
-        return name;
+        return this.name;
     }
 
     @Override
@@ -175,11 +175,13 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
         return this.internalUnmodifiableList;
     }
 
-    /**
-     * Updates the filter of the filtered template list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredTemplateItemList(Predicate<TemplateItem> predicate) {
-
-    };
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        builder.append(" with ");
+        builder.append(getSize());
+        builder.append(" items.");
+        return builder.toString();
+    }
 }

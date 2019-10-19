@@ -55,6 +55,7 @@ public class TemplateItem {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
+        builder.append(" ");
         builder.append(getAmount());
         return builder.toString();
     }

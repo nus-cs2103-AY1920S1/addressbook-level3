@@ -22,11 +22,12 @@ public class AddTemplateItemCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food item to the specified template list. "
+    public static final String MESSAGE_USAGE = "tlist template " + COMMAND_WORD
+            + ": Adds a food item to the specified template list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_NAME + "NAME "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_AMOUNT + "AMOUNT\n"
+            + "Example: tlist template " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Apples "
             + PREFIX_AMOUNT + "300g";
 

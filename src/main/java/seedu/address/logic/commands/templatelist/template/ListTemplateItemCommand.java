@@ -19,10 +19,10 @@ public class ListTemplateItemCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_SUCCESS = "Listed all template items in %1$s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the template items in the specified "
-            + "template list\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "Example: " + COMMAND_WORD + " 1 ";
+    public static final String MESSAGE_USAGE = "tlist template " + COMMAND_WORD
+            + ": Lists the template items in the specified template list\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: tlist template " + COMMAND_WORD + " 1 ";
 
     private final Index targetTemplateIndex;
 

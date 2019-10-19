@@ -16,9 +16,9 @@ public class AddTemplateListCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new template to the template list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new template to the template list.\n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
+            + PREFIX_NAME + "NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Weekly Necessities ";
 
