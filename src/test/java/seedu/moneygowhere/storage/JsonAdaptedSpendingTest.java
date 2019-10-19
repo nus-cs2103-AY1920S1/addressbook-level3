@@ -3,7 +3,7 @@ package seedu.moneygowhere.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.storage.JsonAdaptedSpending.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.BENSON;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +24,18 @@ public class JsonAdaptedSpendingTest {
     private static final String INVALID_COST = " ";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_DATE = BENSON.getDate().toString();
-    private static final String VALID_COST = BENSON.getCost().toString();
-    private static final String VALID_REMARK = BENSON.getRemark().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = BANANA.getName().toString();
+    private static final String VALID_DATE = BANANA.getDate().toString();
+    private static final String VALID_COST = BANANA.getCost().toString();
+    private static final String VALID_REMARK = BANANA.getRemark().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = BANANA.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validSpendingDetails_returnsSpending() throws Exception {
-        JsonAdaptedSpending spending = new JsonAdaptedSpending(BENSON);
-        assertEquals(BENSON, spending.toModelType());
+        JsonAdaptedSpending spending = new JsonAdaptedSpending(BANANA);
+        assertEquals(BANANA, spending.toModelType());
     }
 
     @Test

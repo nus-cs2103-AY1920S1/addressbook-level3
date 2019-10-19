@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_SPENDINGS_LISTED_OVERVIEW;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.moneygowhere.testutil.TypicalSpendings.CARL;
-import static seedu.moneygowhere.testutil.TypicalSpendings.ELLE;
-import static seedu.moneygowhere.testutil.TypicalSpendings.FIONA;
-import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
+import static seedu.moneygowhere.testutil.TypicalSpendings.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,11 +64,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleSpendingsFound() {
         String expectedMessage = String.format(MESSAGE_SPENDINGS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameContainsKeywordsPredicate predicate = preparePredicate("flight encyclopedia cat");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredSpendingList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredSpendingList());
+        assertEquals(Arrays.asList(CATFOOD, ENCYCLOPEDIA, FLIGHTTICKET), model.getFilteredSpendingList());
     }
 
     /**

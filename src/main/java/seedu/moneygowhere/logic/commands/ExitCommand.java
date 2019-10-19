@@ -1,5 +1,7 @@
 package seedu.moneygowhere.logic.commands;
 
+import java.util.TreeMap;
+
 import seedu.moneygowhere.model.Model;
 
 /**
@@ -13,7 +15,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, true);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 
 }

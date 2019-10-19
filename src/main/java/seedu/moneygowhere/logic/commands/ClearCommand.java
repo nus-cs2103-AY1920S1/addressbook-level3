@@ -2,6 +2,8 @@ package seedu.moneygowhere.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.TreeMap;
+
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.SpendingBook;
 
@@ -20,4 +22,5 @@ public class ClearCommand extends Command {
         model.setSpendingBook(new SpendingBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
 }

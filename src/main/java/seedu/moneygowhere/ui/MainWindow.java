@@ -1,5 +1,7 @@
 package seedu.moneygowhere.ui;
 
+import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -17,6 +19,8 @@ import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
+import seedu.moneygowhere.model.Model;
+import seedu.moneygowhere.model.spending.Date;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private SpendingListPanel spendingListPanel;
     private ResultDisplay resultDisplay;
+    private GraphWindow graphWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -61,6 +66,8 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        graphWindow = new GraphWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -130,12 +137,21 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
     @FXML
     public void handleHelp() {
         resultDisplay.setFeedbackToUser(HelpCommand.SHOWING_HELP_MESSAGE);
+    }
+
+    /**
+     * Opens the graph window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleGraph() {
+        if (!graphWindow.isShowing()) {
+            graphWindow.show();
+        } else {
+            graphWindow.focus();
+        }
     }
 
     void show() {
@@ -150,6 +166,7 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+        graphWindow.hide();
         primaryStage.hide();
     }
 
@@ -170,6 +187,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowGraph()) {
+                TreeMap<String, Double> graphData = logic.getGraphData(commandText);
+                graphWindow.loadData(graphData);
+                handleGraph();
             }
 
             return commandResult;

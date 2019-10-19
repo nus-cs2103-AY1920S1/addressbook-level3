@@ -1,6 +1,7 @@
 package seedu.moneygowhere.logic;
 
 import java.nio.file.Path;
+import java.util.TreeMap;
 
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.commons.core.GuiSettings;
@@ -22,6 +23,15 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Executes the command and returns the graph data.
+     * @param commandText The command as entered by the user.
+     * @return the hashmap of spending data
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
+     */
+    TreeMap<String, Double> getGraphData(String commandText) throws ParseException;
 
     /**
      * Returns the SpendingBook.

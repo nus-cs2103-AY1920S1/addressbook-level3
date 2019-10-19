@@ -1,5 +1,7 @@
 package seedu.moneygowhere.logic.commands;
 
+import java.util.TreeMap;
+
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 
@@ -16,5 +18,9 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
+
+    public TreeMap<String, Double> getGraphData(Model model) {
+        return null;
+    }
 
 }

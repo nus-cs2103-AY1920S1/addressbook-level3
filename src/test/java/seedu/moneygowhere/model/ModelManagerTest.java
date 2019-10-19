@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
-import static seedu.moneygowhere.testutil.TypicalSpendings.BENSON;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasSpending_spendingNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasSpending(ALICE));
+        assertFalse(modelManager.hasSpending(APPLE));
     }
 
     @Test
     public void hasSpending_spendingInAddressBook_returnsTrue() {
-        modelManager.addSpending(ALICE);
-        assertTrue(modelManager.hasSpending(ALICE));
+        modelManager.addSpending(APPLE);
+        assertTrue(modelManager.hasSpending(APPLE));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        SpendingBook spendingBook = new SpendingBookBuilder().withSpending(ALICE).withSpending(BENSON).build();
+        SpendingBook spendingBook = new SpendingBookBuilder().withSpending(APPLE).withSpending(BANANA).build();
         SpendingBook differentSpendingBook = new SpendingBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentSpendingBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = APPLE.getName().fullName.split("\\s+");
         modelManager.updateFilteredSpendingList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(spendingBook, userPrefs)));
 

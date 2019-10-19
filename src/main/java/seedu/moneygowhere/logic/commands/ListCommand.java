@@ -3,6 +3,8 @@ package seedu.moneygowhere.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 
+import java.util.TreeMap;
+
 import seedu.moneygowhere.model.Model;
 
 /**
@@ -21,4 +23,5 @@ public class ListCommand extends Command {
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
 }

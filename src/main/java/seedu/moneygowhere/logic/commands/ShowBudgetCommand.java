@@ -1,5 +1,7 @@
 package seedu.moneygowhere.logic.commands;
 
+import java.util.TreeMap;
+
 import seedu.moneygowhere.model.Model;
 
 /**
@@ -15,4 +17,5 @@ public class ShowBudgetCommand extends Command {
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_SUCCESS + model.getBudget());
     }
+
 }

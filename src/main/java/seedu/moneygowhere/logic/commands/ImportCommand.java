@@ -2,6 +2,8 @@ package seedu.moneygowhere.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.TreeMap;
+
 import seedu.moneygowhere.model.Model;
 
 /**
@@ -18,4 +20,5 @@ public class ImportCommand extends Command {
         requireNonNull(model);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
 }

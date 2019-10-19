@@ -32,15 +32,16 @@ public class StatsCommand extends Command {
         + PREFIX_DATE + "today "
         + PREFIX_DATE + "tomorrow ";
 
-    private Date startDate = null;
-    private Date endDate = null;
+    private Date startDate;
+    private Date endDate;
 
     /**
      * Creates a StatsCommand with whole date range of all spending
      * if date range is not specified.
      */
     public StatsCommand() {
-
+        startDate = null;
+        endDate = null;
     }
 
     /**
@@ -68,7 +69,7 @@ public class StatsCommand extends Command {
         //get tags of filtered spendings
         Set<Tag> tagSet = getTagsOfSpendings(lastShownList);
         //get cost spent per tag
-        HashMap<Tag, Double> costPerTagList = getCostSpentPerTag(lastShownList, tagSet);
+        HashMap<Tag, Double> costPerTagList = getCostPerTagList(lastShownList, tagSet);
         //sort in descending order based on cost
         Map<Tag, Double> sorted = sortCostPerTagList(costPerTagList);
         feedbackToUser = getStringCostPerTag(totalCost, feedbackToUser, sorted);
@@ -96,7 +97,7 @@ public class StatsCommand extends Command {
         return tagSet;
     }
 
-    private HashMap<Tag, Double> getCostSpentPerTag(List<Spending> lastShownList, Set<Tag> tagSet) {
+    private HashMap<Tag, Double> getCostPerTagList(List<Spending> lastShownList, Set<Tag> tagSet) {
         //Get cost spent per category
         HashMap<Tag, Double> costPerTagList = new HashMap<Tag, Double>();
         for (Tag e: tagSet) {
@@ -148,7 +149,7 @@ public class StatsCommand extends Command {
         if (budgetRemaining >= 0) {
             String s = MESSAGE_SUCCESS
                 + "\nTotal Cost: $" + String.format("%.2f", totalCost)
-                + "\nBudget Set: $" + String.format("%.2f", budget)
+                + "\nBudget: $" + String.format("%.2f", budget)
                 + "\nBudget Remaining: $" + String.format("%.2f", budgetRemaining)
                 + "\nStatus: Safe";
             feedbackToUser = s;
