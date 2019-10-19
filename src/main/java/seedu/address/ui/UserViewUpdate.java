@@ -42,6 +42,8 @@ public class UserViewUpdate {
 
         case "edit":
 
+        case "set-deadline":
+
         case "find":
             paneToRender.getChildren().add(userViewMain.loadTasks());
             break;

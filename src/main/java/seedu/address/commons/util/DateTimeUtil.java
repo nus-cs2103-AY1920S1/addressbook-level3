@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,14 +16,20 @@ public class DateTimeUtil {
     public static final String DEFAULT_FORMAT = "dd/MM/yyyy kk:mm";
     public static final String DISPLAY_FORMAT = "EEEE, MMM dd, yyyy HH:mm a";
 
+    public static final String MESSAGE_CONSTRAINTS = "Please follow the " + DEFAULT_FORMAT + " format required";
+
     public static DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern(DEFAULT_FORMAT);
     public static DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern(DISPLAY_FORMAT);
 
     /**
      * Parses the date time given by the user.
       */
-    public static LocalDateTime parseDateTime(String rawDateTime) throws DateTimeParseException {
-       return LocalDateTime.parse(rawDateTime, defaultFormatter);
+    public static LocalDateTime parseDateTime(String rawDateTime) throws ParseException {
+        try {
+            return LocalDateTime.parse(rawDateTime, defaultFormatter);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_CONSTRAINTS);
+        }
     }
 
     /**
