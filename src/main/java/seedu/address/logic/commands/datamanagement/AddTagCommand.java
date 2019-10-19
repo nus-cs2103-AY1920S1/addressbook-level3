@@ -29,7 +29,7 @@ public class AddTagCommand extends Command {
 
     public static final String MESSAGE_SUCCESS_TAG_ADDED = "A new tag %1$s has been created and added to module %2$s";
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been added to module %2$s";
-    public static final String MESSAGE_EXISTING_TAG = "This tag is already attached to %1$s";
+    public static final String MESSAGE_EXISTING_TAG = "Tag %1$s is already attached to %2$s";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be added";
 
     private final String tagName;
@@ -64,7 +64,7 @@ public class AddTagCommand extends Command {
         boolean added = model.addTagToActiveSp((UserTag) toAdd, moduleCode);
 
         if (!added) {
-            throw new CommandException(String.format(MESSAGE_EXISTING_TAG, moduleCode));
+            throw new CommandException(String.format(MESSAGE_EXISTING_TAG, toAdd, moduleCode));
         }
 
         if (newTagCreated) {

@@ -61,7 +61,10 @@ public class UserTagTest {
     @Test
     public void isSameTag_returnsTrue() {
         assertTrue(new TagBuilder().buildTestUserTag().isSameTag(new TagBuilder().buildTestUserTag()));
-        assertTrue(new TagBuilder().buildUserTag("userTag").isSameTag(new TagBuilder().buildUserTag("userTag")));
+        assertTrue(new TagBuilder().buildUserTag("userTag")
+                .isSameTag(new TagBuilder().buildUserTag("userTag")));
+        assertTrue(new TagBuilder().buildUserTag("UserTag")
+                .isSameTag(new TagBuilder().buildUserTag("userTag")));
     }
 
     @Test
@@ -78,6 +81,9 @@ public class UserTagTest {
 
         // same name
         assertTrue(tag.equals(new TagBuilder().buildTestUserTag()));
+
+        // same name, different case
+        assertTrue(tag.equals(new TagBuilder().buildUserTag("testusertag")));
 
         // different name
         assertFalse(tag.equals(new TagBuilder().buildUserTag("differentName")));
