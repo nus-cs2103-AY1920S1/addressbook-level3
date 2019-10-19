@@ -322,6 +322,31 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addCourse(Course course) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addCourse(int zeroBasedIndex, Course course) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteCourse(Course course) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasCourse(Course course) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Course> getUnfilteredCourseList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public CoursePlanner getCoursePlanner() {
         throw new AssertionError("This method should not be called.");
     }
