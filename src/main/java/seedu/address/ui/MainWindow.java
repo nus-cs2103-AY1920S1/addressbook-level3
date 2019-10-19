@@ -28,6 +28,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MESSAGE_CANNOT_LOAD_WINDOW = "Unable to load window. :(";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -208,7 +209,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -224,7 +224,9 @@ public class MainWindow extends UiPart<Stage> {
                     logger.info("Result: " + commandResult.getFeedbackToUser());
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 } catch (NullPointerException e) {
-                    return new CommandResult("Unable to load window");
+                    String feedbackToUser = commandResult.getFeedbackToUser() + "\n" + MESSAGE_CANNOT_LOAD_WINDOW;
+                    resultDisplay.setFeedbackToUser(feedbackToUser);
+                    return new CommandResult(feedbackToUser);
                 }
             }
 

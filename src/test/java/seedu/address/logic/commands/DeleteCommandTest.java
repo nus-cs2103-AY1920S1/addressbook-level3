@@ -27,8 +27,8 @@ import seedu.sgm.model.food.UniqueFoodList;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new userList(), new UniqueFoodList(),
-        new UniqueRecordList());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
+            new UniqueFoodList(), new UniqueRecordList());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -37,8 +37,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
-            new UniqueRecordList());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UserList(),
+                new UniqueFoodList(), new UniqueRecordList());
 
         expectedModel.deletePerson(personToDelete);
 
@@ -62,9 +62,10 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+                new UserList(), new UniqueFoodList(),
             new UniqueRecordList());
-      
+
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 

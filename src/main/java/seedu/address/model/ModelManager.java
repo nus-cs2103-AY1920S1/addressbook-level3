@@ -39,10 +39,10 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyUserList userList, 
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyUserList userList,
                         UniqueFoodList foodList, UniqueRecordList recordList) {
         super();
-        requireAllNonNull(addressBook, userPrefs, foodList, userlist, recordList);
+        requireAllNonNull(addressBook, userPrefs, foodList, userList, recordList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
                 + " and food map: " + foodList + " and record list: " + recordList);

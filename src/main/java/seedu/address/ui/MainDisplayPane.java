@@ -39,9 +39,11 @@ public class MainDisplayPane {
         case ACHVM:
             return getMappedPane(displayPaneType, AchievementsPane::new, newPaneIsToBeCreated);
         case RECM_FOOD:
-            return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()), newPaneIsToBeCreated);
+            return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()),
+                    newPaneIsToBeCreated);
         case ADD:
-            return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()), newPaneIsToBeCreated);
+            return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()),
+                    newPaneIsToBeCreated);
         default:
             return null;
         }

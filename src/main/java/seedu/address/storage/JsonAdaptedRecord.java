@@ -104,7 +104,6 @@ class JsonAdaptedRecord {
 
             return new Bmi(modelHeight, modelWeight, modelDateTime);
         }
-        System.out.println("should not reach here!!!");
         return null;
     }
 

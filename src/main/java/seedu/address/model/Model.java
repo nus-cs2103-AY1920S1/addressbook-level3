@@ -183,8 +183,6 @@ public interface Model {
      */
     void updateFilteredRecordList(Predicate<Record> predicate);
 
-    void addReminder(Reminder reminder);
-
     //=========== User List =============================================================
 
     /**

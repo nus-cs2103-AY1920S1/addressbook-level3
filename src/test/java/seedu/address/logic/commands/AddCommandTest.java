@@ -22,11 +22,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ReadOnlyRecordBook;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.RecordBook;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.DateTime;
 import seedu.address.model.calendar.Reminder;
@@ -40,7 +37,6 @@ import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.record.Weight;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
-
 
 public class AddCommandTest {
 
@@ -256,7 +252,7 @@ public class AddCommandTest {
         public void setRecordList(UniqueRecordList newRecordList) {
 
         }
-      
+
         //=========== User List =============================================================
         @Override
         public void setUserList(ReadOnlyUserList userList) {

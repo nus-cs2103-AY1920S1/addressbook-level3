@@ -35,8 +35,8 @@ import seedu.sgm.model.food.UniqueFoodList;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
-        new UniqueRecordList());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
+            new UniqueFoodList(), new UniqueRecordList());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -48,7 +48,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
             new UserList(), new UniqueFoodList(), new UniqueRecordList());
-      
+
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

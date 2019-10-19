@@ -101,8 +101,6 @@ public class EditBioCommand extends Command {
             model.setUser(userToEdit, editedUser);
             model.updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
             List<User> newList = lastShownList;
-            System.out.println("ORIGINAL: " + originalList);
-            System.out.println("NEW: " + newList);
 
             return new CommandResult(String.format(MESSAGE_EDIT_USER_SUCCESS, editedUser));
         } catch (IndexOutOfBoundsException e) {

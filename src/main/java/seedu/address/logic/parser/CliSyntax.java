@@ -65,6 +65,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
     public static final Prefix PREFIX_COUNT = new Prefix("n/");
 
+    // @Todo to remove if not used.
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
 

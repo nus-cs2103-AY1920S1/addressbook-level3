@@ -132,14 +132,12 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveRecordList(UniqueRecordList recordList) throws IOException {
-        System.out.println("save record list");
         saveRecordList(recordList, jsonRecordListStorage.getFilePath());
     }
 
     @Override
     public void saveRecordList(UniqueRecordList recordList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        System.out.println("save record list with path");
         jsonRecordListStorage.save(recordList, filePath);
     }
 

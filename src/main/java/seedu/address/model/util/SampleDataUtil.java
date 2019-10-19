@@ -71,7 +71,6 @@ public class SampleDataUtil {
     }
 
     public static Record[] getSampleRecords() {
-        System.out.println("called sample record generator");
         return new Record[]{
             new BmiBuilder().build(),
             new BmiBuilder().withDateTime("2019-01-02 09:09").withHeight("1.1").withWeight("45.6").build(),

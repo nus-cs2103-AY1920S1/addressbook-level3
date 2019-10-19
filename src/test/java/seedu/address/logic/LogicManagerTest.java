@@ -48,7 +48,8 @@ public class LogicManagerTest {
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(
             temporaryFolder.resolve("recordList.json")
         );
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage,
+                jsonFoodListStorage,
             jsonRecordListStorage);
         logic = new LogicManager(model, storage);
     }
@@ -136,8 +137,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getUserList(), 
-                                               new UniqueFoodList(), new UniqueRecordList());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getUserList(),
+                new UniqueFoodList(), new UniqueRecordList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
