@@ -6,8 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.logic.commands.CommandResult;
-import seedu.ichifund.logic.commands.exceptions.CommandException;
-import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
@@ -34,7 +32,7 @@ public interface Logic {
      */
     void executeAllTasks();
 
-    ObservableValue<ParserManager> getCurrentParserManager();
+    ObservableValue<Integer> getCurrentParserManagerIndex();
 
     void setParserManager(int index);
 

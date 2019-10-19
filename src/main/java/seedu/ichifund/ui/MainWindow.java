@@ -19,7 +19,6 @@ import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.logic.Logic;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
-import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
@@ -34,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private ObservableValue<ParserManager> currentParserManager;
+    private ObservableValue<Integer> currentParserManagerIndex;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -92,7 +91,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.currentParserManager = logic.getCurrentParserManager();
+        this.currentParserManagerIndex = logic.getCurrentParserManagerIndex();
         setupParserSwitching();
 
         // Configure the UI
@@ -104,7 +103,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setupParserSwitching() {
-        this.currentParserManager.addListener(new ParserManagerListener(mainTabPane));
+        this.currentParserManagerIndex.addListener(new ParserManagerListener(mainTabPane));
         mainTabPane.setOnMouseClicked(event -> {
             int selectedIndex = mainTabPane.getSelectionModel().getSelectedIndex();
             logic.setParserManager(selectedIndex);
@@ -313,9 +312,7 @@ public class MainWindow extends UiPart<Stage> {
 
         @Override
         public void invalidated(Observable observable) {
-            this.tabPane.getSelectionModel().select(((ObservableValue<ParserManager>) currentParserManager)
-                            .getValue()
-                            .getTabIndex());
+            this.tabPane.getSelectionModel().select(currentParserManagerIndex.getValue());
         }
     }
 }

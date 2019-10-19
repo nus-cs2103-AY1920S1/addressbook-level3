@@ -37,7 +37,8 @@ public class IchiFundParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private final ArrayList<ParserManager> parserManagers;
-    private SimpleObjectProperty<ParserManager> currentParserManager;
+    private ParserManager currentParserManager;
+    private SimpleObjectProperty<Integer> currentParserManagerIndex;
 
     public IchiFundParser() {
         parserManagers = new ArrayList<>();
@@ -46,7 +47,8 @@ public class IchiFundParser {
         parserManagers.add(new BudgetParserManager());
         parserManagers.add(new LoansParserManager());
         parserManagers.add(new AnalyticsParserManager());
-        currentParserManager = new SimpleObjectProperty<>(parserManagers.get(0));
+        currentParserManager = parserManagers.get(0);
+        currentParserManagerIndex = new SimpleObjectProperty<>(currentParserManager.getTabIndex());
     }
 
     /**
@@ -113,7 +115,7 @@ public class IchiFundParser {
         }
 
         if (!isTabSwitchCommand) {
-            return currentParserManager.getValue().parseCommand(commandWord, arguments);
+            return currentParserManager.parseCommand(commandWord, arguments);
         }
 
         return new EmptyCommand();
@@ -122,10 +124,11 @@ public class IchiFundParser {
     public void setParserManager(int index) {
         ParserManager parserManager = parserManagers.get(index);
         assert(parserManager.getTabIndex() == index);
-        currentParserManager.setValue(parserManager);
+        currentParserManager = parserManager;
+        currentParserManagerIndex.setValue(currentParserManager.getTabIndex());
     }
 
-    public ObservableValue<ParserManager> getCurrentParserManager() {
-        return currentParserManager;
+    public ObservableValue<Integer> getCurrentParserManagerIndex() {
+        return currentParserManagerIndex;
     }
 }
