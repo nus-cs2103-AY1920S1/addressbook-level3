@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.TypicalModulesInfo.CS1101S;
 import static seedu.address.testutil.TypicalModulesInfo.CS2040S;
 import static seedu.address.testutil.TypicalModulesInfo.CS4248;
 
@@ -38,11 +39,22 @@ public class ModuleInfoTest {
     }
 
     @Test
-    public void getInformation_returnsString() {
+    public void getInformation_hasPrerequisites_returnsString() {
         String actual = CS2040S.getInformation();
         String expected = "CS2040S: Data Structures and Algorithms (Core module)\n"
                 + "4 MCs, not S/U-able\n"
+                + "Prerequisites: CS1231S and CS1101S\n"
                 + "CS2040S description";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getInformation_noPrerequisites_returnsString() {
+        String actual = CS1101S.getInformation();
+        String expected = "CS1101S: Programming Methodology (Core module)\n"
+                + "4 MCs, S/U-able\n"
+                + "Prerequisites: none\n"
+                + "CS1101S description";
         assertEquals(expected, actual);
     }
 
