@@ -22,7 +22,7 @@ public class CustomerName {
     public final String fullName;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code CustomerName}.
      *
      * @param name A valid name.
      */

@@ -28,9 +28,7 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.CustomerBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCustomerBookStorage;
 import seedu.address.storage.JsonOrderBookStorage;
 import seedu.address.storage.JsonPhoneBookStorage;
@@ -71,12 +69,11 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CustomerBookStorage customerBookStorage = new JsonCustomerBookStorage(userPrefs.getCustomerBookFilePath());
         PhoneBookStorage phoneBookStorage = new JsonPhoneBookStorage(userPrefs.getPhoneBookFilePath());
         ScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage(userPrefs.getScheduleBookFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
-        storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage, scheduleBookStorage,
+        storage = new StorageManager(customerBookStorage, phoneBookStorage, scheduleBookStorage,
                 orderBookStorage, userPrefsStorage);
 
         initLogging(config);

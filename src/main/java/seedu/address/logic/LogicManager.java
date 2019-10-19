@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,11 +13,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.statistic.Statistic;
@@ -64,11 +61,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
     public ReadOnlyDataBook<Order> getOrderBook() {
         return model.getOrderBook();
     }
@@ -76,11 +68,6 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyDataBook<Phone> getPhoneBook() {
         return model.getPhoneBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
     }
 
     @Override
@@ -100,11 +87,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Schedule> getFilteredScheduleList() {
         return model.getFilteredScheduleList(); }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }
 
     @Override
     public GuiSettings getGuiSettings() {

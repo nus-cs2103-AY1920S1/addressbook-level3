@@ -21,7 +21,6 @@ import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.addcommand.AddOrderCommand;
 import seedu.address.logic.commands.addcommand.AddPhoneCommand;
 import seedu.address.logic.commands.addcommand.AddScheduleCommand;
-import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCustomerCommand;
 import seedu.address.logic.commands.deletecommand.DeletePhoneCommand;
 import seedu.address.logic.commands.deletecommand.DeleteScheduleCommand;
@@ -29,8 +28,6 @@ import seedu.address.logic.commands.editcommand.EditCustomerCommand;
 import seedu.address.logic.commands.editcommand.EditOrderCommand;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand;
-import seedu.address.logic.commands.findcommand.FindCommand;
-import seedu.address.logic.commands.listcommand.ListCommand;
 
 import seedu.address.logic.commands.statisticcommand.StatsCommand;
 
@@ -38,7 +35,6 @@ import seedu.address.logic.parser.addcommandparser.AddCustomerCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddOrderCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddPhoneCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddScheduleCommandParser;
-import seedu.address.logic.parser.deletecommandparser.DeleteCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteCustomerCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeletePhoneCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteScheduleCommandParser;
@@ -75,12 +71,6 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        //case AddCommand.COMMAND_WORD:
-        //    return new AddCommandParser().parse(arguments);
-
-        //case EditCommand.COMMAND_WORD:
-        //    return new EditCommandParser().parse(arguments);
-
         case AddCustomerCommand.COMMAND_WORD:
             return new AddCustomerCommandParser().parse(arguments);
 
@@ -114,21 +104,11 @@ public class AddressBookParser {
         case DeleteScheduleCommand.COMMAND_WORD:
             return new DeleteScheduleCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
         case CancelOrderCommand.COMMAND_WORD:
             return new CancelOrderCommandParser().parse(arguments);
 
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

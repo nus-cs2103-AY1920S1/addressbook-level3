@@ -10,14 +10,11 @@ import static seedu.address.testutil.TypicalCustomers.FIONA;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import static seedu.address.testutil.TypicalOrders.ORDERTHREE;
 import static seedu.address.testutil.TypicalOrders.VIPORDER;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 import static seedu.address.testutil.TypicalPhones.IPHONEXR;
 import static seedu.address.testutil.TypicalSchedules.CBD_SCHEDULE;
 import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -41,7 +38,6 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
 
     @Test
@@ -52,14 +48,12 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,39 +67,6 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
-    }
-
-    @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
-    }
-
-    @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
-    }
-
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
     @Test
@@ -194,7 +155,6 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        //AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         DataBook<Customer> customerBook = new CustomerBookBuilder().withCustomer(DANIEL).withCustomer(FIONA).build();
         DataBook<Phone> phoneBook = new PhoneBookBuilder().withPhone(IPHONEONE).withPhone(IPHONEXR).build();
         DataBook<Order> orderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
@@ -246,10 +206,9 @@ public class ModelManagerTest {
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
 
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new
-                ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentUserPrefs)));
+//        // different userPrefs -> returns false
+//        UserPrefs differentUserPrefs = new UserPrefs();
+//        assertFalse(modelManager.equals(
+//        new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentUserPrefs)));
     }
 }
