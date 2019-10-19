@@ -76,16 +76,16 @@ public class Budget {
         final StringBuilder builder = new StringBuilder();
         builder.append("Applicable to all transactions");
 
-        if (month != null && year != null) {
-            builder.append(" in month of ")
-                    .append(getMonth())
-                    .append("/")
-                    .append(getYear());
-        }
-
         if (category != null) {
             builder.append(" under ")
                     .append(getCategory());
+        }
+
+        if (month != null && year != null) {
+            builder.append(" in ")
+                    .append(getMonth().wordString())
+                    .append(" ")
+                    .append(getYear());
         }
 
         builder.append(".");
