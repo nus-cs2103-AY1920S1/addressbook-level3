@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OV
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -28,9 +29,9 @@ public class FilterCommandTest {
     @Test
     public void equals() {
         TransactionContainsTagsPredicate firstPredicate =
-                new TransactionContainsTagsPredicate("first");
+                new TransactionContainsTagsPredicate(Collections.singletonList("first"));
         TransactionContainsTagsPredicate secondPredicate =
-                new TransactionContainsTagsPredicate("second");
+                new TransactionContainsTagsPredicate(Collections.singletonList("second"));
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
@@ -66,6 +67,6 @@ public class FilterCommandTest {
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
     private TransactionContainsTagsPredicate preparePredicate(String userInput) {
-        return new TransactionContainsTagsPredicate(userInput);
+        return new TransactionContainsTagsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
