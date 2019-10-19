@@ -268,8 +268,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return modulesInfo;
     }
 
+    /**
+     * Updates prerequisites of the active study plan, if it exists.
+     */
     public void updatePrereqs() {
-        this.activeStudyPlan.updatePrereqs();
+        if (this.activeStudyPlan != null) {
+            this.activeStudyPlan.updatePrereqs();
+        }
     }
 
     public void changeActiveStudyPlanTitle(String title) {
