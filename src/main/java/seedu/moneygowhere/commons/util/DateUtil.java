@@ -58,6 +58,27 @@ public class DateUtil {
     }
 
     /**
+     * Parses a given date in natural language, processes it and returns a formatted date.
+     *
+     * @param date Input date
+     * @return List of formatted dates
+     */
+    public static List<Date> parseDates(String date) {
+        requireNonNull(date);
+
+        // Normalises this date input.
+        String normalisedDate = normaliseDate(date);
+
+        List<DateGroup> dateGroups = PARSER.parse(normalisedDate);
+
+        if (dateGroups.isEmpty()) {
+            return null;
+        }
+
+        return dateGroups.get(0).getDates();
+    }
+
+    /**
      * Checks if an input date is valid.
      *
      * @param date Input date
@@ -113,7 +134,11 @@ public class DateUtil {
                     }
                 }
 
-                builder = new StringBuilder(String.format("%d/%d/%d", year, month, day));
+                if (builder.length() > 0) {
+                    builder.append(" ");
+                }
+
+                builder.append(String.format("%d/%d/%d", year, month, day));
             } else {
                 if (tokens.length == 1) {
                     builder.append(token);

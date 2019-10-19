@@ -2,11 +2,14 @@ package seedu.moneygowhere.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,5 +54,26 @@ class DateUtilTest {
         assertEquals("Wed 25/12/2019", DateUtil.prettyFormatDate("25/12/2019"));
         assertEquals("", DateUtil.prettyFormatDate(" "));
 
+    }
+
+    @Test
+    public void parseDates_validDates() {
+        Calendar c = Calendar.getInstance();
+        c.set(2019, Calendar.OCTOBER, 12, 0, 0, 0);
+        Date date1 = c.getTime();
+        c.set(2019, Calendar.OCTOBER, 13, 0, 0, 0);
+        Date date2 = c.getTime();
+
+        List<Date> dates = DateUtil.parseDates("12/10 - 13/10");
+        assertNotNull(dates);
+        assertEquals(2, dates.size());
+        assertEquals(DateUtil.formatDate(date1), DateUtil.formatDate(dates.get(0)));
+        assertEquals(DateUtil.formatDate(date2), DateUtil.formatDate(dates.get(1)));
+    }
+
+    @Test
+    public void parseDates_invalidDates() {
+        List<Date> dates = DateUtil.parseDates("no");
+        assertNull(dates);
     }
 }
