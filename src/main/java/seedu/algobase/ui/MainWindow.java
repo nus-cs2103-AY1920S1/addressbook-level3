@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private DisplayTabPane displayTabPane;
+    private DetailPane detailPane;
     private ProblemListPanel problemListPanel;
     private PlanListPanel planListPanel;
     private TaskListPanel taskListPanel;
@@ -112,19 +113,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
-        planListPanel = new PlanListPanel(logic.getProcessedPlanList());
-        taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
-        DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
-        DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
-        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName(), planListPanel);
-        DisplayTab taskListPanelTab = new DisplayTab(ModelEnum.TASK.getTabName(), taskListPanel);
-
-        displayTabPane =
-            new DisplayTabPane(
-                logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab);
+        displayTabPane = getDisplayTabPane();
+        detailPane = new DetailPane();
 
         layoutPanePlaceholder.getItems().add(displayTabPane.getRoot());
+        layoutPanePlaceholder.getItems().add(detailPane.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -134,6 +127,18 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private DisplayTabPane getDisplayTabPane() {
+        problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
+        planListPanel = new PlanListPanel(logic.getProcessedPlanList());
+        taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
+        DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
+        DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
+        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName(), planListPanel);
+        DisplayTab taskListPanelTab = new DisplayTab(ModelEnum.TASK.getTabName(), taskListPanel);
+        return new DisplayTabPane(
+            logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab);
     }
 
     /**
