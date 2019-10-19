@@ -49,7 +49,7 @@ public class Goal implements ListableField {
      */
     @Override
     public String toString() {
-        return '[' + goal + ']';
+        return goal;
     }
 
 }

@@ -49,7 +49,7 @@ public class ProfileDesc {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + profileDesc + ']';
+        return profileDesc;
     }
 
 }

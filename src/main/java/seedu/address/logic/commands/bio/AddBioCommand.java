@@ -55,10 +55,11 @@ public class AddBioCommand extends Command {
             + PREFIX_OTHER_BIO_INFO + "Dislikes potatoes";
 
     public static final String MESSAGE_SUCCESS = "User biography added: %1$s";
-    public static final String MESSAGE_BIO_ALREADY_EXISTS = "There is already an existing biography. Try using \'"
-            + ClearBioCommand.COMMAND_WORD + "\' , \'"
-            + EditBioCommand.COMMAND_WORD + "\' or"
-            + " the bio command to clear, edit or view existing biography respectively instead";
+    public static final String MESSAGE_BIO_ALREADY_EXISTS = "Oops! There is already an existing biography. "
+            + "Try using the ["
+            + ClearBioCommand.COMMAND_WORD + "] , ["
+            + EditBioCommand.COMMAND_WORD + "]' or the ["
+            + BioCommand.COMMAND_WORD + "]  command to clear, edit or view existing biography respectively instead";
 
     private final User toAdd;
 
@@ -93,4 +94,10 @@ public class AddBioCommand extends Command {
     public DisplayPaneType getDisplayPaneType() {
         return DisplayPaneType.BIO;
     }
+
+    @Override
+    public boolean getNewPaneToBeCreated() {
+        return true;
+    }
+
 }

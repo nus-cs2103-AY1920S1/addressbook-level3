@@ -70,9 +70,9 @@ public class EditBioCommand extends Command {
 
     public static final String MESSAGE_EDIT_USER_SUCCESS = "Edited User: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_BIOGRAPHY_DOES_NOT_EXIST = "Biography does not exist!"
-            + "Use the " + AddBioCommand.COMMAND_WORD + " command to add a new biography.";
-    public static final String MESSAGE_DUPLICATE_USER = "This user already exists in the address book.";
+    public static final String MESSAGE_BIOGRAPHY_DOES_NOT_EXIST = "Oops! Biography does not exist!"
+            + " Try using the [" + AddBioCommand.COMMAND_WORD + "] command to add a new biography.";
+    public static final String MESSAGE_DUPLICATE_USER = "his user already exists in the address book.";
 
     private final EditUserDescriptor editUserDescriptor;
 
@@ -529,4 +529,8 @@ public class EditBioCommand extends Command {
         return DisplayPaneType.BIO;
     }
 
+    @Override
+    public boolean getNewPaneToBeCreated() {
+        return true;
+    }
 }

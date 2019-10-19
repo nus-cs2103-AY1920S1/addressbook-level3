@@ -98,8 +98,10 @@ public class AddressBookParser {
 
         case RecmFoodCommand.COMMAND_WORD:
             return new RecmFoodCommandParser().parse(arguments);
+
         case AddFoodCommand.COMMAND_WORD:
             return new AddFoodCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

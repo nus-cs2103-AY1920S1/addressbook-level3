@@ -55,7 +55,7 @@ public class MedicalCondition implements ListableField {
      */
     @Override
     public String toString() {
-        return '[' + medicalCondition + ']';
+        return medicalCondition;
     }
 
 }

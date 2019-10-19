@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
@@ -31,6 +32,12 @@ public interface Logic {
      * Returns the {@code DisplayPaneType} for updating the main pane based on different commands.
      */
     DisplayPaneType getDisplayPaneType();
+
+    /**
+     * Returns a boolean indicating whether a new pane is to be created, regardless of whether an existing one already
+     * exists.
+     */
+    boolean getNewPaneToBeCreated();
 
     /**
      * Returns the AddressBook.
@@ -84,5 +91,11 @@ public interface Logic {
      * @see seedu.address.model.Model#getUserList()
      */
     ReadOnlyUserList getUserList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of users
+     */
+    ObservableList<User> getFilteredUserList();
+    
 
 }

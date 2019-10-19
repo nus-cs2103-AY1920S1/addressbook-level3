@@ -49,7 +49,7 @@ public class OtherBioInfo {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + otherInfo + ']';
+        return otherInfo;
     }
 
 }

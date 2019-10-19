@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
@@ -31,6 +32,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private DisplayPaneType displayPaneType;
+    private boolean newPaneToBeCreated;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -45,6 +47,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
+        newPaneToBeCreated = command.getNewPaneToBeCreated();
         commandResult = command.execute(model);
 
         try {
@@ -60,6 +63,11 @@ public class LogicManager implements Logic {
     @Override
     public DisplayPaneType getDisplayPaneType() {
         return displayPaneType;
+    }
+
+    @Override
+    public boolean getNewPaneToBeCreated() {
+        return newPaneToBeCreated;
     }
 
     @Override
@@ -107,6 +115,11 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyUserList getUserList() {
         return model.getUserList();
+    }
+
+    @Override
+    public ObservableList<User> getFilteredUserList() {
+        return model.getFilteredUserList();
     }
 
 }

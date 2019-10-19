@@ -28,4 +28,9 @@ public class ClearBioCommand extends Command {
     public DisplayPaneType getDisplayPaneType() {
         return DisplayPaneType.BIO;
     }
+
+    @Override
+    public boolean getNewPaneToBeCreated() {
+        return true;
+    }
 }

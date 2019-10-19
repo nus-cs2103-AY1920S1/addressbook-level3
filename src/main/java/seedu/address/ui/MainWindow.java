@@ -164,12 +164,12 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the main display pane to the specified UI part.
      */
-    public void switchToMainDisplayPane(DisplayPaneType displayPaneType) {
-        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType())) {
+    public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneToBeCreated) {
+        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneToBeCreated == true) {
             mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(displayPaneType).getRoot()));
+                .add(requireNonNull(mainDisplayPane.get(displayPaneType, newPaneToBeCreated).getRoot()));
         }
     }
 
@@ -212,6 +212,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+                return commandResult;
             }
 
             if (commandResult.isExit()) {
@@ -219,7 +220,11 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             }
 
-            switchToMainDisplayPane(logic.getDisplayPaneType());
+            try {
+                switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneToBeCreated());
+            } catch (NullPointerException e) {
+                return new CommandResult("Unable to load window");
+            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {
