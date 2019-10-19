@@ -3,6 +3,7 @@ package seedu.address.itinerary.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -31,7 +32,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private Scene itineraryScene;
 
     @FXML
-    private VBox itineraryPane;
+    private BorderPane itineraryPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;

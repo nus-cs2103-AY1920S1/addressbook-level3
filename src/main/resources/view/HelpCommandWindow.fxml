@@ -61,8 +61,8 @@
                                           <children>
                                              <ToolBar prefHeight="40.0" prefWidth="395.0">
                                                 <items>
-                                                   <Label text="greet: Always good to greet your itinerary page daily" />
-                                                   <Region prefHeight="20.0" prefWidth="97.0" />
+                                                   <Label text="greet: Take a look at what events you have today!" />
+                                                   <Region prefHeight="20.0" prefWidth="114.0" />
                                                    <Button fx:id="greetCommand" mnemonicParsing="false" onAction="#copyGreet" text="Copy" />
                                                 </items>
                                              </ToolBar>

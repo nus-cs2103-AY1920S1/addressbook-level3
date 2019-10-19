@@ -1,8 +1,5 @@
 package seedu.address.financialtracker.model.expense;
 
-/**
- * Encapsulates amount, description and country fields into building parts of an expense.
- */
 public class Expense {
 
     private Amount amount;

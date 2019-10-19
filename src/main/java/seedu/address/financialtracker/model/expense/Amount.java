@@ -3,7 +3,7 @@ package seedu.address.financialtracker.model.expense;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A financial expense amount.
+ * A finance expense.
  */
 public class Amount {
 
@@ -22,13 +22,6 @@ public class Amount {
      */
     public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Amount // instanceof handles nulls
-                && value.equals(((Amount) other).value)); // state check
     }
 
     @Override

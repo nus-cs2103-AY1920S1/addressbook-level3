@@ -3,6 +3,7 @@ package seedu.address.itinerary.model;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.itinerary.model.Event.Event;
+import seedu.address.itinerary.model.Exceptions.ItineraryException;
 
 import java.util.function.Predicate;
 
@@ -10,8 +11,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Model {
-    /** {@code Predicate} that always evaluate to true */
-    public Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+
 
     private Itinerary itinerary;
     private final FilteredList<Event> filteredEvents;
@@ -45,5 +45,16 @@ public class Model {
         requireAllNonNull(target, doneEvent);
 
         itinerary.doneEvent(target, doneEvent);
+    }
+
+    public boolean hasEvent(Event editedEvent) {
+        requireNonNull(editedEvent);
+        return itinerary.hasEvent(editedEvent);
+    }
+
+    public void setEvent(Event eventToEdit, Event editedEvent) throws ItineraryException {
+        requireAllNonNull(eventToEdit, editedEvent);
+
+        itinerary.setEvent(eventToEdit, editedEvent);
     }
 }
