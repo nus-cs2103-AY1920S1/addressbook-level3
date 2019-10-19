@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.Region;
+import seedu.address.logic.CommandBoxManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -21,6 +22,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private CommandBoxManager commandBoxManager;
 
     @FXML
     private TextField commandTextField;
@@ -34,9 +36,10 @@ public class CommandBox extends UiPart<Region> {
     private Menu temp;
     //private ObservableList<String> list = FXCollections.observableArrayList("app", "game", "load");
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, CommandBoxManager commandBoxManager) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.commandBoxManager = commandBoxManager;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         //String[] prompts = {"load", "home", "start"};

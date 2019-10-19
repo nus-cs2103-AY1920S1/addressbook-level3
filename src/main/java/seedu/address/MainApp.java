@@ -14,6 +14,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.gamemanager.GameManager;
+import seedu.address.logic.CommandBoxManager;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
@@ -55,6 +56,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected GameManager gameManager;
+    protected CommandBoxManager commandBoxManager;
 
     /*
     Step 1.
@@ -100,12 +102,14 @@ public class MainApp extends Application {
          */
         gameManager = new GameManager(logic);
 
+        commandBoxManager = new CommandBoxManager();
+
         /*
         Step 10
         Initialize UIManager using GameManager
          */
 
-        ui = new UiManager(gameManager);
+        ui = new UiManager(gameManager, commandBoxManager);
     }
 
     /**
