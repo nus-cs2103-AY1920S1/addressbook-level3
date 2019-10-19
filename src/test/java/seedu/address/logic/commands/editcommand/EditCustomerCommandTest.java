@@ -1,22 +1,19 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.editcommand;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BEN;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACTNUMBER_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_REGULAR;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCustomerAtIndex;
 import static seedu.address.testutil.TypicalCustomers.getTypicalCustomerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 import static seedu.address.testutil.TypicalPhones.getTypicalPhoneBook;
 import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
@@ -25,18 +22,15 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.editcommand.EditCustomerCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.CustomerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.CustomerBuilder;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -67,11 +61,11 @@ public class EditCustomerCommandTest {
         Customer lastCustomer = model.getFilteredCustomerList().get(indexLastCustomer.getZeroBased());
 
         CustomerBuilder customerInList = new CustomerBuilder(lastCustomer);
-        Customer editedCustomer = customerInList.withName(VALID_NAME_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Customer editedCustomer = customerInList.withName(VALID_NAME_BEN).withContactNumber(VALID_CONTACTNUMBER_BEN)
+                .withTags(VALID_TAG_REGULAR).build();
 
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withCustomerName(VALID_NAME_BOB)
-                .withContactNumber(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withCustomerName(VALID_NAME_BEN)
+                .withContactNumber(VALID_CONTACTNUMBER_BEN).withTags(VALID_TAG_REGULAR).build();
         EditCustomerCommand editCommand = new EditCustomerCommand(indexLastCustomer, descriptor);
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
@@ -138,7 +132,8 @@ public class EditCustomerCommandTest {
     @Test
     public void execute_invalidCustomerIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCustomerList().size() + 1);
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withCustomerName(VALID_NAME_BOB).build();
+        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder()
+                .withCustomerName(VALID_NAME_BOB).build();
         EditCustomerCommand editCommand = new EditCustomerCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
@@ -167,7 +162,7 @@ public class EditCustomerCommandTest {
 
         // same values -> returns true
         EditCustomerDescriptor copyDescriptor = new EditCustomerDescriptor(DESC_ALICE);
-        EditCustomerCommand commandWithSameValues = new EditCustomerCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditCustomerCommand commandWithSameValues = new EditCustomerCommand(INDEX_FIRST_CUSTOMER, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true

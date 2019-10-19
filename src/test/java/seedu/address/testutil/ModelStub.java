@@ -2,7 +2,9 @@ package seedu.address.testutil;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;

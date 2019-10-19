@@ -16,8 +16,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.PhoneBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.phone.Phone;
-import seedu.address.testutil.PhoneBuilder;
 import seedu.address.testutil.ModelStub;
+import seedu.address.testutil.PhoneBuilder;
 
 public class AddPhoneCommandTest {
 
@@ -44,7 +44,7 @@ public class AddPhoneCommandTest {
         ModelStub modelStub = new ModelStubWithPhone(validPhone);
 
         assertThrows(CommandException.class, AddPhoneCommand.MESSAGE_DUPLICATE_PHONE, ()
-                -> addPhoneCommand.execute(modelStub));
+            -> addPhoneCommand.execute(modelStub));
     }
 
     @Test

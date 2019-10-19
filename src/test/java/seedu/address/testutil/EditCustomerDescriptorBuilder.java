@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.CustomerName;
-import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.ContactNumber;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.CustomerName;
+import seedu.address.model.customer.Email;
 import seedu.address.model.tag.Tag;
 
 /**
