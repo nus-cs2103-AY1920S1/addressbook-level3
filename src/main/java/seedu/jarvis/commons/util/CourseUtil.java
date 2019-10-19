@@ -32,8 +32,8 @@ import seedu.jarvis.model.course.Title;
  * Finds and reads Json files located in resources/modinfo.
  */
 public class CourseUtil {
-    /** The length of "LL5009GRSII" */
-    private static final int LONGEST_STRING_LEN = 11;
+    public static final String MESSAGE_COURSE_NOT_FOUND =
+        "These course(s) could not be found: %1$s";
 
     /**
      * Regex that removes all whitespace not found within quotes.
@@ -42,9 +42,6 @@ public class CourseUtil {
     private static final String REMOVE_WHITESPACE_REGEX = "\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
 
     private static final String COURSE_FOLDER = "modinfo";
-
-    public static final String MESSAGE_COURSE_NOT_FOUND =
-            "These course(s) could not be found: %1$s";
 
     /**
      * Removes all spaces in a given {@code String} that are not within quotes.
@@ -184,7 +181,6 @@ public class CourseUtil {
         } catch (CourseNotFoundException e) {
             return Optional.empty();
         }
-
         Map<String, Consumer<String>> mapper = Map.of(
             "courseCode", (prop) -> courseCode.set(new CourseCode(prop)),
             "title", (prop) -> title.set(new Title(prop)),
@@ -197,7 +193,10 @@ public class CourseUtil {
         );
 
         courseInformation.forEach((k, v) -> {
-            mapper.get(k).accept(v);
+            Consumer<String> setter = mapper.get(k);
+            if (setter != null) {
+                setter.accept(v);
+            }
         });
 
         return Optional.of(new Course(
@@ -216,10 +215,4 @@ public class CourseUtil {
         return getCourse(courseCode).isPresent();
     }
 
-    /**
-     * Add quotes to start and end of {@code String} to avoid json parsing error.
-     */
-    public static String addQuotes(String s) {
-        return (s.length() <= CourseUtil.LONGEST_STRING_LEN) ? "\"" + s + "\"" : s;
-    }
 }
