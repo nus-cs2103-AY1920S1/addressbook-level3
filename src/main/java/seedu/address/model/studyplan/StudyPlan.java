@@ -128,6 +128,21 @@ public class StudyPlan implements Cloneable {
         isActivated = activated;
     }
 
+    // for testing
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    // for testing
+    public void setModules(HashMap<String, Module> modules) {
+        this.modules = modules;
+    }
+
+    // for testing
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+
     public boolean isActivated() {
         return isActivated;
     }
