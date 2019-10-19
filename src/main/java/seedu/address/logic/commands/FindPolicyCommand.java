@@ -15,9 +15,9 @@ public class FindPolicyCommand extends Command {
     public static final String COMMAND_WORD = "findpolicy";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all policies whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " life accident";
+        + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+        + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+        + "Example: " + COMMAND_WORD + " life accident";
 
     private final PolicyNameContainsKeywordsPredicate predicate;
 
@@ -30,17 +30,18 @@ public class FindPolicyCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPolicyList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_POLICIES_LISTED_OVERVIEW, model.getFilteredPolicyList().size()),
-                false,
-                false,
-                true,
-                false);
+            String.format(Messages.MESSAGE_POLICIES_LISTED_OVERVIEW, model.getFilteredPolicyList().size()),
+            false,
+            false,
+            true,
+            false,
+            false);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindPolicyCommand // instanceof handles nulls
-                && predicate.equals(((FindPolicyCommand) other).predicate)); // state check
+            || (other instanceof FindPolicyCommand // instanceof handles nulls
+            && predicate.equals(((FindPolicyCommand) other).predicate)); // state check
     }
 }

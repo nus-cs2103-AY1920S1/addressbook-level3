@@ -197,6 +197,10 @@ public class MainWindow extends UiPart<Stage> {
                 personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             }
 
+            if (commandResult.isReport()) {
+
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

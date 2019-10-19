@@ -23,6 +23,9 @@ public class CommandResult {
     /** Application should display list of people */
     private boolean listPeople;
 
+    /** Application should display report */
+    private boolean report;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -30,12 +33,14 @@ public class CommandResult {
                          boolean showHelp,
                          boolean exit,
                          boolean listPolicy,
-                         boolean listPeople) {
+                         boolean listPeople,
+                         boolean report) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.listPolicy = listPolicy;
         this.listPeople = listPeople;
+        this.report = report;
     }
 
     /**
@@ -43,7 +48,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -66,6 +71,10 @@ public class CommandResult {
         return listPeople;
     }
 
+    public boolean isReport() {
+        return report;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -82,12 +91,13 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && listPolicy == otherCommandResult.listPolicy
-                && listPeople == otherCommandResult.listPeople;
+                && listPeople == otherCommandResult.listPeople
+                && report == otherCommandResult.report;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople);
+        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople, report);
     }
 
 }
