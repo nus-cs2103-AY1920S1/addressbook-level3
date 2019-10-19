@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private TransactionListPanel transactionListPanel;
+    private RepeaterListPanel repeaterListPanel;
     private BudgetListPanel budgetListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -72,6 +73,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane transactionListPanelPlaceholder;
+
+    @FXML
+    private StackPane repeaterListPanelPlaceholder;
 
     @FXML
     private StackPane budgetListPanelPlaceholder;
@@ -157,6 +161,9 @@ public class MainWindow extends UiPart<Stage> {
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList(),
                 logic.getTransactionContextProperty());
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+
+        repeaterListPanel = new RepeaterListPanel(logic.getFilteredRepeaterList());
+        repeaterListPanelPlaceholder.getChildren().add(repeaterListPanel.getRoot());
 
         budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
         budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
@@ -257,6 +264,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public TransactionListPanel getTransactionListPanel() {
         return transactionListPanel;
+    }
+
+    public RepeaterListPanel getRepeaterListPanel() {
+        return repeaterListPanel;
     }
 
     public BudgetListPanel getBudgetListPanel() {

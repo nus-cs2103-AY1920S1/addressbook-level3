@@ -56,6 +56,10 @@ public class Repeater {
         return this.transactionType;
     }
 
+    public boolean isExpenditure() {
+        return transactionType.isExpenditure();
+    }
+
     public MonthOffset getMonthStartOffset() {
         return this.monthStartOffset;
     }
