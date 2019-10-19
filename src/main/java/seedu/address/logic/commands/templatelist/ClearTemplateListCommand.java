@@ -23,6 +23,6 @@ public class ClearTemplateListCommand extends Command {
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
         commandResult.setTemplateListCommand();
 
-      return commandResult;
+        return commandResult;
     }
 }

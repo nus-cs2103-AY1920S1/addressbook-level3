@@ -19,7 +19,7 @@ public class CommandResult {
 
     private boolean isTemplateListItemCommand;
     private boolean isTemplateListCommand;
-    private boolean isWastelistCommand;
+    private boolean isWasteListCommand;
     private boolean isShoppingListCommand;
 
     /**

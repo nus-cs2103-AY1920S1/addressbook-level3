@@ -279,12 +279,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void displayWasteListPanel() {
-        wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
-        wasteListPanelPlaceholder.getChildren().add(wasteListPanel.getRoot());
-        logger.info("Showing waste list panel.");
-    }
-
     /**
      * Resets the templateListPanel to show the templateItemPanel whenever a templateItem command is executed
      */
