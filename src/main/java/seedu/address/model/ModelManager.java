@@ -21,6 +21,7 @@ import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
@@ -97,7 +98,10 @@ public class ModelManager implements Model {
                 this.participantList = new ParticipantList();
             } else {
                 this.participantList = storageParticipantList.get();
-                this.participantList.setLastUsedId(this.participantList.getSize() - 1);
+                int largestIdUsed = participantList.list().stream()
+                        .map(participant -> ((Entity) participant).getId().getNumber())
+                        .max(Integer::compare).get();
+                participantList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
             logger.warning("Initialising new ParticipantList. "
@@ -111,7 +115,10 @@ public class ModelManager implements Model {
                 this.mentorList = new MentorList();
             } else {
                 this.mentorList = storageMentorList.get();
-                this.mentorList.setLastUsedId(this.mentorList.getSize() - 1);
+                int largestIdUsed = mentorList.list().stream()
+                        .map(mentor -> ((Entity) mentor).getId().getNumber())
+                        .max(Integer::compare).get();
+                mentorList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
             logger.warning("Initialising new MentorList. "
@@ -125,7 +132,10 @@ public class ModelManager implements Model {
                 this.teamList = new TeamList();
             } else {
                 this.teamList = storageTeamList.get();
-                this.teamList.setLastUsedId(this.teamList.getSize() - 1);
+                int largestIdUsed = teamList.list().stream()
+                        .map(team -> ((Entity) team).getId().getNumber())
+                        .max(Integer::compare).get();
+                teamList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
             logger.warning("Initialising new TeamList. "
