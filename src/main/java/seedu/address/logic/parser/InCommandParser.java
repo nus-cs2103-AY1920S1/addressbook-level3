@@ -20,7 +20,7 @@ import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Parses input arguments and creates a new InCommand object
+ * Parses input arguments and creates a new InCommand object.
  */
 public class InCommandParser implements Parser<InCommand> {
 

@@ -61,6 +61,12 @@ public class BankAccount implements ReadOnlyBankAccount {
         return transactions.contains(transaction);
     }
 
+    public void setBudget(Budget budget) {
+        requireNonNull(budget);
+
+        this.budget = budget;
+    }
+
     @Override
     public ObservableList<Transaction> getTransactionHistory() {
         return transactions.asUnmodifiableObservableList();

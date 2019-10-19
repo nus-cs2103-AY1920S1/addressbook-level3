@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -76,6 +77,11 @@ public interface Model {
      * {@code transaction} must not already exist in the bank account.
      */
     void addTransaction(Transaction transaction);
+
+    /**
+     * Sets the given budget.
+     */
+    void setBudget(Budget amount);
 
     /** Returns an unmodifiable view of the filtered transaction list */
     ObservableList<Transaction> getFilteredTransactionList();

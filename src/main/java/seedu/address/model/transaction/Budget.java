@@ -41,7 +41,7 @@ public class Budget {
         return this.deadline;
     }
 
-    private boolean isValid() {
+    public boolean isValid() {
         return this.valid;
     }
 
