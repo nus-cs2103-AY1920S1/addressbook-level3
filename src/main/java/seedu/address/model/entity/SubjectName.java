@@ -1,7 +1,6 @@
 package seedu.address.model.entity;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Encapsulates possible topics for a Hackathon project.
@@ -12,22 +11,20 @@ public enum SubjectName {
     HEALTH("Health"),
     EDUCATION("Education");
 
-    private static final String SPECIAL_CHARACTERS = "-'";
-
     public static final String MESSAGE_CONSTRAINTS =
-            "SubjectName should adhere to the following constraints:\n"
-                    + "1. It should contain alphabets, spaces, and these special characters, excluding"
-                    + "the parentheses, (" + SPECIAL_CHARACTERS + "). \n"
-                    + "2.Contain at least one character";
+            "SubjectName should be one of the following:\n"
+            + "\t1. Environmental\n"
+            + "\t2. Social\n"
+            + "\t3. Health\n"
+            + "\t4. Education";
 
 
-    private static final String VALIDATION_REGEX = "^[" + SPECIAL_CHARACTERS + " a-zA-Z" + "]+$";
+    private static final String VALIDATION_REGEX = "^(?i)(Environmental|Social|Health|Education)(?-i)$";
 
     private final String subjectNameString;
 
     private SubjectName(String subjectNameString) {
         requireNonNull(subjectNameString);
-        checkArgument(isValidSubjectName(subjectNameString), MESSAGE_CONSTRAINTS);
         this.subjectNameString = subjectNameString;
     }
 

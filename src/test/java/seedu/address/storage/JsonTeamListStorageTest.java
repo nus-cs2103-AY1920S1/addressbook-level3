@@ -61,24 +61,47 @@ class JsonTeamListStorageTest {
         assertThrows(DataConversionException.class, () -> readTeamList("invalidAndValidTeamList.json"));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void readAndSaveTeamList_allInOrder_success() throws Exception {
+        saveAndCompareTeamList(TypicalTeams.getTypicalTeamList(),
+                               TypicalTeams.getTypicalTeams());
+    }
+
+    @Test
+    void readAndSaveTeamList_withOptionalMentor_success() throws Exception {
+        saveAndCompareTeamList(TypicalTeams.getTeamListWithOptionalMentor(),
+                               TypicalTeams.getTypicalTeamsWithOptionalMentor());
+    }
+
+    @Test
+    void readAndSaveTeamList_withEmptyParticipantList_success() throws Exception {
+        saveAndCompareTeamList(TypicalTeams.getTeamListWithEmptyParticipantList(),
+                               TypicalTeams.getTypicalTeamsWithEmptyParticipantList());
+    }
+
+    /**
+     * Abstracts away the details of saving a TeamList and testing it. Allows for easy execution of
+     * different test cases
+     * @param toSave TeamList that you wish to save to and read from Storage.
+     * @param toCompare List of type Team that you will compare the TeamList read from Storage to.
+     * @throws Exception
+     */
+    private void saveAndCompareTeamList(TeamList toSave, List<Team> toCompare) throws Exception {
         Path filePath = testFolder.resolve("TempTeamList.json");
-        TeamList original = TypicalTeams.getTypicalTeamList();
         JsonTeamListStorage tStorage = new JsonTeamListStorage(filePath);
 
         //Save and read participantList to and from JSON
-        tStorage.saveTeamList(original);
-        tStorage.saveTeamList(original, Paths.get("data" , "teamlist.json"));
+        tStorage.saveTeamList(toSave);
         Optional<TeamList> returnedList = tStorage.readTeamList();
 
         if (returnedList.isEmpty()) {
             fail("Team List read from storage is empty. Optional<TeamList> is empty.");
         } else {
             List<Team> returnedTeamList = returnedList.get().getSpecificTypedList();
-            assertEquals(returnedTeamList, TypicalTeams.getTypicalTeams());
+            assertEquals(returnedTeamList, toCompare);
         }
     }
+
 
     @Test
     public void saveTeamList_nullTeamList_throwsNullPointerException() {

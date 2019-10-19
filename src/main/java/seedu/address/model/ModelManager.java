@@ -91,19 +91,6 @@ public class ModelManager implements Model {
     public void initialize() {
         // Try loading the 3 lists into memory.
         try {
-            Optional<TeamList> storageTeamList = this.storage.readTeamList();
-            if (storageTeamList.isEmpty()) {
-                this.teamList = new TeamList();
-            } else {
-                this.teamList = storageTeamList.get();
-                this.teamList.setLastUsedId(this.teamList.getSize() - 1);
-            }
-        } catch (IOException | AlfredException e) {
-            logger.warning("TeamList is empty in storage. Writing a new one.");
-            this.teamList = new TeamList();
-        }
-
-        try {
             Optional<ParticipantList> storageParticipantList =
                     this.storage.readParticipantList();
             if (storageParticipantList.isEmpty()) {
@@ -112,8 +99,9 @@ public class ModelManager implements Model {
                 this.participantList = storageParticipantList.get();
                 this.participantList.setLastUsedId(this.participantList.getSize() - 1);
             }
-        } catch (IOException | AlfredException e) {
-            logger.warning("ParticipantList is empty in storage. Writing a new one.");
+        } catch (AlfredException e) {
+            logger.warning("Initialising new ParticipantList. "
+                           + "Problem encountered reading ParticipantList from storage: " + e.getMessage());
             this.participantList = new ParticipantList();
         }
 
@@ -125,9 +113,37 @@ public class ModelManager implements Model {
                 this.mentorList = storageMentorList.get();
                 this.mentorList.setLastUsedId(this.mentorList.getSize() - 1);
             }
-        } catch (IOException | AlfredException e) {
-            logger.warning("MentorList is empty in storage. Writing a new one.");
+        } catch (AlfredException e) {
+            logger.warning("Initialising new MentorList. "
+                           + "Problem encountered reading MentorList from storage: " + e.getMessage());
             this.mentorList = new MentorList();
+        }
+
+        try {
+            Optional<TeamList> storageTeamList = this.storage.readTeamList();
+            if (storageTeamList.isEmpty()) {
+                this.teamList = new TeamList();
+            } else {
+                this.teamList = storageTeamList.get();
+                this.teamList.setLastUsedId(this.teamList.getSize() - 1);
+            }
+        } catch (AlfredException e) {
+            logger.warning("Initialising new TeamList. "
+                           + "Problem encountered reading TeamList from storage: " + e.getMessage());
+            this.teamList = new TeamList();
+        }
+
+        //The following try-catch block is necessary to ensure that the teamList loaded is valid
+        //and the data has not been tampered with.
+        try {
+            for (Team t: this.teamList.getSpecificTypedList()) {
+                validateNewTeamObject(t);
+            }
+        } catch (ModelValidationException e) {
+            logger.severe("Team List is not valid. New EntityLists will be initialised.");
+            this.participantList = new ParticipantList();
+            this.mentorList = new MentorList();
+            this.teamList = new TeamList();
         }
 
         try {

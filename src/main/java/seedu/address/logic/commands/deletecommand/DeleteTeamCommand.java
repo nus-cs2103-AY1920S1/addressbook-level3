@@ -11,13 +11,13 @@ import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Team;
 
 /**
- * Deletes a {@link Team} in Alfred.
+ * Deletes a {@link Team} in Alfred and all the {@code Participant}s in it.
  */
 public class DeleteTeamCommand extends DeleteCommand {
 
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX = "The team ID provided is invalid or"
             + "does not exist.";
-    public static final String MESSAGE_DELETE_TEAM_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_TEAM_SUCCESS = "Deleted Team: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a team by ID shown in the list of teams.\n"
             + "Format: " + COMMAND_WORD + " ID\n"

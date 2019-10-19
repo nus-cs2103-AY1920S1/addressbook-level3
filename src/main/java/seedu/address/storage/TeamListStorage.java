@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.entitylist.TeamList;
 
@@ -23,12 +22,12 @@ public interface TeamListStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<TeamList> readTeamList() throws DataConversionException, IOException, AlfredException;
+    Optional<TeamList> readTeamList() throws DataConversionException;
 
     /**
      * @see #getTeamListFilePath()
      */
-    Optional<TeamList> readTeamList(Path filePath) throws DataConversionException, IOException, AlfredException;
+    Optional<TeamList> readTeamList(Path filePath) throws DataConversionException;
 
     /**
      * Saves the given {@link TeamList} to the storage.

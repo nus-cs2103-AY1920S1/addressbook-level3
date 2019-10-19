@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
@@ -33,7 +33,7 @@ public class JsonMentorListStorage implements MentorListStorage {
     }
 
     @Override
-    public Optional<MentorList> readMentorList() throws DataConversionException, AlfredException {
+    public Optional<MentorList> readMentorList() throws DataConversionException {
         return readMentorList(filePath);
     }
 
@@ -43,7 +43,7 @@ public class JsonMentorListStorage implements MentorListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<MentorList> readMentorList(Path filePath) throws DataConversionException, AlfredException {
+    public Optional<MentorList> readMentorList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableMentorList> jsonMentorList = JsonUtil.readJsonFile(
@@ -61,6 +61,9 @@ public class JsonMentorListStorage implements MentorListStorage {
         } catch (IllegalArgumentException iae) {
             logger.info("Illegal arguments found in " + filePath + ": " + iae.getMessage());
             throw new DataConversionException(iae);
+        } catch (AlfredModelException ame) {
+            logger.info("Problem encountered adding mentor to mentor list: " + ame.getMessage());
+            throw new DataConversionException(ame);
         }
     }
 

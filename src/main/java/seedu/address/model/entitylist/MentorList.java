@@ -83,7 +83,7 @@ public class MentorList extends EntityList {
      * @param mentor
      * @throws AlfredModelException
      */
-    public void add(Mentor mentor) throws AlfredException {
+    public void add(Mentor mentor) throws AlfredModelException {
         for (Mentor m : this.mentors) {
             if (m.isSameMentor(mentor) || m.getId().equals(mentor.getId())) {
                 throw new AlfredModelException("Item to add already exists!");

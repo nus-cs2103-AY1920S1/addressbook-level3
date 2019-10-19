@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -366,17 +365,17 @@ public class Team extends Entity {
             pListCopy.add(p.copy());
         }
 
-        Mentor copiedMentor = null;
-        try {
-            copiedMentor = this.mentor.get().copy();
-        } catch (NoSuchElementException e) {
-            copiedMentor = null;
+        Optional<Mentor> copiedMentor = null;
+        if (this.mentor.isEmpty()) {
+            copiedMentor = Optional.empty();
+        } else {
+            copiedMentor = Optional.of(this.mentor.get().copy());
         }
 
         Team copy = new Team(this.id.copy(),
                              this.name.copy(),
                              pListCopy,
-                             Optional.of(copiedMentor),
+                             copiedMentor,
                              this.subject,
                              this.score.copy(),
                              this.projectName.copy(),

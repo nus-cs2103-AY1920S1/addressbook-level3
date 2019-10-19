@@ -50,13 +50,39 @@ class JsonAdaptedMentor {
      * Converts a given {@code Mentor} into this class for Jackson use.
      */
     public JsonAdaptedMentor(Mentor source) {
-        name = source.getName().toStorageValue();
-        phone = source.getPhone().toStorageValue();
-        email = source.getEmail().toStorageValue();
-        organization = source.getOrganization().toStorageValue();
-        subject = source.getSubject().toStorageValue();
-        prefixTypeStr = source.getId().getPrefix().name();
-        idNum = source.getId().getNumber();
+        if (source == null) {
+            //Handles the case for Optional<Mentor>
+            name = null;
+            phone = null;
+            email = null;
+            organization = null;
+            subject = null;
+            prefixTypeStr = null;
+            idNum = -1;
+        } else {
+            //Handles actual Mentor object
+            name = source.getName().toStorageValue();
+            phone = source.getPhone().toStorageValue();
+            email = source.getEmail().toStorageValue();
+            organization = source.getOrganization().toStorageValue();
+            subject = source.getSubject().toStorageValue();
+            prefixTypeStr = source.getId().getPrefix().name();
+            idNum = source.getId().getNumber();
+        }
+    }
+
+    /**
+     * Checks that the current object represents a Optional Mentor to be saved in Storage.
+     * @return boolean indicating whether the JsonAdaptedMentor object represents an Optional mentor.
+     */
+    private boolean isOptionalMentor() {
+        return name == null
+                && phone == null
+                && email == null
+                && organization == null
+                && subject == null
+                && prefixTypeStr == null
+                && idNum == -1;
     }
 
     /**
@@ -65,6 +91,11 @@ class JsonAdaptedMentor {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Mentor toModelType() throws IllegalValueException {
+        //Handles the case when the JsonAdaptedMentor object represents an Optional<Mentor>
+        if (isOptionalMentor()) {
+            return null;
+        }
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }

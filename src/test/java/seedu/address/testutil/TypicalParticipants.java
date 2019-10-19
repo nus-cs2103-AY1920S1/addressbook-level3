@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Name;
@@ -43,7 +43,7 @@ public class TypicalParticipants {
                                                         new Phone("933331231"));
 
     /**
-     * Gets the Typical Participants in the form of a List (Does not ParticipantList).
+     * Gets the Typical Participants in the form of a List.
      * @return List of Typical Participants
      */
     public static List<Participant> getTypicalParticipants() {
@@ -53,9 +53,9 @@ public class TypicalParticipants {
     /**
      * Gets the Typical Participants in the form of a ParticipantList.
      * @return ParticipantList containing Typical Participants
-     * @throws AlfredException
+     * @throws AlfredModelException
      */
-    public static ParticipantList getTypicalParticipantList() throws AlfredException {
+    public static ParticipantList getTypicalParticipantList() throws AlfredModelException {
         ParticipantList pList = new ParticipantList();
         for (Participant p: getTypicalParticipants()) {
             pList.add(p);

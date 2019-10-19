@@ -22,6 +22,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all entities";
     public static final String MESSAGE_NO_MENTOR = "There are currently no mentors in Alfred.";
     public static final String MESSAGE_NO_PARTICIPANT = "There are currently no participants in Alfred.";
+    public static final String MESSAGE_NO_PARTICIPANT_IN_TEAM = "There are currently no participants in this team.";
     public static final String MESSAGE_NO_TEAM = "There are currently no teams in Alfred.";
     public static final String MESSAGE_USAGE = "List command needs to of format \" " + COMMAND_WORD
             + " {entity name}\" for example "
@@ -86,7 +87,7 @@ public class ListCommand extends Command {
                             : team.getMentor().get().toString();
                     System.out.println(String.format("Team: %s (Mentor: %s)\nParticipants:", teamName, mentorName));
                     if (team.getParticipants().isEmpty()) {
-                        System.out.println("    " + MESSAGE_NO_PARTICIPANT);
+                        System.out.println("    " + MESSAGE_NO_PARTICIPANT_IN_TEAM);
                         return;
                     }
                     for (Participant p : team.getParticipants()) {
