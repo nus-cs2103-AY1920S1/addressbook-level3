@@ -8,7 +8,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -33,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private PolicyListPanel policyListPanel;
+    private DisplayPanel displayPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportPanel reportPanel;
@@ -49,10 +52,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane displayPlaceHolder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private GridPane resultHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -123,6 +132,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        resultHolder.prefHeightProperty().bind(((VBox) resultHolder.getParent()).heightProperty());
     }
 
     /**
@@ -208,6 +219,18 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isDisplay()) {
+            }
+
+            if (commandResult.isExpandPerson()) {
+                displayPanel = new DisplayPanel(commandResult.getPersonToExpand());
+                displayPlaceHolder.getChildren().removeAll();
+                displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+            }
+
+            if (commandResult.isExpandPolicy()) {
+                displayPanel = new DisplayPanel(commandResult.getPolicyToExpand());
+                displayPlaceHolder.getChildren().removeAll();
+                displayPlaceHolder.getChildren().add(displayPanel.getRoot());
             }
 
             return commandResult;

@@ -3,6 +3,12 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.scrollpane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background: derive(#1d1d1d, 20%);
+    background-color: #383838; /* Used in the default.html file */
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -355,7 +361,7 @@
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
-
+;
 #policies .label {
     -fx-text-fill: white;
     -fx-background-color: #edaf3b;
@@ -363,4 +369,21 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#criteria.label {
+    -fx-text-fill: white;
+    -fx-background-color: #edaf3b;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+
+#informationHolder .label {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
 }

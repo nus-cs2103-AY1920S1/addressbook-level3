@@ -22,6 +22,8 @@ import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExpandPersonCommand;
+import seedu.address.logic.commands.ExpandPolicyCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -57,7 +59,6 @@ public class AddressBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
 
-
     private boolean isMerging = false;
     private MergeCommand currentMergeCommand;
     private String mergeType;
@@ -77,7 +78,7 @@ public class AddressBookParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput     full user input string
      * @param isSystemInput whether the command was invoked by the user or the system
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
@@ -186,6 +187,12 @@ public class AddressBookParser {
             case DisplayCommand.COMMAND_WORD:
                 return new DisplayCommandParser().parse(arguments);
 
+            case ExpandPersonCommand.COMMAND_WORD:
+                return new ExpandPersonCommandParser().parse(arguments);
+
+            case ExpandPolicyCommand.COMMAND_WORD:
+                return new ExpandPolicyCommandParser().parse(arguments);
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
@@ -194,6 +201,7 @@ public class AddressBookParser {
 
     /**
      * Parses the merge commands into commands for execution.
+     *
      * @param userInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
@@ -206,14 +214,14 @@ public class AddressBookParser {
         case (MergeConfirmedCommand.DEFAULT_COMMAND_WORD):
             if (mergeType.equals(MERGE_PERSON)) {
                 MergePersonConfirmedCommand confirmCommand = new MergePersonConfirmedCommand(
-                        (MergePersonCommand) currentMergeCommand);
+                    (MergePersonCommand) currentMergeCommand);
                 if (confirmCommand.isLastMerge()) {
                     isMerging = false;
                 }
                 return confirmCommand;
             } else {
                 MergePolicyConfirmedCommand confirmCommand = new MergePolicyConfirmedCommand(
-                        (MergePolicyCommand) currentMergeCommand);
+                    (MergePolicyCommand) currentMergeCommand);
                 if (confirmCommand.isLastMerge()) {
                     isMerging = false;
                 }
@@ -223,14 +231,14 @@ public class AddressBookParser {
         case MergeRejectedCommand.COMMAND_WORD:
             if (mergeType.equals(MERGE_PERSON)) {
                 MergePersonRejectedCommand rejectCommand = new MergePersonRejectedCommand(
-                        (MergePersonCommand) currentMergeCommand);
+                    (MergePersonCommand) currentMergeCommand);
                 if (rejectCommand.isLastMerge()) {
                     isMerging = false;
                 }
                 return rejectCommand;
             } else {
                 MergePolicyRejectedCommand rejectCommand = new MergePolicyRejectedCommand(
-                        (MergePolicyCommand) currentMergeCommand);
+                    (MergePolicyCommand) currentMergeCommand);
                 if (rejectCommand.isLastMerge()) {
                     isMerging = false;
                 }
@@ -247,10 +255,10 @@ public class AddressBookParser {
         default:
             if (mergeType.equals(MERGE_PERSON)) {
                 throw new MergeParseException(String.format(MESSAGE_UNKNOWN_MERGE_COMMAND, (
-                        (MergePersonCommand) currentMergeCommand).getNextMergePrompt()));
+                    (MergePersonCommand) currentMergeCommand).getNextMergePrompt()));
             } else {
                 throw new MergeParseException(String.format(MESSAGE_UNKNOWN_MERGE_COMMAND, (
-                        (MergePolicyCommand) currentMergeCommand).getNextMergePrompt()));
+                    (MergePolicyCommand) currentMergeCommand).getNextMergePrompt()));
             }
         }
     }

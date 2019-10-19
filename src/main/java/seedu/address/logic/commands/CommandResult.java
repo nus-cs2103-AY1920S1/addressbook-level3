@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 import seedu.address.model.visual.DisplayIndicator;
 
 /**
@@ -34,6 +36,20 @@ public class CommandResult {
     private boolean listPeople;
 
     /**
+     * Application should expand the person on the right panel
+     */
+    private boolean expandPerson;
+
+    /**
+     * Application should expand the policy on the right panel
+     */
+    private boolean expandPolicy;
+
+    private Person personToExpand;
+
+    private Policy policyToExpand;
+
+    /**
      * Application should display report
      */
     private boolean report;
@@ -54,7 +70,9 @@ public class CommandResult {
                          boolean listPolicy,
                          boolean listPeople,
                          boolean report,
-                         boolean display) {
+                         boolean display,
+                         boolean expandPerson,
+                         boolean expandPolicy) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -62,6 +80,20 @@ public class CommandResult {
         this.listPeople = listPeople;
         this.report = report;
         this.display = display;
+        this.expandPerson = expandPerson;
+        this.expandPolicy = expandPolicy;
+    }
+
+    public CommandResult(String feedbackToUser, Person personToExpand) {
+        this(feedbackToUser, false, false, false, false, false,
+            false, true, false);
+        this.personToExpand = personToExpand;
+    }
+
+    public CommandResult(String feedbackToUser, Policy policyToExpand) {
+        this(feedbackToUser, false, false, false, false, false,
+            false, false, true);
+        this.policyToExpand = policyToExpand;
     }
 
     /**
@@ -69,12 +101,12 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false, false, false, false);
     }
 
     public CommandResult(String feedbackToUser, DisplayIndicator displayIndicator) {
         this(feedbackToUser, false, false, false, false, false,
-            true);
+            true, false, false);
         this.displayIndicator = displayIndicator;
     }
 
@@ -82,7 +114,9 @@ public class CommandResult {
         return feedbackToUser;
     }
 
-    public DisplayIndicator getDisplayIndicator() { return this.displayIndicator; }
+    public DisplayIndicator getDisplayIndicator() {
+        return displayIndicator;
+    }
 
     public boolean isShowHelp() {
         return showHelp;
@@ -108,6 +142,22 @@ public class CommandResult {
         return display;
     }
 
+    public boolean isExpandPerson() {
+        return expandPerson;
+    }
+
+    public boolean isExpandPolicy() {
+        return expandPolicy;
+    }
+
+    public Person getPersonToExpand() {
+        return personToExpand;
+    }
+
+    public Policy getPolicyToExpand() {
+        return policyToExpand;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -126,12 +176,14 @@ public class CommandResult {
             && listPolicy == otherCommandResult.listPolicy
             && listPeople == otherCommandResult.listPeople
             && report == otherCommandResult.report
-            && display == otherCommandResult.display;
+            && display == otherCommandResult.display
+            && expandPerson == otherCommandResult.expandPerson
+            && expandPolicy == otherCommandResult.expandPolicy;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople, report, display);
+        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople, report, display, expandPerson, expandPolicy);
     }
 
 }

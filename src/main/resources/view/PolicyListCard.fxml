@@ -29,12 +29,12 @@
                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
             </HBox>
             <FlowPane fx:id="tags" />
+            <FlowPane fx:id="criteria" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
             <Label fx:id="coverage" styleClass="cell_small_label" text="\$coverage" />
             <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
             <Label fx:id="startAge" styleClass="cell_small_label" text="\$startAge" />
             <Label fx:id="endAge" styleClass="cell_small_label" text="\$endAge" />
-            <FlowPane fx:id="policies" />
         </VBox>
         <rowConstraints>
             <RowConstraints />

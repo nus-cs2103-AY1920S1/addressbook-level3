@@ -37,6 +37,8 @@ public class FindCommand extends Command {
             false,
             true,
             false,
+            false,
+            false,
             false);
     }
 

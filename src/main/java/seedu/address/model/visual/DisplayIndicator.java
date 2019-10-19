@@ -8,7 +8,7 @@ import java.util.StringJoiner;
 
 /**
  * Represents an indicator for the display command
- * Guarantees: immutable; is valid as declared in {@link #isValidIndicator(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDisplayIndicator(String)}
  */
 public class DisplayIndicator {
 
