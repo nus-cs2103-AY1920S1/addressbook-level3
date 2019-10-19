@@ -1,10 +1,11 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.AchvmCommand.SHOWING_ACHVM_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.achvm.AchvmCommand.SHOWING_ACHVM_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.achvm.AchvmCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 

@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.bio.User;
+import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
@@ -25,25 +27,29 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private final FilteredList<User> filteredUserList;
     private final FilteredList<Person> filteredPersons;
     private final RecordBook recordBook;
     private final FilteredList<Record> filteredRecords;
     private final UniqueFoodList foodList;
+    private final UserList userList;
     private final FilteredList<Food> filteredFoodList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, UniqueFoodList foodList,
-                        RecordBook recordBook) {
+                        RecordBook recordBook, ReadOnlyUserList userList) {
         super();
-        requireAllNonNull(addressBook, userPrefs, foodList);
+        requireAllNonNull(addressBook, userPrefs, foodList, userList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
                 + " and food map: " + foodList);
 
         this.addressBook = new AddressBook(addressBook);
+        this.userList = new UserList(userList);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.filteredUserList = new FilteredList<>(this.userList.getUserList());
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.recordBook = recordBook;
         this.filteredRecords = new FilteredList<>(this.recordBook.getRecordList());
@@ -52,7 +58,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook());
+        this(new AddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook(), new UserList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -177,6 +183,69 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
+    //=========== User List =============================================================
+
+    @Override
+    public void setUserList(ReadOnlyUserList userList) {
+        this.userList.resetData(userList);
+    }
+
+    @Override
+    public boolean bioExists() {
+        return !this.userList.isEmpty();
+    }
+
+    @Override
+    public ReadOnlyUserList getUserList() {
+        return userList;
+    }
+
+    @Override
+    public Path getUserListFilePath() {
+        return userPrefs.getUserListFilePath();
+    }
+
+    @Override
+    public boolean hasUser(User user) {
+        requireNonNull(user);
+        return userList.hasUser(user);
+    }
+
+    @Override
+    public void addUser(User user) {
+        userList.addUser(user);
+        updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code User} backed by the internal list of {@code
+     * versionedAddressBook}
+     */
+    @Override
+    public ObservableList<User> getFilteredUserList() {
+        return filteredUserList;
+    }
+
+    @Override
+    public void updateFilteredUserList(Predicate<User> predicate) {
+        requireNonNull(predicate);
+        filteredUserList.setPredicate(predicate);
+    }
+
+    @Override
+    public void setUser(User target, User editedUser) {
+        requireAllNonNull(target, editedUser);
+
+        userList.setUser(target, editedUser);
+    }
+
+    @Override
+    public void setUserListFilePath(Path userListFilePath) {
+        requireNonNull(userListFilePath);
+        userPrefs.setUserListFilePath(userListFilePath);
+    }
+
 
     //=========== Food Map =============================================================
 

@@ -8,6 +8,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
@@ -32,6 +34,12 @@ public interface Logic {
     DisplayPaneType getDisplayPaneType();
 
     /**
+     * Returns a boolean indicating whether a new pane is to be created, regardless of whether an existing one already
+     * exists.
+     */
+    boolean getNewPaneToBeCreated();
+
+    /**
      * Returns the AddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
@@ -42,7 +50,6 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of persons
      */
     ObservableList<Person> getFilteredPersonList();
-
 
     /**
      * Returns the a list of foods.
@@ -70,4 +77,24 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    //=========== User List =============================================================
+
+    /**
+     * Returns the user prefs' address book file path.
+     */
+    Path getUserListFilePath();
+
+    /**
+     * Returns the UserList.
+     *
+     * @see seedu.address.model.Model#getUserList()
+     */
+    ReadOnlyUserList getUserList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of users
+     */
+    ObservableList<User> getFilteredUserList();
+
 }

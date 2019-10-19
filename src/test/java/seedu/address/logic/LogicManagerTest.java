@@ -25,6 +25,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonFoodListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.bio.JsonUserListStorage;
 import seedu.sgm.model.food.UniqueFoodList;
 
 public class LogicManagerTest {
@@ -41,6 +42,8 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
             new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        JsonUserListStorage userListStorage = new JsonUserListStorage(temporaryFolder.resolve("userList.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage);
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(temporaryFolder.resolve("foodList.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, jsonFoodListStorage);
         logic = new LogicManager(model, storage);
@@ -130,7 +133,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UniqueFoodList(),
-            new RecordBook());
+            new RecordBook(), model.getUserList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

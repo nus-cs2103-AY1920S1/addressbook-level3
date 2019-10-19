@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.bio.User;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
@@ -19,7 +20,7 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
+    Predicate<User> PREDICATE_SHOW_ALL_USERS = unused -> true;
     //TODO: check what this means
     Predicate<Record> PREDICATE_SHOW_ALL_RECORDS = unused -> true;
 
@@ -97,7 +98,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-
     /**
      * Replaces food list data with the data in {@code newFoodList}.
      */
@@ -147,4 +147,61 @@ public interface Model {
     boolean hasReminder(Reminder reminder);
 
     void addReminder(Reminder reminder);
+
+    //=========== User List =============================================================
+
+    /**
+     * Returns whether or not a user biography already exists.
+     * @return
+     */
+    public boolean bioExists();
+
+    /** Returns the UserList */
+    ReadOnlyUserList getUserList();
+
+    /**
+     * Returns the user prefs' user list file path.
+     */
+    Path getUserListFilePath();
+
+    /**
+     * Replaces user list data with the data in {@code userList}.
+     */
+    void setUserList(ReadOnlyUserList userList);
+
+    /**
+     * Sets the user prefs' user list file path.
+     */
+    void setUserListFilePath(Path userListFilePath);
+
+    /**
+     * Returns true if a user with the same identity as {@code user} exists in the address book.
+     */
+    boolean hasUser(User user);
+
+    /**
+     * Adds the given user. {@code user} must not already exist in the user list.
+     */
+    void addUser(User user);
+
+    /**
+     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the address
+     * book. The user identity of {@code editedUser} must not be the same as another existing user in the address
+     * book.
+     */
+    void setUser(User target, User editedUser);
+
+    /**
+     * Returns an unmodifiable view of the filtered user list
+     */
+    ObservableList<User> getFilteredUserList();
+
+    /**
+     * Updates the filter of the filtered user list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredUserList(Predicate<User> predicate);
+
+
 }
