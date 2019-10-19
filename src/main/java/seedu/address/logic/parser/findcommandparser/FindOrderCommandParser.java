@@ -43,7 +43,7 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
                         PREFIX_PRICE, PREFIX_STATUS, PREFIX_TAG);
 
         //dummy predicate
-        Predicate<Order> predicate = x -> true;
+        Predicate<Order> predicate = x -> false;
 
         if (!argMultimap.getValue(PREFIX_ORDERID).isPresent()
                 && !argMultimap.getValue(PREFIX_PHONE).isPresent()
@@ -74,36 +74,36 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
         if (argMultimap.getValue(PREFIX_ORDERID).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_ORDERID).get().split("\\s+");
 
-            predicate = predicate.and(new IdContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new IdContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_PHONE).get().split("\\s+");
 
-            predicate = predicate.and(new PhoneContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new PhoneContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_CUSTOMER).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_CUSTOMER).get().split("\\s+");
 
-            predicate = predicate.and(new CustomerContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new CustomerContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_PRICE).get().split("\\s+");
 
-            predicate = predicate.and(new PriceContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new PriceContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_STATUS).get().split("\\s+");
 
-            predicate = predicate.and(new StatusContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new StatusContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_TAG).get().split("\\s+");
-            predicate = predicate.and(new OrderTagContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new OrderTagContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         return new FindOrderCommand(predicate);

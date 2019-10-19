@@ -37,7 +37,7 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CONTACT, PREFIX_EMAIL, PREFIX_TAG);
 
         //dummy predicate
-        Predicate<Customer> predicate = x -> true;
+        Predicate<Customer> predicate = x -> false;
 
         if (!argMultimap.getValue(PREFIX_NAME).isPresent()
                 && !argMultimap.getValue(PREFIX_CONTACT).isPresent()
@@ -63,24 +63,24 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
 
-            predicate = predicate.and(new CustomerNameContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new CustomerNameContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_CONTACT).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_CONTACT).get().split("\\s+");
 
-            predicate = predicate.and(new ContactNumberContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new ContactNumberContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+");
 
-            predicate = predicate.and(new EmailContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new EmailContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             String[] keywords = argMultimap.getValue(PREFIX_TAG).get().split("\\s+");
-            predicate = predicate.and(new CustomerTagContainsKeywordsPredicate(Arrays.asList(keywords)));
+            predicate = predicate.or(new CustomerTagContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
         return new FindCustomerCommand(predicate);
