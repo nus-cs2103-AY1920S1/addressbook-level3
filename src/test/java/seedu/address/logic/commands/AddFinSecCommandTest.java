@@ -8,9 +8,10 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
-import javafx.collections.ObservableList;
 
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -42,7 +43,8 @@ public class AddFinSecCommandTest {
 //        modelStub.addAutocorrectSuggestion(addName);
 //        SuggestionsStorage.setSuggestionList(modelStub.getFilteredAutocorrectSuggestionList());
 //
-//        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
+//        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact),
+//                                                                          commandResult.getFeedbackToUser());
 //        assertEquals(Arrays.asList(validContact), modelStub.personsAdded);
 //    }
 
@@ -91,11 +93,13 @@ public class AddFinSecCommandTest {
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public GuiSettings getGuiSettings() {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -106,6 +110,7 @@ public class AddFinSecCommandTest {
 
         @Override
         public Path getFinSecFilePath() {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -116,26 +121,31 @@ public class AddFinSecCommandTest {
 
         @Override
         public void addContact(Contact contact) {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setFinSec(ReadOnlyFinSec newData) {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ReadOnlyFinSec getFinSec() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasContact(Contact contact) {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteContact(Contact target) {
+
             throw new AssertionError("This method should not be called.");
         }
 
