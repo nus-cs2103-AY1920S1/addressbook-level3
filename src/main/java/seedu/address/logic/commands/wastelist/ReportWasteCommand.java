@@ -24,7 +24,7 @@ public class ReportWasteCommand extends Command {
             + ": Provides you with a report of your past food waste.\n"
             + "Example: wlist " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "placeholder";
+    public static final String MESSAGE_SUCCESS = "Generated your food waste report from %1$s to %2$s.";
     // In v1.3, will incorporate start and end date.
 
     private WasteMonth startWasteMonth;
@@ -53,13 +53,14 @@ public class ReportWasteCommand extends Command {
         requireNonNull(earliestExistingWasteMonth);
         requireNonNull(latestExistingWasteMonth);
 
-        WasteMonth actualStartMonth = WasteMonth.later(this.startWasteMonth, earliestExistingWasteMonth);
-        WasteMonth actualEndMonth = WasteMonth
-                .earlier(this.endWasteMonth, latestExistingWasteMonth).addWasteMonth(1);
+        this.startWasteMonth = WasteMonth.later(this.startWasteMonth, earliestExistingWasteMonth);
+        this.endWasteMonth = WasteMonth
+                .earlier(this.endWasteMonth, latestExistingWasteMonth);
 
-        WasteMonth wasteMonth = actualStartMonth;
+        WasteMonth endingMonth = this.endWasteMonth.addWasteMonth(1);
+        WasteMonth wasteMonth = this.startWasteMonth;
         Map<WasteMonth, WasteStatistic> historicalData = new HashMap<>();
-        while (wasteMonth.isBefore(actualEndMonth)) {
+        while (wasteMonth.isBefore(endingMonth)) {
             WasteStatistic statistic;
             if (model.hasWasteMonth(wasteMonth)) {
                 statistic = model.getWasteListByMonth(wasteMonth).getWasteStatistic();
@@ -73,7 +74,8 @@ public class ReportWasteCommand extends Command {
         model.setWasteReport(wasteReport);
 
 
-        CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
+                this.startWasteMonth, this.endWasteMonth));
         commandResult.setWasteReportCommand();
 
         return commandResult;

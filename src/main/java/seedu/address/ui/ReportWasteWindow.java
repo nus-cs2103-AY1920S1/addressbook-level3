@@ -41,7 +41,7 @@ public class ReportWasteWindow {
     public static final String WEIGHT_UNIT = "Kilograms";
     public static final String VOLUME_TITLE = "Wastage in Litres";
     public static final String VOLUME_UNIT = "Litres";
-    public static final String QUANTITY_TITLE = "Quantity in Units";
+    public static final String QUANTITY_TITLE = "Wastage in Units";
     public static final String QUANTITY_UNIT = "Units";
 
     private WasteReport wasteReport;
@@ -116,7 +116,7 @@ public class ReportWasteWindow {
     private static JFreeChart createChart(XYDataset dataset, String title, String valueAxisLabel) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(title, null, valueAxisLabel, dataset);
-        String fontName = "Helvetica";
+        String fontName = "Roboto";
         chart.getTitle().setFont(new Font(fontName, Font.BOLD, 18));
         chart.addSubtitle(new TextTitle("For more details on reducing food waste, "
                 + "visit https://www.thinkeatsave.org/top-tips-on-reducing-food-waste/",
@@ -151,6 +151,7 @@ public class ReportWasteWindow {
             renderer.setSeriesPaint(5, new Color(0, 55, 122));
             renderer.setSeriesPaint(6, new Color(0, 92, 165));
         }
+        plot.setBackgroundPaint(new Color(202, 229, 230));
 
         return chart;
 
