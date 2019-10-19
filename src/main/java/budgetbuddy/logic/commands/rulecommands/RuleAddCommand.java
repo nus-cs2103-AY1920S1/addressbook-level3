@@ -1,11 +1,14 @@
-package budgetbuddy.logic.commands;
+package budgetbuddy.logic.commands.rulecommands;
 
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 import static java.util.Objects.requireNonNull;
 
+import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.rule.Rule;
 
 /**
@@ -24,6 +27,7 @@ public class RuleAddCommand extends Command {
             + PREFIX_ACTION + "add to budget daily";
 
     public static final String MESSAGE_SUCCESS = "New rule added: %1$s";
+    public static final String MESSAGE_DUPLICATE_RULE = "This rule already exists in budget buddy.";
 
     private final Rule rule;
 
@@ -38,7 +42,13 @@ public class RuleAddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        RuleManager ruleManager = model.getRuleManager();
 
-        return null;
+        if (ruleManager.hasRule(rule)) {
+            throw new CommandException(MESSAGE_DUPLICATE_RULE);
+        }
+
+        ruleManager.addRule(rule);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, rule));
     }
 }

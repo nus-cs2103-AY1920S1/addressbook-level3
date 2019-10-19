@@ -1,4 +1,4 @@
-package budgetbuddy.logic.parser.commandparsers;
+package budgetbuddy.logic.parser.commandparsers.rulecommandparsers;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACTION;
@@ -6,7 +6,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 
 import java.util.stream.Stream;
 
-import budgetbuddy.logic.commands.RuleAddCommand;
+import budgetbuddy.logic.commands.rulecommands.RuleAddCommand;
 import budgetbuddy.logic.parser.ArgumentMultimap;
 import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
@@ -43,7 +43,8 @@ public class RuleAddCommandParser implements CommandParser<RuleAddCommand> {
 
         RulePredicate predicate = CommandParserUtil.parsePredicate(argMultimap.getValue(PREFIX_PREDICATE).get(),
                 CommandParserUtil.TYPE_EXPRESSION);
-        RuleAction action = CommandParserUtil.parseAction(argMultimap.getValue(PREFIX_PREDICATE).get());
+        RuleAction action = CommandParserUtil.parseAction(argMultimap.getValue(PREFIX_ACTION).get(),
+                CommandParserUtil.TYPE_EXPRESSION);
 
         Rule rule = new Rule(predicate, action);
 

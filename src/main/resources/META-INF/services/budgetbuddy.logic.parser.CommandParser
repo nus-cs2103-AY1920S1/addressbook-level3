@@ -13,4 +13,4 @@ budgetbuddy.logic.parser.commandparsers.loancommandparsers.LoanEditCommandParser
 budgetbuddy.logic.parser.commandparsers.loancommandparsers.LoanPaidCommandParser
 budgetbuddy.logic.parser.commandparsers.loancommandparsers.LoanUnpaidCommandParser
 budgetbuddy.logic.parser.commandparsers.loancommandparsers.LoanDeleteCommandParser
-budgetbuddy.logic.parser.commandparsers.RuleAddCommandParser
+budgetbuddy.logic.parser.commandparsers.rulecommandparsers.RuleAddCommandParser
