@@ -3,20 +3,11 @@ package seedu.address.logic.commands.cli;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
-import java.util.Iterator;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.Module;
-import seedu.address.model.module.UniqueModuleList;
-import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
-import seedu.address.model.semester.UniqueSemesterList;
-import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.tag.DefaultTag;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Sets a semester as the current semester

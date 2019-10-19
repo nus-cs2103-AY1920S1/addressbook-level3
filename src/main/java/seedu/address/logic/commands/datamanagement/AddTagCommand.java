@@ -10,9 +10,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
-import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 
 /**
@@ -63,7 +61,7 @@ public class AddTagCommand extends Command {
             }
         }
 
-        boolean added = model.addTagToActiveSp((UserTag)toAdd, moduleCode);
+        boolean added = model.addTagToActiveSp((UserTag) toAdd, moduleCode);
 
         if (!added) {
             throw new CommandException(String.format(MESSAGE_EXISTING_TAG, moduleCode));

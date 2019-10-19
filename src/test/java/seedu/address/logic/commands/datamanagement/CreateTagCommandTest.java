@@ -14,6 +14,9 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 
 
@@ -155,6 +158,46 @@ public class CreateTagCommandTest {
 
         @Override
         public Semester getSemester(SemesterName semesterName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean addTagToActiveSp(UserTag tag, String moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean activeSpContainsTag(String tagName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTagFromActiveSp(UserTag toDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Tag getTagFromActiveSp(String tagName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAllCompletedTags() {
             throw new AssertionError("This method should not be called.");
         }
 

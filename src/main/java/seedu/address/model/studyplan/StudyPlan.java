@@ -202,6 +202,12 @@ public class StudyPlan implements Cloneable {
         return moduleTagList;
     }
 
+    /**
+     * Assigns a default core tag to the module.
+     * @param moduleInfo The module info of the current module.
+     * @param moduleTagList The list of tags for the current module.
+     * @param studyPlanTagList The list of tags for the current study plan.
+     */
     private void assignCoreTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList, UniqueTagList studyPlanTagList) {
         boolean isCore = moduleInfo.getIsCore();
         if (isCore) {
@@ -209,6 +215,12 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Assigns a default completed tag to the module.
+     * @param moduleInfo The module info of the current module.
+     * @param moduleTagList The list of tags for the current module.
+     * @param studyPlanTagList The list of tags for the current study plan.
+     */
     private void assignCompletedTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
             UniqueTagList studyPlanTagList) {
         for (Semester semester : semesters) {
@@ -224,6 +236,12 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Assigns a default S/U-able tag to the module.
+     * @param moduleInfo The module info of the current module.
+     * @param moduleTagList The list of tags for the current module.
+     * @param studyPlanTagList The list of tags for the current study plan.
+     */
     private void assignSuTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList, UniqueTagList studyPlanTagList) {
         boolean canSu = moduleInfo.getSuEligibility();
         if (canSu) {
@@ -231,6 +249,12 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Assigns all the default focus elective tags to the module.
+     * @param moduleInfo The module info of the current module.
+     * @param moduleTagList The list of tags for the current module.
+     * @param studyPlanTagList The list of tags for the current study plan.
+     */
     private void assignFocusElectiveTags(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
             UniqueTagList studyPlanTagList) {
         List<String> focusElectives = moduleInfo.getFocusElectives();
@@ -239,6 +263,12 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Assigns all the default focus primary tags to the module.
+     * @param moduleInfo The module info of the current module.
+     * @param moduleTagList The list of tags for the current module.
+     * @param studyPlanTagList The list of tags for the current study plan.
+     */
     private void assignFocusPrimaryTags(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
             UniqueTagList studyPlanTagList) {
         List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
@@ -247,6 +277,11 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Updates the completed tags in all the modules.
+     * Add completed tags to modules in semesters before the current semester and remove them from semesters
+     * after the current semester.
+     */
     public void updateAllCompletedTags() {
         for (Semester semester : semesters) {
             if (semester.getSemesterName().compareTo(currentSemester) < 0) {
@@ -257,6 +292,10 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Adds completed tags to all modules in the given semester.
+     * @param semester The semester where the modules are contained.
+     */
     private void addCompletedTags(Semester semester) {
         UniqueModuleList uniqueModuleList = semester.getModules();
         for (Module module: uniqueModuleList) {
@@ -269,6 +308,10 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Removes completed tags from all modules in the given semester.
+     * @param semester The semester where the modules are contained.
+     */
     private void removeCompletedTags(Semester semester) {
         UniqueModuleList uniqueModuleList = semester.getModules();
         for (Module module: uniqueModuleList) {
@@ -385,6 +428,12 @@ public class StudyPlan implements Cloneable {
         return clone;
     }
 
+    /**
+     * Adds the given {@code UserTag} to the module with the given module code in this study plan.
+     * @param tag The tag to be added.
+     * @param moduleCode The module code of the target module
+     * @return True if the tag was successfully added.
+     */
     public boolean addTag(UserTag tag, String moduleCode) {
         if (!tags.contains(tag)) {
             tags.addTag(tag);
@@ -393,14 +442,26 @@ public class StudyPlan implements Cloneable {
         return targetModule.addTag(tag);
     }
 
+    /**
+     * Checks if this study plan contains the given {@code UserTag}
+     * @param tagName The name of the tag to be checked.
+     * @return True if this study plan contains the tag.
+     */
     public boolean containsTag(String tagName) {
         return tags.containsTagWithName(tagName);
     }
 
+    /**
+     * Returns the tag in this study plan that corresponds to the given tag name.
+     */
     public Tag getTag(String tagName) {
         return tags.getTag(tagName);
     }
 
+    /**
+     * Deletes the given {@code UserTag} from this study plan.
+     * Also removes it from all modules in this study plan that has the tag.
+     */
     public void deleteTag(UserTag toDelete) {
         tags.remove(toDelete);
         Set<String> moduleCodes = modules.keySet();
@@ -410,6 +471,10 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Removes the given tag from all modules in this study plan that has the tag.
+     * The tag is not deleted from this study plan.
+     */
     public void removeTagFromAllModules(UserTag toRemove) {
         Set<String> moduleCodes = modules.keySet();
         for (String moduleCode: moduleCodes) {
@@ -418,11 +483,19 @@ public class StudyPlan implements Cloneable {
         }
     }
 
+    /**
+     * Removes the given {@code UserTag} from the {@code Module} with the given module code.
+     * @return True if the tag was successfully removed.
+     */
     public boolean removeTagFromModule(UserTag toRemove, String moduleCode) {
         Module targetModule = modules.get(moduleCode);
         return targetModule.deleteUserTag(toRemove);
     }
 
+    /**
+     * Returns all the tags that the module with the given module code is attached to.
+     * @return The UniqueTagList containing all the tags.
+     */
     public UniqueTagList getModuleTags(String moduleCode) {
         Module targetModule = modules.get(moduleCode);
         return targetModule.getTags();
