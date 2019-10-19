@@ -6,8 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.DeliverymanStatusList;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
-import seedu.deliverymans.model.deliveryman.exceptions.DeliverymanStatusList;
 
 /**
  * To be added

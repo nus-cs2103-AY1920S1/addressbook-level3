@@ -9,6 +9,7 @@ import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
@@ -73,6 +74,26 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    //=========== Deliverymen Database / Filepath methods =============================================================
+
+    /**
+     * Returns the user prefs' deliverymen database file path.
+     */
+    Path getDeliverymenDatabaseFilePath();
+
+    /**
+     * Sets the user prefs' deliverymen database file path.
+     */
+    void setDeliverymenDatabaseFilePath(Path deliverymenDatabaseFilePath);
+
+    /**
+     * Replaces deliverymen database data with the data in {@code deliverymenDatabase}.
+     */
+    void setDeliverymenDatabase(ReadOnlyDeliverymenDatabase deliverymenDatabase);
+
+    /** Returns the DeliverymenDatabase */
+    ReadOnlyDeliverymenDatabase getDeliverymenDatabase();
 
     //=========== Restaurant Database / Filepath methods =============================================================
 
@@ -322,4 +343,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
+
 }

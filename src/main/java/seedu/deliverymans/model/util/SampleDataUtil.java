@@ -75,10 +75,11 @@ public class SampleDataUtil {
 
     public static Deliveryman[] getSampleDeliverymen() {
         return new Deliveryman[]{
-            new Deliveryman(new Name("Damith"), new Phone("99999999")),
-            new Deliveryman(new Name("Charlie Choong"), new Phone("98887146")),
-            new Deliveryman(new Name("Low ee ter"), new Phone("99367862")),
-            new Deliveryman(new Name("jun rong yuen"), new Phone("12345678")),
+            new Deliveryman(new Name("Damith"), new Phone("99999999"), getTagSet("inactive")),
+            new Deliveryman(new Name("Donald Trump"), new Phone("91234567"), getTagSet("buff", "powerful")),
+            new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"), getTagSet("active")),
+            new Deliveryman(new Name("Low ee ter"), new Phone("99367862"), getTagSet("inactive")),
+            new Deliveryman(new Name("Yuen Jun rong "), new Phone("12345678"), getTagSet("veryactive"))
         };
     }
 
@@ -98,6 +99,14 @@ public class SampleDataUtil {
         return sampleCd;
     }
 
+    public static ReadOnlyDeliverymenDatabase getSampleDeliverymenDatabase() {
+        DeliverymenDatabase sampleDd = new DeliverymenDatabase();
+        for (Deliveryman sampleDeliveryman: getSampleDeliverymen()) {
+            sampleDd.addDeliveryman(sampleDeliveryman);
+        }
+        return sampleDd;
+    }
+
     public static ReadOnlyRestaurantDatabase getSampleRestaurantDatabase() {
         RestaurantDatabase sampleRd = new RestaurantDatabase();
         for (Restaurant sampleRestaurant : getSampleRestaurants()) {
@@ -112,14 +121,6 @@ public class SampleDataUtil {
             sampleOb.addOrder(sampleOrder);
         }
         return sampleOb;
-    }
-
-    public static ReadOnlyDeliverymenDatabase getSampleDeliverymenDatabase() {
-        DeliverymenDatabase sampleDd = new DeliverymenDatabase();
-        for (Deliveryman sampleDeliveryman: getSampleDeliverymen()) {
-            sampleDd.addDeliveryman(sampleDeliveryman);
-        }
-        return sampleDd;
     }
 
     /**

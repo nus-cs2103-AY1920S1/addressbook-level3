@@ -264,6 +264,27 @@ public class ModelManager implements Model {
     //=========== Deliveryman Methods =============================================================
 
     @Override
+    public Path getDeliverymenDatabaseFilePath() {
+        return userPrefs.getDeliverymenDatabaseFilePath();
+    }
+
+    @Override
+    public void setDeliverymenDatabaseFilePath(Path deliverymenDatabaseFilePath) {
+        requireNonNull(deliverymenDatabaseFilePath);
+        userPrefs.setDeliverymenDatabaseFilePath(deliverymenDatabaseFilePath);
+    }
+
+    @Override
+    public void setDeliverymenDatabase(ReadOnlyDeliverymenDatabase deliverymenDatabase) {
+        this.deliverymenDatabase.resetData(deliverymenDatabase);
+    }
+
+    @Override
+    public ReadOnlyDeliverymenDatabase getDeliverymenDatabase() {
+        return deliverymenDatabase;
+    }
+
+    @Override
     public void deleteDeliveryman(Deliveryman target) {
         deliverymenDatabase.removeDeliveryman(target);
     }
@@ -277,13 +298,12 @@ public class ModelManager implements Model {
     @Override
     public boolean hasDeliveryman(Deliveryman deliveryman) {
         requireNonNull(deliveryman);
-        return true;
+        return deliverymenDatabase.hasDeliveryman(deliveryman);
     }
 
     @Override
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireAllNonNull(target, editedDeliveryman);
-
         deliverymenDatabase.setDeliveryman(target, editedDeliveryman);
     }
 
@@ -366,6 +386,7 @@ public class ModelManager implements Model {
 
     private void setData(Data data) {
         setAddressBook(data.addressBook);
+        setDeliverymenDatabase(data.deliverymenDatabase);
         setRestaurantDatabase(data.restaurantDatabase);
         setOrderBook(data.orderBook);
     }
@@ -464,11 +485,13 @@ public class ModelManager implements Model {
      */
     public static class Data {
         private final AddressBook addressBook;
+        private final DeliverymenDatabase deliverymenDatabase;
         private final RestaurantDatabase restaurantDatabase;
         private final OrderBook orderBook;
 
         public Data(Model model) {
             addressBook = new AddressBook(model.getAddressBook());
+            deliverymenDatabase = new DeliverymenDatabase(model.getDeliverymenDatabase());
             restaurantDatabase = new RestaurantDatabase(model.getRestaurantDatabase());
             orderBook = new OrderBook(model.getOrderBook());
         }
@@ -488,6 +511,7 @@ public class ModelManager implements Model {
             // state check
             Data other = (Data) obj;
             return addressBook.equals(other.addressBook)
+                    && deliverymenDatabase.equals(other.deliverymenDatabase)
                     && restaurantDatabase.equals(other.restaurantDatabase)
                     && orderBook.equals(other.orderBook);
         }
