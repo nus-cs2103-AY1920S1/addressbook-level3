@@ -11,12 +11,15 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -28,6 +31,7 @@ public class ModelManager implements Model {
     private final Billboard billboard;
     private final ArchiveWrapper archives;
     private final UserPrefs userPrefs;
+    private final ObservableData<StatisticsType> statsType;
     private final FilteredList<Expense> filteredExpense;
     private final HashMap<String, FilteredList<Expense>> filteredArchives;
 
@@ -43,12 +47,16 @@ public class ModelManager implements Model {
         this.archives = new ArchiveWrapper(archiveExpenses);
         this.billboard = new Billboard(noArchiveExpensesBillboard);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.statsType = new ObservableData<>();
+        this.statsType.setValue(StatisticsType.TIMELINE); // default stats type
 
         logger.fine("Initializing with billboard: " + billboard
-                + " and Archives: " + archives
-                + "and user prefs " + userPrefs);
+                + " and archives: " + archives
+                + "and user prefs: " + userPrefs
+                + "and default stats type: " + statsType.getValue());
 
         filteredExpense = new FilteredList<>(this.billboard.getExpenses());
+
         filteredArchives = new HashMap<>();
         Set<String> archiveNames = this.archives.getArchiveNames();
         for (String archiveName : archiveNames) {
@@ -229,6 +237,16 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredArchives.get(archiveName).setPredicate(predicate);
     }
+
+    //=========== Statistics Chart Methods =============================================================
+    public ObservableData<StatisticsType> getStatisticsType() {
+        return statsType;
+    }
+
+    public void setStatisticsType(StatisticsType type) {
+        statsType.setValue(type);
+    }
+
 
     @Override
     public boolean equals(Object obj) {

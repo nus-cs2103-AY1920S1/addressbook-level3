@@ -117,7 +117,7 @@ public class MainWindow extends UiPart<Stage> {
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
         expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
 
-        chartBox = new ChartBox(new StatisticsGenerator(), logic.getFilteredExpenseList());
+        chartBox = new ChartBox(logic.getStatisticsType(), logic.getFilteredExpenseList());
         chartBoxPlaceholder.getChildren().add(chartBox.getRoot());
 
         resultDisplay = new ResultDisplay();

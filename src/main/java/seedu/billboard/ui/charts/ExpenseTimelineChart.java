@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -16,6 +17,8 @@ import javafx.scene.chart.XYChart;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.EmptyExpenseTimeline;
 import seedu.billboard.model.statistics.ExpenseTimeline;
 
 /**
@@ -38,8 +41,8 @@ public class ExpenseTimelineChart extends ExpenseChart<ExpenseTimeline> {
     private XYChart.Series<String, BigDecimal> series;
 
 
-    public ExpenseTimelineChart(ExpenseTimeline expenseTimeline) {
-        super(FXML);
+    public ExpenseTimelineChart(ObservableList<Expense> expenses) {
+        super(FXML, expenses);
 
         dateIntervalFormats = new EnumMap<>(DateInterval.class);
         dateIntervalFormats.put(DateInterval.DAY, DateTimeFormatter.ofPattern("dd/MM/yy"));
@@ -47,6 +50,7 @@ public class ExpenseTimelineChart extends ExpenseChart<ExpenseTimeline> {
         dateIntervalFormats.put(DateInterval.MONTH, DateTimeFormatter.ofPattern("MM/yy"));
         dateIntervalFormats.put(DateInterval.YEAR, DateTimeFormatter.ofPattern("yyyy"));
 
+        ExpenseTimeline expenseTimeline = new EmptyExpenseTimeline();
         series = new XYChart.Series<>();
         series.setName("All Expenses");
         series.getData().setAll(getData(expenseTimeline.getTimeline(), expenseTimeline.getDateInterval()));

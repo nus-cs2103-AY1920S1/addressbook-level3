@@ -5,36 +5,39 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import seedu.billboard.commons.core.date.DateInterval;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.ExpenseTimeline;
 import seedu.billboard.model.statistics.Statistics;
+import seedu.billboard.model.statistics.StatisticsGenerator;
+import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.ui.UiPart;
 
 /**
  * Container for charts.
  */
-public class ChartBox extends UiPart<Region> implements ListChangeListener<Expense> {
+public class ChartBox extends UiPart<Region> {
 
     private static final String FXML = "ChartBox.fxml";
 
     @FXML
     private AnchorPane chartContainer;
 
-    private final Statistics stats;
+    private ObservableList<Expense> expenses;
     private ExpenseTimelineChart expenseTimelineChart;
 
-    public ChartBox(Statistics stats, ObservableList<Expense> expenses) {
+    public ChartBox(ObservableData<StatisticsType> statsType, ObservableList<Expense> expenses) {
         super(FXML);
-        this.stats = stats;
 
-        expenses.addListener(this);
-        expenseTimelineChart = new ExpenseTimelineChart(stats.generateExpenseTimeline(expenses));
-        chartContainer.getChildren().add(expenseTimelineChart.getRoot());
+        this.expenses = expenses;
+        statsType.observe(this::onStatsTypeChanged);
     }
 
-    @Override
-    public void onChanged(Change<? extends Expense> c) {
-        ExpenseTimeline timeline = stats.generateExpenseTimeline(c.getList());
-        expenseTimelineChart.onDataChange(timeline);
+    private void onStatsTypeChanged(StatisticsType type) {
+        expenseTimelineChart = new ExpenseTimelineChart(
+                new StatisticsGenerator().generateExpenseTimeline(expenses, DateInterval.MONTH));
+
+        chartContainer.getChildren().add(expenseTimelineChart.getRoot());
     }
 }
