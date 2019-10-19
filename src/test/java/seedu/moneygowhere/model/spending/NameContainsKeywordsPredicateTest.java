@@ -34,7 +34,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different Spending -> returns false
+        // different predicate list -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
