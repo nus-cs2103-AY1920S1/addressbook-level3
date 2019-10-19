@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 
+import java.util.List;
+
 import seedu.billboard.commons.core.Messages;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
-
-import java.util.List;
 
 /**
  * Unarchives an expense in an archive:
@@ -25,6 +25,9 @@ public class RevertArchiveCommand extends ArchiveCommand {
 
     public static final String MESSAGE_SUCCESS =
             "Removed [%1$s] from [%2$s] archive and added back to current expense list";
+
+    public static final String MESSAGE_EMPTY_ARCHIVE_AFTER_REVERT_EXPENSE =
+            "[%1$s] archive is now empty and will be deleted";
 
     private final String archiveName;
     private final Index index;
@@ -61,7 +64,13 @@ public class RevertArchiveCommand extends ArchiveCommand {
 
         String feedback = String.format(MESSAGE_SUCCESS, expenseToUnarchive.getName(), archiveName);
 
-        return new CommandResult(feedback, false, false, archiveName);
+        if (archiveList.size() == 0) {
+            model.deleteArchive(archiveName);
+            feedback += "\n" + String.format(MESSAGE_EMPTY_ARCHIVE_AFTER_REVERT_EXPENSE, archiveName);
+            return new CommandResult(feedback);
+        } else {
+            return new CommandResult(feedback, false, false, archiveName);
+        }
     }
 
     @Override

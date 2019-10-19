@@ -22,7 +22,7 @@ public class AddArchiveCommand extends ArchiveCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD
             + ": Creates an archive of the given name and\n"
             + "Adds the expense identified by the index number used in the displayed expense list to the archive\n"
             + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 2 " + PREFIX_ARCHIVE + "Groceries";

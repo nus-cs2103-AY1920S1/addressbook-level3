@@ -13,7 +13,7 @@ public class ListArchiveCommand extends ArchiveCommand {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD
             + ": Lists the archive identified by the archive name used in the displayed list of archives.\n"
             + "Parameters: ARCHIVE NAME\n"
             + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 2016 expenses";

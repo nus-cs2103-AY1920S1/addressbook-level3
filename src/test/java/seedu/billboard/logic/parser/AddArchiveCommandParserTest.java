@@ -28,14 +28,14 @@ public class AddArchiveCommandParserTest {
 
     @Test
     public void parse_invalidIndex_throwsParseException() {
-        String invalidIndex =  "a " + PREFIX_ARCHIVE + "luxury";
+        String invalidIndex = "a " + PREFIX_ARCHIVE + "luxury";
         assertParseFailure(parser, invalidIndex,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddArchiveCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidArchiveName_throwsParseException() {
-        String invalidArchiveName =  INDEX_FIRST_EXPENSE.getOneBased() + " " + PREFIX_ARCHIVE;
+        String invalidArchiveName = INDEX_FIRST_EXPENSE.getOneBased() + " " + PREFIX_ARCHIVE;
         assertParseFailure(parser, invalidArchiveName,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddArchiveCommand.MESSAGE_USAGE));
     }

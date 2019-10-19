@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.billboard.logic.commands.AddArchiveCommand;
 import seedu.billboard.logic.commands.ArchiveCommand;
+import seedu.billboard.logic.commands.DeleteArchiveCommand;
 import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.commands.ListArchiveCommand;
 import seedu.billboard.logic.commands.ListArchiveNamesCommand;
@@ -41,6 +42,7 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
         case ListArchiveNamesCommand.COMMAND_WORD:
             return new ListArchiveNamesCommand();
 
@@ -52,6 +54,9 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
 
         case RevertArchiveCommand.COMMAND_WORD:
             return new RevertArchiveCommandParser().parse(arguments);
+
+        case DeleteArchiveCommand.COMMAND_WORD:
+            return new DeleteArchiveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
