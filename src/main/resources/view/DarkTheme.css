@@ -368,11 +368,11 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#freeTimeslot {
-    -fx-background-radius: 0;
-    -fx-border-width: 0;
-    -fx-border-radius: 0;
-    -fx-background-color: rgba(152,251,152, 0.7);
+#freeTimeslot{
+    -fx-background-radius: 0 !important;
+    -fx-border-width: 0 !important;
+    -fx-border-radius: 0 !important;
+    -fx-background-color: rgba(152,251,152, 0.5) !important;
 }
 
 #groupDetailCard, #detailCard, #listHeaderContainer, #listMemberContainer {

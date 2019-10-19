@@ -19,7 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.DayTimeslot;
 import seedu.address.model.display.detailwindow.WeekSchedule;
-import seedu.address.model.module.Day;
+import seedu.address.model.person.ScheduleStub;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
 
@@ -92,6 +92,7 @@ public class ScheduleView extends UiPart<Region> {
         scheduleContents.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scheduleContents.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
+        showFreeTime(new ScheduleStub().getSchedule());
     }
 
     /**
@@ -231,7 +232,7 @@ public class ScheduleView extends UiPart<Region> {
     }
 
     private Region makeFreeTimeslot(int durationMinutes) {
-        Region region = makeColouredTimeslot(durationMinutes, "lightgreen");
+        Region region = makeColouredTimeslot(durationMinutes, "white");
         region.setId("freeTimeslot");
         return region;
     }
@@ -265,7 +266,6 @@ public class ScheduleView extends UiPart<Region> {
 
     private VBox getDayVBoxOfFreeSchedule(ArrayList<DayTimeslot> daySchedule) {
         VBox timeslotContainer = new VBox();
-        timeslotContainer.setStyle("-fx-padding: 0 2 0 2; -fx-border-width: 2;");
         timeslotContainer.getChildren().add(makeEmptyTimeslot(30));
         int originalTimeStamp = startTime * 100;
         for (int j = 0; j < daySchedule.size(); j++) {
@@ -344,8 +344,7 @@ public class ScheduleView extends UiPart<Region> {
         return scheduleView;
     }
 
-    public GridPane getScheduleView() {
-        return scheduleView;
+    public ScrollPane getScheduleContents() {
+        return scheduleContents;
     }
-
 }

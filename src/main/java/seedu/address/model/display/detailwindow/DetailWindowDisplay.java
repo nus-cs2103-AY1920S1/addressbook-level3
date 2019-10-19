@@ -35,7 +35,15 @@ public class DetailWindowDisplay {
 
     public DetailWindowDisplay() {
         this.weekSchedules = new ArrayList<>();
-        this.detailWindowDisplayType = DetailWindowDisplayType.EMPTY;
+        this.detailWindowDisplayType = DetailWindowDisplayType.DEFAULT;
+        this.groupDisplay = null;
+
+        this.freeSchedule = null;
+    }
+
+    public DetailWindowDisplay(DetailWindowDisplayType type) {
+        this.weekSchedules = new ArrayList<>();
+        this.detailWindowDisplayType = type;
         this.groupDisplay = null;
 
         this.freeSchedule = null;

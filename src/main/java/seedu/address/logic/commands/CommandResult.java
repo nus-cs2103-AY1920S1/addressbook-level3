@@ -27,6 +27,11 @@ public class CommandResult {
     private final boolean export;
 
     /**
+     * The application should scroll down.
+     */
+    private final boolean scroll;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
@@ -34,6 +39,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.export = false;
+        this.scroll = false;
     }
 
     /**
@@ -44,6 +50,18 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.export = export;
+        this.scroll = false;
+    }
+
+    /**
+     * Constructs an alternative CommandResult that would affect the UI.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean export, boolean scroll) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.export = export;
+        this.scroll = scroll;
     }
 
 
@@ -69,6 +87,10 @@ public class CommandResult {
 
     public boolean isExport() {
         return export;
+    }
+
+    public boolean isScroll() {
+        return scroll;
     }
 
     @Override

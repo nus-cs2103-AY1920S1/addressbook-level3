@@ -24,7 +24,9 @@ public class GroupInformation extends UiPart<Region> {
     @FXML
     private StackPane groupMembers;
 
-    public GroupInformation(DetailWindowDisplay detailWindowDisplay) {
+    private ArrayList<String> colors;
+
+    public GroupInformation(DetailWindowDisplay detailWindowDisplay, ArrayList<String> colors) {
         super(FXML);
         ArrayList<String> names = detailWindowDisplay.getWeekSchedules().stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
@@ -36,7 +38,7 @@ public class GroupInformation extends UiPart<Region> {
                 .map(wkSch -> wkSch.getRole().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        ArrayList<String> colors = ColorGenerator.generateColorList(detailWindowDisplay.getWeekSchedules().size());
+        this.colors = colors;
         GroupDetailCard groupCard = new GroupDetailCard(detailWindowDisplay.getGroupDisplay());
         groupDetails.getChildren().add(groupCard.getRoot());
         groupMembers.getChildren().add(new MemberList(names, emails, roles, colors).getRoot());
