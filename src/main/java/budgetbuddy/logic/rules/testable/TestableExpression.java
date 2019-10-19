@@ -1,4 +1,4 @@
-package budgetbuddy.logic.rules;
+package budgetbuddy.logic.rules.testable;
 
 import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Value;

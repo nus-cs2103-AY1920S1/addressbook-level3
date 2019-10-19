@@ -53,4 +53,9 @@ public class Rule {
     public int hashCode() {
         return Objects.hash(predicate, action);
     }
+
+    @Override
+    public String toString() {
+        return String.format("If: %s, then: %s.", predicate, action);
+    }
 }
