@@ -2,6 +2,7 @@ package seedu.ichifund.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.logic.commands.CommandResult;
@@ -9,6 +10,7 @@ import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.transaction.Transaction;
 
@@ -60,4 +62,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    ReadOnlyProperty<TransactionContext> getTransactionContextProperty();
 }

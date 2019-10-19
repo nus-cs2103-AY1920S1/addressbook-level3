@@ -73,6 +73,10 @@ public class Date implements Comparable<Date> {
         return getYear().equals(year);
     }
 
+    public String toFullString() {
+        return day.toString() + " " + month.wordString() + " " + year.toString();
+    }
+
     @Override
     public int compareTo(Date other) {
         if (getYear().equals(other.getYear()) && getMonth().equals(other.getMonth())) {

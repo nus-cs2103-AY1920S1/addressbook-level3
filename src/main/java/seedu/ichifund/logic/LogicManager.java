@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.commons.core.LogsCenter;
@@ -16,6 +17,7 @@ import seedu.ichifund.logic.tasks.TaskManager;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.storage.Storage;
@@ -57,9 +59,14 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    @Override
+
     public void executeAllTasks() {
         taskManager.executeAll(model);
+    }
+
+    @Override
+    public ReadOnlyProperty<TransactionContext> getTransactionContextProperty() {
+        return model.getTransactionContextProperty();
     }
 
     @Override
