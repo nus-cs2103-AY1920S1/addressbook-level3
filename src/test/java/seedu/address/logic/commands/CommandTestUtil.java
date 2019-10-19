@@ -15,11 +15,16 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.editcommand.EditCommand;
+import seedu.address.logic.commands.editcommand.EditCustomerCommand;
+import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -39,6 +44,16 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+
+    public static final String VALID_NAME_ALICE = "Alice Lim";
+    public static final String VALID_NAME_BEN = "Ben Ten";
+    public static final String VALID_CONTACTNUMBER_ALICE = "98123459";
+    public static final String VALID_CONTACTNUMBER_BEN = "83719038";
+    public static final String VALID_EMAIL_ALICE = "alice@example.com";
+    public static final String VALID_EMAIL_BEN = "ben@example.com";
+    public static final String VALID_TAG_REGULAR = "Regular";
+    public static final String VALID_TAG_RICH = "Rich";
+
 
     public static final String VALID_PHONENAME_IPHONE = "iPhone Pro 11";
     public static final String VALID_PHONENAME_SAMSUNG = "Galaxy S10";
@@ -73,6 +88,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCustomerDescriptor DESC_ALICE;
+    public static final EditCustomerDescriptor DESC_BEN;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -81,6 +98,14 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
+        DESC_ALICE = new EditCustomerDescriptorBuilder().withCustomerName(VALID_NAME_ALICE)
+                .withContactNumber(VALID_CONTACTNUMBER_ALICE).withEmail(VALID_EMAIL_ALICE)
+                .withTags(VALID_TAG_REGULAR).build();
+
+        DESC_BEN = new EditCustomerDescriptorBuilder().withCustomerName(VALID_NAME_BEN)
+                .withContactNumber(VALID_CONTACTNUMBER_BEN).withEmail(VALID_EMAIL_BEN)
+                .withTags(VALID_TAG_RICH).build();
     }
 
     /**
@@ -138,5 +163,20 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showCustomerAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCustomerList().size());
+
+        Customer customer = model.getFilteredCustomerList().get(targetIndex.getZeroBased());
+        final String[] splitName = customer.getCustomerName().fullName.split("\\s+");
+        model.updateFilteredCustomerList(new CustomerNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredCustomerList().size());
+    }
+
 
 }
