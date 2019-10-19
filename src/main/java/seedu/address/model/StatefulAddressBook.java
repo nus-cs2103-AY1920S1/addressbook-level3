@@ -6,6 +6,9 @@ import java.util.List;
 /**
  * An {@code AddressBook} which maintains a stateful list of address book.
  * Useful for undo/redo functions.
+ *
+ * Code for StatefulAddressBook is adapted from addressbook-level4, which can be found at
+ * {@link https://github.com/se-edu/addressbook-level4}.
  */
 public class StatefulAddressBook extends AddressBook {
 
@@ -27,9 +30,19 @@ public class StatefulAddressBook extends AddressBook {
      * Saves a copy of the current person list at the end of {@code statefulPersonList}.
      */
     public void saveAddressBookState() {
-        removeStateAfterCurrent();
+        clearStatesAfterCurrentPointer();
+
         statefulAddressBookList.add(new AddressBook(this));
         currentStatePointer++;
+    }
+
+    /**
+     * All the states after the current state pointer are cleared, because performing any data change
+     * while on a previous state essentially means all undo and redos should relate to the state changes from the
+     * undone point.
+     */
+    private void clearStatesAfterCurrentPointer() {
+        statefulAddressBookList.subList(currentStatePointer + 1, statefulAddressBookList.size()).clear();
     }
 
     // TODO: Add undo exception.
@@ -80,10 +93,6 @@ public class StatefulAddressBook extends AddressBook {
         return super.equals(other)
                 && statefulAddressBookList.equals(other.statefulAddressBookList)
                 && currentStatePointer == other.currentStatePointer;
-    }
-
-    private void removeStateAfterCurrent() {
-        statefulAddressBookList.subList(currentStatePointer + 1, statefulAddressBookList.size()).clear();
     }
 
 }
