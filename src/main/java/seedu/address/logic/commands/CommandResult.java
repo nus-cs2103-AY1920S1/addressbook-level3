@@ -22,6 +22,11 @@ public class CommandResult {
     private final boolean showSlideshow;
 
     /**
+     * Statistics will be updated.
+     */
+    private final boolean showStatistic;
+
+    /**
      * The application should exit.
      */
     private final boolean exit;
@@ -29,11 +34,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean showSlideshow,
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean showSlideshow, boolean showStatistic,
         boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.showSlideshow = showSlideshow;
+        this.showStatistic = showStatistic;
         this.exit = exit;
     }
 
@@ -42,7 +48,7 @@ public class CommandResult {
      * fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -55,6 +61,10 @@ public class CommandResult {
 
     public boolean isShowSlideshow() {
         return showSlideshow;
+    }
+
+    public boolean isShowStatistic() {
+        return showStatistic;
     }
 
     public boolean isExit() {

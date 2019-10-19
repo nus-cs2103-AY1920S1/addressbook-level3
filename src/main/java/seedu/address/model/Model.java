@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.Note;
@@ -12,6 +13,8 @@ import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 
@@ -286,4 +289,9 @@ public interface Model {
     void updateFilteredNotesList(Predicate<Note> predicate);
     //endregion
 
+    //region Statistics
+    ReadOnlyStatisticsRecord getStatisticsRecord();
+    ObservableList<Statistics> getProcessedStatistics();
+    void addStatistics(Statistics statistics);
+    //endregion
 }

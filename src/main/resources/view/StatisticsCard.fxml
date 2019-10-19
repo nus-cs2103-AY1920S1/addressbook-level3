@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.chart.PieChart?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <BorderPane xmlns:fx="http://javafx.com/fxml"
+                prefHeight="500" prefWidth="400">
+        <top>
+            <Text text="Statistics" styleClass="cell_big_label" textAlignment="CENTER"/>
+        </top>
+
+        <center>
+            <VBox alignment="CENTER_LEFT" minHeight="105">
+                <PieChart fx:id="distributionChart" minHeight="300" minWidth="300" prefWidth="300" prefHeight="300"/>
+            </VBox>
+        </center>
+
+        <right>
+            <VBox>
+                <Label fx:id="totalStudents" text="\$first" styleClass="cell_small_label" />
+                <Label fx:id="mean" text="\$first" styleClass="cell_small_label" />
+                <Label fx:id="median" text="\$first" styleClass="cell_small_label" />
+            </VBox>
+        </right>
+
+    </BorderPane>
+
+</VBox>
+

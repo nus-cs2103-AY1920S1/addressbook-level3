@@ -62,7 +62,7 @@
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <Text text="Njoy Statistics" styleClass="cell_big_label" textAlignment="CENTER"/>
+            <StackPane fx:id="statisticsPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </HBox>
 
           <HBox fx:id="notesList" styleClass="pane-with-border" alignment="TOP_RIGHT" minWidth="600" prefWidth="600" HBox.hgrow="ALWAYS">

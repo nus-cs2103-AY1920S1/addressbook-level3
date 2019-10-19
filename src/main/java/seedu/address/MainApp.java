@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -25,10 +26,14 @@ import seedu.address.model.note.NotesRecord;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.StatisticsRecord;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.StudentRecord;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleNotesUtil;
+import seedu.address.model.util.SampleStatisticUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -100,10 +105,12 @@ public class MainApp extends Application {
         Optional<ReadOnlyStudentRecord> studentRecordOptional;
         Optional<ReadOnlyQuestions> questionsOptional;
         Optional<ReadOnlyNotesRecord> notesRecordOptional;
+
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
         ReadOnlyNotesRecord initialNotesRecord;
+        ReadOnlyStatisticsRecord initialStatisticsRecord;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -128,7 +135,7 @@ public class MainApp extends Application {
             initialStudentRecord = studentRecordOptional.orElseGet(null); //get samplestudentrecord
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
             initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
-
+            initialStatisticsRecord = SampleStatisticUtil.getSampleStatisticsRecord(); //later
         } catch (DataConversionException e) {
             logger.warning(
                 "Data file not in the correct format. Will be starting with an empty AddressBook");
@@ -136,6 +143,7 @@ public class MainApp extends Application {
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
             initialNotesRecord = new NotesRecord();
+            initialStatisticsRecord = new StatisticsRecord(); //later
 
         } catch (IOException e) {
             logger.warning(
@@ -144,10 +152,11 @@ public class MainApp extends Application {
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
             initialNotesRecord = new NotesRecord();
+            initialStatisticsRecord = new StatisticsRecord(); //later
         }
 
         return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialNotesRecord,
-            userPrefs);
+            initialStatisticsRecord, userPrefs);
     }
 
     private void initLogging(Config config) {

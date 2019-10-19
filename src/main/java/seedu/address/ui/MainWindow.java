@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -36,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
     private NotesListPanel notesListPanel;
+    private StatisticsCard statsCard;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -48,6 +51,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane notesListPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticsPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -119,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
 
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
+
+        statsCard  = new StatisticsCard(logic.getProcessedStatistics());
+        statisticsPanelPlaceholder.getChildren().add(statsCard.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -209,6 +218,13 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowStatistic()) {
+                //StatisticsCard statsCard  = new StatisticsCard(logic.getProcessedStatistics());
+                statsCard.updateData(logic.getProcessedStatistics());
+                //statisticsPanelPlaceholder.getChildren().removeAll();
+                //statisticsPanelPlaceholder.getChildren().add(statsCard.getRoot());
             }
 
             return commandResult;

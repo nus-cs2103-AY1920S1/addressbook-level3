@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -24,6 +25,9 @@ import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizBank;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.StatisticsRecord;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
@@ -43,6 +47,7 @@ public class ModelManager implements Model {
     private final StudentRecord studentRecord;
     private final SavedQuestions savedQuestions;
     private final NotesRecord notesRecord;
+    private final StatisticsRecord statisticsRecord;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Note> filteredNotes;
@@ -54,9 +59,10 @@ public class ModelManager implements Model {
                         ReadOnlyStudentRecord studentRecord,
                         ReadOnlyQuestions savedQuestions,
                         ReadOnlyNotesRecord notesRecord,
+                        ReadOnlyStatisticsRecord statisticsRecord,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, studentRecord, savedQuestions, notesRecord, userPrefs);
+        requireAllNonNull(addressBook, studentRecord, savedQuestions, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
                 "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -68,6 +74,7 @@ public class ModelManager implements Model {
         this.studentRecord = new StudentRecord(studentRecord);
         this.savedQuestions = new SavedQuestions(savedQuestions);
         this.notesRecord = new NotesRecord(notesRecord);
+        this.statisticsRecord = new StatisticsRecord(statisticsRecord);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
         filteredNotes = new FilteredList<>(this.notesRecord.getNotesList());
@@ -75,7 +82,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new StudentRecord(), new SavedQuestions(),
-                new NotesRecord(), new UserPrefs());
+                new NotesRecord(), new StatisticsRecord() ,new UserPrefs());
     }
 
     //region PREFERENCES & SETTINGS
@@ -205,6 +212,21 @@ public class ModelManager implements Model {
     }
     //endregion
 
+    //region Statistics
+    @Override
+    public ReadOnlyStatisticsRecord getStatisticsRecord() {
+        return statisticsRecord;
+    }
+
+    @Override
+    public ObservableList<Statistics> getProcessedStatistics() {
+        return statisticsRecord.getProcessedStatistics();
+    }
+
+    @Override
+    public void addStatistics(Statistics statistic) {
+        statisticsRecord.setStatistics(statistic);
+    }
     //region Students
     @Override
     public boolean hasStudent(Student student) {
