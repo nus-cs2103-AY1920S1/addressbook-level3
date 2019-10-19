@@ -199,10 +199,6 @@ public class MainWindow extends UiPart<Stage> {
         try {
 
             CommandResult commandResult = logic.execute(commandText);
-            switchToMainDisplayPane(logic.getDisplayPaneType());
-
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -210,6 +206,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            } else {
+                switchToMainDisplayPane(logic.getDisplayPaneType());
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             }
 
             return commandResult;
