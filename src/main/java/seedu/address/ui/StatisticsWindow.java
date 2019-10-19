@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -15,6 +18,12 @@ public class StatisticsWindow extends UiPart<Stage> {
     private Label statsLabel;
     @FXML
     private Label testLabel;
+    @FXML
+    NumberAxis xAxis;
+    @FXML
+    NumberAxis yAxis;
+    @FXML
+    private LineChart<Number, Number> testChart;
 
     /**
      * Create a new Statistic window
@@ -31,8 +40,28 @@ public class StatisticsWindow extends UiPart<Stage> {
      */
     public StatisticsWindow(String statisticsResult, String statsLabel) {
         this(new Stage());
-        this.testLabel.setText(statisticsResult);
-        this.statsLabel.setText(statsLabel);
+        //this.testLabel.setText(statisticsResult);
+        //this.statsLabel.setText(statsLabel);
+        this.testChart.setTitle(statsLabel);
+    }
+
+    private void buildChart() {
+        //Defining the x axis
+        xAxis.setLabel("testXLabel");
+        //Defining the y axis
+        yAxis.setLabel("testYLabel");
+        this.testChart.getData().add(getSeries());
+    }
+
+    private XYChart.Series<Number, Number> getSeries() {
+        //System.out.println("TESTT");
+        XYChart.Series<Number, Number> series = new XYChart.Series<Number,Number>();
+        series.getData().add(new XYChart.Data<Number,Number>(10,5));
+        series.getData().add(new XYChart.Data<Number,Number>(20,10));
+        series.getData().add(new XYChart.Data<Number,Number>(30,20));
+        series.getData().add(new XYChart.Data<Number,Number>(40,50));
+        series.getData().add(new XYChart.Data<Number,Number>(50,40));
+        return series;
     }
 
     /**
@@ -54,6 +83,7 @@ public class StatisticsWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
+        buildChart();
         getRoot().show();
         getRoot().centerOnScreen();
     }

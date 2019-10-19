@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.CommandResult;
@@ -95,4 +96,10 @@ public interface Logic {
      * Gets logic to calculate total profit based on user input
      */
     String calculateTotalCost(StatsPayload statsPayload);
+
+    /**
+     * Gets logic to calculate total profit based on user input
+     * return a XYChart.series
+     */
+     XYChart.Series<String, Number> calculateTotalRevenueGraph(StatsPayload statsPayload);
 }

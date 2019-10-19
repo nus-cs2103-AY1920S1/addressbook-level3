@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StatsPayload;
@@ -128,5 +129,10 @@ public class LogicManager implements Logic {
     @Override
     public String calculateTotalCost(StatsPayload statsPayload) {
         return this.statistic.calculateTotalCostOnCompleted(this.getOrderBook(), statsPayload);
+    }
+
+    @Override
+    public XYChart.Series<String, Number> calculateTotalRevenueGraph(StatsPayload statsPayload) {
+        return this.statistic.calculateTotalRevenueOnCompletedGraph(this.getOrderBook(), statsPayload);
     }
 }

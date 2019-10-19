@@ -1,5 +1,6 @@
 package seedu.address.statistic;
 
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.util.StatsPayload;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
@@ -27,6 +28,9 @@ public interface Statistic {
      */
     String calculateTotalRevenueOnCompleted(ReadOnlyDataBook<Order> orderBook,
                                             StatsPayload statsPayload);
+
+    XYChart.Series<String,Number> calculateTotalRevenueOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
+                                             StatsPayload statsPayload);
 
     /**
      * Method to calculate total Cost from {@Code phone} on completed orders

@@ -8,7 +8,10 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
-<fx:root minWidth="450" minHeight="300" resizable="false" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<fx:root minWidth="750" minHeight="600" resizable="true" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
             <stylesheets>
@@ -20,6 +23,14 @@
                     <VBox alignment="CENTER">
                         <Label fx:id="statsLabel"  styleClass="label"></Label>
                         <Label fx:id="testLabel" styleClass="label" ></Label>
+                        <LineChart fx:id="testChart" title="">
+                            <xAxis>
+                                <NumberAxis fx:id="xAxis" side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxis" side="LEFT" />
+                            </yAxis>
+                        </LineChart>
                     </VBox>
                 </children>
                 <opaqueInsets>

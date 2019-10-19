@@ -1,10 +1,16 @@
 package seedu.address.statistic;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.StringUtil.convertCalendarDateToString;
+import static seedu.address.statistic.DateUtil.extractMonth;
+import static seedu.address.statistic.DateUtil.getListOfYearMonth;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import javafx.scene.chart.XYChart;
 import org.apache.commons.math3.stat.StatUtils;
 
 import javafx.collections.ObservableList;
@@ -23,6 +29,18 @@ public class StatisticManager implements Statistic {
     public StatisticManager() {}
 
     /*--------------------Methods to calculate--------------------------*/
+
+    @Override
+    public XYChart.Series<String, Number> calculateTotalRevenueOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
+                                                                     StatsPayload statsPayload) {
+        List<Order> listOfOrders = orderBook.getList();
+        List<Calendar> listOfYearMonth = getListOfYearMonth(listOfOrders,statsPayload);
+        System.out.println(listOfYearMonth);
+        return null;
+    }
+
+
+
     @Override
     public String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook,
                                                   StatsPayload statsPayload) {
@@ -58,32 +76,42 @@ public class StatisticManager implements Statistic {
     }
     private static double[] getDoubleOrderPriceArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         ObservableList<Order> orderList = orderBook.getList();
-        List<Double> completedOrderPriceList =
-               orderList.stream()
-                       .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
-                       .filter(currentOrder -> currentOrder.getSchedule().isPresent())
-                       .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
-                               currentOrder.getSchedule().get().getCalendar()) <= 0)
-                       .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
-                               currentOrder.getSchedule().get().getCalendar()) > 0)
-                       .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
-                       .collect(Collectors.toList());
-        completedOrderPriceList.forEach(x -> System.out.println(x));
+        List<Double> completedOrderPriceList = getFilteredOrderListByDate(orderBook, statsPayload)
+                .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
+                .collect(Collectors.toList());
         return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
     }
 
     private static double[] getDoublePhoneCostArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         ObservableList<Order> orderList = orderBook.getList();
-        List<Double> completedOrderPhoneList =
+        List<Double> completedOrderPhoneList = getFilteredOrderListByDate(orderBook, statsPayload)
+                        .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
+                        .collect(Collectors.toList());
+        return completedOrderPhoneList.stream().mapToDouble(d -> d).toArray();
+    }
+
+    private static Stream<Order> getFilteredOrderListByDate(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
+        ObservableList<Order> orderList = orderBook.getList();
+        Stream<Order> filteredOrderListByDate =
                 orderList.stream()
                         .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
                         .filter(currentOrder -> currentOrder.getSchedule().isPresent())
                         .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
                                 currentOrder.getSchedule().get().getCalendar()) <= 0)
                         .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
-                                currentOrder.getSchedule().get().getCalendar()) > 0)
-                        .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
-                        .collect(Collectors.toList());
-        return completedOrderPhoneList.stream().mapToDouble(d -> d).toArray();
+                                currentOrder.getSchedule().get().getCalendar()) > 0);
+        return filteredOrderListByDate;
+    }
+
+    private static double caculateRevenueMonth(List<Order> orderList, int month) {
+        double[] doubleRevenueList = orderList.stream()
+                .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
+                .filter(currentOrder -> currentOrder.getSchedule().isPresent())
+                .filter(currentOrder -> extractMonth(currentOrder) == month )
+                .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
+                .collect(Collectors.toList())
+                .stream()
+                .mapToDouble(d -> d).toArray();
+        return StatUtils.sum(doubleRevenueList);
     }
 }
