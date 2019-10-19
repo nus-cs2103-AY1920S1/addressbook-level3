@@ -63,6 +63,8 @@ public abstract class Transaction {
 
     public abstract Amount handleBalance(Amount balance);
 
+    public abstract Budget handleBudget(Budget budget);
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -80,4 +82,5 @@ public abstract class Transaction {
 
     @Override
     public abstract boolean equals(Object obj);
+
 }
