@@ -37,6 +37,6 @@ public class AddTaskCommand extends AddCommand {
         }
 
         //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), SHOW_TASK_VIEW);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }
