@@ -31,6 +31,10 @@ public class VisitList {
         return this;
     }
 
+    public VisitReport getRecordByIndex(int id) throws IndexOutOfBoundsException {
+        return records.get(id - 1);
+    }
+
     public ArrayList<VisitReport> getRecords() {
         return this.records;
     }
@@ -49,6 +53,11 @@ public class VisitList {
      */
     public static boolean isValidVisitDate(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public VisitList editRecord(int reportIdx, VisitReport visitReport) {
+        this.records.set(reportIdx - 1, visitReport);
+        return this;
     }
 
     /**

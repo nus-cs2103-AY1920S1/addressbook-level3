@@ -245,6 +245,11 @@ public class MainWindow extends UiPart<Stage> {
                 handleAddVisit();
             }
 
+            if (commandResult.isEditVisit()) {
+                visitWindow.setOldReportInfo(commandResult.getIdx(), commandResult.getReportIdx(), commandResult.getOldReport(), logic);
+                handleAddVisit();
+            }
+
             if (commandResult.isDeleteVisit()) {
                 visitListPanel.setup(commandResult.getObservableVisitList());
                 handleDeleteVisit();

@@ -15,18 +15,21 @@ import seedu.address.model.person.VisitReport;
  * Saves new record to Visit List.
  */
 public class SaveVisitCommand extends Command {
-    public static final String MESSAGE_SAVE_VISIT_SUCCESS = "Added visit to Person: %1$s";
+    public static final String MESSAGE_SAVE_VISIT_SUCCESS = "Saved visit to Person: %1$s";
+    private static final int INVALID_REPORT_INDEX = -1;
 
     private final Index index;
     private final VisitReport visitReport;
 
+    private int reportIdx;
     private String medication;
     private String diagnosis;
     private String remarks;
 
-    public SaveVisitCommand(int index, String date, String meds, String dg, String rmk) {
-        requireAllNonNull(index, date);
+    public SaveVisitCommand(int index, int reportIdx, String date, String meds, String dg, String rmk) {
+        requireAllNonNull(index, reportIdx, date);
         this.index = Index.fromOneBased(index);
+        this.reportIdx= reportIdx;
         this.visitReport = new VisitReport(date);
         this.medication = meds;
         this.diagnosis = dg;
@@ -44,9 +47,17 @@ public class SaveVisitCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         visitReport.setName(personToEdit.getName());
         visitReport.setDetails(medication, diagnosis, remarks);
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getVisitList().addRecord(visitReport), personToEdit.getTags());
+        Person editedPerson = null;
+        if (reportIdx == INVALID_REPORT_INDEX) {
+            editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                    personToEdit.getAddress(), personToEdit.getVisitList().addRecord(visitReport), personToEdit.getTags());
+        } else {
+            editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                    personToEdit.getAddress(), personToEdit.getVisitList().editRecord(reportIdx, visitReport), personToEdit.getTags());
 
+        }
+
+        assert(!editedPerson.equals(null));
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
