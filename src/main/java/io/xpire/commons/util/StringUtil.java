@@ -135,7 +135,7 @@ public class StringUtil {
     public static String getSuggestions(String invalidWord, Set<String> set, int limit) {
         StringBuilder matches = new StringBuilder();
         TreeMap<Integer, LinkedList<String>> allMatches = new TreeMap<>();
-        for (String s: set) {
+        for (String s : set) {
             if (s.startsWith(invalidWord)) {
                 allMatches.putIfAbsent(-1, new LinkedList<>());
                 allMatches.get(-1).add(s);
@@ -152,5 +152,27 @@ public class StringUtil {
             matches.append(entry.getValue());
         }
         return matches.toString();
+    }
+
+    /**
+     * Converts string to sentence-case (first character upper-case, the rest lower-case).
+     *
+     * @param string String to be converted.
+     * @return new String in sentence case.
+     */
+    public static String convertToSentenceCase(String string) {
+        requireNonNull(string);
+        String newString;
+        switch (string.length()) {
+        case 0:
+            newString = "";
+            break;
+        case 1:
+            newString = string.toUpperCase();
+            break;
+        default:
+            newString = Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+        }
+        return newString;
     }
 }

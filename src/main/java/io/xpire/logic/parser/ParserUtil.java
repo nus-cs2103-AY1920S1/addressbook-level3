@@ -61,6 +61,9 @@ public class ParserUtil {
     public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
         requireNonNull(expiryDate);
         String trimmedDate = expiryDate.trim();
+        if (expiryDate.isEmpty()) {
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
+        }
         if (!ExpiryDate.isValidFormatExpiryDate(trimmedDate)) {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
         }
@@ -79,7 +82,7 @@ public class ParserUtil {
     public static Quantity parseQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
-        if (!Quantity.isValidQuantity(quantity)) {
+        if (!Quantity.isValidInputQuantity(trimmedQuantity)) {
             throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
         }
         return new Quantity(trimmedQuantity);
@@ -97,7 +100,7 @@ public class ParserUtil {
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        String sentenceCaseTag = parseTagsToSentenceCase(trimmedTag);
+        String sentenceCaseTag = StringUtil.convertToSentenceCase(trimmedTag);
         return new Tag(sentenceCaseTag);
     }
 
@@ -146,16 +149,6 @@ public class ParserUtil {
             throw new ParseException(ReminderThreshold.MESSAGE_CONSTRAINTS);
         }
         return new ReminderThreshold(trimmedReminderThreshold);
-    }
-
-    /**
-     * Parses tags to sentence-case (first character upper-case, the rest lower-case)
-     *
-     * @param tag Tag to be parsed.
-     * @return Parsed tag in sentence-case.
-     */
-    public static String parseTagsToSentenceCase(String tag) {
-        return Character.toUpperCase(tag.charAt(0)) + tag.substring(1).toLowerCase();
     }
 
     /**

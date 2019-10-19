@@ -1,5 +1,7 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_KIWI;
 import static io.xpire.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,20 +36,22 @@ public class AddCommandTest {
     @Test
     public void execute_itemAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingItemAdded modelStub = new ModelStubAcceptingItemAdded();
-        Item validItem = new ItemBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validItem).execute(modelStub);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validItem), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validItem), modelStub.itemsAdded);
+        Item kiwi = new ItemBuilder().withName(VALID_NAME_KIWI)
+                                            .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
+                                            .withQuantity("1").build();
+        CommandResult commandResult = new AddCommand(kiwi).execute(modelStub);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, kiwi), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(kiwi), modelStub.itemsAdded);
     }
 
     @Test
     public void execute_duplicateItem_throwsCommandException() {
-        Item validItem = new ItemBuilder().build();
-        AddCommand addCommand = new AddCommand(validItem);
-        ModelStub modelStub = new ModelStubWithItem(validItem);
-
+        Item kiwi = new ItemBuilder().withName(VALID_NAME_KIWI)
+                .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
+                .withQuantity("1").build();
+        AddCommand addCommand = new AddCommand(kiwi);
+        ModelStub modelStub = new ModelStubWithItem(kiwi);
+        //duplicate items cannot be added to the list
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ITEM, () -> addCommand.execute(modelStub));
     }
 

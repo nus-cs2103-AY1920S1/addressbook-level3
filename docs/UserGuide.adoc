@@ -69,26 +69,38 @@ Format: `help`
 
 === Adding an item: `add`
 
-Adds item to list +
-Format: `add|<item name>|<expiry date>`
+Adds an item to your tracker. +
+Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
+Format: `add|<item name>|<expiry date>[|<quantity>]`
 
 Examples:
 
-* `add|durian|30/09/2019` (without tags) +
-Adds the item `durian` with expiry date `30/09/2019`
+* `add|durian|30/9/2020` (without quantity) +
+Adds the item `durian` with expiry date `30/9/2019` with quantity `1`
 
-//* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add|ice cream|18/8/2020|2` +
+Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
+
+****
+* Item quantity **must be a positive integer** 1,2,3...
+* When not specified, the item quantity is assumed to be 1.
+****
+
+[TIP]
+For items with single quantity, you can save time by keying in only the item name and expiry date.
 
 === Listing all items : `view`
 
 Shows all items in the list. +
+All items are sorted by both name (lexicographical order) and date (chronological order). +
 Format: `view`
 
 === Setting reminder for an item: `set reminder`
 
-Sets a reminder threshold for the specified item. +
-This allows the check command to quickly find the item once the reminder threshold is exceeded. +
+Sets a reminder threshold for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
+
+This allows the check command to quickly find the item once the reminder threshold is exceeded.
 
 ****
 * Reminder threshold refers to *the number of days before the item's expiry date* to activate the reminder.
@@ -104,33 +116,14 @@ Sets a reminder for the second item in the list 4 days before its expiry date.
 * `set|1|0` +
 Removes the reminder for the first item in the list.
 
-//=== Editing an item : `edit`
-
-//Edits an existing item in the list. +
-//Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-//
-//****
-//* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-//* At least one of the optional fields must be provided.
-//* Existing values will be updated to the input values.
-//* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-//* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-//****
-//
-//Examples:
-//
-//* `edit 1 p/91234567 e/johndoe@example.com` +
-//Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-//* `edit 2 n/Betsy Crower t/` +
-//Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
 === Listing expiring items : `check`
 
-Shows items whose reminder has been activated. +
+Lists items that will expire within the specified number of days in your tracker. +
+Format: `check|<days>`
+
+Lists items whose reminder has been activated. +
 Format: `check`
 
-Shows items that will expire within the specified number of days in the list. +
-Format: `check|<days>`
 
 ****
 * Number of days *must be a non-negative integer* 0,1,2,3,..
@@ -147,12 +140,12 @@ Lists items expiring in the next 20 days.
 
 === Sorting all items : `sort`
 
-Sorts all items in the list by either name or date. +
+Sorts all items in your list by either name or date. +
 Format: `sort|<key>`
 
 ****
-* Sorting by both name and date is done in ascending order.
-* For example, Apple will sort ahead of Banana, while 01/01/2000 will sort ahead of 01/01/2001.
+* Items are sorted by both name and date.
+* For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
 ****
 
 Examples:
@@ -163,43 +156,50 @@ Examples:
 
 === Searching item by name: `search`
 
-Search items whose names contain any of the given keywords. +
+Search items whose names or tag(s) contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
 
 ****
-* The search is case insensitive. e.g `ham` will match `Ham`
-* The order of the keywords does not matter. e.g. `Turkey Ham|Apple` will match `Apple|Turkey Ham`
-* Only the name is searched.
-* Partial words can also be matched e.g. `Papa` will match `Papayas`
-* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Apple|Pear` will return `Granny Smith Apple`, `Japanese Pear`
+* The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
+* The order of the keywords does not matter. e.g. `Turkey Ham|Apple` will match `Apple|Turkey Ham`.
+* Only the name and tag, if any, are searched.
+* For name search, partial words can be matched e.g. `Papa` will match `Papayas`.
+* For tag search, only exact words will be matched e.g. `#Fruit` will match `#Fruit` but `#Fru` will not match `#Fruit`.
+* Items matching at least one keyword will be returned (an `OR` search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
 ****
 
 Examples:
 
 * `search|kebab` +
 Returns `Chicken Kebab` and `kebab`
-* `search|milk|tea|pearls` +
-Returns any items containing the terms `milk`, `tea`, or `pearls`
+* `search|milk|tea|#Drink` +
+Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 
 // tag::delete[]
-=== Deleting an item : `delete`
+=== Deleting items, tags or quantity : `delete`
 
-Deletes the specified item from the list or deletes tag(s) from the specified item. +
+Deletes the specified item from your list. +
 Format: `delete|<index>` +
 OR +
-Format: `delete|<index>|<tag>[<other tags>]...`
+Deletes tag(s) from the specified item. +
+Format: `delete|<index>|<tag>[<other tags>]...` +
+OR +
+Reduces item quantity by the specified quantity. +
+Format `delete|<index>|<quantity>`
+
 
 ****
-* Deletes the item at the specified `<index>`.
-* The index refers to the index number shown in the list.
+* The index refers to the index number shown on the list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Tags must be prefixed with a '#'.
 * The item must contain the tags to be deleted.
+* The quantity *must be a positive integer* 1, 2 ,3...
+* The quantity specified must be more than the item's current quantity.
 ****
 
 Examples:
 
-* `list` +
+* `view` +
 `delete|2` +
 Deletes the 2nd item in the list.
 * `sort|name` +
@@ -208,9 +208,12 @@ Deletes the 3rd item in the sorted list.
 * `search|potato` +
 `delete|1` +
 Deletes the 1st item in the results of the `search` command.
-* `list` +
+* `view` +
 `delete|3|#Fruit #Food` +
 Deletes the tags `#Fruit` and `#Food` from the 3rd item in the list.
+* `view` +
+`delete|4|1` +
+Reduces the quantity from the 4th item by 1.
 
 // end::delete[]
 
@@ -232,13 +235,10 @@ Format: `tag|<index>|<tag>[<other tags>]...`
 
 Examples:
 
-* `list` +
+* `view` +
 `tag|2|#Nestle #Caffeine` +
 Tags the 2nd item in the list with `#Nestle` and `#Caffeine`.
 
-* `search|potato` +
-`tag|1` +
-Deletes all tags of the 1st item in the results of the `search` command.
 
 === Clearing all entries : `clear`
 
@@ -269,7 +269,7 @@ There is no need to save manually.
 == Command Summary
 
 * *Help* : `help`
-* *Add* `add|<item name>|<expiry date>|[<tag>]...` +
+* *Add* `add|<item name>|<expiry date>[|<quantity>]...` +
 e.g. `add|durian|30/9/2019`
 * *View* : `view`
 * *Set reminder* : `set reminder|<index>|<reminder threshold>` +
@@ -278,11 +278,9 @@ e.g. `set reminder|1|7`
 e.g. `check|20`
 * *Sort* : `sort|<key>` +
 e.g. `sort|date`
-//* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-//e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Search* : `search|<keyword>[|<other keywords>]...` +
 e.g. `search|milk|tea|pearls`
-* *Delete* : `delete|<index>` +
+* *Delete* : `delete|<index>[|<tag> or <quantity>]` +
 e.g. `delete|3`
 * *Tag* : `tag|<index>|[<tag>]...`
 * *Clear* : `clear`

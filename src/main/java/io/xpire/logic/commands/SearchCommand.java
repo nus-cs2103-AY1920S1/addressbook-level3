@@ -17,9 +17,10 @@ public class SearchCommand extends Command {
     public static final String COMMAND_WORD = "search";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches and displays all items whose names "
-            + "contain any of the specified keywords (case-insensitive).\n"
-            + "Format: search|<keyword>[|<other keywords>]...\n"
-            + "Example: " + COMMAND_WORD + "|apple|banana|panadol";
+            + "or tag(s) contain any of the specified keywords (case-insensitive).\n"
+            + "Searching for names allows partial match while searching for tags requires exact match.\n"
+            + "Format: search|<keyword>[|<other keywords>]... (keyword(s) for tags must be prefixed with a '#')\n"
+            + "Example: " + COMMAND_WORD + "|apple|#fridge|banana";
 
     private final ContainsKeywordsPredicate predicate;
 

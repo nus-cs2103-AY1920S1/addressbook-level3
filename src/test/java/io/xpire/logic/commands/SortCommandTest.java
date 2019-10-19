@@ -17,10 +17,11 @@ import io.xpire.model.UserPrefs;
 public class SortCommandTest {
 
     private Model model;
+    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
+        expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
     }
-
 }
