@@ -42,20 +42,6 @@ public class Installment {
         return this.moneySpentOnInstallment;
     }
 
-    //=========== Edit Methods ==================================================================================
-
-    /**
-     * Edits the description of an existing installment.
-     */
-    public void editDescription(String newDescription) {
-        requireNonNull(newDescription);
-        this.description = new InstallmentDescription(newDescription);
-    }
-
-    public void editAmount(double newMoney) {
-        moneySpentOnInstallment = new InstallmentMoneyPaid(Double.toString(newMoney));
-    }
-
     //=========== Common Methods ==================================================================================
 
     @Override

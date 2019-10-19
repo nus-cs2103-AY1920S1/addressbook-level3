@@ -1,4 +1,4 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.finance;
 
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
@@ -20,6 +20,11 @@ public class InstallmentBuilder {
     public InstallmentBuilder() {
         description = DEFAULT_DESCRIPTION;
         subscriptionPrice = DEFAULT_MONEY;
+    }
+
+    public InstallmentBuilder(Installment toCopy) {
+        description = toCopy.getDescription();
+        subscriptionPrice = toCopy.getMoneySpentOnInstallment();
     }
 
     /**

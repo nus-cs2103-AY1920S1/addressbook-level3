@@ -234,7 +234,7 @@ Examples: +
 `pay a/30 n/jessica`
 
 
-==== Delete a payment: `pay delete`
+==== Delete a payment: `pay-delete`
 Deletes payments in the list of payments tracked by Jarvis.
 
 Format: `pay delete INDEX`
@@ -242,7 +242,7 @@ Format: `pay delete INDEX`
 where `INDEX` is the **one-based** index of the payment list.
 
 
-==== Setting Instalments: `instal set`
+==== Setting Instalments: `install-set`
 Sets instalments, such as a subscription to a service that is paid monthly.
 The amount is assumed to be deducted on the first of every month.
 
@@ -253,7 +253,7 @@ Examples: +
 `instal set n/Netflix a/5`
 
 
-==== Edit Instalments: `instal edit`
+==== Edit Instalments: `install-edit`
 Edits the instalments in the list of existing instalments.
 
 Format: `instal edit INDEX {n/ITEM | a/AMOUNT}`
@@ -263,25 +263,25 @@ Examples: +
 `instal edit 2 n/Spotify-Family`
 
 
-==== Delete Instalments: `instal delete`
+==== Delete Instalments: `install-delete`
 Deletes instalments in the list of existing instalments
 
 Format: `instal delete INDEX`
 
 
-==== Listing Instalments: `instal list`
+==== Listing Instalments: `install-list`
 Shows all instalments that the user has subscribed to.
 
 Format: `instal list`
 
 
-==== Listing Expenditures: `expenses list`
+==== Listing Expenditures: `expenses-list`
 Shows all payments that the user has made this month.
 
 Format: `expenses list`
 
 
-==== Setting Monthly Limit: `set monthly`
+==== Setting Monthly Limit: `set-monthly`
 Sets a monthly budget limit. From the monthly limit, the program will
 automatically calculate your weekly and daily limit.
 
