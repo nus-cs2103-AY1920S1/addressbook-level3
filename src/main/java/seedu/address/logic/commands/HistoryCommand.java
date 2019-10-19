@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.Model;
 
-// TODO: Add tests for history command.
-
 /**
  * Lists the available policies in the address book.
  */

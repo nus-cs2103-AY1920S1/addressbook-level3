@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-// TODO: Add tests for undo command.
-
 /**
  * Undoes the state of the address book to a previous state.
  */

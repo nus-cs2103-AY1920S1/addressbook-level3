@@ -311,6 +311,31 @@ public class MergePolicyRejectedCommandTest {
         public void updateFilteredPolicyList(Predicate<Policy> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean canUndoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveAddressBookState() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

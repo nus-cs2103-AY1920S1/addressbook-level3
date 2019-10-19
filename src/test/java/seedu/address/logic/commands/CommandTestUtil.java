@@ -156,7 +156,7 @@ public class CommandTestUtil {
     public static void assertListPeopleCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false,
-                false, true, false, false);
+                false, true, false, false, false);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -167,7 +167,18 @@ public class CommandTestUtil {
     public static void assertListPolicyCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                                       Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false,
-                true, false, false, false);
+                true, false, false, false, false);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertHistoryCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                      Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false,
+                false, false, true, false, false);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

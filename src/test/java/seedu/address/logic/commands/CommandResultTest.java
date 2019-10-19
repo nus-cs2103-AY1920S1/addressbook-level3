@@ -15,7 +15,7 @@ public class CommandResultTest {
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false,
-                false, false, false, false)));
+                false, false, false, false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -31,27 +31,31 @@ public class CommandResultTest {
 
         // different showHelp value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", true, false,
-                false, false, false, false)));
+                false, false, false, false, false)));
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true,
-                false, false, false, false)));
+                false, false, false, false, false)));
 
         // different list policy value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
-                true, false, false, false)));
+                true, false, false, false, false)));
 
         // different list policy value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
-                false, true, false, false)));
+                false, true, false, false, false)));
+
+        // different list history value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
+                false, false, true, false, false)));
 
         // different expand person value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
-                false, false, true, false)));
+                false, false, false, true, false)));
 
         // different expand policy value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false,
-                false, false, false, true)));
+                false, false, false, false, true)));
     }
 
     @Test
@@ -66,26 +70,30 @@ public class CommandResultTest {
 
         // different showHelp value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true,
-                false, false, false, false, false).hashCode());
+                false, false, false, false, false, false).hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
-                true, false, false, false, false).hashCode());
+                true, false, false, false, false, false).hashCode());
 
         // different listPolicy value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
-                false, true, false, false, false).hashCode());
+                false, true, false, false, false, false).hashCode());
 
         // different listPeople value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
-                false, false, true, false, false).hashCode());
+                false, false, true, false, false, false).hashCode());
+
+        // different listHistory value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
+                false, false, true, false, false, false).hashCode());
 
         // different expand person value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
-                false, false, false, true, false).hashCode());
+                false, false, false, false, true, false).hashCode());
 
         // different expand policy value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
-                false, false, false, false, true).hashCode());
+                false, false, false, false, false, true).hashCode());
     }
 }

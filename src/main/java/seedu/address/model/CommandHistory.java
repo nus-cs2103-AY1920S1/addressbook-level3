@@ -26,7 +26,7 @@ public class CommandHistory {
     public void addCommand(String commandWord, String userInput) {
         requireNonNull(commandWord);
         requireNonNull(userInput);
-        userInputHistory.add(new Pair(commandWord, userInput));
+        userInputHistory.add(new Pair<>(commandWord, userInput));
     }
 
     /**
