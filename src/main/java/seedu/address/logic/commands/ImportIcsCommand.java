@@ -1,15 +1,16 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_IMPORT_ICS_SUCCESS;
+
 import seedu.address.ics.IcsException;
 import seedu.address.ics.IcsParser;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.UserOutput;
 
-import java.util.ArrayList;
-
-import static seedu.address.commons.core.Messages.MESSAGE_IMPORT_ICS_SUCCESS;
-
+/**
+ * Represents a Command which imports Events stored in an Ics file into Horo.
+ */
 public class ImportIcsCommand extends Command {
     private final ModelManager model;
     private final String filepath;

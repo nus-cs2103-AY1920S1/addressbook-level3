@@ -126,6 +126,11 @@ public class IcsParser {
         return eventSourceArray(events);
     }
 
+    /**
+     * Converts an ArrayList of EventSource objects into an array.
+     * @param events the ArrayList of EventSource objects.
+     * @return An array of EventSource objects.
+     */
     private EventSource[] eventSourceArray(ArrayList<EventSource> events) {
         int size = events.size();
         EventSource[] array = new EventSource[size];
