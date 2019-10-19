@@ -13,6 +13,8 @@ public enum SemesterName {
     Y4S1, Y4S2, Y4ST1, Y4ST2,
     Y5S1, Y5S2, Y5ST1, Y5ST2;
 
+    public static final String VALIDATION_REGEX = "Y[1-5]ST?[1-2]";
+
     public static SemesterName getEnum(int year, int semester) {
         switch (year) {
         case 1:
@@ -115,5 +117,9 @@ public enum SemesterName {
         default:
             throw new SemesterNotFoundException();
         }
+    }
+
+    public static boolean isValidSemesterName(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 }

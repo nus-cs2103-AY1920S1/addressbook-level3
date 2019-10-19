@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -139,7 +140,7 @@ public interface Model {
      */
     void deleteStudyPlanCommitManagerByIndex(int index);
 
-    // ===================== MODULE INFORMATION ==========================
+    // ===================== MODULE INFORMATION AND VERIFICATION ==========================
 
     /**
      * Returns true if the module code is a valid, false otherwise.
@@ -156,6 +157,10 @@ public interface Model {
      */
     String getModuleInformation(String moduleCode);
 
+    /**
+     * Returns a list of valid modules that can be taken in a given semester.
+     */
+    List<String> getValidMods(SemesterName semName);
 
     /**
      * Returns true if a Semester contains a module with same identity as {@code module}.

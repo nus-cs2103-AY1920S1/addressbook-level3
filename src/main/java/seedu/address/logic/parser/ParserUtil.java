@@ -43,7 +43,7 @@ public class ParserUtil {
      */
     public static SemesterName parseSemester(String semester) throws ParseException {
         String trimmedSemester = semester.trim().toUpperCase();
-        if (!trimmedSemester.matches("Y\\dS\\w?\\d")) {
+        if (!SemesterName.isValidSemesterName(trimmedSemester)) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
         int year = Character.getNumericValue(trimmedSemester.charAt(1));
