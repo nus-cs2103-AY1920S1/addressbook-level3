@@ -73,7 +73,7 @@ public class AddPhoneCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single phone.
      */
     private class ModelStubWithPhone extends ModelStub {
         private final Phone phone;

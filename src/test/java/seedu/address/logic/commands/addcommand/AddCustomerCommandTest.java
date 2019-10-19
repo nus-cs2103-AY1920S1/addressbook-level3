@@ -74,7 +74,7 @@ public class AddCustomerCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single customer.
      */
     private class ModelStubWithCustomer extends ModelStub {
         private final Customer customer;
