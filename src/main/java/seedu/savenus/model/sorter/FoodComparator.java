@@ -38,6 +38,10 @@ public class FoodComparator implements Comparator<Food> {
         return 0;
     }
 
+    public List<String> getFieldList() {
+        return this.fieldList;
+    }
+
     /**
      * Simply checks if the direction to be sorted is ascending or descending, for sorting purposes.
      * @param direction the direction to be sorted.

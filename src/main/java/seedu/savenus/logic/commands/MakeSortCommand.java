@@ -12,6 +12,9 @@ import seedu.savenus.model.Model;
 public class MakeSortCommand extends Command {
 
     public static final String COMMAND_WORD = "makesort";
+    public static final String EXAMPLE_USAGE = "Example Usage: " + COMMAND_WORD + " PRICE ASC NAME DESC";
+    public static final String NO_ARGUMENTS_USAGE = "Note you have entered in zero arguments:\n"
+            + EXAMPLE_USAGE;
     public static final String MESSAGE_SUCCESS = "You have successfully overridden your own custom comparator!";
 
     private List<String> fields;
