@@ -9,9 +9,9 @@ import seedu.billboard.model.Model;
 /**
  * Displays the list of expenses in an archive.
  */
-public class ListArchiveCommand extends Command {
+public class ListArchiveCommand extends ArchiveCommand {
 
-    public static final String COMMAND_WORD = "list-arc";
+    public static final String COMMAND_WORD = "listarc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists the archive identified by the archive name used in the displayed list of archives.\n"

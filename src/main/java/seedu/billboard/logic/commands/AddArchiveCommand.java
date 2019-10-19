@@ -17,9 +17,9 @@ import seedu.billboard.model.expense.Expense;
  * Adds an expense to an existing archive.
  * If the archive does not exist, create a new archive to store the expense.
  */
-public class AddArchiveCommand extends Command {
+public class AddArchiveCommand extends ArchiveCommand {
 
-    public static final String COMMAND_WORD = "add-arc";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates an archive of the given name and\n"
