@@ -23,7 +23,6 @@ public class LookUpCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsLookUpCommand() {
-        // TODO remove dependency on CourseUtil
         LookUpCommand expectedLookUpCommand = new LookUpCommand(
             CourseUtil.getCourse("CS3230").get()
         );
