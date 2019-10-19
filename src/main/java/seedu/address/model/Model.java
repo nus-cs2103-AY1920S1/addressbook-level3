@@ -116,6 +116,11 @@ public interface Model {
     void addFood(Food food);
 
     /**
+     * Returns the {@code UniqueFoodList} object.
+     */
+    UniqueFoodList getUniqueFoodListObject();
+
+    /**
      * Returns the a list of foods.
      */
     ObservableList<Food> getFoodList();
