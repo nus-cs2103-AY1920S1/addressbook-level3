@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * List of employees allocated as manpower for the Event.
  */
 public class EventManpowerAllocatedList {
-    private List<String> manpowerList = new ArrayList<>();
+    public List<String> manpowerList;
 
     /**
      * Constructs a {@code Name}.

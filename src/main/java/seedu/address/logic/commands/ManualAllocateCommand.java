@@ -32,7 +32,6 @@ public class ManualAllocateCommand extends Command {
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
     public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Added Person: %1$s to %2$s";
-    //public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
     private final Index eventIndex;

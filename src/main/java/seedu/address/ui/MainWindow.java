@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
+    private ListPanelForFetch listPanelForFetch;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,7 +109,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
-        personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -144,6 +145,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+
     void show() {
         primaryStage.show();
     }
@@ -159,6 +161,8 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
+
+
 
     public seedu.address.ui.ListPanel getListPanel() {
         return listPanel;
@@ -183,6 +187,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isFetch()) {
+                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(), logic.getFilteredEventList().get(0));
+                listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+            } else {
+                listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
+                listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -190,4 +202,8 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+
+
+
 }
