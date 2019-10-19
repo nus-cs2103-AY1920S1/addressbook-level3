@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDICATOR;
 
 import seedu.address.model.Model;
-import seedu.address.model.visual.Indicator;
+import seedu.address.model.visual.DisplayIndicator;
 
 /**
  * Displays indicator according to specified format.
@@ -19,24 +19,24 @@ public class DisplayCommand extends Command {
         + PREFIX_INDICATOR + "INDICATOR\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_INDICATOR + "contact-list-growth-rate\n"
-        + Indicator.MESSAGE_CONSTRAINTS;
+        + DisplayIndicator.MESSAGE_CONSTRAINTS;
 
-    // TODO: Change text to state which indicator is displayed
+    // TODO: Change text to state which displayIndicator is displayed
     public static final String MESSAGE_SUCCESS = "Displayed";
 
-    private final Indicator indicator;
+    private final DisplayIndicator displayIndicator;
 
     /**
      * Creates a DisplayCommand.
      */
-    public DisplayCommand(Indicator indicator) {
-        requireNonNull(indicator);
-        this.indicator = indicator;
+    public DisplayCommand(DisplayIndicator displayIndicator) {
+        requireNonNull(displayIndicator);
+        this.displayIndicator = displayIndicator;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS, this.indicator);
+        return new CommandResult(MESSAGE_SUCCESS, this.displayIndicator);
     }
 }

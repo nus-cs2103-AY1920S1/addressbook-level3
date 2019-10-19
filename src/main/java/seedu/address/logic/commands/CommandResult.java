@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.visual.Indicator;
+import seedu.address.model.visual.DisplayIndicator;
 
 /**
  * Represents the result of a command execution.
@@ -43,7 +43,7 @@ public class CommandResult {
      */
     private boolean display;
 
-    private Indicator indicator;
+    private DisplayIndicator displayIndicator;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -72,17 +72,17 @@ public class CommandResult {
         this(feedbackToUser, false, false, false, false, false, false);
     }
 
-    public CommandResult(String feedbackToUser, Indicator indicator) {
+    public CommandResult(String feedbackToUser, DisplayIndicator displayIndicator) {
         this(feedbackToUser, false, false, false, false, false,
             true);
-        this.indicator = indicator;
+        this.displayIndicator = displayIndicator;
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public Indicator getIndicator() { return this.indicator; }
+    public DisplayIndicator getDisplayIndicator() { return this.displayIndicator; }
 
     public boolean isShowHelp() {
         return showHelp;

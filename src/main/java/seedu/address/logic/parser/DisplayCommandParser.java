@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.visual.Indicator;
+import seedu.address.model.visual.DisplayIndicator;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -27,14 +27,14 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
         }
 
-        Indicator indicator = null;
+        DisplayIndicator displayIndicator = null;
         try {
-            indicator = ParserUtil.parseIndicator(argMultimap.getValue(PREFIX_INDICATOR).get());
+            displayIndicator = ParserUtil.parseDisplayIndicator(argMultimap.getValue(PREFIX_INDICATOR).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE), pe);
         }
 
-        return new DisplayCommand(indicator);
+        return new DisplayCommand(displayIndicator);
     }
 
     /**

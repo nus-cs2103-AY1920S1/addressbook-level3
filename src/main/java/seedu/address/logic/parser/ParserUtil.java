@@ -22,7 +22,7 @@ import seedu.address.model.policy.PolicyName;
 import seedu.address.model.policy.Price;
 import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.visual.Indicator;
+import seedu.address.model.visual.DisplayIndicator;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -270,19 +270,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String indicator} into a {@code indicator}.
+     * Parses a {@code String display indicator} into a {@code display indicator}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code startAge} is invalid.
      */
-    public static Indicator parseIndicator (String indicator) throws ParseException {
-        requireNonNull(indicator);
-        String trimmedIndicator = indicator.trim();
+    public static DisplayIndicator parseDisplayIndicator (String displayIndicator) throws ParseException {
+        requireNonNull(displayIndicator);
+        String trimmedDisplayIndicator = displayIndicator.trim();
 
-        if (!Indicator.isValidIndicator(trimmedIndicator)) {
-            throw new ParseException(Indicator.MESSAGE_CONSTRAINTS);
+        if (!DisplayIndicator.isValidDisplayIndicator(trimmedDisplayIndicator)) {
+            throw new ParseException(DisplayIndicator.MESSAGE_CONSTRAINTS);
         }
-        return new Indicator(trimmedIndicator);
+        return new DisplayIndicator(trimmedDisplayIndicator);
     }
 
 }
