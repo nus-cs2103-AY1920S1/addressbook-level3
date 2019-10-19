@@ -39,7 +39,7 @@ public class AmountTest {
         // valid name
         assertTrue(Amount.isValidAmount("1 lbs")); // valid value and unit with spacing
         assertTrue(Amount.isValidAmount("1 g")); // valid value and unit with spacing
-        assertTrue(Amount.isValidAmount("1 kgs")); // valid value and unit with spacing
+        assertTrue(Amount.isValidAmount("1 kg")); // valid value and unit with spacing
         assertTrue(Amount.isValidAmount("1 oz")); // valid value and unit with spacing
         assertTrue(Amount.isValidAmount("1 L")); // valid value and unit with spacing
         assertTrue(Amount.isValidAmount("1 ml")); // valid value and unit with spacing
@@ -47,7 +47,7 @@ public class AmountTest {
 
         assertTrue(Amount.isValidAmount("1.32 lbs")); // valid value with decimal and unit with spacing
         assertTrue(Amount.isValidAmount("1.32 g")); // valid value with decimal and unit with spacing
-        assertTrue(Amount.isValidAmount("1.32 kgs")); // valid value with decimal and unit with spacing
+        assertTrue(Amount.isValidAmount("1.32 kg")); // valid value with decimal and unit with spacing
         assertTrue(Amount.isValidAmount("1.32 oz")); // valid value with decimal and unit with spacing
         assertTrue(Amount.isValidAmount("1.32 L")); // valid value with decimal and unit with spacing
         assertTrue(Amount.isValidAmount("1.32 ml")); // valid value with decimal and unit with spacing
@@ -55,7 +55,7 @@ public class AmountTest {
 
         assertTrue(Amount.isValidAmount("1.32lbs")); // valid value with decimal and unit with no spacing
         assertTrue(Amount.isValidAmount("1.32g")); // valid value with decimal and unit with no spacing
-        assertTrue(Amount.isValidAmount("1.32kgs")); // valid value with decimal and unit with no spacing
+        assertTrue(Amount.isValidAmount("1.32kg")); // valid value with decimal and unit with no spacing
         assertTrue(Amount.isValidAmount("1.32oz")); // valid value with decimal and unit with no spacing
         assertTrue(Amount.isValidAmount("1.32L")); // valid value with decimal and unit with no spacing
         assertTrue(Amount.isValidAmount("1.32ml")); // valid value with decimal and unit with no spacing
