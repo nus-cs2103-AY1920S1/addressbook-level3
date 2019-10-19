@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private DeliverymanListPanel deliverymanListPanel;
     private RestaurantListPanel restaurantListPanel;
     private ResultDisplay resultDisplay;
+    private StatisticsDisplay statisticsDisplay;
     private HelpWindow helpWindow;
 
     @FXML
@@ -51,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane listPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticsPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -173,6 +177,13 @@ public class MainWindow extends UiPart<Stage> {
      * Changes context of the system depending on {@code context}
      */
     private void changeContext(Context context) {
+
+        editingRestaurantPlaceholder.setPrefHeight(0);
+        editingRestaurantPlaceholder.setMinHeight(0);
+        if (statisticsPlaceholder.getChildren().size() > 0) {
+            statisticsPlaceholder.getChildren().remove(0);
+        }
+
         switch (context) {
         case CUSTOMER:
             customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
@@ -188,8 +199,14 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case EDITING:
             editingRestaurantPlaceholder.setPrefHeight(125.0);
+            editingRestaurantPlaceholder.setMinHeight(125.0);
             restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
             editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+
+            statisticsDisplay = new StatisticsDisplay();
+            statisticsPlaceholder.setStyle("-fx-border-color: derive(#1d1d1d, 20%); -fx-border-top-width: 1px;");
+            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+            statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS");
             break;
         default:
             // to be implemented with order list
