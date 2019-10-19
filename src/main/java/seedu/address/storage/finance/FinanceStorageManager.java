@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.finance.ReadOnlyAddressBook;
+import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.ReadOnlyUserPrefs;
 import seedu.address.model.finance.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of FinanceLog data in local storage.
  */
 public class FinanceStorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(FinanceStorageManager.class);
-    private FinanceStorage addressBookStorage;
+    private FinanceStorage financeLogStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public FinanceStorageManager(FinanceStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public FinanceStorageManager(FinanceStorage financeLogStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.financeLogStorage = financeLogStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class FinanceStorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ FinanceLog methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getFinanceLogFilePath() {
+        return financeLogStorage.getFinanceLogFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyFinanceLog> readFinanceLog() throws DataConversionException, IOException {
+        return readFinanceLog(financeLogStorage.getFinanceLogFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyFinanceLog> readFinanceLog(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return financeLogStorage.readFinanceLog(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveFinanceLog(ReadOnlyFinanceLog financeLog) throws IOException {
+        saveFinanceLog(financeLog, financeLogStorage.getFinanceLogFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveFinanceLog(ReadOnlyFinanceLog financeLog, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        financeLogStorage.saveFinanceLog(financeLog, filePath);
     }
 
 }

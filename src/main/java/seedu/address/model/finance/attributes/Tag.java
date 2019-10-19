@@ -1,4 +1,4 @@
-package seedu.address.model.finance.tag;
+package seedu.address.model.finance.attributes;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

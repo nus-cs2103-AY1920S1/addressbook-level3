@@ -13,8 +13,10 @@ src/main/resources/docs/
 /data/calendardata.json
 /data/financelog.json
 /config.json
+/preferences.json
+/preferencesFinance.json
+/cappreferences.json
 /calendarpreferences.json
-/financepreferences.json
 /preferencesQuiz.json
 /*.log.*
 /.settings/

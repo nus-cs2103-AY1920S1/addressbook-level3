@@ -5,17 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.finance.person.Person;
-import seedu.address.model.finance.person.UniquePersonList;
+import seedu.address.model.finance.logentry.LogEntry;
+import seedu.address.model.finance.logentry.LogEntryList;
 
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the Modulo's finance component
  */
-public class FinanceLog implements ReadOnlyAddressBook {
+public class FinanceLog implements ReadOnlyFinanceLog {
 
-    private final UniquePersonList persons;
+    private final LogEntryList logEntries;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,15 +24,15 @@ public class FinanceLog implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        logEntries = new LogEntryList();
     }
 
     public FinanceLog() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an FinanceLog using the LogEntries in the {@code toBeCopied}
      */
-    public FinanceLog(ReadOnlyAddressBook toBeCopied) {
+    public FinanceLog(ReadOnlyFinanceLog toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -41,81 +40,76 @@ public class FinanceLog implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the list of log entries with {@code logEntries}.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setLogEntries(List<LogEntry> logEntries) {
+        this.logEntries.setLogEntries(logEntries);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code FinanceLog} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyFinanceLog newData) {
         requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
+        setLogEntries(newData.getLogEntryList());
     }
 
-    //// person-level operations
+    //// log entry-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a log entry with the same information as {@code logEntry} exists in the finance log.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public boolean hasLogEntry(LogEntry logEntry) {
+        requireNonNull(logEntry);
+        return logEntries.contains(logEntry);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Adds a log entry to the finance log.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
+    public void addLogEntry(LogEntry le) {
+        logEntries.add(le);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Replaces the given log entry {@code target} in the list with {@code editedLogEntry}.
+     * {@code target} must exist in the finance log.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void setLogEntry(LogEntry target, LogEntry editedLogEntry) {
+        requireNonNull(editedLogEntry);
+        logEntries.setLogEntry(target, editedLogEntry);
+    }
+
+    /**
+     * Removes {@code key} from this {@code FinanceLog}.
+     * {@code key} must exist in the finance log.
+     */
+    public void removeLogEntry(LogEntry key) {
+        logEntries.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        int numLogEntries = logEntries.asUnmodifiableObservableList().size();
+        return numLogEntries == 1 ? " log entry" : " log entries";
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<LogEntry> getLogEntryList() {
+        return logEntries.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FinanceLog // instanceof handles nulls
-                && persons.equals(((FinanceLog) other).persons));
+                && logEntries.equals(((FinanceLog) other).logEntries));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return logEntries.hashCode();
     }
 }
