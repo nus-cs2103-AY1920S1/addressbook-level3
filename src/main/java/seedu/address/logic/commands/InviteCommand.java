@@ -73,6 +73,7 @@ public class InviteCommand extends Command {
 
             try {
                 findResult = model.findPersonAll(predicate);
+                assert findResult != null : "List of people in contacts should not be null.";
                 if (findResult.size() != 1) {
                     throw new CommandException(String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name));
                 }
@@ -80,6 +81,8 @@ public class InviteCommand extends Command {
                 messageNotInvited.append(e.getMessage() + "\n");
                 continue;
             }
+
+            assert findResult.size() == 1 : "There should only be 1 match";
 
             Person personToInvite = findResult.get(0);
             Integer idOfPersonToInvite = personToInvite.getPrimaryKey();
@@ -100,7 +103,7 @@ public class InviteCommand extends Command {
             activityToInviteTo.invite(id);
         }
 
-        model.updateFilteredPersonList(x -> activityToInviteTo.getParticipantIds().contains(x.getPrimaryKey()));
+        model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
 
         return new CommandResult(String.format(MESSAGE_RESULT, messageInvited, messageNotInvited));
     }
