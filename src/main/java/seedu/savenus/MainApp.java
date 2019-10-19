@@ -24,7 +24,10 @@ import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.util.SampleDataUtil;
+import seedu.savenus.storage.CustomSortStorage;
+import seedu.savenus.storage.JsonCustomSortStorage;
 import seedu.savenus.storage.JsonMenuStorage;
 import seedu.savenus.storage.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.JsonRecsStorage;
@@ -67,11 +70,12 @@ public class MainApp extends Application {
         RecsStorage userRecommendations = new JsonRecsStorage(userPrefs.getRecsFilePath());
         PurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(userPrefs
                 .getPurchaseHistoryFilePath());
-        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations, purchaseHistoryStorage);
+        CustomSortStorage sort = new JsonCustomSortStorage(userPrefs.getSortFilePath());
+        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations, purchaseHistoryStorage, sort);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage);
+        model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage, sort);
 
         logic = new LogicManager(model, storage);
 
@@ -84,7 +88,7 @@ public class MainApp extends Application {
      * or an empty menu will be used instead if errors occur when reading {@code storage}'s menu.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs,
-                                   PurchaseHistoryStorage purchaseHistoryStorage) {
+                                   PurchaseHistoryStorage purchaseHistoryStorage, CustomSortStorage userSortFields) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
 
@@ -93,6 +97,9 @@ public class MainApp extends Application {
 
         Optional<UserRecommendations> recsOptional;
         UserRecommendations initialRecs;
+
+        Optional<CustomSorter> sorterOptional;
+        CustomSorter initialSorter;
         try {
             menuOptional = storage.readMenu();
             if (!menuOptional.isPresent()) {
@@ -112,19 +119,26 @@ public class MainApp extends Application {
             }
             initialPurchaseHistory = purchaseHistoryOptional.orElse(new PurchaseHistory());
 
+            sorterOptional = userSortFields.readFields();
+            if (!sorterOptional.isPresent()) {
+                logger.info("CustomSorter file not found. Will be starting with a blank CustomSorter");
+            }
+            initialSorter = sorterOptional.orElse(new CustomSorter());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty application");
             initialData = new Menu();
             initialRecs = new UserRecommendations();
             initialPurchaseHistory = new PurchaseHistory();
+            initialSorter = new CustomSorter();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty application");
             initialData = new Menu();
             initialRecs = new UserRecommendations();
             initialPurchaseHistory = new PurchaseHistory();
+            initialSorter = new CustomSorter();
 
         }
-        return new ModelManager(initialData, userPrefs, initialRecs, initialPurchaseHistory);
+        return new ModelManager(initialData, userPrefs, initialRecs, initialPurchaseHistory, initialSorter);
     }
     private void initLogging(Config config) {
         LogsCenter.init(config);

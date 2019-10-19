@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path menuFilePath = Paths.get("data" , "savenus-menu.json");
     private Path recsFilePath = Paths.get("data" , "savenus-recs.json");
     private Path purchaseHistoryFilePath = Paths.get("data" , "savenus-purchases.json");
+    private Path sortFilePath = Paths.get("data" , "savenus-sort.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -77,6 +78,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.purchaseHistoryFilePath = purchaseHistoryFilePath;
     }
 
+    public Path getSortFilePath() {
+        return sortFilePath;
+    }
+
+    public void getSortFilePath(Path sortFilePath) {
+        requireNonNull(sortFilePath);
+        this.sortFilePath = sortFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -91,12 +101,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && menuFilePath.equals(o.menuFilePath)
                 && recsFilePath.equals(o.recsFilePath)
-                && purchaseHistoryFilePath.equals(o.purchaseHistoryFilePath);
+                && purchaseHistoryFilePath.equals(o.purchaseHistoryFilePath)
+                && sortFilePath.equals(o.sortFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, menuFilePath, recsFilePath, purchaseHistoryFilePath);
+        return Objects.hash(guiSettings, menuFilePath, recsFilePath, purchaseHistoryFilePath, sortFilePath);
     }
 
     @Override
@@ -106,6 +117,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal data file location : " + menuFilePath);
         sb.append("\nRecommendations data file location : " + recsFilePath);
         sb.append("\nPurchase History data file location : " + purchaseHistoryFilePath);
+        sb.append("\nCustomSort data file location : " + sortFilePath);
         return sb.toString();
     }
 

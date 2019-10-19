@@ -12,6 +12,7 @@ import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 /**
  * Manages storage of $aveNUS Menu Food data in local storage.
@@ -23,14 +24,17 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private RecsStorage userRecsStorage;
     private PurchaseHistoryStorage purchaseHistoryStorage;
+    private CustomSortStorage customSortStorage;
 
     public StorageManager(MenuStorage menuStorage, UserPrefsStorage userPrefsStorage, RecsStorage userRecsStorage,
-                          PurchaseHistoryStorage purchaseHistoryStorage) {
+                          PurchaseHistoryStorage purchaseHistoryStorage, CustomSortStorage customSortStorage) {
+
         super();
         this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.userRecsStorage = userRecsStorage;
         this.purchaseHistoryStorage = purchaseHistoryStorage;
+        this.customSortStorage = customSortStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -135,5 +139,33 @@ public class StorageManager implements Storage {
     public void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException {
         logger.fine("Attempting to write purchase history to data file: " + filePath);
         purchaseHistoryStorage.savePurchaseHistory(purchaseHistory, filePath);
+    }
+
+    // =============== CustomSorter methods ========================
+    @Override
+    public Path getSortFilePath() {
+        return customSortStorage.getSortFilePath();
+    }
+
+    @Override
+    public Optional<CustomSorter> readFields() throws DataConversionException, IOException {
+        return readFields(customSortStorage.getSortFilePath());
+    }
+
+    @Override
+    public Optional<CustomSorter> readFields(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read sort fields data from file: " + filePath);
+        return customSortStorage.readFields(filePath);
+    }
+
+    @Override
+    public void saveFields(CustomSorter sorter) throws IOException {
+        saveFields(sorter, customSortStorage.getSortFilePath());
+    }
+
+    @Override
+    public void saveFields(CustomSorter sorter, Path filePath) throws IOException {
+        logger.fine("Attempting to write sort fields to data file: " + filePath);
+        customSortStorage.saveFields(sorter, filePath);
     }
 }

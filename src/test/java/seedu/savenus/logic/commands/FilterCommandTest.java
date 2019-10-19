@@ -16,6 +16,7 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 public class FilterCommandTest {
     private List<String> fields;
@@ -26,9 +27,10 @@ public class FilterCommandTest {
     @BeforeEach
     public void set_up() {
         fields = new ArrayList<String>();
-        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
+                new CustomSorter());
         expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory());
+                new PurchaseHistory(), new CustomSorter());
     }
 
     @Test

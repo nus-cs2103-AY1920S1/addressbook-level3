@@ -47,6 +47,7 @@ public class LogicManager implements Logic {
             storage.saveMenu(model.getMenu());
             storage.saveRecs(model.getRecommendationSystem().getUserRecommendations());
             storage.savePurchaseHistory(model.getPurchaseHistory());
+            storage.saveFields(model.getCustomSorter());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

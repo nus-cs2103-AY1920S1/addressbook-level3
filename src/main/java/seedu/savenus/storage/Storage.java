@@ -10,11 +10,12 @@ import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, PurchaseHistoryStorage {
+public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, PurchaseHistoryStorage, CustomSortStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -60,5 +61,19 @@ public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, Pur
 
     @Override
     void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException;
+
+    Path getSortFilePath();
+
+    @Override
+    Optional<CustomSorter> readFields() throws DataConversionException, IOException;
+
+    @Override
+    Optional<CustomSorter> readFields(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void saveFields(CustomSorter sorter) throws IOException;
+
+    @Override
+    void saveFields(CustomSorter sorter, Path filePath) throws IOException;
 
 }

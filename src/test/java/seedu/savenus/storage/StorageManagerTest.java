@@ -17,6 +17,8 @@ import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 public class StorageManagerTest {
 
@@ -32,8 +34,9 @@ public class StorageManagerTest {
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(getTempFilePath("recs"));
         JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(
                 getTempFilePath("purchases"));
+        JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(getTempFilePath("sort"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage);
+                purchaseHistoryStorage, customSortStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -81,8 +84,39 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void newUserRecommendationsSave() throws Exception {
+        UserRecommendations recommendations = new UserRecommendations();
+        storageManager.saveRecs(recommendations);
+        UserRecommendations retrieved = storageManager.readRecs().get();
+        assertEquals(recommendations, retrieved);
+    }
+
+
+    @Test
+    public void newCustomSortSave() throws Exception {
+        CustomSorter sorter = new CustomSorter();
+        storageManager.saveFields(sorter);
+        CustomSorter theSorter = storageManager.readFields().get();
+        assertEquals(theSorter, sorter);
+    }
+
+    @Test
     public void getMenuFilePath() {
         assertNotNull(storageManager.getMenuFilePath());
     }
 
+    @Test
+    public void getUserPrefsFilePath() {
+        assertNotNull(storageManager.getUserPrefsFilePath());
+    }
+
+    @Test
+    public void getRecsFilePath() {
+        assertNotNull(storageManager.getRecsFilePath());
+    }
+
+    @Test
+    public void getSortFilePath() {
+        assertNotNull(storageManager.getSortFilePath());
+    }
 }

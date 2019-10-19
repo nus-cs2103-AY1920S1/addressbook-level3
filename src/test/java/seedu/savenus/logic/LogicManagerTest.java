@@ -35,6 +35,8 @@ import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
+import seedu.savenus.storage.JsonCustomSortStorage;
 import seedu.savenus.storage.JsonMenuStorage;
 import seedu.savenus.storage.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.JsonRecsStorage;
@@ -60,8 +62,11 @@ public class LogicManagerTest {
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("userPrefs-recs.json"));
         JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(temporaryFolder
                 .resolve("userPrefs-purchases.json"));
+        JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
+                temporaryFolder.resolve("userPrefs-sort.json")
+        );
         StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage);
+                purchaseHistoryStorage, customSortStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -86,15 +91,18 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonMenuIoExceptionThrowingStub
-        JsonMenuStorage addressBookStorage =
+        JsonMenuStorage menuStorage =
                 new JsonMenuIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMenu.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("ioExceptionUserRecs.json"));
         JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(temporaryFolder
                 .resolve("ioExceptionPurchaseHistory.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage);
+        JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
+                temporaryFolder.resolve("ioExceptionUserRecs.json")
+        );
+        StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
+                purchaseHistoryStorage, customSortStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -178,7 +186,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory());
+                new PurchaseHistory(), new CustomSorter());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
