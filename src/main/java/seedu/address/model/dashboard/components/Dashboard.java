@@ -1,8 +1,5 @@
 package seedu.address.model.dashboard.components;
 
-import seedu.address.model.common.Name;
-
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;

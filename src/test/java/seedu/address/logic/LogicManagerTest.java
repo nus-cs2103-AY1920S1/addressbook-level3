@@ -30,6 +30,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
 import seedu.address.model.exercise.components.Exercise;
@@ -38,6 +39,7 @@ import seedu.address.model.profile.person.Person;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.dashboard.JsonDashboardStorage;
 import seedu.address.storage.diary.JsonDiaryStorage;
 import seedu.address.storage.exercise.JsonWorkoutPlannerStorage;
 import seedu.address.storage.health.JsonHealthRecordsStorage;
@@ -68,10 +70,11 @@ public class LogicManagerTest {
                 new JsonWorkoutPlannerStorage(temporaryFolder.resolve("exercises.json"));
         JsonDiaryStorage diaryStorage =
                 new JsonDiaryStorage(temporaryFolder.resolve("diary.json"));
+        JsonDashboardStorage dashboardStorage = new JsonDashboardStorage((temporaryFolder.resolve("dashboard.json")));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, healthRecordsStorage,
-                recipeBookStorage, workoutPlannerStorage, diaryStorage, userPrefsStorage);
+                recipeBookStorage, workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -120,11 +123,14 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonDiaryIoExceptionThrowingStub
         JsonDiaryStorage diaryStorage =
                 new JsonDiaryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDiary.json"));
+        // Setup LogicManager with JsonDashboardIoExceptionThrowingStub
+        JsonDashboardStorage dashboardStorage =
+                new JsonDashboardIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDashboard.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, null,
-                recipeBookStorage, workoutPlannerStorage, diaryStorage, userPrefsStorage);
+                recipeBookStorage, workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
         new JsonUserPrefsStorage(temporaryFolder
                 .resolve("ioExceptionUserPrefs.json"));
         logic = new LogicManager(model, storage);
@@ -194,7 +200,8 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(),
-                model.getRecipeBook(), model.getWorkoutPlanner(), model.getDiaryRecords(), new UserPrefs());
+                model.getRecipeBook(), model.getWorkoutPlanner(), model.getDiaryRecords(), new UserPrefs(),
+                model.getDashboardRecords());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -264,6 +271,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveDiary(ReadOnlyDiary diary, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonDashboardIoExceptionThrowingStub extends JsonDashboardStorage {
+        private JsonDashboardIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveDashboard(ReadOnlyDashboard diary, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

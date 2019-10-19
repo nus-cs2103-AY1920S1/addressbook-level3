@@ -275,7 +275,7 @@ public interface Model {
      */
     void setDiary(Diary target, Diary editedDiary);
 
-//=========== Dashboard ======================================================================================
+    //=========== Dashboard ======================================================================================
 
     /**
      * Replaces Duke Cooks data with the data in {@code dashboardRecords}.
@@ -305,7 +305,8 @@ public interface Model {
     /**
      * Replaces the given dashboard {@code target} with {@code editedDashboard}.
      * {@code target} must exist in Duke Cooks.
-     * The dashboard identity of {@code editedDashboard} must not be the same as another existing dashboard in the Duke Cooks.
+     * The dashboard identity of {@code editedDashboard} must not be the same as
+     * another existing dashboard in the Duke Cooks.
      */
     void setDashboard(Dashboard target, Dashboard editedDashboard);
 
@@ -365,8 +366,7 @@ public interface Model {
      */
     void updateFilteredDiaryList(Predicate<Diary> predicate);
 
-
-//=========== Filtered Dashboard Records List Accessors =============================================================
+    //=========== Filtered Dashboard Records List Accessors =========================================================
 
     /** Returns an unmodifiable view of the filtered dashboard list */
     ObservableList<Dashboard> getFilteredDashboardList();
@@ -376,6 +376,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDashboardList(Predicate<Dashboard> predicate);
-
 
 }

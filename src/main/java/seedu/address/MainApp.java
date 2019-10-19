@@ -1,5 +1,10 @@
 package seedu.address;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -48,11 +53,6 @@ import seedu.address.storage.recipe.JsonRecipeBookStorage;
 import seedu.address.storage.recipe.RecipeBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Runs the application.
@@ -122,7 +122,7 @@ public class MainApp extends Application {
         initialDashboard = initDashboard(storage);
 
         return new ModelManager(initialDukeCooks, initialHealthRecords, initialRecipeBook, initialWorkoutPlanner,
-                initialDiary,userPrefs, initialDashboard);
+                initialDiary, userPrefs, initialDashboard);
     }
 
     /**

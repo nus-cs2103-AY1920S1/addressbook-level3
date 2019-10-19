@@ -29,7 +29,6 @@ import seedu.address.model.profile.person.Person;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;
 import seedu.address.model.recipe.RecipeBook;
 import seedu.address.model.recipe.components.Recipe;
-import seedu.address.model.dashboard.components.Dashboard;
 
 /**
  * Represents the in-memory model of Duke Cooks data.

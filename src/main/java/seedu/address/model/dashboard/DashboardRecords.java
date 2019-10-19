@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.dashboard.components.UniqueDashboardList;
-import seedu.address.model.dashboard.ReadOnlyDashboard;
 
 /**
  * Wraps all data at the dashboard level
@@ -78,7 +77,8 @@ public class DashboardRecords implements ReadOnlyDashboard {
     /**
      * Replaces the given dashboard {@code target} in the list with {@code editedDashboard}.
      * {@code target} must exist in Duke Cooks.
-     * The dashboard identity of {@code editedDashboard} must not be the same as another existing dashboard in Duke Cooks.
+     * The dashboard identity of {@code editedDashboard} must not be the same as
+     * another existing dashboard in Duke Cooks.
      */
     public void setDashboard(Dashboard target, Dashboard editedDashboard) {
         requireNonNull(editedDashboard);

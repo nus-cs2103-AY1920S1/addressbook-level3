@@ -39,7 +39,8 @@ public class StorageManager implements Storage {
 
     public StorageManager(UserProfileStorage userProfileStorage, HealthRecordsStorage healthRecordsStorage,
                           RecipeBookStorage recipeBookStorage, WorkoutPlannerStorage workoutPlannerStorage,
-                          DiaryStorage diaryStorage, DashboardStorage dashboardStorage, UserPrefsStorage userPrefsStorage) {
+                          DiaryStorage diaryStorage, DashboardStorage dashboardStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.userProfileStorage = userProfileStorage;
         this.healthRecordsStorage = healthRecordsStorage;

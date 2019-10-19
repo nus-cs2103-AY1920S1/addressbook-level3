@@ -37,7 +37,8 @@ class JsonSerializableDashboard {
      * @param source future changes to this will not affect the created {@code JsonSerializableDashboard}.
      */
     public JsonSerializableDashboard(ReadOnlyDashboard source) {
-        dashboards.addAll(source.getDashboardList().stream().map(JsonAdaptedDashboard::new).collect(Collectors.toList()));
+        dashboards.addAll(source.getDashboardList().stream().map(JsonAdaptedDashboard::new)
+                .collect(Collectors.toList()));
     }
 
     /**

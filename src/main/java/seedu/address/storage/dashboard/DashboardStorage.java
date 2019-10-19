@@ -7,7 +7,6 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.dashboard.ReadOnlyDashboard;
 import seedu.address.model.diary.DiaryRecords;
-import seedu.address.model.diary.ReadOnlyDiary;
 
 /**
  * Represents a storage for {@link DiaryRecords}.
