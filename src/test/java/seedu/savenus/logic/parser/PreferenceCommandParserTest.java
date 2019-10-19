@@ -54,10 +54,9 @@ public class PreferenceCommandParserTest {
     }
 
     @Test
-    public void parse_nothingProvided_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PreferenceCommand.MESSAGE_USAGE);
-        assertPreferenceParseFailure(parser, PREAMBLE_WHITESPACE, expectedMessage, false);
-        assertPreferenceParseFailure(parser, PREAMBLE_WHITESPACE, expectedMessage, true);
+    public void parse_nothingProvided_success() {
+        assertPreferenceParseSuccess(parser, PREAMBLE_WHITESPACE, new DislikeCommand(true), false);
+        assertPreferenceParseSuccess(parser, PREAMBLE_WHITESPACE, new LikeCommand(true), true);
     }
 
     @Test
@@ -83,9 +82,9 @@ public class PreferenceCommandParserTest {
         String command = CATEGORY_DESC_CHICKEN_RICE + CATEGORY_DESC_NASI_LEMAK;
 
         assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(expectedCategory, new HashSet<>(), new HashSet<>()), false);
+                new DislikeCommand(expectedCategory, new HashSet<>(), new HashSet<>(), false), false);
         assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(expectedCategory, new HashSet<>(), new HashSet<>()), true);
+                new LikeCommand(expectedCategory, new HashSet<>(), new HashSet<>(), false), true);
     }
 
     @Test
@@ -103,9 +102,9 @@ public class PreferenceCommandParserTest {
         String command = TAG_DESC_CHICKEN + TAG_DESC_RICE;
 
         assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(new HashSet<>(), expectedTags, new HashSet<>()), false);
+                new DislikeCommand(new HashSet<>(), expectedTags, new HashSet<>(), false), false);
         assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(new HashSet<>(), expectedTags, new HashSet<>()), true);
+                new LikeCommand(new HashSet<>(), expectedTags, new HashSet<>(), false), true);
     }
 
     @Test
@@ -123,9 +122,9 @@ public class PreferenceCommandParserTest {
         String command = LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK;
 
         assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(new HashSet<>(), new HashSet<>(), expectedLocation), false);
+                new DislikeCommand(new HashSet<>(), new HashSet<>(), expectedLocation, false), false);
         assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(new HashSet<>(), new HashSet<>(), expectedLocation), true);
+                new LikeCommand(new HashSet<>(), new HashSet<>(), expectedLocation, false), true);
     }
 
     @Test
@@ -144,9 +143,9 @@ public class PreferenceCommandParserTest {
                 + LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK;
 
         assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(expectedCategory, expectedTags, expectedLocation), false);
+                new DislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
         assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(expectedCategory, expectedTags, expectedLocation), true);
+                new LikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
     }
 
     @Test
@@ -159,9 +158,9 @@ public class PreferenceCommandParserTest {
                 + LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK;
 
         assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(expectedCategory, expectedTags, expectedLocation), false);
+                new DislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
         assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(expectedCategory, expectedTags, expectedLocation), true);
+                new LikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
     }
 
     @Test
@@ -177,8 +176,8 @@ public class PreferenceCommandParserTest {
                 + PREFIX_LOCATION + VALID_LOCATION_NASI_LEMAK.toUpperCase();
 
         assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(expectedCategory, expectedTags, expectedLocation), false);
+                new DislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
         assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(expectedCategory, expectedTags, expectedLocation), true);
+                new LikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
     }
 }
