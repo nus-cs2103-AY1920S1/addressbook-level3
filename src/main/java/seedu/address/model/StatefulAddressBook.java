@@ -1,7 +1,10 @@
 package seedu.address.model;
 
+import javax.swing.undo.CannotUndoException;
 import java.util.ArrayList;
 import java.util.List;
+
+// TODO: Add tests for stateful address book.
 
 /**
  * An {@code AddressBook} which maintains a stateful list of address book.
@@ -45,20 +48,24 @@ public class StatefulAddressBook extends AddressBook {
         statefulAddressBookList.subList(currentStatePointer + 1, statefulAddressBookList.size()).clear();
     }
 
-    // TODO: Add undo exception.
     /**
      * Restores our address book to a previous state, depending on whether a person or a policy was modified.
      */
-    public void undo() {
+    public void undo() throws CannotUndoException {
+        if (!canUndo()) {
+            throw new CannotUndoException();
+        }
         currentStatePointer--;
         resetData(statefulAddressBookList.get(currentStatePointer));
     }
 
-    // TODO: Add redo exception.
     /**
      * Restores our address book to its previously undone state, depending on whether a person or policy was undone.
      */
-    public void redo() {
+    public void redo() throws CannotRedoException {
+        if (!canRedo()) {
+            throw new CannotRedoException();
+        }
         currentStatePointer++;
         resetData(statefulAddressBookList.get(currentStatePointer));
     }
@@ -93,6 +100,24 @@ public class StatefulAddressBook extends AddressBook {
         return super.equals(other)
                 && statefulAddressBookList.equals(other.statefulAddressBookList)
                 && currentStatePointer == other.currentStatePointer;
+    }
+
+    /**
+     * Exception when {@code undo()} is not possible but is still called.
+     */
+    private static class CannotUndoException extends RuntimeException {
+        private CannotUndoException() {
+            super("Undo is not possible in stateful address book yet undo() function called.");
+        }
+    }
+
+    /**
+     * Exception when {@code redo()} is not possible but is still called.
+     */
+    private static class CannotRedoException extends RuntimeException {
+        private CannotRedoException() {
+            super("Redo is not possible in stateful address book yet redo() function called.");
+        }
     }
 
 }
