@@ -8,6 +8,7 @@ Package Model <<Rectangle>> {
 Interface ReadOnlyDataBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
+Interface Identifiable <<Interface>>
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -70,6 +71,11 @@ ModelManager o--> "1" "DataBook<Customer>"
 ModelManager o--> "1" "DataBook<Schedule>"
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
+
+Phone .up.|> Identifiable
+Order .up.|> Identifiable
+Customer .up.|> Identifiable
+Schedule .up.|> Identifiable
 
 "DataBook<Phone>" *--> "1" "UniqueList<Phone>"
 "UniqueList<Phone>" o--> "*" Phone
