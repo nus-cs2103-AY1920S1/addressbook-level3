@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.TransactionBuilder;
 
 
@@ -18,14 +19,17 @@ public class TransactionContainsTagsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        TransactionContainsTagsPredicate firstPredicate = new TransactionContainsTagsPredicate(firstPredicateKeywordList);
-        TransactionContainsTagsPredicate secondPredicate = new TransactionContainsTagsPredicate(secondPredicateKeywordList);
+        TransactionContainsTagsPredicate firstPredicate =
+                new TransactionContainsTagsPredicate(firstPredicateKeywordList);
+        TransactionContainsTagsPredicate secondPredicate =
+                new TransactionContainsTagsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        TransactionContainsTagsPredicate firstPredicateCopy = new TransactionContainsTagsPredicate(firstPredicateKeywordList);
+        TransactionContainsTagsPredicate firstPredicateCopy =
+                new TransactionContainsTagsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +45,8 @@ public class TransactionContainsTagsPredicateTest {
     @Test
     public void test_tagContainsKeywords_returnsTrue() {
         // One keyword
-        TransactionContainsTagsPredicate predicate = new TransactionContainsTagsPredicate(Collections.singletonList("Alice"));
+        TransactionContainsTagsPredicate predicate =
+                new TransactionContainsTagsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new TransactionBuilder().withTags("Alice", "Bob").build()));
 
         // Multiple keywords
