@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -25,8 +26,10 @@ import seedu.savenus.model.recommend.UserRecommendations;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
-    private Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
+    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
+            new PurchaseHistory());
+    private Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
+            new PurchaseHistory());
 
     @Test
     public void equals() {

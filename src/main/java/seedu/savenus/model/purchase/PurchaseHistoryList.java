@@ -18,7 +18,7 @@ import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
  *
  *  Supports a minimal set of list operations.
  */
-public class PurchaseHistory implements Iterable<Purchase> {
+public class PurchaseHistoryList implements Iterable<Purchase> {
     private final ObservableList<Purchase> internalList = FXCollections.observableArrayList();
     private final ObservableList<Purchase> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -45,7 +45,7 @@ public class PurchaseHistory implements Iterable<Purchase> {
     /**
      * Replaces the current {@code PurchaseList} with a new {@code PurchaseList}.
      */
-    public void setPurchases(PurchaseHistory replacement) {
+    public void setPurchases(PurchaseHistoryList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -73,8 +73,8 @@ public class PurchaseHistory implements Iterable<Purchase> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PurchaseHistory // instanceof handles nulls
-                && internalList.equals(((PurchaseHistory) other).internalList));
+                || (other instanceof PurchaseHistoryList // instanceof handles nulls
+                && internalList.equals(((PurchaseHistoryList) other).internalList));
     }
 
     @Override

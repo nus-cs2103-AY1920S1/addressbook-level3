@@ -18,15 +18,19 @@ import seedu.savenus.logic.LogicManager;
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.util.SampleDataUtil;
 import seedu.savenus.storage.JsonMenuStorage;
+import seedu.savenus.storage.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.JsonRecsStorage;
 import seedu.savenus.storage.JsonUserPrefsStorage;
 import seedu.savenus.storage.MenuStorage;
+import seedu.savenus.storage.PurchaseHistoryStorage;
 import seedu.savenus.storage.RecsStorage;
 import seedu.savenus.storage.Storage;
 import seedu.savenus.storage.StorageManager;
@@ -61,11 +65,13 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
         RecsStorage userRecommendations = new JsonRecsStorage(userPrefs.getRecsFilePath());
-        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations);
+        PurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(userPrefs
+                .getPurchaseHistoryFilePath());
+        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations, purchaseHistoryStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs, userRecommendations);
+        model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -77,9 +83,13 @@ public class MainApp extends Application {
      * The data from the sample menu will be used instead if {@code storage}'s menu is not found,
      * or an empty menu will be used instead if errors occur when reading {@code storage}'s menu.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs,
+                                   PurchaseHistoryStorage purchaseHistoryStorage) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
+
+        Optional<ReadOnlyPurchaseHistory> purchaseHistoryOptional;
+        ReadOnlyPurchaseHistory initialPurchaseHistory;
 
         Optional<UserRecommendations> recsOptional;
         UserRecommendations initialRecs;
@@ -95,18 +105,27 @@ public class MainApp extends Application {
                 logger.info("Recommendation file not found. Will be starting with a blank Recommendation");
             }
             initialRecs = recsOptional.orElse(new UserRecommendations());
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Menu");
-            initialData = new Menu();
-            initialRecs = new UserRecommendations();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Menu");
-            initialData = new Menu();
-            initialRecs = new UserRecommendations();
-        }
-        return new ModelManager(initialData, userPrefs, initialRecs);
-    }
 
+            purchaseHistoryOptional = storage.readPurchaseHistory();
+            if (!purchaseHistoryOptional.isPresent()) {
+                logger.info("Purchase History file not found. Will be starting with a blank Purchase History");
+            }
+            initialPurchaseHistory = purchaseHistoryOptional.orElse(new PurchaseHistory());
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty application");
+            initialData = new Menu();
+            initialRecs = new UserRecommendations();
+            initialPurchaseHistory = new PurchaseHistory();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty application");
+            initialData = new Menu();
+            initialRecs = new UserRecommendations();
+            initialPurchaseHistory = new PurchaseHistory();
+
+        }
+        return new ModelManager(initialData, userPrefs, initialRecs, initialPurchaseHistory);
+    }
     private void initLogging(Config config) {
         LogsCenter.init(config);
     }

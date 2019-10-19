@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 
@@ -23,8 +24,9 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
-        expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory());
+        expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
+                new PurchaseHistory());
     }
 
     @Test

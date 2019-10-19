@@ -19,9 +19,12 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.commons.core.GuiSettings;
+import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.wallet.DaysToExpire;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.MenuBuilder;
 
@@ -101,6 +104,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getPurchaseHistoryList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getPurchaseHistoryList().remove(0));
+    }
+
+    @Test
     public void nullRecommendationComparator_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.updateRecommendationComparator(null));
     }
@@ -146,6 +154,8 @@ public class ModelManagerTest {
         assertNotEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
     }
 
+    // WALLET
+
     @Test
     public void get_wallet_test() {
         Wallet wallet = modelManager.getWallet();
@@ -154,10 +164,42 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void get_remainingAmount_test() {
-        Wallet wallet = modelManager.getWallet();
-        assertEquals(modelManager.getRemainingBudget(), wallet.getRemainingBudgetAmount());
-        assertNotEquals(modelManager.getRemainingBudget(), new BigDecimal(0));
+    public void get_remainingBudget_test() {
+        Wallet wallet = new Wallet("30", "10");
+        assertTrue(new BigDecimal(30).compareTo(wallet.getRemainingBudgetAmount()) == 0);
+    }
+
+    @Test
+    public void set_remainingBudget_test() {
+        Wallet wallet = new Wallet();
+        wallet.setRemainingBudget(new RemainingBudget("250.50"));
+        assertTrue(new BigDecimal(250.50).compareTo(wallet.getRemainingBudgetAmount()) == 0);
+    }
+
+    @Test
+    public void set_remainingBudget_throwsCommandException() {
+        assertThrows(CommandException.class, () -> modelManager
+                .setRemainingBudget(new RemainingBudget("1000000000")));
+    }
+
+    @Test
+    public void get_daysToExpire_test() {
+        Wallet wallet = new Wallet("30", "10");
+        assertEquals(10, wallet.getNumberOfDaysToExpire());
+    }
+
+    @Test
+    public void set_daysToExpire_test() {
+        Wallet wallet = new Wallet();
+        wallet.setDaysToExpire(new DaysToExpire("50"));
+        assertEquals(50, wallet.getNumberOfDaysToExpire());
+    }
+
+    @Test
+    public void set_daysToExpire_throwsCommandException() {
+        Wallet wallet = new Wallet();
+        assertThrows(CommandException.class, () -> modelManager
+                .setDaysToExpire(new DaysToExpire("1000")));
     }
 
     @Test
@@ -166,10 +208,11 @@ public class ModelManagerTest {
         Menu differentMenu = new Menu();
         UserPrefs userPrefs = new UserPrefs();
         UserRecommendations userRecs = new UserRecommendations();
+        PurchaseHistory purchaseHistory = new PurchaseHistory();
 
         // same values -> returns true
-        modelManager = new ModelManager(menu, userPrefs, userRecs);
-        ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs);
+        modelManager = new ModelManager(menu, userPrefs, userRecs, purchaseHistory);
+        ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs, purchaseHistory);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -182,12 +225,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs, userRecs)));
+        assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs, userRecs, purchaseHistory)));
 
         // different filteredList -> returns false
         String[] keywords = CARBONARA.getName().fullName.split("\\s+");
         modelManager.updateFilteredFoodList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs)));
+        assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs, purchaseHistory)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
@@ -195,6 +238,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMenuFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs, userRecs)));
+        assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs, userRecs, purchaseHistory)));
     }
 }

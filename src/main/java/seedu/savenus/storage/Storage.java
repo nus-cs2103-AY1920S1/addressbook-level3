@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -13,7 +14,7 @@ import seedu.savenus.model.recommend.UserRecommendations;
 /**
  * API of the Storage component
  */
-public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage {
+public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, PurchaseHistoryStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -44,5 +45,20 @@ public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage {
 
     @Override
     void saveRecs(UserRecommendations recs, Path filePath) throws IOException;
+
+    @Override
+    Path getPurchaseHistoryFilePath();
+
+    @Override
+    Optional<ReadOnlyPurchaseHistory> readPurchaseHistory() throws DataConversionException, IOException;
+
+    @Override
+    Optional<ReadOnlyPurchaseHistory> readPurchaseHistory(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory) throws IOException;
+
+    @Override
+    void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException;
 
 }

@@ -3,6 +3,7 @@ package seedu.savenus.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalPurchaseHistory.getTypicalPurchaseHistory;
 
 import java.nio.file.Path;
 
@@ -12,7 +13,9 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.Menu;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -27,7 +30,10 @@ public class StorageManagerTest {
         JsonMenuStorage addressBookStorage = new JsonMenuStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(getTempFilePath("recs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage);
+        JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(
+                getTempFilePath("purchases"));
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
+                purchaseHistoryStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -49,7 +55,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void menuReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonMenuStorage} class.
@@ -59,6 +65,19 @@ public class StorageManagerTest {
         storageManager.saveMenu(original);
         ReadOnlyMenu retrieved = storageManager.readMenu().get();
         assertEquals(original, new Menu(retrieved));
+    }
+
+    @Test
+    public void purchaseHistoryReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonPurchaseHistoryStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonPurchaseHistoryStorage} class.
+         */
+        PurchaseHistory original = getTypicalPurchaseHistory();
+        storageManager.savePurchaseHistory(original);
+        ReadOnlyPurchaseHistory retrieved = storageManager.readPurchaseHistory().get();
+        assertEquals(original, new PurchaseHistory(retrieved));
     }
 
     @Test

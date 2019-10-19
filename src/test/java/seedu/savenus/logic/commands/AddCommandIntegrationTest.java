@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -23,14 +24,15 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory());
     }
 
     @Test
     public void execute_newfood_success() {
         Food validFood = new FoodBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations());
+        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
+                new PurchaseHistory());
         expectedModel.addFood(validFood);
 
         assertCommandSuccess(new AddCommand(validFood), model,
