@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.sgm.model.food.TypicalFoods.FOODS;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -133,8 +135,8 @@ public class MainApp extends Application {
             initialUserData = new UserList();
         }
 
-        return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData, initialFoodListData);
-      
+        return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData);
+
     }
 
     private void initLogging(Config config) {

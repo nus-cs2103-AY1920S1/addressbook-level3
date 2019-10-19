@@ -40,7 +40,7 @@ public interface Storage extends AddressBookStorage, UserListStorage, UserPrefsS
     public void saveFoodList(UniqueFoodList foodList) throws IOException;
 
     public void saveFoodList(UniqueFoodList foodList, Path filePath) throws IOException;
-    
+
     // ================ UserList methods ==============================
     @Override
     Path getUserListFilePath();
