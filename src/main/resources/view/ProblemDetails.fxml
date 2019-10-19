@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane styleClass="transparent-background">
+<?import javafx.scene.layout.HBox?>
+<AnchorPane>
   <ScrollPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge">
       <VBox alignment="CENTER_LEFT">
@@ -17,14 +18,14 @@
         </padding>
 
         <!-- Name-->
-        <StackPane alignment="CENTER_LEFT">
+        <StackPane alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
           <padding>
             <Insets top="10" bottom="10" />
           </padding>
-          <Label text="Name" />
+          <Label text="Name" styleClass="scroll-pane-text" />
         </StackPane>
         <StackPane>
-          <TextField fx:id="name"/>
+          <TextField fx:id="name" />
         </StackPane>
 
         <!-- Author-->
@@ -32,10 +33,10 @@
           <padding>
             <Insets top="10" bottom="10" />
           </padding>
-          <Label text="Author" />
+          <Label text="Author" styleClass="scroll-pane-text" />
         </StackPane>
         <StackPane>
-          <TextField fx:id="author"/>
+          <TextField fx:id="author" />
         </StackPane>
 
         <!-- Weblink-->
@@ -43,10 +44,10 @@
           <padding>
             <Insets top="10" bottom="10" />
           </padding>
-          <Label text="Weblink" />
+          <Label text="Weblink" styleClass="scroll-pane-text" />
         </StackPane>
         <StackPane>
-          <TextField fx:id="weblink"/>
+          <TextField fx:id="weblink" />
         </StackPane>
 
         <!-- Difficulty-->
@@ -54,10 +55,10 @@
           <padding>
             <Insets top="10" bottom="10" />
           </padding>
-          <Label text="Difficulty" />
+          <Label text="Difficulty" styleClass="scroll-pane-text" />
         </StackPane>
         <StackPane>
-          <TextField fx:id="difficulty"/>
+          <TextField fx:id="difficulty" />
         </StackPane>
 
         <!-- Remark-->
@@ -65,10 +66,10 @@
           <padding>
             <Insets top="10" bottom="10" />
           </padding>
-          <Label text="Remark" />
+          <Label text="Remark" styleClass="scroll-pane-text" />
         </StackPane>
         <StackPane>
-          <TextField fx:id="remark"/>
+          <TextField fx:id="remark" />
         </StackPane>
 
         <!-- Source-->
@@ -76,10 +77,10 @@
           <padding>
             <Insets top="10" bottom="10" />
           </padding>
-          <Label text="Source" />
+          <Label text="Source" styleClass="scroll-pane-text" />
         </StackPane>
         <StackPane>
-          <TextField fx:id="source"/>
+          <TextField fx:id="source" />
         </StackPane>
 
         <!-- Description-->
@@ -87,10 +88,10 @@
           <padding>
             <Insets top="10" bottom="10" />
           </padding>
-          <Label text="Description" />
+          <Label text="Description" styleClass="scroll-pane-text" />
         </StackPane>
         <StackPane>
-          <TextArea fx:id="description" wrapText="true" layoutX="47.0" layoutY="135.0" prefHeight="200.0" prefWidth="492.0" />
+          <TextArea fx:id="description" wrapText="true" />
         </StackPane>
       </VBox>
   </ScrollPane>
