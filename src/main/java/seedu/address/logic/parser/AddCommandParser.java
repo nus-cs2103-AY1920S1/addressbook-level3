@@ -8,9 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BMI_WEIGHT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -36,32 +33,29 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE);
+                ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE, PREFIX_DATETIME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_RECORDTYPE) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_RECORDTYPE, PREFIX_DATETIME)
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         RecordType rt = ParserUtil.parseRecordType(argMultimap.getValue(PREFIX_RECORDTYPE).get());
-        LocalDate ld = LocalDate.of(1970, Month.JANUARY, 1);
-        LocalTime lt = LocalTime.of(8, 0, 0);
-        DateTime dateTime = new DateTime(ld, lt);
+        DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
 
         switch(rt) {
         case BLOODSUGAR:
-            argMultimap = checkAllOtherPrefixes(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION, PREFIX_DATETIME);
+            argMultimap = checkAllOtherPrefixes(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION);
             Concentration concentration = ParserUtil.parseConcentration(
                 argMultimap.getValue(PREFIX_BLOODSUGAR_CONCENTRATION).get()
             );
-            //dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
             BloodSugar bloodSugar = new BloodSugar(concentration, dateTime);
             return new AddCommand(bloodSugar);
 
         case BMI:
-            argMultimap = checkAllOtherPrefixes(argMultimap, PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT, PREFIX_DATETIME);
+            argMultimap = checkAllOtherPrefixes(argMultimap, PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
             Height height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_BMI_HEIGHT).get());
             Weight weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_BMI_WEIGHT).get());
-            //dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
             Bmi bmi = new Bmi(height, weight, dateTime);
             return new AddCommand(bmi);
 
@@ -75,7 +69,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private ArgumentMultimap checkAllOtherPrefixes(ArgumentMultimap argMultimap, Prefix... prefixes)
         throws ParseException {
-        String s = argMultimap.getValue(PREFIX_RECORDTYPE).toString();
+        String s = argMultimap.getValue(PREFIX_RECORDTYPE).get();
         ArgumentMultimap a = ArgumentTokenizer.tokenize(s, prefixes);
 
         if (!arePrefixesPresent(a, prefixes) || !argMultimap.getPreamble().isEmpty()) {

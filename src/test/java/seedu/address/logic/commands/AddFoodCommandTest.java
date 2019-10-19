@@ -25,6 +25,7 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.address.testutil.FoodBuilder;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
@@ -163,17 +164,32 @@ class AddFoodCommandTest {
         }
 
         @Override
+        public UniqueRecordList getUniqueRecordListObject() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Record> getRecordList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Record> getFilterRecordList() {
+            return null;
+        }
+
+        @Override
         public boolean hasRecord(Record toAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredRecordList(Predicate<Record> predicate) {
-            throw new AssertionError("This method should not be called.");
+        public void deleteRecord(Record record) {
+
         }
 
         @Override
-        public ReadOnlyRecordBook getRecordBook() {
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -227,8 +243,12 @@ class AddFoodCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //=========== User List =============================================================
+        @Override
+        public void setRecordList(UniqueRecordList newRecordList) {
 
+        }
+      
+        //=========== User List =============================================================
         @Override
         public void setUserList(ReadOnlyUserList userList) {
             throw new AssertionError("This method should not be called.");
@@ -280,7 +300,6 @@ class AddFoodCommandTest {
         public void setUserListFilePath(Path userListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
-
     }
 
     /**

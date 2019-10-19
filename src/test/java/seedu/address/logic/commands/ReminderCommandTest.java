@@ -24,6 +24,7 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.address.testutil.ReminderBuilder;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
@@ -161,17 +162,32 @@ class ReminderCommandTest {
         }
 
         @Override
+        public UniqueRecordList getUniqueRecordListObject() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Record> getRecordList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Record> getFilterRecordList() {
+            return null;
+        }
+
+        @Override
         public boolean hasRecord(Record toAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredRecordList(Predicate<Record> predicate) {
-            throw new AssertionError("This method should not be called.");
+        public void deleteRecord(Record record) {
+
         }
 
         @Override
-        public ReadOnlyRecordBook getRecordBook() {
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -224,6 +240,9 @@ class ReminderCommandTest {
         public void updateFilteredFoodList(Predicate<Food> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setRecordList(UniqueRecordList newRecordList) {
 
         //=========== User List =============================================================
 

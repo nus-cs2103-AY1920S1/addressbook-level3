@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -23,14 +24,15 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.RecordBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonFoodListStorage;
+import seedu.address.storage.JsonRecordListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -69,7 +71,8 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         UserListStorage userListStorage = new JsonUserListStorage(userPrefs.getUserListFilePath());
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage);
+        JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(userPrefs.getRecordListFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage, jsonRecordListStorage);
 
         initLogging(config);
 
@@ -95,6 +98,8 @@ public class MainApp extends Application {
         foodList.setFoods(FOODS);
         Optional<UniqueFoodList> foodListOptional;
         UniqueFoodList initialFoodListData;
+        Optional<UniqueRecordList> recordListOptional;
+        UniqueRecordList initialRecordListData;
         RecordBook recordBook = new RecordBook();
 
 
@@ -102,24 +107,31 @@ public class MainApp extends Application {
         try {
             addressBookOptional = storage.readAddressBook();
             foodListOptional = storage.readFoodList();
+            recordListOptional = storage.readRecordList();
             if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             if (foodListOptional.isEmpty()) {
                 logger.info("Food list data file not found. Will be starting with a sample Foodlist");
             }
+            if (recordListOptional.isEmpty()) {
+                logger.info("Record list data file not found. Will be starting with a sample Recordlist");
+            }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
+            initialRecordListData = recordListOptional.orElseGet(SampleDataUtil::getSampleRecordList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
             initialFoodListData = new UniqueFoodList();
+            initialRecordListData = new UniqueRecordList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
             initialFoodListData = new UniqueFoodList();
+            initialRecordListData = new UniqueRecordList();
         }
-
+      
         try {
             userListOptional = storage.readUserList();
             if (!userListOptional.isPresent()) {
@@ -135,8 +147,7 @@ public class MainApp extends Application {
             initialUserData = new UserList();
         }
 
-        return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData);
-
+        return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData, initialRecordListData);
     }
 
     private void initLogging(Config config) {
