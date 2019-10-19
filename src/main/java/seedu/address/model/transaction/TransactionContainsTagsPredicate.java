@@ -3,16 +3,15 @@ package seedu.address.model.transaction;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.tag.Tag;
 
 /**
  * Tests that a {@code Transaction}'s {@code Tag} matches the tag given.
  */
 public class TransactionContainsTagsPredicate implements Predicate<Transaction> {
 
-    private final Tag keyTag;
+    private final String keyTag;
 
-    public TransactionContainsTagsPredicate(Tag keyTag) {
+    public TransactionContainsTagsPredicate(String keyTag) {
         this.keyTag = keyTag;
     }
 
@@ -21,7 +20,7 @@ public class TransactionContainsTagsPredicate implements Predicate<Transaction> 
         return transaction
                 .getTags()
                 .stream()
-                .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.getTagName(), keyTag.getTagName()));
+                .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.getTagName(), keyTag));
     }
 
     @Override

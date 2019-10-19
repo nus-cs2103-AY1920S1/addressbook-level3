@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InCommand;
 // import seedu.address.logic.commands.SplitCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -27,6 +29,7 @@ public class BankAccountParser {
     /**
      * Parses the given {@code String} of arguments in the context of the SplitCommand or InCommand
      * and returns an SplitCommand or InCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
@@ -38,14 +41,20 @@ public class BankAccountParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        switch(commandWord) {
+        switch (commandWord) {
         // case SplitCommand.COMMAND_WORD:
         //    return new SplitCommand(arguments);
         case InCommand.COMMAND_WORD:
             return new InCommandParser().parse(arguments);
 
+        case FilterCommand.COMMAND_WORD:
+            return new FilterCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
