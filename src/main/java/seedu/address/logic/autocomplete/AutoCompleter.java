@@ -8,36 +8,39 @@ import java.util.List;
  */
 public class AutoCompleter {
     private static final String[] SUPPORTED_COMMANDS = {
-        "ackappt",
-        "addappt",
-        "add",
-        "appointments",
-        "cancel",
-        "change",
-        "dequeue",
-        "doctors",
-        "exit",
-        "help",
-        "missed",
-        "next",
-        "offduty",
-        "onduty",
-        "patient",
-        "queue",
-        "register",
-        "settle",
-        "slot",
-        "update",
-        "undo"
+            "ackappt",
+            "addappt",
+            "add",
+            "addRoom",
+            "appointments",
+            "cancel",
+            "changeappt",
+            "dequeue",
+            "doctors",
+            "exit",
+            "help",
+            "missappt",
+            "enqueue",
+            "offduty",
+            "onduty",
+            "patient",
+            "queue",
+            "register",
+            "removeRoom",
+            "settleappt",
+            "update",
+            "undo",
+            "changeappt",
+            "cancelappt"
     };
     private Trie trie = new Trie(SUPPORTED_COMMANDS);
     private String currentQuery;
 
     /**
-     * Updates AutoCompleter with current query.
+     * Updates AutoComplete with current query.
      *
      * @param currentQuery
-     * @return AutoCompleter itself
+     * @return AutoComplete itself
      */
     public AutoCompleter update(String currentQuery) {
         this.currentQuery = currentQuery;

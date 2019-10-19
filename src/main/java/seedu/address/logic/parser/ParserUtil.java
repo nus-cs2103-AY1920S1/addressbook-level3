@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -39,6 +41,20 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Returns the element at the {@code oneBasedIndex} index of a given {@code listofEntries}
+     *
+     * @throws ParseException if the specified index is out of bounds of the list.
+     */
+    public static <T> T getEntryFromList(List<T> listOfEntries, Index oneBasedIndex) throws ParseException {
+
+        if (oneBasedIndex.getZeroBased() >= listOfEntries.size()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        return listOfEntries.get(oneBasedIndex.getZeroBased());
     }
 
     /**

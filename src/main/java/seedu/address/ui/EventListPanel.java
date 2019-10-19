@@ -33,6 +33,7 @@ public class EventListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Event event, boolean empty) {
             super.updateItem(event, empty);
+            this.setFocusTraversable(true);
 
             if (empty || event == null) {
                 setGraphic(null);

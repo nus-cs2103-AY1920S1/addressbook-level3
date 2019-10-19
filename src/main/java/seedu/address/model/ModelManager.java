@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -70,19 +71,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeFromQueue(int index) {
-        queueManager.removePatient(index);
+    public void enqueuePatient(ReferenceId id) {
+        queueManager.addPatient(id);
     }
 
     @Override
-    public void enqueuePatient(ReferenceId id) {
-        queueManager.addPatient(id);
-        updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
+    public void enqueuePatientToIndex(ReferenceId id, int index) {
+        queueManager.addPatient(index, id);
     }
 
     @Override
     public void serveNextPatient(int index) {
         queueManager.serveNext(index);
+    }
+
+    @Override
+    public void undoServeNextPatient(int index) {
+        queueManager.undoServeNext(index);
     }
 
     @Override
@@ -93,12 +98,22 @@ public class ModelManager implements Model {
 
     @Override
     public void addRoom(ReferenceId id) {
-        throw new UnsupportedOperationException();
+        queueManager.addRoom(id);
     }
 
     @Override
-    public void removeRoom(int index) {
-        throw new UnsupportedOperationException();
+    public void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom) {
+        queueManager.addRoomToIndex(doctorReferenceId, indexOfRoom);
+    }
+
+    @Override
+    public void removeRoom(ReferenceId target) {
+        queueManager.removeRoom(target);
+    }
+
+    @Override
+    public boolean hasRoom(ReferenceId doctorReferenceId) {
+        return queueManager.hasRoom(doctorReferenceId);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -221,27 +236,15 @@ public class ModelManager implements Model {
 
     //=========== Filtered Reference id List Accessors ========================================================
     @Override
-    public ObservableList<ReferenceId> getFilteredReferenceIdList() {
+    public ObservableList<ReferenceId> getQueueList() {
         return filteredReferenceIds;
-    }
-
-    @Override
-    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
-        requireNonNull(predicate);
-        filteredReferenceIds.setPredicate(predicate);
     }
 
     //=========== Filtered Room List Accessors =============================================================
 
     @Override
-    public ObservableList<Room> getFilteredRoomList() {
+    public ObservableList<Room> getConsultationRoomList() {
         return filteredRooms;
-    }
-
-    @Override
-    public void updateFilteredRoomList(Predicate<Room> predicate) {
-        requireNonNull(predicate);
-        filteredRooms.setPredicate(predicate);
     }
 
     @Override
@@ -269,6 +272,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteEvent(Event event) {
         appointmentBook.removeEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
@@ -300,6 +304,69 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+
+    @Override
+    public void updateFilteredEventList(ReferenceId referenceId) {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> (Event.getStatus().isApproved()
+                && Event.getPersonId().equals(referenceId));
+        filteredEvents.setPredicate(byApproved);
+    }
+
+    @Override
+    public void updateFilteredEventList() {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> Event.getStatus().isApproved();
+        filteredEvents.setPredicate(byApproved);
+    }
+
+    @Override
+    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> ((Event.getStatus().isApproved() || Event.getStatus().isAcked())
+                && Event.getPersonId().equals(referenceId));
+        filteredEvents.setPredicate(byApproved);
+    }
+
+    /**
+     * Returns an boolean, check whether current displaying appointments are belong to the same patient.
+     */
+    @Override
+    public Boolean isPatientList() {
+        requireNonNull(filteredEvents);
+        boolean res = true;
+        ReferenceId id = filteredEvents.get(0).getPersonId();
+        for (Event e : filteredEvents) {
+            if (!id.equals(e.getPersonId())) {
+                res = false;
+                break;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public void updateToMissedEventList() {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Date current = new Date();
+        Predicate<Event> byMissed = Event -> (Event.getStatus().isMissed())
+                || (!Event.getStatus().isSettled() && (Event.getEventTiming().getEndTime().getTime().before(current)));
+        filteredEvents.setPredicate(byMissed);
+    }
+
+    @Override
+    public Boolean isMissedList() {
+        requireNonNull(filteredEvents);
+        boolean res = true;
+        for (Event e : filteredEvents) {
+            if (!e.getStatus().isMissed()) {
+                res = false;
+                break;
+            }
+        }
+        return res;
     }
 
 

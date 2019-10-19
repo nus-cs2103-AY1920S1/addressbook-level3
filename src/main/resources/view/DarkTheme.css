@@ -3,9 +3,22 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.unselected-tab {
+    -fx-opacity: 0.2;
+}
+
+.selected-tab {
+    -fx-opacity: 1;
+}
+
+.tab-bar:focused {
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-border-color: -fx-focus-color;
+}
+
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
@@ -87,6 +100,7 @@
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-focus-traversable: false;
 }
 
 .list-cell {
@@ -103,11 +117,11 @@
     -fx-background-color: #515658;
 }
 
-.list-cell:filled:selected {
+.list-cell:filled:focused {
     -fx-background-color: #309090;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:focused #cardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }

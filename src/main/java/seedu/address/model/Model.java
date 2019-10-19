@@ -15,8 +15,6 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 
-
-
 /**
  * The API of the Model component.
  */
@@ -72,7 +70,6 @@ public interface Model extends ReferenceIdResolver {
     void setAppointmentBookFilePath(Path appointmentBookFilePath);
 
 
-
     //=========== AddressBook ================================================================================
 
     /**
@@ -117,7 +114,9 @@ public interface Model extends ReferenceIdResolver {
 
     //=========== Filtered Person List Accessors =============================================================
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
@@ -127,25 +126,33 @@ public interface Model extends ReferenceIdResolver {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    public QueueManager getQueueManager();
+    //=========== Queue Manager ==================================================================================
 
-    public void removeFromQueue(ReferenceId target);
+    QueueManager getQueueManager();
 
-    public void removeFromQueue(int index);
+    void removeFromQueue(ReferenceId target);
 
-    public void enqueuePatient(ReferenceId id);
+    void enqueuePatient(ReferenceId id);
+
+    void enqueuePatientToIndex(ReferenceId id, int index);
 
     public boolean isPatientInQueue(ReferenceId id);
 
-    public ObservableList<Room> getFilteredRoomList();
+    ObservableList<ReferenceId> getQueueList();
 
-    public void updateFilteredRoomList(Predicate<Room> predicate);
+    void serveNextPatient(int index);
 
-    public void serveNextPatient(int index);
+    void undoServeNextPatient(int index);
 
-    public void addRoom(ReferenceId id);
+    void addRoom(ReferenceId id);
 
-    public void removeRoom(int index);
+    void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom);
+
+    void removeRoom(ReferenceId target);
+
+    public boolean hasRoom(ReferenceId doctorReferenceId);
+
+    ObservableList<Room> getConsultationRoomList();
 
     //=========== Scheduler ==================================================================================
 
@@ -191,16 +198,27 @@ public interface Model extends ReferenceIdResolver {
 
     //=========== Filtered Event List Accessors ==============================================================
 
-    /** Returns an unmodifiable view of the filtered event list */
+    /**
+     * Returns an unmodifiable view of the filtered event list
+     */
     ObservableList<Event> getFilteredEventList();
 
     /**
      * Updates the filter of the filtered event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
 
-    public ObservableList<ReferenceId> getFilteredReferenceIdList();
+    void updateFilteredEventList(ReferenceId referenceId);
 
-    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate);
+    void updateFilteredEventList();
+
+    void updateToMissedEventList();
+
+    void displayApprovedAndAckedPatientEvent(ReferenceId referenceId);
+
+    public Boolean isPatientList();
+
+    public Boolean isMissedList();
 }

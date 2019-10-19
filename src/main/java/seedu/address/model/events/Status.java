@@ -15,7 +15,7 @@ public class Status {
     public static final String SETTLE_MESS = "this missed appointment have been settled";
     public static final String CANCEL_MESS = "this appointment have been cancelled";
     public static final String MESSAGE_CONSTRAINTS = "A status can only be one of the following: "
-        + Arrays.stream(AppointmentStatuses.values()).map(v -> v.toString()).collect(Collectors.joining(", "));
+            + Arrays.stream(AppointmentStatuses.values()).map(v -> v.toString()).collect(Collectors.joining(", "));
 
     /**
      * enum AppointmentStatuses to have the different status for appointments.
@@ -63,7 +63,6 @@ public class Status {
 
     public String getStatusMess() {
         switch (status) {
-
         case APPROVED:
             return APPROVED_MESS;
         case ACKNOWLEDGED:
@@ -83,7 +82,16 @@ public class Status {
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof Status;
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Status)) {
+            return false;
+        }
+
+        Status otherStatus = (Status) o;
+        return otherStatus.getSta().equals(this.getSta());
     }
 
     /**
@@ -93,6 +101,18 @@ public class Status {
      */
     public boolean isAcked() {
         return status.equals(AppointmentStatuses.ACKNOWLEDGED);
+    }
+
+    public boolean isMissed() {
+        return status.equals(AppointmentStatuses.MISSED);
+    }
+
+    public boolean isSettled() {
+        return status.equals(AppointmentStatuses.SETTLED);
+    }
+
+    public boolean isApproved() {
+        return status.equals(AppointmentStatuses.APPROVED);
     }
 
     @Override
