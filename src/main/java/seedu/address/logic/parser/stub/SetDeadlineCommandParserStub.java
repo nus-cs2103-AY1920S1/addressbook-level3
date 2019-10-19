@@ -1,11 +1,15 @@
 package seedu.address.logic.parser.stub;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 
 /**
@@ -21,10 +25,17 @@ public class SetDeadlineCommandParserStub implements Parser<SetDeadlineCommand> 
      */
     public SetDeadlineCommand parse(String args) throws ParseException {
         Index stubIndex1 = Index.fromOneBased(2);
-        LocalDateTime stubDateTime = null;
-        LocalDateTime stubDateTime0 = LocalDateTime.parse("2015-02-20T06:30:00");
-        LocalDateTime stubDateTime1 = LocalDateTime.parse("1997-10-24T09:55:55");
-        LocalDateTime stubDateTime2 = LocalDateTime.now();
+        LocalDateTime stubDateTime;
+        LocalDateTime stubDateTime0;
+        LocalDateTime stubDateTime1;
+        LocalDateTime stubDateTime2;
+        try {
+            stubDateTime0 = DateTimeUtil.parseDateTime("15/12/201  13:00");
+            stubDateTime1 = DateTimeUtil.parseDateTime("10/10/201  18:00");
+            stubDateTime2 = DateTimeUtil.parseDateTime("20/10/201  18:00");
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetDeadlineCommand.MESSAGE_USAGE));
+        }
         switch (count % 3) {
         case 0:
             stubDateTime = stubDateTime0;

@@ -12,6 +12,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
@@ -30,10 +31,10 @@ public class SetDeadlineCommand extends Command {
             + "by the index number used in the displayed task list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TASK_INDEX + "TASK_INDEX"
-            + PREFIX_DEADLINE + "YYYY-MM-DDTHH:MM:SS\n"
+            + PREFIX_DEADLINE + DateTimeUtil.DEFAULT_FORMAT + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_INDEX + " 2 "
-            + PREFIX_DEADLINE + " 2015-02-20T06:30:00";
+            + PREFIX_DEADLINE + " 10/10/2019 18:00";
 
     public static final String MESSAGE_SET_DEADLINE_TASK_SUCCESS = "Set a deadline for the Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in +Work.";
