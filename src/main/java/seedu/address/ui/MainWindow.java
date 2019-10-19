@@ -209,7 +209,8 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isListHistory()) {
                 historyListPanel = new HistoryListPanel(logic.getHistoryList());
-                listPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
+                displayPlaceHolder.getChildren().removeAll();
+                displayPlaceHolder.getChildren().add(historyListPanel.getRoot());
             }
 
             if (commandResult.isExpandPerson()) {
