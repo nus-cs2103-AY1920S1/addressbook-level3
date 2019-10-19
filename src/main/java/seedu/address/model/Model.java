@@ -5,15 +5,15 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Employee> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /**
@@ -55,37 +55,38 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a employee with the same identity as {@code employee} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasEmployee(Employee employee);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given employee.
+     * The employee must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteEmployee(Employee target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given employee.
+     * {@code employee} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addEmployee(Employee employee);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given employee {@code target} with {@code editedEmployee}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The employee identity of {@code editedEmployee} must not be the same
+     * as another existing employee in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setEmployee(Employee target, Employee editedEmployee);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered employee list */
+    ObservableList<Employee> getFilteredEmployeeList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered employee list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredEmployeeList(Predicate<Employee> predicate);
 
 
     /**

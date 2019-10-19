@@ -9,42 +9,34 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEventBook;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeePosition;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+    public static Employee[] getSampleEmployees() {
+        return new Employee[] {
+            new Employee(new EmployeeId("000"), new EmployeeName("Alex Yeoh"), new EmployeeGender("Male"),
+                    new EmployeePosition("Manager"), new EmployeePhone("87438807"),
+                    new EmployeeEmail("alexyeoh@example.com"),
+                    new EmployeeAddress("Blk 30 Geylang Street 29, #06-40"),
+                    new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
+
         };
     }
 
@@ -59,8 +51,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Employee sampleEmployee : getSampleEmployees()) {
+            sampleAb.addEmployee(sampleEmployee);
         }
         return sampleAb;
     }
@@ -76,8 +68,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyEventBook getSampleEventBook() {
         EventBook sampleAb = new EventBook();
-        for (Event samplePerson : getSampleEvents()) {
-            sampleAb.addEvent(samplePerson);
+        for (Event sampleEmployee : getSampleEvents()) {
+            sampleAb.addEvent(sampleEmployee);
         }
         return (ReadOnlyEventBook) sampleAb;
     }

@@ -1,61 +1,67 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeePosition;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Employee objects.
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
-    private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private EmployeeName employeeName;
+    private EmployeePhone employeePhone;
+    private EmployeeEmail employeeEmail;
+    private EmployeeAddress employeeAddress;
     private Set<Tag> tags;
 
     public PersonBuilder() {
-        name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        employeeName = new EmployeeName(DEFAULT_NAME);
+        employeePhone = new EmployeePhone(DEFAULT_PHONE);
+        employeeEmail = new EmployeeEmail(DEFAULT_EMAIL);
+        employeeAddress = new EmployeeAddress(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code employeeToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
+    public PersonBuilder(Employee employeeToCopy) {
+        employeeName = employeeToCopy.getEmployeeName();
+        employeePhone = employeeToCopy.getEmployeePhone();
+        employeeEmail = employeeToCopy.getEmployeeEmail();
+        employeeAddress = employeeToCopy.getEmployeeAddress();
+        tags = new HashSet<>(employeeToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code EmployeeName} of the {@code Employee} that we are building.
      */
     public PersonBuilder withName(String name) {
-        this.name = new Name(name);
+        this.employeeName = new EmployeeName(name);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Employee} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -63,31 +69,39 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code EmployeeAddress} of the {@code Employee} that we are building.
      */
     public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.employeeAddress = new EmployeeAddress(address);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code EmployeePhone} of the {@code Employee} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.employeePhone = new EmployeePhone(phone);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code EmployeeEmail} of the {@code Employee} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.employeeEmail = new EmployeeEmail(email);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, address, tags);
+    /**
+     * creates an draft Employee Objects and returns it
+     * @return Employee Object
+     */
+    public Employee build() {
+        return new Employee(new EmployeeId("000"), employeeName, new EmployeeGender("male"),
+                new EmployeePosition("manager"), employeePhone, employeeEmail, employeeAddress,
+                new EmployeeJoinDate(LocalDate.parse("11/12/2011",
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy"))), tags);
+
     }
 
 }

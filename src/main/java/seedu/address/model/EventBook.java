@@ -56,7 +56,7 @@ public class EventBook implements ReadOnlyEventBook {
         setEvents(newData.getEventList());
     }
 
-    //// person-level operations
+    //// employee-level operations
 
     /**
      * Returns true if a event with the same identity as {@code event} exists in the event book.

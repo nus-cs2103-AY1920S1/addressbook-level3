@@ -20,7 +20,7 @@ public class EventName {
     public final String eventName;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code EmployeeName}.
      *
      * @param name A valid name.
      */

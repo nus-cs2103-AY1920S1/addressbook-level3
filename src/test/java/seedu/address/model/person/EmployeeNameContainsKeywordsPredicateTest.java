@@ -9,9 +9,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.employee.NameContainsKeywordsPredicate;
 import seedu.address.testutil.PersonBuilder;
 
-public class NameContainsKeywordsPredicateTest {
+public class EmployeeNameContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {
@@ -34,7 +35,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different employee -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
