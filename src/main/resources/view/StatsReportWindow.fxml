@@ -16,10 +16,14 @@
     </icons>
     <scene>
         <Scene>
+<!--            <stylesheets>-->
+<!--                <URL value="@DarkTheme.css" />-->
+<!--                <URL value="@Extensions.css" />-->
+<!--            </stylesheets>-->
             <VBox prefHeight="176.0" prefWidth="254.0">
                 <children>
 
-                    <HBox alignment="CENTER_RIGHT">
+                    <HBox alignment="TOP_CENTER">
                         <children>
                             <Label fx:id="tipLabel" text="Press 'Esc' to exit" textAlignment="RIGHT" textFill="#00000076">
                                 <font>
@@ -31,10 +35,6 @@
 
                     <HBox fx:id="statistics" styleClass="pane-with-border" minWidth="600" prefWidth="600" HBox.hgrow="ALWAYS">
                         <StackPane fx:id="statisticsPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                    </HBox>
-
-                    <HBox fx:id="notesList" styleClass="pane-with-border" alignment="TOP_RIGHT" minWidth="200" prefWidth="200" HBox.hgrow="ALWAYS">
-                        <StackPane fx:id="notesListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </HBox>
 
                 </children>
