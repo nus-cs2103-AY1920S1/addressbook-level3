@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private EventListPanel eventListPanel;
     private TaskListPanel taskListPanel;
     private ReminderListPanel reminderListPanel;
+    private CalendarPanel calendarPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -51,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane calendarPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -185,6 +189,9 @@ public class MainWindow extends UiPart<Stage> {
 
         reminderListPanel = new ReminderListPanel(logic.getVisualList());
         reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+
+        calendarPanel = new CalendarPanel(logic.getVisualList());
+        calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
     }
 
     public TaskListPanel getTaskListPanel() {
