@@ -9,7 +9,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
+import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
 
@@ -20,6 +22,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<GroceryItem> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<UniqueTemplateItems> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
+    Predicate<UniqueTemplateItems> PREDICATE_SHOW_ALL_TEMPLATES_ITEMS = unused -> true;
     Predicate<GroceryItem> PREDICATE_SHOW_ALL_WASTE_ITEMS = unused -> true;
     Predicate<ShoppingItem> PREDICATE_SHOW_ALL_SHOPPING_ITEMS = unused -> true;
 
@@ -157,6 +160,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate);
+
+    void setShownTemplate(UniqueTemplateItems templateToBeShown);
+
+    ObservableList<TemplateItem> updateFilteredTemplateToBeShown();
+
+    ObservableList<TemplateItem> getFilteredTemplateToBeShown();
+
+    Name getNameTemplateToBeShown();
 
     //=========== WasteList ==================================================================================
     /**

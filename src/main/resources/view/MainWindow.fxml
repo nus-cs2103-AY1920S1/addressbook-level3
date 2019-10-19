@@ -47,7 +47,6 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-
         <SplitPane dividerPositions="0.3492462311557789" focusTraversable="true" prefWidth="50.0">
           <VBox fx:id="foodList" minWidth="200.0" prefWidth="200.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <children>

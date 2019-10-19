@@ -18,11 +18,11 @@ import seedu.address.model.food.UniqueTemplateItems;
 public class ListTemplateItemCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-    public static final String MESSAGE_SUCCESS = "Listed all template items";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the template items in the specified "
-            + "template list\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "Example: " + COMMAND_WORD + " 1 ";
+    public static final String MESSAGE_SUCCESS = "Listed all template items in %1$s";
+    public static final String MESSAGE_USAGE = "tlist template " + COMMAND_WORD
+            + ": Lists the template items in the specified template list\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: tlist template " + COMMAND_WORD + " 1 ";
 
     private final Index targetTemplateIndex;
 
@@ -45,6 +45,11 @@ public class ListTemplateItemCommand extends Command {
         }
         UniqueTemplateItems targetTemplate = lastShownList.get(targetTemplateIndex.getZeroBased());
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.setShownTemplate(targetTemplate);
+        model.updateFilteredTemplateToBeShown();
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, targetTemplate.getName()));
+        commandResult.setTemplateListItemCommand();
+
+        return commandResult;
     }
 }

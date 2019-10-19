@@ -302,12 +302,12 @@ Examples:
 
 * `tlist add n/Weekly Necessities`
 * `tlist add n/Birthday Party Prep`
-* `tlist add n/Cake-Making`
+* `tlist add n/Beef Goulash`
 
-==== Rename template: `tlist rename`
+==== Edit template name: `tlist edit`
 
 Updates name of specified template in template list. +
-Format: `tlist rename INDEX n/TEMPLATENAME`
+Format: `tlist edit INDEX n/TEMPLATENAME`
 
 ****
 * Edits the template at the specified `INDEX`. The index refers to the index number shown in the displayed template list. The index *must be a positive integer* 1, 2, 3, ...
@@ -315,7 +315,7 @@ Format: `tlist rename INDEX n/TEMPLATENAME`
 
 Examples:
 
-* `tlist rename 1 n/Daily Necessities`
+* `tlist edit 1 n/Daily Necessities`
 Edits the name of the 1st template in the template list to `Daily Necessities`
 
 ==== Deleting a template: `tlist delete`
@@ -337,29 +337,29 @@ Deletes the 1st template in the template list
 Clears all template entries from the template list. +
 Format: `tlist clear`
 
-==== Show list of all templates: `tlist all`
+==== Show list of all templates: `tlist list`
 
 Shows all entries in the template list +
-Format: `tlist all`
+Format: `tlist list`
 
 
 === Template Management
 
-==== Add new grocery item: `tlist n/TEMPLATENAME add`
+==== Add new grocery item: `tlist template`
 
-Adds an item into a specified template.+
-Format: `tlist n/TEMPLATENAME add f/FOODITEM a/AMOUNT`
+Adds an item into a specified template. +
+Format: `tlist template add TEMPLATEINDEX [n/NAME] [a/AMOUNT]`
 
 ****
-* Adds item into the template under the specified `TEMPLATENAME` as shown in the displayed template list.
+* Adds item into the template under the specified `INDEX` as shown in the displayed template list.
 ****
 
 Examples:
 
-* `tlist n/Weekly Necessities add n/Milk a/1l`
-* `tlist n/Weekly Necessities add n/Eggs a/12`
+* `tlist template add 1 n/Milk a/1L`
+* `tlist template add 2 n/Eggs a/12units`
 
-==== Edit item name: `tlist edit`
+==== Edit item name: `tlist template edit`
 
 Edits a specified item in the specified template `TEMPLATENAME`. +
 Format: `tlist n/TEMPLATENAME edit INDEX [f/FOODITEM] [a/AMOUNT]`
@@ -373,15 +373,15 @@ Format: `tlist n/TEMPLATENAME edit INDEX [f/FOODITEM] [a/AMOUNT]`
 
 Examples:
 
-* `tlist n/Weekly Necessities edit 1 f/Low-Fat Milk`
-Edits the name of the first food item in the template `Weekly Necessities` to  `Low-Fat Milk`
-* `tlist n/Weekly Necessities edit 1 a/2l`
-Edits the amount of the first food item in the template `Weekly Necessities` to 2 litres.
+* `tlist template edit 1 i/1 n/Low-Fat Milk`
+Edits the name of the first food item in the first template to  `Low-Fat Milk`
+* `tlist template edit 1 i/1 a/2l`
+Edits the amount of the first food item in the first template to 2 litres.
 
-==== Delete food item: `tlist n/TEMPLATENAME delete`
+==== Delete food item: `tlist template delete`
 
 Deletes the specified item from the specified template. +
-Format: `tlist n/TEMPLATENAME delete INDEX`
+Format: `tlist template delete TEMPLATEINDEX i/ITEMINDEX`
 
 ****
 * Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
@@ -389,18 +389,18 @@ Format: `tlist n/TEMPLATENAME delete INDEX`
 
 Examples:
 
-* `tlist n/Weekly Necessities delete 1`
-Deletes the first food item in the template `Weekly Necessities`
+* `tlist template delete 1`
+Deletes the first food item in the first template
 
-==== Shows template: `tlist n/TEMPLATENAME`
+==== Shows template: `tlist template list`
 
 Shows all entries in the specified template. +
-Format: `tlist n/TEMPLATENAME`
+Format: `tlist template list TEMPLATEINDEX`
 
 Examples:
 
-* `tlist n/Weekly Necessities`
-Shows all entries in the `Weekly Necessities` templa
+* `tlist template list 1`
+Shows all entries in the first template
 
 
 === Shopping List Management
