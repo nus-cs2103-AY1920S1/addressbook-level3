@@ -3,19 +3,23 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_EVENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_REMINDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TASK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,6 +30,8 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+
     /**
      * Parses the given {@code description} and {@code args} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -33,9 +39,15 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String description, String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TASK_DESCRIPTION, PREFIX_EVENT_DESCRIPTION,
-                        PREFIX_REMINDER_DESCRIPTION, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
+        ArgumentMultimap argMultiMap = new ArgumentMultimap();
+        String processArgs = args + " "; // account for the possibility that --tk or --r or --e is given with no space
+        try {
+            argMultiMap = ArgumentTokenizer.tokenize(processArgs, PREFIX_DESCRIPTION, PREFIX_DATETIME, PREFIX_REMINDER,
+                    PREFIX_PRIORITY, PREFIX_TAG, PREFIX_DELETE_TASK, PREFIX_DELETE_REMINDER, PREFIX_DELETE_EVENT);
+        } catch (Exception e) {
+            logger.info("Failure to tokenize arguments: EditCommand");
+            throw new ParseException("Edit command format is incorrect.");
+        }
 
         Index index;
 
@@ -46,39 +58,40 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditItemDescriptor editItemDescriptor = new EditItemDescriptor();
-        if (argMultimap.getValue(PREFIX_TASK_DESCRIPTION).isPresent()) {
+        if (argMultiMap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editItemDescriptor.setDescription(
                     ParserUtil.parseDescription(
-                            argMultimap.getValue(PREFIX_TASK_DESCRIPTION).get()));
+                            argMultiMap.getValue(PREFIX_DESCRIPTION).get()));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).isPresent()) {
-            editItemDescriptor.setDescription(
-                    ParserUtil.parseDescription(
-                            argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).get()));
-        }
-        if (argMultimap.getValue(PREFIX_REMINDER_DESCRIPTION).isPresent()) {
-            editItemDescriptor.setDescription(
-                    ParserUtil.parseDescription(
-                            argMultimap.getValue(PREFIX_REMINDER_DESCRIPTION).get()));
-        }
-        if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
+        if (argMultiMap.getValue(PREFIX_DATETIME).isPresent()) {
             editItemDescriptor.setEvent(
                     ParserUtil.parseDateTime(
-                            argMultimap.getValue(PREFIX_DATETIME).get()).get());
+                            argMultiMap.getValue(PREFIX_DATETIME).get()).get());
         }
-        if (argMultimap.getValue(PREFIX_REMINDER).isPresent()) {
+        if (argMultiMap.getValue(PREFIX_REMINDER).isPresent()) {
             editItemDescriptor.setReminder(
                     ParserUtil.parseReminder(
-                            argMultimap.getValue(PREFIX_REMINDER).get()).get());
+                            argMultiMap.getValue(PREFIX_REMINDER).get()).get());
         }
-        if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
+        if (argMultiMap.getValue(PREFIX_PRIORITY).isPresent()) {
             editItemDescriptor.setPriority(
                     ParserUtil.parsePriority(
-                            argMultimap.getValue(PREFIX_PRIORITY).get()).get());
+                            argMultiMap.getValue(PREFIX_PRIORITY).get()).get());
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editItemDescriptor::setTags);
+        parseTagsForEdit(argMultiMap.getAllValues(PREFIX_TAG)).ifPresent(editItemDescriptor::setTags);
 
-        if (!editItemDescriptor.isAnyFieldEdited()) {
+        // if delete tag is present, even if edits are made above, relevant subitems should still be deleted.
+        if (argMultiMap.getValue(PREFIX_DELETE_TASK).isPresent()) {
+            editItemDescriptor.setHasDeleteTask(true);
+        }
+        if (argMultiMap.getValue(PREFIX_DELETE_REMINDER).isPresent()) {
+            editItemDescriptor.setHasDeleteReminder(true);
+        }
+        if (argMultiMap.getValue(PREFIX_DELETE_EVENT).isPresent()) {
+            editItemDescriptor.setHasDeleteEvent(true);
+        }
+
+        if ((!editItemDescriptor.isAnyFieldEdited()) && (!editItemDescriptor.hasAnyDelete())) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
