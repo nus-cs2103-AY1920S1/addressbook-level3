@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
@@ -72,6 +73,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Returns a person from the address book given the name
+     */
+    public Person getPerson(String name) throws NoSuchElementException {
+        requireNonNull(name);
+        return persons.asUnmodifiableObservableList().stream()
+                .filter((x) -> x.getName().equals(name))
+                .findAny()
+                .get();
     }
 
     /**

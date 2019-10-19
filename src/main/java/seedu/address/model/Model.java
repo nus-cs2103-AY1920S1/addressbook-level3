@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -51,6 +52,13 @@ public interface Model {
      * Returns a list of observable list of the schedules.
      */
     List<ObservableList<ObservableList<String>>> getObservableLists();
+
+    /**
+     * Returns an Interviewee given the intervieweeName.
+     * The Interviewee must exist in the database.
+     * @throws NoSuchElementException If the Interviewee does not exist in the database.
+     */
+    Interviewee getInterviewee(String intervieweeName) throws NoSuchElementException;
 
     /**
      * Emails the given Interviewee.
@@ -108,6 +116,14 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Returns the Person object given the name.
+     * The person must exist in the address book.
+     * @param name The name of the Person
+     * @throws NoSuchElementException If the person does not exist in the address book.
+     */
+    Person getPerson(String name) throws NoSuchElementException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

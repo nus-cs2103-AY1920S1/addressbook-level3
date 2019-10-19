@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -44,6 +45,7 @@ public class EmailCommand extends Command {
         requireNonNull(model);
         // TODO: Need to filter for Interviewees only
         List<Person> lastShownList = model.getFilteredPersonList();
+        // Interviewee intervieweeToEmail = new Interviewee.IntervieweeBuilder(lastShownList.get(1)).build();
         Interviewee intervieweeToEmail = null;
 
         for (Person person : lastShownList) {
@@ -58,15 +60,13 @@ public class EmailCommand extends Command {
         }
 
         // TODO: Implement email feature
-        // try {
-        //     model.emailInterviewee(intervieweeToEmail);
-        // } catch (IOException ioe) {
-        //     // Happens when the mail client cannot be launched, should prompt the user to open a URL instead
-        //     throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
-        // }
-        // return new CommandResult(String.format(MESSAGE_EMAIL_INTERVIEWEE_SUCCESS, intervieweeToEmail));
-
-        throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
+        try {
+            model.emailInterviewee(intervieweeToEmail);
+        } catch (IOException ioe) {
+            // Happens when the mail client cannot be launched, should prompt the user to open a URL instead
+            throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
+        }
+        return new CommandResult(String.format(MESSAGE_EMAIL_INTERVIEWEE_SUCCESS, intervieweeToEmail));
     }
 
     @Override

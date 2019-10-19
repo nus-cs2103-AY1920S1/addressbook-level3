@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
@@ -121,27 +123,50 @@ public class ModelManager implements Model {
         return observableLists;
     }
 
+    @Override
+    public Interviewee getInterviewee(String intervieweeName) throws NoSuchElementException {
+        Person person = getPerson(intervieweeName);
+
+        if (person instanceof Interviewee) {
+            return (Interviewee) person;
+        } else {
+            throw new NoSuchElementException(Messages.MESSAGE_INVALID_PERSON_NAME);
+        }
+    }
+
     /**
      * Emails the given Interviewee.
      * The Interviewee must exist in the database.
      */
     @Override
     public void emailInterviewee(Interviewee interviewee) throws IOException {
-        // TODO: Implement getting the emails of the Interviewee
-        StringBuilder sb = new StringBuilder();
-        sb.append("mailto:");
-        sb.append("someone@example.com");
-        sb.append("?cc=");
-        sb.append("copied@example.com");
-        sb.append("&subject=");
-        sb.append(URLEncoder.encode("This is a test subject",
-                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20"));
-        sb.append("&body=");
-        sb.append(URLEncoder.encode("This is a test body + Some additional stuff",
-                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20"));
-
         Desktop desktop = Desktop.getDesktop();
-        URI uri = URI.create(sb.toString());
+        String intervieweeEmails = interviewee.getEmails().getAllEmails().values().stream()
+                .map((x) -> {
+                    StringBuilder output = new StringBuilder();
+                    for (int i = 0; i < x.size(); i++) {
+                        output.append(x.get(i));
+                        output.append("; ");
+                    }
+
+                    if (output.length() != 0) {
+                        output.delete(output.length() - 2, output.length());
+                    }
+
+                    return output.toString();
+                })
+                .reduce((x, y) -> x + "; " + y).get();
+
+        String sb = "mailto:"
+                + URLEncoder.encode(intervieweeEmails,
+                        java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20")
+                + "?cc=" + "copied@example.com" + "&subject="
+                + URLEncoder.encode("This is a test subject",
+                        java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20")
+                + "&body="
+                + URLEncoder.encode(intervieweeEmails,
+                        java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20");
+        URI uri = URI.create(sb);
         desktop.mail(uri);
     }
 
@@ -224,6 +249,11 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public Person getPerson(String name) throws NoSuchElementException {
+        return addressBook.getPerson(name);
     }
 
     @Override
