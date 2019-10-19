@@ -11,7 +11,6 @@ import seedu.jarvis.logic.commands.cca.AddCcaCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
-import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.cca.Cca;
@@ -22,7 +21,7 @@ import seedu.jarvis.model.cca.EquipmentList;
 /**--
  * Parses input arguments and creates a new {@code AddCcaCommand} object.
  */
-public class AddCcaCommandParser implements Parser <AddCcaCommand> {
+public class AddCcaCommandParser implements Parser<AddCcaCommand> {
 
     @Override
     public AddCcaCommand parse(String userInput) throws ParseException {
@@ -34,9 +33,9 @@ public class AddCcaCommandParser implements Parser <AddCcaCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCcaCommand.MESSAGE_USAGE));
         }
 
-        CcaName ccaName = ParserUtil.parseCcaName(argumentMultimap.getValue(PREFIX_CCA_NAME).get());
-        CcaType ccaType = ParserUtil.parseCcaType(argumentMultimap.getValue(PREFIX_CCA_TYPE).get());
-        EquipmentList equipmentList = ParserUtil.parseEquipments(argumentMultimap.getAllValues(PREFIX_EQUIPMENT_NAME));
+        CcaName ccaName = CcaParserUtil.parseCcaName(argumentMultimap.getValue(PREFIX_CCA_NAME).get());
+        CcaType ccaType = CcaParserUtil.parseCcaType(argumentMultimap.getValue(PREFIX_CCA_TYPE).get());
+        EquipmentList equipmentList = CcaParserUtil.parseEquipments(argumentMultimap.getAllValues(PREFIX_EQUIPMENT_NAME));
         Cca cca = new Cca(ccaName, ccaType, equipmentList);
 
         return new AddCcaCommand(cca);

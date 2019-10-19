@@ -55,10 +55,10 @@ public class FindCcaCommand extends Command {
     }
 
     /**
-     * Finds all {@code Person} in CcaTracker that pass the {@code Predicate} of the command.
+     * Finds all {@code Cca} in CcaTracker that pass the {@code Predicate} of the command.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return {@code CommandResult} of the number of {@code Person} matching the {@code Predicate}.
+     * @return {@code CommandResult} of the number of {@code Cca} matching the {@code Predicate}.
      */
     @Override
     public CommandResult execute(Model model) {
