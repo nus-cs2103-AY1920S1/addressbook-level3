@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
-import seedu.address.model.ScheduleBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.schedule.Schedule;
 
 /**
@@ -38,12 +38,12 @@ public class TypicalSchedules {
             .withCalendar(CBD_CALENDAR).withVenue(CBD_VENUE).withTags(DEFAULT_TAG_1).build();
 
     /**
-     * Returns an {@code Book} with all the typical schedules.
+     * Returns a {@code DataBook} with all the typical schedules.
      */
-    public static ScheduleBook getTypicalScheduleBook() {
-        ScheduleBook sb = new ScheduleBook();
+    public static DataBook<Schedule> getTypicalScheduleBook() {
+        DataBook<Schedule> sb = new DataBook<>();
         for (Schedule s: getTypicalSchedules()) {
-            sb.addSchedule(s);
+            sb.add(s);
         }
         return sb;
     }

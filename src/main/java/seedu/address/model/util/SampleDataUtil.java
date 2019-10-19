@@ -7,9 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import seedu.address.model.CustomerBook;
-import seedu.address.model.OrderBook;
-import seedu.address.model.PhoneBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
@@ -83,9 +81,9 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyDataBook<Customer> getSampleCustomerBook() {
-        CustomerBook sampleCustBook = new CustomerBook();
+        DataBook<Customer> sampleCustBook = new DataBook<>();
         for (Customer sampleCustomer : getSampleCustomers()) {
-            sampleCustBook.addCustomer(sampleCustomer);
+            sampleCustBook.add(sampleCustomer);
         }
         return sampleCustBook;
     }
@@ -120,11 +118,28 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyDataBook<Phone> getSamplePhoneBook() {
-        PhoneBook samplePhoneBook = new PhoneBook();
+        DataBook<Phone> samplePhoneBook = new DataBook<>();
         for (Phone samplePhone : getSamplePhones()) {
-            samplePhoneBook.addPhone(samplePhone);
+            samplePhoneBook.add(samplePhone);
         }
         return samplePhoneBook;
+    }
+
+    public static Schedule[] getSampleSchedule() {
+        return new Schedule[] {
+            new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Kovan"),
+                        getTagSet("Rush")),
+            new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Orchard"),
+                        getTagSet("Office"))
+        };
+    }
+
+    public static ReadOnlyDataBook<Schedule> getSampleScheduleBook() {
+        DataBook<Schedule> sampleScheduleBook = new DataBook<>();
+        for (Schedule sampleSchedule : getSampleSchedule()) {
+            sampleScheduleBook.add(sampleSchedule);
+        }
+        return sampleScheduleBook;
     }
 
     /**
@@ -228,9 +243,9 @@ public class SampleDataUtil {
 
 
     public static ReadOnlyDataBook<Order> getSampleOrderBook() {
-        OrderBook sampleOrderBook = new OrderBook();
+        DataBook<Order> sampleOrderBook = new DataBook<>();
         for (Order sampleOrder : getSampleOrders()) {
-            sampleOrderBook.addOrder(sampleOrder);
+            sampleOrderBook.add(sampleOrder);
         }
         return sampleOrderBook;
     }

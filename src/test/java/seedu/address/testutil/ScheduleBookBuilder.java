@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.address.model.ScheduleBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.schedule.Schedule;
 
 /**
- * A utility class to help with building ScheduleBook objects.
+ * A utility class to help with building {@code Schedule} {@code DataBook}.
  * Example usage: <br>
- *     {@code ScheduleBook sb = new ScheduleBookBuilder().withSchedule(...).build();}
+ *     {@code DataBook<Schedule> sb = new ScheduleBookBuilder().withSchedule(...).build();}
  */
 public class ScheduleBookBuilder {
 
-    private ScheduleBook scheduleBook;
+    private DataBook<Schedule> scheduleBook;
 
     public ScheduleBookBuilder() {
-        scheduleBook = new ScheduleBook();
+        scheduleBook = new DataBook<>();
     }
 
-    public ScheduleBookBuilder(ScheduleBook scheduleBook) {
+    public ScheduleBookBuilder(DataBook<Schedule> scheduleBook) {
         this.scheduleBook = scheduleBook;
     }
 
     /**
-     * Adds a new {@code Schedule} to the {@code ScheduleBook} that we are building.
+     * Adds a new {@code Schedule} to the {@code DataBook} that we are building.
      */
     public ScheduleBookBuilder withSchedule(Schedule schedule) {
-        scheduleBook.addSchedule(schedule);
+        scheduleBook.add(schedule);
         return this;
     }
 
-    public ScheduleBook build() {
+    public DataBook<Schedule> build() {
         return scheduleBook;
     }
 }
