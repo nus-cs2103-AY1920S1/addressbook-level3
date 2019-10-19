@@ -60,7 +60,7 @@ public class EditPersonCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        try{
+        try {
             Person person = model.editPerson(name, personDescriptor);
 
             // update main window display

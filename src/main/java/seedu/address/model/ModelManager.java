@@ -216,7 +216,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person findPerson(Name name) throws PersonNotFoundException{
+    public Person findPerson(Name name) throws PersonNotFoundException {
         Person person = personList.findPerson(name);
         if (person != null) {
             return person;
@@ -241,7 +241,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person editPerson(Name name, PersonDescriptor personDescriptor) throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException {
+    public Person editPerson(Name name, PersonDescriptor personDescriptor)
+            throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException {
         return personList.editPerson(name, personDescriptor);
     }
 
@@ -263,7 +264,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean isEventClash(Name name, Event event) throws PersonNotFoundException{
+    public boolean isEventClash(Name name, Event event) throws PersonNotFoundException {
         Person person = findPerson(name);
         Schedule schedule = person.getSchedule();
         if (schedule.isClash(event)) {
@@ -292,7 +293,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor) throws GroupNotFoundException, NoGroupFieldsEditedException, DuplicateGroupException {
+    public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor)
+            throws GroupNotFoundException, NoGroupFieldsEditedException, DuplicateGroupException {
         return groupList.editGroup(groupName, groupDescriptor);
     }
 
@@ -302,7 +304,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Group findGroup(GroupId groupId) throws GroupNotFoundException{
+    public Group findGroup(GroupId groupId) throws GroupNotFoundException {
         return groupList.findGroup(groupId);
     }
 
@@ -336,7 +338,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) throws MappingNotFoundException {
+    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId)
+            throws MappingNotFoundException {
         return personToGroupMappingList.findPersonToGroupMapping(personId, groupId);
     }
 
@@ -378,9 +381,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type)  {
+    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
         ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-        try{
+        try {
             WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name), Role.emptyRole());
             weekSchedules.add(weekSchedule);
             DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
@@ -393,7 +396,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
-        try{
+        try {
             Group group = groupList.findGroup(groupName);
             GroupId groupId = group.getGroupId();
             GroupDisplay groupDisplay = new GroupDisplay(group);
@@ -411,7 +414,7 @@ public class ModelManager implements Model {
             DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
             updateDetailWindowDisplay(detailWindowDisplay);
         } catch (GroupNotFoundException | MappingNotFoundException e) {
-
+            e.printStackTrace();
         }
 
     }
@@ -460,7 +463,7 @@ public class ModelManager implements Model {
         ArrayList<String> suggestions = new ArrayList<>();
 
         Group group;
-        try{
+        try {
             group = findGroup(new GroupName(groupName));
         } catch (GroupNotFoundException e) {
             return suggestions;
@@ -524,7 +527,7 @@ public class ModelManager implements Model {
 
     public String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo) {
         return nusModsData.getAcadCalendar().getStartDateString(acadYear, semesterNo);
-    };
+    }
 
     public List<String> getHolidayDateStrings() {
         return nusModsData.getHolidays().getHolidayDates();

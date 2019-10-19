@@ -24,7 +24,8 @@ public class TypicalModel {
      *
      * @return Model
      */
-    public static ModelManager generateTypicalModel() throws DuplicatePersonException, DuplicateGroupException, DuplicateMappingException {
+    public static ModelManager generateTypicalModel()
+            throws DuplicatePersonException, DuplicateGroupException, DuplicateMappingException {
         Person.counterReset();
         Group.counterReset();
 

@@ -8,7 +8,6 @@ import seedu.address.model.Model;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**

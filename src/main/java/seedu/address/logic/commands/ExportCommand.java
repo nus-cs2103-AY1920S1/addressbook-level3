@@ -14,7 +14,9 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
-/** Command to export visual representations */
+/**
+ * Command to export visual representations
+ */
 public class ExportCommand<T> extends Command {
 
     public static final String COMMAND_WORD = "export";

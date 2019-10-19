@@ -29,6 +29,7 @@ public class ClosestLocationCommand extends Command {
 
     /**
      * This method is used to find the closes location from the location graph
+     *
      * @return
      */
     private String closestLocation() throws IllegalValueException, TimeBookInvalidLocation {

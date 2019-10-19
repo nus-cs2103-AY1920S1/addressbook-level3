@@ -3,8 +3,6 @@ package seedu.address.model.mapping;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.mappingutil.TypicalMappings.MAP00;
@@ -76,9 +74,12 @@ class PersonToGroupMappingListTest {
         mappingList.deletePersonFromMapping(MAP00.getPersonId());
 
         // these maps are deleted
-        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
-        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
-        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
 
         // these maps are not deleted
         assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
@@ -94,8 +95,10 @@ class PersonToGroupMappingListTest {
         mappingList.deleteGroupFromMapping(MAP00.getGroupId());
 
         // these maps are deleted
-        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
-        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
 
         // these maps are not deleted
         assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));

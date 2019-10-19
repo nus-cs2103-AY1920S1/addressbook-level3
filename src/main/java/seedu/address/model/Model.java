@@ -141,7 +141,8 @@ public interface Model {
     /**
      * Edits the person with given Name with given PersonDescriptor.
      */
-    Person editPerson(Name name, PersonDescriptor personDescriptor) throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException;
+    Person editPerson(Name name, PersonDescriptor personDescriptor)
+            throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException;
 
     /**
      * Deletes a person with given PersonId.
@@ -183,7 +184,8 @@ public interface Model {
     /**
      * Edits the person with given Name with given PersonDescriptor.
      */
-    Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor) throws GroupNotFoundException, NoGroupFieldsEditedException, DuplicateGroupException;
+    Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor)
+            throws GroupNotFoundException, NoGroupFieldsEditedException, DuplicateGroupException;
 
     /**
      * Finds a Group with given GroupName.

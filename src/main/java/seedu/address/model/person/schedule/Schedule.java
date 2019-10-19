@@ -22,8 +22,14 @@ public class Schedule {
         this.events = events;
     }
 
+    /**
+     * Adds an event into the schedule.
+     *
+     * @param event to be added
+     * @throws EventClashException when there is a clash in the events
+     */
     public void addEvent(Event event) throws EventClashException {
-        if(isClash(event)) {
+        if (isClash(event)) {
             throw new EventClashException(event);
         }
         this.events.add(event);

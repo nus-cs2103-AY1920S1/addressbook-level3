@@ -61,7 +61,7 @@ public class TypicalPersons {
 
     private TypicalPersons() {
     } // prevents instantiation
-/*
+    /*
     *//**
      * Returns an {@code AddressBook} with all the typical persons.
      *//*

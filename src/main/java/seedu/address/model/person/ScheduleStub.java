@@ -49,7 +49,7 @@ public class ScheduleStub {
         Timeslot timeslot5 = new Timeslot(startTime5, endTime5, venue);
         Event monday1pmTo3pm = new Event("Test", new ArrayList<>(List.of(timeslot1, timeslot2, timeslot3,
                 timeslot4, timeslot5)));
-        try{
+        try {
             schedule.addEvent(monday1pmTo3pm);
         } catch (EventClashException e) {
             return null;

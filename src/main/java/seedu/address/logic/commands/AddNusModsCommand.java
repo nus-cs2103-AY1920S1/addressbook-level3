@@ -65,63 +65,14 @@ public class AddNusModsCommand extends Command {
         this.link = link;
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        AcadYear acadYear = model.getDefaultAcadYear();
-
-        // find person with name
-        ObservableList<Person> personList = model.getObservablePersonList();
-        Person person = null;
-        for (Person p : personList) {
-            if (p.getName().equals(name)) {
-                person = p;
-                break;
-            }
-        }
-        if (person == null) {
-            return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
-        }
-
-
-        String startAcadSemDateString = model.getAcadSemStartDateString(acadYear, link.semesterNo);
-        List<String> holidayDateStrings = model.getHolidayDateStrings();
-
-
-        // translate module to event
-        ArrayList<Event> eventsToAdd = new ArrayList<>();
-        for (Map.Entry<ModuleCode, List<LessonNo>> entry : link.moduleLessonsMap.entrySet()) {
-            ModuleCode moduleCode = entry.getKey();
-            ModuleId moduleId = new ModuleId(acadYear, moduleCode);
-            try {
-                Module module = model.findModule(moduleId);
-                Event e = createEvent(module, startAcadSemDateString, link.semesterNo,
-                        entry.getValue(), holidayDateStrings);
-                eventsToAdd.add(e);
-            } catch (ModuleNotFoundException e) {
-                return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
-            } catch (ModuleToEventMappingException e) {
-                return new CommandResult(e.getMessage());
-            }
-        }
-
-        for (Event event : eventsToAdd) {
-            try{
-                person.addEvent(event);
-            } catch (EventClashException e) {
-
-            }
-        }
-
-        return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());
-    }
-
     /**
      * Converts a {@code Module} to an {@code Event}.
+     *
      * @return an Event based on an NUS module
      */
     public static Event createEvent(Module module, String startAcadSemDateString, SemesterNo semesterNo,
-                     List<LessonNo> lessonNos, List<String> holidayDateStrings) throws ModuleToEventMappingException {
+                                    List<LessonNo> lessonNos, List<String> holidayDateStrings)
+            throws ModuleToEventMappingException {
         ArrayList<Lesson> lessons = new ArrayList<>();
         for (LessonNo lessonNo : lessonNos) {
             List<Lesson> lessonsFound = module.getSemester(semesterNo).findLessons(lessonNo);
@@ -143,7 +94,7 @@ public class AddNusModsCommand extends Command {
      * Generate all timeslots for the lesson, taking into account of holidays.
      */
     public static List<Timeslot> generateTimeslots(Lesson lesson, String startAcadSemDateString,
-                                            List<String> holidayDateStrings) {
+                                                   List<String> holidayDateStrings) {
         // TODO: do week type parsing in NusModsParser.parseWeeks
         List<Timeslot> timeslots = new ArrayList<>();
 
@@ -222,6 +173,57 @@ public class AddNusModsCommand extends Command {
         }
 
         return timeslots;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        AcadYear acadYear = model.getDefaultAcadYear();
+
+        // find person with name
+        ObservableList<Person> personList = model.getObservablePersonList();
+        Person person = null;
+        for (Person p : personList) {
+            if (p.getName().equals(name)) {
+                person = p;
+                break;
+            }
+        }
+        if (person == null) {
+            return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
+        }
+
+
+        String startAcadSemDateString = model.getAcadSemStartDateString(acadYear, link.semesterNo);
+        List<String> holidayDateStrings = model.getHolidayDateStrings();
+
+
+        // translate module to event
+        ArrayList<Event> eventsToAdd = new ArrayList<>();
+        for (Map.Entry<ModuleCode, List<LessonNo>> entry : link.moduleLessonsMap.entrySet()) {
+            ModuleCode moduleCode = entry.getKey();
+            ModuleId moduleId = new ModuleId(acadYear, moduleCode);
+            try {
+                Module module = model.findModule(moduleId);
+                Event e = createEvent(module, startAcadSemDateString, link.semesterNo,
+                        entry.getValue(), holidayDateStrings);
+                eventsToAdd.add(e);
+            } catch (ModuleNotFoundException e) {
+                return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
+            } catch (ModuleToEventMappingException e) {
+                return new CommandResult(e.getMessage());
+            }
+        }
+
+        for (Event event : eventsToAdd) {
+            try {
+                person.addEvent(event);
+            } catch (EventClashException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());
     }
 
     @Override

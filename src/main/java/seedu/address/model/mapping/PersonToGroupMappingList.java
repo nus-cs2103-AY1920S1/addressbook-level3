@@ -23,7 +23,6 @@ public class PersonToGroupMappingList {
      * Adds a mapping to the list of mappings, will not add when a duplicate is found.
      *
      * @param map mapping to be added
-     * @return true when mapping is added, false when mapping already exists
      */
     public void addPersonToGroupMapping(PersonToGroupMapping map) throws DuplicateMappingException {
         try {
@@ -42,7 +41,8 @@ public class PersonToGroupMappingList {
      * @param groupId  of the mapping
      * @return mapping found
      */
-    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) throws MappingNotFoundException {
+    public PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId)
+            throws MappingNotFoundException {
 
         for (int i = 0; i < mappings.size(); i++) {
             if (mappings.get(i).getPersonId().equals(personId) && mappings.get(i).getGroupId().equals(groupId)) {
@@ -56,7 +56,6 @@ public class PersonToGroupMappingList {
      * Deletes a mapping from the list of mapping.
      *
      * @param mapping to be deleted
-     * @return true when mapping found and deleted
      */
     public void deletePersonToGroupMapping(PersonToGroupMapping mapping) throws MappingNotFoundException {
         int i;

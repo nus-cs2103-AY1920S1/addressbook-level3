@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP0;
@@ -114,7 +113,8 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getObservablePersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                modelManager.getObservablePersonList().remove(0));
     }
 
     /*@Test
@@ -196,7 +196,8 @@ public class ModelManagerTest {
         assertDoesNotThrow(() -> modelManager.addEvent(BENSON.getName(), TypicalEvents.generateTypicalEvent2()));
         assertDoesNotThrow(() -> modelManager.addEvent(ALICE.getName(), TypicalEvents.generateTypicalEvent1()));
 
-        assertThrows(PersonNotFoundException.class, () -> modelManager.addEvent(ZACK.getName(), TypicalEvents.generateTypicalEvent2()));
+        assertThrows(PersonNotFoundException.class, () ->
+                modelManager.addEvent(ZACK.getName(), TypicalEvents.generateTypicalEvent2()));
     }
 
     @Test
@@ -283,7 +284,8 @@ public class ModelManagerTest {
     @Test
     void findPersonToGroupMapping() throws MappingNotFoundException {
         assertDoesNotThrow(() -> modelManager.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
-        assertThrows(MappingNotFoundException.class, () -> modelManager.findPersonToGroupMapping(MAP20.getPersonId(), MAP20.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                modelManager.findPersonToGroupMapping(MAP20.getPersonId(), MAP20.getGroupId()));
     }
 
     @Test

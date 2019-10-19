@@ -92,7 +92,7 @@ public class AddNusModCommand extends Command {
             return new CommandResult(e.getMessage());
         }
 
-        try{
+        try {
             person.addEvent(event);
         } catch (EventClashException e) {
             return new CommandResult("Event clash");
@@ -122,7 +122,8 @@ public class AddNusModCommand extends Command {
         private AcadYear acadYear;
         private SemesterNo semesterNo;
 
-        public AddNusModCommandOptions() {}
+        public AddNusModCommandOptions() {
+        }
 
         public Optional<AcadYear> getAcadYear() {
             return Optional.ofNullable(acadYear);

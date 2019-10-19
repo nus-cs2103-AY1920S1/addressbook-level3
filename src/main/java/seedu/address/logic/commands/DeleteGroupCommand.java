@@ -7,7 +7,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
-import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 

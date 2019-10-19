@@ -41,11 +41,14 @@ public class TimeBook {
         this.groupList.addGroup(group);
     }
 
+    /**
+     * Adds a mapping into TimeBook.
+     */
     public void addMapping(PersonToGroupMapping map) {
         try {
             this.personToGroupMappingList.addPersonToGroupMapping(map);
-        } catch (DuplicateMappingException ignored) {
-
+        } catch (DuplicateMappingException e) {
+            e.printStackTrace();
         }
     }
 

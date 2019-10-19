@@ -52,7 +52,7 @@ public class AddEventCommand extends Command {
         if (event == null) {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_WRONG_TIMINGS));
         } else {
-            try{
+            try {
                 model.addEvent(name, event);
 
                 // updates main window

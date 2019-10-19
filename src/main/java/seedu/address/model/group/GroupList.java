@@ -15,7 +15,7 @@ public class GroupList {
     private ArrayList<Group> groups;
 
     public GroupList() {
-        this.groups = new ArrayList<Group>();
+        this.groups = new ArrayList<>();
     }
 
     /**
@@ -25,7 +25,7 @@ public class GroupList {
      * @return true when successfully added group
      */
     public Group addGroup(GroupDescriptor groupDescriptor) throws DuplicateGroupException {
-        try{
+        try {
             findGroup(groupDescriptor.getGroupName());
             throw new DuplicateGroupException();
 
@@ -45,7 +45,6 @@ public class GroupList {
      * Deletes a group based on GroupId.
      *
      * @param groupId groupId to find the group to be deleted
-     * @return true when successfully deleted group
      */
     public void deleteGroup(GroupId groupId) throws GroupNotFoundException {
         int i;
@@ -65,20 +64,21 @@ public class GroupList {
      * @param groupDescriptor how the group should be edited
      * @return group
      */
-    public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor) throws GroupNotFoundException, NoGroupFieldsEditedException, DuplicateGroupException {
+    public Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor)
+            throws GroupNotFoundException, NoGroupFieldsEditedException, DuplicateGroupException {
         Group toEdit = findGroup(groupName);
 
-        if(!groupDescriptor.isAnyFieldEdited()) {
+        if (!groupDescriptor.isAnyFieldEdited()) {
             throw new NoGroupFieldsEditedException();
         }
 
         if (!groupDescriptor.getGroupName().equals(GroupName.emptyGroupName())) {
             GroupName otherName = groupDescriptor.getGroupName();
-            try{
+            try {
                 findGroup(otherName);
                 throw new DuplicateGroupException();
-            } catch (GroupNotFoundException ignored) {
-
+            } catch (GroupNotFoundException e) {
+                e.printStackTrace();
             }
             toEdit.setGroupName(groupDescriptor.getGroupName());
         }
