@@ -50,7 +50,7 @@ public class TransactionBuilder {
      */
     public TransactionBuilder(Transaction transactionToCopy) {
         amount = transactionToCopy.getAmount();
-        date = transactionToCopy.getDate();
+        date = transactionToCopy.getDateTime();
         peopleInvolved = transactionToCopy.getPeopleInvolved();
         tags = new HashSet<>(transactionToCopy.getTags());
     }

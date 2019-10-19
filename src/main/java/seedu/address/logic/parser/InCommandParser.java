@@ -6,13 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.Date;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
@@ -40,7 +41,7 @@ public class InCommandParser implements Parser<InCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Transaction transaction = new InTransaction(amount, new Date(System.currentTimeMillis()));
+        Transaction transaction = new InTransaction(amount, new Date(LocalDate.now().toString()));
 
         return new InCommand(transaction);
 
