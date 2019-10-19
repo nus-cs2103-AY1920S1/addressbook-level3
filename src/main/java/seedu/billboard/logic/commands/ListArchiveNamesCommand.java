@@ -35,4 +35,10 @@ public class ListArchiveNamesCommand extends ArchiveCommand {
         }
         return new CommandResult(feedback);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListArchiveNamesCommand); // instanceof handles nulls
+    }
 }

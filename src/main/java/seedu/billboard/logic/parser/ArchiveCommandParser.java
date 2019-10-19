@@ -1,20 +1,18 @@
 package seedu.billboard.logic.parser;
 
-import seedu.billboard.logic.commands.AddArchiveCommand;
-import seedu.billboard.logic.commands.AddTagCommand;
-import seedu.billboard.logic.commands.ArchiveCommand;
-import seedu.billboard.logic.commands.FilterTagCommand;
-import seedu.billboard.logic.commands.HelpCommand;
-import seedu.billboard.logic.commands.ListArchiveCommand;
-import seedu.billboard.logic.commands.ListArchiveNamesCommand;
-import seedu.billboard.logic.parser.exceptions.ParseException;
+import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.billboard.logic.commands.AddArchiveCommand;
+import seedu.billboard.logic.commands.ArchiveCommand;
+import seedu.billboard.logic.commands.HelpCommand;
+import seedu.billboard.logic.commands.ListArchiveCommand;
+import seedu.billboard.logic.commands.ListArchiveNamesCommand;
+import seedu.billboard.logic.commands.RevertArchiveCommand;
+import seedu.billboard.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
@@ -51,6 +49,9 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
 
         case AddArchiveCommand.COMMAND_WORD:
             return new AddArchiveCommandParser().parse(arguments);
+
+        case RevertArchiveCommand.COMMAND_WORD:
+            return new RevertArchiveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
