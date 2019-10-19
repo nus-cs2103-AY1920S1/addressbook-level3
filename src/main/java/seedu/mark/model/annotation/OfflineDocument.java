@@ -98,26 +98,17 @@ public class OfflineDocument {
 
     public static final Document OFFLINE_DOC_EXAMPLE = Jsoup.parse(OFFLINE_HTML_EXAMPLE);
 
-    /** Version of cache it annotates. For logistic purposes.*/
-    private String cacheVersion;
     /** Paragraphs with notes. */
     private HashMap<ParagraphIdentifier, Paragraph> paragraphs;
 
-    public OfflineDocument(String cacheVersion) {
-        requireNonNull(cacheVersion);
-        this.cacheVersion = cacheVersion;
-        this.paragraphs = new HashMap<>();
-    }
-
-    public OfflineDocument(String cacheVersion, Document doc) {
-        this(cacheVersion);
+    public OfflineDocument(Document doc) {
         requireNonNull(doc);
-
+        this.paragraphs = new HashMap<>();
         loadDocumentIntoParagraphs(doc);
     }
 
-    public String getCacheVersion() {
-        return cacheVersion;
+    public OfflineDocument(String doc) {
+        this(Jsoup.parse(doc));
     }
     /**
      * Loads Readability4J-parsed html document into their respective paragraphs.
@@ -188,7 +179,7 @@ public class OfflineDocument {
             System.out.println(Paths.get(rsrc.toURI()).toString());
             String html = Files.readString(Paths.get(rsrc.toURI()), StandardCharsets.UTF_8);
             Document doc = Jsoup.parse(html);
-            new OfflineDocument("someversion", doc);
+            new OfflineDocument(doc);
         } catch (Exception e) {
             e.printStackTrace();
         }

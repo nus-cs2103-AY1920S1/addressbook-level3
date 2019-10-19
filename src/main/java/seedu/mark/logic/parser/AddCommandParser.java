@@ -7,6 +7,7 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -48,7 +49,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Folder folder = ParserUtil.parseFolder(argMultimap.getValue(PREFIX_FOLDER).orElse(Folder.DEFAULT_FOLDER_NAME));
 
 
-        Bookmark bookmark = new Bookmark(name, url, remark, folder, tagList);
+        Bookmark bookmark = new Bookmark(name, url, remark, folder, tagList, new ArrayList<>());
 
         return new AddCommand(bookmark);
     }
