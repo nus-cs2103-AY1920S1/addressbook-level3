@@ -45,6 +45,7 @@ class DiaryLine extends UiPart<HBox> {
                         })
                         .collect(Collectors.toList()));
         lineTextLabel.setGraphic(photoCardsDisplay);
+        lineTextLabel.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
     }
 
     DiaryLine(String text, Photo photo, boolean placeOnLeft) {

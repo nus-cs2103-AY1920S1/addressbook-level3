@@ -7,7 +7,12 @@
 
 <HBox minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox fx:id="photoCardsDisplay" maxHeight="250.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" spacing="10.0" style="-fx-background-color: transparent;">
+      <Label fx:id="lineTextLabel" contentDisplay="RIGHT" graphicTextGap="10.0" style="-fx-font-family: Segeo UI; -fx-font-size: 20; -fx-text-fill: #121420; -fx-wrap-text: true;" styleClass="diaryTextLine" text="Just some placeholder text" wrapText="true" HBox.hgrow="NEVER">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </Label>
+      <HBox fx:id="photoCardsDisplay" maxHeight="250.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" spacing="10.0" style="-fx-background-color: transparent;" HBox.hgrow="NEVER">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -18,10 +23,5 @@
             <Insets />
          </HBox.margin>
       </HBox>
-      <Label fx:id="lineTextLabel" contentDisplay="RIGHT" graphicTextGap="10.0" minHeight="-Infinity" minWidth="-Infinity" style="-fx-font-family: Segeo UI; -fx-font-size: 20; -fx-text-fill: #121420;" styleClass="diaryTextLine" text="Just some placeholder text" wrapText="true" HBox.hgrow="ALWAYS">
-         <font>
-            <Font name="Segoe UI" size="20.0" />
-         </font>
-      </Label>
    </children>
 </HBox>
