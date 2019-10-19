@@ -35,8 +35,10 @@ public class ShowCommand extends Command {
             this.targetList = TASK_VIEW_COMMAND; //"TASK"
             break;
         case EVENT_VIEW_COMMAND:
-        case CALENDAR_VIEW_COMMAND:
             this.targetList = EVENT_VIEW_COMMAND; //"EVENT"
+            break;
+        case CALENDAR_VIEW_COMMAND:
+            this.targetList = CALENDAR_VIEW_COMMAND; //"CALENDAR"
             break;
         case REMINDER_VIEW_COMMAND:
             this.targetList = REMINDER_VIEW_COMMAND; //"REMINDER"
@@ -54,7 +56,7 @@ public class ShowCommand extends Command {
         } catch (Exception e) {
             throw new CommandException("Show command format is incorrect. It should be \"show T\"");
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetView), targetView);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetView));
     }
 
     @Override

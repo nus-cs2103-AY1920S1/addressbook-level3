@@ -14,6 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.ActiveRemindersList;
+import seedu.address.model.item.CalendarList;
 import seedu.address.model.item.EventList;
 import seedu.address.model.item.ReminderList;
 import seedu.address.model.item.TaskList;
@@ -26,6 +27,7 @@ public class ItemModelManager implements ItemModel {
     private TaskList taskList;
     private EventList eventList;
     private ReminderList reminderList;
+    private CalendarList calendarList;
     // The list to be used for visualizing in the Ui
     private VisualizeList visualList;
     private final UserPrefs userPrefs;
@@ -45,6 +47,7 @@ public class ItemModelManager implements ItemModel {
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
+        this.calendarList = new CalendarList();
         this.visualList = taskList;
         this.itemStorage = itemStorage;
         this.userPrefs = new UserPrefs(userPrefs);
@@ -345,6 +348,9 @@ public class ItemModelManager implements ItemModel {
         case "R":
             setVisualList(reminderList);
             break;
+        case "C":
+            setVisualList(calendarList);
+            break;
         default:
             throw new IllegalValueException(String.format("%s is no a valid list", listString));
         }
@@ -463,6 +469,11 @@ public class ItemModelManager implements ItemModel {
                     sortedTask.add(item);
                 }
             }
+            System.out.println(sortedTask.size());
+            if (sortedTask.size() == 0) {
+                priorityMode = false;
+                return priorityMode;
+            }
             this.visualList = getNextTask();
         }
         return priorityMode;
@@ -470,6 +481,15 @@ public class ItemModelManager implements ItemModel {
 
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
+        if (sortedTask.peek().getTask().get().isComplete()) {
+            sortedTask.poll();
+        }
+
+        if (sortedTask.size() == 0) {
+            priorityMode = false;
+            return taskList;
+        }
+
         result.add(sortedTask.peek());
         return result;
     }
@@ -490,11 +510,6 @@ public class ItemModelManager implements ItemModel {
             Task newTask = task.markComplete();
             Item newItem = item.changeTask(newTask);
             replaceItem(item, newItem);
-        }
-
-        if (priorityMode) {
-            sortedTask.poll();
-            this.visualList = getNextTask();
         }
 
         return item;

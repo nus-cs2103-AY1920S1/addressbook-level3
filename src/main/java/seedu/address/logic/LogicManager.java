@@ -128,14 +128,6 @@ public class LogicManager implements Logic {
         return model.getItemStorage();
     }
 
-    /*
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getVisualList();
-<<<<<<< HEAD
-    }
-
-     */
     @Override
     public VisualizeList getVisualList() {
         return model.getVisualList();

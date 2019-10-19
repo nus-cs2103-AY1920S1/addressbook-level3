@@ -24,6 +24,8 @@ public class EventListPanel extends UiPart<Region> {
         super(FXML);
         eventListView.setItems(itemList);
         eventListView.setCellFactory(listView -> new EventListViewCell());
+        eventListView.scrollTo(itemList.size());
+
     }
 
     /**
