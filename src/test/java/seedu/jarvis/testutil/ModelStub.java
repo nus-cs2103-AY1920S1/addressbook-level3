@@ -116,6 +116,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public ObservableList<Command> getExecutedCommandsList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Command> getInverselyExecutedCommandsList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public int getAvailableNumberOfExecutedCommands() {
         throw new AssertionError("This method should not be called.");
     }

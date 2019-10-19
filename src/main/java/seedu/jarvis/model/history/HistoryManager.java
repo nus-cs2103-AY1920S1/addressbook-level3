@@ -2,6 +2,8 @@ package seedu.jarvis.model.history;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandDeque;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -65,6 +67,24 @@ public class HistoryManager {
      */
     public CommandDeque getInverselyExecutedCommands() {
         return inverselyExecutedCommands;
+    }
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    public ObservableList<Command> getExecutedCommandsList() {
+        return FXCollections.observableList(executedCommands.getCommands());
+    }
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are inversely executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    public ObservableList<Command> getInverselyExecutedCommandsList() {
+        return FXCollections.observableList(inverselyExecutedCommands.getCommands());
     }
 
     /**

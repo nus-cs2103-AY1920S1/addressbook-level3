@@ -27,7 +27,7 @@ public class ActionCard extends UiPart<Region> {
         super(FXML);
         this.command = command;
         id.setText(displayedIndex + ". ");
-        description.setText(command.toString());
+        description.setText(command.getCommandWord());
     }
 
     @Override

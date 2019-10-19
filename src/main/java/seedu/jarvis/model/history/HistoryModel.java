@@ -1,5 +1,6 @@
 package seedu.jarvis.model.history;
 
+import javafx.collections.ObservableList;
 import seedu.jarvis.logic.commands.Command;
 
 /**
@@ -19,6 +20,21 @@ public interface HistoryModel {
      * @param historyManager {@code HistoryManager} data to be used.
      */
     void setHistoryManager(HistoryManager historyManager);
+
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    ObservableList<Command> getExecutedCommandsList();
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are inversely executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    ObservableList<Command> getInverselyExecutedCommandsList();
 
     /**
      * Gets the number of available executed commands that can be undone.

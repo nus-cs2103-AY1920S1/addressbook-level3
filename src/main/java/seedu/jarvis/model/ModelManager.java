@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.core.index.Index;
@@ -45,7 +45,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final CoursePlanner coursePlanner;
     private final CcaTracker ccaTracker;
-    private final FilteredList<Person> filteredPersons;
     private final Planner planner;
 
 
@@ -64,7 +63,6 @@ public class ModelManager implements Model {
         this.historyManager = new HistoryManager(historyManager);
         this.addressBook = new AddressBook(addressBook);
         this.financeTracker = new FinanceTracker(financeTracker);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
         this.coursePlanner = new CoursePlanner(coursePlanner);
@@ -120,6 +118,26 @@ public class ModelManager implements Model {
     @Override
     public void setHistoryManager(HistoryManager historyManager) {
         this.historyManager.resetData(historyManager);
+    }
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    @Override
+    public ObservableList<Command> getExecutedCommandsList() {
+        return historyManager.getExecutedCommandsList();
+    }
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are inversely executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    @Override
+    public ObservableList<Command> getInverselyExecutedCommandsList() {
+        return historyManager.getInverselyExecutedCommandsList();
     }
 
     /**
