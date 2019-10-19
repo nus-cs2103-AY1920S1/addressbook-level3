@@ -1,7 +1,11 @@
 package seedu.address.testutil;
 
+import java.util.HashMap;
+
 import seedu.address.model.ModulesInfo;
+import seedu.address.model.module.Module;
 import seedu.address.model.semester.SemesterName;
+import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.UniqueTagList;
@@ -14,7 +18,24 @@ public class StudyPlanBuilder {
 
     // TODO: implement this entire class
 
+    private static int totalNumberOfStudyPlans = 0;
+
+    private UniqueSemesterList semesters;
+    private Title title;
+    private int index; // unique identifier of this study plan
+    private SemesterName currentSemester;
+    private boolean isActivated = false;
+
+    // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
+    // note: this Mega-List is only constructed when a study plan gets activated.
+    private HashMap<String, Module> modules;
+
+    // the unique list of tags of this study plan.
+    // All tags in an *active* study plan refer to a tag here.
+    // note: this unique list of tags is only constructed when a study plan gets activated.
     private UniqueTagList tags;
+
+
 
     public StudyPlanBuilder() {
         tags = new UniqueTagList();
