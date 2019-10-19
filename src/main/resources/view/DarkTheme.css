@@ -161,7 +161,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Franklin Gothic Book";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
 }
@@ -171,7 +171,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Arial Black";
+    -fx-font-family: "Franklin Gothic Heavy";
     -fx-text-fill: white;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
