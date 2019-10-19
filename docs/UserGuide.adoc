@@ -185,8 +185,28 @@ Example:
 Sets a budget of `$500,000` for this month
 
 === Generating statistics : `stats`
-Returns an overview of all spending such as total spending. +
-Format: `stats`
+Returns an overview of the spending which include:
+
+* Total cost  +
+* Budget +
+* Budget remaining +
+* Status (Safe / Deficit)
+* A list of cost and percentage of total cost spent on each tag.
+The list is sorted in descending order based on cost, with the tag with the highest cost incurred at the top.
+
+Format: `stats d/STARTDATE d/ENDDATE`
+
+****
+* Generates statistics for all spending that fall between and including the STARTDATE and ENDDATE specified.
+* If no STARTDATE and ENDDATE parameters are specified, the statistics generated will be based on the whole list of spending.
+****
+
+Examples:
+
+* `stats d/01/01/2019 d/07/01/2019` +
+Generates statistics for spending that fall between and including 01/01/2019 and 07/01/2019.
+* `stats` +
+Generates statistics for all spending.
 
 === Listing all tags : `ltags`
 Displays a list of all available tags. +
@@ -288,7 +308,8 @@ e.g. `goal m/1800`
 e.g. `import p/C:\Users\User\Documents\importfile.csv`
 | *Export data*| `export p/FILE_PATH` +
 e.g. `export p/C:\Users\User\Documents\importfile.csv`
-| *Generate statistics*| `stats`
+| *Generate statistics*| `stats d/STARTDATE d/ENDDATE` +
+e.g. `stats d/01/01/2019 d/07/01/2019`
 | *List all tags*| `ltags`
 | *Undo*| `undo`
 | *Redo*| `redo`
