@@ -8,12 +8,11 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-
 import seedu.address.model.entitylist.ParticipantList;
 
 /**
@@ -34,7 +33,7 @@ public class JsonParticipantListStorage implements ParticipantListStorage {
     }
 
     @Override
-    public Optional<ParticipantList> readParticipantList() throws AlfredException {
+    public Optional<ParticipantList> readParticipantList() throws DataConversionException {
         return readParticipantList(filePath);
     }
 
@@ -44,8 +43,7 @@ public class JsonParticipantListStorage implements ParticipantListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ParticipantList> readParticipantList(Path filePath)
-            throws DataConversionException, AlfredException {
+    public Optional<ParticipantList> readParticipantList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableParticipantList> jsonParticipantList = JsonUtil.readJsonFile(
@@ -63,6 +61,9 @@ public class JsonParticipantListStorage implements ParticipantListStorage {
         } catch (IllegalArgumentException iae) {
             logger.info("Illegal arguments found in " + filePath + ": " + iae.getMessage());
             throw new DataConversionException(iae);
+        } catch (AlfredModelException ame) {
+            logger.info("Problem encountered adding participant to participant list: " + ame.getMessage());
+            throw new DataConversionException(ame);
         }
     }
 

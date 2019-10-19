@@ -73,11 +73,11 @@ class JsonAdaptedTeam {
         }
         teamName = source.getName().toStorageValue();
         subject = source.getSubject().name();
-        score = source.getScore().toStorageValue(); //Not implemented currently
+        score = source.getScore().toStorageValue();
         projectName = source.getProjectName().toStorageValue();
         projectType = source.getProjectType().name();
         location = source.getLocation().toStorageValue();
-        mentor = new JsonAdaptedMentor(source.getMentor().get()); //Must deal with Optional
+        mentor = new JsonAdaptedMentor(source.getMentor().orElse(null));
         prefixTypeStr = source.getId().getPrefix().name();
         idNum = source.getId().getNumber();
         pList.addAll(source.getParticipants().stream()
@@ -142,14 +142,12 @@ class JsonAdaptedTeam {
         }
         final Location modelLocation = new Location(location);
 
-        if (mentor == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Mentor.class.getSimpleName()));
+        Optional<Mentor> modelMentor = Optional.empty();
+        if (mentor.toModelType() == null) {
+            modelMentor = Optional.empty();
+        } else {
+            modelMentor = Optional.of(mentor.toModelType());
         }
-        //Todo: Check whether mentor validation is necessary
-        //if (!Mentor.isValidLocation(location)) {
-        //    throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        //}
-        final Mentor modelMentor = mentor.toModelType();
 
         if (prefixTypeStr == null) {
             throw new IllegalValueException(String.format(
@@ -166,7 +164,7 @@ class JsonAdaptedTeam {
         final int modelIdNum = idNum;
         final Id modelId = new Id(modelPrefixType, modelIdNum);
 
-        return new Team(modelId, modelTeamName, modelParticipants, Optional.of(modelMentor),
+        return new Team(modelId, modelTeamName, modelParticipants, modelMentor,
                 modelSubject, modelScore, modelProjectName, modelProjectType, modelLocation);
     }
 
