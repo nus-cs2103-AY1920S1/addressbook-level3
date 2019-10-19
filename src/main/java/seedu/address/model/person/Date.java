@@ -2,11 +2,13 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+
 /**
  * Represents a Person's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Time {
+public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -17,17 +19,25 @@ public class Time {
      */
     //public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullTime;
-
+    //public final String fullDate;
+    private LocalDate date;
     /**
      * Constructs a {@code Time}.
      *
      * @param time A valid time.
      */
-    public Time(String time) {
-        requireNonNull(time);
+
+    /**
+     * Converts String to LocalDate
+     * @param date in the format yyyy mm dd.
+     */
+    public Date(String date) {
+        requireNonNull(date);
         //checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
-        fullTime = time;
+        String[] stringDate = date.toString().split(" ");
+        this.date = LocalDate.of(Integer.parseInt(stringDate[0]), Integer.parseInt(stringDate[1]),
+                Integer.parseInt(stringDate[2]));
+
     }
 
     /**
@@ -38,6 +48,9 @@ public class Time {
         //return test.matches(VALIDATION_REGEX);
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
 
     @Override
     public String toString() {

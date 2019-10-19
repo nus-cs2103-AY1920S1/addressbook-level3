@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,7 +15,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Time;
 import seedu.address.model.person.Wish;
 import seedu.address.model.tag.Tag;
 
@@ -79,7 +79,10 @@ class JsonAdaptedWish {
         }
         final Description modelDesc = new Description(desc);
 
-        final Time modelTime = new Time(time);
+        String[] timeArr = time.split(" '");
+
+        final LocalDate modelTime = LocalDate.of(Integer.parseInt(timeArr[0]),
+                Integer.parseInt(timeArr[1]), Integer.parseInt(timeArr[2]));
 
         final Amount modelAmt = new Amount(amt);
 
