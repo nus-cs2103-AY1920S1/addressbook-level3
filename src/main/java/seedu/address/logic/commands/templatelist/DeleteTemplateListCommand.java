@@ -48,7 +48,6 @@ public class DeleteTemplateListCommand extends Command {
         commandResult.setTemplateListCommand();
 
         return commandResult;
-
     }
 
     @Override

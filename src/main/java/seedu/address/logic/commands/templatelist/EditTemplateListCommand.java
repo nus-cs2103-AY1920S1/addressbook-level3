@@ -69,7 +69,7 @@ public class EditTemplateListCommand extends Command {
 
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, templateToEdit));
         commandResult.setTemplateListCommand();
-
+      
         return commandResult;
     }
 

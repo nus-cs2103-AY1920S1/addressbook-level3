@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -39,6 +41,18 @@ public class MainWindow extends UiPart<Stage> {
     private ShoppingListPanel shoppingListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab templateListPage;
+
+    @FXML
+    private Tab wasteListPage;
+
+    @FXML
+    private Tab shoppingListPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -127,15 +141,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredGroceryItemList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
-        templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
-
-        wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
-        wasteListPanelPlaceholder.getChildren().add(wasteListPanel.getRoot());
-
-        shoppingListPanel = new ShoppingListPanel(logic.getFilteredShoppingList());
-        shoppingListPanelPlaceholder.getChildren().add(shoppingListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -186,17 +191,35 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /*
+    /**
+     * Displays the waste list panel
+     */
     @FXML
     private void displayWasteListPanel() {
         wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
         wasteListPanelPlaceholder.getChildren().add(wasteListPanel.getRoot());
+        tabPane.getSelectionModel().select(wasteListPage);
+        logger.info("Showing waste list panel.");
     }
-    */
+
+    /**
+     * Displays the template list panel
+     */
     @FXML
     private void displayTemplateListPanel() {
         templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
         templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
+        tabPane.getSelectionModel().select(templateListPage);
+    }
+
+    /**
+     * Displays the shopping list panel
+     */
+    @FXML
+    private void displayShoppingListPanel() {
+        shoppingListPanel = new ShoppingListPanel(logic.getFilteredShoppingList());
+        shoppingListPanelPlaceholder.getChildren().add(shoppingListPanel.getRoot());
+        tabPane.getSelectionModel().select(shoppingListPage);
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -238,12 +261,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isWastelistCommand()) {
+            if (commandResult.isWasteListCommand()) {
                 displayWasteListPanel();
             } else if (commandResult.isTemplateListItemCommand()) {
                 displayTemplateItemPanel();
             } else if (commandResult.isTemplateListCommand()) {
                 displayTemplateListPanel();
+            } else if (commandResult.isShoppingListCommand()) {
+                displayShoppingListPanel();
             }
 
             return commandResult;
@@ -270,4 +295,5 @@ public class MainWindow extends UiPart<Stage> {
         templateListPanelPlaceholder.getChildren().add(templateItemPanel.getRoot());
         logger.info("Showing template panel instead of templatelist.");
     }
+
 }

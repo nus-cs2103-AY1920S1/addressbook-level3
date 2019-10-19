@@ -20,6 +20,7 @@ public class CommandResult {
     private boolean isTemplateListItemCommand;
     private boolean isTemplateListCommand;
     private boolean isWastelistCommand;
+    private boolean isShoppingListCommand;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -66,12 +67,20 @@ public class CommandResult {
         isTemplateListCommand = true;
     }
 
-    public boolean isWastelistCommand() {
-        return isWastelistCommand;
+    public boolean isWasteListCommand() {
+        return isWasteListCommand;
     }
 
-    public void setWastelistCommand() {
-        isWastelistCommand = true;
+    public void setWasteListCommand() {
+        isWasteListCommand = true;
+    }
+
+    public boolean isShoppingListCommand() {
+        return isShoppingListCommand;
+    }
+
+    public void setShoppingListCommand() {
+        isShoppingListCommand = true;
     }
 
     @Override

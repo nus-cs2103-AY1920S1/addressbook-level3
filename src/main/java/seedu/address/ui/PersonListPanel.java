@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -33,13 +37,43 @@ public class PersonListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(GroceryItem food, boolean empty) {
             super.updateItem(food, empty);
-
             if (empty || food == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(food, getIndex() + 1).getRoot());
+                Date date = null;
+                try {
+                    date = new SimpleDateFormat("dd/MM/yyyy").parse(food.getExpiryDate().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (hasExpired(date)) {
+                    setGraphic(new ExpiredGroceryCard(food, getIndex() + 1).getRoot());
+                } else if (isExpiring(date)) {
+                    setGraphic(new IsExpiringGroceryCard(food, getIndex() + 1).getRoot());
+                } else {
+                    setGraphic(new NotExpiringGroceryCard(food, getIndex() + 1).getRoot());
+                }
             }
+        }
+
+        /**
+         * Checks if the grocery item is expired.
+         */
+        public boolean hasExpired(Date date) {
+            Calendar cal = Calendar.getInstance();
+            Date current = cal.getTime();
+            return date.before(current);
+        }
+
+        /**
+         * Checks if the grocery item is expiring within 3 days.
+         */
+        public boolean isExpiring(Date date) {
+            Calendar cal = Calendar.getInstance();
+            Date current = cal.getTime();
+            int diffDays = (int) ((date.getTime() - current.getTime()) / (24 * 60 * 60 * 1000));
+            return diffDays <= 3;
         }
     }
 

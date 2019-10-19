@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -12,7 +13,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyWasteList;
+import seedu.address.model.WasteList;
+import seedu.address.model.waste.WasteMonth;
 
 /**
  * A storage for waste lists
@@ -32,7 +34,7 @@ public class JsonWasteListStorage implements WasteListStorage {
     }
 
     @Override
-    public Optional<ReadOnlyWasteList> readWasteList() throws DataConversionException {
+    public Optional<TreeMap<WasteMonth, WasteList>> readWasteList() throws DataConversionException {
         return readWasteList(filePath);
     }
 
@@ -42,17 +44,18 @@ public class JsonWasteListStorage implements WasteListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyWasteList> readWasteList(Path filePath) throws DataConversionException {
+    public Optional<TreeMap<WasteMonth, WasteList>> readWasteList(Path filePath) throws DataConversionException {
+
         requireNonNull(filePath);
 
-        Optional<JsonSerializableWasteList> jsonWasteList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableWasteList.class);
-        if (!jsonWasteList.isPresent()) {
+        Optional<JsonSerializableWasteArchive> jsonWasteArchive = JsonUtil.readJsonFile(
+                filePath, JsonSerializableWasteArchive.class);
+        if (!jsonWasteArchive.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonWasteList.get().toModelType());
+            return Optional.of(jsonWasteArchive.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,22 +63,22 @@ public class JsonWasteListStorage implements WasteListStorage {
     }
 
     @Override
-    public void saveWasteList(ReadOnlyWasteList wasteList) throws IOException {
-        saveWasteList(wasteList, filePath);
+    public void saveWasteList(TreeMap<WasteMonth, WasteList> wasteArchive) throws IOException {
+        saveWasteList(wasteArchive, filePath);
     }
 
     /**
-     * Similar to {@link #saveWasteList(ReadOnlyWasteList)}.
+     * Similar to {@link #saveWasteList}.
      *
      * @param filePath location of the data. Cannot be null.
      */
     @Override
-    public void saveWasteList(ReadOnlyWasteList wasteList, Path filePath) throws IOException {
-        requireNonNull(wasteList);
+    public void saveWasteList(TreeMap<WasteMonth, WasteList> wasteArchive, Path filePath) throws IOException {
+        requireNonNull(wasteArchive);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableWasteList(wasteList), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableWasteArchive(wasteArchive), filePath);
     }
 
 

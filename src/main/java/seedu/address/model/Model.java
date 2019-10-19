@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -186,6 +187,8 @@ public interface Model {
 
     /** Returns the WasteList */
     ReadOnlyWasteList getWasteList();
+
+    TreeMap<WasteMonth, WasteList> getWasteArchive();
 
     /** Returns the WasteList for a given month */
     ReadOnlyWasteList getWasteListByMonth(WasteMonth wasteMonth);

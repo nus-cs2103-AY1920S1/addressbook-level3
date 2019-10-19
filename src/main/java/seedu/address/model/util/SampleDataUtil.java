@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
@@ -174,6 +175,21 @@ public class SampleDataUtil {
                 WasteList.addFoodItemToArchive(wasteItems[j], wasteMonths[i]);
             }
         }
+    }
+
+    public static TreeMap<WasteMonth, WasteList> getSampleWasteArchive() {
+        TreeMap<WasteMonth, WasteList> wasteArchive = new TreeMap<>();
+        WasteMonth[] wasteMonths = getSampleWasteMonths();
+        GroceryItem[] wasteItems = getSampleWasteItems();
+        for (int i = 0; i < 12; i++) {
+            WasteMonth wm = wasteMonths[i];
+            WasteList wl = new WasteList(wm);
+            for (int j = i * 3; j < i * 3 + 3; j++) {
+                wl.addWasteItem(wasteItems[j]);
+            }
+            wasteArchive.put(wm, wl);
+        }
+        return wasteArchive;
     }
 
     public static ReadOnlyWasteList getSampleWasteList() {

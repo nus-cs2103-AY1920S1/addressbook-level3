@@ -12,23 +12,26 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.waste.WasteMonth;
 import seedu.address.storage.JsonAdaptedFood;
 
 /**
- * An Immutable WasteList that is serializable to JSON format.
+ * A WasteList that is serializable to JSON format.
  */
 @JsonRootName(value = "wastelist")
 public class JsonSerializableWasteList {
 
-    private final List<JsonAdaptedFood> wasteList = new ArrayList<>();
+    private final List<JsonAdaptedFood> wastelist = new ArrayList<>();
+    private final String wastemonth;
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableWasteList(@JsonProperty("wasteitems") List<JsonAdaptedFood> wasteitems) {
-        // This class will be modified such that the field @JsonProperty will say the waste month
-        this.wasteList.addAll(wasteitems);
+    public JsonSerializableWasteList(@JsonProperty("wastemonth") String wasteMonth,
+                                     @JsonProperty("wastelist") List<JsonAdaptedFood> wasteitems) {
+        this.wastemonth = wasteMonth;
+        this.wastelist.addAll(wasteitems);
     }
 
     /**
@@ -37,7 +40,8 @@ public class JsonSerializableWasteList {
      * @param source future changes to this will not affect the created {@code JsonSerializableWasteList}.
      */
     public JsonSerializableWasteList(ReadOnlyWasteList source) {
-        wasteList.addAll(source.getWasteList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
+        this.wastemonth = source.getWasteMonth().toStorageFormat();
+        wastelist.addAll(source.getWasteList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
     }
 
     /**
@@ -46,8 +50,9 @@ public class JsonSerializableWasteList {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public WasteList toModelType() throws IllegalValueException {
-        WasteList wasteList = new WasteList();
-        for (JsonAdaptedFood jsonAdaptedFood : this.wasteList) {
+        WasteMonth wasteMonth = new WasteMonth(this.wastemonth);
+        WasteList wasteList = new WasteList(wasteMonth);
+        for (JsonAdaptedFood jsonAdaptedFood : this.wastelist) {
             GroceryItem food = jsonAdaptedFood.toModelType();
             wasteList.addWasteItem(food);
         }
