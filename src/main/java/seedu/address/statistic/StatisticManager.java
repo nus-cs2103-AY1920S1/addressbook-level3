@@ -1,7 +1,6 @@
 package seedu.address.statistic;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.statistic.DateUtil.extractMonth;
 
 import java.util.Calendar;
 import java.util.List;
@@ -46,23 +45,21 @@ public class StatisticManager implements Statistic {
         // returns this in the format of XYChat.DaTa().
         List<XYChart.Data<String,Number>> listOfMonthlyRevenue =
                 listOfMonth.stream()
-                .map(month -> processMonth(listOfFilteredOrders, month))
+                .map(month -> processRevenueByMonth(listOfFilteredOrders, month))
                 .collect(Collectors.toList());
 
         listOfMonthlyRevenue.stream().forEach( x -> series.getData().add(x));
-
-        series.getData().forEach(x -> System.out.println(x));
+        //*****to remove when merging*********
+        //series.getData().forEach(x -> System.out.println(x));
         return series;
     }
 
     // utility function to help with extract the relevant data to an XYChar.Data<A,B> object
-    private XYChart.Data<String, Number> processMonth(List<Order> listOfOrders, Calendar month) {
+    private XYChart.Data<String, Number> processRevenueByMonth(List<Order> listOfOrders, Calendar month) {
         return new XYChart.Data<String, Number>(
                 StringUtil.convertCalendarDateToGraphDisplay(month),
                 StatisticManager.calculateRevenueByMonth(listOfOrders, month));
     }
-
-
 
     @Override
     public String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook,

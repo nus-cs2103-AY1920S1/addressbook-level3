@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 
 import javafx.scene.chart.CategoryAxis;
@@ -32,10 +34,24 @@ public class StatisticsWindow extends UiPart<Stage> {
      * Create a new Statistic window
      * @param root Stage in which the window will use
      */
-    public StatisticsWindow(Stage root,  XYChart.Series<String, Number> axisSeries) {
+    public StatisticsWindow(Stage root,  Optional<XYChart.Series<String, Number>> axisSeriesOptional) {
         super(FXML, root);
-        this.axisSeries = axisSeries;
-        buildChart();
+        if (axisSeriesOptional.isPresent()) {
+            this.axisSeries = axisSeriesOptional.get();
+            buildChart();
+        } else{
+
+        }
+
+    }
+
+    /**
+     * utility method to create statistic window with the data
+     * @param statsLabel the title of the stats
+     */
+    public StatisticsWindow(String statsLabel, XYChart.Series<String, Number> axisSeries) {
+        this(new Stage(), Optional.of(axisSeries));
+        this.testChart.setTitle(statsLabel);
     }
 
     /**
@@ -43,12 +59,14 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statisticsResult the result of the statistic
      * @param statsLabel the title of the stats
      */
-    public StatisticsWindow(String statisticsResult, String statsLabel, XYChart.Series<String, Number> axisSeries) {
-        this(new Stage(), axisSeries);
-        //this.testLabel.setText(statisticsResult);
-        //this.statsLabel.setText(statsLabel);
-        this.testChart.setTitle(statsLabel);
+    public StatisticsWindow(String statisticsResult, String statsLabel) {
+        this(new Stage(),Optional.empty());
+
+        this.testLabel.setText(statisticsResult);
+        this.statsLabel.setText(statsLabel);
+        this.testChart.setVisible(false);
     }
+
 
     private void buildChart() {
         //Defining the x axis
@@ -56,6 +74,7 @@ public class StatisticsWindow extends UiPart<Stage> {
         //Defining the y axis
         yAxis.setLabel("Value in $");
         this.testChart.getData().add(axisSeries);
+        this.testChart.setLegendVisible(false);
     }
 
     /**
