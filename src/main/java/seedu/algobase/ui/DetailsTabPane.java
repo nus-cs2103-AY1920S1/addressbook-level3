@@ -14,11 +14,9 @@ public class DetailsTabPane extends UiPart<Region> {
     @FXML
     private TabPane tabsPlaceholder;
 
-    public DetailsTabPane() {
+    public DetailsTabPane(DetailsTab... detailsTab) {
         super(FXML);
-        addTabsToTabPane(new DetailsTab("Sequences"));
-        addTabsToTabPane(new DetailsTab("Two Sum"));
-        addTabsToTabPane(new DetailsTab("Second Highest Salary"));
+        addTabsToTabPane(detailsTab);
     }
 
     /**

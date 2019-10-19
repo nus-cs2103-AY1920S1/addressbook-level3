@@ -114,7 +114,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         displayTabPane = getDisplayTabPane();
-        detailsTabPane = new DetailsTabPane();
+        ProblemDetails problemDetails = new ProblemDetails(logic.getProcessedProblemList().get(0));
+        DetailsTab problemDetailsTab = new DetailsTab("problem 0", problemDetails);
+        detailsTabPane = new DetailsTabPane(problemDetailsTab);
 
         layoutPanePlaceholder.getItems().add(displayTabPane.getRoot());
         layoutPanePlaceholder.getItems().add(detailsTabPane.getRoot());
