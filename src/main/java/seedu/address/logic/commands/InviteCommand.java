@@ -34,6 +34,8 @@ public class InviteCommand extends Command {
             "Unable to invite \"%s\" as he/she already exists in the activity.";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
             "Unable to invite \"%s\" as he/she has no unique search result in the contacts.";
+    public static final String MESSAGE_NO_ONE_TO_INVITE =
+            "There is no one to invite.";
 
 
     private final List<String> peopleToInvite;
@@ -46,6 +48,10 @@ public class InviteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (peopleToInvite.size() == 0) {
+            throw new CommandException(MESSAGE_NO_ONE_TO_INVITE);
+        }
 
         if (model.getContext().getType() != Context.Type.VIEW_ACTIVITY) {
             throw new CommandException(MESSAGE_NO_VIEWED_ACTIVITY);
