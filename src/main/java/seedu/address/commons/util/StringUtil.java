@@ -79,4 +79,15 @@ public class StringUtil {
         display.append(inputDate.get(Calendar.DATE));
         return display.toString();
     }
+
+    /**
+     * Utility Method to convert date in calendar to string for display without Day
+     */
+    public static String convertCalendarMonthToString(Calendar inputDate) {
+        StringBuilder display = new StringBuilder();
+        display.append(inputDate.get(Calendar.YEAR) + ".");
+        //offset month
+        display.append((inputDate.get(Calendar.MONTH) + 1) + ".");
+        return display.toString();
+    }
 }

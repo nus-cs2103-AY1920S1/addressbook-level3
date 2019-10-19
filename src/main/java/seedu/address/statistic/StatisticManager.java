@@ -2,6 +2,7 @@ package seedu.address.statistic;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.StringUtil.convertCalendarDateToString;
+import static seedu.address.commons.util.StringUtil.convertCalendarMonthToString;
 import static seedu.address.statistic.DateUtil.extractMonth;
 import static seedu.address.statistic.DateUtil.getListOfYearMonth;
 
@@ -19,6 +20,7 @@ import seedu.address.commons.util.StatsPayload;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * Represents the in-memory statistics module of the current SML data.Ò
@@ -33,10 +35,26 @@ public class StatisticManager implements Statistic {
     @Override
     public XYChart.Series<String, Number> calculateTotalRevenueOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
                                                                      StatsPayload statsPayload) {
-        List<Order> listOfOrders = orderBook.getList();
-        List<Calendar> listOfYearMonth = getListOfYearMonth(listOfOrders,statsPayload);
-        System.out.println(listOfYearMonth);
-        return null;
+
+        List<Order> listOfOrders = SampleDataUtil.getSampleOrderBook().getList();
+        List<Calendar> listOfMonth = getListOfYearMonth(listOfOrders,statsPayload);
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        List<XYChart.Data<String,Number>> listOfMonthlyRevenue = listOfMonth.stream()
+                .map(month -> processMonth(listOfOrders, month))
+                .collect(Collectors.toList());
+
+        listOfMonthlyRevenue.stream().forEach( x -> series.getData().add(x));
+
+        series.getData().forEach(x -> System.out.println(x));
+        return series;
+    }
+
+    private XYChart.Data<String, Number> processMonth(List<Order> listOfOrders, Calendar month) {
+        return new XYChart.Data<String, Number>(
+                convertCalendarMonthToString(month),
+                calculateRevenueMonth(listOfOrders, month));
     }
 
 
@@ -103,11 +121,11 @@ public class StatisticManager implements Statistic {
         return filteredOrderListByDate;
     }
 
-    private static double caculateRevenueMonth(List<Order> orderList, int month) {
+    private static double calculateRevenueMonth(List<Order> orderList, Calendar month) {
         double[] doubleRevenueList = orderList.stream()
                 .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
                 .filter(currentOrder -> currentOrder.getSchedule().isPresent())
-                .filter(currentOrder -> extractMonth(currentOrder) == month )
+                .filter(currentOrder -> extractMonth(currentOrder) == month.get(2) )
                 .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
                 .collect(Collectors.toList())
                 .stream()
@@ -115,3 +133,5 @@ public class StatisticManager implements Statistic {
         return StatUtils.sum(doubleRevenueList);
     }
 }
+
+

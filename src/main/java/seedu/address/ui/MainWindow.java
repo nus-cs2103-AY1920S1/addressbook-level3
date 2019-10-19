@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -200,6 +201,7 @@ public class MainWindow extends UiPart<Stage> {
             this.statsWindow.show();
             break;
         case REVENUE:
+            XYChart.Series<String, Number> dummy = this.logic.calculateTotalRevenueGraph(statsPayload);
             String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
             this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
             this.statsWindow.show();
