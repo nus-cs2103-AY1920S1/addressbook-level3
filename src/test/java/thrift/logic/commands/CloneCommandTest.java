@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.logic.commands.CommandTestUtil.assertCommandFailure;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertRedoCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 import static thrift.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static thrift.model.transaction.TransactionDate.DATE_FORMATTER;
 import static thrift.testutil.Assert.assertThrows;
@@ -101,6 +103,62 @@ public class CloneCommandTest {
         CloneCommand cloneCommand = new CloneCommand(outOfBoundIndex);
 
         assertCommandFailure(cloneCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void undo_undoCloneCommand_success() {
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
+
+        Transaction transactionToClone = model.getFilteredTransactionList()
+                .get(TypicalIndexes.INDEX_FIRST_TRANSACTION.getZeroBased());
+
+        Expense expectedTransaction = new ExpenseBuilder()
+                .withDescription(transactionToClone.getDescription().value)
+                .withDate(DATE_FORMATTER.format(new Date()))
+                .withValue(transactionToClone.getValue().getUnformattedString())
+                .withRemark(transactionToClone.getRemark().value)
+                .withTags(transactionToClone.getTags().stream().map(tag -> tag.tagName).toArray(String[]::new))
+                .build();
+
+        //simulates user performing clone command
+        expectedModel.addExpense(expectedTransaction);
+        String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, expectedTransaction);
+        CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION);
+        assertCommandSuccess(cloneCommand, model, expectedMessage, expectedModel);
+
+        //undo
+        expectedModel.deleteLastTransaction();
+        assertUndoCommandSuccess(cloneCommand, model, expectedModel);
+    }
+
+    @Test
+    public void redo_redoCloneCommand_success() {
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
+
+        Transaction transactionToClone = model.getFilteredTransactionList()
+                .get(TypicalIndexes.INDEX_FIRST_TRANSACTION.getZeroBased());
+
+        Expense expectedTransaction = new ExpenseBuilder()
+                .withDescription(transactionToClone.getDescription().value)
+                .withDate(DATE_FORMATTER.format(new Date()))
+                .withValue(transactionToClone.getValue().getUnformattedString())
+                .withRemark(transactionToClone.getRemark().value)
+                .withTags(transactionToClone.getTags().stream().map(tag -> tag.tagName).toArray(String[]::new))
+                .build();
+
+        //simulates user performing clone command
+        expectedModel.addExpense(expectedTransaction);
+        String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, expectedTransaction);
+        CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION);
+        assertCommandSuccess(cloneCommand, model, expectedMessage, expectedModel);
+
+        //undo
+        expectedModel.deleteLastTransaction();
+        assertUndoCommandSuccess(cloneCommand, model, expectedModel);
+
+        //redo
+        expectedModel.addExpense(expectedTransaction);
+        assertRedoCommandSuccess(cloneCommand, model, expectedModel);
     }
 
     @Test
