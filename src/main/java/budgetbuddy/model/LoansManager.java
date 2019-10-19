@@ -118,6 +118,6 @@ public class LoansManager {
         }
 
         LoansManager otherLoansManager = (LoansManager) other;
-        return persons.equals(otherLoansManager.getPersonsList());
+        return persons.equals(otherLoansManager.persons);
     }
 }
