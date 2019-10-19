@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -26,7 +28,7 @@ public class ModelManager implements Model {
 
     private final AddressBook groceryList;
     private final TemplateList templateList;
-    private final WasteList wasteList;
+    private WasteList wasteList;
     private final ShoppingList shoppingList;
     private final UserPrefs userPrefs;
     private final FilteredList<GroceryItem> filteredGroceryItems;
@@ -38,7 +40,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook groceryList, ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyTemplateList templateList, ReadOnlyWasteList wasteList,
+                        ReadOnlyTemplateList templateList, TreeMap<WasteMonth, WasteList> wasteArchive,
                         ReadOnlyShoppingList shoppingList) {
         super();
         requireAllNonNull(groceryList, userPrefs, templateList);
@@ -46,9 +48,12 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + groceryList + " and user prefs " + userPrefs
             + " and template list " + templateList);
 
+        WasteList.initialiseWasteArchive();
+        WasteList.addWasteArchive(wasteArchive);
+
         this.groceryList = new AddressBook(groceryList);
         this.templateList = new TemplateList(templateList);
-        this.wasteList = new WasteList(wasteList);
+        this.wasteList = WasteList.getCurrentWasteList();
         this.shoppingList = new ShoppingList(shoppingList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
@@ -60,7 +65,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new TemplateList(),
-                new WasteList(), new ShoppingList());
+                new TreeMap<WasteMonth, WasteList>(), new ShoppingList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -122,13 +127,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getWasteListFilePath() {
-        return userPrefs.getWasteListFilePath();
+        return userPrefs.getWasteArchiveFilePath();
     }
 
     @Override
     public void setWasteListFilePath(Path wasteListFilePath) {
         requireAllNonNull(wasteListFilePath);
-        userPrefs.setWasteListFilePath(wasteListFilePath);
+        userPrefs.setWasteArchiveFilePath(wasteListFilePath);
     }
 
     @Override
@@ -264,7 +269,21 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyWasteList getWasteList() {
+        WasteMonth currentWasteMonth = new WasteMonth(LocalDate.now());
+        if (currentWasteMonth.equals(wasteList.getWasteMonth())) {
+            return wasteList;
+        } else {
+            // Creates a new waste list, updates
+            WasteList newMonthWasteList = new WasteList(currentWasteMonth);
+            this.wasteList = newMonthWasteList;
+            WasteList.addWastelistToArchive(currentWasteMonth, newMonthWasteList);
+        }
         return wasteList;
+    }
+
+    @Override
+    public TreeMap<WasteMonth, WasteList> getWasteArchive() {
+        return WasteList.getWasteArchive();
     }
 
     @Override

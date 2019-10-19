@@ -50,7 +50,7 @@ public class ListWasteCommand extends Command {
         model.updateFilteredWasteItemList(this.wasteMonth);
 
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
-        commandResult.setWastelistCommand();
+        commandResult.setWasteListCommand();
         return commandResult;
     }
 }

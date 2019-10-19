@@ -3,9 +3,12 @@ package seedu.address.storage.wastelist;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyWasteList;
+import seedu.address.model.WasteList;
+import seedu.address.model.waste.WasteMonth;
 
 /**
  * A storage for waste lists
@@ -23,22 +26,22 @@ public interface WasteListStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyWasteList> readWasteList() throws DataConversionException, IOException;
+    Optional<TreeMap<WasteMonth, WasteList>> readWasteList() throws DataConversionException, IOException;
 
     /**
      * @see #getWasteListFilePath()
      */
-    Optional<ReadOnlyWasteList> readWasteList(Path filePath) throws DataConversionException, IOException;
+    Optional<TreeMap<WasteMonth, WasteList>> readWasteList(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyWasteList} to the storage.
-     * @param wasteList cannot be null.
+     * @param wasteArchive cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveWasteList(ReadOnlyWasteList wasteList) throws IOException;
+    void saveWasteList(TreeMap<WasteMonth, WasteList> wasteArchive) throws IOException;
 
     /**
-     * @see #saveWasteList(ReadOnlyWasteList)
+     * @see #saveWasteList
      */
-    void saveWasteList(ReadOnlyWasteList wasteList, Path filePath) throws IOException;
+    void saveWasteList(TreeMap<WasteMonth, WasteList> wasteArchive, Path filePath) throws IOException;
 }

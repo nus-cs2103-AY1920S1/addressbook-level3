@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.food.GroceryItem;
-import seedu.address.model.food.UniqueFoodList;
+import seedu.address.model.food.UniqueWasteList;
 import seedu.address.model.waste.WasteMonth;
 import seedu.address.model.waste.WasteStatistic;
 
@@ -19,19 +19,17 @@ public class WasteList implements ReadOnlyWasteList {
 
     private static TreeMap<WasteMonth, WasteList> wasteArchive;
     private static WasteMonth currentWasteMonth;
-    private final UniqueFoodList wasteList;
+    private final UniqueWasteList wasteList;
 
-    {
-        wasteList = new UniqueFoodList();
+    public WasteList(WasteMonth wasteMonth) {
+        wasteList = new UniqueWasteList(wasteMonth);
     }
-
-    public WasteList() {}
 
     /**
      * Creates a WasteList using the Persons in the {@code toBeCopied}
      */
-    public WasteList(ReadOnlyWasteList toBeCopied) {
-        this();
+    public WasteList(ReadOnlyWasteList toBeCopied, WasteMonth wasteMonth) {
+        this(wasteMonth);
         resetData(toBeCopied);
     }
 
@@ -83,14 +81,25 @@ public class WasteList implements ReadOnlyWasteList {
         return WasteStatistic.getWasteStatistic(this.wasteList);
     }
 
+    @Override
+    public WasteMonth getWasteMonth() {
+        return wasteList.getWasteMonth();
+    }
+
     //// Waste List Archive operations
 
     /**
      * To initialize a waste list archive.
      */
     public static void initialiseWasteArchive() {
+        if (wasteArchive != null) {
+            return;
+        }
         wasteArchive = new TreeMap<>();
-        currentWasteMonth = new WasteMonth(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+        /*******************************************************************
+         * REMOVE THIS BOTTOM LINE LATER
+         */
+        currentWasteMonth = new WasteMonth(LocalDate.now());
     }
 
     /**
@@ -122,16 +131,30 @@ public class WasteList implements ReadOnlyWasteList {
      * @param wm the waste month to be created
      */
     public static void createNewWasteMonth(WasteMonth wm) {
-        wasteArchive.put(wm, new WasteList());
+        wasteArchive.put(wm, new WasteList(wm));
     }
 
+    public static void addWastelistToArchive(WasteMonth wm, WasteList wasteList) {
+        wasteArchive.put(wm, wasteList);
+    }
+
+    public static void addWasteArchive(TreeMap<WasteMonth, WasteList> existingWasteArchive) {
+        wasteArchive.putAll(existingWasteArchive);
+    }
     /**
      * Returns the current waste list.
      *
      * @return the current waste list.
      */
     public static WasteList getCurrentWasteList() {
-        return wasteArchive.get(new WasteMonth(LocalDate.now()));
+        WasteMonth currentWasteMonth = new WasteMonth(LocalDate.now());
+        if (wasteArchive.containsKey(currentWasteMonth)) {
+            return wasteArchive.get(currentWasteMonth);
+        } else {
+            WasteList wasteList = new WasteList(currentWasteMonth);
+            addWastelistToArchive(currentWasteMonth, wasteList);
+            return wasteList;
+        }
     }
 
     public static WasteList getWasteListByMonth(WasteMonth wm) {

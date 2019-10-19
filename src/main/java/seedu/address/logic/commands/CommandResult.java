@@ -17,8 +17,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    private boolean isTemplatelistCommand;
-    private boolean isWastelistCommand;
+    private boolean isTemplateListCommand;
+    private boolean isWasteListCommand;
+    private boolean isShoppingListCommand;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -49,20 +50,28 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isTemplatelistCommand() {
-        return isTemplatelistCommand;
+    public boolean isTemplateListCommand() {
+        return isTemplateListCommand;
     }
 
-    public void setTemplatelistCommand() {
-        isTemplatelistCommand = true;
+    public void setTemplateListCommand() {
+        isTemplateListCommand = true;
     }
 
-    public boolean isWastelistCommand() {
-        return isWastelistCommand;
+    public boolean isWasteListCommand() {
+        return isWasteListCommand;
     }
 
-    public void setWastelistCommand() {
-        isWastelistCommand = true;
+    public void setWasteListCommand() {
+        isWasteListCommand = true;
+    }
+
+    public boolean isShoppingListCommand() {
+        return isShoppingListCommand;
+    }
+
+    public void setShoppingListCommand() {
+        isShoppingListCommand = true;
     }
 
     @Override
