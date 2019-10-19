@@ -275,6 +275,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public UniqueFoodList getUniqueFoodListObject() {
+        return foodList;
+    }
+
+    @Override
     public ObservableList<Food> getFoodList() {
         return foodList.asUnmodifiableObservableList();
     }

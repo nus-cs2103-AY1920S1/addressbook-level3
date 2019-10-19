@@ -1,7 +1,5 @@
 package seedu.address;
 
-import static seedu.sgm.model.food.TypicalFoods.FOODS;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -30,6 +28,7 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonFoodListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -67,8 +66,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         UserListStorage userListStorage = new JsonUserListStorage(userPrefs.getUserListFilePath());
-
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage);
+        JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage);
 
         initLogging(config);
 
@@ -92,22 +91,31 @@ public class MainApp extends Application {
         ReadOnlyUserList initialUserData;
         UniqueFoodList foodList = new UniqueFoodList();
         foodList.setFoods(FOODS);
+        Optional<UniqueFoodList> foodListOptional;
+        UniqueFoodList initialFoodListData;
         RecordBook recordBook = new RecordBook();
 
 
         // Todo Following can eventually be abstracted in later versions if there's time.
         try {
             addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            foodListOptional = storage.readFoodList();
+            if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
+            if (foodListOptional.isEmpty()) {
+                logger.info("Food list data file not found. Will be starting with a sample Foodlist");
+            }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            initialFoodListData = new UniqueFoodList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            initialFoodListData = new UniqueFoodList();
         }
 
         try {
@@ -125,7 +133,8 @@ public class MainApp extends Application {
             initialUserData = new UserList();
         }
 
-        return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData);
+        return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData, initialFoodListData);
+      
     }
 
     private void initLogging(Config config) {
@@ -154,7 +163,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -181,7 +190,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");

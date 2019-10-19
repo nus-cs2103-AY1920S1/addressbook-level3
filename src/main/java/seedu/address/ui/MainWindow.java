@@ -218,12 +218,14 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
                 return commandResult;
-            }
-
-            try {
-                switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneToBeCreated());
-            } catch (NullPointerException e) {
-                return new CommandResult("Unable to load window");
+            } else {
+                try {
+                  switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneToBeCreated());
+                  logger.info("Result: " + commandResult.getFeedbackToUser());
+                  resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                } catch (NullPointerException e) {
+                    return new CommandResult("Unable to load window");
+                }                  
             }
 
             return commandResult;
