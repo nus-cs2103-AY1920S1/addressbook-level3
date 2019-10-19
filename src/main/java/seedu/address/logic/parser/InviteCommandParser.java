@@ -7,14 +7,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ActivityCommand;
-
 import seedu.address.logic.commands.InviteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new InviteCommand object
+ */
 public class InviteCommandParser implements Parser<InviteCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the InviteCommand
+     * and returns an InviteCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public InviteCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PARTICIPANT);

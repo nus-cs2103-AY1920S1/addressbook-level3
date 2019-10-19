@@ -1,19 +1,21 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Context;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.activity.Activity;
 import seedu.address.testutil.ActivityBuilder;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 
 public class InviteCommandTest {
 
@@ -66,7 +68,7 @@ public class InviteCommandTest {
     }
 
     @Test
-    public void execute_viewActivityContextDuplicatePerson_InviteUnsuccessful() throws CommandException{
+    public void execute_viewActivityContextDuplicatePerson_inviteUnsuccessful() throws CommandException {
         Model model = new ModelManager();
         model.addPerson(ALICE);
         model.addPerson(BENSON);
@@ -89,7 +91,7 @@ public class InviteCommandTest {
     }
 
     @Test
-    public void execute_viewActivityContextMissingPerson_inviteUnsuccessful() throws CommandException{
+    public void execute_viewActivityContextMissingPerson_inviteUnsuccessful() throws CommandException {
         Model model = new ModelManager();
         Activity activity = new ActivityBuilder().build();
         model.addActivity(activity);
