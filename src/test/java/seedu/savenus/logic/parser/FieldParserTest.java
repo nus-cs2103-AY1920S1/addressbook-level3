@@ -11,6 +11,9 @@ import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
 import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_RESTRICTIONS;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,15 +22,24 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
 public class FieldParserTest {
     private String invalidField;
     private String invalidDirection;
-    private String invalidValue;
     private FieldParser fieldParser;
 
     @BeforeEach
     public void setUp() {
         invalidField = "@@@";
         invalidDirection = "@@@";
-        invalidValue = "@@@";
         fieldParser = new FieldParser();
+    }
+
+    @Test
+    public void check_keywords_test() {
+        String invalidFieldsMessage = FieldParser.INVALID_FIELD_USAGE;
+
+        List<String> keywords = new ArrayList<>();
+        keywords.add(invalidField);
+        keywords.add(invalidDirection);
+        assertThrows(ParseException.class,
+                invalidFieldsMessage, () -> fieldParser.checkKeywords(keywords));
     }
 
     @Test

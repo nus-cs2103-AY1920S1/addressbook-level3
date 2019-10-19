@@ -31,4 +31,17 @@ public class CustomSorter {
     public FoodComparator getComparator() {
         return this.foodComparator;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof CustomSorter) {
+            return this.getComparator().equals(((CustomSorter) obj).getComparator());
+        } else {
+            return false;
+        }
+    }
 }

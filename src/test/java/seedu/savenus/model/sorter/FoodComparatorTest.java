@@ -43,4 +43,11 @@ public class FoodComparatorTest {
         assertTrue(test.isDirectionAscending(ASCENDING_DIRECTION));
         assertFalse(test.isDirectionAscending(DESCENDING_DIRECTION));
     }
+
+    @Test
+    public void equals() {
+        FoodComparator comparator = new FoodComparator(new ArrayList<String>());
+        assertNotEquals(comparator, new Object());
+        assertEquals(comparator, comparator);
+    }
 }

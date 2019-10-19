@@ -50,4 +50,17 @@ public class FoodComparator implements Comparator<Food> {
     public boolean isDirectionAscending(String direction) {
         return direction.equals("ASC");
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof FoodComparator) {
+            return this.getFieldList().equals(((FoodComparator) obj).getFieldList());
+        } else {
+            return false;
+        }
+    }
 }
