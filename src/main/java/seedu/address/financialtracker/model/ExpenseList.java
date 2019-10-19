@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.financialtracker.model.expense.Expense;
 
+import java.util.ArrayList;
+
 /**
  * An expense list for financial expenses.
  */

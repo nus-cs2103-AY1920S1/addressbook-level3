@@ -3,9 +3,6 @@ package seedu.address.financialtracker.model;
 import javafx.collections.ObservableList;
 import seedu.address.financialtracker.model.expense.Expense;
 
-/**
- * Encapsulates ExpenseList and Expenses into a FinancialTracker class.
- */
 public class FinancialTracker {
 
     private final ExpenseList expenseList;

@@ -2,9 +2,6 @@ package seedu.address.financialtracker.model.expense;
 
 import static java.util.Objects.requireNonNull;
 
-/**
- * A financial expense country field
- */
 public class Country {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -29,12 +26,6 @@ public class Country {
         return test.matches(VALIDATION_REGEX);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Country // instanceof handles nulls
-                && value.equals(((Country) other).value)); // state check
-    }
 
     @Override
     public String toString() {
