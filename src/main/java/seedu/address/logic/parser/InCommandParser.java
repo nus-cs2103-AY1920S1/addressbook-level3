@@ -27,9 +27,9 @@ public class InCommandParser implements Parser<InCommand> {
     @Override
     public InCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
@@ -40,7 +40,7 @@ public class InCommandParser implements Parser<InCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Transaction transaction = new InTransaction(amount, new Date(System.currentTimeMillis()));
+        Transaction transaction = new InTransaction(amount, new Date(System.currentTimeMillis()), tagList);
 
         return new InCommand(transaction);
 

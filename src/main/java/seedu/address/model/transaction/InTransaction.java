@@ -1,6 +1,9 @@
 package seedu.address.model.transaction;
 
 import java.util.Date;
+import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Handles in transactions.
@@ -8,6 +11,10 @@ import java.util.Date;
 public class InTransaction extends Transaction {
     public InTransaction(Amount amount, Date date) {
         super(amount, date);
+    }
+
+    public InTransaction(Amount amount, Date date, Set<Tag> tags) {
+        super(amount, date, tags);
     }
 
     @Override
