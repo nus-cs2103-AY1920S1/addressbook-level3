@@ -47,11 +47,6 @@ public enum ProjectType {
      * @return boolean whether projectType is in valid format.
      */
     public static boolean isValidProjectType(String projectType) {
-        try {
-            ProjectType validProjectType = ProjectType.valueOf(projectType);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+        return PLACEHOLDER == ProjectType.valueOf(projectType.toUpperCase());
     }
 }

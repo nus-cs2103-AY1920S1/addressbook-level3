@@ -147,7 +147,7 @@ public class AlfredParserUtil {
             throw new ParseException(SubjectName.MESSAGE_CONSTRAINTS);
         }
         for (SubjectName subjectName : SubjectName.values()) {
-            if (subjectName.toString().equals(trimmedSubject)) {
+            if (subjectName.toString().equalsIgnoreCase(trimmedSubject)) {
                 return subjectName;
             }
         }
@@ -164,8 +164,8 @@ public class AlfredParserUtil {
     public static ProjectType parseProjectType(String type) throws ParseException {
         requireNonNull(type);
         String trimmedType = type.trim();
-        if (!SubjectName.isValidSubjectName(trimmedType)) {
-            throw new ParseException(SubjectName.MESSAGE_CONSTRAINTS);
+        if (!ProjectType.isValidProjectType(trimmedType)) {
+            throw new ParseException(ProjectType.MESSAGE_CONSTRAINTS);
         }
         /*for (ProjectType projectType : ProjectType.values()) {
             if (projectType.toString().equals(trimmedType)){
