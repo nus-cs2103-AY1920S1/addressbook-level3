@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DateTime;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -79,6 +80,23 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static DateTime parseDateTime(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDateTime = dateTime.trim();
+        if (!DateTime.isValidDate(trimmedDateTime)) {
+            throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
+        } else if (!DateTime.isValidDateTime(trimmedDateTime)) {
+            throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
+        }
+        return new DateTime(trimmedDateTime);
     }
 
     /**
