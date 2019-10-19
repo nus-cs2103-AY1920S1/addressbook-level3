@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox>
+      <children>
+        <TextArea fx:id="timerText" editable="false" styleClass="timer-display" />
+        <ProgressBar fx:id="progressBar" styleClass="progress-bar">
+            <padding>
+               <Insets left="5.0" right="5.0" top="7.0" />
+            </padding>
+         </ProgressBar>
+      </children>
+   </HBox>
+</AnchorPane>

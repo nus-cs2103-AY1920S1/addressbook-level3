@@ -39,12 +39,10 @@ public class WordBankCard extends UiPart<Region> {
      */
     public WordBankCard(WordBank wordBank, int displayedIndex) {
         super(FXML);
-        System.out.println("++++ 1 called");
         this.wordBank = wordBank;
         id.setText(displayedIndex + ". ");
         System.out.println(wordBank.getName());
         name.setText(wordBank.getName());
-        System.out.println("++++ 2 called");
     }
 
     @Override
