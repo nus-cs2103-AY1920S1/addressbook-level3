@@ -310,6 +310,6 @@ public class ModelManager implements Model {
 
     @Override
     public List<String> getCommandHistory() {
-        return CommandHistory.getCommandHistory();
+        return CommandHistory.getInstance().getCommandHistory();
     }
 }
