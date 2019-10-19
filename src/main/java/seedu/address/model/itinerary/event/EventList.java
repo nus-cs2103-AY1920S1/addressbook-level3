@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
@@ -35,6 +36,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             throw new ClashingEventException();
         }
         internalList.add(toAdd);
+        internalList.sort(Comparator.comparing(Event::getStartDate));
     }
 
     @Override
@@ -50,6 +52,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
         }
 
         internalList.set(index, edited);
+        internalList.sort(Comparator.comparing(Event::getStartDate));
     }
 
     @Override
@@ -59,6 +62,8 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             throw new ClashingEventException();
         }
         internalList.setAll(occurrences);
+        internalList.sort(Comparator.comparing(Event::getStartDate));
+
     }
 
     @Override
@@ -67,6 +72,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
         if (!internalList.remove(toRemove)) {
             throw new EventNotFoundException();
         }
+        internalList.sort(Comparator.comparing(Event::getStartDate));
     }
 
     @Override

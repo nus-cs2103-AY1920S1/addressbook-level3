@@ -1,13 +1,16 @@
 package seedu.address.ui.itinerary;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.itinerary.events.EnterEditEventCommand;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.itinerary.event.Event;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
 
 /**
@@ -28,14 +31,18 @@ public class EventCard extends UiPart<HBox> {
     private Label destinationLabel;
     @FXML
     private VBox propertiesContainer;
+    @FXML
+    private Button editEventButton;
 
     private Event event;
     private Index displayedIndex;
+    private MainWindow mainWindow;
 
-    public EventCard(Event event, Index displayedIndex) {
+    public EventCard(Event event, Index displayedIndex, MainWindow mainWindow) {
         super(FXML);
         this.event = event;
         this.displayedIndex = displayedIndex;
+        this.mainWindow = mainWindow;
         fillEventCardLabels();
     }
 
@@ -44,7 +51,7 @@ public class EventCard extends UiPart<HBox> {
      */
     private void fillEventCardLabels() {
         idLabel.setText(displayedIndex.getOneBased() + ".");
-        nameLabel.setText("Name: " + event.getName().toString());
+        nameLabel.setText(event.getName().toString());
         destinationLabel.setText("Destination :" + event.getDestination().toString());
         startDateLabel.setText("Start: " + ParserDateUtil.getDisplayTime(event.getStartDate()));
         endDateLabel.setText("End: " + ParserDateUtil.getDisplayTime(event.getEndDate()));
@@ -65,5 +72,11 @@ public class EventCard extends UiPart<HBox> {
         EventCard otherCard = (EventCard) other;
         return event.equals(otherCard.event)
                 && this.displayedIndex.equals(otherCard.displayedIndex);
+    }
+
+    @FXML
+    private void handleEditEvent() {
+        mainWindow.executeGuiCommand(EnterEditEventCommand.COMMAND_WORD
+                + " " + displayedIndex.getOneBased());
     }
 }

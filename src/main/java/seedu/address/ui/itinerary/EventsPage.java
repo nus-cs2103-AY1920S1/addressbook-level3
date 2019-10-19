@@ -61,29 +61,28 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
         eventListView.setItems(events);
         eventListView.setCellFactory(listView -> {
             EventListViewCell eventListViewCell = new EventListViewCell();
-            eventListViewCell.addEventFilter(MouseEvent.MOUSE_CLICKED,
-                    new EventHandler<javafx.scene.input.MouseEvent>() {
-                        @Override
-                        public void handle(javafx.scene.input.MouseEvent e) {
-                            int index = listView.getSelectionModel().getSelectedIndex();
-                            if (events.get(index).getExpenditure().isPresent()) {
-                                totalBudgetLabel.setText("Total Budget: "
-                                        + events.get(index).getExpenditure().get().getBudget()
-                                        .toString());
-                            } else {
-                                totalBudgetLabel.setText("Total Budget: 0");
-                            }
-                            nameLabel.setText(events.get(index).getName().toString());
-                        }
-                    });
             return eventListViewCell;
+        });
+        eventListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                int index = eventListView.getSelectionModel().getSelectedIndex();
+                if (events.get(index).getExpenditure().isPresent()) {
+                    totalBudgetLabel.setText("Total Budget: "
+                            + events.get(index).getExpenditure().get().getBudget()
+                            .toString());
+                } else {
+                    totalBudgetLabel.setText("Total Budget: 0");
+                }
+                nameLabel.setText(events.get(index).getName().toString());
+            }
         });
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code EventCard}.
      */
-    static class EventListViewCell extends ListCell<Event> {
+    class EventListViewCell extends ListCell<Event> {
         @Override
         protected void updateItem(Event event, boolean empty) {
             super.updateItem(event, empty);
@@ -92,7 +91,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                EventCard eventCard = new EventCard(event, Index.fromZeroBased(getIndex()));
+                EventCard eventCard = new EventCard(event, Index.fromZeroBased(getIndex()), mainWindow);
 
                 setGraphic(eventCard.getRoot());
             }
