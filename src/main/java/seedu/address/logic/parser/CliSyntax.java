@@ -28,4 +28,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_CRITERIA = new Prefix("cr/");
 
     public static final Prefix PREFIX_MERGE = new Prefix("m/");
+
+    // Visual Representation prefix
+    public static final Prefix PREFIX_INDICATOR = new Prefix("i/");
 }

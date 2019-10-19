@@ -79,6 +79,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -158,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -174,7 +175,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String, boolean)
      */
     private CommandResult executeCommand(String commandText, boolean isSystemInput) throws
-            CommandException, ParseException {
+        CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText, isSystemInput);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -204,6 +205,9 @@ public class MainWindow extends UiPart<Stage> {
                 reportPanel = new ReportPanel();
                 personListPanelPlaceholder.getChildren().clear();
                 personListPanelPlaceholder.getChildren().add(reportPanel.getRoot());
+            }
+
+            if (commandResult.isDisplay()) {
             }
 
             return commandResult;

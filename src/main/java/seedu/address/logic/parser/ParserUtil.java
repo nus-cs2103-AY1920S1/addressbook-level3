@@ -22,6 +22,7 @@ import seedu.address.model.policy.PolicyName;
 import seedu.address.model.policy.Price;
 import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visual.Indicator;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -266,6 +267,22 @@ public class ParserUtil {
             throw new ParseException(EndAge.MESSAGE_CONSTRAINTS);
         }
         return new EndAge(trimmedEndAge);
+    }
+
+    /**
+     * Parses a {@code String indicator} into a {@code indicator}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startAge} is invalid.
+     */
+    public static Indicator parseIndicator (String indicator) throws ParseException {
+        requireNonNull(indicator);
+        String trimmedIndicator = indicator.trim();
+
+        if (!Indicator.isValidIndicator(trimmedIndicator)) {
+            throw new ParseException(Indicator.MESSAGE_CONSTRAINTS);
+        }
+        return new Indicator(trimmedIndicator);
     }
 
 }

@@ -21,6 +21,7 @@ public class ExitCommandTest {
                 true,
                 false,
                 false,
+                false,
                 false);
         assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
     }
