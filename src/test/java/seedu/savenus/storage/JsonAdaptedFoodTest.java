@@ -32,7 +32,7 @@ public class JsonAdaptedFoodTest {
 
     private static final String VALID_NAME = TONKATSU_RAMEN.getName().toString();
     private static final String VALID_PRICE = TONKATSU_RAMEN.getPrice().toString();
-    private static final String VALID_DESCRIPTION = TONKATSU_RAMEN.getDescription().toString(); // last updated here
+    private static final String VALID_DESCRIPTION = TONKATSU_RAMEN.getDescription().toString();
     private static final String VALID_CATEGORY = TONKATSU_RAMEN.getCategory().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = TONKATSU_RAMEN.getTags().stream()
             .map(JsonAdaptedTag::new)

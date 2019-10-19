@@ -17,6 +17,8 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.recommend.UserRecommendations;
+
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code BuyCommand}.
@@ -27,7 +29,7 @@ public class BuyCommandTest {
     // history separately...
     // Please refer to the wallet and purchase history tests
 
-    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
 
     @Test
     public void equals() {

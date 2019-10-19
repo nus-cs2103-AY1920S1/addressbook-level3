@@ -9,6 +9,7 @@ import seedu.savenus.model.Menu;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.recommend.UserRecommendations;
 
 public class ClearCommandTest {
 
@@ -22,8 +23,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyMenu_success() {
-        Model model = new ModelManager(getTypicalMenu(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs());
+        Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
+        Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations());
         expectedModel.setMenu(new Menu());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

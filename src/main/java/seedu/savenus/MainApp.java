@@ -21,10 +21,13 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.util.SampleDataUtil;
 import seedu.savenus.storage.JsonMenuStorage;
+import seedu.savenus.storage.JsonRecsStorage;
 import seedu.savenus.storage.JsonUserPrefsStorage;
 import seedu.savenus.storage.MenuStorage;
+import seedu.savenus.storage.RecsStorage;
 import seedu.savenus.storage.Storage;
 import seedu.savenus.storage.StorageManager;
 import seedu.savenus.storage.UserPrefsStorage;
@@ -57,11 +60,12 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
-        storage = new StorageManager(menuStorage, userPrefsStorage);
+        RecsStorage userRecommendations = new JsonRecsStorage(userPrefs.getRecsFilePath());
+        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, userPrefs, userRecommendations);
 
         logic = new LogicManager(model, storage);
 
@@ -73,23 +77,34 @@ public class MainApp extends Application {
      * The data from the sample menu will be used instead if {@code storage}'s menu is not found,
      * or an empty menu will be used instead if errors occur when reading {@code storage}'s menu.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
+
+        Optional<UserRecommendations> recsOptional;
+        UserRecommendations initialRecs;
         try {
             menuOptional = storage.readMenu();
             if (!menuOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Menu");
             }
             initialData = menuOptional.orElseGet(SampleDataUtil::getSampleMenu);
+
+            recsOptional = userRecs.readRecs();
+            if (!recsOptional.isPresent()) {
+                logger.info("Recommendation file not found. Will be starting with a blank Recommendation");
+            }
+            initialRecs = recsOptional.orElse(new UserRecommendations());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Menu");
             initialData = new Menu();
+            initialRecs = new UserRecommendations();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Menu");
             initialData = new Menu();
+            initialRecs = new UserRecommendations();
         }
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, initialRecs);
     }
 
     private void initLogging(Config config) {

@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path menuFilePath = Paths.get("data" , "savenus.json");
+    private Path recsFilePath = Paths.get("data" , "savenus-recs.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -56,6 +57,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.menuFilePath = menuFilePath;
     }
 
+    public Path getRecsFilePath() {
+        return recsFilePath;
+    }
+
+    public void setRecsFilePath(Path recsFilePath) {
+        requireNonNull(recsFilePath);
+        this.recsFilePath = recsFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,12 +78,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && menuFilePath.equals(o.menuFilePath);
+                && menuFilePath.equals(o.menuFilePath)
+                && recsFilePath.equals(o.recsFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, menuFilePath);
+        return Objects.hash(guiSettings, menuFilePath, recsFilePath);
     }
 
     @Override
@@ -81,6 +92,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + menuFilePath);
+        sb.append("\nRecommendations data file location : " + recsFilePath);
         return sb.toString();
     }
 

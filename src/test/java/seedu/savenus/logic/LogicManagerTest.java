@@ -33,7 +33,9 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.storage.JsonMenuStorage;
+import seedu.savenus.storage.JsonRecsStorage;
 import seedu.savenus.storage.JsonUserPrefsStorage;
 import seedu.savenus.storage.StorageManager;
 import seedu.savenus.testutil.FoodBuilder;
@@ -53,7 +55,8 @@ public class LogicManagerTest {
         JsonMenuStorage addressBookStorage =
                 new JsonMenuStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("userPrefs-recs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -82,7 +85,8 @@ public class LogicManagerTest {
                 new JsonMenuIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMenu.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("ioExceptionUserRecs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -165,7 +169,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
