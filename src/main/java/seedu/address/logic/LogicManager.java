@@ -32,7 +32,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private DisplayPaneType displayPaneType;
-    private boolean newPaneToBeCreated;
+    private boolean newPaneIsToBeCreated;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
-        newPaneToBeCreated = command.getNewPaneToBeCreated();
+        newPaneIsToBeCreated = command.getnewPaneIsToBeCreated();
         commandResult = command.execute(model);
 
         try {
@@ -67,8 +67,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean getNewPaneToBeCreated() {
-        return newPaneToBeCreated;
+    public boolean getnewPaneIsToBeCreated() {
+        return newPaneIsToBeCreated;
     }
 
     @Override

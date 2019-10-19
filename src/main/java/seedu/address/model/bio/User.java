@@ -171,14 +171,18 @@ public class User {
                 .append(" Date Of Birth: ")
                 .append(getDateOfBirth())
                 .append(" Contact Numbers: ");
-        getContactNumbers().forEach(builder::append);
+        getContactNumbers().forEach(contactNumber -> builder.append(contactNumber).append("|"));
+        builder.deleteCharAt(builder.length() - 1);
         builder.append(" Emergency Contacts: ");
-        getEmergencyContacts().forEach(builder::append);
+        getEmergencyContacts().forEach(emergencyContact -> builder.append(emergencyContact).append("|"));
+        builder.deleteCharAt(builder.length() - 1);
         builder.append(" Medical Conditions: ");
-        getMedicalConditions().forEach(builder::append);
+        getMedicalConditions().forEach(condition -> builder.append(condition).append("|"));
+        builder.deleteCharAt(builder.length() - 1);
         builder.append(" Address: ");
         builder.append(" Goals: ");
-        getGoals().forEach(builder::append);
+        getGoals().forEach(condition -> builder.append(condition).append("|"));
+        builder.deleteCharAt(builder.length() - 1);
         builder.append(" Other Info: ").append(getOtherBioInfo());
         return builder.toString();
     }

@@ -25,8 +25,8 @@ public class StorageManager implements Storage {
     private JsonFoodListStorage jsonFoodListStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, UserListStorage userListStorage, 
-                          JsonFoodListStorage jsonFoodListStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          UserListStorage userListStorage, JsonFoodListStorage jsonFoodListStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userListStorage = userListStorage;
@@ -108,7 +108,7 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         jsonFoodListStorage.save(foodList, filePath);
     }
-  
+
     // ================ UserList methods ==============================
     @Override
     public Path getUserListFilePath() {
@@ -136,5 +136,5 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         userListStorage.saveUserList(userList, filePath);
     }
-  
+
 }

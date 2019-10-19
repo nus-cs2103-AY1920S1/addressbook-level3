@@ -68,7 +68,7 @@ public class EditBioCommand extends Command {
             + PREFIX_CONTACT_NUMBER + "91234567 "
             + PREFIX_MEDICAL_CONDITION + "Type I diabetes";
 
-    public static final String MESSAGE_EDIT_USER_SUCCESS = "Edited User: %1$s";
+    public static final String MESSAGE_EDIT_USER_SUCCESS = "Edited biography for: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_BIOGRAPHY_DOES_NOT_EXIST = "Oops! Biography does not exist!"
             + " Try using the [" + AddBioCommand.COMMAND_WORD + "] command to add a new biography.";
@@ -88,6 +88,7 @@ public class EditBioCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<User> lastShownList = model.getFilteredUserList();
+        List<User> originalList = List.copyOf(lastShownList);
 
         try {
             User userToEdit = lastShownList.get(0);
@@ -99,6 +100,10 @@ public class EditBioCommand extends Command {
 
             model.setUser(userToEdit, editedUser);
             model.updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
+            List<User> newList = lastShownList;
+            System.out.println("ORIGINAL: " + originalList);
+            System.out.println("NEW: " + newList);
+
             return new CommandResult(String.format(MESSAGE_EDIT_USER_SUCCESS, editedUser));
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException(MESSAGE_BIOGRAPHY_DOES_NOT_EXIST);
@@ -552,7 +557,7 @@ public class EditBioCommand extends Command {
     }
 
     @Override
-    public boolean getNewPaneToBeCreated() {
+    public boolean getnewPaneIsToBeCreated() {
         return true;
     }
 }
