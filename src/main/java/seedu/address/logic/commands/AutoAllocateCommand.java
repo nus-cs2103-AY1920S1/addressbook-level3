@@ -17,7 +17,7 @@ import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
 /**
- * Allocates a person to an event.
+ * Allocates a number of people to an event either randomly or filtered by matching tags.
  */
 public class AutoAllocateCommand extends Command {
 
@@ -26,18 +26,19 @@ public class AutoAllocateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Auto allocates a specified number of people to an event."
             + "\n"
-            + "Parameters: NUMBER (must be a positive integer) "
-            + "[" + PREFIX_EMPLOYEE_NUMBER + "NUMBER] "
-            + "Example: " + COMMAND_WORD + " 5";
+            + "Parameters: EVENT_INDEX (must be a positive integer) "
+            + PREFIX_EMPLOYEE_NUMBER + "MANPOWER_COUNT_TO_ADD \n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EMPLOYEE_NUMBER + "3 ";
 
 
     public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Allocated to %1$s ";
 
-    private final int manpowerCountToAdd;
+    private final Integer manpowerCountToAdd;
     private final Index eventIndex;
 
     /**
-     * @param manpowerCountToAdd of the person in the filtered person list to edit
+     * @param eventIndex of the event in the filtered event list to edit
+     * @param manpowerCountToAdd
      */
     public AutoAllocateCommand(Index eventIndex, Integer manpowerCountToAdd) {
         requireNonNull(manpowerCountToAdd);
@@ -50,7 +51,6 @@ public class AutoAllocateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Employee> lastShownList = model.getFilteredEmployeeList();
         List<Event> lastShownEventList = model.getFilteredEventList();
 
         if (eventIndex.getZeroBased() >= lastShownEventList.size()) {
@@ -98,7 +98,7 @@ public class AutoAllocateCommand extends Command {
 
         // state check
         AutoAllocateCommand e = (AutoAllocateCommand) other;
-        return eventIndex.equals(e.eventIndex);
+        return eventIndex.equals(e.eventIndex) && manpowerCountToAdd.equals(e.manpowerCountToAdd);
     }
 
 }

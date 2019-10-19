@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -24,10 +23,8 @@ public class ManualAllocateCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manually allocates a person to an event."
             + "\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "Example: " + COMMAND_WORD + " EVENT_INDEX "
-            + "PERSON_INDEX "
+            + "Parameters: EVENT_INDEX "
+            + "PERSON_INDEX (must be valid positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
