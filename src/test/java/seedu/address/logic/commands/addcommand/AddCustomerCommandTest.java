@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.CustomerBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.testutil.CustomerBuilder;
@@ -88,7 +88,7 @@ public class AddCustomerCommandTest {
         @Override
         public boolean hasCustomer(Customer customer) {
             requireNonNull(customer);
-            return this.customer.isSameCustomer(customer);
+            return this.customer.isSameAs(customer);
         }
     }
 
@@ -101,7 +101,7 @@ public class AddCustomerCommandTest {
         @Override
         public boolean hasCustomer(Customer customer) {
             requireNonNull(customer);
-            return customersAdded.stream().anyMatch(customer::isSameCustomer);
+            return customersAdded.stream().anyMatch(customer::isSameAs);
         }
 
         @Override
@@ -112,7 +112,7 @@ public class AddCustomerCommandTest {
 
         @Override
         public ReadOnlyDataBook<Customer> getCustomerBook() {
-            return new CustomerBook();
+            return new DataBook<Customer>();
         }
     }
 

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.PhoneBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.phone.Phone;
 import seedu.address.testutil.ModelStub;
@@ -110,7 +110,7 @@ public class AddPhoneCommandTest {
 
         @Override
         public ReadOnlyDataBook<Phone> getPhoneBook() {
-            return new PhoneBook();
+            return new DataBook<Phone>();
         }
     }
 
