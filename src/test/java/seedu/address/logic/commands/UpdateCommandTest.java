@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_FRIDGE_DOES_NOT_EXIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -81,6 +82,60 @@ public class UpdateCommandTest {
     }
 
     @Test
+    public void executeBody_fridgeIdInFilteredList_success() throws CommandException {
+        Fridge f1 = new Fridge();
+        Fridge f2 = new Fridge();
+        model.addEntity(f1);
+        model.addEntity(f2);
+
+        Body body = new BodyBuilder().build();
+        body.setFridgeId(f1.getIdNum());
+        f1.setBody(body);
+        model.addEntity(body);
+
+        assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setFridgeId(f2.getIdNum());
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
+
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
+        assertEquals(f1.getFridgeStatus(), FridgeStatus.UNOCCUPIED);
+        assertEquals(f2.getFridgeStatus(), FridgeStatus.OCCUPIED);
+
+    }
+
+    @Test
+    public void executeBody_fridgeIdNotInFilteredList_failure() throws CommandException {
+        Fridge f1 = new Fridge();
+        model.addEntity(f1);
+
+        Body body = new BodyBuilder().build();
+        body.setFridgeId(f1.getIdNum());
+        f1.setBody(body);
+        model.addEntity(body);
+
+        assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setFridgeId(IdentificationNumber.customGenerateId("F", 10));
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+
+        String expectedMessage = MESSAGE_FRIDGE_DOES_NOT_EXIST;
+        assertCommandFailure(updateCommand, model, expectedMessage);
+
+        assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
+    }
+
+    @Test
     public void executeBody_bodyIdNotInFilteredList_failure() throws CommandException {
         // Fails because the Body was not added to the model.
         Body body = new BodyBuilder().build();
@@ -136,7 +191,6 @@ public class UpdateCommandTest {
 
         assertEquals(body, updateCommand.getEntityFromId(model, id, descriptor));
     }
-
 
     @Test
     public void getBodyFromId_validBodyId_failure() throws CommandException {

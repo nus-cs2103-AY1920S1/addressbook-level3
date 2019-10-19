@@ -19,4 +19,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_TEST_PARAMETERS = "Test parameters are invalid";
     public static final String MESSAGE_OCCUPIED_FRIDGE_CANNOT_BE_DELETED = "Fridge is occupied by a body. Please remove"
             + " the body before deleting the fridge";
+    public static final String MESSAGE_FRIDGE_DOES_NOT_EXIST = "Fridge specified does not exist!";
 }
