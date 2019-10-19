@@ -13,9 +13,8 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
  */
 public class Date implements Comparable<Date> {
 
-
     public static final String MESSAGE_CONSTRAINTS =
-            "Date numbers can be today, yesterday, tomorrow or a formal date DD/MM/YYYY.";
+            "Date numbers can be today, yesterday, tomorrow or a formal date: DD/MM/YYYY, DD-MM-YYYY or YYYY-MM-DD.";
     public final String value;
     public final LocalDate dateValue;
 
