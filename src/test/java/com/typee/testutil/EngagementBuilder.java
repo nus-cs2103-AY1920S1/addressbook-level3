@@ -113,17 +113,11 @@ public class EngagementBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code descrption} of the {@code Engagement} that we are building.
      */
-    /*
-    public PersonBuilder withName(String name) {
-        this.name = new Name(name);
+    public EngagementBuilder withDescription(String description) {
+        this.description = description;
         return this;
     }
-
-    public Person build() {
-        return new Person(name);
-    }
-     */
 
 }

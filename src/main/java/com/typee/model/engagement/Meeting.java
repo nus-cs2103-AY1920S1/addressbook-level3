@@ -19,6 +19,11 @@ public class Meeting extends Engagement {
     }
 
     @Override
+    public EngagementType getType() {
+        return EngagementType.MEETING;
+    }
+
+    @Override
     public String toString() {
         return String.format("Meeting of %s priority from %s to %s at %s.", priority.toString(),
                 startTime.toString(), endTime.toString(), location.toString());

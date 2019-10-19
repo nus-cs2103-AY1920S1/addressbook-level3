@@ -144,6 +144,8 @@ public abstract class Engagement {
         this.priority = priority;
     }
 
+    public abstract EngagementType getType();
+
     /**
      * Checks if this {@code Engagement} clashes with another one.
      *
@@ -180,7 +182,8 @@ public abstract class Engagement {
                 && otherEngagement.description.equals(description)
                 && otherEngagement.startTime.equals(startTime)
                 && otherEngagement.endTime.equals(endTime)
-                && otherEngagement.priority.equals(priority);
+                && otherEngagement.priority.equals(priority)
+                && otherEngagement.getType().equals(this.getType());
     }
 
     @Override

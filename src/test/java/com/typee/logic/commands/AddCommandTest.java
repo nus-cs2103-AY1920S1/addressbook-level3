@@ -2,7 +2,9 @@ package com.typee.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import com.typee.commons.core.GuiSettings;
+import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.EngagementList;
@@ -35,6 +38,7 @@ public class AddCommandTest {
         ModelStubAcceptingEngagementAdded modelStub = new ModelStubAcceptingEngagementAdded();
         Engagement validAppointment = new EngagementBuilder().buildAsAppointment();
         CommandResult commandResult = new AddCommand(validAppointment).execute(modelStub);
+
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validAppointment),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validAppointment), modelStub.engagementsAdded);
@@ -45,6 +49,7 @@ public class AddCommandTest {
         ModelStubAcceptingEngagementAdded modelStub = new ModelStubAcceptingEngagementAdded();
         Engagement validInterview = new EngagementBuilder().buildAsInterview();
         CommandResult commandResult = new AddCommand(validInterview).execute(modelStub);
+
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validInterview),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validInterview), modelStub.engagementsAdded);
@@ -55,9 +60,137 @@ public class AddCommandTest {
         ModelStubAcceptingEngagementAdded modelStub = new ModelStubAcceptingEngagementAdded();
         Engagement validMeeting = new EngagementBuilder().buildAsMeeting();
         CommandResult commandResult = new AddCommand(validMeeting).execute(modelStub);
+
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validMeeting),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validMeeting), modelStub.engagementsAdded);
+    }
+
+    @Test
+    public void execute_duplicateAppointment_throwsCommandException() {
+        Engagement validAppointment = new EngagementBuilder().buildAsAppointment();
+        AddCommand addCommand = new AddCommand(validAppointment);
+        ModelStub modelStub = new ModelStubWithEngagement(validAppointment);
+
+        assertThrows(CommandException.class, () -> addCommand.execute(modelStub),
+                AddCommand.MESSAGE_DUPLICATE_ENGAGEMENT);
+    }
+
+    @Test
+    public void execute_duplicateInterview_throwsCommandException() {
+        Engagement validInterview = new EngagementBuilder().buildAsInterview();
+        AddCommand addCommand = new AddCommand(validInterview);
+        ModelStub modelStub = new ModelStubWithEngagement(validInterview);
+
+        assertThrows(CommandException.class, () -> addCommand.execute(modelStub),
+                AddCommand.MESSAGE_DUPLICATE_ENGAGEMENT);
+    }
+
+    @Test
+    public void execute_duplicateMeeting_throwsCommandException() {
+        Engagement validMeeting = new EngagementBuilder().buildAsMeeting();
+        AddCommand addCommand = new AddCommand(validMeeting);
+        ModelStub modelStub = new ModelStubWithEngagement(validMeeting);
+
+        assertThrows(CommandException.class, () -> addCommand.execute(modelStub),
+                AddCommand.MESSAGE_DUPLICATE_ENGAGEMENT);
+    }
+
+    @Test
+    public void appointmentEquals() {
+        Engagement appointment = new EngagementBuilder().buildAsAppointment();
+        Engagement differentAppointment = new EngagementBuilder()
+                .withDescription("date").buildAsAppointment();
+        AddCommand addAppointmentCommand = new AddCommand(appointment);
+        AddCommand addDifferentAppointmentCommand = new AddCommand(differentAppointment);
+
+        // same object -> returns true
+        assertTrue(addAppointmentCommand.equals(addAppointmentCommand));
+
+        // same values -> returns true
+        AddCommand addAppointmentCommandCopy = new AddCommand(appointment);
+
+        assertTrue(addAppointmentCommand.equals(addAppointmentCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addAppointmentCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addAppointmentCommand.equals(null));
+
+        // different appointment -> returns false
+        assertFalse(addAppointmentCommand.equals(addDifferentAppointmentCommand));
+
+    }
+
+    @Test
+    public void interviewEquals() {
+        Engagement interview = new EngagementBuilder().buildAsInterview();
+        Engagement differentInterview = new EngagementBuilder()
+                .withDescription("date").buildAsInterview();
+        AddCommand addInterviewCommand = new AddCommand(interview);
+        AddCommand addDifferentInterviewCommand = new AddCommand(differentInterview);
+
+        // same object -> returns true
+        assertTrue(addInterviewCommand.equals(addInterviewCommand));
+
+        // same values -> returns true
+        AddCommand addInterviewCommandCopy = new AddCommand(interview);
+
+        assertTrue(addInterviewCommand.equals(addInterviewCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addInterviewCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addInterviewCommand.equals(null));
+
+        // different appointment -> returns false
+        assertFalse(addInterviewCommand.equals(addDifferentInterviewCommand));
+
+    }
+
+    @Test
+    public void meetingEquals() {
+        Engagement meeting = new EngagementBuilder().buildAsMeeting();
+        Engagement differentMeeting = new EngagementBuilder()
+                .withDescription("date").buildAsMeeting();
+        AddCommand addMeetingCommand = new AddCommand(meeting);
+        AddCommand addDifferentMeetingCommand = new AddCommand(differentMeeting);
+
+        // same object -> returns true
+        assertTrue(addMeetingCommand.equals(addMeetingCommand));
+
+        // same values -> returns true
+        AddCommand addMeetingCommandCopy = new AddCommand(meeting);
+
+        assertTrue(addMeetingCommand.equals(addMeetingCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addMeetingCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addMeetingCommand.equals(null));
+
+        // different appointment -> returns false
+        assertFalse(addMeetingCommand.equals(addDifferentMeetingCommand));
+
+    }
+
+    @Test
+    public void differentEngagementTypesEquals() {
+        Engagement appointment = new EngagementBuilder().buildAsAppointment();
+        Engagement interview = new EngagementBuilder().buildAsInterview();
+        Engagement meeting = new EngagementBuilder().buildAsMeeting();
+        AddCommand addAppointmentCommand = new AddCommand(appointment);
+        AddCommand addInterviewCommand = new AddCommand(interview);
+        AddCommand addMeetingCommand = new AddCommand(meeting);
+
+        // different engagement types -> returns false
+        assertFalse(addAppointmentCommand.equals(addInterviewCommand));
+        assertFalse(addAppointmentCommand.equals(addMeetingCommand));
+        assertFalse(addInterviewCommand.equals(addMeetingCommand));
+
     }
 
     /**
@@ -202,53 +335,3 @@ public class AddCommandTest {
     }
 
 }
-
-/*
-
-    @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
-    }
-
-    @Test
-    public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
-
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
-
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
-    }
-
- */
-
-//}
