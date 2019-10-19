@@ -36,10 +36,22 @@ public abstract class Transaction {
                 new HashSet<Tag>());
     }
 
-    public Transaction(Amount amount, Date dateTime, Person personInvolved) {
-        this(amount, dateTime);
+    public Transaction(Amount amount, Date date, Set<Tag> tags) {
+        this(amount, date);
+        this.tags.addAll(tags);
+    }
+
+    public Transaction(Amount amount, Date date, Person personInvolved) {
+        this(amount, date);
         this.peopleInvolved = personInvolved;
     }
+
+    public Transaction(Amount amount, Date date, Set<Tag> tags, Person personInvolved) {
+        this(amount, date);
+        this.tags.addAll(tags);
+        this.peopleInvolved = personInvolved;
+    }
+
 
     public Amount getAmount() {
         return amount;
