@@ -78,20 +78,6 @@ public class Phone implements Identifiable<Phone> {
     }
 
     /**
-     * Returns true if both phones have the same identity fields.
-     * This defines a weaker notion of equality between two phones.
-     */
-    public boolean isSamePhone(Phone otherPhone) {
-        if (otherPhone == this) {
-            return true;
-        }
-
-        return otherPhone != null
-                && otherPhone.getIdentityNumber().equals(getIdentityNumber())
-                && otherPhone.getSerialNumber().equals(getSerialNumber());
-    }
-
-    /**
      * Returns true if both phones have the same identity and data fields.
      * This defines a stronger notion of equality between two phones.
      */
@@ -154,4 +140,5 @@ public class Phone implements Identifiable<Phone> {
                 && other.getIdentityNumber().equals(getIdentityNumber())
                 && other.getSerialNumber().equals(getSerialNumber());
     }
+
 }

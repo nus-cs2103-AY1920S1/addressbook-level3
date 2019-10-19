@@ -14,7 +14,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 
 /**
- * An Immutable customer DataBook that is serializable to JSON format.
+ * An Immutable Customer DataBook that is serializable to JSON format.
  */
 @JsonRootName(value = "customerbook")
 class JsonSerializableCustomerBook {

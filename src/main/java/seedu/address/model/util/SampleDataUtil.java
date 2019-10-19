@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
-import seedu.address.model.ScheduleBook;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.CustomerName;
@@ -28,8 +27,6 @@ import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
-
-import javax.xml.crypto.Data;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -138,9 +135,9 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyDataBook<Schedule> getSampleScheduleBook() {
-        ScheduleBook sampleScheduleBook = new ScheduleBook();
+        DataBook<Schedule> sampleScheduleBook = new DataBook<>();
         for (Schedule sampleSchedule : getSampleSchedule()) {
-            sampleScheduleBook.addSchedule(sampleSchedule);
+            sampleScheduleBook.add(sampleSchedule);
         }
         return sampleScheduleBook;
     }

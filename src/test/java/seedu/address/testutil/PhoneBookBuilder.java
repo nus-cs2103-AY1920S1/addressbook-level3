@@ -28,7 +28,7 @@ public class PhoneBookBuilder {
         return this;
     }
 
-    public  DataBook<Phone> build() {
+    public DataBook<Phone> build() {
         return phoneBook;
     }
 }

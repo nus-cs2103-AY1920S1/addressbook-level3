@@ -72,19 +72,6 @@ public class Schedule implements Identifiable<Schedule> {
     }
 
     /**
-     * Returns true if both schedules have the identity field.
-     * This defines a weaker notion of equality between two schedules.
-     */
-    public boolean isSameSchedule(Schedule otherSchedule) {
-        if (otherSchedule == this) {
-            return true;
-        }
-
-        return otherSchedule != null
-                && otherSchedule.getId().equals(getId());
-    }
-
-    /**
      * Returns true if both schedules have the same identity and data fields.
      * This defines a stronger notion of equality between two schedules.
      */
@@ -134,4 +121,5 @@ public class Schedule implements Identifiable<Schedule> {
         return other != null
                 && other.getId().equals(getId());
     }
+
 }

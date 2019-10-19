@@ -80,19 +80,6 @@ public class Order implements Identifiable<Order> {
     }
 
     /**
-     * Returns true if both orders have the same identity fields.
-     * This defines a weaker notion of equality between two orders.
-     */
-    public boolean isSameOrder(Order otherOrder) {
-        if (otherOrder == this) {
-            return true;
-        }
-
-        return otherOrder != null
-                && otherOrder.getId().equals(getId());
-    }
-
-    /**
      * Returns true if both orders have the same data fields.
      * This defines a stronger notion of equality between two orders.
      */
@@ -149,4 +136,5 @@ public class Order implements Identifiable<Order> {
         return other != null
                 && other.getId().equals(getId());
     }
+
 }

@@ -56,21 +56,6 @@ public class Customer implements Identifiable<Customer> {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameCustomer(Customer otherCustomer) {
-        if (otherCustomer == this) {
-            return true;
-        }
-
-        return otherCustomer != null
-                && otherCustomer.getCustomerName().equals(getCustomerName())
-                && (otherCustomer.getContactNumber().equals(getContactNumber())
-                || otherCustomer.getEmail().equals(getEmail()));
-    }
-
-    /**
      * Returns true if both customers have the same identity and data fields.
      * This defines a stronger notion of equality between two customers.
      */
@@ -121,4 +106,5 @@ public class Customer implements Identifiable<Customer> {
                 && (other.getContactNumber().equals(getContactNumber())
                 || other.getEmail().equals(getEmail()));
     }
+
 }

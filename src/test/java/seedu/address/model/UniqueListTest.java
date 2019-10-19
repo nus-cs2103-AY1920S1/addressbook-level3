@@ -4,17 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 class UniqueListTest {
 
     private UniqueList<IdentifiableStub> uniqueList = new UniqueList<>();
 
     @Test
-    void contains_null_throwsNullPointerException() {
+    void contains_nullObject_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueList.contains(null));
     }
 
@@ -63,16 +63,17 @@ class UniqueListTest {
 
     @Test
     void set_targetNotInList_throwsIdentityNotFoundException() {
-        assertThrows(IdentityNotFoundException.class,
-                () -> uniqueList.set(new IdentifiableStub(1), new IdentifiableStub(0)));
+        assertThrows(IdentityNotFoundException.class, () ->
+                uniqueList.set(new IdentifiableStub(1), new IdentifiableStub(0)));
     }
 
     @Test
     void set_targetNotSameAsEditedObjectAndEditedObjectIsDuplicate_throwsDuplicateIdentityException() {
-        IdentifiableStub obj = new IdentifiableStub(0);
-        uniqueList.add(obj);
+        IdentifiableStub target = new IdentifiableStub(0);
+        uniqueList.add(target);
+        IdentifiableStub editedObject = new IdentifiableStub(1);
         uniqueList.add(new IdentifiableStub(1));
-        assertThrows(DuplicateIdentityException.class, () -> uniqueList.set(obj, new IdentifiableStub(1)));
+        assertThrows(DuplicateIdentityException.class, () -> uniqueList.set(target, editedObject));
     }
 
     @Test
@@ -107,6 +108,7 @@ class UniqueListTest {
     void remove_objectInList_objectRemoved() {
         IdentifiableStub obj = new IdentifiableStub(0);
         uniqueList.add(obj);
+        assertTrue(uniqueList.contains(obj));
         uniqueList.remove(obj);
         assertFalse(uniqueList.contains(obj));
     }
@@ -117,7 +119,7 @@ class UniqueListTest {
     }
 
     @Test
-    void setList_uniqueList_success() {
+    void setList_uniqueList_uniqueListIsReplaced() {
         UniqueList<IdentifiableStub> inputList = new UniqueList<>();
         IdentifiableStub obj = new IdentifiableStub(0);
         inputList.add(obj);
@@ -138,14 +140,14 @@ class UniqueListTest {
     }
 
     @Test
-    void setList_listWithNoDuplicates_success() {
-        IdentifiableStub obj = new IdentifiableStub(0);
-        IdentifiableStub temp = new IdentifiableStub(1);
+    void setList_listWithNoDuplicates_listIsReplaced() {
+        IdentifiableStub obj1 = new IdentifiableStub(0);
+        IdentifiableStub obj2 = new IdentifiableStub(1);
         List<IdentifiableStub> nonDuplicateList =
-                Arrays.asList(obj, temp);
+                Arrays.asList(obj1, obj2);
         uniqueList.setList(nonDuplicateList);
-        assertTrue(uniqueList.contains(obj));
-        assertTrue(uniqueList.contains(temp));
+        assertTrue(uniqueList.contains(obj1));
+        assertTrue(uniqueList.contains(obj2));
     }
 
     @Test

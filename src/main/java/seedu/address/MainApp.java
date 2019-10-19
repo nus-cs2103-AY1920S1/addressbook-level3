@@ -142,17 +142,17 @@ public class MainApp extends Application {
             scheduleBookOptional = storage.readScheduleBook();
 
             if (!scheduleBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample ScheduleBook");
+                logger.info("Data file not found. Will be starting with a sample Schedule DataBook");
             }
 
             initialScheduleData = scheduleBookOptional.orElseGet(SampleDataUtil::getSampleScheduleBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ScheduleBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Schedule DataBook");
             initialScheduleData = new DataBook<>();
 
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty ScheduleBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Schedule DataBook");
             initialScheduleData = new DataBook<>();
         }
 
