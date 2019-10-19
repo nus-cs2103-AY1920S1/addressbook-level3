@@ -10,7 +10,7 @@ public class Sugar extends NutritionValue {
      *
      * @param sugarValue a valid sugar value
      */
-    public Sugar(Double sugarValue) {
+    public Sugar(String sugarValue) {
         super(sugarValue);
     }
 }

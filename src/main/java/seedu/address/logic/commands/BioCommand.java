@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
+import seedu.address.ui.DisplayPaneType;
 
 /**
  * Displays information on user's biography.
@@ -18,5 +19,10 @@ public class BioCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_BIO_MESSAGE, false, true, false, false);
+    }
+
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.BIO;
     }
 }

@@ -16,6 +16,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
+import seedu.address.ui.DisplayPaneType;
+import seedu.sgm.model.food.Food;
 
 /**
  * The main LogicManager of the app.
@@ -27,6 +29,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private DisplayPaneType displayPaneType;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -40,6 +43,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
+        displayPaneType = command.getDisplayPaneType();
         commandResult = command.execute(model);
 
         try {
@@ -52,6 +56,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return displayPaneType;
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
@@ -59,6 +68,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Food> getFoodList() {
+        return model.getFoodList();
+    }
+
+    @Override
+    public ObservableList<Food> getFilterFoodList() {
+        return model.getFilterFoodList();
     }
 
     @Override

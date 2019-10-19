@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
+import seedu.address.ui.DisplayPaneType;
 
 /**
  * Displays information on user's biography.
@@ -17,5 +18,10 @@ public class AchvmCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_ACHVM_MESSAGE, false, false, true, false);
+    }
+
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.ACHVM;
     }
 }

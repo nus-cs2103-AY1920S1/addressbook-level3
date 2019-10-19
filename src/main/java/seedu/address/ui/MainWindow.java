@@ -1,11 +1,15 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -34,7 +38,10 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private AchievementsCache achievementsCache;
+    private MainDisplayPane mainDisplayPane;
+
+    @FXML
+    private Scene scene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -43,13 +50,11 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane mainDisplayPanePlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -63,6 +68,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
     }
 
@@ -70,16 +76,8 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public ResultDisplay getResultDisplay() {
-        return resultDisplay;
-    }
-
-    public AchievementsCache getAchievementsCache() {
-        return achievementsCache;
-    }
-
-    public void setAchievementsCache(AchievementsCache achievementsCache) {
-        this.achievementsCache = achievementsCache;
+    public Scene getScene() {
+        return scene;
     }
 
     private void setAccelerators() {
@@ -120,15 +118,15 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    void fillInnerParts(String imagePath) {
+
+        ImageView imageView = new ImageView(imagePath);
+        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
+        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
+        mainDisplayPanePlaceholder.getChildren().add(imageView);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -157,37 +155,15 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
-
     /**
-     * Switches this window to the MainWindow.
+     * Switches the main display pane to the specified UI part.
      */
-    @FXML
-    public void switchToBioWindow(String feedbackToUser) {
-        hide();
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        BioWindow bioWindow = new BioWindow(primaryStage, logic);
-        bioWindow.show();
-        bioWindow.setAchievementsCache(achievementsCache);
-        bioWindow.fillInnerParts();
-        bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
-    }
-
-    /**
-     * Switches this window to the AchievementsWindow.
-     */
-    @FXML
-    public void switchToAchvmWindow(String feedbackToUser) {
-        hide();
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        AchievementsWindow achievementsWindow = new AchievementsWindow(primaryStage, logic);
-        achievementsWindow.show();
-        achievementsWindow.setAchievementsCache(achievementsCache);
-        achievementsWindow.fillInnerParts();
-        achievementsWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+    public void switchToMainDisplayPane(DisplayPaneType displayPaneType) {
+        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType())) {
+            mainDisplayPanePlaceholder.getChildren().clear();
+            mainDisplayPanePlaceholder.getChildren()
+                .add(requireNonNull(mainDisplayPane.get(displayPaneType).getRoot()));
+        }
     }
 
     void show() {
@@ -204,7 +180,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -223,11 +199,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
 
             CommandResult commandResult = logic.execute(commandText);
-            if (commandResult.isShowBio()) {
-                switchToBioWindow(commandResult.getFeedbackToUser());
-            } else if (commandResult.isShowAchvm()) {
-                switchToAchvmWindow(commandResult.getFeedbackToUser());
-            }
+            switchToMainDisplayPane(logic.getDisplayPaneType());
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
