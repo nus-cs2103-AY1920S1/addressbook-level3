@@ -160,8 +160,8 @@ public class ModelManagerTest {
         PersonList personList2 = modelManager.getPersonList();
 
         assertNotNull(personList2);
-        assertNotNull(personList2.findPerson(ALICE.getName()));
-        assertNull(personList2.findPerson(ZACK.getName()));
+        assertDoesNotThrow(() -> personList2.findPerson(ALICE.getName()));
+        assertThrows(PersonNotFoundException.class, () -> personList2.findPerson(ZACK.getName()));
     }
 
     @Test
@@ -201,8 +201,8 @@ public class ModelManagerTest {
 
     @Test
     void editPerson() throws PersonNotFoundException, DuplicatePersonException, NoPersonFieldsEditedException {
-        assertNotNull(modelManager.editPerson(ALICE.getName(), ZACK));
-        assertNull(modelManager.editPerson(ALICE.getName(), BENSON));
+        assertDoesNotThrow(() -> modelManager.editPerson(ALICE.getName(), ZACK));
+        assertThrows(PersonNotFoundException.class, () -> modelManager.editPerson(ALICE.getName(), BENSON));
     }
 
     @Test
@@ -221,27 +221,27 @@ public class ModelManagerTest {
     @Test
     void getGroupList() throws GroupNotFoundException {
         assertNotNull(modelManager.getGroupList());
-        assertNotNull(modelManager.findGroup(GROUPNAME1));
-        assertNull(modelManager.findGroup(GROUPNAME0));
+        assertDoesNotThrow(() -> modelManager.findGroup(GROUPNAME1));
+        assertThrows(GroupNotFoundException.class, () -> modelManager.findGroup(GROUPNAME0));
     }
 
     @Test
     void addGroup() throws DuplicateGroupException {
-        assertNull(modelManager.addGroup(GROUP1));
-        assertNotNull(modelManager.addGroup(GROUP0));
-        assertNull(modelManager.addGroup(GROUP0));
+        assertThrows(DuplicateGroupException.class, () ->modelManager.addGroup(GROUP1));
+        assertDoesNotThrow(() -> modelManager.addGroup(GROUP0));
+        assertThrows(DuplicateGroupException.class, () -> modelManager.addGroup(GROUP0));
     }
 
     @Test
     void editGroup() throws GroupNotFoundException, DuplicateGroupException, NoGroupFieldsEditedException {
-        assertNull(modelManager.editGroup(GROUPNAME1, GROUP1));
-        assertNotNull(modelManager.editGroup(GROUPNAME1, GROUP0));
+        assertThrows(DuplicateGroupException.class, () -> modelManager.editGroup(GROUPNAME1, GROUP1));
+        assertDoesNotThrow(() -> modelManager.editGroup(GROUPNAME1, GROUP0));
     }
 
     @Test
     void findGroup() throws GroupNotFoundException {
-        assertNull(modelManager.findGroup(GROUPNAME0));
-        assertNotNull(modelManager.findGroup(GROUPNAME1));
+        assertDoesNotThrow(() -> modelManager.findGroup(GROUPNAME1));
+        assertThrows(GroupNotFoundException.class, () -> modelManager.findGroup(GROUPNAME0));
     }
 
     @Test
@@ -282,8 +282,8 @@ public class ModelManagerTest {
 
     @Test
     void findPersonToGroupMapping() throws MappingNotFoundException {
-        assertNotNull(modelManager.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
-        assertNull(modelManager.findPersonToGroupMapping(MAP20.getPersonId(), MAP20.getGroupId()));
+        assertDoesNotThrow(() -> modelManager.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () -> modelManager.findPersonToGroupMapping(MAP20.getPersonId(), MAP20.getGroupId()));
     }
 
     @Test

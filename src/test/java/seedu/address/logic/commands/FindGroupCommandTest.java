@@ -44,7 +44,7 @@ class FindGroupCommandTest {
                 new FindGroupCommand(GROUPNAME0).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(FindGroupCommand.MESSAGE_FAILURE);
+                new CommandResult(String.format(FindGroupCommand.MESSAGE_FAILURE, GROUPNAME0.toString()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

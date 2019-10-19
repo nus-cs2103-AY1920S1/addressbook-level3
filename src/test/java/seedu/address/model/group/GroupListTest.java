@@ -61,9 +61,9 @@ class GroupListTest {
 
     @Test
     void findGroup() throws GroupNotFoundException, DuplicateGroupException {
-        assertNull(groupList.findGroup(GROUP1.getGroupName()));
+        assertThrows(GroupNotFoundException.class, () -> groupList.findGroup(GROUP1.getGroupName()));
         groupList.addGroup(GROUP1);
-        assertNotNull(groupList.findGroup(GROUP1.getGroupName()));
+        assertDoesNotThrow(() -> groupList.findGroup(GROUP1.getGroupName()));
     }
 
     @Test

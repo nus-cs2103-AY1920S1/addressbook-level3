@@ -81,8 +81,9 @@ public class PersonList {
             Name otherName = personDescriptor.getName();
             try{
                 findPerson(otherName);
-            } catch (PersonNotFoundException e) {
                 throw new DuplicatePersonException();
+            } catch (PersonNotFoundException ignored) {
+
             }
             toEdit.setName(personDescriptor.getName());
         }

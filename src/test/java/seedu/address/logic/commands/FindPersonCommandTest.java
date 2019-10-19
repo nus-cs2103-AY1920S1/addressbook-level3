@@ -43,7 +43,7 @@ class FindPersonCommandTest {
                 new FindPersonCommand(ZACK.getName()).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(FindPersonCommand.MESSAGE_FAILURE);
+                new CommandResult(String.format(FindPersonCommand.MESSAGE_FAILURE, ZACK.getName().toString()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

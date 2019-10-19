@@ -76,14 +76,14 @@ class PersonToGroupMappingListTest {
         mappingList.deletePersonFromMapping(MAP00.getPersonId());
 
         // these maps are deleted
-        assertNull(mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
-        assertNull(mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
-        assertNull(mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
 
         // these maps are not deleted
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
 
 
     }
@@ -94,14 +94,14 @@ class PersonToGroupMappingListTest {
         mappingList.deleteGroupFromMapping(MAP00.getGroupId());
 
         // these maps are deleted
-        assertNull(mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
-        assertNull(mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () -> mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
 
         // these maps are not deleted
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
     }
 
     @Test

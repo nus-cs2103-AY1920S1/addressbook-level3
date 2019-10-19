@@ -50,7 +50,7 @@ class EditPersonCommandTest {
                 new EditPersonCommand(ALICE.getName(), ZACK).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditPersonCommand.MESSAGE_SUCCESS + person.details());
+                new CommandResult(String.format(EditPersonCommand.MESSAGE_SUCCESS, ALICE.getName().toString()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -61,7 +61,8 @@ class EditPersonCommandTest {
                 new EditPersonCommand(ALICE.getName(), new PersonDescriptor()).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditPersonCommand.MESSAGE_NOT_EDITED);
+                new CommandResult(String.format(EditPersonCommand.MESSAGE_FAILURE,
+                        EditPersonCommand.MESSAGE_NOT_EDITED));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -72,7 +73,8 @@ class EditPersonCommandTest {
                 new EditPersonCommand(ZACK.getName(), ALICE).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditPersonCommand.MESSAGE_FAILURE);
+                new CommandResult(String.format(EditPersonCommand.MESSAGE_FAILURE,
+                        EditPersonCommand.MESSAGE_PERSON_NOT_FOUND));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

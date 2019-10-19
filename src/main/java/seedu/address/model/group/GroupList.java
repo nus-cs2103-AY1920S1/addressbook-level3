@@ -76,8 +76,9 @@ public class GroupList {
             GroupName otherName = groupDescriptor.getGroupName();
             try{
                 findGroup(otherName);
-            } catch (GroupNotFoundException e) {
                 throw new DuplicateGroupException();
+            } catch (GroupNotFoundException ignored) {
+
             }
             toEdit.setGroupName(groupDescriptor.getGroupName());
         }
