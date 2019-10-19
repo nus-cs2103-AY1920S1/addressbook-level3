@@ -11,12 +11,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueIdentifier;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * Jackson-friendly version of {@link Expense}.
@@ -28,7 +29,7 @@ class JsonAdaptedExpense {
     private final String description;
     private final String price;
     private final String uniqueIdentifier;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
     private final String rawTimestamp;
 
     /**
@@ -37,7 +38,7 @@ class JsonAdaptedExpense {
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("tagged") List<JsonAdaptedCategory> tagged,
                               @JsonProperty("timestamp") String rawTimestamp,
                               @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
         this.description = description;
@@ -56,8 +57,8 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         description = source.getDescription().fullDescription;
         price = source.getPrice().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        tagged.addAll(source.getCategories().stream()
+                .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
         uniqueIdentifier = source.getUniqueIdentifier().value;
         rawTimestamp = source.getTimestamp().toString();
@@ -69,9 +70,9 @@ class JsonAdaptedExpense {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
     public Expense toModelType() throws IllegalValueException {
-        final List<Tag> expenseTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            expenseTags.add(tag.toModelType());
+        final List<Category> expenseCategories = new ArrayList<>();
+        for (JsonAdaptedCategory tag : tagged) {
+            expenseCategories.add(tag.toModelType());
         }
 
         if (description == null) {
@@ -102,7 +103,7 @@ class JsonAdaptedExpense {
         }
         final UniqueIdentifier modelUniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
 
-        final Set<Tag> modelTags = new HashSet<>(expenseTags);
+        final Set<Category> modelCategories = new HashSet<>(expenseCategories);
 
         if (rawTimestamp == null) {
             throw new IllegalValueException(
@@ -115,7 +116,7 @@ class JsonAdaptedExpense {
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 
-        return new Expense(modelDescription, modelPrice, modelTags, modelTimestamp, modelUniqueIdentifier);
+        return new Expense(modelDescription, modelPrice, modelCategories, modelTimestamp, modelUniqueIdentifier);
     }
 
 }

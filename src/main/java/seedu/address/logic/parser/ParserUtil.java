@@ -12,10 +12,11 @@ import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -68,30 +69,31 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String category} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code category} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
+    public static Category parseCategory(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        if (!Category.isValidTagName(trimmedTag)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new Category(trimmedTag);
     }
 
+    //has to be removed
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<Category> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
+        final Set<Category> categorySet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            categorySet.add(parseCategory(tagName));
         }
-        return tagSet;
+        return categorySet;
     }
 
     /**

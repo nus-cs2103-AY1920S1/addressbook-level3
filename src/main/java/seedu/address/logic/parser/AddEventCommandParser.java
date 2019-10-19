@@ -11,11 +11,12 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -38,10 +39,10 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Category> categoryList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Timestamp timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
 
-        Event event = new Event(description, price, tagList, timestamp);
+        Event event = new Event(description, price, categoryList, timestamp);
 
         return new AddEventCommand(event);
     }

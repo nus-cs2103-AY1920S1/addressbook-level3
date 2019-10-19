@@ -22,7 +22,7 @@ public class ExpenseTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Expense expense = new ExpenseBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> expense.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> expense.getCategories().remove(0));
     }
 
     @Test
@@ -43,12 +43,12 @@ public class ExpenseTest {
                 .withDescription(VALID_DESCRIPTION_TRANSPORT).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
-        // different tag -> return true
+        // different category -> return true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
                 .withTags(VALID_TAG_CLAIMABLE).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
-        //different price, tag, and description -> returns true
+        //different price, category, and description -> returns true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
                 .withPrice(VALID_PRICE_CHICKEN)
                 .withDescription(VALID_DESCRIPTION_CHICKEN)

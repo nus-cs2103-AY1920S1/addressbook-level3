@@ -18,11 +18,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * Edits the details of an existing expense in the address book.
@@ -99,11 +100,11 @@ public class EditCommand extends UndoableCommand {
 
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Price updatedPrice = editExpenseDescriptor.getPrice().orElse(expenseToEdit.getPrice());
-        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
+        Set<Category> updatedCategories = editExpenseDescriptor.getCategories().orElse(expenseToEdit.getCategories());
         Timestamp updatedTimestamp = editExpenseDescriptor.getTimestamp().orElse(expenseToEdit.getTimestamp());
 
 
-        return new Expense(updatedDescription, updatedPrice, updatedTags,
+        return new Expense(updatedDescription, updatedPrice, updatedCategories,
                 updatedTimestamp, expenseToEdit.getUniqueIdentifier());
     }
 
@@ -132,7 +133,7 @@ public class EditCommand extends UndoableCommand {
     public static class EditExpenseDescriptor {
         private Description description;
         private Price price;
-        private Set<Tag> tags;
+        private Set<Category> categories;
         private Timestamp timestamp;
 
         public EditExpenseDescriptor() {}
@@ -144,7 +145,7 @@ public class EditCommand extends UndoableCommand {
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setDescription(toCopy.description);
             setPrice(toCopy.price);
-            setTags(toCopy.tags);
+            setCategories(toCopy.categories);
             setTimestamp(toCopy.timestamp);
         }
 
@@ -152,7 +153,7 @@ public class EditCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, price, tags, timestamp);
+            return CollectionUtil.isAnyNonNull(description, price, categories, timestamp);
         }
 
         public void setDescription(Description description) {
@@ -175,17 +176,17 @@ public class EditCommand extends UndoableCommand {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setCategories(Set<Category> categories) {
+            this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Category>> getCategories() {
+            return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
         }
 
         public void setTimestamp(Timestamp timestamp) {
@@ -213,7 +214,7 @@ public class EditCommand extends UndoableCommand {
 
             return getDescription().equals(e.getDescription())
                     && getPrice().equals(e.getPrice())
-                    && getTags().equals(e.getTags())
+                    && getCategories().equals(e.getCategories())
                     && getTimestamp().equals(e.getTimestamp());
         }
     }

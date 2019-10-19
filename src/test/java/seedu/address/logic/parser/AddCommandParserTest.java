@@ -17,9 +17,10 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
-import seedu.address.model.tag.Tag;
+
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -57,9 +58,9 @@ public class AddCommandParserTest {
                         + TAG_DESC_DISCOUNTED + TAG_DESC_CLAIMABLE,
                 Price.MESSAGE_CONSTRAINTS);
 
-        // invalid tag
+        // invalid category
         assertParseFailure(parser, DESCRIPTION_DESC_TRANSPORT + PRICE_DESC_TRANSPORT
-                + INVALID_TAG_DESC + VALID_TAG_DISCOUNTED, Tag.MESSAGE_CONSTRAINTS);
+                + INVALID_TAG_DESC + VALID_TAG_DISCOUNTED, Category.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_DESCRIPTION_DESC + PRICE_DESC_TRANSPORT,

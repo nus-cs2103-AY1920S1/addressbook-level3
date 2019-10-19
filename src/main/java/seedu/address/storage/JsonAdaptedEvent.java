@@ -11,11 +11,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -27,7 +28,7 @@ class JsonAdaptedEvent {
     private final String description;
     private final String price;
     private final String rawTimestamp;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -35,7 +36,7 @@ class JsonAdaptedEvent {
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("tagged") List<JsonAdaptedCategory> tagged,
                               @JsonProperty("timestamp") String rawTimestamp) {
         this.description = description;
         this.price = price;
@@ -52,8 +53,8 @@ class JsonAdaptedEvent {
         description = source.getDescription().fullDescription;
         price = source.getPrice().value;
         rawTimestamp = source.getTimestamp().toString();
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        tagged.addAll(source.getCategories().stream()
+                .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
     }
 
@@ -63,9 +64,9 @@ class JsonAdaptedEvent {
      * @throws IllegalValueException if there were any data constraints violated in the adapted event.
      */
     public Event toModelType() throws IllegalValueException {
-        final List<Tag> expenseTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            expenseTags.add(tag.toModelType());
+        final List<Category> expenseCategories = new ArrayList<>();
+        for (JsonAdaptedCategory tag : tagged) {
+            expenseCategories.add(tag.toModelType());
         }
 
         if (description == null) {
@@ -97,8 +98,8 @@ class JsonAdaptedEvent {
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 
-        final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Event(modelDescription, modelPrice, modelTags, modelTimestamp);
+        final Set<Category> modelCategories = new HashSet<>(expenseCategories);
+        return new Event(modelDescription, modelPrice, modelCategories, modelTimestamp);
     }
 
 }

@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.tag.Tag;
 
 
 
@@ -25,19 +25,19 @@ public class Statistics {
 
     private FilteredList<Expense> expenses;
 
-    private List<Tag> tags;
+    private List<Category> categories;
 
     private StringBuilder statsBuilder = new StringBuilder();
 
     /**
      * Creates a Statistics object
      * @param expenses A list of expenses in the current budget
-     * @param tags A list of tags used among all expenses
+     * @param categories A list of tags used among all expenses
      */
-    private Statistics(FilteredList<Expense> expenses, List<Tag> tags) {
-        requireNonNull(tags);
+    private Statistics(FilteredList<Expense> expenses, List<Category> categories) {
+        requireNonNull(categories);
         this.expenses = expenses;
-        this.tags = tags;
+        this.categories = categories;
     }
 
     /**
@@ -50,8 +50,8 @@ public class Statistics {
     /**
      * Returns the tags used among all expenses
      */
-    public List<Tag> getTags() {
-        return tags;
+    public List<Category> getCategories() {
+        return categories;
     }
 
 
@@ -62,8 +62,8 @@ public class Statistics {
      */
     public static Statistics startStatistics(FilteredList<Expense> expenses) {
         requireNonNull(expenses);
-        List<Tag> tags = collateTagNames(expenses);
-        return new Statistics(expenses, tags);
+        List<Category> categories = collateTagNames(expenses);
+        return new Statistics(expenses, categories);
     }
 
     /**
@@ -150,7 +150,7 @@ public class Statistics {
      * @return The correct result to be placed into the result table
      */
     private Object handleInputType(Object firstInput, Object secondInput) {
-        if (firstInput instanceof Tag) {
+        if (firstInput instanceof Category) {
             return firstInput;
         } else if (firstInput instanceof Double) {
             return (Double) secondInput - (Double) firstInput;
@@ -194,7 +194,7 @@ public class Statistics {
      */
     private ArrayList<ArrayList<Object>> createEmptyTableWithPercentage() {
         ArrayList<ArrayList<Object>> table = new ArrayList<>();
-        for (int i = 0; i < tags.size() + 1; i++) {
+        for (int i = 0; i < categories.size() + 1; i++) {
             ArrayList<Object> tableEntry = new ArrayList<>();
             table.add(tableEntry);
             tableEntry.add(null);
@@ -213,7 +213,7 @@ public class Statistics {
      */
     private ArrayList<ArrayList<Object>> createEmptyTableWithoutPercentage() {
         ArrayList<ArrayList<Object>> table = new ArrayList<>();
-        for (int i = 0; i < tags.size() + 1; i++) {
+        for (int i = 0; i < categories.size() + 1; i++) {
             ArrayList<Object> tableEntry = new ArrayList<>();
             table.add(tableEntry);
             tableEntry.add(null);
@@ -230,10 +230,10 @@ public class Statistics {
     private void convertDataToFigures(ArrayList<ArrayList<Expense>> data,
                                       ArrayList<ArrayList<Object>> table, boolean hasFourColumns) {
 
-        ArrayList<Object> entryForTotal = table.get(tags.size());
+        ArrayList<Object> entryForTotal = table.get(categories.size());
         entryForTotal.set(0, "Total");
 
-        for (int i = 0; i < tags.size(); i++) {
+        for (int i = 0; i < categories.size(); i++) {
             ArrayList<Expense> categoryStats = data.get(i);
             ArrayList<Object> tableEntry = table.get(i);
 
@@ -244,7 +244,7 @@ public class Statistics {
                 entryNumber++;
             }
 
-            tableEntry.set(0, tags.get(i));
+            tableEntry.set(0, categories.get(i));
             tableEntry.set(1, categoricalTotal);
             tableEntry.set(2, entryNumber);
             if (hasFourColumns) {
@@ -257,7 +257,7 @@ public class Statistics {
         double totalAmount = (Double) entryForTotal.get(1);
 
         if (hasFourColumns) {
-            for (int i = 0; i < tags.size() + 1; i++) {
+            for (int i = 0; i < categories.size() + 1; i++) {
                 ArrayList<Object> tableEntry = table.get(i);
                 double categoricalTotal = (Double) tableEntry.get(3);
                 double roundedResult = Math.round(categoricalTotal * 10000 / totalAmount) / 100.0;
@@ -306,17 +306,17 @@ public class Statistics {
     private ArrayList<ArrayList<Expense>> extractRelevantExpenses(Timestamp startDate, Timestamp endDate) {
         ArrayList<ArrayList<Expense>> data = new ArrayList<>();
 
-        List<Tag> tags = collateTagNames(expenses);
-        for (int i = 0; i <= tags.size(); i++) {
+        List<Category> categories = collateTagNames(expenses);
+        for (int i = 0; i <= categories.size(); i++) {
             data.add(new ArrayList<>());
         }
 
         for (Expense expense : expenses) {
             Timestamp date = expense.getTimestamp();
             if (date.compareTo(startDate) != -1 && date.compareTo(endDate) != 1) {
-                data.get(tags.size()).add(expense);
-                for (Tag tag : new ArrayList<>(expense.getTags())) {
-                    int index = tags.indexOf(tag);
+                data.get(categories.size()).add(expense);
+                for (Category category : new ArrayList<>(expense.getCategories())) {
+                    int index = categories.indexOf(category);
                     data.get(index).add(expense);
                 }
 
@@ -328,13 +328,13 @@ public class Statistics {
     /**
      * Returns a list of tags used among all expenses
      */
-    private static List<Tag> collateTagNames(FilteredList<Expense> expenses) {
-        Set<Tag> tags = new HashSet<>();
+    private static List<Category> collateTagNames(FilteredList<Expense> expenses) {
+        Set<Category> categories = new HashSet<>();
         for (Expense expense: expenses) {
-            tags.addAll(expense.getTags());
+            categories.addAll(expense.getCategories());
         }
 
-        List<Tag> result = new ArrayList<>(tags);
+        List<Category> result = new ArrayList<>(categories);
         return result;
     }
 

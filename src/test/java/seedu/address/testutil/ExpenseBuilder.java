@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueIdentifier;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -25,14 +25,14 @@ public class ExpenseBuilder {
 
     private Description description;
     private Price price;
-    private Set<Tag> tags;
+    private Set<Category> categories;
     private UniqueIdentifier uniqueIdentifier;
     private Timestamp timestamp;
 
     public ExpenseBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         price = new Price(DEFAULT_PRICE);
-        tags = new HashSet<>(Arrays.asList(new Tag(DEFAULT_TAGS)));
+        categories = new HashSet<>(Arrays.asList(new Category(DEFAULT_TAGS)));
         uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
         timestamp = Timestamp.createTimestampIfValid(DEFAULT_TIMESTAMP).get();
     }
@@ -43,7 +43,7 @@ public class ExpenseBuilder {
     public ExpenseBuilder(Expense expenseToCopy) {
         description = expenseToCopy.getDescription();
         price = expenseToCopy.getPrice();
-        tags = new HashSet<>(expenseToCopy.getTags());
+        categories = new HashSet<>(expenseToCopy.getCategories());
         uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
         timestamp = expenseToCopy.getTimestamp();
     }
@@ -60,7 +60,7 @@ public class ExpenseBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expense} that we are building.
      */
     public ExpenseBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.categories = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -89,7 +89,7 @@ public class ExpenseBuilder {
     }
 
     public Expense build() {
-        return new Expense(description, price, tags, timestamp, uniqueIdentifier);
+        return new Expense(description, price, categories, timestamp, uniqueIdentifier);
     }
 
 }

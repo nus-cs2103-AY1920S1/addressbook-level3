@@ -26,9 +26,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 public class EditCommandParserTest {
@@ -73,7 +73,7 @@ public class EditCommandParserTest {
                 parser,
                 "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS); // invalid price
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
 
         // invalid price followed by valid email
         assertParseFailure(
@@ -84,16 +84,16 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + PRICE_DESC_TRANSPORT + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Expense} being edited,
-        // parsing it together with a valid tag results in error
+        // parsing it together with a valid category results in error
         assertParseFailure(
                 parser,
-                "1" + TAG_DESC_CLAIMABLE + TAG_DESC_DISCOUNTED + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+                "1" + TAG_DESC_CLAIMABLE + TAG_DESC_DISCOUNTED + TAG_EMPTY, Category.MESSAGE_CONSTRAINTS);
         assertParseFailure(
                 parser,
-                "1" + TAG_DESC_CLAIMABLE + TAG_EMPTY + TAG_DESC_DISCOUNTED, Tag.MESSAGE_CONSTRAINTS);
+                "1" + TAG_DESC_CLAIMABLE + TAG_EMPTY + TAG_DESC_DISCOUNTED, Category.MESSAGE_CONSTRAINTS);
         assertParseFailure(
                 parser,
-                "1" + TAG_EMPTY + TAG_DESC_CLAIMABLE + TAG_DESC_DISCOUNTED, Tag.MESSAGE_CONSTRAINTS);
+                "1" + TAG_EMPTY + TAG_DESC_CLAIMABLE + TAG_DESC_DISCOUNTED, Category.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(

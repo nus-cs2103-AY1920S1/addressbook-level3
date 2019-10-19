@@ -6,11 +6,12 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * A utility class to help with building EditExpenseDescriptor objects.
@@ -34,7 +35,7 @@ public class EditExpenseDescriptorBuilder {
         descriptor = new EditExpenseDescriptor();
         descriptor.setDescription(expense.getDescription());
         descriptor.setPrice(expense.getPrice());
-        descriptor.setTags(expense.getTags());
+        descriptor.setCategories(expense.getCategories());
         descriptor.setTimestamp(expense.getTimestamp());
     }
 
@@ -59,8 +60,8 @@ public class EditExpenseDescriptorBuilder {
      * that we are building.
      */
     public EditExpenseDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+        Set<Category> categorySet = Stream.of(tags).map(Category::new).collect(Collectors.toSet());
+        descriptor.setCategories(categorySet);
         return this;
     }
 

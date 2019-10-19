@@ -35,7 +35,7 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label price;
     @FXML
-    private FlowPane tags;
+    private FlowPane categories;
     @FXML
     private HBox priceColumn;
 
@@ -45,9 +45,9 @@ public class ExpenseCard extends UiPart<Region> {
         index.setText(displayedIndex + ". ");
         description.setText(expense.getDescription().fullDescription);
         price.setText("$" + expense.getPrice().value);
-        expense.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        expense.getCategories().stream()
+                .sorted(Comparator.comparing(category -> category.categoryName))
+                .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override

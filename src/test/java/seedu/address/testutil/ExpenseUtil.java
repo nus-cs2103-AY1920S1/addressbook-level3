@@ -9,8 +9,8 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Expense.
@@ -31,8 +31,8 @@ public class ExpenseUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_DESCRIPTION + expense.getDescription().fullDescription + " ");
         sb.append(PREFIX_PRICE + expense.getPrice().value + " ");
-        expense.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        expense.getCategories().stream().forEach(
+            s -> sb.append(PREFIX_TAG + s.categoryName + " ")
         );
         sb.append(PREFIX_TIMESTAMP + expense.getTimestamp().toString() + " ");
         return sb.toString();
@@ -46,12 +46,12 @@ public class ExpenseUtil {
         descriptor.getDescription().ifPresent(description -> sb
                 .append(PREFIX_DESCRIPTION).append(description.fullDescription).append(" "));
         descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
+        if (descriptor.getCategories().isPresent()) {
+            Set<Category> categories = descriptor.getCategories().get();
+            if (categories.isEmpty()) {
                 sb.append(PREFIX_TAG);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                categories.forEach(s -> sb.append(PREFIX_TAG).append(s.categoryName).append(" "));
             }
         }
         descriptor.getTimestamp()
