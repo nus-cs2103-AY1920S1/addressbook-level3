@@ -7,12 +7,18 @@ import static seedu.address.overview.ui.OverviewMessages.INVENTORY_PIE_CHART_TIT
 import static seedu.address.overview.ui.OverviewMessages.INVENTORY_SUMMARY_TEXT;
 import static seedu.address.overview.ui.OverviewMessages.SALES_SUMMARY_TEXT;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -43,12 +49,26 @@ public class Overview extends UiPart<Region> {
     @FXML
     private PieChart inventoryPieChart;
 
+    @FXML
+    private BarChart salesBarChart;
+
+    @FXML
+    private CategoryAxis salesXAxis;
+
+    @FXML
+    private NumberAxis salesYAxis;
+
+    @FXML
+    private LineChart budgetBarChart;
+
     public Overview(Logic overviewLogic) {
         super(FXML);
 
         initialiseLabels(overviewLogic);
         initialiseExpensePieChart(overviewLogic);
         initialiseInventoryPieChart(overviewLogic);
+        initialiseSalesBarChart(overviewLogic);
+        initialiseBudgetBarChart(overviewLogic);
 
     }
 
@@ -111,6 +131,33 @@ public class Overview extends UiPart<Region> {
         inventoryPieChart.setLabelLineLength(20);
         inventoryPieChart.setLabelsVisible(true);
         inventoryPieChart.setStartAngle(180);
+    }
+
+    /**
+     * Initialises the Bar CHart for Sales in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
+     */
+    void initialiseSalesBarChart(Logic overviewLogic) {
+        LocalDate currentDate = LocalDate.now();
+        List<String> months = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            months.add(currentDate.getMonth().toString());
+            currentDate = currentDate.minusMonths(1);
+        }
+
+        Collections.reverse(months);
+
+        salesXAxis.setCategories(FXCollections.observableList(months));
+
+        salesYAxis.setLabel("Amount");
+
+        //XYChart.Series<String, Number>
+
+    }
+
+    void initialiseBudgetBarChart(Logic overviewLogic) {
+
     }
 
 }
