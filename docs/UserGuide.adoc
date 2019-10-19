@@ -408,6 +408,14 @@ Examples:
 * `check core` -- checks only core modules +
 * `check focus` -- checks only the declared focus area
 
+==== Viewing modules that can be taken in a given semester : `validmods`
+Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
+Format: `validmods SEMESTER`
+
+Example:
+
+* `validmods y2s1`
+
 ==== Displays
 Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules as tags.
 

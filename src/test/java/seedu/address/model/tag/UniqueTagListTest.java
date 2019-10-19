@@ -65,8 +65,10 @@ public class UniqueTagListTest {
     public void containsTagWithName_tagInList_returnsTrue() {
         uniqueTagList.addTag(new TagBuilder().buildDefaultCoreTag());
         assertTrue(uniqueTagList.containsTagWithName("Core"));
+        assertTrue(uniqueTagList.containsTagWithName("core"));
         uniqueTagList.addTag(new TagBuilder().buildTestUserTag());
         assertTrue(uniqueTagList.containsTagWithName("testUserTag"));
+        assertTrue(uniqueTagList.containsTagWithName("testusertag"));
     }
 
     @Test

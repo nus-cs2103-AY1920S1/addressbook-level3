@@ -19,6 +19,7 @@ import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
 import seedu.address.model.versiontracking.StudyPlanCommitManagerList;
@@ -233,6 +234,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public void setCurrentSemester(SemesterName semesterName) {
         currentSemester = semesterName;
+        activeStudyPlan.setCurrentSemester(semesterName);
     }
 
     /**
@@ -315,6 +317,44 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public void deleteStudyPlanCommitManagerByIndex(int index) throws StudyPlanCommitManagerNotFoundException {
         versionTrackingManager.deleteStudyPlanCommitManagerByIndex(index);
+    }
+
+    //// tagging methods
+
+    public boolean addTagToActiveSp(UserTag tag, String moduleCode) {
+        return activeStudyPlan.addTag(tag, moduleCode);
+    }
+
+    public boolean activeSpContainsTag(String tagName) {
+        return activeStudyPlan.containsTag(tagName);
+    }
+
+    public Tag getTagFromActiveSp(String tagName) {
+        return activeStudyPlan.getTag(tagName);
+    }
+
+    public UniqueTagList getTagsFromActiveSp() {
+        return activeStudyPlan.getTags();
+    }
+
+    public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
+        return activeStudyPlan.getModuleTags(moduleCode);
+    }
+
+    public void deleteTagFromActiveSp(UserTag toDelete) {
+        activeStudyPlan.deleteTag(toDelete);
+    }
+
+    public void removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+        activeStudyPlan.removeTagFromAllModules(toRemove);
+    }
+
+    public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {
+        return activeStudyPlan.removeTagFromModule(toRemove, moduleCode);
+    }
+
+    public void updateAllCompletedTags() {
+        activeStudyPlan.updateAllCompletedTags();
     }
 
     //// util methods

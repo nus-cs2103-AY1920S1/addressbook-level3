@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.datamanagement.TagModuleCommand;
+import seedu.address.logic.commands.datamanagement.AddTagCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -15,9 +15,9 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new TagModuleCommand object
+ * Parses input arguments and creates a new AddTagCommand object
  */
-public class TagModuleCommandParser implements Parser<TagModuleCommand> {
+public class TagModuleCommandParser implements Parser<AddTagCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -28,23 +28,23 @@ public class TagModuleCommandParser implements Parser<TagModuleCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the TagModuleCommand
-     * and returns an TagModuleCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddTagCommand
+     * and returns an AddTagCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public TagModuleCommand parse(String args) throws ParseException {
+    public AddTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    TagModuleCommand.MESSAGE_USAGE));
+                    AddTagCommand.MESSAGE_USAGE));
         }
         String moduleCode = ParserUtil.parseModule(argMultimap.getValue(PREFIX_MODULE_CODE).get());
         String tagName = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
-        return new TagModuleCommand(tagName, moduleCode);
+        return new AddTagCommand(tagName, moduleCode);
     }
 
 }

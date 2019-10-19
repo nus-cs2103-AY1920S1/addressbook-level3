@@ -9,6 +9,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 
 /**
@@ -194,5 +197,25 @@ public interface Model {
     void setSemester(SemesterName semester);
 
     Semester getSemester(SemesterName semesterName);
+
+    // ===================== TAGGING ==========================
+
+    boolean addTagToActiveSp(UserTag tag, String moduleCode);
+
+    boolean activeSpContainsTag(String tagName);
+
+    void deleteTagFromActiveSp(UserTag toDelete);
+
+    void removeTagFromAllModulesInActiveSp(UserTag toRemove);
+
+    boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode);
+
+    Tag getTagFromActiveSp(String tagName);
+
+    UniqueTagList getTagsFromActiveSp();
+
+    UniqueTagList getModuleTagsFromActiveSp(String moduleCode);
+
+    void updateAllCompletedTags();
 
 }

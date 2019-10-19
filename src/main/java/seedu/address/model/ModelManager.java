@@ -17,6 +17,9 @@ import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
@@ -270,6 +273,44 @@ public class ModelManager implements Model {
     public void blockSemester(SemesterName sem, String reason) {
         // TODO: blockSemester in StudyPlan class
         // this.modulePlanner.getActiveStudyPlan().blockSemester(semester);
+    }
+
+    // ===================== TAGGING ==========================
+
+    public boolean addTagToActiveSp(UserTag tag, String moduleCode) {
+        return modulePlanner.addTagToActiveSp(tag, moduleCode);
+    }
+
+    public boolean activeSpContainsTag(String tagName) {
+        return modulePlanner.activeSpContainsTag(tagName);
+    }
+
+    public Tag getTagFromActiveSp(String tagName) {
+        return modulePlanner.getTagFromActiveSp(tagName);
+    }
+
+    public UniqueTagList getTagsFromActiveSp() {
+        return modulePlanner.getTagsFromActiveSp();
+    }
+
+    public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
+        return modulePlanner.getModuleTagsFromActiveSp(moduleCode);
+    }
+
+    public void deleteTagFromActiveSp(UserTag toDelete) {
+        modulePlanner.deleteTagFromActiveSp(toDelete);
+    }
+
+    public void removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+        modulePlanner.removeTagFromAllModulesInActiveSp(toRemove);
+    }
+
+    public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {
+        return modulePlanner.removeTagFromModuleInActiveSp(toRemove, moduleCode);
+    }
+
+    public void updateAllCompletedTags() {
+        modulePlanner.updateAllCompletedTags();
     }
 
 }

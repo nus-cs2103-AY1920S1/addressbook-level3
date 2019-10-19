@@ -2,17 +2,14 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
-import seedu.address.model.tag.exceptions.InvalidTagModificationException;
-import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Renames a tag
@@ -26,13 +23,13 @@ public class RenameTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Renames the tag with the specified original name "
             + "with the specified new name. "
             + "Parameters: "
-            + "ORIGINAL_TAG_NAME "
-            + "NEW_TAG_NAME \n"
+            + PREFIX_TAG + "ORIGINAL_TAG_NAME "
+            + PREFIX_TAG + "NEW_TAG_NAME \n"
             + "Example: "
-            + "rename exchange SEP";
+            + "rename t/exchange t/SEP";
 
-    public static final String MESSAGE_SUCCESS = "Tag renamed %1$s";
-    public static final String MESSAGE_TAG_NOT_FOUND = "A tag with the given tag name cannot be found";
+    public static final String MESSAGE_SUCCESS = "Tag [%1$s] renamed to %2$s";
+    public static final String MESSAGE_TAG_NOT_FOUND = "There is no [%1$s] tag in this study plan";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be renamed";
 
     private final String originalTagName;
@@ -54,32 +51,21 @@ public class RenameTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        StudyPlan activeStudyPlan = model.getActiveStudyPlan();
-        UniqueTagList uniqueTagList = activeStudyPlan.getTags();
+        boolean tagExists = model.activeSpContainsTag(originalTagName);
+        if (!tagExists) {
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, originalTagName));
+        }
 
-        UserTag toRename;
-        try {
-            toRename = (UserTag) getTagToRename(uniqueTagList);
-        } catch (TagNotFoundException e1) {
-            throw new CommandException(MESSAGE_TAG_NOT_FOUND);
-        } catch (InvalidTagModificationException e2) {
+        Tag targetTag = model.getTagFromActiveSp(originalTagName);
+        if (targetTag.isDefault()) {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }
+
+        UserTag toRename = (UserTag) targetTag;
+
         toRename.rename(newTagName);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toRename));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, originalTagName, toRename));
     }
 
-    private Tag getTagToRename(UniqueTagList uniqueTagList) throws TagNotFoundException,
-            InvalidTagModificationException {
-        boolean tagExists = uniqueTagList.containsTagWithName(originalTagName);
-        if (!tagExists) {
-            throw new TagNotFoundException();
-        }
-        Tag targetTag = uniqueTagList.getTag(originalTagName);
-        if (targetTag.isDefault()) {
-            throw new InvalidTagModificationException();
-        }
-        return targetTag;
-    }
 }
