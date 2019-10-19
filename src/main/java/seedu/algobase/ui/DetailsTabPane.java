@@ -7,14 +7,14 @@ import javafx.scene.layout.Region;
 /**
  * Contains details about a specific model.
  */
-public class DetailPane extends UiPart<Region> {
+public class DetailsTabPane extends UiPart<Region> {
 
-    private static final String FXML = "DetailPane.fxml";
+    private static final String FXML = "DetailsTabPane.fxml";
 
     @FXML
-    private AnchorPane detailPanePlaceholder;
+    private AnchorPane detailsTabPanePlaceholder;
 
-    public DetailPane() {
+    public DetailsTabPane() {
         super(FXML);
     }
 }

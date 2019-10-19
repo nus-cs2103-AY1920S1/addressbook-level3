@@ -34,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private DisplayTabPane displayTabPane;
-    private DetailPane detailPane;
+    private DetailsTabPane detailsTabPane;
     private ProblemListPanel problemListPanel;
     private PlanListPanel planListPanel;
     private TaskListPanel taskListPanel;
@@ -114,10 +114,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         displayTabPane = getDisplayTabPane();
-        detailPane = new DetailPane();
+        detailsTabPane = new DetailsTabPane();
 
         layoutPanePlaceholder.getItems().add(displayTabPane.getRoot());
-        layoutPanePlaceholder.getItems().add(detailPane.getRoot());
+        layoutPanePlaceholder.getItems().add(detailsTabPane.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
