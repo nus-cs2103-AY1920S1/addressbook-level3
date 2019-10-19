@@ -134,14 +134,14 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Franklin Gothic Demi Cond";
     -fx-font-size: 20px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
+    -fx-font-family: "Franklin Gothic Book";
+    -fx-font-size: 14px;
     -fx-text-fill: #010504;
 }
 
