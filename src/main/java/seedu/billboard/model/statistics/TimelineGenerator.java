@@ -44,7 +44,7 @@ public class TimelineGenerator implements StatisticsGenerator<ExpenseTimeline> {
         LocalDateTime startDateTime = sortedExpenses.get(0).getCreated().dateTime;
         LocalDateTime endDateTime = sortedExpenses.get(sortedExpenses.size() - 1).getCreated().dateTime;
 
-        DateRange dateRange = new DateRange(startDateTime.toLocalDate(), endDateTime.toLocalDate());
+        DateRange dateRange = DateRange.fromClosed(startDateTime.toLocalDate(), endDateTime.toLocalDate());
         List<DateRange> timelineIntervals = dateRange.partitionByInterval(interval);
 
 

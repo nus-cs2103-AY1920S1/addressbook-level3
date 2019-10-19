@@ -36,7 +36,7 @@ public class FilledExpenseTimelineTest {
 
     @Test
     public void constructor_numberOfIntervalsAndSizeOfAggregateExpenseListMismatch_throwsException() {
-        DateRange dateRange = new DateRange(LocalDate.of(2016, 6, 12),
+        DateRange dateRange = DateRange.fromClosed(LocalDate.of(2016, 6, 12),
                 LocalDate.of(2017, 6, 21));
         DateInterval interval = DateInterval.MONTH; // 12 months
 
@@ -50,7 +50,7 @@ public class FilledExpenseTimelineTest {
 
     @Test
     public void getTimeline_oneInterval_expectedMap() {
-        DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 1),
+        DateRange dateRange = DateRange.fromClosed(LocalDate.of(2019, 1, 1),
                 LocalDate.of(2019, 1, 6));
 
         DateInterval interval = DateInterval.WEEK;
@@ -66,7 +66,7 @@ public class FilledExpenseTimelineTest {
 
     @Test
     public void getTimeline_manyIntervals_expectedMap() {
-        DateRange dateRange = new DateRange(LocalDate.of(2000, 1, 4),
+        DateRange dateRange = DateRange.fromClosed(LocalDate.of(2000, 1, 4),
                 LocalDate.of(2000, 12, 2));
 
         DateInterval interval = DateInterval.MONTH;
@@ -79,7 +79,7 @@ public class FilledExpenseTimelineTest {
                 .getTimelineValues();
 
         for (int i = 1; i <= 12; i++) {
-            DateRange range = new DateRange(LocalDate.of(2000, i, 1),
+            DateRange range = DateRange.fromClosed(LocalDate.of(2000, i, 1),
                     LocalDate.of(2000, i, 1).with(TemporalAdjusters.lastDayOfMonth()));
             Amount amount = new Amount(i + ".20");
 

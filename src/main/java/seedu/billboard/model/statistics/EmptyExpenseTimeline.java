@@ -30,6 +30,6 @@ public class EmptyExpenseTimeline implements ExpenseTimeline {
 
     @Override
     public List<Pair<DateRange, Amount>> getTimelineValues() {
-        return Collections.singletonList(new Pair<>(new DateRange(startDate, endDate), new Amount("0")));
+        return Collections.singletonList(new Pair<>(DateRange.fromClosed(startDate, endDate), new Amount("0")));
     }
 }
