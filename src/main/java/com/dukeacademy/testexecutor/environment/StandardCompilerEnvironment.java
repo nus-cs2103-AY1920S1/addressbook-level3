@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.model.solutions.UserProgram;
+import com.dukeacademy.model.program.UserProgram;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.models.JavaFile;
@@ -154,8 +154,6 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
      * @throws JavaFileCreationException if the file creation fails.
      */
     private File createEmptyJavaFileInEnvironment(String canonicalName) throws JavaFileCreationException {
-        String path = locationPath.toUri().getPath();
-
         // Split the canonical name into individual subpackages and create a corresponding path.
         Path filePath = Arrays.stream(canonicalName.split("\\."))
                 .reduce(this.locationPath, Path::resolve, Path::resolve);
@@ -191,7 +189,6 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
      * @throws JavaFileCreationException if the program write fails.
      */
     private void writeProgramToJavaFile(File javaFile, String program) throws JavaFileCreationException {
-        String path = locationPath.toUri().getPath();
         logger.info("Writing source code to file: " + javaFile.getPath());
 
         try {

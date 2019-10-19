@@ -1,4 +1,4 @@
-package com.dukeacademy.testexecutor.program;
+package com.dukeacademy.testexecutor.executor;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -96,7 +96,8 @@ public class StandardProgramExecutor implements ProgramExecutor {
         ProgramOutput programOutput = ProgramOutput.getEmptyProgramOutput();
 
         // Append the output to our model
-        programOutput = reader.lines().reduce(programOutput, ProgramOutput::appendNewLine, ProgramOutput::appendNewLine);
+        programOutput = reader.lines().reduce(programOutput, ProgramOutput::appendNewLine,
+                ProgramOutput::appendNewLine);
 
         return programOutput;
     }

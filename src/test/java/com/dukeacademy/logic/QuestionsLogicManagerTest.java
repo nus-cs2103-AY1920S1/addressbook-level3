@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.logic.question.QuestionsLogicManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -24,6 +22,8 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.ListCommand;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
+import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.logic.question.QuestionsLogicManager;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
 import com.dukeacademy.model.ReadOnlyQuestionBank;

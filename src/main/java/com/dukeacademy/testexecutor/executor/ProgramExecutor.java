@@ -1,4 +1,4 @@
-package com.dukeacademy.testexecutor.program;
+package com.dukeacademy.testexecutor.executor;
 
 import com.dukeacademy.testexecutor.exceptions.ProgramExecutorException;
 import com.dukeacademy.testexecutor.models.ClassFile;

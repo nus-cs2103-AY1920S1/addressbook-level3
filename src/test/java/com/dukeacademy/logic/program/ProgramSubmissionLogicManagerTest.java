@@ -1,26 +1,11 @@
-package com.dukeacademy.testexecutor;
+package com.dukeacademy.logic.program;
 
-import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
-import com.dukeacademy.logic.program.exceptions.LogicCreationException;
-import com.dukeacademy.model.question.Difficulty;
-import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.Status;
-import com.dukeacademy.model.question.TestCase;
-import com.dukeacademy.model.program.TestCaseResult;
-import com.dukeacademy.model.program.TestResult;
-import com.dukeacademy.model.program.UserProgram;
-import com.dukeacademy.model.question.Title;
-import com.dukeacademy.model.question.Topic;
-import com.dukeacademy.model.tag.Tag;
-import com.dukeacademy.observable.TestListener;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,11 +14,31 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.dukeacademy.logic.program.exceptions.LogicCreationException;
+import com.dukeacademy.logic.program.exceptions.NoQuestionSetException;
+import com.dukeacademy.logic.program.exceptions.SubmissionLogicManagerClosedException;
+import com.dukeacademy.model.program.TestCaseResult;
+import com.dukeacademy.model.program.TestResult;
+import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.Difficulty;
+import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.Status;
+import com.dukeacademy.model.question.TestCase;
+import com.dukeacademy.model.question.Title;
+import com.dukeacademy.model.question.Topic;
+import com.dukeacademy.model.tag.Tag;
+import com.dukeacademy.observable.Observable;
+import com.dukeacademy.observable.TestListener;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProgramSubmissionLogicManagerTest {
@@ -41,23 +46,34 @@ class ProgramSubmissionLogicManagerTest {
     public static Path tempPath;
 
 
-    private ProgramSubmissionLogicManager logicManager;
+    private ProgramSubmissionLogicManager programSubmissionLogicManager;
 
     @BeforeEach
     void initializeTest() throws LogicCreationException {
-        this.logicManager = new ProgramSubmissionLogicManager(tempPath.toUri().getPath());
+        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toUri().getPath());
     }
 
     @AfterEach
     void closeTest() {
-        this.logicManager.closeProgramSubmissionLogicManager();
+        this.programSubmissionLogicManager.closeProgramSubmissionLogicManager();
     }
 
+    @Test
+    void exceptionsTest() {
+        // Test no question set
+        UserProgram mockProgram = new UserProgram("Test", "test");
+        assertThrows(NoQuestionSetException.class, () -> this.programSubmissionLogicManager
+                .submitUserProgram(mockProgram));
+
+        // Test invalid directory
+        assertThrows(LogicCreationException.class, () -> new
+                ProgramSubmissionLogicManager("ra$123sdg!#z"));
+    }
 
     @Test
     void submitUserProgram() throws IOException {
         TestListener<TestResult> resultListener = new TestListener<>();
-        this.logicManager.getTestResultObservable().addListener(resultListener);
+        this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
 
         // Test for fib
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
@@ -67,9 +83,9 @@ class ProgramSubmissionLogicManagerTest {
         String sourceCode = Files.readString(program);
         UserProgram userProgram = new UserProgram("Fib", sourceCode);
 
-        Question question = this.createMockQuestion(testCases);
-        this.logicManager.setCurrentQuestion(question);
-        this.logicManager.submitUserProgram(userProgram);
+        Question question = this.createMockQuestion("Fib", testCases);
+        this.programSubmissionLogicManager.setCurrentQuestion(question);
+        this.programSubmissionLogicManager.submitUserProgram(userProgram);
 
         TestResult result = resultListener.getLatestValue();
         assertNotNull(result);
@@ -85,9 +101,9 @@ class ProgramSubmissionLogicManagerTest {
         String sourceCode1 = Files.readString(program1);
         UserProgram userProgram1 = new UserProgram("Nested", sourceCode1);
 
-        Question question1 = this.createMockQuestion(testCases1);
-        this.logicManager.setCurrentQuestion(question1);
-        this.logicManager.submitUserProgram(userProgram1);
+        Question question1 = this.createMockQuestion("Nested", testCases1);
+        this.programSubmissionLogicManager.setCurrentQuestion(question1);
+        this.programSubmissionLogicManager.submitUserProgram(userProgram1);
 
         TestResult result1 = resultListener.getLatestValue();
         assertNotNull(result1);
@@ -104,9 +120,9 @@ class ProgramSubmissionLogicManagerTest {
 
         // Test for compile error
         UserProgram program2 = new UserProgram("CompileError", "foobar");
-        Question question2 = this.createMockQuestion(mockTestCases);
-        this.logicManager.setCurrentQuestion(question2);
-        this.logicManager.submitUserProgram(program2);
+        Question question2 = this.createMockQuestion("CompileError", mockTestCases);
+        this.programSubmissionLogicManager.setCurrentQuestion(question2);
+        this.programSubmissionLogicManager.submitUserProgram(program2);
 
         TestResult result2 = resultListener.getLatestValue();
         assertTrue(result2.getCompileError().isPresent());
@@ -116,7 +132,7 @@ class ProgramSubmissionLogicManagerTest {
                 "TestPrograms", "errors", "indexoutofbounds.txt");
         UserProgram program3 = new UserProgram("Main", Files.readString(programPath));
 
-        this.logicManager.submitUserProgram(program3);
+        this.programSubmissionLogicManager.submitUserProgram(program3);
         TestResult result3 = resultListener.getLatestValue();
         assertTrue(result3.getCompileError().isEmpty());
         assertEquals(0, result3.getNumPassed());
@@ -127,6 +143,38 @@ class ProgramSubmissionLogicManagerTest {
             assertTrue(testCaseResult.getRuntimeError().isPresent());
         });
     }
+
+    @Test
+    void closeProgramSubmissionLogicManager() throws LogicCreationException {
+        this.programSubmissionLogicManager.closeProgramSubmissionLogicManager();
+        assertThrows(SubmissionLogicManagerClosedException.class,
+                this.programSubmissionLogicManager::closeProgramSubmissionLogicManager);
+        assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
+                .setCurrentQuestion(null));
+        assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
+                .getCurrentQuestionObservable());
+        assertThrows(SubmissionLogicManagerClosedException.class, ()-> this.programSubmissionLogicManager
+                .getTestResultObservable());
+        assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
+                .submitUserProgram(null));
+
+        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toUri().getPath());
+    }
+
+    @Test
+    void getAndSetCurrentQuestion() {
+        Observable<Question> currentQuestionObservable =
+                this.programSubmissionLogicManager.getCurrentQuestionObservable();
+        TestListener<Question> testListener = new TestListener<>();
+        currentQuestionObservable.addListener(testListener);
+
+        assertNull(testListener.getLatestValue());
+
+        this.programSubmissionLogicManager.setCurrentQuestion(this.createMockQuestion("abc123",
+                new ArrayList<>()));
+        assertEquals("abc123", testListener.getLatestValue().getTitle().fullTitle);
+    }
+
 
     /**
      * Load test cases from a root folder. Each test case is generated from an input text file following
@@ -182,13 +230,20 @@ class ProgramSubmissionLogicManagerTest {
                 .orElse(false);
     }
 
-    private Question createMockQuestion(List<TestCase> testCases) {
-        Title title = new Title("Test");
+    /**
+     * Creates a mock question for testing.
+     * @param titleName the name of the question.
+     * @param testCases the test cases of the question.
+     * @return the created question.
+     */
+    private Question createMockQuestion(String titleName, List<TestCase> testCases) {
+        Title title = new Title(titleName);
         Topic topic = new Topic("Test");
         Status status = new Status("Test");
         Difficulty difficulty = new Difficulty("Test");
         Set<Tag> tags = new HashSet<>();
 
-        return new Question(title, topic, status, difficulty, tags,testCases);
+        return new Question(title, topic, status, difficulty, tags, testCases);
     }
+
 }

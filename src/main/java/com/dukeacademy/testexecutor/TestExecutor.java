@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.dukeacademy.model.program.TestCaseResult;
+import com.dukeacademy.model.program.TestResult;
+import com.dukeacademy.model.program.UserProgram;
 import com.dukeacademy.model.question.TestCase;
-import com.dukeacademy.model.solutions.TestCaseResult;
-import com.dukeacademy.model.solutions.TestResult;
-import com.dukeacademy.model.solutions.UserProgram;
 import com.dukeacademy.testexecutor.compiler.Compiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
@@ -17,19 +17,18 @@ import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.exceptions.ProgramExecutorException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorExceptionWrapper;
+import com.dukeacademy.testexecutor.executor.ProgramExecutor;
 import com.dukeacademy.testexecutor.models.ClassFile;
 import com.dukeacademy.testexecutor.models.CompileError;
 import com.dukeacademy.testexecutor.models.JavaFile;
 import com.dukeacademy.testexecutor.models.ProgramInput;
 import com.dukeacademy.testexecutor.models.ProgramOutput;
-import com.dukeacademy.testexecutor.program.ProgramExecutor;
 
 /**
  * Executes tests on user's written programs.
  */
 public class TestExecutor {
     private static final String messageTestExecutorFailed = "Test executor failed unexpectedly.";
-    private static final String messageTestExecutorInstantiationFailed = "";
 
     private CompilerEnvironment environment;
     private Compiler compiler;

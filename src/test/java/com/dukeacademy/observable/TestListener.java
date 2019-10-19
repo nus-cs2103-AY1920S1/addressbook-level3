@@ -1,5 +1,9 @@
 package com.dukeacademy.observable;
 
+/**
+ * Listener for testing purposes
+ * @param <T> generic for type of data to listen to.
+ */
 public class TestListener<T> implements Listener<T> {
     private T latestValue;
 

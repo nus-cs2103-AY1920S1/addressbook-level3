@@ -1,9 +1,12 @@
 package com.dukeacademy.observable;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class StandardObservableTest {
     private StandardObservable<String> stringStandardObservable;
@@ -38,7 +41,7 @@ class StandardObservableTest {
 
         integerStandardObservable.setValue(-100);
         assertTrue(integerStandardObservable.getValue().isPresent());
-        assertEquals( -100, integerStandardObservable.getValue().get());
+        assertEquals(-100, integerStandardObservable.getValue().get());
 
         booleanStandardObservable.setValue(true);
         assertTrue(booleanStandardObservable.getValue().isPresent());
@@ -79,13 +82,13 @@ class StandardObservableTest {
         stringStandardObservable.addListener(stringTestListener);
         stringStandardObservable.removeListener(stringTestListener);
         stringStandardObservable.setValue("DukeAcademy");
-        assertNull(stringTestListener.getLatestValue());
+        assertEquals("Hello world!", stringTestListener.getLatestValue());
 
         TestListener<Integer> integerTestListener = new TestListener<>();
         integerStandardObservable.addListener(integerTestListener);
         integerStandardObservable.removeListener(integerTestListener);
         integerStandardObservable.setValue(-100);
-        assertNull(integerTestListener.getLatestValue());
+        assertEquals(100, integerTestListener.getLatestValue());
 
         TestListener<Boolean> booleanTestListener = new TestListener<>();
         booleanStandardObservable.addListener(booleanTestListener);
@@ -105,8 +108,8 @@ class StandardObservableTest {
 
         stringStandardObservable.clearListeners();
         stringStandardObservable.setValue("DukeAcademy");
-        assertNull(stringTestListener.getLatestValue());
-        assertNull(stringTestListener1.getLatestValue());
-        assertNull(stringTestListener2.getLatestValue());
+        assertEquals("Hello world!", stringTestListener.getLatestValue());
+        assertEquals("Hello world!", stringTestListener1.getLatestValue());
+        assertEquals("Hello world!", stringTestListener2.getLatestValue());
     }
 }

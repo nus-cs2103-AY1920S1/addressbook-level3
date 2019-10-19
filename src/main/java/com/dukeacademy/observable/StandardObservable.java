@@ -3,6 +3,10 @@ package com.dukeacademy.observable;
 import java.util.HashSet;
 import java.util.Optional;
 
+/**
+ * Standard implementation of the observable interface.
+ * @param <T>
+ */
 public class StandardObservable<T> implements Observable<T> {
     private T value;
     private HashSet<Listener<T>> listeners;
@@ -17,7 +21,6 @@ public class StandardObservable<T> implements Observable<T> {
         listeners = new HashSet<>();
     }
 
-
     public Optional<T> getValue() {
         return Optional.ofNullable(this.value);
     }
@@ -27,6 +30,9 @@ public class StandardObservable<T> implements Observable<T> {
         this.listeners.forEach(listener -> listener.onUpdate(value));
     }
 
+    /**
+     * Clears all the previously added listeners.
+     */
     public void clearListeners() {
         this.listeners.clear();
     }
@@ -34,6 +40,7 @@ public class StandardObservable<T> implements Observable<T> {
     @Override
     public void addListener(Listener<T> listener) {
         this.listeners.add(listener);
+        listener.onUpdate(value);
     }
 
     @Override

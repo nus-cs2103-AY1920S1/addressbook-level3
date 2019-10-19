@@ -14,10 +14,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.testexecutor.exceptions.ProgramExecutorException;
+import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 import com.dukeacademy.testexecutor.models.ClassFile;
 import com.dukeacademy.testexecutor.models.ProgramInput;
 import com.dukeacademy.testexecutor.models.ProgramOutput;
-import com.dukeacademy.testexecutor.program.StandardProgramExecutor;
 
 class StandardProgramExecutorTest {
     private static StandardProgramExecutor executor;

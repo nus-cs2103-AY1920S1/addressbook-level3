@@ -30,7 +30,8 @@ public class Question {
     /**
      * Every field must be present and not null.
      */
-    public Question(Title title, Topic topic, Status status, Difficulty difficulty, Set<Tag> tags, List<TestCase> testCases) {
+    public Question(Title title, Topic topic, Status status, Difficulty difficulty,
+                    Set<Tag> tags, List<TestCase> testCases) {
         requireAllNonNull(title, topic, status, difficulty, tags, testCases);
         this.title = title;
         this.topic = topic;

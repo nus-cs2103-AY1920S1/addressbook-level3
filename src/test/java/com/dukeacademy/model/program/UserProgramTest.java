@@ -1,4 +1,4 @@
-package com.dukeacademy.model.solutions;
+package com.dukeacademy.model.program;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

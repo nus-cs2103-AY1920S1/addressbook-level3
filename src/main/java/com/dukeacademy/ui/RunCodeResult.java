@@ -1,7 +1,7 @@
 package com.dukeacademy.ui;
 
+import com.dukeacademy.model.program.TestCaseResult;
 import com.dukeacademy.model.question.TestCase;
-import com.dukeacademy.model.solutions.TestCaseResult;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -13,7 +13,7 @@ public class ProgramOutput {
         this.output = "";
     }
 
-    private ProgramOutput(String output, RuntimeError error) {
+    private ProgramOutput(String output) {
         this.output = output;
     }
 
@@ -25,20 +25,40 @@ public class ProgramOutput {
         return Optional.ofNullable(this.error);
     }
 
+    /**
+     * Adds a string to the end of the program output.
+     * @param output The string to be appended.
+     * @return newly amended output.
+     */
     public ProgramOutput append(String output) {
         String newOutput = this.output += output;
-        return new ProgramOutput(newOutput, this.error);
+        return new ProgramOutput(newOutput);
     }
 
+    /**
+     * Joins another program output to the end of the current output.
+     * @param output The output to be appended.
+     * @return newly amended output.
+     */
     public ProgramOutput append(ProgramOutput output) {
         return this.append(output.getOutput());
     }
 
+    /**
+     * Adds a string to the end of the program output as a new line.
+     * @param output The string to be appended.
+     * @return newly amended output.
+     */
     public ProgramOutput appendNewLine(String output) {
         String newOutput = this.output += output + "\n";
-        return new ProgramOutput(newOutput, this.error);
+        return new ProgramOutput(newOutput);
     }
 
+    /**
+     * Joins another program output to the end of the current output after a new line.
+     * @param output The output to be appended.
+     * @return newly amended output.
+     */
     public ProgramOutput appendNewLine(ProgramOutput output) {
         return this.appendNewLine(output.getOutput());
     }
