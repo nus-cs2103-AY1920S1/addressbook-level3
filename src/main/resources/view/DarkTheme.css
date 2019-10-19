@@ -432,7 +432,6 @@
     -fx-stroke: grey;
 }
 .chart-alternative-row-fill {
-    -fx-fill: #white;
     -fx-stroke: #2B3941;
     -fx-stroke-width: 0;
 }
