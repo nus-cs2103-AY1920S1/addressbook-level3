@@ -3,6 +3,7 @@ package com.dukeacademy.solution.compiler;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
@@ -10,6 +11,8 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
+import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.solution.environment.StandardCompilerEnvironment;
 import com.dukeacademy.solution.exceptions.CompilerException;
 import com.dukeacademy.solution.exceptions.CompilerFileContentException;
 import com.dukeacademy.solution.models.ClassFile;
@@ -21,6 +24,7 @@ import com.dukeacademy.solution.models.JavaFile;
 public class StandardCompiler implements Compiler {
     private static final String MESSAGE_COMPILER_FAILED = "Compiler failed.";
     private JavaCompiler javaCompiler;
+    private final Logger logger = LogsCenter.getLogger(StandardCompiler.class);
 
     public StandardCompiler() {
         this.javaCompiler = ToolProvider.getSystemJavaCompiler();
@@ -31,6 +35,9 @@ public class StandardCompiler implements Compiler {
         try {
             Iterable<? extends JavaFileObject> sources = this.getJavaFileObjects(javaFile);
             this.compileJavaFiles(sources);
+
+            // If compilation is successful, the class file produced will be in the same folder with the same
+            // canonical name and class path
             return new ClassFile(javaFile.getCanonicalName(), javaFile.getClassPath());
         } catch (FileNotFoundException e) {
             throw new CompilerException(MESSAGE_COMPILER_FAILED + " Could not retrieve Class file.");
@@ -85,16 +92,21 @@ public class StandardCompiler implements Compiler {
         // Start the compilation task
         compilationTask.call();
 
+        logger.info("Compiling java files.");
+
         // Ensure that the DiagnosticCollector did not collect any errors
         List<Diagnostic<? extends JavaFileObject>> errors = compilerDiagnostics.getDiagnostics();
         Optional<String> errorMessages = errors.stream()
                     .map(diagnostic -> diagnostic.getMessage(null))
                     .reduce((m1, m2) -> m1 + "\n" + m2);
 
+        logger.info("Checking for compilation errors.");
 
         if (errorMessages.isPresent()) {
             throw new CompilerFileContentException(errorMessages.get());
         }
+
+        logger.info("Java files successfully compiled.");
     }
 
 

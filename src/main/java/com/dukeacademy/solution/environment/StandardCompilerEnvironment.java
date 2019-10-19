@@ -54,13 +54,6 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
     @Override
     public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException {
-        // Clear the environment of any files that may hinder the compilation of the program
-        try {
-            this.clearEnvironment();
-        } catch (CompilerEnvironmentException e) {
-            throw new JavaFileCreationException(messageClearEnvironmentFailed);
-        }
-
         // Create empty Java file
         String canonicalName = program.getCanonicalName();
         File file = this.createEmptyJavaFileInEnvironment(canonicalName);
@@ -101,6 +94,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
             // Discard any references to previously created files
             this.createdFiles.clear();
+            logger.info("Compiler environment successfully cleared.");
         } catch (IOException e) {
             throw new CompilerEnvironmentException(messageClearEnvironmentFailed);
         }
@@ -117,8 +111,9 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
             // Discard any references to previously created files
             this.createdFiles.clear();
+            logger.info("Compiler environment successfully closed.");
         } catch (IOException e) {
-            logger.fine(messageClearEnvironmentFailed);
+            logger.info(messageClearEnvironmentFailed);
         }
     }
 
@@ -141,7 +136,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                 throw new CompilerEnvironmentException(messageCreateEnvironmentFailed);
             }
 
-            logger.fine("Created root directory for compiler environment.");
+            logger.info("Created root directory for compiler environment");
         } catch (SecurityException e) {
             throw new CompilerEnvironmentException(messageNoPermissions, e);
         }
@@ -155,7 +150,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
      * @throws JavaFileCreationException if the file creation fails.
      */
     private File createEmptyJavaFileInEnvironment(String canonicalName) throws JavaFileCreationException {
-        logger.fine("Creating temporary Java file: " + canonicalName);
+        logger.info("Creating temporary Java file: " + canonicalName);
 
         // Split the canonical name into individual subpackages and create a corresponding path.
         Path filePath = Arrays.stream(canonicalName.split("\\."))
@@ -163,7 +158,6 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
         // Add .java extension to the file path
         filePath = filePath.resolveSibling(filePath.getFileName() + ".java");
-
         File file = filePath.toFile();
 
         // Create the directories and file
@@ -179,7 +173,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             throw new JavaFileCreationException(messageCreateJavaFileFailed);
         }
 
-        logger.fine("Java file created: " + canonicalName);
+        logger.info("Java file created: " + canonicalName);
 
         return file;
     }
@@ -191,7 +185,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
      * @throws JavaFileCreationException if the program write fails.
      */
     private void writeProgramToJavaFile(File javaFile, String program) throws JavaFileCreationException {
-        logger.fine("Writing source code to file: " + javaFile.getName());
+        logger.info("Writing source code to file: " + javaFile.getName());
 
         try {
             // Get an output writer to the file
@@ -203,14 +197,13 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             fileWriter.close();
 
         } catch (IOException e) {
-
             // If file write fails, the environment is cleared of the incomplete file before an exception is thrown
             if (!javaFile.delete()) {
-                logger.fine("Could not delete Java file after write failed. File may persist on file system.");
+                logger.info("Could not delete Java file after write failed. File may persist on file system.");
             }
             throw new JavaFileCreationException(messageWriteJavaFileFailed);
         }
 
-        logger.fine("Source code successfully written to file: " + javaFile.getName());
+        logger.info("Source code successfully written to file: " + javaFile.getName());
     }
 }

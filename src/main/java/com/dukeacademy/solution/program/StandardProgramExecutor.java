@@ -7,8 +7,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.solution.environment.StandardCompilerEnvironment;
 import com.dukeacademy.solution.exceptions.ProgramExecutorException;
 import com.dukeacademy.solution.models.ClassFile;
 import com.dukeacademy.solution.models.ProgramInput;
@@ -21,6 +24,7 @@ public class StandardProgramExecutor implements ProgramExecutor {
     private static final String MESSAGE_PROGRAM_EXECUTION_FAILED = "The program failed to execute.";
 
     private Runtime runtime;
+    private final Logger logger = LogsCenter.getLogger(StandardProgramExecutor.class);
 
     public StandardProgramExecutor() {
         this.runtime = Runtime.getRuntime();
@@ -29,6 +33,7 @@ public class StandardProgramExecutor implements ProgramExecutor {
     @Override
     public ProgramOutput executeProgram(ClassFile program, ProgramInput input) throws ProgramExecutorException {
         Process process = this.getExecutionProcess(program);
+        logger.info("Starting program execution.");
         this.feedProgramInput(process, input);
 
         return this.getProgramOutput(process);
@@ -87,6 +92,8 @@ public class StandardProgramExecutor implements ProgramExecutor {
         // Append the output to our model
         programOutput = reader.lines().reduce(programOutput, ProgramOutput::appendNewLine, ProgramOutput::appendNewLine);
 
+        logger.info("Processing program output");
+
         return programOutput;
     }
 
@@ -106,6 +113,8 @@ public class StandardProgramExecutor implements ProgramExecutor {
             writer.write(programInput.getInput());
             writer.flush();
             writer.close();
+
+            logger.info("Feeding program input.");
         } catch (IOException e) {
             throw new ProgramExecutorException(MESSAGE_PROGRAM_EXECUTION_FAILED);
         }

@@ -45,8 +45,6 @@ class TestExecutorTest {
 
     @Test
     public void runTestCasesFib() throws IOException, TestExecutorException {
-        System.out.println("Running fib program against test cases...\n");
-
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -65,8 +63,6 @@ class TestExecutorTest {
 
     @Test
     public void runTestCasesDuplicates() throws IOException, TestExecutorException {
-        System.out.println("Running duplicates program against test cases...\n");
-
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "duplicates");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -85,8 +81,6 @@ class TestExecutorTest {
 
     @Test
     public void runTestCaseNestedClass() throws IOException, TestExecutorException {
-        System.out.println("Running program that contains nested class against test cases...\n");
-
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "nested");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -105,8 +99,6 @@ class TestExecutorTest {
 
     @Test
     public void runIncorrectProgram() throws IOException, TestExecutorException {
-        System.out.println("Running incorrect program against test cases...\n");
-
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "incorrect");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -123,38 +115,22 @@ class TestExecutorTest {
             assertTrue(testCaseResult.getActualOutput().isPresent());
             assertEquals("Correct solution\n", testCaseResult.getExpectedOutput());
             assertEquals("Wrong solution\n", testCaseResult.getActualOutput().get());
-
-            System.out.print("Expected result: " + testCaseResult.getExpectedOutput());
-            System.out.println("Actual result: " + testCaseResult.getActualOutput());
         });
     }
 
     @Test
     public void testCompileError() throws TestExecutorException {
-        System.out.println("Running programs that should throw compile error...\n");
-
-        System.out.println("End of file error:");
         UserProgram program = new UserProgram("CompileError", "foobar");
         TestExecutorResult result = executor.runTestCases(new ArrayList<>(), program);
-        System.out.println("Compile error detected: " + result.getCompileError().isPresent());
-        result.getCompileError().ifPresent(message -> System.out.println("Error: " + message.getErrorMessage()));
         assertTrue(result.getCompileError().isPresent());
 
-        System.out.println("\nFile name match error:");
         UserProgram program1 = new UserProgram("CompileError", "public class CompilerErrors { }");
         TestExecutorResult result1 = executor.runTestCases(new ArrayList<>(), program1);
-        System.out.println("Compile error detected: " + result1.getCompileError().isPresent());
-        result1.getCompileError().ifPresent(message -> System.out.println("Error: " + message.getErrorMessage()));
         assertTrue(result1.getCompileError().isPresent());
-
-        System.out.println();
     }
 
     @Test
     public void testRuntimeError() throws IOException, TestExecutorException {
-        System.out.println("Running programs that should throw runtime error...\n");
-
-        System.out.println("IndexOutOfBoundsException:\n");
         Path programPath = Paths.get("src", "test", "data",
                 "TestPrograms", "errors", "indexoutofbounds.txt");
         UserProgram program = new UserProgram("Main", Files.readString(programPath));
@@ -174,10 +150,6 @@ class TestExecutorTest {
             TestCaseResult result = results.getResults().get(index);
             assertFalse(result.isSuccessful());
             assertTrue(result.getRuntimeError().isPresent());
-
-            System.out.println("Error for test case " + index + ":");
-            System.out.println(result.getRuntimeError().get().getErrorMessage());
-            System.out.println();
         });
     }
 
@@ -226,10 +198,6 @@ class TestExecutorTest {
                 .mapToObj(index -> {
                     TestCase testCase = testCases.get(index);
                     TestCaseResult result = results.get(index);
-
-                    System.out.println("Comparing test case " + index + ":\n");
-                    System.out.println(testCase);
-                    System.out.println(result);
 
                     return result.getActualOutput().isPresent()
                             && testCase.getExpectedResult().equals(result.getActualOutput().get())
