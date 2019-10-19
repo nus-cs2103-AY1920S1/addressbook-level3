@@ -3,7 +3,6 @@ package seedu.ichifund.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
