@@ -3,7 +3,6 @@ package seedu.address.logic.commands.templatelist.template;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
 
-
 import java.util.List;
 
 import seedu.address.commons.core.Messages;

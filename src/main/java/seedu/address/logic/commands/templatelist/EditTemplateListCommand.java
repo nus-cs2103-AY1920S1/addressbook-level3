@@ -26,7 +26,8 @@ public class EditTemplateListCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = "tlist "+ COMMAND_WORD + ": Edits the name of the template identified "
+    public static final String MESSAGE_USAGE = "tlist " + COMMAND_WORD
+            + ": Edits the name of the template identified "
             + "by the index number used in the displayed template list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "

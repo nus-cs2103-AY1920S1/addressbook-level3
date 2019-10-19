@@ -58,9 +58,13 @@ public class CommandResult {
         isTemplateListItemCommand = true;
     }
 
-    public boolean isTemplateListCommand() { return isTemplateListCommand; }
+    public boolean isTemplateListCommand() {
+        return isTemplateListCommand;
+    }
 
-    public void setTemplateListCommand() {isTemplateListCommand = true; }
+    public void setTemplateListCommand() {
+        isTemplateListCommand = true;
+    }
 
     public boolean isWastelistCommand() {
         return isWastelistCommand;

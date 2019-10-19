@@ -207,7 +207,9 @@ public class MainWindow extends UiPart<Stage> {
         return templateListPanel;
     }
 
-    public TemplateItemPanel getTemplateItemPanel() { return templateItemPanel; }
+    public TemplateItemPanel getTemplateItemPanel() {
+        return templateItemPanel;
+    }
 
     public WasteListPanel getWasteListPanel() {
         return wasteListPanel;
@@ -258,6 +260,9 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("Showing waste list panel.");
     }
 
+    /**
+     * Resets the templateListPanel to show the templateItemPanel whenever a templateItem command is executed
+     */
     private void displayTemplateItemPanel() {
         // To be improved, work on adding the name of the template as well
         Name templateName = logic.getNameTemplateToBeShown();

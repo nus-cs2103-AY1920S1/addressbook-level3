@@ -12,7 +12,11 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyWasteList;
-import seedu.address.model.food.*;
+import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
+import seedu.address.model.food.ShoppingItem;
+import seedu.address.model.food.TemplateItem;
+import seedu.address.model.food.UniqueTemplateItems;
 
 /**
  * API of the Logic component

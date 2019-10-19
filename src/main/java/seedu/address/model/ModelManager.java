@@ -13,8 +13,11 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.food.*;
+import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
+import seedu.address.model.food.ShoppingItem;
+import seedu.address.model.food.TemplateItem;
+import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
 
 /**
