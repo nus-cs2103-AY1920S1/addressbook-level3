@@ -10,9 +10,9 @@ public abstract class AppCommand extends Command {
 
     @Override
     public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
-        if (mode != ModeEnum.SETTINGS) {
+        if (mode != ModeEnum.APP) {
             throw new CommandException("You're not in App mode!");
         }
-        return ModeEnum.SETTINGS;
+        return ModeEnum.APP;
     }
 }

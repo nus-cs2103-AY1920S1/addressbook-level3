@@ -4,5 +4,25 @@ package seedu.address.logic.commands;
  * Game modes for the app
  */
 public enum ModeEnum {
-    APP, GAME, LOAD, SETTINGS
+
+    APP {
+        public String toString() {
+            return "home";
+        }
+    },
+    GAME {
+        public String toString() {
+            return "start";
+        }
+    },
+    LOAD {
+        public String toString() {
+            return "load";
+        }
+    },
+    SETTINGS {
+        public String toString() {
+            return "settings";
+        }
+    }
 }

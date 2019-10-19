@@ -52,6 +52,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ModeEnum getMode() {
+        return this.mode;
+    }
+
+    @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 

@@ -102,7 +102,7 @@ public class MainApp extends Application {
          */
         gameManager = new GameManager(logic);
 
-        commandBoxHelper = new CommandBoxHelper();
+        commandBoxHelper = new CommandBoxHelper(logic);
 
         /*
         Step 10

@@ -2,17 +2,21 @@ package seedu.address.logic;
 
 import java.util.List;
 import java.util.ArrayList;
+import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.actions.Action;
 import seedu.address.logic.actions.ModeAction;
 import seedu.address.logic.actions.AutoFillAction;
+import seedu.address.logic.Logic;
 
 /**
  * The main CommandBoxManager of the app.
  */
 public class CommandBoxHelper {
 
-    public CommandBoxHelper() {
+    private Logic logic;
 
+    public CommandBoxHelper(Logic logic) {
+        this.logic = logic;
     }
 
     public List<AutoFillAction> getMenuItems(String text) {
@@ -23,7 +27,8 @@ public class CommandBoxHelper {
     }
 
     public ModeAction getMode() {
-        return null;
+        ModeEnum temp = logic.getMode();
+        return new ModeAction(temp);
     }
 
 

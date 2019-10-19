@@ -1,10 +1,17 @@
 package seedu.address.logic.actions;
 
+import seedu.address.logic.commands.ModeEnum;
+
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public class ModeAction extends Action{
 
+    ModeEnum mode;
+
+    public ModeAction(ModeEnum mode) {
+        this.mode = mode;
+    }
     /**
      * Executes the command and returns the result message.
      *
@@ -17,7 +24,7 @@ public class ModeAction extends Action{
     }
 
     public String toString() {
-        return "home";
+        return mode.toString();
     }
 
 }
