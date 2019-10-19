@@ -2,7 +2,7 @@ package com.dukeacademy.model.solutions;
 
 import java.util.Optional;
 
-import com.dukeacademy.solutions.models.RuntimeError;
+import com.dukeacademy.testexecutor.models.RuntimeError;
 
 /**
  * Represents the results of running the user's solution against an individual test case. It contains a boolean

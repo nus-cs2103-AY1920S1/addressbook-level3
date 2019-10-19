@@ -12,6 +12,12 @@ public class StandardObservable<T> implements Observable<T> {
         listeners = new HashSet<>();
     }
 
+    public StandardObservable(T value) {
+        this.value = value;
+        listeners = new HashSet<>();
+    }
+
+
     public Optional<T> getValue() {
         return Optional.ofNullable(this.value);
     }
