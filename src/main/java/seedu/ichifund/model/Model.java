@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.model.budget.Budget;
@@ -183,5 +184,5 @@ public interface Model {
      */
     void updateFilteredBudgetList(Predicate<Budget> predicate);
 
-    ReadOnlyProperty<TransactionContext> getTransactionContextProperty();
+    ObservableValue<TransactionContext> getTransactionContextProperty();
 }

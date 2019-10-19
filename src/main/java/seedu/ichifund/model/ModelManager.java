@@ -7,8 +7,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.ichifund.commons.core.GuiSettings;
@@ -32,7 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Repeater> filteredRepeaters;
     private final FilteredList<Budget> filteredBudgets;
 
-    private ReadOnlyObjectWrapper<TransactionContext> transactionContext;
+    private SimpleObjectProperty<TransactionContext> transactionContext;
 
     /**
      * Initializes a ModelManager with the given fundBook and userPrefs.
@@ -51,7 +51,7 @@ public class ModelManager implements Model {
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
         TransactionContext transactionContext = new TransactionContext(this.fundBook.getLatestTransaction());
         updateFilteredTransactionList(transactionContext.getPredicate());
-        this.transactionContext = new ReadOnlyObjectWrapper<>(transactionContext);
+        this.transactionContext = new SimpleObjectProperty<>(transactionContext);
     }
 
     public ModelManager() {
@@ -243,8 +243,8 @@ public class ModelManager implements Model {
         filteredTransactions.setPredicate(predicate);
     }
 
-    public ReadOnlyProperty<TransactionContext> getTransactionContextProperty() {
-        return transactionContext.getReadOnlyProperty();
+    public ObservableValue<TransactionContext> getTransactionContextProperty() {
+        return transactionContext;
     };
 
     //=========== Filtered Repeater List Accessors =============================================================
