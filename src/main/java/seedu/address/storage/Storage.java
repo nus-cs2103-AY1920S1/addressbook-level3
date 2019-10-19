@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.sgm.model.food.UniqueFoodList;
 
 /**
@@ -40,4 +41,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     public void saveFoodList(UniqueFoodList foodList, Path filePath) throws IOException;
 
+    public Path getRecordListFilePath();
+
+    public Optional<UniqueRecordList> readRecordList() throws DataConversionException, IOException;
+
+    public Optional<UniqueRecordList> readRecordList(Path filePath) throws DataConversionException, IOException;
+
+    public void saveRecordList(UniqueRecordList recordList) throws IOException;
+
+    public void saveRecordList(UniqueRecordList recordList, Path filePath) throws IOException;
 }

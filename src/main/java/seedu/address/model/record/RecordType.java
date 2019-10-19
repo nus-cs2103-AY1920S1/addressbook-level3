@@ -5,5 +5,4 @@ package seedu.address.model.record;
  */
 public enum RecordType {
     BLOODSUGAR, BMI, DIET, EXERCISE, HEIGHTANDWEIGHT, MEDICALEXPENSES
-
 }

@@ -11,6 +11,10 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.record.BloodSugarBuilder;
+import seedu.address.model.record.BmiBuilder;
+import seedu.address.model.record.Record;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.tag.Tag;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.FoodBuilder;
@@ -66,6 +70,16 @@ public class SampleDataUtil {
         };
     }
 
+    public static Record[] getSampleRecords() {
+        System.out.println("called sample record generator");
+        return new Record[]{
+            new BmiBuilder().build(),
+            new BmiBuilder().withDateTime("2019-01-02 09:09").withHeight("1.1").withWeight("45.6").build(),
+            new BloodSugarBuilder().build(),
+            new BloodSugarBuilder().withDateTime("2019-01-03 09:09").withConcentration("1.23").build(),
+        };
+    }
+
 
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
@@ -82,6 +96,14 @@ public class SampleDataUtil {
             sampleFl.add(sampleFood);
         }
         return sampleFl;
+    }
+
+    public static UniqueRecordList getSampleRecordList() {
+        UniqueRecordList sampleRl = new UniqueRecordList();
+        for (Record sampleRecord : getSampleRecords()) {
+            sampleRl.add(sampleRecord);
+        }
+        return sampleRl;
     }
 
     /**

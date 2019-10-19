@@ -19,10 +19,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.RecordBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonFoodListStorage;
+import seedu.address.storage.JsonRecordListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.sgm.model.food.UniqueFoodList;
@@ -42,7 +43,11 @@ public class LogicManagerTest {
             new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(temporaryFolder.resolve("foodList.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, jsonFoodListStorage);
+        JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(
+            temporaryFolder.resolve("recordList.json")
+        );
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, jsonFoodListStorage,
+            jsonRecordListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -130,7 +135,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UniqueFoodList(),
-            new RecordBook());
+            new UniqueRecordList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.record.Record;
+import seedu.address.ui.DisplayPaneType;
 
 /**
  * Adds a person to the address book.
@@ -56,6 +57,11 @@ public class AddCommand extends Command {
 
         model.addRecord(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+    }
+
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.ADD;
     }
 
     @Override

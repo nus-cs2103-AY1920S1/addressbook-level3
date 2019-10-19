@@ -2,6 +2,8 @@ package seedu.address.model.calendar;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +17,8 @@ public class DateTime {
 
     //TODO: constraint
     public static final String MESSAGE_CONSTRAINTS = "some constraint date time";
+    public static final String VALIDATION_REGEX_STRING = "yyyy-MM-dd HH:mm";
+    public static final SimpleDateFormat VALIDATION_REGEX = new SimpleDateFormat(VALIDATION_REGEX_STRING);
 
     private LocalDate date;
     private LocalTime time;
@@ -26,9 +30,26 @@ public class DateTime {
         this.time = time;
     }
 
-    //TODO: regex for date time
+    public DateTime(String dateTime) {
+        requireNonNull(dateTime);
+        if (isValidDateTime(dateTime)) {
+            this.date = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
+            this.time = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
+        } else {
+            System.out.println("invalid date time string via date time STRING constructor");
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid dateTime.
+     */
     public static boolean isValidDateTime(String test) {
-        return true;
+        try {
+            VALIDATION_REGEX.parse(test);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     public LocalDate getDate() {

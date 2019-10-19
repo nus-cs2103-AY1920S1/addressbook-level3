@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
@@ -47,8 +48,10 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
+            System.out.println("after get display pane");
             storage.saveAddressBook(model.getAddressBook());
             storage.saveFoodList(model.getUniqueFoodListObject());
+            storage.saveRecordList(model.getUniqueRecordListObject());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -79,6 +82,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Food> getFilterFoodList() {
         return model.getFilterFoodList();
+    }
+
+    @Override
+    public ObservableList<Record> getRecordList() {
+        return model.getRecordList();
+    }
+
+    @Override
+    public ObservableList<Record> getFilterRecordList() {
+        return model.getFilterRecordList();
     }
 
     @Override

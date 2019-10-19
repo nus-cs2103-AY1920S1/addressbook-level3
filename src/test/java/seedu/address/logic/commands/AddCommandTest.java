@@ -22,9 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyRecordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.RecordBook;
 import seedu.address.model.calendar.DateTime;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
@@ -33,6 +31,7 @@ import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.record.Weight;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
@@ -200,20 +199,34 @@ public class AddCommandTest {
         }
 
         @Override
+        public UniqueRecordList getUniqueRecordListObject() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Record> getRecordList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Record> getFilterRecordList() {
+            return null;
+        }
+
+        @Override
         public boolean hasRecord(Record toAdd) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRecord(Record record) {
+
         }
 
         @Override
         public void updateFilteredRecordList(Predicate<Record> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public ReadOnlyRecordBook getRecordBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
         @Override
         public boolean hasReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
@@ -231,6 +244,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFoodList(Predicate<Food> predicate) {
+
+        }
+
+        @Override
+        public void setRecordList(UniqueRecordList newRecordList) {
 
         }
     }
@@ -295,11 +313,6 @@ public class AddCommandTest {
         public void addRecord(Record record) {
             requireNonNull(record);
             recordsAdded.add(record);
-        }
-
-        @Override
-        public ReadOnlyRecordBook getRecordBook() {
-            return new RecordBook();
         }
     }
 

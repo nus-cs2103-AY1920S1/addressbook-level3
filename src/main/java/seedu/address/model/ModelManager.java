@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -26,33 +27,33 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final RecordBook recordBook;
-    private final FilteredList<Record> filteredRecords;
     private final UniqueFoodList foodList;
     private final FilteredList<Food> filteredFoodList;
+    private final UniqueRecordList recordList;
+    private final FilteredList<Record> filteredRecordList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, UniqueFoodList foodList,
-                        RecordBook recordBook) {
+                        UniqueRecordList recordList) {
         super();
-        requireAllNonNull(addressBook, userPrefs, foodList);
+        requireAllNonNull(addressBook, userPrefs, foodList, recordList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
-                + " and food map: " + foodList);
+                + " and food map: " + foodList + " and record list: " + recordList);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.recordBook = recordBook;
-        this.filteredRecords = new FilteredList<>(this.recordBook.getRecordList());
         this.foodList = foodList;
         this.filteredFoodList = new FilteredList<>(this.foodList.asUnmodifiableObservableList());
+        this.recordList = recordList;
+        this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook());
+        this(new AddressBook(), new UserPrefs(), new UniqueFoodList(), new UniqueRecordList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -106,11 +107,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
-    }
-
-    @Override
-    public ReadOnlyRecordBook getRecordBook() {
-        return recordBook;
     }
 
     @Override
@@ -226,21 +222,47 @@ public class ModelManager implements Model {
         filteredFoodList.setPredicate(predicate);
     }
 
-    @Override
-    public void addRecord(Record record) {
-        recordBook.addRecord(record);
-        updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
-    }
-
+    //=========== Records =============================================================
     @Override
     public boolean hasRecord(Record record) {
         requireNonNull(record);
-        return recordBook.hasRecord(record);
+        return recordList.contains(record);
+    }
+
+    @Override
+    public void deleteRecord(Record record) {
+        recordList.remove(record);
+    }
+
+    @Override
+    public void addRecord(Record record) {
+        recordList.add(record);
+    }
+
+    @Override
+    public void setRecordList(UniqueRecordList uniqueRecordLists) {
+        requireAllNonNull(uniqueRecordLists);
+        recordList.setRecords(uniqueRecordLists);
+    }
+
+    @Override
+    public UniqueRecordList getUniqueRecordListObject() {
+        return recordList;
+    }
+
+    @Override
+    public ObservableList<Record> getRecordList() {
+        return recordList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Record> getFilterRecordList() {
+        return filteredRecordList;
     }
 
     @Override
     public void updateFilteredRecordList(Predicate<Record> predicate) {
         requireNonNull(predicate);
-        filteredRecords.setPredicate(predicate);
+        filteredRecordList.setPredicate(predicate);
     }
 }

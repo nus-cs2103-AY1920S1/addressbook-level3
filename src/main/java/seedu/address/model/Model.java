@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -97,6 +98,10 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    public boolean hasReminder(Reminder reminder);
+
+    public void addReminder(Reminder reminder);
+
 
     /**
      * Replaces food list data with the data in {@code newFoodList}.
@@ -136,15 +141,46 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFoodList(Predicate<Food> predicate);
-    void addRecord(Record toAdd);
 
-    boolean hasRecord(Record toAdd);
 
+    //==================RECORD====================
+    /**
+     * Replaces food list data with the data in {@code newFoodList}.
+     */
+    void setRecordList(UniqueRecordList newRecordList);
+
+    boolean hasRecord(Record record);
+
+    /**
+     * Deletes the given food. The food must exist in the recommendations.
+     */
+    void deleteRecord(Record record);
+
+    /**
+     * Adds the given food. {@code food} must not already exist in the recommendations.
+     */
+    void addRecord(Record record);
+
+    /**
+     * Returns the {@code UniqueFoodList} object.
+     */
+    UniqueRecordList getUniqueRecordListObject();
+
+    /**
+     * Returns the a list of foods.
+     */
+    ObservableList<Record> getRecordList();
+
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
+    ObservableList<Record> getFilterRecordList();
+
+    /**
+     * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredRecordList(Predicate<Record> predicate);
 
-    ReadOnlyRecordBook getRecordBook();
-
-    boolean hasReminder(Reminder reminder);
-
-    void addReminder(Reminder reminder);
 }

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.RecordBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.sgm.model.food.UniqueFoodList;
 
 /**
@@ -19,7 +19,8 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UniqueFoodList(), new RecordBook());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UniqueFoodList(),
+            new UniqueRecordList());
     }
 
     //    @Test

@@ -37,6 +37,8 @@ public class MainDisplayPane {
             return getMappedPane(displayPaneType, AchievementsPane::new);
         case RECM_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()));
+        case ADD:
+            return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()));
         default:
             return null;
         }

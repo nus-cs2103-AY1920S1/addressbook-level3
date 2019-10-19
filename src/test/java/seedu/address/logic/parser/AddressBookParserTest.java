@@ -50,7 +50,7 @@ public class AddressBookParserTest {
         BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
 
         //        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(bs));
-        AddCommand command = (AddCommand) parser.parseCommand("add rt/BLOODSUGAR con/12.34 dt/01/01/1970 08:00");
+        AddCommand command = (AddCommand) parser.parseCommand("add rt/BLOODSUGAR con/12.34 dt/1970-01-01 08:00");
 
         assertEquals(new AddCommand(bs), command);
     }
