@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.Property;
-import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -30,7 +30,7 @@ public class TransactionListPanel extends UiPart<Region> {
     private Label transactionContextView;
 
     public TransactionListPanel(ObservableList<Transaction> transactionList,
-                                ReadOnlyProperty<TransactionContext> transactionContext) {
+                                ObservableValue<TransactionContext> transactionContext) {
         super(FXML);
         transactionListView.setItems(transactionList);
         transactionListView.setCellFactory(listView -> new TransactionListViewCell());

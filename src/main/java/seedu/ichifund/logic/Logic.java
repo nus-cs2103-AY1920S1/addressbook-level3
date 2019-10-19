@@ -2,7 +2,7 @@ package seedu.ichifund.logic;
 
 import java.nio.file.Path;
 
-import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.logic.commands.CommandResult;
@@ -63,5 +63,5 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    ReadOnlyProperty<TransactionContext> getTransactionContextProperty();
+    ObservableValue<TransactionContext> getTransactionContextProperty();
 }
