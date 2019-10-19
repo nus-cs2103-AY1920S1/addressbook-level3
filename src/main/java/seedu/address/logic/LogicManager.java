@@ -13,6 +13,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.DukeCooksParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
+import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.diary.components.Diary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
@@ -55,6 +57,7 @@ public class LogicManager implements Logic {
             storage.saveRecipeBook(model.getRecipeBook());
             storage.saveHealthRecords(model.getHealthRecords());
             storage.saveDiary(model.getDiaryRecords());
+            storage.saveDashboard(model.getDashboardRecords());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -70,6 +73,11 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyRecipeBook getRecipeBook() {
         return model.getRecipeBook();
+    }
+
+    @Override
+    public ReadOnlyDashboard getDashboardRecords() {
+        return model.getDashboardRecords();
     }
 
     @Override
@@ -95,6 +103,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Record> getFilteredRecordList() {
         return model.getFilteredRecordList();
+    }
+
+    @Override
+    public ObservableList<Dashboard> getFilteredDashboardList() {
+        return model.getFilteredDashboardList();
     }
 
     @Override
@@ -125,6 +138,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getDiaryFilePath() {
         return model.getDiaryFilePath();
+    }
+
+    @Override
+    public Path getDashboardFilePath() {
+        return model.getDashboardFilePath();
     }
 
     @Override

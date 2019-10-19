@@ -8,6 +8,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.dashboard.ReadOnlyDashboard;
+import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.diary.components.Diary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
@@ -37,6 +39,13 @@ public interface Logic {
      * @see RecipeModel#getRecipeBook()
      */
     ReadOnlyRecipeBook getRecipeBook();
+
+    /**
+     * Returns TodoRecords.
+     *
+     * @see seedu.address.model.Model#getDashboardRecords()
+     */
+    ReadOnlyDashboard getDashboardRecords();
 
     /**
      * Returns DiaryRecords.
@@ -74,6 +83,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of records */
     ObservableList<Record> getFilteredRecordList();
 
+    /** Returns an unmodifiable view of the filtered list of dashboards */
+    ObservableList<Dashboard> getFilteredDashboardList();
+
     /**
      * Returns the user prefs' Recipe Book file path.
      */
@@ -98,6 +110,11 @@ public interface Logic {
      * Returns the user prefs' Duke Cooks file path.
      */
     Path getDiaryFilePath();
+
+    /**
+     * Returns the user prefs' Dashboard file path.
+     */
+    Path getDashboardFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
