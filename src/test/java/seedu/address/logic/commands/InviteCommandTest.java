@@ -64,7 +64,22 @@ public class InviteCommandTest {
         inviteCommand.execute(model);
 
         assertEquals(2, activity.getParticipantIds().size());
+    }
 
+    @Test
+    public void execute_viewActivityDuplicateEntries_inviteOne() throws CommandException {
+        Model model = new ModelManager();
+        model.addPerson(ALICE); // Alice Pauline
+        Activity activity = new ActivityBuilder().build();
+        model.addActivity(activity);
+        model.setContext(new Context(activity));
+        List<String> peopleToInvite = new ArrayList<>();
+        peopleToInvite.add(ALICE.getName().toString());
+        peopleToInvite.add(ALICE.getName().toString());
+        InviteCommand inviteCommand = new InviteCommand(peopleToInvite);
+        inviteCommand.execute(model);
+
+        assertEquals(1, activity.getParticipantIds().size());
     }
 
     @Test

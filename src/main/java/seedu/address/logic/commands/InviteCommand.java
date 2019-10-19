@@ -41,6 +41,7 @@ public class InviteCommand extends Command {
             "There is no one to invite.";
 
     public static final String MESSAGE_NO_VIEWED_ACTIVITY = "There is no viewed activity currently.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "\"%s\" has duplicate entries, the first one will be added.";
 
     private final List<String> peopleToInvite;
 
@@ -98,6 +99,9 @@ public class InviteCommand extends Command {
                 if (activityToInviteTo.hasPerson(idOfPersonToInvite)) {
                     throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY, name));
                 }
+                if (idsToInvite.contains(idOfPersonToInvite)) {
+                    throw new CommandException(String.format(MESSAGE_DUPLICATE_ENTRY, name));
+                }
                 idsToInvite.add(idOfPersonToInvite);
                 messageInvited.append(personToInvite.getName() + "\n");
             } catch (CommandException e) {
@@ -119,7 +123,8 @@ public class InviteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof InviteCommand // instanceof handles nulls
-                && peopleToInvite.equals(((InviteCommand) other).peopleToInvite));
+                && peopleToInvite.containsAll(((InviteCommand) other).peopleToInvite)
+                && ((InviteCommand) other).peopleToInvite.containsAll(peopleToInvite));
     }
 
 }
