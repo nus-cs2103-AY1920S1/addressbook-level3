@@ -13,7 +13,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.group.GroupCommand;
-import seedu.address.logic.commands.note.NoteAddCommand;
 import seedu.address.logic.commands.note.NoteCommand;
 import seedu.address.logic.commands.question.QuestionCommand;
 import seedu.address.logic.commands.quiz.QuizCommand;

@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -17,7 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.statistics.Statistics;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -221,10 +219,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowStatistic()) {
-                //StatisticsCard statsCard  = new StatisticsCard(logic.getProcessedStatistics());
                 statsCard.updateData(logic.getProcessedStatistics());
-                //statisticsPanelPlaceholder.getChildren().removeAll();
-                //statisticsPanelPlaceholder.getChildren().add(statsCard.getRoot());
             }
 
             return commandResult;

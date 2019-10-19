@@ -65,10 +65,7 @@
             <StackPane fx:id="statisticsPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </HBox>
 
-          <HBox fx:id="notesList" styleClass="pane-with-border" alignment="TOP_RIGHT" minWidth="600" prefWidth="600" HBox.hgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
+          <HBox fx:id="notesList" styleClass="pane-with-border" alignment="TOP_RIGHT" minWidth="200" prefWidth="200" HBox.hgrow="ALWAYS">
             <StackPane fx:id="notesListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </HBox>
         </HBox>

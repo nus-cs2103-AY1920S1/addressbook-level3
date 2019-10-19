@@ -6,9 +6,11 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.chart.PieChart?>
 
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.LineChart?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <BorderPane xmlns:fx="http://javafx.com/fxml"
-                prefHeight="500" prefWidth="400">
+                prefHeight="800" prefWidth="400">
         <top>
             <Text text="Statistics" styleClass="cell_big_label" textAlignment="CENTER"/>
         </top>
@@ -16,6 +18,16 @@
         <center>
             <VBox alignment="CENTER_LEFT" minHeight="105">
                 <PieChart fx:id="distributionChart" minHeight="300" minWidth="300" prefWidth="300" prefHeight="300"/>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" minHeight="105">
+                <LineChart fx:id="lineChart" minHeight="300" minWidth="300" prefWidth="300" prefHeight="300">
+                    <xAxis>
+                        <NumberAxis side="BOTTOM" label="Num Students" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis layoutX="10.0" side="LEFT" label="Score" />
+                    </yAxis>
+                </LineChart>
             </VBox>
         </center>
 

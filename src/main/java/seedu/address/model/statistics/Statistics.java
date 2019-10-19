@@ -1,8 +1,5 @@
 package seedu.address.model.statistics;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import java.util.ArrayList;
@@ -32,6 +29,13 @@ public class Statistics {
         this.studentWeightedScores = new ArrayList<>();
         processData();
     }
+
+//    public Statistics(HashMap<String, HashMap<String, Double>> data) {
+//        requireAllNonNull(data);
+//        this.data = data;
+//        this.studentWeightedScores = new ArrayList<>();
+//        processData();
+//    }
 
     public void processData() {
         data.forEach((name, subjectScoreMap) -> studentWeightedScores.add(new StudentStat(name, subjectScoreMap)));

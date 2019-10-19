@@ -55,11 +55,6 @@ public class StatisticsRecord implements ReadOnlyStatisticsRecord {
         return internalUnmodifiableList;
     }
 
-
-    public String getStatisticsSummary() {
-        return "TodoSummary";
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
