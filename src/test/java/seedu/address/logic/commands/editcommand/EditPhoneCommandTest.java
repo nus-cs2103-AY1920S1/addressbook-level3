@@ -75,7 +75,7 @@ public class EditPhoneCommandTest {
 
         String expectedMessage = String.format(EditPhoneCommand.MESSAGE_EDIT_PHONE_SUCCESS, editedPhone);
 
-        Model expectedModel = new ModelManager(new DataBook<Customer>(model.getCustomerBook()), getTypicalPhoneBook(),
+        Model expectedModel = new ModelManager(getTypicalCustomerBook(), new DataBook<Phone>(model.getPhoneBook()),
                 getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
         expectedModel.setPhone(lastPhone, editedPhone);
 
