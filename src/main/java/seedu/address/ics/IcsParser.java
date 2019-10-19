@@ -57,7 +57,7 @@ public class IcsParser {
      * @throws IcsException Thrown if the file cannot be found or read,
      * is not a proper Ics file, or if a description for an event in the file is empty.
      */
-    public ArrayList<EventSource> parse() throws IcsException {
+    public EventSource[] parse() throws IcsException {
         String fileContent = getFileContent();
         return parseFileContent(fileContent);
     }
@@ -95,7 +95,7 @@ public class IcsParser {
      * @return An ArrayList of EventSources provided by the Ics file.
      * @throws IcsException If the file is not a proper Ics file, or if a description for an event is empty.
      */
-    public ArrayList<EventSource> parseFileContent(String fileContent) throws IcsException {
+    public EventSource[] parseFileContent(String fileContent) throws IcsException {
         ArrayList<EventSource> events = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder("");
 
@@ -123,7 +123,16 @@ public class IcsParser {
                 }
             }
         }
-        return events;
+        return eventSourceArray(events);
+    }
+
+    private EventSource[] eventSourceArray(ArrayList<EventSource> events) {
+        int size = events.size();
+        EventSource[] array = new EventSource[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = events.get(i);
+        }
+        return array;
     }
 
     /**
