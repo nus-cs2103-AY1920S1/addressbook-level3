@@ -101,9 +101,9 @@ public class FoodCard extends UiPart<Region> {
         double recommendationValue = RecommendationSystem.getInstance().calculateRecommendation(food);
 
         if (recommendationValue >= 0) {
-            textForOptionalInfo += partition + "Recommendation: +" + recommendationValue;
+            textForOptionalInfo += partition + "+" + String.format("%.2f", recommendationValue);
         } else {
-            textForOptionalInfo += partition + "Recommendation: " + recommendationValue;
+            textForOptionalInfo += partition + String.format("%.2f", recommendationValue);
         }
 
         // Setting the text for optional info.

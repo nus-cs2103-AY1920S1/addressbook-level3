@@ -17,7 +17,6 @@ import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.sorter.CustomSorter;
-import seedu.savenus.model.recommend.UserRecommendations;
 
 public class StorageManagerTest {
 
@@ -107,11 +106,6 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getUserPrefsFilePath() {
-        assertNotNull(storageManager.getUserPrefsFilePath());
-    }
-
-    @Test
     public void getRecsFilePath() {
         assertNotNull(storageManager.getRecsFilePath());
     }
@@ -119,10 +113,6 @@ public class StorageManagerTest {
     @Test
     public void getSortFilePath() {
         assertNotNull(storageManager.getSortFilePath());
-    }
-    @Test
-    public void getRecsFilePath() {
-        assertNotNull(storageManager.getRecsFilePath());
     }
 
 }

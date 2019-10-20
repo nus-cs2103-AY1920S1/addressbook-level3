@@ -56,7 +56,7 @@ public class RecommendationSystem {
      * Calculates the recommendation value for each Food provided
      */
     public double calculateRecommendation(Food food) {
-        int weight = 0;
+        double weight = 0;
 
         weight += LIKED_TAG_WEIGHT * userRecommendations.getLikedTags().stream()
                 .filter(food.getTags().stream()
