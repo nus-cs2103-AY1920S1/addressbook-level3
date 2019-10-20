@@ -9,12 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-import seedu.address.model.finance.attributes.Address;
-import seedu.address.model.finance.attributes.Tag;
+import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.TransactionMethod;
 import seedu.address.model.finance.logentry.Amount;
 import seedu.address.model.finance.logentry.Description;
 import seedu.address.model.finance.logentry.TransactionDate;
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -67,21 +67,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
      * Parses a {@code String d} into an {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -97,29 +82,59 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String tMethod} into an {@code TransactionMethod}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code tMethod} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static TransactionMethod parseTransactionMethod(String tMethod) throws ParseException {
+        requireNonNull(tMethod);
+        String trimmedTMethod = tMethod.trim();
+        if (!TransactionMethod.isValidTransactionMet(trimmedTMethod)) {
+            throw new ParseException(TransactionMethod.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new TransactionMethod(trimmedTMethod);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String cat} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code cat} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Category parseCategory(String cat) throws ParseException {
+        requireNonNull(cat);
+        String trimmedCat = cat.trim();
+        if (!Category.isValidCatName(trimmedCat)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
-        return tagSet;
+        return new Category(trimmedCat);
+    }
+
+    /**
+     * Parses {@code Collection<String> cats} into a {@code Set<Category>}.
+     */
+    public static Set<Category> parseCategories(Collection<String> cats) throws ParseException {
+        requireNonNull(cats);
+        final Set<Category> catSet = new HashSet<>();
+        for (String catName : cats) {
+            catSet.add(parseCategory(catName));
+        }
+        return catSet;
+    }
+
+    /**
+     * Parses a {@code String p} into an {@code Place}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code p} is invalid.
+     */
+    public static Place parsePlace(String p) throws ParseException {
+        requireNonNull(p);
+        String trimmedPlace = p.trim();
+        if (!Place.isValidPlace(trimmedPlace)) {
+            throw new ParseException(Place.MESSAGE_CONSTRAINTS);
+        }
+        return new Place(trimmedPlace);
     }
 }

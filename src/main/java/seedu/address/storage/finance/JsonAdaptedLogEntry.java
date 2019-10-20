@@ -1,43 +1,57 @@
 package seedu.address.storage.finance;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.finance.logentry.Amount;
-import seedu.address.model.finance.logentry.Description;
 import seedu.address.model.finance.logentry.LogEntry;
-import seedu.address.model.finance.logentry.TransactionDate;
 
 /**
  * Jackson-friendly version of {@link LogEntry}.
  */
-class JsonAdaptedLogEntry {
+abstract class JsonAdaptedLogEntry {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Log entry's %s field is missing!";
 
-    private final String amount;
-    private final String tDate;
-    private final String desc;
+    protected final String amount;
+    protected final String tDate;
+    protected final String desc;
+    protected final String tMethod;
+    protected final List<JsonAdaptedCategory> categories = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedLogEntry} with the given log entry details.
      */
     @JsonCreator
-    public JsonAdaptedLogEntry(@JsonProperty("amount") String amount, @JsonProperty("transactionDate") String tDate,
-                               @JsonProperty("description") String desc) {
+    public JsonAdaptedLogEntry(@JsonProperty("amount") String amount,
+                               @JsonProperty("transactionDate") String transactionDate,
+                               @JsonProperty("description") String desc,
+                               @JsonProperty("transactionMethod") String transactionMethod,
+                               @JsonProperty("categories") List<JsonAdaptedCategory> categories) {
         this.amount = amount;
-        this.tDate = tDate;
+        this.tDate = transactionDate;
         this.desc = desc;
+        this.tMethod = transactionMethod;
+        if (categories != null) {
+            this.categories.addAll(categories);
+        }
     }
 
     /**
      * Converts a given {@code LogEntry} into this class for Jackson use.
      */
     public JsonAdaptedLogEntry(LogEntry source) {
-        amount = source.getAmount().amount;
+        amount = source.getAmount().toString();
         tDate = source.getTransactionDate().value;
         desc = source.getDescription().value;
+        tMethod = source.getTransactionMethod().value;
+        categories.addAll(source.getCategories().stream()
+                .map(JsonAdaptedCategory::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -45,35 +59,6 @@ class JsonAdaptedLogEntry {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted log entry.
      */
-    public LogEntry toModelType() throws IllegalValueException {
-
-        if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
-        }
-        if (!Amount.isValidAmount(amount)) {
-            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
-        }
-        final Amount modelAmount = new Amount(amount);
-
-        if (tDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    TransactionDate.class.getSimpleName()));
-        }
-        if (!TransactionDate.isValidTransactionDate(tDate)) {
-            throw new IllegalValueException(TransactionDate.MESSAGE_CONSTRAINTS);
-        }
-        final TransactionDate modelTransactionDate = new TransactionDate(tDate);
-
-        if (desc == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
-        }
-        if (!Description.isValidDescription(desc)) {
-            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
-        }
-        final Description modelDescription = new Description(desc);
-
-        return new LogEntry(modelAmount, modelTransactionDate, modelDescription);
-    }
+    public abstract LogEntry toModelType() throws IllegalValueException;
 
 }

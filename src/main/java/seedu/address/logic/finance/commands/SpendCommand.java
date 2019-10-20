@@ -2,8 +2,10 @@ package seedu.address.logic.finance.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
 
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
@@ -21,13 +23,16 @@ public class SpendCommand extends Command {
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DAY + "TRANSACTION_DATE "
-            + PREFIX_DESCRIPTION + "DESCRIPTION \n"
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_TRANSACTION_METHOD + "TRANSACTION_METHOD "
+            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_AMOUNT + "2.80 "
             + PREFIX_DAY + "15-10-2019 "
-            + PREFIX_DESCRIPTION + "Yong Tau Foo";
+            + PREFIX_DESCRIPTION + "Yong Tau Foo "
+            + PREFIX_TRANSACTION_METHOD + "Cash";
 
-    public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New entry added: %1$s \n";
 
     private final LogEntry toAdd;
 

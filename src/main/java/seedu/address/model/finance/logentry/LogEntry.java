@@ -2,28 +2,41 @@ package seedu.address.model.finance.logentry;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.TransactionMethod;
 
 /**
  * Represents an entry in the finance log.
  * Guarantees: details are present and not null, field values are validated, mutable.
  */
-public class LogEntry {
+public abstract class LogEntry {
 
-    // Identity fields
-    private final Amount amount;
-    private final TransactionDate transactionDate;
-    private final Description description;
+    // Basic fields associated with an log entry
+    protected final Amount amount;
+    protected final TransactionDate transactionDate;
+    protected final Description description;
+    protected final TransactionMethod tMethod;
 
+    // Additional fields
+    protected final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public LogEntry(Amount amount, TransactionDate transactionDate, Description description) {
-        requireAllNonNull(amount, transactionDate, description);
+    public LogEntry(Amount amount, TransactionDate transactionDate, Description description,
+                    TransactionMethod transactionMethod, Set<Category> categories) {
+        requireAllNonNull(amount, transactionDate, description,
+                 transactionMethod, categories);
         this.amount = amount;
         this.transactionDate = transactionDate;
         this.description = description;
+        this.tMethod = transactionMethod;
+        this.categories.addAll(categories);
     }
 
     public Amount getAmount() {
@@ -38,9 +51,22 @@ public class LogEntry {
         return description;
     }
 
+    public TransactionMethod getTransactionMethod() {
+        return tMethod;
+    }
 
     /**
-     * Returns true if both log entries have the same identity fields.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
+    }
+
+    public abstract String getLogEntryType();
+
+    /**
+     * Returns true if both log entries have the same basic fields.
      */
     public boolean isSameLogEntry(LogEntry otherLogEntry) {
         if (otherLogEntry == this) {
@@ -50,12 +76,15 @@ public class LogEntry {
         return otherLogEntry != null
                 && otherLogEntry.getAmount().equals(getAmount())
                 && (otherLogEntry.getTransactionDate().equals(getTransactionDate())
-                && otherLogEntry.getDescription().equals(getDescription()));
+                && otherLogEntry.getDescription().equals(getDescription()))
+                && otherLogEntry.getTransactionMethod().equals(getTransactionMethod());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both log entries have the same basic fields,
+     * additional fields,
+     * and of the same child class of LogEntry.
+     * This defines a stronger notion of equality between two log entries.
      */
     @Override
     public boolean equals(Object other) {
@@ -63,31 +92,22 @@ public class LogEntry {
             return true;
         }
 
-        if (!(other instanceof LogEntry)) {
+        if (!(this.getClass() == other.getClass())) {
             return false;
         }
 
         LogEntry otherLogEntry = (LogEntry) other;
         return otherLogEntry.getAmount().equals(getAmount())
                 && otherLogEntry.getTransactionDate().equals(getTransactionDate())
-                && otherLogEntry.getDescription().equals(getDescription());
+                && otherLogEntry.getDescription().equals(getDescription())
+                && otherLogEntry.getTransactionMethod().equals(getTransactionMethod())
+                && otherLogEntry.getCategories().equals(getCategories());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, transactionDate, description);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getAmount())
-                .append(" Transaction Date: ")
-                .append(getTransactionDate())
-                .append(" Description: ")
-                .append(getDescription());
-        return builder.toString();
+        return Objects.hash(amount, transactionDate, description, categories);
     }
 
 }

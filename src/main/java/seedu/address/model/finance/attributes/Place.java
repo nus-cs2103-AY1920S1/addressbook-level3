@@ -4,12 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Represents a place associated with a log entry in the finance log.
  */
-public class Address {
+public class Place {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Places can take any values, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -20,20 +19,20 @@ public class Address {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Place}.
      *
-     * @param address A valid address.
+     * @param place A valid place.
      */
-    public Address(String address) {
-        requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+    public Place(String place) {
+        requireNonNull(place);
+        checkArgument(isValidPlace(place), MESSAGE_CONSTRAINTS);
+        value = place;
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid place.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidPlace(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -45,8 +44,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && value.equals(((Address) other).value)); // state check
+                || (other instanceof Place // instanceof handles nulls
+                && value.equals(((Place) other).value)); // state check
     }
 
     @Override

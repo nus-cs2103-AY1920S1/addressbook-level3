@@ -2,17 +2,17 @@ package seedu.address.ui.finance;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.finance.logentry.LogEntry;
-
+import seedu.address.model.finance.logentry.SpendLogEntry;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code SpendLogEntry}.
  */
-public class PersonCard extends UiPart<Region> {
+public class SpendLogEntryCard extends UiPart<Region> {
 
-    private static final String FXML = "FinanceLogEntryListCard.fxml";
+    private static final String FXML = "SpendCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,7 +22,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final LogEntry logEntry;
+    public final SpendLogEntry logEntry;
 
     @FXML
     private HBox cardPane;
@@ -34,14 +34,24 @@ public class PersonCard extends UiPart<Region> {
     private Label tDate;
     @FXML
     private Label description;
+    @FXML
+    private Label tMethod;
+    @FXML
+    private FlowPane cats;
+    @FXML
+    private Label place;
 
-    public PersonCard(LogEntry logEntry, int displayedIndex) {
+    public SpendLogEntryCard(SpendLogEntry logEntry, int displayedIndex) {
         super(FXML);
         this.logEntry = logEntry;
         id.setText(displayedIndex + ". ");
-        amount.setText(logEntry.getAmount().amount);
+        amount.setText(logEntry.getAmount().toString());
         tDate.setText(logEntry.getTransactionDate().value);
         description.setText(logEntry.getDescription().value);
+        tMethod.setText(logEntry.getTransactionMethod().value);
+        logEntry.getCategories().stream()
+                .forEach(cat -> cats.getChildren().add(new Label(cat.catName)));
+        place.setText(logEntry.getPlace().value);
     }
 
     @Override
@@ -52,12 +62,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof SpendLogEntryCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        SpendLogEntryCard card = (SpendLogEntryCard) other;
         return id.getText().equals(card.id.getText())
                 && logEntry.equals(card.logEntry);
     }
