@@ -2,18 +2,23 @@ package seedu.address.model.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 import static seedu.address.testutil.TypicalCards.CHARIZARD;
 import static seedu.address.testutil.TypicalCards.DITTO;
+import static seedu.address.testutil.TypicalCards.EEVEE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.testutil.WordBankBuilder;
+
+import java.util.Collections;
+import java.util.HashMap;
 
 public class GameTest {
 
@@ -22,7 +27,7 @@ public class GameTest {
         WordBankBuilder wordBankBuilder = new WordBankBuilder();
         wordBankBuilder.withCard(ABRA);
         WordBank wb = wordBankBuilder.build();
-        Game game = new Game(wb);
+        Game game = new Game(wb, x -> Collections.shuffle(x));
 
         // Makes correct guess; guess Abra as Abra
         assertTrue(game.checkGuess(new Guess(ABRA.getWord().toString())));
@@ -40,40 +45,51 @@ public class GameTest {
     @Test
     public void nullWordBankPassedIntoConstructor_throwsNullPointerException() {
         WordBank wb = null;
-        assertThrows(NullPointerException.class, () -> new Game(wb));
+        assertThrows(NullPointerException.class, () -> new Game(wb, x -> Collections.shuffle(x)));
     }
 
     @Test
     public void moveToNextCard() {
+        // HashMap that maps each card to the number of times it has been seen by the user.
+        HashMap<Card, Integer> cardVisitedCountMap = new HashMap<>();
+
         WordBankBuilder wordBankBuilder = new WordBankBuilder();
         wordBankBuilder.withCard(ABRA);
         wordBankBuilder.withCard(BUTTERFREE);
         wordBankBuilder.withCard(CHARIZARD);
         wordBankBuilder.withCard(DITTO);
         WordBank wb = wordBankBuilder.build();
-        Game game = new Game(wb);
 
-        game.moveToNextCard();
+        // Populate HashMap with all the cards in this test wordBank
+        for (int i = 0; i < wb.size(); i++) {
+            cardVisitedCountMap.put(wb.getCard(Index.fromZeroBased(i)), 0);
+        }
 
-        // Current card is BUTTERFREE now.
-        assertEquals(game.getCurrQuestion(), BUTTERFREE.getMeaning().toString());
+        Game game = new Game(wb, x -> Collections.shuffle(x));
 
-        // Current card is NOT ABRA.
-        assertNotEquals(game.getCurrQuestion(), ABRA.getMeaning().toString());
+        // Mark the first card as being seen once.
+        Card firstCardOfBank = game.getCurrCard();
+        cardVisitedCountMap.put(firstCardOfBank,
+                cardVisitedCountMap.get(firstCardOfBank) + 1);
 
-        game.moveToNextCard();
-        game.moveToNextCard();
+        // Mark the rest of the card as being seen once.
+        for (int j = 0; j < wb.size() - 1; j++) {
+            game.moveToNextCard();
+            Card currentCard = game.getCurrCard();
+            cardVisitedCountMap.put(currentCard,
+                    cardVisitedCountMap.get(currentCard) + 1);
+        }
 
-        // Current card is DITTO now.
-        assertEquals(game.getCurrQuestion(), DITTO.getMeaning().toString());
-
-        // Current card is NOT CHARIZARD now.
-        assertNotEquals(game.getCurrQuestion(), CHARIZARD.getMeaning().toString());
-
-        game.moveToNextCard();
+        // Check that all cards were visited exactly once.
+        for (Card key : cardVisitedCountMap.keySet()) {
+            assertEquals(1, cardVisitedCountMap.get(key));
+        }
 
         // Game should be over now.
-        assertThrows(UnsupportedOperationException.class, () -> game.getCurrQuestion());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            game.moveToNextCard();
+            game.getCurrQuestion();
+        });
     }
 
     @Test
@@ -82,42 +98,94 @@ public class GameTest {
         wordBankBuilder.withCard(ABRA);
         wordBankBuilder.withCard(BUTTERFREE);
         WordBank wb = wordBankBuilder.build();
-        Game game = new Game(wb);
+        Game game = new Game(wb, x -> Collections.shuffle(x));
 
         // Game has not ended, 2 cards left.
-        assertEquals(false, game.isOver());
+        assertFalse(game.isOver());
 
         game.moveToNextCard();
 
         // Game has not ended, 1 card left.
-        assertEquals(false, game.isOver());
+        assertFalse(game.isOver());
 
         game.moveToNextCard();
 
         // Game has ended, 0 card left.
-        assertEquals(true, game.isOver());
+        assertTrue(game.isOver());
     }
 
     @Test
-    public void showCurrQuestion() {
+    public void getCurrQuestion() {
         WordBankBuilder wordBankBuilder = new WordBankBuilder();
         wordBankBuilder.withCard(ABRA);
-        wordBankBuilder.withCard(BUTTERFREE);
         WordBank wb = wordBankBuilder.build();
-        Game game = new Game(wb);
+        Game game = new Game(wb, x -> Collections.shuffle(x));
 
         // ABRA card shows correctly.
         assertEquals(ABRA.getMeaning().toString(), game.getCurrQuestion());
 
-        game.moveToNextCard();
-
-        // BUTTERFREE card shows correctly.
-        assertEquals(BUTTERFREE.getMeaning().toString(), game.getCurrQuestion());
-
-        game.moveToNextCard();
-
         // Attempting to show current card's meaning when game already ended
-        assertThrows(UnsupportedOperationException.class, () -> game.getCurrQuestion());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            game.moveToNextCard();
+            game.getCurrQuestion();
+        });
     }
 
+    @Test
+    public void forceStop() {
+        WordBankBuilder wordBankBuilder = new WordBankBuilder();
+        wordBankBuilder.withCard(ABRA);
+        wordBankBuilder.withCard(BUTTERFREE);
+        WordBank wb = wordBankBuilder.build();
+        Game game = new Game(wb, x -> Collections.shuffle(x));
+
+        // Game has not ended yet.
+        assertFalse(game.isOver());
+
+        // Game is forcibly stopped.
+        game.forceStop();
+        assertTrue(game.isOver());
+    }
+
+    @Test
+    public void setShuffledDeckOfCards() {
+        HashMap<Card, Integer> cardVisitedCountMap = new HashMap<>();
+        WordBankBuilder wordBankBuilder = new WordBankBuilder();
+        wordBankBuilder.withCard(ABRA);
+        wordBankBuilder.withCard(BUTTERFREE);
+        wordBankBuilder.withCard(CHARIZARD);
+        wordBankBuilder.withCard(DITTO);
+        wordBankBuilder.withCard(EEVEE);
+        WordBank wb = wordBankBuilder.build();
+        // Populate HashMap with all the cards in this test wordBank
+        for (int i = 0; i < wb.size(); i++) {
+            cardVisitedCountMap.put(wb.getCard(Index.fromZeroBased(i)), 0);
+        }
+
+        Game game = new Game(wb, x -> Collections.shuffle(x));
+
+
+        // Shuffling method should not change the set of possible cards or introduce duplicates.
+        for (int i = 0; i < wb.size(); i++) {
+            Card currCard = game.getCurrCard();
+            assertTrue(cardVisitedCountMap.containsKey(currCard));
+            cardVisitedCountMap.put(currCard, cardVisitedCountMap.get(currCard) + 1);
+            game.moveToNextCard();
+        }
+
+        // Check that all cards were visited exactly once.
+        for (Card key : cardVisitedCountMap.keySet()) {
+            assertEquals(1, cardVisitedCountMap.get(key));
+        }
+
+        // Shuffling method should not change number of cards.
+        assertEquals(wb.size(), cardVisitedCountMap.size());
+
+        assertTrue(game.isOver());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            game.moveToNextCard();
+            game.getCurrQuestion();
+        });
+
+    }
 }

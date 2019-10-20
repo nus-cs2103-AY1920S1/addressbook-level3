@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
+import seedu.address.appmanager.timer.GameTimer;
 import seedu.address.commons.core.GuiSettings;
 
 import seedu.address.logic.Logic;
@@ -42,11 +43,14 @@ public class AppManager {
         logic.setGuiSettings(guiSettings);
     }
 
-    private void setAndRunGameTimer(long timeAllowedPerQuestion) {
+    private void setAndRunGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
         gameTimer = new GameTimer("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack,
                 this::requestHintAndCallBack);
+        if (logic.hintsAreEnabled()) {
+            gameTimer.setHintTimingQueue(hintFormatSize, timeAllowedPerQuestion);
+        }
         gameTimer.run();
     }
 
@@ -59,8 +63,6 @@ public class AppManager {
             this.gameTimer = null;
         }
     }
-
-
 
     /**
      * Processes the input command commandText by passing it through the GameManager's main logic.
@@ -97,14 +99,15 @@ public class AppManager {
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
-            Platform.runLater(() -> setAndRunGameTimer(logic.getTimeAllowedPerQuestion()));
+            Platform.runLater(() -> setAndRunGameTimer(logic.getTimeAllowedPerQuestion(),
+                    logic.getHintFormatSizeFromCurrentGame()));
         }
 
         return commandResult;
     }
 
     private void requestHintAndCallBack() {
-        hintDisplayCallBack.updateHintDisplay(this.logic.getHintFromCurrentGame().toString());
+        hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
     }
 
     public Logic getLogic() {

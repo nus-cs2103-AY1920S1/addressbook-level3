@@ -21,6 +21,7 @@ import seedu.address.logic.commands.app.AddCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Hint;
 import seedu.address.model.game.Game;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -102,6 +103,21 @@ public class AddCommandTest {
         @Override
         public DifficultyEnum getDifficulty() {
             return null;
+        }
+
+        @Override
+        public long getTimeAllowedPerQuestion() {
+            return 0;
+        }
+
+        @Override
+        public Hint getHintFormatFromCurrentGame() {
+            return null;
+        }
+
+        @Override
+        public boolean hintsAreEnabled() {
+            return false;
         }
 
         @Override

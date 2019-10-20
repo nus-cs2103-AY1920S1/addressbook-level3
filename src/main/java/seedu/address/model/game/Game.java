@@ -4,12 +4,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.Hint;
+import seedu.address.model.card.HintFormat;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.model.wordbank.WordBank;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +19,7 @@ public class Game {
     public static final int CORRECT_GUESS = 1;
     public static final int WRONG_GUESS = 0;
     private boolean isOver = false;
+    private HintFormat hintFormat;
 
     // Shuffled Deck of Cards using cards from ReadOnlyWordBank
     private final List<Card> shuffledDeckOfCards;
@@ -33,10 +32,10 @@ public class Game {
      * WordBank must not be null.
      * @param wordBank WordBank that current Game session will run on.
      */
-    public Game(ReadOnlyWordBank wordBank) {
-        requireAllNonNull(wordBank);
+    public Game(ReadOnlyWordBank wordBank, CardShuffler cardShuffler) {
+        requireAllNonNull(wordBank, cardShuffler);
         this.cardIndex = Index.fromZeroBased(0);
-        this.shuffledDeckOfCards = setShuffledDeckOfCards(wordBank);
+        this.shuffledDeckOfCards = setShuffledDeckOfCards(wordBank, cardShuffler);
     }
 
     /**
@@ -47,12 +46,10 @@ public class Game {
         if (isOver()) {
             throw new UnsupportedOperationException("Game is already Over");
         }
-        return shuffledDeckOfCards.get(cardIndex.getZeroBased());
+        Card currentCard = shuffledDeckOfCards.get(cardIndex.getZeroBased());
+        return currentCard;
     }
 
-    public Hint getHintForCurrCard() {
-        return getCurrCard().getHint();
-    }
 
     /**
      * Returns meaning of current Card at the current index as a string.
@@ -60,6 +57,14 @@ public class Game {
      */
     public String getCurrQuestion() throws UnsupportedOperationException {
         return getCurrCard().getMeaning().toString();
+    }
+
+    public HintFormat getHintFormatForCurrCard() {
+        return getCurrCard().getHint();
+    }
+
+    public int getHintFormatSizeOfCurrCard() {
+        return getCurrCard().getHintFormatSize();
     }
 
     /**
@@ -101,7 +106,7 @@ public class Game {
      * Generates a randomly shuffled deck of cards based on input {@code wordBank} and returns
      * it as a {@code List<Card>}.
      */
-    private List<Card> setShuffledDeckOfCards(ReadOnlyWordBank wordBank) {
+    private List<Card> setShuffledDeckOfCards(ReadOnlyWordBank wordBank, CardShuffler cardShuffler) {
         ArrayList<Card> shuffledDeckOfCards = new ArrayList<>();
 
         // Copy over all cards in input WordBank
@@ -110,7 +115,12 @@ public class Game {
             shuffledDeckOfCards.add(tempIndex.getZeroBased(), wordBank.getCard(tempIndex));
             tempIndex.increment();
         }
-        Collections.shuffle(shuffledDeckOfCards);
+        cardShuffler.shuffle(shuffledDeckOfCards);
         return shuffledDeckOfCards;
+    }
+
+    @FunctionalInterface
+    public interface CardShuffler {
+        void shuffle(List<Card> cardsToShuffle);
     }
 }

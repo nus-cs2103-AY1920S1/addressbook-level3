@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Hint;
+import seedu.address.model.card.HintFormat;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
@@ -153,7 +154,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Hint getHintFromCurrentGame() {
-        return this.model.getHintFromCurrentGame();
+    public HintFormat getHintFormatFromCurrentGame() {
+        return this.model.getHintFormatFromCurrentGame();
+    }
+
+    @Override
+    public int getHintFormatSizeFromCurrentGame() {
+        return this.model.getHintFormatSizeFromCurrentGame();
+    }
+
+    @Override
+    public boolean hintsAreEnabled() {
+        return model.hintsAreEnabled();
     }
 }

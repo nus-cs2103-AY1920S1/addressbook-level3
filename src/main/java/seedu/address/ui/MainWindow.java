@@ -274,8 +274,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void updateHintDisplay(String resultDisplayMessage) {
-        // Todo: implement HintDisplay window
-        this.resultDisplay.setFeedbackToUser(resultDisplayMessage);
+        // Todo: implement HintDisplay window and show hints there instead
+        String[] tokens = resultDisplay.getCurrentTextOnDisplay().split("\n");
+        String toDisplay = tokens[0] + "\n" + tokens[1] + "\n" + resultDisplayMessage;
+        resultDisplay.setFeedbackToUser(toDisplay);
     }
 
 }

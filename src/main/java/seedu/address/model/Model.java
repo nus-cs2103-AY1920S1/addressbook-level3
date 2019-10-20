@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.Hint;
 import seedu.address.model.game.Game;
+import seedu.address.model.card.HintFormat;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -130,5 +130,9 @@ public interface Model {
 
     long getTimeAllowedPerQuestion();
 
-    Hint getHintFromCurrentGame();
+    HintFormat getHintFormatFromCurrentGame();
+
+    int getHintFormatSizeFromCurrentGame();
+
+    boolean hintsAreEnabled();
 }
