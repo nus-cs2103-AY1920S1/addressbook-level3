@@ -62,10 +62,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters which you need to supply. For example, in `add mentor n/NAME`,
 `NAME` is a parameter which you need to specify as the mentor's name, for example `add mentor n/John Doe`.
-* You can type the parameters can be in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
+* You can type the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
 you may input `p/PHONE_NUMBER n/NAME` and Alfred will still deem it as an acceptable command.
 * Words in {curly braces} indicate values for the command that you need to supply.
 For example in the case of `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
+* Type your commands in the textbox displayed on the Alfred UI. After you are done typing the command, press ENTER on your keyboard to execute the command.
 ====
 
 === Viewing help : `help`
@@ -84,6 +85,8 @@ Use this command to add an entity for Alfred to keep track of. +
 ****
 
 ==== Adding a Participant: `add participant [PARAMETERS]`
+Use this command to add a new Participant to Alfred to keep track of for your hackathon. Participants have the fields "Name", "Phone number" and "Email address" which you must provide. The format of the command for adding a new Participant is as described below.
+
 Format: `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`
 
 Examples:
@@ -93,6 +96,8 @@ Examples:
 * `add participant n/Betsy Crowe e/betsycrowe@example.com p/1234567`
 
 ==== Adding a Mentor: `add mentor [PARAMETERS]`
+Use this command to add a new Mentor to Alfred to keep track of for your hackathon. Mentors have the fields "Name", "Phone number" and "Email address" which you must provide. Additionally, they have field called "Organization" which is the organization for which they work, and a field called "Specialisation" which is the area they specialise in. The Specialisation must be chosen from the predetermined list of specialisations given in Section (some number). The format of the command for adding a new Mentor is as described below.
+
 Format: `add mentor  n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS o/ORGANIZATION s/SPECIALISATION`
 
 Examples:
@@ -102,53 +107,52 @@ Examples:
 * `add mentor n/Doctor Batman p/91236549 e/bruce@gmail.com o/Google s/Augmented Reality`
 
 ==== Adding a Team: `add team [PARAMETERS]`
-Format: `add team n/NAME s/SUBJECT pn/PROJECT_NAME pt/PROJECT_TYPE l/LOCATION`
+Use this command to add a new Team to Alfred to keep track of for your hackathon. Teams have the fields "Name", "Project name" and "Table Number" which you must provide. Additionally, they have a field called "Subject" which is the area the team's project focusses on, and must be chosen from the predetermined list of subjects given in Section (some number). The format of the command for adding a new Team is as described below.
+
+Format: `add team n/NAME s/SUBJECT pn/PROJECT_NAME pt/PROJECT_TYPE l/TABLE_NUMBER`
 
 Examples:
 
-* `add team n/Team01 s/Artificial Intelligence pn/EmotionTrain pt/Public Welfare l/COM1-0210`
+* `add team n/Team01 s/Artificial Intelligence pn/EmotionTrain pt/Public Welfare l/12`
 
-* `add team n/HackathonWinners4Sure s/Augmented Reality pn/Path-ify pt/Navigation l/COM2-0102`
+* `add team n/HackathonWinners4Sure s/Augmented Reality pn/Path-ify pt/Navigation l/23`
 
 === Updating an Entity: `edit {mentor/participant/team} ID [PARAMETERS]`
 
 Edits an entity based on the supplied parameter values you supply.
 
 ****
-* Updates the Entity with `ID` you specified. The ID is a unique identifier for the Entity.
+* Updates the fields of the Entity with the `ID` you specified to the new fields you type in as the parameter. The ID is the unique identifier for the particular Entity you wish to edit.
 * You must provide at least one of the optional fields.
-* Existing values will be updated to the input values.
+* Existing values will be updated to the input values you provide.
 ****
 
 Examples:
-* `edit mentor M01 \nNewMentorName`
-* `edit team T01 \nNewTeamName`
-* `edit participant P01 \nNewParticipantNAme`
 
-* `edit mentor M01 /nNewMentorName`
+* `edit mentor M01 n/NewMentorName `
 
-* `edit team T01 n/NewTeamName`
+* `edit team T01 n/NewTeamName pn/New Project Name`
 
 * `edit participant P01 n/NewParticipantNAme`
 
-=== Listing all Entities : `list {mentor/team/participant}`
+=== Listing all Entities : `list {mentors/teams/participants}`
 
-Shows a list of all the Entities that Alfred keeps track of +
+Shows a list of all the entities corresponding to the entity you specified that Alfred keeps track of.
 
 ****
 * The fields of the Entity will be displayed on the Graphical User Interface.
 ****
 
 Examples:
-* `list mentor M01`
-* `list participant P01`
-* `list team T01`
+* `list mentors`
+* `list participant`
+* `list team`
 
-* `list mentor` will list all mentors stored within Alfred.
+* `list mentors` will list all mentors stored within Alfred.
 
-* `list participant` will list all hackathon participants stored within Alfred.
+* `list participants` will list all hackathon participants stored within Alfred.
 
-* `list team` will list all hackathon teams stored within Alfred.
+* `list teams` will list all hackathon teams stored within Alfred.
 
 === Deleting an Entity: `delete {participant/mentor/team} ID`
 Deletes an Entity, so that Alfred will no longer keep track of that Entity.
@@ -159,11 +163,11 @@ This is a permanent operation, so please be careful.
 * As of version 1.1, the delete operation is permanent and irreversible. Be careful.
 ****
 
-* `delete mentor M01` will delete the mentor with ID M01 from Alfred.
+* `delete mentor M-1` will delete the mentor with ID M-1 from Alfred.
 
-* `delete participant P01` will delete the participant with ID P01 from Alfred.
+* `delete participant P-1` will delete the participant with ID P-1 from Alfred.
 
-* `delete team T01` will delete the team with ID T01 from Alfred.
+* `delete team T-1` will delete the team with ID T-1 from Alfred.
 
 === Saving the data: `save`
 
