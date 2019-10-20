@@ -2,6 +2,8 @@ package seedu.savenus.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -14,6 +16,7 @@ import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
+import seedu.savenus.model.food.Food;
 
 /**
  * The Main Window.
@@ -227,9 +230,17 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             // Update foodListPanel after every command
-            foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
+            ObservableList<Food> list = logic.getFilteredFoodList();
+            foodListPanel = new FoodListPanel(list);
             foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
-            if (commandResult.isJustAdd()) {
+
+            if (logic.getAutoSortFlag()) {
+                ObservableList<Food> foodList = logic.getFilteredFoodList();
+                SortedList<Food> sortedList = foodList.sorted(logic.getCustomSorter().getComparator());
+                logic.setFoods(sortedList);
+            }
+
+            if (commandResult.isJustAdd() && !logic.getAutoSortFlag()) {
                 foodListPanel.showLastItem();
             }
 

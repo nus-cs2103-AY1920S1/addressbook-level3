@@ -16,12 +16,14 @@ import static seedu.savenus.testutil.TypicalMenu.CHICKEN_RICE;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.logic.commands.CommandResult;
@@ -147,6 +149,25 @@ public class LogicManagerTest {
         Logic newLogic = logic;
         logic.setGuiSettings(logic.getGuiSettings());
         assertEquals(logic, newLogic);
+    }
+
+    @Test
+    public void autoSortFlag_tests() {
+        Logic newLogic = logic;
+        assertEquals(newLogic.getAutoSortFlag(), false);
+    }
+
+    @Test
+    public void customSorter_tests() {
+        CustomSorter sorter = new CustomSorter();
+        assertEquals(logic.getCustomSorter(), sorter);
+    }
+
+    @Test
+    public void setFoods_success() {
+        logic.setFoods(new ArrayList<Food>());
+        ObservableList<Food> foodList = new SortedList<Food>(logic.getFilteredFoodList());
+        assertEquals(foodList, logic.getFilteredFoodList());
     }
 
     /**

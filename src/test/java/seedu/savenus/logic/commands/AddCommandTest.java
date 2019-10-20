@@ -302,6 +302,16 @@ public class AddCommandTest {
         public void deductFromWallet(Savings savings) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean getAutoSortFlag() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAutoSortFlag(boolean autoSortFlag) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
