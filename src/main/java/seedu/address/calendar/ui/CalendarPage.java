@@ -19,7 +19,9 @@ import seedu.address.ui.UiPart;
 
 public class CalendarPage extends UiPart<Scene> implements Page {
     private static final String FXML = "CalendarPage.fxml";
-    private final static PageType pageType = PageType.CALENDAR;
+    private static final PageType pageType = PageType.CALENDAR;
+
+    private ResultDisplay resultDisplay;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -64,7 +66,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         MonthView monthView = new MonthView(currentMonth);
         monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
 
-        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -104,15 +106,21 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        Command command = (new CalendarParser()).parseCommand(commandText);
-        CommandResult commandResult = command.execute(calendar);
+        try {
+            Command command = (new CalendarParser()).parseCommand(commandText);
+            CommandResult commandResult = command.execute(calendar);
 
-        if (calendar.hasViewUpdates()) {
-            Month updatedMonth = calendar.getMonth();
-            updateCalendarPage(updatedMonth);
-            calendar.completeUpdate();
+            if (calendar.hasViewUpdates()) {
+                Month updatedMonth = calendar.getMonth();
+                updateCalendarPage(updatedMonth);
+                calendar.completeUpdate();
+            }
+
+            resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
+            return commandResult;
+        } catch (ParseException e) {
+            resultDisplay.setDisplayText(e.getMessage());
+            throw e;
         }
-
-        return commandResult;
     }
 }

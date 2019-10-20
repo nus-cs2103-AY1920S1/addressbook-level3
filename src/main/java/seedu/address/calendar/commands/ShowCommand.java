@@ -11,7 +11,7 @@ import seedu.address.logic.commands.CommandResult;
  */
 public class ShowCommand extends Command {
     public static final String COMMAND_WORD = "show";
-    public static final String SHOWING_REQUESTED_MESSAGE = "Showing month view for %s %d";
+    public static final String SHOWING_REQUESTED_MESSAGE = "Showing month view for %s %s";
 
     MonthOfYear monthOfYear;
     Year year;
@@ -24,6 +24,7 @@ public class ShowCommand extends Command {
     public CommandResult execute(Calendar calendar) {
         Month requestedMonth = new Month(monthOfYear, year);
         calendar.updateMonthShown(requestedMonth);
-        return new CommandResult(SHOWING_REQUESTED_MESSAGE);
+        String formattedFeedback = String.format(SHOWING_REQUESTED_MESSAGE, monthOfYear.toString(), year.toString());
+        return new CommandResult(formattedFeedback);
     }
 }
