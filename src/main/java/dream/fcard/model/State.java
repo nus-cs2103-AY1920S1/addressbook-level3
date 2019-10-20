@@ -69,7 +69,7 @@ public class State {
     private int getDeckIndex(String deckName) {
         for (int i = 0; i < decks.size(); i++) {
             Deck currentDeck = decks.get(i);
-            boolean isUserInputMatchDeckName = currentDeck.getDeckName().equals(deckName);
+            boolean isUserInputMatchDeckName = currentDeck.getName().equals(deckName);
 
             if (isUserInputMatchDeckName) {
                 return i;
