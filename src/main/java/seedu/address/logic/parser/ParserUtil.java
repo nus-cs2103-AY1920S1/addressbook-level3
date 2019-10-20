@@ -57,11 +57,11 @@ public class ParserUtil {
      */
     public static Set<Name> parseNames(Collection<String> names) throws ParseException {
         requireNonNull(names);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : names) {
-            tagSet.add(parseTag(tagName));
+        final Set<Name> nameSet = new HashSet<>();
+        for (String setName : names) {
+            nameSet.add(parseName(setName));
         }
-        return tagSet;
+        return nameSet;
     }
 
     /**
