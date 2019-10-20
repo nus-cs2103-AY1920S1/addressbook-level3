@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "moneygowhere.json"
+  "spendingBookFilePath" : "moneygowhere.json"
 }
