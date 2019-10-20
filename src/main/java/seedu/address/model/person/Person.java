@@ -22,6 +22,7 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final DateOfBirth dateOfBirth;
+    private final Gender gender;
 
     // Data fields
     private final Address address;
@@ -31,8 +32,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Nric nric, Phone phone, Email email, Address address, DateOfBirth dateOfBirth,
-                  Set<Policy> policies, Set<Tag> tags) {
+    public Person(Name name,
+                  Nric nric,
+                  Phone phone,
+                  Email email,
+                  Address address,
+                  DateOfBirth dateOfBirth,
+                  Gender gender,
+                  Set<Policy> policies,
+                  Set<Tag> tags) {
         requireAllNonNull(name, nric, phone, email, address, dateOfBirth, policies, tags);
         this.name = name;
         this.nric = nric;
@@ -40,6 +48,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
         this.policies.addAll(policies);
         this.tags.addAll(tags);
     }
@@ -68,6 +77,10 @@ public class Person {
         return dateOfBirth;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
     /**
      * Returns an immutable policy set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -94,7 +107,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName()) && otherPerson.getNric().equals(getNric());
+            && otherPerson.getName().equals(getName()) && otherPerson.getNric().equals(getNric());
     }
 
     /**
@@ -115,12 +128,13 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && otherPerson.getNric().equals(getNric())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getDateOfBirth().equals(getDateOfBirth());
+            && otherPerson.getName().equals(getName())
+            && otherPerson.getNric().equals(getNric())
+            && otherPerson.getPhone().equals(getPhone())
+            && otherPerson.getAddress().equals(getAddress())
+            && otherPerson.getEmail().equals(getEmail())
+            && otherPerson.getDateOfBirth().equals(getDateOfBirth())
+            && otherPerson.getGender().equals(getGender());
     }
 
     /**
@@ -139,35 +153,38 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getNric().equals(getNric())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getDateOfBirth().equals(getDateOfBirth())
-                && otherPerson.getPolicies().equals(getPolicies())
-                && otherPerson.getTags().equals(getTags());
+            && otherPerson.getNric().equals(getNric())
+            && otherPerson.getPhone().equals(getPhone())
+            && otherPerson.getEmail().equals(getEmail())
+            && otherPerson.getAddress().equals(getAddress())
+            && otherPerson.getDateOfBirth().equals(getDateOfBirth())
+            && otherPerson.getGender().equals(getGender())
+            && otherPerson.getPolicies().equals(getPolicies())
+            && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, nric, phone, email, address, dateOfBirth, tags);
+        return Objects.hash(name, nric, phone, email, address, dateOfBirth, gender, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" NRIC: ")
-                .append(getNric())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Date of birth: ")
-                .append(getDateOfBirth());
+            .append(" NRIC: ")
+            .append(getNric())
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" Date of birth: ")
+            .append(getDateOfBirth())
+            .append(" Gender: ")
+            .append(getGender());
         if (getPolicies().size() != 0) {
             builder.append(" Policies: ");
             getPolicies().forEach(policy -> builder.append(policy.getName().policyName));

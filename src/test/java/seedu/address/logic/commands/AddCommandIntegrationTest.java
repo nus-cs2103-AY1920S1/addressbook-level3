@@ -34,7 +34,7 @@ public class AddCommandIntegrationTest {
         expectedModel.saveAddressBookState();
 
         assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+            String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class AddCommandIntegrationTest {
         Person personInList = model.getAddressBook().getPersonList().get(0);
         AddCommand addCommand = new AddCommand(personInList);
         assertCommandFailure(new AddCommand(personInList), model,
-                addCommand.generateExceptionMessageWithoutMergePrompt(personInList));
+            addCommand.generateExceptionMessageWithoutMergePrompt(personInList));
     }
 
 }

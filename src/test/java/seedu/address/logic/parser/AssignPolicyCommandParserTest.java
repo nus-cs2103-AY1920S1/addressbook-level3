@@ -18,7 +18,7 @@ import seedu.address.model.policy.PolicyName;
 class AssignPolicyCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignPolicyCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignPolicyCommand.MESSAGE_USAGE);
 
     private AssignPolicyCommandParser parser = new AssignPolicyCommandParser();
 
@@ -58,10 +58,10 @@ class AssignPolicyCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + POLICY_DESC_HEALTH, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + POLICY_DESC_LIFE, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + POLICY_DESC_HEALTH, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + POLICY_DESC_LIFE, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);

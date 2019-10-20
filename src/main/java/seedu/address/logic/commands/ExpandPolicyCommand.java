@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_POLICIES;
 
 import java.util.List;
 
@@ -21,8 +20,8 @@ public class ExpandPolicyCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Expanded: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. \n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+        + "by the index number used in the displayed person list. \n"
+        + "Example: " + COMMAND_WORD + " 1 ";
 
     private final Index index;
 
@@ -40,7 +39,6 @@ public class ExpandPolicyCommand extends Command {
         }
 
         Policy policyToExpand = lastShownList.get(index.getZeroBased());
-        model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, policyToExpand), policyToExpand);
     }

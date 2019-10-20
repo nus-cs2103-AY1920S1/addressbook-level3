@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -73,13 +74,13 @@ public class LogicManager implements Logic {
     //todo : update command words
     public void initialiseCommandsInParserUtil() {
         ParserUtil.addCommands(AddCommand.COMMAND_WORD, AddPolicyCommand.COMMAND_WORD, AddPolicyTagCommand.COMMAND_WORD,
-                AddTagCommand.COMMAND_WORD, AssignPolicyCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
-                DeleteCommand.COMMAND_WORD, DeletePolicyCommand.COMMAND_WORD, DeletePolicyTagCommand.COMMAND_WORD,
-                DeleteTagCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, EditPolicyCommand.COMMAND_WORD,
-                ExitCommand.COMMAND_WORD, ExpandPolicyCommand.COMMAND_WORD, ExpandPersonCommand.COMMAND_WORD,
-                FindCommand.COMMAND_WORD, FindPolicyCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
-                HistoryCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
-                SuggestionSwitchCommand.COMMAND_WORD, UnassignPolicyCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD);
+            AddTagCommand.COMMAND_WORD, AssignPolicyCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
+            DeleteCommand.COMMAND_WORD, DeletePolicyCommand.COMMAND_WORD, DeletePolicyTagCommand.COMMAND_WORD,
+            DeleteTagCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, EditPolicyCommand.COMMAND_WORD,
+            ExitCommand.COMMAND_WORD, ExpandPolicyCommand.COMMAND_WORD, ExpandPersonCommand.COMMAND_WORD,
+            FindCommand.COMMAND_WORD, FindPolicyCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
+            HistoryCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
+            SuggestionSwitchCommand.COMMAND_WORD, UnassignPolicyCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD);
     }
 
     @Override
@@ -142,6 +143,20 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableMap<String, Integer> getPolicyPopularityBreakdown() {
+        return model.getPolicyPopularityBreakdown();
+    }
+
+    @Override
+    public ObservableMap<String, Integer> getAgeGroupBreakdown() {
+        return model.getAgeGroupBreakdown();
+    }
+
+    @Override
+    public ObservableMap<String, Integer> getGenderBreakdown() {
+        return model.getGenderBreakdown();
+    }
+
     public ObservableList<Pair<String, String>> getHistoryList() {
         return commandHistory.getHistory();
     }
@@ -167,14 +182,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setUserSettings() {
-        boolean suggestionOn = addressBookParser.isSuggestionOn();
-        UserSettings userSettings = new UserSettings(suggestionOn);
+    public void setUserSettings(UserSettings userSettings) {
         model.setUserSettings(userSettings);
     }
 
     @Override
-    public void setUserSettings(UserSettings userSettings) {
+    public void setUserSettings() {
+        boolean suggestionOn = addressBookParser.isSuggestionOn();
+        UserSettings userSettings = new UserSettings(suggestionOn);
         model.setUserSettings(userSettings);
     }
 }

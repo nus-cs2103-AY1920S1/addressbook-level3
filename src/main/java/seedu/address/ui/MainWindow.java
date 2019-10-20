@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -18,6 +19,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.visual.DisplayFormat;
+import seedu.address.model.visual.DisplayIndicator;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -39,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private HistoryListPanel historyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReportPanel reportPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -86,6 +90,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -167,7 +172,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         logic.setUserSettings();
         helpWindow.hide();
@@ -184,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String, boolean)
      */
     private CommandResult executeCommand(String commandText, boolean isSystemInput) throws
-            CommandException, ParseException {
+        CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText, isSystemInput);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -200,11 +205,13 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isListPolicy()) {
                 policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
+                listPanelPlaceholder.getChildren().clear();
                 listPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
             }
 
             if (commandResult.isListPeople()) {
                 personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+                listPanelPlaceholder.getChildren().clear();
                 listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             }
 
@@ -212,6 +219,46 @@ public class MainWindow extends UiPart<Stage> {
                 historyListPanel = new HistoryListPanel(logic.getHistoryList());
                 displayPlaceHolder.getChildren().removeAll();
                 displayPlaceHolder.getChildren().add(historyListPanel.getRoot());
+            }
+
+            if (commandResult.isReport()) {
+                reportPanel = new ReportPanel();
+                listPanelPlaceholder.getChildren().clear();
+                listPanelPlaceholder.getChildren().add(reportPanel.getRoot());
+            }
+
+            if (commandResult.isDisplay()) {
+                DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
+                ObservableMap<String, Integer> data;
+                String title = displayIndicator.toString();
+                DisplayFormat displayFormat = commandResult.getDisplayFormat();
+
+                switch (displayIndicator.value) {
+                case DisplayIndicator.POLICY_POPULARITY_BREAKDOWN:
+                    data = logic.getPolicyPopularityBreakdown();
+                    break;
+                case DisplayIndicator.AGE_GROUP_BREAKDOWN:
+                    data = logic.getAgeGroupBreakdown();
+                    break;
+                case DisplayIndicator.GENDER_BREAKDOWN:
+                    data = logic.getGenderBreakdown();
+                    break;
+                default:
+                    // TODO: display report as default instead
+                    throw new ParseException(DisplayIndicator.getMessageConstraints());
+                }
+
+                displayPlaceHolder.getChildren().clear();
+                switch (displayFormat.value) {
+                case DisplayFormat.PIECHART:
+                    displayPlaceHolder.getChildren().add(new PieChartVisual(data, title).getRoot());
+                    break;
+                case DisplayFormat.BARCHART:
+                    displayPlaceHolder.getChildren().add(new BarChartVisual(data, title).getRoot());
+                    break;
+                default:
+                    throw new ParseException(DisplayFormat.getMessageConstraints());
+                }
             }
 
             if (commandResult.isExpandPerson()) {

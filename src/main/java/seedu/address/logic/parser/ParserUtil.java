@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
@@ -24,6 +25,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
@@ -34,6 +36,8 @@ import seedu.address.model.policy.PolicyName;
 import seedu.address.model.policy.Price;
 import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visual.DisplayFormat;
+import seedu.address.model.visual.DisplayIndicator;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -45,9 +49,11 @@ public class ParserUtil {
     private static HashSet<String> commands = new HashSet<>();
 
     private static int lengthLongerThanAllCommandWords = 100;
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -134,6 +140,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String gender} into an {@code gender}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code gender} is invalid.
+     */
+    public static Gender parseGender(String gender) throws ParseException {
+        requireNonNull(gender);
+        String trimmedGender = gender.trim();
+        if (!Gender.isValidGender(trimmedGender)) {
+            throw new ParseException(Gender.getMessageConstraints());
+        }
+        return new Gender(trimmedGender);
+    }
+
+    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -208,7 +229,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Description parseDescription (String description) throws ParseException {
+    public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
         if (!Description.isValidDescription(trimmedDescription)) {
@@ -223,7 +244,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Coverage parseCoverage (String coverage) throws ParseException {
+    public static Coverage parseCoverage(String coverage) throws ParseException {
         requireNonNull(coverage);
         String trimmedCoverage = coverage.trim();
         if (!Coverage.isValidCoverage(trimmedCoverage)) {
@@ -238,7 +259,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Price parsePrice (String price) throws ParseException {
+    public static Price parsePrice(String price) throws ParseException {
         requireNonNull(price);
         String trimmedPrice = price.trim();
         if (!Price.isValidPrice(trimmedPrice)) {
@@ -253,7 +274,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code startAge} is invalid.
      */
-    public static StartAge parseStartAge (String startAge) throws ParseException {
+    public static StartAge parseStartAge(String startAge) throws ParseException {
         requireNonNull(startAge);
         String trimmedStartAge = startAge.trim();
         if (trimmedStartAge.length() == 0) {
@@ -271,7 +292,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code startAge} is invalid.
      */
-    public static EndAge parseEndAge (String endAge) throws ParseException {
+    public static EndAge parseEndAge(String endAge) throws ParseException {
         requireNonNull(endAge);
         String trimmedEndAge = endAge.trim();
         if (trimmedEndAge.length() == 0) {
@@ -284,9 +305,42 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String display indicator} into a {@code display indicator}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code displayIndicator} is invalid.
+     */
+    public static DisplayIndicator parseDisplayIndicator(String displayIndicator) throws ParseException {
+        requireNonNull(displayIndicator);
+        String trimmedDisplayIndicator = displayIndicator.trim();
+
+        if (!DisplayIndicator.isValidDisplayIndicator(trimmedDisplayIndicator)) {
+            throw new ParseException(DisplayIndicator.getMessageConstraints());
+        }
+        return new DisplayIndicator(trimmedDisplayIndicator);
+    }
+
+    /**
+     * Parses a {@code String display format} into a {@code display format}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code displayFormat} is invalid.
+     */
+    public static DisplayFormat parseDisplayFormat(String displayFormat) throws ParseException {
+        requireNonNull(displayFormat);
+        String trimmedDisplayFormat = displayFormat.trim();
+
+        if (!DisplayFormat.isValidDisplayFormat(trimmedDisplayFormat)) {
+            throw new ParseException(DisplayFormat.getMessageConstraints());
+        }
+        return new DisplayFormat(trimmedDisplayFormat);
+    }
+
+    /**
      * Parses a {@String invalidInputCommandWord} into a {@String suggestedCommandWord}.
+     *
      * @param inputCommand Invalid input command word by user.
-     * @param arguments Arguments of command input by user.
+     * @param arguments    Arguments of command input by user.
      * @return Suggested command word.
      */
     public static String parseCommand(String inputCommand, String arguments) {
@@ -296,7 +350,8 @@ public class ParserUtil {
     /**
      * Shortlists commands based on prefixes present and calls the method to find the shortest distance between
      * the input command and the shortlisted command words.
-     * @param command Input command.
+     *
+     * @param command   Input command.
      * @param arguments Arguments of the input command.
      * @return The command word closest to the input command word.
      */
@@ -336,6 +391,7 @@ public class ParserUtil {
         commandList.add(RedoCommand.COMMAND_WORD);
         commandList.add(UndoCommand.COMMAND_WORD);
         commandList.add(HistoryCommand.COMMAND_WORD);
+        commandList.add(DisplayCommand.COMMAND_WORD);
         return commandList;
     }
 
@@ -392,8 +448,8 @@ public class ParserUtil {
                 return getLongestSubstring(s1, s2, s1Index + 1, s2Index + 1, counter + 1);
             } else {
                 return Math.max(counter,
-                        Math.max(getLongestSubstring(s1, s2, s1Index + 1, s2Index, 0),
-                                getLongestSubstring(s1, s2, s1Index, s2Index + 1, 0)));
+                    Math.max(getLongestSubstring(s1, s2, s1Index + 1, s2Index, 0),
+                        getLongestSubstring(s1, s2, s1Index, s2Index + 1, 0)));
             }
         }
     }
@@ -424,6 +480,7 @@ public class ParserUtil {
 
     /**
      * Adds the command word to the list of command words.
+     *
      * @param string Valid command words.
      */
     public static void addCommands(String... string) {
@@ -433,6 +490,7 @@ public class ParserUtil {
 
     /**
      * Removes the command word from the lsit of command words.
+     *
      * @param string Valid command words.
      */
     public static void removeCommands(String... string) {
@@ -441,5 +499,4 @@ public class ParserUtil {
             commands.remove(commandsToDelete.get(i));
         }
     }
-
 }

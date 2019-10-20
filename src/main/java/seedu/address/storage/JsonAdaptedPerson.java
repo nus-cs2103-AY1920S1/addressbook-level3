@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String dateOfBirth;
+    private final String gender;
     private final List<JsonAdaptedPolicy> policies = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -43,13 +45,15 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
                              @JsonProperty("phone") String phone, @JsonProperty("email") String email,
                              @JsonProperty("address") String address, @JsonProperty("date of birth") String dateOfBirth,
-                            @JsonProperty("policies") List<JsonAdaptedPolicy> policies,
+                             @JsonProperty("gender") String gender,
+                             @JsonProperty("policies") List<JsonAdaptedPolicy> policies,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.nric = nric;
         this.phone = phone;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
         this.address = address;
         if (policies != null) {
             this.policies.addAll(policies);
@@ -69,12 +73,13 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         dateOfBirth = source.getDateOfBirth().value;
+        gender = source.getGender().gender;
         policies.addAll(source.getPolicies().stream()
-                .map(JsonAdaptedPolicy::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedPolicy::new)
+            .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -136,17 +141,27 @@ class JsonAdaptedPerson {
 
         if (dateOfBirth == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    DateOfBirth.class.getSimpleName()));
+                DateOfBirth.class.getSimpleName()));
         }
         if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
             throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
         }
         final DateOfBirth modelDateOfBirth = new DateOfBirth(dateOfBirth);
 
+        if (gender == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Gender.class.getSimpleName()));
+        }
+        if (!Gender.isValidGender(gender)) {
+            throw new IllegalValueException(Gender.getMessageConstraints());
+        }
+
+        final Gender modelGender = new Gender(gender);
+
         final Set<Policy> modelPolicies = new HashSet<>(policyList);
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelNric, modelPhone, modelEmail, modelAddress, modelDateOfBirth,
-                modelPolicies, modelTags);
+        return new Person(modelName, modelNric, modelPhone, modelEmail, modelAddress, modelDateOfBirth, modelGender,
+            modelPolicies, modelTags);
     }
 
 }

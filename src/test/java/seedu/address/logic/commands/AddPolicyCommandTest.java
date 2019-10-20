@@ -7,25 +7,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
-import seedu.address.model.policy.PolicyName;
+import seedu.address.testutil.TestUtil.ModelStub;
 
 public class AddPolicyCommandTest {
 
@@ -52,18 +44,18 @@ public class AddPolicyCommandTest {
         ModelStub modelStub = new ModelStubWithPolicy(validPolicy);
 
         assertThrows(CommandException.class, addPolicyCommand.generateExceptionMessageWithoutMergePrompt(validPolicy), (
-            ) -> addPolicyCommand.execute(modelStub));
+        ) -> addPolicyCommand.execute(modelStub));
     }
 
     @Test
     public void execute_duplicatePolicyWithDifferentFields_throwsCommandException() {
         Policy validPolicy = new PolicyBuilder().build();
         Policy duplicatePolicyWithDifferentDescription = new PolicyBuilder()
-                .withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
+            .withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
         AddPolicyCommand addPolicyCommand = new AddPolicyCommand(duplicatePolicyWithDifferentDescription);
         ModelStub modelStub = new ModelStubWithPolicy(validPolicy);
         assertThrows(CommandException.class,
-                addPolicyCommand.generateExceptionMessageWithMergePrompt(validPolicy), ()
+            addPolicyCommand.generateExceptionMessageWithMergePrompt(validPolicy), ()
                 -> addPolicyCommand.execute(modelStub));
     }
 
@@ -89,166 +81,6 @@ public class AddPolicyCommandTest {
 
         // different person -> returns false
         assertFalse(addHealthCommand.equals(addFitnessCommand));
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public UserSettings getUserSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setUserSettings(UserSettings userSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Person getPerson(Person person) {
-            return person;
-        }
-
-        @Override
-        public void addPolicy(Policy policy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Policy getPolicy(Policy policy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Policy getPolicyWithName(PolicyName policyName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPolicy(Policy policy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPolicyWithName(PolicyName policyName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePolicy(Policy target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPolicy(Policy target, Policy editedPolicy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Policy> getFilteredPolicyList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPolicyList(Predicate<Policy> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void saveAddressBookState() {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**
@@ -294,7 +126,8 @@ public class AddPolicyCommandTest {
         }
 
         @Override
-        public void saveAddressBookState() {}
+        public void saveAddressBookState() {
+        }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {

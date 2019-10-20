@@ -14,9 +14,12 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TypicalAddressBook;
+import seedu.address.testutil.TypicalPersons;
 
 public class ModelManagerTest {
 
@@ -91,6 +94,30 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getPolicyPopularityBreakdown_typicalAddressBook_returnsTrue() {
+        modelManager.setAddressBook(TypicalAddressBook.getTypicalAddressBook());
+        ObservableMap<String, Integer> result = modelManager.getPolicyPopularityBreakdown();
+        ObservableMap<String, Integer> expected = TypicalPersons.getTypicalPolicyPopularityBreakdown();
+        assertEquals(result, expected);
+    }
+
+    @Test
+    public void getAgeGroupBreakdown() {
+        modelManager.setAddressBook(TypicalAddressBook.getTypicalAddressBook());
+        ObservableMap<String, Integer> result = modelManager.getAgeGroupBreakdown();
+        ObservableMap<String, Integer> expected = TypicalPersons.getAgeGroupBreakdown();
+        assertEquals(result, expected);
+    }
+
+    @Test
+    public void getGenderBreakdown() {
+        modelManager.setAddressBook(TypicalAddressBook.getTypicalAddressBook());
+        ObservableMap<String, Integer> result = modelManager.getGenderBreakdown();
+        ObservableMap<String, Integer> expected = TypicalPersons.getGenderBreakdown();
+        assertEquals(result, expected);
     }
 
     @Test

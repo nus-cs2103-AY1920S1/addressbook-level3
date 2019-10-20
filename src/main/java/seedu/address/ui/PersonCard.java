@@ -41,6 +41,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label dateOfBirth;
     @FXML
+    private Label gender;
+    @FXML
     private Label email;
     @FXML
     private FlowPane policies;
@@ -56,6 +58,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         dateOfBirth.setText(person.getDateOfBirth().value);
+        gender.setText(person.getGender().gender);
         email.setText(person.getEmail().value);
         person.getPolicies().stream()
                 .sorted(Comparator.comparing(policy -> policy.getName().policyName))

@@ -8,27 +8,19 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_I
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.logic.commands.merge.MergePolicyRejectedCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.Policy;
-import seedu.address.model.policy.PolicyName;
+import seedu.address.testutil.TestUtil.ModelStub;
 
 public class MergePolicyRejectedCommandTest {
 
@@ -45,9 +37,9 @@ public class MergePolicyRejectedCommandTest {
         ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
         CommandResult commandResult = new MergePolicyRejectedCommand(mergeCommandStub).execute(modelStub);
         assertEquals(String.format(MergePolicyRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED,
-                Description.DATA_TYPE)
-                + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
-                mergeCommandStub.getOriginalPolicy()), commandResult.getFeedbackToUser());
+            Description.DATA_TYPE)
+            + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
+            mergeCommandStub.getOriginalPolicy()), commandResult.getFeedbackToUser());
         assertEquals(modelStub.getPolicy(), new PolicyBuilder().build());
     }
 
@@ -55,14 +47,14 @@ public class MergePolicyRejectedCommandTest {
     public void execute_mergeConfirmedWithMoreThanOneMergeLeft_mergeSuccessful() throws Exception {
         Policy validPolicy = new PolicyBuilder().build();
         Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
-                .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
+            .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
         MergePolicyCommandStubWithMultipleMerges mergeCommandStub =
-                new MergePolicyCommandStubWithMultipleMerges(inputPolicy);
+            new MergePolicyCommandStubWithMultipleMerges(inputPolicy);
         ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
         CommandResult commandResult = new MergePolicyRejectedCommand(mergeCommandStub).execute(modelStub);
         assertEquals(String.format(MergePolicyRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED,
-                Description.DATA_TYPE)
-                + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
+            Description.DATA_TYPE)
+            + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
         assertEquals(modelStub.getPolicy(), new PolicyBuilder().build());
     }
 
@@ -111,8 +103,8 @@ public class MergePolicyRejectedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Description.DATA_TYPE) + "\n")
-                    .append(ORIGINAL_HEADER + originalPolicy.getDescription().description + "\n")
-                    .append(INPUT_HEADER + super.getInputPolicy().getDescription().description);
+                .append(ORIGINAL_HEADER + originalPolicy.getDescription().description + "\n")
+                .append(INPUT_HEADER + super.getInputPolicy().getDescription().description);
             return mergePrompt.toString();
         }
 
@@ -159,8 +151,8 @@ public class MergePolicyRejectedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Coverage.DATA_TYPE) + "\n")
-                    .append(ORIGINAL_HEADER + originalPolicy.getCoverage().coverage + "\n")
-                    .append(INPUT_HEADER + super.getInputPolicy().getCoverage().coverage);
+                .append(ORIGINAL_HEADER + originalPolicy.getCoverage().coverage + "\n")
+                .append(INPUT_HEADER + super.getInputPolicy().getCoverage().coverage);
             return mergePrompt.toString();
         }
 
@@ -186,166 +178,6 @@ public class MergePolicyRejectedCommandTest {
 
         public boolean onlyOneMergeLeft() {
             return false;
-        }
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public UserSettings getUserSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setUserSettings(UserSettings userSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Person getPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPolicy(Policy policy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Policy getPolicy(Policy policy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Policy getPolicyWithName(PolicyName policyName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPolicy(Policy policy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPolicyWithName(PolicyName policyName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePolicy(Policy target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPolicy(Policy target, Policy editedPolicy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Policy> getFilteredPolicyList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPolicyList(Predicate<Policy> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void saveAddressBookState() {
-            throw new AssertionError("This method should not be called.");
         }
     }
 
@@ -399,5 +231,4 @@ public class MergePolicyRejectedCommandTest {
             return new AddressBook();
         }
     }
-
 }

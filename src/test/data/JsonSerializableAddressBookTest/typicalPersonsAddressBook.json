@@ -7,6 +7,7 @@
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "date of birth" : "12.12.1992",
+    "gender" : "Female",
     "policies" : [ {
       "name": "Health Insurance",
       "description": "Insurance for healthcare",
@@ -34,6 +35,7 @@
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "date of birth" : "12.12.1922",
+    "gender" : "Male",
     "policies" : [ {
       "name": "Life Insurance",
       "description": "Insurance for life",
@@ -52,6 +54,7 @@
     "email" : "heinz@example.com",
     "address" : "wall street",
     "date of birth" : "6.6.1996",
+    "gender" : "Male",
     "policies" : [ ],
     "tagged" : [ ]
   }, {
@@ -61,6 +64,7 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "date of birth" : "14.2.2019",
+    "gender" : "Male",
     "policies" : [],
     "tagged" : [ ]
   }, {
@@ -70,6 +74,7 @@
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "date of birth" : "17.5.2000",
+    "gender" : "Male",
     "policies" : [ ],
     "tagged" : [ ]
   }, {
@@ -79,6 +84,7 @@
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "date of birth" : "15.8.2008",
+    "gender" : "Female",
     "policies" : [ ],
     "tagged" : [ ]
   }, {
@@ -88,6 +94,7 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "date of birth" : "5.5.2015",
+    "gender" : "Male",
     "policies" : [ ],
     "tagged" : [ ]
   } ],

@@ -35,14 +35,14 @@ class UnassignPolicyCommandTest {
         Policy policyToAssign = model.getAddressBook().getPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
         Person assignedPerson = new PersonBuilder(personToAssign).removePolicies(policyToAssign).build();
         UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_PERSON,
-                policyToAssign.getName());
+            policyToAssign.getName());
 
         String expectedMessage = String.format(UnassignPolicyCommand.MESSAGE_UNASSIGN_POLICY_SUCCESS,
-                policyToAssign.getName(), personToAssign.getName());
+            policyToAssign.getName(), personToAssign.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased()),
-                assignedPerson);
+            assignedPerson);
         expectedModel.saveAddressBookState();
 
         assertCommandSuccess(unassignPolicyCommand, model, expectedMessage, expectedModel);
@@ -57,11 +57,11 @@ class UnassignPolicyCommandTest {
         Policy policyInFilteredList = model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
         Person unassignedPerson = new PersonBuilder(personInFilteredList).removePolicies(policyInFilteredList).build();
         UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_POLICY,
-                policyInFilteredList.getName());
+            policyInFilteredList.getName());
 
         String expectedMessage = String.format(UnassignPolicyCommand.MESSAGE_UNASSIGN_POLICY_SUCCESS,
-                model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased()).getName(),
-                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName());
+            model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased()).getName(),
+            model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
@@ -77,9 +77,9 @@ class UnassignPolicyCommandTest {
         final PolicyName policyName = new PolicyName(VALID_NAME_HEALTH_INSURANCE);
         UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_SECOND_PERSON, policyName);
         assertCommandFailure(unassignPolicyCommand, model, String.format(
-                UnassignPolicyCommand.MESSAGE_ALREADY_UNASSIGNED,
-                model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getName(),
-                policyName));
+            UnassignPolicyCommand.MESSAGE_ALREADY_UNASSIGNED,
+            model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getName(),
+            policyName));
     }
 
     @Test
@@ -89,15 +89,15 @@ class UnassignPolicyCommandTest {
 
         UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_PERSON, policyName);
         assertCommandFailure(unassignPolicyCommand, model, String.format(
-                UnassignPolicyCommand.MESSAGE_ALREADY_UNASSIGNED,
-                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName(), policyName));
+            UnassignPolicyCommand.MESSAGE_ALREADY_UNASSIGNED,
+            model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName(), policyName));
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(outOfBoundIndex,
-                new PolicyName(VALID_NAME_HEALTH_INSURANCE));
+            new PolicyName(VALID_NAME_HEALTH_INSURANCE));
 
         assertCommandFailure(unassignPolicyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -109,7 +109,7 @@ class UnassignPolicyCommandTest {
 
         UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_PERSON, policyName);
         assertCommandFailure(unassignPolicyCommand, model, String.format(UnassignPolicyCommand.MESSAGE_POLICY_NOT_FOUND,
-                policyName));
+            policyName));
     }
 
     @Test
@@ -121,7 +121,7 @@ class UnassignPolicyCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(outOfBoundIndex,
-                new PolicyName(VALID_NAME_HEALTH_INSURANCE));
+            new PolicyName(VALID_NAME_HEALTH_INSURANCE));
         assertCommandFailure(unassignPolicyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
