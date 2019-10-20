@@ -31,7 +31,7 @@ public class DisplayIndicator {
         MESSAGE_CONSTRAINTS += validIndicators.toString();
     }
 
-    public final String displayIndicator;
+    public final String value;
 
     /**
      * Constructs an {@code display indicator}.
@@ -40,7 +40,7 @@ public class DisplayIndicator {
      */
     public DisplayIndicator(String displayIndicator) {
         requireNonNull(displayIndicator);
-        this.displayIndicator = displayIndicator;
+        this.value = displayIndicator;
     }
 
     /**
@@ -60,19 +60,19 @@ public class DisplayIndicator {
 
     @Override
     public String toString() {
-        return String.join(" ", displayIndicator.split("-"));
+        return String.join(" ", value.split("-"));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof DisplayIndicator // instanceof handles nulls
-            && displayIndicator.equals(((DisplayIndicator) other).displayIndicator)); // state check
+            && value.equals(((DisplayIndicator) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return displayIndicator.hashCode();
+        return value.hashCode();
     }
 }
 

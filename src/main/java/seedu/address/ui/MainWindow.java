@@ -221,12 +221,12 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isDisplay()) {
-                String displayIndicator = commandResult.getDisplayIndicator().toString();
+                DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
                 // TODO (for larry): Display indicator sets data
                 ObservableMap<String, Integer> data;
-                String title = displayIndicator;
+                String title = displayIndicator.toString();
 
-                switch (displayIndicator) {
+                switch (displayIndicator.value) {
                 case DisplayIndicator.POLICY_POPULARITY_BREAKDOWN:
                     data = logic.getPolicyPopularityBreakdown();
                     break;
