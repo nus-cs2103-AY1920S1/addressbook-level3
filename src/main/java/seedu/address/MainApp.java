@@ -7,18 +7,15 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.logic.CommandManager;
+import seedu.address.logic.NotificationManager;
 import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.notification.NotificationChecker;
-import seedu.address.logic.notification.NotificationCheckingThread;
 import seedu.address.model.ModelManager;
 import seedu.address.model.undo.UndoRedoManager;
-import seedu.address.ui.systemtray.PopupListener;
-import seedu.address.ui.systemtray.SystemTrayCommunicator;
 
 /**
  * Runs the application.
@@ -43,6 +40,7 @@ public class MainApp extends Application {
 
         CommandManager commandManager = new CommandManager();
         ModelManager modelManager = new ModelManager();
+        NotificationManager notificationManager = new NotificationManager(modelManager);
         uiManager = new UiManager();
         UndoRedoManager undoRedoManager = new UndoRedoManager();
 
@@ -62,12 +60,6 @@ public class MainApp extends Application {
         uiManager.addCommandInputListener(commandManager);
 
         undoRedoManager.addUndoRedoListener(modelManager);
-
-        NotificationCheckingThread notificationCheckingThread =
-            new NotificationCheckingThread(new NotificationChecker(modelManager));
-        notificationCheckingThread.addPopupListener(new PopupListener(new SystemTrayCommunicator()));
-        notificationCheckingThread.setDaemon(true);
-        notificationCheckingThread.start();
     }
 
     @Override

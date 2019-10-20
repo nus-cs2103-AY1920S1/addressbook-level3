@@ -1,5 +1,7 @@
 package seedu.address.logic.notification;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -8,7 +10,7 @@ import seedu.address.ui.systemtray.PopupListener;
 import seedu.address.ui.systemtray.PopupNotification;
 
 /**
- * A thread meant that handles checking for notifications and notifying the appropriate listeners
+ * A thread that handles checking for notifications and notifying the appropriate listeners
  */
 public class NotificationCheckingThread extends Thread {
     private static final Logger logger = LogsCenter.getLogger(NotificationCheckingThread.class);
@@ -18,7 +20,6 @@ public class NotificationCheckingThread extends Thread {
 
     private NotificationChecker notificationChecker;
 
-    // TODO: Up to you how you want to get NotificationChecker into the Thread
     public NotificationCheckingThread(NotificationChecker notificationChecker) {
         this.notificationChecker = notificationChecker;
     }
@@ -39,11 +40,23 @@ public class NotificationCheckingThread extends Thread {
                     }
                 }
 
-                Thread.sleep(millisecondsInAMinute);
+                Thread.sleep(findMillisecondsToNextMinute());
             }
 
         } catch (InterruptedException e) {
             logger.info("NotificationManagingThread successfully interrupted.");
         }
+    }
+
+    /**
+     * Finds the number of milliseconds until the next minute. This is to account for the user not opening the program
+     * exactly on the minute.
+     *
+     * @return the number of milliseconds until the next minute.
+     */
+    private static long findMillisecondsToNextMinute() {
+        Instant currentInstant = Instant.now();
+        Instant nextMinute = Instant.now().plusMillis(millisecondsInAMinute).truncatedTo(ChronoUnit.MINUTES);
+        return currentInstant.until(nextMinute, ChronoUnit.MILLIS);
     }
 }
