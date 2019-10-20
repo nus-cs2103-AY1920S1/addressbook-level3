@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.exceptions.AverageType;
+import seedu.address.model.statistics.AverageType;
 import seedu.address.logic.parser.AverageCommandParser;
 import seedu.address.model.record.RecordType;
 
