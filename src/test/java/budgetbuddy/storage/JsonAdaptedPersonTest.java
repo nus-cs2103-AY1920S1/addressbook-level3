@@ -1,6 +1,6 @@
 package budgetbuddy.storage;
 
-import static budgetbuddy.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static budgetbuddy.storage.loans.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static budgetbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,6 +18,9 @@ import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.stub.Description;
+import budgetbuddy.storage.loans.JsonAdaptedLoan;
+import budgetbuddy.storage.loans.JsonAdaptedPerson;
+import budgetbuddy.storage.loans.JsonAdaptedTag;
 import budgetbuddy.testutil.TypicalPersons;
 
 public class JsonAdaptedPersonTest {

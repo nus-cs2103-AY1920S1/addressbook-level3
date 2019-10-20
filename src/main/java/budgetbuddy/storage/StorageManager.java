@@ -11,6 +11,7 @@ import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.UserPrefs;
+import budgetbuddy.storage.loans.LoansStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.

@@ -1,4 +1,4 @@
-package budgetbuddy.storage;
+package budgetbuddy.storage.loans;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 

@@ -1,4 +1,4 @@
-package budgetbuddy.storage;
+package budgetbuddy.storage.loans;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,6 +12,7 @@ import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.person.Person;
+import budgetbuddy.storage.loans.JsonAdaptedPerson;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

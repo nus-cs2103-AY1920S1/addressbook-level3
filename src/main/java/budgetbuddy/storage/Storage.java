@@ -9,6 +9,7 @@ import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.UserPrefs;
+import budgetbuddy.storage.loans.LoansStorage;
 
 /**
  * API of the Storage component
