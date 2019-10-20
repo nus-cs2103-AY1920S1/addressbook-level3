@@ -60,8 +60,6 @@ public class AccountsManager {
         }
     }
 
-
-
     /**
      * Deletes an account.
      * @param toDelete The target account for deletion.
@@ -73,7 +71,6 @@ public class AccountsManager {
             throw new AccountNotFoundException();
         }
     }
-
 
     @Override
     public boolean equals(Object other) {
