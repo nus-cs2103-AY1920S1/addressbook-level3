@@ -5,14 +5,14 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.List;
 
+import budgetbuddy.commons.core.Messages;
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
-import budgetbuddy.model.account.exception.AccountNotFoundException;
-import budgetbuddy.model.attributes.Name;
 
 /**
  * Delete one or more loans.
@@ -27,14 +27,14 @@ public class AccountDeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Japan trip ";
 
-    public static final String MESSAGE_SUCCESS = "Account deleted.";
-    public static final String MESSAGE_FAILURE = "No such account found.";
+    public static final String MESSAGE_DELETE_ACCOUNT_SUCCESS = "Deleted Account: %1$s";
 
-    public final Name accountName;
+    private final Index targetIndex;
 
-    public AccountDeleteCommand(Name accountName) {
-        this.accountName = accountName;
+    public AccountDeleteCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -42,19 +42,15 @@ public class AccountDeleteCommand extends Command {
 
         AccountsManager accountsManager = model.getAccountsManager();
 
-        List<Account> lastShownList = accountsManager.getAccountsList();
-        for (Account account: lastShownList) {
-            try {
-                if (account.getName() == accountName) {
-                    Account accountToDelete = account;
-                    accountsManager.deleteAccount(accountToDelete);
-                }
-            } catch (AccountNotFoundException e) {
-                throw new CommandException(MESSAGE_FAILURE);
-            }
+        List<Account> lastShownList = model.getAccountsManager().getAccountsList();
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ACCOUNT_DISPLAYED_INDEX);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        Account accountToDelete = lastShownList.get(targetIndex.getZeroBased());
+        accountsManager.deleteAccount(accountToDelete);
+
+        return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete));
     }
 
     @Override
