@@ -2,17 +2,18 @@ package seedu.address.ui.finance;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.finance.logentry.LogEntry;
 
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code LogEntry}.
  */
-public class PersonCard extends UiPart<Region> {
+public class LogEntryCard extends UiPart<Region> {
 
-    private static final String FXML = "FinanceLogEntryListCard.fxml";
+    private static final String FXML = "LogEntryCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -34,14 +35,21 @@ public class PersonCard extends UiPart<Region> {
     private Label tDate;
     @FXML
     private Label description;
+    @FXML
+    private Label tMethod;
+    @FXML
+    private FlowPane cats;
 
-    public PersonCard(LogEntry logEntry, int displayedIndex) {
+    public LogEntryCard(LogEntry logEntry, int displayedIndex) {
         super(FXML);
         this.logEntry = logEntry;
         id.setText(displayedIndex + ". ");
         amount.setText(logEntry.getAmount().amount);
         tDate.setText(logEntry.getTransactionDate().value);
         description.setText(logEntry.getDescription().value);
+        tMethod.setText(logEntry.getTransactionMethod().value);
+        logEntry.getCategories().stream()
+                .forEach(cat -> cats.getChildren().add(new Label(cat.catName)));
     }
 
     @Override
@@ -52,12 +60,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof LogEntryCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        LogEntryCard card = (LogEntryCard) other;
         return id.getText().equals(card.id.getText())
                 && logEntry.equals(card.logEntry);
     }
