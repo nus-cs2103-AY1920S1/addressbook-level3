@@ -21,7 +21,7 @@ public class DeleteAccommodationCommand extends DeleteCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_ACCOMMODATION_SUCCESS = "Deleted Activity: %1$s";
+    public static final String MESSAGE_DELETE_ACCOMMODATION_SUCCESS = "Deleted Accommodation: %1$s";
 
     private final Index targetIndex;
 
