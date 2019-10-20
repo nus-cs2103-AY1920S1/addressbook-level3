@@ -79,7 +79,7 @@ public class SetCredits extends StudentCommand {
 
         //check if current mods satisfy new credits
 
-        if (4*studentToEdit.getNumberOfMods() > Integer.parseInt(newCredits)) {
+        if (4 * studentToEdit.getNumberOfMods() > Integer.parseInt(newCredits)) {
             throw new CommandException(Messages.MESSAGE_CREDIT_UNDER_AMT_MODS);
         }
 

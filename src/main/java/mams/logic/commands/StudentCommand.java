@@ -10,7 +10,8 @@ import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 public abstract class StudentCommand extends Command {
 
     public static final String COMMAND_WORD_SET_CREDITS = "setcredits";
-    public static final String MESSAGE_USAGE_SETCREDITS = COMMAND_WORD_SET_CREDITS + ": Sets a student's maximum credits "
+    public static final String MESSAGE_USAGE_SETCREDITS = COMMAND_WORD_SET_CREDITS
+            + ": Sets a student's maximum credits "
             + "identified by index number used in the displayed student list or "
             + "their matric id. \n"
             + "Parameters: INDEX (must be a positive integer) or "

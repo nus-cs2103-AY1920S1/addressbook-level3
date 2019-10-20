@@ -36,7 +36,9 @@ public class Credits {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public int getIntVal() { return this.intValue;}
+    public int getIntVal() {
+        return this.intValue;
+    }
 
     @Override
     public String toString() {
