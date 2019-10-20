@@ -49,14 +49,39 @@ public class Planner implements ReadOnlyPlanner {
 
     public Planner() {}
 
+    public Planner(Name name, Date startDate) {
+        this.name = name;
+        this.startDate = startDate;
+    }
+
     /**
      * Creates an Planner using the Persons in the {@code toBeCopied}
      */
     public Planner(ReadOnlyPlanner toBeCopied) {
         this();
+        Name copiedName = null;
+        Date copiedStartDate = null;
+        if (toBeCopied.getName().isPresent()) {
+            copiedName = toBeCopied.getName().get();
+        }
+        if (toBeCopied.getStartDate().isPresent()) {
+            copiedStartDate = toBeCopied.getStartDate().get();
+        }
+        this.name = copiedName;
+        this.startDate = copiedStartDate;
         resetDataContact(toBeCopied);
         //resetDataActivity(toBeCopied);
         //resetDataAccommodation(toBeCopied);
+        //resetDataDay(toBeCopied);
+    }
+
+    //// other field operations
+    public Optional<Name> getName() {
+        return Optional.ofNullable(this.name);
+    }
+
+    public Optional<Date> getStartDate() {
+        return Optional.ofNullable(this.startDate);
     }
 
     //// For ACCOMMODATION list overwrite operations
