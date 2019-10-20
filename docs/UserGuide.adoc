@@ -167,7 +167,7 @@ Displays the list of spending tagged with `groceries` in `descending order by da
 
 Searches for spending based on given keywords, cost range and date range. +
 At least one search field must be present. +
-Format: `find [n/NAME_KEYWORDS] [c/COST_MIN-COST_MAX] [d/DATE_START - DATE_END] [r/REMARK_KEYWORDS] [t/TAG_KEYWORDS]`
+Format: `find [n/NAME_KEYWORDS] [c/COST_MIN-COST_MAX] [d/DATE_START - DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
 
 Example:
 
@@ -283,7 +283,7 @@ e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
-e.g. `find n/apple orange c/1.00-200 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit`
+e.g. `find n/apple orange c/1.00-200 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
 | *List* | `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
 e.g. `list r/01/09/2019-30/09/2019 t/groceries c/20-100 o/ASC`
 | *Budget* | `budget m/MONTHLY_BUDGET` +
