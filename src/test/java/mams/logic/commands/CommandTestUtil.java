@@ -1,9 +1,9 @@
 package mams.logic.commands;
 
 import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
 import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 import static mams.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,15 +43,15 @@ public class CommandTestUtil {
     public static final String CREDITS_DESC_BOB = " " + PREFIX_CREDITS + VALID_CREDITS_BOB;
     public static final String PREVMODS_DESC_AMY = " " + PREFIX_PREVMODS + VALID_PREVMODS_AMY;
     public static final String PREVMODS_DESC_BOB = " " + PREFIX_PREVMODS + VALID_PREVMODS_BOB;
-    public static final String MATRICID_DESC_AMY = " " + PREFIX_MATRICID + VALID_MATRICID_AMY;
-    public static final String MATRICID_DESC_BOB = " " + PREFIX_MATRICID + VALID_MATRICID_BOB;
+    public static final String MATRICID_DESC_AMY = " " + PREFIX_STUDENT + VALID_MATRICID_AMY;
+    public static final String MATRICID_DESC_BOB = " " + PREFIX_STUDENT + VALID_MATRICID_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_CREDITS_DESC = " " + PREFIX_CREDITS + "6"; // too low
     public static final String INVALID_PREVMODS_DESC = " " + PREFIX_PREVMODS + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_MATRICID_DESC = " " + PREFIX_MATRICID; // empty string not allowed for matricId
+    public static final String INVALID_MATRICID_DESC = " " + PREFIX_STUDENT; // empty string not allowed for matricId
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

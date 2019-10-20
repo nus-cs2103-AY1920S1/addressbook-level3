@@ -2,33 +2,33 @@
   "students" : [ {
     "name" : "Paul",
     "credits" : "20",
-    "prevMods" : "CS2202, CS5505",
+    "prevMods" : "CS1010, CS5505",
     "matricId" : "A00192034Z",
-    "tagged" : [ "C123456", "C002923" ]
+    "tagged" : [ "CS1020" ]
   }, {
     "name" : "Alex",
     "credits" : "20",
     "prevMods" : "CS2202, CS1111",
     "matricId" : "A220193040F",
-    "tagged" : [ "C123456", "C002923" ]
+    "tagged" : [ "CS1020" ]
   }, {
     "name" : "Alex Yeoh",
     "credits" : "20",
     "prevMods" : "CS2030, CS4040",
     "matricId" : "A0180000R",
-    "tagged" : [ "friends" ]
+    "tagged" : [ "CS1020", "friends" ]
   }, {
     "name" : "Bernice Yu",
     "credits" : "20",
     "prevMods" : "CS2030, CS4040",
     "matricId" : "A01455353y",
-    "tagged" : [ "colleagues", "friends" ]
+    "tagged" : [ "CS1020", "colleagues", "friends" ]
   }, {
     "name" : "Charlotte Oliveiro",
     "credits" : "20",
     "prevMods" : "CS2030, CS4040",
     "matricId" : "A0199239U",
-    "tagged" : [ "neighbours" ]
+    "tagged" : [ "CS1020", "neighbours" ]
   }, {
     "name" : "David Li",
     "credits" : "20",
@@ -71,7 +71,7 @@
     "moduleName" : "Data Structures and Algorithms Is",
     "moduleDescription" : "This module is the second part of a three-part series on introductory programming and problem solving by computing. It continues the introduction that begins in CS1010, and emphasises objectoriented programming with application to simple data structures. Topics include object-oriented problem modeling with objects, classes and methods, object-oriented problem formulation and solving, data structure implementation strageties, abstraction and encapsulation of data structures, object-oriented programming constructs, APIs and class libraries, exception handling, lists, linked lists, stacks, queues, hash tables and their algorithmic design, sorting and searching methods, recursive algorithms, and Big-O notation. This module is appropriate for SoC and FoS students.",
     "lecturerName" : "Tan Sun Teck",
-    "timeSlot" : "21,20,55,56,57"
+    "timeSlot" : "21,20,57,58,59"
   }, {
     "quota" : "420",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
@@ -246,8 +246,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : null,
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   } ]
 }
