@@ -4,7 +4,7 @@ package dream.fcard.model.exceptions;
  * Represents an error when index is not found.
  */
 public class IndexNotFoundException extends Throwable {
-    public IndexNotFoundException(Exception cause) {
+    public IndexNotFoundException(String cause) {
         super(cause);
     }
 }

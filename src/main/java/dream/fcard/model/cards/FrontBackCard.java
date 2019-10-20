@@ -1,6 +1,7 @@
 package dream.fcard.model.cards;
 
 import dream.fcard.logic.storage.Schema;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import javafx.scene.Node;
@@ -40,7 +41,7 @@ public class FrontBackCard implements FlashCard {
     }
 
     @Override
-    public Boolean evaluate(String in) {
+    public Boolean evaluate(String in) throws IndexNotFoundException {
         return in.equals(back);
     }
 
