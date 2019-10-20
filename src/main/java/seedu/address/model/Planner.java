@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
@@ -11,6 +12,7 @@ import seedu.address.model.accommodation.UniqueAccommodationList;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
@@ -197,6 +199,14 @@ public class Planner implements ReadOnlyPlanner {
     }
 
     /**
+     * Returns true if a contact with the same phone as {@code phone} exists in the contact list.
+     */
+    public boolean hasPhone(Phone phone) {
+        requireNonNull(phone);
+        return contacts.containsPhone(phone);
+    }
+
+    /**
      * Adds a contacts to the address book.
      * The contacts must not already exist in the address book.
      */
@@ -214,6 +224,14 @@ public class Planner implements ReadOnlyPlanner {
         requireNonNull(editedContact);
 
         contacts.setContact(target, editedContact);
+    }
+
+    /**
+     * Returns an Optional Contact by searching the contact list for a contact with the same phone as {@code phone}.
+     */
+    public Optional<Contact> getContactWithPhone(Phone toGet) {
+        requireNonNull(toGet);
+        return contacts.getWithPhone(toGet);
     }
 
     /**

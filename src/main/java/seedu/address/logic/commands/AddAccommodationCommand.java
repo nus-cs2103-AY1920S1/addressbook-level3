@@ -6,13 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.List;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.field.ContactContainsNumberPredicate;
 
 /**
  * Adds an accommodation to the itinerary.
@@ -54,10 +51,9 @@ public class AddAccommodationCommand extends AddCommand {
         }
 
         if (toAdd.getContact().isPresent()) {
-            model.updateFilteredContactList(new ContactContainsNumberPredicate(toAdd.getContact().get().getPhone()));
-            List<Contact> sameNumberContacts = model.getFilteredContactList();
-            if (!sameNumberContacts.isEmpty()) {
-                model.addAccommodation(new Accommodation(toAdd.getName(), toAdd.getAddress(), sameNumberContacts.get(0),
+            if (model.hasPhone(toAdd.getContact().get().getPhone())) {
+                Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+                model.addAccommodation(new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
                         toAdd.getTags()));
             } else {
                 model.addAccommodation(toAdd);

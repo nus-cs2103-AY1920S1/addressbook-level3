@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
 
@@ -201,6 +203,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPhone(Phone phone) {
+        requireNonNull(phone);
+        return planner.hasPhone(phone);
+    }
+
+    @Override
     public void deleteContact(Contact target) {
         planner.removeContact(target);
     }
@@ -216,6 +224,12 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedContact);
 
         planner.setContact(target, editedContact);
+    }
+
+    @Override
+    public Optional<Contact> getContactByPhone(Phone toGet) {
+        requireNonNull(toGet);
+        return planner.getContactWithPhone(toGet);
     }
 
     //=========== Filtered List Accessors =============================================================

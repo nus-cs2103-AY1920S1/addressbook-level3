@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
 
@@ -150,6 +152,11 @@ public interface Model {
     boolean hasContact(Contact contact);
 
     /**
+     * Returns true if a contact with the same phone as {@code phone} exists in the contact list.
+     */
+    boolean hasPhone(Phone phone);
+
+    /**
      * Deletes the given contacts.
      * The contacts must exist in the contact list.
      */
@@ -168,6 +175,11 @@ public interface Model {
      * contact list.
      */
     void setContact(Contact target, Contact editedContact);
+
+    /**
+     * Returns an Optional Contact by searching the contact list for a contact with the same phone as {@code phone}.
+     */
+    Optional<Contact> getContactByPhone(Phone toGet);
 
     /**
      * Returns an unmodifiable view of the filtered contacts list
