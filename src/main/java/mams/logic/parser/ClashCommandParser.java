@@ -14,7 +14,7 @@ import mams.logic.commands.ClashStudentCommand;
 import mams.logic.parser.exceptions.ParseException;
 
 /**
- * temp
+ * Parses input arguments and creates a new ClashCommand object
  */
 public class ClashCommandParser implements Parser<ClashCommand> {
 

@@ -19,24 +19,23 @@ import mams.model.tag.Tag;
 /**
  * Adds a module to a student
  */
-public class AddModCommand extends ModCommand {
+public class RemoveModCommand extends ModCommand {
 
-    public static final String MESSAGE_ADD_MOD_SUCCESS = "Added module to : %1$s";
+    public static final String MESSAGE_REMOVE_MOD_SUCCESS = "Removed module from : %1$s";
 
     private final String matricId;
     private final String moduleCode;
     private final Index index;
 
-    public AddModCommand(Index index, String moduleCode) {
+    public RemoveModCommand(Index index, String moduleCode) {
         requireNonNull(index);
-        requireNonNull(moduleCode);
 
         this.matricId = null;
         this.index = index;
         this.moduleCode = moduleCode;
     }
 
-    public AddModCommand(String matricId, String moduleCode) {
+    public RemoveModCommand(String matricId, String moduleCode) {
         requireNonNull(matricId);
         requireNonNull(moduleCode);
 
@@ -47,11 +46,11 @@ public class AddModCommand extends ModCommand {
 
     /**
      * Checks for logical errors, such as non-existant modules and students etc.
-     * Create a new student with the added module and replaces the old student in mams.
+     * Create a new student with the removed module and replaces the old student in mams.
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult}
      * @throws CommandException for non-existant modules/student or if the student
-     * already has the module.
+     * does not have the module in the first place
      */
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -59,7 +58,7 @@ public class AddModCommand extends ModCommand {
         List<Module> lastShownModuleList = model.getFilteredModuleList();
 
         Student studentToEdit;
-        Student studentWithAddedModule;
+        Student studentWithRemovedModule;
 
         //check if module exist
         List<Module> moduleToCheckList = lastShownModuleList.stream()
@@ -83,31 +82,36 @@ public class AddModCommand extends ModCommand {
             studentToEdit = studentToCheckList.get(0);
         }
 
-        //check if student already has module.
+        //check if student has the module (ready for deletion).
         Set<Tag> studentModules = studentToEdit.getCurrentModules();
+        boolean hasModule = false;
         for (Tag tag: studentModules) {
             if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
-                throw new CommandException(MESSAGE_DUPLICATE_MODULE_CODE);
+                hasModule = true;
             }
         }
+        if (hasModule == false) {
+            throw new CommandException(MESSAGE_MISSING_MODULE_CODE);
+        }
 
-        //add module to student.
+        //create a tag list without the module
         Set<Tag> ret = new HashSet<>();
         Set<Tag> studentAllTags = studentToEdit.getTags();
         for (Tag tag : studentAllTags) {
-            ret.add(tag);
+            if (!tag.getTagName().equalsIgnoreCase(moduleCode)) {
+                ret.add(tag);
+            }
         }
-        ret.add(new Tag(moduleCode));
 
-        studentWithAddedModule = new Student(studentToEdit.getName(),
+        studentWithRemovedModule = new Student(studentToEdit.getName(),
                 studentToEdit.getCredits(),
                 studentToEdit.getPrevMods(),
                 studentToEdit.getMatricId(),
                 ret);
-        model.setStudent(studentToEdit, studentWithAddedModule);
+        model.setStudent(studentToEdit, studentWithRemovedModule);
         model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult(String.format(MESSAGE_ADD_MOD_SUCCESS,
-                studentWithAddedModule.getName()));
+        return new CommandResult(String.format(MESSAGE_REMOVE_MOD_SUCCESS,
+                studentWithRemovedModule.getName()));
     }
 
     @Override

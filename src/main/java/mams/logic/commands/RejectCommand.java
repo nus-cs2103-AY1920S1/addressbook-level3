@@ -15,9 +15,9 @@ import mams.model.Model;
 import mams.model.appeal.Appeal;
 
 /**
- * Edits the details of an existing student in MAMS.
+ * Rejects a appeal in mams.
  */
-public class RejectCommand extends Command {
+public class RejectCommand extends ModCommand {
 
     public static final String COMMAND_WORD = "reject";
 
