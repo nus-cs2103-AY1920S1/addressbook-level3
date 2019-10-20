@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 
 /**
  * Represents a storage for {@link WordBank}.
@@ -42,4 +43,6 @@ public interface WordBankListStorage {
      * @see #saveAddressBook(ReadOnlyWordBank)
      */
     void saveAddressBook(ReadOnlyWordBank addressBook, Path filePath) throws IOException;
+
+    Optional<ReadOnlyWordBankList> getWordBankList();
 }

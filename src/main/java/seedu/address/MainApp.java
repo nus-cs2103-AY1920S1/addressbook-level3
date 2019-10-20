@@ -23,6 +23,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.storage.*;
 import seedu.address.storage.JsonWordBankListStorage;
 import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
@@ -109,22 +111,22 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyWordBank> addressBookOptional;
-        ReadOnlyWordBank initialData;
+        ReadOnlyWordBankList initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample WordBank");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleWordBank);
+//            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleWordBank);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-            initialData = new WordBank("Empty WordBank");
+//            initialData = new WordBank("Empty WordBank");
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-            initialData = new WordBank("Empty WordBank");
+//            initialData = new WordBank("Empty WordBank");
         }
-
-        return new ModelManager(new WordBank("Empty wordbank"), userPrefs);
+        WordBankList wbl = (WordBankList) storage.getWordBankList().get();
+        return new ModelManager(wbl, userPrefs);
     }
 
     /*

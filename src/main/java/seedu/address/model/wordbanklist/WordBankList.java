@@ -29,10 +29,7 @@ public class WordBankList implements ReadOnlyWordBankList {
         wordBankList = new UniqueWordBankList();
     }
 
-    public WordBankList() {
-        Path filePath = Paths.get("data/");
-        JsonWordBankListStorage storage = new JsonWordBankListStorage(filePath);
-        List<WordBank> wbl = storage.getWordBankList().get();
+    public WordBankList(List<WordBank> wbl) {
         for (WordBank wb : wbl) {
             wordBankList.add(wb);
         }

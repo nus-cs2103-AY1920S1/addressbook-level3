@@ -43,6 +43,8 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     Extends into concrete definition in StorageManager.java
      */
 
+    WordBankListStorage getWordBankListStorage();
+
     @Override
     void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
 }

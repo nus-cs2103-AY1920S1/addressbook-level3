@@ -18,6 +18,8 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+import seedu.address.model.wordbanklist.WordBankList;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -25,11 +27,13 @@ import seedu.address.model.wordbank.WordBank;
 public class JsonWordBankListStorage implements WordBankListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWordBankListStorage.class);
+    private ReadOnlyWordBankList rowbl;
 
     private Path filePath;
 
     public JsonWordBankListStorage(Path filePath) {
         this.filePath = filePath;
+        initWordBankList();
     }
 
     public Path getWordBankListFilePath() {
@@ -83,7 +87,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         JsonUtil.saveJsonFile(new JsonSerializableWordBank(addressBook), filePath);
     }
 
-    public Optional<List<WordBank>> getWordBankList() {
+    public void initWordBankList() {
         List<WordBank> wordBankList = new ArrayList<>();
         String pathString = "data/";
         File dataDirectory = new File(pathString);
@@ -104,6 +108,10 @@ public class JsonWordBankListStorage implements WordBankListStorage {
                 e.printStackTrace();
             }
         }
-        return Optional.of(wordBankList);
+        this.rowbl = new WordBankList(wordBankList);
+    }
+
+    public Optional<ReadOnlyWordBankList> getWordBankList() {
+        return Optional.of(rowbl);
     }
 }

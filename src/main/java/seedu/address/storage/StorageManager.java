@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
 
@@ -76,6 +77,16 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         wordBankListStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    @Override
+    public WordBankListStorage getWordBankListStorage() {
+        return wordBankListStorage;
+    }
+
+    @Override
+    public Optional<ReadOnlyWordBankList> getWordBankList() {
+        return wordBankListStorage.getWordBankList();
     }
 
     // ================ WordBankStatistics methods ==============================
