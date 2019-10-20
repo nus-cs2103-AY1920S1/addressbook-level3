@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.tarence.logic.commands.AddStudentCommand;
+import seedu.tarence.logic.commands.ChangeTabCommand;
 import seedu.tarence.logic.commands.DeleteStudentCommand;
 import seedu.tarence.logic.commands.DisplayAttendanceCommand;
 import seedu.tarence.logic.commands.EditCommand;
@@ -88,6 +89,21 @@ public class ApplicationParserTest {
         String validDisplayAttendanceCommand = " tn/Lab Session m/CS1010S";
         assertTrue(parser.parseCommand(DisplayAttendanceCommand.COMMAND_WORD + validDisplayAttendanceCommand)
                 instanceof DisplayAttendanceCommand);
+    }
+
+    @Test
+    public void parseCommand_changeTab() throws Exception {
+        String validChangeModCommand = " m";
+        assertTrue(parser.parseCommand(ChangeTabCommand.COMMAND_WORD + validChangeModCommand)
+                instanceof ChangeTabCommand);
+
+        String validChangeTutCommand = " tutorial";
+        assertTrue(parser.parseCommand(ChangeTabCommand.COMMAND_WORD + validChangeTutCommand)
+                instanceof ChangeTabCommand);
+
+        String validChangeStudentCommand = " stu";
+        assertTrue(parser.parseCommand(ChangeTabCommand.COMMAND_WORD + validChangeStudentCommand)
+                instanceof ChangeTabCommand);
     }
 
     @Test

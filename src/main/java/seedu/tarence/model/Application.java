@@ -204,27 +204,6 @@ public class Application implements ReadOnlyApplication {
 
         addStudent(editedStudent);
         addStudentToTutorial(editedStudent);
-        /*
-        // Modify tutorial level
-        for (Tutorial tutorial : tutorials) {
-            if (tutorial.getTutName().equals(target.getTutName())) {
-                tutorial.setStudent(target, editedStudent);
-            }
-        }
-
-        // Modify Module level: TODO - refactor
-        for (Module module : modules) {
-            if (module.getModCode().equals(target.getModCode())) {
-                Module targetMod = module;
-                for (Tutorial tutorial : targetMod.getTutorials()) {
-                    if (tutorial.getTutName().equals(target.getTutName())) {
-                        tutorial.setStudent(target, editedStudent);
-                    }
-                }
-            }
-        }
-
-         */
     }
 
     /**

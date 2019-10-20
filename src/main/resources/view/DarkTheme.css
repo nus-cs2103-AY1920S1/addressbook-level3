@@ -32,6 +32,7 @@
 
 .tab-pane {
     -fx-padding: 0 0 0 1;
+    -fx-tab-min-width:50px;
 }
 
 .tab-pane .tab-header-area {
@@ -39,6 +40,38 @@
     -fx-min-height: 0;
     -fx-max-height: 0;
 }
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-pref-height: 30;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #3c3c3c;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 12pt;
+    -fx-padding: 0 0 0 0;
+    /*-fx-font-weight: bold;*/
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #7FFFD4;
+    -fx-border-color: null;
+}
+
 
 .table-view {
     -fx-base: #383838;
@@ -343,9 +376,23 @@
     -fx-vgap: 3;
 }
 
+#tuts {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
 #tags .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#tuts .label {
+    -fx-text-fill: white;
+    -fx-background-color: #d63e5f;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

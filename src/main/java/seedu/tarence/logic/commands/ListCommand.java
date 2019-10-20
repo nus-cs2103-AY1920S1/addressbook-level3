@@ -51,7 +51,7 @@ public class ListCommand extends Command {
             setTutorialAndModule(model);
             model.updateFilteredStudentList(predicate);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, TabNames.STUDENTS);
     }
 
     @Override
