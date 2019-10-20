@@ -380,10 +380,6 @@ Examples:
 * `getmodcode algorithms`
 * `getmodcode programming`
 
-==== Viewing total completed MCs : `mcs`
-Shows the current total MCs for all *completed* modules. +
-Format: `mcs`
-
 ==== Viewing modules that can be taken in a given semester : `validmods`
 Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
 Format: `validmods SEMESTER`
