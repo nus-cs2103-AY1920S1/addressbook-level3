@@ -186,6 +186,11 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleUnknown() {
+       //
+    }
+
     public EarningsListPanel getEarningsListPanel() {
         return earningsListPanel;
     }
@@ -212,6 +217,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isUnknown()) {
+                handleUnknown();
             }
 
             /*if (commandResult.isEarnings()) {

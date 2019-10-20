@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.HashMap;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,6 +45,24 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        HashMap<String, Parser> commandWords = new HashMap<>();
+        //load commands from json
+        //have a commandStorage class
+
+        //cannot store object in json so need to convert text to new object
+        //do in initialisation json add, add
+        //edi , edit etc
+        if (commandWords.containsKey(commandWord)) {
+            return commandWords.get(commandWord).parse(arguments);
+        } else {
+            return new UnknownCommand(commandWord);
+            //unknown command needs to take string show on UI, ask if this is what they really want and input y to
+            //indicate yes
+            //if yes then add to commandword hash
+            //you have entered an unknown command, what did you really mean? help us improve
+        }
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:

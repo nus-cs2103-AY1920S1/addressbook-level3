@@ -21,28 +21,32 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final boolean unknown;
+
     private boolean showEarnings;
     private Earnings earnings;
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings, boolean unknown) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showEarnings = showEarnings;
+        this.unknown = unknown;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp,
-                         boolean exit, boolean showEarnings, Earnings earnings) {
+                         boolean exit, boolean showEarnings, Earnings earnings, boolean unknown) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showEarnings = showEarnings;
         this.earnings = earnings;
+        this.unknown = unknown;
     }
 
     /**
@@ -50,7 +54,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -68,6 +72,8 @@ public class CommandResult {
     public boolean isEarnings() {
         return showEarnings;
     }
+
+    public boolean isUnknown() { return unknown; }
 
     public Earnings getEarnings() {
         return earnings;

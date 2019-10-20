@@ -35,6 +35,9 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        //pass in commandstorage to addressbookparser here?
+        //or just import it in addressbookparser
+        //anyway create commandstore first. -> need to be able to save and load
         addressBookParser = new AddressBookParser();
         calendarParser = new CalendarParser();
     }
@@ -44,6 +47,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
+        //command needs to comapre to commandstorage which is basically a hashmap
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 

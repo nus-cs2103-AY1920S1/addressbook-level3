@@ -15,4 +15,5 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
     ObservableList<Earnings> getEarningsList();
+    //modify here
 }
