@@ -73,14 +73,6 @@ public class Wallet {
     }
 
     /**
-     * Overloaded method to allow setting with budget amount string.
-     * @param newRemainingBudgetString New {@code RemainingBudget} string
-     */
-    public void setRemainingBudget(String newRemainingBudgetString) {
-        setRemainingBudget(new RemainingBudget(newRemainingBudgetString));
-    }
-
-    /**
      * Returns {@code DaysToExpire}'s IntegerProperty.
      */
     public IntegerProperty getDaysToExpireProperty() {
@@ -126,8 +118,8 @@ public class Wallet {
         if (new BigDecimal(price.toString()).compareTo(getRemainingBudgetAmount()) == 1) {
             throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS);
         } else {
-            BigDecimal remainingBudgetInCents = getRemainingBudgetAmount().subtract(new BigDecimal(price.toString()));
-            setRemainingBudget(remainingBudgetInCents.toString());
+            BigDecimal remainingBudget = getRemainingBudgetAmount().subtract(new BigDecimal(price.toString()));
+            setRemainingBudget(new RemainingBudget(remainingBudget.toString()));
         }
     }
 

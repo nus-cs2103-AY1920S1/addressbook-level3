@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
@@ -55,7 +56,8 @@ public class PreferenceCommandTest {
         testLocation.add(FIRST_LOCATION);
         testLocation.add(SECOND_LOCATION);
 
-        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new CustomSorter());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
+                new CustomSorter());
         model.clearDislikes();
         model.clearLikes();
     }
