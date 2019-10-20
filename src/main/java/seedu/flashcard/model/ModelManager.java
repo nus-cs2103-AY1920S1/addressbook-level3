@@ -138,6 +138,7 @@ public class ModelManager implements Model {
     @Override
     public void systemRemoveTag(Tag tag) {
         flashcardList.flashcardsRemoveTag(tag);
+        updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
     @Override
