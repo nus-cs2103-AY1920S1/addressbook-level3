@@ -42,7 +42,6 @@ public class ModelManager implements Model {
     private final FilteredList<Schedule> filteredSchedules;
 
     private final UserPrefs userPrefs;
-
     private final CalendarDate calendarDate;
 
     /**
@@ -413,7 +412,6 @@ public class ModelManager implements Model {
     public void deleteSchedule(Schedule target) {
         scheduleBook.remove(target);
         setCalendarDate(target.getCalendar());
-        scheduleBook.remove(target);
 
         // cascade
         List<Order> orders = orderBook.getList();
@@ -432,7 +430,6 @@ public class ModelManager implements Model {
     public void addSchedule(Schedule schedule) {
         scheduleBook.add(schedule);
         setCalendarDate(schedule.getCalendar());
-        scheduleBook.add(schedule);
         updateFilteredScheduleList(PREDICATE_SHOW_ALL_SCHEDULE);
     }
 
