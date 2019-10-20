@@ -53,7 +53,6 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         return wordBanksFilePath;
     }
 
-    @Override
     public Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException {
         return readAddressBook(wordBanksFilePath);
     }
@@ -64,7 +63,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyWordBank> readAddressBook(Path filePath) throws DataConversionException {
+    private Optional<ReadOnlyWordBank> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableWordBank> jsonAddressBook = JsonUtil.readJsonFile(

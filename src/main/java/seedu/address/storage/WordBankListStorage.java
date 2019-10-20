@@ -13,24 +13,10 @@ import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
  * Represents a storage for {@link WordBank}.
  */
 public interface WordBankListStorage {
-
     /**
-     * Returns the file path of the data file.
+     * Returns the word bank list path file.
      */
     Path getWordBankListFilePath();
-
-    /**
-     * Returns AddressBook data as a {@link ReadOnlyWordBank}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
-     */
-    Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException;
-
-    /**
-     * @see #getWordBankListFilePath()
-     */
-    Optional<ReadOnlyWordBank> readAddressBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyWordBank} to the storage.

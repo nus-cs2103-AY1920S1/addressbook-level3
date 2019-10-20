@@ -112,18 +112,18 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyWordBank> addressBookOptional;
-        ReadOnlyWordBankList initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample WordBank");
-            }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-        }
+//        Optional<ReadOnlyWordBank> addressBookOptional;
+//        ReadOnlyWordBankList initialData;
+//        try {
+//            addressBookOptional = storage.readAddressBook();
+//            if (!addressBookOptional.isPresent()) {
+//                logger.info("Data file not found. Will be starting with a sample WordBank");
+//            }
+//        } catch (DataConversionException e) {
+//            logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
+//        } catch (IOException e) {
+//            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
+//        }
         WordBankList wbl = (WordBankList) storage.getWordBankList().get();
         return new ModelManager(wbl, userPrefs);
     }

@@ -34,9 +34,6 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     @Override
     Path getWordBankListFilePath();
 
-    @Override
-    Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException;
-
     /*
     Step 4.
     Define method signature of readGame here.

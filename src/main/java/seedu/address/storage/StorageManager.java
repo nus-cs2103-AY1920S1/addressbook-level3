@@ -58,17 +58,6 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(wordBankListStorage.getWordBankListFilePath());
-    }
-
-    @Override
-    public Optional<ReadOnlyWordBank> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return wordBankListStorage.readAddressBook(filePath);
-    }
-
-    @Override
     public void saveWordBanks(ReadOnlyWordBank addressBook) throws IOException {
         saveWordBanks(addressBook, wordBankListStorage.getWordBankListFilePath());
     }
