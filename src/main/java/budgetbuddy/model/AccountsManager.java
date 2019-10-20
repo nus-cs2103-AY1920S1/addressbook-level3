@@ -25,7 +25,7 @@ public class AccountsManager {
     }
 
     /**
-     * Creates and fills a new list of accpimts.
+     * Creates and fills a new list of accounts.
      * @param accounts A list of accounts with which to fill the new list.
      */
     public AccountsManager(List<Account> accounts) {
@@ -63,20 +63,16 @@ public class AccountsManager {
 
 
     /**
-     * Deletes a person's loan, targeted using a given loan.
-     * @param toDelete The loan used to identify the target loan for deletion.
+     * Deletes an account.
+     * @param toDelete The target account for deletion.
      */
-    /**public void deleteLoan(Loan toDelete) {
-        if (persons.contains(toDelete.getPerson())) {
-            Person targetPerson = persons.get(toDelete.getPerson());
-            targetPerson.deleteLoan(targetPerson.getLoan(toDelete));
-            if (!targetPerson.hasLoansRemaining()) {
-                persons.remove(targetPerson);
-            }
+    public void deleteAccount (Account toDelete) {
+        if (accounts.contains(toDelete)) {
+            accounts.remove(toDelete);
         } else {
-            throw new PersonNotFoundException();
+            throw new AccountNotFoundException();
         }
-    }*/
+    }
 
 
     @Override
