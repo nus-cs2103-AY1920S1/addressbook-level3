@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.savenus.logic.commands.AddCommand;
+import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
@@ -137,6 +138,9 @@ public class SaveNusParser {
 
         case SaveCommand.COMMAND_WORD:
             return new SaveCommandParser().parse(arguments);
+
+        case AutoSortCommand.COMMAND_WORD:
+            return new AutoSortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -97,6 +97,18 @@ public interface Model {
     void setFoods(List<Food> list);
 
     /**
+     * Simply sets the auto-sort flag.
+     * @param autoSortFlag the auto-sort flag.
+     */
+    void setAutoSortFlag(boolean autoSortFlag);
+
+    /**
+     * Gets the auto-sort flag.
+     * @return the auto-sort flag as a boolean value.
+     */
+    boolean getAutoSortFlag();
+
+    /**
      * A simple method to replace the filtered food list with the contents of a new list.
      * @param fieldList the new list of food.
      */
