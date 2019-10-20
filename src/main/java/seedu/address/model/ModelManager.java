@@ -13,7 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.calendar.Reminder;
+import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.UniqueRecordList;
@@ -35,17 +35,20 @@ public class ModelManager implements Model {
     private final FilteredList<Food> filteredFoodList;
     private final UniqueRecordList recordList;
     private final FilteredList<Record> filteredRecordList;
+    private final Calendar calendar;
+    private final FilteredList<CalendarEntry> filteredCalenderEntryList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyUserList userList,
-                        UniqueFoodList foodList, UniqueRecordList recordList) {
+                        UniqueFoodList foodList, UniqueRecordList recordList,
+                        ReadOnlyCalendar calendar) {
         super();
-        requireAllNonNull(addressBook, userPrefs, foodList, userList, recordList);
+        requireAllNonNull(addressBook, userPrefs, foodList, userList, recordList, calendar);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
-                + " and food map: " + foodList + " and record list: " + recordList);
+                + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
         this.userList = new UserList(userList);
@@ -56,10 +59,13 @@ public class ModelManager implements Model {
         this.filteredFoodList = new FilteredList<>(this.foodList.asUnmodifiableObservableList());
         this.recordList = recordList;
         this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
+        this.calendar = new Calendar(calendar);
+        this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(), new UniqueRecordList());
+        this(new AddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(), new UniqueRecordList(),
+                new Calendar());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -113,16 +119,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
-    }
-
-    @Override
-    public boolean hasReminder(Reminder reminder) {
-        return false;
-    }
-
-    @Override
-    public void addReminder(Reminder reminder) {
-
     }
 
     @Override
@@ -227,6 +223,40 @@ public class ModelManager implements Model {
     public void updateFilteredUserList(Predicate<User> predicate) {
         requireNonNull(predicate);
         filteredUserList.setPredicate(predicate);
+    }
+
+    //Calendar
+    @Override
+    public ReadOnlyCalendar getCalendar() {
+        return calendar;
+    }
+
+    @Override
+    public boolean hasCalendarEntry(CalendarEntry calendarEntry) {
+        requireNonNull(calendarEntry);
+        return calendar.hasCalendarEntry(calendarEntry);
+    }
+
+    @Override
+    public void deleteCalendarEntry(CalendarEntry target) {
+        calendar.removeCalendarEntry(target);
+    }
+
+    @Override
+    public void addCalendarEntry(CalendarEntry calendarEntry) {
+        calendar.addCalendarEntry(calendarEntry);
+
+    }
+
+    @Override
+    public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
+        requireAllNonNull(target, editedCalendarEntry);
+        calendar.setCalendarEntry(target, editedCalendarEntry);
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
+        return filteredCalenderEntryList;
     }
 
     @Override

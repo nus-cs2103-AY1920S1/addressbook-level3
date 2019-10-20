@@ -35,7 +35,7 @@ public class CliSyntax {
     // Calendar Prefixes
     public static final Prefix PREFIX_CALENDAR_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_CALENDAR_REPETITION = new Prefix("r/");
-    public static final Prefix PREFIX_TIME_PERIOD = new Prefix("tp/");
+    public static final Prefix PREFIX_TIME_DURATION = new Prefix("td/");
 
     // Stats Prefixes
     public static final Prefix PREFIX_TAG = new Prefix("t/");

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,7 +29,7 @@ import seedu.sgm.model.food.UniqueFoodList;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
-            new UniqueFoodList(), new UniqueRecordList());
+            new UniqueFoodList(), new UniqueRecordList(), new Calendar());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -38,7 +39,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UserList(),
-                new UniqueFoodList(), new UniqueRecordList());
+                new UniqueFoodList(), new UniqueRecordList(), new Calendar());
 
         expectedModel.deletePerson(personToDelete);
 
@@ -64,7 +65,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
                 new UserList(), new UniqueFoodList(),
-            new UniqueRecordList());
+            new UniqueRecordList(), new Calendar());
 
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
