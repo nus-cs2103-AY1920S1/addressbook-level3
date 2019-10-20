@@ -16,6 +16,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditAccommodationCommand;
+import seedu.address.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
 import seedu.address.logic.commands.EditActivityCommand;
 import seedu.address.logic.commands.EditActivityCommand.EditActivityDescriptor;
 import seedu.address.logic.commands.EditCommand;
@@ -48,13 +50,91 @@ public class EditCommandParser implements Parser<EditCommand> {
         final String arguments = matcher.group("arguments");
 
         switch(type) {
-        case EditContactCommand.SECOND_COMMAND_WORD:
-            return parseContactForEdit(arguments);
         case EditActivityCommand.SECOND_COMMAND_WORD:
             return parseActivityForEdit(arguments);
+        case EditAccommodationCommand.SECOND_COMMAND_WORD:
+            return parseAccommodationForEdit(arguments);
+        case EditContactCommand.SECOND_COMMAND_WORD:
+            return parseContactForEdit(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the EditAccommodationCommand
+     * and returns an EditAccommodationCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public EditAccommodationCommand parseAccommodationForEdit(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_TAG);
+
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditAccommodationCommand.MESSAGE_USAGE), pe);
+        }
+
+        EditAccommodationDescriptor editAccommodationDescriptor = new EditAccommodationDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editAccommodationDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            editAccommodationDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            editAccommodationDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editAccommodationDescriptor::setTags);
+
+        if (!editAccommodationDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditAccommodationCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditAccommodationCommand(index, editAccommodationDescriptor);
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the EditActivityCommand
+     * and returns an EditActivityCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public EditActivityCommand parseActivityForEdit(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_TAG);
+
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE),
+                    pe);
+        }
+
+        EditActivityDescriptor editActivityDescriptor = new EditActivityDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editActivityDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            editActivityDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            editActivityDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editActivityDescriptor::setTags);
+
+        if (!editActivityDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditActivityCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditActivityCommand(index, editActivityDescriptor);
     }
 
     /**
@@ -96,44 +176,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         return new EditContactCommand(index, editContactDescriptor);
-    }
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the EditActivityCommand
-     * and returns an EditContactCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public EditActivityCommand parseActivityForEdit(String args) throws ParseException {
-        requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_TAG);
-
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE),
-                    pe);
-        }
-
-        EditActivityDescriptor editActivityDescriptor = new EditActivityDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editActivityDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editActivityDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editActivityDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
-        }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editActivityDescriptor::setTags);
-
-        if (!editActivityDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditActivityCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditActivityCommand(index, editActivityDescriptor);
     }
 
     /**

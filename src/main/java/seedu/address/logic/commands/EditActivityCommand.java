@@ -49,7 +49,7 @@ public class EditActivityCommand extends EditCommand {
     private final EditActivityDescriptor editActivityDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index of the activity in the filtered activity list to edit
      */
     public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor) {
         requireNonNull(index);

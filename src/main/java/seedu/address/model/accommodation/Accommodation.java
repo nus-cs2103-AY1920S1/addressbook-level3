@@ -106,6 +106,10 @@ public class Accommodation {
         builder.append(getName())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Phone: ")
+                .append(getContact().isPresent()
+                        ? getContact().get().getPhone()
+                        : "")
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

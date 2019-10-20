@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeleteAccommodationCommand;
 import seedu.address.logic.commands.DeleteActivityCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
@@ -39,12 +40,14 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             Index index = ParserUtil.parseIndex(arguments);
 
             switch(type) {
+            case DeleteAccommodationCommand.SECOND_COMMAND_WORD:
+                return new DeleteAccommodationCommand(index);
+            case DeleteActivityCommand.SECOND_COMMAND_WORD:
+                return new DeleteActivityCommand(index);
             case DeleteContactCommand.SECOND_COMMAND_WORD:
                 return new DeleteContactCommand(index);
             case DeleteDayCommand.SECOND_COMMAND_WORD:
                 return new DeleteDayCommand(index);
-            case DeleteActivityCommand.SECOND_COMMAND_WORD:
-                return new DeleteActivityCommand(index);
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
