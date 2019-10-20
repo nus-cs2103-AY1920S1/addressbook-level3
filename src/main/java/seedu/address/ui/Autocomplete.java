@@ -71,6 +71,7 @@ public class Autocomplete extends TextField {
                 if (!keywordMenu.isShowing()) {
                     keywordMenu.show(Autocomplete.this, Side.BOTTOM, 15, 0);
                 }
+                keywordMenu.getSkin().getNode().lookup(".custom-menu-item").requestFocus();
             } else {
                 keywordMenu.hide();
             }
