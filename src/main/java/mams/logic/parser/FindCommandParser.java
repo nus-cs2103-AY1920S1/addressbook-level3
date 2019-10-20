@@ -10,9 +10,8 @@ import java.util.List;
 
 import mams.commons.core.Messages;
 import mams.logic.commands.FindCommand;
-import mams.logic.commands.FindModCommand;
-import mams.logic.commands.FindStudentCommand;
 import mams.logic.parser.exceptions.ParseException;
+import mams.model.appeal.AppealContainsKeywordsPredicate;
 import mams.model.module.ModuleContainsKeywordsPredicate;
 import mams.model.student.NameContainsKeywordsPredicate;
 
@@ -24,6 +23,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
     private List<String> studentKeywords = new ArrayList<>();
     private List<String> moduleKeywords = new ArrayList<>();
+    private List<String> appealKeywords = new ArrayList<>();
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -43,16 +43,20 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
             studentKeywords = argMultimap.getAllValues(PREFIX_STUDENT);
-            return new FindStudentCommand(new NameContainsKeywordsPredicate(studentKeywords));
         }
 
         if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
             moduleKeywords = argMultimap.getAllValues(PREFIX_MODULE_CODE);
-            return new FindModCommand(new ModuleContainsKeywordsPredicate(moduleKeywords));
+        }
+
+        if (argMultimap.getValue(PREFIX_APPEALID).isPresent()) {
+            appealKeywords = argMultimap.getAllValues(PREFIX_APPEALID);
         }
 
         // for compilation
-        return new FindStudentCommand(new NameContainsKeywordsPredicate(studentKeywords));
+        return new FindCommand(new NameContainsKeywordsPredicate(studentKeywords),
+                new ModuleContainsKeywordsPredicate(moduleKeywords),
+                new AppealContainsKeywordsPredicate(appealKeywords));
     }
 
 }

@@ -190,8 +190,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : null,
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000004",
@@ -216,7 +216,7 @@
     "appealDescription" : "I want to graduate earlier",
     "previousModule" : "",
     "newModule" : "",
-    "moduleToAdd" : "",
+    "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
     "resolved" : false,
     "result" : null,
