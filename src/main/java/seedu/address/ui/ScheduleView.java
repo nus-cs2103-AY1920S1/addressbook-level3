@@ -21,7 +21,6 @@ import seedu.address.model.display.detailwindow.DayTimeslot;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.ScheduleStub;
-import seedu.address.ui.util.CustomToolTip;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
 
@@ -131,11 +130,13 @@ public class ScheduleView extends UiPart<Region> {
             Label dayText = new Label(DayOfWeek.of(offset).toString());
             Label dayDate = new Label(DateFormatter.formatToString(currentDate.plusDays(i - 1)));
             VBox dayLabelContainer = new VBox();
+            dayText.setId("dayText");
+            dayDate.setId("dayDate");
+            dayLabelContainer.setId("dayLabelContainer");
             dayLabelContainer.setPrefSize(preferredWidth, 50);
             ColumnConstraints colC = new ColumnConstraints();
             colC.setPercentWidth(13);
             scheduleHeader.getColumnConstraints().add(colC);
-            dayLabelContainer.setStyle("-fx-background-color: white; -fx-border-width: 2; -fx-alignment: center;");
             dayLabelContainer.getChildren().addAll(dayText, dayDate);
             sp.getChildren().addAll(dayLabelContainer);
             scheduleHeader.add(sp, i, 0);
@@ -160,7 +161,7 @@ public class ScheduleView extends UiPart<Region> {
             String time = TimeFormatter.formatIntToTime(j);
             Region timeslotLeftLabelContainer = new Region();
             timeslotLeftLabelContainer.setPrefSize(preferredWidth, oneHourLength);
-            timeslotLeftLabelContainer.setStyle("-fx-background-color: white; -fx-border-color: white;");
+            timeslotLeftLabelContainer.setId("timeslotLabelContainer");
             Label timeslotLeftText = new Label(time);
             StackPane leftTimeslotHeaderContainer = new StackPane();
             leftTimeslotHeaderContainer.getChildren().addAll(timeslotLeftLabelContainer, timeslotLeftText);
@@ -179,16 +180,16 @@ public class ScheduleView extends UiPart<Region> {
             VBox timeslotContainer = new VBox();
             Region firstRegionOffset = new Region();
             firstRegionOffset.setPrefSize(preferredWidth, oneHourLength / 2);
-            firstRegionOffset.setStyle("-fx-border-color: lightgrey; -fx-border-style: solid none none solid");
+            firstRegionOffset.setId("timeslotMajorLine");
             timeslotContainer.getChildren().add(firstRegionOffset);
             for (int k = startTime; k < endTime; k++) {
                 StackPane timeslotRegion = new StackPane();
                 Region timeslotMajorRegion = new Region();
-                timeslotMajorRegion.setStyle("-fx-border-color: lightgrey; -fx-border-style: solid none none solid;");
+                timeslotMajorRegion.setId("timeslotMajorLine");
                 VBox timeslotMinorRegion = new VBox();
                 Region offset = makeEmptyTimeslot(30);
                 Region timeslotMinorRegion1 = new Region();
-                timeslotMinorRegion1.setStyle("-fx-border-color: lightgrey; -fx-border-style: dotted none none dotted");
+                timeslotMinorRegion1.setId("timeslotMinorLine");
                 timeslotMinorRegion1.setPrefSize(preferredWidth, oneHourLength / 2.0);
                 timeslotMinorRegion.getChildren().addAll(offset, timeslotMinorRegion1);
                 if (k == endTime - 1) {
