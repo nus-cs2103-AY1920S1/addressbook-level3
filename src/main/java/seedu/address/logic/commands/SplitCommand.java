@@ -11,8 +11,9 @@ import seedu.address.model.transaction.Transaction;
  */
 public class SplitCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Split amount successful";
     public static final String COMMAND_WORD = "split";
+    public static final String MESSAGE_SUCCESS = "Split amount successful";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Splitting up amount";
     private final Transaction transaction;
 
     public SplitCommand(Transaction transaction) {
