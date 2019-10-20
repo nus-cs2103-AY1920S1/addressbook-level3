@@ -10,8 +10,11 @@ import seedu.address.ui.modules.BankLabelPanel;
 import seedu.address.ui.modules.CardListPanel;
 import seedu.address.ui.modules.GameResultPanel;
 import seedu.address.ui.modules.LoadBankPanel;
+import seedu.address.ui.modules.MainTitlePanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
+
+import java.util.Random;
 
 /**
  * Displays the screen for Dukemon.
@@ -47,13 +50,14 @@ public class ModularDisplay {
      * @param paneToDisplay The view to change.
      */
     public void swapToLoadDisplay(StackPane paneToDisplay) {
-        TitleScreenPanel globalStatsPlaceholder = new TitleScreenPanel();
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
 
-        twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
-        twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
-        twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
+        // twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
+        // twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
+        twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
+                100, "Placeholder Word Bank Title",
+                new Random().nextInt(AvatarImage.TOTAL_NUM) + 1).getRoot()); // todo should depend on user prefs
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }

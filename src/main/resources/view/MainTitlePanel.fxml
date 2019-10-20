@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@DarkTheme.css">
+            <children>
+            <BorderPane fx:id="logoPlaceholder" />
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="12.0" />
+               </VBox.margin>
+            </Separator>
+                <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
+                    <children>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="title1112" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Played " textAlignment="CENTER" />
+                        <Label fx:id="playedTimesText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="X times" textAlignment="CENTER" />
+                        <Region HBox.hgrow="ALWAYS" />
+                    </children>
+                    <padding>
+                        <Insets top="10.0" />
+                    </padding>
+                </HBox>
+                <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
+                    <children>
+                        <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="title1111" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Most played:  " textAlignment="CENTER" />
+                        <Label fx:id="favoriteWordBankText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="XXXX" textAlignment="CENTER" />
+                        <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                    <padding>
+                        <Insets top="3.0" />
+                    </padding>
+                </HBox>
+            <BorderPane prefHeight="400.0">
+               <center>
+                  <ImageView fx:id="avatarImageView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+               </center></BorderPane>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>
