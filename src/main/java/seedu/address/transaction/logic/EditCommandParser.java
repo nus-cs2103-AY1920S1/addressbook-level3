@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.Model;
+import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.util.ArgumentMultimap;
@@ -34,7 +36,7 @@ public class EditCommandParser {
      * and returns a EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public EditCommand parse(String args, Model personModel) throws ParseException, PersonNotFoundException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION,
                         PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON);
@@ -65,6 +67,7 @@ public class EditCommandParser {
             editPersonDescriptor.setAmount(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON).isPresent()) {
+            personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
             editPersonDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
         }
 

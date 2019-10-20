@@ -1,7 +1,6 @@
 package seedu.address.transaction.commands;
 
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_PERSON;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
 
 import java.time.LocalDate;
@@ -25,8 +24,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
     private static int id;
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private int index;
-    private EditTransactionDescriptor editTransactionDescriptor;
+    private final int index;
+    private final EditTransactionDescriptor editTransactionDescriptor;
 
     /**
      * Creates an EditCommand to edit the specified {@code Transaction}
@@ -40,17 +39,21 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException {
-        Transaction transactionToEdit = model.findTransactionInFilteredListByIndex(index);
+        Transaction transactionToEdit;
+        try {
+            transactionToEdit = model.findTransactionInFilteredListByIndex(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(MESSAGE_NO_SUCH_TRANSACTION);
+        }
         logger.info("trans to edit: " + transactionToEdit.toString());
         Transaction editedTransaction = createdEditedTransaction(transactionToEdit,
                 editTransactionDescriptor, personModel);
 
-        if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
+        //allow for duplicates
+        /*if (transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
-        }
-        if (!personModel.hasPerson(editedTransaction.getPerson())) {
-            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
-        }
+        }*/
+
         try {
             LocalDate.parse(editedTransaction.getDate(), Transaction.DATE_TIME_FORMATTER);
         } catch (Exception e) {
@@ -69,19 +72,33 @@ public class EditCommand extends Command {
      */
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
                                                         EditTransactionDescriptor editTransactionDescriptor,
-                                                        seedu.address.person.model.Model personModel) {
+                                                        seedu.address.person.model.Model personModel)
+            throws NoSuchPersonException {
 
         String updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         String updatedDescription =
                 editTransactionDescriptor.getDescription().orElse(transactionToEdit.getDescription());
         String updatedCategory = editTransactionDescriptor.getCategory().orElse(transactionToEdit.getCategory());
         double updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
-        Person updatedPerson =
-                personModel.getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
+        Person updatedPerson = personModel
+                .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));;
+        /*try {
+            updatedPerson = personModel
+                    .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
+        } catch (PersonNotFoundException e) {
+            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
+        }*/
         boolean updatedIsReimbursed =
                 editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());
         return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount,
                 updatedPerson, id, updatedIsReimbursed);
+    }
+
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditCommand // instanceof handles nulls
+                && index == (((EditCommand) other).index))
+                && editTransactionDescriptor.equals(((EditCommand) other).editTransactionDescriptor);
     }
 
     /**
@@ -165,6 +182,10 @@ public class EditCommand extends Command {
 
         public Optional<Boolean> getIsReimbursed() {
             return Optional.ofNullable(isReimbursed);
+        }
+
+        public EditTransactionDescriptor build() {
+            return this;
         }
 
         @Override

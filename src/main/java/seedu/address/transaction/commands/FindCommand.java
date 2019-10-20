@@ -21,7 +21,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
-        model.updatePredicate(predicate);
+        model.updatePredicate(this.predicate);
         return new CommandResult(String.format(MESSAGE_FIND_COMMAND, model.getFilteredList().size()));
     }
 }

@@ -45,6 +45,7 @@ public class DeadlineCommandParser implements GeneralParser<DeadlineCommand> {
         try {
 
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+            System.out.println(person.toString());
             DeadlineCommand deadlineCommand = new DeadlineCommand(person, datetime);
             return deadlineCommand;
         } catch (Exception e) {

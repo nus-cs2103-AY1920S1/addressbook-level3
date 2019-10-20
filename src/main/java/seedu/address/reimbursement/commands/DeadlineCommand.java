@@ -32,6 +32,7 @@ public class DeadlineCommand extends Command {
         try {
             LocalDate deadline = LocalDate.parse(date, DATE_TIME_FORMATTER);
             Reimbursement rmb = model.addDeadline(person, deadline);
+            System.out.println(rmb.toString());
             logger.info(rmb.toString());
             return new CommandResult(String.format(MESSAGE_ADD_DEADLINE, rmb.getDeadline().format(DATE_TIME_FORMATTER),
                     rmb.toStringNoDeadline()));

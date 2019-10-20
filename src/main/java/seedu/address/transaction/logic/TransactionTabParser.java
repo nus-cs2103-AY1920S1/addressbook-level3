@@ -56,7 +56,7 @@ public class TransactionTabParser {
             return new DeleteCommandParser().parse(arguments, personModel);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditCommandParser().parse(arguments, personModel);
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);

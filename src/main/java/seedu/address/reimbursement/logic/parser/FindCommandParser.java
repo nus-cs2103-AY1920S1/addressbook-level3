@@ -42,6 +42,7 @@ public class FindCommandParser implements GeneralParser<FindCommand> {
 
         try {
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+            System.out.println(person.toString());
             FindCommand deadlineCommand = new FindCommand(person);
             return deadlineCommand;
         } catch (Exception e) {

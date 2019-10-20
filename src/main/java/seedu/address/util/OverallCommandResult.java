@@ -48,7 +48,7 @@ public class OverallCommandResult {
         }
 
         OverallCommandResult otherCommandResult = (OverallCommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
+        return feedbackToUser.equals(otherCommandResult.getFeedbackToUser())
                 //&& showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
     }
