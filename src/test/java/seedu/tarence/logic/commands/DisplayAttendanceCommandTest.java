@@ -3,6 +3,7 @@ package seedu.tarence.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 import static seedu.tarence.testutil.TypicalStudents.getTypicalApplication;
 
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,12 @@ public class DisplayAttendanceCommandTest {
         Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
 
         assertCommandSuccess(displayAttendanceCommand, model, DisplayAttendanceCommand.MESSAGE_SUCCESS, expectedModel);
+
+        DisplayAttendanceCommand displayAttendanceCommandIndex =
+                new DisplayAttendanceCommand(INDEX_FIRST_IN_LIST);
+
+        assertCommandSuccess(
+                displayAttendanceCommandIndex, model, DisplayAttendanceCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     // Todo: Fix test
