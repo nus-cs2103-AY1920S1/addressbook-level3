@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.tag.Tag;
 
@@ -74,7 +73,7 @@ public class Event {
      * @param employee
      * @param filteredEventList
      */
-    public boolean isAvailableForEvent(Employee employee, ObservableList<Event> filteredEventList) {
+    public boolean isAvailableForEvent(Employee employee, List<Event> filteredEventList) {
         List<Event> containsEmployeeEventList = filteredEventList.stream()
                 .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId().id))
                 .collect(Collectors.toList());

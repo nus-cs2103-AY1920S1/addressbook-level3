@@ -48,6 +48,20 @@ public class EventManpowerAllocatedList {
         }
     }
 
+    /**
+     * Removes employee to the Manpower List for an Event.
+     *
+     * @param employeeId to be removed
+     * @return boolean to represent if employee is successfully allocated to event
+     */
+    public boolean removeEmployee(String employeeId) {
+        if (!manpowerList.contains(employeeId)) {
+            return false;
+        } else {
+            return manpowerList.remove(employeeId);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder unprocessedList = new StringBuilder();
