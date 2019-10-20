@@ -28,8 +28,8 @@ public class QuestionsLogicManager implements QuestionsLogic {
     }
 
     @Override
-    public void getQuestion(int index) {
-        this.filteredList.get(index);
+    public Question getQuestion(int index) {
+        return this.filteredList.get(index);
     }
 
     @Override

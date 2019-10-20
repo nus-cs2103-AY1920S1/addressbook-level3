@@ -1,6 +1,7 @@
 package com.dukeacademy.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -49,6 +50,9 @@ public class StandardQuestionBankTest {
         mockQuestions.clear();
         this.standardQuestionBank.setQuestions(mockQuestions);
         assertTrue(this.matchListData(questionObservableList, mockQuestions));
+
+        assertThrows(UnsupportedOperationException.class, () -> questionObservableList
+                .add(new Question(new Title("test1"), new Topic("test1"), new Status("test1"), new Difficulty("Test1"), new HashSet<Tag>())));
     }
 
     @Test

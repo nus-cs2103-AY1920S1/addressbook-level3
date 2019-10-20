@@ -25,8 +25,9 @@ public interface QuestionsLogic {
     /**
      * Returns the question corresponding to the index in the list returned by getFilteredQuestionsList.
      * @param index the index of the question to be returned.
+     * @return the corresponding question.
      */
-    void getQuestion(int index);
+    Question getQuestion(int index);
 
     /**
      * Sets the question corresponding to the index in the list returned by getFilteredQUestionsList to a new question.
