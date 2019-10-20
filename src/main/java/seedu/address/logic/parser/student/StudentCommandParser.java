@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.stream.Stream;
@@ -70,7 +69,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
                             String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                     StudentDeleteCommand.MESSAGE_USAGE));
                 }
-                index.fromOneBased(indexToDelete);
+                index = index.fromOneBased(indexToDelete);
             } catch (NumberFormatException e) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -83,7 +82,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
             EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor();
             //HashMap<String, String> fields = new HashMap<>();
             //fields.put("name", argMultimap.getValue(PREFIX_QUESTION).orElse(""));
-            editStudentDescriptor.setName(ParserUtil.parseStudentName(argMultimap.getValue(PREFIX_NAME).get()));
+            editStudentDescriptor.setName(ParserUtil.parseStudentName(argMultimap.getValue(PREFIX_STUDENT).get()));
             return new StudentEditCommand(index, editStudentDescriptor);
         } else { // Create command
             if (!arePrefixesPresent(argMultimap, PREFIX_STUDENT)

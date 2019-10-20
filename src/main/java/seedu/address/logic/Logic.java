@@ -8,6 +8,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,6 +25,7 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    //region AddressBook
     /**
      * Returns the AddressBook.
      *
@@ -37,6 +40,24 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+    //endregion
+
+    //region Notes
+    /**
+     * Returns the NotesRecord.
+     *
+     * @see seedu.address.model.Model#getNotesRecord()
+     */
+    ReadOnlyNotesRecord getNotesRecord();
+
+    /** Returns an unmodifiable view of the filtered list of notes */
+    ObservableList<Note> getFilteredNotesList();
+
+    /**
+     * Returns the user prefs' notes record file path.
+     */
+    Path getNotesRecordFilePath();
+    //endregion
 
     /**
      * Returns the user prefs' GUI settings.

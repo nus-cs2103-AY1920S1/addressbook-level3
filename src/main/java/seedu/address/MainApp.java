@@ -19,19 +19,24 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.StudentRecord;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.note.NotesRecord;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
+import seedu.address.model.student.ReadOnlyStudentRecord;
+import seedu.address.model.student.StudentRecord;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleNotesUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.note.JsonNotesRecordStorage;
+import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.JsonQuestionStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.student.JsonStudentRecordStorage;
@@ -71,8 +76,9 @@ public class MainApp extends Application {
             new JsonStudentRecordStorage(userPrefs.getStudentRecordFilePath());
         QuestionStorage savedQuestionStorage =
             new JsonQuestionStorage(userPrefs.getSavedQuestionsFilePath());
+        NotesRecordStorage notesRecordStorage = new JsonNotesRecordStorage(userPrefs.getNotesRecordFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, studentRecordStorage,
-            savedQuestionStorage);
+            savedQuestionStorage, notesRecordStorage);
 
         initLogging(config);
 
@@ -93,14 +99,17 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyStudentRecord> studentRecordOptional;
         Optional<ReadOnlyQuestions> questionsOptional;
+        Optional<ReadOnlyNotesRecord> notesRecordOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
+        ReadOnlyNotesRecord initialNotesRecord;
 
         try {
             addressBookOptional = storage.readAddressBook();
             studentRecordOptional = storage.readStudentRecord();
             questionsOptional = storage.readQuestions();
+            notesRecordOptional = storage.readNotesRecord();
 
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
@@ -111,10 +120,14 @@ public class MainApp extends Application {
             if (!questionsOptional.isPresent()) {
                 logger.info("Question file not found. Will create an empty one.");
             }
+            if (!notesRecordOptional.isPresent()) {
+                logger.info("Notes Record not found. Will start with sample NotesRecord");
+            }
             initialAddressBook = addressBookOptional
                 .orElseGet(SampleDataUtil::getSampleAddressBook);
             initialStudentRecord = studentRecordOptional.orElseGet(null); //get samplestudentrecord
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
+            initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
 
         } catch (DataConversionException e) {
             logger.warning(
@@ -122,6 +135,7 @@ public class MainApp extends Application {
             initialAddressBook = new AddressBook();
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
+            initialNotesRecord = new NotesRecord();
 
         } catch (IOException e) {
             logger.warning(
@@ -129,9 +143,10 @@ public class MainApp extends Application {
             initialAddressBook = new AddressBook();
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
+            initialNotesRecord = new NotesRecord();
         }
 
-        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions,
+        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialNotesRecord,
             userPrefs);
     }
 

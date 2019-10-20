@@ -36,6 +36,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_LIST = new Prefix("list");
     public static final Prefix PREFIX_DELETE = new Prefix("delete");
 
+    public static final Prefix PREFIX_GROUP = new Prefix("group/");
+    public static final Prefix PREFIX_GROUP_ID = new Prefix("groupID/");
+    public static final Prefix PREFIX_STUDENT_NUMBER = new Prefix("studentNumber/");
+    public static final Prefix PREFIX_GROUP_INDEX_NUMBER = new Prefix("groupIndexNumber/");
+
     public static final Prefix PREFIX_QUIZ = new Prefix("quiz/");
     public static final Prefix PREFIX_MODE_AUTO = new Prefix("auto/");
     public static final Prefix PREFIX_MODE_MANUAL = new Prefix("manual/");

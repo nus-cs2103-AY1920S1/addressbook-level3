@@ -1,12 +1,10 @@
-package seedu.address.model;
+package seedu.address.model.student;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.student.Student;
-import seedu.address.model.student.UniqueStudentList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,18 +14,12 @@ public class StudentRecord implements ReadOnlyStudentRecord {
 
     private final UniqueStudentList students;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
     {
         students = new UniqueStudentList();
     }
 
-    public StudentRecord() {}
+    public StudentRecord() {
+    }
 
     /**
      * Creates an AddressBook using the Students in the {@code toBeCopied}
@@ -105,6 +97,11 @@ public class StudentRecord implements ReadOnlyStudentRecord {
     @Override
     public ObservableList<Student> getStudentList() {
         return students.asUnmodifiableObservableList();
+    }
+
+
+    public String getStudentSummary() {
+        return students.getStudentList();
     }
 
     @Override
