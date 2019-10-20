@@ -13,11 +13,30 @@ import seedu.address.model.person.Person;
  * Represents an Activity class containing participants ID and expenses.
  */
 public class Activity {
-
+    
+    private static int primaryKeyCounter;
+    
+    private final int primaryKey;
     private final Title title;
     private final ArrayList<Integer> participantIds;
     private final ArrayList<Expense> expenses;
 
+    /**
+     * Constructor for Activity.
+     * @param primaryKey The primary key of this activity.
+     * @param title Title of the activity.
+     * @param ids The people participating in the activity.
+     */
+    public Activity(int primaryKey, Title title, Integer ... ids) {
+        requireAllNonNull(title);
+        participantIds = new ArrayList<>();
+        expenses = new ArrayList<>();
+        this.primaryKey = primaryKey;
+        this.title = title;
+        for (Integer id : ids) {
+            participantIds.add(id);
+        }
+    }
     /**
      * Constructor for Activity.
      * @param title Title of the activity.
@@ -27,10 +46,23 @@ public class Activity {
         requireAllNonNull(title);
         participantIds = new ArrayList<>();
         expenses = new ArrayList<>();
+        this.primaryKey = primaryKeyCounter++;
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);
         }
+    }
+
+    public int getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public static int getPrimaryKeyCounter() {
+        return primaryKeyCounter;
+    }
+
+    public static void setPrimaryKeyCounter(int pk) {
+        primaryKeyCounter = pk;
     }
 
     /**
