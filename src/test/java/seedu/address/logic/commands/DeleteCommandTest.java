@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
@@ -28,7 +28,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Transaction transactionToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction transactionToDelete = model
+                .getFilteredTransactionList()
+                .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
@@ -51,7 +53,9 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        Transaction transactionToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction transactionToDelete = model
+                .getFilteredTransactionList()
+                .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);

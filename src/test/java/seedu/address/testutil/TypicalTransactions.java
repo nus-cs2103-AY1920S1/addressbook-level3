@@ -2,11 +2,9 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.model.BankAccount;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Transaction;
 
 /**
