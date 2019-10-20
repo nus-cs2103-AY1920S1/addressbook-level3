@@ -1,7 +1,7 @@
 package com.dukeacademy.ui;
 
-import com.dukeacademy.model.solution.TestCase;
-import com.dukeacademy.model.solution.TestCaseResult;
+import com.dukeacademy.model.program.TestCaseResult;
+import com.dukeacademy.model.question.TestCase;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -36,7 +36,7 @@ public class RunCodeResult extends UiPart<Region> {
         input.setText(inputString);
         String expectedOutputString = testCaseResult.getExpectedOutput();
         expectedOutput.setText(expectedOutputString);
-        String actualOutputString = testCaseResult.getActualOutput();
+        String actualOutputString = testCaseResult.getActualOutput().get();
         userOutput.setText(actualOutputString);
 
         String title = "title of test case pane";
