@@ -2,5 +2,5 @@
 
 
 <?import javafx.scene.chart.PieChart?>
-<PieChart fx:id="piechart" style="-fx-background-color: white;"
+<PieChart id="piechart" fx:id="piechart" style="-fx-background-color: white; -fx-font-size: 15;"
           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"/>
