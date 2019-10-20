@@ -81,6 +81,7 @@
                                                 </VBox.margin>
                                             </StackPane>
                                         </VBox>
+                                        <StackPane fx:id="statusbarPlaceholder" />
                                     </VBox>
                            <TabPane styleClass="tab-pane-with-border" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE">
                              <tabs>
@@ -153,7 +154,6 @@
                            </TabPane>
                                 </children>
                             </HBox>
-                               <StackPane fx:id="statusbarPlaceholder" />
                         </children>
                     </VBox>
                 </children>

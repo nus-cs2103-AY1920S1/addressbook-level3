@@ -158,7 +158,7 @@
 .vbox-tab-pane-with-border {
     -fx-background-color: #1d1d1d;
     -fx-border-color: derive(#1d1d1d, 10%);
-    -fx-border-style: solid none solid none;
+    -fx-border-style: solid none none none;
 }
 
 .tab-pane-with-border {
@@ -169,10 +169,6 @@
 
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
     -fx-border-color: transparent;
-}
-
-.status-bar {
-    -fx-background-color: #1d1d1d;
 }
 
 .tab-pane .tab-header-area .tab-header-background {
@@ -222,6 +218,11 @@
     -fx-text-fill: black !important;
 }
 
+.status-bar {
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: derive(#1d1d1d, 10%);
+}
+
 .status-bar .label {
     -fx-font-family: "Franklin Gothic Heavy";
     -fx-text-fill: white;
@@ -232,7 +233,6 @@
 .status-bar-with-border {
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
 }
 
 .status-bar-with-border .label {
