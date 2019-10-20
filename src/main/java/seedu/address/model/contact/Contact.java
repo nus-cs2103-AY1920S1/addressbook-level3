@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.claim.Claim;
 import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
@@ -71,6 +72,10 @@ public class Contact {
      */
     public Set<Id> getClaims() {
         return Collections.unmodifiableSet(claims);
+    }
+
+    public void addClaim(Claim c) {
+        claims.add(c.getId());
     }
 
     /**

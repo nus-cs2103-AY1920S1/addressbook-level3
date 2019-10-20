@@ -1,17 +1,22 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.AddClaimCommand.MESSAGE_CONTACT_NOT_FOUND;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.autocorrectsuggestion.UniqueAutocorrectSuggestionList;
 import seedu.address.model.claim.ApprovedClaim;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.claim.UniqueClaimsList;
+import seedu.address.model.commonvariables.Name;
+import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactsList;
 import seedu.address.model.income.Income;
@@ -111,6 +116,47 @@ public class FinSec implements ReadOnlyFinSec {
     }
 
     /**
+     * Returns true if a contact with the following name and phone identity exists in the finsec.
+     */
+    public boolean hasContact(Name name, Phone phone) {
+        requireAllNonNull(name, phone);
+        for (Contact contact : persons) {
+            if (contact.getName().equals((name)) && contact.getPhone().equals(phone)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns {@code contact} with the following name and phone identity in the finsec.
+     */
+    public Contact findContactFor(Name name, Phone phone) {
+        requireAllNonNull(name, phone);
+        for (Contact contact : persons) {
+            if (contact.getName().equals((name)) && contact.getPhone().equals(phone)) {
+                return contact;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns {@code contact} with the following name and phone identity declared for the {@code claim} in the finsec.
+     */
+    public Contact findContactFor(Claim claim) {
+        requireAllNonNull(claim);
+        Name claimName = claim.getName();
+        Phone claimPhone = claim.getPhone();
+        for (Contact contact : persons) {
+            if (contact.getName().equals((claimName)) && contact.getPhone().equals(claimPhone)) {
+                return contact;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds a contact to the address book.
      * The contact must not already exist in the address book.
      */
@@ -149,9 +195,11 @@ public class FinSec implements ReadOnlyFinSec {
     /**
      * Adds a claim to the finSec.
      * The claim must not already exist in the finSec.
+     * Ensures contact exists for claim to be added into.
      */
     public void addClaim(Claim c) {
         claims.add(c);
+        addClaimIntoContact(c);
     }
 
     /**
@@ -191,6 +239,11 @@ public class FinSec implements ReadOnlyFinSec {
         requireNonNull(target);
 
         claims.setClaim(target, new RejectedClaim(target));
+    }
+
+    private void addClaimIntoContact(Claim c) {
+        Contact targetContact = findContactFor(c);
+        targetContact.addClaim(c);
     }
 
     /**
