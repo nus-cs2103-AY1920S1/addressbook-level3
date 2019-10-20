@@ -121,7 +121,7 @@
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: #0D293E;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -155,8 +155,54 @@
      -fx-border-top-width: 1px;
 }
 
+.vbox-tab-pane-with-border {
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-style: solid none solid none;
+}
+
+.tab-pane-with-border {
+    -fx-background-color: #1d1d1d;
+    -fx-border-style: none none none none;
+}
+
 .status-bar {
     -fx-background-color: #1d1d1d;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #1d1d1d;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #003d7c;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
 }
 
 .result-display {
@@ -370,9 +416,10 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #003d7c;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
+    -fx-font-family: "Franklin Gothic Heavy";
     -fx-font-size: 11;
 }
