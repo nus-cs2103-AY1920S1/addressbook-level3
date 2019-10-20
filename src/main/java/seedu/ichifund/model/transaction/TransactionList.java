@@ -3,6 +3,7 @@ package seedu.ichifund.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class TransactionList implements Iterable<Transaction> {
     public void add(Transaction toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -44,6 +46,7 @@ public class TransactionList implements Iterable<Transaction> {
         }
 
         internalList.set(index, editedTransaction);
+        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -60,6 +63,7 @@ public class TransactionList implements Iterable<Transaction> {
     public void setTransactions(TransactionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        internalList.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -68,6 +72,7 @@ public class TransactionList implements Iterable<Transaction> {
     public void setTransactions(List<Transaction> transactions) {
         requireAllNonNull(transactions);
         internalList.setAll(transactions);
+        internalList.sort(Comparator.naturalOrder());
     }
 
     /**

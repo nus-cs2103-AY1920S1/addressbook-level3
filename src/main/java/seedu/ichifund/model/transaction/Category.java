@@ -7,7 +7,7 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
  * Represents a Transaction's category in the transaction recorder.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
-public class Category {
+public class Category implements Comparable<Category> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Categories should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -61,6 +61,11 @@ public class Category {
     @Override
     public int hashCode() {
         return category.hashCode();
+    }
+
+    @Override
+    public int compareTo(Category other) {
+        return toString().compareTo(other.toString());
     }
 }
 
