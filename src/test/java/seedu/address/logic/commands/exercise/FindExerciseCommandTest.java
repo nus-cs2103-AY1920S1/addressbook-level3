@@ -67,7 +67,7 @@ public class FindExerciseCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        ExerciseNameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        ExerciseNameContainsKeywordsPredicate predicate = preparePredicate("Curtsy Pushup Flye");
         FindExerciseCommand command = new FindExerciseCommand(predicate);
         expectedModel.updateFilteredExerciseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

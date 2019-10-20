@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_PUSHUP;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_SITUP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SITUP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SETS_FIVE;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertExerciseCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.showExerciseAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
@@ -108,7 +108,7 @@ public class EditExerciseCommandTest {
                 .build();
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(INDEX_SECOND_EXERCISE, descriptor);
 
-        assertCommandFailure(editExerciseCommand, model, EditExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
+        assertExerciseCommandFailure(editExerciseCommand, model, EditExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class EditExerciseCommandTest {
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(INDEX_FIRST_EXERCISE,
                 new EditExerciseDescriptorBuilder(exerciseInList).build());
 
-        assertCommandFailure(editExerciseCommand, model, EditExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
+        assertExerciseCommandFailure(editExerciseCommand, model, EditExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class EditExerciseCommandTest {
                 .withName(VALID_NAME_SITUP).build();
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        assertExerciseCommandFailure(editExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     /**
@@ -147,7 +147,7 @@ public class EditExerciseCommandTest {
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(outOfBoundIndex,
                 new EditExerciseDescriptorBuilder().withName(VALID_NAME_SITUP).build());
 
-        assertCommandFailure(editExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        assertExerciseCommandFailure(editExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test

@@ -43,4 +43,19 @@ public class MusclesTrained {
         builder.append("]");
         return builder.toString();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof MusclesTrained)) {
+            return false;
+        }
+
+        MusclesTrained otherMusclesTrained = (MusclesTrained) other;
+        return otherMusclesTrained.getPrimaryMuscle().equals(getPrimaryMuscle())
+                && otherMusclesTrained.getSecondaryMuscles().equals(getSecondaryMuscles());
+    }
 }

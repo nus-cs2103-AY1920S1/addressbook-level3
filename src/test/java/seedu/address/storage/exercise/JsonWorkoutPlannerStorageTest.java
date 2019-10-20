@@ -20,17 +20,18 @@ import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
 import seedu.address.model.exercise.WorkoutPlanner;
 
 public class JsonWorkoutPlannerStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonDukeCooksStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonWorkoutPlannerStorageTest");
 
     @TempDir
     public Path testFolder;
 
     @Test
-    public void readDukeCooks_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readDukeCooks(null));
+    public void readWorkoutPlanner_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readWorkoutPlanner(null));
     }
 
-    private java.util.Optional<ReadOnlyWorkoutPlanner> readDukeCooks(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(String filePath) throws Exception {
         return new JsonWorkoutPlannerStorage(Paths.get(filePath))
                 .readWorkoutPlanner(addToTestDataPathIfNotNull(filePath));
     }
@@ -43,22 +44,23 @@ public class JsonWorkoutPlannerStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readDukeCooks("NonExistentFile.json").isPresent());
+        assertFalse(readWorkoutPlanner("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("notJsonFormatDukeCooks.json"));
+        assertThrows(DataConversionException.class, () -> readWorkoutPlanner("notJsonFormatWorkoutPlanner.json"));
     }
 
     @Test
     public void readDukeCooks_invalidPersonDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidPersonDukeCooks.json"));
+        assertThrows(DataConversionException.class, () -> readWorkoutPlanner("invalidExerciseWorkoutPlanner.json"));
     }
 
     @Test
-    public void readDukeCooks_invalidAndValidPersonDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidAndValidPersonDukeCooks.json"));
+    public void readWorkoutPlanner_invalidAndValidExerciseWorkoutPlanner_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () ->
+                readWorkoutPlanner("invalidAndValidExerciseWorkoutPlanner.json"));
     }
 
     @Test
