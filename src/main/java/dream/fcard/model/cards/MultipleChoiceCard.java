@@ -1,7 +1,9 @@
 package dream.fcard.model.cards;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import dream.fcard.core.commons.core.index.Index;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
@@ -29,7 +31,12 @@ public class MultipleChoiceCard extends FrontBackCard {
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg) {
         super(frontString, backString);
         choices = choicesArg;
-        //answerIndex = Integer.parseInt(back);
+
+        try {
+            answerIndex = Integer.parseInt(back);
+        } catch (NumberFormatException f) {
+            throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
+        }
     }
 
     @Override
@@ -52,14 +59,30 @@ public class MultipleChoiceCard extends FrontBackCard {
 
     @Override
     public Node renderFront() {
-        //TODO generate a random mapping of choices and update answerIndex
+        // Shuffle choices first
+        shuffleChoices();
+
         return super.renderFront();
     }
 
     @Override
-    public Boolean evaluate(String in) {
-        return in.equals(back);
-        //return Integer.parseInt(in) == answerIndex;
+    public Boolean evaluate(String in) throws IndexNotFoundException {
+        
+        int userAnswer = -1;
+
+        try {
+            userAnswer = Integer.parseInt(in);
+
+        } catch (NumberFormatException n) {
+            throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
+        }
+
+        // Assume options must be a non-negative integer
+        if (userAnswer >= choices.size() || userAnswer < 0) {
+            throw new IndexNotFoundException("Choice provided is not valid - " + userAnswer);
+        }
+
+        return userAnswer == answerIndex;
     }
 
     /**
@@ -88,11 +111,34 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @throws IndexNotFoundException If index >= number of choices or < 0.
      */
     public void editChoice(int index, String newChoice) throws IndexNotFoundException {
+
         if (index < 0 || index > choices.size()) {
-            throw new IndexNotFoundException(new Exception());
+            throw new IndexNotFoundException("Choice index provided is invalid - " + index);
         }
         choices.add(index, newChoice);
         choices.remove(index + 1);
+    }
+
+    /**
+     * Shuffles the choices of choices and updates the index of correct answer.
+     */
+    private void shuffleChoices() {
+        // Obtain String of correct answer before sorting
+        String correctAnswer = choices.get(answerIndex);
+
+        Collections.shuffle(choices);
+
+        // Find the index of the correct answer after sorting
+        for (int i = 0; i < choices.size(); i++) {
+            String currentChoice = choices.get(i);
+
+            boolean isCurrentChoiceEqualAnswer = correctAnswer.equals(currentChoice);
+
+            if (isCurrentChoiceEqualAnswer) {
+                answerIndex = i;
+                break;
+            }
+        }
     }
 
     /**
@@ -104,7 +150,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      */
     public String getChoice(int index) throws IndexNotFoundException {
         if (index < 0 || index > choices.size()) {
-            throw new IndexNotFoundException(new Exception());
+            throw new IndexNotFoundException("Choice index provided is invalid - " + index);
         }
         return choices.get(index);
     }

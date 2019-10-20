@@ -1,5 +1,6 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import javafx.scene.Node;
 
@@ -28,7 +29,7 @@ public interface FlashCard extends JsonInterface {
      * @param in input
      * @return true if its a valid match
      */
-    Boolean evaluate(String in);
+    Boolean evaluate(String in) throws IndexNotFoundException;
 
     String getFront();
 
