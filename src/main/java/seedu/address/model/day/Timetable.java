@@ -1,66 +1,104 @@
 package seedu.address.model.day;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.day.exceptions.TimeSlotUnavailableException;
-import seedu.address.model.day.time.TimeInHalfHour;
+import seedu.address.model.field.Address;
+import seedu.address.model.field.Name;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the timetable of a {@code Day}.
  * Guarantees: {@code Timetable} is filled with {@code HalfHour}.
  */
 public class Timetable {
-    protected static final int NUMBER_OF_HALF_HOUR_IN_A_DAY = 48;
-    private TimeSlot[] timetable = new TimeSlot[NUMBER_OF_HALF_HOUR_IN_A_DAY];
+    private TreeSet<ActivityWithTime> timetable;
 
-    public Timetable(List<ActivityWithTime> activities) throws TimeSlotUnavailableException {
-        for (ActivityWithTime a : activities) {
-            Activity activity = a.getActivity();
-            Index startIndex = convertTimeToIndex(a.getTime());
-            Index endIndex = Index.fromZeroBased(
-                    startIndex.getZeroBased() + a.getDuration().getNumberOfHalfHour()
-            );
-            addActivityToIndexRange(activity, startIndex, endIndex);
-        }
+    public Timetable(List<ActivityWithTime> activities) {
+        this.timetable = new TreeSet<>();
+        if (activities.size() > 0) {
+            Iterator<ActivityWithTime> activitiesIterator = activities.iterator();
+            this.timetable.add(activitiesIterator.next());
 
-        // fill up remaining time slots with empty half hours
-        for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
-            if (timetable[i] == null) {
-                timetable[i] = new TimeSlot(null);
+            while (activitiesIterator.hasNext()) {
+                ActivityWithTime toAdd = activitiesIterator.next();
+                ActivityWithTime floorActivity = this.timetable.floor(toAdd);
+                ActivityWithTime ceilingActivity = this.timetable.ceiling(toAdd);
+
+                if (floorActivity == null) {
+                    // check if toAdd's endTime does not overlap with ceilingActivity's startTime
+                    if (toAdd.getEndTime().compareTo(ceilingActivity.getStartTime()) <= 0) {
+                        this.timetable.add(toAdd);
+                    }
+                } else if (ceilingActivity == null) {
+                    // check if toAdd's startTime does not overlap with ceilingActivity's endTime
+                    if (toAdd.getStartTime().compareTo(floorActivity.getEndTime()) >= 0) {
+                        this.timetable.add(toAdd);
+                    }
+                } else {
+                    if (toAdd.getStartTime().compareTo(floorActivity.getEndTime()) >= 0
+                        && toAdd.getEndTime().compareTo(ceilingActivity.getStartTime()) <= 0) {
+                        this.timetable.add(toAdd);
+                    }
+                }
             }
         }
     }
 
-    public Optional<Activity> getActivityAtIndex(Index index) {
-        return timetable[index.getZeroBased()].getActivity();
-    }
-
-    public boolean getIsAvailableAtIndex(Index index) {
-        return timetable[index.getZeroBased()].isAvailable();
-    }
-
-    /**
-     * Adds an activity to timetable.
-     *
-     * @param start first index to add activity
-     * @param end last index to add the activity
-     */
-    private void addActivityToIndexRange(Activity activity, Index start, Index end)
-            throws TimeSlotUnavailableException {
-        for (int i = start.getZeroBased(); i <= end.getZeroBased(); i++) {
-            if (timetable[i] != null) {
-                throw new TimeSlotUnavailableException();
-            }
-            timetable[i] = new TimeSlot(activity);
+    public Optional<Activity> getActivityAtTime(Date time) {
+        ActivityWithTime timeToSearch = new ActivityWithTime(createEmptyActivity(), time, time);
+        ActivityWithTime floorActivity = this.timetable.floor(timeToSearch);
+        if (floorActivity == null) {
+            return Optional.empty();
+        } else if (floorActivity.getEndTime().compareTo(time) >= 0) {
+            return Optional.of(floorActivity.getActivity());
+        } else {
+            return Optional.empty();
         }
     }
 
-    private Index convertTimeToIndex(TimeInHalfHour time) {
-        return Index.fromZeroBased(
-                time.getHour() * 2 + time.getMinutes() / 30
-        );
+    public List<ActivityWithTime> getActivitiesWithTime() {
+        return new ArrayList<>(this.timetable);
+    }
+
+    private Activity createEmptyActivity() {
+        return new Activity(new Name("activityStub"), new Address("addressStub"), null, new HashSet<Tag>());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Timetable)) {
+            return false;
+        }
+
+        List<ActivityWithTime> otherActivities = ((Timetable) other).getActivitiesWithTime();
+        List<ActivityWithTime> thisActivities = this.getActivitiesWithTime();
+        return checkIfTwoListAreEqual(thisActivities, otherActivities);
+    }
+
+    private boolean checkIfTwoListAreEqual(List<ActivityWithTime> list1, List<ActivityWithTime> list2) {
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+        Iterator<ActivityWithTime> list1Iterator = list1.listIterator();
+        Iterator<ActivityWithTime> list2Iterator = list2.listIterator();
+        while (list1Iterator.hasNext()) {
+            ActivityWithTime list1Next = list1Iterator.next();
+            ActivityWithTime list2Next = list2Iterator.next();
+            if (!list1Next.equals(list2Next)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
