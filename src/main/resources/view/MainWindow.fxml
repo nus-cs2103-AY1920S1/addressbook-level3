@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="1000.0" minWidth="1500.0" onCloseRequest="#handleExit" title="\$aveNUS" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="900.0" minWidth="1400.0" onCloseRequest="#handleExit" title="\$aveNUS" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/savenus_logo.png" />
     </icons>
@@ -61,7 +61,7 @@
                                     <Insets bottom="5" left="10" right="10" top="5" />
                                 </padding>
                             </StackPane>
-                            <StackPane fx:id="resultDisplayPlaceholder" minHeight="150.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                                 <padding>
                                     <Insets bottom="5" left="10" right="10" top="5" />
                                 </padding>
@@ -69,7 +69,7 @@
                             <HBox VBox.vgrow="ALWAYS">
                                 <children>
                                     <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="500.0" HBox.hgrow="ALWAYS">
-                                        <VBox fx:id="foodList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                                        <VBox fx:id="foodList" prefHeight="655.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                                             <padding>
                                                 <Insets bottom="10" left="10" right="10" top="10" />
                                             </padding>
@@ -81,45 +81,49 @@
                                         </VBox>
                                         <StackPane fx:id="statusbarPlaceholder" />
                                     </VBox>
-                                    <AnchorPane prefWidth="667.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css">
-                                        <children>
-                                 <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="83.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                       <Image url="@../images/Wallet.png" />
-                                    </image>
-                                 </ImageView>
-                                            <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="234.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="money" wrappingWidth="386.0">
-                                                <font>
-                                                    <Font name="Monospaced Regular" size="51.0" />
-                                                </font>
-                                            </Text>
-                                            <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="234.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="days" wrappingWidth="174.0">
-                                                <font>
-                                                    <Font name="Franklin Gothic Demi Cond" size="27.0" />
-                                                </font>
-                                            </Text>
-                                             <Text fill="white" layoutX="21.0" layoutY="208.0" text="Purchase History" textAlignment="CENTER" wrappingWidth="670.0">
+                           <VBox maxHeight="1.7976931348623157E308" prefHeight="655.0" prefWidth="670.0" spacing="10.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" HBox.hgrow="NEVER">
+                              <children>
+                                 <AnchorPane prefHeight="148.0" prefWidth="670.0" VBox.vgrow="NEVER">
+                                    <children>
+                                       <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="83.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/Wallet.png" />
+                                          </image>
+                                       </ImageView>
+                                                  <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="234.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="money" wrappingWidth="386.0">
+                                                      <font>
+                                                          <Font name="Monospaced Regular" size="51.0" />
+                                                      </font>
+                                                  </Text>
+                                                  <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="234.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="days" wrappingWidth="174.0">
+                                                      <font>
+                                                          <Font name="Franklin Gothic Demi Cond" size="27.0" />
+                                                      </font>
+                                                  </Text>
+                                    </children>
+                                 </AnchorPane>
+                                             <Text fill="white" text="Purchase History" textAlignment="CENTER" wrappingWidth="670.0">
                                                  <font>
                                                      <Font name="Franklin Gothic Demi Cond" size="40.0" />
                                                  </font>
                                              </Text>
-                                            <VBox alignment="BOTTOM_CENTER" layoutX="21.0" layoutY="223.0" prefHeight="510.0" prefWidth="670.0" HBox.hgrow="ALWAYS">
-                                                <VBox fx:id="purchaseList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                                            <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" prefWidth="670.0" VBox.vgrow="ALWAYS">
+                                                <VBox fx:id="purchaseList" maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                                                     <padding>
                                                         <Insets bottom="10" left="10" right="10" top="10" />
                                                     </padding>
-                                                    <StackPane fx:id="purchaseListPanelPlaceholder" VBox.vgrow="ALWAYS">
+                                                    <StackPane fx:id="purchaseListPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                                         <VBox.margin>
                                                             <Insets />
                                                         </VBox.margin>
                                                     </StackPane>
                                                 </VBox>
                                             </VBox>
-                                        </children>
-                                        <padding>
-                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                        </padding>
-                                    </AnchorPane>
+                              </children>
+                              <padding>
+                                 <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                              </padding>
+                           </VBox>
                                 </children>
                             </HBox>
                         </children>
