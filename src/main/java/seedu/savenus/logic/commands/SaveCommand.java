@@ -33,11 +33,11 @@ public class SaveCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // add to the savings account in the model.
-        model.addToSavings(this.savingsAmount);
-
         // deduct from wallet in model
         model.deductFromWallet(this.savingsAmount);
+
+        // add to the savings account in the model.
+        model.addToSavings(this.savingsAmount);
 
         return new CommandResult(String.format(MESSAGE_SAVINGS_SUCCESS));
     }

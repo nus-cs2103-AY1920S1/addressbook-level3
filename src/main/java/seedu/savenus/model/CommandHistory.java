@@ -4,29 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 /***
- * Class to store and retrieve command history.
+ * Singleton Class to store and retrieve command history.
  */
 public class CommandHistory {
+    private static CommandHistory commandHistory;
+
     private static final int MAX_LENGTH = 10;
-    private static final List<String> commandHistory = new ArrayList<>();
-    private static int currentCommandIndex = -1;
+    private final List<String> commandHistoryList = new ArrayList<>();
+    private int currentCommandIndex = -1;
+
+    // Prevents instantiation
+    private CommandHistory() {}
+
+    public static CommandHistory getInstance() {
+        if (commandHistory == null) {
+            commandHistory = new CommandHistory();
+        }
+
+        return commandHistory;
+    }
 
     /**
      * Add Command to history.
      * @param command Command to be added to history
      */
-    private static void addCommandToHistory(String command) {
+    private void addCommandToHistory(String command) {
         // Disregard duplicate commands
-        if (commandHistory.size() != 0
-                && commandHistory.get(commandHistory.size() - 1).equals(command)) {
+        if (commandHistoryList.size() != 0
+                && commandHistoryList.get(commandHistoryList.size() - 1).equals(command)) {
             return;
         }
         // Shift command list to accommodate new command
-        if (commandHistory.size() == MAX_LENGTH) {
-            commandHistory.remove(0);
+        if (commandHistoryList.size() == MAX_LENGTH) {
+            commandHistoryList.remove(0);
             currentCommandIndex--;
         }
-        commandHistory.add(command);
+        commandHistoryList.add(command);
         currentCommandIndex++;
     }
 
@@ -34,16 +47,16 @@ public class CommandHistory {
      * Store invalid command.
      * @param command Command to be stored
      */
-    public static void storeInvalidCommand(String command) {
-        addCommandToHistory(command);
-        currentCommandIndex = commandHistory.size() - 1;
+    public void storeInvalidCommand(String command) {
+        this.addCommandToHistory(command);
+        currentCommandIndex = commandHistoryList.size() - 1;
     }
 
     /**
      * Used to get the index.
      * @return Command index.
      */
-    public static int getCurrentCommandIndex() {
+    public int getCurrentCommandIndex() {
         return currentCommandIndex;
     }
 
@@ -51,47 +64,47 @@ public class CommandHistory {
      * Used to get the command history.
      * @return List of command history.
      */
-    public static List<String> getCommandHistory() {
-        return commandHistory;
+    public List<String> getCommandHistory() {
+        return commandHistoryList;
     }
 
     /**
      * Store valid command.
      * @param command Command to be stored
      */
-    public static void storeValidCommand(String command) {
-        addCommandToHistory(command);
-        currentCommandIndex = commandHistory.size();
+    public void storeValidCommand(String command) {
+        this.addCommandToHistory(command);
+        currentCommandIndex = commandHistoryList.size();
     }
 
     /**
      * Get previously stored command.
      */
-    public static String getPrev() {
+    public String getPrev() {
         // Return null if reached the start of command history
         if (currentCommandIndex <= 0) {
             return null;
         }
         currentCommandIndex--;
-        return commandHistory.get(currentCommandIndex);
+        return commandHistoryList.get(currentCommandIndex);
     }
 
     /**
      * Get following stored command.
      */
-    public static String getNext() {
+    public String getNext() {
         // Return null if reached the end of command history
-        if (currentCommandIndex >= commandHistory.size() - 1) {
+        if (currentCommandIndex >= commandHistoryList.size() - 1) {
             return null;
         }
         currentCommandIndex++;
-        return commandHistory.get(currentCommandIndex);
+        return commandHistoryList.get(currentCommandIndex);
     }
 
     @Override
     public String toString() {
-        StringBuilder commandHistoryToString = new StringBuilder("Command History: \n");
-        commandHistory.forEach((String command) -> commandHistoryToString.append(command).append("\n"));
-        return commandHistoryToString.toString();
+        StringBuilder commandHistoryListToString = new StringBuilder("Command History: \n");
+        commandHistoryList.forEach((String command) -> commandHistoryListToString.append(command).append("\n"));
+        return commandHistoryListToString.toString();
     }
 }

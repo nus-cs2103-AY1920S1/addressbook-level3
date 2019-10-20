@@ -28,9 +28,6 @@ public class Savings {
      */
     public static boolean isValidSaving(String saving) {
         if (saving.matches(VALIDATION_REGEX)) {
-            if (Double.parseDouble(saving) > 5000.00) {
-                return false;
-            }
             return true;
         } else {
             return false;

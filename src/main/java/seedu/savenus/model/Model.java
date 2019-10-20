@@ -17,6 +17,7 @@ import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.savings.Savings;
 //import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -199,6 +200,16 @@ public interface Model {
      * Clears the user's liked categories, tags and locations.
      */
     void clearDislikes();
+
+    /**
+     * Sets the custom comparator.
+     */
+    void setCustomSorter(List<String> fields);
+
+    /**
+     * Gets the custom comparator.
+     */
+    CustomSorter getCustomSorter();
 
     /**
      * Add money from wallet to savings account.

@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
-import seedu.savenus.model.food.Name;
-import seedu.savenus.model.food.Price;
+import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.TimeOfPurchase;
 
@@ -15,20 +14,17 @@ import seedu.savenus.model.purchase.TimeOfPurchase;
 class JsonAdaptedPurchase {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Purchase's %s field is missing!";
 
-    private final String purchasedFoodName;
-    private final String purchasedFoodPrice;
+    private final JsonAdaptedFood purchasedFood;
     private final String timeOfPurchaseInMillisSinceEpochString;
 
     /**
      * Constructs a {@code JsonAdaptedPurchase} with the given Purchase details.
      */
     @JsonCreator
-    public JsonAdaptedPurchase(@JsonProperty("purchasedFoodName") String purchasedFoodName,
-                               @JsonProperty("purchasedFoodPrice") String purchasedFoodPrice,
+    public JsonAdaptedPurchase(@JsonProperty("purchasedFood") JsonAdaptedFood purchasedFood,
                                @JsonProperty("timeOfPurchaseInMillisSinceEpochString")
                                               String timeOfPurchaseInMillisSinceEpochString) {
-        this.purchasedFoodName = purchasedFoodName;
-        this.purchasedFoodPrice = purchasedFoodPrice;
+        this.purchasedFood = purchasedFood;
         this.timeOfPurchaseInMillisSinceEpochString = timeOfPurchaseInMillisSinceEpochString;
     }
 
@@ -36,8 +32,7 @@ class JsonAdaptedPurchase {
      * Converts a given {@code Purchase} into this class for Jackson use.
      */
     public JsonAdaptedPurchase(Purchase source) {
-        this.purchasedFoodName = source.getPurchasedFoodName().toString();
-        this.purchasedFoodPrice = source.getPurchasedFoodPrice().toString();
+        this.purchasedFood = new JsonAdaptedFood(source.getPurchasedFood());
         this.timeOfPurchaseInMillisSinceEpochString = Long.toString(source.getTimeOfPurchaseInMillisSinceEpoch());
     }
 
@@ -48,21 +43,10 @@ class JsonAdaptedPurchase {
      */
     public Purchase toModelType() throws IllegalValueException {
 
-        if (purchasedFoodName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        if (purchasedFood == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Food.class.getSimpleName()));
         }
-        if (!Name.isValidName(purchasedFoodName)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }
-        final Name modelName = new Name(purchasedFoodName);
-
-        if (purchasedFoodPrice == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
-        }
-        if (!Price.isValidPrice(purchasedFoodPrice)) {
-            throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
-        }
-        final Price modelPrice = new Price(purchasedFoodPrice);
+        final Food modelPurchasedFood = purchasedFood.toModelType();
 
         if (timeOfPurchaseInMillisSinceEpochString == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -73,6 +57,6 @@ class JsonAdaptedPurchase {
         }
         final TimeOfPurchase modelTimeOfPurchase = new TimeOfPurchase(timeOfPurchaseInMillisSinceEpochString);
 
-        return new Purchase(modelName, modelPrice, modelTimeOfPurchase);
+        return new Purchase(modelPurchasedFood, modelTimeOfPurchase);
     }
 }

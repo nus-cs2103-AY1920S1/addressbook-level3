@@ -7,36 +7,41 @@ import org.junit.jupiter.api.Test;
 
 public class CommandHistoryTest {
 
+    private CommandHistory commandHistory = CommandHistory.getInstance();
 
     @Test
     public void storeInvalidCommand_success() {
-        CommandHistory.storeInvalidCommand("asdasfgas");
-        assertEquals(CommandHistory.getCurrentCommandIndex(),
-                CommandHistory.getCommandHistory().size() - 1);
+        commandHistory.storeInvalidCommand("asdasfgas");
+        assertEquals(commandHistory.getCurrentCommandIndex(),
+                commandHistory.getCommandHistory().size() - 1);
     }
 
     @Test
     public void storeValidCommand_success() {
-        CommandHistory.storeValidCommand("edit");
-        assertEquals(CommandHistory.getCurrentCommandIndex(),
-                CommandHistory.getCommandHistory().size());
+        commandHistory.storeValidCommand("edit");
+        assertEquals(commandHistory.getCurrentCommandIndex(),
+                commandHistory.getCommandHistory().size());
     }
 
     @Test
     public void getPrev_correctReturnType() {
         assertEquals(null,
-                CommandHistory.getPrev());
-        CommandHistory.storeValidCommand("edit");
-        CommandHistory.storeValidCommand("add");
-        CommandHistory.storeValidCommand("info");
+                commandHistory.getPrev());
+        commandHistory.storeValidCommand("edit");
+        commandHistory.storeValidCommand("add");
+        commandHistory.storeValidCommand("info");
         assertEquals(
-                CommandHistory.getCommandHistory().get(CommandHistory.getCurrentCommandIndex() - 1),
-                CommandHistory.getPrev());
+                commandHistory.getCommandHistory().get(commandHistory.getCurrentCommandIndex() - 1),
+                commandHistory.getPrev());
     }
 
     @Test
     public void getNext_correctReturnType() {
-        assertEquals(null, CommandHistory.getNext());
+        assertEquals(null, commandHistory.getNext());
     }
 
+    @Test
+    public void toString_correctReturnType() {
+        assertEquals(true, commandHistory.toString() instanceof String);
+    }
 }

@@ -34,6 +34,8 @@ import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
+import seedu.savenus.storage.JsonCustomSortStorage;
 import seedu.savenus.storage.JsonMenuStorage;
 import seedu.savenus.storage.JsonRecsStorage;
 import seedu.savenus.storage.JsonUserPrefsStorage;
@@ -56,7 +58,11 @@ public class LogicManagerTest {
                 new JsonMenuStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("userPrefs-recs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage);
+        JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
+                temporaryFolder.resolve("userPrefs-sort.json")
+        );
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
+                customSortStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -86,7 +92,11 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("ioExceptionUserRecs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage);
+        JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
+                temporaryFolder.resolve("ioExceptionUserRecs.json")
+        );
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
+                customSortStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -169,7 +179,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations());
+        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
+                new CustomSorter());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
