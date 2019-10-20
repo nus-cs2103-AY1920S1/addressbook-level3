@@ -30,11 +30,11 @@ public class SampleDataUtil {
         }
     }
 
-    public static ReadOnlyEngagementList getSampleAddressBook() {
-        EngagementList sampleAb = new EngagementList();
+    public static ReadOnlyEngagementList getSampleEngagementList() {
+        EngagementList sampleEngagementList = new EngagementList();
         for (Engagement sampleEngagement : getSampleEngagements()) {
-            sampleAb.addEngagement(sampleEngagement);
+            sampleEngagementList.addEngagement(sampleEngagement);
         }
-        return sampleAb;
+        return sampleEngagementList;
     }
 }

@@ -55,7 +55,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyEngagementList getAddressBook() {
+    public ReadOnlyEngagementList getEngagementList() {
         return model.getHistoryManager();
     }
 
@@ -70,8 +70,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getEngagementListFilePath() {
+        return model.getEngagementListFilePath();
     }
 
     @Override

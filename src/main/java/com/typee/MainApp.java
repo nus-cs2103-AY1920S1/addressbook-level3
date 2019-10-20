@@ -79,14 +79,14 @@ public class MainApp extends Application {
      * {@code storage}'s engagement manager.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyEngagementList> addressBookOptional;
+        Optional<ReadOnlyEngagementList> engagementListOptional;
         ReadOnlyEngagementList initialData;
         try {
-            addressBookOptional = storage.readEngagementList();
-            if (!addressBookOptional.isPresent()) {
+            engagementListOptional = storage.readEngagementList();
+            if (!engagementListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample engagement manager");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = engagementListOptional.orElseGet(SampleDataUtil::getSampleEngagementList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty engagement manager");
             initialData = new EngagementList();
@@ -156,7 +156,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty EngagementList");
+            logger.warning("Problem while reading from the file. Will be starting with an empty engagement list");
             initializedPrefs = new UserPrefs();
         }
 

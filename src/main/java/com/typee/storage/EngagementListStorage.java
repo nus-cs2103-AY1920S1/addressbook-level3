@@ -39,7 +39,7 @@ public interface EngagementListStorage {
     void saveEngagementList(ReadOnlyEngagementList engagementList) throws IOException;
 
     /**
-     * @see #saveEngagementList(ReadOnlyEngagementList)
+     * @see #saveEngagementList(ReadOnlyEngagementList) (ReadOnlyEngagementList)
      */
     void saveEngagementList(ReadOnlyEngagementList engagementList, Path filePath) throws IOException;
 

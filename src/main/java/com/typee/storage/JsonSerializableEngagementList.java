@@ -15,18 +15,19 @@ import com.typee.model.engagement.Engagement;
 /**
  * An Immutable EngagementList that is serializable to JSON format.
  */
-@JsonRootName(value = "engagementlist")
+@JsonRootName(value = "addressbook")
 class JsonSerializableEngagementList {
 
-    public static final String MESSAGE_DUPLICATE_ENGAGEMENT = "Engagement list contains duplicate engagement(s).";
+    public static final String MESSAGE_DUPLICATE_ENGAGEMENT =
+            "Engagements list contains duplicate engagements(s).";
 
     private final List<JsonAdaptedEngagement> engagements = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableEngagementList} with the given persons.
+     * Constructs a {@code JsonSerializableEngagementList} with the given engagements.
      */
     @JsonCreator
-    public JsonSerializableEngagementList(@JsonProperty("engagements") List<JsonAdaptedEngagement> engagements) {
+    public JsonSerializableEngagementList(@JsonProperty("persons") List<JsonAdaptedEngagement> engagements) {
         this.engagements.addAll(engagements);
     }
 

@@ -10,7 +10,7 @@ import com.typee.model.engagement.UniqueEngagementList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the engagement-list level
  * Duplicates are not allowed (by .isConflictingWith comparison)
  */
 public class EngagementList implements ReadOnlyEngagementList {
@@ -60,7 +60,8 @@ public class EngagementList implements ReadOnlyEngagementList {
     //// person-level operations
 
     /**
-     * Returns true if an engagement with the same identity as {@code engagement} exists in the address book.
+     * Returns true if an engagement with the same identity as {@code engagement}
+     * exists in the engagement list.
      */
     public boolean hasEngagement(Engagement engagement) {
         requireNonNull(engagement);
@@ -68,8 +69,8 @@ public class EngagementList implements ReadOnlyEngagementList {
     }
 
     /**
-     * Adds an engagement to the address book.
-     * The engagement must not already exist in the address book.
+     * Adds an engagement to the engagement list.
+     * The engagement must not already exist in the engagement list.
      */
     public void addEngagement(Engagement engagement) {
         engagements.add(engagement);
@@ -77,11 +78,11 @@ public class EngagementList implements ReadOnlyEngagementList {
 
     /**
      * Replaces the given engagement {@code target} in the list with {@code editedEngagement}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the engagement list.
      * The engagement identity of {@code editedEngagement} must not be the same
-     * as another existing engagement in the address book.
+     * as another existing engagement in the engagement list.
      */
-    public void setPerson(Engagement target, Engagement editedEngagement) {
+    public void setEngagement(Engagement target, Engagement editedEngagement) {
         requireNonNull(editedEngagement);
 
         engagements.setEngagement(target, editedEngagement);
@@ -89,7 +90,7 @@ public class EngagementList implements ReadOnlyEngagementList {
 
     /**
      * Removes {@code key} from this {@code EngagementList}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the engagement list.
      */
     public void removeEngagement(Engagement key) {
         engagements.remove(key);

@@ -11,13 +11,13 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedEngagement person = new JsonAdaptedEngagement(TypicalPersons.BENSON);
+        JsonAdaptedEngagement engagement = new JsonAdaptedEngagement(TypicalPersons.BENSON);
         Assertions.assertEquals(TypicalPersons.BENSON, person.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedEngagement person =
+        JsonAdaptedEngagement engagement =
                 new JsonAdaptedEngagement(INVALID_NAME);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);

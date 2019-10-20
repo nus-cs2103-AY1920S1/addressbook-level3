@@ -11,18 +11,14 @@ import com.typee.logic.commands.exceptions.NullUndoableActionException;
  */
 public class HistoryManager extends EngagementList {
 
-    private final List<ReadOnlyEngagementList> historyBook;
+    private final List<ReadOnlyEngagementList> historyList;
     private int versionPointer;
 
     public HistoryManager(ReadOnlyEngagementList initialList) {
         super(initialList);
         versionPointer = 0;
-        historyBook = new LinkedList<>();
-        historyBook.add(new EngagementList(initialList));
-    }
-
-    public ReadOnlyEngagementList getAddressBook() {
-        return historyBook.get(versionPointer);
+        historyList = new LinkedList<>();
+        historyList.add(new EngagementList(initialList));
     }
 
     /**
@@ -33,7 +29,7 @@ public class HistoryManager extends EngagementList {
             throw new NullUndoableActionException();
         }
         versionPointer--;
-        resetData(historyBook.get(versionPointer));
+        resetData(historyList.get(versionPointer));
     }
 
     /**
@@ -45,7 +41,7 @@ public class HistoryManager extends EngagementList {
         }
 
         versionPointer++;
-        resetData(historyBook.get(versionPointer));
+        resetData(historyList.get(versionPointer));
     }
 
     public boolean isUndoable() {
@@ -53,11 +49,11 @@ public class HistoryManager extends EngagementList {
     }
 
     public boolean isRedoable() {
-        return versionPointer < historyBook.size() - 1;
+        return versionPointer < historyList.size() - 1;
     }
 
     private void clearUpToNow() {
-        historyBook.subList(versionPointer + 1, historyBook.size()).clear();
+        historyList.subList(versionPointer + 1, historyList.size()).clear();
     }
 
     /**
@@ -65,7 +61,7 @@ public class HistoryManager extends EngagementList {
      */
     public void saveState() {
         clearUpToNow();
-        historyBook.add(new EngagementList(this));
+        historyList.add(new EngagementList(this));
         versionPointer++;
     }
 

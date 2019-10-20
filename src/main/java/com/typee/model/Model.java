@@ -39,46 +39,46 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' engagement list file path.
      */
-    Path getAddressBookFilePath();
+    Path getEngagementListFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' engagement list file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setEngagementListFilePath(Path engagementListFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces engagement list data with the data in {@code typee}.
      */
     void setHistoryManager(ReadOnlyEngagementList historyManager);
 
-    /** Returns the EngagementList */
+    /** Returns the engagement list */
     ReadOnlyEngagementList getHistoryManager();
 
     /**
      * REDUNDANT.
-     * Returns true if the engagement is in the address book.
+     * Returns true if the engagement is in the engagement list.
      */
     boolean hasEngagement(Engagement engagement);
 
     /**
      * Deletes the given engagement.
-     * The engagement must exist in the address book.
+     * The engagement must exist in the engagement list.
      */
     void deleteEngagement(Engagement target);
 
     /**
      * Adds the given engagement.
-     * {@code engagement} must not already exist in the address book.
+     * {@code engagement} must not already exist in the engagement list.
      */
     void addEngagement(Engagement engagement);
 
     /**
      * Replaces the given engagement {@code target} with {@code editedEngagement}.
-     * {@code target} must exist in the address book.
-     * The engagement identity of {@code editedPerson} must not be the same as
-     * another existing engagement in the address book.
+     * {@code target} must exist in the engagement list.
+     * The engagement identity of {@code editedEngagement} must not be the same as
+     * another existing engagement in the engagement list.
      */
     void setEngagement(Engagement target, Engagement editedEngagement);
 

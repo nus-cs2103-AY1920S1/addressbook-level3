@@ -11,7 +11,6 @@ import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.engagement.exceptions.InvalidTimeException;
-import com.typee.model.person.Person;
 
 /**
  * Jackson-friendly version of {@link Engagement}.
@@ -30,7 +29,7 @@ class JsonAdaptedEngagement {
     private final String priority;
 
     /**
-     * Constructs a {@code JsonAdaptedEngagement} with the given engagement details.
+     * Constructs a {@code JsonAdaptedEngagement} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedEngagement(@JsonProperty("type") String type, @JsonProperty("startTime") String startTime,

@@ -28,11 +28,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the EngagementList.
+     * Returns the engagement list.
      *
      * @see Model#getHistoryManager()
      */
-    ReadOnlyEngagementList getAddressBook();
+    ReadOnlyEngagementList getEngagementList();
 
     /** Returns an unmodifiable view of the filtered list of engagements */
     ObservableList<Engagement> getFilteredEngagementList();
@@ -41,9 +41,9 @@ public interface Logic {
     ObservableList<Tab> getTabList() throws DataConversionException;
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' engagement list file path.
      */
-    Path getAddressBookFilePath();
+    Path getEngagementListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

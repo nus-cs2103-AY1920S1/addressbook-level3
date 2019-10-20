@@ -25,9 +25,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonEngagementListStorage addressBookStorage = new JsonEngagementListStorage(getTempFilePath("ab"));
+        JsonEngagementListStorage engagementListStorage = new JsonEngagementListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(engagementListStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -62,7 +62,7 @@ public class StorageManagerTest {
     ////    }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getEngagementListFilePath() {
         assertNotNull(storageManager.getEngagementListFilePath());
     }
 

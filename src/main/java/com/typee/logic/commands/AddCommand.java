@@ -40,7 +40,7 @@ public class AddCommand extends Command {
             + PREFIX_PRIORITY + "High";
 
     public static final String MESSAGE_SUCCESS = "New engagement added: %1$s";
-    public static final String MESSAGE_CONFLICTING_ENGAGEMENT = "This engagement clashes with an already existing one";
+    public static final String MESSAGE_DUPLICATE_ENGAGEMENT = "This engagement clashes with an already existing one";
 
     private final Engagement toAdd;
 
@@ -57,7 +57,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasEngagement(toAdd)) {
-            throw new CommandException(MESSAGE_CONFLICTING_ENGAGEMENT);
+            throw new CommandException(MESSAGE_DUPLICATE_ENGAGEMENT);
         }
 
         model.addEngagement(toAdd);

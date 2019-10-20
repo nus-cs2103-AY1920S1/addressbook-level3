@@ -18,6 +18,11 @@ public class Appointment extends Engagement {
     }
 
     @Override
+    public EngagementType getType() {
+        return EngagementType.APPOINTMENT;
+    }
+
+    @Override
     public String toString() {
         return String.format("Appointment of %s priority from %s to %s at %s.", priority.toString(),
                 startTime.toString(), endTime.toString(), location.toString());
