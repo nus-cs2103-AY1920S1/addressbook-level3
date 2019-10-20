@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
+import seedu.address.model.field.Name;
 
 
 /**
@@ -24,6 +26,8 @@ import seedu.address.model.day.Itinerary;
  */
 public class Planner implements ReadOnlyPlanner {
     private String country;
+    private Name name;
+    private Date startDate;
     private final UniqueActivityList activities;
     private final UniqueAccommodationList accommodations;
     private final UniqueContactList contacts;
@@ -244,11 +248,12 @@ public class Planner implements ReadOnlyPlanner {
 
     //// For DAY list overwrite operations
     /**
-     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
+     * Resets the existing data of this {@code Planner} with {@code newData}.
      */
-    public boolean hasDay(Day day) {
-        requireNonNull(day);
-        return days.contains(day);
+    public void resetDataDay(ReadOnlyPlanner newData) {
+        requireNonNull(newData);
+
+        setDays(newData.getDayList());
     }
 
     /**
@@ -265,6 +270,14 @@ public class Planner implements ReadOnlyPlanner {
      */
     public void setDays(List<Day> days) {
         this.days.setDays(days);
+    }
+
+    /**
+     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
+     */
+    public boolean hasDay(Day day) {
+        requireNonNull(day);
+        return days.contains(day);
     }
 
     /**

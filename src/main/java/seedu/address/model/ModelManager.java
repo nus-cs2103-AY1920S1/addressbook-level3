@@ -93,10 +93,10 @@ public class ModelManager implements Model {
 
     @Override
     public void setPlanner(ReadOnlyPlanner planner) {
-
         this.planner.resetDataAccommodation(planner);
         this.planner.resetDataActivity(planner);
         this.planner.resetDataContact(planner);
+        this.planner.resetDataDay(planner);
     }
 
     @Override
