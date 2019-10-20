@@ -10,6 +10,7 @@ import seedu.address.calendar.model.Month;
 import seedu.address.calendar.model.MonthOfYear;
 import seedu.address.calendar.model.Year;
 import seedu.address.calendar.parser.CalendarParser;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.Page;
@@ -102,14 +103,16 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private void executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         Command command = (new CalendarParser()).parseCommand(commandText);
-        command.execute(calendar);
+        CommandResult commandResult = command.execute(calendar);
 
         if (calendar.hasViewUpdates()) {
             Month updatedMonth = calendar.getMonth();
             updateCalendarPage(updatedMonth);
             calendar.completeUpdate();
         }
+
+        return commandResult;
     }
 }

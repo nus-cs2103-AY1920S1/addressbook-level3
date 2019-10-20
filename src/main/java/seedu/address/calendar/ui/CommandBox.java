@@ -3,6 +3,7 @@ package seedu.address.calendar.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.UiPart;
@@ -42,6 +43,6 @@ public class CommandBox extends UiPart<Region> {
         /**
          * Executes the command.
          */
-        void execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 }
