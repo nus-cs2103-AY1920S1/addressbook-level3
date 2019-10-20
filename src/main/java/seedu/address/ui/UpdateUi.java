@@ -49,6 +49,8 @@ public class UpdateUi {
             modularDisplay.swapToList(modularDisplayPlaceholder);
         } else if (firstArg.equals("help")) {
             //modularDisplay.swapToBanks(modularDisplayPlaceholder);
+        } else if (firstArg.equals("settings")) {
+//            modularDisplay.swapToSettings(modularDisplayPlaceholder);
         } else {
             modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
         }

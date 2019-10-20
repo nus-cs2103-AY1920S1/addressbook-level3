@@ -22,7 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
-import seedu.address.model.gamedifficulty.DifficultyEnum;
+import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -95,12 +95,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setDifficulty(DifficultyEnum difficultyEnum) {
+        public void setDefaultDifficulty(DifficultyEnum difficultyEnum) {
 
         }
 
         @Override
-        public DifficultyEnum getDifficulty() {
+        public DifficultyEnum getDefaultDifficulty() {
             return null;
         }
 

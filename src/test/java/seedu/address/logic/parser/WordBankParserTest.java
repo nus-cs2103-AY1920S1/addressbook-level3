@@ -30,7 +30,7 @@ import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class WordBankParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final DukemonParser parser = new DukemonParser();
 
     @Test
     public void parseCommand_add() throws Exception {

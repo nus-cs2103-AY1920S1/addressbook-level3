@@ -5,7 +5,7 @@ import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.gamedifficulty.DifficultyEnum;
+import seedu.address.model.appsettings.DifficultyEnum;
 
 /**
  * Class that represents a command that switches the app into Settings mode. This mode is required to
@@ -20,7 +20,7 @@ public class SwitchToSettingsCommand extends SwitchCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        DifficultyEnum difficulty = model.getDifficulty();
+        DifficultyEnum difficulty = model.getDefaultDifficulty();
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT
                 + "\nCurrent Difficulty is: " + difficulty
                 + " (" + (difficulty.getTimeAllowedPerQuestion() * 1.0) / 1000 + " seconds)");

@@ -25,11 +25,12 @@ import seedu.address.logic.commands.switches.LoadScreenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.settings.DifficultyCommandParser;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class DukemonParser {
 
     /**
      * Used for initial separation of command word and args.

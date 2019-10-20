@@ -14,7 +14,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.DukemonParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
@@ -34,7 +34,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final DukemonParser dukemonParser;
 
     private boolean gameStarted;
     private ModeEnum mode;
@@ -48,7 +48,7 @@ public class LogicManager implements Logic {
         Step 9.
         this.game = game //get from constructor
          */
-        addressBookParser = new AddressBookParser();
+        dukemonParser = new DukemonParser();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class LogicManager implements Logic {
         Modify parseCommand()
         2 user modes: Game mode and Normal mode
         */
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = dukemonParser.parseCommand(commandText);
 
         /*
         Step 11.
@@ -87,6 +87,9 @@ public class LogicManager implements Logic {
         Similar methods to saveAddressBook();
          */
         try {
+            if (mode.equals(ModeEnum.SETTINGS)) {
+                storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
+            }
             ReadOnlyWordBank wb = model.getWordBank();
             Path filePath = Paths.get("data/" + wb.getName() + ".json");
             storage.saveAddressBook(model.getWordBank(), filePath);
@@ -151,6 +154,6 @@ public class LogicManager implements Logic {
 
     @Override
     public long getTimeAllowedPerQuestion() {
-        return this.model.getDifficulty().getTimeAllowedPerQuestion();
+        return this.model.getDefaultDifficulty().getTimeAllowedPerQuestion();
     }
 }

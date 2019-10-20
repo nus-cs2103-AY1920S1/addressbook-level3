@@ -20,6 +20,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.ReadOnlyAppSettings;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -29,6 +31,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.appsettings.AppSettingsStorage;
+import seedu.address.storage.appsettings.JsonAppSettingsStorage;
 import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
 import seedu.address.ui.Ui;
@@ -74,7 +78,8 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         Path wbStatsPath = StorageManager.getWbStatsStoragePath(userPrefs.getAddressBookFilePath());
         WordBankStatisticsStorage wbStatsStorage = new JsonWordBankStatisticsStorage(wbStatsPath);
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, wbStatsStorage);
+        AppSettingsStorage appSettingsStorage = new JsonAppSettingsStorage(userPrefs.getAppSettingsFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, wbStatsStorage, appSettingsStorage);
 
         initLogging(config);
 
@@ -116,12 +121,16 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyWordBank> addressBookOptional;
         ReadOnlyWordBank initialData;
+        Optional<AppSettings> settingsOptional;
+        ReadOnlyAppSettings appSettings = null;
         try {
             addressBookOptional = storage.readAddressBook();
+            settingsOptional = storage.readAppSettings();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample WordBank");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleWordBank);
+            appSettings = settingsOptional.orElse(new AppSettings());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
             initialData = new WordBank("Empty WordBank");
@@ -130,7 +139,7 @@ public class MainApp extends Application {
             initialData = new WordBank("Empty WordBank");
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, appSettings);
     }
 
     /*

@@ -6,11 +6,7 @@ import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
-import seedu.address.ui.modules.BankLabelPanel;
-import seedu.address.ui.modules.CardListPanel;
-import seedu.address.ui.modules.GameResultPanel;
-import seedu.address.ui.modules.LoadBankPanel;
-import seedu.address.ui.modules.TitleScreenPanel;
+import seedu.address.ui.modules.*;
 
 /**
  * Displays the screen for Dukemon.
@@ -26,6 +22,7 @@ public class ModularDisplay {
     private BankLabelPanel bankLabelPanel;
     private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
+//    private final SettingsPanel settingsPanel;
     private final GameManager gameManager;
 
     /**
@@ -120,4 +117,13 @@ public class ModularDisplay {
         paneToDisplay.getChildren().add(loadBankPanel.getRoot());
     }
 
+    /**
+     * Changes to the settings page.
+     *
+     * @param paneToDisplay
+     */
+//    public void swapToSettings(StackPane paneToDisplay) {
+//        paneToDisplay.getChildren().clear();
+//        paneToDisplay.getChildren().add(settingsPanel.getRoot());
+//    }
 }

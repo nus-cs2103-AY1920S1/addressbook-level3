@@ -5,9 +5,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.ThemeEnum;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
-import seedu.address.model.gamedifficulty.DifficultyEnum;
+import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -123,8 +125,48 @@ public interface Model {
 
     Game getGame();
 
-    void setDifficulty(DifficultyEnum difficultyEnum);
+    /**
+     * Returns the app settings
+     */
+    AppSettings getAppSettings();
 
-    DifficultyEnum getDifficulty();
+    /**
+     * Returns the app settings file path.
+     */
+    Path getAppSettingsFilePath();
+
+    /**
+     * Replaces the default difficulty of the game with {@code difficultyEnum}.
+     *
+     * @param difficultyEnum The new default difficulty of the game.
+     */
+    void setDefaultDifficulty(DifficultyEnum difficultyEnum);
+
+    /**
+     * Returns the current default difficulty of the game.
+     */
+    DifficultyEnum getDefaultDifficulty();
+
+    /**
+     * Replaces the default theme of the game with {@code difficultyEnum}.
+     *
+     * @param themeEnum The new default theme of the game.
+     */
+    void setDefaultTheme(ThemeEnum themeEnum);
+
+    /**
+     * Returns the current default theme of the game.
+     */
+    ThemeEnum getDefaultTheme();
+
+    /**
+     * Sets the setting if hints are enabled or not.
+     */
+    void setHintsEnabled(boolean enabled);
+
+    /**
+     * Returns if hints are enabled or not.
+     */
+    boolean getHintsEnabled();
 
 }

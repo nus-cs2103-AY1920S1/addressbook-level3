@@ -2,6 +2,7 @@ package seedu.address.ui.layouts;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.StackPane;
 import seedu.address.ui.UiPart;
 
@@ -13,6 +14,9 @@ public class TwoSplitColumnLayout extends UiPart<Node> {
     private static final String FXML = "TwoSplitColumnLayout.fxml";
 
     @FXML
+    private SplitPane splitPane;
+
+    @FXML
     private StackPane leftPane;
 
     @FXML
@@ -20,6 +24,8 @@ public class TwoSplitColumnLayout extends UiPart<Node> {
 
     public TwoSplitColumnLayout() {
         super(FXML);
+        SplitPane.Divider divider = splitPane.getDividers().get(0);
+        divider.positionProperty().addListener((observable, oldvalue, newvalue) -> divider.setPosition(0.5));
     }
 
     /**
