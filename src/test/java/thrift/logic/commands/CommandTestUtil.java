@@ -18,7 +18,7 @@ import thrift.commons.core.index.Index;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.Thrift;
-import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
+import thrift.model.transaction.DescriptionOrRemarkContainsKeywordsPredicate;
 import thrift.model.transaction.Transaction;
 import thrift.testutil.UpdateTransactionDescriptorBuilder;
 
@@ -142,7 +142,7 @@ public class CommandTestUtil {
 
         Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
         final String[] splitDescription = transaction.getDescription().toString().split("\\s+");
-        model.updateFilteredTransactionList(new DescriptionContainsKeywordsPredicate(
+        model.updateFilteredTransactionList(new DescriptionOrRemarkContainsKeywordsPredicate(
                 Arrays.asList(splitDescription[0])));
         assertEquals(1, model.getFilteredTransactionList().size());
     }

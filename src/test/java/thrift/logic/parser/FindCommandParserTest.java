@@ -9,7 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import thrift.logic.commands.FindCommand;
-import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
+import thrift.model.transaction.DescriptionOrRemarkContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -24,7 +24,7 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new DescriptionContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+                new FindCommand(new DescriptionOrRemarkContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords

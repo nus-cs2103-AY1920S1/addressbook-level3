@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import thrift.commons.core.GuiSettings;
 import thrift.logic.commands.AddExpenseCommand;
-import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
+import thrift.model.transaction.DescriptionOrRemarkContainsKeywordsPredicate;
 import thrift.model.transaction.Expense;
 import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.ThriftBuilder;
@@ -113,7 +113,8 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = TypicalTransactions.PENANG_LAKSA.getDescription().toString().split("\\s+");
-        modelManager.updateFilteredTransactionList(new DescriptionContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredTransactionList(new DescriptionOrRemarkContainsKeywordsPredicate(
+                Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(thrift, userPrefs, pastUndoableCommands)));
 
         // resets modelManager to initial state for upcoming tests

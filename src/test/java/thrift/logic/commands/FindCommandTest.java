@@ -15,7 +15,7 @@ import thrift.model.Model;
 import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
 import thrift.model.UserPrefs;
-import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
+import thrift.model.transaction.DescriptionOrRemarkContainsKeywordsPredicate;
 import thrift.testutil.TypicalTransactions;
 
 /**
@@ -29,10 +29,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        DescriptionContainsKeywordsPredicate firstPredicate =
-                new DescriptionContainsKeywordsPredicate(Collections.singletonList("first"));
-        DescriptionContainsKeywordsPredicate secondPredicate =
-                new DescriptionContainsKeywordsPredicate(Collections.singletonList("second"));
+        DescriptionOrRemarkContainsKeywordsPredicate firstPredicate =
+                new DescriptionOrRemarkContainsKeywordsPredicate(Collections.singletonList("first"));
+        DescriptionOrRemarkContainsKeywordsPredicate secondPredicate =
+                new DescriptionOrRemarkContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -57,7 +57,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noTransactionFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);
-        DescriptionContainsKeywordsPredicate predicate = preparePredicate(" ");
+        DescriptionOrRemarkContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -65,19 +65,30 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleTransactionsFound() {
+    public void execute_multipleKeywordsDescriptionField_transactionsFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 1);
-        DescriptionContainsKeywordsPredicate predicate = preparePredicate("Penang Laksa1");
+        DescriptionOrRemarkContainsKeywordsPredicate predicate = preparePredicate("Penang Laksa1");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(TypicalTransactions.PENANG_LAKSA), model.getFilteredTransactionList());
     }
 
+    @Test
+    public void execute_multipleKeywordsRemarkField_transactionsFound() {
+        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 2);
+        DescriptionOrRemarkContainsKeywordsPredicate predicate = preparePredicate("the best");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredTransactionList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(TypicalTransactions.LAKSA, TypicalTransactions.PENANG_LAKSA),
+                model.getFilteredTransactionList());
+    }
+
     /**
-     * Parses {@code userInput} into a {@code DescriptionContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code DescriptionOrRemarkContainsKeywordsPredicate}.
      */
-    private DescriptionContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new DescriptionContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private DescriptionOrRemarkContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new DescriptionOrRemarkContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

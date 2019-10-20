@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import thrift.logic.commands.AddExpenseCommand;
 import thrift.logic.commands.AddIncomeCommand;
-import thrift.logic.commands.ClearCommand;
 import thrift.logic.commands.CloneCommand;
 import thrift.logic.commands.DeleteCommand;
 import thrift.logic.commands.ExitCommand;
@@ -27,7 +26,7 @@ import thrift.logic.commands.UndoCommand;
 import thrift.logic.commands.UpdateCommand;
 import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
 import thrift.logic.parser.exceptions.ParseException;
-import thrift.model.transaction.DescriptionContainsKeywordsPredicate;
+import thrift.model.transaction.DescriptionOrRemarkContainsKeywordsPredicate;
 import thrift.model.transaction.Expense;
 import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.IncomeBuilder;
@@ -49,12 +48,6 @@ public class ThriftParserTest {
     public void parseCommand_addIncome() throws Exception {
         assertDoesNotThrow(() -> (AddIncomeCommand) parser.parseCommand(TransactionUtil
                 .getAddIncomeCommand(new IncomeBuilder().build())));
-    }
-
-    @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
 
     @Test
@@ -86,7 +79,7 @@ public class ThriftParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new DescriptionContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new DescriptionOrRemarkContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

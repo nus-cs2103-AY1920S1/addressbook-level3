@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import thrift.logic.commands.AddExpenseCommand;
 import thrift.logic.commands.AddIncomeCommand;
 import thrift.logic.commands.BudgetCommand;
-import thrift.logic.commands.ClearCommand;
 import thrift.logic.commands.CloneCommand;
 import thrift.logic.commands.Command;
 import thrift.logic.commands.DeleteCommand;
@@ -107,12 +106,6 @@ public class ThriftParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        /*
-         * Unfinished commands.
-         */
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
