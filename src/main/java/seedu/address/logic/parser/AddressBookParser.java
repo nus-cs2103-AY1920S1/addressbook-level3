@@ -25,9 +25,22 @@ public class AddressBookParser {
 
     public AddressBookParser(ObservableList<CommandObject> commands) {
         this.commandList = new HashMap<>();
+        this.initialiseBasicCommands();
         for (int i = 0; i < commands.size(); i++) {
             this.commandList.put(commands.get(i).getCommandWord().word, commands.get(i).getCommandAction().action);
         }
+    }
+
+    private void initialiseBasicCommands() {
+        this.commandList.put("add", "add");
+        this.commandList.put("edit", "edit");
+        this.commandList.put("clear", "clear");
+        this.commandList.put("delete", "delete");
+        this.commandList.put("list", "list");
+        this.commandList.put("find", "find");
+        this.commandList.put("help", "help");
+        this.commandList.put("exit", "exit");
+        this.commandList.put("addEarnings", "addEarnings");
     }
 
     public Command checkCommand(String userInput, String prevUnknownCommand) {
@@ -57,9 +70,7 @@ public class AddressBookParser {
 
         //iterate one time and store into hashmap?
         //add back to the list and make sure its updated
-
-        if (this.commandList.containsKey(commandWord)) {
-            System.out.println(commandWord);
+        if (commandList.containsKey(commandWord)) {
             switch (commandList.get(commandWord)) {
                 case AddCommand.COMMAND_WORD:
                     return new AddCommandParser().parse(arguments);
