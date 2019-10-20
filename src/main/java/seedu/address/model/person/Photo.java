@@ -32,4 +32,8 @@ public class Photo {
 	public static boolean isValidFilePath(String test) {
 		return test.matches(VALIDATION_REGEX);
 	}
+
+	public String toString() {
+		return value;
+	}
 }
