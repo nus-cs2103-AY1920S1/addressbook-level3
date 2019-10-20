@@ -4,9 +4,13 @@ import static com.dukeacademy.testutil.TypicalQuestions.getTypicalQuestionBank;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
+import java.util.stream.IntStream;
 
+import com.dukeacademy.model.question.Question;
+import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -26,7 +30,7 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonQuestionBankStorage
-            addressBookStorage = new JsonQuestionBankStorage(getTempFilePath("ab"));
+            addressBookStorage = new JsonQuestionBankStorage(getTempFilePath("qb"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -59,12 +63,28 @@ public class StorageManagerTest {
         StandardQuestionBank original = getTypicalQuestionBank();
         storageManager.saveQuestionBank(original);
         QuestionBank retrieved = storageManager.readQuestionBank().get();
-        assertEquals(original, new StandardQuestionBank(retrieved));
+        assertTrue(this.checkQuestionBanksEqual(original, retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getQuestionBankFilePath());
     }
 
+    private boolean checkQuestionBanksEqual(QuestionBank bank1, QuestionBank bank2) {
+        SortedList<Question> list1 = bank1.getReadOnlyQuestionListObservable().sorted((q1, q2) -> q1.getTitle().compareTo(q2.getTitle()));
+        SortedList<Question> list2 = bank2.getReadOnlyQuestionListObservable().sorted((q1, q2) -> q1.getTitle().compareTo(q2.getTitle()));
+
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+
+        if (list1.size() == 0) {
+            return true;
+        }
+
+        return IntStream.range(0, list1.size())
+                .mapToObj(i -> list1.get(i).getTitle().equals(list2.get(i).getTitle()))
+                .reduce((x, y) -> x && y).get();
+    }
 }

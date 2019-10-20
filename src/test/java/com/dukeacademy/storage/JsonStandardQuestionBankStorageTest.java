@@ -10,8 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.IntStream;
 
 import com.dukeacademy.model.StandardQuestionBank;
+import com.dukeacademy.model.question.Question;
+import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -110,5 +113,22 @@ public class JsonStandardQuestionBankStorageTest {
     @Test
     public void saveQuestionBank_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveQuestionBank(new StandardQuestionBank(), null));
+    }
+
+    private boolean checkQuestionBanksEqual(StandardQuestionBank bank1, StandardQuestionBank bank2) {
+        SortedList<Question> list1 = bank1.getReadOnlyQuestionListObservable().sorted((q1, q2) -> q1.getTitle().compareTo(q2.getTitle()));
+        SortedList<Question> list2 = bank2.getReadOnlyQuestionListObservable().sorted((q1, q2) -> q1.getTitle().compareTo(q2.getTitle()));
+
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+
+        if (list1.size() == 0) {
+            return true;
+        }
+
+        return IntStream.range(0, list1.size())
+                .mapToObj(i -> list1.get(i).getTitle().equals(list2.get(i).getTitle()))
+                .reduce((x, y) -> x && y).get();
     }
 }

@@ -20,7 +20,7 @@ public class JsonAdaptedUserProgramTest {
 
     @Test
     public void toModelInvalid() {
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedUserProgram(null, content));
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedUserProgram(className, null));
+        assertThrows(NullPointerException.class, () -> new JsonAdaptedUserProgram(null, content).toModel());
+        assertThrows(NullPointerException.class, () -> new JsonAdaptedUserProgram(className, null).toModel());
     }
 }

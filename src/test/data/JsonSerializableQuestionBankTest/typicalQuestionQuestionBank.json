@@ -1,46 +1,89 @@
 {
   "_comment": "QuestionBank save file which contains the same Question values as in TypicalQuestions#getTypicalQuestionBank()",
   "questions" : [ {
-    "title" : "Alice Pauline",
-    "topic" : "94351253",
-    "status" : "alice@example.com",
-    "difficulty" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+    "title" : "Two Number Adder",
+    "status" : "PASSED",
+    "difficulty" : "EASY",
+    "topics" : ["OTHERS"],
+    "testCases" : [ {
+        "input": "1 2",
+        "expectedResult": "3"
+      },
+      {
+        "input": "100 2",
+        "expectedResult": "102"
+      }],
+    "userProgram" : {
+      "className": "Adder",
+      "sourceCode": "public class Adder { public static void main(String[] args) { } }"
+    }
   }, {
-    "title" : "Benson Meier",
-    "topic" : "98765432",
-    "status" : "johnd@example.com",
-    "difficulty" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "title" : "Valid Sudoku",
+    "status" : "PASSED",
+    "difficulty" : "MEDIUM",
+    "topics" : ["OTHERS", "ARRAY", "DYNAMIC_PROGRAMMING"],
+    "testCases" : [ {
+      "input": "1 2 3 4 5 6 7 8 9",
+      "expectedResult": "True"
+    },
+      {
+        "input": "-1 -1 -1 -1",
+        "expectedResult": "False"
+      }],
+    "userProgram" : {
+      "className": "Sudoku",
+      "sourceCode": "public class Sudoku { public static void main(String[] args) { } }"
+    }
   }, {
-    "title" : "Carl Kurz",
-    "topic" : "95352563",
-    "status" : "heinz@example.com",
-    "difficulty" : "wall street",
-    "tagged" : [ ]
+    "title" : "Palindrome Number",
+    "status" : "PASSED",
+    "difficulty" : "EASY",
+    "topics" : ["OTHERS", "RECURSION"],
+    "testCases" : [ {
+      "input": "12321",
+      "expectedResult": "True"
+    },
+      {
+        "input": "10111",
+        "expectedResult": "False"
+      }],
+    "userProgram" : {
+      "className": "Palindrome",
+      "sourceCode": "public class Palindrome { public static void main(String[] args) { } }"
+    }
   }, {
-    "title" : "Daniel Meier",
-    "topic" : "87652533",
-    "status" : "cornelia@example.com",
-    "difficulty" : "10th street",
-    "tagged" : [ "friends" ]
+    "title" : "Swap nodes in pairs",
+    "status" : "NEW",
+    "difficulty" : "MEDIUM",
+    "topics" : ["GRAPH", "DYNAMIC_PROGRAMMING"],
+    "testCases" : [ {
+      "input": "5 12 33 23",
+      "expectedResult": "4132"
+    },
+      {
+        "input": "2 31 01",
+        "expectedResult": "1232"
+      }],
+    "userProgram" : {
+      "className": "NodePairs",
+      "sourceCode": ""
+    }
   }, {
-    "title" : "Elle Meyer",
-    "topic" : "9482224",
-    "status" : "werner@example.com",
-    "difficulty" : "michegan ave",
-    "tagged" : [ ]
-  }, {
-    "title" : "Fiona Kunz",
-    "topic" : "9482427",
-    "status" : "lydia@example.com",
-    "difficulty" : "little tokyo",
-    "tagged" : [ ]
-  }, {
-    "title" : "George Best",
-    "topic" : "9482442",
-    "status" : "anna@example.com",
-    "difficulty" : "4th street",
-    "tagged" : [ ]
-  } ]
+    "title" : "Merge k Sorted Lists",
+    "status" : "ATTEMPTED",
+    "difficulty" : "HARD",
+    "topics" : ["SORTING", "LINKED_LIST"],
+    "testCases" : [ {
+      "input": "3 5 3 4 1 99 0 21 34 123 3 21 3 1",
+      "expectedResult": "0 1 3 4 21 34 99 123"
+    },
+      {
+        "input": "1 4 1 2 3 4",
+        "expectedResult": "1 2 3 4"
+      }],
+    "userProgram" : {
+      "className": "Merge",
+      "sourceCode": "public class Merge { public static void main(String[] args) { } }"
+    }
+  }]
 }

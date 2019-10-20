@@ -16,28 +16,20 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 /**
  * An Immutable QuestionBank that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableQuestionBank {
-//
-    public static final String MESSAGE_DUPLICATE_QUESTION = "Questions list "
-        + "contains duplicate question(s).";
-//
+@JsonRootName(value = "questionBank")
+class JsonSerializableStandardQuestionBank {
+
     private final List<JsonAdaptedQuestion> questions = new ArrayList<>();
-//
+
     /**
      * Constructs a {@code JsonSerializableQuestionBank} with the given questions.
      */
     @JsonCreator
-    public JsonSerializableQuestionBank(@JsonProperty("questions") List<JsonAdaptedQuestion> questions) {
+    public JsonSerializableStandardQuestionBank(@JsonProperty("questions") List<JsonAdaptedQuestion> questions) {
         this.questions.addAll(questions);
     }
-//
-//    /**
-//     * Converts a given {@code ReadOnlyQuestionBank} into this class for Jackson use.
-//     *
-//     * @param source future changes to this will not affect the created {@code JsonSerializableQuestionBank}.
-//     */
-    public JsonSerializableQuestionBank(QuestionBank source) {
+
+    public JsonSerializableStandardQuestionBank(QuestionBank source) {
         questions.addAll(source.getReadOnlyQuestionListObservable().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
     }
 //
@@ -54,5 +46,4 @@ class JsonSerializableQuestionBank {
         }
         return standardQuestionBank;
     }
-
 }

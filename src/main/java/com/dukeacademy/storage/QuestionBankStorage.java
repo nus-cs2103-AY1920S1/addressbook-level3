@@ -16,7 +16,7 @@ public interface QuestionBankStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getQuestionBankFilePath();
 
     /**
      * Returns QuestionBank data as a {@link QuestionBank}.
@@ -27,7 +27,7 @@ public interface QuestionBankStorage {
     Optional<QuestionBank> readQuestionBank() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getQuestionBankFilePath()
      */
     Optional<QuestionBank> readQuestionBank(Path filePath) throws DataConversionException, IOException;
 

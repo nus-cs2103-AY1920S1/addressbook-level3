@@ -30,7 +30,7 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getQuestionBankFilePath() {
         return filePath;
     }
 
@@ -48,13 +48,17 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
     public Optional<QuestionBank> readQuestionBank(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableQuestionBank> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableQuestionBank.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableStandardQuestionBank> jsonQuestionBank = JsonUtil.readJsonFile(
+                filePath, JsonSerializableStandardQuestionBank.class);
+        if (!jsonQuestionBank.isPresent()) {
             return Optional.empty();
         }
 
-        return Optional.of(new StandardQuestionBank());
+        try {
+            return Optional.of(jsonQuestionBank.get().toModelType());
+        } catch (IllegalValueException e) {
+            throw new DataConversionException(e);
+        }
     }
 
     @Override
@@ -72,6 +76,6 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableQuestionBank(questionBank), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableStandardQuestionBank(questionBank), filePath);
     }
 }

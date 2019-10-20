@@ -9,7 +9,7 @@ class JsonAdaptedTestCase {
     private final String expectedResult;
 
     @JsonCreator
-    public JsonAdaptedTestCase(String input, String expectedResult) {
+    public JsonAdaptedTestCase(@JsonProperty("input") String input, @JsonProperty("expectedResult") String expectedResult) {
         this.input = input;
         this.expectedResult = expectedResult;
     }
@@ -17,16 +17,6 @@ class JsonAdaptedTestCase {
     public JsonAdaptedTestCase(TestCase source) {
         this.input = source.getInput();
         this.expectedResult = source.getExpectedResult();
-    }
-
-    @JsonProperty
-    public String getInput() {
-        return this.input;
-    }
-
-    @JsonProperty
-    public String getExpectedResult() {
-        return this.expectedResult;
     }
 
     public TestCase toModel() {

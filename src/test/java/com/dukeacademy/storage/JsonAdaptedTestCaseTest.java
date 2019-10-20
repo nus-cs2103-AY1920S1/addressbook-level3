@@ -16,7 +16,7 @@ public class JsonAdaptedTestCaseTest {
 
     @Test
     public void toModelInvalid() {
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedTestCase(null, "1"));
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedTestCase("1", null));
+        assertThrows(NullPointerException.class, () -> new JsonAdaptedTestCase(null, "1").toModel());
+        assertThrows(NullPointerException.class, () -> new JsonAdaptedTestCase("1", null).toModel());
     }
 }

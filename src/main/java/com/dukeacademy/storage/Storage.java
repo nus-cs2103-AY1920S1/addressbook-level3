@@ -22,7 +22,7 @@ public interface Storage extends QuestionBankStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getQuestionBankFilePath();
 
     @Override
     Optional<QuestionBank> readQuestionBank() throws DataConversionException, IOException;

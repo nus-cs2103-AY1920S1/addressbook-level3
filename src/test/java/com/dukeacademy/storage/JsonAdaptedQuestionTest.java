@@ -3,6 +3,7 @@ package com.dukeacademy.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.model.program.UserProgram;
 import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
@@ -55,11 +56,9 @@ public class JsonAdaptedQuestionTest {
 
     @Test
     public void toModelInvalid() {
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedQuestion(null, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedQuestion(validTitle, null, validDifficulty, validTopics, validTestCases, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedQuestion(validTitle, validStatus, null, validTopics, validTestCases, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedQuestion(validTitle, validStatus, validDifficulty, null, validTestCases, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedQuestion(validTitle, validStatus, validDifficulty, validTopics, null, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new JsonAdaptedQuestion(validTitle, validStatus, validDifficulty, validTopics, validTestCases, null));
+        assertThrows(IllegalValueException.class, () -> new JsonAdaptedQuestion(null, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram).toModel());
+        assertThrows(IllegalValueException.class, () -> new JsonAdaptedQuestion(validTitle, null, validDifficulty, validTopics, validTestCases, validUserProgram).toModel());
+        assertThrows(IllegalValueException.class, () -> new JsonAdaptedQuestion(validTitle, validStatus, null, validTopics, validTestCases, validUserProgram).toModel());
+        assertThrows(NullPointerException.class, () -> new JsonAdaptedQuestion(validTitle, validStatus, validDifficulty, validTopics, validTestCases, null).toModel());
     }
 }
