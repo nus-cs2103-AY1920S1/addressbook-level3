@@ -5,6 +5,7 @@ import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
 
 import java.util.Set;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.finance.commands.SpendCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Place;
 import seedu.address.model.finance.attributes.TransactionMethod;
 import seedu.address.model.finance.logentry.Amount;
 import seedu.address.model.finance.logentry.Description;
@@ -32,10 +34,11 @@ public class SpendCommandParser implements Parser<SpendCommand> {
     public SpendCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
-                        PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY);
+                        PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY, PREFIX_PLACE);
 
         // If compulsory fields are empty
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
+                PREFIX_TRANSACTION_METHOD, PREFIX_PLACE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE));
         }
@@ -46,8 +49,9 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         TransactionMethod tMethod = ParserUtil.parseTransactionMethod(
                 argMultimap.getValue(PREFIX_TRANSACTION_METHOD).get());
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
+        Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
 
-        SpendLogEntry logEntry = new SpendLogEntry(amount, tDate, description, tMethod, categoryList);
+        SpendLogEntry logEntry = new SpendLogEntry(amount, tDate, description, tMethod, categoryList, place);
 
         return new SpendCommand(logEntry);
     }

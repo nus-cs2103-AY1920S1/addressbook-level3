@@ -20,11 +20,10 @@ public abstract class LogEntry {
     protected final Amount amount;
     protected final TransactionDate transactionDate;
     protected final Description description;
+    protected final TransactionMethod tMethod;
 
-    // Additional optional fields
-    private final TransactionMethod tMethod;
-    private final Set<Category> categories = new HashSet<>();
-
+    // Additional fields
+    protected final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -77,12 +76,13 @@ public abstract class LogEntry {
         return otherLogEntry != null
                 && otherLogEntry.getAmount().equals(getAmount())
                 && (otherLogEntry.getTransactionDate().equals(getTransactionDate())
-                && otherLogEntry.getDescription().equals(getDescription()));
+                && otherLogEntry.getDescription().equals(getDescription()))
+                && otherLogEntry.getTransactionMethod().equals(getTransactionMethod());
     }
 
     /**
-     * Returns true if both persons have the same basic fields,
-     * additional field,
+     * Returns true if both log entries have the same basic fields,
+     * additional fields,
      * and of the same child class of LogEntry.
      * This defines a stronger notion of equality between two log entries.
      */
@@ -108,18 +108,6 @@ public abstract class LogEntry {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(amount, transactionDate, description, categories);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Amount: ")
-                .append(getAmount())
-                .append(" Transaction Date: ")
-                .append(getTransactionDate())
-                .append(" Description: ")
-                .append(getDescription());
-        return builder.toString();
     }
 
 }

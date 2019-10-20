@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Place;
 import seedu.address.model.finance.attributes.TransactionMethod;
 import seedu.address.model.finance.logentry.Amount;
 import seedu.address.model.finance.logentry.Description;
@@ -23,6 +24,7 @@ import seedu.address.model.finance.logentry.TransactionDate;
 class JsonAdaptedSpendLogEntry extends JsonAdaptedLogEntry {
 
     private final String logEntryType;
+    private final String place;
 
     /**
      * Constructs a {@code JsonAdaptedSpendLogEntry} with the given log entry details.
@@ -33,9 +35,11 @@ class JsonAdaptedSpendLogEntry extends JsonAdaptedLogEntry {
                                     @JsonProperty("description") String desc,
                                     @JsonProperty("transactionMethod") String tMethod,
                                     @JsonProperty("categories") List<JsonAdaptedCategory> categories,
-                                    @JsonProperty("logEntryType") String logEntryType) {
+                                    @JsonProperty("logEntryType") String logEntryType,
+                                    @JsonProperty("place") String place) {
         super(amount, tDate, desc, tMethod, categories);
         this.logEntryType = logEntryType;
+        this.place = place;
     }
 
     /**
@@ -44,6 +48,7 @@ class JsonAdaptedSpendLogEntry extends JsonAdaptedLogEntry {
     public JsonAdaptedSpendLogEntry(SpendLogEntry source) {
         super(source);
         logEntryType = source.getLogEntryType();
+        place = source.getDescription().value;
     }
 
     /**
@@ -96,8 +101,17 @@ class JsonAdaptedSpendLogEntry extends JsonAdaptedLogEntry {
 
         assert logEntryType != null;
 
+        if (place == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Place.class.getSimpleName()));
+        }
+        if (!Place.isValidPlace(place)) {
+            throw new IllegalValueException(Place.MESSAGE_CONSTRAINTS);
+        }
+        final Place modelPlace = new Place(place);
+
         return new SpendLogEntry(modelAmount, modelTransactionDate, modelDescription,
-                modelTransactionMethod, modelLogEntryCategories);
+                modelTransactionMethod, modelLogEntryCategories, modelPlace);
     }
 
 }

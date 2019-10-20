@@ -5,6 +5,7 @@ import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
 import static seedu.address.model.finance.Model.PREDICATE_SHOW_ALL_LOG_ENTRIES;
 
@@ -20,6 +21,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Place;
 import seedu.address.model.finance.attributes.TransactionMethod;
 import seedu.address.model.finance.logentry.Amount;
 import seedu.address.model.finance.logentry.Description;
@@ -44,7 +46,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_DAY + "DAY] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TRANSACTION_METHOD + "TRANSACTION_METHOD] "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY]..."
+            + "[" + PREFIX_PLACE + "PLACE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DAY + "12-02-2019 "
             + PREFIX_CATEGORY + "Gift";
@@ -74,7 +77,18 @@ public class EditCommand extends Command {
         }
 
         LogEntry logEntryToEdit = lastShownList.get(index.getZeroBased());
-        LogEntry editedLogEntry = createdEditedLogEntry(logEntryToEdit, editLogEntryDescriptor);
+
+        // Depending on log entry type, create appropriate edited log entry
+        String logEntryToEditType = logEntryToEdit.getLogEntryType();
+        LogEntry editedLogEntry;
+
+        switch (logEntryToEditType) {
+        case SpendLogEntry.LOG_ENTRY_TYPE:
+            editedLogEntry = createEditedSpendLogEntry(logEntryToEdit, editLogEntryDescriptor);
+            break;
+        default:
+            throw new CommandException("Error occurred in editing log entry!");
+        }
 
         model.setLogEntry(logEntryToEdit, editedLogEntry);
         model.updateFilteredLogEntryList(PREDICATE_SHOW_ALL_LOG_ENTRIES);
@@ -85,30 +99,22 @@ public class EditCommand extends Command {
      * Creates and returns a {@code LogEntry} with the details of {@code logEntryToEdit}
      * edited with {@code editLogEntryDescriptor}.
      */
-    private static LogEntry createdEditedLogEntry(
-            LogEntry logEntryToEdit,
-            EditLogEntryDescriptor editLogEntryDescriptor) throws CommandException {
+    private LogEntry createEditedSpendLogEntry(LogEntry logEntryToEdit, EditLogEntryDescriptor editLogEntryDescriptor) {
         assert logEntryToEdit != null;
 
-        String logEntryType = logEntryToEdit.getLogEntryType();
-
-        Amount updatedAmount = editLogEntryDescriptor.getAmount().orElse(logEntryToEdit.getAmount());
+        SpendLogEntry currLogEntryToEdit = (SpendLogEntry) logEntryToEdit;
+        Amount updatedAmount = editLogEntryDescriptor.getAmount().orElse(currLogEntryToEdit.getAmount());
         TransactionDate updatedTransactionDate = editLogEntryDescriptor.getTransactionDate()
-                .orElse(logEntryToEdit.getTransactionDate());
-        Description updatedDescription = editLogEntryDescriptor.getDesc().orElse(logEntryToEdit.getDescription());
+                .orElse(currLogEntryToEdit.getTransactionDate());
+        Description updatedDescription = editLogEntryDescriptor.getDesc().orElse(currLogEntryToEdit.getDescription());
         TransactionMethod updatedTransactionMethod = editLogEntryDescriptor.getTransactionMethod()
-                .orElse(logEntryToEdit.getTransactionMethod());
+                .orElse(currLogEntryToEdit.getTransactionMethod());
         Set<Category> updatedCategories = editLogEntryDescriptor.getCategories()
-                .orElse(logEntryToEdit.getCategories());
+                .orElse(currLogEntryToEdit.getCategories());
+        Place updatedPlace = editLogEntryDescriptor.getPlace().orElse(currLogEntryToEdit.getPlace());
 
-        switch (logEntryType) {
-
-        case SpendLogEntry.LOG_ENTRY_TYPE:
-            return new SpendLogEntry(updatedAmount, updatedTransactionDate, updatedDescription,
-                    updatedTransactionMethod, updatedCategories);
-        default:
-            throw new CommandException("Error occurred in editing log entry!");
-        }
+        return new SpendLogEntry(updatedAmount, updatedTransactionDate, updatedDescription,
+                    updatedTransactionMethod, updatedCategories, updatedPlace);
     }
 
     @Override
@@ -139,6 +145,7 @@ public class EditCommand extends Command {
         private Description desc;
         private TransactionMethod tMethod;
         private Set<Category> cats;
+        private Place place;
 
         public EditLogEntryDescriptor() {}
 
@@ -152,6 +159,7 @@ public class EditCommand extends Command {
             setDesc(toCopy.desc);
             setTMethod(toCopy.tMethod);
             setCategories(toCopy.cats);
+            setPlace(toCopy.place);
         }
 
         /**
@@ -210,6 +218,14 @@ public class EditCommand extends Command {
             return (cats != null) ? Optional.of(Collections.unmodifiableSet(cats)) : Optional.empty();
         }
 
+        public void setPlace(Place place) {
+            this.place = place;
+        }
+
+        public Optional<Place> getPlace() {
+            return Optional.ofNullable(place);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -229,7 +245,8 @@ public class EditCommand extends Command {
                     && getTransactionDate().equals(e.getTransactionDate())
                     && getDesc().equals(e.getDesc())
                     && getTransactionMethod().equals(e.getTransactionMethod())
-                    && getCategories().equals(e.getCategories());
+                    && getCategories().equals(e.getCategories())
+                    && getPlace().equals(e.getPlace());
         }
     }
 }

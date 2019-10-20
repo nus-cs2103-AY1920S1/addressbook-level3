@@ -28,14 +28,14 @@ abstract class JsonAdaptedLogEntry {
      */
     @JsonCreator
     public JsonAdaptedLogEntry(@JsonProperty("amount") String amount,
-                               @JsonProperty("transactionDate") String tDate,
+                               @JsonProperty("transactionDate") String transactionDate,
                                @JsonProperty("description") String desc,
-                               @JsonProperty("transactionMethod") String tMethod,
+                               @JsonProperty("transactionMethod") String transactionMethod,
                                @JsonProperty("categories") List<JsonAdaptedCategory> categories) {
         this.amount = amount;
-        this.tDate = tDate;
+        this.tDate = transactionDate;
         this.desc = desc;
-        this.tMethod = tMethod;
+        this.tMethod = transactionMethod;
         if (categories != null) {
             this.categories.addAll(categories);
         }

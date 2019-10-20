@@ -59,9 +59,13 @@ class JsonSerializableFinanceLog {
 
         switch (logEntryType) {
         case SpendLogEntry.LOG_ENTRY_TYPE:
-            return new JsonAdaptedSpendLogEntry(amount, tDate, desc, tMethod, categories, logEntryType);
+            SpendLogEntry currLog = (SpendLogEntry) log;
+            String place = currLog.getPlace().toString();
+            return new JsonAdaptedSpendLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, place);
         default:
-            return new JsonAdaptedSpendLogEntry(amount, tDate, desc, tMethod, categories, logEntryType);
+            currLog = (SpendLogEntry) log;
+            place = currLog.getPlace().toString();
+            return new JsonAdaptedSpendLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, place);
         }
     }
 

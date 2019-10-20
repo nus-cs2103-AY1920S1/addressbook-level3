@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Place;
 import seedu.address.model.finance.attributes.TransactionMethod;
 import seedu.address.model.finance.logentry.Amount;
 import seedu.address.model.finance.logentry.Description;
@@ -24,12 +25,14 @@ public class SampleDataUtil {
                     new TransactionDate("11-10-2019"),
                     new Description("Yong Tau Foo"),
                     new TransactionMethod("Cash"),
-                    getCategorySet("Food", "School")),
+                    getCategorySet("Food", "School"),
+                    new Place("Frontier")),
             new SpendLogEntry(new Amount("50"),
                     new TransactionDate("13-10-2019"),
                     new Description("Dian Xiao Er"),
                     new TransactionMethod("Cash"),
-                    getCategorySet("Mother", "Birthday"))
+                    getCategorySet("Mother", "Birthday"),
+                    new Place("J8"))
         };
     }
 

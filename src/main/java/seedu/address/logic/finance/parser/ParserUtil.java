@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Place;
 import seedu.address.model.finance.attributes.TransactionMethod;
 import seedu.address.model.finance.logentry.Amount;
 import seedu.address.model.finance.logentry.Description;
@@ -120,5 +121,20 @@ public class ParserUtil {
             catSet.add(parseCategory(catName));
         }
         return catSet;
+    }
+
+    /**
+     * Parses a {@code String p} into an {@code Place}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code p} is invalid.
+     */
+    public static Place parsePlace(String p) throws ParseException {
+        requireNonNull(p);
+        String trimmedPlace = p.trim();
+        if (!Place.isValidPlace(trimmedPlace)) {
+            throw new ParseException(Place.MESSAGE_CONSTRAINTS);
+        }
+        return new Place(trimmedPlace);
     }
 }
