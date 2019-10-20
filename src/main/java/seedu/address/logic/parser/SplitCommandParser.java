@@ -1,6 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.InCommand;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.Set;
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.SplitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Date;
@@ -9,12 +16,9 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Transaction;
 
-import java.util.Set;
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-
+/**
+ * Parses input arguments and creates a new SplitCommand object
+ */
 public class SplitCommandParser implements Parser<SplitCommand> {
 
     @Override

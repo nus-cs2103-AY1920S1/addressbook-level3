@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -25,10 +27,9 @@ public class SplitCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_NAME + "Mary Jane ";
 
-    private final Transaction transaction;
-
     public static final String MESSAGE_SUCCESS = "Split amount successful";
 
+    private final Transaction transaction;
 
     public SplitCommand(Transaction transaction) {
         this.transaction = transaction;
