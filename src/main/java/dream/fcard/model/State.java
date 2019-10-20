@@ -38,10 +38,10 @@ public class State {
      * Removes the deck from the decks list, if there is a deck with a matching name.
      * Else, throw exception when no deck with matching name is found.
      */
-    public void removeDeck(String deckname) throws DeckNotFoundException {
-        int deckIndex = getDeckIndex(deckname);
+    public void removeDeck(String name) throws DeckNotFoundException {
+        int deckIndex = getDeckIndex(name);
         if (deckIndex == -1) {
-            throw new DeckNotFoundException(new Exception());
+            throw new DeckNotFoundException("Deck not found - " + name);
         }
         decks.remove(deckIndex);
     }
@@ -55,7 +55,7 @@ public class State {
     public Deck getDeck(String name) throws DeckNotFoundException {
         int indexOfDeck = getDeckIndex(name);
         if (indexOfDeck == -1) {
-            throw new DeckNotFoundException(new Exception());
+            throw new DeckNotFoundException("Deck not found - " + name);
         }
         return decks.get(indexOfDeck);
     }
@@ -66,10 +66,10 @@ public class State {
      *
      * @return index
      */
-    private int getDeckIndex(String deckName) {
+    private int getDeckIndex(String name) {
         for (int i = 0; i < decks.size(); i++) {
             Deck currentDeck = decks.get(i);
-            boolean isUserInputMatchDeckName = currentDeck.getName().equals(deckName);
+            boolean isUserInputMatchDeckName = currentDeck.getName().equals(name);
 
             if (isUserInputMatchDeckName) {
                 return i;
