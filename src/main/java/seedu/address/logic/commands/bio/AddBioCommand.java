@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DP_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOALS;
@@ -27,9 +28,11 @@ public class AddBioCommand extends Command {
 
     public static final String COMMAND_WORD = "addbio";
 
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Adds a user to the address book.\n\n"
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Adds a user to the address book.\n"
+            + "Note that Name, contact number(s), emergency contact(s) and medical condition(s) cannot be empty.\n\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + "[" + PREFIX_DP_PATH + "DP PATH] "
             + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION] "
             + "[" + PREFIX_NRIC + "NRIC] "
             + "[" + PREFIX_GENDER + "GENDER] "
@@ -42,6 +45,7 @@ public class AddBioCommand extends Command {
             + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
+            + PREFIX_DP_PATH + "/Users/John/Doge.jpg "
             + PREFIX_PROFILE_DESC + "Sometimes I like to pretend that I'm a carrot. "
             + PREFIX_NRIC + "S1234567A "
             + PREFIX_GENDER + "Male "
@@ -84,8 +88,12 @@ public class AddBioCommand extends Command {
         StringBuilder addedFields = new StringBuilder();
 
         model.addUser(toAdd);
-        toAdd.getFieldMap().forEach((key, value) -> addedFields.append("- ").append(key).append(": ")
-                .append(value).append("\n"));
+        toAdd.getFieldMap().forEach((key, value) -> {
+            if (!value.isEmpty() && !value.equals("[]")) {
+                addedFields.append("- ").append(key).append(": ")
+                        .append(value).append("\n");
+            }
+        });
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, addedFields.toString().trim()));
     }

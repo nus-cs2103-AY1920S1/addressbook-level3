@@ -1,8 +1,8 @@
 package seedu.address.ui;
 
+import java.io.File;
 import java.util.List;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -19,10 +19,13 @@ import seedu.address.model.bio.User;
 public class BioPane extends UiPart<Region> {
 
     private static final String FXML = "BioPane.fxml";
-    private static String displayImage = "/images/user.png";
+    private static final String DEFAULT_DP_PATH = "/images/user.png";
 
-    private BioTable bioTable = new BioTable();
+    private BioTable bioTable;
     private Profile profile;
+    private User user;
+    private Image img;
+    private String dpPath;
 
     @FXML
     private HBox profilePlaceholder;
@@ -31,44 +34,67 @@ public class BioPane extends UiPart<Region> {
     private VBox bioTablePlaceholder;
 
     public BioPane(ObservableList<User> filteredUserList) {
+        this(filteredUserList, null);
+    }
+
+    public BioPane(ObservableList<User> filteredUserList, Image img) {
         super(FXML);
-        Image img = new Image(MainApp.class.getResourceAsStream(displayImage));
 
         if (!filteredUserList.isEmpty()) {
+
             User user = filteredUserList.get(0);
 
-            profile = new Profile(img, user.getName().toString(), user.getProfileDesc().toString());
+            dpPath = user.getDpPath().toString();
+
+            String name = user.getName().toString();
+            String nric = user.getNric().toString();
+            String gender = user.getGender().toString();
+            String dob = user.getDateOfBirth().toString();
+            String hp = listToString(user.getContactNumbers());;
+            String emergencyHp = listToString(user.getEmergencyContacts());;
+            String medicalCondition = listToString(user.getMedicalConditions());
+            String address = user.getAddress().toString();
+            String bgColour = "navy-blue";
+            String fontColour = "yellow";
+            String myGoals = listToString(user.getGoals());
+            String otherBioInfo = user.getOtherBioInfo().toString();
+
+            File file = new File(dpPath);
+
+            if (img != null) {
+                profile = new Profile(img, user.getName().toString(), user.getProfileDesc().toString());
+            } else {
+                if (!file.exists()) {
+                    if (img == null) {
+                        img = new Image(MainApp.class.getResourceAsStream(DEFAULT_DP_PATH));
+                    }
+                    ;
+                } else {
+                    img = new Image(file.toURI().toString());
+                }
+
+                profile = new Profile(img, user.getName().toString(), user.getProfileDesc().toString());
+                this.img = img;
+            }
             profilePlaceholder.getChildren().add(profile.getRoot());
-
-            BioTableFieldDataPair name = new BioTableFieldDataPair("Name:", user.getName().toString());
-            BioTableFieldDataPair nric = new BioTableFieldDataPair("NRIC:", user.getNric().toString());
-            BioTableFieldDataPair gender = new BioTableFieldDataPair("Gender:", user.getGender().toString());
-            BioTableFieldDataPair dob = new BioTableFieldDataPair("DOB:", user.getDateOfBirth().toString());
-            BioTableFieldDataPair hp = new BioTableFieldDataPair("HP:",
-                    listToString(user.getContactNumbers()));;
-            BioTableFieldDataPair emergencyHp = new BioTableFieldDataPair("Emergency HP:",
-                    listToString(user.getEmergencyContacts()));;
-            BioTableFieldDataPair medicalCondition = new BioTableFieldDataPair("Medical Condition:",
-                    listToString(user.getMedicalConditions()));
-            BioTableFieldDataPair address = new BioTableFieldDataPair("Address:", user.getAddress().toString());
-            BioTableFieldDataPair dpPath = new BioTableFieldDataPair("DP Path:",
-                    "/Users/Amy/dp.png");
-            BioTableFieldDataPair bgColour = new BioTableFieldDataPair("Background Colour:", "navy-blue");
-            BioTableFieldDataPair fontColour = new BioTableFieldDataPair("Font Colour:", "yellow");
-            BioTableFieldDataPair myGoals = new BioTableFieldDataPair("My Goals:",
-                    listToString(user.getGoals()));;
-            BioTableFieldDataPair otherBioInfo = new BioTableFieldDataPair("Other Bio Info:",
-                    user.getOtherBioInfo().toString());
-            ObservableList<BioTableFieldDataPair> list = FXCollections.observableArrayList();
-            list.addAll(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath, bgColour,
-                    fontColour, myGoals, otherBioInfo);
-
-            bioTable.getTableView().setItems(list);
+            bioTable = new BioTable(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath,
+                    bgColour, fontColour, myGoals, otherBioInfo);
         } else {
+            img = new Image(MainApp.class.getResourceAsStream(DEFAULT_DP_PATH));
+            this.img = img;
             profile = new Profile(img, "No user bio added :(", null);
             profilePlaceholder.getChildren().add(profile.getRoot());
+            bioTable = new BioTable();
         }
         bioTablePlaceholder.getChildren().add(bioTable.getRoot());
+    }
+
+    public String getDpPath() {
+        return dpPath;
+    }
+
+    public Image getImg() {
+        return img;
     }
 
     /**

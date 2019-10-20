@@ -1,7 +1,11 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +14,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import javax.imageio.ImageIO;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -17,6 +23,7 @@ import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.DisplayPicPath;
 import seedu.address.model.bio.Gender;
 import seedu.address.model.bio.Goal;
 import seedu.address.model.bio.MedicalCondition;
@@ -110,6 +117,34 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String displayPicPath} into a {@code DisplayPicPath}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code displayPicPath} is invalid.
+     */
+    public static DisplayPicPath parseDpPath(Optional<String> dpPath) throws ParseException {
+        requireNonNull(dpPath);
+        if (!dpPath.isEmpty()) {
+            String trimmedDisplayPic = dpPath.get().trim();
+            if (!DisplayPicPath.isValidDisplayPicPath(trimmedDisplayPic)) {
+                throw new ParseException(DisplayPicPath.MESSAGE_CONSTRAINTS);
+            } else if (!trimmedDisplayPic.isEmpty()) {
+                try {
+                    Image image = ImageIO.read(new File(trimmedDisplayPic));
+                    if (image == null) {
+                        throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                    }
+                } catch (IOException e) {
+                    throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                }
+            }
+            return new DisplayPicPath(trimmedDisplayPic);
+        } else {
+            return new DisplayPicPath("");
+        }
+    }
+
+    /**
      * Parses a {@code String nric} into a {@code Nric}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -186,6 +221,10 @@ public class ParserUtil {
      */
     public static List<Phone> parsePhones(Collection<String> phones) throws ParseException {
         requireNonNull(phones);
+        if (phones.isEmpty()) {
+            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        }
+
         final List<Phone> phoneList = new ArrayList<>();
         for (String phoneNumber : phones) {
             phoneList.add(parsePhone(phoneNumber));
@@ -214,6 +253,9 @@ public class ParserUtil {
     public static List<MedicalCondition> parseMedicalConditions(Collection<String> medicalConditions)
             throws ParseException {
         requireNonNull(medicalConditions);
+        if (medicalConditions.isEmpty()) {
+            throw new ParseException(MedicalCondition.MESSAGE_CONSTRAINTS);
+        }
         final List<MedicalCondition> medicalConditionList = new ArrayList<>();
         for (String medicalConditionName : medicalConditions) {
             medicalConditionList.add(parseMedicalCondition(medicalConditionName));

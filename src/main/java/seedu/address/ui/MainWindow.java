@@ -166,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the main display pane to the specified UI part.
      */
     public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
-        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated == true) {
+        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated) {
             mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()

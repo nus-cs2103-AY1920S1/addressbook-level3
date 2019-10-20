@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.bio.BioFieldName.LABEL_ADDRESS;
 import static seedu.address.model.bio.BioFieldName.LABEL_CONTACT_NUMBER;
 import static seedu.address.model.bio.BioFieldName.LABEL_DATE_OF_BIRTH;
+import static seedu.address.model.bio.BioFieldName.LABEL_DP_PATH;
 import static seedu.address.model.bio.BioFieldName.LABEL_EMERGENCY_CONTACT;
 import static seedu.address.model.bio.BioFieldName.LABEL_GENDER;
 import static seedu.address.model.bio.BioFieldName.LABEL_GOALS;
@@ -11,6 +12,7 @@ import static seedu.address.model.bio.BioFieldName.LABEL_MEDICAL_CONDITION;
 import static seedu.address.model.bio.BioFieldName.LABEL_NAME;
 import static seedu.address.model.bio.BioFieldName.LABEL_NRIC;
 import static seedu.address.model.bio.BioFieldName.LABEL_OTHER_BIO_INFO;
+import static seedu.address.model.bio.BioFieldName.LABEL_PROFILE_DESCRIPTION;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +28,7 @@ public class User {
 
     // Identity fields
     private final Name name;
+    private final DisplayPicPath dpPath;
     private final ProfileDesc profileDesc;
     private final Nric nric;
     private final Gender gender;
@@ -45,13 +48,14 @@ public class User {
     /**
      * Every field must be present and not null.
      */
-    public User(Name name, ProfileDesc profileDesc, Nric nric, Gender gender, DateOfBirth dateOfBirth,
-                List<Phone> contactNumbers, List<Phone> emergencyContacts, List<MedicalCondition> medicalConditions,
-                Address address, List<Goal> goals,
+    public User(Name name, DisplayPicPath dpPath, ProfileDesc profileDesc, Nric nric, Gender gender,
+                DateOfBirth dateOfBirth, List<Phone> contactNumbers, List<Phone> emergencyContacts,
+                List<MedicalCondition> medicalConditions, Address address, List<Goal> goals,
                 OtherBioInfo otherBioInfo) {
-        requireAllNonNull(name, nric, gender, dateOfBirth, contactNumbers, emergencyContacts, medicalConditions,
-                goals, otherBioInfo);
+        requireAllNonNull(name, dpPath, profileDesc, nric, gender, dateOfBirth, contactNumbers, emergencyContacts,
+                medicalConditions, goals, otherBioInfo);
         this.name = name;
+        this.dpPath = dpPath;
         this.profileDesc = profileDesc;
         this.nric = nric;
         this.gender = gender;
@@ -66,6 +70,10 @@ public class User {
 
     public Name getName() {
         return name;
+    }
+
+    public DisplayPicPath getDpPath() {
+        return dpPath;
     }
 
     public ProfileDesc getProfileDesc() {
@@ -165,6 +173,8 @@ public class User {
         if (fieldMap == null) {
             fieldMap = new LinkedHashMap<>();
             fieldMap.put(LABEL_NAME, name.toString());
+            fieldMap.put(LABEL_DP_PATH, dpPath.toString());
+            fieldMap.put(LABEL_PROFILE_DESCRIPTION, profileDesc.toString());
             fieldMap.put(LABEL_NRIC, nric.toString());
             fieldMap.put(LABEL_GENDER, gender.toString());
             fieldMap.put(LABEL_DATE_OF_BIRTH, dateOfBirth.toString());
@@ -194,6 +204,7 @@ public class User {
 
         User otherUser = (User) other;
         return otherUser.getName().equals(getName())
+                && otherUser.getDpPath().equals(getDpPath())
                 && otherUser.getProfileDesc().equals(getProfileDesc())
                 && otherUser.getNric().equals(getNric())
                 && otherUser.getGender().equals(getGender())
@@ -209,7 +220,7 @@ public class User {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, profileDesc, nric, gender, dateOfBirth, contactNumbers, emergencyContacts,
+        return Objects.hash(name, dpPath, profileDesc, nric, gender, dateOfBirth, contactNumbers, emergencyContacts,
                 medicalConditions, address, goals, otherBioInfo);
     }
 
@@ -217,7 +228,10 @@ public class User {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" DP Path: ")
+                .append(getDpPath())
                 .append(" Profile Desc: ")
+                .append(getProfileDesc())
                 .append(" NRIC: ")
                 .append(getNric())
                 .append(" Gender: ")

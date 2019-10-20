@@ -51,8 +51,8 @@ public class ModelManager implements Model {
                 + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
-        this.userList = new UserList(userList);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.userList = new UserList(userList);
         this.filteredUserList = new FilteredList<>(this.userList.getUserList());
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.foodList = foodList;
@@ -262,7 +262,6 @@ public class ModelManager implements Model {
     @Override
     public void setUser(User target, User editedUser) {
         requireAllNonNull(target, editedUser);
-
         userList.setUser(target, editedUser);
     }
 

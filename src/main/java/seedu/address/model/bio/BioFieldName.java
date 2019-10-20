@@ -5,6 +5,7 @@ package seedu.address.model.bio;
  */
 public class BioFieldName {
     public static final String LABEL_NAME = "Name";
+    public static final String LABEL_DP_PATH = "DP Path";
     public static final String LABEL_PROFILE_DESCRIPTION = "Profile Description";
     public static final String LABEL_NRIC = "NRIC";
     public static final String LABEL_GENDER = "Gender";
