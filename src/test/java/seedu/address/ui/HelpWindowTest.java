@@ -1,12 +1,8 @@
 package seedu.address.ui;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
-import static seedu.address.ui.HelpWindow.USERGUIDE_FILE_PATH;
-
-import java.net.URL;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,13 +21,6 @@ public class HelpWindowTest extends GuiUnitTest {
         guiRobot.interact(() -> helpWindow = new HelpWindow());
         FxToolkit.registerStage(helpWindow::getRoot);
         helpWindowHandle = new HelpWindowHandle(helpWindow.getRoot());
-    }
-
-    @Test
-    public void display() throws Exception {
-        FxToolkit.showStage();
-        URL expectedHelpPage = HelpWindow.class.getResource(USERGUIDE_FILE_PATH);
-        assertEquals(expectedHelpPage, helpWindowHandle.getLoadedUrl());
     }
 
     @Test

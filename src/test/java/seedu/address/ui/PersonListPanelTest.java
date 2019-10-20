@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.address.ui.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.cards.PersonCardHandle;
+import guitests.guihandles.panels.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,22 +46,12 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
     }
 
-    @Test
-    public void selection_modelSelectedPersonChanged_selectionChanges() {
-        initUi(TYPICAL_PERSONS);
-        Person secondPerson = TYPICAL_PERSONS.get(INDEX_SECOND_PERSON.getZeroBased());
-        guiRobot.interact(() -> selectedPerson.set(secondPerson));
-        guiRobot.pauseForHuman();
-
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
-    }
 
     /**
      * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
+
     @Test
     public void performanceTest() {
         ObservableList<Person> backingList = createBackingList(10000);
@@ -93,9 +83,10 @@ public class PersonListPanelTest extends GuiUnitTest {
      * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
+
     private void initUi(ObservableList<Person> backingList) {
         PersonListPanel personListPanel =
-                new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
+                new PersonListPanel(backingList);
         uiPartExtension.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
