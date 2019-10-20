@@ -147,7 +147,7 @@ public class Deck implements JsonInterface {
         return this.cards;
     }
 
-    public String getDeckName() {
+    public String getName() {
         return deckName;
     }
 }
