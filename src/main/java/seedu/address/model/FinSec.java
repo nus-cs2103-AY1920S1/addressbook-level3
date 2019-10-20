@@ -2,13 +2,11 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.commands.AddClaimCommand.MESSAGE_CONTACT_NOT_FOUND;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.autocorrectsuggestion.UniqueAutocorrectSuggestionList;
 import seedu.address.model.claim.ApprovedClaim;

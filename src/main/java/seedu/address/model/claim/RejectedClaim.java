@@ -15,7 +15,8 @@ public class RejectedClaim extends Claim {
 
     private static final Status status = Status.REJECTED;
 
-    public RejectedClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone, Set<Tag> tags) {
+    public RejectedClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone,
+                         Set<Tag> tags) {
         super(id, description, amount, date, name, phone, tags, status);
     }
 

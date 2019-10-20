@@ -12,8 +12,6 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
@@ -162,6 +160,11 @@ public class ModelManager implements Model {
         finSec.rejectClaim(claim);
     }
 
+    /**
+     * Finds the {@code contact} for a {@code claim}.
+     *
+     * @return true if contact has been found.
+     */
     public boolean hasContactFor(Claim claim) {
         requireNonNull(claim);
         return finSec.hasContact(claim.getName(), claim.getPhone());

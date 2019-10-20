@@ -210,6 +210,14 @@ public class AddFinSecCommandTest {
         }
 
         @Override
+        public boolean hasContactFor(Claim target) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+            return false;
+        }
+
+        @Override
         public boolean hasIncome(Income income) {
             /*
             FUNCTION TO BE EDITED

@@ -145,11 +145,14 @@ class JsonAdaptedClaim {
 
         switch (status) {
         case "PENDING":
-            return new PendingClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
+            return new PendingClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone,
+                    modelTags);
         case "APPROVED":
-            return new ApprovedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
+            return new ApprovedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone,
+                    modelTags);
         case "REJECTED":
-            return new RejectedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
+            return new RejectedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone,
+                    modelTags);
         default:
             logger.warning("Invalid claim status: " + status);
             throw new IllegalValueException("Status should only be PENDING, REJECTED or APPROVED");

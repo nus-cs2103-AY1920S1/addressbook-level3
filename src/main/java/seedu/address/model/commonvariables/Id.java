@@ -1,7 +1,5 @@
 package seedu.address.model.commonvariables;
 
-import javax.sound.midi.MidiChannel;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -35,6 +33,10 @@ public class Id {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Instantiates an incremented {@code Id} object.
+     * @return An incremented {@code Id} object.
+     */
     public static Id incrementId() {
         idCount++;
         return new Id(idCount.toString());

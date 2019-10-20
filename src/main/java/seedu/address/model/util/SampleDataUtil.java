@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.FinSec;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
@@ -65,6 +66,15 @@ public class SampleDataUtil {
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Tag::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a claim set containing the list of strings given.
+     */
+    public static Set<Id> getClaimSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Id::new)
                 .collect(Collectors.toSet());
     }
 

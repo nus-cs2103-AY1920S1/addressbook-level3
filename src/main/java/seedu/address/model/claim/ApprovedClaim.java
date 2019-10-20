@@ -15,7 +15,8 @@ public class ApprovedClaim extends Claim {
 
     private static final Status status = Status.APPROVED;
 
-    public ApprovedClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone, Set<Tag> tags) {
+    public ApprovedClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone,
+                         Set<Tag> tags) {
         super(id, description, amount, date, name, phone, tags, status);
     }
 

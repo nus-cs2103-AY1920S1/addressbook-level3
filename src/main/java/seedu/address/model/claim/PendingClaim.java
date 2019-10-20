@@ -16,11 +16,13 @@ public class PendingClaim extends Claim {
 
     private static final Status status = Status.PENDING;
 
-    public PendingClaim(Description description, Amount amount, Date date, Name name, Phone phone, Set<Tag> tags) {
+    public PendingClaim(Description description, Amount amount, Date date, Name name, Phone phone,
+                        Set<Tag> tags) {
         super(description, amount, date, name, phone, tags, status);
     }
 
-    public PendingClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone, Set<Tag> tags) {
+    public PendingClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone,
+                        Set<Tag> tags) {
         super(id, description, amount, date, name, phone, tags, status);
     }
 

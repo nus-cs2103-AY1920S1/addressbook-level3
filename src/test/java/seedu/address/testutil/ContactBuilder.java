@@ -68,6 +68,14 @@ public class ContactBuilder {
     }
 
     /**
+     * Parses the {@code claims} into a {@code Set<Id>} and set it to the {@code FinSec} that we are building.
+     */
+    public ContactBuilder withClaims(String ... claims) {
+        this.claims = SampleDataUtil.getClaimSet(claims);
+        return this;
+    }
+
+    /**
      * Sets the {@code Address} of the {@code FinSec} that we are building.
      */
     public ContactBuilder withAddress(String address) {
