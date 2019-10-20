@@ -17,20 +17,8 @@ public class DisplayIndicator {
     public static final String POLICY_POPULARITY_BREAKDOWN = "policy-popularity-breakdown";
     public static final String AGE_GROUP_BREAKDOWN = "age-group-breakdown";
     public static final String GENDER_BREAKDOWN = "gender-breakdown";
-    private static String MESSAGE_CONSTRAINTS = "Only the following indicators are allowed: ";
-    private static Set<String> VALID_DISPLAY_INDICATORS = new HashSet<>();
-
-    static {
-        VALID_DISPLAY_INDICATORS.add(POLICY_POPULARITY_BREAKDOWN);
-        VALID_DISPLAY_INDICATORS.add(CONTACT_LIST_GROWTH_RATE);
-        VALID_DISPLAY_INDICATORS.add(AGE_GROUP_BREAKDOWN);
-        VALID_DISPLAY_INDICATORS.add(GENDER_BREAKDOWN);
-
-        StringJoiner validIndicators = new StringJoiner(", ");
-        VALID_DISPLAY_INDICATORS.forEach(displayIndicator -> validIndicators.add(displayIndicator));
-        MESSAGE_CONSTRAINTS += validIndicators.toString();
-    }
-
+    private static final Set<String> VALID_DISPLAY_INDICATORS = initializeValidDisplayIndicators();
+    private static final String MESSAGE_CONSTRAINTS = initializeMessageConstraints();
     public final String value;
 
     /**
@@ -41,6 +29,33 @@ public class DisplayIndicator {
     public DisplayIndicator(String displayIndicator) {
         requireNonNull(displayIndicator);
         this.value = displayIndicator;
+    }
+
+    /**
+     * Initializes valid display indicators.
+     *
+     * @return a set of valid display indicators
+     */
+    private static Set<String> initializeValidDisplayIndicators() {
+        HashSet<String> result = new HashSet<>();
+        result.add(POLICY_POPULARITY_BREAKDOWN);
+        result.add(CONTACT_LIST_GROWTH_RATE);
+        result.add(AGE_GROUP_BREAKDOWN);
+        result.add(GENDER_BREAKDOWN);
+        return result;
+    }
+
+    /**
+     * Initialises message constraints based on valid display indicators.
+     *
+     * @return String.
+     */
+    private static String initializeMessageConstraints() {
+        String message = "Only the following indicators are allowed: ";
+        StringJoiner result = new StringJoiner(", ");
+        result.add(message);
+        VALID_DISPLAY_INDICATORS.forEach(displayIndicator -> result.add(displayIndicator));
+        return result.toString();
     }
 
     /**

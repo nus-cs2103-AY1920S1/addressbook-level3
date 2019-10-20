@@ -21,7 +21,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETIC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SMOKER;
 import static seedu.address.model.person.Gender.FEMALE;
 import static seedu.address.model.person.Gender.MALE;
-import static seedu.address.model.person.Gender.UNKNOWN;
 import static seedu.address.testutil.TypicalPolicy.FIRE_INSURANCE;
 import static seedu.address.testutil.TypicalPolicy.HEALTH_INSURANCE;
 import static seedu.address.testutil.TypicalPolicy.LIFE_INSURANCE;
@@ -112,7 +111,6 @@ public class TypicalPersons {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
         result.put(MALE, 5);
         result.put(FEMALE, 2);
-        result.put(UNKNOWN, 0);
         return result;
     }
 }

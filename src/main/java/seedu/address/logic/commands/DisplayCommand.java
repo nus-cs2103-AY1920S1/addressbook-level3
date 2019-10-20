@@ -15,11 +15,11 @@ public class DisplayCommand extends Command {
 
     public static final String MESSAGE_USAGE =
         COMMAND_WORD + ": Displays indicator according to specified format.\n"
-        + "Parameters: "
-        + PREFIX_INDICATOR + "INDICATOR\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_INDICATOR + "policy-popularity-breakdown\n"
-        + DisplayIndicator.getMessageConstraints();
+            + "Parameters: "
+            + PREFIX_INDICATOR + "INDICATOR\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_INDICATOR + "policy-popularity-breakdown\n"
+            + DisplayIndicator.getMessageConstraints();
 
     private final DisplayIndicator displayIndicator;
 
@@ -34,7 +34,7 @@ public class DisplayCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        String MESSAGE_SUCCESS = "Displayed " + displayIndicator + " successfully.";
-        return new CommandResult(MESSAGE_SUCCESS, this.displayIndicator);
+        String messageSuccess = "Displayed " + displayIndicator + " successfully.";
+        return new CommandResult(messageSuccess, this.displayIndicator);
     }
 }

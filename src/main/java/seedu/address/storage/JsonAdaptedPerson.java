@@ -153,7 +153,7 @@ class JsonAdaptedPerson {
                 Gender.class.getSimpleName()));
         }
         if (!Gender.isValidGender(gender)) {
-            throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Gender.getMessageConstraints());
         }
 
         final Gender modelGender = new Gender(gender);

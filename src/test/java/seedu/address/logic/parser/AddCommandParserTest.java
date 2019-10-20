@@ -197,7 +197,7 @@ public class AddCommandParserTest {
 
         // invalid gender
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + DATE_OF_BIRTH_DESC_BOB + INVALID_GENDER_DESC, Gender.MESSAGE_CONSTRAINTS);
+                + ADDRESS_DESC_BOB + DATE_OF_BIRTH_DESC_BOB + INVALID_GENDER_DESC, Gender.getMessageConstraints());
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB

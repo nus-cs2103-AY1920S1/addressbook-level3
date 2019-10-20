@@ -10,7 +10,7 @@ public class TimeUtil {
     public static final String BELOW_TWENTY = "Below 20 Years";
     public static final String TWENTY_TO_SIXTYFOUR = "20 - 64 Years";
     public static final String ABOVE_SIXTYFIVE = "65 years & Over";
-    private static HashSet<String> AgeGroup = initializeAgeGroup();
+    private static final HashSet<String> AGE_GROUP = initializeAgeGroup();
 
     /**
      * Initialises age group hash set
@@ -25,7 +25,7 @@ public class TimeUtil {
     }
 
     public static HashSet<String> getAgeGroup() {
-        return AgeGroup;
+        return AGE_GROUP;
     }
 
     /**

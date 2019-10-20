@@ -15,7 +15,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.TimeUtil;
-import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;

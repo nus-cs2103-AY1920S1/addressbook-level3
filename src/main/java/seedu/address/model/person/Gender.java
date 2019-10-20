@@ -15,30 +15,38 @@ public class Gender {
     public static final String DATA_TYPE = "Gender";
     public static final String MALE = "Male";
     public static final String FEMALE = "Female";
-    public static final String UNKNOWN = "Do not wish to disclose";
-    public static String MESSAGE_CONSTRAINTS = "Gender can only be one of the following: ";
-    private static Set<String> VALID_GENDER = new HashSet<>();
-
-    /**
-     * Initialises age group hash set
-     * @return age group hash set
-     */
-    static {
-        VALID_GENDER.add(MALE);
-        VALID_GENDER.add(FEMALE);
-        VALID_GENDER.add(UNKNOWN);
-
-        StringJoiner validGender = new StringJoiner(", ");
-        VALID_GENDER.forEach(gender -> validGender.add(gender));
-        MESSAGE_CONSTRAINTS += validGender.toString();
-    }
-
-
+    private static final Set<String> VALID_GENDER = initializeValidGender();
+    private static final String MESSAGE_CONSTRAINTS = initializeMessageConstraints();
     public final String gender;
 
     public Gender(String gender) {
         requireNonNull(gender);
         this.gender = gender;
+    }
+
+    /**
+     * Initializes valid gender types.
+     *
+     * @return a set of valid gender types.
+     */
+    private static Set<String> initializeValidGender() {
+        HashSet<String> result = new HashSet<>();
+        result.add(MALE);
+        result.add(FEMALE);
+        return result;
+    }
+
+    /**
+     * Initialises message constraints based on valid gender types.
+     *
+     * @return String.
+     */
+    private static String initializeMessageConstraints() {
+        String message = "Only the following genders are allowed: ";
+        StringJoiner result = new StringJoiner(", ");
+        result.add(message);
+        VALID_GENDER.forEach(gender -> result.add(gender));
+        return result.toString();
     }
 
     public static boolean isValidGender(String test) {
@@ -47,6 +55,10 @@ public class Gender {
 
     public static Set<String> getValidGender() {
         return VALID_GENDER;
+    }
+
+    public static String getMessageConstraints() {
+        return MESSAGE_CONSTRAINTS;
     }
 
     @Override
