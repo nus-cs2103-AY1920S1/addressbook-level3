@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -50,6 +52,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public Path getAddressBookFilePath() {
+        Path dataPath = Paths.get("data");
+        try {
+            if (!dataPath.toFile().exists()) {
+                Files.createDirectory(dataPath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return addressBookFilePath;
     }
 

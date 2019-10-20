@@ -55,7 +55,6 @@ public class ModelManager implements Model {
         this.wordBankList = wordBankList;
         this.wordBankStatisticsList = new WordBankStatisticsList();
         this.userPrefs = new UserPrefs(userPrefs);
-//        filteredCards = new FilteredList<>(this.wordBank.getCardList());
         filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
 
         // Default Difficulty is always EASY.
