@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.joining;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,7 +14,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
-import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -27,11 +28,11 @@ public class ViewTaggedCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all modules attached to specific tags. "
             + "Parameters: "
-            + "TAG_NAME... \n"
+            + PREFIX_TAG +"TAG_NAME... \n"
             + "Example: "
-            + "viewtagged core completed";
+            + "viewtagged t/core t/completed";
 
-    public static final String MESSAGE_SUCCESS = "All modules with the specified tags shown %1$s.";
+    public static final String MESSAGE_SUCCESS = "All modules with the specified tags shown \n%1$s.";
 
     private final String[] tagNames;
 
@@ -46,12 +47,15 @@ public class ViewTaggedCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        StudyPlan activeStudyPlan = model.getActiveStudyPlan();
-        HashMap<String, Module> moduleHashMap = activeStudyPlan.getModules();
+        HashMap<String, Module> moduleHashMap = model.getModulesFromActiveSp();
 
         Set<Module> allMatchingModules = getAllMatchingModules(moduleHashMap);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, allMatchingModules));
+        final String stringOfModules= allMatchingModules.stream()
+            .map(item -> item.toString())
+            .collect(joining("\n"));
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfModules));
     }
 
     private Set<Module> getMatchingModules(String tagName, HashMap<String, Module> moduleHashMap) {

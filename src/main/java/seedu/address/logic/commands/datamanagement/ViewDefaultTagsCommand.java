@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.joining;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,7 +29,7 @@ public class ViewDefaultTagsCommand extends Command {
             + "Example: "
             + "viewdefaulttags";
 
-    public static final String MESSAGE_SUCCESS = "All default tags shown %1$s.";
+    public static final String MESSAGE_SUCCESS = "All default tags shown \n%1$s.";
 
     /**
      * Creates an {@code ViewDefaultTagsCommand} to show all default tags in the active study plan.
@@ -40,12 +41,15 @@ public class ViewDefaultTagsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        StudyPlan activeStudyPlan = model.getActiveStudyPlan();
-        UniqueTagList uniqueTagList = activeStudyPlan.getTags();
+        UniqueTagList uniqueTagList = model.getTagsFromActiveSp();
 
         Set<DefaultTag> defaultTags = getDefaultTags(uniqueTagList);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, defaultTags));
+        final String stringOfDefaultTags = defaultTags.stream()
+            .map(item -> item.toString())
+            .collect(joining("\n"));
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfDefaultTags));
     }
 
     private Set<DefaultTag> getDefaultTags(UniqueTagList uniqueTagList) {

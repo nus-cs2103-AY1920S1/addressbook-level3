@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
@@ -311,6 +313,10 @@ public class ModelManager implements Model {
 
     public void updateAllCompletedTags() {
         modulePlanner.updateAllCompletedTags();
+    }
+
+    public HashMap<String, Module> getModulesFromActiveSp() {
+        return modulePlanner.getModulesFromActiveSp();
     }
 
 }

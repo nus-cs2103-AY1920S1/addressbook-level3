@@ -40,7 +40,7 @@ public class ViewAllTagsCommand extends Command {
             .map(item -> item.toString())
             .collect(joining("\n"));
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, uniqueTagList));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfTags));
     }
 
 }

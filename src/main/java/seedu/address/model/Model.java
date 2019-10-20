@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
@@ -210,12 +212,14 @@ public interface Model {
 
     boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode);
 
+    void updateAllCompletedTags();
+
     Tag getTagFromActiveSp(String tagName);
 
     UniqueTagList getTagsFromActiveSp();
 
     UniqueTagList getModuleTagsFromActiveSp(String moduleCode);
 
-    void updateAllCompletedTags();
+    HashMap<String, Module> getModulesFromActiveSp();
 
 }
