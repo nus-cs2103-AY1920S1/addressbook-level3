@@ -131,4 +131,13 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredTransactionList().size());
     }
 
+    /**
+     * Deletes the first transaction in {@code model}'s filtered list from {@code model}'s bank account.
+     */
+    public static void deleteFirstTransaction(Model model) {
+        Transaction firstTransaction = model.getFilteredTransactionList().get(0);
+        model.deleteTransaction(firstTransaction);
+        model.commitBankAccount();
+    }
+
 }
