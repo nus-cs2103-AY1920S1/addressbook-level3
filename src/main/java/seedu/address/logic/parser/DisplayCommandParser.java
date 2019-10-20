@@ -15,29 +15,6 @@ import seedu.address.model.visual.DisplayIndicator;
 public class DisplayCommandParser implements Parser<DisplayCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DisplayCommand
-     * and returns a DisplayCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public DisplayCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_INDICATOR);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDICATOR) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
-        }
-
-        DisplayIndicator displayIndicator = null;
-        try {
-            displayIndicator = ParserUtil.parseDisplayIndicator(argMultimap.getValue(PREFIX_INDICATOR).get());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE), pe);
-        }
-
-        return new DisplayCommand(displayIndicator);
-    }
-
-    /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
@@ -49,4 +26,23 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DisplayCommand
+     * and returns a DisplayCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public DisplayCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+            ArgumentTokenizer.tokenize(args, PREFIX_INDICATOR);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDICATOR) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
+        }
+
+        DisplayIndicator displayIndicator = null;
+        displayIndicator = ParserUtil.parseDisplayIndicator(argMultimap.getValue(PREFIX_INDICATOR).get());
+
+        return new DisplayCommand(displayIndicator);
+    }
 }

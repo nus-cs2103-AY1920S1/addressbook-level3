@@ -34,6 +34,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -194,7 +195,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Description parseDescription (String description) throws ParseException {
+    public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
         if (!Description.isValidDescription(trimmedDescription)) {
@@ -209,7 +210,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Coverage parseCoverage (String coverage) throws ParseException {
+    public static Coverage parseCoverage(String coverage) throws ParseException {
         requireNonNull(coverage);
         String trimmedCoverage = coverage.trim();
         if (!Coverage.isValidCoverage(trimmedCoverage)) {
@@ -224,7 +225,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static Price parsePrice (String price) throws ParseException {
+    public static Price parsePrice(String price) throws ParseException {
         requireNonNull(price);
         String trimmedPrice = price.trim();
         if (!Price.isValidPrice(trimmedPrice)) {
@@ -239,7 +240,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code startAge} is invalid.
      */
-    public static StartAge parseStartAge (String startAge) throws ParseException {
+    public static StartAge parseStartAge(String startAge) throws ParseException {
         requireNonNull(startAge);
         String trimmedStartAge = startAge.trim();
         if (trimmedStartAge.length() == 0) {
@@ -257,7 +258,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code startAge} is invalid.
      */
-    public static EndAge parseEndAge (String endAge) throws ParseException {
+    public static EndAge parseEndAge(String endAge) throws ParseException {
         requireNonNull(endAge);
         String trimmedEndAge = endAge.trim();
         if (trimmedEndAge.length() == 0) {
@@ -275,14 +276,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code startAge} is invalid.
      */
-    public static DisplayIndicator parseDisplayIndicator (String displayIndicator) throws ParseException {
+    public static DisplayIndicator parseDisplayIndicator(String displayIndicator) throws ParseException {
         requireNonNull(displayIndicator);
         String trimmedDisplayIndicator = displayIndicator.trim();
 
         if (!DisplayIndicator.isValidDisplayIndicator(trimmedDisplayIndicator)) {
-            throw new ParseException(DisplayIndicator.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DisplayIndicator.getMessageConstraints());
         }
         return new DisplayIndicator(trimmedDisplayIndicator);
     }
-
 }

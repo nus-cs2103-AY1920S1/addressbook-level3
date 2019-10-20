@@ -13,9 +13,18 @@ import java.util.StringJoiner;
 public class DisplayIndicator {
 
     public static final String DATA_TYPE = "Indicator";
-    private static final String CONTACT_LIST_GROWTH_RATE = "contact-list-growth-rate";
-    public static final String MESSAGE_CONSTRAINTS = "Only the following are allowed: " + CONTACT_LIST_GROWTH_RATE;
-    private static Set<String> VALID_DISPLAY_INDICATORS = initializeValidDisplayIndicators();
+    public static final String CONTACT_LIST_GROWTH_RATE = "contact-list-growth-rate";
+    public static final String POLICY_POPULARITY_BREAKDOWN = "policy-popularity-breakdown";
+    private static String MESSAGE_CONSTRAINTS = "Only the following indicators are allowed: ";
+    private static Set<String> VALID_DISPLAY_INDICATORS = new HashSet<>();
+
+    static {
+        VALID_DISPLAY_INDICATORS.add(POLICY_POPULARITY_BREAKDOWN);
+        VALID_DISPLAY_INDICATORS.add(CONTACT_LIST_GROWTH_RATE);
+
+        MESSAGE_CONSTRAINTS += getValidDisplayIndicators();
+    }
+
     public final String displayIndicator;
 
     /**
@@ -28,12 +37,6 @@ public class DisplayIndicator {
         this.displayIndicator = displayIndicator;
     }
 
-    private static Set<String> initializeValidDisplayIndicators() {
-        Set<String> validIndicators = new HashSet<>();
-        validIndicators.add(CONTACT_LIST_GROWTH_RATE);
-        return validIndicators;
-    }
-
     /**
      * Returns true if a given string is a valid indicator.
      */
@@ -42,9 +45,13 @@ public class DisplayIndicator {
     }
 
     public static String getValidDisplayIndicators() {
-        StringJoiner result = new StringJoiner(" ");
+        StringJoiner result = new StringJoiner(", ");
         VALID_DISPLAY_INDICATORS.forEach(displayIndicator -> result.add(displayIndicator));
         return result.toString();
+    }
+
+    public static String getMessageConstraints() {
+        return MESSAGE_CONSTRAINTS;
     }
 
     @Override

@@ -106,14 +106,6 @@ public class CommandResult {
         this.displayIndicator = displayIndicator;
     }
 
-    public String getFeedbackToUser() {
-        return feedbackToUser;
-    }
-
-    public DisplayIndicator getDisplayIndicator() {
-        return displayIndicator;
-    }
-
     public boolean isShowHelp() {
         return showHelp;
     }
@@ -144,6 +136,14 @@ public class CommandResult {
 
     public boolean isExpandPolicy() {
         return expandPolicy;
+    }
+
+    public String getFeedbackToUser() {
+        return feedbackToUser;
+    }
+
+    public DisplayIndicator getDisplayIndicator() {
+        return displayIndicator;
     }
 
     public Person getPersonToExpand() {

@@ -19,10 +19,7 @@ public class DisplayCommand extends Command {
         + PREFIX_INDICATOR + "INDICATOR\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_INDICATOR + "contact-list-growth-rate\n"
-        + DisplayIndicator.MESSAGE_CONSTRAINTS;
-
-    // TODO: Change text to state which displayIndicator is displayed
-    public static final String MESSAGE_SUCCESS = "Displayed";
+        + DisplayIndicator.getMessageConstraints();
 
     private final DisplayIndicator displayIndicator;
 
@@ -37,6 +34,7 @@ public class DisplayCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        String MESSAGE_SUCCESS = "Displayed " + displayIndicator + " successfully.";
         return new CommandResult(MESSAGE_SUCCESS, this.displayIndicator);
     }
 }
