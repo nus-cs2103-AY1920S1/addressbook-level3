@@ -25,14 +25,15 @@ import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.util.SampleDataUtil;
 import budgetbuddy.storage.AddressBookStorage;
 import budgetbuddy.storage.JsonAddressBookStorage;
-import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.JsonUserPrefsStorage;
-import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.storage.Storage;
 import budgetbuddy.storage.StorageManager;
 import budgetbuddy.storage.UserPrefsStorage;
+import budgetbuddy.storage.loans.JsonLoansStorage;
+import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.ui.Ui;
 import budgetbuddy.ui.UiManager;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 

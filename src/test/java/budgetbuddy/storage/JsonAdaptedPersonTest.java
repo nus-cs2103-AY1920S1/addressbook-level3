@@ -28,9 +28,6 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = TypicalPersons.BENSON.getName().toString();
-    private static final List<JsonAdaptedLoan> VALID_LOANS =
-            (new ArrayList<Loan>().add(new Loan(TypicalPersons.BENSON, Direction.OUT, new Amount(4L),
-                    new Date(), new Description(""), Status.UNPAID)))
     private static final List<JsonAdaptedTag> VALID_TAGS = TypicalPersons.BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
