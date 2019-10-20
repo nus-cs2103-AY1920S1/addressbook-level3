@@ -11,7 +11,9 @@ import java.util.Set;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
+import seedu.mark.logic.commands.AddAnnotationCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
@@ -181,4 +183,41 @@ public class ParserUtil {
         String formatTime = time.format(formatter);
         return formatTime;
     }
+
+    /**
+     * Parses an offline paragraph identifier string {@code pidString} into a {@code ParagraphIdentifier}.
+     * @param pidString String containing only the identifier
+     * @return The {@code ParagraphIdentifier}
+     * @throws ParseException if the given {@code pidString} is given in an incorrect format.
+     */
+    public static ParagraphIdentifier parseParagraphIdentifier(String pidString) throws ParseException {
+        requireNonNull(pidString);
+
+        ParagraphIdentifier.ParagraphType t;
+        switch (pidString.charAt(0)) {
+        case 's':
+            //fallthrough
+        case 'S':
+            t = ParagraphIdentifier.ParagraphType.STRAY;
+            break;
+        case 'p':
+            //fallthrough
+        case 'P':
+            t = ParagraphIdentifier.ParagraphType.EXIST;
+            break;
+        default:
+            throw new ParseException(AddAnnotationCommand.MESSAGE_CONSTRAINTS);
+        }
+
+        Index idx;
+        try {
+            idx = ParserUtil.parseIndex(pidString.substring(1));
+        } catch (ParseException pe) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+
+        return new ParagraphIdentifier(idx, t);
+    }
+
+
 }

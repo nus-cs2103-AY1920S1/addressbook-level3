@@ -46,4 +46,9 @@ public class AnnotationNote {
                 && ((AnnotationNote) other).content.equals(this.content));
     }
 
+    @Override
+    public int hashCode() {
+        return this.content.hashCode();
+    }
+
 }

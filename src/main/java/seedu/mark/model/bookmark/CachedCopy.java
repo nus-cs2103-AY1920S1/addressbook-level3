@@ -1,6 +1,11 @@
 package seedu.mark.model.bookmark;
 
+import java.util.HashMap;
 import java.util.Objects;
+
+import seedu.mark.model.annotation.Annotation;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.ParagraphIdentifier;
 
 /**
  * Represents a cached copy of the contents of a Bookmark.
@@ -12,6 +17,8 @@ public class CachedCopy {
      */
     public final String html;
 
+    public final OfflineDocument annotations;
+
     /**
      * Instantiates a new CachedCopy.
      *
@@ -19,6 +26,21 @@ public class CachedCopy {
      */
     public CachedCopy(String html) {
         this.html = html;
+        this.annotations = new OfflineDocument(html);
+    }
+
+    /**
+     * Instantiates an existing CachedCopy that has annotations.
+     * @param html the html of the website
+     * @param annotations the saved annotations
+     */
+    public CachedCopy(String html, HashMap<Annotation, ParagraphIdentifier> annotations) {
+        this(html);
+        this.annotations.loadAnnotations(annotations);
+    }
+
+    public OfflineDocument getAnnotations() {
+        return annotations;
     }
 
     @Override

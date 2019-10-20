@@ -14,10 +14,8 @@ public class TrueParagraph extends Paragraph {
     private ParagraphIdentifier id;
     /** Paragraph content. */
     private ParagraphContent content;
-    /** Paragraph highlight. */
-    private Highlight colour;
-    /** Paragraph notes, if any.*/
-    private AnnotationNote note;
+    /** Annotation for paragraph. */
+    private Annotation annotation;
 
     public TrueParagraph(Index id, ParagraphContent content) {
         requireNonNull(id);
@@ -27,28 +25,16 @@ public class TrueParagraph extends Paragraph {
         this.id = pi;
         this.content = content;
 
-        colour = null;
-        note = null;
+        annotation = null;
     }
 
     /**
-     * Adds an annotation with only the highlight.
-     * @param colour The higlight to colour the paragraph
+     * Adds an annotation.
      */
-    public void addAnnotation(Highlight colour) {
-        requireNonNull(colour);
-        this.colour = colour;
-    }
-
-    /**
-     * Adds an annotation with both highlight and note.
-     * @param colour The highlight to colour the paragraph
-     * @param note The note to annotate the paragraph with
-     */
-    public void addAnnotation(Highlight colour, AnnotationNote note) {
-        requireNonNull(note);
-        addAnnotation(colour);
-        this.note = note;
+    @Override
+    public void addAnnotation(Annotation an) {
+        requireNonNull(an);
+        this.annotation = an;
     }
 
     @Override
@@ -63,21 +49,34 @@ public class TrueParagraph extends Paragraph {
 
     @Override
     public boolean hasHighlight() {
-        return colour != null;
+        return annotation != null;
     }
 
     @Override
     public Highlight getHighlight() {
-        return this.colour;
+        return annotation.getHighlight();
     }
 
     @Override
     public boolean hasNote() {
-        return note != null;
+        return annotation != null && annotation.hasNote();
     }
 
     @Override
     public AnnotationNote getNote() {
-        return this.note;
+        return annotation.getNote();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof TrueParagraph)) {
+            return false;
+        } else {
+            return this.id.equals(((TrueParagraph) o).id)
+                    && this.content.equals(((TrueParagraph) o).content)
+                    && this.annotation.equals(((TrueParagraph) o).annotation);
+        }
     }
 }

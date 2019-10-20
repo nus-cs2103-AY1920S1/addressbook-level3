@@ -16,7 +16,6 @@ public abstract class Paragraph {
     public abstract boolean hasNote();
     public abstract AnnotationNote getNote();
 
-    public abstract void addAnnotation(Highlight colour);
-    public abstract void addAnnotation(Highlight colour, AnnotationNote note);
+    public abstract void addAnnotation(Annotation annotation);
 
 }

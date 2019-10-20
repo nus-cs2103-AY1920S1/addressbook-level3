@@ -15,19 +15,16 @@ public class PhantomParagraph extends Paragraph {
     /** Paragraph notes, if any.*/
     private AnnotationNote note;
 
-    public PhantomParagraph(Index id) {
+    public PhantomParagraph(Index id, AnnotationNote note) {
         requireNonNull(id);
 
         ParagraphIdentifier pi = new ParagraphIdentifier(id, ParagraphIdentifier.ParagraphType.STRAY);
         this.id = pi;
+        this.note = note;
     }
 
-    public void addAnnotation(Highlight colour) {
-        //TODO: phantom paragraph implmentation
-    }
-
-    public void addAnnotation(Highlight colour, AnnotationNote note) {
-        //TODO:
+    public void addAnnotation(Annotation an) {
+        assert false : "This method should not be called for phantom paragraphs.";
     }
 
     @Override
@@ -41,12 +38,11 @@ public class PhantomParagraph extends Paragraph {
     }
 
     /**
-     * Vacuously true; phantom paragraph has empty string as content so highlight does not matter.
-     * TODO: rethink bout this
+     * Returns false. Phantom paragraphs can never have highlights. The only possible annotation is a note.
      */
     @Override
     public boolean hasHighlight() {
-        return true;
+        return false;
     }
 
     @Override
@@ -62,5 +58,17 @@ public class PhantomParagraph extends Paragraph {
     @Override
     public AnnotationNote getNote() {
         return this.note;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof PhantomParagraph)) {
+            return false;
+        } else {
+            return this.id.equals(((PhantomParagraph) o).id)
+                    && this.note.equals(((PhantomParagraph) o).note);
+        }
     }
 }

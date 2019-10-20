@@ -243,7 +243,6 @@ public class ModelManager implements Model {
     @Override
     public void updateDocument(OfflineDocument doc) {
         annotatedDocument.setAll(new SortedList<>(
-                //TODO: change this to link to proper offline document
                 FXCollections.observableArrayList(doc.getCollection()), (
                 Paragraph p1, Paragraph p2) -> {
             ParagraphIdentifier pid1 = p1.getId();

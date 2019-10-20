@@ -9,13 +9,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.commons.core.index.Index;
+import seedu.mark.commons.exceptions.IllegalValueException;
 
 /**
  * Represents the offline document (with annotations). An offline document contains content from a cache,
@@ -98,12 +102,17 @@ public class OfflineDocument {
 
     public static final Document OFFLINE_DOC_EXAMPLE = Jsoup.parse(OFFLINE_HTML_EXAMPLE);
 
+    public static final Logger logger = LogsCenter.getLogger(OfflineDocument.class);
+
     /** Paragraphs with notes. */
     private HashMap<ParagraphIdentifier, Paragraph> paragraphs;
+    /** Number of stray notes so far. */
+    private int numStray;
 
     public OfflineDocument(Document doc) {
         requireNonNull(doc);
         this.paragraphs = new HashMap<>();
+        numStray = 0;
         loadDocumentIntoParagraphs(doc);
     }
 
@@ -124,41 +133,38 @@ public class OfflineDocument {
             idx++;
             Paragraph para = new TrueParagraph(Index.fromOneBased(idx), new ParagraphContent(p.text()));
             //TODO: transfrom ROUGH TESTING into tests:
+            /*
             try {
                 para.addAnnotation(Highlight.YELLOW, AnnotationNote.makeNote("this is a note"));
             } catch (Exception e) {
                 //TODO: what to do if fails; change exception class too
                 e.printStackTrace();
             }
+             */
             this.paragraphs.put(para.getId(), para);
         }
     }
 
     /**
      * Loads stored annotations to offline document.
+     * TODO: if time allows -- error message for user if paragraph was auto shifted to stray? (corrupted file)
      */
-    public void loadAnnotations() {
-        //TODO: idk ;-;
+    public void loadAnnotations(HashMap<Annotation, ParagraphIdentifier> annotations) {
+        for (Annotation a : annotations.keySet()) {
+            Paragraph p = paragraphs.get(annotations.get(a));
+            if (p == null) {
+                logger.log(Level.SEVERE, "Annotation was referring to wrong paragraph. Note now stray.");
+                Paragraph newPhantom = new PhantomParagraph(Index.fromOneBased(++numStray), a.getNote());
+                paragraphs.put(newPhantom.getId(), newPhantom);
+                continue;
+            }
+            p.addAnnotation(a);
+        }
     }
 
-    /**
-     * Loads highlight onto specified paragraph.
-     * @param pid The id of the paragrapb to highlight
-     * @param hl The highlight
-     */
-    public void loadAnnotation(ParagraphIdentifier pid, Highlight hl) {
-        paragraphs.get(pid).addAnnotation(hl);
-    }
-
-    /**
-     * Loads both the highlight and note onto specified paragraph.
-     * Note must not be null or blank.
-     * @param pid The id of the paragraph to annotate
-     * @param hl The highlight
-     * @param note The non-empty note
-     */
-    public void loadAnnotation(ParagraphIdentifier pid, Highlight hl, AnnotationNote note) {
-        paragraphs.get(pid).addAnnotation(hl, note);
+    public void addAnnotation(ParagraphIdentifier pid, Annotation an) {
+        Paragraph p = paragraphs.get(pid);
+        p.addAnnotation(an);
     }
 
     /**
