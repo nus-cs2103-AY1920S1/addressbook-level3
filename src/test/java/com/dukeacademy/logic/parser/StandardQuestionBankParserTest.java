@@ -27,7 +27,7 @@ import com.dukeacademy.testutil.QuestionBuilder;
 import com.dukeacademy.testutil.QuestionUtil;
 import com.dukeacademy.testutil.TypicalIndexes;
 
-public class QuestionBankParserTest {
+public class StandardQuestionBankParserTest {
 
     private final QuestionBankParser parser = new QuestionBankParser();
 

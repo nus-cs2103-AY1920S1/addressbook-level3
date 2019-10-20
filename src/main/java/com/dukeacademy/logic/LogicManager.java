@@ -1,4 +1,4 @@
-package com.dukeacademy.logic.question;
+package com.dukeacademy.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,7 +12,7 @@ import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.QuestionBankParser;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.ReadOnlyQuestionBank;
+import com.dukeacademy.model.QuestionBank;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.storage.Storage;
 
@@ -21,15 +21,15 @@ import javafx.collections.ObservableList;
 /**
  * The main LogicManager of the app.
  */
-public class QuestionsLogicManager implements QuestionsLogic {
+public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(QuestionsLogicManager.class);
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final QuestionBankParser questionBankParser;
 
-    public QuestionsLogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         questionBankParser = new QuestionBankParser();
@@ -44,7 +44,7 @@ public class QuestionsLogicManager implements QuestionsLogic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveQuestionBank(model.getQuestionBank());
+            storage.saveQuestionBank(model.getStandardQuestionBank());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,8 +53,8 @@ public class QuestionsLogicManager implements QuestionsLogic {
     }
 
     @Override
-    public ReadOnlyQuestionBank getQuestionBank() {
-        return model.getQuestionBank();
+    public QuestionBank getQuestionBank() {
+        return model.getStandardQuestionBank();
     }
 
     @Override

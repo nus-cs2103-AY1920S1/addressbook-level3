@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.dukeacademy.model.StandardQuestionBank;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.model.QuestionBank;
-import com.dukeacademy.model.ReadOnlyQuestionBank;
 
-public class JsonQuestionBankStorageTest {
+public class JsonStandardQuestionBankStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonQuestionBankStorageTest");
 
     @TempDir
@@ -31,7 +31,7 @@ public class JsonQuestionBankStorageTest {
         assertThrows(NullPointerException.class, () -> readQuestionBank(null));
     }
 
-    private java.util.Optional<ReadOnlyQuestionBank> readQuestionBank(String filePath) throws Exception {
+    private java.util.Optional<QuestionBank> readQuestionBank(String filePath) throws Exception {
         return new JsonQuestionBankStorage(Paths.get(filePath)).readQuestionBank(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -65,28 +65,28 @@ public class JsonQuestionBankStorageTest {
     @Test
     public void readAndSaveQuestionBank_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempQuestionBank.json");
-        QuestionBank original = getTypicalQuestionBank();
+        StandardQuestionBank original = getTypicalQuestionBank();
         JsonQuestionBankStorage
             jsonQuestionBankStorage = new JsonQuestionBankStorage(filePath);
 
         // Save in new file and read back
         jsonQuestionBankStorage.saveQuestionBank(original, filePath);
-        ReadOnlyQuestionBank
+        QuestionBank
             readBack = jsonQuestionBankStorage.readQuestionBank(filePath).get();
-        assertEquals(original, new QuestionBank(readBack));
+        assertEquals(original, new StandardQuestionBank(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addQuestion(HOON);
         original.removeQuestion(ALICE);
         jsonQuestionBankStorage.saveQuestionBank(original, filePath);
         readBack = jsonQuestionBankStorage.readQuestionBank(filePath).get();
-        assertEquals(original, new QuestionBank(readBack));
+        assertEquals(original, new StandardQuestionBank(readBack));
 
         // Save and read without specifying file path
         original.addQuestion(IDA);
         jsonQuestionBankStorage.saveQuestionBank(original); // file path not specified
         readBack = jsonQuestionBankStorage.readQuestionBank().get(); // file path not specified
-        assertEquals(original, new QuestionBank(readBack));
+        assertEquals(original, new StandardQuestionBank(readBack));
 
     }
 
@@ -98,7 +98,7 @@ public class JsonQuestionBankStorageTest {
     /**
      * Saves {@code questionBank} at the specified {@code filePath}.
      */
-    private void saveQuestionBank(ReadOnlyQuestionBank questionBank,
+    private void saveQuestionBank(QuestionBank questionBank,
                                   String filePath) {
         try {
             new JsonQuestionBankStorage(Paths.get(filePath))
@@ -111,6 +111,6 @@ public class JsonQuestionBankStorageTest {
 
     @Test
     public void saveQuestionBank_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveQuestionBank(new QuestionBank(), null));
+        assertThrows(NullPointerException.class, () -> saveQuestionBank(new StandardQuestionBank(), null));
     }
 }

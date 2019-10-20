@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import com.dukeacademy.MainApp;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.util.StringUtil;
-import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.logic.Logic;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -24,12 +24,12 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/dukeacademy-icon.png";
 
-    private QuestionsLogic questionsLogic;
+    private Logic logic;
     private MainWindow mainWindow;
 
-    public UiManager(QuestionsLogic questionsLogic) {
+    public UiManager(Logic logic) {
         super();
-        this.questionsLogic = questionsLogic;
+        this.logic = logic;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, questionsLogic);
+            mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

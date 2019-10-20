@@ -1,6 +1,6 @@
 package com.dukeacademy.testutil;
 
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.StandardQuestionBank;
 import com.dukeacademy.model.question.Question;
 
 /**
@@ -10,25 +10,25 @@ import com.dukeacademy.model.question.Question;
  */
 public class QuestionBankBuilder {
 
-    private QuestionBank questionBank;
+    private StandardQuestionBank standardQuestionBank;
 
     public QuestionBankBuilder() {
-        questionBank = new QuestionBank();
+        standardQuestionBank = new StandardQuestionBank();
     }
 
-    public QuestionBankBuilder(QuestionBank questionBank) {
-        this.questionBank = questionBank;
+    public QuestionBankBuilder(StandardQuestionBank standardQuestionBank) {
+        this.standardQuestionBank = standardQuestionBank;
     }
 
     /**
      * Adds a new {@code Question} to the {@code QuestionBank} that we are building.
      */
     public QuestionBankBuilder withQuestion(Question question) {
-        questionBank.addQuestion(question);
+        standardQuestionBank.addQuestion(question);
         return this;
     }
 
-    public QuestionBank build() {
-        return questionBank;
+    public StandardQuestionBank build() {
+        return standardQuestionBank;
     }
 }

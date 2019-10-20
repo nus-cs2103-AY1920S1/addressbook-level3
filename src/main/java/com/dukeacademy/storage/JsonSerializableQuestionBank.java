@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
+import com.dukeacademy.model.StandardQuestionBank;
 import com.dukeacademy.model.QuestionBank;
-import com.dukeacademy.model.ReadOnlyQuestionBank;
 import com.dukeacademy.model.question.Question;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,7 +37,7 @@ class JsonSerializableQuestionBank {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableQuestionBank}.
      */
-    public JsonSerializableQuestionBank(ReadOnlyQuestionBank source) {
+    public JsonSerializableQuestionBank(QuestionBank source) {
         questions.addAll(source.getQuestionList().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
     }
 
@@ -46,16 +46,16 @@ class JsonSerializableQuestionBank {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public QuestionBank toModelType() throws IllegalValueException {
-        QuestionBank questionBank = new QuestionBank();
+    public StandardQuestionBank toModelType() throws IllegalValueException {
+        StandardQuestionBank standardQuestionBank = new StandardQuestionBank();
         for (JsonAdaptedQuestion jsonAdaptedQuestion : questions) {
             Question question = jsonAdaptedQuestion.toModelType();
-            if (questionBank.hasQuestion(question)) {
+            if (standardQuestionBank.hasQuestion(question)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_QUESTION);
             }
-            questionBank.addQuestion(question);
+            standardQuestionBank.addQuestion(question);
         }
-        return questionBank;
+        return standardQuestionBank;
     }
 
 }

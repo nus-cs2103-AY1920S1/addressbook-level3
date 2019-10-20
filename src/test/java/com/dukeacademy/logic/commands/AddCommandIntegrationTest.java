@@ -27,7 +27,7 @@ public class AddCommandIntegrationTest {
     public void execute_newQuestion_success() {
         Question validQuestion = new QuestionBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getQuestionBank(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getStandardQuestionBank(), new UserPrefs());
         expectedModel.addQuestion(validQuestion);
 
         CommandTestUtil.assertCommandSuccess(new AddCommand(validQuestion), model,
@@ -36,7 +36,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateQuestion_throwsCommandException() {
-        Question questionInList = model.getQuestionBank().getQuestionList().get(0);
+        Question questionInList = model.getStandardQuestionBank().getQuestionList().get(0);
         CommandTestUtil.assertCommandFailure(new AddCommand(questionInList), model,
             AddCommand.MESSAGE_DUPLICATE_QUESTION);
     }

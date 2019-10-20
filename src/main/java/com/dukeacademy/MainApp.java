@@ -11,12 +11,12 @@ import com.dukeacademy.commons.core.Version;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
-import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.logic.question.QuestionsLogicManager;
+import com.dukeacademy.logic.Logic;
+import com.dukeacademy.logic.LogicManager;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
+import com.dukeacademy.model.StandardQuestionBank;
 import com.dukeacademy.model.QuestionBank;
-import com.dukeacademy.model.ReadOnlyQuestionBank;
 import com.dukeacademy.model.ReadOnlyUserPrefs;
 import com.dukeacademy.model.UserPrefs;
 import com.dukeacademy.model.util.SampleDataUtil;
@@ -42,7 +42,7 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    protected QuestionsLogic questionsLogic;
+    protected Logic logic;
     protected Storage storage;
     protected Model model;
     protected Config config;
@@ -66,9 +66,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        questionsLogic = new QuestionsLogicManager(model, storage);
+        logic = new LogicManager(model, storage);
 
-        ui = new UiManager(questionsLogic);
+        ui = new UiManager(logic);
     }
 
     /**
@@ -77,8 +77,8 @@ public class MainApp extends Application {
      * or an empty question bank will be used instead if errors occur when reading {@code storage}'s question bank.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyQuestionBank> addressBookOptional;
-        ReadOnlyQuestionBank initialData;
+        Optional<QuestionBank> addressBookOptional;
+        QuestionBank initialData;
         try {
             addressBookOptional = storage.readQuestionBank();
             if (!addressBookOptional.isPresent()) {
@@ -87,10 +87,10 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleQuestionBank);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty QuestionBank");
-            initialData = new QuestionBank();
+            initialData = new StandardQuestionBank();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
-            initialData = new QuestionBank();
+            initialData = new StandardQuestionBank();
         }
 
         return new ModelManager(initialData, userPrefs);

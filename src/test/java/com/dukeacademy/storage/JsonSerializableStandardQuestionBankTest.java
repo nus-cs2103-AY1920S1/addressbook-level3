@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.commons.util.JsonUtil;
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.StandardQuestionBank;
 import com.dukeacademy.testutil.TypicalQuestions;
 
-public class JsonSerializableQuestionBankTest {
+public class JsonSerializableStandardQuestionBankTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableQuestionBankTest");
     private static final Path TYPICAL_QUESTIONS_FILE = TEST_DATA_FOLDER.resolve("typicalQuestionQuestionBank.json");
@@ -25,10 +25,10 @@ public class JsonSerializableQuestionBankTest {
     public void toModelType_typicalQuestionsFile_success() throws Exception {
         JsonSerializableQuestionBank dataFromFile = JsonUtil.readJsonFile(TYPICAL_QUESTIONS_FILE,
                 JsonSerializableQuestionBank.class).get();
-        QuestionBank questionBankFromFile = dataFromFile.toModelType();
-        QuestionBank typicalQuestionsQuestionBank =
+        StandardQuestionBank standardQuestionBankFromFile = dataFromFile.toModelType();
+        StandardQuestionBank typicalQuestionsStandardQuestionBank =
             TypicalQuestions.getTypicalQuestionBank();
-        assertEquals(questionBankFromFile, typicalQuestionsQuestionBank);
+        assertEquals(standardQuestionBankFromFile, typicalQuestionsStandardQuestionBank);
     }
 
     @Test

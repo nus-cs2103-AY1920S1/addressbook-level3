@@ -13,7 +13,7 @@ import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.commons.util.FileUtil;
 import com.dukeacademy.commons.util.JsonUtil;
 
-import com.dukeacademy.model.ReadOnlyQuestionBank;
+import com.dukeacademy.model.QuestionBank;
 
 /**
  * A class to access QuestionBank data stored as a json file on the hard disk.
@@ -34,7 +34,7 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
     }
 
     @Override
-    public Optional<ReadOnlyQuestionBank> readQuestionBank() throws DataConversionException {
+    public Optional<QuestionBank> readQuestionBank() throws DataConversionException {
         return readQuestionBank(filePath);
     }
 
@@ -44,7 +44,7 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyQuestionBank> readQuestionBank(Path filePath) throws DataConversionException {
+    public Optional<QuestionBank> readQuestionBank(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableQuestionBank> jsonAddressBook = JsonUtil.readJsonFile(
@@ -62,16 +62,16 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
     }
 
     @Override
-    public void saveQuestionBank(ReadOnlyQuestionBank questionBank) throws IOException {
+    public void saveQuestionBank(QuestionBank questionBank) throws IOException {
         saveQuestionBank(questionBank, filePath);
     }
 
     /**
-     * Similar to {@link #saveQuestionBank(ReadOnlyQuestionBank)}.
+     * Similar to {@link #saveQuestionBank(QuestionBank)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveQuestionBank(ReadOnlyQuestionBank questionBank, Path filePath) throws IOException {
+    public void saveQuestionBank(QuestionBank questionBank, Path filePath) throws IOException {
         requireNonNull(questionBank);
         requireNonNull(filePath);
 

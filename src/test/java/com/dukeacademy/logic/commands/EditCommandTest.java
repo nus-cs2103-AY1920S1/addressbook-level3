@@ -12,13 +12,13 @@ import static com.dukeacademy.logic.commands.CommandTestUtil.showQuestionAtIndex
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.dukeacademy.model.StandardQuestionBank;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.core.Messages;
 import com.dukeacademy.commons.core.index.Index;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
-import com.dukeacademy.model.QuestionBank;
 import com.dukeacademy.model.UserPrefs;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.testutil.EditQuestionDescriptorBuilder;
@@ -43,7 +43,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS,
             editedQuestion);
 
-        Model expectedModel = new ModelManager(new QuestionBank(model.getQuestionBank()), new UserPrefs());
+        Model expectedModel = new ModelManager(new StandardQuestionBank(model.getStandardQuestionBank()), new UserPrefs());
         expectedModel.setQuestion(model.getFilteredQuestionList().get(0),
             editedQuestion);
 
@@ -68,7 +68,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS,
             editedQuestion);
 
-        Model expectedModel = new ModelManager(new QuestionBank(model.getQuestionBank()), new UserPrefs());
+        Model expectedModel = new ModelManager(new StandardQuestionBank(model.getStandardQuestionBank()), new UserPrefs());
         expectedModel.setQuestion(lastQuestion, editedQuestion);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -85,7 +85,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS,
             editedQuestion);
 
-        Model expectedModel = new ModelManager(new QuestionBank(model.getQuestionBank()), new UserPrefs());
+        Model expectedModel = new ModelManager(new StandardQuestionBank(model.getStandardQuestionBank()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -103,7 +103,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS,
             editedQuestion);
 
-        Model expectedModel = new ModelManager(new QuestionBank(model.getQuestionBank()), new UserPrefs());
+        Model expectedModel = new ModelManager(new StandardQuestionBank(model.getStandardQuestionBank()), new UserPrefs());
         expectedModel.setQuestion(model.getFilteredQuestionList().get(0),
             editedQuestion);
 
@@ -127,7 +127,7 @@ public class EditCommandTest {
         showQuestionAtIndex(model, TypicalIndexes.INDEX_FIRST_QUESTION);
 
         // edit question in filtered list into a duplicate in question bank
-        Question questionInList = model.getQuestionBank().getQuestionList()
+        Question questionInList = model.getStandardQuestionBank().getQuestionList()
                                        .get(TypicalIndexes.INDEX_SECOND_QUESTION.getZeroBased());
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_QUESTION,
                 new EditQuestionDescriptorBuilder(questionInList).build());
@@ -154,7 +154,7 @@ public class EditCommandTest {
         showQuestionAtIndex(model, TypicalIndexes.INDEX_FIRST_QUESTION);
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_QUESTION;
         // ensures that outOfBoundIndex is still in bounds of question bank list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getQuestionBank().getQuestionList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getStandardQuestionBank().getQuestionList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditQuestionDescriptorBuilder().withTitle(VALID_TITLE_BOB).build());

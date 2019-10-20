@@ -3,7 +3,7 @@ package com.dukeacademy.ui;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.logic.Logic;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -71,7 +71,7 @@ public class CommandBox extends UiPart<Region> {
         /**
          * Executes the command and returns the result.
          *
-         * @see QuestionsLogic#execute(String)
+         * @see Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.StandardQuestionBank;
 import com.dukeacademy.model.question.Question;
 
 /**
@@ -75,8 +75,8 @@ public class TypicalQuestions {
     /**
      * Returns an {@code QuestionBank} with all the typical persons.
      */
-    public static QuestionBank getTypicalQuestionBank() {
-        QuestionBank ab = new QuestionBank();
+    public static StandardQuestionBank getTypicalQuestionBank() {
+        StandardQuestionBank ab = new StandardQuestionBank();
         for (Question question : getTypicalPersons()) {
             ab.addQuestion(question);
         }

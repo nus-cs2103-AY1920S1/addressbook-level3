@@ -48,10 +48,10 @@ public interface Model {
     /**
      * Replaces question bank data with the data in {@code questionBank}.
      */
-    void setQuestionBank(ReadOnlyQuestionBank questionBank);
+    void setStandardQuestionBank(QuestionBank standardQuestionBank);
 
     /** Returns the QuestionBank */
-    ReadOnlyQuestionBank getQuestionBank();
+    QuestionBank getStandardQuestionBank();
 
     /**
      * Returns true if a question with the same identity as {@code question} exists in the question bank.

@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import com.dukeacademy.model.StandardQuestionBank;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.QuestionBank;
-import com.dukeacademy.model.ReadOnlyQuestionBank;
 import com.dukeacademy.model.ReadOnlyUserPrefs;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.testutil.Assert;
@@ -117,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setQuestionBank(ReadOnlyQuestionBank newData) {
+        public void setStandardQuestionBank(QuestionBank newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyQuestionBank getQuestionBank() {
+        public QuestionBank getStandardQuestionBank() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -189,8 +189,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyQuestionBank getQuestionBank() {
-            return new QuestionBank();
+        public QuestionBank getStandardQuestionBank() {
+            return new StandardQuestionBank();
         }
     }
 

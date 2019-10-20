@@ -11,7 +11,7 @@ import com.dukeacademy.commons.core.index.Index;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.CliSyntax;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.StandardQuestionBank;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 import com.dukeacademy.testutil.Assert;
@@ -110,11 +110,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        QuestionBank expectedQuestionBank = new QuestionBank(actualModel.getQuestionBank());
+        StandardQuestionBank expectedStandardQuestionBank = new StandardQuestionBank(actualModel.getStandardQuestionBank());
         List<Question> expectedFilteredList = new ArrayList<>(actualModel.getFilteredQuestionList());
 
         Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedQuestionBank, actualModel.getQuestionBank());
+        assertEquals(expectedStandardQuestionBank, actualModel.getStandardQuestionBank());
         assertEquals(expectedFilteredList, actualModel.getFilteredQuestionList());
     }
     /**

@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new QuestionBank(), new QuestionBank(modelManager.getQuestionBank()));
+        assertEquals(new StandardQuestionBank(), new StandardQuestionBank(modelManager.getStandardQuestionBank()));
     }
 
     @Test
@@ -95,13 +95,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        QuestionBank questionBank = new QuestionBankBuilder().withQuestion(ALICE).withQuestion(BENSON).build();
-        QuestionBank differentQuestionBank = new QuestionBank();
+        StandardQuestionBank standardQuestionBank = new QuestionBankBuilder().withQuestion(ALICE).withQuestion(BENSON).build();
+        StandardQuestionBank differentStandardQuestionBank = new StandardQuestionBank();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(questionBank, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(questionBank, userPrefs);
+        modelManager = new ModelManager(standardQuestionBank, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(standardQuestionBank, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,12 +114,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different questionBank -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentQuestionBank, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentStandardQuestionBank, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getTitle().fullTitle.split("\\s+");
         modelManager.updateFilteredQuestionList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(questionBank, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(standardQuestionBank, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredQuestionList(Model.PREDICATE_SHOW_ALL_QUESTIONS);
@@ -127,6 +127,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setQuestionBankFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(questionBank, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(standardQuestionBank, differentUserPrefs)));
     }
 }

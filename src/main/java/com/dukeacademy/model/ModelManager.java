@@ -21,26 +21,26 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final QuestionBank questionBank;
+    private final StandardQuestionBank standardQuestionBank;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
 
     /**
      * Initializes a ModelManager with the given questionBank and userPrefs.
      */
-    public ModelManager(ReadOnlyQuestionBank questionBank, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(QuestionBank questionBank, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(questionBank, userPrefs);
 
         logger.fine("Initializing with question bank: " + questionBank + " and user prefs " + userPrefs);
 
-        this.questionBank = new QuestionBank(questionBank);
+        this.standardQuestionBank = new StandardQuestionBank(questionBank);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredQuestions = new FilteredList<>(this.questionBank.getQuestionList());
+        filteredQuestions = new FilteredList<>(this.standardQuestionBank.getQuestionList());
     }
 
     public ModelManager() {
-        this(new QuestionBank(), new UserPrefs());
+        this(new StandardQuestionBank(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -81,29 +81,29 @@ public class ModelManager implements Model {
     //=========== QuestionBank ================================================================================
 
     @Override
-    public void setQuestionBank(ReadOnlyQuestionBank questionBank) {
-        this.questionBank.resetData(questionBank);
+    public void setStandardQuestionBank(QuestionBank standardQuestionBank) {
+        this.standardQuestionBank.resetData(standardQuestionBank);
     }
 
     @Override
-    public ReadOnlyQuestionBank getQuestionBank() {
-        return questionBank;
+    public QuestionBank getStandardQuestionBank() {
+        return standardQuestionBank;
     }
 
     @Override
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
-        return questionBank.hasQuestion(question);
+        return standardQuestionBank.hasQuestion(question);
     }
 
     @Override
     public void deleteQuestion(Question target) {
-        questionBank.removeQuestion(target);
+        standardQuestionBank.removeQuestion(target);
     }
 
     @Override
     public void addQuestion(Question question) {
-        questionBank.addQuestion(question);
+        standardQuestionBank.addQuestion(question);
         updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
     }
 
@@ -111,7 +111,7 @@ public class ModelManager implements Model {
     public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
-        questionBank.setQuestion(target, editedQuestion);
+        standardQuestionBank.setQuestion(target, editedQuestion);
     }
 
     //=========== Filtered Question List Accessors =============================================================
@@ -145,7 +145,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return questionBank.equals(other.questionBank)
+        return standardQuestionBank.equals(other.standardQuestionBank)
                 && userPrefs.equals(other.userPrefs)
                 && filteredQuestions.equals(other.filteredQuestions);
     }

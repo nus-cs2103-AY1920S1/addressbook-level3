@@ -22,11 +22,9 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.ListCommand;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.logic.question.QuestionsLogicManager;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
-import com.dukeacademy.model.ReadOnlyQuestionBank;
+import com.dukeacademy.model.QuestionBank;
 import com.dukeacademy.model.UserPrefs;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.storage.JsonQuestionBankStorage;
@@ -34,14 +32,14 @@ import com.dukeacademy.storage.JsonUserPrefsStorage;
 import com.dukeacademy.storage.StorageManager;
 import com.dukeacademy.testutil.QuestionBuilder;
 
-public class QuestionsLogicManagerTest {
+public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
     public Path temporaryFolder;
 
     private Model model = new ModelManager();
-    private QuestionsLogic questionsLogic;
+    private Logic logic;
 
     @BeforeEach
     public void setUp() {
@@ -49,7 +47,7 @@ public class QuestionsLogicManagerTest {
                 new JsonQuestionBankStorage(temporaryFolder.resolve("questionBank.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(questionBankStorage, userPrefsStorage);
-        questionsLogic = new QuestionsLogicManager(model, storage);
+        logic = new LogicManager(model, storage);
     }
 
     @Test
@@ -79,7 +77,7 @@ public class QuestionsLogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(questionBankStorage, userPrefsStorage);
-        questionsLogic = new QuestionsLogicManager(model, storage);
+        logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + TITLE_DESC_AMY + TOPIC_DESC_AMY + STATUS_DESC_AMY
@@ -87,13 +85,13 @@ public class QuestionsLogicManagerTest {
         Question expectedQuestion = new QuestionBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addQuestion(expectedQuestion);
-        String expectedMessage = QuestionsLogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> questionsLogic.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
     /**
@@ -105,7 +103,7 @@ public class QuestionsLogicManagerTest {
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
             Model expectedModel) throws CommandException, ParseException {
-        CommandResult result = questionsLogic.execute(inputCommand);
+        CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
@@ -132,7 +130,7 @@ public class QuestionsLogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getQuestionBank(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getStandardQuestionBank(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -145,7 +143,7 @@ public class QuestionsLogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
-        assertThrows(expectedException, expectedMessage, () -> questionsLogic.execute(inputCommand));
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
 
@@ -159,7 +157,7 @@ public class QuestionsLogicManagerTest {
         }
 
         @Override
-        public void saveQuestionBank(ReadOnlyQuestionBank questionBank, Path filePath) throws IOException {
+        public void saveQuestionBank(QuestionBank questionBank, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

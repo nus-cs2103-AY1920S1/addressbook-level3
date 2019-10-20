@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.core.GuiSettings;
+import com.dukeacademy.model.StandardQuestionBank;
 import com.dukeacademy.model.QuestionBank;
-import com.dukeacademy.model.ReadOnlyQuestionBank;
 import com.dukeacademy.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -56,10 +56,10 @@ public class StorageManagerTest {
          * {@link JsonQuestionBankStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonQuestionBankStorageTest} class.
          */
-        QuestionBank original = getTypicalQuestionBank();
+        StandardQuestionBank original = getTypicalQuestionBank();
         storageManager.saveQuestionBank(original);
-        ReadOnlyQuestionBank retrieved = storageManager.readQuestionBank().get();
-        assertEquals(original, new QuestionBank(retrieved));
+        QuestionBank retrieved = storageManager.readQuestionBank().get();
+        assertEquals(original, new StandardQuestionBank(retrieved));
     }
 
     @Test

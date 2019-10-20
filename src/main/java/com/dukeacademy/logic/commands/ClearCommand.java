@@ -3,7 +3,7 @@ package com.dukeacademy.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.StandardQuestionBank;
 
 /**
  * Clears the question bank.
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setQuestionBank(new QuestionBank());
+        model.setStandardQuestionBank(new StandardQuestionBank());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

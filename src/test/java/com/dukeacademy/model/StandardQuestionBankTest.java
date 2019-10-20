@@ -24,25 +24,25 @@ import com.dukeacademy.testutil.QuestionBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class QuestionBankTest {
+public class StandardQuestionBankTest {
 
-    private final QuestionBank questionBank = new QuestionBank();
+    private final StandardQuestionBank standardQuestionBank = new StandardQuestionBank();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), questionBank.getQuestionList());
+        assertEquals(Collections.emptyList(), standardQuestionBank.getQuestionList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> questionBank.resetData(null));
+        assertThrows(NullPointerException.class, () -> standardQuestionBank.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        QuestionBank newData = getTypicalQuestionBank();
-        questionBank.resetData(newData);
-        assertEquals(newData, questionBank);
+        StandardQuestionBank newData = getTypicalQuestionBank();
+        standardQuestionBank.resetData(newData);
+        assertEquals(newData, standardQuestionBank);
     }
 
     @Test
@@ -54,43 +54,43 @@ public class QuestionBankTest {
         List<Question> newQuestions = Arrays.asList(ALICE, editedAlice);
         QuestionBankStub newData = new QuestionBankStub(newQuestions);
 
-        assertThrows(DuplicateQuestionException.class, () -> questionBank.resetData(newData));
+        assertThrows(DuplicateQuestionException.class, () -> standardQuestionBank.resetData(newData));
     }
 
     @Test
     public void hasQuestion_nullQuestion_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> questionBank.hasQuestion(null));
+        assertThrows(NullPointerException.class, () -> standardQuestionBank.hasQuestion(null));
     }
 
     @Test
     public void hasQuestion_questionNotInAddressBook_returnsFalse() {
-        assertFalse(questionBank.hasQuestion(ALICE));
+        assertFalse(standardQuestionBank.hasQuestion(ALICE));
     }
 
     @Test
     public void hasQuestion_questionInAddressBook_returnsTrue() {
-        questionBank.addQuestion(ALICE);
-        assertTrue(questionBank.hasQuestion(ALICE));
+        standardQuestionBank.addQuestion(ALICE);
+        assertTrue(standardQuestionBank.hasQuestion(ALICE));
     }
 
     @Test
     public void hasQuestion_questionWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        questionBank.addQuestion(ALICE);
+        standardQuestionBank.addQuestion(ALICE);
         Question editedAlice = new QuestionBuilder(ALICE)
             .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
-        assertTrue(questionBank.hasQuestion(editedAlice));
+        assertTrue(standardQuestionBank.hasQuestion(editedAlice));
     }
 
     @Test
     public void getQuestionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> questionBank.getQuestionList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> standardQuestionBank.getQuestionList().remove(0));
     }
 
     /**
      * A stub ReadOnlyQuestionBank whose questions list can violate interface constraints.
      */
-    private static class QuestionBankStub implements ReadOnlyQuestionBank {
+    private static class QuestionBankStub implements QuestionBank {
         private final ObservableList<Question> questions = FXCollections.observableArrayList();
 
         QuestionBankStub(Collection<Question> questions) {

@@ -35,7 +35,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUESTION_SUCCESS,
             questionToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getQuestionBank(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getStandardQuestionBank(), new UserPrefs());
         expectedModel.deleteQuestion(questionToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -59,7 +59,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUESTION_SUCCESS,
             questionToDelete);
 
-        Model expectedModel = new ModelManager(model.getQuestionBank(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getStandardQuestionBank(), new UserPrefs());
         expectedModel.deleteQuestion(questionToDelete);
         showNoQuestion(expectedModel);
 
@@ -72,7 +72,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_QUESTION;
         // ensures that outOfBoundIndex is still in bounds of question bank list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getQuestionBank().getQuestionList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getStandardQuestionBank().getQuestionList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
