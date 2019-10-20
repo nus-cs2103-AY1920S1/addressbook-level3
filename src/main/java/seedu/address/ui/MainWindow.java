@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -229,32 +228,15 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isDisplay()) {
                 DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
-                ObservableMap<String, Integer> data;
-                String title = displayIndicator.toString();
                 DisplayFormat displayFormat = commandResult.getDisplayFormat();
-
-                switch (displayIndicator.value) {
-                case DisplayIndicator.POLICY_POPULARITY_BREAKDOWN:
-                    data = logic.getPolicyPopularityBreakdown();
-                    break;
-                case DisplayIndicator.AGE_GROUP_BREAKDOWN:
-                    data = logic.getAgeGroupBreakdown();
-                    break;
-                case DisplayIndicator.GENDER_BREAKDOWN:
-                    data = logic.getGenderBreakdown();
-                    break;
-                default:
-                    // TODO: display report as default instead
-                    throw new ParseException(DisplayIndicator.getMessageConstraints());
-                }
 
                 displayPlaceHolder.getChildren().clear();
                 switch (displayFormat.value) {
                 case DisplayFormat.PIECHART:
-                    displayPlaceHolder.getChildren().add(new PieChartVisual(data, title).getRoot());
+                    displayPlaceHolder.getChildren().add(new PieChartVisual(logic, displayIndicator).getRoot());
                     break;
                 case DisplayFormat.BARCHART:
-                    displayPlaceHolder.getChildren().add(new BarChartVisual(data, title).getRoot());
+                    displayPlaceHolder.getChildren().add(new BarChartVisual(logic, displayIndicator).getRoot());
                     break;
                 default:
                     throw new ParseException(DisplayFormat.getMessageConstraints());
