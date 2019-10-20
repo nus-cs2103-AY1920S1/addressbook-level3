@@ -2,7 +2,7 @@
   "purchases" : [ {
     "purchasedFood" : {
       "name" : "Carbonara",
-      "price" : "5.00",
+      "price" : "abc",
       "description" : "Italian noodle with cheese and meat",
       "category": "Italian",
       "tagged" : [ "Noodle" ],
@@ -10,7 +10,7 @@
       "openingHours" : "0800 1900",
       "restrictions" : "Contains dairy and pork"
     },
-    "timeOfPurchaseInMillisSinceEpochString" : "abc"
+    "timeOfPurchaseInMillisSinceEpochString" : "1570680000000"
   }, {
     "purchasedFood" : {
       "name" : "Wagyu Donburi with Teh",

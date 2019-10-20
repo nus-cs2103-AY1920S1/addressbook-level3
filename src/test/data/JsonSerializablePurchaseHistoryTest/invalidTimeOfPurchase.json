@@ -10,11 +10,11 @@
       "openingHours" : "fake opening hours",
       "restrictions" : "Contains dairy and pork"
     },
-    "timeOfPurchaseInMillisSinceEpochString" : "1571376665687"
+    "timeOfPurchaseInMillisSinceEpochString" : "abc"
   }, {
     "purchasedFood" : {
       "name" : "Wagyu Donburi with Teh",
-      "price" : "abc",
+      "price" : "17.99",
       "description" : "Japanese rice with wagyu beef, with tea",
       "category": "Japanese",
       "tagged" : [ "Expensive" , "Beef" , "Luxury" ],
