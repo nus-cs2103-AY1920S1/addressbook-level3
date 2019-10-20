@@ -123,7 +123,7 @@ public class ParserUtilTest {
     @Test
     public void parseDates_collectionWithValidDates_returnsDateSet() throws Exception {
         List<Date> actualDateList = ParserUtil.parseDates(Arrays.asList(VALID_DATE_1, VALID_DATE_2));
-        List<Date> expectedDateList = new ArrayList<Date>(Arrays.asList(new Date(VALID_DATE_1),
+        List<Date> expectedDateList = new ArrayList<>(Arrays.asList(new Date(VALID_DATE_1),
             new Date(VALID_DATE_2)));
 
         assertEquals(expectedDateList, actualDateList);
@@ -150,6 +150,35 @@ public class ParserUtilTest {
         String costWithWhitespace = WHITESPACE + VALID_COST + WHITESPACE;
         Cost expectedCost = new Cost(VALID_COST);
         assertEquals(expectedCost, ParserUtil.parseCost(costWithWhitespace));
+    }
+
+    @Test
+    public void parseCosts_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCosts(null));
+    }
+
+    @Test
+    public void parseCosts_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCosts(Collections.singletonList(INVALID_COST)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseCosts(Collections.singletonList("123.000-123.00")));
+    }
+
+    @Test
+    public void parseCosts_validValueWithoutWhitespace_returnsCost() throws Exception {
+        Cost expectedCost = new Cost(VALID_COST);
+        List<Cost> costs = ParserUtil.parseCosts(Collections.singletonList(VALID_COST));
+        assertEquals(1, costs.size());
+        assertEquals(expectedCost, costs.get(0));
+    }
+
+    @Test
+    public void parseCosts_validValueWithWhitespace_returnsTrimmedCost() throws Exception {
+        String costWithWhitespace = WHITESPACE + VALID_COST + WHITESPACE;
+        Cost expectedCost = new Cost(VALID_COST);
+
+        List<Cost> costs = ParserUtil.parseCosts(Collections.singletonList(costWithWhitespace));
+        assertEquals(1, costs.size());
+        assertEquals(expectedCost, costs.get(0));
     }
 
     @Test
