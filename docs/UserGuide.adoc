@@ -245,6 +245,15 @@ user's likes and dislikes (see below).
 
 Format: `recommend`
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of recommendations will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown.]
+|===
+
+[NOTE]
+To clear the recommendations, use the `list` or `add` commands.
+
 ==== Adding Likes and Dislikes
 Users can specify their liked and disliked categories, tags and/or locations. The
 recommendation system (as mentioned above) will then be able to generate more
@@ -272,10 +281,8 @@ Format: `dislike c/Chinese c/Western t/Healthy l/Univeristy Town`
 Example: `dislike c/International t/Spicy l/The Deck l/The Terrace`
 
 [NOTE]
-====
 You cannot add what you have already liked into your current dislikes,
 and vice versa.
-====
 
 ==== Removing Likes and Dislikes
 Users are able to remove their previously added likes and dislikes (if they exist)
