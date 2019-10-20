@@ -58,7 +58,6 @@ public class LogicManager implements Logic {
         // clears log of pending commands until it meets a command that requires further user input
         while (model.hasPendingCommand() && !model.peekPendingCommand().needsInput()) {
             command = model.getPendingCommand(); // first user-inputted command
-            System.out.println(model.peekPendingCommand());
 
             // if next command requires user input, checks if current command is relevant
             if (model.hasPendingCommand()

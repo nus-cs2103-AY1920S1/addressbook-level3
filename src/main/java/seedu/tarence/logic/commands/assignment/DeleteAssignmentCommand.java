@@ -92,28 +92,30 @@ public class DeleteAssignmentCommand extends AssignmentCommand {
             }
         }
 
+        Assignment targetAssignment;
         if (targetAssignIndex.isEmpty()) {
             // format with assignment details
-            boolean isRemoved = targetTutorial.deleteAssignment(new Assignment(
-                assignName.get(),
-                maxScore.get(),
-                startDate.get(),
-                endDate.get()));
+            targetAssignment = new Assignment(
+                    assignName.get(),
+                    maxScore.get(),
+                    startDate.get(),
+                    endDate.get());
+            boolean isRemoved = targetTutorial.deleteAssignment(targetAssignment);
 
             if (!isRemoved) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_IN_TUTORIAL);
             }
         } else {
             // format with assignment index
-            boolean isRemoved = targetTutorial.deleteAssignment(targetAssignIndex.get());
-
-            if (!isRemoved) {
+            try {
+                targetAssignment = targetTutorial.getAssignment(targetAssignIndex.get());
+                targetTutorial.deleteAssignment(targetAssignment);
+            } catch (IndexOutOfBoundsException e) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX);
             }
         }
-
         return new CommandResult(
-                String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, assignName.get()));
+                    String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, targetAssignment.getAssignName()));
     }
 
     /**

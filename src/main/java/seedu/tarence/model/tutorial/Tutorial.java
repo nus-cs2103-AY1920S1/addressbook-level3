@@ -58,6 +58,35 @@ public class Tutorial {
         return students;
     }
 
+    public ModCode getModCode() {
+        return modCode;
+    }
+
+    public Attendance getAttendance() {
+        return attendance;
+    }
+
+    public Assignment getAssignment(Index assignIndex) throws IndexOutOfBoundsException {
+        Set<Assignment> keys = ((TreeMap<Assignment, Map<Student, Integer>>) assignments).navigableKeySet();
+        Integer index = assignIndex.getZeroBased();
+        int i = 0;
+        for (Assignment assignment : keys) {
+            if (index == i) {
+                return assignment;
+            }
+            i++;
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    /**
+     * Adds a Student to a Tutorial.
+     */
+    public void addStudent(Student student) {
+        students.add(student);
+        attendance.addStudent(student);
+    }
+
     /**
      * Replaces the given student {@code target} in the list with {@code editedStudent}.
      * {@code target} must exist in the application.
@@ -70,23 +99,6 @@ public class Tutorial {
             }
         }
     }
-
-    public ModCode getModCode() {
-        return modCode;
-    }
-
-    public Attendance getAttendance() {
-        return attendance;
-    }
-
-    /**
-     * Adds a Student to a Tutorial.
-     */
-    public void addStudent(Student student) {
-        students.add(student);
-        attendance.addStudent(student);
-    }
-
     /**
      * Removes a Student from a Tutorial.
      */
@@ -117,22 +129,6 @@ public class Tutorial {
      */
     public boolean deleteAssignment(Assignment assignment) {
         return assignments.remove(assignment) != null;
-    }
-
-    /**
-     * Removes an Assignment from a Tutorial via its index.
-     */
-    public boolean deleteAssignment(Index assignIndex) {
-        Set<Assignment> keys = ((TreeMap<Assignment, Map<Student, Integer>>) assignments).navigableKeySet();
-        Integer index = assignIndex.getZeroBased();
-        int i = 0;
-        for (Assignment assignment : keys) {
-            if (index == i) {
-                return assignments.remove(assignment) != null;
-            }
-            i++;
-        }
-        return false;
     }
 
     /**

@@ -31,7 +31,7 @@ public class TypicalModules {
      */
     public static Application getTypicalApplication() {
         List<Student> students = TypicalStudents.getTypicalStudents();
-        Tutorial tutorial = new TutorialBuilder().withStudents(students).build();
+        Tutorial tutorial = new TutorialBuilder().withStudents(students).withModCode("CS1101S").build();
         List<Module> modules = new ArrayList<Module>();
         modules.add(CS1101S);
         modules.add(CS2103);

@@ -5,6 +5,7 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.tarence.model.module.exceptions.InvalidTutorialModCodeException;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 
@@ -53,8 +54,15 @@ public class Module {
         }
     }
 
-    public void addTutorial(Tutorial tutorial) {
-        tutorials.add(tutorial);
+    /**
+     * Adds tutorial to module. Throws an error if tutorial does not belong to module
+     */
+    public void addTutorial(Tutorial tutorial) throws InvalidTutorialModCodeException {
+        if (tutorial.getModCode().equals(modCode)) {
+            tutorials.add(tutorial);
+        } else {
+            throw new InvalidTutorialModCodeException();
+        }
     }
 
     /**
