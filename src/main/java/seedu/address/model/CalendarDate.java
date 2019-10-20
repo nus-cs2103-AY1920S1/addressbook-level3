@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Calendar;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -16,6 +18,7 @@ public class CalendarDate {
     }
 
     public void setCalendar(Calendar calendar) {
+        requireNonNull(calendar);
         property.set(calendar);
     }
 
@@ -31,6 +34,6 @@ public class CalendarDate {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CalendarDate // instanceof handles nulls
-                && property.equals(((CalendarDate) other).property));
+                && getCalendar().equals(((CalendarDate) other).getCalendar()));
     }
 }

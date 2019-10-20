@@ -199,7 +199,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setCalendarDate_validCalendarDate_replacesDate() {
+    public void setCalendarDate_validCalendarDate_replacesData() {
         Calendar newCalendar = Calendar.getInstance();
         modelManager.setCalendarDate(newCalendar);
         assertEquals(newCalendar, modelManager.getCalendarDate().getCalendar());
@@ -250,7 +250,6 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new
                 ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, userPrefs)));
 
-
         // different filteredList -> returns false
         String[] keywords = DANIEL.getCustomerName().fullName.split("\\s+");
         modelManager.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
@@ -264,5 +263,11 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new
                 ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentUserPrefs)));
+
+        // different calendar in calendarDate -> returns true
+        Calendar differentCalendar = Calendar.getInstance();
+        modelManagerCopy.setCalendarDate(differentCalendar);
+        assertTrue(modelManager.equals(modelManagerCopy));
+
     }
 }
