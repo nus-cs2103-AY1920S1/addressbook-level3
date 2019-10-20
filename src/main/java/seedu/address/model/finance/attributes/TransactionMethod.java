@@ -8,14 +8,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class TransactionMethod {
 
-    public static final String MESSAGE_CONSTRAINTS = "Transaction methods should be in characters,"
-            + " and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Transaction methods should be in letters,"
+            + "or indicated null with a '\\-', it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the transaction method must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z]+$|\\-";
 
     public final String value;
 

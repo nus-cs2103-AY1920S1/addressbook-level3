@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Category {
 
-    public static final String MESSAGE_CONSTRAINTS = "Category names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Category names can be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String catName;
@@ -26,7 +26,7 @@ public class Category {
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Returns true if a given string is a valid category name.
      */
     public static boolean isValidCatName(String test) {
         return test.matches(VALIDATION_REGEX);
