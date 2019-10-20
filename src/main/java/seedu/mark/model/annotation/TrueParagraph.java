@@ -8,7 +8,7 @@ import seedu.mark.commons.core.index.Index;
  * Represents a paragraph that exists in the cache.
  * TODO: make paragraphs immutable (so observable list does not break)
  */
-public class TrueParagraph implements Paragraph {
+public class TrueParagraph extends Paragraph {
 
     /** Paragraph identifier.*/
     private ParagraphIdentifier id;

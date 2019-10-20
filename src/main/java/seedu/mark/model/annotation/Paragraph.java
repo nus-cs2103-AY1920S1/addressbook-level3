@@ -4,19 +4,19 @@ package seedu.mark.model.annotation;
  * An interface for Paragraphs of offline documents.
  * Paragraphs are to support annotations: highlights and notes.
  */
-public interface Paragraph {
+public abstract class Paragraph {
 
-    public ParagraphIdentifier getId();
+    public abstract ParagraphIdentifier getId();
 
-    public ParagraphContent getParagraphContent();
+    public abstract ParagraphContent getParagraphContent();
 
-    public boolean hasHighlight();
-    public Highlight getHighlight();
+    public abstract boolean hasHighlight();
+    public abstract Highlight getHighlight();
 
-    public boolean hasNote();
-    public AnnotationNote getNote();
+    public abstract boolean hasNote();
+    public abstract AnnotationNote getNote();
 
-    public void addAnnotation(Highlight colour);
-    public void addAnnotation(Highlight colour, AnnotationNote note);
+    public abstract void addAnnotation(Highlight colour);
+    public abstract void addAnnotation(Highlight colour, AnnotationNote note);
 
 }

@@ -110,6 +110,7 @@ public class OfflineDocument {
     public OfflineDocument(String doc) {
         this(Jsoup.parse(doc));
     }
+
     /**
      * Loads Readability4J-parsed html document into their respective paragraphs.
      * Document is fresh from saved cache; no annotations are present.
@@ -124,7 +125,7 @@ public class OfflineDocument {
             Paragraph para = new TrueParagraph(Index.fromOneBased(idx), new ParagraphContent(p.text()));
             //TODO: transfrom ROUGH TESTING into tests:
             try {
-                para.addAnnotation(new Highlight(), AnnotationNote.makeNote("this is a note"));
+                para.addAnnotation(Highlight.YELLOW, AnnotationNote.makeNote("this is a note"));
             } catch (Exception e) {
                 //TODO: what to do if fails; change exception class too
                 e.printStackTrace();
