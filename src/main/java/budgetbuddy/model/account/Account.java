@@ -4,8 +4,8 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import budgetbuddy.model.transaction.TransactionList;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.transaction.TransactionList;
 
 
 /**

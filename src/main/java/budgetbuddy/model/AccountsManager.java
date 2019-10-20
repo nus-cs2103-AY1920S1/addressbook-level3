@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import budgetbuddy.model.account.Account;
-import budgetbuddy.model.account.Name;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
+import budgetbuddy.model.attributes.Name;
 import javafx.collections.ObservableList;
 
 /**

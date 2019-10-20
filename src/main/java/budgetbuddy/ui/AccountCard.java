@@ -1,7 +1,5 @@
 package budgetbuddy.ui;
 
-import java.util.Comparator;
-
 import budgetbuddy.model.account.Account;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
