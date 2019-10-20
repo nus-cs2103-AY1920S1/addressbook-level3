@@ -4,18 +4,23 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * SplitTransaction consists of Amount amount, Date date, int numOfSplits, Amount splitAmount
+ * SplitTransaction consists of Amount amount, Date date, List<Amount> splitAmount, and peopleInvolved
  */
 public class SplitTransaction extends Transaction {
 
     private final List<Amount> splitAmounts;
     private final UniquePersonList peopleInvolved;
 
-    public SplitTransaction(Amount amount, Date date, UniquePersonList people) {
+    public SplitTransaction(Amount amount, Date date, List<Integer> shares, UniquePersonList people) {
         super(amount, date);
-        this.peopleInvolved =
+        this.peopleInvolved = people;
+        int denominator = shares.stream().mapToInt(i -> i).sum();
+        splitAmounts = shares.stream()
+                .map(share -> new Amount((double) share / denominator))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -36,9 +41,8 @@ public class SplitTransaction extends Transaction {
             SplitTransaction splitObj = (SplitTransaction) obj;
             return super.amount.equals(splitObj.amount)
                     && super.date.equals(splitObj.date)
-                    && super.peopleInvolved.equals(splitObj.peopleInvolved)
-                    && numOfSplits == splitObj.numOfSplits
-                    && splitAmount.equals(splitObj.splitAmount);
+                    && peopleInvolved.equals(splitObj.peopleInvolved)
+                    && splitAmounts == splitObj.splitAmounts;
         } else {
             return false;
         }
