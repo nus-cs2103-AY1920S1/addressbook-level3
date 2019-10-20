@@ -2,13 +2,10 @@ package seedu.address.model.wordbanklist;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.JsonWordBankListStorage;
 
 /**
  * Wraps all data at the address-book level

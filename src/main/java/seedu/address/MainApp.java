@@ -20,13 +20,15 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbanklist.WordBankList;
-import seedu.address.storage.*;
+import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonWordBankListStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.WordBankListStorage;
 import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
 import seedu.address.ui.Ui;
@@ -67,8 +69,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getAddressBookFilePath());
-        Path wbStatsPath = StorageManager.getWbStatsStoragePath(userPrefs.getAddressBookFilePath());
+        WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath());
+        Path wbStatsPath = StorageManager.getWbStatsStoragePath(userPrefs.getDataFilePath());
         WordBankStatisticsStorage wbStatsStorage = new JsonWordBankStatisticsStorage(wbStatsPath);
         storage = new StorageManager(wordBankListStorage, userPrefsStorage, wbStatsStorage);
 
@@ -117,13 +119,10 @@ public class MainApp extends Application {
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample WordBank");
             }
-//            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleWordBank);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-//            initialData = new WordBank("Empty WordBank");
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-//            initialData = new WordBank("Empty WordBank");
         }
         WordBankList wbl = (WordBankList) storage.getWordBankList().get();
         return new ModelManager(wbl, userPrefs);

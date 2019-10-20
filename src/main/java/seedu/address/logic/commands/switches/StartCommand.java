@@ -37,9 +37,7 @@ public class StartCommand extends SwitchCommand {
     private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
             + " (Use 'stop' to terminate) Guess the word:";
 
-    public StartCommand() {
-
-    }
+    public StartCommand() {}
 
     @Override
     public ModeEnum check(Model model, ModeEnum mode) throws CommandException {

@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -29,7 +28,7 @@ import seedu.address.statistics.WordBankStatistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private WordBank wordBank = new WordBank("Empty wordbank");
+    private WordBank wordBank = new WordBank("Empty Wordbank");
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
@@ -110,13 +109,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getWordBankFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getDataFilePath();
     }
 
     @Override
-    public void setWordBankFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setWordBankFilePath(Path FilePath) {
+        requireNonNull(FilePath);
+        userPrefs.setDataFilePath(FilePath);
     }
 
     //=========== WordBank ================================================================================

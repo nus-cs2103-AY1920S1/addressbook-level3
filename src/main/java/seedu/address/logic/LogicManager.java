@@ -84,16 +84,13 @@ public class LogicManager implements Logic {
         /*
         Step 12.
         We save game here too.
-        Similar methods to saveAddressBook();
+        Similar methods to saveWordBanks();
          */
         try {
             ReadOnlyWordBank wb = model.getWordBank();
             Path filePath = Paths.get("data/" + wb.getName() + ".json");
-            storage.saveAddressBook(model.getWordBank(), filePath);
-            System.out.println("_____bank" + model.getWordBank().getName());
-            for (Card c : wb.getCardList()) {
-                System.out.println(c);
-            }
+            storage.saveWordBanks(model.getWordBank(), filePath);
+
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

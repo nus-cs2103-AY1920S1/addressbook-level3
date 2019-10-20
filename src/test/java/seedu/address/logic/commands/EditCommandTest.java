@@ -4,36 +4,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ABRA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BUTTERFREE;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUG;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE;
-////import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
-import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-//import seedu.address.commons.core.Messages;
-//import seedu.address.commons.core.index.Index;
-
 import seedu.address.logic.commands.app.ClearCommand;
 import seedu.address.logic.commands.app.EditCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-//import seedu.address.model.card.Card;
-//import seedu.address.model.wordbank.WordBank;
-//import seedu.address.testutil.CardBuilder;
-//import seedu.address.testutil.EditCardDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalWordBank(), new UserPrefs());
+    private Model model = new ModelManager();
 
     //    @Test
     //    public void execute_allFieldsSpecifiedUnfilteredList_success() {

@@ -57,7 +57,7 @@ public class StorageManagerTest {
     //         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
     //         */
     //        WordBank original = getTypicalWordBank();
-    //        storageManager.saveAddressBook(original);
+    //        storageManager.saveWordBanks(original);
     //        ReadOnlyWordBankList retrieved = storageManager.readAddressBook().get();
     //        assertEquals(original, new WordBank(retrieved));
     //    }

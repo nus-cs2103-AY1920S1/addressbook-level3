@@ -69,14 +69,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException {
-        saveAddressBook(addressBook, wordBankListStorage.getWordBankListFilePath());
+    public void saveWordBanks(ReadOnlyWordBank addressBook) throws IOException {
+        saveWordBanks(addressBook, wordBankListStorage.getWordBankListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
+    public void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        wordBankListStorage.saveAddressBook(addressBook, filePath);
+        wordBankListStorage.saveWordBanks(addressBook, filePath);
     }
 
     @Override
@@ -126,6 +126,6 @@ public class StorageManager implements Storage {
      * @param wbPath The path of the wordbank
      */
     public static Path getWbStatsStoragePath(Path wbPath) {
-        return Path.of(wbPath.getParent().toString(), "wbstats", wbPath.getFileName().toString());
+        return Path.of(wbPath.toString(), "wbstats", wbPath.getFileName().toString());
     }
 }

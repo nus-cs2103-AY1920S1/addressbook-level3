@@ -75,7 +75,7 @@ public class JsonWordBankStatisticsStorage implements WordBankStatisticsStorage 
     public void saveWordBankStatistics(WordBankStatistics statistics, Path filePath)
             throws IOException {
         requireAllNonNull(statistics, filePath);
-        File directory = new File(filePath.getParent().toUri());
+        File directory = new File(filePath.toUri());
         if (!directory.exists()) {
             boolean success = directory.mkdir();
             if (!success) {

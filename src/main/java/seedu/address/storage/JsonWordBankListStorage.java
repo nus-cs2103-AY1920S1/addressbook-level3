@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -29,20 +30,32 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonWordBankListStorage.class);
     private ReadOnlyWordBankList rowbl;
 
-    private Path filePath;
+    private Path wordBanksFilePath;
 
-    public JsonWordBankListStorage(Path filePath) {
-        this.filePath = filePath;
+    public JsonWordBankListStorage(Path dataFilePath) {
+        Path dataPath = dataFilePath;
+        Path wordBanksFilePath = Paths.get(dataFilePath.toString(), "wordbanks");
+        try {
+            if (!dataPath.toFile().exists()) {
+                Files.createDirectory(dataPath);
+            }
+            if (!wordBanksFilePath.toFile().exists()) {
+                Files.createDirectory(wordBanksFilePath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.wordBanksFilePath = wordBanksFilePath;
         initWordBankList();
     }
 
     public Path getWordBankListFilePath() {
-        return filePath;
+        return wordBanksFilePath;
     }
 
     @Override
     public Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+        return readAddressBook(wordBanksFilePath);
     }
 
     /**
@@ -71,34 +84,35 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveWordBanks(ReadOnlyWordBank addressBook) throws IOException {
+        saveWordBanks(addressBook, wordBanksFilePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyWordBank)}.
+     * Similar to {@link #saveWordBanks(ReadOnlyWordBank)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
+    public void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableWordBank(addressBook), filePath);
     }
 
+    /**
+     * Initialise word bank list on creation.
+     */
     public void initWordBankList() {
         List<WordBank> wordBankList = new ArrayList<>();
-        String pathString = "data/";
-        File dataDirectory = new File(pathString);
+        File dataDirectory = wordBanksFilePath.toFile();
         String[] pathArray = dataDirectory.list();
 
         for (int i = 0; i < pathArray.length; i++) {
             if (!pathArray[i].endsWith(".json")) {
                 continue;
             }
-            String wordBankPathString = "data/" + pathArray[i];
-            Path wordBankPath = Paths.get(wordBankPathString);
+            Path wordBankPath = Paths.get(wordBanksFilePath.toString() + pathArray[i]);
             try {
                 Optional<ReadOnlyWordBank> wordBank = readAddressBook(wordBankPath);
                 ReadOnlyWordBank wb = wordBank.get();

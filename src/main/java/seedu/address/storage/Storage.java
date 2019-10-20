@@ -46,5 +46,5 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     WordBankListStorage getWordBankListStorage();
 
     @Override
-    void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
+    void saveWordBanks(ReadOnlyWordBank addressBook) throws IOException;
 }

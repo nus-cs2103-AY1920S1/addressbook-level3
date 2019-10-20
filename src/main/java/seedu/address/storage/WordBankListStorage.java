@@ -37,12 +37,12 @@ public interface WordBankListStorage {
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
+    void saveWordBanks(ReadOnlyWordBank addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyWordBank)
+     * @see #saveWordBanks(ReadOnlyWordBank)
      */
-    void saveAddressBook(ReadOnlyWordBank addressBook, Path filePath) throws IOException;
+    void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException;
 
     Optional<ReadOnlyWordBankList> getWordBankList();
 }
