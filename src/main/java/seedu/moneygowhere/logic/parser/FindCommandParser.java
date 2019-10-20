@@ -10,8 +10,10 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.moneygowhere.logic.commands.FindCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
@@ -72,8 +74,9 @@ public class FindCommandParser implements Parser<FindCommand> {
             predicates.add(new RemarkContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         }
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            String tag = argMultimap.getValue(PREFIX_TAG).get();
-            predicates.add(new TagPredicate(tag));
+            List<String> tags = argMultimap.getAllValues(PREFIX_TAG);
+            tags = tags.stream().map(String::trim).collect(Collectors.toList());
+            predicates.add(new TagPredicate(new HashSet<>(tags)));
         }
 
         if (predicates.isEmpty()) {

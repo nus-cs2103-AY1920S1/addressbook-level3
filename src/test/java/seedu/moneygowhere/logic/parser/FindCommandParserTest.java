@@ -17,6 +17,7 @@ import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseS
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -74,7 +75,7 @@ public class FindCommandParserTest {
 
         // Tag
         predicates = new ArrayList<>();
-        predicates.add(new TagPredicate(VALID_TAG_FRIEND));
+        predicates.add(new TagPredicate(Set.of(VALID_TAG_FRIEND)));
         expectedFindCommand = new FindCommand(predicates);
         assertParseSuccess(parser, " " + PREFIX_TAG + VALID_TAG_FRIEND, expectedFindCommand);
     }
