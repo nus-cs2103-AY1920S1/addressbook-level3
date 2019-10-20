@@ -30,7 +30,7 @@ public interface Logic {
     /**
      * Returns the engagement list.
      *
-     * @see Model#getHistoryManager()
+     * @see Model#getEngagementList()
      */
     ReadOnlyEngagementList getEngagementList();
 

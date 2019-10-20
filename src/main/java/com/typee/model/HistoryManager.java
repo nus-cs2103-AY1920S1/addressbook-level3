@@ -5,9 +5,10 @@ import java.util.List;
 
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
+import com.typee.model.engagement.Engagement;
 
 /**
- * {@code AppointmentList} with a list of its previous states.
+ * {@code EngagementList} with a list of its previous states.
  */
 public class HistoryManager extends EngagementList {
 

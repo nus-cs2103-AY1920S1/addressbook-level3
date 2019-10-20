@@ -87,7 +87,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyEngagementList getHistoryManager() {
+    public ReadOnlyEngagementList getEngagementList() {
         return historyManager;
     }
 
