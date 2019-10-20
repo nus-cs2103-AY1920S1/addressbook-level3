@@ -20,6 +20,18 @@ public class ActivityBook {
     }
 
     /**
+     * Returns true if an activity with the same primary key as {@code primaryKey} exists in the activity book.
+     */
+    public boolean hasPrimaryKey(int primaryKey) {
+        for (Activity activity : activityList) {
+            if (activity.getPrimaryKey() == primaryKey) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Creates an ActivityBook using the Activities in the {@code previousActivityBook}
      */
     public ActivityBook(ActivityBook previousActivityBook) {
