@@ -194,14 +194,8 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        System.out.println("++++++++++");
-        System.out.println(wordBank.getName());
-        for (Card c : filteredCards) {
-            System.out.println(c);
-        }
         filteredCards.setPredicate(predicate);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
-        System.out.println("++++++++++");
     }
 
     //=========== WordBankStatistics methods =============================================================

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.game;
+package seedu.address.logic.commands.gameCommands;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GameCommand;

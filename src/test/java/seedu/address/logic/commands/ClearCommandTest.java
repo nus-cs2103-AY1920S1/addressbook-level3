@@ -5,7 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.app.ClearCommand;
+import seedu.address.logic.commands.appCommands.ClearCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 //import seedu.address.model.UserPrefs;

@@ -10,7 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.game.GameCommandResult;
+import seedu.address.logic.commands.gameCommands.GameCommandResult;
 import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 

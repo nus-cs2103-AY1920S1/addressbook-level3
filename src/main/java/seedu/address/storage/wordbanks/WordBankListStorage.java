@@ -31,4 +31,11 @@ public interface WordBankListStorage {
      * @throws IOException if there was any problem writing to the file.
      */
     void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException;
+
+    /**
+     * Add a word bank into the file location
+     *
+     * @param wordBank data. Cannot be null.
+     */
+    void addWordBank(ReadOnlyWordBank wordBank);
 }

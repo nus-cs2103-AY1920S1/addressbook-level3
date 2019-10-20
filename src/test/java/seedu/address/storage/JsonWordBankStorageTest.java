@@ -72,14 +72,14 @@ public class JsonWordBankStorageTest {
 //        assertEquals(original, new WordBank(readBack));
 //
 //        // Modify data, overwrite exiting file, and read back
-//        original.addCard(HOON);
+//        original.addBank(HOON);
 //        original.removePerson(ALICE);
 //        jsonAddressBookStorage.saveWordBanks(original, filePath);
 //        readBack = jsonAddressBookStorage.getWordBank(filePath).get();
 //        assertEquals(original, new WordBank(readBack));
 //
 //        // Save and read without specifying file path
-//        original.addCard(IDA);
+//        original.addBank(IDA);
 //        jsonAddressBookStorage.saveWordBanks(original); // file path not specified
 //        readBack = jsonAddressBookStorage.getWordBank().get(); // file path not specified
 //        assertEquals(original, new WordBank(readBack));

@@ -10,7 +10,7 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 
 /**
- * Selects Bank and swtiches to APP mode if successful
+ * Selects Bank and switches to APP mode if successful
  */
 public class BankCommand extends SwitchCommand {
 

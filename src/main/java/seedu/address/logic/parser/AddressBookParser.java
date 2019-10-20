@@ -7,18 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.app.AddCommand;
-import seedu.address.logic.commands.app.ClearCommand;
-import seedu.address.logic.commands.app.DeleteCommand;
-import seedu.address.logic.commands.app.EditCommand;
-import seedu.address.logic.commands.app.ExitCommand;
-import seedu.address.logic.commands.app.FindCommand;
-import seedu.address.logic.commands.app.HelpCommand;
-import seedu.address.logic.commands.app.ListCommand;
-import seedu.address.logic.commands.game.GuessCommand;
-import seedu.address.logic.commands.game.SkipCommand;
-import seedu.address.logic.commands.game.StopCommand;
-import seedu.address.logic.commands.settings.DifficultyCommand;
+import seedu.address.logic.commands.appCommands.AddCommand;
+import seedu.address.logic.commands.appCommands.ClearCommand;
+import seedu.address.logic.commands.appCommands.DeleteCommand;
+import seedu.address.logic.commands.appCommands.EditCommand;
+import seedu.address.logic.commands.appCommands.ExitCommand;
+import seedu.address.logic.commands.appCommands.FindCommand;
+import seedu.address.logic.commands.appCommands.HelpCommand;
+import seedu.address.logic.commands.appCommands.ListCommand;
+import seedu.address.logic.commands.gameCommands.GuessCommand;
+import seedu.address.logic.commands.gameCommands.SkipCommand;
+import seedu.address.logic.commands.gameCommands.StopCommand;
+import seedu.address.logic.commands.loadCommands.CreateCommand;
+import seedu.address.logic.commands.settingCommands.DifficultyCommand;
 import seedu.address.logic.commands.switches.BankCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.LoadScreenCommand;
@@ -64,6 +65,18 @@ public class AddressBookParser {
 
         case BankCommand.COMMAND_WORD:
             return new BankCommandParser().parse(arguments);
+
+        case CreateCommand.COMMAND_WORD:
+            return new CreateCommandParser().parse(arguments);
+
+//        case ExportCommand.COMMAND_WORD:
+//            return new ExportCommandParser().parse(arguments);
+//
+//        case ImportCommand.COMMAND_WORD:
+//            return new ImportCommandParser().parse(arguments);
+//
+//        case RemoveCommand.COMMAND_WORD:
+//            return new RemoveCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

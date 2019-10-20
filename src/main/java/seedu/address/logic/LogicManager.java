@@ -13,6 +13,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.loadCommands.CreateCommand;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -88,8 +89,12 @@ public class LogicManager implements Logic {
         try {
             ReadOnlyWordBank wb = model.getWordBank();
             Path wordBankListFilePath = storage.getWordBankListFilePath();
-            storage.saveWordBank(wb, wordBankListFilePath);
-
+            if (!wb.getName().equals("Empty Wordbank")) {
+                storage.saveWordBank(wb, wordBankListFilePath);
+            }
+            if (command instanceof CreateCommand) {
+                storage.addWordBank(wb);
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

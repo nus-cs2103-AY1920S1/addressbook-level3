@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.game.GuessCommand;
+import seedu.address.logic.commands.gameCommands.GuessCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -21,7 +21,7 @@ public class StartCommandParser implements Parser<StartCommand> {
         String trimmedArgs = userInput.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GuessCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
         }
         return new StartCommand();
     }

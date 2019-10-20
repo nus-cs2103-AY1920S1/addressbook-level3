@@ -118,6 +118,12 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         JsonUtil.saveJsonFile(new JsonSerializableWordBank(wordBank), wordBankFilePath);
     }
 
+    @Override
+    public void addWordBank(ReadOnlyWordBank wordBank) {
+        WordBankList wbl = (WordBankList) readOnlyWordBankList;
+        wbl.addBank((WordBank) wordBank);
+    }
+
     /**
      * Initialise word bank list on creation.
      */

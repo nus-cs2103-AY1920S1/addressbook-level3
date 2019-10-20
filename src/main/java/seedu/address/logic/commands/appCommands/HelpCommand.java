@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.app;
+package seedu.address.logic.commands.appCommands;
 
 import seedu.address.logic.commands.AppCommand;
 import seedu.address.logic.commands.CommandResult;

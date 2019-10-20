@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 
 /**
@@ -70,6 +71,7 @@ public class WordBankList implements ReadOnlyWordBankList {
     /**
      * Returns true if a card with the same meaning as {@code card} exists in the word bank.
      */
+    @Override
     public boolean hasWordBank(WordBank wordBank) {
         requireNonNull(wordBank);
         return wordBankList.contains(wordBank);
@@ -79,8 +81,8 @@ public class WordBankList implements ReadOnlyWordBankList {
      * Adds a card to the word bank.
      * A card with the same meaning must not already exist in the word bank.
      */
-    public void addCard(WordBank p) {
-        wordBankList.add(p);
+    public void addBank(WordBank wordBank) {
+        wordBankList.add(wordBank);
     }
 
     //    /**

@@ -67,7 +67,7 @@ public class LogicManagerTest {
     //        String addCommand = AddCommand.COMMAND_WORD + WORD_DESC_ABRA + MEANING_DESC_ABRA;
     //        Card expectedPerson = new CardBuilder(ABRA).withTags().build();
     //        ModelManager expectedModel = new ModelManager();
-    //        expectedModel.addCard(expectedPerson);
+    //        expectedModel.addBank(expectedPerson);
     //        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
     //        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     //  }
