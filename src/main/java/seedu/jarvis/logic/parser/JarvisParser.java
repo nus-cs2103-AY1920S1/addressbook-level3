@@ -20,8 +20,12 @@ import seedu.jarvis.logic.commands.cca.AddCcaCommand;
 import seedu.jarvis.logic.commands.cca.DeleteCcaCommand;
 import seedu.jarvis.logic.commands.cca.EditCcaCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
+import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.ListFinancesCommand;
 import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.RemovePaidCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
@@ -35,8 +39,11 @@ import seedu.jarvis.logic.parser.cca.DeleteCcaCommandParser;
 import seedu.jarvis.logic.parser.cca.EditCcaCommandParser;
 import seedu.jarvis.logic.parser.course.LookUpCommandParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.logic.parser.finance.EditInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.RemoveInstallmentCommandParser;
+import seedu.jarvis.logic.parser.finance.RemovePaidCommandParser;
 import seedu.jarvis.logic.parser.finance.SetInstallmentCommandParser;
+import seedu.jarvis.logic.parser.finance.SetPaidCommandParser;
 import seedu.jarvis.logic.parser.history.RedoCommandParser;
 import seedu.jarvis.logic.parser.history.UndoCommandParser;
 import seedu.jarvis.logic.parser.planner.AddTaskCommandParser;
@@ -116,11 +123,23 @@ public class JarvisParser {
         case DeleteTaskCommand.COMMAND_WORD:
             return new DeleteTaskCommandParser().parse(arguments);
 
+        case SetPaidCommand.COMMAND_WORD:
+            return new SetPaidCommandParser().parse(arguments);
+
+        case RemovePaidCommand.COMMAND_WORD:
+            return new RemovePaidCommandParser().parse(arguments);
+
         case SetInstallmentCommand.COMMAND_WORD:
             return new SetInstallmentCommandParser().parse(arguments);
 
         case RemoveInstallmentCommand.COMMAND_WORD:
             return new RemoveInstallmentCommandParser().parse(arguments);
+
+        case EditInstallmentCommand.COMMAND_WORD:
+            return new EditInstallmentCommandParser().parse(arguments);
+
+        case ListFinancesCommand.COMMAND_WORD:
+            return new ListFinancesCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
