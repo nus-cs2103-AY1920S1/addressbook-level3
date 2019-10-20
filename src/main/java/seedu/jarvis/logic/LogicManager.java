@@ -50,6 +50,7 @@ public class LogicManager implements Logic {
 
         // updates model on the latest commands if necessary.
         updateModel(command);
+        saveHistory();
 
         return commandResult;
     }
@@ -61,12 +62,19 @@ public class LogicManager implements Logic {
      * @param command {@code Command} to be checked for having an inverse before it being added to {@code Model} if
      *                               necessary.
      */
-    private void updateModel(Command command) throws CommandException {
+    private void updateModel(Command command) {
         if (!command.hasInverseExecution()) {
             return;
         }
         model.rememberExecutedCommand(command);
+    }
 
+    /**
+     * Saves the history manager to local storage.
+     *
+     * @throws CommandException If there was an {@code IOException} when saving the history manager.
+     */
+    private void saveHistory() throws CommandException {
         try {
             storage.saveHistoryManager(model.getHistoryManager());
         } catch (IOException ioe) {
