@@ -23,6 +23,8 @@ import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExpandPersonCommand;
+import seedu.address.logic.commands.ExpandPolicyCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -66,8 +68,9 @@ public class LogicManager implements Logic {
                 AddTagCommand.COMMAND_WORD, AssignPolicyCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
                 DeleteCommand.COMMAND_WORD, DeletePolicyCommand.COMMAND_WORD, DeletePolicyTagCommand.COMMAND_WORD,
                 DeleteTagCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, EditPolicyCommand.COMMAND_WORD,
-                ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD, FindPolicyCommand.COMMAND_WORD,
-                HelpCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
+                ExitCommand.COMMAND_WORD,ExpandPolicyCommand.COMMAND_WORD, ExpandPersonCommand.COMMAND_WORD,
+                FindCommand.COMMAND_WORD, FindPolicyCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
+                ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
                 UnassignPolicyCommand.COMMAND_WORD);
 
     }
