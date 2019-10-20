@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.assertExerciseCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertDiaryCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.showDiaryAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DIARY;
@@ -45,7 +45,7 @@ public class DeleteDiaryCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDiaryList().size() + 1);
         DeleteDiaryCommand deleteCommand = new DeleteDiaryCommand(outOfBoundIndex);
 
-        assertExerciseCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        assertDiaryCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class DeleteDiaryCommandTest {
 
         DeleteDiaryCommand deleteCommand = new DeleteDiaryCommand(outOfBoundIndex);
 
-        assertExerciseCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        assertDiaryCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test

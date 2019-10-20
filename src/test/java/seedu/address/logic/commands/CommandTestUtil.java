@@ -32,6 +32,7 @@ import seedu.address.logic.commands.exercise.EditExerciseCommand;
 import seedu.address.logic.commands.profile.EditProfileCommand;
 import seedu.address.logic.commands.recipe.EditRecipeCommand;
 import seedu.address.model.Model;
+import seedu.address.model.diary.DiaryRecords;
 import seedu.address.model.diary.components.Diary;
 import seedu.address.model.diary.components.DiaryNameContainsKeywordsPredicate;
 import seedu.address.model.exercise.WorkoutPlanner;
@@ -230,6 +231,24 @@ public class CommandTestUtil {
         assertEquals(expectedWorkoutPlanner, actualModel.getWorkoutPlanner());
         assertEquals(expectedFilteredList, actualModel.getFilteredExerciseList());
     }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - Diary Record, filtered diary list and selected diary in {@code actualModel} remain unchanged
+     */
+    public static void assertDiaryCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        DiaryRecords expectedDiaryRecord = new DiaryRecords(actualModel.getDiaryRecords());
+        List<Diary> expectedDiaryList = new ArrayList<>(actualModel.getFilteredDiaryList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedDiaryRecord, actualModel.getDiaryRecords());
+        assertEquals(expectedDiaryList, actualModel.getFilteredDiaryList());
+    }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s Duke Cooks.
