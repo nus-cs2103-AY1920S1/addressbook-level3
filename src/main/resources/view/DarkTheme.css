@@ -349,6 +349,8 @@
 #colouredTimeslot {
     -fx-effect: dropshadow(gaussian, #222831, 2, 0.0, 3, 3);
     -fx-opacity: 0.85;
+    -fx-border-width: 2;
+    -fx-background-radius: 5;
 }
 
 #commandTypeLabel {

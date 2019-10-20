@@ -8,15 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.*;
 import seedu.address.model.display.detailwindow.DayTimeslot;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.group.GroupName;
@@ -341,9 +337,17 @@ public class ScheduleView extends UiPart<Region> {
             int minutes = duration % 60;
             double heightOfTimeslot = hours * oneHourLength + (minutes / 60.0) * oneHourLength;
             result.setPrefSize(blockWidth, heightOfTimeslot);
-            result.setStyle("-fx-background-color: " + color + "; -fx-border-width: 2; -fx-background-radius: 5;");
+            result.setStyle("-fx-background-color: " + getLinearGradient(color));
             result.setId("colouredTimeslot");
             return result;
+        }
+
+        private String getLinearGradient(String color) {
+            Color lighterTone = Color.web(color).desaturate();
+            String lighterToneHex = "#" + Integer.toHexString(lighterTone.hashCode());
+            String linearGradient = "linear-gradient(" + lighterToneHex + " 0%, " + color + " 20%, "
+                    + color + " 80%, " + lighterToneHex + " 100%);";
+            return linearGradient;
         }
 
         /**
