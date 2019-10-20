@@ -2,14 +2,26 @@ package thrift.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertRedoCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import thrift.commons.core.index.Index;
+import thrift.model.Model;
+import thrift.model.ModelManager;
+import thrift.model.PastUndoableCommands;
+import thrift.model.UserPrefs;
 import thrift.model.tag.Tag;
+import thrift.model.transaction.Expense;
+import thrift.model.transaction.Transaction;
 import thrift.testutil.TagSetBuilder;
 import thrift.testutil.TypicalIndexes;
+import thrift.testutil.TypicalTransactions;
 
 class UntagCommandTest {
 
@@ -39,6 +51,74 @@ class UntagCommandTest {
         assertEquals(updatedExpense.getTags(), model.getFilteredTransactionList().get(0).getTags()); //After
     }
     */
+
+    @Test
+    void undo_undoUntag_success() {
+        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+
+        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
+        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
+        //assuming that untag command untags valid tag
+        Set<Tag> tagSet = new TagSetBuilder("Brunch").build();
+        Set<Tag> updatedTags = new HashSet<>(lastTransaction.getTags());
+        for (Tag tag : tagSet) {
+            updatedTags.remove(tag);
+        }
+        Transaction updatedTransaction = new Expense(lastTransaction.getDescription(), lastTransaction.getValue(),
+                lastTransaction.getRemark(), lastTransaction.getDate(), updatedTags);
+        String expectedMessageOriginal = String.format(UntagCommand.MESSAGE_ORIGINAL_TRANSACTION, lastTransaction);
+        String expectedMessageUpdated = String.format(UntagCommand.MESSAGE_UNTAG_TRANSACTION_SUCCESS,
+                updatedTransaction);
+
+        //tests untag command
+        UntagCommand untagCommand = new UntagCommand(indexLastTransaction, tagSet);
+        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
+        assertCommandSuccess(untagCommand, model, expectedMessageUpdated + expectedMessageOriginal,
+                expectedModel);
+
+        //tests undo command
+        expectedModel.setTransactionWithIndex(indexLastTransaction, lastTransaction);
+        assertUndoCommandSuccess(untagCommand, model, expectedModel);
+    }
+
+    @Test
+    void redo_redoUntag_success() {
+        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+
+        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
+        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
+        //assuming that untag command untags valid tag
+        Set<Tag> tagSet = new TagSetBuilder("Brunch").build();
+        Set<Tag> updatedTags = new HashSet<>(lastTransaction.getTags());
+        for (Tag tag : tagSet) {
+            updatedTags.remove(tag);
+        }
+        Transaction updatedTransaction = new Expense(lastTransaction.getDescription(), lastTransaction.getValue(),
+                lastTransaction.getRemark(), lastTransaction.getDate(), updatedTags);
+        String expectedMessageOriginal = String.format(UntagCommand.MESSAGE_ORIGINAL_TRANSACTION, lastTransaction);
+        String expectedMessageUpdated = String.format(UntagCommand.MESSAGE_UNTAG_TRANSACTION_SUCCESS,
+                updatedTransaction);
+
+        //tests untag command
+        UntagCommand untagCommand = new UntagCommand(indexLastTransaction, tagSet);
+        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
+        assertCommandSuccess(untagCommand, model, expectedMessageUpdated + expectedMessageOriginal,
+                expectedModel);
+
+        //tests undo command
+        expectedModel.setTransactionWithIndex(indexLastTransaction, lastTransaction);
+        assertUndoCommandSuccess(untagCommand, model, expectedModel);
+
+        //tests redo command
+        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
+        assertRedoCommandSuccess(untagCommand, model, expectedModel);
+    }
 
     @Test
     void testEquals() {
