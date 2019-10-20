@@ -1,6 +1,8 @@
 package seedu.address.model.day;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a Day in the travel planner's planner.
@@ -30,8 +32,12 @@ public class Day {
      * Gets all the activities present in {@code Day} and wraps them in ActivityWithTime.
      * @return list of {@code ActivityWithTime} present in {@code Day}
      */
-    public List<ActivityWithTime> getActivitiesWithTime() {
+    public List<ActivityWithTime> getListOfActivityWithTime() {
         return this.timetable.getActivitiesWithTime();
+    }
+
+    public Optional<ActivityWithTime> getActivityWithTime(Date time) {
+        return this.timetable.getActivityWithTimeAtTime(time);
     }
 
     /**

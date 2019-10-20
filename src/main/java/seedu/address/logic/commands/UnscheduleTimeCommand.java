@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -31,6 +33,7 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity unscheduled: %1$s";
     public static final String MESSAGE_DUPLICATE_DAY = "This day already exists in the planner.";
+    public static final String MESSAGE_ACTIVITY_DOES_NOT_EXIST = "Activity does not exist at given time.";
 
     private final Index dayIndex;
     private final TimeInHalfHour startTime;
@@ -80,16 +83,17 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
     /**
      * Creates a new day without the activity that is unscheduled.
      * @param dayToEdit of the contacts in the filtered contacts list to edit
-     * @param startTime of the contacts in the filtered contacts list to edit
+     * @param time of the contacts in the filtered contacts list to edit
      */
-    private Day createUnscheduledActivityDay(Day dayToEdit, TimeInHalfHour startTime) {
-        List<ActivityWithTime> activitiesWithTime = dayToEdit.getActivitiesWithTime();
-        List<ActivityWithTime> editedActivitiesWithTime = new ArrayList<>();
-        for (ActivityWithTime a : activitiesWithTime) {
-            if (!a.getTime().equals(startTime)) {
-                editedActivitiesWithTime.add(a);
-            }
+    private Day createUnscheduledActivityDay(Day dayToEdit, Date time) throws CommandException {
+        List<ActivityWithTime> activitiesWithTime = dayToEdit.getListOfActivityWithTime();
+        Optional<ActivityWithTime> activityAtTime = dayToEdit.getActivityWithTime(time);
+        if (activityAtTime.isPresent()) {
+            activitiesWithTime.remove(activityAtTime.get());
+            return new Day(activitiesWithTime);
+        } else {
+            throw new CommandException(MESSAGE_ACTIVITY_DOES_NOT_EXIST);
         }
-        return new Day(editedActivitiesWithTime);
+
     }
 }

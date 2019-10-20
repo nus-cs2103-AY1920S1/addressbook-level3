@@ -51,13 +51,13 @@ public class Timetable {
         }
     }
 
-    public Optional<Activity> getActivityAtTime(Date time) {
+    public Optional<ActivityWithTime> getActivityWithTimeAtTime(Date time) {
         ActivityWithTime timeToSearch = new ActivityWithTime(createEmptyActivity(), time, time);
         ActivityWithTime floorActivity = this.timetable.floor(timeToSearch);
         if (floorActivity == null) {
             return Optional.empty();
         } else if (floorActivity.getEndTime().compareTo(time) >= 0) {
-            return Optional.of(floorActivity.getActivity());
+            return Optional.of(floorActivity);
         } else {
             return Optional.empty();
         }

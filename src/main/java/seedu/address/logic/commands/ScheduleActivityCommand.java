@@ -96,7 +96,7 @@ public class ScheduleActivityCommand extends ScheduleCommand {
     }
 
     private Day createScheduledActivityDay(Day dayToEdit, ActivityWithTime toAdd) {
-        List<ActivityWithTime> activityList = dayToEdit.getActivitiesWithTime();
+        List<ActivityWithTime> activityList = dayToEdit.getListOfActivityWithTime();
         activityList.add(toAdd);
         return new Day(activityList);
     }
