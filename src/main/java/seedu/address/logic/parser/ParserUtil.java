@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +28,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final DateTimeFormatter DATE_FORMAT_1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static final DateTimeFormatter DATE_FORMAT_2 = DateTimeFormatter.ofPattern("dd-MM-yy");
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -160,6 +165,59 @@ public class ParserUtil {
         return new TimeInHalfHour(hour, min);
     }
 
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static LocalDateTime parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        return parseByDateFormats(trimmedDate, DATE_FORMAT_1, DATE_FORMAT_2);
+    }
+
+    /**
+     * Tries to parse {@code trimmedDate} with the provided {@code dateFormats}.
+     *
+     * @throws ParseException
+     */
+    private static LocalDateTime parseByDateFormats(String trimmedDate, DateTimeFormatter ...dateFormats)
+            throws ParseException {
+        LocalDateTime parsedDate = null;
+        for (DateTimeFormatter format : dateFormats) {
+            try {
+                parsedDate = LocalDateTime.parse(trimmedDate, format);
+                break;
+            } catch (DateTimeParseException ignored) {
+                parsedDate = null;
+            }
+        }
+        if (parsedDate != null) {
+            return parsedDate;
+        } else {
+            throw new ParseException(acceptableDateFormats(dateFormats));
+        }
+    }
+
+    /**
+     * Creates a message of possible date formats with the provided {@code dateFormats}.
+     */
+    private static String acceptableDateFormats(DateTimeFormatter[] dateFormats) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Date needs to be in the following formats: ");
+        boolean isFirst = true;
+        for (DateTimeFormatter format : dateFormats) {
+            if (isFirst) {
+                isFirst = false;
+                sb.append(format.toString());
+            } else {
+                sb.append(", ")
+                        .append(format.toString());
+            }
+        }
+        return sb.toString();
+    }
 
     /**
      * Parses a {@code String duration} into an {@code Integer}.

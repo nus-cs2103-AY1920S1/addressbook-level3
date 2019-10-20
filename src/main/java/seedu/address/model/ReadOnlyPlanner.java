@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -47,6 +47,6 @@ public interface ReadOnlyPlanner {
     /**
      * Returns the start date of the planner.
      */
-    Optional<Date> getStartDate();
+    Optional<LocalDateTime> getStartDate();
 
 }

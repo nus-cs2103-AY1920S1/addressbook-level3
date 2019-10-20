@@ -9,10 +9,12 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +25,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.day.Day;
+import seedu.address.model.field.Name;
 import seedu.address.testutil.ContactBuilder;
 
 public class PlannerTest {
@@ -90,6 +93,8 @@ public class PlannerTest {
      * A stub ReadOnlyPlanner whose contacts list can violate interface constraints.
      */
     private static class PlannerStub implements ReadOnlyPlanner {
+        private final Name name = null;
+        private final LocalDateTime startDate = null;
         private final ObservableList<Accommodation> accommodations = FXCollections.observableArrayList();
         private final ObservableList<Activity> activities = FXCollections.observableArrayList();
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
@@ -116,6 +121,17 @@ public class PlannerTest {
         public ObservableList<Day> getDayList() {
             return days;
         }
+
+        @Override
+        public Optional<Name> getName() {
+            return Optional.ofNullable(this.name);
+        };
+
+        @Override
+        public Optional<LocalDateTime> getStartDate() {
+            return Optional.ofNullable(this.startDate);
+        };
+
     }
 
 }

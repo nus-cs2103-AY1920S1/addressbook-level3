@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -71,7 +71,7 @@ public interface Model {
     /**
      * Replaces planner's start date with {@code startDate}.
      */
-    void setPlannerStartDate(Date startDate);
+    void setPlannerStartDate(LocalDateTime startDate);
 
     /**
      * Returns the Planner

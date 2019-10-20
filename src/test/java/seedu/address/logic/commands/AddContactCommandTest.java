@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
+import seedu.address.model.field.Name;
 import seedu.address.testutil.ContactBuilder;
 
 public class AddContactCommandTest {
@@ -119,6 +121,16 @@ public class AddContactCommandTest {
 
         @Override
         public void setPlanner(ReadOnlyPlanner newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPlannerName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPlannerStartDate(LocalDateTime startDate) {
             throw new AssertionError("This method should not be called.");
         }
 

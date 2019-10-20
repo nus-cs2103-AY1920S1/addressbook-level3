@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -95,8 +94,8 @@ public class ModelManager implements Model {
 
     @Override
     public void setPlanner(ReadOnlyPlanner planner) {
-        planner.getName().ifPresent(n -> this.planner.setName(n));;
-        planner.getStartDate().ifPresent(sd -> this.planner.setStartDate(sd));
+        planner.getName().ifPresent(this.planner::setName);
+        planner.getStartDate().ifPresent(this.planner::setStartDate);
         this.planner.resetDataAccommodation(planner);
         this.planner.resetDataActivity(planner);
         this.planner.resetDataContact(planner);
@@ -109,7 +108,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPlannerStartDate(Date sd) {
+    public void setPlannerStartDate(LocalDateTime sd) {
         this.planner.setStartDate(sd);
     }
 

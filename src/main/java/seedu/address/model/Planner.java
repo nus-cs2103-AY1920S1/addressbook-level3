@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ import seedu.address.model.field.Name;
 public class Planner implements ReadOnlyPlanner {
     private String country;
     private Name name;
-    private Date startDate;
+    private LocalDateTime startDate;
     private final UniqueActivityList activities;
     private final UniqueAccommodationList accommodations;
     private final UniqueContactList contacts;
@@ -49,7 +49,7 @@ public class Planner implements ReadOnlyPlanner {
 
     public Planner() {}
 
-    public Planner(Name name, Date startDate) {
+    public Planner(Name name, LocalDateTime startDate) {
         this.name = name;
         this.startDate = startDate;
     }
@@ -60,7 +60,7 @@ public class Planner implements ReadOnlyPlanner {
     public Planner(ReadOnlyPlanner toBeCopied) {
         this();
         Name copiedName = null;
-        Date copiedStartDate = null;
+        LocalDateTime copiedStartDate = null;
         if (toBeCopied.getName().isPresent()) {
             copiedName = toBeCopied.getName().get();
         }
@@ -80,7 +80,7 @@ public class Planner implements ReadOnlyPlanner {
         return Optional.ofNullable(this.name);
     }
 
-    public Optional<Date> getStartDate() {
+    public Optional<LocalDateTime> getStartDate() {
         return Optional.ofNullable(this.startDate);
     }
 
@@ -88,7 +88,7 @@ public class Planner implements ReadOnlyPlanner {
         this.name = name;
     }
 
-    public void setStartDate(Date date) {
+    public void setStartDate(LocalDateTime date) {
         this.startDate = date;
     }
 
