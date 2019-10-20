@@ -62,6 +62,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
     compile group: 'com.joestelmach', name: 'natty', version: '0.13'
+    compile group: 'org.slf4j', name: 'slf4j-nop', version: '1.7.28'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
