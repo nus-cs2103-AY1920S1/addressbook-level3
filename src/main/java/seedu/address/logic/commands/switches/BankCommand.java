@@ -21,7 +21,7 @@ public class BankCommand extends SwitchCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Loads the bank identified by the name.\n"
             + "Parameters: NAME\n"
-            + "Example: " + COMMAND_WORD + " addressbook";
+            + "Example: " + COMMAND_WORD + " wordbank";
 
     private final String name;
 
@@ -42,12 +42,12 @@ public class BankCommand extends SwitchCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        WordBankList temp = model.getWordBankList();
+        WordBankList wbl = model.getWordBankList();
         WordBankStatisticsList wbStatsList = model.getWordBankStatisticsList();
-        if (temp.getWordBank(this.name) == null) {
-            throw new CommandException("Workbank does not exist");
+        if (wbl.getWordBank(this.name) == null) {
+            throw new CommandException("Work bank does not exist");
         }
-        model.setWordBank(temp.getWordBank(name));
+        model.setWordBank(wbl.getWordBank(name));
         WordBankStatistics wbStats = wbStatsList.getWordBankStatistics(name);
         if (wbStats == null) {
             model.setWordBankStatistics(WordBankStatistics.getEmpty(name));

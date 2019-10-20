@@ -46,7 +46,6 @@ public class StartCommand extends SwitchCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
         if (model.getGame() != null && !model.getGame().isOver()) {
             throw new CommandException(MESSAGE_GAME_IN_PROGRESS
                     + "\n" + model.getGame().getCurrQuestion());

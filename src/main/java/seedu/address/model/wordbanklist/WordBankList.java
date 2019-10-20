@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.WordBank;
 
 /**
@@ -27,8 +28,13 @@ public class WordBankList implements ReadOnlyWordBankList {
     }
 
     public WordBankList(List<WordBank> wbl) {
-        for (WordBank wb : wbl) {
-            wordBankList.add(wb);
+        if (!wbl.isEmpty()) {
+            for (WordBank wb : wbl) {
+                wordBankList.add(wb);
+            }
+        } else {
+            WordBank sampleWb = SampleDataUtil.getSampleWordBank();
+            wordBankList.add(sampleWb);
         }
     }
 
@@ -115,7 +121,6 @@ public class WordBankList implements ReadOnlyWordBankList {
     }
 
     @Override
-    //    public WordBank getWordBank(Index index) {
     public WordBank getWordBank(String name) {
         for (WordBank wb : wordBankList) {
             if (wb.getName().equals(name)) {
@@ -123,7 +128,6 @@ public class WordBankList implements ReadOnlyWordBankList {
             }
         }
         return null;
-        //        return wordBankList.get(index);
     }
 
     @Override

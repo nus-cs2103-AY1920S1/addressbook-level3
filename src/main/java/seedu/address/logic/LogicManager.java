@@ -89,7 +89,7 @@ public class LogicManager implements Logic {
         try {
             ReadOnlyWordBank wb = model.getWordBank();
             Path wordBankListFilePath = storage.getWordBankListFilePath();
-            storage.saveWordBank(model.getWordBank(), wordBankListFilePath);
+            storage.saveWordBank(wb, wordBankListFilePath);
 
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

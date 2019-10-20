@@ -73,7 +73,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
 
         try {
             String pathName = filePath.toString();
-            String wordBankName = pathName.substring(5, pathName.length() - 5);
+            int len = wordBanksFilePath.toString().length();
+            String wordBankName = pathName.substring(len + 1, pathName.length() - 5);
             return Optional.of(jsonAddressBook.get().toModelType(wordBankName));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
@@ -93,8 +94,9 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     public void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException {
         requireNonNull(wordBank);
         requireNonNull(filePath);
-        FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableWordBank(wordBank), filePath);
+        Path wordBankFilePath = Paths.get(filePath.toString(), wordBank.getName() + ".json");
+        FileUtil.createIfMissing(wordBankFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableWordBank(wordBank), wordBankFilePath);
     }
 
     /**
@@ -109,7 +111,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             if (!pathArray[i].endsWith(".json")) {
                 continue;
             }
-            Path wordBankPath = Paths.get(wordBanksFilePath.toString(),pathArray[i]);
+            Path wordBankPath = Paths.get(wordBanksFilePath.toString(), pathArray[i]);
             try {
                 System.out.println(wordBankPath.toString());
                 Optional<ReadOnlyWordBank> wordBank = getWordBank(wordBankPath);
