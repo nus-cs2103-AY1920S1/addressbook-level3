@@ -90,23 +90,13 @@ public interface ItemModel {
 
     public void updateLists();
 
-    //public void setState(ElisaState state);
-
-    //public void setToCurrState();
-
-    //public ElisaState getState();
-
     public ElisaCommandHistory getElisaCommandHistory();
-
-    //public void updateModelLists();
 
     public boolean togglePriorityMode() throws IllegalListException;
 
     public Item markComplete(int index) throws IllegalListException;
 
     public Item markIncomplete(int index) throws IllegalListException;
-
-    //public void updateState();
 
     //Bryan Reminder
     ActiveRemindersList getActiveReminderListProperty();

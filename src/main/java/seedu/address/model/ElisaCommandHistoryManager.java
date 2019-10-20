@@ -24,6 +24,7 @@ public class ElisaCommandHistoryManager implements ElisaCommandHistory {
      * */
     @Override
     public void pushCommand(Command command) {
+        //hema: allow show to be pushed after fixing it
         if (!(command instanceof UndoCommand || command instanceof ExitCommand || command instanceof ShowCommand)) {
             undoStack.push(command);
         }

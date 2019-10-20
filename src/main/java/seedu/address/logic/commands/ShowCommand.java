@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * Switches the current view to the desired view.
@@ -25,6 +26,7 @@ public class ShowCommand extends Command {
 
     private final String targetView;
     private final String targetList;
+    private VisualizeList beforeSwitch;
 
     public ShowCommand(String unprocessedView) {
         String targetView = unprocessedView.toUpperCase();
@@ -51,6 +53,7 @@ public class ShowCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
+        beforeSwitch = model.getVisualList();
         try {
             model.setVisualList(targetList); // should be T/E/R
         } catch (Exception e) {
@@ -61,7 +64,8 @@ public class ShowCommand extends Command {
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-//TODO
+        //TODO
+        model.setVisualizeList(beforeSwitch);
     }
 }
 

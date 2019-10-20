@@ -26,6 +26,10 @@ public class PriorityCommand extends Command {
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-//TODO
+        try {
+            model.togglePriorityMode();
+        } catch (IllegalListException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
+import seedu.address.model.item.VisualizeList;
 
 
 /**
@@ -22,6 +23,8 @@ public class FindCommand extends Command {
 
     private final String[] searchString;
 
+    private VisualizeList beforeFilter;
+
     public FindCommand(String[] searchString) {
         this.searchString = searchString;
     }
@@ -29,6 +32,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) {
         requireNonNull(model);
+        beforeFilter = model.getVisualList().deepCopy();
         model.findItem(searchString);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ITEM_LISTED_OVERVIEW, model.getVisualList().size()));
@@ -36,7 +40,7 @@ public class FindCommand extends Command {
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-        //TODO
+        model.setVisualizeList(beforeFilter);
     }
 
     @Override
