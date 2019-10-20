@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COVERAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CRITERIA;
@@ -10,6 +11,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OFF;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -47,6 +50,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
 import seedu.address.logic.commands.SuggestionCommand;
+import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
@@ -315,7 +319,7 @@ public class ParserUtil {
         return similarPrefixesAndShortestDistance(inputCommand, arguments);
     }
 
-    private static String similarPrefixesAndShortestDistance(String command, String arguments) {
+    private static String similarPrefixesAndShortestDistance(String command, String arguments) throws ParseException {
         ArrayList<String> shortListedCommands = new ArrayList<>();
         boolean hasNoArguments = arguments.length() == 0;
         if (hasNoArguments) {
@@ -362,6 +366,12 @@ public class ParserUtil {
             return getShortestDistanceString(command, shortListedCommands);
         }
 
+        boolean hasOnOrOffPrefix = anyPrefixesPresent(argMultimap, PREFIX_ON, PREFIX_OFF);
+        if (hasOnOrOffPrefix) {
+            shortListedCommands.addAll(getSuggestionCommands());
+            return getShortestDistanceString(command, shortListedCommands);
+        }
+
         boolean hasNoPrefixes = !anyPrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_POLICY, PREFIX_TAG, PREFIX_DESCRIPTION,
                 PREFIX_COVERAGE, PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA);
@@ -371,6 +381,12 @@ public class ParserUtil {
         }
 
         return getShortestDistanceString(command);
+    }
+
+    private static ArrayList<String> getSuggestionCommands() {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add(SuggestionSwitchCommand.COMMAND_WORD);
+        return commandList;
     }
 
     private static ArrayList<String> getNoArgumentCommands() {
@@ -431,22 +447,65 @@ public class ParserUtil {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    private static String getShortestDistanceString(String input) {
+    private static String getShortestDistanceString(String input) throws ParseException {
         return getShortestDistanceString(input, commands);
     }
-    // todo: settle those with equal distances
-    private static String getShortestDistanceString(String input, ArrayList<String> commands) {
-        String commandsThatHaveShortestDistanceAway = "";
+
+    private static String getShortestDistanceString(String input, ArrayList<String> commands) throws ParseException {
+        ArrayList<String> commandsThatHaveShortestDistanceAway = new ArrayList<>();
         int distance = lengthLongerThanAllCommandWords;
         for (int i = 0; i < commands.size(); i++) {
             String originalCommand = commands.get(i);
             int thisDistance = getDistance(input, originalCommand);
             if (thisDistance < distance) {
-                commandsThatHaveShortestDistanceAway = originalCommand;
+                commandsThatHaveShortestDistanceAway.clear();
+                commandsThatHaveShortestDistanceAway.add(originalCommand);
                 distance = thisDistance;
+            } else {
+                commandsThatHaveShortestDistanceAway.add(originalCommand);
             }
         }
-        return commandsThatHaveShortestDistanceAway;
+        if (commandsThatHaveShortestDistanceAway.size() == 1) {
+            return commandsThatHaveShortestDistanceAway.get(0);
+        } else {
+            String suggestion = getNearestSubstring(input, commandsThatHaveShortestDistanceAway);
+            return suggestion;
+        }
+    }
+
+    private static String getNearestSubstring(String input, ArrayList<String> possibleSuggestions) throws ParseException {
+        int longest = 0;
+        String command = "";
+        for (int i = 0; i < possibleSuggestions.size(); i++) {
+            String thisCommand = possibleSuggestions.get(i);
+            int lengthOfSubstring = getLongestSubstring(input, thisCommand);
+            if (lengthOfSubstring > longest) {
+                longest = lengthOfSubstring;
+                command = thisCommand;
+            }
+        }
+        if (longest == 0) {
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, input));
+        }
+        return command;
+    }
+
+    private static int getLongestSubstring(String s1, String s2) {
+        return getLongestSubstring(s1, s2, 0, 0, 0);
+    }
+
+    private static int getLongestSubstring(String s1, String s2, int s1Index, int s2Index, int counter) {
+        if (s1Index >= s1.length() || s2Index >= s2.length()) {
+            return counter;
+        } else {
+            if (s1.charAt(s1Index) == s2.charAt(s2Index)) {
+                return getLongestSubstring(s1, s2, s1Index + 1, s2Index + 1, counter + 1);
+            } else {
+                return Math.max(counter,
+                        Math.max(getLongestSubstring(s1, s2, s1Index + 1, s2Index, 0),
+                                getLongestSubstring(s1, s2, s1Index, s2Index + 1, 0)));
+            }
+        }
     }
 
     private static int getDistance(String input, String originalCommand) {
