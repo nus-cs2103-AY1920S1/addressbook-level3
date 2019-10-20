@@ -27,19 +27,19 @@ public class AddBioCommand extends Command {
 
     public static final String COMMAND_WORD = "addbio";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a user to the address book. "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Adds a user to the address book.\n\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION]"
-            + "[" + PREFIX_NRIC + "NRIC]"
-            + "[" + PREFIX_GENDER + "GENDER]"
-            + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH]"
+            + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION] "
+            + "[" + PREFIX_NRIC + "NRIC] "
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
             + PREFIX_CONTACT_NUMBER + "CONTACT NUMBER... "
             + PREFIX_EMERGENCY_CONTACT + "EMERGENCY CONTACT... "
             + PREFIX_MEDICAL_CONDITION + "MEDICAL CONDITION... "
-            + "[" + PREFIX_ADDRESS + "ADDRESS "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_GOALS + "GOAL]... "
-            + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n"
+            + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PROFILE_DESC + "Sometimes I like to pretend that I'm a carrot. "
@@ -49,17 +49,19 @@ public class AddBioCommand extends Command {
             + PREFIX_CONTACT_NUMBER + "91234567 "
             + PREFIX_EMERGENCY_CONTACT + "98765432 "
             + PREFIX_EMERGENCY_CONTACT + "81234567 "
-            + PREFIX_MEDICAL_CONDITION + "Type II Diabetes"
-            + PREFIX_MEDICAL_CONDITION + "High Blood Pressure"
-            + PREFIX_GOALS + "Lose 10kg by 19/12/2019"
+            + PREFIX_MEDICAL_CONDITION + "Type II Diabetes "
+            + PREFIX_MEDICAL_CONDITION + "High Blood Pressure "
+            + PREFIX_ADDRESS + "Blk 123 Example Rd #99-99 S(612345) "
+            + PREFIX_GOALS + "Lose 10kg by 19/12/2019 "
             + PREFIX_OTHER_BIO_INFO + "Dislikes potatoes";
 
-    public static final String MESSAGE_SUCCESS = "User biography added: %1$s";
+    public static final String MESSAGE_SUCCESS = "I've successfully added your biography with the following "
+            + "information:\n\n%1$s";
     public static final String MESSAGE_BIO_ALREADY_EXISTS = "Oops! There is already an existing biography. "
             + "Try using the ["
             + ClearBioCommand.COMMAND_WORD + "] , ["
-            + EditBioCommand.COMMAND_WORD + "]' or the ["
-            + BioCommand.COMMAND_WORD + "]  command to clear, edit or view existing biography respectively instead";
+            + EditBioCommand.COMMAND_WORD + "] or the ["
+            + BioCommand.COMMAND_WORD + "]  command to clear, edit or view existing biography respectively instead.";
 
     private final User toAdd;
 
@@ -79,8 +81,13 @@ public class AddBioCommand extends Command {
             throw new CommandException(MESSAGE_BIO_ALREADY_EXISTS);
         }
 
+        StringBuilder addedFields = new StringBuilder();
+
         model.addUser(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        toAdd.getFieldMap().forEach((key, value) -> addedFields.append("- ").append(key).append(": ")
+                .append(value).append("\n"));
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, addedFields.toString().trim()));
     }
 
     @Override

@@ -49,10 +49,11 @@ public class EditBioCommand extends Command {
 
     public static final String COMMAND_WORD = "editbio";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the user identified "
-            + "by the index number used in the displayed user list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Edits the user's bio "
+            + "either by overwriting all existing values, OR by specifying positive indexes for individual values for "
+            + "fields that can hold multiple values. Fields that can hold multiple values are limited to "
+            + "contact numbers, emergency contacts, medical conditions and goals.\n\n"
+            + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION] "
             + "[" + PREFIX_NRIC + "NRIC] "
@@ -63,12 +64,16 @@ public class EditBioCommand extends Command {
             + "[" + PREFIX_MEDICAL_CONDITION + "[INDEX/]MEDICAL CONDITION]... "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_GOALS + "[INDEX/]GOALS]... "
-            + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CONTACT_NUMBER + "91234567 "
-            + PREFIX_MEDICAL_CONDITION + "Type I diabetes";
+            + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n\n"
+            + "Example: " + COMMAND_WORD + PREFIX_PROFILE_DESC + "The world has changed, just like my "
+            + "profile description has. "
+            + PREFIX_CONTACT_NUMBER + "91234567 " + PREFIX_CONTACT_NUMBER + "98765432 "
+            + PREFIX_MEDICAL_CONDITION + "1/Type I diabetes " + PREFIX_MEDICAL_CONDITION + "2/High Blood Pressure";
 
-    public static final String MESSAGE_EDIT_USER_SUCCESS = "Edited biography for: %1$s";
+    public static final String MESSAGE_EDIT_USER_SUCCESS = "I've edited your bio successfully! %1$s";
+    public static final String MESSAGE_CHANGES_MADE = "The following changes were made.\n\n%1$s";
+    public static final String MESSAGE_NO_CHANGE = "The information that you've keyed in are no different from "
+            + "what already exists in your current biography! As such, there's nothing for me to update :)";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_BIOGRAPHY_DOES_NOT_EXIST = "Oops! Biography does not exist!"
             + " Try using the [" + AddBioCommand.COMMAND_WORD + "] command to add a new biography.";
@@ -88,7 +93,6 @@ public class EditBioCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<User> lastShownList = model.getFilteredUserList();
-        List<User> originalList = List.copyOf(lastShownList);
 
         try {
             User userToEdit = lastShownList.get(0);
@@ -100,9 +104,18 @@ public class EditBioCommand extends Command {
 
             model.setUser(userToEdit, editedUser);
             model.updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
-            List<User> newList = lastShownList;
 
-            return new CommandResult(String.format(MESSAGE_EDIT_USER_SUCCESS, editedUser));
+            StringBuilder editedFields = new StringBuilder();
+            HashMap<String, List<String>> changedDifferences = userToEdit.getDifferencesTo(editedUser);
+
+            changedDifferences.forEach((key, beforeAndAfter) -> editedFields.append("- ")
+                    .append(key).append(": from ").append(beforeAndAfter.get(0)).append(" to ")
+                    .append(beforeAndAfter.get(1)).append("\n"));
+
+            return new CommandResult(changedDifferences.size() == 0
+                    ? MESSAGE_NO_CHANGE
+                    : String.format(MESSAGE_EDIT_USER_SUCCESS,
+                    String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())));
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException(MESSAGE_BIOGRAPHY_DOES_NOT_EXIST);
         }
