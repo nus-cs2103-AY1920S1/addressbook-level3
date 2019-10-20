@@ -30,7 +30,7 @@ public class TypicalBodies {
             .withCauseOfDeath("Stroke")
             .withOrgansForDonation("")
             .withStatus("PENDING CLAIM")
-            .withFridgeId("")
+            .withFridgeId("1")
             .withDateOfBirth("03/09/1982")
             .withDateOfDeath("01/01/1991")
             .withNextOfKin("Ben Joseph")
@@ -47,7 +47,7 @@ public class TypicalBodies {
             .withCauseOfDeath("NECROSIS")
             .withOrgansForDonation("")
             .withStatus("ARRIVED")
-            .withFridgeId("F02")
+            .withFridgeId("2")
             .withDateOfBirth("02/09/1982")
             .withDateOfDeath("01/06/1971")
             .withNextOfKin("Ben Chachki")
@@ -57,9 +57,9 @@ public class TypicalBodies {
 
     // Manually added - Workers's details found in {@code CommandTestUtil}
     public static final Body JOHN = new BodyBuilder().withName(VALID_NAME_JOHN).withSex(VALID_SEX_JOHN)
-        .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JOHN).withDateOfDeath(VALID_DATE_OF_DEATH_JOHN).build();
+            .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JOHN).withDateOfDeath(VALID_DATE_OF_DEATH_JOHN).build();
     public static final Body JANE = new BodyBuilder().withName(VALID_NAME_JANE).withSex(VALID_SEX_JANE)
-        .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JANE).withDateOfDeath(VALID_DATE_OF_DEATH_JANE).build();
+            .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JANE).withDateOfDeath(VALID_DATE_OF_DEATH_JANE).build();
 
     private TypicalBodies() {
     } // prevents instantiation

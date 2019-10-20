@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_I
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_WORKER_ID_NUM;
+import static seedu.address.testutil.TypicalIdentificationNumbers.THIRD_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMMAND;
 
@@ -60,7 +61,9 @@ public class DeleteCommandTest {
                 expectedBodyModel.deleteEntity(body);
 
                 assertCommandSuccess(deleteBodyCommand, model, expectedBodyMessage, expectedBodyModel);
-                checkIsBodyRemovedFromFridge(body);
+                if (!body.getFridgeId().equals(Optional.empty())) {
+                    checkIsBodyRemovedFromFridge(body);
+                }
                 break;
             }
         }
@@ -85,9 +88,9 @@ public class DeleteCommandTest {
         // Delete Fridge
         List<Fridge> fridgeList = model.getFilteredFridgeList();
         for (Fridge fridge : fridgeList) {
-            if (fridge.getIdNum().equals(FIRST_FRIDGE_ID_NUM)) {
+            if (fridge.getIdNum().equals(THIRD_FRIDGE_ID_NUM)) {
                 DeleteCommand deleteFridgeCommand = new DeleteCommand(
-                        Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "f");
+                        Index.fromZeroBased(THIRD_FRIDGE_ID_NUM.getIdNum()), "f");
                 String expectedFridgeMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, fridge);
 
                 ModelManager expectedFridgeModel = new ModelManager(model.getAddressBook(), new UserPrefs());

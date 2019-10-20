@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -60,7 +61,9 @@ public class DeleteCommand extends UndoableCommand {
             for (Body body : lastShownList) {
                 if (body.getIdNum().equals(targetIdNum)) {
                     entityToDelete = body;
-                    removeBodyFromFridge(body, model);
+                    if (!body.getFridgeId().equals(Optional.empty())) {
+                        removeBodyFromFridge(body, model);
+                    }
                     break;
                 }
             }
