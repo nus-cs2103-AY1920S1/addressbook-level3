@@ -45,6 +45,6 @@ public class UpdateGmapsSerialization {
     }
 
     public static void main(String[] args) throws ConnectException, TimeBookInvalidState {
-        UpdateGmapsSerialization.updateLocationGraph();
+        UpdateGmapsSerialization.updateProcessVenues();
     }
 }
