@@ -366,8 +366,9 @@ and `youtubeBookmarks.json`.
 Creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
-Format: `*autotag* TAG_NAME [n/NAME_KEYWORD] [nn/NOT_NAME_KEYWORD] [u/URL_KEYWORD]
-[nu/NOT_URL_KEYWORD] [f/FOLDER] [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
+Format: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [nn/NOT_NAME_KEYWORD]...
+[u/URL_KEYWORD]... [nu/NOT_URL_KEYWORD]... [f/FOLDER] [nf/NOT_FOLDER]...
+[t/TAG]... [nt/NOT_TAG]...`
 
 ****
 * At least one condition (`n/`, `nn/`, `u/`,

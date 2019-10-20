@@ -20,7 +20,7 @@ public class AutotagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates an automatic tagger that tags bookmarks which match the given conditions. At least one "
             + "condition must be specified.\n"
-            + "Parameters: TAG_NAME [n/NAME_KEYWORD] [u/URL_KEYWORD]\n"
+            + "Parameters: TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]...\n"
             + "Example: " + COMMAND_WORD + " StackOverflow u/stackoverflow.com";
 
     public static final String MESSAGE_AUTOTAG_ADDED = "An autotag was added successfully: %1$s";
