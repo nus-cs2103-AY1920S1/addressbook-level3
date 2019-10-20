@@ -37,7 +37,7 @@ public class ModelManager implements Model {
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
-    private final ObservableList<Purchase> purchaseHistory;
+    private final PurchaseHistory purchaseHistory;
     private final RecommendationSystem recommendationSystem;
     private final CustomSorter customSorter;
 
@@ -45,7 +45,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given menu and userPrefs.
      */
     public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
-                        CustomSorter customSorter) {
+                        ReadOnlyPurchaseHistory purchaseHistory, CustomSorter customSorter) {
         super();
         requireAllNonNull(menu, userPrefs);
 
@@ -54,15 +54,16 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
-        purchaseHistory = this.menu.getPurchaseHistory();
 
         this.recommendationSystem = new RecommendationSystem();
         this.recommendationSystem.setUserRecommendations(userRecs);
+
+        this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.customSorter = customSorter;
     }
 
     public ModelManager() {
-        this(new Menu(), new UserPrefs(), new UserRecommendations(), new CustomSorter());
+        this(new Menu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(), new CustomSorter());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -98,6 +99,17 @@ public class ModelManager implements Model {
     public void setMenuFilePath(Path menuFilePath) {
         requireNonNull(menuFilePath);
         userPrefs.setMenuFilePath(menuFilePath);
+    }
+
+    @Override
+    public Path getPurchaseHistoryFilePath() {
+        return userPrefs.getPurchaseHistoryFilePath();
+    }
+
+    @Override
+    public void setPurchaseHistoryFilePath(Path menuFilePath) {
+        requireNonNull(menuFilePath);
+        userPrefs.setPurchaseHistoryFilePath(menuFilePath);
     }
 
     //=========== Menu ================================================================================
@@ -144,24 +156,29 @@ public class ModelManager implements Model {
     //=========== PurchaseHistory Methods =========================================================================
 
     @Override
+    public ReadOnlyPurchaseHistory getPurchaseHistory() {
+        return purchaseHistory;
+    }
+
+    @Override
     public void addPurchase(Purchase target) {
-        menu.addPurchase(target);
+        purchaseHistory.addPurchase(target);
     }
 
     @Override
     public void removePurchase(Purchase target) {
-        menu.removePurchase(target);
+        purchaseHistory.removePurchase(target);
     }
 
-    //=========== Filtered Purchase List Accessors =============================================================
+    //=========== PurchaseHistory List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the {@code PurchaseHistory} backed by the internal list of
      * {@code versionedMenu}
      */
     @Override
-    public ObservableList<Purchase> getPurchaseHistory() {
-        return purchaseHistory;
+    public ObservableList<Purchase> getPurchaseHistoryList() {
+        return purchaseHistory.getPurchaseHistoryList();
     }
 
     //=========== Wallet Accessors =========================================================================

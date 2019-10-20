@@ -14,8 +14,9 @@ import seedu.savenus.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path menuFilePath = Paths.get("data" , "savenus.json");
+    private Path menuFilePath = Paths.get("data" , "savenus-menu.json");
     private Path recsFilePath = Paths.get("data" , "savenus-recs.json");
+    private Path purchaseHistoryFilePath = Paths.get("data" , "savenus-purchases.json");
     private Path sortFilePath = Paths.get("data" , "savenus-sort.json");
 
     /**
@@ -38,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setMenuFilePath(newUserPrefs.getMenuFilePath());
+        setPurchaseHistoryFilePath(newUserPrefs.getPurchaseHistoryFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -67,6 +69,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.recsFilePath = recsFilePath;
     }
 
+    public Path getPurchaseHistoryFilePath() {
+        return purchaseHistoryFilePath;
+    }
+
+    public void setPurchaseHistoryFilePath(Path purchaseHistoryFilePath) {
+        requireNonNull(recsFilePath);
+        this.purchaseHistoryFilePath = purchaseHistoryFilePath;
+    }
+
     public Path getSortFilePath() {
         return sortFilePath;
     }
@@ -90,12 +101,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && menuFilePath.equals(o.menuFilePath)
                 && recsFilePath.equals(o.recsFilePath)
+                && purchaseHistoryFilePath.equals(o.purchaseHistoryFilePath)
                 && sortFilePath.equals(o.sortFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, menuFilePath, recsFilePath, sortFilePath);
+        return Objects.hash(guiSettings, menuFilePath, recsFilePath, purchaseHistoryFilePath, sortFilePath);
     }
 
     @Override
@@ -104,6 +116,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + menuFilePath);
         sb.append("\nRecommendations data file location : " + recsFilePath);
+        sb.append("\nPurchase History data file location : " + purchaseHistoryFilePath);
         sb.append("\nCustomSort data file location : " + sortFilePath);
         return sb.toString();
     }

@@ -46,6 +46,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveMenu(model.getMenu());
             storage.saveRecs(model.getRecommendationSystem().getUserRecommendations());
+            storage.savePurchaseHistory(model.getPurchaseHistory());
             storage.saveFields(model.getCustomSorter());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -65,13 +66,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Purchase> getPurchaseHistory() {
-        return model.getPurchaseHistory();
+    public ObservableList<Purchase> getPurchaseHistoryList() {
+        return model.getPurchaseHistoryList();
     }
 
     @Override
     public Path getMenuFilePath() {
         return model.getMenuFilePath();
+    }
+
+    @Override
+    public Path getPurchaseHistoryFilePath() {
+        return model.getPurchaseHistoryFilePath();
     }
 
     @Override

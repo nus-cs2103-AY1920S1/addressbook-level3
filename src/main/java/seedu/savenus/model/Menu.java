@@ -3,13 +3,10 @@ package seedu.savenus.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
-import seedu.savenus.model.purchase.Purchase;
-import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
@@ -20,7 +17,6 @@ public class Menu implements ReadOnlyMenu {
 
     private final UniqueFoodList foods;
     private final Wallet wallet;
-    private final PurchaseHistory purchaseHistory;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -32,7 +28,6 @@ public class Menu implements ReadOnlyMenu {
     {
         foods = new UniqueFoodList();
         wallet = new Wallet();
-        purchaseHistory = new PurchaseHistory();
     }
 
     public Menu() {}
@@ -63,7 +58,6 @@ public class Menu implements ReadOnlyMenu {
 
         setFoods(newData.getFoodList());
         setWallet(newData.getWallet());
-        setPurchaseHistory(newData.getPurchaseHistory());
     }
 
     //// food-level operations
@@ -104,13 +98,6 @@ public class Menu implements ReadOnlyMenu {
         foods.remove(key);
     }
 
-    /**
-     * Buy {@code food}
-     */
-    public void buyFood(Food food) {
-        // Todo
-    }
-
     //// wallet operations
 
     /**
@@ -128,32 +115,6 @@ public class Menu implements ReadOnlyMenu {
         return wallet;
     }
 
-    //// Purchase operations
-
-    /**
-     * Set user's {@code PurchaseHistory}.
-     */
-    public void setPurchaseHistory(List<Purchase> purchaseHistory) {
-        this.purchaseHistory.setPurchases(purchaseHistory);
-    }
-
-    /**
-     * Buy food (Adds food to user's {@code PurchaseHistory}).
-     */
-    public void addPurchase(Purchase purchase) {
-        purchaseHistory.add(purchase);
-    }
-
-    /**
-     * Remove food (Remove food in user's {@code PurchaseHistory}).
-     */
-    public void removePurchase(Purchase purchase) {
-        List<Purchase> currentPurchaseHistory = getPurchaseHistory().stream().collect(Collectors.toList());
-        currentPurchaseHistory.remove(purchase);
-        setPurchaseHistory(currentPurchaseHistory);
-    }
-
-
     //// util methods
     @Override
     public String toString() {
@@ -167,19 +128,11 @@ public class Menu implements ReadOnlyMenu {
         return foods.asUnmodifiableObservableList();
     }
 
-    /**
-     * Get user's {@code PurchaseHistory}.
-     */
-    public ObservableList<Purchase> getPurchaseHistory() {
-        return purchaseHistory.asUnmodifiableObservableList();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Menu // instanceof handles nulls
                 && foods.equals(((Menu) other).foods))
-                && purchaseHistory.equals(((Menu) other).purchaseHistory)
                 && wallet.equals(((Menu) other).wallet);
     }
 
