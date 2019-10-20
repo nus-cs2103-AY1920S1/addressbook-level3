@@ -4,5 +4,9 @@
     "date": "1/1/2019",
     "remark": "Likes to watch movies",
     "cost": "4"
+  } ],
+  "reminders" : [ {
+    "deadline" : " ",
+    "reminderMessage" : "Reminder without deadline."
   } ]
 }

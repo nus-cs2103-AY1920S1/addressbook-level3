@@ -9,6 +9,12 @@
     "date": " ",
     "remark": "Likes to watch movies",
     "cost": "4"
-  } ]
-
+  } ],
+  "reminders" : [ {
+    "deadline" : "30/11/2019",
+    "reminderMessage" : "valid reminder"
+  }, {
+    "deadline" : " ",
+    "reminderMessage" : "Invalid reminder"
+  }]
 }

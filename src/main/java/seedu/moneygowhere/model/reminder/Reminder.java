@@ -41,6 +41,25 @@ public class Reminder {
                 && otherReminder.getReminderMessage().equals(getReminderMessage());
     }
 
+    /**
+     * Returns true if both reminders have the same identity and data fields.
+     * This defines a stronger notion of equality between two reminders.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Reminder)) {
+            return false;
+        }
+
+        Reminder otherSpending = (Reminder) other;
+        return otherSpending.getDeadline().equals(getDeadline())
+                && otherSpending.getReminderMessage().equals(getReminderMessage());
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

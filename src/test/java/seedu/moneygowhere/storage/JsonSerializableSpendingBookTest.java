@@ -28,13 +28,13 @@ public class JsonSerializableSpendingBookTest {
                 JsonSerializableSpendingBook.class).get();
         SpendingBook spendingBookFromFile = dataFromFile.toModelType();
         SpendingBook typicalSpendingBook = TypicalSpendings.getTypicalSpendingBook();
-        assertEquals(spendingBookFromFile, typicalSpendingBook);
         for (Reminder r: spendingBookFromFile.getReminderList()) {
             System.out.println(r.toString());
         }
         for (Reminder r: typicalSpendingBook.getReminderList()) {
             System.out.println(r.toString());
         }
+        assertEquals(spendingBookFromFile, typicalSpendingBook);
     }
 
     @Test
