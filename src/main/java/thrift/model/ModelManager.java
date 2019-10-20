@@ -221,7 +221,7 @@ public class ModelManager implements Model {
     public void updateBalanceForCurrentMonth() {
         //If transaction does not belong to current displayed month, don't update the balance.
         logger.info("Original balance: " + balance);
-        balance = getCurrentMonthBudget() + filteredTransactions.stream()
+        balance = getCurrentMonthBudget() + thrift.getTransactionList().stream()
                 .filter(t -> {
                     Calendar temp = Calendar.getInstance();
                     temp.setTime(t.getDate().getDate());
