@@ -21,6 +21,7 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
+import seedu.tarence.logic.parser.PartialInput;
 import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
@@ -383,6 +384,33 @@ public class ExportAttendanceCommandTest {
 
         @Override
         public boolean hasPendingCommand() {
+            return false;
+        }
+
+        @Override
+        public void storeSuggestedCompletions(PartialInput partialInput) {}
+
+        @Override
+        public PartialInput getSuggestedCompletions() {
+            return null;
+        }
+
+        @Override
+        public void deleteSuggestedCompletions() {}
+
+        @Override
+        public boolean hasSuggestedCompletions() {
+            return false;
+        }
+
+        @Override
+        public void setInputChangedToTrue() {}
+
+        @Override
+        public void setInputChangedToFalse() {}
+
+        @Override
+        public boolean hasInputChanged() {
             return false;
         }
     }

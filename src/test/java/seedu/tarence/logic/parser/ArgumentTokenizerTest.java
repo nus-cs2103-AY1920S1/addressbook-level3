@@ -3,9 +3,13 @@ package seedu.tarence.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.tarence.logic.parser.ArgumentTokenizer.ERROR_AUTOFILL_DETECTION;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.tarence.logic.parser.exceptions.ParseException;
 
 public class ArgumentTokenizerTest {
 
@@ -47,6 +51,14 @@ public class ArgumentTokenizerTest {
         for (int i = 0; i < expectedValues.length; i++) {
             assertEquals(expectedValues[i], argMultimap.getAllValues(prefix).get(i));
         }
+    }
+
+    /**
+     * Asserts the prefix and argument value in the input {@code PrefixValue} match the expected values.
+     */
+    private void assertArgumentPresent(ArgumentSingleValue prefixValue, Prefix prefix, String expectedValue) {
+        assertEquals(prefixValue.getPrefix(), prefix);
+        assertEquals(prefixValue.getValue(), expectedValue);
     }
 
     private void assertArgumentAbsent(ArgumentMultimap argMultimap, Prefix prefix) {
@@ -134,6 +146,21 @@ public class ArgumentTokenizerTest {
         assertArgumentAbsent(argMultimap, pSlash);
         assertArgumentPresent(argMultimap, dashT, "not joined^Qjoined");
         assertArgumentAbsent(argMultimap, hatQ);
+    }
+
+    @Test
+    public void tokenize_getLastArgument() throws ParseException {
+        String argsString = "Different Preamble String ^Q111 -t dashT-Value p/pSlash value";
+        ArgumentSingleValue prefixValue = ArgumentTokenizer
+                .tokenizeLastArgument(argsString, pSlash, dashT, hatQ);
+        assertArgumentPresent(prefixValue, pSlash, "pSlash value");
+    }
+
+    @Test
+    public void tokenize_lastArgumentPrefixAbsent_throwsParseException() {
+        String argsString = "somePreamble n/some name tn/some tutorial name";
+        assertThrows(ParseException.class, () -> ArgumentTokenizer.tokenizeLastArgument(argsString, dashT, hatQ),
+            ERROR_AUTOFILL_DETECTION);
     }
 
     @Test

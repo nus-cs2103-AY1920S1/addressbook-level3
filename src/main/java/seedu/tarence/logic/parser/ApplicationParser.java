@@ -25,6 +25,7 @@ import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.commands.MarkAttendanceCommand;
 import seedu.tarence.logic.commands.SelectSuggestionCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
+import seedu.tarence.model.Model;
 
 /**
  * Parses user input.
@@ -90,6 +91,10 @@ public class ApplicationParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
 
+    }
+
+    public PartialInput parsePartialInput(String partialInput, Model model) throws ParseException {
+        return PartialInputParser.parse(partialInput, model);
     }
 
 }

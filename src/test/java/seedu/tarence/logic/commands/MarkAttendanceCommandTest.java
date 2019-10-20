@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.logic.commands.exceptions.CommandException;
+import seedu.tarence.logic.parser.PartialInput;
 import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
@@ -486,12 +487,37 @@ public class MarkAttendanceCommandTest {
         }
 
         @Override
-        public void deleteSuggestedCommands() {
-
-        }
+        public void deleteSuggestedCommands() {}
 
         @Override
         public boolean hasPendingCommand() {
+            return false;
+        }
+
+        @Override
+        public void storeSuggestedCompletions(PartialInput partialInput) {}
+
+        @Override
+        public PartialInput getSuggestedCompletions() {
+            return null;
+        }
+
+        @Override
+        public void deleteSuggestedCompletions() {}
+
+        @Override
+        public boolean hasSuggestedCompletions() {
+            return false;
+        }
+
+        @Override
+        public void setInputChangedToTrue() {}
+
+        @Override
+        public void setInputChangedToFalse() {}
+
+        @Override
+        public boolean hasInputChanged() {
             return false;
         }
     }

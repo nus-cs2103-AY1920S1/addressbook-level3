@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.logic.commands.Command;
+import seedu.tarence.logic.parser.PartialInput;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Name;
@@ -257,4 +258,33 @@ public interface Model {
      * Deletes the stored list of suggested commands.
      */
     void deleteSuggestedCommands();
+
+    /**
+     * Stores a list of suggested completions for the current partial input.
+     */
+    void storeSuggestedCompletions(PartialInput suggestedCompletions);
+
+    /**
+     * Gets the list of suggested completions for the current partial input.
+     */
+    PartialInput getSuggestedCompletions();
+
+    /**
+     * Deletes the stored list of suggested completions.
+     */
+    void deleteSuggestedCompletions();
+
+    /**
+     * Returns whether there are suggested completions currently stored in the application.
+     */
+    boolean hasSuggestedCompletions();
+
+    void setInputChangedToTrue();
+
+    void setInputChangedToFalse();
+
+    /**
+     * Checks whether the user's input has changed.
+     */
+    boolean hasInputChanged();
 }

@@ -11,6 +11,7 @@ import java.util.Stack;
 import javafx.collections.ObservableList;
 
 import seedu.tarence.logic.commands.Command;
+import seedu.tarence.logic.parser.PartialInput;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.module.UniqueModuleList;
@@ -37,6 +38,8 @@ public class Application implements ReadOnlyApplication {
     private Stack<Command> pendingCommands;
     private List<Command> suggestedCommands;
     private String suggestedCorrections;
+    private PartialInput suggestedCompletions;
+    private boolean isInputChanged;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -52,6 +55,8 @@ public class Application implements ReadOnlyApplication {
         tutorials = new UniqueTutorialList();
         pendingCommands = new Stack<>();
         suggestedCommands = new ArrayList<>();
+        suggestedCompletions = null;
+        isInputChanged = true;
     }
 
     public Application() {}
@@ -499,6 +504,34 @@ public class Application implements ReadOnlyApplication {
     void deleteSuggestedCommands() {
         suggestedCommands = null;
         suggestedCorrections = null;
+    }
+
+    void storeSuggestedCompletions(PartialInput suggestedCompletions) {
+        this.suggestedCompletions = suggestedCompletions;
+    }
+
+    PartialInput getSuggestedCompletions() {
+        return suggestedCompletions;
+    }
+
+    void deleteSuggestedCompletions() {
+        suggestedCompletions = null;
+    }
+
+    boolean hasSuggestionCompletions() {
+        return suggestedCompletions == null;
+    }
+
+    void setInputChangedToTrue() {
+        isInputChanged = true;
+    }
+
+    void setInputChangedToFalse() {
+        isInputChanged = false;
+    }
+
+    boolean hasInputChanged() {
+        return isInputChanged;
     }
 
     @Override

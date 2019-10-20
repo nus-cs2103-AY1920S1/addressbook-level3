@@ -81,6 +81,7 @@ public class DisplayAttendanceCommand extends Command {
         }
 
         Tutorial tutorialToDisplay = getTutorial(lastShownTutorialList);
+
         if (tutorialToDisplay != null) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, tutorialToDisplay), tutorialToDisplay);
         }

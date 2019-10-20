@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.GuiSettings;
+import seedu.tarence.logic.parser.PartialInput;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
@@ -256,4 +257,31 @@ class ModelStub implements Model {
 
     @Override
     public void deleteSuggestedCommands() {};
+
+    @Override
+    public void storeSuggestedCompletions(PartialInput partialInput) {}
+
+    @Override
+    public PartialInput getSuggestedCompletions() {
+        return null;
+    }
+
+    @Override
+    public void deleteSuggestedCompletions() {}
+
+    @Override
+    public boolean hasSuggestedCompletions() {
+        return false;
+    }
+
+    @Override
+    public void setInputChangedToTrue() {}
+
+    @Override
+    public void setInputChangedToFalse() {}
+
+    @Override
+    public boolean hasInputChanged() {
+        return false;
+    }
 }

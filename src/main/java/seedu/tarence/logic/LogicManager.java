@@ -101,6 +101,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public String autocomplete(String partialInput) throws ParseException {
+        return new AutocompleteHandler(model).handle(partialInput);
+    }
+
+    @Override
+    public void markInputChanged() {
+        model.setInputChangedToTrue();
+    }
+
+    @Override
     public ReadOnlyApplication getApplication() {
         return model.getApplication();
     }
