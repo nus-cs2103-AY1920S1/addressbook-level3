@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="650.0" minWidth="1250.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root height="650.0" minHeight="650.0" minWidth="1250.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" width="1250.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -46,20 +46,20 @@
         </StackPane>
             <HBox prefHeight="450.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
                <children>
-              <VBox fx:id="personList" prefHeight="450.0" prefWidth="250.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+              <VBox fx:id="personList" maxWidth="250.0" prefHeight="450.0" prefWidth="250.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <padding>
                   <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
                 <StackPane fx:id="personListPanelPlaceholder" />
               </VBox>
-                  <VBox minWidth="1000.0" prefHeight="450.0" HBox.hgrow="ALWAYS">
+                  <VBox minWidth="1000.0" prefHeight="450.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
                      <children>
                         <StackPane fx:id="bodyMasterListPlaceholder" maxHeight="350.0" prefHeight="350.0" styleClass="pane-with-border">
                            <padding>
                               <Insets bottom="5" left="10" right="10" top="5" />
                            </padding>
                         </StackPane>
-                      <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="150.0" minWidth="100.0" prefWidth="1000.0" styleClass="pane-with-border">
+                      <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="150.0" styleClass="pane-with-border">
                           <padding>
                               <Insets bottom="5" left="10" right="10" top="5" />
                           </padding>

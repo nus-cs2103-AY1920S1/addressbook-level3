@@ -39,6 +39,10 @@
     -fx-max-height: 0;
 }
 
+.table-row-cell {
+    -fx-cell-size: 40px;
+}
+
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
@@ -48,20 +52,15 @@
     -fx-padding: 5;
 }
 
-.table-view .column-header-background {
-    -fx-background-color: #4d4d4d;
+.table-view .scroll-bar {
+    -fx-background-color: #1d1d1d;
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 20;
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
-    -fx-border-insets: 0 10 1 0;
+    -fx-size: 16;
+    -fx-border-width: 0 0 0 0;
+    -fx-background-color: #1d1d1d;
+    -fx-border-insets: 0 0 0 0;
 }
 
 .table-view .column-header .label {
@@ -70,6 +69,7 @@
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
+    -fx-background-color: #1d1d1d;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
@@ -391,6 +391,13 @@
     -fx-alignment: center;
 }
 
+.fridgeIdCircleEmpty {
+    -fx-fill: #EA4335;
+}
+
+.fridgeIdCircleFilled {
+    -fx-fill: #4285F4;
+}
 
 .chart {
     -fx-padding: 10px;
@@ -434,4 +441,9 @@
 .chart-alternative-row-fill {
     -fx-stroke: #2B3941;
     -fx-stroke-width: 0;
+}
+
+#fridgeIdPlaceholder {
+    -fx-text-fill: white;
+    -fx-font-size: 10;
 }

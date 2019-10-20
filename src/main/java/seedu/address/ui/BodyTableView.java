@@ -12,12 +12,16 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
@@ -29,6 +33,12 @@ import seedu.address.model.entity.body.BodyStatus;
 public class BodyTableView extends UiPart<Region> {
 
     private static final String FXML = "BodyTableView.fxml";
+    private static final double COLUMN_WIDTH_FRIDGE_ID = 0.1;
+    private static final double COLUMN_WIDTH_NAME = 0.225;
+    private static final double COLUMN_WIDTH_ID = 0.15;
+    private static final double COLUMN_WIDTH_DATE_OF_ADMISSION = 0.25;
+    private static final double COLUMN_WIDTH_BODY_STATUS = 0.275;
+
     private final Logger logger = LogsCenter.getLogger(BodyTableView.class);
 
     @FXML
@@ -37,11 +47,14 @@ public class BodyTableView extends UiPart<Region> {
     public BodyTableView (ObservableList<Body> bodyList, ObservableValue<Body> selectedBody,
             Consumer<Body> onSelectedBodyChange) {
         super(FXML);
-        setColumns();
+        setupColumns();
         bodyTableView.setItems(bodyList);
+        setCellSelectionHandler(selectedBody, onSelectedBodyChange);
+    }
 
-        //@@ shaoyi1997-reused
-        //Reused from SE-EDU Address Book Level 4
+    //@@ shaoyi1997-reused
+    //Reused from SE-EDU Address Book Level 4
+    private void setCellSelectionHandler(ObservableValue<Body> selectedBody, Consumer<Body> onSelectedBodyChange) {
         bodyTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in body table view changed to : '" + newValue + "'");
             onSelectedBodyChange.accept(newValue);
@@ -63,30 +76,101 @@ public class BodyTableView extends UiPart<Region> {
                 bodyTableView.getSelectionModel().clearAndSelect(index);
             }
         });
-        //@@author shaoyi1997
+    }
+    //@@author shaoyi1997
+
+    private void setupColumns() {
+        TableColumn<Body, IdentificationNumber> fridgeId = setupFridgeIdColumn();
+        TableColumn<Body, String> name = setupNameColumn();
+        TableColumn<Body, String> id = setupBodyIdColumn();
+        TableColumn<Body, String> dateOfAdmission = setupDateOfAdmissionColumn();
+        TableColumn<Body, BodyStatus> bodyStatus = setupBodyStatusColumn();
+        bodyTableView.getColumns().addAll(fridgeId, name, id, dateOfAdmission, bodyStatus);
     }
 
-    private void setColumns() {
-        TableColumn<Body, String> name = new TableColumn<>("Name");
-        name.setCellValueFactory(new PropertyValueFactory("Name"));
-        name.setSortType(TableColumn.SortType.ASCENDING);
+    private TableColumn<Body, IdentificationNumber> setupFridgeIdColumn() {
+        TableColumn<Body, IdentificationNumber> fridgeId = new TableColumn<>("Fridge ID");
+        fridgeId.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getFridgeId().orElse(null)));
+        fridgeId.setCellFactory(tableColumn -> new FridgeIdTableCell());
+        fridgeId.prefWidthProperty().bind(bodyTableView.widthProperty().multiply(COLUMN_WIDTH_FRIDGE_ID));
+        return fridgeId;
+    }
 
-        TableColumn<Body, IdentificationNumber> id = new TableColumn<>("Body ID");
-        id.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getIdNum()));
+    private TableColumn<Body, String> setupNameColumn() {
+        return setupStringColumn("Name", COLUMN_WIDTH_NAME,
+            param -> new ReadOnlyObjectWrapper<>(param.getValue().getName().toString()));
+    }
 
-        TableColumn<Body, String> dateOfAdmission = new TableColumn<>("Date Of Admission");
-        dateOfAdmission.setCellValueFactory(new PropertyValueFactory("dateOfAdmission"));
+    private TableColumn<Body, String> setupBodyIdColumn() {
+        return setupStringColumn("Body ID", COLUMN_WIDTH_ID,
+            param -> new ReadOnlyObjectWrapper<>(param.getValue().getIdNum().toString()));
+    }
 
+    private TableColumn<Body, String> setupDateOfAdmissionColumn() {
+        return setupStringColumn("Date of Admission", COLUMN_WIDTH_DATE_OF_ADMISSION,
+            param -> new ReadOnlyObjectWrapper<>(param.getValue().getDateOfAdmission().toString()));
+    }
+
+    private TableColumn<Body, BodyStatus> setupBodyStatusColumn() {
         TableColumn<Body, BodyStatus> bodyStatus = new TableColumn<>("Body Status");
         bodyStatus.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getBodyStatus().get()));
         bodyStatus.setCellFactory(tableColumn -> new BodyStatusTableCell());
-        bodyStatus.setStyle("-justify-self: center");
+        bodyStatus.prefWidthProperty().bind(bodyTableView.widthProperty().multiply(COLUMN_WIDTH_BODY_STATUS));
+        return bodyStatus;
+    }
 
-        bodyTableView.getColumns().addAll(name, id, dateOfAdmission, bodyStatus);
+    private TableColumn<Body, String> setupStringColumn(String nameOfColumn, double columnWidth,
+            Callback<TableColumn.CellDataFeatures<Body, String>, ObservableValue<String>> value) {
+        TableColumn<Body, String> col = new TableColumn<>(nameOfColumn);
+        col.prefWidthProperty().bind(bodyTableView.widthProperty()
+            .multiply(columnWidth));
+        col.setCellValueFactory(value);
+        col.setCellFactory(tablecell -> new TableCellForStrings());
+        return col;
     }
 
     /**
-     * Custom {@code TableCell} that displays the graphics of a {@code Body}.
+     * Custom {@code TableCell} that displays and vertically centralizes strings in the cell.
+     */
+    class TableCellForStrings extends TableCell<Body, String> {
+        @Override
+        protected void updateItem(String str, boolean empty) {
+            super.updateItem(str, empty);
+
+            if (empty | str == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                StackPane pane = new StackPane();
+                Text text = new Text(str);
+                text.setFill(Color.WHITE);
+                text.wrappingWidthProperty().bind(widthProperty());
+                text.textProperty().bind(itemProperty());
+                pane.getChildren().add(text);
+                setGraphic(pane);
+            }
+        }
+    }
+
+    /**
+     * Custom {@code TableCell} that displays the {@code fridgeId} of a {@code Body}.
+     */
+    class FridgeIdTableCell extends TableCell<Body, IdentificationNumber> {
+        @Override
+        protected void updateItem(IdentificationNumber id, boolean empty) {
+            super.updateItem(id, empty);
+
+            if (empty) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new FridgeIdLabel(id).getRoot());
+            }
+        }
+    }
+
+    /**
+     * Custom {@code TableCell} that displays the {@code bodyStatus} of a {@code Body}.
      */
     class BodyStatusTableCell extends TableCell<Body, BodyStatus> {
         @Override
@@ -109,7 +193,10 @@ public class BodyTableView extends UiPart<Region> {
                 } else {
                     label.getStyleClass().add("bodyStatusLabelPending");
                 }
-                setGraphic(label);
+                StackPane pane = new StackPane();
+                pane.getChildren().add(label);
+                pane.setAlignment(Pos.CENTER_LEFT);
+                setGraphic(pane);
             }
         }
     }

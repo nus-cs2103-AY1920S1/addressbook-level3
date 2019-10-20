@@ -153,6 +153,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         String details = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_BODY_DETAILS).orElse(""));
         List<String> organsForDonation = ParserUtil.parseOrgansForDonation(
             argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).orElse(""));
+        Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
+        String relationship = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELATIONSHIP)
+            .orElse(""));
+
         IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
             argMultimap.getValue(PREFIX_FRIDGE_ID).orElse(""));
         if (fridgeId != null) {
@@ -163,9 +167,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                 throw new ParseException(MESSAGE_INEXISTENT_FRIDGE);
             }
         }
-        Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
-        String relationship = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELATIONSHIP)
-            .orElse(""));
 
         return new Body(false, 1, dateOfAdmission, name, sex, nric, religion,
                 causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationship,
