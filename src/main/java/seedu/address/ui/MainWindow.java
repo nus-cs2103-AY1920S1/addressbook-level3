@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -133,7 +132,8 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
         phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList(), logic.getScheduleTime());
+        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList(),
+                logic.getCalendarDate());
 
         tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, calendarPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());

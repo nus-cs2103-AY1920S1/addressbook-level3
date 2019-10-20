@@ -4,15 +4,13 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import jfxtras.scene.control.agenda.Agenda;
-import seedu.address.model.ScheduleTime;
+import seedu.address.model.CalendarDate;
 import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.ui.UiPart;
@@ -25,17 +23,18 @@ public class CalendarPanel extends UiPart<Region> {
     private Agenda agenda;
     private ObservableList<Schedule> scheduleList;
     private ObservableList<Order> orderList;
-    private ScheduleTime scheduleTime;
+    private CalendarDate calendarDate;
 
     @FXML
     private VBox calendarBox;
 
-    public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList, ScheduleTime scheduleTime) {
+    public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList,
+                         CalendarDate calendarDate) {
         super(FXML);
 
         this.scheduleList = scheduleList;
         this.orderList = orderList;
-        this.scheduleTime = scheduleTime;
+        this.calendarDate = calendarDate;
 
         agenda = new Agenda();
         calendarBox.getChildren().add(agenda);
@@ -44,7 +43,7 @@ public class CalendarPanel extends UiPart<Region> {
 
         // set up listener
         scheduleList.addListener((ListChangeListener<Schedule>) change -> populateAgenda());
-        scheduleTime.getProperty().addListener((observableValue, calendar, t1) -> setAgendaView(t1));
+        calendarDate.getProperty().addListener((observableValue, calendar, t1) -> setAgendaView(t1));
     }
 
     /**

@@ -32,7 +32,7 @@ public class ScheduleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.setScheduleTime(calendarToShow);
+        model.setCalendarDate(calendarToShow);
         return new CommandResult(MESSAGE_SUCCESS, UiChange.SCHEDULE);
     }
 }

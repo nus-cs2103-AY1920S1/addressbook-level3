@@ -4,11 +4,14 @@ import java.util.Calendar;
 
 import javafx.beans.property.SimpleObjectProperty;
 
-public class ScheduleTime {
+/**
+ * Stores a property to set the date to display on the calendar panel.
+ */
+public class CalendarDate {
 
     private SimpleObjectProperty<Calendar> property = new SimpleObjectProperty<>();
 
-    public ScheduleTime(Calendar calendar) {
+    public CalendarDate(Calendar calendar) {
         property.set(calendar);
     }
 
