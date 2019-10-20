@@ -61,11 +61,17 @@ public class LogicManager implements Logic {
      * @param command {@code Command} to be checked for having an inverse before it being added to {@code Model} if
      *                               necessary.
      */
-    private void updateModel(Command command) {
+    private void updateModel(Command command) throws CommandException {
         if (!command.hasInverseExecution()) {
             return;
         }
         model.rememberExecutedCommand(command);
+
+        try {
+            storage.saveHistoryManager(model.getHistoryManager());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
     }
 
     @Override

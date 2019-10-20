@@ -141,6 +141,6 @@ public class StorageManager implements Storage {
      */
     @Override
     public void saveHistoryManager(HistoryManager historyManager, Path filePath) throws IOException {
-        saveHistoryManager(historyManager, filePath);
+        historyManagerStorage.saveHistoryManager(historyManager, filePath);
     }
 }

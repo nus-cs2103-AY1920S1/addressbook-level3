@@ -84,23 +84,44 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyAddressBook addressBook = readAddressBook(storage);
+        HistoryManager historyManager = readHistoryManager(storage);
+        return new ModelManager(new CcaTracker(), historyManager, new FinanceTracker(), addressBook,
+                userPrefs, new Planner(), new CoursePlanner());
+    }
+
+    /**
+     * Gets the {@code AddressBook} from storage.
+     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
+     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     */
+    private ReadOnlyAddressBook readAddressBook(Storage storage) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            return addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            return new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            return new AddressBook();
         }
-        return new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), initialData,
-                userPrefs, new Planner(), new CoursePlanner());
+    }
+
+    /**
+     * Gets the {@code HistoryManager} from storage.
+     * An empty {@code HistoryManager} is used if errors occur when reading {@code Storage}'s history manager.
+     */
+    private HistoryManager readHistoryManager(Storage storage) {
+        try {
+            return storage.readHistoryManager().orElseGet(HistoryManager::new);
+        } catch (DataConversionException | IOException e) {
+            return new HistoryManager();
+        }
     }
 
     private void initLogging(Config config) {
@@ -177,7 +198,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting JARVIS " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
