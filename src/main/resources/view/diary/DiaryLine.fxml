@@ -7,20 +7,17 @@
 
 <HBox minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lineTextLabel" contentDisplay="RIGHT" graphicTextGap="10.0" style="-fx-font-family: Segeo UI; -fx-font-size: 20; -fx-text-fill: #121420; -fx-wrap-text: true;" styleClass="diaryTextLine" text="Just some placeholder text" wrapText="true" HBox.hgrow="NEVER">
+      <Label fx:id="lineTextLabel" contentDisplay="RIGHT" graphicTextGap="10.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" style="-fx-font-family: Segeo UI; -fx-font-size: 20; -fx-text-fill: #121420; -fx-wrap-text: true;" styleClass="diaryTextLine" text="Just some placeholder text" wrapText="true" HBox.hgrow="ALWAYS">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </Label>
-      <HBox fx:id="photoCardsDisplay" maxHeight="250.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" spacing="10.0" style="-fx-background-color: transparent;" HBox.hgrow="NEVER">
+      <HBox fx:id="photoCardsDisplay" maxHeight="250.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" spacing="10.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
-         <padding>
-            <Insets bottom="10.0" top="10.0" />
-         </padding>
          <HBox.margin>
-            <Insets />
+            <Insets bottom="10.0" top="10.0" />
          </HBox.margin>
       </HBox>
    </children>

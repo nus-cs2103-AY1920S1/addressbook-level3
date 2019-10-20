@@ -39,7 +39,7 @@ class DiaryLine extends UiPart<HBox> {
                 photos.stream()
                         .map(photo -> {
                             DiaryEntryPhotoCard diaryEntryPhotoCard = new DiaryEntryPhotoCard(photo);
-                            diaryEntryPhotoCard.bindImageViewHeight(photoCardsDisplay.heightProperty());
+                            //diaryEntryPhotoCard.bindImageViewHeight(photoCardsDisplay.heightProperty());
 
                             return diaryEntryPhotoCard.getRoot();
                         })
@@ -52,7 +52,7 @@ class DiaryLine extends UiPart<HBox> {
         this(text);
         requireNonNull(photo);
         DiaryEntryPhotoCard diaryEntryPhotoCard = new DiaryEntryPhotoCard(photo);
-        diaryEntryPhotoCard.bindImageViewHeight(photoCardsDisplay.heightProperty());
+        diaryEntryPhotoCard.bindImageViewHeight(lineTextLabel.heightProperty());
         photoCardsDisplay.getChildren().add(diaryEntryPhotoCard.getRoot());
         lineTextLabel.setGraphic(photoCardsDisplay);
         if (placeOnLeft) {

@@ -10,13 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import seedu.address.logic.Logic;
@@ -53,12 +53,13 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     private DiaryEditBox diaryEntryEditBox;
     private DiaryEntryDisplay diaryEntryDisplay;
 
+
     @FXML
-    private AnchorPane diaryTextPlaceholder;
+    private StackPane diaryEntryPlaceholder;
     @FXML
     private Label dayIndexLabel;
     @FXML
-    private VBox diaryRightPlaceholder;
+    private StackPane diaryRightPlaceholder;
     @FXML
     private ButtonBar dayIndexButtonBar;
     @FXML
@@ -79,28 +80,18 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         diaryEntryEditBox = new DiaryEditBox(editBoxText ->
                 mainWindow.executeGuiCommand(EditDiaryEntryCommand.COMMAND_WORD + " "
                         + PREFIX_DESCRIPTION + editBoxText));
-        //bind widths and heights of gallery and edit box
-        diaryGallery.getRoot().prefHeightProperty().bind(diaryRightPlaceholder.heightProperty());
-        diaryEntryEditBox.getRoot().prefWidthProperty().bind(diaryRightPlaceholder.widthProperty());
-        diaryEntryEditBox.getRoot().prefHeightProperty().bind(diaryRightPlaceholder.heightProperty());
-
         //Set background
-        diaryTextPlaceholder.setBackground(
-                new Background(new BackgroundImage(
-                        getImage(DIARY_ENTRY_BACKGROUND_IMAGE),
-                        BackgroundRepeat.REPEAT,
-                        BackgroundRepeat.REPEAT,
-                        BackgroundPosition.CENTER,
-                        new BackgroundSize(BACKGROUND_REPEAT_LENGTH, BACKGROUND_REPEAT_LENGTH,
-                                false, false, false, false))));
+        Background diaryEntryBackground = new Background(new BackgroundImage(
+                getImage(DIARY_ENTRY_BACKGROUND_IMAGE),
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(BACKGROUND_REPEAT_LENGTH, BACKGROUND_REPEAT_LENGTH,
+                        false, false, false, false)));
 
-        //Initialise and bind diaryEntryDisplay's data to the edit box
+        diaryEntryPlaceholder.setBackground(diaryEntryBackground);
         diaryEntryDisplay = new DiaryEntryDisplay(diaryEntryEditBox.getObservableParagraphs());
-        AnchorPane.setTopAnchor(diaryEntryDisplay.getRoot(), 40.0);
-        AnchorPane.setBottomAnchor(diaryEntryDisplay.getRoot(), 0.0);
-        AnchorPane.setLeftAnchor(diaryEntryDisplay.getRoot(), 0.0);
-        AnchorPane.setRightAnchor(diaryEntryDisplay.getRoot(), 0.0);
-        diaryTextPlaceholder.getChildren().add(diaryEntryDisplay.getRoot());
+        diaryEntryPlaceholder.getChildren().add(diaryEntryDisplay.getRoot());
     }
 
     @Override
