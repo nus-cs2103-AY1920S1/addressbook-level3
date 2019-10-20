@@ -17,9 +17,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.AppData;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
@@ -29,31 +29,31 @@ import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.NoteBuilder;
 
 public class AddNoteCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddNoteCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Note validNote = new PersonBuilder().build();
+    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
+        Note validNote = new NoteBuilder().build();
 
         CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
 
         assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validNote), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Note validNote = new PersonBuilder().build();
+    public void execute_duplicateNote_throwsCommandException() {
+        Note validNote = new NoteBuilder().build();
         AddNoteCommand addNoteCommand = new AddNoteCommand(validNote);
-        ModelStub modelStub = new ModelStubWithPerson(validNote);
+        ModelStub modelStub = new ModelStubWithNote(validNote);
 
         assertThrows(CommandException.class,
                 AddNoteCommand.MESSAGE_DUPLICATE_TITLE, () -> addNoteCommand.execute(modelStub));
@@ -61,8 +61,8 @@ public class AddNoteCommandTest {
 
     @Test
     public void equals() {
-        Note alice = new PersonBuilder().withTitle("Alice").build();
-        Note bob = new PersonBuilder().withTitle("Bob").build();
+        Note alice = new NoteBuilder().withTitle("Alice").build();
+        Note bob = new NoteBuilder().withTitle("Bob").build();
         AddNoteCommand addAliceCommand = new AddNoteCommand(alice);
         AddNoteCommand addBobCommand = new AddNoteCommand(bob);
 
@@ -108,12 +108,12 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getAppDataFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setAppDataFilePath(Path appDataFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,12 +138,12 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAppData(ReadOnlyAppData newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAppData getAppData() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -311,10 +311,10 @@ public class AddNoteCommandTest {
     /**
      * A Model stub that contains a single note.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithNote extends ModelStub {
         private final Note note;
 
-        ModelStubWithPerson(Note note) {
+        ModelStubWithNote(Note note) {
             requireNonNull(note);
             this.note = note;
         }
@@ -329,24 +329,24 @@ public class AddNoteCommandTest {
     /**
      * A Model stub that always accept the note being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Note> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingNoteAdded extends ModelStub {
+        final ArrayList<Note> notesAdded = new ArrayList<>();
 
         @Override
         public boolean hasNote(Note note) {
             requireNonNull(note);
-            return personsAdded.stream().anyMatch(note::isSameNote);
+            return notesAdded.stream().anyMatch(note::isSameNote);
         }
 
         @Override
         public void addNote(Note note) {
             requireNonNull(note);
-            personsAdded.add(note);
+            notesAdded.add(note);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyAppData getAppData() {
+            return new AppData();
         }
     }
 }

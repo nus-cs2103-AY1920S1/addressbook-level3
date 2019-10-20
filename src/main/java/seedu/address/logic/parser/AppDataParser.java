@@ -40,7 +40,7 @@ import seedu.address.logic.parser.task.DoneTaskCommandParser;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class AppDataParser {
 
     /**
      * Used for initial separation of command word and args.

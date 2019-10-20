@@ -13,9 +13,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
@@ -70,7 +70,7 @@ public class EditNoteCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY + TITLE_DESC_AMY;
 
         EditNoteCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_AMY)
@@ -82,7 +82,7 @@ public class EditNoteCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY;
 
         EditNoteCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder()
@@ -95,7 +95,7 @@ public class EditNoteCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + TITLE_DESC_AMY;
         EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_AMY).build();
         EditNoteCommand expectedCommand = new EditNoteCommand(targetIndex, descriptor);
@@ -110,7 +110,7 @@ public class EditNoteCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY + CONTENT_DESC_AMY + CONTENT_DESC_BOB;
 
         EditNoteCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder()
@@ -123,7 +123,7 @@ public class EditNoteCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + INVALID_CONTENT_DESC + CONTENT_DESC_BOB;
         EditNoteCommand.EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder()
                 .withContent(VALID_CONTENT_BOB).build();

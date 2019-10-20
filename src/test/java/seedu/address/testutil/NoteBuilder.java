@@ -7,22 +7,22 @@ import seedu.address.model.note.Title;
 /**
  * A utility class to help with building Note objects.
  */
-public class PersonBuilder {
+public class NoteBuilder {
     public static final String DEFAULT_TITLE = "A lecture note";
     public static final String DEFAULT_CONTENT = "Lorem ipsum dolor sit amet";
 
     private Title title;
     private Content content;
 
-    public PersonBuilder() {
+    public NoteBuilder() {
         title = new Title(DEFAULT_TITLE);
         content = new Content(DEFAULT_CONTENT);
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code noteToCopy}.
+     * Initializes the NoteBuilder with the data of {@code noteToCopy}.
      */
-    public PersonBuilder(Note noteToCopy) {
+    public NoteBuilder(Note noteToCopy) {
         title = noteToCopy.getTitle();
         content = noteToCopy.getContent();
     }
@@ -30,7 +30,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Title} of the {@code Note} that we are building.
      */
-    public PersonBuilder withTitle(String title) {
+    public NoteBuilder withTitle(String title) {
         this.title = new Title(title);
         return this;
     }
@@ -38,7 +38,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Content} of the {@code Note} that we are building.
      */
-    public PersonBuilder withContent(String content) {
+    public NoteBuilder withContent(String content) {
         this.content = new Content(content);
         return this;
     }

@@ -10,19 +10,19 @@ import seedu.address.model.note.Note;
 /**
  * A utility class for Note.
  */
-public class PersonUtil {
+public class NoteUtil {
 
     /**
      * Returns an add command string for adding the {@code note}.
      */
     public static String getAddCommand(Note note) {
-        return AddNoteCommand.COMMAND_WORD + " " + getPersonDetails(note);
+        return AddNoteCommand.COMMAND_WORD + " " + getNoteDetails(note);
     }
 
     /**
      * Returns the part of command string for the given {@code note}'s details.
      */
-    public static String getPersonDetails(Note note) {
+    public static String getNoteDetails(Note note) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_TITLE + note.getTitle().title + " ");
         sb.append(PREFIX_CONTENT + note.getContent().content + " ");
@@ -32,7 +32,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditNoteDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditNoteCommand.EditNoteDescriptor descriptor) {
+    public static String getEditNoteDescriptorDetails(EditNoteCommand.EditNoteDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getTitle().ifPresent(name -> sb.append(PREFIX_TITLE).append(name.title).append(" "));
         descriptor.getContent().ifPresent(address -> sb.append(PREFIX_CONTENT).append(address.content).append(" "));

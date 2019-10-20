@@ -85,6 +85,8 @@ I contributed in code and my proficiency in using diagrams to explain my work.
 
 include::../DeveloperGuide.adoc[tag=lecimage]
 
+'''
+
 include::../DeveloperGuide.adoc[tag=usecase]
 
 include::../DeveloperGuide.adoc[tag=nfrglossary]

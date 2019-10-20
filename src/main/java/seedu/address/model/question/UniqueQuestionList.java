@@ -52,7 +52,7 @@ public class UniqueQuestionList implements Iterable<Question> {
     /**
      * Replaces the question {@code target} in the list with {@code editedQuestion}.
      * {@code target} must exist in the list.
-     * The question body of {@code editedPerson} must not be the same as another existing question in the list.
+     * The question body of {@code editedQuestion} must not be the same as another existing question in the list.
      */
     public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
@@ -87,7 +87,7 @@ public class UniqueQuestionList implements Iterable<Question> {
 
     /**
      * Replaces the contents of this list with {@code questions}.
-     * {@code persons} must not contain duplicate questions.
+     * {@code questions} must not contain duplicate questions.
      */
     public void setQuestions(List<Question> questions) {
         requireAllNonNull(questions);

@@ -8,7 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
 import seedu.address.model.statistics.TempStatsQnsModel;
@@ -28,11 +28,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the AppData.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getAppData()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyAppData getAppData();
 
     /** Returns an unmodifiable view of the filtered list of lecture notes */
     ObservableList<Note> getFilteredNoteList();
@@ -60,7 +60,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getAppDataFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

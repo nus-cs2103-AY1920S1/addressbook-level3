@@ -24,10 +24,9 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSameNote comparison)
+ * Wraps all application data. Duplicates of lecture notes, questions, tasks, etc. are not allowed by key comparisons.
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class AppData implements ReadOnlyAppData {
 
     private final UniqueNoteList notes;
     private final UniqueQuestionList questions;
@@ -51,13 +50,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks = new TaskList();
     }
 
-    public AddressBook() {
+    public AppData() {
     }
 
     /**
-     * Creates an AddressBook using the Notes in {@code toBeCopied}.
+     * Creates an AppData using the Notes in {@code toBeCopied}.
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public AppData(ReadOnlyAppData toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -81,9 +80,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code AppData} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyAppData newData) {
         requireNonNull(newData);
 
         setNotes(newData.getNoteList());
@@ -138,7 +137,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// question operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a question with the same identity as {@code question} exists in the address book.
      */
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
@@ -165,7 +164,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code AppData}.
      * {@code key} must exist in the address book.
      */
     public void removeQuestion(Question key) {
@@ -282,10 +281,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && notes.equals(((AddressBook) other).notes)
-                && questions.equals(((AddressBook) other).questions)
-                && tasks.equals(((AddressBook) other).tasks));
+                || (other instanceof AppData // instanceof handles nulls
+                && notes.equals(((AppData) other).notes)
+                && questions.equals(((AppData) other).questions)
+                && tasks.equals(((AppData) other).tasks));
     }
 
     @Override

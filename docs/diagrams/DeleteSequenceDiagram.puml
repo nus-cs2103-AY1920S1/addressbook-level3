@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AppDataParser" as AppDataParser LOGIC_COLOR
 participant ":DeleteNoteCommandParser" as DeleteNoteCommandParser LOGIC_COLOR
 participant "d:DeleteNoteCommand" as DeleteNoteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("deletenote 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("deletenote 1")
-activate AddressBookParser
+LogicManager -> AppDataParser : parseCommand("deletenote 1")
+activate AppDataParser
 
 create DeleteNoteCommandParser
-AddressBookParser -> DeleteNoteCommandParser
+AppDataParser -> DeleteNoteCommandParser
 activate DeleteNoteCommandParser
 
-DeleteNoteCommandParser --> AddressBookParser
+DeleteNoteCommandParser --> AppDataParser
 deactivate DeleteNoteCommandParser
 
-AddressBookParser -> DeleteNoteCommandParser : parse("1")
+AppDataParser -> DeleteNoteCommandParser : parse("1")
 activate DeleteNoteCommandParser
 
 create DeleteNoteCommand
@@ -36,14 +36,14 @@ activate DeleteNoteCommand
 DeleteNoteCommand --> DeleteNoteCommandParser : d
 deactivate DeleteNoteCommand
 
-DeleteNoteCommandParser --> AddressBookParser : d
+DeleteNoteCommandParser --> AppDataParser : d
 deactivate DeleteNoteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteNoteCommandParser -[hidden]-> AddressBookParser
+DeleteNoteCommandParser -[hidden]-> AppDataParser
 destroy DeleteNoteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+AppDataParser --> LogicManager : d
+deactivate AppDataParser
 
 LogicManager -> DeleteNoteCommand : execute()
 activate DeleteNoteCommand
