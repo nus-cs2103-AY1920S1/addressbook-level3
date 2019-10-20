@@ -2,6 +2,7 @@ package seedu.moneygowhere.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -112,6 +113,23 @@ public class DateUtil {
     }
 
     /**
+     * Checks if an input date is valid.
+     *
+     * @param year Year
+     * @param month Month
+     * @param day Day
+     * @return True if the input date was valid.
+     */
+    private static boolean isValidNormalisedDate(int year, int month, int day) {
+        try {
+            LocalDate.of(year, month, day);
+            return true;
+        } catch (DateTimeException e) {
+            return false;
+        }
+    }
+
+    /**
      * Normalises a given date format, from dd/mm/yyyy to yyyy/mm/dd.
      *
      * @param date Date
@@ -143,6 +161,10 @@ public class DateUtil {
                     if (year < 1900) {
                         return "";
                     }
+                }
+
+                if (!isValidNormalisedDate(year, month, day)) {
+                    return "";
                 }
 
                 if (builder.length() > 0) {

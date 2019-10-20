@@ -38,8 +38,14 @@ public class DateTest {
 
     @Test
     public void compareTo() {
+        // Equal
         assertEquals(0, new Date("1/1/2019").compareTo(new Date("1/1/2019")));
+
+        // Less than
         assertEquals(-1, new Date("1/1/2019").compareTo(new Date("2/1/2019")));
+
+        // Greater than
         assertEquals(1, new Date("2/1/2019").compareTo(new Date("1/1/2019")));
+        assertEquals(1, new Date("12/1/2019").compareTo(new Date("1/12/2018")));
     }
 }
