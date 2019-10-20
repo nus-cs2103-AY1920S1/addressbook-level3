@@ -23,6 +23,7 @@ public class FindCommand extends Command {
 
     public FindCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
+
     }
 
     @Override

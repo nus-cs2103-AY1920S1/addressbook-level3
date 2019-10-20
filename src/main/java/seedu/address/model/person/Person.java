@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.attributes.Name;
 import seedu.address.model.person.loan.Loan;
 import seedu.address.model.person.loan.LoanList;
 import seedu.address.model.tag.Tag;

@@ -4,8 +4,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
@@ -102,9 +100,16 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+
+    /**
      * Returns an unmodifiable view of the filtered transaction list
      */
-    FilteredList<Transaction> getFilteredTransactions();
+    ObservableList<Transaction> getFilteredTransactions();
 
 
 }

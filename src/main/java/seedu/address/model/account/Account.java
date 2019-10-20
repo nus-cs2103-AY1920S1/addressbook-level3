@@ -2,11 +2,14 @@ package seedu.address.model.account;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.attributes.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Transaction;
 
@@ -18,7 +21,7 @@ public class Account {
 
     // Identity fields
     private final Name name;
-    private final Transaction transaction;
+    private final List<Transaction> transactions;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -26,19 +29,24 @@ public class Account {
     /**
      * Every field must be present and not null.
      */
-    public Account(Name name, Transaction transaction, Set<Tag> tags) {
-        requireAllNonNull(name, transaction, tags);
+    public Account(Name name, List<Transaction> transactions, Set<Tag> tags) {
+        requireAllNonNull(name, transactions, tags);
         this.name = name;
-        this.transaction = transaction;
+        this.transactions = transactions;
         this.tags.addAll(tags);
+    }
+
+    public static Account getDefaultAccount() {
+        //TODO implement getDefaultAccount which returns the default account
+        return new Account(new Name("DEFAULT"), new ArrayList<Transaction>(), new HashSet<>());
     }
 
     public Name getName() {
         return name;
     }
 
-    public Transaction getTransaction() {
-        return transaction;
+    public List<Transaction> getTransaction() {
+        return transactions;
     }
 
     /**
@@ -85,7 +93,7 @@ public class Account {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, transaction, tags);
+        return Objects.hash(name, transactions, tags);
     }
 
     @Override

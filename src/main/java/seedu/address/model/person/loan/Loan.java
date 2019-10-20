@@ -2,11 +2,12 @@ package seedu.address.model.person.loan;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Date;
 import java.util.Objects;
 
+import seedu.address.model.attributes.Description;
 import seedu.address.model.attributes.Direction;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.loan.stub.Date;
 import seedu.address.model.transaction.Amount;
 
 /**
@@ -108,7 +109,7 @@ public class Loan {
                 .append(directionWithFunctionWord)
                 .append(getPerson().getName()).append(divider)
                 .append(getDate());
-        if (!description.description.isBlank()) {
+        if (!description.getDescription().isBlank()) {
             builder.append(divider).append(getDescription());
         }
         return builder.toString();

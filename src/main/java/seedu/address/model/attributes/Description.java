@@ -19,7 +19,7 @@ public class Description {
         this.description = description;
     }
 
-    boolean isValidDescription(String description) {
+    public static boolean isValidDescription(String description) {
         return description != null;
     }
 

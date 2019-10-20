@@ -3,13 +3,18 @@ package seedu.address.model.account;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.account.exception.AccountNotFoundException;
 import seedu.address.model.account.exception.DuplicateAccountException;
+import seedu.address.model.attributes.Name;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Transaction;
 
 
@@ -95,11 +100,20 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
+     * Gets account that matches the UniqueAccountList by name
+     * TODO IMPLEMENT, right now only returns a new account
+     */
+    public Optional<Account> getAccount(String accountName) {
+        return Optional.of(new Account(new Name("default"), new ArrayList<Transaction>(),
+                new HashSet<Tag>()));
+    }
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Account> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
+
 
     /**
      * TODO: implement getTransactionList, right now only returns a new observableArrayList

@@ -16,7 +16,7 @@ import seedu.address.model.transaction.Transaction;
 /**
  * Represents the command to delete a transaction.
  */
-public class DeleteTransactionCommand extends Command {
+public class TransactionDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "transaction delete";
 
@@ -30,7 +30,7 @@ public class DeleteTransactionCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteTransactionCommand(Index targetIndex) {
+    public TransactionDeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 

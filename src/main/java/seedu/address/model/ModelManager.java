@@ -65,12 +65,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+        requireNonNull(predicate);
+        filteredTransactions.setPredicate(predicate);
+    }
+
+    @Override
     public FilteredList<Transaction> getFilteredTransactions() {
         return filteredTransactions;
     }
 
     @Override
-    public void deleteTransaction (Transaction target) {
+    public void deleteTransaction(Transaction target) {
         accountBook.removeTransaction(target);
     }
     //=========== UserPrefs ==================================================================================

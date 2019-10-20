@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -11,9 +13,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.rules.RuleProcessingUtil;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.loan.Description;
-import seedu.address.model.person.loan.stub.Date;
+import seedu.address.model.account.Account;
+import seedu.address.model.attributes.Category;
+import seedu.address.model.attributes.Description;
+import seedu.address.model.attributes.Name;
 import seedu.address.model.rule.RuleAction;
 import seedu.address.model.rule.RulePredicate;
 import seedu.address.model.rule.expression.Attribute;
@@ -22,6 +25,7 @@ import seedu.address.model.rule.expression.Operator;
 import seedu.address.model.rule.expression.Value;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Contains utility methods used for parsing strings in the various *CommandParser classes.
@@ -61,6 +65,17 @@ public class CommandParserUtil {
     }
 
     /**
+     * Parses a {@code String account} into an {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code account} is invalid.
+     */
+    public static Account parseAccount(String account) throws ParseException {
+        requireNonNull(account);
+        String trimmedAccount = account.trim();
+        return new Account(new Name(trimmedAccount), new ArrayList<Transaction>(), new HashSet<Tag>());
+    }
+    /**
      * Parses a {@code String amount} into an {@code Amount}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -96,6 +111,7 @@ public class CommandParserUtil {
         }
         return new Description(trimmedDescription);
     }
+
 
     /**
      * Parses a {@code String date} into a {@code Date}.
@@ -226,5 +242,12 @@ public class CommandParserUtil {
      */
     public static RuleAction parseAction(String action) {
         return null;
+    }
+
+    /**
+     * TODO IMPLEMENT, right now just returns a new Category
+     */
+    public static Category parseCategory(String s) {
+        return new Category(s);
     }
 }

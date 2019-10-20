@@ -29,16 +29,17 @@ public class Transaction {
 
     /**
      * Every field must be present and not null.
+     * Since we only accept one category in the argument, it is added to the set of categories.
      */
     public Transaction(Date date, Amount amount, Direction direction, Description description,
-                       Account account, Set<Category> categories) {
-        requireAllNonNull(date, amount, direction, categories);
+                       Account account, Category category) {
+        requireAllNonNull(date, amount, direction, category);
         this.date = date;
         this.amount = amount;
         this.direction = direction;
         this.account = account;
         this.description = description;
-        this.categories.addAll(categories);
+        this.categories.add(category);
     }
 
     public Date getDate() {

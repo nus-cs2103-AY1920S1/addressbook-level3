@@ -14,15 +14,17 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AccountBook;
 import seedu.address.model.AddressBook;
 import seedu.address.model.LoansManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -80,6 +82,17 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        @Override
+        public AccountBook getAccountBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTransaction(Transaction target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public LoansManager getLoansManager() {
             throw new AssertionError("This method should not be called.");
@@ -153,6 +166,16 @@ public class AddCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FilteredList<Transaction> getFilteredTransactions() {
+            return null;
         }
     }
 

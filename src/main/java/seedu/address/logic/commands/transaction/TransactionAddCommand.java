@@ -19,11 +19,11 @@ import seedu.address.model.transaction.Transaction;
 /**
  * Adds a transaction.
  */
-public class AddTransactionCommand extends Command {
+public class TransactionAddCommand extends Command {
 
     public static final String COMMAND_WORD = "transaction";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction.\n"
             + "Parameters: "
             + "out|in "
             + PREFIX_AMOUNT + "<amount> "
@@ -33,12 +33,12 @@ public class AddTransactionCommand extends Command {
             + "[" + PREFIX_DATE + "<date>] "
             + "[" + PREFIX_RECURRENCE + "<d|w|m|y>]\n"
             + "Example: " + COMMAND_WORD + " "
-            + "out"
+            + "out "
             + PREFIX_AMOUNT + "10 "
             + PREFIX_DESCRIPTION + "apple  "
             + PREFIX_ACCOUNT + "food  "
             + PREFIX_CATEGORY + "fruits "
-            + PREFIX_DATE + DATE_EXAMPLE
+            + PREFIX_DATE + DATE_EXAMPLE + " "
             + PREFIX_RECURRENCE + "d\n";
 
     public static final String MESSAGE_SUCCESS = "Transaction added: %1$s";
@@ -49,7 +49,7 @@ public class AddTransactionCommand extends Command {
     /**
      * Creates an AddTransactionCommand to add the specified {@code Transaction}
      */
-    public AddTransactionCommand(Transaction toAdd) {
+    public TransactionAddCommand(Transaction toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
     }

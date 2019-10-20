@@ -98,8 +98,15 @@ public class AccountBook implements ReadOnlyAccountBook {
         return accounts.getTransactionList();
     }
 
+    /**
+     * Adds a transaction to the AccountBook
+     */
     //TODO implement addTransaction
     public void addTransaction(Transaction toAdd) {
+        Account accountToCheck = toAdd.getAccount();
+        if (accounts.contains(accountToCheck)) {
+
+        }
     }
 
     //TODO implement removeTransaction
