@@ -102,7 +102,7 @@ public class ApiQuery {
 
         if (cachePath != null) {
             String sanitizedUrl = UrlUtil.sanitizeApiKey(urlString);
-            Cache.saveToJson(sanitizedUrl, output, cachePath );
+            Cache.saveToJson(sanitizedUrl, output, cachePath);
         }
 
         conn.disconnect();

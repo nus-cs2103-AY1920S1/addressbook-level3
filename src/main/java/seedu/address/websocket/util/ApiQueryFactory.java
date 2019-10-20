@@ -1,5 +1,9 @@
 package seedu.address.websocket.util;
 
+/**
+ * This is a factory class that returns either ApiQuery.execute() if the response was not called before
+ * and CacheQuery.execute() if the response is saved in cache
+ */
 public class ApiQueryFactory {
     private String url;
     private String cachePath;
