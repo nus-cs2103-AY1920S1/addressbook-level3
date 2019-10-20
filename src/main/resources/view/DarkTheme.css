@@ -159,6 +159,12 @@
     -fx-text-fill: #010504;
 }
 
+.cell_extra_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 19px;
+    -fx-text-fill: #010504;
+}
+
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
@@ -432,6 +438,13 @@
 
 #personDetailContainer .label {
     -fx-text-fill: #FFFFFF;
+}
+
+#profileContainer {
+    -fx-background-color: white;
+    -fx-border-color: #393E46;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
 }
 
 #resultDisplay .content {
