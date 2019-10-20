@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -41,6 +42,24 @@ public class ClaimListPanel extends UiPart<Region> {
                 setGraphic(new ClaimCard(claim, getIndex() + 1).getRoot());
             }
         }
+    }
+
+    /**
+     * Clears selection of the view.
+     */
+    public void clearSelection() {
+        Platform.runLater(() -> {
+            claimListView.getSelectionModel().clearSelection();
+        });
+    }
+
+    /**
+     * Change list of view.
+     * @param claimList updated list.
+     */
+    public void updatePanel(ObservableList<Claim> claimList) {
+        claimListView.setItems(claimList);
+        claimListView.setCellFactory(listView -> new ClaimListViewCell());
     }
 
 }

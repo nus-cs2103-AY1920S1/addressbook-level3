@@ -19,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ClaimListPanel claimListPanel;
     private IncomeListPanel incomeListPanel;
     private IndividualClaimWindow individualClaimWindow;
+    private IndividualContactWindow individualContactWindow;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -85,22 +87,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
@@ -163,13 +149,57 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleClaim(Claim claim) {
-
         individualClaimWindow = new IndividualClaimWindow(claim);
 
         if (!individualClaimWindow.isShowing()) {
             individualClaimWindow.show();
         } else {
             individualClaimWindow.focus();
+        }
+    }
+
+    /**
+     * Updates list panel with claims.
+     */
+    @FXML
+    public void handleClaimsList() {
+        claimListPanel = new ClaimListPanel(logic.getFilteredClaimList());
+        personListPanelPlaceholder.getChildren().add(claimListPanel.getRoot());
+        resultDisplay.setFeedbackToUser("All Claims Listed");
+    }
+
+    /**
+     * Updates list panel with contacts.
+     */
+    @FXML
+    public void handleContactsList() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        resultDisplay.setFeedbackToUser("All Contacts Listed");
+    }
+
+    /**
+     * Updates list panel with incomes.
+     */
+    @FXML
+    public void handleIncomesList() {
+        incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
+        personListPanelPlaceholder.getChildren().add(incomeListPanel.getRoot());
+        resultDisplay.setFeedbackToUser("All Incomes Listed");
+    }
+
+    /**
+     * Opens the claim window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleContact(Contact contact) {
+
+        individualContactWindow = new IndividualContactWindow(contact);
+
+        if (!individualContactWindow.isShowing()) {
+            individualContactWindow.show();
+        } else {
+            individualContactWindow.focus();
         }
     }
 
@@ -241,6 +271,11 @@ public class MainWindow extends UiPart<Stage> {
                 handleClaim(claim);
             }
 
+            if (commandResult.isContact()) {
+                Contact contact = commandResult.giveContact();
+                handleContact(contact);
+            }
+
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
@@ -248,4 +283,5 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
 }

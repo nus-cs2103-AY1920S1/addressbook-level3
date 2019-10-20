@@ -37,6 +37,6 @@ public class BudgetCommand extends Command {
             message += "\nWarning, you are over budget!";
         }
 
-        return new CommandResult(message, false, false, false);
+        return new CommandResult(message, false, false, false, false);
     }
 }

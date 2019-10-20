@@ -8,6 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
 import seedu.address.ui.UiManager;
 
 /**
@@ -53,7 +54,9 @@ public class CheckCommand extends Command {
             Claim claimToShow = lastShownList.get(index.getZeroBased());
             return new CommandResult(MESSAGE_SUCCESS_CLAIM, false, false, true, claimToShow);
         } else if (UiManager.getState().equals("contacts")) {
-            return new CommandResult(MESSAGE_SUCCESS_CONTACT);
+            List<Contact> contactList = model.getFilteredContactList();
+            Contact contactToShow = contactList.get(index.getZeroBased());
+            return new CommandResult(MESSAGE_SUCCESS_CONTACT, false, false, false, true, contactToShow);
         } else {
             return new CommandResult(MESSAGE_FAILURE);
         }
