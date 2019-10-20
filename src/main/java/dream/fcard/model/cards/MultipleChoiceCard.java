@@ -67,7 +67,7 @@ public class MultipleChoiceCard extends FrontBackCard {
 
     @Override
     public Boolean evaluate(String in) throws IndexNotFoundException {
-        
+
         int userAnswer = -1;
 
         try {

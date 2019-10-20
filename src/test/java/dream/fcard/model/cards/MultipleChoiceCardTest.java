@@ -12,7 +12,7 @@ import dream.fcard.model.exceptions.IndexNotFoundException;
 class MultipleChoiceCardTest {
 
     @Test
-    void evaluate_correctChoice_trueReturned() {
+    void evaluate_correctChoice_trueReturned() throws IndexNotFoundException {
         ArrayList<String> choices = new ArrayList<>();
         choices.add("hello");
         choices.add("bye");
@@ -22,7 +22,7 @@ class MultipleChoiceCardTest {
     }
 
     @Test
-    void evaluate_wrongChoice_falseReturned() {
+    void evaluate_wrongChoice_falseReturned() throws IndexNotFoundException {
         ArrayList<String> choices = new ArrayList<>();
         choices.add("hello");
         choices.add("bye");
