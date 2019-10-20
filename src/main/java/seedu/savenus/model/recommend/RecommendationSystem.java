@@ -14,41 +14,48 @@ import seedu.savenus.model.tag.Tag;
  * Represents the Recommendation System of the menu.
  */
 public class RecommendationSystem {
-
     private static final Comparator<Food> DEFAULT_COMPARATOR = (x, y) -> 0;
     private static final Predicate<Food> DEFAULT_PREDICATE = x -> true;
 
-    // TODO
-    private static final int LIKED_TAG_WEIGHT = 1;
-    private static final int LIKED_LOCATION_WEIGHT = 2;
-    private static final int LIKED_CATEGORY_WEIGHT = 3;
+    private static RecommendationSystem recommendationSystem;
 
-    private static final int DISLIKED_TAG_WEIGHT = 3;
-    private static final int DISLIKED_LOCATION_WEIGHT = 4;
-    private static final int DISLIKED_CATEGORY_WEIGHT = 5;
+    private static double budget = 50.00;
+
+    private static Comparator<Food> comparator =
+            Comparator.comparingDouble(getInstance()::calculateRecommendation).reversed()
+            .thenComparingDouble(x -> Double.parseDouble(x.getPrice().value));;
+    private static Predicate<Food> predicate = f -> Double.parseDouble(f.getPrice().value) < budget;
+
+    // TODO
+    private static final double LIKED_TAG_WEIGHT = 0.1;
+    private static final double LIKED_LOCATION_WEIGHT = 0.2;
+    private static final double LIKED_CATEGORY_WEIGHT = 0.3;
+
+    private static final double DISLIKED_TAG_WEIGHT = 0.3;
+    private static final double DISLIKED_LOCATION_WEIGHT = 0.4;
+    private static final double DISLIKED_CATEGORY_WEIGHT = 0.5;
+
+    private static final double CHOSEN_TAG_WEIGHT = 0.01;
+    private static final double CHOSEN_LOCATION_WEIGHT = 0.01;
+    private static final double CHOSEN_CATEGORY_WEIGHT = 0.01;
 
     private UserRecommendations userRecommendations;
-
-    private Comparator<Food> recommendationComparator;
-    private Predicate<Food> recommendationPredicate;
     private boolean inUse;
 
-    public RecommendationSystem() {
-        this.inUse = false;
+    private RecommendationSystem() {
+    }
 
-        // Calculate by recommendation value, using price to break ties
-        recommendationComparator = Comparator.comparingInt(this::calculateRecommendation).reversed()
-                .thenComparingDouble(x -> Double.parseDouble(x.getPrice().value));
-
-        // TODO: Dummy predicate
-        recommendationPredicate = f -> Double.parseDouble(f.getPrice().value) < 50;
-        userRecommendations = new UserRecommendations();
+    public static RecommendationSystem getInstance() {
+        if (recommendationSystem == null) {
+            recommendationSystem = new RecommendationSystem();
+        }
+        return recommendationSystem;
     }
 
     /**
      * Calculates the recommendation value for each Food provided
      */
-    public int calculateRecommendation(Food food) {
+    public double calculateRecommendation(Food food) {
         int weight = 0;
 
         weight += LIKED_TAG_WEIGHT * userRecommendations.getLikedTags().stream()
@@ -79,26 +86,26 @@ public class RecommendationSystem {
 
     public Comparator<Food> getRecommendationComparator() {
         if (inUse) {
-            return recommendationComparator;
+            return comparator;
         } else {
             return DEFAULT_COMPARATOR;
         }
     }
 
     public void setRecommendationComparator(Comparator<Food> recommendationComparator) {
-        this.recommendationComparator = recommendationComparator;
+        comparator = recommendationComparator;
     }
 
     public Predicate<Food> getRecommendationPredicate() {
         if (inUse) {
-            return recommendationPredicate;
+            return predicate;
         } else {
             return DEFAULT_PREDICATE;
         }
     }
 
     public void setRecommendationPredicate(Predicate<Food> recommendationPredicate) {
-        this.recommendationPredicate = recommendationPredicate;
+        predicate = recommendationPredicate;
     }
 
     public boolean isInUse() {
