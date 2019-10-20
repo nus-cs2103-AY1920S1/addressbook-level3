@@ -10,12 +10,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Category;
-import seedu.address.model.finance.attributes.Tag;
 import seedu.address.model.finance.attributes.TransactionMethod;
 import seedu.address.model.finance.logentry.Amount;
 import seedu.address.model.finance.logentry.Description;
 import seedu.address.model.finance.logentry.TransactionDate;
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -107,13 +105,13 @@ public class ParserUtil {
         requireNonNull(cat);
         String trimmedCat = cat.trim();
         if (!Category.isValidCatName(trimmedCat)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
         return new Category(trimmedCat);
     }
 
     /**
-     * Parses {@code Collection<String> cats} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> cats} into a {@code Set<Category>}.
      */
     public static Set<Category> parseCategories(Collection<String> cats) throws ParseException {
         requireNonNull(cats);
