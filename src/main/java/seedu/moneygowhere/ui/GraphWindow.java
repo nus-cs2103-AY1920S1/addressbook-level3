@@ -42,6 +42,9 @@ public class GraphWindow extends UiPart<Stage> {
         this(new Stage());
     }
 
+    /**
+     * Loads graph data into a line chart for display.
+     */
     public void loadData(Map<Date, Double> graphData) {
         paneView.getChildren().clear();
         CategoryAxis xAxis = new CategoryAxis();

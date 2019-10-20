@@ -3,7 +3,6 @@ package seedu.moneygowhere.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.TreeMap;
 
 import seedu.moneygowhere.commons.core.Messages;
 import seedu.moneygowhere.commons.core.index.Index;

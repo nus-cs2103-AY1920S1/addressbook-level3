@@ -2,8 +2,6 @@ package seedu.moneygowhere.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.TreeMap;
-
 import seedu.moneygowhere.commons.core.Messages;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;

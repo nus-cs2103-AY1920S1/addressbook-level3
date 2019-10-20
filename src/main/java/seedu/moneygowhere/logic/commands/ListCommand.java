@@ -3,8 +3,6 @@ package seedu.moneygowhere.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 
-import java.util.TreeMap;
-
 import seedu.moneygowhere.model.Model;
 
 /**

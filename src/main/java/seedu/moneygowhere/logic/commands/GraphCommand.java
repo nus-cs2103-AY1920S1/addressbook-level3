@@ -6,17 +6,15 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
-import seedu.moneygowhere.model.tag.Tag;
 
 /**
  * Format full help instructions for every command for display.
@@ -34,8 +32,6 @@ public class GraphCommand extends Command {
         + PREFIX_DATE + "tomorrow ";
 
     public static final String SHOWING_GRAPH_MESSAGE = "Opened graph window.";
-
-    private HashMap<Tag, Double> spendingList;
 
     private Date startDate;
     private Date endDate;
@@ -90,7 +86,8 @@ public class GraphCommand extends Command {
         return costPerDateList;
     }
 
-    private Map<Date, Double> getCostSpentPerDate(List<Spending> lastShownList, Comparator<Date> dateComparator, Set<Date> dateSet) {
+    private Map<Date, Double> getCostSpentPerDate(List<Spending> lastShownList, Comparator<Date> dateComparator,
+                                                  Set<Date> dateSet) {
         //Get cost spent per date
         Map<Date, Double> costPerDateList = new TreeMap<>(dateComparator);
         for (Date e: dateSet) {
@@ -113,9 +110,11 @@ public class GraphCommand extends Command {
         return dateSet;
     }
 
+    /**
+     * Returns a list of spending filtered by the specified date range.
+     */
     private List<Spending> filterListByDate(Model model) {
         List<Spending> lastShownList;
-        //Filters list based on date range if date range is specified.
         if (startDate != null && endDate != null) {
             lastShownList = model.getFilteredSpendingList().filtered(s-> {
                 return s.getDate().value.compareTo(startDate.value) >= 0

@@ -7,8 +7,6 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.TreeMap;
-
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.spending.Spending;
