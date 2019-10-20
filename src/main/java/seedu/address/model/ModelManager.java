@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -48,14 +51,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -83,13 +86,13 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.addressBook.resetData(addressBook);
     }
 
     @Override
@@ -163,7 +166,34 @@ public class ModelManager implements Model {
         addressBook.setPolicy(target, editedPolicy);
     }
 
+    public ObservableMap<String, Integer> getPolicyPopularityBreakdown() {
+        // Set up map
+        ObservableMap<String, Integer> result = FXCollections.observableHashMap();
+        this.addressBook.getPolicyList().forEach(policy -> result.put(policy.getName().toString(), 0));
+
+        // Add popularity
+        this.addressBook.getPersonList().forEach(person -> {
+            Set<Policy> policies = person.getPolicies();
+            policies.forEach(policy -> {
+                String policyName = policy.getName().toString();
+                result.put(policyName, result.get(policyName) + 1);
+            });
+        });
+
+        return result;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
+
+    // TODO: delete
+    /**
+     * Returns a list of unfiltered person.
+     * @returnlist of unfiltered person.
+     */
+    @Override
+    public ObservableList<Person> getPersonList() {
+        return this.addressBook.getPersonList();
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -210,9 +240,9 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && filteredPolicies.equals(other.filteredPolicies);
+            && userPrefs.equals(other.userPrefs)
+            && filteredPersons.equals(other.filteredPersons)
+            && filteredPolicies.equals(other.filteredPolicies);
     }
 
 }

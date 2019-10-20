@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -47,6 +48,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of policies */
     ObservableList<Policy> getFilteredPolicyList();
+
+    /** Returns policy popularity of address book. Key represents policy, value represents popularity. */
+    public ObservableMap<String, Integer> getPolicyPopularityBreakdown();
 
     /**
      * Returns the user prefs' address book file path.

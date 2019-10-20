@@ -82,12 +82,6 @@ public class DisplayPanel extends UiPart<Region> {
         } else if (isPolicy) {
             informationHolder.getChildren().add(new PolicyInformationHolder(policy).getRoot());
             // todo: add eligible persons
-        } else if (isDisplayIndicator) {
-            switch (displayIndicator.toString()) {
-            case DisplayIndicator.POLICY_POPULARITY_BREAKDOWN:
-                informationHolder.getChildren().add(new PolicyPopularityVisual().getRoot());
-                break;
-            }
         }
     }
 

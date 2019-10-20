@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -83,6 +84,9 @@ public class LogicManager implements Logic {
     public ObservableList<Policy> getFilteredPolicyList() {
         return model.getFilteredPolicyList();
     }
+
+    @Override
+    public ObservableMap<String, Integer> getPolicyPopularityBreakdown() { return model.getPolicyPopularityBreakdown(); }
 
     @Override
     public Path getAddressBookFilePath() {

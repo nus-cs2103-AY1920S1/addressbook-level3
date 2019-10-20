@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -18,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.visual.DisplayIndicator;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -219,9 +221,21 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isDisplay()) {
-                PolicyPopularityVisual pph = new PolicyPopularityVisual();
+                String displayIndicator = commandResult.getDisplayIndicator().toString();
+                // TODO (for larry): Display indicator sets data
+                ObservableMap<String, Integer> data;
+                switch (displayIndicator) {
+                case DisplayIndicator.POLICY_POPULARITY_BREAKDOWN:
+                    data = logic.getPolicyPopularityBreakdown();
+                    break;
+                default:
+                    // TODO: display report as default instead
+                    data = logic.getPolicyPopularityBreakdown();
+                }
+
+                // TODO: Format sets type of visual
                 displayPlaceHolder.getChildren().clear();
-                displayPlaceHolder.getChildren().add(pph.getRoot());
+                displayPlaceHolder.getChildren().add(new PieChartVisual(data).getRoot());
             }
 
             if (commandResult.isExpandPerson()) {
