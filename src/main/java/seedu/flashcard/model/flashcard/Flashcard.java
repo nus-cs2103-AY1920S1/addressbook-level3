@@ -129,6 +129,13 @@ public class Flashcard {
     }
 
     /**
+     * Get the representation of this flashcard containing the answer.
+     */
+    public String fullString() {
+        return toString() + "\nAnswer:\n" + answer;
+    }
+
+    /**
      * Returns true if both the word and the definitions and the tags are the same.
      * This is stronger than {@code isSameFlashCard}
      */
@@ -149,13 +156,17 @@ public class Flashcard {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getWord())
-                .append(" Definitions: ")
-                .append(getDefinition())
-                .append(" Tags: ");
+        builder.append(getWord()).append("\n")
+                .append("\nDefinitions:").append("\n")
+                .append(getDefinition()).append("\n")
+                .append("\nTags:").append("\n");
         getTags().forEach(builder::append);
-        builder.append(" Choices: \n");
-        getChoices().forEach(builder::append);
+        builder.append("\n\nChoices:\n");
+        int index = 1;
+        for (Choice choice : getChoices()) {
+            builder.append(Integer.toString(index) + ". " + choice);
+            index ++;
+        }
         return builder.toString();
     }
 

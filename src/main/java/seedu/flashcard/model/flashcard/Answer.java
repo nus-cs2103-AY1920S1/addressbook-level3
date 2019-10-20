@@ -19,4 +19,11 @@ public class Answer extends Choice {
         return test.matches(VALIDATION_REGEX);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof Answer
+            && choice.equals(((Answer) other).choice));
+    }
+
 }
