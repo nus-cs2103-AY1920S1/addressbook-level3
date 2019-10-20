@@ -5,9 +5,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import info.movito.themoviedbapi.TmdbApi;
-import info.movito.themoviedbapi.TvResultsPage;
+import info.movito.themoviedbapi.*;
 import info.movito.themoviedbapi.model.Credits;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -68,7 +68,6 @@ public class ApiMain implements ApiInterface {
      * @throws OnlineConnectionException
      */
     private void notConnected() throws OnlineConnectionException {
-        isConnected = false;
         throw new OnlineConnectionException(CONNECTION_ERROR_MESSAGE);
     }
 
@@ -88,7 +87,7 @@ public class ApiMain implements ApiInterface {
 
                 //retrieve image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
-                toAdd.setPoster(new Poster(instance.getImageUrl(), true));
+                toAdd.setPoster(new Poster(instance.retrieveImage(movieName)));
 
                 movies.add(toAdd);
             }
@@ -113,16 +112,23 @@ public class ApiMain implements ApiInterface {
 
             for (MovieDb m : page.getResults()) {
                 String movieName = m.getTitle();
-                RunningTime runtime = new RunningTime(m.getRuntime());
+                final int movieId = m.getId();
+                TmdbMovies apiMovie = apiCall.getMovies();
+                MovieDb movie = apiMovie.getMovie(movieId, null, TmdbMovies.MovieMethod.credits);
+
+                RunningTime runtime = new RunningTime(movie.getRuntime());
                 String overview = m.getOverview();
                 String releaseDate = m.getReleaseDate();
 
+                //actors
+                Set<Actor> actors = getActors(movie.getCast());
+
                 Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false), new Date(releaseDate),
-                        runtime , new HashSet<Actor>());
+                        runtime , actors);
 
                 //retrieve image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
-                toAdd.setPoster(new Poster(instance.getImageUrl(), true));
+                toAdd.setPoster(new Poster(instance.retrieveImage(movieName)));
 
                 movies.add(toAdd);
             }
@@ -146,34 +152,60 @@ public class ApiMain implements ApiInterface {
             ArrayList<TvShow> tvShows = new ArrayList<>();
 
             for (TvSeries tv : page.getResults()) {
+                final int tvId = tv.getId();
                 List<TvSeason> seasons = tv.getSeasons();
                 ArrayList<seedu.ezwatchlist.model.show.TvSeason> seasonsList = new ArrayList<>();
-                Credits credits = tv.getCredits();
-                List<PersonCast> cast = credits.getCast();
-                PersonCast personCast = cast.get(0);
-                personCast.getName();
-                for (TvSeason tvSeason : seasons) {
+                TmdbTvSeasons tvSeasons = apiCall.getTvSeasons();
+                final int numberOfSeasons = tv.getNumberOfSeasons();
+
+                //seasons
+                for (int seasonNo = 1; seasonNo < numberOfSeasons; seasonNo++) {
+                    TvSeason tvSeason = tvSeasons.getSeason(tvId, seasonNo, null, TmdbTvSeasons.SeasonMethod.values());
+
                     List<TvEpisode> episodes = tvSeason.getEpisodes();
                     ArrayList<Episode> episodeList = new ArrayList<>();
+
                     for (TvEpisode episode : episodes) {
                         episodeList.add(new seedu.ezwatchlist.model.show.Episode(new Name(episode.getName()), episode.getEpisodeNumber()));
                     }
+
                     seedu.ezwatchlist.model.show.TvSeason tvS =
                             new seedu.ezwatchlist.model.show.TvSeason(tvSeason.getSeasonNumber(), episodes.size(),
                                     episodeList);
                     seasonsList.add(tvS);
                 }
 
-                tvShows.add(new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), new IsWatched(false),
-                        new Date(tv.getFirstAirDate()),
-                        new RunningTime(tv.getEpisodeRuntime().get(0)), null, 0,
-                        tv.getNumberOfEpisodes(), seasonsList));
+                Credits credits = apiCall.getTvSeries().getCredits(tvId, null);
+                Date date = new Date(apiCall.getTvSeries().getSeries(tvId, null,
+                        TmdbTV.TvMethod.external_ids).getFirstAirDate());
+                //actors
+                Set<Actor> actors = getActors(credits.getCast());
+
+                TvShow tvShowToAdd = new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), new IsWatched(false),
+                         date ,
+                        new RunningTime(20), actors, 0,
+                        tv.getNumberOfEpisodes(), seasonsList);
+
+                //image
+                ImageRetrieval instance = new ImageRetrieval(apiCall, tv.getPosterPath());
+                tvShowToAdd.setPoster(new Poster(instance.retrieveImage(tv.getName())));
+
+                tvShows.add(tvShowToAdd);
             }
             return tvShows;
         } catch (MovieDbException e) {
             notConnected();
             return new ArrayList<TvShow>();
         }
+    }
+
+    private Set<Actor> getActors(List<PersonCast> cast) {
+        Set<Actor> actors = new HashSet<>();
+        for (PersonCast personCast: cast) {
+            Actor actor = new Actor(personCast.getName());
+            actors.add(actor);
+        }
+        return actors;
     }
 
 /**

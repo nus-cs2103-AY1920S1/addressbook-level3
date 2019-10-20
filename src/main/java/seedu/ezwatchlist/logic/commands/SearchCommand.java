@@ -75,13 +75,13 @@ public class SearchCommand extends Command {
 
             if (!showName.getName().equals("")) {
                 List<Movie> movies = new ApiMain().getMovieByName(showName.getName());
-                //List<TvShow> tvShows = new ApiMain().getTvShowByName(showName.getName());
+                List<TvShow> tvShows = new ApiMain().getTvShowByName(showName.getName());
                 for (Movie movie : movies) {
                     searchResult.add(movie);
                 }
-                //for(TvShow tvShow : tvShows) {
-                 //   searchResult.add(tvShow);
-                //}
+                for(TvShow tvShow : tvShows) {
+                    searchResult.add(tvShow);
+                }
             }
 
             model.updateSearchResultList(searchResult);

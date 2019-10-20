@@ -43,9 +43,9 @@ public class ImageRetrieval {
         try (InputStream in = new URL(imageUrl).openStream()) {
             Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION + fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png"));
         } catch(FileAlreadyExistsException f) {
-            System.out.println("Duplicate image");
+            System.err.println("Duplicate image");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getCause());
         }
     }
 }

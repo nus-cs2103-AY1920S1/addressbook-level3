@@ -2,6 +2,7 @@ package seedu.ezwatchlist.model.show;
 
 import seedu.ezwatchlist.commons.util.AppUtil;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -30,7 +31,11 @@ public class Date {
      * @param date A valid date.
      */
     public Date(String date) {
-        requireNonNull(date);
+        //instead of having constraints perhaps could check if the object is null in the creation
+        if (isNull(date)) {
+            date = "";
+        }
+        //requireNonNull(date);
         //AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
     }
