@@ -19,13 +19,17 @@ public class CommandResult {
 
     /** The application should switch persons display for incidents and vehicles. */
     private final boolean login;
+    private final boolean logout;
+    private final boolean swap;
 
     /**
-     * Constructs a {@code CommandResult} with the login flag.
+     * Constructs a {@code CommandResult} with the flags needed for login feature.
      */
-    public CommandResult(String feedbackToUser, boolean login) {
+    public CommandResult(String feedbackToUser, boolean login, boolean logout, boolean swap) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.login = login;
+        this.logout = logout;
+        this.swap = swap;
         showHelp = false;
         exit = false;
     }
@@ -38,6 +42,8 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         login = false;
+        logout = false;
+        swap = false;
     }
 
     /**
@@ -62,6 +68,14 @@ public class CommandResult {
 
     public boolean isLogin() {
         return login;
+    }
+
+    public boolean isLogout() {
+        return logout;
+    }
+
+    public boolean isSwap() {
+        return swap;
     }
 
     @Override
