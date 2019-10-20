@@ -14,14 +14,12 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TypicalAddressBook;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.testutil.TypicalPolicy;
 
 public class ModelManagerTest {
 
@@ -97,8 +95,6 @@ public class ModelManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
-
-//    whatIsBeingTested_descriptionOfTestInputs_expectedOutcome
 
     @Test
     public void getPolicyPopularityBreakdown_typicalAddressBook_returnsTrue() {

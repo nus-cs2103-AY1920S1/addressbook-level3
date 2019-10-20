@@ -8,27 +8,18 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_I
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.logic.commands.merge.MergePolicyConfirmedCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.Policy;
-import seedu.address.model.policy.PolicyName;
 import seedu.address.testutil.TestUtil.ModelStub;
 
 public class MergePolicyConfirmedCommandTest {
@@ -46,9 +37,9 @@ public class MergePolicyConfirmedCommandTest {
         ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
         CommandResult commandResult = new MergePolicyConfirmedCommand(mergeCommandStub).execute(modelStub);
         assertEquals(String.format(MergePolicyConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS,
-                Description.DATA_TYPE)
-                + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
-                inputPolicy), commandResult.getFeedbackToUser());
+            Description.DATA_TYPE)
+            + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
+            inputPolicy), commandResult.getFeedbackToUser());
         assertEquals(modelStub.getPolicy(), inputPolicy);
     }
 
@@ -56,15 +47,15 @@ public class MergePolicyConfirmedCommandTest {
     public void execute_mergeConfirmedWithMoreThanOneMergeLeft_mergeSuccessful() throws Exception {
         Policy validPolicy = new PolicyBuilder().build();
         Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
-                .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
+            .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
         MergePolicyCommandStubWithMultipleMerges mergeCommandStub =
-                new MergePolicyCommandStubWithMultipleMerges(inputPolicy);
+            new MergePolicyCommandStubWithMultipleMerges(inputPolicy);
         ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
         CommandResult commandResult = new MergePolicyConfirmedCommand(mergeCommandStub).execute(modelStub);
         assertEquals(String.format(MergePolicyConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS, Description.DATA_TYPE)
-                + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
+            + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
         assertEquals(modelStub.getPolicy(), new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
-                .build());
+            .build());
     }
 
     @Test
@@ -112,8 +103,8 @@ public class MergePolicyConfirmedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Description.DATA_TYPE) + "\n")
-                    .append(ORIGINAL_HEADER + originalPolicy.getDescription().description + "\n")
-                    .append(INPUT_HEADER + super.getInputPolicy().getDescription().description);
+                .append(ORIGINAL_HEADER + originalPolicy.getDescription().description + "\n")
+                .append(INPUT_HEADER + super.getInputPolicy().getDescription().description);
             return mergePrompt.toString();
         }
 
@@ -160,8 +151,8 @@ public class MergePolicyConfirmedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Coverage.DATA_TYPE) + "\n")
-                    .append(ORIGINAL_HEADER + originalPolicy.getCoverage().coverage + "\n")
-                    .append(INPUT_HEADER + super.getInputPolicy().getCoverage().coverage);
+                .append(ORIGINAL_HEADER + originalPolicy.getCoverage().coverage + "\n")
+                .append(INPUT_HEADER + super.getInputPolicy().getCoverage().coverage);
             return mergePrompt.toString();
         }
 

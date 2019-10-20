@@ -38,8 +38,8 @@ public class MergePersonRejectedCommandTest {
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
         CommandResult commandResult = new MergePersonRejectedCommand(mergeCommandStub).execute(modelStub);
         assertEquals(String.format(MergePersonRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED, Phone.DATA_TYPE)
-                + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
-                mergeCommandStub.getOriginalPerson()), commandResult.getFeedbackToUser());
+            + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
+            mergeCommandStub.getOriginalPerson()), commandResult.getFeedbackToUser());
         assertEquals(modelStub.getPerson(), new PersonBuilder().build());
     }
 
@@ -48,11 +48,11 @@ public class MergePersonRejectedCommandTest {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
         MergePersonCommandStubWithMultipleMerges mergeCommandStub =
-                new MergePersonCommandStubWithMultipleMerges(inputPerson);
+            new MergePersonCommandStubWithMultipleMerges(inputPerson);
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
         CommandResult commandResult = new MergePersonRejectedCommand(mergeCommandStub).execute(modelStub);
         assertEquals(String.format(MergePersonRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED, Phone.DATA_TYPE)
-                + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
+            + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
         assertEquals(modelStub.getPerson(), new PersonBuilder().build());
     }
 
@@ -101,8 +101,8 @@ public class MergePersonRejectedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Phone.DATA_TYPE) + "\n")
-                    .append(ORIGINAL_HEADER + originalPerson.getPhone().value + "\n")
-                    .append(INPUT_HEADER + super.getInputPerson().getPhone().value);
+                .append(ORIGINAL_HEADER + originalPerson.getPhone().value + "\n")
+                .append(INPUT_HEADER + super.getInputPerson().getPhone().value);
             return mergePrompt.toString();
         }
 
@@ -149,8 +149,8 @@ public class MergePersonRejectedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Address.DATA_TYPE) + "\n")
-                    .append(ORIGINAL_HEADER + originalPerson.getAddress().value + "\n")
-                    .append(INPUT_HEADER + super.getInputPerson().getAddress().value);
+                .append(ORIGINAL_HEADER + originalPerson.getAddress().value + "\n")
+                .append(INPUT_HEADER + super.getInputPerson().getAddress().value);
             return mergePrompt.toString();
         }
 

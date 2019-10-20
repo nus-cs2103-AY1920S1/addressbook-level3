@@ -8,27 +8,19 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.logic.commands.merge.MergePersonConfirmedCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
-import seedu.address.model.policy.PolicyName;
 import seedu.address.testutil.TestUtil.ModelStub;
 
 public class MergePersonConfirmedCommandTest {
@@ -46,8 +38,8 @@ public class MergePersonConfirmedCommandTest {
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
         CommandResult commandResult = new MergePersonConfirmedCommand(mergeCommandStub).execute(modelStub);
         assertEquals(String.format(MergePersonConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS, Phone.DATA_TYPE)
-                + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
-                inputPerson), commandResult.getFeedbackToUser());
+            + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
+            inputPerson), commandResult.getFeedbackToUser());
         assertEquals(modelStub.getPerson(), inputPerson);
     }
 
@@ -56,11 +48,11 @@ public class MergePersonConfirmedCommandTest {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
         MergePersonCommandStubWithMultipleMerges mergeCommandStub =
-                new MergePersonCommandStubWithMultipleMerges(inputPerson);
+            new MergePersonCommandStubWithMultipleMerges(inputPerson);
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
         CommandResult commandResult = new MergePersonConfirmedCommand(mergeCommandStub).execute(modelStub);
         assertEquals(String.format(MergePersonConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS, Phone.DATA_TYPE)
-                + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
+            + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
         assertEquals(modelStub.getPerson(), new PersonBuilder().withPhone(VALID_PHONE_BOB).build());
     }
 
@@ -109,8 +101,8 @@ public class MergePersonConfirmedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Phone.DATA_TYPE) + "\n")
-                    .append(ORIGINAL_HEADER + originalPerson.getPhone().value + "\n")
-                    .append(INPUT_HEADER + super.getInputPerson().getPhone().value);
+                .append(ORIGINAL_HEADER + originalPerson.getPhone().value + "\n")
+                .append(INPUT_HEADER + super.getInputPerson().getPhone().value);
             return mergePrompt.toString();
         }
 
@@ -157,8 +149,8 @@ public class MergePersonConfirmedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Address.DATA_TYPE) + "\n")
-                    .append(ORIGINAL_HEADER + originalPerson.getAddress().value + "\n")
-                    .append(INPUT_HEADER + super.getInputPerson().getAddress().value);
+                .append(ORIGINAL_HEADER + originalPerson.getAddress().value + "\n")
+                .append(INPUT_HEADER + super.getInputPerson().getAddress().value);
             return mergePrompt.toString();
         }
 

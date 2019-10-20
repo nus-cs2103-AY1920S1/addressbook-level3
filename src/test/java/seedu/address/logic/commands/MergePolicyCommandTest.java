@@ -8,25 +8,17 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_I
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.Policy;
-import seedu.address.model.policy.PolicyName;
 import seedu.address.testutil.TestUtil.ModelStub;
 
 public class MergePolicyCommandTest {

@@ -29,8 +29,8 @@ public class ListPolicyCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertListPolicyCommandSuccess(new ListPolicyCommand(),
-                model,
-                ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
+            model,
+            ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class ListPolicyCommandTest {
         showPolicyAtIndex(model, INDEX_FIRST_PERSON);
 
         assertListPolicyCommandSuccess(new ListPolicyCommand(),
-                model,
-                ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
+            model,
+            ListPolicyCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

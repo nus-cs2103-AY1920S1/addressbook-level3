@@ -41,8 +41,8 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
         .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-        .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Female").withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE)
-        .withTags("diabetic").build();
+        .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Female")
+        .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE).withTags("diabetic").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
         .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
         .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1922").withGender("Male")

@@ -18,7 +18,7 @@ import seedu.address.model.policy.PolicyName;
 class UnassignPolicyCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnassignPolicyCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnassignPolicyCommand.MESSAGE_USAGE);
 
     private UnassignPolicyCommandParser parser = new UnassignPolicyCommandParser();
 

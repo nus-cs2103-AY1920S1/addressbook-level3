@@ -58,7 +58,7 @@ public class PersonUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getDateOfBirth().ifPresent(dateOfBirth -> sb.append(PREFIX_DATE_OF_BIRTH)
-                .append(dateOfBirth.value).append(" "));
+            .append(dateOfBirth.value).append(" "));
         return sb.toString();
     }
 }

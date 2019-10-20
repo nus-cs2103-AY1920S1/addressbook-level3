@@ -7,25 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
-import seedu.address.model.policy.PolicyName;
 import seedu.address.testutil.TestUtil.ModelStub;
 
 public class AddPolicyCommandTest {
@@ -53,18 +44,18 @@ public class AddPolicyCommandTest {
         ModelStub modelStub = new ModelStubWithPolicy(validPolicy);
 
         assertThrows(CommandException.class, addPolicyCommand.generateExceptionMessageWithoutMergePrompt(validPolicy), (
-            ) -> addPolicyCommand.execute(modelStub));
+        ) -> addPolicyCommand.execute(modelStub));
     }
 
     @Test
     public void execute_duplicatePolicyWithDifferentFields_throwsCommandException() {
         Policy validPolicy = new PolicyBuilder().build();
         Policy duplicatePolicyWithDifferentDescription = new PolicyBuilder()
-                .withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
+            .withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
         AddPolicyCommand addPolicyCommand = new AddPolicyCommand(duplicatePolicyWithDifferentDescription);
         ModelStub modelStub = new ModelStubWithPolicy(validPolicy);
         assertThrows(CommandException.class,
-                addPolicyCommand.generateExceptionMessageWithMergePrompt(validPolicy), ()
+            addPolicyCommand.generateExceptionMessageWithMergePrompt(validPolicy), ()
                 -> addPolicyCommand.execute(modelStub));
     }
 
