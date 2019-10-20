@@ -123,7 +123,6 @@ public class AddCommand extends UndoableCommand {
         try {
             model.deleteEntity(toAdd);
             notifCommand.removeNotif(model);
-//            toAdd.getIdNum().removeMapping();
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
