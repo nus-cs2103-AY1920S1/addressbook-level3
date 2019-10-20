@@ -66,7 +66,7 @@ public class MergePersonCommand extends MergeCommand {
      * Returns an array of the first different field type, original field info and the input field info.
      * @return
      */
-    private String[] getDifferences() {
+    public String[] getDifferences() {
         boolean hasDifferentPhone = !originalPerson.getPhone().equals(inputPerson.getPhone());
         if (hasDifferentPhone) {
             differentFields.add(new String[]{

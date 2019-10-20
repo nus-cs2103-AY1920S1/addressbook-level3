@@ -67,7 +67,7 @@ public class MergePolicyCommand extends MergeCommand {
      * Returns an array of the first different field type, original field info and the input field info.
      *
      */
-    private String[] getDifferences() {
+    public String[] getDifferences() {
         boolean hasDifferentDescription = !originalPolicy.getDescription().equals(inputPolicy.getDescription());
         if (hasDifferentDescription) {
             differentFields.add(new String[]{
