@@ -6,9 +6,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Represents the duration with each unit representing 30 minutes.
  */
 public class DurationInHalfHour {
-    public static final String VALIDATION_REGEX = "^[1-9][0-9]*0$";
     public static final String MESSAGE_CONSTRAINTS = "Duration should be in interval of 30(for example: 90).";
-    public static final String MESSAGE_INVALID = "Duration should be at least be divisible by 10";
+    public static final String MESSAGE_INVALID = "Input for duration should be an integer value.";
     private final int numberOfHalfHour;
 
     public DurationInHalfHour(int numberOfHalfHour) {
@@ -25,14 +24,15 @@ public class DurationInHalfHour {
      * @throws ParseException
      */
     public static boolean isValidDuration(String test) throws ParseException {
-        int duration = Integer.parseInt(test);
-        if (!test.matches(VALIDATION_REGEX)) {
+        try {
+            int duration = Integer.parseInt(test);
+            if (duration % 30 != 0) {
+                throw new ParseException(MESSAGE_CONSTRAINTS);
+            }
+            return true;
+        } catch (NumberFormatException e) {
             throw new ParseException(MESSAGE_INVALID);
         }
-        if (duration % 30 != 0) {
-            throw new ParseException(MESSAGE_CONSTRAINTS);
-        }
-        return true;
     }
 }
 

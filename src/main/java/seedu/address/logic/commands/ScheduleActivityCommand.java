@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
@@ -30,20 +29,19 @@ public class ScheduleActivityCommand extends ScheduleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
             + ": Schedule the activity identified "
-            + "by the index number used in the displayed activity list"
+            + "by the index number used in the displayed activity list "
             + "to a day.\n"
             + "Parameters:"
-            + PREFIX_ACTIVITY + "ACTIVITY_INDEX "
+            + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_START_TIME + "START_TIME "
-            + PREFIX_DURATION + "END_TIME "
+            + PREFIX_DURATION + "DURATION "
             + PREFIX_DAY + "DAY_INDEX "
-            + "Example: " + COMMAND_WORD + " " + SECOND_COMMAND_WORD
-            + PREFIX_ACTIVITY + "2 "
+            + "Example: " + COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1 "
             + PREFIX_START_TIME + "1100 "
-            + PREFIX_DURATION + "1300 "
+            + PREFIX_DURATION + "30 "
             + PREFIX_DAY + "2 ";
 
-    public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to a day: %1$s";
+    public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to day %d";
     public static final String MESSAGE_DUPLICATE_DAY = "This day already exists in the planner.";
 
     private final Index activityIndex;
@@ -84,7 +82,6 @@ public class ScheduleActivityCommand extends ScheduleCommand {
         Activity activityToSchedule = lastShownActivities.get(activityIndex.getZeroBased());
         ActivityWithTime activityWithTimeToAdd = new ActivityWithTime(activityToSchedule, startTime, duration);
 
-
         Day editedDay = createScheduledActivityDay(dayToEdit, activityWithTimeToAdd);
         List<Day> editedDays = new ArrayList<>(lastShownDays);
         editedDays.set(dayIndex.getZeroBased(), editedDay);
@@ -95,7 +92,7 @@ public class ScheduleActivityCommand extends ScheduleCommand {
 
         model.setDays(editedDays);
         model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
-        return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, editedDay));
+        return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()));
     }
 
     private Day createScheduledActivityDay(Day dayToEdit, ActivityWithTime toAdd) {
