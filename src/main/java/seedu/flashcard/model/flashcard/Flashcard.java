@@ -158,14 +158,18 @@ public class Flashcard {
         final StringBuilder builder = new StringBuilder();
         builder.append(getWord()).append("\n")
                 .append("\nDefinitions:").append("\n")
-                .append(getDefinition()).append("\n")
-                .append("\nTags:").append("\n");
-        getTags().forEach(builder::append);
-        builder.append("\n\nChoices:\n");
-        int index = 1;
-        for (Choice choice : getChoices()) {
-            builder.append(Integer.toString(index) + ". " + choice);
-            index ++;
+                .append(getDefinition()).append("\n");
+        if (!tags.isEmpty()) {
+            builder.append("\nTags:").append("\n");
+            getTags().forEach(builder::append);
+        }
+        if (!choices.isEmpty()) {
+            builder.append("\nChoices:\n");
+            int index = 1;
+            for (Choice choice : getChoices()) {
+                builder.append(Integer.toString(index) + ". " + choice);
+                index++;
+            }
         }
         return builder.toString();
     }
