@@ -253,6 +253,9 @@ public class MainWindow extends UiPart<Stage> {
                 case DisplayFormat.PIECHART:
                     displayPlaceHolder.getChildren().add(new PieChartVisual(data, title).getRoot());
                     break;
+                case DisplayFormat.BARCHART:
+                    displayPlaceHolder.getChildren().add(new BarChartVisual(data, title).getRoot());
+                    break;
                 default:
                     throw new ParseException(DisplayFormat.getMessageConstraints());
                 }

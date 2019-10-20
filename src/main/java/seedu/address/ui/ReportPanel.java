@@ -8,6 +8,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 
+// TODO: Consider using barchart series
+// https://docs.oracle.com/javafx/2/charts/bar-chart.htm
 /**
  * Displays report with key KPIs
  */
