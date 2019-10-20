@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
+import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.person.UniquePersonList;
 import budgetbuddy.model.person.exceptions.PersonNotFoundException;
-import budgetbuddy.model.person.loan.Loan;
 import javafx.collections.ObservableList;
 
 /**
@@ -36,19 +38,24 @@ public class LoansManager {
     /**
      * Retrieves the list of persons.
      */
-    // TODO Probably need to change this to work with the UI.
     public ObservableList<Person> getPersonsList() {
         return persons.asUnmodifiableObservableList();
     }
 
     /**
      * Adds a given loan to its specified person in the list.
+     * Duplicate loans are not allowed in the list.
      * @param toAdd The loan to add.
+     * @throws DuplicateLoanException If the loan already exists in the list.
      */
-    public void addLoan(Loan toAdd) {
+    public void addLoan(Loan toAdd) throws DuplicateLoanException {
         Person newPerson = toAdd.getPerson();
         if (persons.contains(newPerson)) {
-            persons.get(newPerson).addLoan(toAdd);
+            Person targetPerson = persons.get(newPerson);
+            if (targetPerson.hasLoan(toAdd)) {
+                throw new DuplicateLoanException();
+            }
+            targetPerson.addLoan(toAdd);
         } else {
             persons.add(newPerson);
         }
@@ -58,12 +65,9 @@ public class LoansManager {
      * Edits a person's loan to match a given loan.
      * @param editedLoan The loan to base the target loan's updated attributes on.
      */
-    public void editLoan(Person targetPerson, Loan targetLoan, Loan editedLoan) {
-        if (persons.contains(targetPerson)) {
-            persons.get(targetPerson).setLoan(targetLoan, editedLoan);
-        } else {
-            throw new PersonNotFoundException();
-        }
+    public void editLoan(Person targetPerson, Loan targetLoan, Loan editedLoan)
+            throws PersonNotFoundException, LoanNotFoundException {
+        persons.get(targetPerson).setLoan(targetLoan, editedLoan);
     }
 
     /**
@@ -81,7 +85,7 @@ public class LoansManager {
     public void deleteLoan(Loan toDelete) {
         if (persons.contains(toDelete.getPerson())) {
             Person targetPerson = persons.get(toDelete.getPerson());
-            targetPerson.deleteLoan(targetPerson.getLoan(toDelete));
+            targetPerson.deleteLoan(toDelete);
             if (!targetPerson.hasLoansRemaining()) {
                 persons.remove(targetPerson);
             }

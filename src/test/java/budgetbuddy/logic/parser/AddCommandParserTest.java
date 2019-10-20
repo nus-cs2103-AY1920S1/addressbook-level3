@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.logic.commands.AddCommand;
 import budgetbuddy.logic.commands.CommandTestUtil;
 import budgetbuddy.logic.parser.commandparsers.AddCommandParser;
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.tag.Tag;
 import budgetbuddy.testutil.PersonBuilder;

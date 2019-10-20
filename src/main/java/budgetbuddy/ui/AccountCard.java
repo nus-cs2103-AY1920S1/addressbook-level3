@@ -1,9 +1,10 @@
 package budgetbuddy.ui;
 
+import java.util.Comparator;
+
 import budgetbuddy.model.account.Account;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-//import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -35,7 +36,7 @@ public class AccountCard extends UiPart<Region> {
         super(FXML);
         this.account = account;
         id.setText(displayedIndex + ". ");
-        name.setText(account.getName().accountName);
+        name.setText(account.getName().name);
     }
 
     @Override

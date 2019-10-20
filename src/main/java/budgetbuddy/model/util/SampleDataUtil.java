@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.ReadOnlyAddressBook;
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.tag.Tag;
 

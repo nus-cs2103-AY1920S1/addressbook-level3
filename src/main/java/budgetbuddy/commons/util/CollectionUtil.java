@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -32,4 +34,20 @@ public class CollectionUtil {
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
+
+    /**
+     * Returns true if {@code items} contain any duplicates.
+     */
+    //@@author kenneth-fung-reused
+    //Reused from https://stackoverflow.com/a/600319 with minor modifications
+    public static <T> boolean hasDuplicates(Collection<T> items) {
+        Set<T> hashSet = new HashSet<T>();
+        for (T item : items) {
+            if (!hashSet.add(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //@@author
 }

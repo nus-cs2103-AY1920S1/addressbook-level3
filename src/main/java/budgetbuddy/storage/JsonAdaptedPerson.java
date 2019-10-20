@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.tag.Tag;
 
@@ -40,7 +40,7 @@ class JsonAdaptedPerson {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Person source) {
-        name = source.getName().fullName;
+        name = source.getName().name;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

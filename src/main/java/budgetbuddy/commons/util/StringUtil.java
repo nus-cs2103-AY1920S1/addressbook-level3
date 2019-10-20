@@ -74,9 +74,8 @@ public class StringUtil {
      */
     public static boolean isNonNegativeUnsignedLong(String s) {
         requireNonNull(s);
-
         try {
-            long value = (long) Double.parseDouble(s); // TODO Properly convert to long.
+            long value = Long.parseLong(s);
             return value >= 0 && !s.startsWith("+");
         } catch (NumberFormatException nfe) {
             return false;

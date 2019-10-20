@@ -2,7 +2,9 @@ package budgetbuddy.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -11,9 +13,7 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.rules.RuleProcessingUtil;
-import budgetbuddy.model.person.Name;
-import budgetbuddy.model.person.loan.Description;
-import budgetbuddy.model.person.loan.stub.Date;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
 import budgetbuddy.model.rule.expression.Attribute;
@@ -22,6 +22,7 @@ import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.tag.Tag;
 import budgetbuddy.model.transaction.Amount;
+import budgetbuddy.model.transaction.stub.Description;
 
 /**
  * Contains utility methods used for parsing strings in the various *CommandParser classes.
@@ -69,14 +70,29 @@ public class CommandParserUtil {
     public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!StringUtil.isNonNegativeUnsignedLong(trimmedAmount)) {
+
+        String[] dollarCentArray = trimmedAmount.split("\\.");
+        if (dollarCentArray.length < 1) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        String[] dollarCentArray = trimmedAmount.split("\\.");
-        Long parsedDollars = Long.parseLong(dollarCentArray[0]) * 100L;
+
+        Long parsedDollars;
+        if (StringUtil.isNonNegativeUnsignedLong(dollarCentArray[0])) {
+            parsedDollars = Long.parseLong(dollarCentArray[0]) * 100L;
+        } else {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+
         Long parsedCents = 0L;
-        if (dollarCentArray.length > 1) {
-            parsedCents = Long.parseLong(dollarCentArray[1]);
+        if (dollarCentArray.length == 2) {
+            if (dollarCentArray[1].length() <= 2
+                    && StringUtil.isNonNegativeUnsignedLong(dollarCentArray[1])) {
+                parsedCents = dollarCentArray[1].length() == 1
+                        ? Long.parseLong(dollarCentArray[1] + "0")
+                        : Long.parseLong(dollarCentArray[1]);
+            } else {
+                throw new ParseException(Amount.MESSAGE_CENTS_PARSE_ERROR);
+            }
         }
 
         return new Amount(parsedDollars + parsedCents);
@@ -101,11 +117,15 @@ public class CommandParserUtil {
      * Parses a {@code String date} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Date parseDate(String date) {
+    public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        // TODO Implement check for invalid dates.
-        return new Date(trimmedDate);
+        try {
+            // TODO Some problems, e.g. 12/13/2020 gets parsed to 12/01/2021
+            return new SimpleDateFormat("dd/MM/yy").parse(trimmedDate);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 
     /**

@@ -7,12 +7,11 @@ import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.loan.Loan;
 
 /**
  * Lists loans.
  */
-public class ListLoansCommand extends Command {
+public class LoanListCommand extends Command {
 
     public static final String COMMAND_WORD = "loan list";
 
@@ -33,11 +32,12 @@ public class ListLoansCommand extends Command {
         // TODO Display the list in the main window instead of in the command result text box.
         StringBuilder builder = new StringBuilder();
         builder.append("Current Loans:");
-        for (Person person : model.getLoansManager().getPersonsList()) {
+        for (int i = 0; i < model.getLoansManager().getPersonsList().size(); i++) {
             builder.append("\n");
-            builder.append(person.toString()).append("\n");
-            for (Loan loan : person.getLoans()) {
-                builder.append("  ").append(loan).append("\n");
+            Person person = model.getLoansManager().getPersonsList().get(i);
+            builder.append(i + 1).append(". ").append(person.toString()).append("\n");
+            for (int j = 0; j < person.getLoans().size(); j++) {
+                builder.append("  ").append(j + 1).append(".").append(person.getLoans().get(j)).append("\n");
             }
         }
 

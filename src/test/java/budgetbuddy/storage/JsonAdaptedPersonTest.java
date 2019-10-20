@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.testutil.TypicalPersons;
 
 public class JsonAdaptedPersonTest {

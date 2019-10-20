@@ -8,8 +8,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import budgetbuddy.model.person.loan.Loan;
-import budgetbuddy.model.person.loan.LoanList;
+import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.tag.Tag;
 import javafx.collections.ObservableList;
 
@@ -72,7 +73,7 @@ public class Person {
      * @return True if the list is empty, false otherwise.
      */
     public boolean hasLoansRemaining() {
-        return loans.isEmpty();
+        return !loans.isEmpty();
     }
 
     /**
@@ -160,7 +161,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return getName().fullName;
+        return getName().name;
     }
 
 }

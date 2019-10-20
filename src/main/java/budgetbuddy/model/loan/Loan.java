@@ -1,13 +1,15 @@
-package budgetbuddy.model.person.loan;
+package budgetbuddy.model.loan;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import budgetbuddy.model.Direction;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.loan.stub.Date;
 import budgetbuddy.model.transaction.Amount;
+import budgetbuddy.model.transaction.stub.Description;
 
 /**
  * Represents a Loan in a LoanList.
@@ -52,6 +54,11 @@ public class Loan {
         return date;
     }
 
+    public String getDateString() {
+        // TODO Should standardize the date display format throughout the app.
+        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+    }
+
     public Description getDescription() {
         return description;
     }
@@ -86,8 +93,7 @@ public class Loan {
                 && otherLoan.getDirection() == direction
                 && otherLoan.getAmount().equals(amount)
                 && otherLoan.getDate().equals(date)
-                && otherLoan.getDescription().equals(description)
-                && otherLoan.getStatus() == status;
+                && otherLoan.getDescription().equals(description);
     }
 
     @Override
@@ -103,12 +109,12 @@ public class Loan {
 
         final String divider = " | ";
         final StringBuilder builder = new StringBuilder();
-        builder.append(" ").append(getStatus().getStatusIcon()).append(" ")
+        builder.append(getStatus().getStatusIcon()).append(" ")
                 .append(getAmount()).append(" ")
                 .append(directionWithFunctionWord)
                 .append(getPerson().getName()).append(divider)
-                .append(getDate());
-        if (!description.description.isBlank()) {
+                .append(getDateString());
+        if (!description.getDescription().isBlank()) {
             builder.append(divider).append(getDescription());
         }
         return builder.toString();

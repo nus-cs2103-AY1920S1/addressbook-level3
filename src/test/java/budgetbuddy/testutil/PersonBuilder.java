@@ -3,7 +3,7 @@ package budgetbuddy.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.tag.Tag;
 import budgetbuddy.model.util.SampleDataUtil;

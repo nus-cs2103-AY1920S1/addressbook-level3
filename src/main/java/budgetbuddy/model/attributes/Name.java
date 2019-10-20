@@ -1,11 +1,11 @@
-package budgetbuddy.model.account;
+package budgetbuddy.model.attributes;
 
 import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.commons.util.AppUtil;
 
 /**
- * Represents an Account's name in the account book.
+ * Represents the name of a model (e.g. Person, Account) in budget buddy.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -14,12 +14,12 @@ public class Name {
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the account must not be a whitespace,
+     * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String accountName;
+    public final String name;
 
     /**
      * Constructs a {@code Name}.
@@ -29,7 +29,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        accountName = name;
+        this.name = name;
     }
 
     /**
@@ -42,19 +42,19 @@ public class Name {
 
     @Override
     public String toString() {
-        return accountName;
+        return name;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && accountName.equals(((Name) other).accountName)); // state check
+                && name.equals(((Name) other).name)); // state check
     }
 
     @Override
     public int hashCode() {
-        return accountName.hashCode();
+        return name.hashCode();
     }
 
 }

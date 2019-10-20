@@ -9,7 +9,9 @@ import budgetbuddy.commons.util.AppUtil;
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amounts should be non-negative, and should not be blank.";
+            "Amounts should be non-negative numbers and should not be blank.";
+    public static final String MESSAGE_CENTS_PARSE_ERROR =
+            "Cents should be at most two decimal places long.";
 
     public static final String VALIDATION_REGEX = "^\\d+$";
 
@@ -38,10 +40,7 @@ public class Amount {
 
     @Override
     public String toString() {
-        String dollars = Long.toString(amount / 100);
-        String cents = Long.toString(amount % 100);
-
-        return String.format("%s.%s", dollars, cents);
+        return String.format("%d.%02d", amount / 100, amount % 100);
     }
 
     @Override

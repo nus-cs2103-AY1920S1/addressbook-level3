@@ -19,7 +19,7 @@ public class Description {
         this.description = description;
     }
 
-    boolean isValidDescription(String description) {
+    public static boolean isValidDescription(String description) {
         return description != null;
     }
 
@@ -35,7 +35,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof Description && description == ((Description) other).description);
+                || (other instanceof Description
+                    && description.equals(((Description) other).description));
     }
 
 }

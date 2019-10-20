@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.EditCommand;
 import budgetbuddy.logic.commands.EditCommand.EditPersonDescriptor;
-import budgetbuddy.model.person.Name;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.tag.Tag;
 import budgetbuddy.testutil.EditPersonDescriptorBuilder;
 
