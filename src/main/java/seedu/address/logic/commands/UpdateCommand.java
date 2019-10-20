@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_FRIDGE_DOES_NOT_EXIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
@@ -147,10 +148,19 @@ public class UpdateCommand extends UndoableCommand {
 
         try {
             this.originalEntityDescriptor = saveOriginalFields(entity);
-            model.setEntity(entity, updateEntityDescriptor.apply(entity));
+            if (originalEntityDescriptor instanceof UpdateBodyDescriptor) {
+                UpdateBodyDescriptor originalBodyDescriptor = (UpdateBodyDescriptor) originalEntityDescriptor;
+                UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
+                if (!originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
+                    handleUpdatingFridgeAndEntity(model, originalBodyDescriptor, updateBodyDescriptor);
+                }
+            } else {
+                model.setEntity(entity, updateEntityDescriptor.apply(entity));
+            }
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
+
 
         //@@author arjavibahety
         if (!updateFromNotif) {
@@ -160,6 +170,37 @@ public class UpdateCommand extends UndoableCommand {
         //@@author
 
         return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
+    }
+
+    /**
+     * Assigns body to the new fridge when fridgeId is updated and removes it from the old fridge.
+     * @param model refers to the AddressBook model.
+     * @param originalBodyDescriptor refers to the original description of the body.
+     * @param updateBodyDescriptor refers to the updated description of the body.
+     * @throws CommandException when a fridge for the new fridgeId does not exist.
+     */
+    private void handleUpdatingFridgeAndEntity(Model model, UpdateBodyDescriptor originalBodyDescriptor,
+                                               UpdateBodyDescriptor updateBodyDescriptor) throws CommandException {
+        List <Fridge> fridgeList = model.getFilteredFridgeList();
+        Fridge originalFridge = null;
+        Fridge updatedFridge = null;
+        for (Fridge fridge : fridgeList) {
+            if (fridge.getIdNum().equals(originalBodyDescriptor.getFridgeId().get())) {
+                originalFridge = fridge;
+            }
+
+            if (fridge.getIdNum().equals(updateBodyDescriptor.getFridgeId().get())) {
+                updatedFridge = fridge;
+            }
+        }
+
+        if (originalFridge != null && updatedFridge != null) {
+            originalFridge.setBody(null);
+            updatedFridge.setBody((Body) entity);
+            model.setEntity(entity, updateEntityDescriptor.apply(entity));
+        } else if (updatedFridge == null) {
+            throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
+        }
     }
 
     /**

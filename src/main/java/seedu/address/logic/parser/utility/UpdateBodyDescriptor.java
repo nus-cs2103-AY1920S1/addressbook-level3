@@ -109,7 +109,6 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setFridgeId(this.getFridgeId().orElse(body.getFridgeId().orElse(null)));
         body.setDateOfBirth(this.getDateOfBirth().orElse(body.getDateOfBirth().orElse(null)));
         body.setDateOfDeath(this.getDateOfDeath().orElse(body.getDateOfDeath()));
-
         body.setNextOfKin(this.getNextOfKin().orElse(body.getNextOfKin().orElse(null)));
         body.setRelationship(this.getRelationship().orElse(body.getRelationship().orElse(null)));
         body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber().orElse(null)));

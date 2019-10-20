@@ -23,7 +23,7 @@ public interface Model {
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
     Predicate<Notif> PREDICATE_SHOW_ALL_NOTIFS = unused -> true;
-    Predicate<Worker> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
+    Predicate<Fridge> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
 
     /**
      * Adds an executed command to the model's command history.
