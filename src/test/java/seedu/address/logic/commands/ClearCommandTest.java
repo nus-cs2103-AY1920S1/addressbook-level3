@@ -29,4 +29,22 @@ public class ClearCommandTest {
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
+    //@@author ambervoong
+    @Test
+    public void executedUndo_nonEmptyAddressBook_success() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        new ClearCommand().execute(model);
+        assertCommandSuccess(new UndoCommand(), model, ClearCommand.MESSAGE_UNDO_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void executedUndo_emptyAddressBook_success() {
+        Model model = new ModelManager();
+        Model expectedModel = new ModelManager();
+        new ClearCommand().execute(model);
+        assertCommandSuccess(new UndoCommand(), model, ClearCommand.MESSAGE_UNDO_SUCCESS, expectedModel);
+    }
+    //@@author
+
 }
