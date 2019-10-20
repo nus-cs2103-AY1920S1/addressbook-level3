@@ -89,7 +89,7 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-    // ================ CustomerBook methods ==============================
+    // ================ Customer DataBook methods ==============================
 
     @Override
     public Path getCustomerBookFilePath() {
@@ -119,7 +119,7 @@ public class StorageManager implements Storage {
         customerBookStorage.saveCustomerBook(customerBook, filePath);
     }
 
-    // ================ PhoneBook methods ==============================
+    // ================ Phone DataBook methods ==============================
 
     @Override
     public Path getPhoneBookFilePath() {
@@ -149,7 +149,8 @@ public class StorageManager implements Storage {
         phoneBookStorage.savePhoneBook(phoneBook, filePath);
     }
 
-    // ================ ScheduleBook methods ==============================
+    // ================ Schedule DataBook
+    // methods ==============================
 
     @Override
     public Path getScheduleBookFilePath() {
@@ -179,7 +180,7 @@ public class StorageManager implements Storage {
         scheduleBookStorage.saveScheduleBook(scheduleBook, filePath);
     }
 
-    // ================ OrderBook methods ==============================
+    // ================ Order DataBook methods ==============================
 
     @Override
     public Path getOrderBookFilePath() {

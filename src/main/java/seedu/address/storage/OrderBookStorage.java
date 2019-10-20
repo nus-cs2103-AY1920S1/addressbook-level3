@@ -9,7 +9,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 
 /**
- * Represents a storage for {@link seedu.address.model.OrderBook}.
+ * Represents a storage for {@link Order} {@link seedu.address.model.DataBook}.
  */
 public interface OrderBookStorage {
 
@@ -19,7 +19,7 @@ public interface OrderBookStorage {
     Path getOrderBookFilePath();
 
     /**
-     * Returns OrderBook data as a {@link ReadOnlyDataBook}.
+     * Returns Order DataBook data as a {@link ReadOnlyDataBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.

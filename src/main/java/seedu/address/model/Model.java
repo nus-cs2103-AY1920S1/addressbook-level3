@@ -109,7 +109,7 @@ public interface Model {
      */
     void setCustomerBook(ReadOnlyDataBook<Customer> customerBook);
 
-    /** Returns the CustomerBook */
+    /** Returns the customer DataBook */
     ReadOnlyDataBook<Customer> getCustomerBook();
 
     /**
@@ -152,7 +152,7 @@ public interface Model {
      */
     void setPhoneBook(ReadOnlyDataBook<Phone> phoneBook);
 
-    /** Returns the PhoneBook */
+    /** Returns the Phone DataBook */
     ReadOnlyDataBook<Phone> getPhoneBook();
 
     /**

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import seedu.address.model.OrderBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
 
@@ -50,12 +50,12 @@ public class TypicalOrders {
             .withPrice(VALID_PRICE_HIGH).withTags(DEFAULT_TAG_2).build();
 
     /**
-     * Returns an {@code Book} with all the typical orders.
+     * Returns a {@code DataBook} with all the typical orders.
      */
-    public static OrderBook getTypicalOrderBook() {
-        OrderBook ob = new OrderBook();
+    public static DataBook<Order> getTypicalOrderBook() {
+        DataBook<Order> ob = new DataBook<>();
         for (Order o: getTypicalOrders()) {
-            ob.addOrder(o);
+            ob.add(o);
         }
         return ob;
     }

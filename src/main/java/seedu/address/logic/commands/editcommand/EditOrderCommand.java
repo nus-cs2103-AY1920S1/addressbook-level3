@@ -112,7 +112,7 @@ public class EditOrderCommand extends Command {
 
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
-        if (!orderToEdit.isSameOrder(editedOrder) && model.hasOrder(editedOrder)) {
+        if (!orderToEdit.isSameAs(editedOrder) && model.hasOrder(editedOrder)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
 

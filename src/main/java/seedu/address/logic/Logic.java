@@ -38,14 +38,14 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns the OrderBook.
+     * Returns the Order DataBook.
      *
      * @see seedu.address.model.Model#getOrderBook()
      */
     ReadOnlyDataBook<Order> getOrderBook();
 
     /**
-     * Returns the PhoneBook.
+     * Returns the Phone DataBook.
      *
      * @see seedu.address.model.Model#getPhoneBook()
      */
