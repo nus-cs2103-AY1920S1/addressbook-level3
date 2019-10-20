@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.logic.commands.Command;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
@@ -16,6 +17,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.storage.Storage;
 
 /**
@@ -60,6 +62,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Expense> getFilteredExpenseList() {
         return model.getFilteredExpenses();
+    }
+
+    @Override
+    public ObservableData<StatisticsType> getStatisticsType() {
+        return model.getStatisticsType();
     }
 
     @Override

@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 
 import seedu.billboard.model.Billboard;
@@ -25,6 +26,7 @@ import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.ExpenseBuilder;
 
@@ -155,6 +157,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredExpenses(Predicate<Expense> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableData<StatisticsType> getStatisticsType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStatisticsType(StatisticsType type) {
             throw new AssertionError("This method should not be called.");
         }
 
