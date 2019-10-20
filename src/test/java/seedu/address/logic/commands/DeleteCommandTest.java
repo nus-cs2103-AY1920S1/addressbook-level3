@@ -37,7 +37,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
         expectedModel.deleteTransaction(transactionToDelete);
-
+        expectedModel.commitBankAccount();
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
@@ -63,7 +63,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
         expectedModel.deleteTransaction(transactionToDelete);
         showNoTransaction(expectedModel);
-
+        expectedModel.commitBankAccount();
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 

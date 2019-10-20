@@ -27,7 +27,6 @@ public class VersionedBankAccount extends BankAccount {
         removeStatesAfterCurrentPointer();
         bankAccountStateList.add(new BankAccount(this));
         currentStatePointer++;
-        // indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {

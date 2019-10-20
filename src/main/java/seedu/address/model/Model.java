@@ -67,6 +67,16 @@ public interface Model {
     void undoBankAccount();
 
     /**
+     * Returns true if the model has undone bank account states to restore.
+     */
+    boolean canRedoBankAccount();
+
+    /**
+     * Restores the model's bank account to its previously undone state.
+     */
+    void redoBankAccount();
+
+    /**
      * Saves the current bank account state for undo/redo.
      */
     void commitBankAccount();

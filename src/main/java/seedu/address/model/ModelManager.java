@@ -132,6 +132,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean canRedoBankAccount() {
+        return versionedBankAccount.canRedo();
+    }
+
+    @Override
+    public void redoBankAccount() {
+        versionedBankAccount.redo();
+    }
+
+    @Override
     public void commitBankAccount() {
         versionedBankAccount.commit();
     }
