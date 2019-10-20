@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.exceptions;
 
 /**
- * Represents an error which occurs during execution of a {@link Command}.
+ * Represents an error which occurs during execution of a {@link SuggestionCommand}.
  */
 public class CommandWordException extends CommandException {
     private String suggestion;

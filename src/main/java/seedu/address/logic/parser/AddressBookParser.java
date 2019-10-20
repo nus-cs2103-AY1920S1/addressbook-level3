@@ -28,7 +28,6 @@ import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
-import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.commands.merge.DoNotMergePersonCommand;
@@ -62,6 +61,13 @@ public class AddressBookParser {
     private MergeCommand currentMergeCommand;
     private String mergeType;
     private boolean suggestionOn = true;
+
+    public AddressBookParser(boolean suggestionOn) {
+        this.suggestionOn = suggestionOn;
+    }
+
+    public AddressBookParser() {
+    }
 
     /**
      * Parses user input into command for execution. Calls the parseCommand(String, boolean) where the boolean's
@@ -262,6 +268,13 @@ public class AddressBookParser {
                         (MergePolicyCommand) currentMergeCommand).getNextMergePrompt()));
             }
         }
+    }
+
+    /**
+     * Returns the suggestion settings of the parser.
+     */
+    public boolean isSuggestionOn() {
+        return suggestionOn;
     }
 
 }
