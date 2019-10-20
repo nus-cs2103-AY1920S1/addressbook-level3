@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.core.Messages;
 import com.dukeacademy.logic.commands.FindCommand;
-import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 

@@ -1,13 +1,22 @@
 package com.dukeacademy.model.program;
 
+import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents a user's submission for a question.
  */
 public class UserProgram {
+    public static final String CLASS_NAME_VALIDATION_REGEX = "[^\\s].*";
+
     private final String className;
     private final String sourceCode;
 
     public UserProgram(String className, String sourceCode) {
+        requireAllNonNull(className, sourceCode);
+        if (!className.matches(CLASS_NAME_VALIDATION_REGEX)) {
+            throw new IllegalArgumentException();
+        }
+
         this.className = className;
         this.sourceCode = sourceCode;
     }

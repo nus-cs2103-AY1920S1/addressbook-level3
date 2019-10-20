@@ -15,7 +15,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.core.GuiSettings;
-import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 import com.dukeacademy.testutil.QuestionBankBuilder;
 
 public class ModelManagerTest {

@@ -15,7 +15,6 @@ import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.Status;
-import com.dukeacademy.model.question.Title;
 import com.dukeacademy.model.question.Topic;
 import com.dukeacademy.model.tag.Tag;
 

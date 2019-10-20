@@ -13,7 +13,6 @@ import com.dukeacademy.logic.parser.CliSyntax;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.StandardQuestionBank;
 import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 import com.dukeacademy.testutil.Assert;
 import com.dukeacademy.testutil.EditQuestionDescriptorBuilder;
 

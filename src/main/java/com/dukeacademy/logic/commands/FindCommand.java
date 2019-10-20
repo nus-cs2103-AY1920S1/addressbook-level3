@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.dukeacademy.commons.core.Messages;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in question bank whose title contains any of the argument keywords.

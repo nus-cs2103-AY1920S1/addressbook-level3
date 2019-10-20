@@ -20,7 +20,6 @@ import com.dukeacademy.logic.commands.HelpCommand;
 import com.dukeacademy.logic.commands.ListCommand;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 import com.dukeacademy.testutil.Assert;
 import com.dukeacademy.testutil.EditQuestionDescriptorBuilder;
 import com.dukeacademy.testutil.QuestionBuilder;

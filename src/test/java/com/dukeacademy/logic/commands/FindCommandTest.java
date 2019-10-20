@@ -14,7 +14,6 @@ import com.dukeacademy.commons.core.Messages;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
 import com.dukeacademy.model.UserPrefs;
-import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 import com.dukeacademy.testutil.TypicalQuestions;
 
 /**

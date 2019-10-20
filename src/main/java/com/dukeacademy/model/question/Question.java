@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
-import com.dukeacademy.model.tag.Tag;
+import com.dukeacademy.model.program.UserProgram;
 
 /**
  * Represents a Question in the question bank.
@@ -17,45 +16,34 @@ import com.dukeacademy.model.tag.Tag;
  */
 public class Question {
 
-    // Identity fields
-    private final Title title;
-    private final Topic topic;
+    private final String title;
     private final Status status;
-
-    // Data fields
     private final Difficulty difficulty;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Topic> topics = new HashSet<>();
     private final List<TestCase> testCases = new ArrayList<>();
+    private final UserProgram userProgram;
+
+    public static final String TITLE_VALIDATION_REGEX = "[^\\s].*";
 
     /**
      * Every field must be present and not null.
      */
-    public Question(Title title, Topic topic, Status status, Difficulty difficulty,
-                    Set<Tag> tags, List<TestCase> testCases) {
-        requireAllNonNull(title, topic, status, difficulty, tags, testCases);
+    public Question(String title, Status status, Difficulty difficulty, Set<Topic> topics, List<TestCase> testCases, UserProgram userProgram) {
+        requireAllNonNull(title, status, difficulty, topics, testCases, userProgram);
+        if (!Question.checkValidTitle(title)) {
+            throw new IllegalArgumentException();
+        };
+
         this.title = title;
-        this.topic = topic;
         this.status = status;
         this.difficulty = difficulty;
-        this.tags.addAll(tags);
+        this.topics.addAll(topics);
         this.testCases.addAll(testCases);
+        this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCodeAsString());
     }
 
-    public Question(Title title, Topic topic, Status status, Difficulty difficulty, Set<Tag> tags) {
-        requireAllNonNull(title, topic, status, difficulty, tags);
-        this.title = title;
-        this.topic = topic;
-        this.status = status;
-        this.difficulty = difficulty;
-        this.tags.addAll(tags);
-        this.testCases.addAll(testCases);
-    }
-    public Title getTitle() {
-        return title;
-    }
-
-    public Topic getTopic() {
-        return topic;
+    public String getTitle() {
+        return this.title;
     }
 
     public Status getStatus() {
@@ -63,77 +51,39 @@ public class Question {
     }
 
     public Difficulty getDifficulty() {
-        return difficulty;
+        return this.difficulty;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Topic> getTopics() {
+        return Collections.unmodifiableSet(this.topics);
     }
 
-    /**
-     * Returns true if both questions of the same title have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two questions.
-     */
-    public boolean isSameQuestion(Question otherQuestion) {
-        if (otherQuestion == this) {
-            return true;
-        }
-
-        return otherQuestion != null
-                && otherQuestion.getTitle().equals(getTitle())
-                && (otherQuestion.getTopic().equals(getTopic()) || otherQuestion
-            .getStatus().equals(getStatus()));
+    public UserProgram getUserProgram() {
+        return new UserProgram(this.userProgram.getClassName(), this.userProgram.getSourceCodeAsString());
     }
 
-    /**
-     * Returns true if both questions have the same identity and data fields.
-     * This defines a stronger notion of equality between two questions.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Question)) {
-            return false;
-        }
-
-        Question otherQuestion = (Question) other;
-        return otherQuestion.getTitle().equals(getTitle())
-                && otherQuestion.getTopic().equals(getTopic())
-                && otherQuestion.getStatus().equals(getStatus())
-                && otherQuestion.getDifficulty().equals(getDifficulty())
-                && otherQuestion.getTags().equals(getTags());
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, topic, status, difficulty, tags);
+    public List<TestCase> getTestCases() {
+        return new ArrayList<>(this.testCases);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
-                .append(" Topic: ")
-                .append(getTopic())
                 .append(" Status: ")
                 .append(getStatus())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Topics: ");
+        this.getTopics().forEach(builder::append);
         return builder.toString();
     }
 
-    public List<TestCase> getTestCases() {
-        List<TestCase> copy = new ArrayList<>(this.testCases);
-        return copy;
+    public static boolean checkValidTitle(String title) {
+        if (!title.matches(TITLE_VALIDATION_REGEX)) {
+            return false;
+        }
+
+        return true;
     }
 }

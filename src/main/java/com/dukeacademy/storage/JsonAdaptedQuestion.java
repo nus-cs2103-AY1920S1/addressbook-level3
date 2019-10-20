@@ -1,18 +1,18 @@
 package com.dukeacademy.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
+import com.dukeacademy.model.program.UserProgram;
 import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.Status;
-import com.dukeacademy.model.question.Title;
+import com.dukeacademy.model.question.TestCase;
 import com.dukeacademy.model.question.Topic;
-import com.dukeacademy.model.tag.Tag;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,38 +25,44 @@ class JsonAdaptedQuestion {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Question's %s field is missing!";
 
     private final String title;
-    private final String topic;
     private final String status;
     private final String difficulty;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<String> topics = new ArrayList<>();
+    private final List<JsonAdaptedTestCase> testCases = new ArrayList<>();
+    private JsonAdaptedUserProgram userProgram;
+
 
     /**
      * Constructs a {@code JsonAdaptedQuestion} with the given question details.
      */
     @JsonCreator
-    public JsonAdaptedQuestion(@JsonProperty("title") String title, @JsonProperty("topic") String topic,
-                               @JsonProperty("status") String status, @JsonProperty("difficulty") String difficulty,
-                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedQuestion(@JsonProperty("title") String title, @JsonProperty("status") String status,
+                               @JsonProperty("difficulty") String difficulty,
+                               @JsonProperty("topics") List<String> topics,
+                               @JsonProperty("testCases") List<JsonAdaptedTestCase> testCases,
+                               @JsonProperty("userProgram") JsonAdaptedUserProgram userProgram) {
         this.title = title;
-        this.topic = topic;
         this.status = status;
         this.difficulty = difficulty;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        if (topics != null) {
+            this.topics.addAll(topics);
         }
+        if (testCases != null) {
+            this.testCases.addAll(testCases);
+        }
+        this.userProgram = userProgram;
     }
 
     /**
      * Converts a given {@code Question} into this class for Jackson use.
      */
     public JsonAdaptedQuestion(Question source) {
-        title = source.getTitle().fullTitle;
-        topic = source.getTopic().value;
-        status = source.getStatus().value;
-        difficulty = source.getDifficulty().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        this.title = source.getTitle();
+        this.status = source.getStatus().toString();
+        this.difficulty = source.getDifficulty().toString();
+        this.topics.addAll(source.getTopics().stream().map(Objects::toString).collect(Collectors.toList()));
+        this.testCases.addAll(source.getTestCases().stream().map(JsonAdaptedTestCase::new).collect(Collectors.toList()));
+        this.userProgram = new JsonAdaptedUserProgram(source.getUserProgram());
     }
 
     /**
@@ -65,46 +71,28 @@ class JsonAdaptedQuestion {
      * @throws IllegalValueException if there were any data constraints violated in the adapted question.
      */
     public Question toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
-
         if (title == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+            throw new IllegalValueException("Title cannot be null.");
         }
-        if (!Title.isValidTitle(title)) {
-            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
+        if (!Question.checkValidTitle(title)) {
+            throw new IllegalValueException("Invalid title.");
         }
-        final Title modelTitle = new Title(title);
-
-        if (topic == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Topic.class.getSimpleName()));
-        }
-        if (!Topic.isValidTopic(topic)) {
-            throw new IllegalValueException(Topic.MESSAGE_CONSTRAINTS);
-        }
-        final Topic modelTopic = new Topic(topic);
 
         if (status == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+            throw new IllegalValueException("Status cannot be null.");
         }
-        if (!Status.isValidStatus(status)) {
-            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
-        }
-        final Status modelStatus = new Status(status);
 
         if (difficulty == null) {
-            throw new IllegalValueException(String
-                .format(MISSING_FIELD_MESSAGE_FORMAT, Difficulty.class.getSimpleName()));
+            throw new IllegalValueException("Difficulty cannot be null.");
         }
-        if (!Difficulty.isValidDifficulty(difficulty)) {
-            throw new IllegalValueException(Difficulty.MESSAGE_CONSTRAINTS);
-        }
-        final Difficulty modelDifficulty = new Difficulty(difficulty);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Question(modelTitle, modelTopic, modelStatus, modelDifficulty, modelTags);
+        final Status status = Status.valueOf(this.status);
+        final Difficulty difficulty = Difficulty.valueOf(this.difficulty);
+        final Set<Topic> newTopicsSet = this.topics.stream().map(Topic::valueOf).collect(Collectors.toSet());
+        final List<TestCase> newTestCaseList = this.testCases.stream().map(JsonAdaptedTestCase::toModel).collect(Collectors.toList());
+        final UserProgram newUserProgram = this.userProgram.toModel();
+
+        return new Question(title, status, difficulty, newTopicsSet, newTestCaseList, newUserProgram);
     }
 
 }

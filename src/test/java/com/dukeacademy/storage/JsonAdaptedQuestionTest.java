@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Status;
-import com.dukeacademy.model.question.Title;
 import com.dukeacademy.model.question.Topic;
 
 public class JsonAdaptedQuestionTest {

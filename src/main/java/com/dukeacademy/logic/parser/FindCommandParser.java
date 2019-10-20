@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import com.dukeacademy.logic.commands.FindCommand;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

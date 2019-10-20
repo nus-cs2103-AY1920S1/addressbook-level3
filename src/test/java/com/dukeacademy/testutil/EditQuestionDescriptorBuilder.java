@@ -8,7 +8,6 @@ import com.dukeacademy.logic.commands.EditCommand;
 import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.Status;
-import com.dukeacademy.model.question.Title;
 import com.dukeacademy.model.question.Topic;
 import com.dukeacademy.model.tag.Tag;
 
