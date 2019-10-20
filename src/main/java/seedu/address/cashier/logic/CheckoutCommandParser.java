@@ -6,7 +6,7 @@ import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_AMOU
 import seedu.address.cashier.commands.CheckoutCommand;
 import seedu.address.cashier.logic.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.exception.NotANumberException;
-import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.model.Model;
 
 /**
  * Parses input arguments and creates a new CheckoutCommand object.
@@ -19,7 +19,7 @@ public class CheckoutCommandParser {
      * @throws InsufficientAmountException if the input is less than the total amount
      * @throws NotANumberException if the input is not a number
      */
-    public static CheckoutCommand parse(String userInput, ModelManager modelManager) throws InsufficientAmountException,
+    public static CheckoutCommand parse(String userInput, Model modelManager) throws InsufficientAmountException,
             NotANumberException {
 
         double totalAmount = modelManager.getTotalAmount();

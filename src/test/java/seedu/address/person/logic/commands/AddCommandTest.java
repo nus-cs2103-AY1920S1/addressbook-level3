@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
@@ -26,8 +28,6 @@ import seedu.address.transaction.logic.LogicManager;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
-
-import org.junit.jupiter.api.Test;
 
 
 public class AddCommandTest {
@@ -95,8 +95,7 @@ public class AddCommandTest {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        personManager, reimbursementModel, reimbursementManager, transactionModel,
-                        transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
         CommandResult commandResult =
                 new AddCommand(validPerson).execute(modelStub, logic, reimbursementLogic, cashierLogic);
 
@@ -159,8 +158,7 @@ public class AddCommandTest {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        personManager, reimbursementModel, reimbursementManager, transactionModel,
-                        transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON,
                 () -> addCommand.execute(personModelStub, logic, reimbursementLogic, cashierLogic));

@@ -2,7 +2,6 @@ package seedu.address.cashier.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_EDIT_SUCCESS;
 
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.Model;
 
@@ -26,7 +25,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager model, Model personModel,
+    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel,
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel) throws Exception {
         Item i = model.editItem(index, quantity);

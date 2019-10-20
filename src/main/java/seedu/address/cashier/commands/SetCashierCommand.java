@@ -2,7 +2,6 @@ package seedu.address.cashier.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADD_CASHIER;
 
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
@@ -26,7 +25,7 @@ public class SetCashierCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, Model personModel,
+    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel,
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {

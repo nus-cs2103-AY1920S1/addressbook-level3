@@ -17,7 +17,7 @@ import seedu.address.cashier.commands.AddCommand;
 import seedu.address.cashier.logic.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.exception.NotANumberException;
 import seedu.address.cashier.logic.exception.ParseException;
-import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
@@ -37,7 +37,7 @@ public class AddCommandParser {
      * @param modelManager which the command operates on
      * @throws Exception if the user input does not conform the expected format
      */
-    public static AddCommand parse(String args, ModelManager modelManager) throws Exception {
+    public static AddCommand parse(String args, Model modelManager) throws Exception {
         if (!args.contains(" c/")) {
             argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);
@@ -74,16 +74,17 @@ public class AddCommandParser {
             ArrayList<String> recommendedItems = modelManager.getRecommendedItems(description);
             throw new NoSuchItemException(noSuchItemRecommendation(recommendedItems));
         }
+
         // if the item with the specified description is not available for sale
         if (!modelManager.isSellable(description)) {
             throw new NoSuchItemException(NO_SUCH_ITEM_FOR_SALE_CASHIER);
         }
 
-        if (!modelManager.hasSufficientQuantity(description, quantity)) {
+        if (!modelManager.hasSufficientQuantityToAdd(description, quantity)) {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
-        if (modelManager.hasItemInInventory(description) && modelManager.hasSufficientQuantity(description, quantity)) {
+        if (modelManager.hasItemInInventory(description) && modelManager.hasSufficientQuantityToAdd(description, quantity)) {
             AddCommand addCommand = new AddCommand(description, quantity);
             return addCommand;
         }

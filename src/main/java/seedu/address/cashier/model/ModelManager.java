@@ -10,7 +10,6 @@ import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
-import seedu.address.inventory.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
@@ -88,7 +87,7 @@ public class ModelManager implements Model {
      * @return true if sufficient quantity in inventory
      * @throws NoSuchItemException if there is no such item in the inventory
      */
-    public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
+    public boolean hasSufficientQuantityToAdd(String description, int quantity) throws NoSuchItemException {
         Item originalItem = inventoryList.getOriginalItem(description);
         for (Item i : salesList) {
             if (originalItem.isSameItem(i)) {
@@ -100,6 +99,21 @@ public class ModelManager implements Model {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
+     * Else, return false.
+     *
+     * @param index of the item to edit
+     * @param quantity of the item to check
+     * @return true if sufficient quantity in inventory
+     * @throws NoSuchItemException if there is no such item in the inventory
+     */
+    public boolean hasSufficientQuantityToEdit(int index, int quantity) throws NoSuchItemException {
+        Item salesItem = salesList.get(index - 1);
+        Item i = inventoryList.getOriginalItem(salesItem);
+        return i.getQuantity() >= quantity;
     }
 
     /**
@@ -174,6 +188,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int findIndexByDescription(String description) throws NoSuchItemException {
+        for (int i = 0; i < salesList.size(); i++) {
+            Item item = salesList.get(i);
+            if (item.getDescription().equalsIgnoreCase(description)) {
+                return i;
+            }
+        }
+        throw new NoSuchItemException(CashierMessages.NO_SUCH_DESCRIPTION_CASHIER);
+    }
+
+    @Override
     public void deleteItem(int index) {
         salesList.remove(index - 1);
     }
@@ -224,7 +249,7 @@ public class ModelManager implements Model {
      * Returns the total amount of all the items in the Sales List.
      * @return the total amount of all the items in the Sales List
      */
-    public static double getTotalAmount() {
+    public double getTotalAmount() {
         double total = 0;
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());

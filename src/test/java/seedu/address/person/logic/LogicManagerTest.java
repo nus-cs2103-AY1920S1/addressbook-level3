@@ -14,6 +14,10 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.logic.commands.AddCommand;
 import seedu.address.person.logic.commands.CommandResult;
@@ -33,10 +37,6 @@ import seedu.address.stubs.TransactionLogicStub;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.util.TransactionList;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 
 public class LogicManagerTest {
@@ -100,8 +100,7 @@ public class LogicManagerTest {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        personManager, reimbursementModel, reimbursementManager, transactionModel,
-                        transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
         seedu.address.inventory.logic.Logic inventoryLogic =
                 new seedu.address.inventory.logic.LogicManager(cashierModel, cashierManager, inventoryModel,
                         inventoryManager);
@@ -180,8 +179,7 @@ public class LogicManagerTest {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        personManager, reimbursementModel, reimbursementManager, transactionModel,
-                        transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
 
         logic = new LogicManager(personModel, storage, transactionLogicStub, reimbursementLogic,
                 cashierLogic, inventoryLogic); //add your logic stubs

@@ -2,8 +2,6 @@ package seedu.address.cashier.ui;
 
 import java.util.ArrayList;
 
-import seedu.address.inventory.model.Item;
-
 /**
  * Formats the Ui return responses for different commands to be shown to user.
  */
@@ -18,6 +16,9 @@ public class CashierMessages {
 
     public static final String NO_SUCH_COMMAND = "Sorry! There is no such command.";
 
+    public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with " +
+            "the specified description in the sales list.";
+
     public static final String NO_SUCH_INDEX_CASHIER = "There is no item at the inputted index.";
 
     public static final String NO_SUCH_ITEM_FOR_SALE_CASHIER = "Sorry! This item is not available for sale!";
@@ -31,8 +32,8 @@ public class CashierMessages {
 
     public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "Sorry! Please type \"cashier NAME\" \n";
 
-    public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = "Sorry! Please type edit with parameters:\n"
-            + " i/INDEX\n q/QUANTITY";
+    public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = "Sorry! Please type \"edit"
+            + " i/INDEX q/QUANTITY\" \n OR \n \"edit d/DESCRIPTION\n q/QUANTITY\" \n ";
 
     public static final String INDEX_NOT_A_NUMBER = "Please input the row index of the item to be deleted "
             + "according to the table.";
@@ -55,10 +56,6 @@ public class CashierMessages {
     public static final String MESSAGE_ADDED_ITEM = "Added item:\n%s";
 
     public static final String MESSAGE_DELETED_ITEM = "Deleted item:\n%s";
-
-    public static String deletedItem(Item item) {
-        return "Deleted Item:\n" + item;
-    }
 
     /**
      * Returns a message containing all the items description according to the category.

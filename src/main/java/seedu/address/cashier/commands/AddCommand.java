@@ -2,7 +2,7 @@ package seedu.address.cashier.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADDED_ITEM;
 
-import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.inventory.model.Item;
 
@@ -21,12 +21,13 @@ public class AddCommand extends Command {
      * @param quantity of the item to be sold
      */
     public AddCommand(String description, int quantity) {
+        assert description != null : "Description cannot be null.";
         this.description = description;
         this.quantity = quantity;
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel,
+    public CommandResult execute(Model modelManager, seedu.address.person.model.Model personModel,
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchItemException {

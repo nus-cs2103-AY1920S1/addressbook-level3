@@ -4,7 +4,6 @@ import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
 
 import java.util.logging.Logger;
 
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
@@ -30,7 +29,7 @@ public class CheckoutCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel,
+    public CommandResult execute(seedu.address.cashier.model.Model modelManager, seedu.address.person.model.Model personModel,
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel)
             throws Exception {
@@ -43,7 +42,7 @@ public class CheckoutCommand extends Command {
         ClearCommand clearCommand = new ClearCommand();
         clearCommand.execute(modelManager, personModel, transactionModel, inventoryModel);
         return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, Item.DECIMAL_FORMAT.format(totalAmount),
-                change));
+                Item.DECIMAL_FORMAT.format(change)));
 
     }
 }

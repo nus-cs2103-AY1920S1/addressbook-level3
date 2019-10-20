@@ -144,8 +144,7 @@ public class CommandTestUtil {
                             transactionModel, transactionManager, personModel);
             seedu.address.cashier.logic.Logic cashierLogic =
                     new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                            personManager, reimbursementModel, reimbursementManager, transactionModel,
-                            transactionManager, inventoryModel, inventoryManager);
+                            transactionModel, transactionManager, inventoryModel, inventoryManager);
 
             CommandResult result = command.execute(actualModel, transactionLogicStub, reimbursementLogic, cashierLogic);
             assertEquals(expectedCommandResult, result);
@@ -219,8 +218,7 @@ public class CommandTestUtil {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        personManager, reimbursementModel, reimbursementManager, transactionModel,
-                        transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel,
                 logic, reimbursementLogic, cashierLogic));
