@@ -6,7 +6,6 @@ import java.util.Set;
 
 import guitests.guihandles.NodeHandle;
 import guitests.guihandles.cards.OrderCardHandle;
-import guitests.guihandles.cards.PersonCardHandle;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.order.Order;

@@ -3,10 +3,8 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.GuiTestAssert.assertCardDisplaysPerson;
-import static seedu.address.ui.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 

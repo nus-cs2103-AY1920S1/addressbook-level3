@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.ui.GuiTestAssert.assertCardDisplaysPerson;
 
-import guitests.guihandles.cards.PersonCardHandle;
 import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.cards.PersonCardHandle;

@@ -5,11 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.cards.PersonCardHandle;
-import guitests.guihandles.panels.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.cards.PersonCardHandle;
 import guitests.guihandles.panels.PersonListPanelHandle;
+
 import seedu.address.model.person.Person;
 
 /**

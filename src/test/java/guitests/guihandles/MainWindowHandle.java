@@ -4,7 +4,6 @@ import guitests.guihandles.panels.CustomerListPanelHandle;
 import guitests.guihandles.panels.OrderListPanelHandle;
 import guitests.guihandles.panels.PhoneListPanelHandle;
 import javafx.stage.Stage;
-import seedu.address.ui.panels.CustomerListPanel;
 
 /**
  * Provides a handle for {@code MainWindow}.
