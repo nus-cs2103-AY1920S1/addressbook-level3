@@ -36,7 +36,7 @@ public class SampleDataUtil {
     }
 
     public static WordBank getSampleWordBank() {
-        WordBank sampleWb = new WordBank("Sample");
+        WordBank sampleWb = new WordBank("sample");
         for (Card sampleCard : getSampleCards()) {
             sampleWb.addCard(sampleCard);
         }

@@ -17,6 +17,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
@@ -45,6 +46,24 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             e.printStackTrace();
         }
         this.wordBanksFilePath = wordBanksFilePath;
+
+        File wordBanksFile = wordBanksFilePath.toFile();
+        String[] wordBanks = wordBanksFile.list();
+        boolean haveWordBanks = false;
+        for (int i = 0; i < wordBanks.length; i++) {
+            if (wordBanks[i].endsWith(".json")) {
+                haveWordBanks = true;
+                break;
+            }
+        }
+        if (!haveWordBanks) {
+            WordBank sampleWb = SampleDataUtil.getSampleWordBank();
+            try {
+                saveWordBank(sampleWb);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         initWordBankList();
     }
 
@@ -122,6 +141,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
                 e.printStackTrace();
             }
         }
+
         this.readOnlyWordBankList = new WordBankList(wordBankList);
     }
 

@@ -111,7 +111,7 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
+         Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
         WordBankList wbl = (WordBankList) optionalWbl.get();
         WordBankList emptyWordBankList;
 //        try {
