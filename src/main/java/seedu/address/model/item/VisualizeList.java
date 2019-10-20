@@ -27,6 +27,10 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
         }
     }
 
+    /**
+     * add item into specified index
+     * */
+
     public void addToIndex(int targetIndex, Item item) {
         if (hasItem(item)) {
             return;
