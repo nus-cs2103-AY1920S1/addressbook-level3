@@ -14,6 +14,7 @@ import seedu.address.logic.parser.ProjectDashboardParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -59,6 +60,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return model.getFilteredTasksList();
+    }
+
+    @Override
+    public ObservableList<Member> getFilteredMemberList() {
+        return model.getFilteredMembersList();
     }
 
     @Override

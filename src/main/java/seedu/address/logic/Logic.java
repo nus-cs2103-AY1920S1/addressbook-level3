@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 
 /**
@@ -33,6 +34,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Task> getFilteredTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of members */
+    ObservableList<Member> getFilteredMemberList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Task> getFilteredTaskListNotStarted();
