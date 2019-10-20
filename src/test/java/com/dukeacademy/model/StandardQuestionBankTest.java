@@ -30,77 +30,31 @@ public class StandardQuestionBankTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), standardQuestionBank.getQuestionList());
+        assertEquals(Collections.emptyList(), standardQuestionBank.getReadOnlyQuestionListObservable());
+    }
+
+
+    @Test
+    void getReadOnlyQuestionListObservable() {
     }
 
     @Test
-    public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> standardQuestionBank.resetData(null));
+    void addQuestion() {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        StandardQuestionBank newData = getTypicalQuestionBank();
-        standardQuestionBank.resetData(newData);
-        assertEquals(newData, standardQuestionBank);
+    void setQuestions() {
     }
 
     @Test
-    public void resetData_withDuplicateQuestions_throwsDuplicateQuestionException() {
-        // Two questions with the same identity fields
-        Question editedAlice = new QuestionBuilder(ALICE)
-            .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND)
-            .build();
-        List<Question> newQuestions = Arrays.asList(ALICE, editedAlice);
-        QuestionBankStub newData = new QuestionBankStub(newQuestions);
-
-        assertThrows(DuplicateQuestionException.class, () -> standardQuestionBank.resetData(newData));
+    void replaceQuestion() {
     }
 
     @Test
-    public void hasQuestion_nullQuestion_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> standardQuestionBank.hasQuestion(null));
+    void removeQuestion() {
     }
 
     @Test
-    public void hasQuestion_questionNotInAddressBook_returnsFalse() {
-        assertFalse(standardQuestionBank.hasQuestion(ALICE));
+    void resetQuestions() {
     }
-
-    @Test
-    public void hasQuestion_questionInAddressBook_returnsTrue() {
-        standardQuestionBank.addQuestion(ALICE);
-        assertTrue(standardQuestionBank.hasQuestion(ALICE));
-    }
-
-    @Test
-    public void hasQuestion_questionWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        standardQuestionBank.addQuestion(ALICE);
-        Question editedAlice = new QuestionBuilder(ALICE)
-            .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND)
-            .build();
-        assertTrue(standardQuestionBank.hasQuestion(editedAlice));
-    }
-
-    @Test
-    public void getQuestionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> standardQuestionBank.getQuestionList().remove(0));
-    }
-
-    /**
-     * A stub ReadOnlyQuestionBank whose questions list can violate interface constraints.
-     */
-    private static class QuestionBankStub implements QuestionBank {
-        private final ObservableList<Question> questions = FXCollections.observableArrayList();
-
-        QuestionBankStub(Collection<Question> questions) {
-            this.questions.setAll(questions);
-        }
-
-        @Override
-        public ObservableList<Question> getQuestionList() {
-            return questions;
-        }
-    }
-
 }

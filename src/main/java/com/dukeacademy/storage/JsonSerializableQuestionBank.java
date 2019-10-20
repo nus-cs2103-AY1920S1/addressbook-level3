@@ -18,12 +18,12 @@ import com.fasterxml.jackson.annotation.JsonRootName;
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableQuestionBank {
-
+//
     public static final String MESSAGE_DUPLICATE_QUESTION = "Questions list "
         + "contains duplicate question(s).";
-
+//
     private final List<JsonAdaptedQuestion> questions = new ArrayList<>();
-
+//
     /**
      * Constructs a {@code JsonSerializableQuestionBank} with the given questions.
      */
@@ -31,16 +31,16 @@ class JsonSerializableQuestionBank {
     public JsonSerializableQuestionBank(@JsonProperty("questions") List<JsonAdaptedQuestion> questions) {
         this.questions.addAll(questions);
     }
-
-    /**
-     * Converts a given {@code ReadOnlyQuestionBank} into this class for Jackson use.
-     *
-     * @param source future changes to this will not affect the created {@code JsonSerializableQuestionBank}.
-     */
+//
+//    /**
+//     * Converts a given {@code ReadOnlyQuestionBank} into this class for Jackson use.
+//     *
+//     * @param source future changes to this will not affect the created {@code JsonSerializableQuestionBank}.
+//     */
     public JsonSerializableQuestionBank(QuestionBank source) {
-        questions.addAll(source.getQuestionList().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
+        questions.addAll(source.getReadOnlyQuestionListObservable().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
     }
-
+//
     /**
      * Converts this question bank into the model's {@code QuestionBank} object.
      *
@@ -50,9 +50,6 @@ class JsonSerializableQuestionBank {
         StandardQuestionBank standardQuestionBank = new StandardQuestionBank();
         for (JsonAdaptedQuestion jsonAdaptedQuestion : questions) {
             Question question = jsonAdaptedQuestion.toModelType();
-            if (standardQuestionBank.hasQuestion(question)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_QUESTION);
-            }
             standardQuestionBank.addQuestion(question);
         }
         return standardQuestionBank;

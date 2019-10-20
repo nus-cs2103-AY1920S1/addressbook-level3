@@ -2,11 +2,12 @@ package com.dukeacademy.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.UniqueQuestionList;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -15,108 +16,49 @@ import javafx.collections.ObservableList;
  */
 public class StandardQuestionBank implements QuestionBank {
 
-    private final UniqueQuestionList questions;
-
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        questions = new UniqueQuestionList();
-    }
+    private final ObservableList<Question> questionList = FXCollections.observableArrayList();
+    private final ObservableList<Question> unmodifiableQuestionList =
+            FXCollections.unmodifiableObservableList(questionList);
 
     public StandardQuestionBank() {}
 
-    /**
-     * Creates an QuestionBank using the Questions in the {@code toBeCopied}
-     */
-    public StandardQuestionBank(QuestionBank toBeCopied) {
+    public StandardQuestionBank(Collection<Question> questions) {
         this();
-        resetData(toBeCopied);
+        this.setQuestions(questions);
     }
 
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the question list with {@code questions}.
-     * {@code questions} must not contain duplicate questions.
-     */
-    public void setQuestions(List<Question> questions) {
-        this.questions.setQuestions(questions);
-    }
-
-    /**
-     * Resets the existing data of this {@code QuestionBank} with {@code newData}.
-     */
-    public void resetData(QuestionBank newData) {
-        requireNonNull(newData);
-
-        setQuestions(newData.getQuestionList());
-    }
-
-    //// question-level operations
-
-    /**
-     * Returns true if a question with the same identity as {@code question} exists in the question bank.
-     */
-    public boolean hasQuestion(Question question) {
-        requireNonNull(question);
-        return questions.contains(question);
-    }
-
-    /**
-     * Adds a question to the question bank.
-     * The question must not already exist in the question bank.
-     */
-    public void addQuestion(Question p) {
-        questions.add(p);
-    }
-
-    /**
-     * Replaces the given question {@code target} in the list with {@code editedQuestion}.
-     * {@code target} must exist in the question bank.
-     * The question identity of {@code editedQuestion} must not be the same as
-     * another existing question in the question bank.
-     */
-    public void setQuestion(Question target, Question editedQuestion) {
-        requireNonNull(editedQuestion);
-
-        questions.setQuestion(target, editedQuestion);
-    }
-
-    /**
-     * Removes {@code key} from this {@code QuestionBank}.
-     * {@code key} must exist in the question bank.
-     */
-    public void removeQuestion(Question key) {
-        questions.remove(key);
-    }
-
-    //// util methods
-
-    @Override
-    public String toString() {
-        return questions.asUnmodifiableObservableList().size() + " questions";
-        // TODO: refine later
+    public StandardQuestionBank(QuestionBank bank) {
+        this();
+        this.setQuestions(bank.getReadOnlyQuestionListObservable());
     }
 
     @Override
-    public ObservableList<Question> getQuestionList() {
-        return questions.asUnmodifiableObservableList();
+    public ObservableList<Question> getReadOnlyQuestionListObservable() {
+        return this.unmodifiableQuestionList;
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof StandardQuestionBank // instanceof handles nulls
-                && questions.equals(((StandardQuestionBank) other).questions));
+    public void addQuestion(Question question) {
+        this.questionList.add(question);
     }
 
     @Override
-    public int hashCode() {
-        return questions.hashCode();
+    public void setQuestions(Collection<Question> questions) {
+        this.questionList.setAll(questions);
+    }
+
+    @Override
+    public void replaceQuestion(int id, Question question) {
+        this.questionList.set(id + 1, question);
+    }
+
+    @Override
+    public void removeQuestion(int id) {
+        this.questionList.remove(id + 1);
+    }
+
+    @Override
+    public void resetQuestions() {
+        this.questionList.clear();
     }
 }

@@ -72,11 +72,6 @@ public class EditCommand extends Command {
         Question questionToEdit = lastShownList.get(index.getZeroBased());
         Question editedQuestion = createEditedQuestion(questionToEdit, editQuestionDescriptor);
 
-        if (!questionToEdit.isSameQuestion(editedQuestion) && model.hasQuestion(
-            editedQuestion)) {
-            throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
-        }
-
         model.setQuestion(questionToEdit, editedQuestion);
         model.updateFilteredQuestionList(Model.PREDICATE_SHOW_ALL_QUESTIONS);
         return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS,

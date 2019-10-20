@@ -53,10 +53,6 @@ public interface Model {
     /** Returns the QuestionBank */
     QuestionBank getStandardQuestionBank();
 
-    /**
-     * Returns true if a question with the same identity as {@code question} exists in the question bank.
-     */
-    boolean hasQuestion(Question question);
 
     /**
      * Deletes the given question.

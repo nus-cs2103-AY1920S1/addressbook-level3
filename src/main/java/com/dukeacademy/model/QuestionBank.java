@@ -17,7 +17,7 @@ public interface QuestionBank {
      * Returns an unmodifiable view of the questions in question bank.. The order of the questions in the list must
      * always follow the ordering of their unique ids at any point.
      */
-    ObservableList<Question> getQuestionList();
+    ObservableList<Question> getReadOnlyQuestionListObservable();
 
     /**
      * Adds a new question to the question bank.

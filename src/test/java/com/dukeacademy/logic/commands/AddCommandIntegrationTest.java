@@ -36,7 +36,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateQuestion_throwsCommandException() {
-        Question questionInList = model.getStandardQuestionBank().getQuestionList().get(0);
+        Question questionInList = model.getStandardQuestionBank().getReadOnlyQuestionListObservable().get(0);
         CommandTestUtil.assertCommandFailure(new AddCommand(questionInList), model,
             AddCommand.MESSAGE_DUPLICATE_QUESTION);
     }

@@ -34,9 +34,9 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with question bank: " + questionBank + " and user prefs " + userPrefs);
 
-        this.standardQuestionBank = new StandardQuestionBank(questionBank);
+        this.standardQuestionBank = new StandardQuestionBank(questionBank.getReadOnlyQuestionListObservable());
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredQuestions = new FilteredList<>(this.standardQuestionBank.getQuestionList());
+        filteredQuestions = new FilteredList<>(this.standardQuestionBank.getReadOnlyQuestionListObservable());
     }
 
     public ModelManager() {
@@ -82,7 +82,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setStandardQuestionBank(QuestionBank standardQuestionBank) {
-        this.standardQuestionBank.resetData(standardQuestionBank);
+//        this.standardQuestionBank.resetData(standardQuestionBank);
     }
 
     @Override
@@ -91,14 +91,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasQuestion(Question question) {
-        requireNonNull(question);
-        return standardQuestionBank.hasQuestion(question);
-    }
-
-    @Override
     public void deleteQuestion(Question target) {
-        standardQuestionBank.removeQuestion(target);
+//        standardQuestionBank.removeQuestion(target);
     }
 
     @Override
@@ -111,7 +105,7 @@ public class ModelManager implements Model {
     public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
-        standardQuestionBank.setQuestion(target, editedQuestion);
+//        standardQuestionBank.setQuestion(target, editedQuestion);
     }
 
     //=========== Filtered Question List Accessors =============================================================

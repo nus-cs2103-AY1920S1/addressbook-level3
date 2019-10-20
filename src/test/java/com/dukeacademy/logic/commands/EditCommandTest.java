@@ -127,7 +127,7 @@ public class EditCommandTest {
         showQuestionAtIndex(model, TypicalIndexes.INDEX_FIRST_QUESTION);
 
         // edit question in filtered list into a duplicate in question bank
-        Question questionInList = model.getStandardQuestionBank().getQuestionList()
+        Question questionInList = model.getStandardQuestionBank().getReadOnlyQuestionListObservable()
                                        .get(TypicalIndexes.INDEX_SECOND_QUESTION.getZeroBased());
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_QUESTION,
                 new EditQuestionDescriptorBuilder(questionInList).build());
@@ -154,7 +154,7 @@ public class EditCommandTest {
         showQuestionAtIndex(model, TypicalIndexes.INDEX_FIRST_QUESTION);
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_QUESTION;
         // ensures that outOfBoundIndex is still in bounds of question bank list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getStandardQuestionBank().getQuestionList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getStandardQuestionBank().getReadOnlyQuestionListObservable().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditQuestionDescriptorBuilder().withTitle(VALID_TITLE_BOB).build());

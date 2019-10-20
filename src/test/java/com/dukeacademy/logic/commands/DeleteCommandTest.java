@@ -72,7 +72,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_QUESTION;
         // ensures that outOfBoundIndex is still in bounds of question bank list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getStandardQuestionBank().getQuestionList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getStandardQuestionBank().getReadOnlyQuestionListObservable().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

@@ -127,11 +127,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasQuestion(Question question) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void deleteQuestion(Question target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -163,11 +158,6 @@ public class AddCommandTest {
             this.question = question;
         }
 
-        @Override
-        public boolean hasQuestion(Question question) {
-            requireNonNull(question);
-            return this.question.isSameQuestion(question);
-        }
     }
 
     /**
@@ -176,11 +166,6 @@ public class AddCommandTest {
     private class ModelStubAcceptingQuestionAdded extends ModelStub {
         final ArrayList<Question> questionsAdded = new ArrayList<>();
 
-        @Override
-        public boolean hasQuestion(Question question) {
-            requireNonNull(question);
-            return questionsAdded.stream().anyMatch(question::isSameQuestion);
-        }
 
         @Override
         public void addQuestion(Question question) {

@@ -14,6 +14,7 @@ import com.dukeacademy.commons.util.FileUtil;
 import com.dukeacademy.commons.util.JsonUtil;
 
 import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.StandardQuestionBank;
 
 /**
  * A class to access QuestionBank data stored as a json file on the hard disk.
@@ -53,12 +54,7 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
             return Optional.empty();
         }
 
-        try {
-            return Optional.of(jsonAddressBook.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        }
+        return Optional.of(new StandardQuestionBank());
     }
 
     @Override

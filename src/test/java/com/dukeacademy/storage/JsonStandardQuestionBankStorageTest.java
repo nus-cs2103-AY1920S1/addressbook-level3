@@ -77,7 +77,7 @@ public class JsonStandardQuestionBankStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addQuestion(HOON);
-        original.removeQuestion(ALICE);
+//        original.removeQuestion(ALICE);
         jsonQuestionBankStorage.saveQuestionBank(original, filePath);
         readBack = jsonQuestionBankStorage.readQuestionBank(filePath).get();
         assertEquals(original, new StandardQuestionBank(readBack));
