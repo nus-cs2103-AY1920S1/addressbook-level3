@@ -1,5 +1,6 @@
 package seedu.address.transaction.commands;
 
+import static seedu.address.transaction.model.Transaction.DATE_TIME_FORMATTER;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
 
@@ -55,7 +56,7 @@ public class EditCommand extends Command {
         }*/
 
         try {
-            LocalDate.parse(editedTransaction.getDate(), Transaction.DATE_TIME_FORMATTER);
+            LocalDate.parse(editedTransaction.getDate(), DATE_TIME_FORMATTER);
         } catch (Exception e) {
             throw new ParseException("Please input the correct date format. DD-MMM-YYYY (eg. 02-Sep-2019).");
         }
@@ -72,8 +73,7 @@ public class EditCommand extends Command {
      */
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
                                                         EditTransactionDescriptor editTransactionDescriptor,
-                                                        seedu.address.person.model.Model personModel)
-            throws NoSuchPersonException {
+                                                        seedu.address.person.model.Model personModel) {
 
         String updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         String updatedDescription =

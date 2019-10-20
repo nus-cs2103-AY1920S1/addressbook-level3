@@ -14,4 +14,10 @@ public class SortAmountCommand extends SortCommand {
         model.sortByAmount();
         return new CommandResult(TransactionMessages.MESSAGE_SORTED_BY_AMOUNT);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortAmountCommand); // instanceof handles nulls
+    }
 }

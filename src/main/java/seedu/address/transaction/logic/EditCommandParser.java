@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic;
 
+import static seedu.address.transaction.model.Transaction.DATE_TIME_FORMATTER;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT;
 //import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NOT_EDITED;
 import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
@@ -8,6 +9,7 @@ import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -18,6 +20,8 @@ import seedu.address.person.model.Model;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.logic.exception.ParseException;
+import seedu.address.transaction.model.exception.NoSuchPersonException;
+import seedu.address.transaction.ui.TransactionMessages;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 import seedu.address.util.Prefix;
@@ -25,7 +29,7 @@ import seedu.address.util.Prefix;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser {
+public class EditCommandParser implements CommandParserWithPersonModel{
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -36,7 +40,7 @@ public class EditCommandParser {
      * and returns a EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args, Model personModel) throws ParseException, PersonNotFoundException {
+    public EditCommand parse(String args, Model personModel) throws ParseException, NoSuchPersonException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION,
                         PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON);
@@ -56,6 +60,11 @@ public class EditCommandParser {
         EditCommand.EditTransactionDescriptor editPersonDescriptor = new EditCommand.EditTransactionDescriptor();
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
             editPersonDescriptor.setDate(argMultimap.getValue(PREFIX_DATETIME).get());
+            try {
+                LocalDate.parse(argMultimap.getValue(PREFIX_DATETIME).get(), DATE_TIME_FORMATTER);
+            } catch (Exception e) {
+                throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
+            }
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editPersonDescriptor.setDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
@@ -64,10 +73,18 @@ public class EditCommandParser {
             editPersonDescriptor.setCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            editPersonDescriptor.setAmount(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            try {
+                editPersonDescriptor.setAmount(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            } catch (NumberFormatException e) {
+                throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
+            }
         }
         if (argMultimap.getValue(PREFIX_PERSON).isPresent()) {
-            personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+            try {
+                personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+            } catch (PersonNotFoundException e) {
+                throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
+            }
             editPersonDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
         }
 

@@ -10,7 +10,7 @@ import seedu.address.transaction.ui.TransactionMessages;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class FindCommandParser {
+public class FindCommandParser implements IndependentCommandParser{
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand

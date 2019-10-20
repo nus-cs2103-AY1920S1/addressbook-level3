@@ -20,14 +20,14 @@ import seedu.address.util.Prefix;
 /**
  * Parses input arguments and creates a new DeleteIndexCommand object
  */
-public class DeleteCommandParser {
+public class DeleteCommandParser implements CommandParserWithPersonModel{
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteIndexCommand
      * and returns a DeleteIndexCommand object for execution.
      * @throws NotANumberException if the user input does not conform the expected format
      */
-    public static DeleteCommand parse(String userInput, Model personModel) throws NotANumberException,
+    public DeleteCommand parse(String userInput, Model personModel) throws NotANumberException,
             NoSuchPersonException {
 
         if (userInput.length() > 1 && userInput.substring(1).matches("-?(0|[1-9]\\d*)")) {

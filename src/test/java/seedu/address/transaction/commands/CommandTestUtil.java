@@ -30,7 +30,7 @@ public class CommandTestUtil {
     public static final String VALID_CATEGORY = "cAtEgOrY @12345";
 
     public static final String DESC_NAME_ALICE = " " + PREFIX_PERSON + VALID_NAME_ALICE;
-    public static final String DESC_NAME_BENSEN= " " + PREFIX_PERSON + VALID_NAME_BENSEN;
+    public static final String DESC_NAME_BENSEN = " " + PREFIX_PERSON + VALID_NAME_BENSEN;
     public static final String DESC_NAME_AMY = " " + PREFIX_PERSON + VALID_NAME_AMY;
     public static final String DESC_DATE = " " + PREFIX_DATETIME + VALID_DATE;
     public static final String DESC_AMOUNT = " " + PREFIX_AMOUNT + VALID_AMOUNT;

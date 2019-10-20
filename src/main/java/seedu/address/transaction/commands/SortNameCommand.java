@@ -14,4 +14,10 @@ public class SortNameCommand extends SortCommand {
         model.sortByName();
         return new CommandResult(TransactionMessages.MESSAGE_SORTED_BY_NAME);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortNameCommand); // instanceof handles nulls
+    }
 }
