@@ -3,18 +3,20 @@ package seedu.jarvis.model.finance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.InstallmentList;
-import seedu.jarvis.model.financetracker.Purchase;
-import seedu.jarvis.model.financetracker.PurchaseList;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
+import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
+import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**
  * Tests logic of finance tracker class.
@@ -26,16 +28,16 @@ public class FinanceTrackerTest {
     @BeforeEach
     public void setUp() {
         financeTracker = new FinanceTracker();
-        ArrayList<Purchase> allPurchases = new ArrayList<>();
+        ObservableList<Purchase> allPurchases = FXCollections.observableArrayList();
         allPurchases.add(new PurchaseStub());
         allPurchases.add(new PurchaseStub());
         allPurchases.add(new PurchaseStub());
-        financeTracker.setPurchaseList(new PurchaseList(allPurchases));
-        ArrayList<Installment> allInstalments = new ArrayList<>();
+        financeTracker.setPurchaseList(allPurchases);
+        ObservableList<Installment> allInstalments = FXCollections.observableArrayList();;
         allInstalments.add(new InstallmentStub());
         allInstalments.add(new InstallmentStub());
         allInstalments.add(new InstallmentStub());
-        financeTracker.setInstallmentList(new InstallmentList(allInstalments));
+        financeTracker.setInstallmentList(allInstalments);
     }
 
     @Test
@@ -87,29 +89,24 @@ public class FinanceTrackerTest {
 
     @Test
     public void editInstallment_normalInputs_editedCorrectly() {
-        financeTracker.editInstallment(1,
-                "Student price Spotify subscription", 7.50);
-        assertEquals("Student price Spotify subscription",
-                financeTracker.getInstallment(1).getDescription().toString());
-        assertEquals(7.50,
-                financeTracker
-                        .getInstallment(1)
-                        .getMoneySpentOnInstallment()
-                        .getInstallmentMoneyPaid());
+        Installment installment = financeTracker.getInstallment(1);
+        Installment editedInstallment = new InstallmentBuilder()
+                                                .withDescription(new InstallmentDescription("Spotify"))
+                                                .withMoneySpent(new InstallmentMoneyPaid("9.50"))
+                                                .build();
+        financeTracker.setInstallment(installment, editedInstallment);
+        assertEquals(financeTracker.getInstallment(1), editedInstallment);
     }
 
     @Test
-    public void editInstallment_indexNonexistent_throwsError() {
+    public void editInstallment_nonExistentInstallment_throwsError() {
+        Installment installment = new InstallmentBuilder()
+                                            .withDescription(new InstallmentDescription("something"))
+                                            .build();
+
         assertThrows(RuntimeException.class, (
 
-        ) -> financeTracker.editInstallment(5, "Spotify", 9.50));
-    }
-
-    @Test
-    public void editInstallment_emptyDescription_throwsError() {
-        assertThrows(NullPointerException.class, (
-
-            ) -> financeTracker.editInstallment(3, null, 9.50));
+        ) -> financeTracker.setInstallment(installment, new InstallmentStub()));
     }
 
     @Test
@@ -127,7 +124,7 @@ public class FinanceTrackerTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super("lunch at deck", 5.00);
+            super(new PurchaseDescription("lunch at deck"), new PurchaseMoneySpent("5.00"));
         }
     }
 

@@ -20,7 +20,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.exceptions.DuplicatePersonException;
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class AddressBookTest {
@@ -99,10 +98,6 @@ public class AddressBookTest {
             return persons;
         }
 
-        @Override
-        public ObservableList<Purchase> getPurchaseList() {
-            return null;
-        }
     }
 
 }

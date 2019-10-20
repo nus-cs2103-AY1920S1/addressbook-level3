@@ -1,16 +1,16 @@
-package seedu.jarvis.model.financetracker.installment;
+package seedu.jarvis.model.financetracker.purchase;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the description of an installment in the finance tracker.
+ * Represents the description of a purchase in the finance tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
-public class InstallmentMoneyPaid {
+public class PurchaseMoneySpent {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Subscription fee of installments should Names should only contain alphanumeric characters and spaces, "
+            "Money spent on installments should be taken as doubles, "
                     + "and it should not be blank";
 
     public static final String MONEY_CONSTRAINTS =
@@ -18,17 +18,17 @@ public class InstallmentMoneyPaid {
 
     public static final String VALIDATION_REGEX = "[0-9]{1,13}(\\.[0-9]*)?";
 
-    public final double installmentMoneyPaid;
+    public final double purchaseAmount;
 
     /**
-     * Constructs a {@code InstallmentMoneyPaid}.
+     * Constructs a {@code PurchaseMoneySpent}.
      *
-     * @param value A valid installment money paid.
+     * @param value A valid purchase money paid.
      */
-    public InstallmentMoneyPaid(String value) {
+    public PurchaseMoneySpent(String value) {
         requireNonNull(value);
         checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
-        installmentMoneyPaid = Double.parseDouble(value);
+        purchaseAmount = Double.parseDouble(value);
     }
 
     /**
@@ -38,21 +38,20 @@ public class InstallmentMoneyPaid {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public double getInstallmentMoneyPaid() {
-        return installmentMoneyPaid;
+    public double getPurchaseAmount() {
+        return purchaseAmount;
     }
 
     @Override
     public String toString() {
-        return Double.toString(installmentMoneyPaid);
+        return Double.toString(purchaseAmount);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof InstallmentMoneyPaid
-                && Double.toString(installmentMoneyPaid)
-                .equals(Double.toString(((InstallmentMoneyPaid) other).installmentMoneyPaid)));
+                || (other instanceof PurchaseMoneySpent
+                && Double.toString(purchaseAmount)
+                .equals(Double.toString(((PurchaseMoneySpent) other).purchaseAmount)));
     }
-
 }

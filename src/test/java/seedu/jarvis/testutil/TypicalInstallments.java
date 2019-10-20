@@ -3,6 +3,7 @@ package seedu.jarvis.testutil;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**
  * A utility class containing a list of {@code Installment} objects to be used in tests.
