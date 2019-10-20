@@ -3,6 +3,7 @@ package seedu.moneygowhere.model.spending;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import seedu.moneygowhere.commons.util.DateUtil;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
@@ -56,7 +57,7 @@ public class Date implements Comparable<Date> {
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Objects.hash(value, dateValue);
     }
 
     @Override
