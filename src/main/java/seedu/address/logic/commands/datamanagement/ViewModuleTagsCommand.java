@@ -24,7 +24,6 @@ public class ViewModuleTagsCommand extends Command {
         + "Example: "
         + "viewtags t/CS3230";
 
-    //public static final String MESSAGE_SUCCESS = "All tags for the module shown \n%1$s";
     public static final String MESSAGE_SUCCESS = "All tags for the module shown";
     private final String moduleCode;
 
@@ -41,12 +40,7 @@ public class ViewModuleTagsCommand extends Command {
 
         UniqueTagList tags = model.getModuleTagsFromActiveSp(moduleCode);
 
-        final String stringOfTags = tags.asUnmodifiableObservableList().stream()
-            .map(item -> item.toString())
-            .collect(joining("\n"));
-
         return new CommandResult(MESSAGE_SUCCESS, ResultViewType.TAG, tags.asUnmodifiableObservableList());
-        //return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfTags));
     }
 
 }
