@@ -2,7 +2,7 @@ package seedu.address.model.day;
 
 import seedu.address.model.activity.Activity;
 
-import java.util.Date;
+import java.time.LocalTime;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,10 +11,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class ActivityWithTime implements Comparable<ActivityWithTime> {
     private final Activity activity;
-    private final Date startTime;
-    private final Date endTime;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
 
-    public ActivityWithTime(Activity activity, Date startTime, Date endTime) {
+    public ActivityWithTime(Activity activity, LocalTime startTime, LocalTime endTime) {
         requireAllNonNull(activity, startTime, endTime);
         this.activity = activity;
         this.startTime = startTime;
@@ -25,11 +25,11 @@ public class ActivityWithTime implements Comparable<ActivityWithTime> {
         return activity;
     }
 
-    public Date getStartTime() {
+    public LocalTime getStartTime() {
         return this.startTime;
     }
 
-    public Date getEndTime() {
+    public LocalTime getEndTime() {
         return this.endTime;
     }
 

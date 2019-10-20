@@ -1,7 +1,7 @@
 package seedu.address.model.day;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -51,7 +51,7 @@ public class Timetable {
         }
     }
 
-    public Optional<ActivityWithTime> getActivityWithTimeAtTime(Date time) {
+    public Optional<ActivityWithTime> getActivityWithTimeAtTime(LocalTime time) {
         ActivityWithTime timeToSearch = new ActivityWithTime(createEmptyActivity(), time, time);
         ActivityWithTime floorActivity = this.timetable.floor(timeToSearch);
         if (floorActivity == null) {

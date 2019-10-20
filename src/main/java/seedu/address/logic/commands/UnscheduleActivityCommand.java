@@ -86,13 +86,8 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
      * @param activityToUnschedule of the contacts in the filtered contacts list to edit
      */
     private Day createUnscheduledActivityDay(Day dayToEdit, Activity activityToUnschedule) {
-        List<ActivityWithTime> activitiesWithTime = dayToEdit.getActivitiesWithTime();
-        List<ActivityWithTime> editedActivitiesWithTime = new ArrayList<>();
-        for (ActivityWithTime a : activitiesWithTime) {
-            if (!a.getActivity().equals(activityToUnschedule)) {
-                editedActivitiesWithTime.add(a);
-            }
-        }
+        List<ActivityWithTime> activitiesWithTime = dayToEdit.getListOfActivityWithTime();
+        activitiesWithTime.remove(activityToUnschedule);
         return new Day(editedActivitiesWithTime);
     }
 }

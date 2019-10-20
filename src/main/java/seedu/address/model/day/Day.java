@@ -1,6 +1,6 @@
 package seedu.address.model.day;
 
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +36,7 @@ public class Day {
         return this.timetable.getActivitiesWithTime();
     }
 
-    public Optional<ActivityWithTime> getActivityWithTime(Date time) {
+    public Optional<ActivityWithTime> getActivityWithTime(LocalTime time) {
         return this.timetable.getActivityWithTimeAtTime(time);
     }
 
