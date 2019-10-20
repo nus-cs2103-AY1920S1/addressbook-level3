@@ -89,7 +89,7 @@ public class EditScheduleCommand extends Command {
         Schedule scheduleToEdit = orderToReschedule.getSchedule().get();
         Schedule editedSchedule = createEditedSchedule(scheduleToEdit, editScheduleDescriptor);
 
-        if (!scheduleToEdit.isSameSchedule(editedSchedule) && model.hasSchedule(editedSchedule)) {
+        if (!scheduleToEdit.isSameAs(editedSchedule) && model.hasSchedule(editedSchedule)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         }
 

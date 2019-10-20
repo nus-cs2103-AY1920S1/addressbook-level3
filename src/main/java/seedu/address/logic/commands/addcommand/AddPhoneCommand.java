@@ -36,7 +36,7 @@ public class AddPhoneCommand extends Command {
             + PREFIX_COST + "COST "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_IDENTITYNUM + "543407158585522"
+            + PREFIX_IDENTITYNUM + "543407158585522 "
             + PREFIX_SERIALNUM + "A123bcfe29 "
             + PREFIX_PHONENAME + "iPhone 11 "
             + PREFIX_BRAND + "Apple "

@@ -30,10 +30,10 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
 
-    private final CustomerBook customerBook;
-    private final PhoneBook phoneBook;
-    private final OrderBook orderBook;
-    private final ScheduleBook scheduleBook;
+    private final DataBook<Customer> customerBook;
+    private final DataBook<Phone> phoneBook;
+    private final DataBook<Order> orderBook;
+    private final DataBook<Schedule> scheduleBook;
 
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Phone> filteredPhones;
@@ -56,10 +56,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
-        this.customerBook = new CustomerBook();
-        this.phoneBook = new PhoneBook();
-        this.orderBook = new OrderBook();
-        this.scheduleBook = new ScheduleBook();
+        this.customerBook = new DataBook<>();
+        this.phoneBook = new DataBook<>();
+        this.orderBook = new DataBook<>();
+        this.scheduleBook = new DataBook<>();
 
         this.filteredCustomers = new FilteredList<>(this.customerBook.getList());
         this.filteredPhones = new FilteredList<>(this.phoneBook.getList());
@@ -80,10 +80,10 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with customer book: " + customerBook + " and user prefs " + userPrefs);
 
-        this.customerBook = new CustomerBook(customerBook);
-        this.phoneBook = new PhoneBook(phoneBook);
-        this.orderBook = new OrderBook(orderBook);
-        this.scheduleBook = new ScheduleBook(scheduleBook);
+        this.customerBook = new DataBook<>(customerBook);
+        this.phoneBook = new DataBook<>(phoneBook);
+        this.orderBook = new DataBook<>(orderBook);
+        this.scheduleBook = new DataBook<>(scheduleBook);
 
         this.userPrefs = new UserPrefs(userPrefs);
 
@@ -201,18 +201,18 @@ public class ModelManager implements Model {
     @Override
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
-        return customerBook.hasCustomer(customer);
+        return customerBook.has(customer);
     }
 
     @Override
     public void deleteCustomer(Customer target) {
-        customerBook.removeCustomer(target);
+        customerBook.remove(target);
 
         // cascade
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
             if (order.getCustomer().equals(target)) {
-                orderBook.removeOrder(order);
+                deleteOrder(order);
                 break;
             }
         }
@@ -220,14 +220,14 @@ public class ModelManager implements Model {
 
     @Override
     public void addCustomer(Customer customer) {
-        customerBook.addCustomer(customer);
+        customerBook.add(customer);
         updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
     }
 
     @Override
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
-        customerBook.setCustomer(target, editedCustomer);
+        customerBook.set(target, editedCustomer);
 
         // cascade
         List<Order> orders = orderBook.getList();
@@ -235,7 +235,7 @@ public class ModelManager implements Model {
             if (order.getCustomer().equals(target)) {
                 Order editedOrder = new Order(order.getId(), editedCustomer, order.getPhone(),
                         order.getPrice(), order.getStatus(), order.getSchedule(), order.getTags());
-                orderBook.setOrder(order, editedOrder);
+                orderBook.set(order, editedOrder);
                 break;
             }
         }
@@ -273,18 +273,18 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPhone(Phone phone) {
         requireNonNull(phone);
-        return phoneBook.hasPhone(phone);
+        return phoneBook.has(phone);
     }
 
     @Override
     public void deletePhone(Phone target) {
-        phoneBook.removePhone(target);
+        phoneBook.remove(target);
 
         // cascade
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
             if (order.getPhone().equals(target)) {
-                orderBook.removeOrder(order);
+                deleteOrder(order);
                 break;
             }
         }
@@ -292,14 +292,14 @@ public class ModelManager implements Model {
 
     @Override
     public void addPhone(Phone phone) {
-        phoneBook.addPhone(phone);
+        phoneBook.add(phone);
         updateFilteredPhoneList(PREDICATE_SHOW_ALL_PHONES);
     }
 
     @Override
     public void setPhone(Phone target, Phone editedPhone) {
         requireAllNonNull(target, editedPhone);
-        phoneBook.setPhone(target, editedPhone);
+        phoneBook.set(target, editedPhone);
 
         // cascade
         List<Order> orders = orderBook.getList();
@@ -307,7 +307,7 @@ public class ModelManager implements Model {
             if (order.getPhone().equals(target)) {
                 Order editedOrder = new Order(order.getId(), order.getCustomer(), editedPhone,
                         order.getPrice(), order.getStatus(), order.getSchedule(), order.getTags());
-                orderBook.setOrder(order, editedOrder);
+                orderBook.set(order, editedOrder);
                 break;
             }
         }
@@ -330,7 +330,7 @@ public class ModelManager implements Model {
         filteredPhones.setPredicate(predicate);
     }
 
-    //=========== OrderBook ================================================================================
+    //=========== Order DataBook ================================================================================
 
     @Override
     public void setOrderBook(ReadOnlyDataBook<Order> orderBook) {
@@ -345,21 +345,21 @@ public class ModelManager implements Model {
     @Override
     public boolean hasOrder(Order order) {
         requireNonNull(order);
-        return orderBook.hasOrder(order);
+        return orderBook.has(order);
     }
 
     @Override
     public void deleteOrder(Order target) {
-        orderBook.removeOrder(target);
+        orderBook.remove(target);
 
         // cascade
         Optional<Schedule> targetSchedule = target.getSchedule();
-        targetSchedule.ifPresent(scheduleBook::removeSchedule);
+        targetSchedule.ifPresent(scheduleBook::remove);
     }
 
     @Override
     public void addOrder(Order order) {
-        orderBook.addOrder(order);
+        orderBook.add(order);
         updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDER);
     }
 
@@ -367,7 +367,7 @@ public class ModelManager implements Model {
     public void setOrder(Order target, Order editedOrder) {
         requireAllNonNull(target, editedOrder);
 
-        orderBook.setOrder(target, editedOrder);
+        orderBook.set(target, editedOrder);
     }
 
     //=========== Filtered Order List Accessors =============================================================
@@ -387,7 +387,7 @@ public class ModelManager implements Model {
         filteredOrders.setPredicate(predicate);
     }
 
-    //=========== ScheduleBook ================================================================================
+    //=========== Schedule DataBook ================================================================================
 
     @Override
     public void setScheduleBook(ReadOnlyDataBook<Schedule> scheduleBook) {
@@ -402,12 +402,12 @@ public class ModelManager implements Model {
     @Override
     public boolean hasSchedule(Schedule schedule) {
         requireNonNull(schedule);
-        return scheduleBook.hasSchedule(schedule);
+        return scheduleBook.has(schedule);
     }
 
     @Override
     public void deleteSchedule(Schedule target) {
-        scheduleBook.removeSchedule(target);
+        scheduleBook.remove(target);
 
         // cascade
         List<Order> orders = orderBook.getList();
@@ -416,7 +416,7 @@ public class ModelManager implements Model {
                 if (schedule.equals(target)) {
                     Order editedOrder = new Order(order.getId(), order.getCustomer(), order.getPhone(),
                             order.getPrice(), Status.UNSCHEDULED, Optional.empty(), order.getTags());
-                    orderBook.setOrder(order, editedOrder);
+                    orderBook.set(order, editedOrder);
                 }
             });
         }
@@ -424,7 +424,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addSchedule(Schedule schedule) {
-        scheduleBook.addSchedule(schedule);
+        scheduleBook.add(schedule);
         updateFilteredScheduleList(PREDICATE_SHOW_ALL_SCHEDULE);
     }
 
@@ -432,7 +432,7 @@ public class ModelManager implements Model {
     public void setSchedule(Schedule target, Schedule editedSchedule) {
         requireAllNonNull(target, editedSchedule);
 
-        scheduleBook.setSchedule(target, editedSchedule);
+        scheduleBook.set(target, editedSchedule);
 
         // cascade
         List<Order> orders = orderBook.getList();
@@ -441,7 +441,7 @@ public class ModelManager implements Model {
                 if (schedule.equals(target)) {
                     Order editedOrder = new Order(order.getId(), order.getCustomer(), order.getPhone(),
                             order.getPrice(), order.getStatus(), Optional.of(editedSchedule), order.getTags());
-                    orderBook.setOrder(order, editedOrder);
+                    orderBook.set(order, editedOrder);
                 }
             });
         }
