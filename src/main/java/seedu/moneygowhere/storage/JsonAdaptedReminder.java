@@ -52,8 +52,8 @@ public class JsonAdaptedReminder {
         final Date modelDeadline = new Date(deadline);
 
         if (reminderMessage == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT
-                    , ReminderMessage.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ReminderMessage.class.getSimpleName()));
         }
 
         final ReminderMessage modelReminderMessage = new ReminderMessage(reminderMessage);
