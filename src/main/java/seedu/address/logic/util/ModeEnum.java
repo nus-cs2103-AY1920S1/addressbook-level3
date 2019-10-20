@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.util;
 
 /**
  * Game modes for the app

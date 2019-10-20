@@ -10,10 +10,7 @@ public abstract class LoadCommand extends Command {
     public abstract CommandResult execute(Model model) throws CommandException;
 
     @Override
-    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
-        if (mode != ModeEnum.LOAD) {
-            throw new CommandException("Load word bank first!");
-        }
-        return ModeEnum.LOAD;
+    public boolean check(Model model) throws CommandException {
+        return true;
     }
 }

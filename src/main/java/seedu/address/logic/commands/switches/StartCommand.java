@@ -14,9 +14,10 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.util.ModeEnum;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
@@ -40,11 +41,10 @@ public class StartCommand extends SwitchCommand {
     public StartCommand() {
 
     }
-
-    @Override
-    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
+    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
         return ModeEnum.GAME;
     }
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

@@ -1,9 +1,10 @@
 package seedu.address.logic.commands.switches;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.util.ModeEnum;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.model.Model;
 import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
@@ -29,16 +30,7 @@ public class BankCommand extends SwitchCommand {
         this.name = name;
     }
 
-    @Override
-    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
-        if (mode != ModeEnum.LOAD) {
-            throw new CommandException("Load word bank first!");
-        }
-        if (model.getWordBankList().getWordBank(this.name) == null) {
-            return ModeEnum.LOAD;
-        }
-        return ModeEnum.SETTINGS;
-    }
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -55,6 +47,10 @@ public class BankCommand extends SwitchCommand {
             model.setWordBankStatistics(wbStats);
         }
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT , false, false);
+    }
+
+    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
+        return ModeEnum.APP;
     }
 
 }

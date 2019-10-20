@@ -1,20 +1,16 @@
 package seedu.address.logic;
 
-import static java.util.Objects.requireNonNull;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.logging.Logger;
-
+import java.util.List;
+import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.util.ModeEnum;
+import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
@@ -24,36 +20,34 @@ import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+
 
 /**
  * The main LogicManager of the app.
  */
-public class LogicManager implements Logic {
+public class LogicManager implements Logic, UiLogicHelper {
     public static final String FILE_OPS_ERROR_MESSAGE = "File operation failed";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final ParserManager parserManager;
 
-    private boolean gameStarted;
-    private ModeEnum mode;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.gameStarted = false;
-        this.mode = ModeEnum.LOAD;
         /*
         Step 9.
         this.game = game //get from constructor
          */
-        addressBookParser = new AddressBookParser();
-    }
-
-    @Override
-    public ModeEnum getMode() {
-        return this.mode;
+        parserManager = new ParserManager();
     }
 
     @Override
@@ -67,7 +61,7 @@ public class LogicManager implements Logic {
         Modify parseCommand()
         2 user modes: Game mode and Normal mode
         */
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = parserManager.parseCommand(commandText);
 
         /*
         Step 11.
@@ -78,8 +72,11 @@ public class LogicManager implements Logic {
         //commandResult = command.execute(model);
 
         /* Checks if command entered in wrong mode */
-        this.mode = command.check(model, mode);
+        command.precondition(model);
         commandResult = command.execute(model);
+        command.postcondition();
+
+        parserManager.updateState(command);
 
         // todo need to save wordbankstatistics after deletion.
         // todo possible solution -> just save on every command like how the word bank is saved.
@@ -157,5 +154,25 @@ public class LogicManager implements Logic {
     @Override
     public long getTimeAllowedPerQuestion() {
         return this.model.getDifficulty().getTimeAllowedPerQuestion();
+    }
+
+    @Override
+    public List<AutoFillAction> getMenuItems(String text) {
+        return parserManager.getAutoFill(text);
+    }
+
+    @Override
+    public ModeEnum getMode() {
+        return parserManager.getMode();
+    }
+
+    @Override
+    public List<ModeEnum> getModes() {
+        List<ModeEnum> temp = new ArrayList<>();
+        temp.add(ModeEnum.APP);
+        temp.add(ModeEnum.LOAD);
+        temp.add(ModeEnum.GAME);
+        temp.add(ModeEnum.SETTINGS);
+        return temp;
     }
 }

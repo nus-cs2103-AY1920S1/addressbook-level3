@@ -1,9 +1,9 @@
-package seedu.address.logic.actions;
+package seedu.address.logic.util;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public class AutoFillAction extends Action {
+public abstract class Action {
 
     /**
      * Executes the command and returns the result message.
@@ -12,12 +12,8 @@ public class AutoFillAction extends Action {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public boolean action() {
-        return true;
-    }
+    public abstract boolean action();
 
-    public String toString() {
-        return "home";
-    }
+    public abstract String toString();
 
 }

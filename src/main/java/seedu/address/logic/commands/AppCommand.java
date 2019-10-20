@@ -9,10 +9,7 @@ import seedu.address.model.Model;
 public abstract class AppCommand extends Command {
 
     @Override
-    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
-        if (mode != ModeEnum.APP) {
-            throw new CommandException("You're not in App mode!");
-        }
-        return ModeEnum.APP;
+    public boolean check(Model model) throws CommandException {
+        return true;
     }
 }

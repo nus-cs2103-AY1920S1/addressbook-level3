@@ -1,17 +1,16 @@
-package seedu.address.logic.actions;
-
-import seedu.address.logic.commands.ModeEnum;
+package seedu.address.logic.util;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public class ModeAction extends Action{
+public class AutoFillAction extends Action {
 
-    ModeEnum mode;
+    private String text;
 
-    public ModeAction(ModeEnum mode) {
-        this.mode = mode;
+    public AutoFillAction(String text) {
+        this.text = text;
     }
+
     /**
      * Executes the command and returns the result message.
      *
@@ -24,7 +23,7 @@ public class ModeAction extends Action{
     }
 
     public String toString() {
-        return mode.toString();
+        return text;
     }
 
 }

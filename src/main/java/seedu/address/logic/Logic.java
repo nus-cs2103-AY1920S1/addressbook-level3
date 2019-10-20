@@ -2,10 +2,12 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
+import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.util.ModeEnum;
+import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
@@ -17,7 +19,7 @@ import seedu.address.statistics.WordBankStatistics;
 /**
  * API of the Logic component
  */
-public interface Logic {
+public interface Logic extends  UiLogicHelper{
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
@@ -62,5 +64,9 @@ public interface Logic {
 
     long getTimeAllowedPerQuestion();
 
+    public List<AutoFillAction> getMenuItems(String text);
+
     public ModeEnum getMode();
+
+    public List<ModeEnum> getModes();
 }

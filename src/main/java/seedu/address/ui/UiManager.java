@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.CommandBoxHelper;
 import seedu.address.gamemanager.GameManager;
 
 /**
@@ -24,13 +23,11 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private GameManager gameManager;
-    private CommandBoxHelper commandBoxHelper;
     private MainWindow mainWindow;
 
-    public UiManager(GameManager gameManager, CommandBoxHelper commandBoxHelper) {
+    public UiManager(GameManager gameManager) {
         super();
         this.gameManager = gameManager;
-        this.commandBoxHelper = commandBoxHelper;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, gameManager, commandBoxHelper);
+            mainWindow = new MainWindow(primaryStage, gameManager);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

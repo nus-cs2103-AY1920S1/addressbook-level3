@@ -12,11 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.Region;
-import seedu.address.logic.actions.Action;
-import seedu.address.logic.CommandBoxHelper;
+import seedu.address.logic.util.Action;
+import seedu.address.logic.UiLogicHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.util.ModeEnum;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -28,7 +28,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private CommandBoxHelper commandBoxHelper;
+    private UiLogicHelper uiLogicHelper;
 
     @FXML
     private TextField commandTextField;
@@ -43,10 +43,10 @@ public class CommandBox extends UiPart<Region> {
     private List<Menu> currentMenus;
     private List<String> currentCombos;
 
-    public CommandBox(CommandExecutor commandExecutor, CommandBoxHelper commandBoxHelper) {
+    public CommandBox(CommandExecutor commandExecutor, UiLogicHelper uiLogicHelper) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.commandBoxHelper = commandBoxHelper;
+        this.uiLogicHelper = uiLogicHelper;
 
 
         initialiseText();
@@ -70,7 +70,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void fillMenu() {
-        for (Action temp : commandBoxHelper.getMenuItems("")) {
+        for (Action temp : uiLogicHelper.getMenuItems("")) {
             Label label = new Label(temp.toString());
             label.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -85,7 +85,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void fillCombo() {
-        List<ModeEnum> temp = commandBoxHelper.getModes();
+        List<ModeEnum> temp = uiLogicHelper.getModes();
         EventHandler<ActionEvent> event =
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent e) {
@@ -114,7 +114,7 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
-        commandComboField.setValue(commandBoxHelper.getMode().toString());
+        commandComboField.setValue(uiLogicHelper.getMode().toString());
     }
 
     /**
