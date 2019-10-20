@@ -2,13 +2,13 @@ package seedu.address.calendar.model;
 
 public class Calendar {
     private Month monthShown;
-    private int currentYear;
+    private Year currentYear;
     private boolean hasVisibleUpdates;
 
     public Calendar() {
         java.util.Calendar currentDate = java.util.Calendar.getInstance();
 
-        currentYear = currentDate.get(java.util.Calendar.YEAR);
+        this.currentYear = new Year(currentDate.get(java.util.Calendar.YEAR));
 
         int currentUnformattedMonth = currentDate.get(java.util.Calendar.MONTH);
         MonthOfYear currentMonth = MonthOfYear.convertJavaMonth(currentUnformattedMonth);
@@ -18,7 +18,7 @@ public class Calendar {
     }
 
     public Month getMonth() {
-        return monthShown;
+        return Month.copy(monthShown);
     }
 
     public void updateMonthShown(Month updatedMonth) {

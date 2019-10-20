@@ -3,8 +3,12 @@ package seedu.address.calendar.model;
 public class Year {
     private int year;
 
-    Year(int year) {
+    public Year(int year) {
         this.year = year;
+    }
+
+    int getNumericalValue() {
+        return year;
     }
 
     @Override

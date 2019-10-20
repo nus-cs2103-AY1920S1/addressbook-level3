@@ -2,14 +2,13 @@ package seedu.address.calendar.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
 import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.Year;
 import seedu.address.calendar.parser.CalendarParser;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,12 +21,6 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     private final static PageType pageType = PageType.CALENDAR;
 
     @FXML
-    VBox calendarPane = new VBox();
-    @FXML
-    GridPane weekHeader;
-    @FXML
-    GridPane monthView;
-    @FXML
     StackPane commandBoxPlaceholder;
     @FXML
     StackPane monthHeaderPlaceholder;
@@ -37,7 +30,6 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     StackPane monthViewPlaceholder;
     @FXML
     VBox resultDisplayPlaceholder;
-
 
     private Calendar calendar;
 
@@ -59,35 +51,50 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      * Sets up calendar page by laying out nodes.
      */
     private void fillInnerParts() {
-        Month currentMonth = Month.copy(calendar.getMonth());
+        Month currentMonth = calendar.getMonth();
         MonthOfYear monthOfYear = currentMonth.getMonthOfYear();
         MonthHeader monthHeader = new MonthHeader(monthOfYear);
         monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
 
-        int year = currentMonth.getYear();
+        Year year = currentMonth.getYear();
         YearHeader yearHeader = new YearHeader(year);
         yearHeaderPlaceholder.getChildren().add(yearHeader.getRoot());
 
-        monthViewPlaceholder.getChildren().add(new MonthView(currentMonth).generateMonthGrid());
+        MonthView monthView = new MonthView(currentMonth);
+        monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
 
-        resultDisplayPlaceholder.getChildren().add(new ResultDisplay().getRoot());
+        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        commandBoxPlaceholder.getChildren().add(new CommandBox(this::executeCommand).getRoot());
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private void updateCalendarView(MonthView updatedMonthView) {
-        updateMonthLabel(updatedMonthView);
-        updateMonthGrid(updatedMonthView);
+    private void updateCalendarPage(Month updatedMonth) {
+        Year year = updatedMonth.getYear();
+        MonthOfYear monthOfYear = updatedMonth.getMonthOfYear();
+
+        updateYearHeader(year);
+        updateMonthHeader(monthOfYear);
+        updateMonthView(updatedMonth);
     }
 
-    private void updateMonthLabel(MonthView updatedMonthView) {
-        Label updatedMonthLabel = updatedMonthView.generateMonthLabel();
-        calendarPane.getChildren().set(0, updatedMonthLabel);
+    private void updateYearHeader(Year year) {
+        YearHeader yearHeader = new YearHeader(year);
+        yearHeaderPlaceholder.getChildren().clear();
+        yearHeaderPlaceholder.getChildren().add(yearHeader.getRoot());
     }
 
-    private void updateMonthGrid(MonthView updatedMonthView) {
-        GridPane updatedMonthGrid = updatedMonthView.generateMonthGrid();
-        calendarPane.getChildren().set(2, updatedMonthGrid);
+    private void updateMonthHeader(MonthOfYear monthOfYear) {
+        MonthHeader monthHeader = new MonthHeader(monthOfYear);
+        monthHeaderPlaceholder.getChildren().clear();
+        monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
+    }
+
+    private void updateMonthView(Month month) {
+        MonthView monthView = new MonthView(month);
+        monthViewPlaceholder.getChildren().clear();
+        monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
     }
 
     /**
@@ -100,9 +107,8 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         command.execute(calendar);
 
         if (calendar.hasViewUpdates()) {
-            Month newMonth = calendar.getMonth();
-            MonthView newMonthView = new MonthView(newMonth);
-            updateCalendarView(newMonthView);
+            Month updatedMonth = calendar.getMonth();
+            updateCalendarPage(updatedMonth);
             calendar.completeUpdate();
         }
     }

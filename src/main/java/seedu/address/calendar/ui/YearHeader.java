@@ -3,6 +3,7 @@ package seedu.address.calendar.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.calendar.model.Year;
 import seedu.address.ui.UiPart;
 
 public class YearHeader extends UiPart<Region> {
@@ -11,12 +12,12 @@ public class YearHeader extends UiPart<Region> {
     @FXML
     private Label yearHeader;
 
-    public YearHeader(int year) {
+    public YearHeader(Year year) {
         super(FXML);
         setYearHeader(year);
     }
 
-    public void setYearHeader(int year) {
-        yearHeader.setText(String.format("%04d", year));
+    public void setYearHeader(Year year) {
+        yearHeader.setText(year.toString());
     }
 }

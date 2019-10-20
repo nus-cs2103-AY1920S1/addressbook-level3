@@ -2,6 +2,7 @@ package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.ShowCommand;
 import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.Year;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.regex.Matcher;
@@ -41,7 +42,8 @@ class ShowParser {
         }
 
         MonthOfYear formattedMonth = new MonthParser().parse(month);
+        Year formattedYear = new YearParser().parse(year);
 
-        return new ShowCommand(formattedMonth, year);
+        return new ShowCommand(formattedMonth, formattedYear);
     }
 }

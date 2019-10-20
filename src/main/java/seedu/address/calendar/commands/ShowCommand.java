@@ -3,6 +3,7 @@ package seedu.address.calendar.commands;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
 import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.Year;
 import seedu.address.logic.commands.CommandResult;
 
 /**
@@ -13,9 +14,9 @@ public class ShowCommand extends Command {
     public static final String SHOWING_REQUESTED_MESSAGE = "Showing month view for %s %d";
 
     MonthOfYear monthOfYear;
-    int year;
+    Year year;
 
-    public ShowCommand(MonthOfYear monthOfYear, int year) {
+    public ShowCommand(MonthOfYear monthOfYear, Year year) {
         this.monthOfYear = monthOfYear;
         this.year = year;
     }

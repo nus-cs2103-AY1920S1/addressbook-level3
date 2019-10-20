@@ -12,8 +12,6 @@ public class ResultDisplay extends UiPart<Region> {
     @FXML
     Label response;
 
-    // todo: use what's given but remove border
-
     public ResultDisplay() {
         super(FXML);
     }
