@@ -197,6 +197,7 @@ Returns an overview of the spending which include:
 * Status (Safe / Deficit)
 * A list of cost and percentage of total cost spent on each tag.
 The list is sorted in descending order based on cost, with the tag with the highest cost incurred at the top.
+* A pie chart summarising the list of cost and percentage of total cost spent on each tag.
 
 Format: `stats d/STARTDATE d/ENDDATE`
 
@@ -277,8 +278,21 @@ Examples:
 `redo` (reapplies the add n/textbook c/100 command)
 
 === Graphing the data : `graph`
-Shows all spending in the form of a graph. +
-Format: `graph`
+Shows the spending in the form of a line graph.
+
+Format: `stats d/STARTDATE d/ENDDATE`
+
+****
+* Generates a graph for all spending that fall between and including the STARTDATE and ENDDATE specified.
+* If no STARTDATE and ENDDATE parameters are specified, the statistics generated will be based on the whole list of spending.
+****
+
+Examples:
+
+* `stats d/01/01/2019 d/07/01/2019` +
+Generates a graph for spending that fall between and including 01/01/2019 and 07/01/2019.
+* `stats` +
+Generates a graph for all spending.
 
 === Clear all data : `clear`
 Clears all entries from the application. +
@@ -317,7 +331,8 @@ e.g. `stats d/01/01/2019 d/07/01/2019`
 | *List all tags*| `ltags`
 | *Undo*| `undo`
 | *Redo*| `redo`
-| *Graph*| `graph`
+| *Graph*| `graph d/STARTDATE d/ENDDATE` +
+e.g. `graph d/01/01/2019 d/07/01/2019`
 | *Clear*| `clear`
 | *Exit*| `exit`
 | *Help* | `help`
