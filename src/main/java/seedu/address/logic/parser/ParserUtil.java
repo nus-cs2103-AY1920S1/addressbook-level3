@@ -36,6 +36,7 @@ import seedu.address.model.policy.PolicyName;
 import seedu.address.model.policy.Price;
 import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visual.DisplayFormat;
 import seedu.address.model.visual.DisplayIndicator;
 
 /**
@@ -307,7 +308,7 @@ public class ParserUtil {
      * Parses a {@code String display indicator} into a {@code display indicator}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code startAge} is invalid.
+     * @throws ParseException if the given {@code displayIndicator} is invalid.
      */
     public static DisplayIndicator parseDisplayIndicator(String displayIndicator) throws ParseException {
         requireNonNull(displayIndicator);
@@ -317,6 +318,22 @@ public class ParserUtil {
             throw new ParseException(DisplayIndicator.getMessageConstraints());
         }
         return new DisplayIndicator(trimmedDisplayIndicator);
+    }
+
+    /**
+     * Parses a {@code String display format} into a {@code display format}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code displayFormat} is invalid.
+     */
+    public static DisplayFormat parseDisplayFormat(String displayFormat) throws ParseException {
+        requireNonNull(displayFormat);
+        String trimmedDisplayFormat = displayFormat.trim();
+
+        if (!DisplayFormat.isValidDisplayFormat(trimmedDisplayFormat)) {
+            throw new ParseException(DisplayFormat.getMessageConstraints());
+        }
+        return new DisplayFormat(trimmedDisplayFormat);
     }
 
     /**

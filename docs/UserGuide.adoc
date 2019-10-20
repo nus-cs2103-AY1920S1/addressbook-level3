@@ -631,7 +631,7 @@ Exports name, phone, and email into `~/sheets` directory.
 Displays indicator according to specified format.
 
 Format:
-`display i/INDICATOR [c/CHART]`
+`display i/INDICATOR f/CHARTf`
 
 ****
 * Indicators include:
@@ -643,7 +643,7 @@ Format:
 
 Examples:
 
-`display i/policy-popularity-breakdown c/piechart` +
+`display i/policy-popularity-breakdown f/piechart` +
 Displays policy popularity breakdown as a piechart.
 
 Expected Output: +
@@ -848,8 +848,8 @@ e.g. `expandpolicy 1`
 e.g. `report f/~/reports/`
 * *Export to Excel*: `export [name] [phone] [email] [address] [insurance] [f/FILEPATH]` +
 e.g. `export name phone email f/~/sheets/`
-* *Display*: `display i/INDICATOR [c/CHART]` +
-e.g. `display i/policy-popularity-breakdown c/piechart`
+* *Display*: `display i/INDICATOR f/FORMAT` +
+e.g. `display i/policy-popularity-breakdown f/piechart`
 * *List of undone commands*: `undo list`
 * *Undo till a particular command*: `undo INDEX` +
 e.g. `undo 3`

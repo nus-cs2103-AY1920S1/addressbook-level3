@@ -51,11 +51,10 @@ public class DisplayIndicator {
      * @return String.
      */
     private static String initializeMessageConstraints() {
-        String message = "Only the following indicators are allowed: ";
-        StringJoiner result = new StringJoiner(", ");
-        result.add(message);
-        VALID_DISPLAY_INDICATORS.forEach(displayIndicator -> result.add(displayIndicator));
-        return result.toString();
+        String result = "Only the following indicators are allowed: ";
+        StringJoiner examples = new StringJoiner(", ");
+        VALID_DISPLAY_INDICATORS.forEach(displayIndicator -> examples.add(displayIndicator));
+        return result + examples.toString();
     }
 
     /**

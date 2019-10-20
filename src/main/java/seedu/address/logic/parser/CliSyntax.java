@@ -69,12 +69,14 @@ public class CliSyntax {
     public static final Prefix PREFIX_OFF = new Prefix("OFF/", SuggestionSwitchCommand.COMMAND_WORD);
 
     // TODO: Add in alternative commands
+
     // Visual Representation prefix
     public static final Prefix PREFIX_INDICATOR = new Prefix("i/");
+    public static final Prefix PREFIX_FORMAT = new Prefix("f/");
 
     public static final Prefix[] USER_PREFIXES = new Prefix[]{
         PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_POLICY,
         PREFIX_TAG, PREFIX_DESCRIPTION, PREFIX_COVERAGE, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS, PREFIX_PRICE,
-        PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_ON, PREFIX_OFF, PREFIX_INDICATOR
+        PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_ON, PREFIX_OFF, PREFIX_INDICATOR, PREFIX_FORMAT
     };
 }

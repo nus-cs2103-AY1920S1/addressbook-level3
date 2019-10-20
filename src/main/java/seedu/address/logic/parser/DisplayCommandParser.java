@@ -1,12 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDICATOR;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.visual.DisplayFormat;
 import seedu.address.model.visual.DisplayIndicator;
 
 /**
@@ -34,15 +36,18 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
      */
     public DisplayCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_INDICATOR);
+            ArgumentTokenizer.tokenize(args, PREFIX_INDICATOR, PREFIX_FORMAT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDICATOR) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDICATOR, PREFIX_FORMAT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
         }
 
         DisplayIndicator displayIndicator = null;
         displayIndicator = ParserUtil.parseDisplayIndicator(argMultimap.getValue(PREFIX_INDICATOR).get());
 
-        return new DisplayCommand(displayIndicator);
+        DisplayFormat displayFormat = null;
+        displayFormat = ParserUtil.parseDisplayFormat(argMultimap.getValue(PREFIX_FORMAT).get());
+
+        return new DisplayCommand(displayIndicator, displayFormat);
     }
 }

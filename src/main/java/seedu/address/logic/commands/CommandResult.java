@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.visual.DisplayFormat;
 import seedu.address.model.visual.DisplayIndicator;
 
 /**
@@ -60,6 +61,8 @@ public class CommandResult {
 
     private DisplayIndicator displayIndicator;
 
+    private DisplayFormat displayFormat;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -106,10 +109,11 @@ public class CommandResult {
             false, false, false, false);
     }
 
-    public CommandResult(String feedbackToUser, DisplayIndicator displayIndicator) {
+    public CommandResult(String feedbackToUser, DisplayIndicator displayIndicator, DisplayFormat displayFormat) {
         this(feedbackToUser, false, false, false, false, false,
             true, false, false, false);
         this.displayIndicator = displayIndicator;
+        this.displayFormat = displayFormat;
     }
 
     public boolean isShowHelp() {
@@ -150,6 +154,10 @@ public class CommandResult {
 
     public DisplayIndicator getDisplayIndicator() {
         return displayIndicator;
+    }
+
+    public DisplayFormat getDisplayFormat() {
+        return displayFormat;
     }
 
     public Person getPersonToExpand() {

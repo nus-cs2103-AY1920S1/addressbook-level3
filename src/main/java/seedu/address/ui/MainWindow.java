@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.visual.DisplayFormat;
 import seedu.address.model.visual.DisplayIndicator;
 
 /**
@@ -230,6 +231,7 @@ public class MainWindow extends UiPart<Stage> {
                 DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
                 ObservableMap<String, Integer> data;
                 String title = displayIndicator.toString();
+                DisplayFormat displayFormat = commandResult.getDisplayFormat();
 
                 switch (displayIndicator.value) {
                 case DisplayIndicator.POLICY_POPULARITY_BREAKDOWN:
@@ -243,12 +245,17 @@ public class MainWindow extends UiPart<Stage> {
                     break;
                 default:
                     // TODO: display report as default instead
-                    data = logic.getPolicyPopularityBreakdown();
+                    throw new ParseException(DisplayIndicator.getMessageConstraints());
                 }
 
-                // TODO: Format sets type of visual
                 displayPlaceHolder.getChildren().clear();
-                displayPlaceHolder.getChildren().add(new PieChartVisual(data, title).getRoot());
+                switch (displayFormat.value) {
+                case DisplayFormat.PIECHART:
+                    displayPlaceHolder.getChildren().add(new PieChartVisual(data, title).getRoot());
+                    break;
+                default:
+                    throw new ParseException(DisplayFormat.getMessageConstraints());
+                }
             }
 
             if (commandResult.isExpandPerson()) {
