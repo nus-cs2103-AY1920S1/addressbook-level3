@@ -20,5 +20,4 @@ public class ClearCommand extends Command {
         model.setSpendingBook(new SpendingBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
 }

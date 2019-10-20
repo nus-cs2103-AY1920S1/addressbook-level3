@@ -21,5 +21,4 @@ public class ListCommand extends Command {
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
 }

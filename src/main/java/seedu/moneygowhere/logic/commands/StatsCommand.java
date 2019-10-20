@@ -52,25 +52,19 @@ public class StatsCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
-
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        //filter list based on date range specified, if any.
         List<Spending> lastShownList = filterListByDate(model);
 
         double totalCost = getTotalCost(lastShownList);
-        //gets statistics regarding total cost, budget, status
         String feedbackToUser = getStringBudgetStatus(model, totalCost);
 
-        //get tags of filtered spendings
         Set<Tag> tagSet = getTagsOfSpendings(lastShownList);
-        //get cost spent per tag
         HashMap<Tag, Double> costPerTagList = getCostPerTagList(lastShownList, tagSet);
-        //sort in descending order based on cost
         Map<Tag, Double> sorted = sortCostPerTagList(costPerTagList);
         feedbackToUser = getStringCostPerTag(totalCost, feedbackToUser, sorted);
 
@@ -79,9 +73,11 @@ public class StatsCommand extends Command {
 
     private double getTotalCost(List<Spending> lastShownList) {
         double totalCost = 0;
+
         for (Spending i: lastShownList) {
             totalCost += Double.parseDouble(i.getCost().toString());
         }
+
         return totalCost;
     }
 
@@ -90,12 +86,12 @@ public class StatsCommand extends Command {
      */
     private Set<Tag> getTagsOfSpendings(List<Spending> lastShownList) {
         Set<Tag> tagSet = new HashSet<>();
+
         for (Spending i: lastShownList) {
             Set<Tag> spendingTags = i.getTags();
-            for (Tag j: spendingTags) {
-                tagSet.add(j);
-            }
+            tagSet.addAll(spendingTags);
         }
+
         return tagSet;
     }
 
@@ -104,9 +100,11 @@ public class StatsCommand extends Command {
      */
     private HashMap<Tag, Double> getCostPerTagList(List<Spending> lastShownList, Set<Tag> tagSet) {
         HashMap<Tag, Double> costPerTagList = new HashMap<Tag, Double>();
+
         for (Tag e: tagSet) {
             costPerTagList.put(e, 0.00);
         }
+
         for (Spending a: lastShownList) {
             Set<Tag> aTags = a.getTags();
             for (Tag b: tagSet) {
@@ -117,6 +115,7 @@ public class StatsCommand extends Command {
                 }
             }
         }
+
         return costPerTagList;
     }
 
@@ -124,7 +123,6 @@ public class StatsCommand extends Command {
      * Returns a sorted map which sorts according to cost per tag in descending order.
      */
     private Map<Tag, Double> sortCostPerTagList(HashMap<Tag, Double> costPerTagList) {
-        //Sort total cost per tag in descending order
         return costPerTagList
             .entrySet()
             .stream()
@@ -139,6 +137,7 @@ public class StatsCommand extends Command {
      */
     private List<Spending> filterListByDate(Model model) {
         List<Spending> lastShownList;
+
         if (startDate != null && endDate != null) {
             lastShownList = model.getFilteredSpendingList().filtered(s-> {
                 return s.getDate().value.compareTo(startDate.value) >= 0
@@ -147,6 +146,7 @@ public class StatsCommand extends Command {
         } else {
             lastShownList = model.getFilteredSpendingList();
         }
+
         return lastShownList;
     }
 
@@ -154,10 +154,11 @@ public class StatsCommand extends Command {
      * Returns a string which provides a summary of the budget and expenditure status.
      */
     private String getStringBudgetStatus(Model model, double totalCost) {
-        //Generates budget, budget remaining and status.
         double budget = model.getBudget().getValue();
         double budgetRemaining = budget - totalCost;
+
         String feedbackToUser;
+
         if (budgetRemaining >= 0) {
             String s = MESSAGE_SUCCESS
                 + "\nTotal Cost: $" + String.format("%.2f", totalCost)
@@ -173,6 +174,7 @@ public class StatsCommand extends Command {
                 + "\nStatus: Deficit";
             feedbackToUser = s;
         }
+
         return feedbackToUser;
     }
 
@@ -182,14 +184,16 @@ public class StatsCommand extends Command {
     private String getStringCostPerTag(double totalCost, String feedbackToUser, Map<Tag, Double> sorted) {
         String updatedFeedback = feedbackToUser;
         updatedFeedback += "\n\nSpending by Tags:";
+
         if (sorted.size() == 0) {
             updatedFeedback += "\nNone";
         }
+
         int counter = 1;
         for (Map.Entry<Tag, Double> entry : sorted.entrySet()) {
             double percentage = (entry.getValue() / totalCost) * 100;
-            updatedFeedback += "\n" + counter + ". " + entry.getKey().tagName + ": $"
-                + String.format("%.2f", entry.getValue()) + " (" + String.format("%.2f", percentage) + "%)";
+            updatedFeedback += String.format("\n%d. %s: $%.2f (%.2f%%)", counter, entry.getKey().tagName,
+                entry.getValue(), percentage);
             counter++;
         }
         return updatedFeedback;

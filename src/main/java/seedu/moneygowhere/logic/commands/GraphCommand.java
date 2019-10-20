@@ -3,9 +3,6 @@ package seedu.moneygowhere.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -53,7 +50,6 @@ public class GraphCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
-
     }
 
     @Override
@@ -63,58 +59,49 @@ public class GraphCommand extends Command {
 
     @Override
     public Map<Date, Double> getGraphData(Model model) {
-        //filter list based on date range specified, if any.
         List<Spending> lastShownList = filterListByDate(model);
-        Comparator<Date> dateComparator = new Comparator<Date>() {
-            @Override
-            public int compare (Date s1, Date s2) {
-                SimpleDateFormat inputsdf = new SimpleDateFormat("dd/MM/yyyy");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String date1 = null;
-                String date2 = null;
-                try {
-                    date1 = sdf.format(inputsdf.parse(s1.toString()));
-                    date2 = sdf.format(inputsdf.parse(s2.toString()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return Integer.compare(date1.compareTo(date2), 0);
-            }
-        };
-        Set<Date> dateSet = getDateSet(lastShownList, dateComparator);
-        Map<Date, Double> costPerDateList = getCostSpentPerDate(lastShownList, dateComparator, dateSet);
-        return costPerDateList;
+        Set<Date> dateSet = getDateSet(lastShownList);
+        return getCostSpentPerDate(lastShownList, dateSet);
     }
 
-    private Map<Date, Double> getCostSpentPerDate(List<Spending> lastShownList, Comparator<Date> dateComparator,
-                                                  Set<Date> dateSet) {
-        //Get cost spent per date
-        Map<Date, Double> costPerDateList = new TreeMap<>(dateComparator);
+    /**
+     * Returns a map displaying cost spent per date
+     */
+    private Map<Date, Double> getCostSpentPerDate(List<Spending> lastShownList, Set<Date> dateSet) {
+        Map<Date, Double> costPerDateList = new TreeMap<>();
+
         for (Date e: dateSet) {
             costPerDateList.put(e, 0.00);
         }
+
         for (Spending a: lastShownList) {
             double currentCost = costPerDateList.get(a.getDate());
             double updatedCost = currentCost + Double.parseDouble(a.getCost().toString());
             costPerDateList.replace(a.getDate(), updatedCost);
         }
+
         return costPerDateList;
     }
 
-    private Set<Date> getDateSet(List<Spending> lastShownList, Comparator<Date> dateComparator) {
-        Set<Date> dateSet = new TreeSet<>(dateComparator);
-        //Get list of distinct dates
+    /**
+     * Returns a list of distinct dates from the list of spending provided.
+     */
+    private Set<Date> getDateSet(List<Spending> lastShownList) {
+        Set<Date> dateSet = new TreeSet<>();
+
         for (Spending i: lastShownList) {
             dateSet.add(i.getDate());
         }
+
         return dateSet;
     }
 
     /**
-     * Returns a list of spending filtered by the specified date range.
+     * Returns a list of spending filtered by the specified date range if provided.
      */
     private List<Spending> filterListByDate(Model model) {
         List<Spending> lastShownList;
+
         if (startDate != null && endDate != null) {
             lastShownList = model.getFilteredSpendingList().filtered(s-> {
                 return s.getDate().value.compareTo(startDate.value) >= 0
@@ -123,6 +110,7 @@ public class GraphCommand extends Command {
         } else {
             lastShownList = model.getFilteredSpendingList();
         }
+
         return lastShownList;
     }
 

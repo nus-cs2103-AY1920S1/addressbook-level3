@@ -47,22 +47,28 @@ public class GraphWindow extends UiPart<Stage> {
      */
     public void loadData(Map<Date, Double> graphData) {
         paneView.getChildren().clear();
+
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Day");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Amount spent ($)");
         LineChart<String, Number> spendingChart = new LineChart<>(xAxis, yAxis);
         spendingChart.setTitle("Current month's spending");
+
         XYChart.Series series = new XYChart.Series();
         series.setName("spending");
         for (Map.Entry<Date, Double> i : graphData.entrySet()) {
-            series.getData().add(new XYChart.Data<String, Number>(i.getKey().toString(), Math.round(i.getValue())));
+            XYChart.Data<String, Number> dataToAdd = new XYChart.Data<>(i.getKey().toString(),
+                Math.round(i.getValue()));
+            series.getData().add(dataToAdd);
         }
         spendingChart.getData().add(series);
+
         spendingChart.setMinWidth(600);
         spendingChart.setMinHeight(600);
         spendingChart.setMaxWidth(1200);
         spendingChart.setMaxHeight(600);
+
         paneView.getChildren().add(spendingChart);
         paneView.setStyle("-fx-background-color: white");
     }
@@ -111,5 +117,4 @@ public class GraphWindow extends UiPart<Stage> {
     public void focus() {
         getRoot().requestFocus();
     }
-
 }

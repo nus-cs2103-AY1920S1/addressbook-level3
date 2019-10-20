@@ -18,5 +18,4 @@ public class ImportCommand extends Command {
         requireNonNull(model);
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
 }

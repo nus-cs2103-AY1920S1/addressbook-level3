@@ -22,29 +22,25 @@ public class GraphCommandParser implements Parser<GraphCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public GraphCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
-            return new GraphCommand();
-        } else if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             List<Date> datesList = ParserUtil.parseDates(argMultimap.getAllValues(PREFIX_DATE));
-            //If there are 2 dates specified.
-            if (datesList.size() == 2) {
-                Date startDate = datesList.get(0);
-                Date endDate = datesList.get(1);
-                //if start date is equal to or after end date.
-                if (startDate.value.compareTo(endDate.value) <= 0) {
-                    return new GraphCommand(startDate, endDate);
-                } else {
-                    //Error if end date is before start date.
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
-                }
-            } else {
-                //Error if number of dates is not equal to 2.
+
+            if (datesList.size() != 2) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
             }
+
+            Date startDate = datesList.get(0);
+            Date endDate = datesList.get(1);
+
+            if (startDate.value.compareTo(endDate.value) > 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
+            }
+
+            return new GraphCommand(startDate, endDate);
         }
+
         return new GraphCommand();
     }
 

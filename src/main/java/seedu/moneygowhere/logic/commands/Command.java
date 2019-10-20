@@ -23,5 +23,4 @@ public abstract class Command {
     public Map<Date, Double> getGraphData(Model model) {
         return null;
     }
-
 }
