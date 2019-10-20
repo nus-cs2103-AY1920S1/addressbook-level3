@@ -116,11 +116,11 @@ public class InventoryList {
         @Override
         public int compare(Item a, Item b) {
             if (a.getQuantity() < b.getQuantity()) {
-                return 1;
+                return -1;
             } else if (a.getQuantity() == b.getQuantity()) {
                 return 0;
             } else {
-                return -1;
+                return 1;
             }
         }
     }

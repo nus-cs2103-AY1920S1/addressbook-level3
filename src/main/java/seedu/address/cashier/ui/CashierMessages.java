@@ -1,5 +1,7 @@
 package seedu.address.cashier.ui;
 
+import java.util.ArrayList;
+
 import seedu.address.inventory.model.Item;
 
 /**
@@ -18,12 +20,14 @@ public class CashierMessages {
 
     public static final String NO_SUCH_INDEX_CASHIER = "There is no item at the inputted index.";
 
+    public static final String NO_SUCH_ITEM_FOR_SALE_CASHIER = "Sorry! This item is not available for sale!";
+
     public static final String NO_SUCH_ITEM_CASHIER = "There is no such item available. Please input a valid item.";
 
     public static final String NO_SUCH_PERSON = "Sorry! There is no such person. Please enter a valid name.";
 
-    public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! Please type add with parameters:\n"
-            + " d/DESCRIPTION\n q/QUANTITY";
+    public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! Please type \"add "
+            + "d/DESCRIPTION\n q/QUANTITY\"";
 
     public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "Sorry! Please type \"cashier NAME\" \n";
 
@@ -54,6 +58,37 @@ public class CashierMessages {
 
     public static String deletedItem(Item item) {
         return "Deleted Item:\n" + item;
+    }
+
+    /**
+     * Returns a message containing all the items description according to the category.
+     *
+     * @param list of the description of items
+     * @return a string containing all the items description according to the category
+     */
+    public static String itemsByCategory(ArrayList<String> list) {
+        String output = "The following items are up for sales: \n";
+        for (int i = 0; i < list.size(); i++) {
+            output += (i + 1) + ". " + list.get(i) + "\n";
+        }
+        output += "\nTo add to the cart, please type \"add "
+                           + "c/CATEGORY d/DESCRIPTION\n q/QUANTITY\"";
+        return output;
+    }
+
+    /**
+     * Returns a message containing a list of recommendations when the input item is invalid.
+     * @param list of recommendations
+     * @return a list of recommendations
+     */
+    public static String noSuchItemRecommendation(ArrayList<String> list) {
+        String output = NO_SUCH_ITEM_CASHIER + "\nDo you mean: \n";
+        for (int i = 0; i < list.size(); i++) {
+            output += (i + 1) + ". " + list.get(i) + "\n";
+        }
+        output += "\nTo add to the cart, please type \"add "
+                + "d/DESCRIPTION\n q/QUANTITY\"";
+        return output;
     }
 
 }

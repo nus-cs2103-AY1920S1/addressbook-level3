@@ -19,6 +19,7 @@ public class Item {
     private Double subtotal;
     private String id;
 
+
     /**
      * Every field must be present and not null.
      */
@@ -82,6 +83,19 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
         updateSubtotal();
+    }
+
+    /**
+     * Checks if the item is available for sales.
+     *
+     * @return true if the item is available for sales. Else, return false
+     */
+    public boolean isSellable() {
+        if (price == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
