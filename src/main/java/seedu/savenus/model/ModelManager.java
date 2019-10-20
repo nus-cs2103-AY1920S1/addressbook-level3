@@ -279,6 +279,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().removeLikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().removeDislikes(categoryList, tagList, locationList);
+    }
+
+    @Override
     public void clearLikes() {
         RecommendationSystem.getInstance().clearLikes();
     }

@@ -17,7 +17,7 @@ public class JsonAdaptedPurchaseTest {
 
     private static final TimeOfPurchase VALID_TIMEOFPURCHASE = TimeOfPurchase.generate();
     private static final String VALID_TIMEOFPURCHASESTRING = Long.toString(
-            TimeOfPurchase.generate().getTimeOfPurchaseInMillisSinceEpoch());
+            VALID_TIMEOFPURCHASE.getTimeOfPurchaseInMillisSinceEpoch());
     private static final JsonAdaptedFood VALID_JSONADAPTEDFOOD = new JsonAdaptedFood(CARBONARA);
 
     @Test

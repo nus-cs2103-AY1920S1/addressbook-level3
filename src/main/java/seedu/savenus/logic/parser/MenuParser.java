@@ -28,6 +28,8 @@ import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
+import seedu.savenus.logic.commands.RemoveDislikeCommand;
+import seedu.savenus.logic.commands.RemoveLikeCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
 import seedu.savenus.logic.parser.exceptions.ParseException;
@@ -111,8 +113,14 @@ public class MenuParser {
         case LikeCommand.COMMAND_WORD:
             return new PreferenceCommandParser().parse(arguments, true);
 
+        case RemoveLikeCommand.COMMAND_WORD:
+            return new RemovePreferenceCommandParser().parse(arguments, true);
+
         case DislikeCommand.COMMAND_WORD:
             return new PreferenceCommandParser().parse(arguments, false);
+
+        case RemoveDislikeCommand.COMMAND_WORD:
+            return new RemovePreferenceCommandParser().parse(arguments, false);
 
         case CollapseCommand.COMMAND_WORD:
             return new CollapseCommand();

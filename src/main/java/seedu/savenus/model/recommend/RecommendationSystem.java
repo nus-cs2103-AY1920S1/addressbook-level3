@@ -124,6 +124,14 @@ public class RecommendationSystem {
         userRecommendations.addDislikes(categoryList, tagList, locationList);
     }
 
+    public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        userRecommendations.removeLikes(categoryList, tagList, locationList);
+    }
+
+    public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        userRecommendations.removeDislikes(categoryList, tagList, locationList);
+    }
+
     public void clearLikes() {
         userRecommendations.clearLikes();
     }
