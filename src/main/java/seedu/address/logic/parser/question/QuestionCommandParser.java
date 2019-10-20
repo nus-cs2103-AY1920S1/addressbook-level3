@@ -67,7 +67,15 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         if (argMultimap.getValue(PREFIX_LIST).isPresent()) { // List command
             return new QuestionListCommand();
         } else if (argMultimap.getValue(PREFIX_SLIDESHOW).isPresent()) { // Slideshow command
-            return new QuestionSlideshowCommand();
+            if (!arePrefixesPresent(argMultimap, PREFIX_SLIDESHOW)
+                || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(
+                    String
+                        .format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            QuestionSlideshowCommand.MESSAGE_USAGE));
+            }
+
+            return new QuestionSlideshowCommand(argMultimap.getValue(PREFIX_SLIDESHOW).orElse(""));
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(index, argMultimap);
         } else if (isEdit) { // Edit command
