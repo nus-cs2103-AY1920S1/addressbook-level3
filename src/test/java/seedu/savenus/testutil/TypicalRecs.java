@@ -137,7 +137,7 @@ public class TypicalRecs {
         }
     };
 
-    public UserRecommendations getTypicalRecs() {
+    public static final UserRecommendations getTypicalRecs() {
         return new UserRecommendations(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET,
                 DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET);
     }

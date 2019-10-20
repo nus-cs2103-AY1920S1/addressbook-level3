@@ -19,8 +19,8 @@ import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_RICE;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.savenus.logic.parser.CommandParserTestUtil.assertPreferenceParseFailure;
-import static seedu.savenus.logic.parser.CommandParserTestUtil.assertPreferenceParseSuccess;
+import static seedu.savenus.logic.parser.CommandParserTestUtil.assertRemovePreferenceParseFailure;
+import static seedu.savenus.logic.parser.CommandParserTestUtil.assertRemovePreferenceParseSuccess;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
 import java.util.HashSet;
@@ -28,15 +28,15 @@ import java.util.HashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.savenus.logic.commands.DislikeCommand;
-import seedu.savenus.logic.commands.LikeCommand;
-import seedu.savenus.logic.commands.PreferenceCommand;
+import seedu.savenus.logic.commands.RemoveDislikeCommand;
+import seedu.savenus.logic.commands.RemoveLikeCommand;
+import seedu.savenus.logic.commands.RemovePreferenceCommand;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.tag.Tag;
 
-public class PreferenceCommandParserTest {
-    private PreferenceCommandParser parser = new PreferenceCommandParser();
+public class RemovePrefCommandParserTest {
+    private RemovePreferenceCommandParser parser = new RemovePreferenceCommandParser();
 
     private HashSet<Category> expectedCategory = new HashSet<>();
     private HashSet<Tag> expectedTags = new HashSet<>();
@@ -56,86 +56,86 @@ public class PreferenceCommandParserTest {
 
     @Test
     public void parse_nothingProvided_success() {
-        assertPreferenceParseSuccess(parser, PREAMBLE_WHITESPACE, new DislikeCommand(true), false);
-        assertPreferenceParseSuccess(parser, PREAMBLE_WHITESPACE, new LikeCommand(true), true);
+        assertRemovePreferenceParseSuccess(parser, PREAMBLE_WHITESPACE, new RemoveDislikeCommand(true), false);
+        assertRemovePreferenceParseSuccess(parser, PREAMBLE_WHITESPACE, new RemoveLikeCommand(true), true);
     }
 
     @Test
     public void parse_invalidField_failure() {
         String command = NAME_DESC_CHICKEN_RICE + PRICE_DESC_CHICKEN_RICE;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PreferenceCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemovePreferenceCommand.MESSAGE_USAGE);
 
-        assertPreferenceParseFailure(parser, command, expectedMessage, false);
-        assertPreferenceParseFailure(parser, command, expectedMessage, true);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, false);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, true);
     }
 
     @Test
     public void parse_invalidAndValidFields_failure() {
         String command = NAME_DESC_CHICKEN_RICE + PRICE_DESC_CHICKEN_RICE + CATEGORY_DESC_CHICKEN_RICE;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PreferenceCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemovePreferenceCommand.MESSAGE_USAGE);
 
-        assertPreferenceParseFailure(parser, command, expectedMessage, false);
-        assertPreferenceParseFailure(parser, command, expectedMessage, true);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, false);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, true);
     }
 
     @Test
     public void parse_validCategory_success() {
         String command = CATEGORY_DESC_CHICKEN_RICE + CATEGORY_DESC_NASI_LEMAK;
 
-        assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(expectedCategory, new HashSet<>(), new HashSet<>(), false), false);
-        assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(expectedCategory, new HashSet<>(), new HashSet<>(), false), true);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveDislikeCommand(expectedCategory, new HashSet<>(), new HashSet<>(), false), false);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveLikeCommand(expectedCategory, new HashSet<>(), new HashSet<>(), false), true);
     }
 
     @Test
     public void parse_missingCategoryPrefix_failure() {
         String command = VALID_CATEGORY_CHICKEN_RICE + VALID_CATEGORY_NASI_LEMAK;
 
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PreferenceCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemovePreferenceCommand.MESSAGE_USAGE);
 
-        assertPreferenceParseFailure(parser, command, expectedMessage, false);
-        assertPreferenceParseFailure(parser, command, expectedMessage, true);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, false);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, true);
     }
 
     @Test
     public void parse_validTag_success() {
         String command = TAG_DESC_CHICKEN + TAG_DESC_RICE;
 
-        assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(new HashSet<>(), expectedTags, new HashSet<>(), false), false);
-        assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(new HashSet<>(), expectedTags, new HashSet<>(), false), true);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveDislikeCommand(new HashSet<>(), expectedTags, new HashSet<>(), false), false);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveLikeCommand(new HashSet<>(), expectedTags, new HashSet<>(), false), true);
     }
 
     @Test
     public void parse_missingTagPrefix_failure() {
         String command = VALID_TAG_CHICKEN + VALID_TAG_RICE;
 
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PreferenceCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemovePreferenceCommand.MESSAGE_USAGE);
 
-        assertPreferenceParseFailure(parser, command, expectedMessage, false);
-        assertPreferenceParseFailure(parser, command, expectedMessage, true);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, false);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, true);
     }
 
     @Test
     public void parse_validLocation_success() {
         String command = LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK;
 
-        assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(new HashSet<>(), new HashSet<>(), expectedLocation, false), false);
-        assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(new HashSet<>(), new HashSet<>(), expectedLocation, false), true);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveDislikeCommand(new HashSet<>(), new HashSet<>(), expectedLocation, false), false);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveLikeCommand(new HashSet<>(), new HashSet<>(), expectedLocation, false), true);
     }
 
     @Test
     public void parse_missingLocationPrefix_failure() {
         String command = VALID_LOCATION_CHICKEN_RICE + VALID_LOCATION_NASI_LEMAK;
 
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PreferenceCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemovePreferenceCommand.MESSAGE_USAGE);
 
-        assertPreferenceParseFailure(parser, command, expectedMessage, false);
-        assertPreferenceParseFailure(parser, command, expectedMessage, true);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, false);
+        assertRemovePreferenceParseFailure(parser, command, expectedMessage, true);
     }
 
     @Test
@@ -143,10 +143,10 @@ public class PreferenceCommandParserTest {
         String command = CATEGORY_DESC_CHICKEN_RICE + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN + TAG_DESC_RICE
                 + LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK;
 
-        assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
-        assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveDislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveLikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
     }
 
     @Test
@@ -158,10 +158,10 @@ public class PreferenceCommandParserTest {
                 + LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK
                 + LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK;
 
-        assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
-        assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveDislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveLikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
     }
 
     @Test
@@ -176,10 +176,10 @@ public class PreferenceCommandParserTest {
                 + PREFIX_LOCATION + VALID_LOCATION_CHICKEN_RICE.toUpperCase() + " "
                 + PREFIX_LOCATION + VALID_LOCATION_NASI_LEMAK.toUpperCase();
 
-        assertPreferenceParseSuccess(parser, command,
-                new DislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
-        assertPreferenceParseSuccess(parser, command,
-                new LikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveDislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
+        assertRemovePreferenceParseSuccess(parser, command,
+                new RemoveLikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
     }
 
     @Test

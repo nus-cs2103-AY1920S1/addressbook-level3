@@ -17,31 +17,32 @@ import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.tag.Tag;
 
 /**
- * Creates a PreferenceCommand that either adds likes or dislikes to the $aveNUS recommendation system.
+ * Creates a RemovePreferenceCommand that either removes likes or dislikes from the $aveNUS recommendation system.
  */
-public class PreferenceCommand extends Command {
-    public static final String COMMAND_WORD = "like/dislike";
+public class RemovePreferenceCommand extends Command {
+    public static final String COMMAND_WORD = "removelike/removedislike";
     public static final String MESSAGE_SUCCESS = "Success!";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Likes or dislikes a particular category, tag "
-            + "or location in our menu. Parameters: [" + PREFIX_CATEGORY + "CATEGORY]... [" + PREFIX_TAG + "TAG]... ["
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Removes likes or dislikes from a particular category, tag or location in our menu. Parameters: ["
+            + PREFIX_CATEGORY + "CATEGORY]... [" + PREFIX_TAG + "TAG]... ["
             + PREFIX_LOCATION + "...]\n" + "Example: " + COMMAND_WORD + " " + PREFIX_CATEGORY + "Chinese "
             + PREFIX_CATEGORY + "Western " + PREFIX_LOCATION + "University Town " + PREFIX_LOCATION + "The Deck "
             + PREFIX_TAG + "Spicy " + PREFIX_TAG + "Healthy";
 
-    public static final String DUPLICATE_FOUND_IN_OPPOSITE_LIST = "Duplicate entry found in opposing list!\n"
-            + "Entries cannot exist in both liked and disliked sets at the same time!";
+    public static final String NOT_FOUND = "Please ensure all entries to remove currently exist in the list!";
 
     public final Set<Category> categoryList;
     public final Set<Tag> tagList;
     public final Set<Location> locationList;
 
-    private final boolean isList;
+    private final boolean isRemoveAll;
 
     /**
-     * Creates an PreferenceCommand to add the user's recommendations
+     * Creates an RemovePreferenceCommand to add the user's recommendations
      */
-    public PreferenceCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList, boolean isList) {
-        requireAllNonNull(categoryList, tagList, locationList, isList);
+    public RemovePreferenceCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList,
+                                   boolean isRemoveAll) {
+        requireAllNonNull(categoryList, tagList, locationList, isRemoveAll);
 
         // Convert all to lowercase
         this.categoryList = categoryList.stream()
@@ -51,7 +52,7 @@ public class PreferenceCommand extends Command {
         this.locationList = locationList.stream()
                 .map(l -> new Location(l.location.toLowerCase())).collect(Collectors.toSet());
 
-        this.isList = isList;
+        this.isRemoveAll = isRemoveAll;
     }
 
     @Override
@@ -60,41 +61,47 @@ public class PreferenceCommand extends Command {
     }
 
     /**
-     * Executes the preference command.
+     * Executes the remove preference command.
      *
      * @param model  The current model
      * @param isLike True if adding likes or false if adding dislikes
-     * @return A success message including the list of likes and dislikes
+     * @return A success message including the list of removed likes and dislikes
      */
-    public CommandResult execute(Model model, boolean isLike, boolean isList) throws CommandException {
-        StringBuilder result = new StringBuilder();
-
+    public CommandResult execute(Model model, boolean isLike, boolean isRemoveAll) throws CommandException {
         RecommendationSystem recommendationSystem = model.getRecommendationSystem();
         UserRecommendations userRecommendations = recommendationSystem.getUserRecommendations();
 
-        if (isLike && !isList) {
-            // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (userRecommendations.getDislikedCategories().stream().anyMatch(categoryList::contains)
-                    || userRecommendations.getDislikedLocations().stream().anyMatch(locationList::contains)
-                    || userRecommendations.getDislikedTags().stream().anyMatch(tagList::contains)) {
-                throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
-            }
+        StringBuilder result = new StringBuilder();
 
-            model.addLikes(categoryList, tagList, locationList);
-            result.append("Liked: ");
-        } else if (!isLike && !isList) {
-            // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (userRecommendations.getLikedCategories().stream().anyMatch(categoryList::contains)
-                    || userRecommendations.getLikedLocations().stream().anyMatch(locationList::contains)
-                    || userRecommendations.getLikedTags().stream().anyMatch(tagList::contains)) {
-                throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
-            }
-
-            model.addDislikes(categoryList, tagList, locationList);
-            result.append("Disliked: ");
+        if (isLike && isRemoveAll) {
+            model.clearLikes();
+            result.append("Removed all likes!\n");
+        } else if (!isLike && isRemoveAll) {
+            model.clearDislikes();
+            result.append("Removed all dislikes!\n");
         }
 
-        if (!isList) {
+        if (isLike && !isRemoveAll) {
+            if (!(userRecommendations.getLikedCategories().containsAll(categoryList)
+                    && userRecommendations.getLikedTags().containsAll(tagList)
+                    && userRecommendations.getLikedLocations().containsAll(locationList))) {
+                throw new CommandException(NOT_FOUND);
+            }
+
+            model.removeLikes(categoryList, tagList, locationList);
+            result.append("Removed likes: ");
+        } else if (!isLike && !isRemoveAll) {
+            if (!(userRecommendations.getDislikedCategories().containsAll(categoryList)
+                    && userRecommendations.getDislikedTags().containsAll(tagList)
+                    && userRecommendations.getDislikedLocations().containsAll(locationList))) {
+                throw new CommandException(NOT_FOUND);
+            }
+
+            model.removeDislikes(categoryList, tagList, locationList);
+            result.append("Removed dislikes: ");
+        }
+
+        if (!isRemoveAll) {
             String addedItems = "Categories: " + categoryList.stream()
                     .map(c -> c.category).collect(Collectors.joining(", "))
                     + " | Tags: " + tagList.stream()
@@ -107,10 +114,6 @@ public class PreferenceCommand extends Command {
 
         result.append(userRecommendations.toString());
 
-        if (!isList) {
-            return new CommandResult(MESSAGE_SUCCESS + " " + result);
-        } else {
-            return new CommandResult(result.toString());
-        }
+        return new CommandResult(MESSAGE_SUCCESS + " " + result);
     }
 }
