@@ -1,4 +1,4 @@
-package seedu.address.achievements.ui;
+package seedu.achievements.ui;
 
 import java.util.logging.Logger;
 
@@ -10,36 +10,42 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.achievements.logic.parser.AchievementsParser;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
+import seedu.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.achievements.logic.parser.AchievementsParser;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
 
+/**
+ * Page for showing the user achievements
+ */
 public class AchievementsPage extends UiPart<Region> implements Page {
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private final static PageType pagetype = PageType.ACHIEVEMENTS;
-
-    private Logic logic;
+    private static final PageType pagetype = PageType.ACHIEVEMENTS;
 
     private static final String FXML = "Achievements.fxml";
-    @FXML
-    Scene achievementsScene;
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    ImageView title;
+    private Scene achievementsScene;
 
     @FXML
-    BorderPane achievementsPane;
+    private ImageView title;
+
+    @FXML
+    private BorderPane achievementsPane;
+
+    private AddressBookLogic addressBookLogic;
 
     private ResultDisplay resultDisplay;
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -56,6 +62,9 @@ public class AchievementsPage extends UiPart<Region> implements Page {
         fillInnerParts();
     }
 
+    /**
+     * Fills up all the placeholders of this window.
+     */
     void fillInnerParts() {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -64,6 +73,13 @@ public class AchievementsPage extends UiPart<Region> implements Page {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    /**
+     * Executes the command and returns the result.
+     * @param commandText The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
+     */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = new AchievementsParser().parseCommand(commandText).execute(null);

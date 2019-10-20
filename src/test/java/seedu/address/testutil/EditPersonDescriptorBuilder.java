@@ -83,6 +83,10 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code Country} into a {@code Country} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
     public EditPersonDescriptorBuilder withCountry(String country) {
         descriptor.setCountry(new Country(country));
         return this;

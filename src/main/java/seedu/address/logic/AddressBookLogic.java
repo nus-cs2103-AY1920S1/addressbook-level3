@@ -7,13 +7,14 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBookModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
 /**
- * API of the Logic component
+ * API of the AddressBookLogic component
  */
-public interface Logic {
+public interface AddressBookLogic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
@@ -26,7 +27,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see AddressBookModel#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
 
@@ -47,4 +48,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }

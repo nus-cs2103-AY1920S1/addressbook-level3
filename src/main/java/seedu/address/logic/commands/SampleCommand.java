@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
+import seedu.address.model.AddressBookModel;
 
 /**
  * Just a sample command.
@@ -16,7 +16,7 @@ public class SampleCommand extends Command {
     public static final String SHOWING_SAMPLE_MESSAGE = "sample";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(AddressBookModel addressBookModel) {
         return new CommandResult(SHOWING_SAMPLE_MESSAGE, false, false, true);
     }
 }

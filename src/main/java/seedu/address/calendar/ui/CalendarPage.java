@@ -12,6 +12,7 @@ import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
 import seedu.address.calendar.parser.CalendarParser;
+import seedu.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.Page;
@@ -94,7 +95,7 @@ public class CalendarPage implements Page {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see AddressBookLogic#execute(String)
      */
     private void executeCommand(String commandText) throws CommandException, ParseException {
         Command command = (new CalendarParser()).parseCommand(commandText);
