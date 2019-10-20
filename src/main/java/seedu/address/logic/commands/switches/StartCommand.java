@@ -22,7 +22,7 @@ import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.JsonWordBankListStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 
 /**
  * Starts the game.
@@ -60,7 +60,7 @@ public class StartCommand extends SwitchCommand {
         addressBookStorage.getWordBankList();
         String usedWordBankTitle = "Pokémon sample"; // todo change later
         try {
-            Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
+            Optional<ReadOnlyWordBank> thisBank = addressBookStorage.getWordBank();
             if (thisBank.isPresent()) {
                 wordBank = (WordBank) thisBank.get();
                 usedWordBankTitle = wordBankName;

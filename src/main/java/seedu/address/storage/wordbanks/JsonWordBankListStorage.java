@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.wordbanks;
 
 import static java.util.Objects.requireNonNull;
 
@@ -52,17 +52,17 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         return wordBanksFilePath;
     }
 
-    public Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException {
-        return readAddressBook(wordBanksFilePath);
+    public Optional<ReadOnlyWordBank> getWordBank() throws DataConversionException {
+        return getWordBank(wordBanksFilePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #getWordBank()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    private Optional<ReadOnlyWordBank> readAddressBook(Path filePath) throws DataConversionException {
+    private Optional<ReadOnlyWordBank> getWordBank(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableWordBank> jsonAddressBook = JsonUtil.readJsonFile(
@@ -109,9 +109,10 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             if (!pathArray[i].endsWith(".json")) {
                 continue;
             }
-            Path wordBankPath = Paths.get(wordBanksFilePath.toString() + pathArray[i]);
+            Path wordBankPath = Paths.get(wordBanksFilePath.toString(),pathArray[i]);
             try {
-                Optional<ReadOnlyWordBank> wordBank = readAddressBook(wordBankPath);
+                System.out.println(wordBankPath.toString());
+                Optional<ReadOnlyWordBank> wordBank = getWordBank(wordBankPath);
                 ReadOnlyWordBank wb = wordBank.get();
                 WordBank wbToAdd = (WordBank) wb;
                 wordBankList.add(wbToAdd);

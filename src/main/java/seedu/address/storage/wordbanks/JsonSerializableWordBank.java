@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.wordbanks;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.storage.JsonWordBankListStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

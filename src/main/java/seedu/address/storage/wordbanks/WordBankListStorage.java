@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.wordbanks;
 
 import java.io.IOException;
 import java.nio.file.Path;

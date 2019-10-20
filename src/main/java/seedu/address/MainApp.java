@@ -20,15 +20,14 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbanklist.WordBankList;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.JsonWordBankListStorage;
+import seedu.address.storage.userprefs.JsonUserPrefsStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.WordBankListStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+import seedu.address.storage.wordbanks.WordBankListStorage;
 import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
 import seedu.address.ui.Ui;
@@ -116,7 +115,7 @@ public class MainApp extends Application {
         WordBankList wbl = (WordBankList) optionalWbl.get();
         WordBankList emptyWordBankList;
 //        try {
-//            addressBookOptional = storage.readAddressBook();
+//            addressBookOptional = storage.getWordBank();
 //            if (!addressBookOptional.isPresent()) {
 //                logger.info("Data file not found. Will be starting with a sample WordBank");
 //            }

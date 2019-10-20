@@ -9,6 +9,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+import seedu.address.storage.wordbanks.WordBankListStorage;
 
 /**
  * API of the Storage component
