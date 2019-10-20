@@ -147,7 +147,7 @@ Deletes the second spending in the list based on the current results shown.
 === Listing all spending : `list`
 
 Displays a list of all spending. +
-Format: `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]`
+Format: `list`
 
 [NOTE]
 If no 'SORT_ORDER' is specified, the default sort order is by date in descending order (most recent on top).
@@ -156,25 +156,41 @@ Examples:
 
 * `list` +
 Displays the list of all spending sorted by date in descending order (most recent on top).
-* `list r/01/09/2019-30/09/2019 t/groceries c/20-100` +
-Displays the list of all spending with date range between `01/09/2019 and 30/09/2019`, tagged `groceries` and cost ranging from `20 to 100`. The entries are sorted by date in descending order (most recent on top).
-* `list t/groceries o/ASC` +
-Displays the list of spending tagged with `groceries` in `ascending order by date`.
-* `list t/groceries o/DESC` +
-Displays the list of spending tagged with `groceries` in `descending order by date`.
 
-=== Find by keyword : `find`
+=== Find by attribute : `find`
 
-Searches for spending based on given keywords, cost range and date range. +
-At least one search field must be present. +
-Format: `find [n/NAME_KEYWORDS] [c/COST_MIN-COST_MAX] [d/DATE_START - DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
+Searches for spending based on given keywords, cost range, date range, remarks or tags. +
+At least one search field must be present.
+
+[NOTE]
+When searching for multiple tags, any tag listed will be matched.
+
+[TIP]
+Date range can be input in the following ways: +
+`d/DATE_START d/DATE_END` +
+`d/DATE_START to DATE_END` +
+`d/DATE_START - DATE_END`
+
+[TIP]
+Cost range can be input in the following ways: +
+`c/COST_MIN c/COST_MAX` +
+`c/COST_MIN-COST_MAX`
+
+Format: `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
 
 Example:
 
-* `find n/Java book c/100.20-150 r/01/09/2019 - 30/09/2019` +
-Returns a list of spending with `Java` and `book` keywords within the cost range `100.20-150` and date range within `01/09/2019 - 30/09/2019`.
-* `find n/apple c/1.50-2.00 r/01/09/2019 to 30/09/2019` +
-Returns a list of spending with `apple` keyword within the cost range `1.50-2.00` and date range within `01/09/2019 to 30/09/2019`.
+* `find n/apple c/1.50-2.00 d/01/09/2019 d/30/09/2019` +
+Returns a list of spending with `apple` keyword within the cost range `1.50` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
+* `find n/Java book c/100.20-150.00 d/01/09/2019 - 30/09/2019` +
+Returns a list of spending with matching the keywords `Java` or `book` within the cost range `100.20` to `150.00` and date range within `01/09/2019` to `30/09/2019`.
+* `find n/apple c/1-2 d/01/09/2019 to 30/09/2019` +
+Returns a list of spending with `apple` keyword within the cost range `1.00` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
+* `find r/breakfast meal` +
+Returns a list of spending with matching the keywords `breakfast` or `meal` in remarks.
+* `find t/food t/leisure` +
+Returns a list of spending with `food` or `leisure` tags.
+
 
 === Setting monthly budget : `budget`
 Sets a monthly budget for the current month in Singapore dollars. +
@@ -313,7 +329,7 @@ Format: `exit`
 | *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 | *Update* | `update i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
-e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
+e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
@@ -321,19 +337,19 @@ e.g. `find n/apple orange c/1.00-200 d/19/09/2019 - 20/09/2019 r/healthy food t/
 | *List* | `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
 e.g. `list r/01/09/2019-30/09/2019 t/groceries c/20-100 o/ASC`
 | *Budget* | `budget m/MONTHLY_BUDGET` +
-e.g. `goal m/1800`
+e.g. `goal m/1800` +
 | *Import data*| `import p/FILE_PATH` +
-e.g. `import p/C:\Users\User\Documents\importfile.csv`
+e.g. `import p/C:\Users\User\Documents\importfile.csv` +
 | *Export data*| `export p/FILE_PATH` +
-e.g. `export p/C:\Users\User\Documents\importfile.csv`
+e.g. `export p/C:\Users\User\Documents\importfile.csv` +
 | *Generate statistics*| `stats d/STARTDATE d/ENDDATE` +
-e.g. `stats d/01/01/2019 d/07/01/2019`
-| *List all tags*| `ltags`
-| *Undo*| `undo`
-| *Redo*| `redo`
+e.g. `stats d/01/01/2019 d/07/01/2019` +
+| *List all tags*| `ltags` +
+| *Undo*| `undo` +
+| *Redo*| `redo` +
 | *Graph*| `graph d/STARTDATE d/ENDDATE` +
-e.g. `graph d/01/01/2019 d/07/01/2019`
-| *Clear*| `clear`
-| *Exit*| `exit`
-| *Help* | `help`
+e.g. `graph d/01/01/2019 d/07/01/2019` +
+| *Clear*| `clear` +
+| *Exit*| `exit` +
+| *Help* | `help` +
 |=======================================================================
