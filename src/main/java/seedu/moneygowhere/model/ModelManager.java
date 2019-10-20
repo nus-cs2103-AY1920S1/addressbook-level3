@@ -126,7 +126,7 @@ public class ModelManager implements Model {
         return spendingBook.getBudget();
     }
 
-    //=========== Reminder related things =====================================================================
+    //=========== Reminder related functions =====================================================================
 
     @Override
     public void addReminder(Reminder reminder) {
