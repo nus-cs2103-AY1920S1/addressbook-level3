@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
@@ -19,16 +18,17 @@ public interface WordBankListStorage {
     Path getWordBankListFilePath();
 
     /**
-     * Saves the given {@link ReadOnlyWordBank} to the storage.
-     * @param addressBook cannot be null.
-     * @throws IOException if there was any problem writing to the file.
+     * Returns an optional of ReadonlyWordBankList
+     *
+     * @return Optional of ReadonlyWordBankList
      */
-    void saveWordBanks(ReadOnlyWordBank addressBook) throws IOException;
+    Optional<ReadOnlyWordBankList> getWordBankList();
 
     /**
-     * @see #saveWordBanks(ReadOnlyWordBank)
+     * Save a word bank into the file location
+     *
+     * @param filePath location of the data. Cannot be null.
+     * @throws IOException if there was any problem writing to the file.
      */
-    void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException;
-
-    Optional<ReadOnlyWordBankList> getWordBankList();
+    void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException;
 }

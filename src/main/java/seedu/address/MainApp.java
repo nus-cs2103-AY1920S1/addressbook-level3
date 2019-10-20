@@ -112,8 +112,9 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-//        Optional<ReadOnlyWordBank> addressBookOptional;
-//        ReadOnlyWordBankList initialData;
+        Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
+        WordBankList wbl = (WordBankList) optionalWbl.get();
+        WordBankList emptyWordBankList;
 //        try {
 //            addressBookOptional = storage.readAddressBook();
 //            if (!addressBookOptional.isPresent()) {
@@ -124,7 +125,6 @@ public class MainApp extends Application {
 //        } catch (IOException e) {
 //            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
 //        }
-        WordBankList wbl = (WordBankList) storage.getWordBankList().get();
         return new ModelManager(wbl, userPrefs);
     }
 

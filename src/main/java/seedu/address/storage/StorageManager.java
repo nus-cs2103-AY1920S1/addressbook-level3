@@ -50,27 +50,20 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ WordBankList methods ==============================
 
     @Override
     public Path getWordBankListFilePath() {
         return wordBankListStorage.getWordBankListFilePath();
     }
 
-    @Override
-    public void saveWordBanks(ReadOnlyWordBank addressBook) throws IOException {
-        saveWordBanks(addressBook, wordBankListStorage.getWordBankListFilePath());
+    private void saveWordBank(ReadOnlyWordBank wordBank) throws IOException {
+        saveWordBank(wordBank, getWordBankListFilePath());
     }
 
-    @Override
-    public void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
+    public void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        wordBankListStorage.saveWordBanks(addressBook, filePath);
-    }
-
-    @Override
-    public WordBankListStorage getWordBankListStorage() {
-        return wordBankListStorage;
+        wordBankListStorage.saveWordBank(wordBank, filePath);
     }
 
     @Override

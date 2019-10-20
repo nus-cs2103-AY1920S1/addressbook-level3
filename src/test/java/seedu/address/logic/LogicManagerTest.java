@@ -143,8 +143,7 @@ public class LogicManagerTest {
             super(filePath);
         }
 
-        @Override
-        public void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
+        private void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

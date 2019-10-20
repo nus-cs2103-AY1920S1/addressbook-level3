@@ -28,8 +28,7 @@ import seedu.address.model.wordbanklist.WordBankList;
 public class JsonWordBankListStorage implements WordBankListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWordBankListStorage.class);
-    private ReadOnlyWordBankList rowbl;
-
+    private ReadOnlyWordBankList readOnlyWordBankList;
     private Path wordBanksFilePath;
 
     public JsonWordBankListStorage(Path dataFilePath) {
@@ -82,27 +81,26 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         }
     }
 
-    @Override
-    public void saveWordBanks(ReadOnlyWordBank addressBook) throws IOException {
-        saveWordBanks(addressBook, wordBanksFilePath);
+    private void saveWordBank(ReadOnlyWordBank wordBank) throws IOException {
+        saveWordBank(wordBank, wordBanksFilePath);
     }
 
     /**
-     * Similar to {@link #saveWordBanks(ReadOnlyWordBank)}.
+     * Similar to {@link #saveWordBank(ReadOnlyWordBank)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveWordBanks(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException {
+        requireNonNull(wordBank);
         requireNonNull(filePath);
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableWordBank(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableWordBank(wordBank), filePath);
     }
 
     /**
      * Initialise word bank list on creation.
      */
-    public void initWordBankList() {
+    private void initWordBankList() {
         List<WordBank> wordBankList = new ArrayList<>();
         File dataDirectory = wordBanksFilePath.toFile();
         String[] pathArray = dataDirectory.list();
@@ -121,10 +119,10 @@ public class JsonWordBankListStorage implements WordBankListStorage {
                 e.printStackTrace();
             }
         }
-        this.rowbl = new WordBankList(wordBankList);
+        this.readOnlyWordBankList = new WordBankList(wordBankList);
     }
 
     public Optional<ReadOnlyWordBankList> getWordBankList() {
-        return Optional.of(rowbl);
+        return Optional.of(readOnlyWordBankList);
     }
 }

@@ -88,8 +88,8 @@ public class LogicManager implements Logic {
          */
         try {
             ReadOnlyWordBank wb = model.getWordBank();
-            Path filePath = Paths.get("data/" + wb.getName() + ".json");
-            storage.saveWordBanks(model.getWordBank(), filePath);
+            Path wordBankListFilePath = storage.getWordBankListFilePath();
+            storage.saveWordBank(model.getWordBank(), wordBankListFilePath);
 
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
