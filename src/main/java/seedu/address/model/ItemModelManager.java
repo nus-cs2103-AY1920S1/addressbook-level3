@@ -224,10 +224,10 @@ public class ItemModelManager implements ItemModel {
         addToSeparateList(item);
     }
 
-    public void addItem(int targetIndex, Item item){
-        visualList.addToIndex(targetIndex, item);
-        itemStorage.add(targetIndex, item);
-        addToSeparateList(targetIndex, item);
+    public void addItem(ItemIndexWrapper wrapper){
+        visualList.addToIndex(wrapper.visual, wrapper.item);
+        itemStorage.add(wrapper.storage, wrapper.item);
+        addToSeparateList(wrapper);
     }
 
     /**
@@ -258,18 +258,18 @@ public class ItemModelManager implements ItemModel {
         }
     }
 
-    public void addToSeparateList(int targetIndex, Item item) {
-        if (item.hasTask()) {
-            taskList.addToIndex(targetIndex, item);
+    public void addToSeparateList(ItemIndexWrapper wrapper) {
+        if (wrapper.task != -1) {
+            taskList.addToIndex(wrapper.task, wrapper.item);
         }
 
-        if (item.hasEvent()) {
-            eventList.addToIndex(targetIndex, item);
+        if (wrapper.eve != -1) {
+            eventList.addToIndex(wrapper.eve, wrapper.item);
         }
 
-        if (item.hasReminder()) {
-            reminderList.addToIndex(targetIndex, item);
-            futureReminders.add(targetIndex, item);
+        if (wrapper.rem != -1) {
+            reminderList.addToIndex(wrapper.rem, wrapper.item);
+            futureReminders.add(wrapper.frem, wrapper.item);
         }
     }
 
@@ -328,6 +328,12 @@ public class ItemModelManager implements ItemModel {
             getNextTask();
         }
         return item;
+    }
+
+    public ItemIndexWrapper getIndices(int index){
+        Item item = visualList.get(index);
+        return new ItemIndexWrapper(item, index, itemStorage.indexOf(item), taskList.indexOf(item),
+                eventList.indexOf(item), reminderList.indexOf(item), futureReminders.indexOf(item));
     }
 
     public VisualizeList getVisualList() {

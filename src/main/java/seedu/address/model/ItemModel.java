@@ -56,7 +56,7 @@ public interface ItemModel {
 
     public void addItem(Item item);
 
-    public void addItem(int targetIndex, Item item);
+    public void addItem(ItemIndexWrapper wrapper);
 
     public void replaceItem(Item item, Item newItem);
 
@@ -84,7 +84,9 @@ public interface ItemModel {
 
     public void addToSeparateList(Item item);
 
-    public void addToSeparateList(int targetIndex, Item item);
+    public void addToSeparateList(ItemIndexWrapper wrapper);
+
+    public ItemIndexWrapper getIndices(int index);
 
     public void updateLists();
 
