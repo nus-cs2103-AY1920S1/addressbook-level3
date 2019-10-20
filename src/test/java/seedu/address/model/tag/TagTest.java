@@ -20,6 +20,14 @@ public class TagTest {
     }
 
     @Test
+    public void getTagName() {
+        Tag validTag = new Tag("food");
+
+        assertTrue(validTag.getTagName().equals("food"));
+        assertFalse(validTag.getTagName().equals("drink"));
+    }
+
+    @Test
     public void isValidTagName() {
         // null tag name
         assertThrows(NullPointerException.class, () -> Tag.isValidTagName(null));
@@ -44,6 +52,14 @@ public class TagTest {
 
         // different Tag -> returns false
         assertFalse(firstTag.equals(secondTag));
+    }
+
+    @Test
+    public void testToString() {
+        Tag validTag = new Tag("food");
+
+        assertTrue(validTag.toString().equals("[food]"));
+        assertFalse(validTag.toString().equals("[drink]"));
     }
 
 }
