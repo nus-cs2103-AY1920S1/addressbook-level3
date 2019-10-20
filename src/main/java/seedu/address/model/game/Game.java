@@ -4,7 +4,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Hint;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents a game session using Cards from a specified WordBank.
@@ -16,8 +22,8 @@ public class Game {
     public static final int WRONG_GUESS = 0;
     private boolean isOver = false;
 
-    // Current WordBank cannot be changed once assigned.
-    private final WordBank wordBank;
+    // Shuffled Deck of Cards using cards from ReadOnlyWordBank
+    private final List<Card> shuffledDeckOfCards;
 
     // Stateful field Index that updates as game progresses.
     private Index cardIndex;
@@ -27,10 +33,10 @@ public class Game {
      * WordBank must not be null.
      * @param wordBank WordBank that current Game session will run on.
      */
-    public Game(WordBank wordBank) {
+    public Game(ReadOnlyWordBank wordBank) {
         requireAllNonNull(wordBank);
-        this.wordBank = wordBank;
         this.cardIndex = Index.fromZeroBased(0);
+        this.shuffledDeckOfCards = setShuffledDeckOfCards(wordBank);
     }
 
     /**
@@ -41,7 +47,11 @@ public class Game {
         if (isOver()) {
             throw new UnsupportedOperationException("Game is already Over");
         }
-        return wordBank.getCard(cardIndex);
+        return shuffledDeckOfCards.get(cardIndex.getZeroBased());
+    }
+
+    public Hint getHintForCurrCard() {
+        return getCurrCard().getHint();
     }
 
     /**
@@ -74,7 +84,7 @@ public class Game {
         if (isOver) {
             return true;
         } else {
-            isOver = getCurrIndex().getZeroBased() >= wordBank.size() ? true : false;
+            isOver = getCurrIndex().getZeroBased() >= shuffledDeckOfCards.size() ? true : false;
             return isOver;
         }
     }
@@ -85,5 +95,22 @@ public class Game {
 
     public void moveToNextCard() {
         cardIndex.increment();
+    }
+
+    /**
+     * Generates a randomly shuffled deck of cards based on input {@code wordBank} and returns
+     * it as a {@code List<Card>}.
+     */
+    private List<Card> setShuffledDeckOfCards(ReadOnlyWordBank wordBank) {
+        ArrayList<Card> shuffledDeckOfCards = new ArrayList<>();
+
+        // Copy over all cards in input WordBank
+        Index tempIndex = Index.fromZeroBased(0);
+        while (tempIndex.getZeroBased() < wordBank.size()) {
+            shuffledDeckOfCards.add(tempIndex.getZeroBased(), wordBank.getCard(tempIndex));
+            tempIndex.increment();
+        }
+        Collections.shuffle(shuffledDeckOfCards);
+        return shuffledDeckOfCards;
     }
 }

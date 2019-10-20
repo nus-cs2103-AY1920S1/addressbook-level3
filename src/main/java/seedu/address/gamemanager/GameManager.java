@@ -45,7 +45,8 @@ public class GameManager {
     private void setAndRunGameTimer(long timeAllowedPerQuestion) {
         gameTimer = new GameTimer("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
-                this.timerDisplayCallBack);
+                this.timerDisplayCallBack,
+                this.resultDisplayCallBack);
         gameTimer.run();
     }
 
@@ -94,7 +95,6 @@ public class GameManager {
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
-
             Platform.runLater(() -> setAndRunGameTimer(logic.getTimeAllowedPerQuestion()));
         }
 

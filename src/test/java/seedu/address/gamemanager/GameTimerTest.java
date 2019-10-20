@@ -9,6 +9,8 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import seedu.address.logic.commands.CommandResult;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 @ExtendWith(ApplicationExtension.class)
 public class GameTimerTest {
@@ -38,8 +40,8 @@ public class GameTimerTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assertions.assertThat(mainWindowStub.isExecutedFromGameTimer).isEqualTo(true);
-        Assertions.assertThat(timerDisplayStub.isUpdatedFromGameTimer).isEqualTo(true);
+        assertTrue(mainWindowStub.isExecutedFromGameTimer);
+        assertTrue(timerDisplayStub.isUpdatedFromGameTimer);
     }
 
     @Test
@@ -50,7 +52,7 @@ public class GameTimerTest {
                 1000, dummyMainCallBack, dummyTimerCallBack);
         dummyTimer.abortTimer();
         // abortTimer() is supposed to pass timeLeft = 0 to the timerDisplay.
-        Assertions.assertThat(timerDisplayStub.timeLeftEqualsZero).isEqualTo(true);
+        assertTrue(timerDisplayStub.timeLeftEqualsZero);
     }
 
 

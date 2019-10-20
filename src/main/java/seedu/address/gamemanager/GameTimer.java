@@ -19,6 +19,7 @@ public class GameTimer implements Runnable {
     private String mainMessage;
     private GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
     private GameManager.TimerDisplayCallBack timerDisplayCallBack;
+    private GameManager.ResultDisplayCallBack resultDisplayCallBack;
     private boolean cancelled = false;
 
     /**
@@ -30,10 +31,12 @@ public class GameTimer implements Runnable {
      */
     public GameTimer(String mainMessage, long durationInMs,
                      GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
-                     GameManager.TimerDisplayCallBack timerDisplayCallBack) {
+                     GameManager.TimerDisplayCallBack timerDisplayCallBack,
+                     GameManager.ResultDisplayCallBack resultDisplayCallBack) {
         this.mainMessage = mainMessage;
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
         this.timerDisplayCallBack = timerDisplayCallBack;
+        this.resultDisplayCallBack = resultDisplayCallBack;
         this.totalTimeGiven = durationInMs;
         this.timeLeft = totalTimeGiven;
         this.timer = new Timer(true);

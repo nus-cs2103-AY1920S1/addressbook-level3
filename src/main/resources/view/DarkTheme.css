@@ -163,6 +163,7 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-underline: true;
 }
 
 .timer-display {
@@ -170,6 +171,17 @@
     -fx-font-family: "monospace";
     -fx-font-size: 11.7pt;
     -fx-text-fill: pink;
+}
+
+.hint-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "monospace";
+    -fx-font-size: 11.7pt;
+    -fx-text-fill: pink;
+}
+
+.hint-display .text {
+    -fx-underline: true;
 }
 
 .result-display .label {
