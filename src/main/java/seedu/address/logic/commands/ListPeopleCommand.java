@@ -19,6 +19,11 @@ public class ListPeopleCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+<<<<<<< HEAD
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, true, false, false, false, false);
+=======
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true,
+                false, false);
+>>>>>>> 8ac341c0287e67facfc9d3d342b063598885e9d3
     }
 }

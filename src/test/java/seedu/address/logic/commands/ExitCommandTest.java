@@ -18,6 +18,7 @@ public class ExitCommandTest {
             new CommandResult(
                 MESSAGE_EXIT_ACKNOWLEDGEMENT,
                 false,
+<<<<<<< HEAD
                 true,
                 false,
                 false,
@@ -25,6 +26,11 @@ public class ExitCommandTest {
                 false,
                 false,
                 false);
+=======
+                        true,
+                        false,
+                        false, false, false);
+>>>>>>> 8ac341c0287e67facfc9d3d342b063598885e9d3
         assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
     }
 }
