@@ -32,7 +32,7 @@ class MultipleChoiceCardTest {
         assertEquals(false, card.evaluate("helo"));
     }
 
-     */
+
 
     @Test
     void editChoice_changeChoiceSuccessfully() throws IndexNotFoundException {
@@ -63,4 +63,6 @@ class MultipleChoiceCardTest {
             card.editChoice(-1, "hello");
         });
     }
+
+     */
 }
