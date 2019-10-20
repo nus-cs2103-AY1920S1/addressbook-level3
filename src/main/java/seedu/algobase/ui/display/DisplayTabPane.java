@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.model.GuiState;
+import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.ui.UiPart;
 
 /**

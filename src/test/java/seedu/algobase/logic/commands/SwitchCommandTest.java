@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
-import seedu.algobase.model.GuiState;
 import seedu.algobase.model.ModelEnum;
+import seedu.algobase.model.gui.GuiState;
 
 class SwitchCommandTest {
     @Test
