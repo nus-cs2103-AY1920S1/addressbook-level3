@@ -23,6 +23,8 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.Savings;
+//import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
     private final FilteredList<Food> filteredFoods;
     private final PurchaseHistory purchaseHistory;
     private final CustomSorter customSorter;
+    //private final SavingsAccount savingsAccount;
 
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
@@ -53,6 +56,7 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
+        // savingsAccount = new SavingsAccount();
 
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.customSorter = customSorter;
@@ -218,7 +222,7 @@ public class ModelManager implements Model {
     @Override
     public void buyFood(Food foodToBuy) throws CommandException {
         requireNonNull(foodToBuy);
-        menu.getWallet().pay(foodToBuy.getPrice());
+        menu.getWallet().deduct(foodToBuy.getPrice());
     }
 
     //=========== Filtered Food List Accessors =============================================================
@@ -315,6 +319,25 @@ public class ModelManager implements Model {
     public void clearDislikes() {
         RecommendationSystem.getInstance().clearDislikes();
     }
+
+    @Override
+    public void addToSavings(Savings savings) {
+        // TODO @fatclarence
+    }
+
+    @Override
+    public void deductFromWallet(Savings savings) throws CommandException {
+        requireNonNull(savings);
+        menu.getWallet().deduct(savings);
+    }
+
+    /**
+     * TODO @fatclarence
+     */
+    //    @Override
+    //    public SavingsAccount getSavingsAccount() {
+    //        return null;
+    //    }
 
     @Override
     public boolean equals(Object obj) {

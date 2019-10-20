@@ -30,6 +30,7 @@ import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.RemoveDislikeCommand;
 import seedu.savenus.logic.commands.RemoveLikeCommand;
+import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
 import seedu.savenus.logic.parser.exceptions.ParseException;
@@ -37,7 +38,7 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class MenuParser {
+public class SaveNusParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -133,6 +134,9 @@ public class MenuParser {
 
         case MakeSortCommand.COMMAND_WORD:
             return new MakeSortCommandParser().parse(arguments);
+
+        case SaveCommand.COMMAND_WORD:
+            return new SaveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
