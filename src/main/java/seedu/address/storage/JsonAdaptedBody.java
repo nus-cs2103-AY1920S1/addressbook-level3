@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +23,6 @@ import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
-
 /**
  * Jackson-friendly version of {@link Body}.
  */
@@ -134,11 +135,7 @@ class JsonAdaptedBody {
                     IdentificationNumber.class.getSimpleName()));
         }
         final int idNumber;
-        try {
-            idNumber = Integer.parseInt(bodyIdNum);
-        } catch (NumberFormatException e) {
-            throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
-        }
+        idNumber = Integer.parseInt(bodyIdNum);
 
         // Convert BodyStatus
         if (bodyStatus == null) {
@@ -256,7 +253,7 @@ class JsonAdaptedBody {
         try {
             parsedDate = formatter.parse(dateOfAdmission);
         } catch (java.text.ParseException e) {
-            throw new ParseException("Wrong date format"); // todo: abstract out message
+            throw new ParseException(MESSAGE_INVALID_DATE);
         }
 
         final Date actualDob;
@@ -267,7 +264,7 @@ class JsonAdaptedBody {
             try {
                 actualDob = formatter.parse(dateOfBirth);
             } catch (java.text.ParseException e) {
-                throw new ParseException("Wrong date format"); // todo: abstract out message
+                throw new ParseException(MESSAGE_INVALID_DATE);
             }
         }
 
@@ -277,7 +274,7 @@ class JsonAdaptedBody {
             try {
                 actualDod = formatter.parse(dateOfDeath);
             } catch (java.text.ParseException e) {
-                throw new ParseException("Wrong date format"); // todo: abstract out message
+                throw new ParseException(MESSAGE_INVALID_DATE);
             }
         }
 

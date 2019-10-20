@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -151,7 +153,7 @@ class JsonAdaptedWorker {
             try {
                 actualDateJoined = formatter.parse(dateJoined);
             } catch (java.text.ParseException e) {
-                throw new ParseException("Wrong date format"); // todo: abstract out message
+                throw new ParseException(MESSAGE_INVALID_DATE);
             }
         }
 
@@ -161,7 +163,7 @@ class JsonAdaptedWorker {
             try {
                 actualDateOfBirth = formatter.parse(dateOfBirth);
             } catch (java.text.ParseException e) {
-                throw new ParseException("Wrong date format"); // todo: abstract out message
+                throw new ParseException(MESSAGE_INVALID_DATE);
             }
         }
 
