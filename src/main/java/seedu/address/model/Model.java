@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
+import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
@@ -18,6 +20,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Earnings> PREDICATE_SHOW_ALL_EARNINGS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<CommandObject> PREDICATE_SHOW_ALL_COMMANDS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -98,13 +103,35 @@ public interface Model {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasEarnings(Earnings earnings);
+    boolean hasCommand(CommandObject command);
 
     /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void deleteEarnings(Earnings target);
+    void deleteCommand(CommandObject target);
+
+    /**
+     * Adds the given earnings.
+     * {@code earnings} must not already exist in the address book.
+     */
+    void addCommand(CommandObject command);
+
+    /**
+     * Replaces the given person {@code target} with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void setCommands(CommandObject target, CommandObject editedCommands);
+
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<CommandObject> getFilteredCommandsList();
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCommandsList(Predicate<CommandObject> predicate);
 
     /**
      * Adds the given earnings.
@@ -112,6 +139,8 @@ public interface Model {
      */
     void addEarnings(Earnings earnings);
 
+
+    boolean hasEarnings(Earnings earnings);
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -127,4 +156,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEarningsList(Predicate<Earnings> predicate);
+
+    void saveCommand(String command);
+
+    String getSavedCommand();
 }

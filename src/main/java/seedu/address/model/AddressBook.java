@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.commands.CommandObject;
+import seedu.address.model.commands.UniqueCommandsList;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.UniqueEarningsList;
 import seedu.address.model.person.Person;
@@ -18,6 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEarningsList earning;
+    private final UniqueCommandsList commands;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -28,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         earning = new UniqueEarningsList();
+        commands = new UniqueCommandsList();
     }
 
     public AddressBook() {}
@@ -54,6 +58,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.earning.setEarnings(earnings);
     }
 
+    public void setCommands(List<CommandObject> commands) {
+        this.commands.setCommands(commands);
+    }
+
     /**
      * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -73,6 +81,18 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setEarnings(newData.getEarningsList());
+        setCommands(newData.getCommandsList());
+    }
+
+    /**
+     * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setCommands(CommandObject target, CommandObject editedCommands) {
+        requireNonNull(editedCommands);
+
+        commands.setCommands(target, editedCommands);
     }
 
     //// person-level operations
@@ -115,6 +135,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
+    public boolean hasCommand(CommandObject command) {
+        requireNonNull(command);
+        return commands.contains(command);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addCommand(CommandObject e) {
+        commands.add(e);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeCommand(CommandObject key) {
+        commands.remove(key);
+    }
+
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
     public boolean hasEarnings(Earnings earnings) {
         requireNonNull(earnings);
         return earning.contains(earnings);
@@ -135,7 +180,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeEarnings(Earnings key) {
         earning.remove(key);
     }
-
     //// util methods
 
     @Override
@@ -152,6 +196,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Earnings> getEarningsList() {
         return earning.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<CommandObject> getCommandsList() {
+        return commands.asUnmodifiableObservableList();
     }
 
     @Override

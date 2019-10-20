@@ -29,6 +29,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private boolean unknown;
 
     // Independent Ui parts residing in this Ui container
     private EarningsListPanel earningsListPanel;
@@ -69,6 +70,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        this.unknown = false;
     }
 
     public Stage getPrimaryStage() {
@@ -186,9 +188,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    @FXML
     private void handleUnknown() {
-       //
+       this.unknown = !this.unknown;
     }
 
     public EarningsListPanel getEarningsListPanel() {
@@ -206,29 +207,40 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (this.unknown) {
+                CommandResult commandResult = logic.executeUnknown(commandText);
+                if (!commandResult.isUnknown()) {
+                    handleUnknown();
+                }
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
+                return commandResult;
+            } else {
+                CommandResult commandResult = logic.execute(commandText);
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
+                if (commandResult.isShowHelp()) {
+                    handleHelp();
+                }
 
-            if (commandResult.isExit()) {
-                handleExit();
-            }
+                if (commandResult.isExit()) {
+                    handleExit();
+                }
 
-            if (commandResult.isUnknown()) {
-                handleUnknown();
-            }
+                if (commandResult.isUnknown()) {
+                    handleUnknown();
+                }
 
             /*if (commandResult.isEarnings()) {
                 Earnings earnings = commandResult.getEarnings();
                 handleEarnings(earnings);
             }*/
 
-            return commandResult;
+                return commandResult;
+            }
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

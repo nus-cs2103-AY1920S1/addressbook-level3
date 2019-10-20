@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
+import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -38,7 +40,7 @@ public class LogicManager implements Logic {
         //pass in commandstorage to addressbookparser here?
         //or just import it in addressbookparser
         //anyway create commandstore first. -> need to be able to save and load
-        addressBookParser = new AddressBookParser();
+        addressBookParser = new AddressBookParser(getFilteredCommandsList());
         calendarParser = new CalendarParser();
     }
 
@@ -47,9 +49,30 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        //command needs to comapre to commandstorage which is basically a hashmap
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        try {
+            storage.saveAddressBook(model.getAddressBook());
+            //storage.saveCalendar(model.getCalendar());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        return commandResult;
+    }
+
+    public CommandResult executeUnknown(String commandText) throws CommandException, ParseException {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        CommandResult commandResult;
+        if (commandText.equals("cancel")) {
+            commandResult = new CancelCommand().execute(model);
+            //cancel command -> set unknown to false, display bye
+        } else {
+            Command command = addressBookParser.checkCommand(commandText, model.getSavedCommand());
+            commandResult = command.execute(model);
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());
@@ -74,6 +97,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Earnings> getFilteredEarningsList() {
         return model.getFilteredEarningsList();
+    }
+
+    @Override
+    public ObservableList<CommandObject> getFilteredCommandsList() {
+        return model.getFilteredCommandsList();
     }
 
     @Override

@@ -1,0 +1,58 @@
+package seedu.address.model.commands;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
+/**
+ * Represents a date of earnings.
+ * Guarantees: immutable; is valid as declared in {@link #isValidAction(String)}
+ */
+public class CommandAction {
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Date should only contain the date numbers that are valid (i.e. 03/05/2020), and it should not be blank.";
+
+    /*
+     * The first character of the address must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX = "[^\\s].*";
+
+    public final String action;
+
+    /**
+     * Constructs a {@code Date}.
+     *
+     * @param action A valid date number.
+     */
+    public CommandAction(String action) {
+        requireNonNull(action);
+        checkArgument(isValidAction(action), MESSAGE_CONSTRAINTS);
+        this.action = action;
+    }
+
+    /**
+     * Returns true if a given string is a valid week number.
+     */
+    public static boolean isValidAction(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    @Override
+    public String toString() {
+        return action;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CommandAction // instanceof handles nulls
+                && action.equals(((CommandAction) other).action)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return action.hashCode();
+    }
+
+}
