@@ -87,7 +87,7 @@ public class CommandParserUtil {
         String trimmedAmount = amount.trim();
 
         String[] dollarCentArray = trimmedAmount.split("\\.");
-        if (dollarCentArray.length < 1) {
+        if (dollarCentArray.length <= 0 || dollarCentArray.length >= 3) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
 
