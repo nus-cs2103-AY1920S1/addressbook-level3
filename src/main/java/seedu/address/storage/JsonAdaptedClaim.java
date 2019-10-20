@@ -19,6 +19,7 @@ import seedu.address.model.claim.Description;
 import seedu.address.model.claim.PendingClaim;
 import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.commonvariables.Date;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
@@ -31,6 +32,7 @@ class JsonAdaptedClaim {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "FinSec's %s field is missing!";
     private static final Logger logger = LogsCenter.getLogger(JsonAdaptedClaim.class);
 
+    private final String id;
     private final String description;
     private final String amount;
     private final String date;
@@ -44,10 +46,12 @@ class JsonAdaptedClaim {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedClaim(@JsonProperty("description") String description, @JsonProperty("amount") String amount,
-                            @JsonProperty("date") String date, @JsonProperty("name") String name,
-                            @JsonProperty("phone") String phone, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+    public JsonAdaptedClaim(@JsonProperty("id") String id, @JsonProperty("description") String description,
+                            @JsonProperty("amount") String amount, @JsonProperty("date") String date,
+                            @JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                             @JsonProperty("status") String status) {
+        this.id = id;
         this.description = description;
         this.amount = amount;
         this.date = date;
@@ -63,6 +67,7 @@ class JsonAdaptedClaim {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedClaim(Claim source) {
+        id = source.getId().value;
         description = source.getDescription().text;
         amount = source.getAmount().value;
         date = source.getDate().text;
@@ -83,6 +88,15 @@ class JsonAdaptedClaim {
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
+
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Id.class.getSimpleName()));
+        }
+        if (!Id.isValidId(id)) {
+            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
+        }
+        final Id modelId = new Id(id);
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -131,11 +145,11 @@ class JsonAdaptedClaim {
 
         switch (status) {
         case "PENDING":
-            return new PendingClaim(modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
+            return new PendingClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
         case "APPROVED":
-            return new ApprovedClaim(modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
+            return new ApprovedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
         case "REJECTED":
-            return new RejectedClaim(modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
+            return new RejectedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone, modelTags);
         default:
             logger.warning("Invalid claim status: " + status);
             throw new IllegalValueException("Status should only be PENDING, REJECTED or APPROVED");

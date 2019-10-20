@@ -3,6 +3,7 @@ package seedu.address.model.claim;
 import java.util.Set;
 
 import seedu.address.model.commonvariables.Date;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
@@ -14,12 +15,17 @@ public class ApprovedClaim extends Claim {
 
     private static final Status status = Status.APPROVED;
 
+    public ApprovedClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone, Set<Tag> tags) {
+        super(id, description, amount, date, name, phone, tags, status);
+    }
+
     public ApprovedClaim(Description description, Amount amount, Date date, Name name, Phone phone, Set<Tag> tags) {
         super(description, amount, date, name, phone, tags, status);
     }
 
     public ApprovedClaim(Claim source) {
-        super(source.getDescription(),
+        super(source.getId(),
+                source.getDescription(),
                 source.getAmount(),
                 source.getDate(),
                 source.getName(),
@@ -43,7 +49,8 @@ public class ApprovedClaim extends Claim {
         }
 
         ApprovedClaim otherClaim = (ApprovedClaim) obj;
-        return otherClaim.getDescription().equals(getDescription())
+        return otherClaim.getId().equals(getId())
+                && otherClaim.getDescription().equals(getDescription())
                 && otherClaim.getName().equals(getName())
                 && otherClaim.getDate().equals(getDate())
                 && otherClaim.getPhone().equals(getPhone())
