@@ -13,7 +13,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -27,6 +26,7 @@ import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.ui.util.ColorGenerator;
+import seedu.address.ui.util.DefaultStartView;
 import seedu.address.ui.util.GroupDetailsExport;
 
 /**
@@ -141,9 +141,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting up default detailsview
-        Region defaultRegion = new Region();
-        defaultRegion.setPrefHeight(750.0);
-        detailsViewPlaceholder.getChildren().add(defaultRegion);
+        detailsViewPlaceholder.getChildren().add(new DefaultStartView(400, 400).getRoot());
     }
 
     /**

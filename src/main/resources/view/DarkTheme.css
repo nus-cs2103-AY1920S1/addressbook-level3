@@ -376,6 +376,10 @@
     -fx-opacity: 0.6;
 }
 
+#defaultStartViewContainer {
+    -fx-background-color: #393E46;
+}
+
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
