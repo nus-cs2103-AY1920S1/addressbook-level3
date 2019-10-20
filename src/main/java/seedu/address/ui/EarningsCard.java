@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.earnings.Earnings;
 
 /**
- * An UI component that displays information of a {@code Earnings}.
+ * A UI component that displays information of a {@code Earnings}.
  */
 public class EarningsCard extends UiPart<Region> {
 

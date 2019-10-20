@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.earnings.Earnings;
 
 /**
- * Changes the remark of an existing person in the address book.
+ * Adds the earnings into the address book.
  */
 public class AddEarningsCommand extends Command {
 
@@ -28,10 +28,6 @@ public class AddEarningsCommand extends Command {
             + PREFIX_DATE + "03/05/2020 "
             + PREFIX_MODULE + "CS2103T "
             + PREFIX_AMOUNT + "$55.30";
-
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Add earnings command not implemented yet";
-    public static final String MESSAGE_ARGUMENTS = "Date: %1$10s, Module: %2$s, Amount: $ %3$.2f";
-    public static final String MESSAGE_DETAILS = "Please follow the given format";
 
     public static final String MESSAGE_SUCCESS = "New earnings added: %1$s";
     public static final String MESSAGE_DUPLICATE_EARNINGS =

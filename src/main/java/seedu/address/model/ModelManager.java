@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import seedu.address.ui.UiManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -177,6 +178,7 @@ public class ModelManager implements Model {
     public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
         requireNonNull(predicate);
         filteredEarnings.setPredicate(predicate);
+        UiManager.startEarnings();
     }
 
     @Override
