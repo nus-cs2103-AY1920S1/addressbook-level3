@@ -37,6 +37,9 @@ public class CalendarPanel extends UiPart<Region> {
         this.calendarDate = calendarDate;
 
         agenda = new Agenda();
+        agenda.setAllowDragging(false);
+        agenda.setAllowResize(false);
+
         calendarBox.getChildren().add(agenda);
         populateAgenda();
         setAgendaView(Calendar.getInstance());
