@@ -3,6 +3,7 @@ package seedu.address.logic.commands.datamanagement;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -12,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
@@ -199,6 +201,11 @@ public class CreateTagCommandTest {
 
         @Override
         public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public HashMap<String, Module> getModulesFromActiveSp() {
             throw new AssertionError("This method should not be called.");
         }
 

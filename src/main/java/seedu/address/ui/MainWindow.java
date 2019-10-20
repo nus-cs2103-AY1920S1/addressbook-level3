@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -19,6 +18,7 @@ import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.versiontracking.Commit;
+import seedu.address.ui.exceptions.InvalidResultViewTypeException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -159,8 +159,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handles the result by assigning the appropriate nodes to the result display.
+     */
     private <T> void handleResult(ResultViewType resultViewType, ObservableList<T> resultContent) {
-
         switch (resultViewType) {
         case TEXT:
             TextArea textArea = new TextArea();
@@ -169,22 +171,29 @@ public class MainWindow extends UiPart<Stage> {
                 textArea.setText(text);
             }
             resultDisplayPlaceholder.getChildren().add(textArea);
+            break;
         case TAG:
             ObservableList<Tag> tagContent = (ObservableList<Tag>) resultContent;
             TagListPanel tagListPanel = new TagListPanel(tagContent);
             resultDisplay.setResultView(tagListPanel.getRoot());
+            break;
         case MODULE:
             ObservableList<Module> moduleContent = (ObservableList<Module>) resultContent;
             //ModuleListPanel moduleListPanel = new ModuleListPanel(moduleContent);
             //resultDisplay.setResultView(moduleListPanel.getRoot());
+            break;
         case STUDY_PLAN:
             ObservableList<StudyPlan> studyPlanContent = (ObservableList<StudyPlan>) resultContent;
             //StudyPlanListPanel = studyPlanListPanel = new StudyPlanListPanel(studyPlanContent);
             //resultDisplay.setResultView(studyPlanListPanel.getRoot());
+            break;
         case COMMIT_HISTORY:
             ObservableList<Commit> commitContent = (ObservableList<Commit>) resultContent;
             //CommitListPanel commitListPanel = new CommitListPanel(commitContent);
             //resultDisplay.setResultView(commitListPanel.getRoot());
+            break;
+        default:
+            throw new InvalidResultViewTypeException(resultViewType.name());
         }
     }
 

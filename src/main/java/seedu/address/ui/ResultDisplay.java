@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -40,6 +39,9 @@ public class ResultDisplay extends UiPart<Region> {
         resultView.getChildren().add(view);
     }
 
+    /**
+     * Removes previous views.
+     */
     public void removeResultView() {
         int size = resultView.getChildren().size();
         for (int i = 0; i < size; i++) {

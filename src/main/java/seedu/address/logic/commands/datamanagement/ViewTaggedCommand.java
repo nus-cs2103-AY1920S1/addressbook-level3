@@ -28,7 +28,7 @@ public class ViewTaggedCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all modules attached to specific tags. "
             + "Parameters: "
-            + PREFIX_TAG +"TAG_NAME... \n"
+            + PREFIX_TAG + "TAG_NAME... \n"
             + "Example: "
             + "viewtagged t/core t/completed";
 
@@ -51,7 +51,7 @@ public class ViewTaggedCommand extends Command {
 
         Set<Module> allMatchingModules = getAllMatchingModules(moduleHashMap);
 
-        final String stringOfModules= allMatchingModules.stream()
+        final String stringOfModules = allMatchingModules.stream()
             .map(item -> item.toString())
             .collect(joining("\n"));
 
