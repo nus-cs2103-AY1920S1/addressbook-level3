@@ -211,8 +211,7 @@ public class ModelManager implements Model {
      *
      * @returnlist of unfiltered person.
      */
-    @Override
-    public ObservableList<Person> getPersonList() {
+    private ObservableList<Person> getPersonList() {
         return this.addressBook.getPersonList();
     }
 

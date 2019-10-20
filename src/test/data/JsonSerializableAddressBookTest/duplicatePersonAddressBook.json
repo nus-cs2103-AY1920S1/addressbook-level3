@@ -6,6 +6,7 @@
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "date of birth" : "12.12.1992",
+    "gender" : "Female",
     "policies" : [],
     "tagged": [ "friends" ]
   }, {
@@ -14,6 +15,7 @@
     "phone": "94351253",
     "email": "pauline@example.com",
     "date of birth" : "12.12.1992",
+    "gender" : "Female",
     "policies" : [],
     "address": "4th street"
   } ],

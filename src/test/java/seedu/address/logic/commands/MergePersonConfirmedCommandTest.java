@@ -15,6 +15,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.merge.MergePersonCommand;
@@ -301,6 +302,16 @@ public class MergePersonConfirmedCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableMap<String, Integer> getPolicyPopularityBreakdown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableMap<String, Integer> getAgeGroupBreakdown() {
             throw new AssertionError("This method should not be called.");
         }
 

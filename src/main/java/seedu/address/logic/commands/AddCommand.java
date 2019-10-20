@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -21,20 +22,22 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_NRIC + "NRIC "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_NRIC + "S000001J "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_DATE_OF_BIRTH + "12.12.1912 ";
+        + "Parameters: "
+        + PREFIX_NAME + "NAME "
+        + PREFIX_NRIC + "NRIC "
+        + PREFIX_PHONE + "PHONE "
+        + PREFIX_EMAIL + "EMAIL "
+        + PREFIX_ADDRESS + "ADDRESS "
+        + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH"
+        + PREFIX_GENDER + "GENDER\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_NAME + "John Doe "
+        + PREFIX_NRIC + "S0000001J "
+        + PREFIX_PHONE + "98765432 "
+        + PREFIX_EMAIL + "johnd@example.com "
+        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+        + PREFIX_DATE_OF_BIRTH + "12.12.1912 "
+        + PREFIX_GENDER + "Male";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book\n";
@@ -54,7 +57,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws DuplicatePersonWithoutMergeException,
-            DuplicatePersonWithMergeException {
+        DuplicatePersonWithMergeException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
@@ -74,6 +77,7 @@ public class AddCommand extends Command {
 
     /**
      * Generates an exception message with a merge prompt.
+     *
      * @param original Original person in the addressbook.
      * @return The exception message to be thrown.
      */
@@ -89,6 +93,7 @@ public class AddCommand extends Command {
     /**
      * Generates an exception message without a merge prompt. This method is used if the input person has all the same
      * compulsory data fields as the original person.
+     *
      * @param original Original person in the addressbook.
      * @return The exception message to be thrown.
      */
@@ -102,7 +107,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+            || (other instanceof AddCommand // instanceof handles nulls
+            && toAdd.equals(((AddCommand) other).toAdd));
     }
 }

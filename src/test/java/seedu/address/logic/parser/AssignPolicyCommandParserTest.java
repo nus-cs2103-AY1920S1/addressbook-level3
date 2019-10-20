@@ -58,10 +58,10 @@ class AssignPolicyCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + POLICY_DESC_HEALTH, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + POLICY_DESC_LIFE, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + POLICY_DESC_HEALTH, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + POLICY_DESC_LIFE, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
