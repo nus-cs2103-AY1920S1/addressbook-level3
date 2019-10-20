@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import thrift.logic.commands.AddExpenseCommand;
 import thrift.logic.commands.AddIncomeCommand;
+import thrift.logic.commands.BudgetCommand;
 import thrift.logic.commands.ClearCommand;
 import thrift.logic.commands.CloneCommand;
 import thrift.logic.commands.Command;
@@ -50,12 +51,30 @@ public class ThriftParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        /*
+         * Adding transactions or budget commands.
+         */
         case AddExpenseCommand.COMMAND_WORD:
             return new AddExpenseCommandParser().parse(arguments);
 
         case AddIncomeCommand.COMMAND_WORD:
             return new AddIncomeCommandParser().parse(arguments);
 
+        case BudgetCommand.COMMAND_WORD:
+            return new BudgetCommandParser().parse(arguments);
+
+        case CloneCommand.COMMAND_WORD:
+            return new CloneCommandParser().parse(arguments);
+
+        /*
+         * Deleting transactions command.
+         */
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+
+        /*
+         * Altering an existing transaction commands.
+         */
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);
 
@@ -65,32 +84,35 @@ public class ThriftParser {
         case UntagCommand.COMMAND_WORD:
             return new UntagCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
+        /*
+         * Filtered transaction list manipulation commands.
+         */
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
-
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        /*
+         * System related commands.
+         */
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case CloneCommand.COMMAND_WORD:
-            return new CloneCommandParser().parse(arguments);
+        /*
+         * Unfinished commands.
+         */
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -16,12 +16,12 @@ public class AddIncomeCommand extends Command implements Undoable {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an income transaction to THRIFT. "
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION "
-            + CliSyntax.PREFIX_COST + "COST "
+            + CliSyntax.PREFIX_VALUE + "VALUE "
             + "[" + CliSyntax.PREFIX_REMARK + "REMARK] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "Bursary "
-            + CliSyntax.PREFIX_COST + "500 "
+            + CliSyntax.PREFIX_VALUE + "500 "
             + CliSyntax.PREFIX_REMARK + "For studying well "
             + CliSyntax.PREFIX_TAG + "Award ";
 

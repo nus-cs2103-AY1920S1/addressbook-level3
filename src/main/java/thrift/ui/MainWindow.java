@@ -16,7 +16,6 @@ import thrift.logic.Logic;
 import thrift.logic.commands.CommandResult;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.logic.parser.exceptions.ParseException;
-import thrift.model.transaction.Value;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +34,11 @@ public class MainWindow extends UiPart<Stage> {
     private TransactionListPanel transactionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private BalanceBar balanceBar;
+
+    private String monthYear;
+    private double budget;
+    private double balance;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -111,14 +115,19 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        //Show the current month transactions only.
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+        logic.setFilteredTransactionListToCurrentMonth();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        //TODO: Change the hardcoded balance to dynamically calculated balance.
-        BalanceBar balanceBar = new BalanceBar(new Value("3100"), new Value("1337"));
+        //Show the current month, budget and balance.
+        monthYear = logic.getCurrentMonthYear();
+        budget = logic.getCurrentMonthBudget();
+        balance = logic.getCurrentMonthBalance();
+        balanceBar = new BalanceBar(monthYear, budget, balance);
         balancebarPlaceholder.getChildren().add(balanceBar.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getThriftFilePath());
@@ -175,11 +184,10 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText, transactionListPanel);
+            CommandResult commandResult = logic.execute(commandText, transactionListPanel, balanceBar);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

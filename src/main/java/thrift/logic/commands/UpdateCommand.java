@@ -36,12 +36,12 @@ public class UpdateCommand extends Command implements Undoable {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION] "
-            + "[" + CliSyntax.PREFIX_COST + "COST] "
+            + "[" + CliSyntax.PREFIX_VALUE + "VALUE] "
             + "[" + CliSyntax.PREFIX_REMARK + "REMARK] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 "
             + CliSyntax.PREFIX_NAME + "Mee Siam "
-            + CliSyntax.PREFIX_COST + "3.00";
+            + CliSyntax.PREFIX_VALUE + "3.00";
 
     public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
     public static final String MESSAGE_ORIGINAL_TRANSACTION = "\n\nOriginal: %1$s";

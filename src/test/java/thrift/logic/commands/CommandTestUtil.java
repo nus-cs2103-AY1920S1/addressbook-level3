@@ -2,11 +2,12 @@ package thrift.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static thrift.logic.parser.CliSyntax.PREFIX_COST;
+import static thrift.logic.parser.CliSyntax.PREFIX_DATE;
 import static thrift.logic.parser.CliSyntax.PREFIX_INDEX;
 import static thrift.logic.parser.CliSyntax.PREFIX_NAME;
 import static thrift.logic.parser.CliSyntax.PREFIX_REMARK;
 import static thrift.logic.parser.CliSyntax.PREFIX_TAG;
+import static thrift.logic.parser.CliSyntax.PREFIX_VALUE;
 import static thrift.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -33,11 +34,13 @@ public class CommandTestUtil {
     public static final String VALID_VALUE_BURSARY = "500";
     public static final String VALID_VALUE_LAKSA = "3.50";
     public static final String VALID_VALUE_AIRPODS = "350";
+    public static final String VALID_VALUE_BUDGET = "1000";
     public static final String VALID_REMARK_LAKSA = "Delicious!";
     public static final String VALID_REMARK_AIRPODS = "Is this really worth it?";
     public static final String VALID_DATE_BURSARY = "09/10/2019";
     public static final String VALID_DATE_LAKSA = "13/03/1937";
     public static final String VALID_DATE_AIRPODS = "14/03/1937";
+    public static final String VALID_DATE_BUDGET = "10/2019";
     public static final String VALID_TAG_AWARD = "Award";
     public static final String VALID_TAG_LUNCH = "Lunch";
     public static final String VALID_TAG_BRUNCH = "Brunch";
@@ -46,18 +49,21 @@ public class CommandTestUtil {
     public static final String DESC_BURSARY = " " + PREFIX_NAME + VALID_DESCRIPTION_BURSARY;
     public static final String DESC_LAKSA = " " + PREFIX_NAME + VALID_DESCRIPTION_LAKSA;
     public static final String DESC_AIRPODS = " " + PREFIX_NAME + VALID_DESCRIPTION_AIRPODS;
-    public static final String VALUE_BURSARY = " " + PREFIX_COST + VALID_VALUE_BURSARY;
-    public static final String VALUE_LAKSA = " " + PREFIX_COST + VALID_VALUE_LAKSA;
+    public static final String VALUE_BURSARY = " " + PREFIX_VALUE + VALID_VALUE_BURSARY;
+    public static final String VALUE_LAKSA = " " + PREFIX_VALUE + VALID_VALUE_LAKSA;
     public static final String REMARK_LAKSA = " " + PREFIX_REMARK + VALID_REMARK_LAKSA;
+    public static final String VALUE_AIRPODS = " " + PREFIX_VALUE + VALID_VALUE_AIRPODS;
+    public static final String VALUE_BUDGET = " " + PREFIX_VALUE + VALID_VALUE_BUDGET;
+    public static final String DATE_BUDGET = " " + PREFIX_DATE + VALID_DATE_BUDGET;
     public static final String REMARK_AIRPODS = " " + PREFIX_REMARK + VALID_REMARK_AIRPODS;
-    public static final String VALUE_AIRPODS = " " + PREFIX_COST + VALID_VALUE_AIRPODS;
     public static final String TAG_BURSARY = " " + PREFIX_TAG + VALID_TAG_AWARD;
     public static final String TAG_LAKSA = " " + PREFIX_TAG + VALID_TAG_LUNCH;
     public static final String TAG_BRUNCH = " " + PREFIX_TAG + VALID_TAG_BRUNCH;
     public static final String TAG_AIRPODS = " " + PREFIX_TAG + VALID_TAG_ACCESSORY;
     public static final String INDEX_TOKEN = " " + PREFIX_INDEX;
 
-    public static final String INVALID_VALUE = " " + PREFIX_COST + ".00"; // missing whole number
+    public static final String INVALID_VALUE = " " + PREFIX_VALUE + ".00"; // missing whole number
+    public static final String INVALID_DATE = " " + PREFIX_DATE + "13/aaaa"; // invalid month and non numeric year
     public static final String INVALID_TAG = " " + PREFIX_TAG + "A+"; //illegal character
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

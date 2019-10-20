@@ -1,8 +1,17 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+  "transactions" : [ {
+    "type" : "income",
+    "description" : "First income",
+    "value" : "invalid",
+    "remark" : "",
+    "date" : "18/10/2019",
+    "tagged" : [ "A" ]
+  } ],
+  "budgets" : [ {
+    "period" : "10/2019",
+    "value" : "100.00"
+  }, {
+    "period" : "11/2019",
+    "value" : "1337.00"
   } ]
 }

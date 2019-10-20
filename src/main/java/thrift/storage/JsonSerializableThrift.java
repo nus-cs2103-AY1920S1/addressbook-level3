@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import thrift.commons.exceptions.IllegalValueException;
+import thrift.commons.util.StreamUtils;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.Thrift;
+import thrift.model.transaction.Budget;
 import thrift.model.transaction.Transaction;
 
 /**
@@ -20,13 +22,16 @@ import thrift.model.transaction.Transaction;
 class JsonSerializableThrift {
 
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
+    private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableThrift} with the given transactions.
+     * Constructs a {@code JsonSerializableThrift} with the given transactions and budgets.
      */
     @JsonCreator
-    public JsonSerializableThrift(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions) {
+    public JsonSerializableThrift(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions,
+                                  @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
         this.transactions.addAll(transactions);
+        this.budgets.addAll(budgets);
     }
 
     /**
@@ -36,6 +41,8 @@ class JsonSerializableThrift {
      */
     public JsonSerializableThrift(ReadOnlyThrift source) {
         transactions.addAll(source.getTransactionList().stream().map(JsonAdaptedTransaction::new)
+                .collect(Collectors.toList()));
+        budgets.addAll(StreamUtils.asStream(source.getBudgetList().iterator()).map(JsonAdaptedBudget::new)
                 .collect(Collectors.toList()));
     }
 
@@ -49,6 +56,10 @@ class JsonSerializableThrift {
         for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
             Transaction transaction = jsonAdaptedTransaction.toModelType();
             thrift.addTransaction(transaction);
+        }
+        for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
+            Budget budget = jsonAdaptedBudget.toModelType();
+            thrift.setBudget(budget);
         }
         return thrift;
     }

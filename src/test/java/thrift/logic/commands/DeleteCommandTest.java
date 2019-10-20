@@ -57,7 +57,6 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showTransactionAtIndex(model, TypicalIndexes.INDEX_FIRST_TRANSACTION);
         Transaction transactionToDelete = model.getFilteredTransactionList()
                 .get(TypicalIndexes.INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION);
@@ -131,7 +130,6 @@ public class DeleteCommandTest {
     public void undo_undoDeleteIncome_success() throws CommandException {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
-
         Transaction transactionToDelete = model.getFilteredTransactionList()
                 .get(TypicalIndexes.INDEX_SECOND_TRANSACTION.getZeroBased());
 

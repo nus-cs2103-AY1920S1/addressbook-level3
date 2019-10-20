@@ -1,10 +1,12 @@
 package thrift.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static thrift.logic.commands.CommandTestUtil.assertCommandFailure;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
+import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
@@ -25,7 +27,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void execute_redoAddExpensesCommand_success() {
+    public void execute_redoAddExpensesCommand_success() throws CommandException {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
 
@@ -35,7 +37,7 @@ public class RedoCommandTest {
 
         model.addExpense(expense);
         model.keepTrackCommands(addExpenseCommand);
-        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertDoesNotThrow(() -> undoCommand.execute(model));
 
         RedoCommand redoCommand = new RedoCommand();
         expectedModel.addExpense(expense);

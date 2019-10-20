@@ -25,6 +25,7 @@ import thrift.model.Model;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.ReadOnlyUserPrefs;
 import thrift.model.Thrift;
+import thrift.model.transaction.Budget;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
@@ -203,6 +204,11 @@ public class AddIncomeCommandTest {
         }
 
         @Override
+        public void setBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setTransaction(Transaction target, Transaction updatedTransaction) {
             throw new AssertionError("This method should not be called.");
         }
@@ -223,7 +229,32 @@ public class AddIncomeCommandTest {
         }
 
         @Override
+        public void updateFilteredTransactionListToCurrentMonth() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getCurrentMonthYear() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public double getCurrentMonthBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateBalanceForCurrentMonth() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public double getBalance() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,20 +17,28 @@ import thrift.commons.core.LogsCenter;
 import thrift.commons.core.index.Index;
 import thrift.commons.util.CollectionUtil;
 import thrift.logic.commands.Undoable;
+import thrift.model.transaction.Budget;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
+import thrift.model.transaction.TransactionIsInMonthYearPredicate;
 
 /**
  * Represents the in-memory model of the THRIFT data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Thrift thrift;
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> filteredTransactions;
     private final PastUndoableCommands pastUndoableCommands;
+    private final Calendar currentMonthYear;
+    private double balance;
+
+    /** {@code Predicate} that always show the current month transactions */
+    private Predicate<Transaction> predicateShowCurrentMonthTransactions;
 
     /**
      * Initializes a ModelManager with the given thrift, userPrefs and pastUndoableCommands.
@@ -43,6 +53,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.thrift.getTransactionList());
         this.pastUndoableCommands = pastUndoableCommands;
+        currentMonthYear = Calendar.getInstance();
+        balance = 0;
+        predicateShowCurrentMonthTransactions = new TransactionIsInMonthYearPredicate(currentMonthYear);
     }
 
     public ModelManager() {
@@ -115,51 +128,65 @@ public class ModelManager implements Model {
     @Override
     public void deleteTransaction(Index index) {
         thrift.removeTransactionByIndex(index);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
     public void deleteLastTransaction() {
         thrift.removeLastTransaction();
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
     public void addExpense(Expense expense) {
         thrift.addTransaction(expense);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
     public void addExpense(Expense expense, Index index) {
         thrift.addTransaction(expense, index);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
     public void addIncome(Income income) {
         thrift.addTransaction(income);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
     public void addIncome(Income income, Index index) {
         thrift.addTransaction(income, index);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+    }
+
+    @Override
+    public String getCurrentMonthYear() {
+        return new SimpleDateFormat("MMMMM yyyy").format(currentMonthYear.getTime());
+    }
+
+    @Override
+    public double getCurrentMonthBudget() {
+        Optional<Budget> optBudget = thrift.getBudgetList().getBudgetForMonthYear(currentMonthYear);
+        if (optBudget.isPresent()) {
+            return optBudget.get().getBudgetValue().getMonetaryValue();
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public void setBudget(Budget budget) {
+        thrift.setBudget(budget);
     }
 
     @Override
     public void setTransaction(Transaction target, Transaction updatedTransaction) {
         CollectionUtil.requireAllNonNull(target, updatedTransaction);
         thrift.setTransaction(target, updatedTransaction);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateBalanceForCurrentMonth();
     }
 
     @Override
     public void setTransactionWithIndex(Index actualIndex, Transaction updatedTransaction) {
         CollectionUtil.requireAllNonNull(actualIndex, updatedTransaction);
         thrift.setTransactionWithIndex(actualIndex, updatedTransaction);
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        updateBalanceForCurrentMonth();
     }
 
     @Override
@@ -168,7 +195,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Filtered Transaction List Accessors =============================================================
-
     /**
      * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
      * {@code versionedThrift}
@@ -178,11 +204,47 @@ public class ModelManager implements Model {
         return filteredTransactions;
     }
 
+    /** Filters the view of the transaction list to only show transactions that occur in the current month. */
+    @Override
+    public void updateFilteredTransactionListToCurrentMonth() {
+        filteredTransactions.setPredicate(predicateShowCurrentMonthTransactions);
+        updateBalanceForCurrentMonth();
+    }
 
     @Override
     public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateBalanceForCurrentMonth() {
+        //If transaction does not belong to current displayed month, don't update the balance.
+        logger.info("Original balance: " + balance);
+        balance = getCurrentMonthBudget() + filteredTransactions.stream()
+                .filter(t -> {
+                    Calendar temp = Calendar.getInstance();
+                    temp.setTime(t.getDate().getDate());
+                    if (temp.get(Calendar.MONTH) != currentMonthYear.get(Calendar.MONTH)
+                            || temp.get(Calendar.YEAR) != currentMonthYear.get(Calendar.YEAR)) {
+                        return false;
+                    }
+                    return true;
+                })
+                .mapToDouble(t -> {
+                    double value = t.getValue().getMonetaryValue();
+                    if (t instanceof Expense) {
+                        return value * -1;
+                    }
+                    return value;
+                })
+                .sum();
+        logger.info("Updated balance: " + balance);
+    }
+
+    @Override
+    public double getBalance() {
+        return balance;
     }
 
     @Override

@@ -35,8 +35,8 @@ public abstract class AddTransactionCommandParser {
      * @param argMultimap the object to parse from.
      * @return {@code Description} object based on the values in the input {@code ArgumentMultimap}.
      */
-    protected Description parseTransactionDescription(ArgumentMultimap argMultimap) {
-        return ParserUtil.parseDescription(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
+    protected Description parseTransactionDescription(ArgumentMultimap argMultimap) throws ParseException {
+        return ParserUtil.parseDescription(argMultimap.getSingleValue(CliSyntax.PREFIX_NAME).get());
     }
 
     /**
@@ -45,7 +45,7 @@ public abstract class AddTransactionCommandParser {
      * @return {@code Value} object based on the values in the input {@code ArgumentMultimap}.
      */
     protected Value parseTransactionValue(ArgumentMultimap argMultimap) throws ParseException {
-        return ParserUtil.parseValue(argMultimap.getValue(CliSyntax.PREFIX_COST).get());
+        return ParserUtil.parseValue(argMultimap.getSingleValue(CliSyntax.PREFIX_VALUE).get());
     }
 
     /**
@@ -54,8 +54,8 @@ public abstract class AddTransactionCommandParser {
     * @param argMultimap the object to parse from.
     * @return {@code Remark} object based on the values in the input {@code ArgumentMultimap}.
     */
-    protected Remark parseTransactionRemark(ArgumentMultimap argMultimap) {
-        Optional<String> remark = argMultimap.getValue(CliSyntax.PREFIX_REMARK);
+    protected Remark parseTransactionRemark(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> remark = argMultimap.getSingleValue(CliSyntax.PREFIX_REMARK);
         if (remark.isEmpty()) {
             return ParserUtil.parseRemark("");
         } else {

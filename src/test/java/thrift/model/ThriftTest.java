@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import thrift.model.transaction.BudgetList;
 import thrift.model.transaction.Transaction;
 import thrift.testutil.TypicalTransactions;
 
@@ -62,14 +63,21 @@ public class ThriftTest {
      */
     private static class ThriftStub implements ReadOnlyThrift {
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
+        private BudgetList budgets;
 
         ThriftStub(Collection<Transaction> transactions) {
             this.transactions.setAll(transactions);
+            budgets = new BudgetList();
         }
 
         @Override
         public ObservableList<Transaction> getTransactionList() {
             return transactions;
+        }
+
+        @Override
+        public BudgetList getBudgetList() {
+            return budgets;
         }
     }
 

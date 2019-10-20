@@ -30,8 +30,8 @@ THRIFT is for money-conscious NUS students who wish to track their spending, in 
 4. Double-click the file to start the app, the GUI should appear in a few seconds.
 5. Type the command in the command box and press `Enter` to execute it. e.g. typing `help` and pressing `Enter` will open the help window.
 6. Some example commands you can try:
-*   `add_expense n/Apple Airpods c/200`: adds an expense called `Apple Airpods` which cost $`200`.
-*   `add_income n/Bursary Award c/350`: adds an income called `Bursary Award` which incremented your budget by $`350`.
+*   `add_expense n/Apple Airpods v/200`: adds an expense called `Apple Airpods` which cost $`200`.
+*   `add_income n/Bursary Award v/350`: adds an income called `Bursary Award` which incremented your budget by $`350`.
 *   `delete i/1`: deletes the 1st transaction in the current list shown in the UI.
 
 
@@ -39,23 +39,39 @@ THRIFT is for money-conscious NUS students who wish to track their spending, in 
 
 Command format:
 
-*   Words in `UPPER_CASE` are parameters to be supplied by the user e.g. `expense n/EXPENSE_NAME c/COST`.
-*   Items in square brackets `[ ]` are optional e.g. `n/EXPENSE_NAME [t/TAG]` can be used as `n/Laksa t/Food`.
+*   Words in `UPPER_CASE` are parameters to be supplied by the user e.g. `expense n/EXPENSE_NAME v/VALUE`.
+*   Items in square brackets `[ ]` are optional e.g. `n/EXPENSE_NAME [t/TAG]` can be used as `n/Laksa`.
 *   Items in round brackets `( )` with `|` are mandatory parameters where a selection is needed e.g. `tag (add | delete)` means you need to input either `tag add` or `tag delete`.
 *   Items with `...` after them can be used multiple times including zero times e.g. `[t/TAG] …` can be used as ` ` (i.e. 0 times), `t/Food t/Dinner` etc.
-*   Parameters can be in any order e.g. if the command specifies `n/EXPENSE_NAME c/COST`, `c/COST n/EXPENSE_NAME` will achieve the same outcome.
+*   Parameters can be in any order e.g. if the command specifies `n/EXPENSE_NAME v/VALUE`, `v/VALUE n/EXPENSE_NAME` will achieve the same outcome.
+
+[[BudgetTag]]
+=== Setting monthly budget: `budget`
+
+Format: `budget v/VALUE d/MONTH`, where `MONTH` are digits in `MM/YYYY`.
+
+Example:
+
+*   `budget v/1000 d/10/2019`
+
+Expected output:
+
+*   `New budget: +
+Amount: $1,000.00 +
+Month: 10/2019`
+
 
 [[ExpenseTag]]
 === Adding an expense: `add_expense`
 
-Format: `add_expense n/EXPENSE_NAME c/COST [r/REMARKS] [t/TAG]...`
+Format: `add_expense n/EXPENSE_NAME v/VALUE [r/REMARKS] [t/TAG]...`
 
-TIP: The default currency is in Singapore Dollars (SGD). You are recommended to `convert` foreign currencies to SGD before adding the value as the `COST`.
+TIP: The default currency is in Singapore Dollars (SGD). You are recommended to `convert` foreign currencies to SGD before adding the value as the `VALUE`.
 
 Examples:
 
-*   `add_expense n/Laksa c/10.50 t/Lunch t/Food`
-*   `add_expense n/Travel c/53 r/Went to Johor Bahru t/Travel`
+*   `add_expense n/Laksa v/10.50 t/Lunch t/Food`
+*   `add_expense n/Travel v/53 r/Went to Johor Bahru t/Travel`
 
 Expected output:
 
@@ -66,12 +82,12 @@ Expected output:
 [[IncomeTag]]
 === Adding an income: `add_income`
 
-Format: `add_income n/INCOME_NAME c/COST [r/REMARKS] [t/TAG]...`
+Format: `add_income n/INCOME_NAME v/VALUE [r/REMARKS] [t/TAG]...`
 
 Examples:
 
-*   `add_income n/Allowance c/1000 t/Monthly`
-*   `add_income n/Bursary c/500 r/Did well in previous semester. t/Award`
+*   `add_income n/Allowance v/1000 t/Monthly`
+*   `add_income n/Bursary v/500 r/Did well in previous semester. t/Award`
 
 Expected output:
 
@@ -89,7 +105,7 @@ Format: `delete i/INDEX`
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+Example:
 
 *   `delete i/1`
 
@@ -114,7 +130,7 @@ Format: `update i/INDEX PREFIX_LETTER/UPDATED_DETAILS ...`
 Examples:
 
 *   `update i/1 n/Curry Laksa`
-*   `update i/1 n/Asam Laksa c/11 r/My first time trying! t/Dinner t/Food`
+*   `update i/1 n/Asam Laksa v/11 r/My first time trying! t/Dinner t/Food`
 
 Expected output: +
 
@@ -141,7 +157,7 @@ Format: `tag i/INDEX t/TAG_NAME...`
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+Example:
 
 *   `tag i/8 t/Debt`
 
@@ -163,7 +179,7 @@ Format: `untag i/INDEX t/TAG_NAME...`
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+Example:
 
 *   `untag i/7 t/Important`
 
@@ -177,7 +193,7 @@ Expected output:
 [[ConvertTag]]
 === Converting currency: `convert`
 
-Format: `convert to/TARGET_CURRENCY (c/COST|i/INDEX)`
+Format: `convert to/TARGET_CURRENCY (v/VALUE|i/INDEX)`
 
 ****
 * Converts the a fixed value or `Transaction` entry
@@ -190,7 +206,6 @@ Format: `convert to/TARGET_CURRENCY (c/COST|i/INDEX)`
 Examples:
 
 *   `convert to/USD v/1000`
-
 *   `convert to/JPY i/8`
 
 Expected output:
@@ -240,10 +255,10 @@ NOTE: Undoable commands are commands that modify the data of THRIFT application.
 
 Examples:
 
-* `add_expense n/Laksa c/10.50 t/Lunch t/Food` +
+* `add_expense n/Laksa v/10.50 t/Lunch t/Food` +
   `undo`
 
-* `add_income n/Allowance c/1000 t/Monthly` +
+* `add_income n/Allowance v/1000 t/Monthly` +
   `list` +
   `undo`
 
@@ -262,7 +277,7 @@ Format: `redo`
 
 Examples:
 
-* `add_expense n/Laksa c/10.50 t/Lunch t/Food` +
+* `add_expense n/Laksa v/10.50 t/Lunch t/Food` +
   `undo` +
   `redo`
 
@@ -330,14 +345,16 @@ If you are especially conscious about having your data spied on, this function w
 *A*: Runs the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous THRIFT application.
 
 == Command summary
-* <<ExpenseTag, *Expense*>>:  `add_expense n/EXPENSE_NAME c/COST [r/REMARKS] [t/TAG]...` +
-Example: `add_expense n/Laksa c/10.50 r/At Hougang t/Lunch t/Food`
-* <<IncomeTag, *Income*>>: `add_income n/INCOME_NAME c/COST [t/TAG]...` +
-Example: `add_income n/Allowance c/1000 r/From my parents t/Monthly`
+* <<BudgetTag, *Budget*>>: `budget v/VALUE d/MONTH` +
+Example: `budget v/1000 d/10/2019`
+* <<ExpenseTag, *Expense*>>:  `add_expense n/EXPENSE_NAME v/VALUE [r/REMARKS] [t/TAG]...` +
+Example: `add_expense n/Laksa v/10.50 r/At Hougang t/Lunch t/Food`
+* <<IncomeTag, *Income*>>: `add_income n/INCOME_NAME v/VALUE [t/TAG]...` +
+Example: `add_income n/Allowance v/1000 r/From my parents t/Monthly`
 * <<DeleteTag, *Delete*>>: `delete i/INDEX` +
 Example: `delete i/1`
 * <<UpdateTag, *Update*>>: `update i/INDEX PREFIX_LETTER/UPDATED_DETAILS ...` +
-Example: `update i/1 n/Curry Laksa c/5 t/Lunch t/Dinner`
+Example: `update i/1 n/Curry Laksa v/5 t/Lunch t/Dinner`
 * <<CloneTag, *Clone*>>: `clone i/INDEX` +
 Example: `clone i/1`
 * <<ListTag, *List*>>: `list [m/MONTH] [t/TAG]` +
@@ -346,10 +363,10 @@ Example: `list m/Jan t/Food`
 Example: `tag i/8 t/Debt`
 * <<UntagTag, *Untag*>>: `untag i/INDEX t/TAG_NAME` +
 Example: `untag i/7 t/Important`
-* <<ConvertTag, *Convert*>>: `convert to/TARGET_CURRENCY (c/COST|i/INDEX)` +
+* <<ConvertTag, *Convert*>>: `convert to/TARGET_CURRENCY (v/VALUE|i/INDEX)` +
 Examples: +
- `convert c/USD v/1000` +
- `convert c/JPY i/8`
+ `convert v/USD v/1000` +
+ `convert v/JPY i/8`
 * <<UndoTag, *Undo*>>: `undo`
 * <<RedoTag, *Redo*>>: `redo`
 * <<HelpTag, *Help*>>: `help [COMMAND]` +

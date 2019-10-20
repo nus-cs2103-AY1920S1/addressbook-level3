@@ -16,6 +16,7 @@ import thrift.model.transaction.Value;
 import thrift.testutil.TypicalTransactions;
 
 public class JsonAdaptedTransactionTest {
+
     private static final String INVALID_VALUE = ".00";
     private static final String INVALID_TAG = "A+";
 
@@ -28,9 +29,8 @@ public class JsonAdaptedTransactionTest {
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
-
     @Test
-    public void toModelType_validTransactionDetails_returnsTransaction() throws Exception {
+    public void toModelType_validTransactionDetails_returnsTransaction() throws IllegalValueException {
         JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(TypicalTransactions.PENANG_LAKSA);
         assertEquals(TypicalTransactions.PENANG_LAKSA.toString(), transaction.toModelType().toString());
     }

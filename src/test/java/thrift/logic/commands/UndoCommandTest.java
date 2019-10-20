@@ -1,7 +1,7 @@
 package thrift.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static thrift.logic.commands.CommandTestUtil.assertCommandFailure;
-import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +36,6 @@ public class UndoCommandTest {
         model.addExpense(expense);
         model.keepTrackCommands(addExpenseCommand);
 
-        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertDoesNotThrow(() -> undoCommand.execute(model));
     }
 }

@@ -526,6 +526,26 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `THRIFT` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+=== Use case: Setting monthly budget
+
+*MSS*
+
+1. User requests to set their monthly budget to a certain amount.
+2. THRIFT processes the request and sets the amount as the monthly budget.
++
+_Use case ends_
+
+*Extensions*
+
+[none]
+* 1a. The parameters specified by the user are not valid.
++
+[none]
+** 1a1. THRIFT displays an invalid parameter error to the user and the monthly budget is not updated.
++
+_Use case ends_
+
+[discrete]
 === Use case: Add an expense/income transaction
 
 *MSS*
@@ -772,16 +792,27 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Setting the monthly budget
+
+. Setting the monthly budget to be a certain amount.
+
+.. Test case: `budget v/1000 d/10/2019` +
+    Expected: The monthly budget for `10/2019` is now set to $`1000`. Details of the new monthly budget is shown in the status message. The monthly balance in the GUI is re-calculated to reflect the updated budget.
+.. Test case: `budget` +
+    Expected: The monthly budget is not updated. Error details shown in the status message (missing `d/MONTH` and `v/VALUE` parameters). Status bar remains the same.
+.. Test case: `budget v/10000000 d/10/2019` +
+    Expected: The monthly budget is not updated. Error details shown in the status message (`v/VALUE` input exceeds constraint of 1 million). Status bar remains the same.
+
 === Adding a transaction
 
 . Adding a transaction, be it income or expense.
 
-.. Test case: `add_expense n/Bought a pair of Apple Earpods c/350` +
+.. Test case: `add_expense n/Bought a pair of Apple Earpods v/350` +
     Expected: A new expense transaction is added into the list. Details of the expense transaction shown in the status message. The date string is automatically saved into the transaction list.
-.. Test case: `add_income n/Awarded bursary prize c/500` +
+.. Test case: `add_income n/Awarded bursary prize v/500` +
     Expected: A new income transaction is added into the list. Details of the income transaction shown in the status message. The date string is automatically saved into the transactions list.
 .. Test case: `add_expense n/Lunch in school` +
-    Expected: No transaction is added. Error details shown in the status message (missing `c/COST` parameter). Status bar remains the same.
+    Expected: No transaction is added. Error details shown in the status message (missing `v/VALUE` parameter). Status bar remains the same.
 
 === Deleting a transaction
 
@@ -802,9 +833,9 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
 .. Test case: `update i/1 n/Fried Rice` +
    Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
-.. Test case: `update i/1 c/20` +
+.. Test case: `update i/1 v/20` +
    Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
-.. Test case: `update i/1 n/Fried Rice c/20 t/Lunch t/Food` +
+.. Test case: `update i/1 n/Fried Rice v/20 t/Lunch t/Food` +
    Expected: Details of the updated transaction and original transaction shown in status message. Displayed list scrolls to updated item which reflects the changes.
 .. Test case: `update i/INVALID_INDEX` where `INVALID_INDEX` is a number less than 1 or more than list size. +
    Expected: No changes. Error details shown in status message.
@@ -891,11 +922,11 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Converting a values's currency and displaying it
 
-.. Test case: `convert from/SGD to/USD c/cost`. +
+.. Test case: `convert from/SGD to/USD v/VALUE`. +
    Expected: Original value and converted value displayed to the user.
-.. Test case: `convert from/SGD to/INVALID_CURRENCY c/cost` where `INVALID_CURRENCY` is not a supported currency. +
+.. Test case: `convert from/SGD to/INVALID_CURRENCY v/VALUE` where `INVALID_CURRENCY` is not a supported currency. +
    Expected: Error details shown in status message.
-.. Test case: `convert from/INVALID_CURRENCY to/USD c/cost` where `INVALID_CURRENCY` is not a supported currency. +
+.. Test case: `convert from/INVALID_CURRENCY to/USD v/VALUE` where `INVALID_CURRENCY` is not a supported currency. +
    Expected: Error details shown in status message.
 
 === Undoing the previous command
@@ -906,7 +937,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case:
 +
 --
-... `add expense n/Chicken rice c/3`
+... `add expense n/Chicken rice v/3`
 ... `undo`
 --
 +
@@ -914,7 +945,7 @@ Expected: Transaction regarding to the expense spent on chicken rice is removed 
 .. Test case:
 +
 --
-... `add income n/Salary c/2500`
+... `add income n/Salary v/2500`
 ... `undo`
 --
 +
@@ -976,7 +1007,7 @@ Expected: No changes. Message shown in the status message indicating that there 
 .. Test case:
 +
 --
-... `add expense n/Laksa c/3`
+... `add expense n/Laksa v/3`
 ... `undo`
 ... `redo`
 --
@@ -985,7 +1016,7 @@ Expected: Transaction regarding to the expense spent on Laksa is added back to t
 .. Test case:
 +
 --
-... `add income n/bursary c/2500`
+... `add income n/bursary v/2500`
 ... `undo`
 ... `redo`
 --

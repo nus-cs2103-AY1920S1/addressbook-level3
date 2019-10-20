@@ -1,5 +1,6 @@
 package thrift.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static thrift.testutil.Assert.assertThrows;
 
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.io.TempDir;
 import thrift.commons.exceptions.DataConversionException;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.Thrift;
+import thrift.testutil.TypicalTransactions;
 
 public class JsonThriftStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
@@ -57,8 +59,6 @@ public class JsonThriftStorageTest {
             -> readThrift("invalidAndValidTransactionThrift.json"));
     }
 
-    /* TODO: Fix the bug where saving the pre-built transaction list and reading the pre-built transaction list do
-    *        not pass the assertEquals() on line 73.
     @Test
     public void readAndSaveThrift_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempThrift.json");
@@ -84,7 +84,6 @@ public class JsonThriftStorageTest {
         assertEquals(original, new Thrift(readBack));
 
     }
-     */
 
     @Test
     public void saveThrift_nullThrift_throwsNullPointerException() {

@@ -44,9 +44,9 @@ public class ValueTest {
         assertFalse(Value.isValidValue("^")); // only non-numeric characters
         assertFalse(Value.isValidValue("1a")); // contains non-numeric characters
         assertFalse(Value.isValidValue("10.100")); // contains more than 2 decimal digits
-        assertFalse(Value.isValidValue(".10")); // no decimal value
+        assertFalse(Value.isValidValue(".10")); // not whole number
 
-        // valid name
+        // valid value
         assertTrue(Value.isValidValue("100")); // integer only
         assertTrue(Value.isValidValue("100.1")); // 1 decimal point
         assertTrue(Value.isValidValue("100.10")); // 2 decimal points

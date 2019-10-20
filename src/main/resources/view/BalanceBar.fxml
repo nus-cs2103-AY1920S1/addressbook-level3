@@ -5,11 +5,16 @@
 <?import javafx.scene.layout.Pane?>
 
 <HBox styleClass="balance-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <HBox styleClass="balance-bar-fill">
+    <Pane minWidth="10"></Pane>
+    <Label fx:id="monthYearLabel" />
+  </HBox>
+  <Pane styleClass="balance-bar-fill" HBox.hgrow="ALWAYS"></Pane>
+  <Pane styleClass="balance-bar-ribbon" minWidth="20"></Pane>
   <Pane minWidth="10"></Pane>
-  <Label fx:id="monthlyBudgetLabel" />
-  <Label fx:id="monthlyBudget" />
-  <Pane HBox.hgrow="ALWAYS"></Pane>
-  <Label fx:id="balanceRemainingLabel" />
-  <Label fx:id="balance" />
+  <Label fx:id="monthBudgetLabel" />
+  <Label fx:id="monthBudgetValueLabel" />
+  <Label fx:id="monthBalanceLabel" />
+  <Label fx:id="monthBalanceValueLabel" />
   <Pane minWidth="20"></Pane>
 </HBox>

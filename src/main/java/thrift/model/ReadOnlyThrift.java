@@ -1,6 +1,7 @@
 package thrift.model;
 
 import javafx.collections.ObservableList;
+import thrift.model.transaction.BudgetList;
 import thrift.model.transaction.Transaction;
 
 /**
@@ -12,5 +13,10 @@ public interface ReadOnlyThrift {
      * Returns an unmodifiable view of the transactions list.
      */
     ObservableList<Transaction> getTransactionList();
+
+    /**
+     * Returns the budget list.
+     */
+    BudgetList getBudgetList();
 
 }

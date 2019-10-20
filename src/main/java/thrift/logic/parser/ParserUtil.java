@@ -1,7 +1,9 @@
 package thrift.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static thrift.model.transaction.Budget.BUDGET_DATE_FORMAT;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +12,8 @@ import thrift.commons.core.index.Index;
 import thrift.commons.util.StringUtil;
 import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.tag.Tag;
+import thrift.model.transaction.Budget;
+import thrift.model.transaction.BudgetValue;
 import thrift.model.transaction.Description;
 import thrift.model.transaction.Remark;
 import thrift.model.transaction.Value;
@@ -36,7 +40,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String description} into a {@code Description}.
+     * Parses a {@code String description} into a {@code Description} and returns it.
      * Leading and trailing whitespaces will be trimmed.
      */
     public static Description parseDescription(String description) {
@@ -46,7 +50,29 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String value} into a {@code Value}.
+     * Parses a {@code String monthYear} into a {@code Calendar} with {@code Calendar.MONTH} and {@code Calendar.YEAR}
+     * set and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Calendar parseDate(String monthYear) throws ParseException {
+        requireNonNull(monthYear);
+        Calendar date = Calendar.getInstance();
+
+        String trimmedMonthYear = monthYear.trim();
+        if (!trimmedMonthYear.matches(Budget.VALIDATION_REGEX)) {
+            throw new ParseException(Budget.DATE_CONSTRAINTS);
+        }
+
+        try {
+            date.setTime(BUDGET_DATE_FORMAT.parse(trimmedMonthYear));
+        } catch (java.text.ParseException pe) {
+            throw new ParseException(Budget.DATE_CONSTRAINTS);
+        }
+        return date;
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code Value} and returns it.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code value} is invalid.
@@ -61,7 +87,22 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String remark} into a {@code Remark}.
+     * Parses a {@code String value} into a {@code BudgetValue} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code value} is invalid.
+     */
+    public static BudgetValue parseBudgetValue(String value) throws ParseException {
+        requireNonNull(value);
+        String trimmedValue = value.trim();
+        if (!BudgetValue.isValidValue(trimmedValue)) {
+            throw new ParseException(BudgetValue.VALUE_CONSTRAINTS);
+        }
+        return new BudgetValue(trimmedValue);
+    }
+
+    /**
+     * Parses a {@code String remark} into a {@code Remark} and returns it.
      * Leading and trailing whitespaces will be trimmed.
      */
     public static Remark parseRemark(String remark) {
@@ -71,7 +112,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String tag} into a {@code Tag} and returns it.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
@@ -86,7 +127,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} and returns it.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
