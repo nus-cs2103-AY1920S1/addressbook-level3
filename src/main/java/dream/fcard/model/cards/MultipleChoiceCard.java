@@ -21,40 +21,15 @@ public class MultipleChoiceCard extends FrontBackCard {
 
     /**
      * Construct a multiple choice card.
-     * @param frontString   front string
-     * @param backString    original sorted answer index
-     * @param choicesArg    original sorted choices
+     *
+     * @param frontString front string
+     * @param backString  original sorted answer index
+     * @param choicesArg  original sorted choices
      */
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg) {
         super(frontString, backString);
         choices = choicesArg;
         //answerIndex = Integer.parseInt(back);
-    }
-
-    public void editFront(String newText) {
-        front = newText;
-    }
-
-    public void editBack(String newText) {
-        back = newText;
-    }
-
-    /**
-     * Edits one of string in choices, given new text and index.
-     */
-    public void editChoice(int index, String newChoice) throws IndexNotFoundException {
-        if (index < 0 || index > choices.size()) {
-            throw new IndexNotFoundException(new Exception());
-        }
-        choices.add(index, newChoice);
-        choices.remove(index + 1);
-    }
-
-    public String getChoice(int index) throws IndexNotFoundException {
-        if (index < 0 || index > choices.size()) {
-            throw new IndexNotFoundException(new Exception());
-        }
-        return choices.get(index);
     }
 
     @Override
@@ -81,17 +56,73 @@ public class MultipleChoiceCard extends FrontBackCard {
         return super.renderFront();
     }
 
-
     @Override
     public Boolean evaluate(String in) {
         return in.equals(back);
         //return Integer.parseInt(in) == answerIndex;
     }
 
+    /**
+     * Edits the front text of the MultipleChoiceCard.
+     *
+     * @param newText String of text to replace the front of MultipleChoiceCard.
+     */
+    public void editFront(String newText) {
+        front = newText;
+    }
+
+    /**
+     * Edits the back text of the MultipleChoiceCard.
+     *
+     * @param newText String of text to replace the back of MultipleChoiceCard.
+     */
+    public void editBack(String newText) {
+        back = newText;
+    }
+
+    /**
+     * Edits one of string in choices, given new text and index.
+     *
+     * @param index     Integer index of targeted choice to edit.
+     * @param newChoice String text of new choice option to replace current choice.
+     * @throws IndexNotFoundException If index >= number of choices or < 0.
+     */
+    public void editChoice(int index, String newChoice) throws IndexNotFoundException {
+        if (index < 0 || index > choices.size()) {
+            throw new IndexNotFoundException(new Exception());
+        }
+        choices.add(index, newChoice);
+        choices.remove(index + 1);
+    }
+
+    /**
+     * Get the String text of choice given the index of the choice.
+     *
+     * @param index Integer index of targeted choice to obtain.
+     * @return String of text of targeted option.
+     * @throws IndexNotFoundException If index >= number of choices or < 0.
+     */
+    public String getChoice(int index) throws IndexNotFoundException {
+        if (index < 0 || index > choices.size()) {
+            throw new IndexNotFoundException(new Exception());
+        }
+        return choices.get(index);
+    }
+
+    /**
+     * Get the String of front of MultipleChoiceCard.
+     *
+     * @return String of text in front of MultipleChoiceCard.
+     */
     public String getFront() {
         return front;
     }
 
+    /**
+     * Get the String of back of MultipleChoiceCard.
+     *
+     * @return String of text in back of MultipleChoiceCard.
+     */
     public String getBack() {
         return back;
     }

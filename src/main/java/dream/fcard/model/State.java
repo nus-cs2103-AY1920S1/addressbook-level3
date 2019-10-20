@@ -5,22 +5,30 @@ import java.util.ArrayList;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 
 /**
- * Running state of the program
+ * Running state of the program.
  */
 public class State {
 
     private ArrayList<Deck> decks;
 
+    /**
+     * Constructor to create a State object with no Deck objects.
+     */
     public State() {
         decks = new ArrayList<>();
     }
 
+    /**
+     * Constructor to create a State object with existing Deck objects.
+     *
+     * @param initialDecks ArrayList of Deck objects to include in State object.
+     */
     public State(ArrayList<Deck> initialDecks) {
         decks = initialDecks;
     }
 
     /**
-     * Adds new empty deck object to decks list.
+     * Adds new empty Deck object to decks list.
      */
     public void addDeck(String deckName) {
         decks.add(new Deck(deckName));
@@ -61,7 +69,7 @@ public class State {
     private int getDeckIndex(String deckName) {
         for (int i = 0; i < decks.size(); i++) {
             Deck currentDeck = decks.get(i);
-            boolean isUserInputMatchDeckName = currentDeck.getDeckName().equals(deckName);
+            boolean isUserInputMatchDeckName = currentDeck.getName().equals(deckName);
 
             if (isUserInputMatchDeckName) {
                 return i;
