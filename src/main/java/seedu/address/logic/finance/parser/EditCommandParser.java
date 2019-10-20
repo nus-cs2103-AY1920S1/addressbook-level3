@@ -3,8 +3,10 @@ package seedu.address.logic.finance.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,11 +14,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.finance.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.finance.commands.EditCommand.EditLogEntryDescriptor;
 import seedu.address.logic.finance.commands.EditCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-import seedu.address.model.finance.attributes.Tag;
-
+import seedu.address.model.finance.attributes.Category;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -33,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DAY,
-                        PREFIX_DESCRIPTION);
+                        PREFIX_DESCRIPTION, PREFIX_TRANSACTION_METHOD,
+                        PREFIX_CATEGORY);
 
         Index index;
 
@@ -43,38 +45,39 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditLogEntryDescriptor editLogEntryDescriptor = new EditCommand.EditLogEntryDescriptor();
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            editPersonDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            editLogEntryDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
         if (argMultimap.getValue(PREFIX_DAY).isPresent()) {
-            editPersonDescriptor.setTDate(ParserUtil.parseTransactionDate(argMultimap.getValue(PREFIX_DAY).get()));
+            editLogEntryDescriptor.setTransactionDate(ParserUtil
+                    .parseTransactionDate(argMultimap.getValue(PREFIX_DAY).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editPersonDescriptor.setDesc(ParserUtil.parseDescription(
+            editLogEntryDescriptor.setDesc(ParserUtil.parseDescription(
                     argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editLogEntryDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editLogEntryDescriptor);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * Parses {@code Collection<String> cats} into a {@code Set<Category>} if {@code categories} is non-empty.
+     * If {@code category} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Category>} containing zero categories.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
+    private Optional<Set<Category>> parseCategoriesForEdit(Collection<String> cats) throws ParseException {
+        assert cats != null;
 
-        if (tags.isEmpty()) {
+        if (cats.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        Collection<String> catSet = cats.size() == 1 && cats.contains("") ? Collections.emptySet() : cats;
+        return Optional.of(ParserUtil.parseCategories(catSet));
     }
 
 }

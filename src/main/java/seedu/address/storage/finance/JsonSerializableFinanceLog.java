@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.logentry.LogEntry;
-
+import seedu.address.model.finance.logentry.SpendLogEntry;
 
 /**
  * An Immutable FinanceLog that is serializable to JSON format.
@@ -26,7 +26,7 @@ class JsonSerializableFinanceLog {
      * Constructs a {@code JsonSerializableFinanceLog} with the given log entries.
      */
     @JsonCreator
-    public JsonSerializableFinanceLog(@JsonProperty("logEntries") List<JsonAdaptedLogEntry> logEntries) {
+    public JsonSerializableFinanceLog(@JsonProperty("logEntries") List<JsonAdaptedSpendLogEntry> logEntries) {
         this.logEntries.addAll(logEntries);
     }
 
@@ -37,7 +37,32 @@ class JsonSerializableFinanceLog {
      */
     public JsonSerializableFinanceLog(ReadOnlyFinanceLog source) {
         logEntries.addAll(source.getLogEntryList()
-                .stream().map(JsonAdaptedLogEntry::new).collect(Collectors.toList()));
+                .stream().map((log) -> createLogEntry(log))
+                .collect(Collectors.toList()));
+    }
+
+    /**
+     * Returns the appropriate child class of {@code JsonAdaptedLogEntry}
+     * according to log entry type.
+     */
+    private JsonAdaptedLogEntry createLogEntry(LogEntry log) {
+        String amount = log.getAmount().toString();
+        String tDate = log.getTransactionDate().toString();
+        String desc = log.getDescription().toString();
+        String tMethod = log.getTransactionMethod().toString();
+        List<JsonAdaptedCategory> categories = new ArrayList<>();
+        categories.addAll(log.getCategories()
+                .stream()
+                .map(JsonAdaptedCategory::new)
+                .collect(Collectors.toList()));
+        String logEntryType = log.getLogEntryType();
+
+        switch (logEntryType) {
+        case SpendLogEntry.LOG_ENTRY_TYPE:
+            return new JsonAdaptedSpendLogEntry(amount, tDate, desc, tMethod, categories, logEntryType);
+        default:
+            return new JsonAdaptedSpendLogEntry(amount, tDate, desc, tMethod, categories, logEntryType);
+        }
     }
 
     /**

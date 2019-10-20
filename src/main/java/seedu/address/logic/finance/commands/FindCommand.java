@@ -31,7 +31,7 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredLogEntryList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredLogEntryList().size()));
+                String.format(Messages.MESSAGE_LOG_ENTRIES_LISTED_OVERVIEW, model.getFilteredLogEntryList().size()));
     }
 
     @Override
