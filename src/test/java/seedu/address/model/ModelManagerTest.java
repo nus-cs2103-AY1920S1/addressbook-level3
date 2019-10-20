@@ -1,14 +1,23 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalTransactions.ALICE;
+import static seedu.address.testutil.TypicalTransactions.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.transaction.TransactionContainsTagsPredicate;
+import seedu.address.testutil.BankAccountBuilder;
 
 
 public class ModelManagerTest {
@@ -31,14 +40,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setBankAccountFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setBankAccountFilePath(Paths.get("bank/account/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setBankAccountFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setBankAccountFilePath(Paths.get("new/bank/account/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,12 +70,11 @@ public class ModelManagerTest {
 
     @Test
     public void setBankAccountFilePath_validPath_setsBankAccountFilePath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("bank/account/file/path");
         modelManager.setBankAccountFilePath(path);
         assertEquals(path, modelManager.getBankAccountFilePath());
     }
 
-    /*
     @Test
     public void hasTransaction_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasTransaction(null));
@@ -82,15 +90,13 @@ public class ModelManagerTest {
         modelManager.addTransaction(ALICE);
         assertTrue(modelManager.hasTransaction(ALICE));
     }
-     */
 
     @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager
-            .getFilteredTransactionList().remove(0));
+                .getFilteredTransactionList().remove(0));
     }
 
-    /*
     @Test
     public void equals() {
         BankAccount bankAccount = new BankAccountBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
@@ -116,8 +122,12 @@ public class ModelManagerTest {
 
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        final List<String> tags = ALICE
+                .getTags()
+                .stream()
+                .map(tag -> tag.getTagName())
+                .collect(Collectors.toList());
+        modelManager.updateFilteredTransactionList(new TransactionContainsTagsPredicate(tags));
         assertFalse(modelManager.equals(new ModelManager(bankAccount, userPrefs)));
 
 
@@ -129,5 +139,4 @@ public class ModelManagerTest {
         differentUserPrefs.setBankAccountFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(bankAccount, differentUserPrefs)));
     }
-     */
 }

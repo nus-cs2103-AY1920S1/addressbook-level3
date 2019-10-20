@@ -78,10 +78,10 @@ public class ModelManager implements Model {
         userPrefs.setBankAccountFilePath(bankAccountFilePath);
     }
 
-    // TODO: implement stubs below
     @Override
     public void setBankAccount(ReadOnlyBankAccount bankAccount) {
-
+        requireNonNull(bankAccount);
+        this.bankAccount.resetData(bankAccount);
     }
 
     @Override
@@ -91,19 +91,21 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasTransaction(Transaction transaction) {
-        return false;
+        requireNonNull(transaction);
+        return bankAccount.hasTransaction(transaction);
     }
 
     @Override
     public void deleteTransaction(Transaction transaction) {
-
+        bankAccount.removeTransaction(transaction);
     }
 
     @Override
     public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireAllNonNull(target, editedTransaction);
 
+        bankAccount.setTransaction(target, editedTransaction);
     }
-    // stubs end here
 
     @Override
     public void addTransaction(Transaction transaction) {
@@ -140,7 +142,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return bankAccount.equals(other.bankAccount)
-                && userPrefs.equals(other.userPrefs);
+                && userPrefs.equals(other.userPrefs)
+                && filteredTransactions.equals(other.filteredTransactions);
     }
 
 }

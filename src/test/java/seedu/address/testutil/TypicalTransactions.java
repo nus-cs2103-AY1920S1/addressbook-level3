@@ -15,30 +15,37 @@ public class TypicalTransactions {
     public static final Transaction ALICE = new TransactionBuilder()
             .withAmount("100")
             .withDate("19112019")
+            .withTags("food")
             .withPeopleInvolved("ALICE").build();
     public static final Transaction BENSON = new TransactionBuilder()
             .withAmount("200")
             .withDate("19112019")
+            .withTags("breakfast")
             .withPeopleInvolved("BENSON").build();
     public static final Transaction CARL = new TransactionBuilder()
             .withAmount("300")
             .withDate("19112019")
+            .withTags("dinner")
             .withPeopleInvolved("CARL").build();
     public static final Transaction DANIEL = new TransactionBuilder()
             .withAmount("400")
             .withDate("19112019")
+            .withTags("drink")
             .withPeopleInvolved("DANIEL").build();
     public static final Transaction ELLE = new TransactionBuilder()
             .withAmount("500")
             .withDate("19112019")
+            .withTags("lunch")
             .withPeopleInvolved("ELLE").build();
     public static final Transaction FIONA = new TransactionBuilder()
             .withAmount("600")
             .withDate("19112019")
+            .withTags("club")
             .withPeopleInvolved("FIONA").build();
     public static final Transaction GEORGE = new TransactionBuilder()
             .withAmount("700")
             .withDate("19112019")
+            .withTags("grocery")
             .withPeopleInvolved("GEORGE").build();
 
     // Manually added

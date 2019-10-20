@@ -33,7 +33,6 @@ public class AppUtil {
      */
     public static void checkArgument(Boolean condition, String errorMessage) {
         if (!condition) {
-            System.out.println("cond failed at checkArgument");
             throw new IllegalArgumentException(errorMessage);
         }
     }
