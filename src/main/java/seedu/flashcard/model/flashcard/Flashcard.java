@@ -23,6 +23,7 @@ public class Flashcard {
     private final Set<Choice> choices = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     private final Answer answer;
+    private final Score score;
 
     public Flashcard(Word word, Set<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
         requireAllNonNull(word, definitions, tags);
@@ -31,6 +32,7 @@ public class Flashcard {
         this.definition = definitions;
         this.tags.addAll(tags);
         this.answer = answer;
+        this.score = new Score();
     }
 
     public Word getWord() {
@@ -51,6 +53,14 @@ public class Flashcard {
      */
     public Answer getAnswer() {
         return answer;
+    }
+
+    /**
+     * Returns an immutable score, which throws {@code UnsupportedOperationException}
+     * if modification attempted
+     */
+    public Score getScore() {
+        return score;
     }
 
     /**
