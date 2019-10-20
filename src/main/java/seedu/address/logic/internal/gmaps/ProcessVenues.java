@@ -135,7 +135,7 @@ public class ProcessVenues implements Serializable {
             Location currLocation = new Location(locationName);
             try {
                 String validLocation = sanitizeLocation.sanitize(locationName);
-                currLocation.setGoogleRecognisedLocation(validLocation);
+                currLocation.setValidLocation(validLocation);
                 System.out.println(locationName + " identified as " + validLocation);
             } catch (TimeBookInvalidLocation e) {
                 System.out.println(e.getMessage());
