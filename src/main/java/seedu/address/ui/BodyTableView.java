@@ -37,7 +37,7 @@ public class BodyTableView extends UiPart<Region> {
     private static final double COLUMN_WIDTH_NAME = 0.225;
     private static final double COLUMN_WIDTH_ID = 0.15;
     private static final double COLUMN_WIDTH_DATE_OF_ADMISSION = 0.25;
-    private static final double COLUMN_WIDTH_BODY_STATUS = 0.275;
+    private static final double COLUMN_WIDTH_BODY_STATUS = 0.26;
 
     private final Logger logger = LogsCenter.getLogger(BodyTableView.class);
 

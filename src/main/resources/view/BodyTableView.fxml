@@ -2,4 +2,5 @@
 
 <?import javafx.scene.control.TableView?>
 
-<TableView fx:id="bodyTableView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+
+<TableView fx:id="bodyTableView" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
