@@ -1,52 +1,22 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COVERAGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CRITERIA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_AGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OFF;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_AGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.USER_PREFIXES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddPolicyCommand;
-import seedu.address.logic.commands.AddPolicyTagCommand;
-import seedu.address.logic.commands.AddTagCommand;
-import seedu.address.logic.commands.AssignPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeletePolicyCommand;
-import seedu.address.logic.commands.DeletePolicyTagCommand;
-import seedu.address.logic.commands.DeleteTagCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditPolicyCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
-import seedu.address.logic.commands.SuggestionSwitchCommand;
-import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
@@ -69,7 +39,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
-    private static ArrayList<String> commands = new ArrayList<>();
+    private static HashSet<String> commands = new HashSet<>();
 
     private static int lengthLongerThanAllCommandWords = 100;
     /**
@@ -329,75 +299,29 @@ public class ParserUtil {
      */
     //todo update commands
     private static String similarPrefixesAndShortestDistance(String command, String arguments) {
-        ArrayList<String> shortListedCommands = new ArrayList<>();
+        HashSet<String> shortListedCommands = new HashSet<>();
         boolean hasNoArguments = arguments.length() == 0;
         if (hasNoArguments) {
             shortListedCommands.addAll(getNoArgumentCommands());
             return getShortestDistanceString(command, shortListedCommands);
         }
         ArgumentMultimap argMultimap;
-        argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_POLICY, PREFIX_TAG, PREFIX_DESCRIPTION,
-                PREFIX_COVERAGE, PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_ON,
-                PREFIX_OFF);
+        argMultimap = ArgumentTokenizer.tokenize(arguments, CliSyntax.USER_PREFIXES);
 
-        boolean hasUniquePersonPrefixes = anyPrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH);
-        if (hasUniquePersonPrefixes) {
-            shortListedCommands.addAll(getUniquePersonPrefixCommands());
-            return getShortestDistanceString(command, shortListedCommands);
+        for (int i = 0; i < USER_PREFIXES.length; i++) {
+            Prefix prefix = USER_PREFIXES[i];
+            if (argMultimap.getValue(prefix).isPresent()) {
+                ArrayList<String> commandWords = prefix.getCommands();
+                for (int j = 0; j < commandWords.size(); j++) {
+                    shortListedCommands.add(commandWords.get(j));
+                }
+            }
         }
-
-        boolean hasUniquePolicyPrefixes = anyPrefixesPresent(argMultimap, PREFIX_DESCRIPTION,
-                PREFIX_COVERAGE, PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE);
-        if (hasUniquePolicyPrefixes) {
-            shortListedCommands.addAll(getUniquePolicyPrefixCommands());
+        if (shortListedCommands.size() != 0) {
             return getShortestDistanceString(command, shortListedCommands);
+        } else {
+            return getShortestDistanceString(command);
         }
-
-        boolean hasNamePrefix = anyPrefixesPresent(argMultimap, PREFIX_NAME);
-        if (hasNamePrefix) {
-            shortListedCommands.addAll(getUniquePersonPrefixCommands());
-            shortListedCommands.addAll(getUniquePolicyPrefixCommands());
-            return getShortestDistanceString(command, shortListedCommands);
-        }
-
-        boolean hasTagPrefixes = anyPrefixesPresent(argMultimap, PREFIX_TAG);
-        if (hasTagPrefixes) {
-            shortListedCommands.addAll(getTagRelatedCommands());
-            return getShortestDistanceString(command, shortListedCommands);
-        }
-
-        // todo: hasCriteriaPrefixes
-
-        boolean hasPolicyPrefix = anyPrefixesPresent(argMultimap, PREFIX_POLICY);
-        if (hasPolicyPrefix) {
-            shortListedCommands.addAll(getAssignCommands());
-            return getShortestDistanceString(command, shortListedCommands);
-        }
-
-        boolean hasOnOrOffPrefix = anyPrefixesPresent(argMultimap, PREFIX_ON, PREFIX_OFF);
-        if (hasOnOrOffPrefix) {
-            shortListedCommands.addAll(getSuggestionCommands());
-            return getShortestDistanceString(command, shortListedCommands);
-        }
-
-        boolean hasNoPrefixes = !anyPrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_POLICY, PREFIX_TAG, PREFIX_DESCRIPTION,
-                PREFIX_COVERAGE, PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_ON,
-                PREFIX_OFF);
-        if (hasNoPrefixes) {
-            shortListedCommands.addAll(getCommandsWithIndexArguments());
-            return getShortestDistanceString(command, shortListedCommands);
-        }
-
-        return getShortestDistanceString(command);
-    }
-
-    private static ArrayList<String> getSuggestionCommands() {
-        ArrayList<String> commandList = new ArrayList<>();
-        commandList.add(SuggestionSwitchCommand.COMMAND_WORD);
-        return commandList;
     }
 
     private static ArrayList<String> getNoArgumentCommands() {
@@ -409,64 +333,16 @@ public class ParserUtil {
         return commandList;
     }
 
-    private static ArrayList<String> getUniquePersonPrefixCommands() {
-        ArrayList<String> commandList = new ArrayList<>();
-        commandList.add(AddCommand.COMMAND_WORD);
-        commandList.add(EditCommand.COMMAND_WORD);
-        return commandList;
-    }
-
-    private static ArrayList<String> getUniquePolicyPrefixCommands() {
-        ArrayList<String> commandList = new ArrayList<>();
-        commandList.add(AddPolicyCommand.COMMAND_WORD);
-        commandList.add(EditPolicyCommand.COMMAND_WORD);
-        return commandList;
-    }
-
-    private static ArrayList<String> getTagRelatedCommands() {
-        ArrayList<String> commandList = new ArrayList<>();
-        commandList.add(AddTagCommand.COMMAND_WORD);
-        commandList.add(AddPolicyTagCommand.COMMAND_WORD);
-        commandList.add(DeleteTagCommand.COMMAND_WORD);
-        commandList.add(DeletePolicyTagCommand.COMMAND_WORD);
-        return commandList;
-    }
-
-    private static ArrayList<String> getAssignCommands() {
-        ArrayList<String> commandList = new ArrayList<>();
-        commandList.add(AssignPolicyCommand.COMMAND_WORD);
-        commandList.add(UnassignPolicyCommand.COMMAND_WORD);
-        return commandList;
-    }
-
-    private static ArrayList<String> getCommandsWithIndexArguments() {
-        ArrayList<String> commandList = new ArrayList<>();
-        commandList.add(AssignPolicyCommand.COMMAND_WORD);
-        commandList.add(DeleteCommand.COMMAND_WORD);
-        commandList.add(FindCommand.COMMAND_WORD);
-        commandList.add(FindPolicyCommand.COMMAND_WORD);
-        commandList.add(DeletePolicyCommand.COMMAND_WORD);
-        commandList.add(UnassignPolicyCommand.COMMAND_WORD);
-        return commandList;
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
     private static String getShortestDistanceString(String input) {
         return getShortestDistanceString(input, commands);
     }
 
-    private static String getShortestDistanceString(String input, ArrayList<String> commands) {
+    private static String getShortestDistanceString(String input, HashSet<String> commands) {
         ArrayList<String> commandsThatHaveShortestDistanceAway = new ArrayList<>();
+        Iterator<String> iterator = commands.iterator();
         int distance = lengthLongerThanAllCommandWords;
         for (int i = 0; i < commands.size(); i++) {
-            String originalCommand = commands.get(i);
+            String originalCommand = iterator.next();
             int thisDistance = getDistance(input, originalCommand);
             if (thisDistance < distance) {
                 commandsThatHaveShortestDistanceAway.clear();
