@@ -103,7 +103,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setupParserSwitching() {
-        this.currentParserManagerIndex.addListener(new ParserManagerListener(mainTabPane));
+        // Add listener to check when Logic changes parserManagerIndex.
+        this.currentParserManagerIndex.addListener(new ParserManagerIndexListener(mainTabPane));
+
+        // When tab switching is done by a mouse click, this we change parserManagerIndex through Logic.
         mainTabPane.setOnMouseClicked(event -> {
             int selectedIndex = mainTabPane.getSelectionModel().getSelectedIndex();
             logic.setParserManager(selectedIndex);
@@ -206,34 +209,38 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Switch the tab to show transactions.
+     * Switch the tab to show transactions when shortcut key is sued.
      */
     @FXML
     public void handleShowTransaction() {
+        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
         logic.setParserManager(0);
     }
 
     /**
-     * Switch the tab to show repeater.
+     * Switch the tab to show repeater when shortcut key is used.
      */
     @FXML
     public void handleShowRepeater() {
+        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
         logic.setParserManager(1);
     }
 
     /**
-     * Switch the tab to show budget.
+     * Switch the tab to show budget when shortcut key is used.
      */
     @FXML
     public void handleShowBudget() {
+        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
         logic.setParserManager(2);
     }
 
     /**
-     * Switch the tab to show loan.
+     * Switch the tab to show loan when shortcut key is used.
      */
     @FXML
     public void handleShowLoan() {
+        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
         logic.setParserManager(3);
     }
 
@@ -242,6 +249,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowAnalytics() {
+        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
         logic.setParserManager(4);
     }
 
@@ -303,15 +311,16 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Listener for invalidation of currentParserManager.
      */
-    private class ParserManagerListener implements InvalidationListener {
+    private class ParserManagerIndexListener implements InvalidationListener {
         private TabPane tabPane;
 
-        public ParserManagerListener(TabPane tabpane) {
+        public ParserManagerIndexListener(TabPane tabpane) {
             this.tabPane = tabpane;
         }
 
         @Override
         public void invalidated(Observable observable) {
+            // Change tabs in TabPane
             this.tabPane.getSelectionModel().select(currentParserManagerIndex.getValue());
         }
     }

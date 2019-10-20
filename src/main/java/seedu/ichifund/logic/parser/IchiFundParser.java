@@ -21,7 +21,7 @@ import seedu.ichifund.logic.commands.ListCommand;
 import seedu.ichifund.logic.parser.analytics.AnalyticsParserManager;
 import seedu.ichifund.logic.parser.budget.BudgetParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
-import seedu.ichifund.logic.parser.loans.LoansParserManager;
+import seedu.ichifund.logic.parser.loan.LoanParserManager;
 import seedu.ichifund.logic.parser.repeater.RepeaterParserManager;
 import seedu.ichifund.logic.parser.transaction.TransactionParserManager;
 
@@ -45,7 +45,7 @@ public class IchiFundParser {
         parserManagers.add(new TransactionParserManager());
         parserManagers.add(new RepeaterParserManager());
         parserManagers.add(new BudgetParserManager());
-        parserManagers.add(new LoansParserManager());
+        parserManagers.add(new LoanParserManager());
         parserManagers.add(new AnalyticsParserManager());
         currentParserManager = parserManagers.get(0);
         currentParserManagerIndex = new SimpleObjectProperty<>(currentParserManager.getTabIndex());

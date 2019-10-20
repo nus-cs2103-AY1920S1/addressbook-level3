@@ -1,4 +1,4 @@
-package seedu.ichifund.logic.parser.loans;
+package seedu.ichifund.logic.parser.loan;
 
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -7,15 +7,15 @@ import seedu.ichifund.logic.parser.ParserManager;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
- * Passes user input to the appropriate Parser for commands related to the loans feature.
+ * Passes user input to the appropriate Parser for commands related to the loan feature.
  */
-public class LoansParserManager implements ParserManager {
+public class LoanParserManager implements ParserManager {
 
     private final int tabIndex = 3;
 
     @Override
     public String getTabSwitchCommandWord() {
-        return "loans";
+        return "loan";
     }
 
     @Override
