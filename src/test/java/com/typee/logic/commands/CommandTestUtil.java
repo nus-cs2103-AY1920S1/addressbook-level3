@@ -10,7 +10,6 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.EngagementList;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Person;
 
 /**
  * Contains helper methods for testing commands.
