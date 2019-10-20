@@ -31,6 +31,7 @@ public class VisitListPanel extends UiPart<Stage> {
      */
     public VisitListPanel() {
         this(new Stage());
+
     }
 
     public void setup(ObservableList<VisitReport> visitList) {
@@ -77,7 +78,9 @@ public class VisitListPanel extends UiPart<Stage> {
     public void show() {
         logger.fine("Showing report form.");
         getRoot().show();
+        getRoot().setAlwaysOnTop(true);
         getRoot().centerOnScreen();
+
     }
 
     /**

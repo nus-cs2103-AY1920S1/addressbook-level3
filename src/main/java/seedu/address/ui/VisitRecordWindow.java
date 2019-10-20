@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.SaveVisitCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.VisitReport;
 
 
 /**
@@ -24,6 +25,7 @@ public class VisitRecordWindow extends UiPart<Stage> {
 
     private static final String FXML = "VisitRecordForm.fxml";
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
+    private static final int INVALID_REPORT_INDEX = -1;
 
     @FXML
     private TextArea medicine;
@@ -38,6 +40,7 @@ public class VisitRecordWindow extends UiPart<Stage> {
     private Button saveButton;
 
     private int index;
+    private int reportIdx;
     private String date;
     private Logic logic;
 
@@ -110,8 +113,10 @@ public class VisitRecordWindow extends UiPart<Stage> {
      */
     @FXML
     protected void saveReport(ActionEvent event) throws CommandException {
-        SaveVisitCommand save = new SaveVisitCommand(index, date, medicine.getText(),
-                diagnosis.getText(), remarks.getText());
+
+        SaveVisitCommand save = new SaveVisitCommand(index, reportIdx, date, medicine.getText(),
+                    diagnosis.getText(), remarks.getText());
+
         logic.execute(save);
         medicine.clear();
         diagnosis.clear();
@@ -122,8 +127,20 @@ public class VisitRecordWindow extends UiPart<Stage> {
 
     public void setReportInfo(int idx, String date, Logic logic) {
         this.index = idx;
+        this.reportIdx = INVALID_REPORT_INDEX;
         this.date = date;
         this.logic = logic;
+    }
+
+    public void setOldReportInfo(int idx, int reportIdx, VisitReport report, Logic logic) {
+        this.index = idx;
+        this.reportIdx = reportIdx;
+        this.date = report.date;
+        this.logic = logic;
+
+        medicine.setText(report.getMedication());
+        diagnosis.setText(report.getDiagnosis());
+        remarks.setText(report.getRemarks());
     }
 
     public void setup() {

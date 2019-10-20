@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
@@ -27,8 +28,13 @@ public class VisitList {
      *
      */
     public VisitList addRecord(VisitReport report) {
-        records.add(report);
+        this.records.add(report);
+        Collections.sort(this.records);
         return this;
+    }
+
+    public VisitReport getRecordByIndex(int id) throws IndexOutOfBoundsException {
+        return records.get(id - 1);
     }
 
     public ArrayList<VisitReport> getRecords() {
@@ -49,6 +55,14 @@ public class VisitList {
      */
     public static boolean isValidVisitDate(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Edits record from the list by index.
+     */
+    public VisitList editRecord(int reportIdx, VisitReport visitReport) {
+        this.records.set(reportIdx - 1, visitReport);
+        return this;
     }
 
     /**

@@ -17,9 +17,13 @@ public class CommandResult {
 
     private int index;
 
+    private int reportIdx;
+
     private String date;
 
     private ObservableList<VisitReport> reports;
+
+    private VisitReport oldReport;
 
     private Person profilePerson;
 
@@ -29,8 +33,11 @@ public class CommandResult {
     /** The application should addVisit. */
     private final boolean addVisit;
 
-    /** The application should addVisit. */
-    private final boolean deleteVisit;
+    /** The application should showVisitList. */
+    private final boolean showVisitList;
+
+    /** The application should editVisit. */
+    private final boolean editVisit;
 
     /** The application should show the Profile */
     private final boolean profile;
@@ -44,36 +51,49 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean deleteVisit,
-                         boolean profile, boolean exit, boolean showMotd) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean showVisitList,
+                         boolean editVisit, boolean profile, boolean exit, boolean showMotd) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.addVisit = addVisit;
-        this.deleteVisit = deleteVisit;
+        this.showVisitList = showVisitList;
+        this.editVisit = editVisit;
         this.profile = profile;
         this.exit = exit;
         this.showMotd = showMotd;
     }
 
     public CommandResult(String feedbackToUser, int idx) {
-        this(feedbackToUser, false, false, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false, false, false);
         this.index = idx;
     }
 
     public CommandResult(String feedbackToUser, Person profilePerson) {
-        this(feedbackToUser, false, false, false, true, false, false);
+        this(feedbackToUser, false, false, false, false, true, false, false);
         this.profilePerson = profilePerson;
     }
 
     public CommandResult(String feedbackToUser, int idx, String date) {
-        this(feedbackToUser, false, true, false, false, false, false);
+        this(feedbackToUser, false, true, false, false,
+                false, false, false);
         this.index = idx;
         this.date = date;
     }
 
     public CommandResult(String feedbackToUser, ObservableList<VisitReport> lst) {
-        this(feedbackToUser, false, false, true, false, false, false);
+        this(feedbackToUser, false, false, true, false,
+                false, false, false);
         this.reports = lst;
+    }
+
+    public CommandResult(String feedbackToUser, ObservableList<VisitReport> lst,
+                         int idx, int reportIdx, VisitReport report) {
+        this(feedbackToUser, false, false, false, true,
+                false, false, false);
+        this.reports = lst;
+        this.index = idx;
+        this.reportIdx = reportIdx;
+        this.oldReport = report;
     }
 
     /**
@@ -81,7 +101,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -96,10 +116,17 @@ public class CommandResult {
         return index;
     }
 
+    public int getReportIdx() {
+        return reportIdx;
+    }
+
     public ObservableList<VisitReport> getObservableVisitList() {
         return this.reports;
     }
 
+    public VisitReport getOldReport() {
+        return this.oldReport;
+    }
     public boolean isShowHelp() {
         return showHelp;
     }
@@ -116,8 +143,12 @@ public class CommandResult {
         return addVisit;
     }
 
-    public boolean isDeleteVisit() {
-        return deleteVisit;
+    public boolean isShowVisitList() {
+        return showVisitList;
+    }
+
+    public boolean isEditVisit() {
+        return editVisit;
     }
 
     public boolean isShowProfile() {
@@ -143,6 +174,8 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && addVisit == otherCommandResult.addVisit
+                && editVisit == otherCommandResult.editVisit
+                && showVisitList == otherCommandResult.showVisitList
                 && profile == otherCommandResult.profile
                 && exit == otherCommandResult.exit
                 && showMotd == otherCommandResult.showMotd;
