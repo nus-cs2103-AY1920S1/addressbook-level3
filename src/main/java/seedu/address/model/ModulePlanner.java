@@ -159,6 +159,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             ModuleInfo moduleInfo = modulesInfo.find(module.getModuleCode().toString());
             module.setName(new Name(moduleInfo.getName()));
             module.setMcCount(moduleInfo.getMc());
+            module.setPrereqTree(moduleInfo.getPrereqTree());
 
             // adds default tags to each module
             UniqueTagList defaultTags = activeStudyPlan.assignDefaultTags(moduleInfo);

@@ -26,9 +26,8 @@ import seedu.address.logic.commands.storage.DeleteCommand;
 import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
-import seedu.address.logic.commands.verification.CheckCommand;
-import seedu.address.logic.commands.verification.ValidModsCommand;
 import seedu.address.logic.commands.verification.DescriptionCommand;
+import seedu.address.logic.commands.verification.ValidModsCommand;
 import seedu.address.logic.parser.cli.AddModuleParser;
 import seedu.address.logic.parser.cli.BlockCurrentSemesterParser;
 import seedu.address.logic.parser.cli.DeleteModuleFromSemesterParser;
@@ -48,9 +47,8 @@ import seedu.address.logic.parser.storage.DeleteStudyPlanParser;
 import seedu.address.logic.parser.storage.EditStudyPlanTitleParser;
 import seedu.address.logic.parser.storage.ListAllStudyPlansParser;
 import seedu.address.logic.parser.storage.ViewCommitHistoryParser;
-import seedu.address.logic.parser.verification.CheckCommandParser;
-import seedu.address.logic.parser.verification.ValidModsCommandParser;
 import seedu.address.logic.parser.verification.DescriptionCommandParser;
+import seedu.address.logic.parser.verification.ValidModsCommandParser;
 
 /**
  * Parses user input.
