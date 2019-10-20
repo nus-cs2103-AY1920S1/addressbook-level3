@@ -40,7 +40,6 @@ public class BloodSugarRecordCard extends UiPart<Region> {
         this.record = record;
         id.setText(displayedIndex + ". ");
         String recordType = record.getClass().getSimpleName();
-        System.out.println("record type: " + recordType);
         this.recordType.setText(recordType);
         dateTime.setText(record.getDateTime().toString());
         concentration.setText(record.getConcentration().toString());

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import seedu.address.model.calendar.DateTime;
+import seedu.address.model.DateTime;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Event;
 import seedu.address.model.calendar.Reminder;

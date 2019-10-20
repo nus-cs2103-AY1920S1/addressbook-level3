@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -132,14 +133,12 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveRecordList(UniqueRecordList recordList) throws IOException {
-        System.out.println("save record list");
         saveRecordList(recordList, jsonRecordListStorage.getFilePath());
     }
 
     @Override
     public void saveRecordList(UniqueRecordList recordList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        System.out.println("save record list with path");
         jsonRecordListStorage.save(recordList, filePath);
     }
 
@@ -169,5 +168,10 @@ public class StorageManager implements Storage {
     public void saveUserList(ReadOnlyUserList userList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         userListStorage.saveUserList(userList, filePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyCalendar> readCalendarEntryList() {
+        return Optional.empty();
     }
 }

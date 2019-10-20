@@ -1,8 +1,15 @@
 package seedu.address.storage.bio;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
+
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.imageio.ImageIO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.DisplayPicPath;
 import seedu.address.model.bio.Gender;
 import seedu.address.model.bio.Goal;
 import seedu.address.model.bio.MedicalCondition;
@@ -28,6 +36,7 @@ class JsonAdaptedUser {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "User's %s field is missing!";
 
     private final String name;
+    private final String dpPath;
     private final String profileDesc;
     private final String nric;
     private final String gender;
@@ -43,7 +52,8 @@ class JsonAdaptedUser {
      * Constructs a {@code JsonAdaptedUser} with the given user details.
      */
     @JsonCreator
-    public JsonAdaptedUser(@JsonProperty("name") String name, @JsonProperty("profileDesc") String profileDesc,
+    public JsonAdaptedUser(@JsonProperty("name") String name, @JsonProperty("dpPath") String dpPath,
+                           @JsonProperty("profileDesc") String profileDesc,
                            @JsonProperty("nric") String nric, @JsonProperty("gender") String gender,
                            @JsonProperty("dateOfBirth") String dateOfBirth,
                            @JsonProperty("contactNumbers") List<JsonAdaptedContactNumbers> contactNumbers,
@@ -53,6 +63,7 @@ class JsonAdaptedUser {
                            @JsonProperty("goals") List<JsonAdaptedGoals> goals,
                            @JsonProperty("otherInfo") String otherInfo) {
         this.name = name;
+        this.dpPath = dpPath;
         this.profileDesc = profileDesc;
         this.nric = nric;
         this.gender = gender;
@@ -80,6 +91,7 @@ class JsonAdaptedUser {
      */
     public JsonAdaptedUser(User source) {
         name = source.getName().fullName;
+        dpPath = source.getDpPath().displayPicPath;
         profileDesc = source.getProfileDesc().profileDesc;
         nric = source.getNric().nric;
         gender = source.getGender().gender;
@@ -114,6 +126,24 @@ class JsonAdaptedUser {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
+
+        if (dpPath == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DisplayPicPath.class.getSimpleName()));
+        }
+        if (!DisplayPicPath.isValidDisplayPicPath(dpPath)) {
+            throw new IllegalValueException(DisplayPicPath.MESSAGE_CONSTRAINTS);
+        } else if (!dpPath.isEmpty()) {
+            try {
+                Image image = ImageIO.read(new File(dpPath));
+                if (image == null) {
+                    throw new IllegalValueException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                }
+            } catch (IOException e) {
+                throw new IllegalValueException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+            }
+        }
+        final DisplayPicPath modelDpPath = new DisplayPicPath(dpPath);
 
         if (profileDesc == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProfileDesc.class.getName()));
@@ -152,17 +182,26 @@ class JsonAdaptedUser {
         for (JsonAdaptedContactNumbers contactNumber : contactNumbers) {
             userContactNumbers.add(contactNumber.toModelType());
         }
+        if (userContactNumbers.isEmpty()) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        }
         final List<Phone> modelContactNumbers = new ArrayList<>(userContactNumbers);
 
         final List<Phone> userEmergencyContacts = new ArrayList<>();
         for (JsonAdaptedEmergencyContacts emergencyContact : emergencyContacts) {
             userEmergencyContacts.add(emergencyContact.toModelType());
         }
+        if (userEmergencyContacts.isEmpty()) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        }
         final List<Phone> modelEmergencyContacts = new ArrayList<>(userEmergencyContacts);
 
         final List<MedicalCondition> userMedicalCondition = new ArrayList<>();
         for (JsonAdaptedMedicalConditions medicalCondition : medicalConditions) {
             userMedicalCondition.add(medicalCondition.toModelType());
+        }
+        if (userMedicalCondition.isEmpty()) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final List<MedicalCondition> modelMedicalConditions = new ArrayList<>(userMedicalCondition);
 
@@ -186,8 +225,9 @@ class JsonAdaptedUser {
         }
         final OtherBioInfo modelOtherBioInfo = new OtherBioInfo(otherInfo);
 
-        return new User(modelName, modelProfileDesc, modelNric, modelGender, modelDateOfBirth, modelContactNumbers,
-                modelEmergencyContacts, modelMedicalConditions, modelAddress, modelGoals, modelOtherBioInfo);
+        return new User(modelName, modelDpPath, modelProfileDesc, modelNric, modelGender, modelDateOfBirth,
+                modelContactNumbers, modelEmergencyContacts, modelMedicalConditions, modelAddress, modelGoals,
+                modelOtherBioInfo);
     }
 
 }

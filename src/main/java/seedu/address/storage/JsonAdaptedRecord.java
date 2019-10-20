@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.calendar.DateTime;
+import seedu.address.model.DateTime;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
@@ -104,7 +104,6 @@ class JsonAdaptedRecord {
 
             return new Bmi(modelHeight, modelWeight, modelDateTime);
         }
-        System.out.println("should not reach here!!!");
         return null;
     }
 

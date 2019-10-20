@@ -30,7 +30,7 @@ public class Phone implements ListableField {
      */
     public static boolean isValidPhone(String test) {
         requireNonNull(test);
-        return test.matches(VALIDATION_REGEX);
+        return !test.isEmpty() && test.matches(VALIDATION_REGEX);
     }
 
     @Override

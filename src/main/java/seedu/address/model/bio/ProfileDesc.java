@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ProfileDesc {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "ProfileDesc can take any values.";
+            "Profile description can take any values.";
     public static final String VALIDATION_REGEX = "^$|[^\\s].*";
 
     public final String profileDesc;

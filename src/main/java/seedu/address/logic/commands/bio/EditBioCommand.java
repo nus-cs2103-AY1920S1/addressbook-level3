@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_SUBARGUMENT_INDEX_OUT_
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DP_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOALS;
@@ -30,6 +31,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.DisplayPicPath;
 import seedu.address.model.bio.Gender;
 import seedu.address.model.bio.Goal;
 import seedu.address.model.bio.ListableField;
@@ -49,11 +51,14 @@ public class EditBioCommand extends Command {
 
     public static final String COMMAND_WORD = "editbio";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the user identified "
-            + "by the index number used in the displayed user list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Edits the user's bio "
+            + "either by overwriting all existing values, OR by specifying positive indexes for individual values for "
+            + "fields that can hold multiple values. Fields that can hold multiple values are limited to "
+            + "contact numbers, emergency contacts, medical conditions and goals.\n"
+            + "Note that Name, contact number(s), emergency contact(s) and medical condition(s) cannot be empty.\n\n"
+            + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_DP_PATH + "DP PATH] "
             + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION] "
             + "[" + PREFIX_NRIC + "NRIC] "
             + "[" + PREFIX_GENDER + "GENDER] "
@@ -63,12 +68,16 @@ public class EditBioCommand extends Command {
             + "[" + PREFIX_MEDICAL_CONDITION + "[INDEX/]MEDICAL CONDITION]... "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_GOALS + "[INDEX/]GOALS]... "
-            + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CONTACT_NUMBER + "91234567 "
-            + PREFIX_MEDICAL_CONDITION + "Type I diabetes";
+            + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n\n"
+            + "Example: " + COMMAND_WORD + PREFIX_PROFILE_DESC + "The world has changed, just like my "
+            + "profile description has. "
+            + PREFIX_CONTACT_NUMBER + "91234567 " + PREFIX_CONTACT_NUMBER + "98765432 "
+            + PREFIX_MEDICAL_CONDITION + "1/Type I diabetes " + PREFIX_MEDICAL_CONDITION + "2/High Blood Pressure";
 
-    public static final String MESSAGE_EDIT_USER_SUCCESS = "Edited biography for: %1$s";
+    public static final String MESSAGE_EDIT_USER_SUCCESS = "I've edited your bio successfully! %1$s";
+    public static final String MESSAGE_CHANGES_MADE = "The following changes were made.\n\n%1$s";
+    public static final String MESSAGE_NO_CHANGE = "The information that you've keyed in are no different from "
+            + "what already exists in your current biography! As such, there's nothing for me to update :)";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_BIOGRAPHY_DOES_NOT_EXIST = "Oops! Biography does not exist!"
             + " Try using the [" + AddBioCommand.COMMAND_WORD + "] command to add a new biography.";
@@ -88,7 +97,6 @@ public class EditBioCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<User> lastShownList = model.getFilteredUserList();
-        List<User> originalList = List.copyOf(lastShownList);
 
         try {
             User userToEdit = lastShownList.get(0);
@@ -100,11 +108,30 @@ public class EditBioCommand extends Command {
 
             model.setUser(userToEdit, editedUser);
             model.updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
-            List<User> newList = lastShownList;
-            System.out.println("ORIGINAL: " + originalList);
-            System.out.println("NEW: " + newList);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_USER_SUCCESS, editedUser));
+            StringBuilder editedFields = new StringBuilder();
+            HashMap<String, List<String>> changedDifferences = userToEdit.getDifferencesTo(editedUser);
+
+            changedDifferences.forEach((key, beforeAndAfter) -> {
+                String before = beforeAndAfter.get(0);
+                String after = beforeAndAfter.get(1);
+                editedFields.append("- ");
+
+                if (before.isEmpty()) {
+                    editedFields.append("Added to ").append(key).append(": ").append(after);
+                } else if (after.isEmpty() || after.equals("[]")) {
+                    editedFields.append("Deleted from ").append(key).append(": ").append(before);
+                } else {
+                    editedFields.append("Modified ").append(key)
+                            .append(": from ").append(before).append(" to ").append(after);
+                }
+                editedFields.append("\n");
+            });
+
+            return new CommandResult(changedDifferences.size() == 0
+                    ? MESSAGE_NO_CHANGE
+                    : String.format(MESSAGE_EDIT_USER_SUCCESS,
+                    String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())));
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException(MESSAGE_BIOGRAPHY_DOES_NOT_EXIST);
         }
@@ -119,6 +146,7 @@ public class EditBioCommand extends Command {
         assert userToEdit != null;
 
         Name updatedName = editUserDescriptor.getName().orElse(userToEdit.getName());
+        DisplayPicPath udpatedDpPath = editUserDescriptor.getDpPath().orElse(userToEdit.getDpPath());
         ProfileDesc updatedProfileDesc = editUserDescriptor.getProfileDesc().orElse(userToEdit.getProfileDesc());
         Nric updatedNric = editUserDescriptor.getNric().orElse(userToEdit.getNric());
         Gender updatedGender = editUserDescriptor.getGender().orElse(userToEdit.getGender());
@@ -146,7 +174,7 @@ public class EditBioCommand extends Command {
 
         OtherBioInfo updatedOtherBioInfo = editUserDescriptor.getOtherBioInfo().orElse(userToEdit.getOtherBioInfo());
 
-        return new User(updatedName, updatedProfileDesc, updatedNric, updatedGender, updatedDateOfBirth,
+        return new User(updatedName, udpatedDpPath, updatedProfileDesc, updatedNric, updatedGender, updatedDateOfBirth,
                 updatedContactNumbers, updatedEmergencyContacts, updatedMedicalConditions, updatedAddress,
                 updatedGoals, updatedOtherBioInfo);
     }
@@ -167,23 +195,21 @@ public class EditBioCommand extends Command {
                     individualListableFieldsMapOptional) throws CommandException {
         List<? extends ListableField> updatedListableFields = listableFieldsOptional.orElse(null);
         if (updatedListableFields == null) {
-            if (updatedListableFields == null) {
-                if (individualListableFieldsMapOptional.isPresent()) {
-                    List<? extends HashMap<Index, ? extends ListableField>> individualListableFieldsMap =
-                            individualListableFieldsMapOptional.get();
-                    List<ListableField> listableFieldsCopy = new ArrayList<>(userToEditListableFields);
-                    for (HashMap<Index, ? extends ListableField> map : individualListableFieldsMap) {
-                        Index index = map.keySet().iterator().next();
-                        try {
-                            listableFieldsCopy.set(index.getZeroBased(), map.get(index));
-                        } catch (IndexOutOfBoundsException e) {
-                            throw new CommandException(MESSAGE_SUBARGUMENT_INDEX_OUT_OF_BOUNDS);
-                        }
+            if (individualListableFieldsMapOptional.isPresent()) {
+                List<? extends HashMap<Index, ? extends ListableField>> individualListableFieldsMap =
+                        individualListableFieldsMapOptional.get();
+                List<ListableField> listableFieldsCopy = new ArrayList<>(userToEditListableFields);
+                for (HashMap<Index, ? extends ListableField> map : individualListableFieldsMap) {
+                    Index index = map.keySet().iterator().next();
+                    try {
+                        listableFieldsCopy.set(index.getZeroBased(), map.get(index));
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new CommandException(MESSAGE_SUBARGUMENT_INDEX_OUT_OF_BOUNDS);
                     }
-                    updatedListableFields = listableFieldsCopy;
-                } else {
-                    updatedListableFields = userToEditListableFields;
                 }
+                updatedListableFields = listableFieldsCopy;
+            } else {
+                updatedListableFields = userToEditListableFields;
             }
         }
         return updatedListableFields;
@@ -213,6 +239,7 @@ public class EditBioCommand extends Command {
      */
     public static class EditUserDescriptor {
         private Name name;
+        private DisplayPicPath dpPath;
         private ProfileDesc profileDesc;
         private Nric nric;
         private Gender gender;
@@ -236,6 +263,7 @@ public class EditBioCommand extends Command {
          */
         public EditUserDescriptor(EditUserDescriptor toCopy) {
             setName(toCopy.name);
+            setDpPath(toCopy.dpPath);
             setProfileDesc(toCopy.profileDesc);
             setNric(toCopy.nric);
             setGender(toCopy.gender);
@@ -256,7 +284,7 @@ public class EditBioCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, profileDesc, nric, gender, dateOfBirth,
+            return CollectionUtil.isAnyNonNull(name, dpPath, profileDesc, nric, gender, dateOfBirth,
                     contactNumbers, individualContactNumbersMap,
                     emergencyContacts, individualEmergencyContactsMap,
                     medicalConditions, individualMedicalConditionsMap,
@@ -269,6 +297,14 @@ public class EditBioCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setDpPath(DisplayPicPath dpPath) {
+            this.dpPath = dpPath;
+        }
+
+        public Optional<DisplayPicPath> getDpPath() {
+            return Optional.ofNullable(dpPath);
         }
 
         public void setProfileDesc(ProfileDesc profileDesc) {
@@ -539,6 +575,7 @@ public class EditBioCommand extends Command {
 
             return getName().equals(e.getName())
                     && getNric().equals(e.getNric())
+                    && getDpPath().equals(e.getDpPath())
                     && getProfileDesc().equals(e.getProfileDesc())
                     && getGender().equals(e.getGender())
                     && getDateOfBirth().equals(e.getDateOfBirth())

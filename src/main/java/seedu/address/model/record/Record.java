@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.calendar.DateTime;
+import seedu.address.model.DateTime;
 
 /**
  * Represents a record in the record book.

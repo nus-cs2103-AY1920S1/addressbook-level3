@@ -13,11 +13,13 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EventCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecmFoodCommand;
+import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.achvm.AchvmCommand;
 import seedu.address.logic.commands.bio.AddBioCommand;
 import seedu.address.logic.commands.bio.BioCommand;
@@ -101,6 +103,12 @@ public class AddressBookParser {
 
         case AddFoodCommand.COMMAND_WORD:
             return new AddFoodCommandParser().parse(arguments);
+
+        case EventCommand.COMMAND_WORD:
+            return new EventCommandParser().parse(arguments);
+
+        case ReminderCommand.COMMAND_WORD:
+            return new ReminderCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

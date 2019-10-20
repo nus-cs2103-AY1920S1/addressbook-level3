@@ -18,11 +18,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyRecordBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.bio.User;
-import seedu.address.model.calendar.Reminder;
+import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.UniqueRecordList;
@@ -194,16 +194,6 @@ class AddFoodCommandTest {
         }
 
         @Override
-        public boolean hasReminder(Reminder reminder) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addReminder(Reminder reminder) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasFood(Food food) {
             throw new AssertionError("This method should not be called.");
         }
@@ -247,7 +237,7 @@ class AddFoodCommandTest {
         public void setRecordList(UniqueRecordList newRecordList) {
 
         }
-      
+
         //=========== User List =============================================================
         @Override
         public void setUserList(ReadOnlyUserList userList) {
@@ -288,6 +278,36 @@ class AddFoodCommandTest {
 
         @Override
         public void updateFilteredUserList(Predicate<User> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyCalendar getCalendar() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCalendarEntry(CalendarEntry calendarEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCalendarEntry(CalendarEntry target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCalendarEntry(CalendarEntry calendarEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
             throw new AssertionError("This method should not be called.");
         }
 
