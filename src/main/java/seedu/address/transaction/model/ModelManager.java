@@ -29,12 +29,18 @@ public class ModelManager implements Model {
             actualList.add(transactionList.get(i));
         }
         this.filteredList = new TransactionList(actualList);
+        //this.filteredList = new TransactionList(transactionList.gettArrList());
         this.predicate = transaction -> true;
     }
 
     @Override
     public TransactionList getTransactionList() {
         return this.transactionList;
+    }
+
+    @Override
+    public Predicate<Transaction> getPredicate() {
+        return this.predicate;
     }
 
     @Override
@@ -45,6 +51,7 @@ public class ModelManager implements Model {
                 transactionList.set(i, editedTransaction);
             }
         }
+        filteredList = getFilteredList();
     }
 
     @Override
@@ -60,6 +67,7 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction trans) {
         transactionList.add(trans);
+        filteredList = getFilteredList();
     }
 
     @Override
@@ -80,6 +88,7 @@ public class ModelManager implements Model {
                 transactionList.delete(i);
             }
         }
+        filteredList = getFilteredList();
     }
 
     @Override
@@ -87,26 +96,31 @@ public class ModelManager implements Model {
         for (int i = 0; i < transactionList.size(); i++) {
             transactionList.get(i).setId(i + 1);
         }
+        filteredList = getFilteredList();
     }
 
     @Override
     public void sortByDate() {
         transactionList.sortByDate();
+        filteredList.sortByDate();
     }
 
     @Override
     public void sortByName() {
         transactionList.sortByName();
+        filteredList.sortByName();
     }
 
     @Override
     public void sortByAmount() {
         transactionList.sortByAmount();
+        filteredList.sortByAmount();
     }
 
     @Override
     public void sortReset() {
         transactionList.unSort();
+        filteredList.unSort();
     }
 
     @Override
@@ -123,19 +137,48 @@ public class ModelManager implements Model {
                 i--;
             }
         }
+        filteredList = getFilteredList();
     }
 
     @Override
     public TransactionList getFilteredList() {
         List<Transaction> list = this.transactionList.stream().filter(predicate).collect(Collectors.toList());
-        ArrayList<Transaction> arrayList = new ArrayList<Transaction>(list);
+        ArrayList<Transaction> arrayList = new ArrayList<>(list);
         this.filteredList = new TransactionList(arrayList);
         return filteredList;
     }
 
     @Override
-    public void updatePredicate(TransactionContainsKeywordsPredicate predicate) {
+    public void updatePredicate(Predicate<Transaction> predicate) {
         this.predicate = predicate;
+    }
+
+    @Override
+    public boolean hasTransactionWithName(String name) {
+        for (int i = 0; i < transactionList.size(); i++) {
+            if (transactionList.get(i).getPerson().getName().toString().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return transactionList.equals(other.getTransactionList())
+                && filteredList.equals(other.getFilteredList());
     }
 
 }

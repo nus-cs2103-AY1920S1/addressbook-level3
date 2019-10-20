@@ -4,11 +4,13 @@ package seedu.address.person.commons.exceptions;
  * Signals that some given data does not fulfill some constraints.
  */
 public class IllegalValueException extends Exception {
+    private String message;
     /**
      * @param message should contain relevant information on the failed constraint(s)
      */
     public IllegalValueException(String message) {
         super(message);
+        this.message = message;
     }
 
     /**
@@ -17,5 +19,11 @@ public class IllegalValueException extends Exception {
      */
     public IllegalValueException(String message, Throwable cause) {
         super(message, cause);
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
     }
 }
