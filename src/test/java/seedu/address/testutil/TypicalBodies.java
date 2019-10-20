@@ -30,7 +30,7 @@ public class TypicalBodies {
             .withCauseOfDeath("Stroke")
             .withOrgansForDonation("")
             .withStatus("PENDING CLAIM")
-            .withFridgeId("F01")
+            .withFridgeId("")
             .withDateOfBirth("03/09/1982")
             .withDateOfDeath("01/01/1991")
             .withNextOfKin("Ben Joseph")
