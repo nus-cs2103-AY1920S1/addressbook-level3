@@ -5,7 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.InitCommand;
@@ -29,8 +30,13 @@ public class InitCommandParser implements Parser<InitCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        LocalDateTime startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
-        Integer numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAY).orElse(null));
+        LocalDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
+        Optional<String> numDayArgument = argMultimap.getValue(PREFIX_DAY);
+        Integer numDays = null;
+        if (numDayArgument.isPresent()) {
+            numDays = ParserUtil.parseDays(numDayArgument.get());
+        }
+
         return new InitCommand(name, startDate, numDays);
     }
 

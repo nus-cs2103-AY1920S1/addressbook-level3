@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
@@ -171,7 +171,7 @@ public class ParserUtil {
      *
      * @throws ParseException
      */
-    public static LocalDateTime parseDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         return parseByDateFormats(trimmedDate, DATE_FORMAT_1, DATE_FORMAT_2);
@@ -182,12 +182,12 @@ public class ParserUtil {
      *
      * @throws ParseException
      */
-    private static LocalDateTime parseByDateFormats(String trimmedDate, DateTimeFormatter ...dateFormats)
+    private static LocalDate parseByDateFormats(String trimmedDate, DateTimeFormatter ...dateFormats)
             throws ParseException {
-        LocalDateTime parsedDate = null;
+        LocalDate parsedDate = null;
         for (DateTimeFormatter format : dateFormats) {
             try {
-                parsedDate = LocalDateTime.parse(trimmedDate, format);
+                parsedDate = LocalDate.parse(trimmedDate, format);
                 break;
             } catch (DateTimeParseException ignored) {
                 parsedDate = null;

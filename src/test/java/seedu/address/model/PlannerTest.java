@@ -9,7 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -94,7 +94,7 @@ public class PlannerTest {
      */
     private static class PlannerStub implements ReadOnlyPlanner {
         private final Name name = null;
-        private final LocalDateTime startDate = null;
+        private final LocalDate startDate = null;
         private final ObservableList<Accommodation> accommodations = FXCollections.observableArrayList();
         private final ObservableList<Activity> activities = FXCollections.observableArrayList();
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
@@ -128,7 +128,7 @@ public class PlannerTest {
         };
 
         @Override
-        public Optional<LocalDateTime> getStartDate() {
+        public Optional<LocalDate> getStartDate() {
             return Optional.ofNullable(this.startDate);
         };
 

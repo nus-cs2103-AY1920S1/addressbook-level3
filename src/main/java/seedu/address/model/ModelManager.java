@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -108,7 +108,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPlannerStartDate(LocalDateTime sd) {
+    public void setPlannerStartDate(LocalDate sd) {
         this.planner.setStartDate(sd);
     }
 

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -130,7 +130,7 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public void setPlannerStartDate(LocalDateTime startDate) {
+        public void setPlannerStartDate(LocalDate startDate) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
@@ -36,13 +36,13 @@ public class InitCommand extends Command {
             + " and %3$d days.";
 
     private final Name name;
-    private final LocalDateTime startDate;
+    private final LocalDate startDate;
     private final Integer numDays;
 
     /**
      * Creates an AddContactCommand to add the specified {@code Person}
      */
-    public InitCommand(Name name, LocalDateTime date, Integer numDays) {
+    public InitCommand(Name name, LocalDate date, Integer numDays) {
         requireAllNonNull(name, date);
         this.name = name;
         this.startDate = date;
@@ -56,10 +56,10 @@ public class InitCommand extends Command {
         model.setPlannerStartDate(this.startDate);
         String dateInString = this.startDate.format(ParserUtil.DATE_FORMAT_1);
         if (numDays == null) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_INIT_DAY, name, dateInString, numDays));
+            return new CommandResult(String.format(MESSAGE_SUCCESS_WITHOUT_INIT_DAY, name, dateInString));
         } else {
             model.addDays(numDays);
-            return new CommandResult(String.format(MESSAGE_SUCCESS_WITHOUT_INIT_DAY, name, dateInString));
+            return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_INIT_DAY, name, dateInString, numDays));
         }
     }
 
