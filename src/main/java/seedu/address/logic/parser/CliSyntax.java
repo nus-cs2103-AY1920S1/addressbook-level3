@@ -31,4 +31,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_COMMAND_WORD = new Prefix("command/");
     public static final Prefix PREFIX_ARGUMENTS = new Prefix("arguments/");
 
+    // To be used by user to switch suggestions on and off
+    public static final Prefix PREFIX_ON = new Prefix("ON/");
+    public static final Prefix PREFIX_OFF = new Prefix("OFF/");
+
 }
