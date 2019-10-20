@@ -58,7 +58,7 @@ public class JsonAdaptedFlashcard {
         choices.addAll(source.getChoices().stream().map(JsonAdaptedChoice::new).collect(Collectors.toList()));
         definition = source.getDefinition().definition;
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
-        answer = source.getAnswer().choice;
+        answer = source.getAnswer().answer;
     }
 
     /**
