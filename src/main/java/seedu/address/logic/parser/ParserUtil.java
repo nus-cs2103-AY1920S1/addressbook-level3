@@ -17,8 +17,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
-import seedu.address.model.day.time.DurationInHalfHour;
-import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
@@ -171,24 +169,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String days} into an {@code Integer}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException
-     */
-    public static TimeInHalfHour parseTimeInHalfHour(String time) throws ParseException {
-        requireNonNull(time);
-        String trimmedTime = time.trim();
-        if (!TimeInHalfHour.isValidTime(trimmedTime)) {
-            throw new ParseException(TimeInHalfHour.MESSAGE_CONSTRAINTS);
-        }
-        int hour = Integer.parseInt(trimmedTime.substring(0, 2));
-        int min = Integer.parseInt(trimmedTime.substring(2));
-
-        return new TimeInHalfHour(hour, min);
-    }
-
-    /**
      * Parses a {@code String date} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -234,21 +214,4 @@ public class ParserUtil {
             .append(DATE_FORMAT_2);
         return sb.toString();
     }
-
-    /**
-     * Parses a {@code String duration} into an {@code Integer}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException
-     */
-    public static DurationInHalfHour parseDurationInHalfHour(String duration) throws ParseException {
-        requireNonNull(duration);
-        String trimmedDuration = duration.trim();
-        if (!DurationInHalfHour.isValidDuration(trimmedDuration)) {
-            throw new ParseException(DurationInHalfHour.MESSAGE_CONSTRAINTS);
-        }
-        int numberOfHalfHour = Integer.parseInt(trimmedDuration) / 30;
-        return new DurationInHalfHour(numberOfHalfHour);
-    }
-
 }
