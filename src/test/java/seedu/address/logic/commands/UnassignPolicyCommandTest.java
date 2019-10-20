@@ -43,6 +43,7 @@ class UnassignPolicyCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased()),
                 assignedPerson);
+        expectedModel.saveAddressBookState();
 
         assertCommandSuccess(unassignPolicyCommand, model, expectedMessage, expectedModel);
     }
@@ -66,6 +67,7 @@ class UnassignPolicyCommandTest {
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
         showPolicyAtIndex(expectedModel, INDEX_FIRST_POLICY);
         expectedModel.setPerson(model.getFilteredPersonList().get(0), unassignedPerson);
+        expectedModel.saveAddressBookState();
 
         assertCommandSuccess(unassignPolicyCommand, model, expectedMessage, expectedModel);
     }

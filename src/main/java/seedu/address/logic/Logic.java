@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -48,6 +49,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of policies */
     ObservableList<Policy> getFilteredPolicyList();
+
+    /** Returns an unmodifiable view of the previously entered commands */
+    ObservableList<Pair<String, String>> getHistoryList();
 
     /**
      * Returns the user prefs' address book file path.

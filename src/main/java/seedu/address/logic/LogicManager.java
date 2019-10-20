@@ -2,9 +2,11 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
@@ -35,6 +37,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -50,11 +53,13 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final CommandHistory commandHistory;
     private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        this.commandHistory = new CommandHistory();
         addressBookParser = new AddressBookParser(model.getUserSettings().isSuggestionsOn());
         initialiseCommandsInParserUtil();
     }
@@ -80,6 +85,11 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
+
+        Optional<String> commandWord = addressBookParser.getCommandWord(commandText);
+        if (commandWord.isPresent()) {
+            commandHistory.addCommand(commandWord.get(), commandText);
+        }
         commandResult = command.execute(model);
 
         try {
@@ -97,6 +107,11 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText, isSystemInput);
+
+        Optional<String> commandWord = addressBookParser.getCommandWord(commandText);
+        if (commandWord.isPresent()) {
+            commandHistory.addCommand(commandWord.get(), commandText);
+        }
         commandResult = command.execute(model);
 
         try {
@@ -121,6 +136,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Policy> getFilteredPolicyList() {
         return model.getFilteredPolicyList();
+    }
+
+    @Override
+    public ObservableList<Pair<String, String>> getHistoryList() {
+        return commandHistory.getHistory();
     }
 
     @Override

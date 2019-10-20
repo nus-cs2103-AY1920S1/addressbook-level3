@@ -15,12 +15,8 @@ public class ExitCommandTest {
     @Test
     public void execute_exit_success() {
         CommandResult expectedCommandResult =
-                new CommandResult(
-                        MESSAGE_EXIT_ACKNOWLEDGEMENT,
-                false,
-                        true,
-                        false,
-                        false, false, false);
+                new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT,
+                false, true, false, false, false, false, false);
         assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
     }
 }
