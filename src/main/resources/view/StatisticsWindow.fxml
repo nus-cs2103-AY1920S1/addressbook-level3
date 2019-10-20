@@ -15,7 +15,7 @@
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css" />
+                <URL value="@SMLTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
             <HBox alignment="CENTER" minWidth="650" minHeight="500">
