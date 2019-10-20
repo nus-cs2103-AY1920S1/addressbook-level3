@@ -52,7 +52,7 @@ public class EditTemplateItemCommandParserTest {
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 t/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test

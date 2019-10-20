@@ -19,8 +19,10 @@ public class ClearTemplateListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setTemplateList(new TemplateList());
+
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
         commandResult.setTemplateListCommand();
+
         return commandResult;
     }
 }

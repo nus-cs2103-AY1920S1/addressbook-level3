@@ -77,6 +77,7 @@ public class WasteList implements ReadOnlyWasteList {
         return wasteList.asUnmodifiableObservableList();
     }
 
+    @Override
     public WasteStatistic getWasteStatistic() {
         return WasteStatistic.getWasteStatistic(this.wasteList);
     }
@@ -159,6 +160,14 @@ public class WasteList implements ReadOnlyWasteList {
 
     public static WasteList getWasteListByMonth(WasteMonth wm) {
         return wasteArchive.get(wm);
+    }
+
+    public static WasteMonth getEarliestExistingWasteMonth() {
+        return wasteArchive.firstKey();
+    }
+
+    public static WasteMonth getLatestExistingWasteMonth() {
+        return wasteArchive.lastKey();
     }
 
     public static WasteStatistic getCurrentMonthPredictedWasteStatistic() {

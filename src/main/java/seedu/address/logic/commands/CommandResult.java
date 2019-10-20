@@ -17,9 +17,11 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private boolean isTemplateListItemCommand;
     private boolean isTemplateListCommand;
     private boolean isWasteListCommand;
     private boolean isShoppingListCommand;
+    private boolean isWasteReportCommand;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -50,6 +52,14 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isTemplateListItemCommand() {
+        return isTemplateListItemCommand;
+    }
+
+    public void setTemplateListItemCommand() {
+        isTemplateListItemCommand = true;
+    }
+
     public boolean isTemplateListCommand() {
         return isTemplateListCommand;
     }
@@ -60,6 +70,14 @@ public class CommandResult {
 
     public boolean isWasteListCommand() {
         return isWasteListCommand;
+    }
+
+    public boolean isWasteReportCommand() {
+        return isWasteReportCommand;
+    }
+
+    public void setWasteReportCommand() {
+        this.isWasteReportCommand = true;
     }
 
     public void setWasteListCommand() {
@@ -73,6 +91,7 @@ public class CommandResult {
     public void setShoppingListCommand() {
         isShoppingListCommand = true;
     }
+
 
     @Override
     public boolean equals(Object other) {

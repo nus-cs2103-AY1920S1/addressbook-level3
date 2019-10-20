@@ -67,6 +67,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.joestelmach/natty
     compile group: 'com.joestelmach', name: 'natty', version: '0.13'
+
+    // https://mvnrepository.com/artifact/org.jfree/jfreechart-fx
+    compile group: 'org.jfree', name: 'jfreechart-fx', version: '1.0.1'
 }
 
 shadowJar {

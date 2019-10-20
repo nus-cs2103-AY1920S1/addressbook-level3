@@ -13,8 +13,11 @@ import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
+import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
+import seedu.address.model.waste.WasteReport;
 
 /**
  * API of the Logic component
@@ -59,9 +62,15 @@ public interface Logic {
      */
     Path getTemplateListFilePath();
 
+    ObservableList<TemplateItem> getFilteredTemplateToBeShown();
+
+    Name getNameTemplateToBeShown();
+
     ReadOnlyWasteList getWasteList();
 
     ObservableList<GroceryItem> getFilteredWasteList();
+
+    WasteReport getWasteReport();
 
     Path getWasteListFilePath();
 

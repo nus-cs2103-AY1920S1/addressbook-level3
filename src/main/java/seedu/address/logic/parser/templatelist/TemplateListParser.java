@@ -59,7 +59,7 @@ public class TemplateListParser {
             return new ListTemplateListCommand();
 
         case TemplateItemParser.LIST_TYPE_WORD:
-            return new TemplateListParser().parseCommand(arguments);
+            return new TemplateItemParser().parseCommand(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
