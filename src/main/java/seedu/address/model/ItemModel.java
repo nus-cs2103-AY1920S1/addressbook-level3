@@ -86,6 +86,8 @@ public interface ItemModel {
 
     public void addToSeparateList(int targetIndex, Item item);
 
+    public void updateLists();
+
     //public void setState(ElisaState state);
 
     //public void setToCurrState();

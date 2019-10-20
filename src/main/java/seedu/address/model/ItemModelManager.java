@@ -123,11 +123,16 @@ public class ItemModelManager implements ItemModel {
 
         futureReminders = new ArrayList<Item>();
 
+        updateLists();
+
+        //delete later
+        //elisaCommandHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
+    }
+
+    public void updateLists(){
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
-        //delete later
-        //elisaCommandHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
     }
 
     /* Bryan Reminder
@@ -220,7 +225,7 @@ public class ItemModelManager implements ItemModel {
     }
 
     public void addItem(int targetIndex, Item item){
-        visualList.add(targetIndex, item);
+        visualList.addToIndex(targetIndex, item);
         itemStorage.add(targetIndex, item);
         addToSeparateList(targetIndex, item);
     }
@@ -255,15 +260,15 @@ public class ItemModelManager implements ItemModel {
 
     public void addToSeparateList(int targetIndex, Item item) {
         if (item.hasTask()) {
-            taskList.add(targetIndex, item);
+            taskList.addToIndex(targetIndex, item);
         }
 
         if (item.hasEvent()) {
-            eventList.add(targetIndex, item);
+            eventList.addToIndex(targetIndex, item);
         }
 
         if (item.hasReminder()) {
-            reminderList.add(targetIndex, item);
+            reminderList.addToIndex(targetIndex, item);
             futureReminders.add(targetIndex, item);
         }
     }

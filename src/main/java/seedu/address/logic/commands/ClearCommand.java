@@ -20,12 +20,15 @@ public class ClearCommand extends Command {
     public CommandResult execute(ItemModel model) {
         requireNonNull(model);
         beforeClear = model.getItemStorage().deepCopy();
+        System.out.println(beforeClear.size());
         model.clear();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
+        System.out.println(beforeClear.size());
         model.setItemStorage(beforeClear);
+        model.updateLists();
     }
 }
