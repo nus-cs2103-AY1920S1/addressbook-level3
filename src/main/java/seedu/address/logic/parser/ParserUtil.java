@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.Optional;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DateTime;
+import seedu.address.model.TimeDuration;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
 import seedu.address.model.bio.Gender;
@@ -23,7 +27,8 @@ import seedu.address.model.bio.Nric;
 import seedu.address.model.bio.OtherBioInfo;
 import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
-import seedu.address.model.calendar.DateTime;
+import seedu.address.model.calendar.Description;
+import seedu.address.model.calendar.Repetition;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.RecordType;
@@ -395,6 +400,21 @@ public class ParserUtil {
         return new Fat(verifyNutritionValue(value));
     }
 
+    private static LocalDate parseDate(String date) {
+        String[] dmy = date.split("-");
+        int day = Integer.parseInt(dmy[0]);
+        int month = Integer.parseInt(dmy[1]);
+        int year = Integer.parseInt(dmy[2]);
+        return LocalDate.of(day, month, year);
+    }
+
+    private static LocalTime parseTime(String time) {
+        String[] hm = time.split(":");
+        int hour = Integer.parseInt(hm[0]);
+        int minute = Integer.parseInt(hm[1]);
+        return LocalTime.of(hour, minute);
+    }
+
     /**
      * Parses a {@code String dateTime} into an {@code DateTime}. Leading and trailing whitespaces will be trimmed.
      *
@@ -406,9 +426,9 @@ public class ParserUtil {
         if (!DateTime.isValidDateTime(trimmedDateTime)) {
             throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
         }
-        LocalDate ld = LocalDate.of(1970, Month.JANUARY, 1);
-        LocalTime lt = LocalTime.of(8, 0, 0);
-        return new DateTime(ld, lt);
+        String trimmedDate = trimmedDateTime.substring(0, trimmedDateTime.indexOf(" ")).trim();
+        String trimmedTime = trimmedDateTime.substring(trimmedDateTime.indexOf(" ")).trim();
+        return new DateTime(parseDate(trimmedDate), parseTime(trimmedTime));
     }
 
     /**
@@ -449,5 +469,55 @@ public class ParserUtil {
             throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
         }
         return new Weight(trimmedWeight);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String repetition} into a {@code Repetition}.
+     *
+     * @throws ParseException if the given {@code repetition} is invalid.
+     */
+    public static Repetition parseRepetition(String repetition) throws ParseException {
+        requireNonNull(repetition);
+        String trimmedRepetition = repetition.trim();
+        if (!Repetition.isValidRepetition(trimmedRepetition)) {
+            throw new ParseException(Repetition.MESSAGE_CONSTRAINTS);
+        }
+        return Repetition.of(trimmedRepetition);
+    }
+
+    /**
+     * Parses a {@code String timeDuration} into a {@code TimeDuration}.
+     *
+     * @throws ParseException if the given {@code timeDuration} is invalid.
+     */
+    public static TimeDuration parseTimeDuration(String timeDuration) throws ParseException {
+        requireNonNull(timeDuration);
+        String trimmedTimeDuration = timeDuration.trim();
+        if (!TimeDuration.isValidTimeDuration(trimmedTimeDuration)) {
+            throw new ParseException(TimeDuration.MESSAGE_CONSTRAINTS);
+        }
+        try{
+            String[] hm = trimmedTimeDuration.split(":");
+            int hours = Integer.parseInt(hm[0]);
+            int minutes = Integer.parseInt(hm[1]);
+            return new TimeDuration(hours, minutes);
+        } catch (NumberFormatException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 }

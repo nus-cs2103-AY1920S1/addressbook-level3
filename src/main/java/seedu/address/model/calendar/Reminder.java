@@ -2,6 +2,8 @@ package seedu.address.model.calendar;
 
 import java.util.Objects;
 
+import seedu.address.model.DateTime;
+
 /**
  * Represents a Reminder in the calendar.
  */
@@ -65,18 +67,24 @@ public class Reminder extends CalendarEntry {
         if (repetition.equals(Repetition.Once)) {
             builder.append(" on: ")
                     .append(getDateTime());
-        } else if (repetition.equals(Repetition.EveryDay)) {
+        } else if (repetition.equals(Repetition.Daily)) {
             builder.append(" at: ")
                     .append(getTime())
                     .append(" everyday")
                     .append(" from: ")
                     .append(getDate());
-        } else if (repetition.equals(Repetition.EveryWeek)) {
+        } else if (repetition.equals(Repetition.Weekly)) {
             builder.append(" at: ")
                     .append(getTime())
                     .append(" every ")
                     .append(getDayOfWeekString());
         }
         return builder.toString();
+    }
+
+    @Override
+    public boolean isSameCalendarEntry(CalendarEntry calendarEntry) {
+        return calendarEntry instanceof Reminder
+                && isSameReminder((Reminder)calendarEntry);
     }
 }

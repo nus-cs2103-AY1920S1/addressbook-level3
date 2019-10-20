@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.sgm.model.food.TypicalFoods.FOODS;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;

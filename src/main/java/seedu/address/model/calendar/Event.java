@@ -2,6 +2,8 @@ package seedu.address.model.calendar;
 
 import java.util.Optional;
 
+import seedu.address.model.DateTime;
+
 /**
  * Represents an Event in the calendar.
  */
@@ -51,6 +53,13 @@ public class Event extends CalendarEntry {
         return otherEvent != null
                 && otherEvent.getDescription().equals(getDescription())
                 && otherEvent.getDateTime().equals(getDateTime());
+    }
+
+
+    @Override
+    public boolean isSameCalendarEntry(CalendarEntry calendarEntry) {
+        return calendarEntry instanceof Event
+                && isSameEvent((Event)calendarEntry);
     }
 
     /**

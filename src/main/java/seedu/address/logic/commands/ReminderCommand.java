@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.calendar.Reminder;
 
 /**
  * Adds a reminder to the calendar.
@@ -28,26 +28,26 @@ public class ReminderCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
     public static final String MESSAGE_DUPLICATE_REMINDER = "This reminder already exists in the calendar";
 
-    private final CalendarEntry toAdd;
+    private final Reminder toAdd;
 
     /**
      * Creates an ReminderCommand to add the specified {@code Reminder}
      */
-    public ReminderCommand(CalendarEntry calendarEntry) {
-        requireNonNull(calendarEntry);
-        toAdd = calendarEntry;
+    public ReminderCommand(Reminder reminder) {
+        requireNonNull(reminder);
+        toAdd = reminder;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        /*
-        if (model.hasRecord(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_RECORD);
+
+        if (model.hasReminder(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_REMINDER);
         }
 
-        model.addRecord(toAdd);
-        */
+        model.addReminder(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }
 

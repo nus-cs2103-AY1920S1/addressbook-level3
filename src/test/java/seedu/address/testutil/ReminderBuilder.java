@@ -15,7 +15,7 @@ public class ReminderBuilder {
     public static final String DEFAULT_DESCRIPTION = "Insulin injection";
     public static final LocalDate DEFAULT_DATE = LocalDate.of(2019, 10, 12);
     public static final LocalTime DEFAULT_TIME = LocalTime.of(11, 30);
-    public static final Repetition DEFAULT_REPETITION = Repetition.EveryDay;
+    public static final Repetition DEFAULT_REPETITION = Repetition.Daily;
 
     private Description description;
     private DateTime dateTime;

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.bio.User;
+import seedu.address.model.calendar.Event;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
@@ -144,9 +145,14 @@ public interface Model {
 
     ReadOnlyRecordBook getRecordBook();
 
+    //Calendar
     boolean hasReminder(Reminder reminder);
 
     void addReminder(Reminder reminder);
+
+    boolean hasEvent(Event event);
+
+    void addEvent(Event event);
 
     //=========== User List =============================================================
 

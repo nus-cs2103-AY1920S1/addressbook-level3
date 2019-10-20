@@ -43,7 +43,7 @@ public class ArgumentTokenizer {
     /**
      * {@see findAllPrefixPositions}
      */
-    private static List<PrefixPosition> findPrefixPositions(String argsString, Prefix prefix) {
+    private static List<PrefixPosition>  findPrefixPositions(String argsString, Prefix prefix) {
         List<PrefixPosition> positions = new ArrayList<>();
 
         int prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), 0);
