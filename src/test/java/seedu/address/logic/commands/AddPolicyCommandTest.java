@@ -12,9 +12,6 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -129,7 +126,8 @@ public class AddPolicyCommandTest {
         }
 
         @Override
-        public void saveAddressBookState() {}
+        public void saveAddressBookState() {
+        }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {

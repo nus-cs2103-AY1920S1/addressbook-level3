@@ -33,8 +33,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
-import seedu.address.logic.commands.ReportCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ReportCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -249,7 +249,7 @@ public class AddressBookParser {
             default:
                 if (suggestionOn) {
                     String argumentToParse = " " + PREFIX_COMMAND_WORD + commandWord + " " + PREFIX_ARGUMENTS
-                            + arguments.trim();
+                        + arguments.trim();
                     return new SuggestionCommandParser().parse(argumentToParse);
                 } else {
                     throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

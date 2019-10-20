@@ -14,9 +14,9 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.TimeUtil;
 import seedu.address.model.person.Gender;
-import seedu.address.commons.core.UserSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -101,13 +101,13 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        statefulAddressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return statefulAddressBook;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return statefulAddressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        statefulAddressBook.resetData(addressBook);
     }
 
     @Override

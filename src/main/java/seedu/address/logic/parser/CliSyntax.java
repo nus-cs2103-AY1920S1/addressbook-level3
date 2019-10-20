@@ -31,6 +31,8 @@ public class CliSyntax {
             EditCommand.COMMAND_WORD);
     public static final Prefix PREFIX_DATE_OF_BIRTH = new Prefix("dob/", AddCommand.COMMAND_WORD,
             EditCommand.COMMAND_WORD);
+    public static final Prefix PREFIX_GENDER = new Prefix("g/", AddCommand.COMMAND_WORD,
+        EditCommand.COMMAND_WORD);
 
 
     public static final Prefix PREFIX_POLICY = new Prefix("pol/", AssignPolicyCommand.COMMAND_WORD,
