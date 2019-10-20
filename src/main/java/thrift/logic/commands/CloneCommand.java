@@ -1,6 +1,7 @@
 package thrift.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 import static thrift.model.transaction.TransactionDate.DATE_FORMATTER;
 
 import java.util.Date;
@@ -104,8 +105,7 @@ public class CloneCommand extends Command implements Undoable {
 
     @Override
     public void redo(Model model) {
-        requireNonNull(model);
-        requireNonNull(clonedTransaction);
+        requireAllNonNull(model, clonedTransaction);
         if (clonedTransaction instanceof Expense) {
             model.addExpense((Expense) clonedTransaction);
         } else if (clonedTransaction instanceof Income) {

@@ -3,6 +3,9 @@ package thrift.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertRedoCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
@@ -49,7 +52,7 @@ public class UpdateCommandTest {
                 new PastUndoableCommands());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(1), updatedExpense);
 
-        CommandTestUtil.assertCommandSuccess(updateCommand, model, expectedMessageUpdated + expectedMessageOriginal,
+        assertCommandSuccess(updateCommand, model, expectedMessageUpdated + expectedMessageOriginal,
                 expectedModel);
     }
 
@@ -71,7 +74,7 @@ public class UpdateCommandTest {
                 new PastUndoableCommands());
         expectedModel.setTransaction(lastTransaction, updatedTransaction);
 
-        CommandTestUtil.assertCommandSuccess(updateCommand, model, expectedMessageUpdated
+        assertCommandSuccess(updateCommand, model, expectedMessageUpdated
                 + expectedMessageOriginal, expectedModel);
     }
 
@@ -93,7 +96,7 @@ public class UpdateCommandTest {
                 new PastUndoableCommands());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), updatedPerson);
 
-        CommandTestUtil.assertCommandSuccess(updateCommand, model, expectedMessageUpdated
+        assertCommandSuccess(updateCommand, model, expectedMessageUpdated
                 + expectedMessageOriginal, expectedModel);
     }
 
@@ -143,14 +146,16 @@ public class UpdateCommandTest {
                 updatedTransaction);
         UpdateCommand updateCommand = new UpdateCommand(indexLastTransaction, updateTransactionDescriptor);
 
+        //test update command
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
-        expectedModel.setTransaction(lastTransaction, updatedTransaction);
+        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
+        assertCommandSuccess(updateCommand, model, expectedMessageUpdated + expectedMessageOriginal,
+                expectedModel);
 
-        CommandTestUtil.assertCommandSuccess(updateCommand, model, expectedMessageUpdated
-                + expectedMessageOriginal, expectedModel);
-        expectedModel.setTransaction(updatedTransaction, lastTransaction);
-        CommandTestUtil.assertUndoCommandSuccess(updateCommand, model, expectedModel);
+        //test undo
+        expectedModel.setTransactionWithIndex(indexLastTransaction, lastTransaction);
+        assertUndoCommandSuccess(updateCommand, model, expectedModel);
     }
 
     @Test
@@ -171,17 +176,17 @@ public class UpdateCommandTest {
 
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
-        expectedModel.setTransaction(lastTransaction, updatedTransaction);
-        CommandTestUtil.assertCommandSuccess(updateCommand, model, expectedMessageUpdated
-                + expectedMessageOriginal, expectedModel);
+        //test update command
+        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
+        assertCommandSuccess(updateCommand, model, expectedMessageUpdated + expectedMessageOriginal, expectedModel);
 
         //test undo
-        expectedModel.setTransaction(updatedTransaction, lastTransaction);
-        CommandTestUtil.assertUndoCommandSuccess(updateCommand, model, expectedModel);
+        expectedModel.setTransactionWithIndex(indexLastTransaction, lastTransaction);
+        assertUndoCommandSuccess(updateCommand, model, expectedModel);
 
         //test redo
-        expectedModel.setTransaction(lastTransaction, updatedTransaction);
-        CommandTestUtil.assertRedoCommandSuccess(updateCommand, model, expectedModel);
+        expectedModel.setTransactionWithIndex(indexLastTransaction, updatedTransaction);
+        assertRedoCommandSuccess(updateCommand, model, expectedModel);
     }
 
 

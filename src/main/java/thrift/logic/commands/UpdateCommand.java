@@ -1,6 +1,7 @@
 package thrift.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -149,18 +150,14 @@ public class UpdateCommand extends Command implements Undoable {
 
     @Override
     public void undo(Model model) {
-        requireNonNull(model);
-        requireNonNull(transactionToUpdate);
-        requireNonNull(updatedTransaction);
-        model.setTransaction(updatedTransaction, transactionToUpdate);
+        requireAllNonNull(model, transactionToUpdate, updatedTransaction, actualIndex);
+        model.setTransactionWithIndex(actualIndex, transactionToUpdate);
     }
 
     @Override
     public void redo(Model model) {
-        requireNonNull(model);
-        requireNonNull(transactionToUpdate);
-        requireNonNull(updatedTransaction);
-        model.setTransaction(transactionToUpdate, updatedTransaction);
+        requireAllNonNull(model, transactionToUpdate, updatedTransaction, actualIndex);
+        model.setTransactionWithIndex(actualIndex, updatedTransaction);
     }
 
     /**

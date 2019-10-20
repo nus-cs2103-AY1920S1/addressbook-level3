@@ -1,6 +1,7 @@
 package thrift.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
@@ -59,8 +60,7 @@ public class AddIncomeCommand extends Command implements Undoable {
 
     @Override
     public void redo(Model model) {
-        requireNonNull(model);
-        requireNonNull(toAdd);
+        requireAllNonNull(model, toAdd);
         model.addIncome(toAdd);
     }
 }
