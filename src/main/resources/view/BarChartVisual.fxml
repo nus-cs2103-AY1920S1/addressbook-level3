@@ -6,9 +6,9 @@
 <BarChart fx:id="barchart" legendVisible="false" styleClass="visual" stylesheets="@Visual.css"
           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <xAxis>
-        <CategoryAxis side="BOTTOM"/>
+        <CategoryAxis fx:id="xAxis" side="BOTTOM"/>
     </xAxis>
     <yAxis>
-        <NumberAxis side="LEFT"/>
+        <NumberAxis fx:id="yAxis" side="LEFT"/>
     </yAxis>
 </BarChart>
