@@ -1,5 +1,6 @@
 package dream.fcard.model.cards;
 
+/*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -9,9 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import dream.fcard.model.exceptions.IndexNotFoundException;
 
+
+ */
 class MultipleChoiceCardTest {
 
-    /*
+   /*
     @Test
     void evaluate_correctChoice_trueReturned() throws IndexNotFoundException {
         ArrayList<String> choices = new ArrayList<>();
