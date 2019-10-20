@@ -1,5 +1,5 @@
 .Sidebar {
-    -fx-background-color: linear-gradient(to right, rgb(233, 233, 233, 0.5), rgb(233, 233, 233, 0.3));
+    -fx-background-color: linear-gradient(to right, rgba(233, 233, 233, 0.5), rgba(233, 233, 233, 0.3));
     -fx-border-width: 2;
     -fx-border-color: transparent;
     -fx-border-radius: 20;
@@ -10,12 +10,12 @@
 .Sidebar .button {
     -fx-background-radius: 0;
     -fx-background-color: transparent;
-    -fx-padding: 1;
+    -fx-padding: 0;
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-background-insets: 0;
 }
 
 .Sidebar:hover {
-    -fx-background-color: linear-gradient(to right, rgb(244, 244, 244, 0.8), rgb(244, 244, 244, 0.5));
+    -fx-background-color: linear-gradient(to right, rgba(244, 244, 244, 0.8), rgba(244, 244, 244, 0.5));
 }
