@@ -2,20 +2,22 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.util.Date;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.util.Date;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -50,6 +52,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code Collection<String> names} into a {@code List<Name>}
+     * @param names
+     * @return
+     * @throws ParseException
+     */
+    public static List<Name> parseNames(Collection<String> names) throws ParseException {
+        requireNonNull(names);
+        List<Name> nameList = new ArrayList<>();
+        for (String name : names) {
+            nameList.add(parseName(name));
+        }
+        return nameList;
     }
 
     /**
@@ -140,7 +157,28 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses {@code Collection<String> shares} into a {@code List<Integer>}.
+     * @param shares
+     * @return
+     * @throws ParseException
+     */
+    public static List<Integer> parseShares(Collection<String> shares) throws ParseException {
+        requireNonNull(shares);
+        final List<Integer> intShares = new ArrayList<>();
+        for (String share : shares) {
+            intShares.add(Integer.parseInt(share));
+        }
+        return intShares;
+    }
+
+    /**
+     * Parse {@code String s} into an {@code Amount}
+     * @param s input
+     * @return Amount
+     */
     public static Amount parseAmount(String s) {
+        requireNonNull(s);
         return new Amount(Double.parseDouble(s));
     }
 }

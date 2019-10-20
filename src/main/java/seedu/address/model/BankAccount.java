@@ -84,6 +84,11 @@ public class BankAccount implements ReadOnlyBankAccount {
         return transactions.contains(transaction);
     }
 
+    /**
+     * Handles SplitTransactions separately from normal transactions
+     * @param transaction Adds transaction to transactionHistory and
+     *                    passes to ledger to handle
+     */
     public void split(SplitTransaction transaction) {
         transactions.add(transaction);
         ledger.addSplitTransaction(transaction);

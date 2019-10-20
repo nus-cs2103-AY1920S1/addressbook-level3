@@ -5,11 +5,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.util.Date;
 import seedu.address.model.Model;
 import seedu.address.model.Projection;
 import seedu.address.model.transaction.DateComparator;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Date;
 
 /**
  * Projects user's future balance based on income/outflow history

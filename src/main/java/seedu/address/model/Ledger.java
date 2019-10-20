@@ -5,6 +5,9 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.UniqueTransactionList;
 
+/**
+ * Separate field in BankAccount to store transactions related to split
+ */
 public class Ledger {
     private Amount pot;
     private UniqueTransactionList splitHistory;
@@ -17,6 +20,10 @@ public class Ledger {
     }
 
 
+    /**
+     * Adds transaction into a separate splitHistory
+     * @param transaction
+     */
     public void addSplitTransaction(SplitTransaction transaction) {
         pot = transaction.handleBalance(pot, people);
         splitHistory.add(transaction);

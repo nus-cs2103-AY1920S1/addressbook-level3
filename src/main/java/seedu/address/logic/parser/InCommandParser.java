@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.util.Date;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Date;
 
 /**
  * Parses input arguments and creates a new InCommand object

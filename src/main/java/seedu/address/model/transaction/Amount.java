@@ -12,7 +12,10 @@ public class Amount {
             "Amounts should only be in integer or double, and it should not be blank";
 
     public static final String DOUBLE_CONSTRAINTS =
-            "doubles passed into Amount constructor should have maximum 2 decimal places";
+            "Doubles passed into Amount constructor should have maximum 2 decimal places";
+
+    public static final String SHARE_CONSTRAINTS =
+            "Shares cannot be negative";
 
     private int amount;
 
@@ -63,17 +66,14 @@ public class Amount {
     }
 
     /**
-     * Divides amount by number of people.
-     * @param numOfPeople Number of people for amount to be divided.
-     * @return Equally (TO BE CHANGED) divided amount.
+     * Multiplies amount by some fraction.
+     * @param portion Fraction of Amount.
+     * @return
      */
-    public Amount divideAmount(int numOfPeople) {
-        final int newAmount = this.amount / numOfPeople;
-        return new Amount(newAmount);
-    }
-
-    public void updateAmount(Amount amount) {
-        this.amount = amount.amount;
+    public Amount byShare(double portion) {
+        checkArgument(portion >= 0, SHARE_CONSTRAINTS);
+        double newAmount = this.amount * portion;
+        return new Amount((int) newAmount);
     }
 
     @Override
