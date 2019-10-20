@@ -18,3 +18,21 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+BudgetBar {
+    -fx-pref-height: 30px;
+    -fx-max-height: 30px;
+}
+
+.budgetbar-info {
+    -fx-text-alignment: CENTER;
+}
+
+.budgetbar-meal {
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+    -fx-border-color: red;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-text-alignment: center;
+}

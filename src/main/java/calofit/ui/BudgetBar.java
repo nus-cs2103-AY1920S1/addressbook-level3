@@ -2,6 +2,7 @@ package calofit.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.function.Function;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
@@ -12,21 +13,25 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.skin.ProgressBarSkin;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import calofit.commons.util.ObservableUtil;
 import calofit.model.meal.Meal;
 
 /**
@@ -48,8 +53,8 @@ public class BudgetBar extends StackPane {
     }, todayMeals);
     private DoubleProperty budget = new SimpleDoubleProperty(Double.POSITIVE_INFINITY);
     private DoubleExpression budgetPercent = Bindings.createDoubleBinding(() -> {
-        if (budget.getValue() < 0) {
-            return ProgressBar.INDETERMINATE_PROGRESS;
+        if (budget.getValue() <= 0) {
+            return 0.0;
         }
         return totalConsumed.get() / budget.get();
     }, totalConsumed, budget);
@@ -67,8 +72,21 @@ public class BudgetBar extends StackPane {
         return String.format("%.1f / %.1f", totalConsumed.get(), budget.get());
     }, totalConsumed, budget);
 
+    private ObservableValue<Function<Meal, ColumnConstraints>> columnWidthFunc =
+        Bindings.createObjectBinding(() -> this::buildWidth, budget);
+    private ObservableList<ColumnConstraints> colWidths = ObservableUtil.map(todayMeals, columnWidthFunc);
+    private ObservableList<Node> mealBars = ObservableUtil.mapWithIndex(todayMeals, (index, meal) -> {
+        Label mealBox = new Label(meal.getDish().getName().fullName);
+        mealBox.getStyleClass().add("budgetbar-meal");
+        mealBox.setAlignment(Pos.CENTER);
+        GridPane.setColumnIndex(mealBox, index);
+        GridPane.setHgrow(mealBox, Priority.ALWAYS);
+        GridPane.setVgrow(mealBox, Priority.ALWAYS);
+        return mealBox;
+    });
+
     @FXML
-    private ProgressBar bar;
+    private GridPane mealBarPane;
 
     @FXML
     private Text infoNode;
@@ -86,35 +104,38 @@ public class BudgetBar extends StackPane {
 
         infoNode.textProperty().bind(infoText);
 
-        bar.progressProperty().bind(budgetPercent);
-        bar.skinProperty().addListener((observable, oldVal, newVal) -> {
-            ProgressBarSkin skin = (ProgressBarSkin) newVal;
-            for (Node c : skin.getChildren()) {
-                if (c.getStyleClass().contains("bar")) {
-                    Region bar = (Region) c;
-                    bar.backgroundProperty().bind(
-                        Bindings.createObjectBinding(BudgetBar.this::makeBarBg, barColor));
-                }
+        Bindings.bindContent(mealBarPane.getColumnConstraints(), colWidths);
+        Bindings.bindContent(mealBarPane.getChildren(), mealBars);
+        mealBarPane.backgroundProperty().bind(Bindings.createObjectBinding(() ->
+            new Background(new BackgroundFill(barColor.get(), CornerRadii.EMPTY, Insets.EMPTY)), barColor));
+    }
+
+    /**
+     * Utility method to construct the appropriate {@link ColumnConstraints} for a given {@link Meal} value.
+     * @param meal Meal to represent in the bar.
+     * @return Constraint sized for the meal.
+     */
+    private ColumnConstraints buildWidth(Meal meal) {
+        ColumnConstraints col = new ColumnConstraints();
+        col.percentWidthProperty().bind(Bindings.createDoubleBinding(() -> {
+            if (budget.get() == Double.POSITIVE_INFINITY) {
+                //-1.0 indicates unconstrained.
+                return -1.0;
+            } else {
+                double calories = meal.getDish().getCalories().getValue();
+                return 100.0 * calories / budget.get();
             }
-        });
-    }
-
-    private Background makeBarBg() {
-        return new Background(new BackgroundFill(barColor.get(), CornerRadii.EMPTY, Insets.EMPTY));
+        }, budget));
+        return col;
     }
 
 
-    public ObservableList<Meal> getMeals() {
-        return todayMeals.get();
-    }
-
-    public void setMeals(ObservableList<Meal> meals) {
-        todayMeals.set(meals);
+    public ListProperty<Meal> mealsProperty() {
+        return todayMeals;
     }
 
     public DoubleProperty budgetProperty() {
         return budget;
     }
-
 
 }

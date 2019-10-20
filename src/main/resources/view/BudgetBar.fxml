@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 <fx:root xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
-         type="javafx.scene.layout.StackPane">
-    <ProgressBar fx:id="bar" maxWidth="Infinity"/>
-    <Text fx:id="infoNode" textAlignment="CENTER"/>
+         type="javafx.scene.layout.StackPane"
+         style="-fx-font-size: 10em">
+    <GridPane fx:id="mealBarPane" maxWidth="Infinity" hgap="0" StackPane.alignment="CENTER"/>
+    <Text fx:id="infoNode" styleClass="budgetbar-info" StackPane.alignment="CENTER"/>
 </fx:root>
