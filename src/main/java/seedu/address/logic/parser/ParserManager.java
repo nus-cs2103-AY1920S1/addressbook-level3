@@ -48,24 +48,25 @@ public class ParserManager {
     private ModeParser modeParser;
     private ModeEnum mode;
     private ModeEnum tempMode;
-    private List<Class> switchCommandsList;
+    private List<ClassPair> commandParserClassPairs;
 
     public ParserManager () {
         this.mode = ModeEnum.LOAD;
-        this.modeParser = getModeParser();
+        this.modeParser = setModeParser();
         this.tempMode = null;
-        this.switchCommandsList = new ArrayList<>();
-        switchCommandsList.add(BankCommand.class);
-        switchCommandsList.add(HomeCommand.class);
-        switchCommandsList.add(LoadScreenCommand.class);
-        switchCommandsList.add(SwitchToSettingsCommand.class);
+        this.commandParserClassPairs = new ArrayList<>();
+        commandParserClassPairs.add(new ClassPair(BankCommand.class, BankCommandParser.class));
+        commandParserClassPairs.add(new ClassPair(HomeCommand.class, null));
+        commandParserClassPairs.add(new ClassPair(LoadScreenCommand.class, null));
+        commandParserClassPairs.add(new ClassPair(StartCommand.class, null));
+        commandParserClassPairs.add(new ClassPair(SwitchToSettingsCommand.class, null));
     }
 
     public ModeEnum getMode() {
         return mode;
     }
 
-    private ModeParser getModeParser() {
+    private ModeParser setModeParser() {
         switch (this.mode) {
         case APP:
             return new AppModeParser();
@@ -81,27 +82,24 @@ public class ParserManager {
 
 
     public void updateState(Command command) {
-        if (command.postcondition()) {
+        if (command.postcondition() && tempMode != null) {
             mode = tempMode;
             tempMode = null;
-            this.modeParser = getModeParser();
+            this.modeParser = setModeParser();
+        } else {
+            tempMode = null;
         }
     }
 
-    public List<AutoFillAction> getAutoFill(String text) {
+    public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
-        for (Class cls : switchCommandsList) {
-            try {
-                Field f = cls.getField("COMMAND_WORD");
-                String strValue = (String) f.get(null);
-
-                if (strValue.contains(text)) {
-                    temp.add(new AutoFillAction(strValue));
-                }
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-
+        for (String txt : ClassUtil.getAttribute(commandParserClassPairs, "COMMAND_WORD")) {
+            if (txt.contains(input)) {
+                temp.add(new AutoFillAction(txt));
             }
-
+        }
+        for (AutoFillAction action : modeParser.getAutoFill(input)) {
+            temp.add(action);
         }
         return temp;
     }
@@ -140,35 +138,8 @@ public class ParserManager {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
 
-        case BankCommand.COMMAND_WORD:
-            return new BankCommandParser().parse(arguments);
-
-        case HomeCommand.COMMAND_WORD:
-            return new HomeCommand();
-
-        case LoadScreenCommand.COMMAND_WORD:
-            return new LoadScreenCommand();
-
-        case StartCommand.COMMAND_WORD:
-            Class cls = StartCommand.class;
-            try {
-                cls.getConstructor();
-                Constructor cons = cls.getConstructor();
-                SwitchCommand test = (SwitchCommand)cons.newInstance();
-                return test;
-            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-
-            }
-            //return new StartCommand();
-
-        case SwitchToSettingsCommand.COMMAND_WORD:
-            return new SwitchToSettingsCommand();
-
-        default:
-            return null;
-        }
+        return (SwitchCommand) ClassUtil.getCommandInstance(commandParserClassPairs, commandWord, arguments);
     }
 
 }

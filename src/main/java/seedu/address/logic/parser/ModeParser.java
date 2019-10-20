@@ -5,6 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.List;
+import java.util.ArrayList;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.app.AddCommand;
@@ -25,6 +27,7 @@ import seedu.address.logic.commands.switches.LoadScreenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.util.AutoFillAction;
 
 /**
  * Parses user input.
@@ -33,4 +36,7 @@ public abstract class  ModeParser {
 
     public abstract Command parseCommand(String userInput) throws ParseException;
 
+    public List<AutoFillAction> getAutoFill(String input) {
+        return new ArrayList<>();
+    }
 }
