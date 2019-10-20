@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the MoneyGoWhere list.
+ * Represents a Spending's name in the MoneyGoWhere list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

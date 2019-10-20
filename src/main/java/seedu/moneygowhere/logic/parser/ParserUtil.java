@@ -2,6 +2,7 @@ package seedu.moneygowhere.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.moneygowhere.commons.core.index.Index;
+import seedu.moneygowhere.commons.util.DateUtil;
 import seedu.moneygowhere.commons.util.StringUtil;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.budget.Budget;
@@ -73,7 +75,14 @@ public class ParserUtil {
         requireNonNull(dates);
         final List<Date> dateList = new ArrayList<>();
         for (String date : dates) {
-            dateList.add(parseDate(date));
+            List<LocalDate> innerDates = DateUtil.parseDates(date);
+            if (innerDates != null && !innerDates.isEmpty()) {
+                for (LocalDate innerDate : innerDates) {
+                    dateList.add(parseDate(innerDate.toString()));
+                }
+            } else {
+                throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+            }
         }
         return dateList;
     }
@@ -83,7 +92,7 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the given {@code cost} is invalid.
      */
-    public static Cost parseCost (String cost) throws ParseException {
+    public static Cost parseCost(String cost) throws ParseException {
         requireNonNull(cost);
         String trimmedCost = cost.trim();
         if (!Cost.isValidCost(trimmedCost)) {
@@ -93,11 +102,34 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String cost} delimited by a '-' into an {@code cost}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code cost} is invalid.
+     */
+    public static List<Cost> parseCosts(Collection<String> costs) throws ParseException {
+        requireNonNull(costs);
+
+        List<Cost> result = new ArrayList<>();
+        for (String tempCost : costs) {
+            tempCost = tempCost.trim();
+            String[] costTokens = tempCost.split("-");
+            for (String cost : costTokens) {
+                if (!Cost.isValidCost(cost)) {
+                    throw new ParseException(Cost.MESSAGE_CONSTRAINTS);
+                }
+
+                result.add(new Cost(cost));
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * Parses a {@code String remark} into an {@code remark}.
      * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the given {@code remark} is invalid.
      */
-    public static Remark parseRemark(String remark) throws ParseException {
+    public static Remark parseRemark(String remark) {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
         return new Remark(trimmedRemark);

@@ -434,8 +434,8 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to find all occurrences of a keyword or within a cost range or date range in a spending.
-2.  MoneyGoWhere returns any spending found with the keyword or within a cost range or date range specified.
+1.  User requests to find all occurrences of entered keywords, optionally within the spending name, a cost range, date range, remark and tag in a spending.
+2.  MoneyGoWhere returns any spending found with the keywords contained within its cost range, date range, remark and tag specified.
 +
 Use case ends.
 

@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.moneygowhere.model.tag.Tag;
 
 /**
- * Represents a Person in the MoneyGoWhere list.
+ * Represents a Spending in the MoneyGoWhere list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Spending {

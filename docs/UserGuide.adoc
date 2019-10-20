@@ -102,6 +102,7 @@ Examples:
 * `add n/chicken breast c/1.80 t/meat` +
 * `add n/coffee c/1.20 d/today` +
 * `add n/milo c/1.50 r/I love milo` +
+* `add n/gold class movie ticket d/15/1/2019 c/13.00 r/important t/entertainment` +
 
 === Updating a spending : `update`
 
@@ -165,12 +166,15 @@ Displays the list of spending tagged with `groceries` in `descending order by da
 === Find by keyword : `find`
 
 Searches for spending based on given keywords, cost range and date range. +
-Format: `find KEYWORD [MORE_KEYWORDS] [c/COST_RANGE] [r/DATE_RANGE]`
+At least one search field must be present. +
+Format: `find [n/NAME_KEYWORDS] [c/COST_MIN-COST_MAX] [d/DATE_START - DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
 
 Example:
 
-* `find book Java c/100-150 r/01/09/2019-30/09/2019` +
-Returns a list of spending with `book` and `Java` keywords within the cost range `100-150` and date range within `01/09/2019-30/09/2019`.
+* `find n/Java book c/100.20-150 r/01/09/2019 - 30/09/2019` +
+Returns a list of spending with `Java` and `book` keywords within the cost range `100.20-150` and date range within `01/09/2019 - 30/09/2019`.
+* `find n/apple c/1.50-2.00 r/01/09/2019 to 30/09/2019` +
+Returns a list of spending with `apple` keyword within the cost range `1.50-2.00` and date range within `01/09/2019 to 30/09/2019`.
 
 === Setting monthly budget : `budget`
 Sets a monthly budget for the current month in Singapore dollars. +
@@ -298,8 +302,8 @@ e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
-| *Find* | `find KEYWORD [MORE_KEYWORDS] [c/COST_RANGE] [r/DATE_RANGE]` +
-e.g. `find apple orange c/1.00-200 r/19/09/2019-20/09/2019`
+| *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
+e.g. `find n/apple orange c/1.00-200 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
 | *List* | `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
 e.g. `list r/01/09/2019-30/09/2019 t/groceries c/20-100 o/ASC`
 | *Budget* | `budget m/MONTHLY_BUDGET` +

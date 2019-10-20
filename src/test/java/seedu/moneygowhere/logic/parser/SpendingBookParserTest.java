@@ -4,12 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalIndexes.INDEX_FIRST_SPENDING;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -78,8 +80,10 @@ public class SpendingBookParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindCommand.COMMAND_WORD + " " + PREFIX_NAME + String.join(" ", keywords));
+        List<Predicate<Spending>> predicates = new ArrayList<>();
+        predicates.add(new NameContainsKeywordsPredicate(keywords));
+        assertEquals(new FindCommand(predicates), command);
     }
 
     @Test
