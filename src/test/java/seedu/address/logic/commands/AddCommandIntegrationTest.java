@@ -7,9 +7,10 @@ import org.junit.jupiter.api.BeforeEach;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.bio.UserList;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.sgm.model.food.UniqueFoodList;
+
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

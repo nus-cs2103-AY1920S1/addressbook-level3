@@ -36,7 +36,6 @@ public class DateTime {
             this.date = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
             this.time = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
         } else {
-            System.out.println("invalid date time string via date time STRING constructor");
         }
     }
 

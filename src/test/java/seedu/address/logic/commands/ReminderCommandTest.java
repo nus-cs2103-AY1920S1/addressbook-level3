@@ -17,7 +17,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyRecordBook;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.bio.User;
@@ -243,6 +242,8 @@ class ReminderCommandTest {
 
         @Override
         public void setRecordList(UniqueRecordList newRecordList) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         //=========== User List =============================================================
 

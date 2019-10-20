@@ -27,10 +27,10 @@ import seedu.sgm.model.food.UniqueFoodList;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
-        new UniqueRecordList());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
-        new UniqueRecordList());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
+            new UniqueFoodList(), new UniqueRecordList());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
+            new UniqueFoodList(), new UniqueRecordList());
 
     @Test
     public void equals() {

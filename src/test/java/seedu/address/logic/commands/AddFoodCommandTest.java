@@ -18,7 +18,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyRecordBook;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.bio.User;
@@ -247,7 +246,7 @@ class AddFoodCommandTest {
         public void setRecordList(UniqueRecordList newRecordList) {
 
         }
-      
+
         //=========== User List =============================================================
         @Override
         public void setUserList(ReadOnlyUserList userList) {

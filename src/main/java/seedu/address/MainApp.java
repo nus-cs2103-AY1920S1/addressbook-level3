@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -25,8 +24,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.bio.UserList;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -72,7 +71,8 @@ public class MainApp extends Application {
         UserListStorage userListStorage = new JsonUserListStorage(userPrefs.getUserListFilePath());
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(userPrefs.getRecordListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage, jsonRecordListStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
+                jsonRecordListStorage);
 
         initLogging(config);
 
@@ -100,8 +100,6 @@ public class MainApp extends Application {
         UniqueFoodList initialFoodListData;
         Optional<UniqueRecordList> recordListOptional;
         UniqueRecordList initialRecordListData;
-        RecordBook recordBook = new RecordBook();
-
 
         // Todo Following can eventually be abstracted in later versions if there's time.
         try {
@@ -131,7 +129,7 @@ public class MainApp extends Application {
             initialFoodListData = new UniqueFoodList();
             initialRecordListData = new UniqueRecordList();
         }
-      
+
         try {
             userListOptional = storage.readUserList();
             if (!userListOptional.isPresent()) {
@@ -147,7 +145,7 @@ public class MainApp extends Application {
             initialUserData = new UserList();
         }
 
-        return new ModelManager(initialData, userPrefs, foodList, recordBook, initialUserData, initialRecordListData);
+        return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData);
     }
 
     private void initLogging(Config config) {
