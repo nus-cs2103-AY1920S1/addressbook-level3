@@ -49,13 +49,13 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
 
-        this.wordBank = new WordBank(wordBank, wordBank.getName());
+        this.wordBank = (WordBank) wordBank;
         this.wordBankList = new WordBankList();
 
         this.wordBankStatisticsList = new WordBankStatisticsList();
 
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+//        filteredCards = new FilteredList<>(this.wordBank.getCardList());
         filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
 
         // Default Difficulty is always EASY.

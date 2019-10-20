@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonWordBankListStorage;
 
 /**
  * Wraps all data at the address-book level
@@ -31,7 +31,7 @@ public class WordBankList implements ReadOnlyWordBankList {
 
     public WordBankList() {
         Path filePath = Paths.get("data/");
-        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+        JsonWordBankListStorage storage = new JsonWordBankListStorage(filePath);
         List<WordBank> wbl = storage.getWordBankList().get();
         for (WordBank wb : wbl) {
             wordBankList.add(wb);

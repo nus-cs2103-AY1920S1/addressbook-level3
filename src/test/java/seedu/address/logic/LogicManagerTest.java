@@ -18,7 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonWordBankListStorage;
 //import seedu.address.storage.JsonUserPrefsStorage;
 //import seedu.address.storage.StorageManager;
 
@@ -33,8 +33,8 @@ public class LogicManagerTest {
 
     //    @BeforeEach
     //    public void setUp() {
-    //        JsonAddressBookStorage addressBookStorage =
-    //                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+    //        JsonWordBankListStorage addressBookStorage =
+    //                new JsonWordBankListStorage(temporaryFolder.resolve("addressBook.json"));
     //     JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
     //        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
     //        logic = new LogicManager(model, storage);
@@ -61,8 +61,8 @@ public class LogicManagerTest {
     //    todo: storage test
     //    @Test
     //    public void execute_storageThrowsIoException_throwsCommandException() {
-    //        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-    //        JsonAddressBookStorage addressBookStorage = new JsonAddressBookIoExceptionThrowingStub(
+    //        // Setup LogicManager with JsonWordBankListIoExceptionThrowingStub
+    //        JsonWordBankListStorage addressBookStorage = new JsonWordBankListIoExceptionThrowingStub(
     //                temporaryFolder.resolve("ioExceptionAddressBook.json"));
     //        JsonUserPrefsStorage userPrefsStorage =
     //                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
@@ -144,8 +144,8 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonWordBankListIoExceptionThrowingStub extends JsonWordBankListStorage {
+        private JsonWordBankListIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 

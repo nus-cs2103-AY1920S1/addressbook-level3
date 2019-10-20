@@ -11,12 +11,12 @@ import seedu.address.model.wordbank.WordBank;
 /**
  * Represents a storage for {@link WordBank}.
  */
-public interface AddressBookStorage {
+public interface WordBankListStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getWordBankListFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyWordBank}.
@@ -27,7 +27,7 @@ public interface AddressBookStorage {
     Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getWordBankListFilePath()
      */
     Optional<ReadOnlyWordBank> readAddressBook(Path filePath) throws DataConversionException, IOException;
 

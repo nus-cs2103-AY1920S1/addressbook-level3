@@ -58,7 +58,6 @@ public class JsonUtil {
     public static <T> Optional<T> readJsonFile(
             Path filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
         requireNonNull(filePath);
-        String s = filePath.toString();
         if (!Files.exists(filePath)) {
             logger.info("Json file " + filePath + " not found");
             return Optional.empty();

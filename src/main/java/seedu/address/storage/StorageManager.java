@@ -19,14 +19,14 @@ import seedu.address.storage.statistics.WordBankStatisticsStorage;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private WordBankListStorage wordBankListStorage;
     private UserPrefsStorage userPrefsStorage;
     private WordBankStatisticsStorage wbStatsStorage;
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+    public StorageManager(WordBankListStorage wordBankListStorage, UserPrefsStorage userPrefsStorage,
                           WordBankStatisticsStorage wbStatsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.wordBankListStorage = wordBankListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.wbStatsStorage = wbStatsStorage;
     }
@@ -52,30 +52,30 @@ public class StorageManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getWordBankListFilePath() {
+        return wordBankListStorage.getWordBankListFilePath();
     }
 
     @Override
     public Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return readAddressBook(wordBankListStorage.getWordBankListFilePath());
     }
 
     @Override
     public Optional<ReadOnlyWordBank> readAddressBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return wordBankListStorage.readAddressBook(filePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, wordBankListStorage.getWordBankListFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyWordBank addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        wordBankListStorage.saveAddressBook(addressBook, filePath);
     }
 
     // ================ WordBankStatistics methods ==============================

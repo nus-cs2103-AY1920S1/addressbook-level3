@@ -14,7 +14,7 @@ import seedu.address.storage.statistics.WordBankStatisticsStorage;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, WordBankStatisticsStorage {
+public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBankStatisticsStorage {
 
     @Override
     Optional<WordBankStatistics> readWordBankStatistics() throws DataConversionException, IOException;
@@ -25,7 +25,6 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, WordBankS
     @Override
     Path getWordBankStatisticsFilePath();
 
-
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
@@ -33,7 +32,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, WordBankS
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getWordBankListFilePath();
 
     @Override
     Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException;

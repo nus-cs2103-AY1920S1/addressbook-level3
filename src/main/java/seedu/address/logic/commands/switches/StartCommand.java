@@ -22,7 +22,7 @@ import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonWordBankListStorage;
 
 /**
  * Starts the game.
@@ -58,7 +58,7 @@ public class StartCommand extends SwitchCommand {
         String pathString = "data/" + wordBankName + ".json";
         Path filePath = Paths.get(pathString);
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
+        JsonWordBankListStorage addressBookStorage = new JsonWordBankListStorage(filePath);
         addressBookStorage.getWordBankList();
         String usedWordBankTitle = "Pokémon sample"; // todo change later
         try {
