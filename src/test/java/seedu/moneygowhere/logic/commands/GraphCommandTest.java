@@ -3,7 +3,10 @@ package seedu.moneygowhere.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moneygowhere.logic.commands.GraphCommand.SHOWING_GRAPH_MESSAGE;
-import static seedu.moneygowhere.testutil.TypicalSpendings.*;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
+import static seedu.moneygowhere.testutil.TypicalSpendings.GLASSES;
+import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +33,8 @@ public class GraphCommandTest {
     @Test
     public void execute_graphMessageValidDateRange_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_GRAPH_MESSAGE, true, false);
-        assertCommandSuccess(new GraphCommand(APPLE.getDate(), GLASSES.getDate()), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new GraphCommand(APPLE.getDate(), GLASSES.getDate()), model,
+            expectedCommandResult, expectedModel);
     }
 
     @Test

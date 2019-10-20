@@ -1,16 +1,17 @@
 package seedu.moneygowhere.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.moneygowhere.logic.commands.CommandTestUtil.*;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.moneygowhere.logic.commands.GraphCommand;
-import seedu.moneygowhere.logic.commands.StatsCommand;
 import seedu.moneygowhere.model.spending.Date;
 
 class GraphCommandParserTest {

@@ -33,7 +33,6 @@ public class GraphWindow extends UiPart<Stage> {
      */
     public GraphWindow(Stage root) {
         super(FXML, root);
-        root.sizeToScene();
     }
 
     /**
@@ -53,8 +52,8 @@ public class GraphWindow extends UiPart<Stage> {
         spendingChart.setTitle("Current month's spending");
         XYChart.Series series = new XYChart.Series();
         series.setName("spending");
-        for (Map.Entry i : graphData.entrySet()) {
-            series.getData().add(new XYChart.Data<String, Number>(i.getKey().toString(), Math.round((Double)i.getValue())));
+        for (Map.Entry<Date, Double> i : graphData.entrySet()) {
+            series.getData().add(new XYChart.Data<String, Number>(i.getKey().toString(), Math.round(i.getValue())));
         }
         spendingChart.getData().add(series);
         spendingChart.setMinWidth(600);
