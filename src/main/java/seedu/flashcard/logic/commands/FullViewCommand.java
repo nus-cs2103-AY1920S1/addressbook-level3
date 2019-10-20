@@ -2,12 +2,12 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
-
-import java.util.List;
 
 /**
  * Command to view the MCQ choicecs as well as the answer in a flashcard.
