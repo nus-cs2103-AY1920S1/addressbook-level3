@@ -72,6 +72,8 @@ public class TypicalEateries {
         AddressBook ab = new AddressBook();
         for (Eatery eatery : getTypicalEateries()) {
             ab.addEatery(eatery);
+            ab.toggle();
+            ab.addEatery(eatery);
         }
         return ab;
     }

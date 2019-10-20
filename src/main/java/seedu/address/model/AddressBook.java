@@ -3,8 +3,11 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.UniqueEateryList;
 
@@ -14,7 +17,11 @@ import seedu.address.model.eatery.UniqueEateryList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private boolean isMainMode = true;
+    private final Logger logger = LogsCenter.getLogger(AddressBook.class);
+
     private final UniqueEateryList eateries;
+    private final UniqueEateryList todo;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         eateries = new UniqueEateryList();
+        todo = new UniqueEateryList();
     }
 
     public AddressBook() {}
@@ -43,8 +51,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the eatery list with {@code eateries}.
      * {@code eateries} must not contain duplicate eateries.
      */
-    public void setEateries(List<Eatery> eateries) {
+    public void setEateries(List<Eatery> eateries, List<Eatery> todos) {
         this.eateries.setEateries(eateries);
+        this.todo.setEateries(todos);
     }
 
     /**
@@ -52,26 +61,33 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
-        setEateries(newData.getEateryList());
+        setEateries(newData.getEateryList(), newData.getTodoList());
     }
 
     //// eatery-level operations
-
     /**
      * Returns true if a eatery with the same identity as {@code eatery} exists in the address book.
      */
     public boolean hasEatery(Eatery eatery) {
         requireNonNull(eatery);
-        return eateries.contains(eatery);
+        if (isMainMode) {
+            return eateries.contains(eatery);
+        } else {
+            return todo.contains(eatery);
+        }
     }
 
     /**
      * Adds a eatery to the address book.
      * The eatery must not already exist in the address book.
      */
+
     public void addEatery(Eatery e) {
-        eateries.add(e);
+        if (isMainMode) {
+            eateries.add(e);
+        } else {
+            todo.add(e);
+        }
     }
 
     /**
@@ -81,8 +97,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setEatery(Eatery target, Eatery editedEatery) {
         requireNonNull(editedEatery);
-
-        eateries.setEatery(target, editedEatery);
+        if (isMainMode) {
+            eateries.setEatery(target, editedEatery);
+        } else {
+            todo.setEatery(target, editedEatery);
+        }
     }
 
     /**
@@ -90,10 +109,32 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeEatery(Eatery key) {
-        eateries.remove(key);
+        if (isMainMode) {
+            eateries.remove(key);
+        } else {
+            todo.remove(key);
+        }
     }
 
     //// util methods
+    /**
+     * Toggle between Main mode and To-do mode.
+     */
+    public void toggle() {
+        isMainMode = !isMainMode;
+
+        if (isMainMode) {
+            logger.info("================Main Mode=============");
+            logger.info(eateries.toString());
+        } else {
+            logger.info("================Todo Mode=============");
+            logger.info(todo.toString());
+        }
+    }
+
+    public boolean isMainMode() {
+        return isMainMode;
+    }
 
     @Override
     public String toString() {
@@ -105,6 +146,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Eatery> getEateryList() {
         return eateries.asUnmodifiableObservableList();
     }
+
+    public ObservableList<Eatery> getTodoList() {
+        return todo.asUnmodifiableObservableList();
+    }
+
 
     @Override
     public boolean equals(Object other) {

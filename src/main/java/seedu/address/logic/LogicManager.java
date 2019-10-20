@@ -64,6 +64,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Eatery> getFilteredTodoList() {
+        return model.getFilteredTodoList();
+    }
+
+    @Override
+    public boolean isMainMode() {
+        return model.isMainMode();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }

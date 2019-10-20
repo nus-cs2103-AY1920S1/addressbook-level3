@@ -38,6 +38,11 @@ public interface Logic {
      */
     ObservableList<Eatery> getFilteredEateryList();
 
+    /** Returns an unmodifiable view of the filtered list of todos */
+    ObservableList<Eatery> getFilteredTodoList();
+
+    boolean isMainMode();
+
     /**
      * Returns the user prefs' address book file path.
      */

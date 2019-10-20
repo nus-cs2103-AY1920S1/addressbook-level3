@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+
 import seedu.address.model.eatery.Eatery;
 
 /**
@@ -22,6 +23,7 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_EATERY = "Eaterys list contains duplicate eatery(ies).";
 
     private final List<JsonAdaptedEatery> eateries = new ArrayList<>();
+    private final List<JsonAdaptedEatery> todos = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given eateries.
@@ -38,6 +40,8 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         eateries.addAll(source.getEateryList().stream().map(JsonAdaptedEatery::new).collect(Collectors.toList()));
+
+        todos.addAll(source.getTodoList().stream().map(JsonAdaptedEatery::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +58,16 @@ class JsonSerializableAddressBook {
             }
             addressBook.addEatery(eatery);
         }
+
+        addressBook.toggle();
+        for (JsonAdaptedEatery jsonAdaptedEatery : todos) {
+            Eatery eatery = jsonAdaptedEatery.toModelType();
+            if (addressBook.hasEatery(eatery)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EATERY);
+            }
+            addressBook.addEatery(eatery);
+        }
+
         return addressBook;
     }
 

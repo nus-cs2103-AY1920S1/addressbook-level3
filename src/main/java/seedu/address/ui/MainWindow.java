@@ -33,6 +33,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private EateryListPanel eateryListPanel;
+    private EateryListPanel todoListPanel;
+
     private ResultDisplay resultDisplay;
     private FeedPostListPanel feedPostListPanel;
     private HelpWindow helpWindow;
@@ -76,6 +78,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         eateryListPanel = new EateryListPanel(logic.getFilteredEateryList());
         eateryListPanelPlaceholder.getChildren().add(eateryListPanel.getRoot());
 
@@ -95,6 +98,20 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillDataParts() {
+        eateryListPanel = new EateryListPanel(logic.getFilteredEateryList());
+        todoListPanel = new EateryListPanel(logic.getFilteredTodoList());
+
+        if (logic.isMainMode()) {
+            eateryListPanelPlaceholder.getChildren().addAll(eateryListPanel.getRoot());
+        } else {
+            eateryListPanelPlaceholder.getChildren().addAll(todoListPanel.getRoot());
+        }
     }
 
 
@@ -161,6 +178,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            fillDataParts();
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

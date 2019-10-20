@@ -146,10 +146,24 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Eatery> getFilteredTodoList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredEateryList(Predicate<Eatery> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean isMainMode() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void toggle() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public Path getFeedListFilePath() {

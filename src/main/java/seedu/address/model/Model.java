@@ -86,6 +86,9 @@ public interface Model {
      */
     ObservableList<Eatery> getFilteredEateryList();
 
+    /** Returns an unmodifiable view of the filtered list */
+    ObservableList<Eatery> getFilteredTodoList();
+
     /**
      * Updates the filter of the filtered eatery list to filter by the given {@code predicate}.
      *
@@ -94,6 +97,16 @@ public interface Model {
     void updateFilteredEateryList(Predicate<Eatery> predicate);
 
     /**
+     *  Switch between main mode and to-do mode.
+     * */
+    void toggle();
+
+    /**
+     * Return status of mode, Main or To-do.
+     * */
+    boolean isMainMode();
+
+    /*
      * Returns the user prefs' feed list file path.
      */
     Path getFeedListFilePath();
