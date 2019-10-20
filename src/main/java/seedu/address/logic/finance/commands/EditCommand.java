@@ -20,14 +20,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
+import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
-import seedu.address.model.finance.logentry.Amount;
-import seedu.address.model.finance.logentry.Description;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.model.finance.logentry.SpendLogEntry;
-import seedu.address.model.finance.logentry.TransactionDate;
 
 /**
  * Edits the details of an existing log entry in the finance log.

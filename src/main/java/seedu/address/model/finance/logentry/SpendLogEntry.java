@@ -2,8 +2,11 @@ package seedu.address.model.finance.logentry;
 
 import java.util.Set;
 
+import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
 
 /**

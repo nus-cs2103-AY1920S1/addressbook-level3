@@ -7,7 +7,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Description;
+import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
 
 /**

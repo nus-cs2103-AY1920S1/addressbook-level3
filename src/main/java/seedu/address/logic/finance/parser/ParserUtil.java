@@ -9,12 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
+import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
-import seedu.address.model.finance.logentry.Amount;
-import seedu.address.model.finance.logentry.Description;
-import seedu.address.model.finance.logentry.TransactionDate;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
