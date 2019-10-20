@@ -23,14 +23,14 @@ import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
- * Marks attendance of student in a specified tutorial.
+ * Adds Assignment to a Tutorial.
  * Keyword matching is case insensitive.
  */
 public class AddAssignmentCommand extends AssignmentCommand {
 
     public static final String MESSAGE_ADD_ASSIGNMENT_SUCCESS = "%1$s created successfully";
     public static final String COMMAND_WORD = "addAssign";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addA", "addAsm"};
 
     // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates an assignment for a tutorial.\n"

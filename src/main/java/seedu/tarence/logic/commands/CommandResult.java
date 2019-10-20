@@ -19,11 +19,17 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should changeTabs */
+    private boolean changeTabs;
+
     /** The application should display attendance */
     private boolean hasAttendanceDisplay;
 
     /** The attendance to be displayed by the application */
     private Tutorial tutorialAttendanceToDisplay;
+
+    /** The type of tab to display **/
+    private TabNames tabToDisplay;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -33,6 +39,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.hasAttendanceDisplay = false;
+        this.changeTabs = false;
     }
 
     /**
@@ -48,9 +55,25 @@ public class CommandResult {
      * a specified {@code Tutorial} and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, Tutorial tutorialAttendanceToDisplay) {
-        this(feedbackToUser, false, false);
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.changeTabs = false;
         this.tutorialAttendanceToDisplay = tutorialAttendanceToDisplay;
         this.hasAttendanceDisplay = true;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and
+     * a specified {@code tabToDisplay} and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, TabNames tabToDisplay) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.hasAttendanceDisplay = false;
+        this.tabToDisplay = tabToDisplay;
+        this.changeTabs = true;
     }
 
     public String getFeedbackToUser() {
@@ -67,6 +90,14 @@ public class CommandResult {
 
     public boolean isShowAttendance() {
         return hasAttendanceDisplay;
+    }
+
+    public boolean isChangeTabs() {
+        return changeTabs;
+    }
+
+    public TabNames getTabToDisplay() {
+        return this.tabToDisplay;
     }
 
     public Tutorial getTutorialAttendance() {
@@ -88,12 +119,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && hasAttendanceDisplay == otherCommandResult.hasAttendanceDisplay;
+                && hasAttendanceDisplay == otherCommandResult.hasAttendanceDisplay
+                && changeTabs == otherCommandResult.changeTabs;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, hasAttendanceDisplay);
+        return Objects.hash(feedbackToUser, showHelp, exit, hasAttendanceDisplay, changeTabs);
     }
 
     @Override

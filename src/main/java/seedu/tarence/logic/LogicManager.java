@@ -10,6 +10,7 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.CommandResult;
+import seedu.tarence.logic.commands.TabNames;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.ApplicationParser;
 import seedu.tarence.logic.parser.exceptions.ParseException;
@@ -45,6 +46,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command;
         Optional<Tutorial> tutorialToStore = Optional.empty();
+        Optional<TabNames> tabToDisplay = Optional.empty();
 
         // processes multiple commands in user input if they exit
         String[] commandStrings = commandText.split("&");
@@ -87,11 +89,18 @@ public class LogicManager implements Logic {
             if (currCommandResult.isShowAttendance()) {
                 tutorialToStore = Optional.of(currCommandResult.getTutorialAttendance());
             }
+
+            // If tab is to be displayed, it will be passed into the commandResult
+            if (currCommandResult.isChangeTabs()) {
+                tabToDisplay = Optional.of(currCommandResult.getTabToDisplay());
+            }
         }
 
         // creates a new command concatenating all command result messages into a single result
         if (tutorialToStore.isPresent()) {
             commandResult = new CommandResult(combinedFeedback.toString(), tutorialToStore.get());
+        } else if (tabToDisplay.isPresent()) {
+            commandResult = new CommandResult(combinedFeedback.toString(), tabToDisplay.get());
         } else {
             commandResult = new CommandResult(combinedFeedback.toString());
         }

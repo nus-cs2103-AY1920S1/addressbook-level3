@@ -37,6 +37,12 @@ public class CommandResultTest {
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
 
+        // no valid tab given
+        assertFalse(commandResult.isChangeTabs());
+
+        // no valid tutorial given
+        assertFalse(commandResult.isShowAttendance());
+
         // different hasAttendanceDisplay value -> returns false
         Tutorial tutorial = new TutorialBuilder().build();
         assertFalse(commandResult.equals(new CommandResult("feedback", tutorial)));
@@ -50,6 +56,11 @@ public class CommandResultTest {
 
         // Same tutorial is received
         assertTrue(tutorial.equals(commandResult.getTutorialAttendance()));
+
+        // Set tab to display
+        commandResult = new CommandResult("feedback", TabNames.MODULES);
+        assertTrue(TabNames.MODULES.equals(commandResult.getTabToDisplay()));
+        assertFalse(TabNames.STUDENTS.equals(commandResult.getTabToDisplay()));
     }
 
     @Test

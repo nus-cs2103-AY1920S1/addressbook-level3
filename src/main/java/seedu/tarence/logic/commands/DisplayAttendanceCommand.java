@@ -184,6 +184,7 @@ public class DisplayAttendanceCommand extends Command {
         return other == this // short circuit if same object
                 || ((other instanceof DisplayAttendanceCommand // instanceof handles nulls
                 && (modCode.equals(((DisplayAttendanceCommand) other).modCode))
+                && (tutName.equals(((DisplayAttendanceCommand) other).tutName))
                 && (index.equals(((DisplayAttendanceCommand) other).index)))); // state check
     }
 }

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.tarence.logic.commands.AddModuleCommand;
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.AddTutorialCommand;
+import seedu.tarence.logic.commands.ChangeTabCommand;
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.ConfirmNoCommand;
 import seedu.tarence.logic.commands.ConfirmYesCommand;
@@ -93,6 +94,8 @@ public class ApplicationParser {
             return new AddAssignmentCommandParser().parse(arguments);
         } else if (DeleteAssignmentCommand.isMatchingCommandWord(commandWord)) {
             return new DeleteAssignmentCommandParser().parse(arguments);
+        } else if (ChangeTabCommand.isMatchingCommandWord(commandWord)) {
+            return new ChangeTabCommand(arguments);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

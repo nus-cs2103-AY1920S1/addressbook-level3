@@ -29,6 +29,7 @@ public class Tutorial {
     protected List<Student> students;
     protected ModCode modCode;
     protected Attendance attendance;
+    // TODO: Add assignments to storage
     protected Map<Assignment, Map<Student, Integer>> assignments;
 
     /**

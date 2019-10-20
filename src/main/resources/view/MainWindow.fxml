@@ -3,7 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -15,7 +14,9 @@
 
 <?import javafx.scene.control.TableView?>
 
-<fx:root minHeight="700" minWidth="960" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<fx:root minHeight="700" minWidth="840" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/TArenceicon.png" />
     </icons>
@@ -48,33 +49,56 @@
                     </padding>
                 </StackPane>
             <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-                <VBox fx:id="tutorialList" alignment="CENTER" minWidth="310" maxWidth="310" prefWidth="310" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                    <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Class List" textFill="#fffcfc" underline="true">
-                        <padding>
-                            <Insets bottom="10" left="10" right="10" top="10" />
-                        </padding>
-                    </Label>
-                    <StackPane fx:id="tutorialListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                </VBox>
-
-                <VBox fx:id="studentList" alignment="CENTER" minWidth="340" maxWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                    <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Students" textFill="#fffcfc" underline="true">
-                        <padding>
-                            <Insets bottom="10" left="10" right="10" top="10" />
-                        </padding>
-                    </Label>
-                    <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                    <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                    </padding>
-                </VBox>
-                <VBox>
-                    <TableView fx:id="attendancePlaceholder" prefWidth="500" minWidth="500" VBox.vgrow="ALWAYS" >
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10" />
-                        </padding>
-                    </TableView>
-                </VBox>
+                <TabPane fx:id="listTabPane" minWidth="310.0" maxWidth="310" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border">
+                    <tabs>
+                        <Tab fx:id="tutorialsTab" text="Tutorials">
+                            <content>
+                                <VBox fx:id="tutorialList" alignment="CENTER" minWidth="310" maxWidth="310" prefWidth="310" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                                    <StackPane fx:id="tutorialListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab fx:id="studentsTab" closable="false" text="Students">
+                            <content>
+                                <VBox fx:id="studentList" alignment="CENTER" minWidth="310" maxWidth="310" prefWidth="310" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                                    <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                    <padding>
+                                        <Insets bottom="10" left="10" right="10" top="10" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab fx:id="modulesTab" closable="false" text="Modules">
+                            <content>
+                                <VBox fx:id="moduleList" alignment="CENTER" minWidth="310" maxWidth="310" prefWidth="310" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                                    <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                    <padding>
+                                        <Insets bottom="10" left="10" right="10" top="10" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <TabPane fx:id="displayTabPane" minWidth="500.0" maxWidth="500" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border">
+                    <tabs>
+                        <Tab fx:id="attendanceTab" closable="false" text="Attendance">
+                            <content>
+                                <VBox>
+                                    <TableView fx:id="attendancePlaceholder" prefWidth="500" minWidth="500" VBox.vgrow="ALWAYS" >
+                                        <padding>
+                                            <Insets top="10" right="10" bottom="10" left="10" />
+                                        </padding>
+                                    </TableView>
+                                </VBox>
+                            </content>
+                    </Tab>
+                        <Tab fx:id="assignmentTab" closable="false" text="Assignment">
+                            <content>
+                            </content>
+                        </Tab>
+                </tabs>
+                </TabPane>
             </SplitPane>
 
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

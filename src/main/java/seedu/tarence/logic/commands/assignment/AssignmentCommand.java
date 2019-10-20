@@ -88,7 +88,7 @@ public abstract class AssignmentCommand extends Command {
     }
 
     /**
-     * Generates and stores {@code MarkAttendanceCommand}s from a list of {@code ModCode}s and {@code TutName}s.
+     * Generates and stores {@code AssignmentCommand}s from a list of {@code ModCode}s and {@code TutName}s.
      *
      * @param similarModCodes List of {@code ModCode}s similar to the user's input.
      * @param similarTutNames List of {@code TutName}s similar to the user's input.
