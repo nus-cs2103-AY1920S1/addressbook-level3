@@ -31,7 +31,7 @@ public class Description {
      */
     public Description(String description) {
         requireNonNull(description);
-        AppUtil.checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
+        //AppUtil.checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         fullDescription = description;
     }
 

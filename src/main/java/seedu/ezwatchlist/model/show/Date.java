@@ -31,7 +31,7 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        //AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
     }
 

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 
@@ -15,7 +16,6 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
 public class Show {
 
     public String type;
-    private static final String POSTER_PLACEHOLDER_PNG_URL = "/images/poster-placeholder.png";
 
     //identity fields
     private final Name name;
@@ -26,11 +26,11 @@ public class Show {
     private final Description description;
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
-    private final String imageOfShow;
+    private Poster poster;
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
-        this.imageOfShow = POSTER_PLACEHOLDER_PNG_URL;
+        this.poster = new Poster();
         CollectionUtil.requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
         this.description = description;
@@ -38,6 +38,14 @@ public class Show {
         this.dateOfRelease = dateOfRelease;
         this.runningTime = runningTime;
         this.actors.addAll(actors);
+    }
+
+    public void setPoster(Poster poster) {
+        this.poster = poster;
+    }
+
+    public Poster getPoster() {
+        return poster;
     }
 
     public Name getName() {

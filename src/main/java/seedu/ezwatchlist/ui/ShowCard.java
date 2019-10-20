@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.Show;
 
 
@@ -50,7 +51,7 @@ public class ShowCard extends UiPart<Region> {
     @FXML
     private CheckBox watched;
     @FXML
-    private ImageView posterPlaceholder;
+    private ImageView poster;
 
     public ShowCard(Show show, int displayedIndex) {
         super(FXML);
@@ -61,7 +62,10 @@ public class ShowCard extends UiPart<Region> {
         dateOfRelease.setText(show.getDateOfRelease().value);
         description.setText(show.getDescription().fullDescription);
         runningTime.setText(Integer.toString(show.getRunningTime().value));
-        posterPlaceholder.setImage(new Image("/images/poster-placeholder.png"));
+        Poster poster = show.getPoster();
+        Image image = poster.getImage();
+        this.poster.setImage(image);
+
         show.getActors().stream()
                 .sorted(Comparator.comparing(actor -> actor.actorName))
                 .forEach(actor -> actors.getChildren().add(new Label(actor.actorName)));
