@@ -49,7 +49,7 @@ class JsonSerializableQuestionBank {
     public StandardQuestionBank toModelType() throws IllegalValueException {
         StandardQuestionBank standardQuestionBank = new StandardQuestionBank();
         for (JsonAdaptedQuestion jsonAdaptedQuestion : questions) {
-            Question question = jsonAdaptedQuestion.toModelType();
+            Question question = jsonAdaptedQuestion.toModel();
             standardQuestionBank.addQuestion(question);
         }
         return standardQuestionBank;

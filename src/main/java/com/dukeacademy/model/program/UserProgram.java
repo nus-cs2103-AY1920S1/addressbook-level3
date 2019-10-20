@@ -1,5 +1,7 @@
 package com.dukeacademy.model.program;
 
+import com.dukeacademy.model.question.TestCase;
+
 import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -43,5 +45,16 @@ public class UserProgram {
 
         // Convert the package to an actual path
         return packageStatement.replace("package", "").trim() + "." + className;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof UserProgram) {
+            return ((UserProgram) o).className.equals(this.className)
+                    && ((UserProgram) o).sourceCode.equals(this.sourceCode);
+        }
+
+        return false;
     }
 }

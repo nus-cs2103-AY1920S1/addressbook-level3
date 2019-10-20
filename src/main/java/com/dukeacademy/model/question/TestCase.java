@@ -27,4 +27,14 @@ public class TestCase {
     public String toString() {
         return "Input: " + input + "Expected: " + expectedResult;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof TestCase) {
+            return ((TestCase) o).expectedResult.equals(this.expectedResult)
+                    && ((TestCase) o).input.equals(this.input);
+        }
+
+        return false;
+    }
 }

@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 class JsonAdaptedUserProgram {
-    public static final String CLASS_NAME_VALIDATION_REGEX = "[^\\s].*";
-
     private final String className;
     private final String sourceCode;
 

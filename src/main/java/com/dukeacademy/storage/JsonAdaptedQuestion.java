@@ -70,7 +70,7 @@ class JsonAdaptedQuestion {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted question.
      */
-    public Question toModelType() throws IllegalValueException {
+    public Question toModel() throws IllegalValueException {
         if (title == null) {
             throw new IllegalValueException("Title cannot be null.");
         }
