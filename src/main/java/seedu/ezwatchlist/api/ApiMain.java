@@ -72,6 +72,33 @@ public class ApiMain implements ApiInterface {
         throw new OnlineConnectionException(CONNECTION_ERROR_MESSAGE);
     }
 
+    public List<Movie> getUpcomingMovies() throws OnlineConnectionException {
+        try {
+            MovieResultsPage upcoming = apiCall.getMovies().getUpcoming(null, null, null);
+            ArrayList<Movie> movies = new ArrayList<>();
+
+            for (MovieDb m : upcoming.getResults()) {
+                String movieName = m.getTitle();
+                RunningTime runtime = new RunningTime(m.getRuntime());
+                String overview = m.getOverview();
+                String releaseDate = m.getReleaseDate();
+
+                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false), new Date(releaseDate),
+                        runtime , new HashSet<Actor>());
+
+                //retrieve image
+                ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
+                toAdd.setPoster(new Poster(instance.getImageUrl(), true));
+
+                movies.add(toAdd);
+            }
+            return movies;
+        } catch (MovieDbException e) {
+            notConnected();
+            return new ArrayList<Movie>();
+        }
+    }
+
     /**
      * Retrieves the movies from the API by the string given.
      *
