@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private EarningsListPanel earningsListPanel;
     private PersonListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReminderBox reminderBox;
@@ -150,6 +151,26 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillTasks() {
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -195,6 +216,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
 
     /**

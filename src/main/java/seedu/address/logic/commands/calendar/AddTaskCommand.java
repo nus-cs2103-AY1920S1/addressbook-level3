@@ -17,16 +17,20 @@ import seedu.address.model.task.Task;
  */
 public class AddTaskCommand extends Command {
     public static final String COMMAND_WORD = "addTask";
+    public static final String MESSAGE_DUPLICATE_TASKS =
+            "This task already exists in the address book";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the calendar. "
             + "Parameters: "
             + PREFIX_TASK_DESCRIPTION + "DESCRIPTION "
             + PREFIX_MARKING + "MARKING_STATUS " + "(Y OR N) "
-            + PREFIX_TASK_TIME + "START_TIME, END_TIME\n"
+            + PREFIX_TASK_TIME + "START_TIME, END_TIME"
+            + "...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_DESCRIPTION + "CS2103T Lecture "
             + PREFIX_MARKING + "Y "
-            + PREFIX_TASK_TIME + "13/10/2019 13:00, 13/10/2019 15:00 ";
+            + PREFIX_TASK_TIME + "13/10/2019 13:00, 13/10/2019 15:00 "
+            + PREFIX_TASK_TIME + "14/10/2019 13:00, 14/10/2019 15:00 ";
 
     public static final String MESSAGE_SUCCESS = "New task added:\n%1$s";
 
@@ -43,6 +47,10 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasTask(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASKS);
+        }
 
         model.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

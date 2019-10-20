@@ -59,13 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.earning.setEarnings(earnings);
     }
 
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setTasks(List<Task> tasks) {
-        this.tasks.setTasks(tasks);
-    }
+
 
     /**
      * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
@@ -79,6 +73,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// task-level operations
+    /**
+     * Replaces the contents of the task list with {@code tasks}.
+     * {@code tasks} must not contain duplicate tasks.
+     */
+    public void setTasks(List<Task> tasks) {
+        this.tasks.setTasks(tasks);
+    }
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
