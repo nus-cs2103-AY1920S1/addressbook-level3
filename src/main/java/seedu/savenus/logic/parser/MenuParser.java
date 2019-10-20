@@ -30,6 +30,7 @@ import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
+import seedu.savenus.logic.commands.TopUpCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
 /**
@@ -64,6 +65,9 @@ public class MenuParser {
 
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommandParser().parse(arguments);
+
+        case TopUpCommand.COMMAND_WORD:
+            return new TopUpCommandParser().parse(arguments);
 
         case BuyCommand.COMMAND_WORD:
             return new BuyCommandParser().parse(arguments);

@@ -61,7 +61,7 @@ public class Wallet {
      * Returns {@code remainingBudget}'s {@code double} value.
      */
     public BigDecimal getRemainingBudgetAmount() {
-        return remainingBudget.getRemainingBudget();
+        return remainingBudget.getRemainingBudgetAmount();
     }
 
     /**

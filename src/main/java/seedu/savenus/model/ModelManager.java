@@ -191,14 +191,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public BigDecimal getRemainingBudget() {
-        return menu.getWallet().getRemainingBudgetAmount();
+    public RemainingBudget getRemainingBudget() {
+        return menu.getWallet().getRemainingBudget();
     }
 
     @Override
     public void setRemainingBudget(RemainingBudget newRemainingBudget) throws CommandException {
         requireNonNull(newRemainingBudget);
-        if (newRemainingBudget.getRemainingBudget().compareTo(new BigDecimal(1000000.00)) == 1) {
+        if (newRemainingBudget.getRemainingBudgetAmount().compareTo(new BigDecimal(1000000.00)) == 1) {
             throw new CommandException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
         }
         menu.getWallet().setRemainingBudget(newRemainingBudget);
