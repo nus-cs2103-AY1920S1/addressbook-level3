@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
 
@@ -17,11 +19,11 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code FinSec} with sample data.
  */
 public class SampleDataUtil {
-    public static seedu.address.model.contact.Contact[] getSampleContacts() {
-        return new seedu.address.model.contact.Contact[] {
-            new seedu.address.model.contact.Contact(new Name("John Doe"), new Phone("87438807"),
+    public static Contact[] getSampleContacts() {
+        return new Contact[] {
+            new Contact(new Name("John Doe"), new Phone("87438807"),
                     new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"))
+                getTagSet("friends"), new HashSet<>())
         };
     }
 
@@ -48,7 +50,7 @@ public class SampleDataUtil {
 
     public static ReadOnlyFinSec getSampleFinSec() {
         FinSec sampleFs = new FinSec();
-        for (seedu.address.model.contact.Contact sampleContact : getSampleContacts()) {
+        for (Contact sampleContact : getSampleContacts()) {
             sampleFs.addContact(sampleContact);
         }
         for (AutocorrectSuggestion sampleSuggestion : getSampleSuggestions()) {

@@ -21,6 +21,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
@@ -108,8 +109,9 @@ public class EditContactCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(contactToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(contactToEdit.getTags());
+        Set<Id> updatedClaims = editPersonDescriptor.getClaims().orElse(contactToEdit.getClaims());
 
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedClaims);
     }
 
     @Override
@@ -140,6 +142,7 @@ public class EditContactCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Set<Id> claims;
 
         public EditPersonDescriptor() {}
 
@@ -153,6 +156,7 @@ public class EditContactCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setClaims(toCopy.claims);
         }
 
         /**
@@ -209,6 +213,23 @@ public class EditContactCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code claims} to this object's {@code claims}.
+         * A defensive copy of {@code claims} is used internally.
+         */
+        public void setClaims(Set<Id> claims) {
+            this.claims = (claims != null) ? new HashSet<>(claims) : null;
+        }
+
+        /**
+         * Returns an unmodifiable id set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code id} is null.
+         */
+        public Optional<Set<Id>> getClaims() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(claims)) : Optional.empty();
         }
 
         @Override

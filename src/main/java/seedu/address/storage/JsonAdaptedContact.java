@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
@@ -29,6 +30,7 @@ class JsonAdaptedContact {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedId> claims = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedContact} with the given contact details.
@@ -36,13 +38,17 @@ class JsonAdaptedContact {
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                               @JsonProperty("email") String email, @JsonProperty("address") String address,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("claims") List<JsonAdaptedId> claims) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+        if (claims != null) {
+            this.claims.addAll(claims);
         }
     }
 
@@ -57,6 +63,9 @@ class JsonAdaptedContact {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        claims.addAll(source.getClaims().stream()
+                .map(JsonAdaptedId::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -66,8 +75,12 @@ class JsonAdaptedContact {
      */
     public Contact toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final List<Id> personClaims = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+        for (JsonAdaptedId id : claims) {
+            personClaims.add(id.toModelType());
         }
 
         if (name == null) {
@@ -103,7 +116,8 @@ class JsonAdaptedContact {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        final Set<Id> modelIds = new HashSet<>(personClaims);
+        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelIds);
     }
 
 }
