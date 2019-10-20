@@ -3,47 +3,40 @@ package seedu.address.calendar.parser;
 import seedu.address.calendar.commands.ShowCommand;
 import seedu.address.calendar.model.MonthOfYear;
 import seedu.address.calendar.model.Year;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
-class ShowParser {
-    private static final String FORMAT_ERROR_MESSAGE = "Incorrect month/year format.";
+public class ShowParser {
+    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect month/year format.";
 
-    private static final String MONTH_ONLY_KEY = "monthOnly";
-    private static final String MONTH_ONLY_PATTERN = "(?<" + MONTH_ONLY_KEY + ">\\S+)";
-    private static final String MONTH_KEY = "month";
-    private static final String YEAR_KEY = "year";
-    private static final String MONTH_AND_YEAR_PATTERN = "(?<" + MONTH_KEY + ">\\S+)\\s(?<" + YEAR_KEY + ">\\d{4}?)";
-    /**
-     * Used for initial separation of month and year (if any).
-     */
-    private static final Pattern MONTH_YEAR_FORMAT = Pattern.compile(MONTH_ONLY_PATTERN + "|" + MONTH_AND_YEAR_PATTERN);
+    ShowCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_MONTH, CliSyntax.PREFIX_YEAR);
 
-    ShowCommand parse(String userInput) throws ParseException {
-        final Matcher matcher = MONTH_YEAR_FORMAT.matcher(userInput.trim());
-
-        if (!matcher.matches()) {
-            throw new ParseException(FORMAT_ERROR_MESSAGE);
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_MONTH)
+                || hasMultiplePrefixes(argMultimap, CliSyntax.PREFIX_MONTH, CliSyntax.PREFIX_YEAR)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
 
-        int year;
-        String month;
+        MonthOfYear monthOfYear = new MonthParser().parse(argMultimap.getValue(CliSyntax.PREFIX_MONTH).get());
 
-        if (matcher.group(MONTH_ONLY_KEY) != null) {
-            month = matcher.group(MONTH_ONLY_KEY);
-
-            java.util.Calendar currentDate = java.util.Calendar.getInstance();
-            year = currentDate.get(java.util.Calendar.YEAR);
+        if (argMultimap.getValue(CliSyntax.PREFIX_YEAR).isEmpty()) {
+            return new ShowCommand(monthOfYear);
         } else {
-            month = matcher.group(MONTH_KEY);
-            year = Integer.parseInt(matcher.group(YEAR_KEY));
+            Year year = new YearParser().parse(argMultimap.getValue(CliSyntax.PREFIX_YEAR).get());
+            return new ShowCommand(monthOfYear, year);
         }
+    }
 
-        MonthOfYear formattedMonth = new MonthParser().parse(month);
-        Year formattedYear = new YearParser().parse(year);
+    private boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix prefix) {
+        return argumentMultimap.getValue(prefix).isPresent();
+    }
 
-        return new ShowCommand(formattedMonth, formattedYear);
+    private boolean hasMultiplePrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes)
+                .anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 }
