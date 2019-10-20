@@ -5,6 +5,9 @@ import seedu.address.model.Model;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 
+/**
+ * Command to show popup of the locations suggested.
+ */
 public class PopupCommand extends Command {
 
     public static final String COMMAND_WORD = "popup";

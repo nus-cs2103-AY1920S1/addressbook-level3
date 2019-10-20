@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -29,7 +28,6 @@ import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.GroupDetailsExport;
-import seedu.address.ui.util.LocationsPopUp;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -338,8 +336,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isPopUp()) {
-                LocationsPopUp locationsPopUp = new LocationsPopUp(null, List.of("1", "2", "3"));
-                locationsPopUp.show();
+                //WIP
             }
 
             return commandResult;
