@@ -11,9 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.eatery.Address;
+import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.eatery.Tag;
 
 /**
  * Jackson-friendly version of {@link Eatery}.
@@ -24,6 +25,7 @@ class JsonAdaptedEatery {
 
     private final String name;
     private final String address;
+    private final String category;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -32,9 +34,11 @@ class JsonAdaptedEatery {
     @JsonCreator
     public JsonAdaptedEatery(@JsonProperty("name") String name,
                              @JsonProperty("address") String address,
+                             @JsonProperty("category") String category,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.address = address;
+        this.category = category;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -46,6 +50,7 @@ class JsonAdaptedEatery {
     public JsonAdaptedEatery(Eatery source) {
         name = source.getName().fullName;
         address = source.getAddress().value;
+        category = source.getCategory().getName();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -78,8 +83,17 @@ class JsonAdaptedEatery {
         }
         final Address modelAddress = new Address(address);
 
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
+        }
+        if (!Category.isValidCategory(category)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
+        }
+        final Category modelCategory = new Category(category);
+
         final Set<Tag> modelTags = new HashSet<>(eateryTags);
-        return new Eatery(modelName, modelAddress, modelTags);
+        return new Eatery(modelName, modelAddress, modelCategory, modelTags);
     }
 
 }

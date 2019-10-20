@@ -3,30 +3,37 @@
   "eateries" : [ {
     "name" : "Alice Pauline",
     "address" : "123, Jurong West Ave 6, #08-111",
+    "category": "Chinese",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "address" : "311, Clementi Ave 2, #02-25",
+    "category": "Western",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
-      "name" : "Carl Kurz",
+    "name" : "Carl Kurz",
     "address" : "wall street",
+    "category": "Western",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "address" : "10th street",
+    "category": "Western",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "address" : "michegan ave",
+    "category": "Western",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "address" : "little tokyo",
+    "category": "Western",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "address" : "4th street",
+    "category": "Western",
     "tagged" : [ ]
   } ]
 }

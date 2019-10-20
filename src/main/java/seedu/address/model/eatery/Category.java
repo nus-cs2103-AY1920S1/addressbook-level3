@@ -46,7 +46,9 @@ public class Category {
         Category cat = categories.get(name);
 
         if (cat == null) {
-            return new Category(name);
+            Category newCat = new Category(name);
+            categories.put(newCat.getName(), newCat);
+            return newCat;
         } else {
             return cat;
         }
@@ -77,5 +79,10 @@ public class Category {
         return other == this
                 || (other instanceof Category)
                 && name.equals(((Category) other).name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }

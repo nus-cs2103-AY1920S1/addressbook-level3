@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -9,7 +10,7 @@ import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditEateryDescriptor;
 import seedu.address.model.eatery.Eatery;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.eatery.Tag;
 
 /**
  * A utility class for Eatery.
@@ -30,8 +31,9 @@ public class EateryUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + eatery.getName().fullName + " ");
         sb.append(PREFIX_ADDRESS + eatery.getAddress().value + " ");
+        sb.append(PREFIX_CATEGORY + eatery.getCategory().getName() + " ");
         eatery.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s.getName() + " ")
         );
         return sb.toString();
     }
@@ -48,7 +50,7 @@ public class EateryUtil {
             if (tags.isEmpty()) {
                 sb.append(PREFIX_TAG);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.getName()).append(" "));
             }
         }
         return sb.toString();

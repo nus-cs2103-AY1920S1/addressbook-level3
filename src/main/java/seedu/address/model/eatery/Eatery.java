@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
-
 /**
  * Represents a Eatery in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -19,25 +17,30 @@ public class Eatery {
     private final Name name;
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Category category;
+    private Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Eatery(Name name, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, address, tags);
+    public Eatery(Name name, Address address, Category category, Set<Tag> tags) {
+        requireAllNonNull(name, address, category, tags);
         this.name = name;
+        this.category = category;
         this.address = address;
-        this.tags.addAll(tags);
+        this.tags = tags;
     }
 
     public Name getName() {
         return name;
     }
 
-
     public Address getAddress() {
         return address;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 
     /**
@@ -78,6 +81,7 @@ public class Eatery {
         Eatery otherEatery = (Eatery) other;
         return otherEatery.getName().equals(getName())
                 && otherEatery.getAddress().equals(getAddress())
+                && otherEatery.getCategory().equals(getCategory())
                 && otherEatery.getTags().equals(getTags());
     }
 
@@ -93,6 +97,8 @@ public class Eatery {
         builder.append(getName())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Category: ")
+                .append(getCategory())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
