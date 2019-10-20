@@ -123,4 +123,16 @@ public interface Model {
      * @return Last viewed flashcard.
      */
     Flashcard getLastViewedFlashcard();
+
+    /**
+     * Calculates the desired statistics based on the filtered list.
+     */
+    String generateStatistics();
+
+    /**
+     * Retrieves the desired statistics.
+     */
+    Statistics getStatistics();
+
+
 }

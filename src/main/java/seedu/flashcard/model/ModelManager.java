@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.chart.XYChart;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.model.flashcard.Flashcard;
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Flashcard> filteredFlashcards;
     private Flashcard viewedFlashcard;
+    private Statistics desiredStats;
 
     /**
      * Default initializer
@@ -166,5 +168,16 @@ public class ModelManager implements Model {
         return flashcardList.equals(obj.flashcardList)
                 && userPrefs.equals(obj.userPrefs)
                 && filteredFlashcards.equals(obj.filteredFlashcards);
+    }
+
+    @Override
+    public String generateStatistics(){
+        desiredStats.calculate(flashcardList.getFlashcardList());
+        return desiredStats.results();
+    }
+
+    @Override
+    public Statistics getStatistics(){
+        return desiredStats;
     }
 }
