@@ -26,6 +26,7 @@ import budgetbuddy.model.person.Person;
 import budgetbuddy.storage.JsonAddressBookStorage;
 import budgetbuddy.storage.JsonUserPrefsStorage;
 import budgetbuddy.storage.StorageManager;
+import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.testutil.PersonBuilder;
 import budgetbuddy.testutil.TypicalPersons;
 
@@ -42,8 +43,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonLoansStorage loansStorage =
+                new JsonLoansStorage(temporaryFolder.resolve("loans.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, loansStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -70,9 +73,11 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonLoansStorage loansStorage =
+                new JsonLoansStorage(temporaryFolder.resolve("ioExceptionLoans.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, loansStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

@@ -13,6 +13,7 @@ import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.UserPrefs;
+import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.testutil.TypicalPersons;
 
 public class StorageManagerTest {
@@ -25,8 +26,9 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonLoansStorage loansStorage = new JsonLoansStorage(getTempFilePath("loans"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(addressBookStorage, loansStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

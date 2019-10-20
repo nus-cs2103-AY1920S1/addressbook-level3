@@ -34,7 +34,7 @@ public class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name,
             @JsonProperty("loans") List<JsonAdaptedLoan> loans,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        requireAllNonNull(name, loans, tagged);
+        requireAllNonNull(loans, tagged);
         this.name = name;
         this.loans.addAll(loans);
         this.tagged.addAll(tagged);

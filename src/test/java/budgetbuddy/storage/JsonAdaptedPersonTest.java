@@ -5,19 +5,13 @@ import static budgetbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
-import budgetbuddy.model.Direction;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.Status;
-import budgetbuddy.model.transaction.Amount;
-import budgetbuddy.model.transaction.stub.Description;
 import budgetbuddy.storage.loans.JsonAdaptedLoan;
 import budgetbuddy.storage.loans.JsonAdaptedPerson;
 import budgetbuddy.storage.loans.JsonAdaptedTag;
@@ -28,6 +22,9 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = TypicalPersons.BENSON.getName().toString();
+    private static final List<JsonAdaptedLoan> VALID_LOANS = TypicalPersons.BENSON.getLoans().stream()
+            .map(JsonAdaptedLoan::new)
+            .collect(Collectors.toList());
     private static final List<JsonAdaptedTag> VALID_TAGS = TypicalPersons.BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -41,14 +38,14 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedPerson person =
-                new JsonAdaptedPerson(INVALID_NAME, VALID_TAGS);
+                new JsonAdaptedPerson(INVALID_NAME, VALID_LOANS, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(null, VALID_TAGS);
+        JsonAdaptedPerson person = new JsonAdaptedPerson(null, VALID_LOANS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -58,7 +55,7 @@ public class JsonAdaptedPersonTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, invalidTags);
+                new JsonAdaptedPerson(VALID_NAME, VALID_LOANS, invalidTags);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
 
