@@ -205,7 +205,8 @@ Clears all the food items in the list.
 Format: `clear`
 
 ==== Sort
-Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY, LOCATION, OPENING_HOURS, RESTRICTIONS.
+Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY,
+LOCATION, OPENING_HOURS, RESTRICTIONS.
 
 Format: `sort FIELD`
 
