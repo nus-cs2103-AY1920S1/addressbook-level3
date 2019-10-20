@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
@@ -25,11 +24,10 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
             + ": Unschedules all instances of an activity on a certain day. "
-            + "Parameters: "
-            + PREFIX_ACTIVITY + "ACTIVITY "
+            + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_DAY + "DAY";
 
-    public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity unscheduled: %1$s";
+    public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity %d unscheduled from Day %d";
     public static final String MESSAGE_DUPLICATE_DAY = "This day already exists in the planner.";
 
     private final Index activityIndexToUnschedule;
@@ -68,7 +66,8 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
 
         model.setDays(editedDays);
         model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
-        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, editedDay));
+        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, activityIndexToUnschedule.getOneBased(),
+                dayIndex.getOneBased()));
     }
 
     @Override
@@ -82,7 +81,8 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
 
     /**
      * Creates a new day without the activity that is unscheduled.
-     * @param dayToEdit of the contacts in the filtered contacts list to edit
+     *
+     * @param dayToEdit            of the contacts in the filtered contacts list to edit
      * @param activityToUnschedule of the contacts in the filtered contacts list to edit
      */
     private Day createUnscheduledActivityDay(Day dayToEdit, Activity activityToUnschedule) {
