@@ -40,7 +40,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
     private final PurchaseHistory purchaseHistory;
-    private final RecommendationSystem recommendationSystem;
     private final CustomSorter customSorter;
     //private final SavingsAccount savingsAccount;
 
@@ -58,10 +57,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
         // savingsAccount = new SavingsAccount();
-        this.recommendationSystem = new RecommendationSystem();
-        this.recommendationSystem.setUserRecommendations(userRecs);
+
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.customSorter = customSorter;
+        RecommendationSystem.getInstance().setUserRecommendations(userRecs);
     }
 
     public ModelManager() {
@@ -235,8 +234,8 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Food> getFilteredFoodList() {
         return filteredFoods
-                .filtered(recommendationSystem.getRecommendationPredicate())
-                .sorted(recommendationSystem.getRecommendationComparator());
+                .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
+                .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
     }
 
 
@@ -263,49 +262,62 @@ public class ModelManager implements Model {
     public CustomSorter getCustomSorter() {
         return customSorter;
     }
+
     //=========== Recommendation System =============================================================
     @Override
     public RecommendationSystem getRecommendationSystem() {
-        return recommendationSystem;
+        return RecommendationSystem.getInstance();
     }
 
     @Override
     public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
         requireNonNull(recommendationComparator);
-        this.recommendationSystem.setRecommendationComparator(recommendationComparator);
+        RecommendationSystem.getInstance().setRecommendationComparator(recommendationComparator);
     }
 
     @Override
     public void updateRecommendationPredicate(Predicate<Food> recommendationPredicate) {
         requireNonNull(recommendationPredicate);
-        this.recommendationSystem.setRecommendationPredicate(recommendationPredicate);
+        RecommendationSystem.getInstance().setRecommendationPredicate(recommendationPredicate);
     }
 
     @Override
     public void setRecommendationSystemInUse(boolean inUse) {
-        this.recommendationSystem.setInUse(inUse);
+        RecommendationSystem.getInstance().setInUse(inUse);
     }
 
     @Override
     public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         requireAllNonNull(categoryList, tagList, locationList);
-        recommendationSystem.addLikes(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().addLikes(categoryList, tagList, locationList);
     }
 
     @Override
     public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         requireAllNonNull(categoryList, tagList, locationList);
-        recommendationSystem.addDislikes(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().addDislikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().removeLikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().removeDislikes(categoryList, tagList, locationList);
     }
 
     @Override
     public void clearLikes() {
-        recommendationSystem.clearLikes();
+        RecommendationSystem.getInstance().clearLikes();
     }
 
     @Override
     public void clearDislikes() {
-        recommendationSystem.clearDislikes();
+        RecommendationSystem.getInstance().clearDislikes();
     }
 
     @Override

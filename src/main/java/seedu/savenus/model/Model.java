@@ -204,6 +204,17 @@ public interface Model {
      */
     void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
 
+    /** Removes the user's liked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /**
+     * Removes the user's disliked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
     /**
      * Clears the user's liked categories, tags and locations.
      */
