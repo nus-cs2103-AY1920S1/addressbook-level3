@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.logic.commands.merge.MergePersonRejectedCommand;
@@ -206,6 +207,16 @@ public class MergePersonRejectedCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserSettings getUserSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserSettings(UserSettings userSettings) {
             throw new AssertionError("This method should not be called.");
         }
 
