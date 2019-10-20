@@ -10,8 +10,12 @@ import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.model.question.Question;
 
+import com.dukeacademy.model.question.QuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 

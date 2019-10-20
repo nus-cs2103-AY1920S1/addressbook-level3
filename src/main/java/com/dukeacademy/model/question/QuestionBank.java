@@ -1,4 +1,4 @@
-package com.dukeacademy.model;
+package com.dukeacademy.model.question;
 
 import com.dukeacademy.model.question.Question;
 

@@ -1,8 +1,6 @@
-package com.dukeacademy.model;
+package com.dukeacademy.model.question;
 
 import java.util.Collection;
-
-import com.dukeacademy.model.question.Question;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,4 +1,4 @@
-package com.dukeacademy.model.question;
+package com.dukeacademy.model.question.entities;
 
 import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
 

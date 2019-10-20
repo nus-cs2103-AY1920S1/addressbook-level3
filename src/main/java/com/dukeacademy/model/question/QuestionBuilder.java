@@ -1,6 +1,9 @@
 package com.dukeacademy.model.question;
 
-import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.entities.Difficulty;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
 
 import java.util.ArrayList;
 import java.util.Arrays;

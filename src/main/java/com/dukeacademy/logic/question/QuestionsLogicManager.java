@@ -1,6 +1,6 @@
 package com.dukeacademy.logic.question;
 
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.Question;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

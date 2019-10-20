@@ -10,15 +10,17 @@ import java.nio.file.Path;
 import java.util.stream.IntStream;
 
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
+import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.core.GuiSettings;
-import com.dukeacademy.model.StandardQuestionBank;
-import com.dukeacademy.model.QuestionBank;
-import com.dukeacademy.model.UserPrefs;
+import com.dukeacademy.model.question.StandardQuestionBank;
+import com.dukeacademy.model.question.QuestionBank;
+import com.dukeacademy.model.prefs.UserPrefs;
 
 public class StorageManagerTest {
 

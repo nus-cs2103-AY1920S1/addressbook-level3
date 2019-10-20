@@ -1,10 +1,10 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.question;
 
-import com.dukeacademy.model.question.TestCase;
+import com.dukeacademy.model.question.entities.TestCase;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class JsonAdaptedTestCase {
+public class JsonAdaptedTestCase {
     private final String input;
     private final String expectedResult;
 

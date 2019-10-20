@@ -1,4 +1,4 @@
-package com.dukeacademy.model;
+package com.dukeacademy.model.prefs;
 
 import java.nio.file.Path;
 

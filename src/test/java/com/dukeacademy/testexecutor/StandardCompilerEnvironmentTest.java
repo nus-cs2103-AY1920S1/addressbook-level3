@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;

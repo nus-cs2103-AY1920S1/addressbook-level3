@@ -29,12 +29,12 @@ import com.dukeacademy.logic.program.exceptions.NoQuestionSetException;
 import com.dukeacademy.logic.program.exceptions.SubmissionLogicManagerClosedException;
 import com.dukeacademy.model.program.TestCaseResult;
 import com.dukeacademy.model.program.TestResult;
-import com.dukeacademy.model.program.UserProgram;
-import com.dukeacademy.model.question.Difficulty;
+import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.Status;
-import com.dukeacademy.model.question.TestCase;
-import com.dukeacademy.model.question.Topic;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.TestListener;
 

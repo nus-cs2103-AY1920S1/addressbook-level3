@@ -1,10 +1,10 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.question;
 
-import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.UserProgram;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class JsonAdaptedUserProgram {
+public class JsonAdaptedUserProgram {
     private final String className;
     private final String sourceCode;
 

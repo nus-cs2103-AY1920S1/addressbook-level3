@@ -1,4 +1,4 @@
-package com.dukeacademy.model.question;
+package com.dukeacademy.model.question.entities;
 
 /**
  * Represents a Question's topic number in the question bank.

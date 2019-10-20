@@ -1,12 +1,12 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.question;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
-import com.dukeacademy.model.StandardQuestionBank;
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
+import com.dukeacademy.model.question.QuestionBank;
 
 /**
  * Represents a storage for {@link StandardQuestionBank}.

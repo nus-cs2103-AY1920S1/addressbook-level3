@@ -1,5 +1,6 @@
 package com.dukeacademy.model.question;
 
+import com.dukeacademy.model.question.entities.TestCase;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

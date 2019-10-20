@@ -9,7 +9,7 @@ import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.logic.Logic;
 import com.dukeacademy.model.program.TestCaseResult;
-import com.dukeacademy.model.question.TestCase;
+import com.dukeacademy.model.question.entities.TestCase;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

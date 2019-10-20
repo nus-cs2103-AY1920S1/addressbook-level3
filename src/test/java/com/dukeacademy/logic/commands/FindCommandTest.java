@@ -5,15 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.jupiter.api.Test;
-
-import com.dukeacademy.commons.core.Messages;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
-import com.dukeacademy.model.UserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.testutil.TypicalQuestions;
 
 /**

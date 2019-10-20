@@ -1,4 +1,4 @@
-package com.dukeacademy.model;
+package com.dukeacademy.model.prefs;
 
 import static java.util.Objects.requireNonNull;
 

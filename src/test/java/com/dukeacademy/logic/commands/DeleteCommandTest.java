@@ -15,7 +15,7 @@ import com.dukeacademy.commons.core.Messages;
 import com.dukeacademy.commons.core.index.Index;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
-import com.dukeacademy.model.UserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.model.question.Question;
 
 /**

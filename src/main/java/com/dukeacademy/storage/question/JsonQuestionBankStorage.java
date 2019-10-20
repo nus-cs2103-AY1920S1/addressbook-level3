@@ -1,4 +1,4 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.question;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,8 +13,7 @@ import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.commons.util.FileUtil;
 import com.dukeacademy.commons.util.JsonUtil;
 
-import com.dukeacademy.model.QuestionBank;
-import com.dukeacademy.model.StandardQuestionBank;
+import com.dukeacademy.model.question.QuestionBank;
 
 /**
  * A class to access QuestionBank data stored as a json file on the hard disk.

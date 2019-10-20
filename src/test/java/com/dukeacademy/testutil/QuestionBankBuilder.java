@@ -1,6 +1,6 @@
 package com.dukeacademy.testutil;
 
-import com.dukeacademy.model.StandardQuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.model.question.Question;
 
 /**

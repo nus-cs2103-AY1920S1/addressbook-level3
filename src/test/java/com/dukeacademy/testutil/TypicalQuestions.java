@@ -3,14 +3,14 @@ package com.dukeacademy.testutil;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dukeacademy.model.StandardQuestionBank;
-import com.dukeacademy.model.program.UserProgram;
-import com.dukeacademy.model.question.Difficulty;
+import com.dukeacademy.model.question.StandardQuestionBank;
+import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.QuestionBuilder;
-import com.dukeacademy.model.question.Status;
-import com.dukeacademy.model.question.TestCase;
-import com.dukeacademy.model.question.Topic;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
 
 /**
  * A utility class containing a list of {@code Question} objects to be used in tests.

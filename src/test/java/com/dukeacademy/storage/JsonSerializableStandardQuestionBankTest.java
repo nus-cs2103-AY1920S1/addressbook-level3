@@ -10,12 +10,13 @@ import java.nio.file.Paths;
 import java.util.stream.IntStream;
 
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.storage.question.JsonSerializableStandardQuestionBank;
 import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.commons.util.JsonUtil;
-import com.dukeacademy.model.StandardQuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.testutil.TypicalQuestions;
 
 public class JsonSerializableStandardQuestionBankTest {

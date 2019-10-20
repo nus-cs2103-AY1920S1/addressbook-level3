@@ -1,6 +1,4 @@
-package com.dukeacademy.model.program;
-
-import com.dukeacademy.model.question.TestCase;
+package com.dukeacademy.model.question;
 
 import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
 

@@ -2,8 +2,6 @@ package com.dukeacademy.storage;
 
 import static com.dukeacademy.testutil.Assert.assertThrows;
 
-import static com.dukeacademy.testutil.TypicalQuestions.getTypicalQuestionBank;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -12,14 +10,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.IntStream;
 
-import com.dukeacademy.model.StandardQuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.question.QuestionBank;
 
 public class JsonStandardQuestionBankStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonQuestionBankStorageTest");

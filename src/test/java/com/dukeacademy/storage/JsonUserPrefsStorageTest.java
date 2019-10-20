@@ -9,12 +9,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.exceptions.DataConversionException;
-import com.dukeacademy.model.UserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 

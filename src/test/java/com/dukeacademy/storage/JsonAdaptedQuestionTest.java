@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
-import com.dukeacademy.model.program.UserProgram;
-import com.dukeacademy.model.question.Difficulty;
+import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.Status;
-import com.dukeacademy.model.question.TestCase;
-import com.dukeacademy.model.question.Topic;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
+import com.dukeacademy.storage.question.JsonAdaptedQuestion;
+import com.dukeacademy.storage.question.JsonAdaptedTestCase;
+import com.dukeacademy.storage.question.JsonAdaptedUserProgram;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

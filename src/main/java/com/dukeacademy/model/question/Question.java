@@ -8,7 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.entities.Difficulty;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
 
 /**
  * Represents a Question in the question bank.

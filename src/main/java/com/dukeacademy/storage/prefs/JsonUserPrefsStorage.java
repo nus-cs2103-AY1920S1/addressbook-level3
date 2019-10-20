@@ -1,4 +1,4 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.prefs;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,8 +7,8 @@ import java.util.Optional;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.JsonUtil;
 
-import com.dukeacademy.model.ReadOnlyUserPrefs;
-import com.dukeacademy.model.UserPrefs;
+import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
-import com.dukeacademy.model.UserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.testutil.TypicalIndexes;
 import com.dukeacademy.testutil.TypicalQuestions;
 

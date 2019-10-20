@@ -1,12 +1,12 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.question;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
-import com.dukeacademy.model.StandardQuestionBank;
-import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
+import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.Question;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
  * An Immutable QuestionBank that is serializable to JSON format.
  */
 @JsonRootName(value = "questionBank")
-class JsonSerializableStandardQuestionBank {
+public class JsonSerializableStandardQuestionBank {
 
     private final List<JsonAdaptedQuestion> questions = new ArrayList<>();
 

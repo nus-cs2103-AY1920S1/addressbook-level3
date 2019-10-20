@@ -3,6 +3,7 @@ package com.dukeacademy.model.program;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.dukeacademy.model.question.UserProgram;
 import org.junit.jupiter.api.Test;
 
 class UserProgramTest {

@@ -10,7 +10,7 @@ import com.dukeacademy.commons.core.index.Index;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.CliSyntax;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.StandardQuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.testutil.Assert;
 

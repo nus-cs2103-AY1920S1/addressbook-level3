@@ -1,6 +1,7 @@
 package com.dukeacademy.storage;
 
-import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.storage.question.JsonAdaptedUserProgram;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
