@@ -3,7 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -17,12 +17,12 @@ public class Time {
 
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
 
-    public final LocalDate time;
+    public final LocalTime time;
 
     public Time(String value) {
         requireNonNull(value);
         checkArgument(isValidTime(value), MESSAGE_CONSTRAINTS);
-        this.time = LocalDate.parse(value, TIME_FORMATTER);
+        this.time = LocalTime.parse(value, TIME_FORMATTER);
     }
 
     /**

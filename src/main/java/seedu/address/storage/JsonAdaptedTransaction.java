@@ -36,8 +36,8 @@ class JsonAdaptedTransaction {
      */
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("amount") String amount, @JsonProperty("date") String date,
-                             @JsonProperty("people") JsonAdaptedPerson peopleInvolved,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                                  @JsonProperty("people") JsonAdaptedPerson peopleInvolved,
+                                  @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.amount = amount;
         this.date = date;
         this.peopleInvolved = peopleInvolved;
@@ -59,9 +59,9 @@ class JsonAdaptedTransaction {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code Transaction} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted transaction.
      */
     public Transaction toModelType() throws IllegalValueException {
         final List<Tag> transactionTags = new ArrayList<>();
@@ -85,8 +85,7 @@ class JsonAdaptedTransaction {
 
         final Set<Tag> modelTags = new HashSet<>(transactionTags);
         // temporary return InTransaction to store transaction (should eventually return in or out transaction)
-        return new InTransaction(new Amount(Double.parseDouble(amount)),
-                new Date(date));
+        return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date), modelTags);
     }
 
 }

@@ -18,6 +18,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setBankAccount(new BankAccount());
+        model.commitBankAccount();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -35,6 +35,7 @@ public class TransactionBuilder {
 
     public TransactionBuilder() {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
+        // date = new Date(DEFAULT_DATE);
         date = new Date(DEFAULT_DATE);
         peopleInvolved = new Person(
                 new Name(DEFAULT_NAME),
@@ -66,7 +67,7 @@ public class TransactionBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withTags(String ... tags) {
+    public TransactionBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -80,6 +81,7 @@ public class TransactionBuilder {
     }
 
     // TODO: EDIT THIS METHOD
+
     /**
      * Sets the {@code PeopleInvolved} of the {@code Transaction} that we are building.
      */
@@ -95,7 +97,7 @@ public class TransactionBuilder {
 
     // TODO: Change constructor
     public Transaction build() {
-        return new InTransaction(amount, date);
+        return new InTransaction(amount, date, tags);
     }
 
 }

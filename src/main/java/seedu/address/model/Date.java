@@ -19,7 +19,7 @@ public class Date {
 
     public final LocalDate date;
 
-    public Date (String value) {
+    public Date(String value) {
         requireNonNull(value);
         checkArgument(isValidDate(value), MESSAGE_CONSTRAINTS);
         this.date = LocalDate.parse(value, DATE_FORMATTER);
@@ -41,8 +41,8 @@ public class Date {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Time // instanceof handles nulls
-                && date.equals(((Time) other).time)); // state check
+                || (other instanceof Date // instanceof handles nulls
+                && date.equals(((Date) other).date)); // state check
     }
 
     @Override

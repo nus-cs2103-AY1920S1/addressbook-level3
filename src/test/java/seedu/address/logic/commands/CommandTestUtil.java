@@ -11,12 +11,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.TransactionContainsTagsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -73,7 +75,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -88,7 +90,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -109,21 +111,33 @@ public class CommandTestUtil {
         assertEquals(expectedBankAccount, actualModel.getBankAccount());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
     }
+
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
+     * {@code model}'s bank account.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showTransactionAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
 
         Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
-        // TODO: FIX
-        /*
-        final String[] splitName = transaction.getName().fullName.split("\\s+");
-        model.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-         */
+
+        final List<String> tags = transaction
+                .getTags()
+                .stream()
+                .map(tag -> tag.getTagName())
+                .collect(Collectors.toList());
+        model.updateFilteredTransactionList(new TransactionContainsTagsPredicate(tags));
 
         assertEquals(1, model.getFilteredTransactionList().size());
+    }
+
+    /**
+     * Deletes the first transaction in {@code model}'s filtered list from {@code model}'s bank account.
+     */
+    public static void deleteFirstTransaction(Model model) {
+        Transaction firstTransaction = model.getFilteredTransactionList().get(0);
+        model.deleteTransaction(firstTransaction);
+        model.commitBankAccount();
     }
 
 }
