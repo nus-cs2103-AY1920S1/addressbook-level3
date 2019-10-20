@@ -6,13 +6,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="FinSec - 2019" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -31,38 +30,44 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
-          <Menu mnemonicParsing="false" text="Contacts">
-            <MenuItem fx:id="Contacts" mnemonicParsing="false" text="List" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Claims">
-            <MenuItem fx:id="Claims" mnemonicParsing="false" text="List" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Incomes">
-            <MenuItem fx:id="Incomes" mnemonicParsing="false" text="List" />
-          </Menu>
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+          <MenuBar>
+              <Menu mnemonicParsing="false" text="Contacts">
+                  <items>
+                      <MenuItem fx:id="Contacts" mnemonicParsing="false" onAction="#handleContactsList" text="List" />
+                  </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="Claims">
+                  <MenuItem fx:id="Claims" mnemonicParsing="false" onAction="#handleClaimsList" text="List" />
+              </Menu>
+              <Menu mnemonicParsing="false" text="Incomes">
+                  <MenuItem fx:id="Incomes" onAction="#handleIncomesList" text="List" />
+              </Menu>
+          </MenuBar>
+
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <VBox fx:id="contactList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+           <StackPane fx:id="personListPanelPlaceholder">
+                  <children>
+                  <VBox fx:id="contactList" minWidth="800" prefWidth="800.0" styleClass="pane-with-border">
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                  </VBox>
+                  </children>
+               </StackPane>
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="ALWAYS" />
       </VBox>
     </Scene>
   </scene>
