@@ -14,6 +14,8 @@ import seedu.address.logic.parser.NjoyParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -46,6 +48,7 @@ public class LogicManager implements Logic {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveStudentRecord(model.getStudentRecord());
             storage.saveQuestions(model.getSavedQuestions());
+            storage.saveNotesRecord(model.getNotesRecord());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -66,6 +69,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public ReadOnlyNotesRecord getNotesRecord() {
+        return model.getNotesRecord();
+    }
+
+    @Override
+    public ObservableList<Note> getFilteredNotesList() {
+        return model.getFilteredNotesList();
+    }
+
+    @Override
+    public Path getNotesRecordFilePath() {
+        return model.getNotesRecordFilePath();
     }
 
     @Override
