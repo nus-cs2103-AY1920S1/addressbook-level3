@@ -15,12 +15,12 @@ import seedu.address.model.task.Task;
  */
 public class AddTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "task";
+    public static final String COMMAND_WORD = "addT";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. \n"
             + "Parameters: "
-            + PREFIX_GOODS + "DESCRIPTION "
-            + PREFIX_CUSTOMER + "CUSTOMER ID "
-            + PREFIX_DATETIME + "DATETIME \n"
+            + "[" + PREFIX_GOODS + "DESCRIPTION] "
+            + "[" + PREFIX_CUSTOMER + "CUSTOMER ID] "
+            + "[" + PREFIX_DATETIME + "DATETIME] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_GOODS + "20 boxes of utensils "
             + PREFIX_CUSTOMER + "41 "

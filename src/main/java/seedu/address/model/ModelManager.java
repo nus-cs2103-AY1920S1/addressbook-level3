@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerManager;
+import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -67,8 +69,7 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    // =========== UserPrefs
-    // ==================================================================================
+    // =========== UserPrefs ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -103,8 +104,7 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    // =========== AddressBook
-    // ================================================================================
+    // =========== AddressBook ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -140,8 +140,8 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    // =========== Task Manager
-    // ===============================================================================
+    // =========== Task Manager ===============================================================================
+
     public void addTask(Task task) {
         taskManager.addTask(task);
     }
@@ -158,8 +158,8 @@ public class ModelManager implements Model {
         return taskManager.hasTask(taskId);
     }
 
-    public void setTask(Task task) {
-        taskManager.setTask(task);
+    public void setTask(Task taskToEdit, Task editedTask) {
+        taskManager.setTask(taskToEdit, editedTask);
     }
 
     public TaskManager getTaskManager() {
@@ -170,8 +170,8 @@ public class ModelManager implements Model {
         return taskManager.getTask(taskId);
     }
 
-    // =========== Customer Manager
-    // ===========================================================================
+    // =========== Customer Manager ===========================================================================
+
     public boolean hasCustomer(int customerId) {
         return customerManager.hasCustomer(customerId);
     }
@@ -180,11 +180,17 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
-    // =========== Driver Manager
-    // ===========================================================================
+    // =========== Driver Manager ===========================================================================
 
-    // =========== Filtered Person List Accessors
-    // =============================================================
+    public boolean hasDriver(int driverId) {
+        return driverManager.hasDriver(driverId);
+    }
+
+    public Optional<Driver> getDriver(int driverId) {
+        return driverManager.getDriver(driverId);
+    }
+
+    // =========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the

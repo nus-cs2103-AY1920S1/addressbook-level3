@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
 import java.util.List;
@@ -96,19 +97,19 @@ public class TaskList {
 
     /**
      * Updates the details of the task.
-     *
-     * @param updatedTask task to be updated.
+     * @param taskToEdit task to be edited.
+     * @param editedTask task that is to replace the original task.
      */
-    public void setTask(Task updatedTask) {
-        requireNonNull(updatedTask);
-        if (!tasks.contains(updatedTask)) {
+    public void setTask(Task taskToEdit, Task editedTask) {
+        requireAllNonNull(taskToEdit, editedTask);
+        if (!tasks.contains(taskToEdit)) {
             throw new TaskNotFoundException();
         }
 
         for (int i = 0; i < getSize(); i++) {
-            Task task = getTask(i);
-            if (task == updatedTask) {
-                tasks.set(i, updatedTask);
+            Task task = tasks.get(i);
+            if (task == taskToEdit) {
+                tasks.set(i, editedTask);
                 break;
             }
         }

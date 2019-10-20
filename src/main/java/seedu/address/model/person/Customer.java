@@ -13,9 +13,10 @@ import seedu.address.model.tag.Tag;
 
 public class Customer extends Person {
 
+    public static final String MESSAGE_INVALID_ID = "Invalid customer ID.";
+
     private static int idCount = 0;
     private int id;
-
 
     /**
      * Every field must be present and not null.

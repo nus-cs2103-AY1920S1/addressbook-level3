@@ -19,9 +19,9 @@ public class DeleteIdCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a Task / Driver / Customer using their UNIQUE ID.\n"
-            + "Parameters: " + PREFIX_TASK + " Task ID | "
-            + "Parameters: " + PREFIX_CUSTOMER + " Customer ID | "
-            + "Parameters: " + PREFIX_DRIVER + " Driver ID \n"
+            + "Parameters: [" + PREFIX_TASK + " Task ID]  |  "
+            + "Parameters: [" + PREFIX_CUSTOMER + " Customer ID]  |  "
+            + "Parameters: [" + PREFIX_DRIVER + " Driver ID] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK + " 10 \n"
             + "Example 2: " + COMMAND_WORD + " "

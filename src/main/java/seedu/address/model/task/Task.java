@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.model.Description;
 import seedu.address.model.EventTime;
-import seedu.address.model.Goods;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.execeptions.TaskException;
@@ -17,23 +17,25 @@ import seedu.address.model.task.execeptions.TaskException;
  */
 public class Task {
 
+    public static final String MESSAGE_INVALID_ID = "Invalid task ID.";
+
     public static final String DATE_FORMAT = "d/M/yyyy";
 
     public static final DateTimeFormatter DATE_FORMAT_FOR_PRINT = DateTimeFormatter.ofPattern("d/M/yyyy");
     public static final DateTimeFormatter DATE_FORMATTER_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     private int id;
-    private Goods goods;
+    private Description description;
+    private Customer customer;
     private LocalDate date;
     private Optional<Driver> driver;
-    private Customer customer;
     private Optional<EventTime> eventTime;
 
     private TaskStatus status;
 
-    public Task(int id, Goods goods, LocalDate date) {
+    public Task(int id, Description description, LocalDate date) {
         this.id = id;
-        this.goods = goods;
+        this.description = description;
         this.date = date;
         status = TaskStatus.INCOMPLETE;
         driver = Optional.empty();
@@ -45,8 +47,8 @@ public class Task {
         return id;
     }
 
-    public Goods getGoods() {
-        return goods;
+    public Description getDescription() {
+        return description;
     }
 
     public TaskStatus getStatus() {
@@ -61,23 +63,16 @@ public class Task {
         return date.format(DATE_FORMAT_FOR_PRINT);
     }
 
-    public Driver getDriver() {
-        if (!driver.isPresent()) {
-            throw new TaskException("There is no driver assigned to the task.");
-        }
-        return driver.get();
+    public Optional<Driver> getDriver() {
+        return driver;
     }
 
     public Customer getCustomer() {
         return customer;
     }
 
-    public EventTime getEventTime() {
-        if (!eventTime.isPresent()) {
-            throw new TaskException("There is no duration assigned to the task.");
-        }
-
-        return eventTime.get();
+    public Optional<EventTime> getEventTime() {
+        return eventTime;
     }
 
     public static LocalDate getDateFromString(String date) {
@@ -88,6 +83,22 @@ public class Task {
         return driver.isPresent();
     }
 
+    public boolean isDurationAssigned() {
+        return eventTime.isPresent();
+    }
+
+    /**
+     * Check if this task is same as {@code Task otherTask}.
+     * Only same if all the fields are the same.
+     */
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
+            return true;
+        }
+
+        return this.equals(otherTask);
+    }
+
     //set methods
     public void setStatus(TaskStatus status) {
         if (this.status == status) {
@@ -96,22 +107,22 @@ public class Task {
         this.status = status;
     }
 
-    public void setGoods(Goods goods) {
-        this.goods = goods;
+    public void setDescription(Description description) {
+        this.description = description;
     }
 
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = Optional.of(driver);
+    public void setDriver(Optional<Driver> driver) {
+        this.driver = driver;
 
         setStatus(TaskStatus.ON_GOING);
     }
 
-    public void setEventTime(EventTime eventTime) {
-        this.eventTime = Optional.of(eventTime);
+    public void setEventTime(Optional<EventTime> eventTime) {
+        this.eventTime = eventTime;
     }
 
     /**
@@ -156,9 +167,13 @@ public class Task {
             return false;
         }
 
-        Task task = (Task) o;
-        // If task id is the same, then the task is the same regardless of other variables.
-        return getId() == task.getId();
+        Task otherTask = (Task) o;
+        return otherTask.getId() == getId()
+                && otherTask.getDescription().equals(getDescription())
+                && otherTask.getCustomer().equals(getCustomer())
+                && otherTask.getDate().equals(getDate())
+                && otherTask.getDriver().equals(getDriver())
+                && otherTask.getEventTime().equals(getEventTime());
     }
 
     @Override
@@ -172,11 +187,13 @@ public class Task {
         builder.append(" Task ID: ")
                 .append(getId())
                 .append(" Goods: ")
-                .append(getGoods())
+                .append(getDescription())
                 .append(" Date: ")
                 .append(getDatePrint())
                 .append(" Delivery Person: ")
-                .append(isAssigned() ? getDriver() : "UNASSIGNED")
+                .append(isAssigned() ? getDriver().get() : "UNASSIGNED")
+                .append(" Duration: ")
+                .append(isDurationAssigned() ? getEventTime().get() : "NOT ALLOCATED")
                 .append(" Status: ")
                 .append(getStatus());
         return builder.toString();

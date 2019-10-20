@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
@@ -177,7 +179,7 @@ public class AddCommandTest {
         };
 
         @Override
-        public void setTask(Task task) {
+        public void setTask(Task taskToEdit, Task editedTask) {
             throw new AssertionError("This method should not be called.");
         };
 
@@ -195,6 +197,17 @@ public class AddCommandTest {
         public Customer getCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         };
+
+        @Override
+        public boolean hasDriver(int driverId) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public Optional<Driver> getDriver(int driverId) {
+            throw new AssertionError("This method should not be called.");
+        };
+
     }
 
     /**

@@ -14,6 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Description;
+import seedu.address.model.EventTime;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -220,5 +221,18 @@ public class ParserUtil {
         }
 
         return (Integer.parseInt(id) > 0);
+    }
+
+    /**
+     * Checks if {@code String duration} is valid with a start and end time.
+     */
+    public static EventTime parseEventTime(String duration) throws ParseException {
+        requireNonNull(duration);
+        String trimmedId = duration.trim();
+        if (!EventTime.isValidEventTime(trimmedId)) {
+            throw new ParseException(EventTime.MESSAGE_CONSTRAINTS);
+        }
+
+        return EventTime.parse(trimmedId);
     }
 }

@@ -10,6 +10,8 @@ import seedu.address.model.tag.Tag;
  */
 public class Driver extends Person {
 
+    public static final String MESSAGE_INVALID_ID = "Invalid driver ID.";
+
     //Identity fields
     private static int idCount = 1;
     private final int id;

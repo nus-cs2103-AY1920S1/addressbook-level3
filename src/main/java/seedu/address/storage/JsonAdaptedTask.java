@@ -4,6 +4,7 @@ import static seedu.address.model.task.Task.DATE_FORMAT;
 import static seedu.address.model.task.Task.DATE_FORMATTER_FOR_USER_INPUT;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,11 +13,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Description;
 import seedu.address.model.EventTime;
-import seedu.address.model.Goods;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.execeptions.TaskException;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Jackson-friendly version of {@link Task}.
@@ -34,33 +34,33 @@ public class JsonAdaptedTask {
     private String customerId;
     private String date;
     private String driverId;
-    private String start;
-    private String end;
+    private String duration;
+    private String status;
 
     /**
      * Converts a given {@code Task} into this class for Jackson use.
      */
     public JsonAdaptedTask(Task task) {
         id = String.valueOf(task.getId());
-        description = task.getGoods().getDescription();
+        description = task.getDescription().getValue();
         customerId = String.valueOf(task.getCustomer().getId());
         date = task.getDate().format(DATE_FORMATTER_FOR_USER_INPUT);
 
-        try {
-            driverId = String.valueOf(task.getDriver().getId());
-        } catch (TaskException e) {
-            //if no driver assigned
+        Optional<Driver> driver = task.getDriver();
+        if (driver.isEmpty()) {
             driverId = null;
+        } else {
+            driverId = String.valueOf(task.getDriver().get().getId());
         }
 
-        try {
-            start = EventTime.getStringFromTime(task.getEventTime().getStart());
-            end = EventTime.getStringFromTime(task.getEventTime().getEnd());
-        } catch (TaskException e) {
-            //if no duration allocated
-            start = null;
-            end = null;
+        Optional<EventTime> eventTime = task.getEventTime();
+        if (eventTime.isEmpty()) {
+            duration = null;
+        } else {
+            duration = EventTime.getStringFromDuration(task.getEventTime().get());
         }
+
+        status = task.getStatus().toString();
     }
 
     /**
@@ -68,16 +68,16 @@ public class JsonAdaptedTask {
      */
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("taskId") String id, @JsonProperty("description") String description,
-                             @JsonProperty("customerId") String customerId, @JsonProperty("date") String date,
-                             @JsonProperty("driverId") String driverId, @JsonProperty("start") String start,
-                             @JsonProperty("end") String end) {
+                           @JsonProperty("customerId") String customerId, @JsonProperty("date") String date,
+                           @JsonProperty("driverId") String driverId, @JsonProperty("duration") String duration,
+                           @JsonProperty("status") String status) {
         this.id = id;
         this.description = description;
         this.customerId = customerId;
         this.date = date;
         this.driverId = driverId;
-        this.start = start;
-        this.end = end;
+        this.duration = duration;
+        this.status = status;
     }
 
     /**
@@ -93,7 +93,7 @@ public class JsonAdaptedTask {
         //SAME FOR DRIVER^
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            Task.class.getSimpleName() + " ID"));
+                    Task.class.getSimpleName() + " ID"));
         }
         if (!Task.isValidId(id)) {
             throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Task.class.getSimpleName() + " ID"));
@@ -102,31 +102,31 @@ public class JsonAdaptedTask {
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            Description.class.getSimpleName()));
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        Description goodsDescription = new Description(description);
-        final Goods modelGoods = new Goods(goodsDescription);
+        final Description modelDescription = new Description(description);
 
         if (customerId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            Customer.class.getSimpleName() + " ID"));
+                    Customer.class.getSimpleName() + " ID"));
         }
         if (!Task.isValidId(customerId)) {
             throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Customer.class.getSimpleName() + " ID"));
         }
-        //final Customer modelCustomer = new Customer();
+        //check if customer exists in the list
+        // final Customer modelCustomer = new Customer();
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            LocalDate.class.getSimpleName()));
+                    LocalDate.class.getSimpleName()));
         }
         if (!ParserUtil.isValidDate(date)) {
             throw new IllegalValueException(INVALID_DATE_FORMAT);
         }
-        LocalDate modelDate = Task.getDateFromString(date);
+        final LocalDate modelDate = Task.getDateFromString(date);
 
         //driverId can be null
         if (driverId != null && !Task.isValidId(driverId)) {
@@ -134,19 +134,32 @@ public class JsonAdaptedTask {
         }
         //final Driver modelDriver = new Driver();
 
-        //Duration's start and end can be null
-        if ((start != null || end != null) && !EventTime.isValidDuration(start, end)) {
+        //Duration's can be null
+        if (duration != null && !EventTime.isValidEventTime(duration)) {
             throw new IllegalValueException(EventTime.MESSAGE_CONSTRAINTS);
         }
 
-        Task task = new Task(modelTaskId, modelGoods, modelDate);
+        Task task = new Task(modelTaskId, modelDescription, modelDate);
         if (driverId != null) {
             //get driver from DriverManager
             //assign driver to the task
         }
-        if (start != null && end != null) {
-            final EventTime modelDuration = EventTime.parse(start, end);
-            task.setEventTime(modelDuration);
+        if (duration != null) {
+            final EventTime modelEventTime = EventTime.parse(duration);
+            task.setEventTime(Optional.of(modelEventTime));
+        }
+
+        //status cannot be null
+        if (status != null) {
+            throw new IllegalValueException(TaskStatus.MESSAGE_CONSTRAINTS);
+        }
+        if (status.equals(TaskStatus.INCOMPLETE.toString())) {
+            task.setStatus(TaskStatus.INCOMPLETE);
+        } else if (status.equals(TaskStatus.ON_GOING.toString())) {
+            task.setStatus(TaskStatus.ON_GOING);
+        } else {
+            //task is completed
+            task.setStatus(TaskStatus.COMPLETED);
         }
 
         return task;

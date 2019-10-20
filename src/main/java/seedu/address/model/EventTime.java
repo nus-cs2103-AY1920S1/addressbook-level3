@@ -11,9 +11,20 @@ import java.util.Objects;
  */
 public class EventTime implements Comparable<EventTime> {
 
+    /**
+     * The first and last 4 digits can be from 0 to 2359, includes optional leading zeros.
+     * There must be a "-" in middle the 2 time formats.
+     * There must have also a white space in front and behind of the dash.
+     */
+    public static final String VALIDATION_REGEX = "^(0?[0-9]?[0-5]?[0-9]|1[0-9][0-5][0-9]|2[0-3][0-5][0-9])"
+                                                    + "\\s-\\s"
+                                                    + "(0?[0-9]?[0-5]?[0-9]|1[0-9][0-5][0-9]|2[0-3][0-5][0-9])$";
+
     public static final String TIME_FORMAT = "HHmm";
     public static final DateTimeFormatter COMPACT_TIME_FORMAT = DateTimeFormatter.ofPattern(TIME_FORMAT);
     private static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
+
+    private static final DateTimeFormatter JSON_FORMATTER = DateTimeFormatter.ofPattern("Hmm");
 
     public static final String MESSAGE_CONSTRAINTS = "Duration needs to have a start and end time. "
             + "Format: " + TIME_FORMAT + " - " + TIME_FORMAT + ". "
@@ -52,6 +63,23 @@ public class EventTime implements Comparable<EventTime> {
     }
 
     /**
+     * Gets EventTime Object representation of duration of delivery task.
+     * Check using {@code isValidEventTime(String duration) } before parse.
+     *
+     * @param duration startTime - endTime.
+     * @return the duration with the specified start and end time
+     */
+    public static EventTime parse(String duration) throws DateTimeParseException {
+        assert isValidEventTime(duration) : "duration is not following the correct format. Eg. 1230 - 1420.";
+        //split string into 3 parts to get start time, "-" and end time
+        String[] durationArr = duration.split(" ");
+        String startTimeStr = durationArr[0];
+        String endTimeStr = durationArr[2];
+
+        return parse(startTimeStr, endTimeStr);
+    }
+
+    /**
      * Checks whether the two durations overlap.
      * @param other the other duration
      * @return true if they overlap
@@ -71,17 +99,41 @@ public class EventTime implements Comparable<EventTime> {
         return start;
     }
 
-    public static String getStringFromTime(LocalTime time) {
-        return time.format(COMPACT_TIME_FORMAT);
+    /**
+     * Convert EventTime Object to user input duration format for json file.
+     * Example: 1200 - 1330.
+     */
+    public static String getStringFromDuration(EventTime duration) {
+        String startTime = duration.getStart().format(JSON_FORMATTER);
+        String endTime = duration.getEnd().format(JSON_FORMATTER);
+        return startTime + " - " + endTime;
     }
 
     /**
-     * Checks if {@code String startTime} and {@code String endTime} are valid duration
+     * Checks if {@code String duration} is a valid duration.
      */
-    public static boolean isValidDuration(String startTime, String endTime) {
+    public static boolean isValidEventTime(String duration) {
+        if (!duration.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+
+        //split string into 3 parts to get start time, "-" and end time
+        String[] durationArr = duration.split(" ");
+        String startTimeStr = durationArr[0];
+        String endTimeStr = durationArr[2];
+
         try {
-            parse(startTime, endTime);
-        } catch (DateTimeParseException e) {
+            int startTime = Integer.parseInt(startTimeStr);
+            int endTime = Integer.parseInt(endTimeStr);
+
+            //checks if Start time is before End time
+            if (endTime <= startTime) {
+                return false;
+            }
+
+            //checks if it can be parse into a LocalDate Object
+            parse(startTimeStr, endTimeStr);
+        } catch (NumberFormatException | DateTimeParseException nfe) {
             return false;
         }
 

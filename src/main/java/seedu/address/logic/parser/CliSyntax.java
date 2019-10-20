@@ -25,6 +25,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_CUSTOMER = new Prefix("c/");
 
     public static final Prefix PREFIX_DRIVER = new Prefix("d/");
+    public static final Prefix PREFIX_DURATION = new Prefix("dd/");
 
     //Link Syntax to their respective classes
     public static final HashMap<String, String> PREFIX_CLASS_MAP = createPrefixClassMap();

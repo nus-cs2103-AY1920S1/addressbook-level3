@@ -1,15 +1,16 @@
 package seedu.address.model.person;
 
-import seedu.address.model.legacy.AddressBook;
+import seedu.address.model.EntityManager;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Manages the customer list.
  * It contains the minimal set of list operations.
  */
-public class CustomerManager extends AddressBook {
+public class CustomerManager extends EntityManager<Customer> {
 
     public CustomerManager() {
-        persons = new CustomerList();
+        super();
     }
 
     /**
@@ -19,15 +20,11 @@ public class CustomerManager extends AddressBook {
      * @return Customer with the specified unique id.
      */
     public Customer getCustomer(int customerId) {
-        Person foundCustomer = persons.asUnmodifiableObservableList()
+        return getPersonList()
                 .stream()
-                .filter(person -> {
-                    Customer customer = (Customer) person;
-                    return customer.getId() == customerId;
-                })
+                .filter(customer -> customer.getId() == customerId)
                 .findFirst()
-                .get();
-        return (Customer) foundCustomer;
+                .orElseThrow(PersonNotFoundException::new);
     }
 
     /**
@@ -36,11 +33,8 @@ public class CustomerManager extends AddressBook {
      * @param customerId customer unique id.
      */
     public boolean hasCustomer(int customerId) {
-        return persons.asUnmodifiableObservableList()
+        return getPersonList()
                 .stream()
-                .anyMatch(person -> {
-                    Customer customer = (Customer) person;
-                    return customer.getId() == customerId;
-                });
+                .anyMatch(customer -> customer.getId() == customerId);
     }
 }

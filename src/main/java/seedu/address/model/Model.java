@@ -1,12 +1,14 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
@@ -110,7 +112,7 @@ public interface Model {
 
     Task getTask(int taskId);
 
-    void setTask(Task task);
+    void setTask(Task taskToEdit, Task editedTask);
 
     TaskManager getTaskManager();
 
@@ -121,4 +123,8 @@ public interface Model {
     Customer getCustomer(int customerId);
 
     // driver manager
+
+    boolean hasDriver(int driverId);
+
+    Optional<Driver> getDriver(int driverId);
 }
