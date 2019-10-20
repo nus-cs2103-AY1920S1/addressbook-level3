@@ -110,13 +110,13 @@
 
 .list-cell:filled:even {
     -fx-background-color: #1d1d1d;
-    -fx-border-color: white;
+    -fx-border-color: derive(#1d1d1d, 20%);
     -fx-border-width : 0 0 1 0;
 }
 
 .list-cell:filled:odd {
     -fx-background-color: #1d1d1d;
-    -fx-border-color: white;
+    -fx-border-color: derive(#1d1d1d, 20%);
     -fx-border-width : 0 0 1 0;
 }
 
@@ -125,7 +125,7 @@
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
+    -fx-border-color: #EF7C00;
     -fx-border-width: 1;
 }
 
@@ -163,7 +163,12 @@
 
 .tab-pane-with-border {
     -fx-background-color: #1d1d1d;
-    -fx-border-style: none none none none;
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-style: solid none none none;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
 }
 
 .status-bar {
@@ -182,6 +187,7 @@
 .tab{
     -fx-background-insets: 0 1 0 1,0,0;
 }
+
 .tab-pane .tab
 {
     -fx-background-color: #1d1d1d;
@@ -297,17 +303,17 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
+  -fx-background-color: #EF7C00;
   -fx-text-fill: #1d1d1d;
 }
 
-.button:focused {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
+/*.button:focused {*/
+/*    -fx-border-color: #EF7C00;*/
+/*    -fx-border-width: 1, 1;*/
+/*    -fx-border-style: solid;*/
+/*    -fx-border-radius: 0, 0;*/
+/*    -fx-border-insets: 1 1 1 1, 0;*/
+/*}*/
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
@@ -395,7 +401,7 @@
     -fx-background-insets: 0;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Franklin Gothic Demi Cond";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
 }
