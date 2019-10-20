@@ -1,5 +1,7 @@
 package seedu.address.model.commonvariables;
 
+import javax.sound.midi.MidiChannel;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -22,6 +24,10 @@ public class Id {
     public Id(String id) {
         requireNonNull(id);
         checkArgument(isValidId(id), MESSAGE_CONSTRAINTS);
+        Integer idNum = Integer.parseInt(id);
+        idCount = idCount < idNum
+                ? idNum
+                : idCount;
         value = id;
     }
 
