@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,6 +36,22 @@ public class UniqueContactList implements Iterable<Contact> {
     public boolean contains(Contact toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameContact);
+    }
+
+    /**
+     * Returns true if the list contains a contact with the same number as the given argument.
+     */
+    public boolean containsPhone(Phone toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(x -> x.getPhone().equals(toCheck));
+    }
+
+    /**
+     * Returns an Optional Contact if the list contains a contact with the same number as the given argument.
+     */
+    public Optional<Contact> getWithPhone(Phone toGet) {
+        requireNonNull(toGet);
+        return internalList.stream().filter(x -> x.getPhone().equals(toGet)).findFirst();
     }
 
     /**

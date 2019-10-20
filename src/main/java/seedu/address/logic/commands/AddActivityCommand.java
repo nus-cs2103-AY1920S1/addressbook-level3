@@ -5,13 +5,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.List;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.field.ContactContainsNumberPredicate;
 
 /**
  * Adds an activity to the itinerary.
@@ -53,10 +50,9 @@ public class AddActivityCommand extends AddCommand {
         }
 
         if (toAdd.getContact().isPresent()) {
-            model.updateFilteredContactList(new ContactContainsNumberPredicate(toAdd.getContact().get().getPhone()));
-            List<Contact> sameNumberContacts = model.getFilteredContactList();
-            if (!sameNumberContacts.isEmpty()) {
-                model.addActivity(new Activity(toAdd.getName(), toAdd.getAddress(), sameNumberContacts.get(0),
+            if (model.hasPhone(toAdd.getContact().get().getPhone())) {
+                Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+                model.addActivity(new Activity(toAdd.getName(), toAdd.getAddress(), contact,
                         toAdd.getTags()));
             } else {
                 model.addActivity(toAdd);
