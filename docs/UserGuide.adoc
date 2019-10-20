@@ -70,7 +70,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Add a data entry to the diabetes tracker app: `add`
 
-Format: `add r/RECORD_TYPE v/VALUE t/TIME [t/TIME_END]`
+Format: `add rt/RECORD_TYPE v/VALUE t/TIME [t/TIME_END]`
+DateTime must be the last field.
 
 ==== Show a list of all data entries in the diabetes tracker app: `list`
 

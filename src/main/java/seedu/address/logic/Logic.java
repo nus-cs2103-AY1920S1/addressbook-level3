@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
 
@@ -37,7 +38,7 @@ public interface Logic {
      * Returns a boolean indicating whether a new pane is to be created, regardless of whether an existing one already
      * exists.
      */
-    boolean getNewPaneToBeCreated();
+    boolean getnewPaneIsToBeCreated();
 
     /**
      * Returns the AddressBook.
@@ -62,6 +63,10 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of foods
      */
     ObservableList<Food> getFilterFoodList();
+
+    public ObservableList<Record> getRecordList();
+
+    public ObservableList<Record> getFilterRecordList();
 
     /**
      * Returns the user prefs' address book file path.

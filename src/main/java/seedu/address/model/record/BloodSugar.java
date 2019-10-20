@@ -19,6 +19,10 @@ public class BloodSugar extends Record {
         this.concentration = concentration;
     }
 
+    public Concentration getConcentration() {
+        return concentration;
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

@@ -22,6 +22,14 @@ public class Bmi extends Record {
         this.weight = weight;
     }
 
+    public Height getHeight() {
+        return height;
+    }
+
+    public Weight getWeight() {
+        return weight;
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

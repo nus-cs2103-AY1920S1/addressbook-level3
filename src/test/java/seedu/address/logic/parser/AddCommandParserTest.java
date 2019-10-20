@@ -30,11 +30,11 @@ public class AddCommandParserTest {
 
         //bloodsugar success
         BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
-        assertParseSuccess(parser, " rt/BLOODSUGAR con/12.34 dt/01/01/1970 08:00", new AddCommand(bs));
+        assertParseSuccess(parser, " rt/BLOODSUGAR con/12.34 dt/1970-01-01 08:00", new AddCommand(bs));
 
         //bmi success
         Bmi bmi = new Bmi(new Height("12.34"), new Weight("23.34"), dt);
-        assertParseSuccess(parser, " rt/BMI h/12.34 w/23.45 dt/01/01/1970 08:00", new AddCommand(bmi));
+        assertParseSuccess(parser, " rt/BMI h/12.34 w/23.45 dt/1970-01-01 08:00", new AddCommand(bmi));
 
         //        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
         //            + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(bmi));
@@ -81,15 +81,15 @@ public class AddCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
 
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertParseFailure(parser, " rt/BLOODSUGAR dt/01/01/1970 08:00",
+        assertParseFailure(parser, " rt/BLOODSUGAR dt/1970-01-01 08:00",
                 expectedMessage);
         assertParseFailure(parser, " rt/BLOODSUGAR con/12.34",
             expectedMessage);
-        assertParseFailure(parser, " rt/BMI h/1 w/1",
+        assertParseFailure(parser, " rt/BMI w/1 h/1",
             expectedMessage);
-        assertParseFailure(parser, " rt/BMI h/1 dt/01/01/1970 08:00",
+        assertParseFailure(parser, " rt/BMI h/1 dt/1970-01-01 08:00",
             expectedMessage);
-        assertParseFailure(parser, " rt/BMI dt/01/01/1970 08:00 w/1",
+        assertParseFailure(parser, " rt/BMI w/1 dt/1970-01-01 08:00",
             expectedMessage);
 
         //        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);

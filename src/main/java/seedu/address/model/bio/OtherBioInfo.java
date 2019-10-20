@@ -1,6 +1,5 @@
 package seedu.address.model.bio;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -11,7 +10,7 @@ public class OtherBioInfo {
 
     public static final String MESSAGE_CONSTRAINTS =
             "OtherBioInfo can take any values.";
-    public static final String VALIDATION_REGEX = "\"^$|[^\\\\s].*";
+    public static final String VALIDATION_REGEX = "^$|[^\\\\s].*";
 
     public final String otherInfo;
 
@@ -21,7 +20,6 @@ public class OtherBioInfo {
      * @param otherInfo A valid otherInfo.
      */
     public OtherBioInfo(String otherInfo) {
-        requireNonNull(otherInfo);
         checkArgument(isValidOtherInfo(otherInfo), MESSAGE_CONSTRAINTS);
         this.otherInfo = otherInfo;
     }
@@ -30,6 +28,7 @@ public class OtherBioInfo {
      * Returns true if a given string is a valid otherInfo.
      */
     public static boolean isValidOtherInfo(String test) {
+        boolean temp = test.matches(VALIDATION_REGEX);
         return test.matches(VALIDATION_REGEX);
     }
 

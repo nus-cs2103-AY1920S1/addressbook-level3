@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.sgm.model.food.UniqueFoodList;
 
 /**
@@ -23,15 +24,18 @@ public class StorageManager implements Storage {
     private UserListStorage userListStorage;
     private UserPrefsStorage userPrefsStorage;
     private JsonFoodListStorage jsonFoodListStorage;
+    private JsonRecordListStorage jsonRecordListStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, UserListStorage userListStorage, 
-                          JsonFoodListStorage jsonFoodListStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          UserListStorage userListStorage, JsonFoodListStorage jsonFoodListStorage,
+                          JsonRecordListStorage jsonRecordListStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userListStorage = userListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.jsonFoodListStorage = jsonFoodListStorage;
+        this.jsonRecordListStorage = jsonRecordListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -108,7 +112,35 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         jsonFoodListStorage.save(foodList, filePath);
     }
-  
+
+    // ================ RecordList methods ==============================
+    @Override
+    public Path getRecordListFilePath() {
+        return jsonRecordListStorage.getFilePath();
+    }
+
+    @Override
+    public Optional<UniqueRecordList> readRecordList() throws DataConversionException, IOException {
+        return readRecordList(jsonRecordListStorage.getFilePath());
+    }
+
+    @Override
+    public Optional<UniqueRecordList> readRecordList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return jsonRecordListStorage.read(filePath);
+    }
+
+    @Override
+    public void saveRecordList(UniqueRecordList recordList) throws IOException {
+        saveRecordList(recordList, jsonRecordListStorage.getFilePath());
+    }
+
+    @Override
+    public void saveRecordList(UniqueRecordList recordList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        jsonRecordListStorage.save(recordList, filePath);
+    }
+
     // ================ UserList methods ==============================
     @Override
     public Path getUserListFilePath() {
@@ -136,5 +168,4 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         userListStorage.saveUserList(userList, filePath);
     }
-  
 }
