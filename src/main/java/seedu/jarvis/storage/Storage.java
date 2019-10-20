@@ -1,6 +1,7 @@
 package seedu.jarvis.storage;
 
 import seedu.jarvis.storage.address.AddressBookStorage;
+import seedu.jarvis.storage.history.HistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 
 /**
@@ -8,5 +9,6 @@ import seedu.jarvis.storage.userprefs.UserPrefsStorage;
  * This extends al the different models for all the features.
  * {@code AddressBookStorage} is the API for AddressBook.
  * {@code UserPrefsStorage} is the API for User Preferences and GUI settings.
+ * {@code HistoryManagerStorage} is the API for undoing and redoing commands.
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {}
+public interface Storage extends AddressBookStorage, UserPrefsStorage, HistoryManagerStorage {}

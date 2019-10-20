@@ -31,6 +31,8 @@ import seedu.jarvis.storage.Storage;
 import seedu.jarvis.storage.StorageManager;
 import seedu.jarvis.storage.address.AddressBookStorage;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.history.HistoryManagerStorage;
+import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 import seedu.jarvis.ui.Ui;
@@ -62,7 +64,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        HistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(
+                userPrefs.getHistoryManagerFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage);
 
         initLogging(config);
 
