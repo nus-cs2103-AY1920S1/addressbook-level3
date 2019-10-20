@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.AddPolicyTagCommand;
@@ -52,10 +53,14 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        addressBookParser = new AddressBookParser(model.getUserSettings().isSuggestionsOn());
         initialiseCommandsInParserUtil();
     }
 
+    /**
+     * Initialises all the command words in ParserUtil. Needs to be updated every time a command is added.
+     */
+    //todo : update command words
     public void initialiseCommandsInParserUtil() {
         ParserUtil.addCommands(AddCommand.COMMAND_WORD, AddPolicyCommand.COMMAND_WORD, AddPolicyTagCommand.COMMAND_WORD,
                 AddTagCommand.COMMAND_WORD, AssignPolicyCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
@@ -129,5 +134,22 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public UserSettings getUserSettings() {
+        return model.getUserSettings();
+    }
+
+    @Override
+    public void setUserSettings() {
+        boolean suggestionOn = addressBookParser.isSuggestionOn();
+        UserSettings userSettings = new UserSettings(suggestionOn);
+        model.setUserSettings(userSettings);
+    }
+
+    @Override
+    public void setUserSettings(UserSettings userSettings) {
+        model.setUserSettings(userSettings);
     }
 }

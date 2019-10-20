@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -68,6 +69,18 @@ public class ModelManager implements Model {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public UserSettings getUserSettings() {
+        return userPrefs.getUserSettings();
+    }
+
+    @Override
+    public void setUserSettings(UserSettings userSettings) {
+        requireNonNull(userSettings);
+        userPrefs.setUserSettings(userSettings);
+    }
+
 
     @Override
     public Path getAddressBookFilePath() {

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -38,6 +39,16 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' settings.
+     */
+    UserSettings getUserSettings();
+
+    /**
+     * Sets the user prefs' settings.
+     */
+    void setUserSettings(UserSettings userSettings);
 
     /**
      * Returns the user prefs' address book file path.
