@@ -103,6 +103,22 @@ public interface Model {
     void editFilteredFoodList(List<String> fieldList);
 
     /**
+     * Returns the user prefs' purchase history file path.
+     */
+    Path getPurchaseHistoryFilePath();
+
+    /**
+     * Sets the user prefs' purchase history file path.
+     */
+    void setPurchaseHistoryFilePath(Path menuFilePath);
+
+    /** Returns the $aveNUS menu */
+    ReadOnlyPurchaseHistory getPurchaseHistory();
+
+    /** Returns an unmodifiable view of the {@code PurchaseHistory} */
+    ObservableList<Purchase> getPurchaseHistoryList();
+
+    /**
      * Buy the given food.
      * The food must exist in the menu.
      */
@@ -142,9 +158,6 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
-
-    /** Returns an unmodifiable view of the {@code PurchaseHistory} */
-    ObservableList<Purchase> getPurchaseHistory();
 
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.

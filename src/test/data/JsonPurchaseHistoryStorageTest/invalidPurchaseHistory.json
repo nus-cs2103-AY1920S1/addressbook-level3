@@ -1,0 +1,27 @@
+{
+  "purchases" : [ {
+    "purchasedFood" : {
+      "name" : "Carbonara",
+      "price" : "5.00",
+      "description" : "Italian noodle with cheese and meat",
+      "category": "Italian",
+      "tagged" : [ "Noodle" ],
+      "location" : "The Deck",
+      "openingHours" : "0800 1700",
+      "restrictions" : "Contains dairy and pork"
+    },
+    "timeOfPurchaseInMillisSinceEpochString" : "..."
+  }, {
+    "purchasedFood" : {
+      "name" : "Wagyu Donburi with Teh",
+      "price" : "abc",
+      "description" : "Japanese rice with wagyu beef, with tea",
+      "category": "Japanese",
+      "tagged" : [ "Expensive" , "Beef" , "Luxury" ],
+      "location" : "Atas Place in NUS",
+      "openingHours" : "1000 1700",
+      "restrictions" : "Expensive"
+    },
+    "timeOfPurchaseInMillisSinceEpochString" : "1570976665687"
+  } ]
+}
