@@ -29,6 +29,9 @@ public class ItemStorage {
         items.add(item);
     }
 
+    /**
+     * add item into specified index
+     * */
     public void add(int targetIndex, Item item) throws DuplicateItemException {
         if (items.contains(item)) {
             throw new DuplicateItemException();

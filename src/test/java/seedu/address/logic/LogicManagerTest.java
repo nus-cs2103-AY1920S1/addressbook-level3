@@ -41,7 +41,6 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(jsonItemStorage, userPrefsStorage);
         ElisaCommandHistory historyManager = new ElisaCommandHistoryManager();
         model = new ItemModelManager(storage.toModelType(), userPrefsStorage.readUserPrefs().get(), historyManager);
-        historyManager.pushCommand(logic.getModel().getState().deepCopy());
         logic = new LogicManager(model, storage);
     }
 

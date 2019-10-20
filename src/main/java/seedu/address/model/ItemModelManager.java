@@ -42,7 +42,8 @@ public class ItemModelManager implements ItemModel {
     private ActiveRemindersList activeReminders;
     private ArrayList<Item> futureReminders;
 
-    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs, ElisaCommandHistory elisaCommandHistory) {
+    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs,
+                            ElisaCommandHistory elisaCommandHistory) {
 
         this.taskList = new TaskList();
         this.eventList = new EventList();
@@ -124,12 +125,14 @@ public class ItemModelManager implements ItemModel {
         futureReminders = new ArrayList<Item>();
 
         updateLists();
-
-        //delete later
-        //elisaCommandHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
     }
 
-    public void updateLists(){
+
+    /**
+     * repopulate item lists from storage
+     * */
+
+    public void updateLists() {
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
@@ -224,9 +227,13 @@ public class ItemModelManager implements ItemModel {
         addToSeparateList(item);
     }
 
-    public void addItem(ItemIndexWrapper wrapper){
-        visualList.addToIndex(wrapper.visual, wrapper.item);
-        itemStorage.add(wrapper.storage, wrapper.item);
+    /**
+     * add given item into specified index
+     * */
+
+    public void addItem(ItemIndexWrapper wrapper) {
+        visualList.addToIndex(wrapper.getVisual(), wrapper.getItem());
+        itemStorage.add(wrapper.getStorage(), wrapper.getItem());
         addToSeparateList(wrapper);
     }
 
@@ -258,18 +265,22 @@ public class ItemModelManager implements ItemModel {
         }
     }
 
+    /**
+     * add item to separate lists into given index
+     * */
+
     public void addToSeparateList(ItemIndexWrapper wrapper) {
-        if (wrapper.task != -1) {
-            taskList.addToIndex(wrapper.task, wrapper.item);
+        if (wrapper.getTask() != -1) {
+            taskList.addToIndex(wrapper.getTask(), wrapper.getItem());
         }
 
-        if (wrapper.eve != -1) {
-            eventList.addToIndex(wrapper.eve, wrapper.item);
+        if (wrapper.getEve() != -1) {
+            eventList.addToIndex(wrapper.getEve(), wrapper.getItem());
         }
 
-        if (wrapper.rem != -1) {
-            reminderList.addToIndex(wrapper.rem, wrapper.item);
-            futureReminders.add(wrapper.frem, wrapper.item);
+        if (wrapper.getRem() != -1) {
+            reminderList.addToIndex(wrapper.getRem(), wrapper.getItem());
+            futureReminders.add(wrapper.getFrem(), wrapper.getItem());
         }
     }
 
@@ -299,7 +310,11 @@ public class ItemModelManager implements ItemModel {
         return item;
     }
 
-    public Item removeItem(Item item){
+    /**
+     * remove the given item from the list(s)
+     * */
+
+    public Item removeItem(Item item) {
         Item removedItem = visualList.remove(item);
         if (visualList instanceof TaskList) {
             taskList.remove(item);
@@ -330,7 +345,7 @@ public class ItemModelManager implements ItemModel {
         return item;
     }
 
-    public ItemIndexWrapper getIndices(int index){
+    public ItemIndexWrapper getIndices(int index) {
         Item item = visualList.get(index);
         return new ItemIndexWrapper(item, index, itemStorage.indexOf(item), taskList.indexOf(item),
                 eventList.indexOf(item), reminderList.indexOf(item), futureReminders.indexOf(item));
@@ -526,6 +541,9 @@ public class ItemModelManager implements ItemModel {
         return item;
     }
 
+    /**
+     * mark a given task as not completed
+     * */
 
     public Item markIncomplete(int index) throws IllegalListException {
         Item item;
