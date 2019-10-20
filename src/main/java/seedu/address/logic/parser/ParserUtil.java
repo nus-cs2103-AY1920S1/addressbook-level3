@@ -6,7 +6,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -426,9 +426,10 @@ public class ParserUtil {
         if (!DateTime.isValidDateTime(trimmedDateTime)) {
             throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
         }
-        String trimmedDate = trimmedDateTime.substring(0, trimmedDateTime.indexOf(" ")).trim();
-        String trimmedTime = trimmedDateTime.substring(trimmedDateTime.indexOf(" ")).trim();
-        return new DateTime(parseDate(trimmedDate), parseTime(trimmedTime));
+
+        LocalDate ld = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern(DateTime.VALIDATION_REGEX_STRING));
+        LocalTime lt = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(DateTime.VALIDATION_REGEX_STRING));
+        return new DateTime(ld, lt);
     }
 
     /**

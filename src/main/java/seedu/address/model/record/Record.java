@@ -32,6 +32,10 @@ public abstract class Record {
             && otherRecord.getClass().equals(this.getClass());
     }
 
+    public DateTime getDateTime() {
+        return dateTime;
+    }
+
     /**
      * Returns true if both persons have the same identity and data fields. This defines a stronger notion of equality
      * between two persons.

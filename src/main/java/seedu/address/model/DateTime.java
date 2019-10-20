@@ -2,8 +2,9 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.sql.Time;
 import java.time.DateTimeException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,10 +16,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "DateTime should be in the format: DD-MM-YYYY HH:MM and it " +
-            "should contain valid number";
-    public static final String VALIDATION_REGEX =
-            "^([1-9]|([012][0-9])|(3[01]))-([0]{0,1}[1-9]|1[012])-\\d\\d\\d\\d\\s+(20|21|22|23|[0-1]?\\d):[0-5]?\\d$";
+    //TODO: constraint
+    public static final String MESSAGE_CONSTRAINTS = "some constraint date time";
+    public static final String VALIDATION_REGEX_STRING = "yyyy-MM-dd HH:mm";
+    public static final SimpleDateFormat VALIDATION_REGEX = new SimpleDateFormat(VALIDATION_REGEX_STRING);
 
     private LocalDate date;
     private LocalTime time;
@@ -36,28 +37,25 @@ public class DateTime {
         this.time = localDateTime.toLocalTime();
     }
 
-    private static boolean isValidDate(String test) {
-        String[] dmy = test.split("-");
-        int day = Integer.parseInt(dmy[0]);
-        int month = Integer.parseInt(dmy[1]);
-        int year = Integer.parseInt(dmy[2]);
-        try {
-            LocalDate.of(year, month, day);
-            return true;
-        } catch (DateTimeException exception) {
-            return false;
+    public DateTime(String dateTime) {
+        requireNonNull(dateTime);
+        if (isValidDateTime(dateTime)) {
+            this.date = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
+            this.time = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
+        } else {
         }
     }
 
     /**
-     * Returns true if the given string contains a valid date and a valid time.
+     * Returns true if a given string is a valid dateTime.
      */
     public static boolean isValidDateTime(String test) {
-        if (!test.matches(VALIDATION_REGEX)) {
+        try {
+            VALIDATION_REGEX.parse(test);
+            return true;
+        } catch (ParseException e) {
             return false;
         }
-        String date = test.substring(0, test.indexOf(" "));
-        return isValidDate(date);
     }
 
     public LocalDate getDate() {

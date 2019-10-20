@@ -96,7 +96,7 @@ public class AddBioCommand extends Command {
     }
 
     @Override
-    public boolean getNewPaneToBeCreated() {
+    public boolean getnewPaneIsToBeCreated() {
         return true;
     }
 
