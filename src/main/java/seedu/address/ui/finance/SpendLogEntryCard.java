@@ -45,7 +45,7 @@ public class SpendLogEntryCard extends UiPart<Region> {
         super(FXML);
         this.logEntry = logEntry;
         id.setText(displayedIndex + ". ");
-        amount.setText(logEntry.getAmount().amount);
+        amount.setText(logEntry.getAmount().toString());
         tDate.setText(logEntry.getTransactionDate().value);
         description.setText(logEntry.getDescription().value);
         tMethod.setText(logEntry.getTransactionMethod().value);

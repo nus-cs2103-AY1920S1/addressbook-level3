@@ -45,7 +45,7 @@ abstract class JsonAdaptedLogEntry {
      * Converts a given {@code LogEntry} into this class for Jackson use.
      */
     public JsonAdaptedLogEntry(LogEntry source) {
-        amount = source.getAmount().amount;
+        amount = source.getAmount().toString();
         tDate = source.getTransactionDate().value;
         desc = source.getDescription().value;
         tMethod = source.getTransactionMethod().value;

@@ -18,7 +18,7 @@ public class Amount {
     public static final String VALIDATION_REGEX = "[\\d]+|[\\d]+\\.[\\d]{1,2}";
 
 
-    public final String amount;
+    public final double amount;
 
     /**
      * Constructs a {@code Amount}.
@@ -28,7 +28,7 @@ public class Amount {
     public Amount(String amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
-        this.amount = amount;
+        this.amount = Double.parseDouble(amount);
     }
 
     /**
@@ -41,19 +41,19 @@ public class Amount {
 
     @Override
     public String toString() {
-        return amount;
+        return Double.toString(amount);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
-                && amount.equals(((Amount) other).amount)); // state check
+                && (Double.compare(amount, ((Amount) other).amount)) == 0); // state check
     }
 
     @Override
     public int hashCode() {
-        return amount.hashCode();
+        return Double.toString(amount).hashCode();
     }
 
 }

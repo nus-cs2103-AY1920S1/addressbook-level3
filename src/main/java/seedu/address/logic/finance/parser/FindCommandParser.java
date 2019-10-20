@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.finance.commands.FindCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-import seedu.address.model.finance.logentry.NameContainsKeywordsPredicate;
+import seedu.address.model.finance.logentry.DescriptionContainsKeywordsPredicate;
 
 
 /**
@@ -28,7 +28,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new DescriptionContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }
