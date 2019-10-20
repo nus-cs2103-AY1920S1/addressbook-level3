@@ -26,9 +26,18 @@ public class CommandBoxHelper {
         return temp;
     }
 
-    public ModeAction getMode() {
+    public ModeEnum getMode() {
         ModeEnum temp = logic.getMode();
-        return new ModeAction(temp);
+        return temp;
+    }
+
+    public List<ModeEnum> getModes() {
+        List<ModeEnum> temp = new ArrayList<>();
+        temp.add(ModeEnum.APP);
+        temp.add(ModeEnum.LOAD);
+        temp.add(ModeEnum.GAME);
+        temp.add(ModeEnum.SETTINGS);
+        return temp;
     }
 
 

@@ -16,6 +16,7 @@ import seedu.address.logic.actions.Action;
 import seedu.address.logic.CommandBoxHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -84,6 +85,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void fillCombo() {
+        List<ModeEnum> temp = commandBoxHelper.getModes();
         EventHandler<ActionEvent> event =
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent e) {
@@ -96,9 +98,9 @@ public class CommandBox extends UiPart<Region> {
                     }
                 };
         commandComboField.setOnAction(event);
-        commandComboField.getItems().add("home");
-        commandComboField.getItems().add("load");
-        commandComboField.getItems().add("start");
+        for (ModeEnum mode : temp) {
+            commandComboField.getItems().add(mode.toString());
+        }
     }
 
 
@@ -112,6 +114,7 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
+        commandComboField.setValue(commandBoxHelper.getMode().toString());
     }
 
     /**
