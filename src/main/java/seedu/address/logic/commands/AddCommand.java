@@ -79,6 +79,8 @@ public class AddCommand extends UndoableCommand {
 
     private final Entity toAdd;
 
+    private NotifCommand notifCommand;
+
     /**
      * Creates an AddCommand to add the specified {@code Body}, {@code Worker} or {@code Fridge}.
      */
@@ -100,6 +102,7 @@ public class AddCommand extends UndoableCommand {
 
         if (toAdd instanceof Body) {
             NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd), 5, TimeUnit.SECONDS);
+            this.notifCommand = notifCommand;
             notifCommand.execute(model);
         }
         setUndoable();
@@ -119,6 +122,8 @@ public class AddCommand extends UndoableCommand {
         }
         try {
             model.deleteEntity(toAdd);
+            notifCommand.removeNotif(model);
+//            toAdd.getIdNum().removeMapping();
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
