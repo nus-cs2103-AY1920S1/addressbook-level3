@@ -46,12 +46,12 @@ public class StandardQuestionBank implements QuestionBank {
 
     @Override
     public void replaceQuestion(int id, Question question) {
-        this.questionList.set(id - 1, question);
+        this.questionList.set(id, question);
     }
 
     @Override
     public void removeQuestion(int id) {
-        this.questionList.remove(id - 1);
+        this.questionList.remove(id);
     }
 
     @Override

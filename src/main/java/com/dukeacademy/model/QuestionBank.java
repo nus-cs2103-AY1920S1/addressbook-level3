@@ -8,8 +8,8 @@ import java.util.Collection;
 
 /**
  * Question bank to encapsulate the storage of all the questions registered in the program. A requirement for the
- * question bank is that each question is tagged with unique integer id from 1 - n, where n is the number of questions
- * in the question bank. All crud operations are performed using this unique integer id.
+ * question bank is that each question is tagged with unique integer id from 0 to n - 1, where n is the number of
+ * questions in the question bank. All crud operations are performed using this unique integer id.
  */
 public interface QuestionBank {
 

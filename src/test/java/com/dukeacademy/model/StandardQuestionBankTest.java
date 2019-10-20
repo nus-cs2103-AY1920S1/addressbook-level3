@@ -1,37 +1,23 @@
 package com.dukeacademy.model;
 
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static com.dukeacademy.testutil.Assert.assertThrows;
-import static com.dukeacademy.testutil.TypicalQuestions.ALICE;
-import static com.dukeacademy.testutil.TypicalQuestions.getTypicalQuestionBank;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.IntStream;
 
 import com.dukeacademy.model.question.Difficulty;
-import com.dukeacademy.model.question.DifficultyTest;
 import com.dukeacademy.model.question.Status;
 import com.dukeacademy.model.question.Title;
 import com.dukeacademy.model.question.Topic;
 import com.dukeacademy.model.tag.Tag;
-import com.dukeacademy.observable.Observable;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.exceptions.DuplicateQuestionException;
-import com.dukeacademy.testutil.QuestionBuilder;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class StandardQuestionBankTest {
@@ -98,7 +84,7 @@ public class StandardQuestionBankTest {
         List<Question> originalBankList = new ArrayList<>(questionObservableList);
 
         Question newQuestion = new Question(new Title("test1"), new Topic("test1"), new Status("test1"), new Difficulty("Test1"), new HashSet<Tag>());
-        this.standardQuestionBank.replaceQuestion(2, newQuestion);
+        this.standardQuestionBank.replaceQuestion(1, newQuestion);
         originalBankList.remove(1);
         originalBankList.add(1, newQuestion);
         assertTrue(this.matchListData(questionObservableList, originalBankList));
@@ -111,7 +97,7 @@ public class StandardQuestionBankTest {
         this.standardQuestionBank.setQuestions(mockQuestions);
 
         List<Question> originalBankList = new ArrayList<>(questionObservableList);
-        this.standardQuestionBank.removeQuestion(2);
+        this.standardQuestionBank.removeQuestion(1);
         originalBankList.remove(1);
         assertTrue(this.matchListData(questionObservableList, originalBankList));
     }
