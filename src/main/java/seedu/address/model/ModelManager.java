@@ -466,8 +466,15 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return userProfile.equals(other.userProfile)
                 && userPrefs.equals(other.userPrefs)
+                && recipeBook.equals(other.recipeBook)
+                && healthRecords.equals(other.healthRecords)
+                && diaryRecords.equals(other.diaryRecords)
+                && workoutPlanner.equals(other.workoutPlanner)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredExercises.equals(other.filteredExercises);
+                && filteredRecords.equals(other.filteredRecords)
+                && filteredRecipes.equals(other.filteredRecipes)
+                && filteredExercises.equals(other.filteredExercises)
+                && filteredDiaries.equals(other.filteredDiaries);
     }
 
     //=========== Filtered Diary List Accessors =============================================================

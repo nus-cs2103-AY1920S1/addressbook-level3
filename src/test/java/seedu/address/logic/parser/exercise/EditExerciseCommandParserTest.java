@@ -58,13 +58,13 @@ public class EditExerciseCommandParserTest {
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 l/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_FOOD_NAME_DESC, ExerciseName.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_SETS_DESC, ExerciseDetail.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_SETS_DESC, ExerciseDetail.MESSAGE_CONSTRAINTS); // invalid detail
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
@@ -129,6 +129,7 @@ public class EditExerciseCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    /*
     @Test
     public void parse_resetTags_success() {
         Index targetIndex = INDEX_THIRD_PERSON;
@@ -141,4 +142,5 @@ public class EditExerciseCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
+    */
 }

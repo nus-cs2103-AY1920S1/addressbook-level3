@@ -124,7 +124,7 @@ public class CommandTestUtil {
     public static final String REPS_DESC_SIXTY = " " + PREFIX_REPETITIONS + VALID_REPS_SIXTY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Pushup&"; // '&' not allowed in names
-    public static final String INVALID_SETS_DESC = " " + PREFIX_SETS + "5*"; // '*' not allowed in tags
+    public static final String INVALID_SETS_DESC = " " + PREFIX_SETS + "0;;*"; // '*' not allowed in tags
     public static final String INVALID_FOOD_NAME_DESC = " " + PREFIX_NAME + "Fish & Chips"; // '&' not allowed in names
     public static final String INVALID_INGREDIENT_DESC = " " + PREFIX_INGREDIENT
             + "Cheese*Burger"; // '*' not allowed in ingredient names

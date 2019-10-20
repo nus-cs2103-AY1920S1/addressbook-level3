@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.exercise.ClearExerciseCommand;
 import seedu.address.logic.commands.profile.EditProfileCommand;
 import seedu.address.logic.commands.recipe.AddRecipeCommand;
 import seedu.address.logic.commands.recipe.DeleteRecipeCommand;
@@ -47,8 +47,9 @@ public class DukeCooksParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearExerciseCommand.COMMAND_WORD) instanceof ClearExerciseCommand);
+        assertTrue(parser.parseCommand(ClearExerciseCommand.COMMAND_WORD
+                + " 3") instanceof ClearExerciseCommand);
     }
 
     @Test
