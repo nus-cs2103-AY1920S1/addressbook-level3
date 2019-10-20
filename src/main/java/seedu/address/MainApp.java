@@ -133,15 +133,16 @@ public class MainApp extends Application {
         try {
             userListOptional = storage.readUserList();
             if (!userListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Bio Data file not found. Will be starting a sample user list containing bio data");
             }
             initialUserData = userListOptional.orElseGet(SampleUserDataUtil::getSampleUserList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
+                    + "user list containing no bio data");
             initialUserData = new UserList();
         } catch (IOException e) {
-            logger.info("Bio Data file not found. Will be starting with a sample user list containing "
-                    + " bio data");
+            logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
+                    + "user list containing no bio data");
             initialUserData = new UserList();
         }
 

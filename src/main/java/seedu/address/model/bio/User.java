@@ -1,9 +1,20 @@
 package seedu.address.model.bio;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.bio.BioFieldName.LABEL_ADDRESS;
+import static seedu.address.model.bio.BioFieldName.LABEL_CONTACT_NUMBER;
+import static seedu.address.model.bio.BioFieldName.LABEL_DATE_OF_BIRTH;
+import static seedu.address.model.bio.BioFieldName.LABEL_EMERGENCY_CONTACT;
+import static seedu.address.model.bio.BioFieldName.LABEL_GENDER;
+import static seedu.address.model.bio.BioFieldName.LABEL_GOALS;
+import static seedu.address.model.bio.BioFieldName.LABEL_MEDICAL_CONDITION;
+import static seedu.address.model.bio.BioFieldName.LABEL_NAME;
+import static seedu.address.model.bio.BioFieldName.LABEL_NRIC;
+import static seedu.address.model.bio.BioFieldName.LABEL_OTHER_BIO_INFO;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,6 +38,9 @@ public class User {
     private final List<Phone> emergencyContacts = new ArrayList<>();
     private final List<MedicalCondition> medicalConditions = new ArrayList<>();
     private final List<Goal> goals = new ArrayList<>();
+
+    // Contains a data structure that maps  bio fields of the User.
+    private LinkedHashMap<String, String> fieldMap;
 
     /**
      * Every field must be present and not null.
@@ -122,6 +136,46 @@ public class User {
         return otherUser != null
                 && otherUser.getName().equals(getName())
                 && (otherUser.getNric().equals(getNric()));
+    }
+
+    /**
+     * Returns a {@code LinkedHashMap} containing differences of this user's biography compared to another.
+     * @param other Other user with biography to be compared to this user's.
+     * @return A {@code LinkedHashMap} containing differences of this user's biography compared to another.
+     */
+    public LinkedHashMap<String, List<String>> getDifferencesTo(User other) {
+        LinkedHashMap<String, String> thisFieldList = getFieldMap();
+        LinkedHashMap<String, String> otherFieldList = other.getFieldMap();
+        LinkedHashMap<String, List<String>> differencesMap = new LinkedHashMap<>();
+
+        thisFieldList.forEach((key, value) -> {
+            String otherValue = otherFieldList.get(key);
+            if (!value.equals(otherValue)) {
+                differencesMap.put(key, new ArrayList<>(List.of(value, otherValue)));
+            }
+        });
+        return differencesMap;
+    }
+
+    /**
+     * Returns a {@code HashMap} representing this user's biography information.
+     * @return {@code HashMap} representing this user's biography information.
+     */
+    public LinkedHashMap<String, String> getFieldMap() {
+        if (fieldMap == null) {
+            fieldMap = new LinkedHashMap<>();
+            fieldMap.put(LABEL_NAME, name.toString());
+            fieldMap.put(LABEL_NRIC, nric.toString());
+            fieldMap.put(LABEL_GENDER, gender.toString());
+            fieldMap.put(LABEL_DATE_OF_BIRTH, dateOfBirth.toString());
+            fieldMap.put(LABEL_CONTACT_NUMBER, contactNumbers.toString());
+            fieldMap.put(LABEL_EMERGENCY_CONTACT, emergencyContacts.toString());
+            fieldMap.put(LABEL_MEDICAL_CONDITION, medicalConditions.toString());
+            fieldMap.put(LABEL_ADDRESS, address.toString());
+            fieldMap.put(LABEL_GOALS, goals.toString());
+            fieldMap.put(LABEL_OTHER_BIO_INFO, otherBioInfo.toString());
+        }
+        return fieldMap;
     }
 
     /**

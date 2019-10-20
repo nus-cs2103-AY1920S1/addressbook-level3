@@ -56,6 +56,12 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
                         PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT, PREFIX_MEDICAL_CONDITION,
                         PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
 
+        System.out.println(argMultimap.getPreamble());
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBioCommand.MESSAGE_USAGE));
+        }
+
         EditUserDescriptor editUserDescriptor = new EditBioCommand.EditUserDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editUserDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
