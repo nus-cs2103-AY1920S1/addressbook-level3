@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -13,6 +14,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
+import seedu.address.model.field.Name;
 
 /**
  * The API of the Model component.
@@ -57,9 +59,19 @@ public interface Model {
     void setPlannerFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code planner}.
+     * Replaces planner data with the data in {@code planner}.
      */
     void setPlanner(ReadOnlyPlanner planner);
+
+    /**
+     * Replaces planner's name with {@code name}.
+     */
+    void setPlannerName(Name name);
+
+    /**
+     * Replaces planner's start date with {@code startDate}.
+     */
+    void setPlannerStartDate(Date startDate);
 
     /**
      * Returns the Planner

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -19,6 +20,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
+import seedu.address.model.field.Name;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -93,10 +95,22 @@ public class ModelManager implements Model {
 
     @Override
     public void setPlanner(ReadOnlyPlanner planner) {
+        planner.getName().ifPresent(n -> this.planner.setName(n));;
+        planner.getStartDate().ifPresent(sd -> this.planner.setStartDate(sd));
         this.planner.resetDataAccommodation(planner);
         this.planner.resetDataActivity(planner);
         this.planner.resetDataContact(planner);
         this.planner.resetDataDay(planner);
+    }
+
+    @Override
+    public void setPlannerName(Name name) {
+        this.planner.setName(name);
+    }
+
+    @Override
+    public void setPlannerStartDate(Date sd) {
+        this.planner.setStartDate(sd);
     }
 
     @Override

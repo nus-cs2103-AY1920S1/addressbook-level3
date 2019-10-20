@@ -84,6 +84,14 @@ public class Planner implements ReadOnlyPlanner {
         return Optional.ofNullable(this.startDate);
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setStartDate(Date date) {
+        this.startDate = date;
+    }
+
     //// For ACCOMMODATION list overwrite operations
 
     /**
