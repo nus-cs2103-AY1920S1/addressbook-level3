@@ -50,8 +50,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     public Optional<ReadOnlyWordBank> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializableWordBank> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableWordBank.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -80,7 +80,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         requireNonNull(addressBook);
         requireNonNull(filePath);
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableWordBank(addressBook), filePath);
     }
 
     public Optional<List<WordBank>> getWordBankList() {

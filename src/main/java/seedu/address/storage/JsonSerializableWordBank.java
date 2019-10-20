@@ -14,29 +14,29 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable Word Bank that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "wordBank")
+class JsonSerializableWordBank {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_WORD_BANK = "Word bank contains duplicate card(s).";
 
     private final List<JsonAdaptedCard> wordBank = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableWordBank} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("wordBank") List<JsonAdaptedCard> card) {
+    public JsonSerializableWordBank(@JsonProperty("wordBank") List<JsonAdaptedCard> card) {
         this.wordBank.addAll(card);
     }
 
     /**
      * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableWordBank}.
      */
-    public JsonSerializableAddressBook(ReadOnlyWordBank source) {
+    public JsonSerializableWordBank(ReadOnlyWordBank source) {
         wordBank.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
     }
 
@@ -50,7 +50,7 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedCard jsonAdaptedCard : this.wordBank) {
             Card card = jsonAdaptedCard.toModelType();
             if (wordBank.hasCard(card)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_WORD_BANK);
             }
             wordBank.addCard(card);
         }
