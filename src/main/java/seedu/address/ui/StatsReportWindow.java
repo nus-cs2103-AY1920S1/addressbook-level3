@@ -44,6 +44,8 @@ public class StatsReportWindow extends UiPart<Stage> {
             }
         });
 
+        root.getScene().getStylesheets().add("view/LightTheme.css");
+        root.getScene().getStylesheets().add("view/Extensions.css");
     }
 
     /**

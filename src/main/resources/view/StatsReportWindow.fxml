@@ -16,10 +16,6 @@
     </icons>
     <scene>
         <Scene>
-<!--            <stylesheets>-->
-<!--                <URL value="@DarkTheme.css" />-->
-<!--                <URL value="@Extensions.css" />-->
-<!--            </stylesheets>-->
             <VBox prefHeight="176.0" prefWidth="254.0">
                 <children>
 

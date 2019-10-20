@@ -10,10 +10,10 @@
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
-    <HBox alignment="TOP_CENTER">
+    <HBox alignment="TOP_RIGHT">
         <VBox alignment="CENTER_RIGHT" minHeight="105">
-            <padding><Insets top="25" right="300" bottom="25" left="25"/></padding>
-            <LineChart fx:id="lineChart" VBox.vgrow="ALWAYS" minHeight="300" minWidth="400">
+            <padding><Insets top="100" right="100" bottom="100" left="100"/></padding>
+            <LineChart fx:id="lineChart" VBox.vgrow="SOMETIMES" prefHeight="400" prefWidth="600">
                 <xAxis>
                     <NumberAxis side="BOTTOM" label="Num Students" autoRanging="true"/>
                 </xAxis>
@@ -23,23 +23,46 @@
             </LineChart>
         </VBox>
 
-        <VBox>
-            <padding><Insets top="100" right="50" bottom="25" left="25"/></padding>
-            <Label fx:id="totalStudents" text="\$first" styleClass="cell_small_label" />
-            <Label fx:id="mean" text="\$first" styleClass="cell_big_label" />
-            <Label fx:id="median" text="\$first" styleClass="cell_big_label" />
-            <Label fx:id="min" text="\$first" styleClass="cell_big_label" />
-            <Label fx:id="max" text="\$first" styleClass="cell_big_label" />
-            <Label fx:id="standardDev" text="\$first" styleClass="cell_big_label" />
+        <VBox alignment="CENTER_LEFT" minHeight="105">
+            <padding><Insets top="100" right="100" bottom="100" left="100"/></padding>
+            <PieChart fx:id="distributionChart" VBox.vgrow="SOMETIMES" prefHeight="400" prefWidth="600"/>
         </VBox>
 
     </HBox>
 
     <HBox alignment="BOTTOM_CENTER">
-        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
-        <VBox alignment="CENTER_LEFT" minHeight="105">
-            <PieChart fx:id="distributionChart" VBox.vgrow="ALWAYS" minHeight="300" minWidth="300"/>
-        </VBox>
+        <HBox>
+            <Label text="Total Students: " styleClass="cell_big_label" />
+            <Label fx:id="totalStudents" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Mean: " styleClass="cell_big_label">
+            </Label>
+            <Label fx:id="mean" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Median: " styleClass="cell_big_label">
+            </Label>
+            <Label fx:id="median" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Min: " styleClass="cell_big_label"/>
+            <Label fx:id="min" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Max: " styleClass="cell_big_label"/>
+            <Label fx:id="max" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Standard Dev: " styleClass="cell_big_label"/>
+            <Label fx:id="standardDev" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
     </HBox>
 
 </VBox>

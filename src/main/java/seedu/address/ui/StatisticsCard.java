@@ -88,24 +88,12 @@ public class StatisticsCard extends UiPart<Region> {
         lineChart.setTitle("Score Frequency Distribution");
         //defining a series
         XYChart.Series series = new XYChart.Series();
+        series.setName("Class Data Series");
         //populating the series with data
         HashMap<Integer, Integer> frequencyDistribution = stat.getFrequencyDistribution();
         for (Map.Entry<Integer, Integer> entry : frequencyDistribution.entrySet()) {
             series.getData().add(new XYChart.Data(entry.getKey(), entry.getValue()));
         }
-
-//        series.getData().add(new XYChart.Data(1, 23));
-//        series.getData().add(new XYChart.Data(2, 14));
-//        series.getData().add(new XYChart.Data(3, 15));
-//        series.getData().add(new XYChart.Data(4, 24));
-//        series.getData().add(new XYChart.Data(5, 34));
-//        series.getData().add(new XYChart.Data(6, 36));
-//        series.getData().add(new XYChart.Data(7, 22));
-//        series.getData().add(new XYChart.Data(8, 45));
-//        series.getData().add(new XYChart.Data(9, 43));
-//        series.getData().add(new XYChart.Data(10, 17));
-//        series.getData().add(new XYChart.Data(11, 29));
-//        series.getData().add(new XYChart.Data(12, 25));
 
         lineChart.getData().add(series);
     }

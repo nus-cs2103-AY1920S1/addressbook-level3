@@ -70,7 +70,6 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         slideShowWindow = new SlideshowWindow();
-        statsReportWindow = new StatsReportWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -173,6 +172,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStats() {
+        statsReportWindow = new StatsReportWindow();
         StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
         statsReportWindow.setStatsCard(statsCard);
         if (!statsReportWindow.isShowing()) {
