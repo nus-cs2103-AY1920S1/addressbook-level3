@@ -66,7 +66,19 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void updateMenu(String oldCommand, String newCommand) {
-
+        commandMenuField.getMenus().clear();
+        for (Action temp : uiLogicHelper.getMenuItems(newCommand)) {
+            Label label = new Label(temp.toString());
+            label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    commandTextField.setText(temp.toString() + " ");
+                }
+            });
+            Menu button = new Menu();
+            button.setGraphic(label);
+            commandMenuField.getMenus().add(button);
+        }
     }
 
     private void fillMenu() {

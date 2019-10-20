@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import seedu.address.logic.commands.Command;
@@ -47,26 +48,17 @@ public class ParserManager {
     private ModeParser modeParser;
     private ModeEnum mode;
     private ModeEnum tempMode;
-    private List<String> switchCommandsList;
+    private List<Class> switchCommandsList;
 
     public ParserManager () {
         this.mode = ModeEnum.LOAD;
         this.modeParser = getModeParser();
         this.tempMode = null;
         this.switchCommandsList = new ArrayList<>();
-        Class cls = BankCommand.class;
-        try {
-            cls.getConstructor();
-            Constructor cons = cls.getConstructor(String.class);
-            Command test = (Command)cons.newInstance("addressbook");
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-
-        }
-        System.out.print("111111111111111111: " + cls.getName());
-        switchCommandsList.add(BankCommand.COMMAND_WORD);
-        switchCommandsList.add(HomeCommand.COMMAND_WORD);
-        switchCommandsList.add(LoadScreenCommand.COMMAND_WORD);
-        switchCommandsList.add(SwitchToSettingsCommand.COMMAND_WORD);
+        switchCommandsList.add(BankCommand.class);
+        switchCommandsList.add(HomeCommand.class);
+        switchCommandsList.add(LoadScreenCommand.class);
+        switchCommandsList.add(SwitchToSettingsCommand.class);
     }
 
     public ModeEnum getMode() {
@@ -98,8 +90,18 @@ public class ParserManager {
 
     public List<AutoFillAction> getAutoFill(String text) {
         List<AutoFillAction> temp = new ArrayList<>();
-        for (String s : switchCommandsList) {
-            temp.add(new AutoFillAction(s));
+        for (Class cls : switchCommandsList) {
+            try {
+                Field f = cls.getField("COMMAND_WORD");
+                String strValue = (String) f.get(null);
+
+                if (strValue.contains(text)) {
+                    temp.add(new AutoFillAction(strValue));
+                }
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+
+            }
+
         }
         return temp;
     }
