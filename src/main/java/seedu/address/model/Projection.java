@@ -32,7 +32,7 @@ public class Projection {
         Amount totalPrev = new Amount(0);
         int totalDaysElapsed = (int) DAYS.between(transactionHistory.get(0)
                 .getDate().toLocalDate(), LocalDate.now());
-        System.out.println(totalDaysElapsed);
+
         for (Transaction transaction : transactionHistory) {
             totalPrev = totalPrev.addAmount(transaction.getAmount());
         }
