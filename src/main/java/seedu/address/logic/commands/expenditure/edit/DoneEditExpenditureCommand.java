@@ -35,10 +35,17 @@ public class DoneEditExpenditureCommand extends Command {
         }
 
         try {
+
             if (expenditureToEdit == null) {
                 //buildExpenditure() requires compulsory fields to be non null, failing which
                 //NullPointerException is caught below
                 expenditureToAdd = editExpenditureDescriptor.buildExpenditure();
+                if(expenditureToAdd.getDayNumber().isPresent()){
+                    if(Integer.parseInt(expenditureToAdd.getDayNumber().get().toString())
+                            > model.getPageStatus().getTrip().getDayList().internalList.size()) {
+                        throw new NullPointerException();
+                    }
+                }
                 model.getPageStatus().getTrip().getExpenditureList().add(expenditureToAdd);
             } else {
                 //edit the current "selected" expenditure
