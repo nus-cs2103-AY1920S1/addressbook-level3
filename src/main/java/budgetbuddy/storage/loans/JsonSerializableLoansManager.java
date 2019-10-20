@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.LoansManager;
+import budgetbuddy.model.person.Person;
 
 /**
  * An immutable LoansManager that is serializable to JSON format.
@@ -34,5 +36,21 @@ public class JsonSerializableLoansManager {
      */
     public JsonSerializableLoansManager(LoansManager source) {
         persons.addAll(source.getPersonsList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+    }
+
+    /**
+     * Converts this loans manager into the model's {@code LoansManager} object.
+     * @throws IllegalValueException If any data constraints are violated.
+     */
+    public LoansManager toModelType() throws IllegalValueException {
+        List<Person> personsList = new ArrayList<Person>();
+        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
+            Person person = jsonAdaptedPerson.toModelType();
+            if (personsList.contains(person)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            personsList.add(person);
+        }
+        return new LoansManager(personsList);
     }
 }

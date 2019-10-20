@@ -87,6 +87,17 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Optional<LoansManager> readLoans() throws DataConversionException, IOException {
+        return readLoans(getLoansFilePath());
+    }
+
+    @Override
+    public Optional<LoansManager> readLoans(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return loansStorage.readLoans(filePath);
+    }
+
+    @Override
     public void saveLoans(LoansManager loansManager) throws IOException {
         saveLoans(loansManager, loansStorage.getLoansFilePath());
     }

@@ -81,32 +81,56 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        LoansManager loansManager;
-        AccountsManager accountsManager;
-        RuleManager ruleManager;
+        AccountsManager accountsManager = new AccountsManager();
+        LoansManager loansManager = initLoansManager(storage);
+        ReadOnlyAddressBook initialData = initAddressBook(storage);
+        RuleManager ruleManager = new RuleManager();
+
+        return new ModelManager(loansManager, ruleManager, accountsManager, initialData, userPrefs);
+    }
+
+    /**
+     * Loads and returns an Address Book from storage.
+     * Returns an empty Address Book if file not found or if exception occurs during loading.
+     */
+    private ReadOnlyAddressBook initAddressBook(Storage storage) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        loansManager = new LoansManager();
-        ruleManager = new RuleManager();
-        accountsManager = new AccountsManager();
-        // TODO Load manager data from storage (if data present).
 
         try {
             addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample Budget Buddy");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            return addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Budget Buddy");
-            initialData = new AddressBook();
+            return new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Budget Buddy");
-            initialData = new AddressBook();
+            return new AddressBook();
         }
+    }
 
-        return new ModelManager(loansManager, ruleManager, accountsManager, initialData, userPrefs);
+    /**
+     * Loads and returns a Loans Manager from storage.
+     * Returns an empty Loans Manager if no file found or if exception occurs during loading.
+     */
+    private LoansManager initLoansManager(Storage storage) {
+        Optional<LoansManager> loansManagerOptional;
 
+        try {
+            loansManagerOptional = storage.readLoans();
+            if (loansManagerOptional.isEmpty()) {
+                logger.info("Loans file not found. Will be starting with an empty LoansManager.");
+            }
+            return loansManagerOptional.orElseGet(LoansManager::new);
+        } catch (DataConversionException e) {
+            logger.warning("Loans file not in the correct format. Will be starting with an empty LoansManager.");
+            return new LoansManager();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from loans file. Will be starting with an empty LoansManager.");
+            return new LoansManager();
+        }
     }
 
     private void initLogging(Config config) {

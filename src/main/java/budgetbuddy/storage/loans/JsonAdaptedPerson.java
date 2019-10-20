@@ -3,9 +3,7 @@ package budgetbuddy.storage.loans;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -59,11 +57,6 @@ public class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -72,8 +65,12 @@ public class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelTags);
+        Person person = new Person(modelName, new LoanList());
+        for (JsonAdaptedLoan loan : loans) {
+            person.addLoan(loan.toModelType());
+        }
+
+        return person;
     }
 
 }
