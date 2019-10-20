@@ -15,7 +15,7 @@ import seedu.address.model.policy.Policy;
  */
 public class PolicyListPanel extends UiPart<Region> {
     private static final String FXML = "PolicyListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(PolicyListPanel.class);
 
     @FXML
     private ListView<Policy> policyListView;

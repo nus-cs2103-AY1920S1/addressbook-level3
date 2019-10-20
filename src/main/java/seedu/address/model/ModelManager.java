@@ -16,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.TimeUtil;
 import seedu.address.model.person.Gender;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -26,7 +27,7 @@ import seedu.address.model.policy.PolicyName;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final StatefulAddressBook statefulAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Policy> filteredPolicies;
@@ -40,10 +41,10 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.statefulAddressBook = new StatefulAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredPolicies = new FilteredList<>(this.addressBook.getPolicyList());
+        filteredPersons = new FilteredList<>(this.statefulAddressBook.getPersonList());
+        filteredPolicies = new FilteredList<>(this.statefulAddressBook.getPolicyList());
     }
 
     public ModelManager() {
@@ -75,6 +76,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public UserSettings getUserSettings() {
+        return userPrefs.getUserSettings();
+    }
+
+    @Override
+    public void setUserSettings(UserSettings userSettings) {
+        requireNonNull(userSettings);
+        userPrefs.setUserSettings(userSettings);
+    }
+
+
+    @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
@@ -88,35 +101,35 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        statefulAddressBook.resetData(addressBook);
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return statefulAddressBook;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return statefulAddressBook.hasPerson(person);
     }
 
     @Override
     public Person getPerson(Person person) {
         requireNonNull(person);
-        return addressBook.getPerson(person);
+        return statefulAddressBook.getPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        statefulAddressBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        statefulAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -124,40 +137,40 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        statefulAddressBook.setPerson(target, editedPerson);
     }
 
     @Override
     public boolean hasPolicy(Policy policy) {
         requireNonNull(policy);
-        return addressBook.hasPolicy(policy);
+        return statefulAddressBook.hasPolicy(policy);
     }
 
     @Override
     public boolean hasPolicyWithName(PolicyName policyName) {
-        return addressBook.hasPolicyWithName(policyName);
+        return statefulAddressBook.hasPolicyWithName(policyName);
     }
 
     @Override
     public Policy getPolicy(Policy policy) {
         requireNonNull(policy);
-        return addressBook.getPolicy(policy);
+        return statefulAddressBook.getPolicy(policy);
     }
 
     @Override
     public Policy getPolicyWithName(PolicyName policyName) {
         requireNonNull(policyName);
-        return addressBook.getPolicyWithName(policyName);
+        return statefulAddressBook.getPolicyWithName(policyName);
     }
 
     @Override
     public void deletePolicy(Policy target) {
-        addressBook.removePolicy(target);
+        statefulAddressBook.removePolicy(target);
     }
 
     @Override
     public void addPolicy(Policy policy) {
-        addressBook.addPolicy(policy);
+        statefulAddressBook.addPolicy(policy);
         updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
     }
 
@@ -165,17 +178,44 @@ public class ModelManager implements Model {
     public void setPolicy(Policy target, Policy editedPolicy) {
         requireAllNonNull(target, editedPolicy);
 
-        addressBook.setPolicy(target, editedPolicy);
+        statefulAddressBook.setPolicy(target, editedPolicy);
+    }
+
+    //=========== Functions related to undo/redo =============================================================
+
+    @Override
+    public boolean canUndoAddressBook() {
+        return statefulAddressBook.canUndo();
+    }
+
+    @Override
+    public boolean canRedoAddressBook() {
+        return statefulAddressBook.canRedo();
+    }
+
+    @Override
+    public void undoAddressBook() {
+        statefulAddressBook.undo();
+    }
+
+    @Override
+    public void redoAddressBook() {
+        statefulAddressBook.redo();
+    }
+
+    @Override
+    public void saveAddressBookState() {
+        statefulAddressBook.saveAddressBookState();
     }
 
     @Override
     public ObservableMap<String, Integer> getPolicyPopularityBreakdown() {
         // Set up map
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
-        this.addressBook.getPolicyList().forEach(policy -> result.put(policy.getName().toString(), 0));
+        statefulAddressBook.getPolicyList().forEach(policy -> result.put(policy.getName().toString(), 0));
 
         // Add popularity
-        this.addressBook.getPersonList().forEach(person -> {
+        statefulAddressBook.getPersonList().forEach(person -> {
             Set<Policy> policies = person.getPolicies();
             policies.forEach(policy -> {
                 String policyName = policy.getName().toString();
@@ -193,7 +233,7 @@ public class ModelManager implements Model {
         TimeUtil.getAgeGroup().forEach(ageGroup -> result.put(ageGroup, 0));
 
         // Add numbers
-        this.addressBook.getPersonList().forEach(person -> {
+        statefulAddressBook.getPersonList().forEach(person -> {
             int yearOfBirth = person.getDateOfBirth().dateOfBirth.getYear();
             String ageGroup = TimeUtil.parseAgeGroup(yearOfBirth);
             result.put(ageGroup, result.get(ageGroup) + 1);
@@ -209,7 +249,7 @@ public class ModelManager implements Model {
         Gender.getValidGender().forEach(gender -> result.put(gender, 0));
 
         // Add numbers
-        this.addressBook.getPersonList().forEach(person -> {
+        statefulAddressBook.getPersonList().forEach(person -> {
             String gender = person.getGender().toString();
             result.put(gender, result.get(gender) + 1);
         });
@@ -227,7 +267,7 @@ public class ModelManager implements Model {
      * @returnlist of unfiltered person.
      */
     private ObservableList<Person> getPersonList() {
-        return this.addressBook.getPersonList();
+        return statefulAddressBook.getPersonList();
     }
 
     /**
@@ -274,7 +314,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return statefulAddressBook.equals(other.statefulAddressBook)
             && userPrefs.equals(other.userPrefs)
             && filteredPersons.equals(other.filteredPersons)
             && filteredPolicies.equals(other.filteredPolicies);

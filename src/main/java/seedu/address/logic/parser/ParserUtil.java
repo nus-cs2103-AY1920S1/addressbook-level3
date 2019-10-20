@@ -1,13 +1,25 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.USER_PREFIXES;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListPeopleCommand;
+import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
@@ -31,6 +43,10 @@ import seedu.address.model.visual.DisplayIndicator;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    private static HashSet<String> commands = new HashSet<>();
+
+    private static int lengthLongerThanAllCommandWords = 100;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -300,5 +316,168 @@ public class ParserUtil {
             throw new ParseException(DisplayIndicator.getMessageConstraints());
         }
         return new DisplayIndicator(trimmedDisplayIndicator);
+    }
+
+    /**
+     * Parses a {@String invalidInputCommandWord} into a {@String suggestedCommandWord}.
+     *
+     * @param inputCommand Invalid input command word by user.
+     * @param arguments    Arguments of command input by user.
+     * @return Suggested command word.
+     */
+    public static String parseCommand(String inputCommand, String arguments) {
+        return similarPrefixesAndShortestDistance(inputCommand, arguments);
+    }
+
+    /**
+     * Shortlists commands based on prefixes present and calls the method to find the shortest distance between
+     * the input command and the shortlisted command words.
+     *
+     * @param command   Input command.
+     * @param arguments Arguments of the input command.
+     * @return The command word closest to the input command word.
+     */
+    //todo update commands
+    private static String similarPrefixesAndShortestDistance(String command, String arguments) {
+        HashSet<String> shortListedCommands = new HashSet<>();
+        boolean hasNoArguments = arguments.length() == 0;
+        if (hasNoArguments) {
+            shortListedCommands.addAll(getNoArgumentCommands());
+            return getShortestDistanceString(command, shortListedCommands);
+        }
+        ArgumentMultimap argMultimap;
+        argMultimap = ArgumentTokenizer.tokenize(arguments, CliSyntax.USER_PREFIXES);
+
+        for (int i = 0; i < USER_PREFIXES.length; i++) {
+            Prefix prefix = USER_PREFIXES[i];
+            if (argMultimap.getValue(prefix).isPresent()) {
+                ArrayList<String> commandWords = prefix.getCommands();
+                for (int j = 0; j < commandWords.size(); j++) {
+                    shortListedCommands.add(commandWords.get(j));
+                }
+            }
+        }
+        if (shortListedCommands.size() != 0) {
+            return getShortestDistanceString(command, shortListedCommands);
+        } else {
+            return getShortestDistanceString(command);
+        }
+    }
+
+    private static ArrayList<String> getNoArgumentCommands() {
+        ArrayList<String> commandList = new ArrayList<>();
+        commandList.add(ClearCommand.COMMAND_WORD);
+        commandList.add(ListPeopleCommand.COMMAND_WORD);
+        commandList.add(ListPolicyCommand.COMMAND_WORD);
+        commandList.add(HelpCommand.COMMAND_WORD);
+        commandList.add(RedoCommand.COMMAND_WORD);
+        commandList.add(UndoCommand.COMMAND_WORD);
+        commandList.add(HistoryCommand.COMMAND_WORD);
+        return commandList;
+    }
+
+    private static String getShortestDistanceString(String input) {
+        return getShortestDistanceString(input, commands);
+    }
+
+    private static String getShortestDistanceString(String input, HashSet<String> commands) {
+        ArrayList<String> commandsThatHaveShortestDistanceAway = new ArrayList<>();
+        Iterator<String> iterator = commands.iterator();
+        int distance = lengthLongerThanAllCommandWords;
+        for (int i = 0; i < commands.size(); i++) {
+            String originalCommand = iterator.next();
+            int thisDistance = getDistance(input, originalCommand);
+            if (thisDistance < distance) {
+                commandsThatHaveShortestDistanceAway.clear();
+                commandsThatHaveShortestDistanceAway.add(originalCommand);
+                distance = thisDistance;
+            } else {
+                commandsThatHaveShortestDistanceAway.add(originalCommand);
+            }
+        }
+        if (commandsThatHaveShortestDistanceAway.size() == 1) {
+            return commandsThatHaveShortestDistanceAway.get(0);
+        } else {
+            String suggestion = getNearestSubstring(input, commandsThatHaveShortestDistanceAway);
+            return suggestion;
+        }
+    }
+
+    private static String getNearestSubstring(String input, ArrayList<String> possibleSuggestions) {
+        int longest = 0;
+        String command = "";
+        for (int i = 0; i < possibleSuggestions.size(); i++) {
+            String thisCommand = possibleSuggestions.get(i);
+            int lengthOfSubstring = getLongestSubstring(input, thisCommand);
+            if (lengthOfSubstring > longest) {
+                longest = lengthOfSubstring;
+                command = thisCommand;
+            }
+        }
+        return command;
+    }
+
+    private static int getLongestSubstring(String s1, String s2) {
+        return getLongestSubstring(s1, s2, 0, 0, 0);
+    }
+
+    private static int getLongestSubstring(String s1, String s2, int s1Index, int s2Index, int counter) {
+        if (s1Index >= s1.length() || s2Index >= s2.length()) {
+            return counter;
+        } else {
+            if (s1.charAt(s1Index) == s2.charAt(s2Index)) {
+                return getLongestSubstring(s1, s2, s1Index + 1, s2Index + 1, counter + 1);
+            } else {
+                return Math.max(counter,
+                    Math.max(getLongestSubstring(s1, s2, s1Index + 1, s2Index, 0),
+                        getLongestSubstring(s1, s2, s1Index, s2Index + 1, 0)));
+            }
+        }
+    }
+
+    private static int getDistance(String input, String originalCommand) {
+        int[][] distanceArray = new int[input.length()][originalCommand.length()];
+        int cols = originalCommand.length();
+        int rows = input.length();
+        for (int i = 0; i < cols; i++) {
+            distanceArray[0][i] = i;
+        }
+        for (int j = 1; j < rows; j++) {
+            distanceArray[j][0] = j;
+            for (int k = 1; k < cols; k++) {
+                int insert = distanceArray[j][k - 1] + 1;
+                int delete = distanceArray[j - 1][k] + 1;
+                int replace;
+                if (input.charAt(j) == originalCommand.charAt(k)) {
+                    replace = distanceArray[j - 1][k - 1];
+                } else {
+                    replace = distanceArray[j - 1][k - 1] + 2;
+                }
+                distanceArray[j][k] = Math.min(Math.min(insert, delete), replace);
+            }
+        }
+        return distanceArray[rows - 1][cols - 1];
+    }
+
+    /**
+     * Adds the command word to the list of command words.
+     *
+     * @param string Valid command words.
+     */
+    public static void addCommands(String... string) {
+        ArrayList<String> addedCommands = (ArrayList<String>) Arrays.stream(string).collect(Collectors.toList());
+        commands.addAll(addedCommands);
+    }
+
+    /**
+     * Removes the command word from the lsit of command words.
+     *
+     * @param string Valid command words.
+     */
+    public static void removeCommands(String... string) {
+        ArrayList<String> commandsToDelete = (ArrayList<String>) Arrays.stream(string).collect(Collectors.toList());
+        for (int i = 0; i < commandsToDelete.size(); i++) {
+            commands.remove(commandsToDelete.get(i));
+        }
     }
 }

@@ -38,6 +38,7 @@ public class FindPolicyCommand extends Command {
             false,
             false,
             false,
+            false,
             false);
     }
 

@@ -98,6 +98,8 @@ public class EditPolicyCommand extends Command {
 
         updatePersonsWithPolicy(policyToEdit, editedPolicy, model);
 
+        // to maintain the model's state for undo/redo
+        model.saveAddressBookState();
         return new CommandResult(String.format(MESSAGE_EDIT_POLICY_SUCCESS, editedPolicy));
     }
 

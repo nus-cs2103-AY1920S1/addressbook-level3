@@ -41,34 +41,33 @@
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
-                           styleClass="pane-with-border" VBox.vgrow="NEVER">
-                    <padding>
-                        <Insets bottom="5" left="10" right="10" top="5"/>
-                    </padding>
-                </StackPane>
-                <GridPane fx:id="resultHolder">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                    </rowConstraints>
-                    <children>
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5" />
+          </padding>
+        </StackPane>
 
-                        <VBox fx:id="personList" styleClass="pane-with-border">
-                            <padding>
-                                <Insets bottom="10" left="10" right="10" top="10"/>
-                            </padding>
-                            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                        </VBox>
-                        <StackPane fx:id="displayPlaceHolder" styleClass="pane-with-border" GridPane.columnIndex="1"/>
-                    </children>
-                </GridPane>
+        <GridPane fx:id="resultHolder">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+            <children>
+              <VBox fx:id="resultList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                <padding>
+                  <Insets top="10" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+              <StackPane fx:id="displayPlaceHolder" styleClass="pane-with-border" GridPane.columnIndex="1" />
+           </children>
+        </GridPane>
 
-                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
-            </VBox>
-        </Scene>
-    </scene>
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+      </VBox>
+    </Scene>
+  </scene>
 </fx:root>

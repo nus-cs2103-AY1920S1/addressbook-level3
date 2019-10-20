@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private PolicyListPanel policyListPanel;
     private DisplayPanel displayPanel;
+    private HistoryListPanel historyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportPanel reportPanel;
@@ -48,10 +49,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    // TODO: add test case to ensure name doesn't change
-    // Don't rename this; breaks the application.
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane displayPlaceHolder;
@@ -124,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -174,6 +173,7 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
             (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+        logic.setUserSettings();
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -204,25 +204,30 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isListPolicy()) {
                 policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
-                personListPanelPlaceholder.getChildren().clear();
-                personListPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
+                listPanelPlaceholder.getChildren().clear();
+                listPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
             }
 
             if (commandResult.isListPeople()) {
                 personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-                personListPanelPlaceholder.getChildren().clear();
-                personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+                listPanelPlaceholder.getChildren().clear();
+                listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            }
+
+            if (commandResult.isListHistory()) {
+                historyListPanel = new HistoryListPanel(logic.getHistoryList());
+                displayPlaceHolder.getChildren().removeAll();
+                displayPlaceHolder.getChildren().add(historyListPanel.getRoot());
             }
 
             if (commandResult.isReport()) {
                 reportPanel = new ReportPanel();
-                personListPanelPlaceholder.getChildren().clear();
-                personListPanelPlaceholder.getChildren().add(reportPanel.getRoot());
+                listPanelPlaceholder.getChildren().clear();
+                listPanelPlaceholder.getChildren().add(reportPanel.getRoot());
             }
 
             if (commandResult.isDisplay()) {
                 DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
-                // TODO (for larry): Display indicator sets data
                 ObservableMap<String, Integer> data;
                 String title = displayIndicator.toString();
 

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -43,6 +44,16 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' settings.
+     */
+    UserSettings getUserSettings();
+
+    /**
+     * Sets the user prefs' settings.
+     */
+    void setUserSettings(UserSettings userSettings);
 
     /**
      * Returns the user prefs' address book file path.
@@ -170,5 +181,30 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPolicyList(Predicate<Policy> predicate);
+
+    /**
+     * Checks whether an undo is possible in the address book.
+     */
+    boolean canUndoAddressBook();
+
+    /**
+     * Checks whether a redo is possible in the address book.
+     */
+    boolean canRedoAddressBook();
+
+    /**
+     * Undo to a previous state of the address book.
+     */
+    void undoAddressBook();
+
+    /**
+     * Redo to a previous undone state of the address book.
+     */
+    void redoAddressBook();
+
+    /**
+     * Add the previous state of address book to list of states.
+     */
+    void saveAddressBookState();
 
 }

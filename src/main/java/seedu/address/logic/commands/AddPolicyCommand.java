@@ -68,6 +68,8 @@ public class AddPolicyCommand extends Command {
             }
         }
         model.addPolicy(toAdd);
+        // to maintain the model's state for undo/redo
+        model.saveAddressBookState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

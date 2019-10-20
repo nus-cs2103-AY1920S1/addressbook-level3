@@ -45,6 +45,9 @@ public class CommandResult {
 
     private Policy policyToExpand;
 
+    /** Application should display history of commands */
+    private boolean listHistory;
+
     /**
      * Application should display report
      */
@@ -68,7 +71,8 @@ public class CommandResult {
                          boolean report,
                          boolean display,
                          boolean expandPerson,
-                         boolean expandPolicy) {
+                         boolean expandPolicy,
+                         boolean listHistory) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -76,19 +80,20 @@ public class CommandResult {
         this.listPeople = listPeople;
         this.report = report;
         this.display = display;
+        this.listHistory = listHistory;
         this.expandPerson = expandPerson;
         this.expandPolicy = expandPolicy;
     }
 
     public CommandResult(String feedbackToUser, Person personToExpand) {
         this(feedbackToUser, false, false, false, false, false,
-            false, true, false);
+            false, true, false, false);
         this.personToExpand = personToExpand;
     }
 
     public CommandResult(String feedbackToUser, Policy policyToExpand) {
         this(feedbackToUser, false, false, false, false, false,
-            false, false, true);
+            false, false, true, false);
         this.policyToExpand = policyToExpand;
     }
 
@@ -97,12 +102,13 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false,
+            false, false, false, false);
     }
 
     public CommandResult(String feedbackToUser, DisplayIndicator displayIndicator) {
         this(feedbackToUser, false, false, false, false, false,
-            true, false, false);
+            true, false, false, false);
         this.displayIndicator = displayIndicator;
     }
 
@@ -154,6 +160,10 @@ public class CommandResult {
         return policyToExpand;
     }
 
+    public boolean isListHistory() {
+        return listHistory;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -174,12 +184,14 @@ public class CommandResult {
             && report == otherCommandResult.report
             && display == otherCommandResult.display
             && expandPerson == otherCommandResult.expandPerson
-            && expandPolicy == otherCommandResult.expandPolicy;
+            && expandPolicy == otherCommandResult.expandPolicy
+            && listHistory == otherCommandResult.listHistory;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople, report, display, expandPerson, expandPolicy);
+        return Objects.hash(feedbackToUser, showHelp, exit, listPolicy, listPeople, report,
+            display, expandPerson, expandPolicy, listHistory);
     }
 
 }

@@ -231,5 +231,4 @@ public class MergePolicyRejectedCommandTest {
             return new AddressBook();
         }
     }
-
 }

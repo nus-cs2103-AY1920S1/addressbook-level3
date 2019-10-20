@@ -3,7 +3,10 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_MERGE_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ARGUMENTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND_WORD;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,10 +30,14 @@ import seedu.address.logic.commands.ExpandPolicyCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
 import seedu.address.logic.commands.ReportCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.merge.DoNotMergePersonCommand;
 import seedu.address.logic.commands.merge.DoNotMergePolicyCommand;
 import seedu.address.logic.commands.merge.MergeCommand;
@@ -58,10 +65,38 @@ public class AddressBookParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-
     private boolean isMerging = false;
     private MergeCommand currentMergeCommand;
     private String mergeType;
+    private boolean suggestionOn = true;
+
+    public AddressBookParser(boolean suggestionOn) {
+        this.suggestionOn = suggestionOn;
+    }
+
+    public AddressBookParser() {
+    }
+
+    /**
+     * Parses user input and obtains the command word which determines the command being executed.
+     *
+     * @param userInput full user input string
+     * @return the command work based on the user input
+     * @throws ParseException if the user input does not conform to the expected format
+     */
+    public Optional<String> getCommandWord(String userInput) throws ParseException {
+        if (isMerging) {
+            return Optional.empty();
+        }
+
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        return Optional.of(commandWord);
+    }
 
     /**
      * Parses user input into command for execution. Calls the parseCommand(String, boolean) where the boolean's
@@ -147,6 +182,15 @@ public class AddressBookParser {
             case ListPolicyCommand.COMMAND_WORD:
                 return new ListPolicyCommand();
 
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
+
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand();
+
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
@@ -193,8 +237,23 @@ public class AddressBookParser {
             case ExpandPolicyCommand.COMMAND_WORD:
                 return new ExpandPolicyCommandParser().parse(arguments);
 
+            case SuggestionSwitchCommand.COMMAND_WORD:
+                SuggestionSwitchCommand command = new SuggestionSwitchCommandParser().parse(arguments);
+                if (command.isOn()) {
+                    this.suggestionOn = true;
+                } else {
+                    this.suggestionOn = false;
+                }
+                return command;
+
             default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                if (suggestionOn) {
+                    String argumentToParse = " " + PREFIX_COMMAND_WORD + commandWord + " " + PREFIX_ARGUMENTS
+                            + arguments.trim();
+                    return new SuggestionCommandParser().parse(argumentToParse);
+                } else {
+                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                }
             }
         }
     }
@@ -261,6 +320,13 @@ public class AddressBookParser {
                     (MergePolicyCommand) currentMergeCommand).getNextMergePrompt()));
             }
         }
+    }
+
+    /**
+     * Returns the suggestion settings of the parser.
+     */
+    public boolean isSuggestionOn() {
+        return suggestionOn;
     }
 
 }
