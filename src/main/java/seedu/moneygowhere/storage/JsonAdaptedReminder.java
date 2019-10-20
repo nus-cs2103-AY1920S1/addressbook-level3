@@ -7,7 +7,6 @@ import seedu.moneygowhere.commons.exceptions.IllegalValueException;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.reminder.ReminderMessage;
 import seedu.moneygowhere.model.spending.Date;
-import seedu.moneygowhere.model.spending.Remark;
 
 /**
  * Jackson-friendly version of {@link Reminder}.
@@ -53,7 +52,8 @@ public class JsonAdaptedReminder {
         final Date modelDeadline = new Date(deadline);
 
         if (reminderMessage == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ReminderMessage.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT
+                    , ReminderMessage.class.getSimpleName()));
         }
 
         final ReminderMessage modelReminderMessage = new ReminderMessage(reminderMessage);

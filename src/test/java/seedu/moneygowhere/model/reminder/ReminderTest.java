@@ -11,19 +11,19 @@ import seedu.moneygowhere.model.spending.Date;
 class ReminderTest {
 
     @Test
-    void getReminderMessage() {
+    public void getReminderMessage() {
         Reminder dummyReminder = new Reminder(new Date("today"), new ReminderMessage("Pay Bill"));
         assertEquals(new ReminderMessage("Pay Bill"), dummyReminder.getReminderMessage());
     }
 
     @Test
-    void getDeadline() {
+    public void getDeadline() {
         Reminder dummyReminder = new Reminder(new Date("30/11/2999"), new ReminderMessage("Pay Bill"));
         assertEquals(new Date("30/11/2999"), dummyReminder.getDeadline());
     }
 
     @Test
-    void isSameReminder() {
+    public void isSameReminder() {
         Reminder firstDummyReminder = new Reminder(new Date("today"), new ReminderMessage("Pay Bill"));
         assertTrue(firstDummyReminder.isSameReminder(new Reminder(new Date("today"), new ReminderMessage("Pay Bill"))));
 
