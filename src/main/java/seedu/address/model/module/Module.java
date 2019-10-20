@@ -112,6 +112,10 @@ public class Module implements Cloneable {
         return this.prereqsSatisfied;
     }
 
+    public void setPrereqTree(PrereqTree prereqTree) {
+        this.prereqTree = prereqTree;
+    }
+
     public String getPrereqString() {
         return (this.prereqTree == null) ? "" : this.prereqTree.toString();
     }
