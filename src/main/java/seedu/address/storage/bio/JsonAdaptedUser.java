@@ -2,7 +2,7 @@ package seedu.address.storage.bio;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,8 +52,8 @@ class JsonAdaptedUser {
      * Constructs a {@code JsonAdaptedUser} with the given user details.
      */
     @JsonCreator
-    public JsonAdaptedUser(@JsonProperty("name") String name, @JsonProperty("dpPath") String dpPath, 
-                           @JsonProperty("profileDesc") String profileDesc, 
+    public JsonAdaptedUser(@JsonProperty("name") String name, @JsonProperty("dpPath") String dpPath,
+                           @JsonProperty("profileDesc") String profileDesc,
                            @JsonProperty("nric") String nric, @JsonProperty("gender") String gender,
                            @JsonProperty("dateOfBirth") String dateOfBirth,
                            @JsonProperty("contactNumbers") List<JsonAdaptedContactNumbers> contactNumbers,
@@ -144,7 +144,7 @@ class JsonAdaptedUser {
             }
         }
         final DisplayPicPath modelDpPath = new DisplayPicPath(dpPath);
-        
+
         if (profileDesc == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProfileDesc.class.getName()));
         }
@@ -225,8 +225,9 @@ class JsonAdaptedUser {
         }
         final OtherBioInfo modelOtherBioInfo = new OtherBioInfo(otherInfo);
 
-        return new User(modelName, modelDpPath, modelProfileDesc, modelNric, modelGender, modelDateOfBirth, modelContactNumbers,
-                modelEmergencyContacts, modelMedicalConditions, modelAddress, modelGoals, modelOtherBioInfo);
+        return new User(modelName, modelDpPath, modelProfileDesc, modelNric, modelGender, modelDateOfBirth,
+                modelContactNumbers, modelEmergencyContacts, modelMedicalConditions, modelAddress, modelGoals,
+                modelOtherBioInfo);
     }
 
 }
