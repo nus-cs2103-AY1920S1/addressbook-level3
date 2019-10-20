@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.commons.exceptions.DataConversionException;
+import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.UserPrefs;
@@ -18,12 +19,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private LoansStorage loansStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, LoansStorage loansStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.loansStorage = loansStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -74,4 +78,21 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ Loan Storage methods ==============================
+
+    @Override
+    public Path getLoansFilePath() {
+        return loansStorage.getLoansFilePath();
+    }
+
+    @Override
+    public void saveLoans(LoansManager loansManager) throws IOException {
+        saveLoans(loansManager, loansStorage.getLoansFilePath());
+    }
+
+    @Override
+    public void saveLoans(LoansManager loansManager, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        loansStorage.saveLoans(loansManager, filePath);
+    }
 }

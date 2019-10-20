@@ -5,13 +5,19 @@ import static budgetbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
+import budgetbuddy.model.Direction;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.transaction.Amount;
+import budgetbuddy.model.transaction.stub.Description;
 import budgetbuddy.testutil.TypicalPersons;
 
 public class JsonAdaptedPersonTest {
@@ -19,6 +25,9 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = TypicalPersons.BENSON.getName().toString();
+    private static final List<JsonAdaptedLoan> VALID_LOANS =
+            (new ArrayList<Loan>().add(new Loan(TypicalPersons.BENSON, Direction.OUT, new Amount(4L),
+                    new Date(), new Description(""), Status.UNPAID)))
     private static final List<JsonAdaptedTag> VALID_TAGS = TypicalPersons.BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());

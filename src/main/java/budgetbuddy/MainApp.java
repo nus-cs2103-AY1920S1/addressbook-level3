@@ -25,7 +25,9 @@ import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.util.SampleDataUtil;
 import budgetbuddy.storage.AddressBookStorage;
 import budgetbuddy.storage.JsonAddressBookStorage;
+import budgetbuddy.storage.JsonLoansStorage;
 import budgetbuddy.storage.JsonUserPrefsStorage;
+import budgetbuddy.storage.LoansStorage;
 import budgetbuddy.storage.Storage;
 import budgetbuddy.storage.StorageManager;
 import budgetbuddy.storage.UserPrefsStorage;
@@ -60,7 +62,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        LoansStorage loansStorage = new JsonLoansStorage(userPrefs.getLoansFilePath());
+        storage = new StorageManager(addressBookStorage, loansStorage, userPrefsStorage);
 
         initLogging(config);
 

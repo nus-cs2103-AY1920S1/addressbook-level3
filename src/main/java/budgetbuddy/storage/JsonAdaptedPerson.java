@@ -1,5 +1,7 @@
 package budgetbuddy.storage;
 
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +24,7 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String name;
+    private final List<JsonAdaptedLoan> loans = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -29,11 +32,12 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name,
+            @JsonProperty("loans") List<JsonAdaptedLoan> loans,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        requireAllNonNull(name, loans, tagged);
         this.name = name;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
+        this.loans.addAll(loans);
+        this.tagged.addAll(tagged);
     }
 
     /**
@@ -41,6 +45,9 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().name;
+        loans.addAll(source.getLoans().stream()
+                .map(JsonAdaptedLoan::new)
+                .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
