@@ -20,8 +20,6 @@ public class CommandResult {
     /** New food was added by user. Scroll to latest added food item */
     private boolean justAdd;
 
-    /** Auto Sort Flag whether food list should be sorted when a food it*/
-
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */

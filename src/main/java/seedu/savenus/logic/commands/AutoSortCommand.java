@@ -11,7 +11,8 @@ public class AutoSortCommand extends Command {
     public static final String COMMAND_WORD = "autosort";
     public static final String AUTO_SORT_ON_MESSAGE_SUCCESS = "You have turned auto-sorting on!";
     public static final String AUTO_SORT_OFF_MESSAGE_SUCCESS = "You have turned auto-sorting off!";
-    public static final String MESSAGE_ERROR = "Please input a valid flag, either: ON or OFF";
+    public static final String MESSAGE_ERROR = "Please input a valid flag, either: ON or OFF\n"
+            + "Example Usage: " + COMMAND_WORD + " ON";
 
     private boolean shouldAutoSort;
 
@@ -32,6 +33,27 @@ public class AutoSortCommand extends Command {
         } else {
             model.setAutoSortFlag(false);
             return new CommandResult(AUTO_SORT_OFF_MESSAGE_SUCCESS);
+        }
+    }
+
+    /**
+     * Gets the autoSort flag.
+     * @return the auto-sort flag as a boolean value.
+     */
+    public boolean getAutoSortValue() {
+        return this.shouldAutoSort;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof AutoSortCommand) {
+            return this.getAutoSortValue() == ((AutoSortCommand) obj).getAutoSortValue();
+        } else {
+            return false;
         }
     }
 }
