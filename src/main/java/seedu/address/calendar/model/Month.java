@@ -42,6 +42,14 @@ public class Month {
         return monthOfYear;
     }
 
+    public int getYear() {
+        return year;
+    }
+
+    public static Month copy(Month month) {
+        return new Month(month.getMonthOfYear(), month.getYear());
+    }
+
     /**
      * Computes which day (of week) {@code} month starts on
      * @return day (of week) {@code this} month starts on

@@ -1,29 +1,37 @@
 package seedu.address.calendar.ui;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.UiPart;
 
-public class CommandBox {
-    private TextField commandBox;
+public class CommandBox extends UiPart<Region> {
+    private static final String FXML = "CommandBox.fxml";
+    private CommandExecutor commandExecutor;
+    @FXML
+    private TextField commandTextField;
 
     CommandBox(CommandExecutor commandExecutor) {
-        commandBox = new TextField();
-        commandBox.setOnAction(event -> {
-            String userInput = commandBox.getText();
-            try {
-                commandExecutor.execute(userInput);
-            } catch (ParseException e) {
-                System.out.println(e);
-            } catch (CommandException e) {
-                System.out.println(e);
-            }
-            commandBox.setText("");
-        });
+        super(FXML);
+        this.commandExecutor = commandExecutor;
     }
 
-    public TextField getCommandBox() {
-        return commandBox;
+    /**
+     * Handles the Enter button pressed event.
+     */
+    @FXML
+    private void handleCommandEntered() {
+        String userInput = commandTextField.getText();
+        try {
+            commandExecutor.execute(userInput);
+        } catch (ParseException e) {
+            System.out.println(e);
+        } catch (CommandException e) {
+            System.out.println(e);
+        }
+        commandTextField.setText("");
     }
 
     /**

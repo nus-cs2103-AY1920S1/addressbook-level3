@@ -1,58 +1,54 @@
 package seedu.address.calendar.ui;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
+import seedu.address.calendar.model.MonthOfYear;
 import seedu.address.calendar.parser.CalendarParser;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
+import seedu.address.ui.UiPart;
 
-public class CalendarPage implements Page {
-
+public class CalendarPage extends UiPart<Scene> implements Page {
+    private static final String FXML = "CalendarPage.fxml";
     private final static PageType pageType = PageType.CALENDAR;
-    private boolean isOpened = false;
 
-    @FXML
-    Scene calendarScene;
     @FXML
     VBox calendarPane = new VBox();
     @FXML
     GridPane weekHeader;
     @FXML
     GridPane monthView;
-    @FXML // todo change the following to CommandBox class?
-    TextField commandBoxPlaceHolder = new TextField();
     @FXML
-    Label monthLabel;
+    StackPane commandBoxPlaceholder;
+    @FXML
+    StackPane monthHeaderPlaceholder;
+    @FXML
+    StackPane yearHeaderPlaceholder;
+    @FXML
+    StackPane monthViewPlaceholder;
+    @FXML
+    VBox resultDisplayPlaceholder;
+
 
     private Calendar calendar;
 
     public CalendarPage() {
+        super(FXML);
         calendar = new Calendar();
-        commandBoxPlaceHolder = new CommandBox(this::executeCommand).getCommandBox();
-        setUp();
-    }
-
-    public boolean isOpened() {
-        return isOpened;
-    }
-
-    void setOpened(boolean isOpened) {
-        this.isOpened = isOpened;
+        fillInnerParts();
     }
 
     public Scene getScene() {
-        return calendarScene;
+        return getRoot();
     }
 
     public PageType getPageType() {
@@ -62,18 +58,21 @@ public class CalendarPage implements Page {
     /**
      * Sets up calendar page by laying out nodes.
      */
-    private void setUp() {
-        weekHeader = WeekHeader.generateWeekHeader();
+    private void fillInnerParts() {
+        Month currentMonth = Month.copy(calendar.getMonth());
+        MonthOfYear monthOfYear = currentMonth.getMonthOfYear();
+        MonthHeader monthHeader = new MonthHeader(monthOfYear);
+        monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
 
-        Month currentMonth = calendar.getMonth();
-        MonthView monthV = new MonthView(currentMonth);
-        monthView = monthV.generateMonthGrid();
-        monthLabel = monthV.generateMonthLabel();
-        monthLabel.setTextAlignment(TextAlignment.CENTER);
+        int year = currentMonth.getYear();
+        YearHeader yearHeader = new YearHeader(year);
+        yearHeaderPlaceholder.getChildren().add(yearHeader.getRoot());
 
-        calendarPane.setAlignment(Pos.BOTTOM_LEFT);
-        calendarPane.getChildren().addAll(monthLabel, weekHeader, monthView, commandBoxPlaceHolder);
-        calendarScene = new Scene(calendarPane);
+        monthViewPlaceholder.getChildren().add(new MonthView(currentMonth).generateMonthGrid());
+
+        resultDisplayPlaceholder.getChildren().add(new ResultDisplay().getRoot());
+
+        commandBoxPlaceholder.getChildren().add(new CommandBox(this::executeCommand).getRoot());
     }
 
     private void updateCalendarView(MonthView updatedMonthView) {

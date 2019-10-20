@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.StackPane?>
+<StackPane>
+<Label fx:id="monthHeader" alignment="BOTTOM_CENTER" prefHeight="105.0" prefWidth="170.0" styleClass="header-text" stylesheets="@CalendarPage.css" text="Label" textAlignment="CENTER" textOverrun="CLIP" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+</StackPane>
