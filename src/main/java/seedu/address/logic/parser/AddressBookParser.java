@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_MERGE_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ARGUMENTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND_WORD;
 
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -31,6 +33,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.merge.DoNotMergePersonCommand;
@@ -63,6 +66,14 @@ public class AddressBookParser {
     private boolean isMerging = false;
     private MergeCommand currentMergeCommand;
     private String mergeType;
+    private boolean suggestionOn = true;
+
+    public AddressBookParser(boolean suggestionOn) {
+        this.suggestionOn = suggestionOn;
+    }
+
+    public AddressBookParser() {
+    }
 
     /**
      * Parses user input and obtains the command word which determines the command being executed.
@@ -218,8 +229,23 @@ public class AddressBookParser {
             case ExpandPolicyCommand.COMMAND_WORD:
                 return new ExpandPolicyCommandParser().parse(arguments);
 
+            case SuggestionSwitchCommand.COMMAND_WORD:
+                SuggestionSwitchCommand command = new SuggestionSwitchCommandParser().parse(arguments);
+                if (command.isOn()) {
+                    this.suggestionOn = true;
+                } else {
+                    this.suggestionOn = false;
+                }
+                return command;
+
             default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                if (suggestionOn) {
+                    String argumentToParse = " " + PREFIX_COMMAND_WORD + commandWord + " " + PREFIX_ARGUMENTS
+                            + arguments.trim();
+                    return new SuggestionCommandParser().parse(argumentToParse);
+                } else {
+                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                }
             }
         }
     }
@@ -286,6 +312,13 @@ public class AddressBookParser {
                         (MergePolicyCommand) currentMergeCommand).getNextMergePrompt()));
             }
         }
+    }
+
+    /**
+     * Returns the suggestion settings of the parser.
+     */
+    public boolean isSuggestionOn() {
+        return suggestionOn;
     }
 
 }

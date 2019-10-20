@@ -19,6 +19,14 @@ public abstract class MergeCommand extends Command {
     @Override
     public abstract CommandResult execute(Model model) throws CommandException;
 
+    public abstract String[] getDifferences();
+
+    public abstract void removeFirstDifferentField();
+
+    public abstract String getNextMergeFieldType();
+
+    public abstract boolean onlyOneMergeLeft();
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

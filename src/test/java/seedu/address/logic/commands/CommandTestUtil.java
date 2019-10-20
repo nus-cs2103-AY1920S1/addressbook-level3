@@ -114,6 +114,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_LIFE_INSURANCE = "term insurance";
     public static final String VALID_TAG_FIRE_INSURANCE = "home insurance";
 
+    public static final String VALID_SUGGESTION_OFF_COMMAND = "suggestion OFF/";
+    public static final String VALID_SUGGESTION_ON_COMMAND = "suggestion ON/";
+
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).withNric(VALID_NRIC_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)

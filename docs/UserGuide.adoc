@@ -445,10 +445,6 @@ Format: `clear`
 Returns an error message to inform the user of an invalid NRIC. The contact number and/or email address is returned
 if present.
 
-****
-* All details except the NRIC will be added.
-****
-
 Examples:
 
 `add n/John Doe ic/Q9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980 pol/1 t/high-priority` +
@@ -465,10 +461,6 @@ You might want to contact John Doe: 98765432 johnd@example.com`
 
 Returns an error message to inform the user of an invalid contact number. The email address is returned
 if present.
-
-****
-* All details except the phone number will be added.
-****
 
 Examples:
 
@@ -487,10 +479,6 @@ You might want to contact John Doe: johnd@example.com
 Returns an error message to inform the user of an invalid email address. The phone number is returned
 if present.
 
-****
-* All details except the email address will be added.
-****
-
 Examples:
 
 `add n/John Doe ic/S9999999J p/98765432 e/@example.com a/John street, block 123, #01-01 dob/12.09.1980` +
@@ -501,28 +489,6 @@ New person added: John Doe NRIC: S9999999J Phone: 98765432 Address:John street, 
 
 @example.com is invalid. You might want to contact John Doe: 98765432
 ```
-
-=== Incorrect Email Address Warning
-
-Returns a warning message to inform the user of a potential typo in email address.
-
-****
-* All details except the email address will be added.
-* These warnings can be turned off.
-****
-
-Examples:
-
-`add n/John Doe ic/Q9999999J p/48765432 e/johnd@gmal.com a/John street, block 123, #01-01 dob/12.09.1980` +
-
-Expected Output:
-```
-New person added: John Doe NRIC: S9999999J Phone: 98765432 Address:John street, block 123, #01-01 Date of birth: 12th September 1980 Policy: SeniorCare Tags: high_priority
-
-You entered johnd@gmal.com. Did you mean: johnd@gmail.com?
-```
-
-User can input `yes` or `no` to use the original input email or the suggested email respectively.
 
 === Incorrect Command Suggestions
 
@@ -537,12 +503,22 @@ Expected Output:
 dlete is not recognised. Did you mean: delete 2?
 ```
 
-User can input `yes` or `no`.
+The input will automatically be updated to the suggested command.
 
-If `yes`, the command will be executed.
-If `no`,
+=== Turning Command Suggestions On and off
+
+Switches suggestions for invalid commands on or off.
+
+Format:
+`suggestion [ON/] [OFF/]`
+
+Examples:
+
+`suggestion ON/`
+
+Expected Output:
 ```
-Please key in your command again. For more information  of the available commands, type help.
+Suggestions have been switched on.
 ```
 
 === Incorrect Insurance Policy Assignment Alert
@@ -594,6 +570,7 @@ You may edit John Doe’s profile using the edit command. For more information, 
 === Reminders of expiring policies
 
 Displays a list of people whose policies are expiring in the current month on the start up page. This list will be updated every month.
+
 
 === Expanding a profile
 Expands the profile details on the right panel.
