@@ -16,7 +16,7 @@ import mams.model.appeal.Appeal;
 
 
 /**
- * Edits the details of an existing student in MAMS.
+ * Approves a appeal in mams.
  */
 public class ApproveCommand extends Command {
 
