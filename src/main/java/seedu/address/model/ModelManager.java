@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -160,7 +161,7 @@ public class ModelManager implements Model {
         modulePlanner.deleteStudyPlanCommitManagerByIndex(index);
     }
 
-    //=========== Module Information ============================================================================
+    //=========== Module Information and Verification ===========================================================
 
     @Override
     public boolean isValidModuleCode(String moduleCode) {
@@ -180,6 +181,11 @@ public class ModelManager implements Model {
     @Override
     public void updatePrereqs() {
         this.modulePlanner.updatePrereqs();
+    }
+
+    @Override
+    public List<String> getValidMods(SemesterName semName) {
+        return this.modulePlanner.getValidMods(semName);
     }
 
     //=========== Filtered StudyPlan List Accessors =============================================================

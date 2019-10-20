@@ -3,6 +3,7 @@ package seedu.address.logic.commands.datamanagement;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -238,6 +239,11 @@ public class CreateTagCommandTest {
 
         @Override
         public String getModuleInformation(String moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getValidMods(SemesterName semName) {
             throw new AssertionError("This method should not be called.");
         }
 

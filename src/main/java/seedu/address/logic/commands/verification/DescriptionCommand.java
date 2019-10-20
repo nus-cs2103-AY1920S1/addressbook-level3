@@ -8,20 +8,20 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Checks if requirements are met for the study plan.
+ * Describes a particular module.
  */
-public class CheckCommand extends Command {
+public class DescriptionCommand extends Command {
 
-    public static final String COMMAND_WORD = "check";
+    public static final String COMMAND_WORD = "description";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Checks if requirements are met for your study plan.\n"
+            + ": Describes a particular module.\n"
             + "Parameters: MODULE (must be a valid module code)\n"
             + "Example: " + COMMAND_WORD + " CS2040S";
 
     private final String moduleCode;
 
-    public CheckCommand(String moduleCode) {
+    public DescriptionCommand(String moduleCode) {
         requireAllNonNull(moduleCode);
         this.moduleCode = moduleCode.toUpperCase();
     }
@@ -43,12 +43,12 @@ public class CheckCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof CheckCommand)) {
+        if (!(other instanceof DescriptionCommand)) {
             return false;
         }
 
         // state check
-        CheckCommand e = (CheckCommand) other;
+        DescriptionCommand e = (DescriptionCommand) other;
         return moduleCode.equals(e.moduleCode);
     }
 }

@@ -139,11 +139,11 @@ Example:
 * `remove y2s2`
 
 ==== Viewing description of a module: `description`
-Shows a short textual description of a particular module. +
+Shows the description of a particular module, including its prerequisites. +
 Format: `description MODULE_CODE` +
 Example:
 
-* `description cs2103`
+* `description CS2103T`
 
 ==== Editing the title of current study plan: `title`
 Changes the title of the current active study plan. +
@@ -380,6 +380,18 @@ Examples:
 * `getmodcode algorithms`
 * `getmodcode programming`
 
+==== Viewing total completed MCs : `mcs`
+Shows the current total MCs for all *completed* modules. +
+Format: `mcs`
+
+==== Viewing modules that can be taken in a given semester : `validmods`
+Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
+Format: `validmods SEMESTER`
+
+Example:
+
+* `validmods y2s1`
+
 === Verification
 
 ==== Error messages
@@ -393,12 +405,8 @@ Format: `check [AREA]`
 Examples:
 
 * `check` -- checks all graduation requirements by default +
-* `check core` +
-* `check focus` +
-* `check prereq` +
-* `check mc` +
-* `check MODULE` -- checks if the module is valid, listing issues with its prerequisites +
-* `check SEMESTER` -- checks if all modules in the semester are valid
+* `check core` -- checks only core modules +
+* `check focus` -- checks only the declared focus area
 
 ==== Viewing modules that can be taken in a given semester : `validmods`
 Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
