@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COVERAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CRITERIA;
@@ -24,11 +23,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import com.sun.source.tree.Tree;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -49,7 +45,6 @@ import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
-import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -315,11 +310,25 @@ public class ParserUtil {
         return new EndAge(trimmedEndAge);
     }
 
-    public static String parseCommand(String inputCommand, String arguments) throws ParseException {
+    /**
+     * Parses a {@String invalidInputCommandWord} into a {@String suggestedCommandWord}.
+     * @param inputCommand Invalid input command word by user.
+     * @param arguments Arguments of command input by user.
+     * @return Suggested command word.
+     */
+    public static String parseCommand(String inputCommand, String arguments) {
         return similarPrefixesAndShortestDistance(inputCommand, arguments);
     }
 
-    private static String similarPrefixesAndShortestDistance(String command, String arguments) throws ParseException {
+    /**
+     * Shortlists commands based on prefixes present and calls the method to find the shortest distance between
+     * the input command and the shortlisted command words.
+     * @param command Input command.
+     * @param arguments Arguments of the input command.
+     * @return The command word closest to the input command word.
+     */
+    //todo update commands
+    private static String similarPrefixesAndShortestDistance(String command, String arguments) {
         ArrayList<String> shortListedCommands = new ArrayList<>();
         boolean hasNoArguments = arguments.length() == 0;
         if (hasNoArguments) {
@@ -329,7 +338,8 @@ public class ParserUtil {
         ArgumentMultimap argMultimap;
         argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_POLICY, PREFIX_TAG, PREFIX_DESCRIPTION,
-                PREFIX_COVERAGE, PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA);
+                PREFIX_COVERAGE, PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_ON,
+                PREFIX_OFF);
 
         boolean hasUniquePersonPrefixes = anyPrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH);
@@ -374,7 +384,8 @@ public class ParserUtil {
 
         boolean hasNoPrefixes = !anyPrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_POLICY, PREFIX_TAG, PREFIX_DESCRIPTION,
-                PREFIX_COVERAGE, PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA);
+                PREFIX_COVERAGE, PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_ON,
+                PREFIX_OFF);
         if (hasNoPrefixes) {
             shortListedCommands.addAll(getCommandsWithIndexArguments());
             return getShortestDistanceString(command, shortListedCommands);
@@ -447,11 +458,11 @@ public class ParserUtil {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    private static String getShortestDistanceString(String input) throws ParseException {
+    private static String getShortestDistanceString(String input) {
         return getShortestDistanceString(input, commands);
     }
 
-    private static String getShortestDistanceString(String input, ArrayList<String> commands) throws ParseException {
+    private static String getShortestDistanceString(String input, ArrayList<String> commands) {
         ArrayList<String> commandsThatHaveShortestDistanceAway = new ArrayList<>();
         int distance = lengthLongerThanAllCommandWords;
         for (int i = 0; i < commands.size(); i++) {
@@ -473,7 +484,7 @@ public class ParserUtil {
         }
     }
 
-    private static String getNearestSubstring(String input, ArrayList<String> possibleSuggestions) throws ParseException {
+    private static String getNearestSubstring(String input, ArrayList<String> possibleSuggestions) {
         int longest = 0;
         String command = "";
         for (int i = 0; i < possibleSuggestions.size(); i++) {
@@ -483,9 +494,6 @@ public class ParserUtil {
                 longest = lengthOfSubstring;
                 command = thisCommand;
             }
-        }
-        if (longest == 0) {
-            throw new ParseException(String.format(MESSAGE_UNKNOWN_COMMAND, input));
         }
         return command;
     }
@@ -532,11 +540,19 @@ public class ParserUtil {
         return distanceArray[rows - 1][cols - 1];
     }
 
+    /**
+     * Adds the command word to the list of command words.
+     * @param string Valid command words.
+     */
     public static void addCommands(String... string) {
         ArrayList<String> addedCommands = (ArrayList<String>) Arrays.stream(string).collect(Collectors.toList());
         commands.addAll(addedCommands);
     }
 
+    /**
+     * Removes the command word from the lsit of command words.
+     * @param string Valid command words.
+     */
     public static void removeCommands(String... string) {
         ArrayList<String> commandsToDelete = (ArrayList<String>) Arrays.stream(string).collect(Collectors.toList());
         for (int i = 0; i < commandsToDelete.size(); i++) {
