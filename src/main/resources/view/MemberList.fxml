@@ -15,11 +15,11 @@
         <GridPane id="listHeaders" fx:id="listHeaders" prefWidth="600" prefHeight="50">
             <columnConstraints>
                 <ColumnConstraints percentWidth="25" />
-                <ColumnConstraints percentWidth="35" />
                 <ColumnConstraints percentWidth="40" />
+                <ColumnConstraints percentWidth="35" />
             </columnConstraints>
             <padding>
-                <Insets top="5" right="5" bottom="5" left="5" />
+                <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
             <Label text="Name" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"/>
             <Label text="Email" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>

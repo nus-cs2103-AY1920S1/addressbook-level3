@@ -49,7 +49,7 @@
 .tab-pane .tab:selected {
     -fx-border-width: 4;
     -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: #EEEEEE;
+    -fx-border-color: #FFFFFF;
 }
 
 .tab-pane .tab-label {
@@ -227,6 +227,7 @@
 
 .menu-bar {
     -fx-background-color: derive(#222831, 0%);
+    -fx-border-color: transparent transparent #393E46 transparent;
 }
 
 .menu-bar .label {
@@ -346,7 +347,7 @@
 }
 
 #colouredTimeslot {
-    -fx-effect: dropshadow(gaussian, #393E46, 2, 0.0, 3, 3);
+    -fx-effect: dropshadow(gaussian, #222831, 2, 0.0, 3, 3);
     -fx-opacity: 0.85;
 }
 
@@ -401,11 +402,34 @@
 }
 
 #listHeaders .label {
-    -fx-text-fill: #EEEEEE;
+    -fx-text-fill: #FFFFFF;
+    -fx-opacity: 0.67;
+}
+
+#memberCard {
+    -fx-background-color: derive(#222831, 20%);
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-pref-height: 50;
+    -fx-effect: dropshadow(gaussian, black, 2, 0.0, 3, 3);
+}
+
+#memberCard #memberName {
+    -fx-text-fill: white;
+    -fx-opacity: 0.87;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 15;
+}
+
+#memberCard #memberEmail, #memberRole {
+    -fx-text-fill: white;
+    -fx-opacity: 0.87;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 12;
 }
 
 #personDetailContainer .label {
-    -fx-text-fill: #EEEEEE;
+    -fx-text-fill: #FFFFFF;
 }
 
 #resultDisplay .content {
@@ -452,7 +476,7 @@
 }
 
 #scheduleContainer .label {
-    -fx-text-fill: #EEEEEE;
+    -fx-text-fill: #FFFFFF;
     -fx-opacity: 0.87;
     -fx-font-family: "Segoe UI Light";
 }
