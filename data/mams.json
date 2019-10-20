@@ -176,9 +176,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : null,
-    "remark" : ""
+    "resolved" : true,
+    "result" : "APPROVED",
+    "remark" : "k"
   }, {
     "appealId" : "C000003",
     "appealType" : "Add module",
@@ -190,9 +190,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : null,
-    "remark" : ""
+    "resolved" : true,
+    "result" : "APPROVED",
+    "remark" : "gay"
   }, {
     "appealId" : "C000004",
     "appealType" : "Increase workload",
