@@ -2,6 +2,7 @@ package dream.fcard.model.cards;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -30,6 +31,8 @@ public class MultipleChoiceCard extends FrontBackCard {
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg) {
         super(frontString, backString);
         choices = choicesArg;
+
+
 
         try {
             answerIndex = Integer.parseInt(back);
@@ -83,6 +86,16 @@ public class MultipleChoiceCard extends FrontBackCard {
 
         return userAnswer == answerIndex;
     }
+
+    /*
+    private boolean hasChoiceContainDuplicate(ArrayList<String> choiceSet){
+        //HashMap<String, Integer> choiceMap = new HashMap<>();
+
+        //for(int i = 0; )
+    }
+
+
+     */
 
     /**
      * Edits the front text of the MultipleChoiceCard.
