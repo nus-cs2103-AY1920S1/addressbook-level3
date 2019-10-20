@@ -349,6 +349,12 @@
     -fx-background-radius : 2.0em;
 }
 
+.resultView {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -368,11 +374,12 @@
     -fx-text-fill: black;
 }
 
+/*
 #resultDisplay {
     -fx-background-color: #ffffff;
     -fx-background-radius: 15;
 }
-
+*/
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
@@ -387,6 +394,11 @@
 
 #resultDisplay .scroll-pane .content{
     -fx-background-color: transparent;
+}
+
+#resultHolder {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
 }
 
 #tags {
@@ -408,6 +420,16 @@
 }
 
 #semesterCardPane {
+    -fx-background-color: #f0f0f0;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+#tagListView {
+    -fx-background-color: transparent;
+}
+
+#tagCardPane {
     -fx-background-color: #f0f0f0;
     -fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;

@@ -14,7 +14,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Semester}.
  */
 public class SemesterCard extends UiPart<Region> {
 

@@ -2,12 +2,16 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Objects;
+
+import javafx.collections.ObservableList;
+import seedu.address.ui.ResultViewType;
 
 /**
  * Represents the result of a command execution.
  */
-public class CommandResult {
+public class CommandResult<T> {
 
     private final String feedbackToUser;
 
@@ -20,6 +24,20 @@ public class CommandResult {
      * The application should exit.
      */
     private final boolean exit;
+
+    private ResultViewType resultViewType = null;
+
+    private ObservableList<T> resultContent = null;
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, ResultViewType resultViewType, ObservableList<T> resultContent) {
+        this(feedbackToUser, false, false);
+        this.resultViewType = resultViewType;
+        this.resultContent = resultContent;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -48,6 +66,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public ResultViewType getResultViewType() {
+        return resultViewType;
+    }
+
+    public ObservableList<T> getResultContent() {
+        return resultContent;
     }
 
     @Override

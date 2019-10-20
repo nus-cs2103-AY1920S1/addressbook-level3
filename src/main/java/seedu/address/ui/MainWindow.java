@@ -1,10 +1,12 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -15,6 +17,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.versiontracking.Commit;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -126,6 +130,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            resultDisplay.removeResultView();
             semesterListPanel.refresh();
 
             if (commandResult.isChangesActiveStudyPlan()) {
@@ -141,6 +146,11 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            ResultViewType resultViewType = commandResult.getResultViewType();
+            if (resultViewType != null) {
+                handleResult(resultViewType, commandResult.getResultContent());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -148,4 +158,34 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    private <T> void handleResult(ResultViewType resultViewType, ObservableList<T> resultContent) {
+
+        switch (resultViewType) {
+        case TEXT:
+            TextArea textArea = new TextArea();
+            ObservableList<String> textContent = (ObservableList<String>) resultContent;
+            for (String text: textContent) {
+                textArea.setText(text);
+            }
+            resultDisplayPlaceholder.getChildren().add(textArea);
+        case TAG:
+            ObservableList<Tag> tagContent = (ObservableList<Tag>) resultContent;
+            TagListPanel tagListPanel = new TagListPanel(tagContent);
+            resultDisplay.setResultView(tagListPanel.getRoot());
+        case MODULE:
+            ObservableList<Module> moduleContent = (ObservableList<Module>) resultContent;
+            //ModuleListPanel moduleListPanel = new ModuleListPanel(moduleContent);
+            //resultDisplay.setResultView(moduleListPanel.getRoot());
+        case STUDY_PLAN:
+            ObservableList<StudyPlan> studyPlanContent = (ObservableList<StudyPlan>) resultContent;
+            //StudyPlanListPanel = studyPlanListPanel = new StudyPlanListPanel(studyPlanContent);
+            //resultDisplay.setResultView(studyPlanListPanel.getRoot());
+        case COMMIT_HISTORY:
+            ObservableList<Commit> commitContent = (ObservableList<Commit>) resultContent;
+            //CommitListPanel commitListPanel = new CommitListPanel(commitContent);
+            //resultDisplay.setResultView(commitListPanel.getRoot());
+        }
+    }
+
 }

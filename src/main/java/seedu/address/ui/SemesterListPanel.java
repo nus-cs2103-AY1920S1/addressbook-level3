@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.semester.Semester;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of semesters.
  */
 public class SemesterListPanel extends UiPart<Region> {
     private static final String FXML = "SemesterListPanel.fxml";
@@ -31,7 +31,7 @@ public class SemesterListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Semester} using a {@code SemesterCard}.
      */
     class SemesterListViewCell extends ListCell<Semester> {
         @Override

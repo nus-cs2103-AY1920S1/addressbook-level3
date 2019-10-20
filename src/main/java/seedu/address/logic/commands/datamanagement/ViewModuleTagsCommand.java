@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.ui.ResultViewType;
 
 /**
  * Shows all tags attached to a specific module.
@@ -23,8 +24,8 @@ public class ViewModuleTagsCommand extends Command {
         + "Example: "
         + "viewtags t/CS3230";
 
-    public static final String MESSAGE_SUCCESS = "All tags for the module shown \n%1$s";
-
+    //public static final String MESSAGE_SUCCESS = "All tags for the module shown \n%1$s";
+    public static final String MESSAGE_SUCCESS = "All tags for the module shown";
     private final String moduleCode;
 
     /**
@@ -44,7 +45,8 @@ public class ViewModuleTagsCommand extends Command {
             .map(item -> item.toString())
             .collect(joining("\n"));
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfTags));
+        return new CommandResult(MESSAGE_SUCCESS, ResultViewType.TAG, tags.asUnmodifiableObservableList());
+        //return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfTags));
     }
 
 }
