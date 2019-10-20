@@ -1,19 +1,21 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.Date;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.util.Date;
+
+import java.util.List;
 
 /**
  * SplitTransaction consists of Amount amount, Date date, int numOfSplits, Amount splitAmount
  */
 public class SplitTransaction extends Transaction {
 
-    private final int numOfSplits;
-    private final Amount splitAmount;
+    private final List<Amount> splitAmounts;
+    private final UniquePersonList peopleInvolved;
 
-    public SplitTransaction(Amount amount, Date date, int numOfSplits) {
+    public SplitTransaction(Amount amount, Date date, UniquePersonList people) {
         super(amount, date);
-        this.numOfSplits = numOfSplits;
-        this.splitAmount = amount.divideAmount(numOfSplits);
+        this.peopleInvolved =
     }
 
     /**

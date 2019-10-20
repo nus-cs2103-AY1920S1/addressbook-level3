@@ -2,7 +2,7 @@ package seedu.address.model.transaction;
 
 import java.util.Set;
 
-import seedu.address.model.Date;
+import seedu.address.model.util.Date;
 import seedu.address.model.tag.Tag;
 
 /**

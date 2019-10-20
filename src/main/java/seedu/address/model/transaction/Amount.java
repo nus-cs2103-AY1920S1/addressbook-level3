@@ -11,11 +11,14 @@ public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
             "Amounts should only be in integer or double, and it should not be blank";
 
+    public static final String DOUBLE_CONSTRAINTS =
+            "doubles passed into Amount constructor should have maximum 2 decimal places";
+
     private int amount;
 
     public Amount(double amount) {
         requireNonNull(amount);
-        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAmount(amount), DOUBLE_CONSTRAINTS);
         this.amount = (int) Math.floor(amount * 100);
     }
 
@@ -25,12 +28,11 @@ public class Amount {
         this.amount = amount;
     }
 
-    // TODO: Confirm?
     /**
      * Returns true if a given value is a valid amount.
      */
     public static boolean isValidAmount(double amount) {
-        return true;
+        return (amount * 100) % 1 < 2 * Double.MIN_VALUE;
     }
 
     /**
