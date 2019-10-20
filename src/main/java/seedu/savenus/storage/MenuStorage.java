@@ -42,5 +42,4 @@ public interface MenuStorage {
      * @see #saveMenu(ReadOnlyMenu)
      */
     void saveMenu(ReadOnlyMenu menu, Path filePath) throws IOException;
-
 }

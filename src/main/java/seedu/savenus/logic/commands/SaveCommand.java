@@ -23,8 +23,6 @@ public class SaveCommand extends Command {
 
     private final Savings savingsAmount;
 
-
-
     public SaveCommand(String savings) {
         this.savingsAmount = new Savings(savings);
     }
