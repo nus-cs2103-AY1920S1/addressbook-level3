@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphabets and spaces.";
+            "Name should only contain alphabets and spaces, and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -35,7 +35,7 @@ public class Name {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return !test.isEmpty() && test.matches(VALIDATION_REGEX);
     }
 
 

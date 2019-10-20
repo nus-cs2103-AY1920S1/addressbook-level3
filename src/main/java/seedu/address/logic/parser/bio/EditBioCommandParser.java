@@ -8,6 +8,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_SUBARGUMENT_INDEX_OUT_
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DP_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOALS;
@@ -52,11 +53,9 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
     public EditBioCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROFILE_DESC, PREFIX_NRIC, PREFIX_GENDER,
-                        PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT, PREFIX_MEDICAL_CONDITION,
-                        PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
-
-        System.out.println(argMultimap.getPreamble());
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DP_PATH, PREFIX_PROFILE_DESC, PREFIX_NRIC,
+                        PREFIX_GENDER, PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT,
+                        PREFIX_MEDICAL_CONDITION, PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBioCommand.MESSAGE_USAGE));
@@ -65,6 +64,10 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
         EditUserDescriptor editUserDescriptor = new EditBioCommand.EditUserDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editUserDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_DP_PATH).isPresent()) {
+            editUserDescriptor.setDpPath(ParserUtil.parseDpPath(argMultimap.getValue(PREFIX_DP_PATH)));
         }
 
         if (argMultimap.getValue(PREFIX_PROFILE_DESC).isPresent()) {
@@ -206,7 +209,9 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
             throws ParseException {
         String[] tokens = subArgs.split(SEPARATOR);
 
-        if (tokens.length != 2) {
+        if (tokens.length == 1) {
+            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        } else if (tokens.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBioCommand.MESSAGE_USAGE));
         }
 
