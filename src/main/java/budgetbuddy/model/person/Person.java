@@ -102,6 +102,12 @@ public class Person {
     public void addLoan(Loan loan) {
         requireNonNull(loan);
         loans.add(loan);
+        for (Loan oldLoan : loans) {
+            Loan updatedLoan = new Loan(
+                    this, oldLoan.getDirection(), oldLoan.getAmount(),
+                    oldLoan.getDate(), oldLoan.getDescription(), oldLoan.getStatus());
+            setLoan(oldLoan, updatedLoan);
+        }
     }
 
     /**
