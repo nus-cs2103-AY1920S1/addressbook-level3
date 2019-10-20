@@ -38,8 +38,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
     private final PurchaseHistory purchaseHistory;
-    private final RecommendationSystem recommendationSystem;
-    private final ObservableList<Purchase> purchaseHistory;
     private final CustomSorter customSorter;
 
     /**
@@ -55,9 +53,6 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
-
-        this.recommendationSystem = new RecommendationSystem();
-        this.recommendationSystem.setUserRecommendations(userRecs);
 
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.customSorter = customSorter;
