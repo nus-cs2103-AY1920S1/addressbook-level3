@@ -39,9 +39,9 @@ public class CcaCommandTestUtil {
     public static final String EQUIPMENT_DESC_BOAT = " " + PREFIX_EQUIPMENT_NAME + VALID_EQUIPMENT_BOAT;
     public static final String EQUIPMENT_DESC_GUITAR = " " + PREFIX_EQUIPMENT_NAME + VALID_EQUIPMENT_GUITAR;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_CCA_NAME + "bla&"; //& not allowed.
+    public static final String INVALID_NAME_DESC = " " + PREFIX_CCA_NAME + "bla*"; //& not allowed.
     public static final String INVALID_TYPE_DESC = " " + PREFIX_CCA_TYPE + "societies"; //not a valid enum type.
-    public static final String INVALID_EQUIPMENT_DESC = " " + PREFIX_EQUIPMENT_NAME; //empty string not allowed.
+    public static final String INVALID_EQUIPMENT_DESC = " " + PREFIX_EQUIPMENT_NAME + "bla*"; //* not allowed.
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

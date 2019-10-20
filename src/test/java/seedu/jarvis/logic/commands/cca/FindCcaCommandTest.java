@@ -97,8 +97,8 @@ public class FindCcaCommandTest {
         CcaNameContainsKeywordsPredicate predicate = preparePredicate("Canoeing Guitar");
         FindCcaCommand command = new FindCcaCommand(predicate);
         expectedModel.updateFilteredCcaList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CANOEING, GUITAR_ENSEMBLE), model.getFilteredCcaList());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     /**
