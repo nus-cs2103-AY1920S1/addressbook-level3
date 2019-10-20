@@ -1,4 +1,4 @@
-package seedu.address.model.accommodation.exceptions;
+package seedu.address.model.itineraryitem.accommodation.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Activities (Activities are considered duplicates if they

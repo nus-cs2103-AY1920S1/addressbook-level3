@@ -1,4 +1,4 @@
-package seedu.address.model.accommodation;
+package seedu.address.model.itineraryitem.accommodation;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.accommodation.exceptions.AccommodationNotFoundException;
-import seedu.address.model.accommodation.exceptions.DuplicateAccommodationException;
+import seedu.address.model.itineraryitem.accommodation.exceptions.AccommodationNotFoundException;
+import seedu.address.model.itineraryitem.accommodation.exceptions.DuplicateAccommodationException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -21,20 +21,19 @@ import seedu.address.model.accommodation.exceptions.DuplicateAccommodationExcept
  *
  * Supports a minimal set of list operations.
  *
- * @see seedu.address.model.accommodation.Accommodation#isSameAccommodation
- * (seedu.address.model.accommodation.Accommodation)
+ * @see Accommodation#isSameAccommodation
+ * (seedu.address.model.ItineraryItem.accommodation.Accommodation)
  */
-public class UniqueAccommodationList implements Iterable<seedu.address.model.accommodation.Accommodation> {
+public class UniqueAccommodationList implements Iterable<Accommodation> {
 
-    private final ObservableList<seedu.address.model.accommodation.Accommodation>
-            internalList = FXCollections.observableArrayList();
-    private final ObservableList<seedu.address.model.accommodation.Accommodation> internalUnmodifiableList =
+    private final ObservableList<Accommodation> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Accommodation> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent contacts as the given argument.
      */
-    public boolean contains(seedu.address.model.accommodation.Accommodation toCheck) {
+    public boolean contains(Accommodation toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameAccommodation);
     }
@@ -43,7 +42,7 @@ public class UniqueAccommodationList implements Iterable<seedu.address.model.acc
      * Adds a contacts to the list.
      * The contacts must not already exist in the list.
      */
-    public void add(seedu.address.model.accommodation.Accommodation toAdd) {
+    public void add(Accommodation toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateAccommodationException();
@@ -60,7 +59,7 @@ public class UniqueAccommodationList implements Iterable<seedu.address.model.acc
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setAccommodations(List<seedu.address.model.accommodation.Accommodation> accommodations) {
+    public void setAccommodations(List<Accommodation> accommodations) {
         requireAllNonNull(accommodations);
         if (!accommodationsAreUnique(accommodations)) {
             throw new DuplicateAccommodationException();
@@ -75,8 +74,7 @@ public class UniqueAccommodationList implements Iterable<seedu.address.model.acc
      * The contacts identity of {@code editedAccommodation} must not be the same as another existing contacts in the
      * list.
      */
-    public void setAccommodation(seedu.address.model.accommodation.Accommodation target,
-                                 seedu.address.model.accommodation.Accommodation editedAccommodation) {
+    public void setAccommodation(Accommodation target, Accommodation editedAccommodation) {
         requireAllNonNull(target, editedAccommodation);
 
         int index = internalList.indexOf(target);
@@ -95,7 +93,7 @@ public class UniqueAccommodationList implements Iterable<seedu.address.model.acc
      * Removes the equivalent contacts from the list.
      * The contacts must exist in the list.
      */
-    public void remove(seedu.address.model.accommodation.Accommodation toRemove) {
+    public void remove(Accommodation toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new AccommodationNotFoundException();
@@ -105,12 +103,12 @@ public class UniqueAccommodationList implements Iterable<seedu.address.model.acc
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<seedu.address.model.accommodation.Accommodation> asUnmodifiableObservableList() {
+    public ObservableList<Accommodation> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<seedu.address.model.accommodation.Accommodation> iterator() {
+    public Iterator<Accommodation> iterator() {
         return internalList.iterator();
     }
 
@@ -129,7 +127,7 @@ public class UniqueAccommodationList implements Iterable<seedu.address.model.acc
     /**
      * Returns true if {@code activities} contains only unique activities.
      */
-    private boolean accommodationsAreUnique(List<seedu.address.model.accommodation.Accommodation> accommodations) {
+    private boolean accommodationsAreUnique(List<Accommodation> accommodations) {
         for (int i = 0; i < accommodations.size() - 1; i++) {
             for (int j = i + 1; j < accommodations.size(); j++) {
                 if (accommodations.get(i).isSameAccommodation(accommodations.get(j))) {

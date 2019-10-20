@@ -1,4 +1,4 @@
-package seedu.address.model.accommodation.exceptions;
+package seedu.address.model.itineraryitem.accommodation.exceptions;
 
 /**
  * Signals that the operation is unable to find the specified contacts.
