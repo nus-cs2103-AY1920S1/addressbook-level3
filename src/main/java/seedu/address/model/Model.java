@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
@@ -204,7 +205,7 @@ public interface Model {
 
     void deleteDay(Day target);
 
-    void addDays(int n);
+    void addDays(int n) throws CommandException;
 
     void setDays(List<Day> days);
 

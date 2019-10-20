@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
@@ -18,9 +19,11 @@ import seedu.address.model.tag.Tag;
  * Guarantees: {@code Timetable} is filled with {@code HalfHour}.
  */
 public class Timetable {
+    private static final String MESSAGE_ACTIVITY_TIME_CONFLICT = "There is a conflict in time between activities!";
+
     private TreeSet<ActivityWithTime> timetable;
 
-    public Timetable(List<ActivityWithTime> activities) {
+    public Timetable(List<ActivityWithTime> activities) throws CommandException {
         this.timetable = new TreeSet<>();
         if (activities.size() > 0) {
             Iterator<ActivityWithTime> activitiesIterator = activities.iterator();
@@ -35,16 +38,22 @@ public class Timetable {
                     // check if toAdd's endTime does not overlap with ceilingActivity's startTime
                     if (toAdd.getEndTime().compareTo(ceilingActivity.getStartTime()) <= 0) {
                         this.timetable.add(toAdd);
+                    } else {
+                        throw new CommandException(MESSAGE_ACTIVITY_TIME_CONFLICT);
                     }
                 } else if (ceilingActivity == null) {
                     // check if toAdd's startTime does not overlap with ceilingActivity's endTime
                     if (toAdd.getStartTime().compareTo(floorActivity.getEndTime()) >= 0) {
                         this.timetable.add(toAdd);
+                    } else {
+                        throw new CommandException(MESSAGE_ACTIVITY_TIME_CONFLICT);
                     }
                 } else {
                     if (toAdd.getStartTime().compareTo(floorActivity.getEndTime()) >= 0
                         && toAdd.getEndTime().compareTo(ceilingActivity.getStartTime()) <= 0) {
                         this.timetable.add(toAdd);
+                    } else {
+                        throw new CommandException(MESSAGE_ACTIVITY_TIME_CONFLICT);
                     }
                 }
             }

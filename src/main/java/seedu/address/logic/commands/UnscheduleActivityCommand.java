@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ACTIVITY_NOT_PRESENT_IN_DAY;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
@@ -60,9 +61,9 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
         List<Day> editedDays = new ArrayList<>(lastShownDays);
         editedDays.set(dayIndex.getZeroBased(), editedDay);
 
-        if (!dayToEdit.isSameDay(editedDay) && model.hasDay(editedDay)) {
-            throw new CommandException(MESSAGE_DUPLICATE_DAY);
-        }
+        //if (!dayToEdit.isSameDay(editedDay) && model.hasDay(editedDay)) {
+        //    throw new CommandException(MESSAGE_DUPLICATE_DAY);
+        //}
 
         model.setDays(editedDays);
         model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
@@ -85,9 +86,20 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
      * @param dayToEdit            of the contacts in the filtered contacts list to edit
      * @param activityToUnschedule of the contacts in the filtered contacts list to edit
      */
-    private Day createUnscheduledActivityDay(Day dayToEdit, Activity activityToUnschedule) {
+    private Day createUnscheduledActivityDay(Day dayToEdit, Activity activityToUnschedule) throws CommandException {
         List<ActivityWithTime> activitiesWithTime = dayToEdit.getListOfActivityWithTime();
-        activitiesWithTime.remove(activityToUnschedule);
-        return new Day(activitiesWithTime);
+        List<ActivityWithTime> copiedActivitiesWithTime = new ArrayList<>(activitiesWithTime);
+        boolean removedAtLeastOne = false;
+        for (ActivityWithTime a: activitiesWithTime) {
+            if (a.getActivity().equals(activityToUnschedule)) {
+                copiedActivitiesWithTime.remove(a);
+                removedAtLeastOne = true;
+            }
+        }
+        if (removedAtLeastOne) {
+            return new Day(copiedActivitiesWithTime);
+        } else {
+            throw new CommandException(MESSAGE_ACTIVITY_NOT_PRESENT_IN_DAY);
+        }
     }
 }

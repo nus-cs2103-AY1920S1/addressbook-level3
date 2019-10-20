@@ -13,4 +13,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contacts index provided is invalid";
     public static final String MESSAGE_INVALID_DAY_DISPLAYED_INDEX = "The day index provided is invalid";
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
+    public static final String MESSAGE_ACTIVITY_NOT_PRESENT_IN_DAY = "Activity not found in day!";
 }

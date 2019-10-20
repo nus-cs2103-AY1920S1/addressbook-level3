@@ -10,6 +10,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.day.exceptions.DayNotFoundException;
 import seedu.address.model.day.exceptions.DuplicateDayException;
 import seedu.address.model.field.Name;
@@ -41,7 +42,7 @@ public class Itinerary implements Iterable<Day> {
     /**
      * Adds a number of days to the planner.
      */
-    public void add(int numDays) {
+    public void add(int numDays) throws CommandException {
         requireNonNull(numDays);
         for (int i = 0; i < numDays; i++) {
             Day toAdd = new Day(new ArrayList<>());
@@ -78,9 +79,9 @@ public class Itinerary implements Iterable<Day> {
      */
     public void setDays(List<Day> days) {
         requireAllNonNull(days);
-        if (!daysAreUnique(days)) {
-            throw new DuplicateDayException();
-        }
+        //if (!daysAreUnique(days)) {
+        //    throw new DuplicateDayException();
+        //}
 
         internalList.setAll(days);
     }

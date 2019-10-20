@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDate;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.field.Name;
@@ -43,7 +44,7 @@ public class InitCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.setItineraryName(this.name);
         model.setItineraryStartDate(this.startDate);

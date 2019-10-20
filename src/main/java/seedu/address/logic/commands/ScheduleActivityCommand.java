@@ -92,7 +92,7 @@ public class ScheduleActivityCommand extends ScheduleCommand {
         return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()));
     }
 
-    private Day createScheduledActivityDay(Day dayToEdit, ActivityWithTime toAdd) {
+    private Day createScheduledActivityDay(Day dayToEdit, ActivityWithTime toAdd) throws CommandException {
         List<ActivityWithTime> activityList = dayToEdit.getListOfActivityWithTime();
         activityList.add(toAdd);
         return new Day(activityList);

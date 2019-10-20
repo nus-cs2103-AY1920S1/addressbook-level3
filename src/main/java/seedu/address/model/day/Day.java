@@ -4,6 +4,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+
 /**
  * Represents a Day in the travel planner's planner.
  * Guarantees: timetable is present and not null, field values are validated, immutable.
@@ -14,7 +16,7 @@ public class Day {
 
     private final Timetable timetable;
 
-    public Day(List<ActivityWithTime> activitiesForDay) {
+    public Day(List<ActivityWithTime> activitiesForDay) throws CommandException {
         this.timetable = new Timetable(activitiesForDay);
     }
 

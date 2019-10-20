@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ACTIVITY_NOT_PRESENT_IN_DAY;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
@@ -62,9 +63,9 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
         List<Day> editedDays = new ArrayList<>(lastShownDays);
         editedDays.set(dayIndex.getZeroBased(), editedDay);
 
-        if (!dayToEdit.isSameDay(editedDay) && model.hasDay(editedDay)) {
-            throw new CommandException(MESSAGE_DUPLICATE_DAY);
-        }
+        //if (!dayToEdit.isSameDay(editedDay) && model.hasDay(editedDay)) {
+        //    throw new CommandException(MESSAGE_DUPLICATE_DAY);
+        //}
 
         model.setDays(editedDays);
         model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
@@ -88,7 +89,11 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
         List<ActivityWithTime> activitiesWithTime = dayToEdit.getListOfActivityWithTime();
         Optional<ActivityWithTime> activityAtTime = dayToEdit.getActivityWithTime(time);
         if (activityAtTime.isPresent()) {
-            activitiesWithTime.remove(activityAtTime.get());
+            ActivityWithTime activityToRemove = activityAtTime.get();
+            if (!activitiesWithTime.contains(activityToRemove)) {
+                throw new CommandException(MESSAGE_ACTIVITY_NOT_PRESENT_IN_DAY);
+            }
+            activitiesWithTime.remove(activityToRemove);
             return new Day(activitiesWithTime);
         } else {
             throw new CommandException(MESSAGE_ACTIVITY_DOES_NOT_EXIST);
