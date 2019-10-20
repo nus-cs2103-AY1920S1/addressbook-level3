@@ -1,13 +1,16 @@
 package seedu.moneygowhere.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_MESSAGE;
+
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.reminder.Reminder;
-import seedu.moneygowhere.model.spending.Spending;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.moneygowhere.logic.parser.CliSyntax.*;
-
+/**
+ * Adds a Reminder to the Reminder list.
+ */
 public class ReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "reminder";

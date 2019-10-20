@@ -1,7 +1,5 @@
 package seedu.moneygowhere.model.reminder;
 
-import seedu.moneygowhere.model.spending.Remark;
-
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -24,8 +22,8 @@ public class ReminderMessage {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Remark // instanceof handles nulls
-                && value.equals(((Remark) other).value)); // state check
+                || (other instanceof ReminderMessage // instanceof handles nulls
+                && value.equals(((ReminderMessage) other).value)); // state check
     }
 
     @Override

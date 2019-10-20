@@ -9,6 +9,7 @@ import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.spending.exceptions.DuplicateSpendingException;
 import seedu.moneygowhere.testutil.SpendingBuilder;
@@ -97,6 +99,7 @@ public class AddressBookTest {
      */
     private static class SpendingBookStub implements ReadOnlySpendingBook {
         private final ObservableList<Spending> spendings = FXCollections.observableArrayList();
+        private final List<Reminder> reminders = new ArrayList<>();
         private final Budget budget = new Budget(0);
         SpendingBookStub(Collection<Spending> spendings) {
             this.spendings.setAll(spendings);
@@ -105,6 +108,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Spending> getSpendingList() {
             return spendings;
+        }
+
+        @Override
+        public List<Reminder> getReminderList() {
+            return reminders;
         }
 
         @Override

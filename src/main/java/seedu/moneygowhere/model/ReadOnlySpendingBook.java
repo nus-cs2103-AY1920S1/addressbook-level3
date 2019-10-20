@@ -1,11 +1,11 @@
 package seedu.moneygowhere.model;
 
-import javafx.collections.ObservableList;
-import seedu.moneygowhere.model.reminder.Reminder;
-import seedu.moneygowhere.model.budget.Budget;
-import seedu.moneygowhere.model.spending.Spending;
-
 import java.util.List;
+
+import javafx.collections.ObservableList;
+import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
+import seedu.moneygowhere.model.spending.Spending;
 
 /**
  * Unmodifiable view of the MoneyGoWhere list

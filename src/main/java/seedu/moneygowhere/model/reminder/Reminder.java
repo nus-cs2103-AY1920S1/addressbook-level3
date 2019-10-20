@@ -1,10 +1,10 @@
 package seedu.moneygowhere.model.reminder;
 
-import seedu.moneygowhere.model.spending.Date;
+import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.moneygowhere.model.spending.Date;
 
 /**
  * Reminder class to notify user with deadlines.

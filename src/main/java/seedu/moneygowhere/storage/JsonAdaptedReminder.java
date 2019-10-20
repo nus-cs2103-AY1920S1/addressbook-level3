@@ -2,12 +2,16 @@ package seedu.moneygowhere.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.moneygowhere.commons.exceptions.IllegalValueException;
+import seedu.moneygowhere.model.reminder.Reminder;
+import seedu.moneygowhere.model.reminder.ReminderMessage;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Remark;
-import seedu.moneygowhere.model.reminder.ReminderMessage;
-import seedu.moneygowhere.model.reminder.Reminder;
-import seedu.moneygowhere.commons.exceptions.IllegalValueException;
 
+/**
+ * Jackson-friendly version of {@link Reminder}.
+ */
 public class JsonAdaptedReminder {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Reminder's %s field is missing!";
@@ -49,7 +53,7 @@ public class JsonAdaptedReminder {
         final Date modelDeadline = new Date(deadline);
 
         if (reminderMessage == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ReminderMessage.class.getSimpleName()));
         }
 
         final ReminderMessage modelReminderMessage = new ReminderMessage(reminderMessage);

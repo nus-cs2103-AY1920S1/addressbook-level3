@@ -1,19 +1,16 @@
 package seedu.moneygowhere.logic.parser;
 
-import seedu.moneygowhere.logic.commands.AddCommand;
+import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_MESSAGE;
+
+import java.util.stream.Stream;
+
 import seedu.moneygowhere.logic.commands.ReminderCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.reminder.ReminderMessage;
-import seedu.moneygowhere.model.spending.*;
-import seedu.moneygowhere.model.tag.Tag;
-
-import java.util.Set;
-import java.util.stream.Stream;
-
-import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.moneygowhere.logic.parser.CliSyntax.*;
-import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
+import seedu.moneygowhere.model.spending.Date;
 
 /**
  * Parses input arguments and creates a new AddCommand object

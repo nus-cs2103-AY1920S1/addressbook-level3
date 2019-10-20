@@ -21,6 +21,7 @@ import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.ReadOnlyUserPrefs;
 import seedu.moneygowhere.model.SpendingBook;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.SpendingBuilder;
 
@@ -157,6 +158,11 @@ public class AddCommandTest {
 
         @Override
         public void setBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }
     }

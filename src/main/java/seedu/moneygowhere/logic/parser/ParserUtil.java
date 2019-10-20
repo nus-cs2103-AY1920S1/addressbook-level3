@@ -155,7 +155,7 @@ public class ParserUtil {
      */
     public static ReminderMessage parseMessage(String message) throws ParseException {
         requireNonNull(message);
-        String trimmedMessage= message.trim();
+        String trimmedMessage = message.trim();
         return new ReminderMessage(trimmedMessage);
     }
 }
