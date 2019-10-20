@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -22,9 +23,12 @@ import io.xpire.model.ReadOnlyUserPrefs;
 import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.Name;
 import io.xpire.model.item.sort.MethodOfSorting;
+import io.xpire.model.tag.Tag;
 import io.xpire.testutil.ItemBuilder;
 import javafx.collections.ObservableList;
+
 
 public class AddCommandTest {
 
@@ -140,6 +144,16 @@ public class AddCommandTest {
 
         @Override
         public void setItem(Item target, Item editedItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<Tag> getAllItemTags() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<Name> getAllItemNames() {
             throw new AssertionError("This method should not be called.");
         }
 

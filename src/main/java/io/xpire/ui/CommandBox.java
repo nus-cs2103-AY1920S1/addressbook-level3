@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
+
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
@@ -27,6 +28,12 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        /*
+        String[] possibleWords = {"sort", "set reminder", "exit", "clear", "add", "delete", "search", "view", "help",
+        "check", "tag"};
+        TextFields.bindAutoCompletion(commandTextField, suggestions);
+         */
     }
 
     /**

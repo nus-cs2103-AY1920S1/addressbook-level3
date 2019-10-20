@@ -3,6 +3,10 @@ package io.xpire.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -10,7 +14,10 @@ import io.xpire.commons.core.GuiSettings;
 import io.xpire.commons.core.LogsCenter;
 import io.xpire.commons.util.CollectionUtil;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.Name;
 import io.xpire.model.item.sort.MethodOfSorting;
+import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -111,6 +118,23 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedItem);
         this.xpire.setItem(target, editedItem);
     }
+
+    @Override
+    public Set<Tag> getAllItemTags() {
+        Set<Tag> tagSet = new TreeSet<>(new TagComparator());
+        List<Item> itemList = this.xpire.getItemList();
+        itemList.forEach(item -> tagSet.addAll(item.getTags()));
+        return tagSet;
+    }
+
+    @Override
+    public Set<Name> getAllItemNames() {
+        Set<Name> nameSet = new TreeSet<>(Comparator.comparing(Name::toString));
+        List<Item> itemList = this.xpire.getItemList();
+        itemList.forEach(item -> nameSet.add(item.getName()));
+        return nameSet;
+    }
+
 
     //=========== Sorted Item List Accessors ========================================================================
 

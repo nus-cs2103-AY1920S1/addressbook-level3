@@ -98,7 +98,7 @@ public class XpireParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static Command parseUnknownCommandWord(String command) throws ParseException {
+    private static Command parseUnknownCommandWord(String command) throws ParseException {
 
         StringBuilder sb = new StringBuilder(MESSAGE_UNKNOWN_COMMAND);
         String[] allCommandWords = new String[] {
@@ -106,7 +106,8 @@ public class XpireParser {
             ClearCommand.COMMAND_WORD, SearchCommand.COMMAND_WORD,
             ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD, SortCommand.COMMAND_WORD,
-            SetReminderCommand.COMMAND_WORD, TagCommand.COMMAND_WORD
+            SetReminderCommand.COMMAND_WORD, TagCommand.COMMAND_WORD,
+            CheckCommand.COMMAND_WORD
         };
         Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
         sb.append(findSimilar(command, allCommandsSet, 1));

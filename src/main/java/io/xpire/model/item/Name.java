@@ -2,10 +2,6 @@ package io.xpire.model.item;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
-
 import io.xpire.commons.util.AppUtil;
 
 /**
@@ -21,8 +17,6 @@ public class Name {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
-    private static Set<String> allNames = new TreeSet<>();
     private final String name;
 
     /**
@@ -34,7 +28,6 @@ public class Name {
         requireNonNull(name);
         AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         this.name = name;
-        allNames.addAll(Arrays.asList(name.split("\\s+")));
     }
 
     /**
@@ -64,9 +57,5 @@ public class Name {
     @Override
     public int hashCode() {
         return name.hashCode();
-    }
-
-    public static Set<String> getAllNames() {
-        return allNames;
     }
 }

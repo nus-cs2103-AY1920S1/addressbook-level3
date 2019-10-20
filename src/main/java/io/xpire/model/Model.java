@@ -1,11 +1,14 @@
 package io.xpire.model;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import io.xpire.commons.core.GuiSettings;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.Name;
 import io.xpire.model.item.sort.MethodOfSorting;
+import io.xpire.model.tag.Tag;
 import javafx.collections.ObservableList;
 
 /**
@@ -85,6 +88,18 @@ public interface Model {
      * @param method The method of sorting.
      */
     void sortItemList(MethodOfSorting method);
+
+    /**
+     * Returns a set containing all existing names of items in the list.
+     * @return The set of all existing names.
+     */
+    Set<Name> getAllItemNames();
+
+    /**
+     * Returns a set containing all existing tags of items in the list.
+     * @return The set of all existing tags.
+     */
+    Set<Tag> getAllItemTags();
 
     /** Returns an unmodifiable view of the filtered item list */
     ObservableList<Item> getFilteredItemList();

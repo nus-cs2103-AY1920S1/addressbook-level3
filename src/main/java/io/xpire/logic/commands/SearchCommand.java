@@ -2,11 +2,16 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import io.xpire.commons.core.Messages;
 import io.xpire.logic.parser.XpireParser;
 import io.xpire.model.Model;
 import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Name;
+import io.xpire.model.tag.Tag;
 
 /**
  * Searches and displays all items whose name contains any of the argument keywords.
@@ -36,10 +41,20 @@ public class SearchCommand extends Command {
                 model.getFilteredItemList().size()));
         if (model.getFilteredItemList().size() == 0) {
             for (String s: predicate.getKeywords()) {
-                sb.append(XpireParser.findSimilar(s, Name.getAllNames(), 2));
+                if (s.startsWith("#")) {
+                    Set<String> tagList = model.getAllItemTags().stream()
+                                               .map(Tag::toString)
+                                               .collect(Collectors.toSet());
+                    sb.append(XpireParser.findSimilar(s, tagList, 3));
+                } else {
+                    Set<String> nameList = model.getAllItemNames().stream()
+                                                .map(Name::toString)
+                                                .map(x-> x.split("\\s+"))
+                                                .flatMap(Arrays::stream)
+                                                .collect(Collectors.toSet());
+                    sb.append(XpireParser.findSimilar(s, nameList, 3));
+                }
             }
-            //TODO: save and find tags
-            //TODO: remove names for deleted items
         }
         return new CommandResult(sb.toString());
     }

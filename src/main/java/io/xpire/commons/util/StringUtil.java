@@ -81,48 +81,49 @@ public class StringUtil {
     }
 
     //@@author febee99-reused
-    //Reused from https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#Java
+    //Reused from
+    //https://github.com/crwohlfeil/damerau-levenshtein/blob/master/src/main/java/com/codeweasel/DamerauLevenshtein.java
+    //with minor modifications
     /**
      * Returns the Levenshtein Distance between strings s1 and s2 (how different they are from each other).
      * If returns 0, the strings are same.
      * If returns 1, that means either a character is added, removed or replaced.
-     * @param s1 the first string
-     * @param s2 the second string
+     * @param source the first string
+     * @param target the second string
      * @return The Levenshtein Distance between the two strings.
      */
-    public static int computeDistance (String s1, String s2) {
-        int len0 = s1.length() + 1;
-        int len1 = s2.length() + 1;
-        // the array of distances
-        int[] cost = new int[len0];
-        int[] newCost = new int[len0];
-        // initial cost of skipping prefix in String s0
-        for (int i = 0; i < len0; i++) {
-            cost[i] = i;
+    public static int computeDistance (String source, String target) {
+        if (source == null || target == null) {
+            throw new IllegalArgumentException("Parameter must not be null");
         }
-        // dynamically computing the array of distances
-        // transformation cost for each letter in s1
-        for (int j = 1; j < len1; j++) {
-            // initial cost of skipping prefix in String s1
-            newCost[0] = j;
-            // transformation cost for each letter in s0
-            for (int i = 1; i < len0; i++) {
-                // matching current letters in both strings
-                int match = (s1.charAt(i - 1) == s2.charAt(j - 1)) ? 0 : 1;
-                // computing cost for each transformation
-                int costReplace = cost[i - 1] + match;
-                int costInsert = cost[i] + 1;
-                int costDelete = newCost[i - 1] + 1;
-                // keep minimum cost
-                newCost[i] = Math.min(Math.min(costInsert, costDelete), costReplace);
+        int sourceLength = source.length();
+        int targetLength = target.length();
+        if (sourceLength == 0) {
+            return targetLength;
+        }
+        if (targetLength == 0) {
+            return sourceLength;
+        }
+        int[][] dist = new int[sourceLength + 1][targetLength + 1];
+        for (int i = 0; i < sourceLength + 1; i++) {
+            dist[i][0] = i;
+        }
+        for (int j = 0; j < targetLength + 1; j++) {
+            dist[0][j] = j;
+        }
+        for (int i = 1; i < sourceLength + 1; i++) {
+            for (int j = 1; j < targetLength + 1; j++) {
+                int cost = source.charAt(i - 1) == target.charAt(j - 1) ? 0 : 1;
+                dist[i][j] = Math.min(Math.min(dist[i - 1][j] + 1, dist[i][j - 1] + 1), dist[i - 1][j - 1] + cost);
+                if (i > 1 && j > 1
+                        && source.charAt(i - 1) == target.charAt(j - 2)
+                        && source.charAt(i - 2) == target.charAt(j - 1)) {
+                    dist[i][j] = Math.min(dist[i][j], dist[i - 2][j - 2] + cost);
+                }
             }
-            // swap cost/newcost arrays
-            int[] swap = cost;
-            cost = newCost;
-            newCost = swap;
         }
-        // the distance is the cost for transforming all letters in both strings
-        return cost[len0 - 1];
+        return dist[sourceLength][targetLength];
+        //@@author
     }
 
     /**
