@@ -147,7 +147,7 @@ public class ParserUtil {
      */
     public static Gender parseGender(String gender) throws ParseException {
         requireNonNull(gender);
-        String trimmedGender = gender.trim();
+        String trimmedGender = ParserUtil.capitalizeFirstLetter(gender.trim());
         if (!Gender.isValidGender(trimmedGender)) {
             throw new ParseException(Gender.getMessageConstraints());
         }
@@ -498,5 +498,18 @@ public class ParserUtil {
         for (int i = 0; i < commandsToDelete.size(); i++) {
             commands.remove(commandsToDelete.get(i));
         }
+    }
+
+    /**
+     * Capitalises first letter in string.
+     *
+     * @param str string
+     * @return string with first letter capitalised
+     */
+    private static String capitalizeFirstLetter(String str) {
+        if (str == null) {
+            return str;
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }
