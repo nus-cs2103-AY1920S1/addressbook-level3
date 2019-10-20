@@ -19,6 +19,7 @@ import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
@@ -190,6 +191,18 @@ public class ModelManagerTest {
     @Test
     public void getFilteredScheduleList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredScheduleList().remove(0));
+    }
+
+    @Test
+    public void setCalendarDate_nullCalendarDate_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setCalendarDate(null));
+    }
+
+    @Test
+    public void setCalendarDate_validCalendarDate_replacesDate() {
+        Calendar newCalendar = Calendar.getInstance();
+        modelManager.setCalendarDate(newCalendar);
+        assertEquals(newCalendar, modelManager.getCalendarDate().getCalendar());
     }
 
     @Test

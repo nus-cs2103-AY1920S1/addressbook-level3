@@ -26,4 +26,11 @@ public class CalendarDate {
     public Calendar getCalendar() {
         return property.get();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CalendarDate // instanceof handles nulls
+                && property.equals(((CalendarDate) other).property));
+    }
 }

@@ -471,6 +471,20 @@ public class ModelManager implements Model {
         filteredSchedules.setPredicate(predicate);
     }
 
+    //=========== CalendarDate ================================================================================
+
+    @Override
+    public void setCalendarDate(Calendar calendar) {
+        requireNonNull(calendar);
+        calendarDate.setCalendar(calendar);
+    }
+
+    @Override
+    public CalendarDate getCalendarDate() {
+        return calendarDate;
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -494,18 +508,6 @@ public class ModelManager implements Model {
                 && filteredPhones.equals(other.filteredPhones)
                 && filteredOrders.equals(other.filteredOrders)
                 && filteredSchedules.equals(other.filteredSchedules);
-    }
-
-    //=========== CalendarDate ================================================================================
-
-    @Override
-    public void setCalendarDate(Calendar calendar) {
-        calendarDate.setCalendar(calendar);
-    }
-
-    @Override
-    public CalendarDate getCalendarDate() {
-        return calendarDate;
     }
 
 }
