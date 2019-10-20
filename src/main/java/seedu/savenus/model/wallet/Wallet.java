@@ -110,7 +110,7 @@ public class Wallet {
     }
 
     /**
-     * Deduct the input {@code Price} out of wallet.
+     * Pay the input {@code Price} out of wallet.
      * @param price {@code Price} to be deducted
      * @throws CommandException Throws {@code CommandException} if there are insufficient funds in user's {@code Wallet}
      */
@@ -136,8 +136,8 @@ public class Wallet {
             throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS + " to add to savings account!");
         } else {
             // If enough funds, subtract from the wallet the amount to be saved.
-            BigDecimal remainingBudgetInCents = getRemainingBudgetAmount().subtract(new BigDecimal(savings.toString()));
-            setRemainingBudget(remainingBudgetInCents.toString());
+            BigDecimal remainingBudget = getRemainingBudgetAmount().subtract(new BigDecimal(savings.toString()));
+            setRemainingBudget(new RemainingBudget(remainingBudget.toString()));
         }
     }
 
