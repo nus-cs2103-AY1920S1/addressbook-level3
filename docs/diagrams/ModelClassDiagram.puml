@@ -4,53 +4,44 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Class HiddenOutside #FFFFFF
+
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyModuleBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class ModuleBook
+Class ReadOnlyModuleBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Module {
+Class ArchivedModule
+Class ArchivedModuleList
+Class TrackedModule
+Class TrackedModuleList
+Interface Module <<Interface>>
 }
 
-Package Tag {
-Class Tag
-}
-}
-
-Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+ModuleBook .right.|> ReadOnlyModuleBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o-down-> "1" ModuleBook
+ModelManager o-right-> "1" UserPrefs
+UserPrefs .right.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+ModuleBook *-right-> "1" TrackedModuleList
+ModuleBook *-down-> "1" ArchivedModuleList
+TrackedModuleList o-down-> "*" TrackedModule
+ArchivedModuleList o-down-> "*" ArchivedModule
+TrackedModule *-right-> "1" ArchivedModule : references >
+TrackedModule .down.|> Module
+ArchivedModule .down.|> Module
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
-
-ModelManager -->"1" Person : filtered list
+ModelManager o-down->"*" Module : observes >
 @enduml
