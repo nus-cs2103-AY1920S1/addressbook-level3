@@ -1,6 +1,7 @@
 package budgetbuddy.logic.commands.accountcommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
+import budgetbuddy.model.attributes.Name;
 
 /**
  * Delete one or more loans.
@@ -19,20 +21,18 @@ public class AccountDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "account delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes one account.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an account.\n"
             + "Parameters: "
-            + "<account name>"
-            + "...\n"
+            + PREFIX_NAME + "NAME "
             + "Example: " + COMMAND_WORD + " "
-            + "Japan Trip "
-            + "2";
+            + PREFIX_NAME + "Japan trip ";
 
     public static final String MESSAGE_SUCCESS = "Account deleted.";
     public static final String MESSAGE_FAILURE = "No such account found.";
 
-    public final String accountName;
+    public final Name accountName;
 
-    public AccountDeleteCommand(String accountName) {
+    public AccountDeleteCommand(Name accountName) {
         this.accountName = accountName;
     }
 
@@ -45,7 +45,7 @@ public class AccountDeleteCommand extends Command {
         List<Account> lastShownList = accountsManager.getAccountsList();
         for (Account account: lastShownList) {
             try {
-                if (account.getName().toString() == accountName) {
+                if (account.getName() == accountName) {
                     Account accountToDelete = account;
                     accountsManager.deleteAccount(accountToDelete);
                 }

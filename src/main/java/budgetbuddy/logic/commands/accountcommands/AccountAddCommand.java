@@ -1,7 +1,6 @@
 package budgetbuddy.logic.commands.accountcommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
-import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
