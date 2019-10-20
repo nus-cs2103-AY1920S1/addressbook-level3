@@ -46,20 +46,6 @@ public class CommandResult {
     private Policy policyToExpand;
 
     /**
-     * Application should expand the person on the right panel
-     */
-    private boolean expandPerson;
-
-    /**
-     * Application should expand the policy on the right panel
-     */
-    private boolean expandPolicy;
-
-    private Person personToExpand;
-
-    private Policy policyToExpand;
-
-    /**
      * Application should display report
      */
     private boolean report;
