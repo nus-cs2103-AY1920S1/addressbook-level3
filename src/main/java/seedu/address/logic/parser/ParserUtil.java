@@ -62,7 +62,7 @@ public class ParserUtil {
     public static InvName parseInvName(String invname) throws ParseException {
         requireNonNull(invname);
         String trimmedName = invname.trim();
-        if (!InvName.isValidMemberName(trimmedName)) {
+        if (!InvName.isValidName(trimmedName)) {
             throw new ParseException(InvName.MESSAGE_CONSTRAINTS);
         }
         return new InvName(trimmedName);

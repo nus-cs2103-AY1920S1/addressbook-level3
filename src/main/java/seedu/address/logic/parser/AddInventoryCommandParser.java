@@ -3,7 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_TASKID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
 import java.util.stream.Stream;
 
@@ -12,6 +13,7 @@ import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Price;
+import seedu.address.model.member.MemberId;
 
 /**
  * Parses the given {@code String} of arguments in the context of the AddInventoryCommand
@@ -28,7 +30,7 @@ public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
     public AddInventoryCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INVENTORY_NAME,
-                        PREFIX_INVENTORY_PRICE, PREFIX_INVENTORY_TASKID);
+                        PREFIX_INVENTORY_PRICE, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID);
 
         //parse inventory name
         if (!arePrefixesPresent(argMultimap, PREFIX_INVENTORY_NAME)
@@ -38,20 +40,25 @@ public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
         InvName name = ParserUtil.parseInvName(argMultimap.getValue(PREFIX_INVENTORY_NAME).get());
 
         //parse taskID
-        if (!arePrefixesPresent(argMultimap, PREFIX_INVENTORY_TASKID)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInventoryCommand.MESSAGE_USAGE));
         }
-        Index taskId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INVENTORY_TASKID).get());
+        Index taskId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
+
+        //parse MemberId
+        if (!arePrefixesPresent(argMultimap, PREFIX_MEMBER_ID)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInventoryCommand.MESSAGE_USAGE));
+        }
+        MemberId memId = ParserUtil.parseMemberId(argMultimap.getValue(PREFIX_MEMBER_ID).get());
 
         //parse price
         if (argMultimap.getValue(PREFIX_INVENTORY_PRICE).isPresent()) {
             Price price = ParserUtil.parsePrice((argMultimap.getValue(PREFIX_INVENTORY_PRICE).get()));
-            //Inventory inventory = new Inventory(taskID, name, price);
-            return new AddInventoryCommand(taskId, name, price);
+            return new AddInventoryCommand(taskId, name, price, memId);
         } else {
-            //Inventory inventory = new Inventory(taskID, name);
-            return new AddInventoryCommand(taskId, name);
+            return new AddInventoryCommand(taskId, name, memId);
         }
 
     }

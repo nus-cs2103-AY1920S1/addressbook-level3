@@ -3,10 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -15,8 +13,6 @@ import seedu.address.model.Model;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
-import seedu.address.model.member.MemberName;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 
 /**
