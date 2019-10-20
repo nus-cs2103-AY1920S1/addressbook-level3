@@ -46,4 +46,13 @@ public class StudyPlanCommitManager {
         }
         commitList.commitStudyPlan(planToCommit, commitMessage);
     }
+
+    /**
+     * Reverts to the commit specified by the given commit number. Discards all later commits.
+     */
+    public StudyPlan revertToCommit(int commitNumber) {
+        StudyPlan newActiveStudyPlan = commitList.getStudyPlanByCommitNumber(commitNumber);
+        commitList.deleteAllLaterCommits(commitNumber);
+        return newActiveStudyPlan;
+    }
 }

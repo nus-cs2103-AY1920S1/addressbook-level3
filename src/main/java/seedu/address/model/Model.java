@@ -140,6 +140,12 @@ public interface Model {
      */
     void deleteStudyPlanCommitManagerByIndex(int index);
 
+    /**
+     * Reverts the current active study plan to the commit specified by the given index. Make this version
+     * of the study plan active.
+     */
+    void revertToCommit(int studyPlanIndex, int commitNumber);
+
     // ===================== MODULE INFORMATION AND VERIFICATION ==========================
 
     /**

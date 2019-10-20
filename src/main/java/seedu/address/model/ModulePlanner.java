@@ -73,7 +73,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         this.versionTrackingManager = versionTrackingManager;
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations ================================================================
 
     /**
      * Replaces the contents of the person list with {@code studyPlans}.
@@ -92,7 +92,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         setStudyPlans(newData.getStudyPlanList());
     }
 
-    //// studyplan-level operations
+    //=========== Study Plan-level Operations ===============================================================
 
     /**
      * Returns true if a study plan with the same identity as {@code study plan} exists in the module planner.
@@ -292,7 +292,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         activeStudyPlan.setTitle(new Title(title));
     }
 
-    //// commit methods
+    //=========== Version Tracking ============================================================================
 
     /**
      * Commits the current active study plan.
@@ -320,7 +320,22 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         versionTrackingManager.deleteStudyPlanCommitManagerByIndex(index);
     }
 
-    //// tagging methods
+    /**
+     * Reverts the current active study plan to the commit specified by the given index. Make this version
+     * of the study plan active.
+     */
+    public void revertToCommit(int studyPlanIndex, int commitNumber) {
+        requireNonNull(activeStudyPlan);
+        assert studyPlanIndex == activeStudyPlan.getIndex() : "The index needs to be same as the active one's";
+
+        StudyPlanCommitManager manager = versionTrackingManager.getStudyPlanCommitManagerByStudyPlan(activeStudyPlan);
+        StudyPlan newActiveStudyPlan = manager.revertToCommit(commitNumber);
+
+        studyPlans.setStudyPlan(activeStudyPlan, newActiveStudyPlan);
+        activateStudyPlan(newActiveStudyPlan.getIndex());
+    }
+
+    //=========== Tagging =================================================================================
 
     public boolean addTagToActiveSp(UserTag tag, String moduleCode) {
         return activeStudyPlan.addTag(tag, moduleCode);
@@ -358,7 +373,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         activeStudyPlan.updateAllCompletedTags();
     }
 
-    //// util methods
+    //=========== Util Methods =================================================================================
 
     @Override
     public String toString() {

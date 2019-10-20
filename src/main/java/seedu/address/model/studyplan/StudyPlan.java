@@ -402,7 +402,7 @@ public class StudyPlan implements Cloneable {
         if (other == null) {
             return false;
         } else {
-            return this.index == other.index;
+            return this.index == other.index && this.modules == other.modules;
         }
     }
 

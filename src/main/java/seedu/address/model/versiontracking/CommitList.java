@@ -24,6 +24,29 @@ public class CommitList {
     }
 
     /**
+     * Gets a commit by its index in the list.
+     */
+    public Commit getCommitByIndex(int index) {
+        return commits.get(index);
+    }
+
+    /**
+     * Gets the instance of study plan represented by the commit index.
+     */
+    public StudyPlan getStudyPlanByCommitNumber(int commitNumber) {
+        return getCommitByIndex(commitNumber).getStudyPlan();
+    }
+
+    /**
+     * Deletes all the commits after a given index.
+     */
+    public void deleteAllLaterCommits(int index) {
+        for (int i = index + 1; i < commits.size(); i++) {
+            commits.remove(i);
+        }
+    }
+
+    /**
      * Adds a study plan to this commit list.
      *
      * @param studyPlan study plan to be committed.
@@ -40,7 +63,8 @@ public class CommitList {
             toReturn.append("There are zero commits in this study plan!");
         } else {
             for (Commit commit : commits) {
-                toReturn.append(commit.toString() + "\n");
+                int index = commits.indexOf(commit);
+                toReturn.append(String.format(commit.toString(), index) + "\n");
             }
         }
 
