@@ -30,9 +30,12 @@ import seedu.address.logic.commands.ExpandPolicyCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.ParserUtil;
@@ -75,8 +78,8 @@ public class LogicManager implements Logic {
                 DeleteTagCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, EditPolicyCommand.COMMAND_WORD,
                 ExitCommand.COMMAND_WORD, ExpandPolicyCommand.COMMAND_WORD, ExpandPersonCommand.COMMAND_WORD,
                 FindCommand.COMMAND_WORD, FindPolicyCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
-                ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
-                UnassignPolicyCommand.COMMAND_WORD);
+                HistoryCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
+                SuggestionSwitchCommand.COMMAND_WORD, UnassignPolicyCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD);
     }
 
     @Override

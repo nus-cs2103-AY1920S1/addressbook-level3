@@ -15,8 +15,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
@@ -330,6 +333,9 @@ public class ParserUtil {
         commandList.add(ListPeopleCommand.COMMAND_WORD);
         commandList.add(ListPolicyCommand.COMMAND_WORD);
         commandList.add(HelpCommand.COMMAND_WORD);
+        commandList.add(RedoCommand.COMMAND_WORD);
+        commandList.add(UndoCommand.COMMAND_WORD);
+        commandList.add(HistoryCommand.COMMAND_WORD);
         return commandList;
     }
 
