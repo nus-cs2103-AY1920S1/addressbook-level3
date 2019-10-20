@@ -56,7 +56,7 @@ public interface Logic {
     ObservableList<Policy> getFilteredPolicyList();
 
     /**
-     * Returns policy popularity of address book. Key represents policy, value represents popularity.
+     * Returns key-value mapping of policy type to number of people who bought that policy.
      */
     public ObservableMap<String, Integer> getPolicyPopularityBreakdown();
 
@@ -64,6 +64,11 @@ public interface Logic {
      * Returns key-value mapping of age group to number of people in the group.
      */
     public ObservableMap<String, Integer> getAgeGroupBreakdown();
+
+    /**
+     * Returns key-value mapping of gender to number of people of that gender.
+     */
+    public ObservableMap<String, Integer> getGenderBreakdown();
 
     /**
      * Returns the user prefs' address book file path.

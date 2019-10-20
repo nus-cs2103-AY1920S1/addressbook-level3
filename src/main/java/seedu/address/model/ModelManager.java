@@ -16,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.TimeUtil;
 import seedu.address.model.person.DateOfBirth;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -197,6 +198,21 @@ public class ModelManager implements Model {
             int yearOfBirth = person.getDateOfBirth().dateOfBirth.getYear();
             String ageGroup = TimeUtil.parseAgeGroup(yearOfBirth);
             result.put(ageGroup, result.get(ageGroup) + 1);
+        });
+
+        return result;
+    }
+
+    @Override
+    public ObservableMap<String, Integer> getGenderBreakdown() {
+        // Set up gender
+        ObservableMap<String, Integer> result = FXCollections.observableHashMap();
+        Gender.getValidGender().forEach(gender -> result.put(gender, 0));
+
+        // Add numbers
+        this.addressBook.getPersonList().forEach(person -> {
+            String gender = person.getGender().toString();
+            result.put(gender, result.get(gender) + 1);
         });
 
         return result;

@@ -116,6 +116,11 @@ public interface Model {
     ObservableMap<String, Integer> getAgeGroupBreakdown();
 
     /**
+     * Returns key-value mapping of gender to number of people of that gender.
+     */
+    ObservableMap<String, Integer> getGenderBreakdown();
+
+    /**
      * Adds the given policy.
      * {@code policy} must not already exist in the address book.
      */

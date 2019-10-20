@@ -233,6 +233,9 @@ public class MainWindow extends UiPart<Stage> {
                 case DisplayIndicator.AGE_GROUP_BREAKDOWN:
                     data = logic.getAgeGroupBreakdown();
                     break;
+                case DisplayIndicator.GENDER_BREAKDOWN:
+                    data = logic.getGenderBreakdown();
+                    break;
                 default:
                     // TODO: display report as default instead
                     data = logic.getPolicyPopularityBreakdown();

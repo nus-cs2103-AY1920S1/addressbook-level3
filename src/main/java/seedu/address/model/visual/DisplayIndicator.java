@@ -16,6 +16,7 @@ public class DisplayIndicator {
     public static final String CONTACT_LIST_GROWTH_RATE = "contact-list-growth-rate";
     public static final String POLICY_POPULARITY_BREAKDOWN = "policy-popularity-breakdown";
     public static final String AGE_GROUP_BREAKDOWN = "age-group-breakdown";
+    public static final String GENDER_BREAKDOWN = "gender-breakdown";
     private static String MESSAGE_CONSTRAINTS = "Only the following indicators are allowed: ";
     private static Set<String> VALID_DISPLAY_INDICATORS = new HashSet<>();
 
@@ -23,8 +24,11 @@ public class DisplayIndicator {
         VALID_DISPLAY_INDICATORS.add(POLICY_POPULARITY_BREAKDOWN);
         VALID_DISPLAY_INDICATORS.add(CONTACT_LIST_GROWTH_RATE);
         VALID_DISPLAY_INDICATORS.add(AGE_GROUP_BREAKDOWN);
+        VALID_DISPLAY_INDICATORS.add(GENDER_BREAKDOWN);
 
-        MESSAGE_CONSTRAINTS += getValidDisplayIndicators();
+        StringJoiner validIndicators = new StringJoiner(", ");
+        VALID_DISPLAY_INDICATORS.forEach(displayIndicator -> validIndicators.add(displayIndicator));
+        MESSAGE_CONSTRAINTS += validIndicators.toString();
     }
 
     public final String displayIndicator;
@@ -46,10 +50,8 @@ public class DisplayIndicator {
         return VALID_DISPLAY_INDICATORS.contains(test);
     }
 
-    public static String getValidDisplayIndicators() {
-        StringJoiner result = new StringJoiner(", ");
-        VALID_DISPLAY_INDICATORS.forEach(displayIndicator -> result.add(displayIndicator));
-        return result.toString();
+    public static Set<String> getValidDisplayIndicators() {
+        return VALID_DISPLAY_INDICATORS;
     }
 
     public static String getMessageConstraints() {
