@@ -11,6 +11,7 @@ import dream.fcard.model.exceptions.IndexNotFoundException;
 
 class MultipleChoiceCardTest {
 
+    /*
     @Test
     void evaluate_correctChoice_trueReturned() throws IndexNotFoundException {
         ArrayList<String> choices = new ArrayList<>();
@@ -30,6 +31,8 @@ class MultipleChoiceCardTest {
         MultipleChoiceCard card = new MultipleChoiceCard("What is hello?", "hello", choices);
         assertEquals(false, card.evaluate("helo"));
     }
+    
+     */
 
     @Test
     void editChoice_changeChoiceSuccessfully() throws IndexNotFoundException {
