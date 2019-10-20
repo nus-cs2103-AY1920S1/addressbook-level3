@@ -24,6 +24,7 @@ import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
+import tagline.model.note.NoteId;
 import tagline.model.note.NoteModel;
 import tagline.model.note.ReadOnlyNoteBook;
 import tagline.testutil.NoteBuilder;
@@ -143,6 +144,11 @@ class CreateNoteCommandTest {
 
         @Override
         public void setNote(Note target, Note editedNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Note> findNote(NoteId noteId) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -310,6 +316,11 @@ class CreateNoteCommandTest {
 
         @Override
         public void setNote(Note target, Note editedNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Note> findNote(NoteId noteId) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -3,6 +3,7 @@ package tagline.model.note;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
@@ -70,6 +71,14 @@ public class NoteBook implements ReadOnlyNoteBook {
      */
     public void addNote(Note p) {
         notes.add(p);
+    }
+
+    /**
+     * Finds a {@code Note} based on the {@code noteId}.
+     * @return Optional object if corresponding note is found, empty otherwise
+     */
+    public Optional<Note> findNote(NoteId noteId) {
+        return notes.findNote(noteId);
     }
 
     /**

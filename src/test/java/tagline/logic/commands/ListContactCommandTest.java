@@ -3,7 +3,7 @@ package tagline.logic.commands;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.logic.commands.CommandTestUtil.showContactAtIndex;
 import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ public class ListContactCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showContactAtIndex(model, INDEX_FIRST_CONTACT);
+        showContactAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new ListContactCommand(), model, ListContactCommand.MESSAGE_SUCCESS,
                 LIST_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }

@@ -1,6 +1,7 @@
 package tagline.model.note;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -75,6 +76,12 @@ public interface NoteModel {
      * The note identity of {@code editedNote} must not be the same as another existing note in the note book.
      */
     void setNote(Note target, Note editedNote);
+
+    /**
+     * Finds a {@code Note} based on the {@code noteId}.
+     * @return Optional object if corresponding note is found, empty otherwise
+     */
+    public Optional<Note> findNote(NoteId noteId);
 
     /** Returns an unmodifiable view of the filtered note list */
     ObservableList<Note> getFilteredNoteList();

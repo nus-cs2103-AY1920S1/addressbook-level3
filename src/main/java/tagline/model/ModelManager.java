@@ -18,6 +18,7 @@ import tagline.model.contact.ContactManager;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteBook;
+import tagline.model.note.NoteId;
 import tagline.model.note.NoteManager;
 import tagline.model.note.ReadOnlyNoteBook;
 
@@ -188,6 +189,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteNote(Note target) {
         noteManager.deleteNote(target);
+    }
+
+    @Override
+    public Optional<Note> findNote(NoteId noteId) {
+        return noteManager.findNote(noteId);
     }
 
     //=========== Filtered Note List Accessors =============================================================

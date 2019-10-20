@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -119,6 +120,11 @@ public class NoteManager implements NoteModel {
         requireAllNonNull(target, editedNote);
 
         noteBook.setNote(target, editedNote);
+    }
+
+    @Override
+    public Optional<Note> findNote(NoteId noteId) {
+        return noteBook.findNote(noteId);
     }
 
     //=========== Filtered Note List Accessors =============================================================

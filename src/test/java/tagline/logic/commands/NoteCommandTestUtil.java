@@ -3,9 +3,16 @@ package tagline.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
+import static tagline.testutil.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
+import tagline.model.note.Note;
+import tagline.model.note.NoteBook;
+import tagline.model.note.NoteId;
 
 /**
  * Contains helper methods for testing commands.
@@ -44,6 +51,8 @@ public class NoteCommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final NoteId NON_EXISTING_NOTE_ID = new NoteId(99999);
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -68,5 +77,22 @@ public class NoteCommandTestUtil {
             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the note book, filtered note list and selected contact in {@code actualModel} remain unchanged
+     */
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        NoteBook expectedNoteBook = new NoteBook(actualModel.getNoteBook());
+        List<Note> expectedFilteredList = new ArrayList<>(actualModel.getFilteredNoteList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedNoteBook, actualModel.getNoteBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredNoteList());
     }
 }

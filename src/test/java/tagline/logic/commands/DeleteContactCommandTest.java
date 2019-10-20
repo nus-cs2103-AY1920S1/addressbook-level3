@@ -8,7 +8,7 @@ import static tagline.logic.commands.CommandTestUtil.NON_EXISTING_ID;
 import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ public class DeleteContactCommandTest {
 
     @Test
     public void execute_validContactId_success() {
-        Contact contactToDelete = model.getAddressBook().getContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact contactToDelete = model.getAddressBook().getContactList().get(INDEX_FIRST.getZeroBased());
         DeleteContactCommand deleteContactCommand = new DeleteContactCommand(contactToDelete.getContactId());
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
@@ -46,7 +46,7 @@ public class DeleteContactCommandTest {
 
     @Test
     public void execute_validContactIdButUnfiltered_success() {
-        Contact contactToDelete = model.getAddressBook().getContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact contactToDelete = model.getAddressBook().getContactList().get(INDEX_FIRST.getZeroBased());
         DeleteContactCommand deleteContactCommand = new DeleteContactCommand(contactToDelete.getContactId());
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);

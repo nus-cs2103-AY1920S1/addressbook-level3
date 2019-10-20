@@ -10,8 +10,8 @@ import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
-import static tagline.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
+import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
+import static tagline.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +40,7 @@ public class EditContactCommandTest {
 
     @Test
     public void execute_allFieldsSpecified_success() {
-        Contact originalContact = model.getAddressBook().getContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact originalContact = model.getAddressBook().getContactList().get(INDEX_FIRST.getZeroBased());
         Contact editedContact = new ContactBuilder().withId(originalContact.getContactId().toInteger()).build();
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
@@ -80,7 +80,7 @@ public class EditContactCommandTest {
 
     @Test
     public void execute_noFieldSpecified_success() {
-        Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         EditContactCommand editContactCommand =
                 new EditContactCommand(editedContact.getContactId(), new EditContactDescriptor());
 
@@ -95,8 +95,8 @@ public class EditContactCommandTest {
     @Test
     public void execute_duplicateContact_failure() {
         var contactList = model.getAddressBook().getContactList();
-        Contact firstContact = contactList.get(INDEX_FIRST_CONTACT.getZeroBased());
-        Contact secondContact = contactList.get(INDEX_SECOND_CONTACT.getZeroBased());
+        Contact firstContact = contactList.get(INDEX_FIRST.getZeroBased());
+        Contact secondContact = contactList.get(INDEX_SECOND.getZeroBased());
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
         EditContactCommand editContactCommand = new EditContactCommand(secondContact.getContactId(), descriptor);
