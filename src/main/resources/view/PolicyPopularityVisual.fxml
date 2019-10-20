@@ -2,5 +2,6 @@
 
 
 <?import javafx.scene.chart.PieChart?>
-<PieChart id="PolicyPopularityHolder" style="-fx-background-color: white;" title="Policy Popularity Breakdown"
+<PieChart fx:id="piechart" style="-fx-background-color: white;"
+          title="Policy Popularity Breakdown"
           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"/>

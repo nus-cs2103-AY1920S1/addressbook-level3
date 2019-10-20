@@ -9,7 +9,9 @@ import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.visual.DisplayIndicator;
 
+// TODO: Remove policy pop from displaypanel
 /**
  * Displays information selected by the user.
  */
@@ -24,9 +26,13 @@ public class DisplayPanel extends UiPart<Region> {
 
     private Policy policy;
 
+    private DisplayIndicator displayIndicator;
+
     private boolean isPerson;
 
     private boolean isPolicy;
+
+    private boolean isDisplayIndicator;
 
     @FXML
     private VBox informationHolder;
@@ -40,6 +46,7 @@ public class DisplayPanel extends UiPart<Region> {
         this.person = person;
         this.isPerson = true;
         this.isPolicy = false;
+        this.isDisplayIndicator = false;
         setInfo();
     }
 
@@ -48,6 +55,16 @@ public class DisplayPanel extends UiPart<Region> {
         this.policy = policy;
         isPerson = false;
         isPolicy = true;
+        isDisplayIndicator = false;
+        setInfo();
+    }
+
+    public DisplayPanel(DisplayIndicator displayIndicator) {
+        super(FXML);
+        this.displayIndicator = displayIndicator;
+        isPerson = false;
+        isPolicy = false;
+        isDisplayIndicator = true;
         setInfo();
     }
 
@@ -56,15 +73,21 @@ public class DisplayPanel extends UiPart<Region> {
             informationHolder.getChildren().add(new PersonInformationHolder(person).getRoot());
             if (person.getPolicies().size() != 0) {
                 person.getPolicies().stream()
-                        .sorted(Comparator.comparing(policy -> policy.getName().policyName))
-                        .forEach(policy -> {
-                            PolicyInformationHolder policyInfo = new PolicyInformationHolder(policy);
-                            informationHolder.getChildren().add(policyInfo.getRoot());
-                        });
+                    .sorted(Comparator.comparing(policy -> policy.getName().policyName))
+                    .forEach(policy -> {
+                        PolicyInformationHolder policyInfo = new PolicyInformationHolder(policy);
+                        informationHolder.getChildren().add(policyInfo.getRoot());
+                    });
             }
         } else if (isPolicy) {
             informationHolder.getChildren().add(new PolicyInformationHolder(policy).getRoot());
             // todo: add eligible persons
+        } else if (isDisplayIndicator) {
+            switch (displayIndicator.toString()) {
+            case DisplayIndicator.POLICY_POPULARITY_BREAKDOWN:
+                informationHolder.getChildren().add(new PolicyPopularityVisual().getRoot());
+                break;
+            }
         }
     }
 

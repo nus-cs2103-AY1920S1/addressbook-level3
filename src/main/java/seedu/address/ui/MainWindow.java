@@ -219,6 +219,9 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isDisplay()) {
+                PolicyPopularityVisual pph = new PolicyPopularityVisual();
+                displayPlaceHolder.getChildren().clear();
+                displayPlaceHolder.getChildren().add(pph.getRoot());
             }
 
             if (commandResult.isExpandPerson()) {
