@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalActivities.BREAKFAST;
-import static seedu.address.testutil.TypicalActivities.LUNCH;
 import static seedu.address.testutil.TypicalActivities.getTypicalActivityBook;
 
 import java.io.IOException;

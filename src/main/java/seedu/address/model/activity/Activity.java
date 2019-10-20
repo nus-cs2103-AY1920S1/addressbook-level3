@@ -12,9 +12,8 @@ import seedu.address.model.activity.exceptions.PersonNotInActivityException;
  * Represents an Activity class containing participants ID and expenses.
  */
 public class Activity {
-    
+
     private static int primaryKeyCounter;
-    
     private final int primaryKey;
     private final Title title;
     private final ArrayList<Integer> participantIds;

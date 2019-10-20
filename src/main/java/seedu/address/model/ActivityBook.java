@@ -20,6 +20,13 @@ public class ActivityBook {
     }
 
     /**
+     * Creates an ActivityBook using the Activities in the {@code previousActivityBook}
+     */
+    public ActivityBook(ActivityBook previousActivityBook) {
+        activityList = previousActivityBook.getActivityList();
+    }
+
+    /**
      * Returns true if an activity with the same primary key as {@code primaryKey} exists in the activity book.
      */
     public boolean hasPrimaryKey(int primaryKey) {
@@ -31,15 +38,7 @@ public class ActivityBook {
         return false;
     }
 
-    /**
-     * Creates an ActivityBook using the Activities in the {@code previousActivityBook}
-     */
-    public ActivityBook(ActivityBook previousActivityBook) {
-        activityList = previousActivityBook.getActivityList();
-    }
-
     //// list overwrite operations
-
     /**
      * Replaces the contents of the activity list with {@code activityList}.
      */

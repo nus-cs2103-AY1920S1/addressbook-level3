@@ -54,7 +54,7 @@ public final class InternalState {
         }
 
         InternalState o = (InternalState) other;
-        return personPriKeyCnt == o.personPriKeyCnt 
+        return personPriKeyCnt == o.personPriKeyCnt
             && activityPriKeyCnt == o.activityPriKeyCnt;
     }
 }
