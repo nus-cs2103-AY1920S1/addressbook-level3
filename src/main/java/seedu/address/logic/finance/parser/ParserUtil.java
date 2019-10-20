@@ -9,7 +9,6 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-import seedu.address.model.finance.attributes.Address;
 import seedu.address.model.finance.attributes.Category;
 import seedu.address.model.finance.attributes.Tag;
 import seedu.address.model.finance.attributes.TransactionMethod;
@@ -92,7 +91,7 @@ public class ParserUtil {
     public static TransactionMethod parseTransactionMethod(String tMethod) throws ParseException {
         requireNonNull(tMethod);
         String trimmedTMethod = tMethod.trim();
-        if (!Address.isValidAddress(trimmedTMethod)) {
+        if (!TransactionMethod.isValidTransactionMet(trimmedTMethod)) {
             throw new ParseException(TransactionMethod.MESSAGE_CONSTRAINTS);
         }
         return new TransactionMethod(trimmedTMethod);
