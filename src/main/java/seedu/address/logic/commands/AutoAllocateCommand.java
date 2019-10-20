@@ -58,23 +58,28 @@ public class AutoAllocateCommand extends Command {
     }
 
     /**
-     * @param employeeList
-     * @param eventList
-     * @param eventToEdit
+     * Creates a list of employees who are available for the event.
+     * @param employeeList the full list of employees
+     * @param eventList the full list of events
+     * @param eventToAllocate the specified event to allocate manpower to
      */
     public List<Employee> createAvailableEmployeeListForEvent(List<Employee> employeeList,
-                                                              List<Event> eventList, Event eventToEdit) {
+                                                              List<Event> eventList, Event eventToAllocate) {
         List<Employee> availableEmployeeList = employeeList.stream()
-                .filter(employee ->eventToEdit.isAvailableForEvent(employee, eventList))
+                .filter(employee ->eventToAllocate.isAvailableForEvent(employee, eventList))
                 .filter(employee -> employee.getTags().containsAll(tagList))
                 .collect(Collectors.toList());
 
         return availableEmployeeList;
     }
 
-    public Integer getManpowerNeededByEvent(Event eventToEdit) {
-        return eventToEdit.getManpowerNeeded().value
-                - eventToEdit.getManpowerAllocatedList().getCurrentManpowerCount();
+    /**
+     * Calculates the number of employees currently required by the event.
+     * @param eventToAllocate the specified event to allocate manpower to
+     */
+    public Integer getManpowerNeededByEvent(Event eventToAllocate) {
+        return eventToAllocate.getManpowerNeeded().value
+                - eventToAllocate.getManpowerAllocatedList().getCurrentManpowerCount();
     }
 
     @Override
@@ -86,11 +91,11 @@ public class AutoAllocateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        Event eventToEdit = lastShownEventList.get(eventIndex.getZeroBased());
-        Integer manpowerNeededByEvent = getManpowerNeededByEvent(eventToEdit);
+        Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
+        Integer manpowerNeededByEvent = getManpowerNeededByEvent(eventToAllocate);
 
         if (manpowerCountToAdd == null) { //if manpower count is not specified
-            this.manpowerCountToAdd = getManpowerNeededByEvent(eventToEdit);
+            this.manpowerCountToAdd = getManpowerNeededByEvent(eventToAllocate);
 
         } else if (manpowerCountToAdd > manpowerNeededByEvent) {
             throw new CommandException(Messages.MESSAGE_MANPOWER_COUNT_EXCEEDED);
@@ -100,7 +105,7 @@ public class AutoAllocateCommand extends Command {
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
         List<Employee> availableEmployeeList = createAvailableEmployeeListForEvent(model.getFilteredEmployeeList(),
-                model.getFilteredEventList(), eventToEdit);
+                model.getFilteredEventList(), eventToAllocate);
 
         if (availableEmployeeList.size() < manpowerCountToAdd) {
             throw new CommandException(Messages.MESSAGE_INSUFFICIENT_MANPOWER_COUNT);
@@ -110,10 +115,11 @@ public class AutoAllocateCommand extends Command {
 
         for (int i = 0; i < manpowerCountToAdd; i++) {
             Employee employeeToAdd = availableEmployeeList.get(i);
-            eventToEdit.getManpowerAllocatedList().allocateEmployee(employeeToAdd.getEmployeeId().id);
+            eventToAllocate.getManpowerAllocatedList().allocateEmployee(employeeToAdd.getEmployeeId().id);
         }
+        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
-        return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, eventToEdit.getName().eventName,
+        return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, eventToAllocate.getName().eventName,
                 manpowerCountToAdd));
     }
 
@@ -133,7 +139,8 @@ public class AutoAllocateCommand extends Command {
         // state check
         AutoAllocateCommand e = (AutoAllocateCommand) other;
         return eventIndex.equals(e.eventIndex)
-                && manpowerCountToAdd.equals(e.manpowerCountToAdd);
+                && manpowerCountToAdd.equals(e.manpowerCountToAdd)
+                && tagList.equals(e.tagList);
     }
 
 }

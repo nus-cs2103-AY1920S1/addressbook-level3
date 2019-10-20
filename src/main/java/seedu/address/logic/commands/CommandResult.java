@@ -21,7 +21,7 @@ public class CommandResult {
      */
     private final boolean exit;
 
-    private final boolean fetch;
+    private final Integer fetch;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -30,13 +30,13 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.fetch = false;
+        this.fetch = null;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean fetch) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Integer fetch) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.fetch = fetch;
@@ -59,7 +59,7 @@ public class CommandResult {
         return showHelp;
     }
 
-    public boolean isFetch() {
+    public Integer getFetch() {
         return fetch;
     }
 

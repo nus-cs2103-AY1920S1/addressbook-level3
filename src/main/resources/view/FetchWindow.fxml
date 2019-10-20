@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" title="Fetch" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <icons>
+      <Image url="@/images/help_icon.png" />
+   </icons>
+   <scene>
+      <Scene>
+         <root>
+            <HBox alignment="CENTER" prefHeight="463.0" prefWidth="566.0">
+               <opaqueInsets>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </padding>
+               <children>
+                  <ListView fx:id="personListView" prefHeight="448.0" prefWidth="258.0" />
+                  <VBox prefHeight="448.0" prefWidth="361.0">
+                     <children>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="258.0">
+                                 <children>
+                                    <Text fx:id="eventDescription" fill="#1c1919" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="221.3367156982422" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <ListView fx:id="eventListView" prefHeight="266.0" prefWidth="258.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </root>
+      </Scene>
+   </scene>
+</fx:root>

@@ -46,9 +46,10 @@ public class FetchEventCommand extends Command {
         }
 
         Event eventToFetch = lastShownList.get(index.getZeroBased());
-        predicateToShowIndexedEvent = event -> event.equals(eventToFetch);
-        model.updateFilteredEventList(predicateToShowIndexedEvent);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch), false, false, true);
+        //predicateToShowIndexedEvent = event -> event.equals(eventToFetch);
+        //model.updateFilteredEventList(predicateToShowIndexedEvent);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch), false,
+                false, index.getZeroBased());
     }
 
     @Override
