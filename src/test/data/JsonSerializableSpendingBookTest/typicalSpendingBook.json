@@ -43,5 +43,6 @@
     "remark": "Likes to play golf",
     "cost" : "27.10",
     "tagged" : [ ]
-  } ]
+  } ],
+  "reminders" : [ ]
 }
