@@ -1,12 +1,14 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.LogsCenter;
@@ -26,7 +28,9 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class AlfredParserUtil {
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<entity>\\S+)(?<arguments>.*)");
+    private static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final Logger logger = LogsCenter.getLogger(AlfredParserUtil.class);
     private static final String ID_SEPARATOR_CHARACTER = "-";
 
@@ -38,15 +42,39 @@ public class AlfredParserUtil {
      */
     public static Id parseIndex(String oneBasedIndex, PrefixType prefix) throws ParseException {
         oneBasedIndex = oneBasedIndex.trim();
-        String trimmedIndex = oneBasedIndex.substring(2);
-        String idSeperator = Character.toString(oneBasedIndex.charAt(1));
-        String expectedPrefix = prefix.name();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex) || !oneBasedIndex.startsWith(expectedPrefix)
-                || !idSeperator.equals(ID_SEPARATOR_CHARACTER)) {
+        String trimmedIndex;
+        String idSeparator;
+        try {
+            trimmedIndex = oneBasedIndex.substring(2);
+            idSeparator = Character.toString(oneBasedIndex.charAt(1));
+        } catch (StringIndexOutOfBoundsException e) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
-        int id = Integer.parseInt(trimmedIndex);
-        return new Id(prefix, id);
+        String expectedPrefix = prefix.name();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex) || !oneBasedIndex.startsWith(expectedPrefix)
+                || !idSeparator.equals(ID_SEPARATOR_CHARACTER)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        int idNumber = Integer.parseInt(trimmedIndex);
+        return new Id(prefix, idNumber);
+    }
+
+    public static String getEntityFromCommand(String userInput, String errorMessage) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, errorMessage));
+        }
+        String entity = matcher.group("entity");
+        return entity;
+    }
+
+    public static String getArgumentsFromCommand(String userInput, String errorMessage) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, errorMessage));
+        }
+        String args = matcher.group("arguments");
+        return args;
     }
 
     /**

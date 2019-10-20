@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.AddCommand;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -16,9 +15,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.addcommand.AddMentorCommand;
-import seedu.address.logic.commands.addcommand.AddParticipantCommand;
-import seedu.address.logic.commands.addcommand.AddTeamCommand;
+import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.findcommand.FindMentorCommand;
 import seedu.address.logic.commands.findcommand.FindParticipantCommand;
@@ -26,9 +23,7 @@ import seedu.address.logic.commands.findcommand.FindTeamCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
 import seedu.address.logic.commands.undocommand.UndoCommand;
 import seedu.address.logic.commands.viewcommand.ViewCommand;
-import seedu.address.logic.parser.addcommandparser.AddMentorCommandParser;
-import seedu.address.logic.parser.addcommandparser.AddParticipantCommandParser;
-import seedu.address.logic.parser.addcommandparser.AddTeamCommandParser;
+import seedu.address.logic.parser.addcommandparser.AddCommandAllocator;
 import seedu.address.logic.parser.deletecommandparser.DeleteCommandAllocator;
 import seedu.address.logic.parser.editcommandparser.EditCommandAllocator;
 
@@ -71,19 +66,7 @@ public class AlfredParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            logger.info("Add a new person(in old AddressBook...");
-            return new AddCommandParser().parse(arguments);
-        case AddParticipantCommand.COMMAND_WORD:
-            logger.info("Adding a new Participant...");
-            return new AddParticipantCommandParser().parse(arguments);
-
-        case AddMentorCommand.COMMAND_WORD:
-            logger.info("Adding a new Mentor...");
-            return new AddMentorCommandParser().parse(arguments);
-
-        case AddTeamCommand.COMMAND_WORD:
-            logger.info("Adding a new Team...");
-            return new AddTeamCommandParser().parse(arguments);
+            return new AddCommandAllocator().allocate(arguments);
 
         case FindParticipantCommand.COMMAND_WORD:
             return new FindParticipantCommandParser().parse(arguments);
@@ -96,7 +79,7 @@ public class AlfredParser {
 
         case DeleteCommand.COMMAND_WORD:
             logger.info("Deleting an existing Participant...");
-            return new DeleteCommandAllocator().getDeleteCommand(arguments);
+            return new DeleteCommandAllocator().allocate(arguments);
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -107,7 +90,7 @@ public class AlfredParser {
             return new ListCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
-            return new ViewCommandAllocator().getViewCommand(arguments);
+            return new ViewCommandAllocator().allocate(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -120,7 +103,7 @@ public class AlfredParser {
 
         case EditCommand.COMMAND_WORD:
             logger.info("Editing an existing Entity...");
-            return new EditCommandAllocator().getEditCommand(arguments);
+            return new EditCommandAllocator().allocate(arguments);
 
         default:
             logger.info("Unknown command type: " + commandWord);

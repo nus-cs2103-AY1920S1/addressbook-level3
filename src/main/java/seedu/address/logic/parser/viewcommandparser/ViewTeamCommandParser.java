@@ -18,8 +18,11 @@ public class ViewTeamCommandParser implements Parser<ViewTeamCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewTeamCommand parse(String args) throws ParseException {
-        Id id;
+        if (args.equals("")) {
+            throw new ParseException(String.format(ViewTeamCommand.MESSAGE_USAGE));
+        }
 
+        Id id;
         try {
             id = AlfredParserUtil.parseIndex(args, PrefixType.T);
         } catch (ParseException p) {

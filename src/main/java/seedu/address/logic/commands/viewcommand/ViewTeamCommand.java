@@ -19,9 +19,10 @@ public class ViewTeamCommand extends ViewCommand {
     public static final String MESSAGE_SUCCESS = "Showed specified team";
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX =
             "The team index provided is invalid";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": shows details of the team with specified ID. "
-            + "Parameters: team ID\n"
-            + "Example: " + COMMAND_WORD + " T-1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " team"
+            + ": shows details of the team with specified ID. \n"
+            + "Format: view team [team ID] \n"
+            + "For example: " + COMMAND_WORD + " team T-1";
 
     public ViewTeamCommand(Id id) {
         super(id);

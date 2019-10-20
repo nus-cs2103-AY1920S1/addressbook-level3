@@ -12,9 +12,10 @@ import seedu.address.model.entity.Id;
 public abstract class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": shows details of the entity with the specified ID. "
-            + "Parameters: mentor/participant/team ID\n"
-            + "Example to view Mentor with ID M-1: " + COMMAND_WORD + " M-1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": shows details of the specified "
+            + "entity with the specified ID. \n"
+            + "Format: view [entity name] [entity ID] \n"
+            + "For example (to view Mentor with ID M-1): " + COMMAND_WORD + " mentor M-1";
 
     protected Id id;
 

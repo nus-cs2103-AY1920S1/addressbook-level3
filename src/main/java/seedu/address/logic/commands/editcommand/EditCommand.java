@@ -19,6 +19,14 @@ public abstract class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the specified entity "
+            + "with the specified ID.\n"
+            + "Existing values will be overwritten by the input values.\n"
+            + "Edit command must specify the entity being edited "
+            + "along with its ID and the corresponding fields you wish to edit. \n"
+            + "Format: edit [entity] [entity ID] [entity fields to edit] \n"
+            + "For example: edit participant P-1 n/NEW_NAME e/NEW_EMAIL";
+
     protected Id id;
 
     EditCommand(Id id) {

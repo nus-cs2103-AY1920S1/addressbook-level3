@@ -15,7 +15,7 @@ import seedu.address.model.entity.PrefixType;
  */
 public class AddMentorCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "addMentor";
+    public static final String COMMAND_WORD = "add mentor";
     public static final String MESSAGE_SUCCESS = "New mentor added: %s";
     public static final String MESSAGE_DUPLICATE_MENTOR = "This mentor already exists in this Hackathon";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a mentor to Alfred.\n"

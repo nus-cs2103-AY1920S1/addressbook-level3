@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.deletecommandparser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.deletecommand.DeleteMentorCommand;
 import seedu.address.logic.parser.AlfredParserUtil;
@@ -13,8 +15,6 @@ import seedu.address.model.entity.PrefixType;
  */
 public class DeleteMentorCommandParser implements Parser<DeleteCommand> {
 
-
-
     /**
      * Parses the given {@code String} of arguments in the context of the {@code DeleteMentorCommand}
      * and returns a {@code DeleteMentorCommand} object for execution.
@@ -22,6 +22,12 @@ public class DeleteMentorCommandParser implements Parser<DeleteCommand> {
      */
     @Override
     public DeleteMentorCommand parse(String args) throws ParseException {
+
+        if (args.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteMentorCommand.MESSAGE_USAGE));
+        }
+
         try {
             Id id = AlfredParserUtil.parseIndex(args, PrefixType.M);
             return new DeleteMentorCommand(id);

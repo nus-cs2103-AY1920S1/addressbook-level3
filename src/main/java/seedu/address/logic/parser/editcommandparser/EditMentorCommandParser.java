@@ -39,7 +39,7 @@ public class EditMentorCommandParser implements Parser<EditMentorCommand> {
             id = AlfredParserUtil.parseIndex(argMultimap.getPreamble(), PrefixType.M);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    seedu.address.logic.commands.EditCommand.MESSAGE_USAGE), pe);
+                    EditMentorCommand.MESSAGE_USAGE), pe);
         }
 
         EditMentorDescriptor editMentorDescriptor = new EditMentorDescriptor();

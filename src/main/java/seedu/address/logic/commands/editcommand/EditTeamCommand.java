@@ -31,15 +31,15 @@ public class EditTeamCommand extends EditCommand {
     public static final String MESSAGE_DUPLICATE_TEAM = "This person already exists in the address book.";
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX =
             "The team index provided is invalid";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the team by ID.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " team"
+            + ": Edits the details of the team by ID.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Format: " + "ID"
+            + "Format: " + "edit team [team ID]"
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_SUBJECT_NAME + "SUBJECT_NAME] "
             + "[" + CliSyntax.PREFIX_PROJECT_NAME + "PROJECT_NAME] "
             + "[" + CliSyntax.PREFIX_PROJECT_TYPE + "PROJECT_TYPE] "
-            + "[" + CliSyntax.PREFIX_LOCATION + "TABLE_NUMBER]"
-            + "[" + CliSyntax.PREFIX_SCORE + "SCORE]\n"
+            + "[" + CliSyntax.PREFIX_LOCATION + "TABLE_NUMBER] \n"
             + "Example: " + COMMAND_WORD + " T-1 "
             + CliSyntax.PREFIX_PROJECT_NAME + "Saving Gotham "
             + CliSyntax.PREFIX_PROJECT_TYPE + "Public welfare";

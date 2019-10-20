@@ -18,8 +18,11 @@ public class ViewParticipantCommandParser implements Parser<ViewParticipantComma
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewParticipantCommand parse(String args) throws ParseException {
-        Id id;
+        if (args.equals("")) {
+            throw new ParseException(String.format(ViewParticipantCommand.MESSAGE_USAGE));
+        }
 
+        Id id;
         try {
             id = AlfredParserUtil.parseIndex(args, PrefixType.P);
         } catch (ParseException p) {

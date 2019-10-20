@@ -27,9 +27,10 @@ public class EditMentorCommand extends EditCommand {
     public static final String MESSAGE_DUPLICATE_MENTOR = "This person already exists in the address book.";
     public static final String MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX =
             "The mentor index provided is invalid";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the mentor by ID.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " mentor"
+            + ": Edits the details of the mentor by ID.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Format: " + "ID"
+            + "Format: " + "edit mentor [mentor ID]"
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
             + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
