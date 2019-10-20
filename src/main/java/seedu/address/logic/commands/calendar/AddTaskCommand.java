@@ -16,19 +16,19 @@ import seedu.address.model.task.Task;
  * command to add tasks.
  */
 public class AddTaskCommand extends Command {
-    public static final String COMMAND_WORD = "Add Task";
+    public static final String COMMAND_WORD = "addTask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the calendar. "
             + "Parameters: "
             + PREFIX_TASK_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_MARKING + "MARKING_STATUS "
+            + PREFIX_MARKING + "MARKING_STATUS " + "(Y OR N) "
             + PREFIX_TASK_TIME + "START_TIME, END_TIME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_DESCRIPTION + "CS2103T Lecture "
             + PREFIX_MARKING + "Y "
             + PREFIX_TASK_TIME + "13/10/2019 13:00, 13/10/2019 15:00 ";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New task added:\n%1$s";
 
     private final Task toAdd;
 

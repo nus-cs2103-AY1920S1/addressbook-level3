@@ -75,7 +75,7 @@ public class TaskTime {
     */
     @Override
     public String toString() {
-        return "Starting:\n" + starting + "\nEnding:\n" + ending + "\n";
+        return "Starting:" + starting + " ,Ending:" + ending;
     }
 
     @Override

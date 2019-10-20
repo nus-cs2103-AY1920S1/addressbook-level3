@@ -51,7 +51,6 @@ class JsonAdaptedTask {
         description = source.getDescription().fullTaskDescription;
         marking = source.getMarking().status;
         taskTimes.addAll(source.getTime().stream().map(JsonAdaptedTaskTime::new).collect(Collectors.toList()));
-
     }
     /**
      * Converts this Jackson-friendly adapted task object into the model's {@code Task} object.
@@ -82,7 +81,6 @@ class JsonAdaptedTask {
         final Marking modelMarking = new Marking(marking);
 
         final Set<TaskTime> modelTimes = new HashSet<>(times);
-
 
         return new Task(modelDescription, modelTimes, modelMarking);
     }
