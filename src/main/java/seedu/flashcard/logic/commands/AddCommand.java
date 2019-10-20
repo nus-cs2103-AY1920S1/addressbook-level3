@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_DEFINITION + "a"
             + PREFIX_TAG + "Software Engineering ";
 
-    public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New flashcard added.";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the flashcard list!";
 
     private final Flashcard toAdd;
