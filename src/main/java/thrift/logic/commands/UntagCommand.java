@@ -85,9 +85,9 @@ public class UntagCommand extends Command implements Undoable {
                 ? ""
                 : String.format(MESSAGE_TAG_NOT_EXISTED, nonexistentTags.toString());
 
-        actualIndex = model.getIndexInFullTransactionList(transactionToTag).get();
-        model.setTransactionWithIndex(index, updatedTransaction);
-        model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
+        actualIndex = model.getIndexInFullTransactionList(transactionToTag).orElse(index);
+        model.setTransactionWithIndex(actualIndex, updatedTransaction);
+
         return new CommandResult(taggedTransactionNotification
                 + nonexistentTagsNotification
                 + originalTransactionNotification);
