@@ -4,12 +4,12 @@ import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.logic.Logic;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.model.solution.TestCase;
-import com.dukeacademy.model.solution.TestCaseResult;
+import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.model.program.TestCaseResult;
+import com.dukeacademy.model.question.TestCase;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    private QuestionsLogic questionsLogic;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
@@ -62,15 +62,15 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane runCodeResultPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, QuestionsLogic questionsLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        this.questionsLogic = questionsLogic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(questionsLogic.getGuiSettings());
 
         setAccelerators();
 
@@ -119,14 +119,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        questionListPanel = new QuestionListPanel(logic.getFilteredPersonList());
+        questionListPanel = new QuestionListPanel(questionsLogic.getFilteredPersonList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter =
-            new StatusBarFooter(logic.getQuestionBankFilePath());
+            new StatusBarFooter(questionsLogic.getQuestionBankFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -138,8 +138,8 @@ public class MainWindow extends UiPart<Stage> {
         // Passing in sample test case and sample test case result into the constructor of RunCodeResult.
         // The sample problem in this context is an adder function.
         // Test case given is 1, 1. Expected result is 2, from 1 + 1.
-        runCodeResultPanel = new RunCodeResult(new TestCase("1, 1", "2"),
-                new TestCaseResult(false, "2", "3"));
+        runCodeResultPanel = new RunCodeResult(new TestCase("1 1", "2"),
+                TestCaseResult.getFailedTestCaseResult("1 1", "2", "3"));
         runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
     }
 
@@ -178,7 +178,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        questionsLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -198,11 +198,11 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see Logic#execute(String)
+     * @see QuestionsLogic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = questionsLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
