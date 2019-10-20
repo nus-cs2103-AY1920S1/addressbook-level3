@@ -1,10 +1,12 @@
 package seedu.address.logic.parser.verification;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 
 import seedu.address.logic.commands.verification.DescriptionCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.ModuleCode;
 
 /**
  * Parses input arguments and creates a new DescriptionCommand object
@@ -19,10 +21,13 @@ public class DescriptionCommandParser implements Parser<DescriptionCommand> {
      */
     @Override
     public DescriptionCommand parse(String args) throws ParseException {
-        if ("".equals(args)) {
+        String parsedArgs = args.strip().toUpperCase();
+        if ("".equals(parsedArgs)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DescriptionCommand.MESSAGE_USAGE));
+        } else if (!ModuleCode.isValidCode(parsedArgs)) {
+            throw new ParseException(MESSAGE_INVALID_MODULE);
         } else {
-            return new DescriptionCommand(args.strip().toUpperCase());
+            return new DescriptionCommand(parsedArgs);
         }
     }
 }

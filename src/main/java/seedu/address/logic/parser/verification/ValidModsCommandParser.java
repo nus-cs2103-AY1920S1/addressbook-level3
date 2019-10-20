@@ -21,10 +21,10 @@ public class ValidModsCommandParser implements Parser<ValidModsCommand> {
      */
     @Override
     public ValidModsCommand parse(String args) throws ParseException {
-        if ("".equals(args)) {
+        if ("".equals(args.strip())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ValidModsCommand.MESSAGE_USAGE));
         } else {
-            SemesterName semName = ParserUtil.parseSemester(args);
+            SemesterName semName = ParserUtil.parseSemester(args.strip());
             return new ValidModsCommand(semName);
         }
     }

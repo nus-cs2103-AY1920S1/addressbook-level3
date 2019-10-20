@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.verification;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.commands.Command;
@@ -30,7 +31,7 @@ public class DescriptionCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         String result = model.getModuleInformation(this.moduleCode);
         if (result == null) {
-            throw new CommandException("Module not found!");
+            throw new CommandException(MESSAGE_INVALID_MODULE);
         }
         return new CommandResult(result);
     }
