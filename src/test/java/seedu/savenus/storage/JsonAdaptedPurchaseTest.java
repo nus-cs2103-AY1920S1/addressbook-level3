@@ -15,9 +15,8 @@ import seedu.savenus.model.purchase.TimeOfPurchase;
 
 public class JsonAdaptedPurchaseTest {
 
-    private static final TimeOfPurchase VALID_TIMEOFPURCHASE = TimeOfPurchase.generate();
-    private static final String VALID_TIMEOFPURCHASESTRING = Long.toString(
-            TimeOfPurchase.generate().getTimeOfPurchaseInMillisSinceEpoch());
+    private static final TimeOfPurchase VALID_TIMEOFPURCHASE = new TimeOfPurchase("1570976664361");
+    private static final String VALID_TIMEOFPURCHASESTRING = "1570976664361";
     private static final JsonAdaptedFood VALID_JSONADAPTEDFOOD = new JsonAdaptedFood(CARBONARA);
 
     @Test
