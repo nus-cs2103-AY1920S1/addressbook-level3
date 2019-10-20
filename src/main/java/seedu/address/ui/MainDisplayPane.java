@@ -44,6 +44,8 @@ public class MainDisplayPane {
         case ADD:
             return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()),
                     newPaneIsToBeCreated);
+        case AVERAGE:
+            return getMappedPane(displayPaneType, () -> new AverageGraphPanel(), newPaneIsToBeCreated);
         default:
             return null;
         }
