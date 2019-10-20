@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.diary;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertExerciseCommandFailure;
 import static seedu.address.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ public class AddDiaryCommandIntegrationTest {
     @Test
     public void execute_duplicateDiaries_throwsCommandException() {
         Diary diaryInList = model.getDiaryRecords().getDiaryList().get(0);
-        assertCommandFailure(new AddDiaryCommand(diaryInList), model, AddDiaryCommand.MESSAGE_DUPLICATE_DIARY);
+        assertExerciseCommandFailure(new AddDiaryCommand(diaryInList), model, AddDiaryCommand.MESSAGE_DUPLICATE_DIARY);
     }
 
 }

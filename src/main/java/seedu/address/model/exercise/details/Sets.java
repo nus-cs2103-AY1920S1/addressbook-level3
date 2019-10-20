@@ -24,4 +24,23 @@ public class Sets<Integer> extends ExerciseDetail {
                 .append("]");
         return builder.toString();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Sets)) {
+            return false;
+        }
+
+        Sets otherSets = (Sets) other;
+        return otherSets.getMagnitude().equals(getMagnitude());
+    }
+
+    @Override
+    public int hashCode() {
+        return magnitude.hashCode();
+    }
 }

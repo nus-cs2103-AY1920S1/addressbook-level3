@@ -73,8 +73,8 @@ public class ExerciseBuilder {
             MuscleType secondaryMuscle = new MuscleType(muscleTypes[i]);
             secondaryMuscles.add(secondaryMuscle);
         }
-        this.musclesTrained = new MusclesTrained(primaryMuscle, secondaryMuscles);
-        return this;
+        musclesTrained = new MusclesTrained(primaryMuscle, secondaryMuscles);
+        return withMusclesTrained(musclesTrained);
     }
 
     /**

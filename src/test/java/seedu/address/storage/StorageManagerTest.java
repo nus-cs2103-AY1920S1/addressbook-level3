@@ -81,18 +81,18 @@ public class StorageManagerTest {
         RecipeBook originalRecipeBook = getTypicalRecipeBook();
         storageManager.saveRecipeBook(originalRecipeBook);
         ReadOnlyRecipeBook retrievedRecipeBook = storageManager.readRecipeBook().get();
-        assertEquals(original, new RecipeBook(retrievedRecipeBook));
+        assertEquals(originalRecipeBook, new RecipeBook(retrievedRecipeBook));
 
         WorkoutPlanner originalWorkoutPlanner = getTypicalWorkoutPlanner();
         storageManager.saveWorkoutPlanner(originalWorkoutPlanner);
         ReadOnlyWorkoutPlanner retrievedWorkoutPlanner = storageManager
                 .readWorkoutPlanner().get();
-        assertEquals(original, new WorkoutPlanner(retrievedWorkoutPlanner));
+        assertEquals(originalWorkoutPlanner, new WorkoutPlanner(retrievedWorkoutPlanner));
 
         DiaryRecords originalDiaryRecord = getTypicalDiaryRecords();
         storageManager.saveDiary(originalDiaryRecord);
         ReadOnlyDiary retrievedDiaryRecord = storageManager.readDiary().get();
-        assertEquals(original, new DiaryRecords(retrievedDiaryRecord));
+        assertEquals(originalDiaryRecord, new DiaryRecords(retrievedDiaryRecord));
     }
 
     @Test

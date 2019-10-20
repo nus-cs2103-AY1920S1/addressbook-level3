@@ -2,8 +2,8 @@ package seedu.address.logic.commands.exercise;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertExerciseCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.showExerciseAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
@@ -44,7 +44,7 @@ public class DeleteExerciseCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExerciseList().size() + 1);
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        assertExerciseCommandFailure(deleteExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class DeleteExerciseCommandTest {
 
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        assertExerciseCommandFailure(deleteExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test

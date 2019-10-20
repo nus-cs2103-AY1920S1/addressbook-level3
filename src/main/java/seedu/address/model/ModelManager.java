@@ -45,6 +45,12 @@ public class ModelManager implements Model {
     private final FilteredList<Exercise> filteredExercises;
     private final FilteredList<Diary> filteredDiaries;
 
+    private final UserProfile defaultProfile = new UserProfile();
+    private final HealthRecords defaultHealthRecords = new HealthRecords();
+    private final DiaryRecords defaultDiaryRecords = new DiaryRecords();
+    private final RecipeBook defaultRecipeBook = new RecipeBook();
+    private final WorkoutPlanner defaultWorkoutPlanner = new WorkoutPlanner();
+
     /**
      * Initializes a ModelManager with the given dukeCooks and userPrefs.
      */
@@ -83,17 +89,17 @@ public class ModelManager implements Model {
         logger.fine("Initializing with Workout Planner: " + workoutPlanner
                 + "and user prefs " + userPrefs);
 
-        this.userProfile = null;
-        this.healthRecords = null;
-        this.recipeBook = null;
+        this.userProfile = defaultProfile;
+        this.healthRecords = defaultHealthRecords;
+        this.recipeBook = defaultRecipeBook;
         this.userPrefs = new UserPrefs(userPrefs);
         this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
-        this.diaryRecords = null;
-        filteredPersons = null;
-        filteredRecords = null;
+        this.diaryRecords = defaultDiaryRecords;
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
-        filteredExercises = null;
-        filteredDiaries = null;
+        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
 
     public ModelManager() {
@@ -108,17 +114,17 @@ public class ModelManager implements Model {
         logger.fine("Initializing with Workout Planner: " + recipeBook
                 + "and user prefs " + userPrefs);
 
-        this.userProfile = null;
-        this.healthRecords = null;
+        this.userProfile = defaultProfile;
+        this.healthRecords = defaultHealthRecords;
         this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.workoutPlanner = null;
-        this.diaryRecords = null;
-        filteredPersons = null;
-        filteredRecords = null;
+        this.workoutPlanner = defaultWorkoutPlanner;
+        this.diaryRecords = defaultDiaryRecords;
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
-        filteredExercises = null;
-        filteredDiaries = null;
+        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
 
     public ModelManager(ReadOnlyDiary diaryRecord, ReadOnlyUserPrefs userPrefs) {
@@ -128,16 +134,16 @@ public class ModelManager implements Model {
         logger.fine("Initializing with Diary Record: " + diaryRecord
                 + "and user prefs " + userPrefs);
 
-        this.userProfile = null;
-        this.healthRecords = null;
-        this.recipeBook = null;
-        this.workoutPlanner = null;
+        this.userProfile = defaultProfile;
+        this.healthRecords = defaultHealthRecords;
+        this.recipeBook = defaultRecipeBook;
+        this.workoutPlanner = defaultWorkoutPlanner;
         this.diaryRecords = new DiaryRecords(diaryRecord);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = null;
-        filteredRecords = null;
-        filteredRecipes = null;
-        filteredExercises = null;
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
 
