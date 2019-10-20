@@ -7,6 +7,7 @@ budgetbuddy.logic.parser.commandparsers.ExitCommandParser
 budgetbuddy.logic.parser.commandparsers.FindCommandParser
 budgetbuddy.logic.parser.commandparsers.HelpCommandParser
 budgetbuddy.logic.parser.commandparsers.ListCommandParser
+budgetbuddy.logic.parser.commandparsers.accountcommandparsers.AccountAddCommandParser
 budgetbuddy.logic.parser.commandparsers.loancommandparsers.LoanCommandParser
 budgetbuddy.logic.parser.commandparsers.loancommandparsers.LoanListCommandParser
 budgetbuddy.logic.parser.commandparsers.loancommandparsers.LoanEditCommandParser

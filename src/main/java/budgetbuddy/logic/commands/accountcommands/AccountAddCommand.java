@@ -15,14 +15,13 @@ import budgetbuddy.model.account.Account;
  */
 public class AccountAddCommand extends Command {
 
-    public static final String COMMAND_WORD = "account";
+    public static final String COMMAND_WORD = "account add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an account.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Japan trip "
-            + PREFIX_DESCRIPTION + "Expense in Japan. ";
+            + PREFIX_NAME + "Japan trip ";
 
     public static final String MESSAGE_SUCCESS = "New account added: %1$s";
 
