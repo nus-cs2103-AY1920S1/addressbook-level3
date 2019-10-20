@@ -1,7 +1,7 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-// import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,7 +9,7 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-// import java.util.Arrays;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -26,8 +26,8 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.builder.ModuleBuilder;
-// import seedu.tarence.model.builder.StudentBuilder;
-// import seedu.tarence.model.builder.TutorialBuilder;
+import seedu.tarence.model.builder.StudentBuilder;
+import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Name;
@@ -36,7 +36,6 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
-import seedu.tarence.model.tutorial.Week;
 
 public class ExportAttendanceCommandTest {
 
@@ -45,35 +44,35 @@ public class ExportAttendanceCommandTest {
     public static final Integer VALID_TUT_INDEX = 1;
 
     // TODO: Test fails in TravisCI but not locally
-    // @Test
-    // public void execute_personAcceptedByModel_exportAttendanceSuccessful() throws Exception {
-    //     ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+    @Test
+    public void execute_personAcceptedByModel_exportAttendanceSuccessful() throws Exception {
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
 
-    //     final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
-    //     final Student validStudent = new StudentBuilder()
-    //             .withModCode(VALID_MOD_CODE)
-    //             .withTutName(VALID_TUT_NAME)
-    //             .build();
-    //     final Tutorial validTutorial = new TutorialBuilder()
-    //             .withModCode(VALID_MOD_CODE)
-    //             .withTutName(VALID_TUT_NAME)
-    //             .withStudents(new ArrayList<>(Arrays.asList(validStudent)))
-    //             .build();
-    //     modelStub.addModule(validModule);
-    //     modelStub.addTutorial(validTutorial);
-    //     modelStub.addTutorialToModule(validTutorial);
+        final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        final Student validStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+        final Tutorial validTutorial = new TutorialBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .withStudents(new ArrayList<>(Arrays.asList(validStudent)))
+                .build();
+        modelStub.addModule(validModule);
+        modelStub.addTutorial(validTutorial);
+        modelStub.addTutorialToModule(validTutorial);
 
-    //     final ModCode validModCode = new ModCode(VALID_MOD_CODE);
-    //     final TutName validTutName = new TutName(VALID_TUT_NAME);
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
 
-    //     CommandResult commandResult = new ExportAttendanceCommand(
-    //             validModCode, validTutName, null, null).execute(modelStub);
+        CommandResult commandResult = new ExportAttendanceCommand(
+                validModCode, validTutName, null, null).execute(modelStub);
 
-    //     assertEquals(String.format(ExportAttendanceCommand.MESSAGE_EXPORT_ATTENDANCE_SUCCESS,
-    //             validTutName),
-    //             commandResult.getFeedbackToUser());
-    //     // TODO: Assert presence of exported file
-    // }
+        assertEquals(String.format(ExportAttendanceCommand.MESSAGE_EXPORT_ATTENDANCE_SUCCESS,
+                validTutName),
+                commandResult.getFeedbackToUser());
+        // TODO: Assert presence of exported file
+    }
 
     @Test
     public void execute_invalidModule_throwsCommandException() {
@@ -344,11 +343,6 @@ public class ExportAttendanceCommandTest {
         }
 
         @Override
-        public void setAttendance(Tutorial tutorial, Week week, Student student) {
-            // TODO: implement
-        }
-
-        @Override
         public void storePendingCommand(Command command) {};
 
         @Override
@@ -475,12 +469,6 @@ public class ExportAttendanceCommandTest {
         @Override
         public ReadOnlyApplication getApplication() {
             return new Application();
-        }
-
-        @Override
-        public void setAttendance(Tutorial tutorial, Week week, Student student) {
-            requireAllNonNull(tutorial, week, student);
-            tutorial.setAttendance(week, student);
         }
 
         @Override

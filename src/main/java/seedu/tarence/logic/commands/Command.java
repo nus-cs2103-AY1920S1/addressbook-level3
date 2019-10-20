@@ -45,7 +45,7 @@ public abstract class Command {
      * @return a list of modcodes fulfilling the above criteria.
      * @throws CommandException if no similar modules are found.
      */
-    List<ModCode> getSimilarModCodesWithTutorial (ModCode modCode, TutName tutName, Model model)
+    protected List<ModCode> getSimilarModCodesWithTutorial (ModCode modCode, TutName tutName, Model model)
             throws CommandException {
         return new Finder(model).findSimilarModCodes(modCode)
                 .stream().filter(similarModCode -> model.hasTutorialInModule(similarModCode, tutName))
@@ -62,7 +62,7 @@ public abstract class Command {
      * @return a list of tutnames fulfilling the above criteria.
      * @throws CommandException if no similar tutorial names are found.
      */
-    List<TutName> getSimilarTutNamesWithModule (ModCode modCode, TutName tutName, Model model)
+    protected List<TutName> getSimilarTutNamesWithModule (ModCode modCode, TutName tutName, Model model)
             throws CommandException {
         return new Finder(model).findSimilarTutNames(tutName)
                 .stream().filter(similarTutName -> model.hasTutorialInModule(modCode, similarTutName))

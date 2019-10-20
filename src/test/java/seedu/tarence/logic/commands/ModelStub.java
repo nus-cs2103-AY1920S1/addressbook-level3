@@ -18,7 +18,6 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
-import seedu.tarence.model.tutorial.Week;
 
 /**
  * A default model stub that has all of the methods failing.
@@ -216,11 +215,6 @@ class ModelStub implements Model {
     @Override
     public int getNumberOfTutorialsOfName(TutName tutName) {
         return 0;
-    }
-
-    @Override
-    public void setAttendance(Tutorial tutorial, Week week, Student student) {
-        // TODO: implement
     }
 
     @Override

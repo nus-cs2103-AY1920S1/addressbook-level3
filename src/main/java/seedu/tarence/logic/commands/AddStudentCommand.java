@@ -3,9 +3,9 @@ package seedu.tarence.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.ArrayList;
@@ -42,11 +42,11 @@ public class AddStudentCommand extends Command {
             + "Shortcut Format: "
             + PREFIX_NAME + "NAME "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_TUTORIAL_INDEX + "TUTORIAL_INDEX\n"
+            + PREFIX_INDEX + "TUTORIAL_INDEX\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_TUTORIAL_INDEX + "1";
+            + PREFIX_INDEX + "1";
 
     public static final String MESSAGE_DUPLICATE_STUDENT = "This person already exists!";
     public static final String MESSAGE_INVALID_CLASS = "No such module and/or tutorial class exists.";

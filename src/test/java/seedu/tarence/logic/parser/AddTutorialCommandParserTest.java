@@ -20,7 +20,6 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_WEEKS_RANGE_DES
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_WEEKS_RANGE_LIST;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.tarence.logic.parser.ParserMessages.MESSAGE_INVALID_WEEK_RANGE;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -114,6 +113,6 @@ public class AddTutorialCommandParserTest {
         // invalid range of tutorial weeks
         assertParseFailure(parser, VALID_MODCODE_DESC + VALID_TUTORIAL_NAME_DESC + VALID_TUTORIAL_DAY_DESC
                         + VALID_TUTORIAL_START_DESC + VALID_TUTORIAL_DUR_DESC + INVALID_WEEKS_RANGE_DESC,
-                MESSAGE_INVALID_WEEK_RANGE);
+                Week.MESSAGE_CONSTRAINTS);
     }
 }

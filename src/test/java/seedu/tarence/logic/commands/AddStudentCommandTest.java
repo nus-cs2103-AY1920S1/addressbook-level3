@@ -36,7 +36,6 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
-import seedu.tarence.model.tutorial.Week;
 
 public class AddStudentCommandTest {
 
@@ -372,11 +371,6 @@ public class AddStudentCommandTest {
         @Override
         public int getNumberOfTutorialsOfName(TutName tutName) {
             throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAttendance(Tutorial tutorial, Week week, Student student) {
-            // TODO: implement
         }
 
         @Override

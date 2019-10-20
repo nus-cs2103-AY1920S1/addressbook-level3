@@ -453,11 +453,6 @@ public class MarkAttendanceCommandTest {
         }
 
         @Override
-        public void setAttendance(Tutorial tutorial, Week week, Student student) {
-            // TODO: implement
-        }
-
-        @Override
         public void storePendingCommand(Command command) {};
 
         @Override
@@ -605,12 +600,6 @@ public class MarkAttendanceCommandTest {
         @Override
         public ReadOnlyApplication getApplication() {
             return new Application();
-        }
-
-        @Override
-        public void setAttendance(Tutorial tutorial, Week week, Student student) {
-            requireAllNonNull(tutorial, week, student);
-            tutorial.setAttendance(week, student);
         }
 
         @Override

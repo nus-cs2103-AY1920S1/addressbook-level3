@@ -2,8 +2,8 @@ package seedu.tarence.logic.parser;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import seedu.tarence.commons.core.index.Index;
@@ -23,16 +23,16 @@ public class DisplayAttendanceCommandParser extends CommandParser<DisplayAttenda
      */
     public DisplayAttendanceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_TUTORIAL_INDEX);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_INDEX);
 
         // If all prefixes are present, the format is ambiguous
-        if (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_TUTORIAL_INDEX)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_INDEX)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayAttendanceCommand.MESSAGE_USAGE));
         }
 
         // Parse first format
-        if (arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_INDEX)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_INDEX)) {
             Index index = retrieveIndex(argMultimap);
             return new DisplayAttendanceCommand(index);
         }
@@ -53,7 +53,7 @@ public class DisplayAttendanceCommandParser extends CommandParser<DisplayAttenda
      */
     private Index retrieveIndex(ArgumentMultimap argumentMultimap) throws ParseException {
         try {
-            return Index.fromOneBased(Integer.valueOf(argumentMultimap.getValue(PREFIX_TUTORIAL_INDEX).get()));
+            return Index.fromOneBased(Integer.valueOf(argumentMultimap.getValue(PREFIX_INDEX).get()));
         } catch (RuntimeException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT,
                     DisplayAttendanceCommand.MESSAGE_USAGE));
