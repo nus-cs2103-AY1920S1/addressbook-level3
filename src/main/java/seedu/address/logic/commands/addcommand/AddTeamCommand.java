@@ -18,7 +18,7 @@ import seedu.address.model.entity.Team;
  */
 public class AddTeamCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "addTeam";
+    public static final String COMMAND_WORD = "add team";
     public static final String MESSAGE_SUCCESS = "New team added: %s";
     public static final String MESSAGE_DUPLICATE_TEAM = "This team already exists in this Hackathon";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a team to Alfred.\n"

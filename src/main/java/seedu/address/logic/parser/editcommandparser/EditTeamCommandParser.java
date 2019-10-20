@@ -40,7 +40,7 @@ public class EditTeamCommandParser implements Parser<EditTeamCommand> {
             id = AlfredParserUtil.parseIndex(argMultimap.getPreamble(), PrefixType.T);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    seedu.address.logic.commands.EditCommand.MESSAGE_USAGE), pe);
+                    EditTeamCommand.MESSAGE_USAGE), pe);
         }
 
         EditTeamDescriptor editTeamDescriptor = new EditTeamDescriptor();

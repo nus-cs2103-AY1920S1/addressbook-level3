@@ -37,7 +37,7 @@ public class EditParticipantCommandParser implements Parser<EditParticipantComma
             id = AlfredParserUtil.parseIndex(argMultimap.getPreamble(), PrefixType.P);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    seedu.address.logic.commands.EditCommand.MESSAGE_USAGE), pe);
+                    EditParticipantCommand.MESSAGE_USAGE), pe);
         }
 
         EditParticipantDescriptor editParticipantDescriptor = new EditParticipantDescriptor();

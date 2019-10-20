@@ -18,10 +18,10 @@ public class DeleteTeamCommand extends DeleteCommand {
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX = "The team ID provided is invalid or"
             + "does not exist.";
     public static final String MESSAGE_DELETE_TEAM_SUCCESS = "Deleted Team: %1$s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " team"
             + ": Deletes a team by ID shown in the list of teams.\n"
-            + "Format: " + COMMAND_WORD + " ID\n"
-            + "Example: " + COMMAND_WORD + " T-1";
+            + "Format: " + COMMAND_WORD + " team ID\n"
+            + "Example: " + COMMAND_WORD + " team T-1";
 
     public DeleteTeamCommand(Id id) {
         super(id);

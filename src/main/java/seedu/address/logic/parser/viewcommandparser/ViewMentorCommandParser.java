@@ -18,6 +18,9 @@ public class ViewMentorCommandParser implements Parser<ViewMentorCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewMentorCommand parse(String args) throws ParseException {
+        if (args.equals("")) {
+            throw new ParseException(String.format(ViewMentorCommand.MESSAGE_USAGE));
+        }
         Id id;
 
         try {
