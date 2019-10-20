@@ -42,6 +42,10 @@ public class UniqueTagList {
         return tagList.get(tagName);
     }
 
+    public Map<String, Tag> getTagList() {
+        return tagList;
+    }
+
     /**
      * Adds a tag with the name given in the argument into the list.
      * Tag must not exist in the list.
@@ -67,6 +71,18 @@ public class UniqueTagList {
             toReturn.add(retrieveTag(current));
         }
         return Collections.unmodifiableSet(toReturn);
+    }
+
+    public void setTagList(Map<String, Tag> tagList) {
+        this.tagList = tagList;
+    }
+
+    public UniqueTagList getClone() {
+        Map<String, Tag> clonedMap = new HashMap<>();
+        clonedMap.putAll(tagList);
+        UniqueTagList clonedList = new UniqueTagList();
+        clonedList.setTagList(clonedMap);
+        return clonedList;
     }
 
     /*

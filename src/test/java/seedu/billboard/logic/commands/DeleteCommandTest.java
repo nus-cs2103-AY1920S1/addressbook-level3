@@ -21,7 +21,7 @@ import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.expense.Expense;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model, UndoCommand and UndoCommand) and unit tests for
  * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {

@@ -29,7 +29,7 @@ import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and UndoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 

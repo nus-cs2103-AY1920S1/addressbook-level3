@@ -1,11 +1,13 @@
 package seedu.billboard.model;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
@@ -166,4 +168,28 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredArchiveExpenses(String archiveName, Predicate<Expense> predicate);
+
+    /**
+     * Get a deep copy object of itself.
+     * @return Model a deep copy of itself.
+     */
+    Model getClone();
+
+    /**
+     * Set the model to new model.
+     * @param  model a model.
+     */
+    void setModel(Model model);
+
+    /**
+     * Getter of statsType.
+     * @return ObservableData the statesType.
+     */
+    ObservableData<StatisticsType> getStatsType();
+
+    /**
+     * Getter of filteredArchives.
+     * @return HashMap the filteredArchives.
+     */
+    HashMap<String, FilteredList<Expense>> getFilteredArchives();
 }

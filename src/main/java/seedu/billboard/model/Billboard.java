@@ -43,6 +43,12 @@ public class Billboard implements ReadOnlyBillboard {
         resetData(toBeCopied);
     }
 
+    public Billboard(ExpenseList expenses, UniqueTagList tags) {
+        setExpenses(expenses.asUnmodifiableObservableList());
+        this.tags.setTagList(tags.getTagList());
+
+    }
+
     //// list overwrite operations
 
     /**
@@ -75,6 +81,20 @@ public class Billboard implements ReadOnlyBillboard {
         Billboard billboard = new Billboard();
         billboard.setExpenses(nonArchiveExpenses);
         return billboard;
+    }
+
+    public Billboard getClone() {
+
+        return new Billboard(expenses.getClone(), tags.getClone());
+    }
+
+    public void setBillboard(Billboard billboard) {
+        setExpenses(billboard.getExpenses());
+        tags.setTagList(billboard.getTags().getTagList());
+    }
+
+    public UniqueTagList getTags() {
+        return tags;
     }
 
     //// expense-level operations

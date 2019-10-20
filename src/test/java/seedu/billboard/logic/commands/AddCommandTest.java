@@ -8,6 +8,7 @@ import static seedu.billboard.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -29,6 +30,8 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.ExpenseBuilder;
+
+import javafx.collections.transformation.FilteredList;
 
 public class AddCommandTest {
 
@@ -227,6 +230,26 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredArchiveExpenses(String archiveName, Predicate<Expense> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Model getClone() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setModel(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableData<StatisticsType> getStatsType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public HashMap<String, FilteredList<Expense>> getFilteredArchives() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -21,6 +21,7 @@ import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.UserPrefs;
+import seedu.billboard.model.undo.UndoList;
 import seedu.billboard.model.util.SampleDataUtil;
 import seedu.billboard.storage.BillboardStorage;
 import seedu.billboard.storage.JsonBillboardStorage;
@@ -66,6 +67,9 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        new UndoList();
+        UndoList.addModel(model.getClone());
     }
 
     /**
