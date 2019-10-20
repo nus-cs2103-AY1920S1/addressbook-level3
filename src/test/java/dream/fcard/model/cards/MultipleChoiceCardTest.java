@@ -31,7 +31,7 @@ class MultipleChoiceCardTest {
         MultipleChoiceCard card = new MultipleChoiceCard("What is hello?", "hello", choices);
         assertEquals(false, card.evaluate("helo"));
     }
-    
+
      */
 
     @Test

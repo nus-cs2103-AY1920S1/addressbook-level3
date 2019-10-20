@@ -3,7 +3,6 @@ package dream.fcard.model.cards;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import dream.fcard.core.commons.core.index.Index;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
