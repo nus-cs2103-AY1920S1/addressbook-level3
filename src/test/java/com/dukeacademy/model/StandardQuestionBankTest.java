@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
+import com.dukeacademy.model.program.UserProgram;
 import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Status;
+import com.dukeacademy.model.question.TestCase;
 import com.dukeacademy.model.question.Topic;
-import com.dukeacademy.model.tag.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.model.question.Question;
@@ -42,7 +44,7 @@ public class StandardQuestionBankTest {
         ObservableList<Question> questionObservableList = standardQuestionBank.getReadOnlyQuestionListObservable();
 
         List<Question> mockQuestions = this.getMockQuestionData();
-        mockQuestions.add(new Question(new Title("test1"), new Topic("test1"), new Status("test1"), new Difficulty("Test1"), new HashSet<Tag>()));
+        mockQuestions.add(this.getMockQuestion("abc"));
         this.standardQuestionBank.setQuestions(mockQuestions);
         assertTrue(this.matchListData(questionObservableList, mockQuestions));
 
@@ -51,7 +53,7 @@ public class StandardQuestionBankTest {
         assertTrue(this.matchListData(questionObservableList, mockQuestions));
 
         assertThrows(UnsupportedOperationException.class, () -> questionObservableList
-                .add(new Question(new Title("test1"), new Topic("test1"), new Status("test1"), new Difficulty("Test1"), new HashSet<Tag>())));
+                .add(this.getMockQuestion("abc")));
     }
 
     @Test
@@ -60,7 +62,7 @@ public class StandardQuestionBankTest {
         List<Question> mockQuestions = this.getMockQuestionData();
         this.standardQuestionBank.setQuestions(mockQuestions);
 
-        Question newQuestion = new Question(new Title("test1"), new Topic("test1"), new Status("test1"), new Difficulty("Test1"), new HashSet<Tag>());
+        Question newQuestion = this.getMockQuestion("abc");
         mockQuestions.add(newQuestion);
         this.standardQuestionBank.addQuestion(newQuestion);
 
@@ -86,7 +88,7 @@ public class StandardQuestionBankTest {
 
         List<Question> originalBankList = new ArrayList<>(questionObservableList);
 
-        Question newQuestion = new Question(new Title("test1"), new Topic("test1"), new Status("test1"), new Difficulty("Test1"), new HashSet<Tag>());
+        Question newQuestion = this.getMockQuestion("abc");
         this.standardQuestionBank.replaceQuestion(1, newQuestion);
         originalBankList.remove(1);
         originalBankList.add(1, newQuestion);
@@ -131,9 +133,34 @@ public class StandardQuestionBankTest {
 
     private List<Question> getMockQuestionData() {
         List<Question> questions = new ArrayList<>();
-        questions.add(new Question(new Title("test"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>()));
-        questions.add(new Question(new Title("test"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>()));
+        questions.add(this.getMockQuestion("Test1"));
+        questions.add(this.getMockQuestion("Test2"));
+        questions.add(this.getMockQuestion("Test3"));
 
         return questions;
+    }
+
+    private Question getMockQuestion(String name) {
+        int random = (int) Math.round(Math.random());
+
+        List<TestCase> testCases = new ArrayList<>();
+        testCases.add(new TestCase("1", "1"));
+        testCases.add(new TestCase("2", "2"));
+        testCases.add(new TestCase("3", "3"));
+        UserProgram userProgram = new UserProgram("Test", "public class Test { }");
+
+        if (random == 0) {
+            Set<Topic> topics = new HashSet<>();
+            topics.add(Topic.TREE);
+            topics.add(Topic.DYNAMIC_PROGRAMMING);
+
+            return new Question(name, Status.NEW, Difficulty.HARD, topics, testCases, userProgram);
+        } else {
+            Set<Topic> topics = new HashSet<>();
+            topics.add(Topic.LINKED_LIST);
+            topics.add(Topic.RECURSION);
+
+            return new Question(name, Status.ATTEMPTED, Difficulty.EASY, topics, testCases, userProgram);
+        }
     }
 }

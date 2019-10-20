@@ -1,11 +1,12 @@
 package com.dukeacademy.logic.question;
 
 import com.dukeacademy.model.StandardQuestionBank;
+import com.dukeacademy.model.program.UserProgram;
 import com.dukeacademy.model.question.Difficulty;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.Status;
+import com.dukeacademy.model.question.TestCase;
 import com.dukeacademy.model.question.Topic;
-import com.dukeacademy.model.tag.Tag;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,27 +41,27 @@ class QuestionsLogicManagerTest {
         questionBank.setQuestions(mockQuestionData);
         assertTrue(this.matchListData(questionsObservableList, mockQuestionData));
 
-        Question newQuestion = new Question(new Title("test3"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>());
+        Question newQuestion = this.getMockQuestion("Test4");
         questionBank.addQuestion(newQuestion);
         List<Question> newList = new ArrayList<>(questionBank.getReadOnlyQuestionListObservable());
         assertTrue(this.matchListData(questionsObservableList, newList));
 
         assertThrows(UnsupportedOperationException.class, () -> questionsObservableList
-                .add(new Question(new Title("test4"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>())));
+                .add(this.getMockQuestion("Test5")));
     }
 
     @Test
     void filterQuestionsList() {
         ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
         List<Question> mockQuestionData = this.getMockQuestionData();
-        mockQuestionData.add(new Question(new Title("abc"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>()));
-        mockQuestionData.add(new Question(new Title("abc"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>()));
+        mockQuestionData.add(this.getMockQuestion("abc"));
+        mockQuestionData.add(this.getMockQuestion("abc"));
         questionBank.setQuestions(mockQuestionData);
 
         // Assert that the filter works
-        questionsLogicManager.filterQuestionsList(question -> question.getTitle().fullTitle.equals("abc"));
+        questionsLogicManager.filterQuestionsList(question -> question.getTitle().equals("abc"));
         assertEquals(2, questionsObservableList.size());
-        assertTrue(questionsObservableList.stream().allMatch(question -> question.getTitle().fullTitle.equals("abc")));
+        assertTrue(questionsObservableList.stream().allMatch(question -> question.getTitle().equals("abc")));
 
         // Assert that the filter did not modify the original list data in the bank and in the logic manager
         assertTrue(this.matchListData(questionBank.getReadOnlyQuestionListObservable(), mockQuestionData));
@@ -87,7 +89,7 @@ class QuestionsLogicManagerTest {
         questionBank.setQuestions(mockQuestionData);
 
         // Check the question is replaced both in the logic manager and in the question bank
-        Question newQuestion = new Question(new Title("test3"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>());
+        Question newQuestion = this.getMockQuestion("Test4");
         questionsLogicManager.setQuestion(1, newQuestion);
         mockQuestionData.remove(1);
         mockQuestionData.add(1, newQuestion);
@@ -142,10 +144,34 @@ class QuestionsLogicManagerTest {
 
     private List<Question> getMockQuestionData() {
         List<Question> questions = new ArrayList<>();
-        questions.add(new Question(new Title("test1"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>()));
-        questions.add(new Question(new Title("test2"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>()));
-        questions.add(new Question(new Title("test3"), new Topic("test"), new Status("test"), new Difficulty("Test"), new HashSet<Tag>()));
+        questions.add(this.getMockQuestion("Test1"));
+        questions.add(this.getMockQuestion("Test2"));
+        questions.add(this.getMockQuestion("Test3"));
 
         return questions;
+    }
+
+    private Question getMockQuestion(String name) {
+        int random = (int) Math.round(Math.random());
+
+        List<TestCase> testCases = new ArrayList<>();
+        testCases.add(new TestCase("1", "1"));
+        testCases.add(new TestCase("2", "2"));
+        testCases.add(new TestCase("3", "3"));
+        UserProgram userProgram = new UserProgram("Test", "public class Test { }");
+
+        if (random == 0) {
+            Set<Topic> topics = new HashSet<>();
+            topics.add(Topic.TREE);
+            topics.add(Topic.DYNAMIC_PROGRAMMING);
+
+            return new Question(name, Status.NEW, Difficulty.HARD, topics, testCases, userProgram);
+        } else {
+            Set<Topic> topics = new HashSet<>();
+            topics.add(Topic.LINKED_LIST);
+            topics.add(Topic.RECURSION);
+
+            return new Question(name, Status.ATTEMPTED, Difficulty.EASY, topics, testCases, userProgram);
+        }
     }
 }

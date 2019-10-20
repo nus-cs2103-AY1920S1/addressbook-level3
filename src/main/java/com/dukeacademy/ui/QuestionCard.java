@@ -46,13 +46,12 @@ public class QuestionCard extends UiPart<Region> {
         super(FXML);
         this.question = question;
         id.setText(displayedIndex + ". ");
-        title.setText(question.getTitle().fullTitle);
-        topic.setText(question.getTopic().value);
-        difficulty.setText(question.getDifficulty().value);
-        status.setText(question.getStatus().value);
-        question.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        title.setText(question.getTitle());
+        difficulty.setText(question.getDifficulty().toString());
+        status.setText(question.getStatus().toString());
+        question.getTopics().stream()
+                .sorted(Comparator.comparing(Enum::toString))
+                .forEach(topic-> tags.getChildren().add(new Label(topic.toString())));
     }
 
     @Override

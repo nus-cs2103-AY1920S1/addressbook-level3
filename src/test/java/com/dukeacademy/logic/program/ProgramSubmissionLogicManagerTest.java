@@ -35,7 +35,6 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.Status;
 import com.dukeacademy.model.question.TestCase;
 import com.dukeacademy.model.question.Topic;
-import com.dukeacademy.model.tag.Tag;
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.TestListener;
 
@@ -171,7 +170,7 @@ class ProgramSubmissionLogicManagerTest {
 
         this.programSubmissionLogicManager.setCurrentQuestion(this.createMockQuestion("abc123",
                 new ArrayList<>()));
-        assertEquals("abc123", testListener.getLatestValue().getTitle().fullTitle);
+        assertEquals("abc123", testListener.getLatestValue().getTitle());
     }
 
 
@@ -231,18 +230,16 @@ class ProgramSubmissionLogicManagerTest {
 
     /**
      * Creates a mock question for testing.
-     * @param titleName the name of the question.
+     * @param title the name of the question.
      * @param testCases the test cases of the question.
      * @return the created question.
      */
-    private Question createMockQuestion(String titleName, List<TestCase> testCases) {
-        Title title = new Title(titleName);
-        Topic topic = new Topic("Test");
-        Status status = new Status("Test");
-        Difficulty difficulty = new Difficulty("Test");
-        Set<Tag> tags = new HashSet<>();
+    private Question createMockQuestion(String title, List<TestCase> testCases) {
+        Status status = Status.ATTEMPTED;
+        Difficulty difficulty = Difficulty.HARD;
+        Set<Topic> topics = new HashSet<>();
 
-        return new Question(title, topic, status, difficulty, tags, testCases);
+        return new Question(title, status, difficulty, topics, testCases, new UserProgram("Main", ""));
     }
 
 }

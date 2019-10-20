@@ -6,11 +6,8 @@ import static com.dukeacademy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.dukeacademy.logic.commands.AddCommand;
-import com.dukeacademy.logic.commands.ClearCommand;
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.DeleteCommand;
-import com.dukeacademy.logic.commands.EditCommand;
 import com.dukeacademy.logic.commands.ExitCommand;
 import com.dukeacademy.logic.commands.FindCommand;
 import com.dukeacademy.logic.commands.HelpCommand;
@@ -44,17 +41,9 @@ public class QuestionBankParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
