@@ -18,6 +18,7 @@ import seedu.address.ui.UiPart;
  * Panel containing the calendar.
  */
 public class CalendarPanel extends UiPart<Region> {
+    
     private static final String FXML = "CalendarPanel.fxml";
     private Agenda agenda;
     private ObservableList<Schedule> scheduleList;

@@ -49,7 +49,7 @@ public class OrderCardHandle extends NodeHandle<Node> {
 
     private final List<Label> tagLabels;
 
-    protected OrderCardHandle(Node rootNode) {
+    public OrderCardHandle(Node rootNode) {
         super(rootNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
@@ -107,7 +107,6 @@ public class OrderCardHandle extends NodeHandle<Node> {
     public String getOrderStatus() {
         return orderStatusLabel.getText();
     }
-
 
     public List<String> getTags() {
         return tagLabels

@@ -31,7 +31,7 @@ public class PhoneCardHandle extends NodeHandle<Node> {
     private final List<Label> tagLabels;
 
 
-    protected PhoneCardHandle(Node cardNode) {
+    public PhoneCardHandle(Node cardNode) {
         super(cardNode);
 
         nameLabel = getChildNode(NAME_FIELD_ID);
