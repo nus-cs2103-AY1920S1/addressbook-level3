@@ -30,11 +30,11 @@ public class DailyExpendituresPanel extends UiPart<HBox> {
     @FXML
     private Label dailyBudgetLeftLabel;
 
-    private List<Expenditure> expenditures;
+    private List<ExpenditureCard> expenditures;
     private Index index;
     private Model model;
 
-    public DailyExpendituresPanel(List<Expenditure> expenditures, Index index, Model model) {
+    public DailyExpendituresPanel(List<ExpenditureCard> expenditures, Index index, Model model) {
         super(FXML);
         this.expenditures = expenditures;
         this.index = index;
@@ -48,7 +48,7 @@ public class DailyExpendituresPanel extends UiPart<HBox> {
     private void fillDailyExpendituresPanelLabels() {
         expenditureCardContainer.getChildren().clear();
         double totalExpense = IntStream.range(0, expenditures.size()).
-                mapToDouble(index -> expenditures.get(index).getBudget().value).sum();
+                mapToDouble(index -> expenditures.get(index).getExpenditure().getBudget().value).sum();
         dailyExpensesLabel.setText("Expenses: $" + totalExpense);
 
         if(index.getZeroBased() == 0) {
@@ -70,8 +70,7 @@ public class DailyExpendituresPanel extends UiPart<HBox> {
         List<Node> expenditureCards = IntStream.range(0, expenditures.size())
                 .mapToObj(Index::fromZeroBased)
                 .map(index -> {
-                    ExpenditureCard expenditureCard = new ExpenditureCard(expenditures.get(index.getZeroBased()), index);
-                    return expenditureCard.getRoot();
+                    return expenditures.get(index.getZeroBased()).getRoot();
                 }).collect(Collectors.toList());
 
         expenditureCardContainer.getChildren().addAll(expenditureCards);

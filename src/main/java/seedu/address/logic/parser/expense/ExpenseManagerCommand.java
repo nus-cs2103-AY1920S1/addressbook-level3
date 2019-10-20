@@ -5,7 +5,7 @@ package seedu.address.logic.parser.expense;
  */
 public enum ExpenseManagerCommand {
     CREATE,
-    GOTO,
     EDIT,
-    DELETE
+    DELETE,
+    SHOWDAYS,
 }
