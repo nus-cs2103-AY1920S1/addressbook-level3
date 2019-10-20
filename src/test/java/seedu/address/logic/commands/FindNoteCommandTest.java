@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_NOTES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAppData.CARL;
+import static seedu.address.testutil.TypicalAppData.ELLE;
+import static seedu.address.testutil.TypicalAppData.FIONA;
+import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import seedu.address.model.note.TitleContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindNoteCommand}.
  */
 public class FindNoteCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -50,12 +50,12 @@ public class FindNoteCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different note -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noNoteFound() {
         String expectedMessage = String.format(MESSAGE_NOTES_LISTED_OVERVIEW, 0);
         TitleContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindNoteCommand command = new FindNoteCommand(predicate);
@@ -65,7 +65,7 @@ public class FindNoteCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleNotesFound() {
         String expectedMessage = String.format(MESSAGE_NOTES_LISTED_OVERVIEW, 3);
         TitleContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindNoteCommand command = new FindNoteCommand(predicate);

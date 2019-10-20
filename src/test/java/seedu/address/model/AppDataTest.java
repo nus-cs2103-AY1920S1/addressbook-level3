@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.ALICE_QUESTION;
-import static seedu.address.testutil.TypicalPersons.ALICE_RESULT;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAppData.ALICE;
+import static seedu.address.testutil.TypicalAppData.ALICE_QUESTION;
+import static seedu.address.testutil.TypicalAppData.ALICE_RESULT;
+import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -28,33 +28,33 @@ import seedu.address.model.question.Question;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskForNote;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.NoteBuilder;
 
-public class AddressBookTest {
+public class AppDataTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final AppData appData = new AppData();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getNoteList());
+        assertEquals(Collections.emptyList(), appData.getNoteList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> appData.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyAppData_replacesData() {
+        AppData newData = getTypicalAppData();
+        appData.resetData(newData);
+        assertEquals(newData, appData);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateNotes_throwsDuplicateNoteException() {
         // Two notes with the same identity fields
-        Note editedAlice = new PersonBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
+        Note editedAlice = new NoteBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
         List<Note> newNotes = Arrays.asList(ALICE, editedAlice);
 
         LocalDate date = LocalDate.parse("06/07/2019", Task.FORMAT_USER_INPUT_DATE);
@@ -64,51 +64,51 @@ public class AddressBookTest {
 
         List<Question> newQuestions = Arrays.asList(ALICE_QUESTION);
         List<QuizResult> newQuizResults = Arrays.asList(ALICE_RESULT);
-        AddressBookStub newData = new AddressBookStub(newNotes, newTasks, newQuestions, newQuizResults);
+        AppDataStub newData = new AppDataStub(newNotes, newTasks, newQuestions, newQuizResults);
 
-        assertThrows(DuplicateTitleException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateTitleException.class, () -> appData.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasNote(null));
+    public void hasNote_nullNote_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> appData.hasNote(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasNote(ALICE));
+    public void hasNote_noteNotInAppData_returnsFalse() {
+        assertFalse(appData.hasNote(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addNote(ALICE);
-        assertTrue(addressBook.hasNote(ALICE));
+    public void hasNote_noteInAppData_returnsTrue() {
+        appData.addNote(ALICE);
+        assertTrue(appData.hasNote(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addNote(ALICE);
-        Note editedAlice = new PersonBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
-        assertTrue(addressBook.hasNote(editedAlice));
+    public void hasNote_noteWithSameIdentityFieldsInAppData_returnsTrue() {
+        appData.addNote(ALICE);
+        Note editedAlice = new NoteBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
+        assertTrue(appData.hasNote(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getNoteList().remove(0));
+    public void getNoteList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> appData.getNoteList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose notes list can violate interface constraints.
+     * A stub ReadOnlyAppData whose notes list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class AppDataStub implements ReadOnlyAppData {
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
         private final ObservableList<Question> questions = FXCollections.observableArrayList();
         private final ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
         private final ObservableList<QuizResult> quizResults = FXCollections.observableArrayList();
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Note> notes, Collection<Task> tasks, Collection<Question> questions,
-                        Collection<QuizResult> quizResults) {
+        AppDataStub(Collection<Note> notes, Collection<Task> tasks, Collection<Question> questions,
+                    Collection<QuizResult> quizResults) {
             this.notes.setAll(notes);
             this.tasks.setAll(tasks);
             this.questions.setAll(questions);

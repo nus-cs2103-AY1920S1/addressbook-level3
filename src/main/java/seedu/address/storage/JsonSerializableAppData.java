@@ -9,18 +9,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.AppData;
+import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable AppData that is serializable to JSON format.
  */
 @JsonRootName(value = "data")
-class JsonSerializableAddressBook {
+class JsonSerializableAppData {
     public static final String MESSAGE_DUPLICATE_TITLE = "Lecture note list contains duplicate titles.";
     public static final String MESSAGE_DUPLICATE_TASK = "Task list contains duplicate tasks.";
     public static final String MESSAGE_DUPLICATE_QUESTION = "Question list contains duplicate questions.";
@@ -32,13 +32,13 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedQuizResult> quizResults = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given lecture notes, tasks and questions.
+     * Constructs a {@code JsonSerializableAppData} with the given lecture notes, tasks and questions.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("notes") List<JsonAdaptedNote> notes,
-                                       @JsonProperty("tasks") List<JsonAdaptedTaskForNote> tasks,
-                                       @JsonProperty("questions") List<JsonAdaptedQuestion> questions,
-                                       @JsonProperty("quizResults") List<JsonAdaptedQuizResult> quizResults) {
+    public JsonSerializableAppData(@JsonProperty("notes") List<JsonAdaptedNote> notes,
+                                   @JsonProperty("tasks") List<JsonAdaptedTaskForNote> tasks,
+                                   @JsonProperty("questions") List<JsonAdaptedQuestion> questions,
+                                   @JsonProperty("quizResults") List<JsonAdaptedQuizResult> quizResults) {
         this.notes.addAll(notes);
         this.tasks.addAll(tasks);
         this.questions.addAll(questions);
@@ -46,11 +46,11 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyAppData} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableAppData}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableAppData(ReadOnlyAppData source) {
         notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTaskForNote::new).collect(Collectors.toList()));
         questions.addAll(source.getQuestionList().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
@@ -59,43 +59,43 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code AppData} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public AppData toModelType() throws IllegalValueException {
+        AppData appData = new AppData();
         for (JsonAdaptedNote jsonAdaptedNote : notes) {
             Note note = jsonAdaptedNote.toModelType();
-            if (addressBook.hasNote(note)) {
+            if (appData.hasNote(note)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TITLE);
             }
-            addressBook.addNote(note);
+            appData.addNote(note);
         }
 
         for (JsonAdaptedTaskForNote jsonAdaptedTaskForNote : tasks) {
             Task task = jsonAdaptedTaskForNote.toModelType();
-            if (addressBook.hasTask(task)) {
+            if (appData.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
-            addressBook.addTask(task);
+            appData.addTask(task);
         }
 
         for (JsonAdaptedQuestion jsonAdaptedQuestion : questions) {
             Question question = jsonAdaptedQuestion.toModelType();
-            if (addressBook.hasQuestion(question)) {
+            if (appData.hasQuestion(question)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_QUESTION);
             }
-            addressBook.addQuestion(question);
+            appData.addQuestion(question);
         }
 
         for (JsonAdaptedQuizResult jsonAdaptedQuizResult : quizResults) {
             QuizResult quizResult = jsonAdaptedQuizResult.toModelType();
-            if (addressBook.hasQuizResult(quizResult)) {
+            if (appData.hasQuizResult(quizResult)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RESULT);
             }
-            addressBook.addQuizResult(quizResult);
+            appData.addQuizResult(quizResult);
         }
-        return addressBook;
+        return appData;
     }
 }

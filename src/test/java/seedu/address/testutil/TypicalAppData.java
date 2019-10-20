@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.AppData;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
 import seedu.address.model.quiz.QuizResult;
@@ -19,23 +19,22 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskForNote;
 
 /**
- * A utility class containing a list of {@code Note} objects to be used in tests.
+ * A utility class containing a list of {@code Note}, {@code Question} and other objects to be used in tests.
  */
-public class TypicalPersons {
-
-    public static final Note ALICE = new PersonBuilder().withTitle("Alice Pauline")
+public class TypicalAppData {
+    public static final Note ALICE = new NoteBuilder().withTitle("Alice Pauline")
             .withContent("123, Jurong West Ave 6, #08-111").build();
-    public static final Note BENSON = new PersonBuilder().withTitle("Benson Meier")
+    public static final Note BENSON = new NoteBuilder().withTitle("Benson Meier")
             .withContent("311, Clementi Ave 2, #02-25").build();
-    public static final Note CARL = new PersonBuilder().withTitle("Carl Kurz")
+    public static final Note CARL = new NoteBuilder().withTitle("Carl Kurz")
             .withContent("wall street").build();
-    public static final Note DANIEL = new PersonBuilder().withTitle("Daniel Meier")
+    public static final Note DANIEL = new NoteBuilder().withTitle("Daniel Meier")
             .withContent("10th street").build();
-    public static final Note ELLE = new PersonBuilder().withTitle("Elle Meyer")
+    public static final Note ELLE = new NoteBuilder().withTitle("Elle Meyer")
             .withContent("michegan ave").build();
-    public static final Note FIONA = new PersonBuilder().withTitle("Fiona Kunz")
+    public static final Note FIONA = new NoteBuilder().withTitle("Fiona Kunz")
             .withContent("little tokyo").build();
-    public static final Note GEORGE = new PersonBuilder().withTitle("George Best")
+    public static final Note GEORGE = new NoteBuilder().withTitle("George Best")
             .withContent("4th street").build();
 
     public static final Task ALICE_TASK = new TaskForNote(ALICE,
@@ -51,27 +50,27 @@ public class TypicalPersons {
                     + "etc.").withQuizTime("2019/10/10 12:00").withResult("true").build();
 
     // Manually added
-    public static final Note HOON = new PersonBuilder().withTitle("Hoon Meier")
+    public static final Note HOON = new NoteBuilder().withTitle("Hoon Meier")
             .withContent("little india").build();
-    public static final Note IDA = new PersonBuilder().withTitle("Ida Mueller")
+    public static final Note IDA = new NoteBuilder().withTitle("Ida Mueller")
             .withContent("chicago ave").build();
 
     // Manually added - Note's details found in {@code CommandTestUtil}
-    public static final Note AMY = new PersonBuilder().withTitle(VALID_TITLE_AMY)
+    public static final Note AMY = new NoteBuilder().withTitle(VALID_TITLE_AMY)
             .withContent(VALID_CONTENT_AMY).build();
-    public static final Note BOB = new PersonBuilder().withTitle(VALID_TITLE_BOB)
+    public static final Note BOB = new NoteBuilder().withTitle(VALID_TITLE_BOB)
             .withContent(VALID_CONTENT_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalAppData() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AppData} with all the typical data.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Note note : getTypicalPersons()) {
+    public static AppData getTypicalAppData() {
+        AppData ab = new AppData();
+        for (Note note : getTypicalNotes()) {
             ab.addNote(note);
         }
 
@@ -85,7 +84,7 @@ public class TypicalPersons {
         return ab;
     }
 
-    public static List<Note> getTypicalPersons() {
+    public static List<Note> getTypicalNotes() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 

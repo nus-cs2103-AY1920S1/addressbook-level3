@@ -23,12 +23,12 @@ import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of application data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final AppData appData;
     private final UserPrefs userPrefs;
     private final FilteredList<Note> filteredNotes;
     private final FilteredList<Question> filteredQuestions;
@@ -38,25 +38,25 @@ public class ModelManager implements Model {
     private ObservableList<TempStatsQnsModel> statsQnsList;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given appData and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAppData appData, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(appData, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with application data: " + appData + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.appData = new AppData(appData);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
-        filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
-        filteredQuizQuestions = new FilteredList<>(this.addressBook.getQuizQuestionList());
-        filteredQuizResults = new FilteredList<>(this.addressBook.getQuizResultList());
-        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        filteredNotes = new FilteredList<>(this.appData.getNoteList());
+        filteredQuestions = new FilteredList<>(this.appData.getQuestionList());
+        filteredQuizQuestions = new FilteredList<>(this.appData.getQuizQuestionList());
+        filteredQuizResults = new FilteredList<>(this.appData.getQuizResultList());
+        filteredTasks = new FilteredList<>(this.appData.getTaskList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AppData(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -84,43 +84,43 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getAppDataFilePath() {
+        return userPrefs.getAppDataFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setAppDataFilePath(Path appDataFilePath) {
+        requireNonNull(appDataFilePath);
+        userPrefs.setAppDataFilePath(appDataFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== AppData ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setAppData(ReadOnlyAppData appData) {
+        this.appData.resetData(appData);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAppData getAppData() {
+        return appData;
     }
 
     // note
     @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
-        return addressBook.hasNote(note);
+        return appData.hasNote(note);
     }
 
     @Override
     public void deleteNote(Note target) {
-        addressBook.removeNote(target);
+        appData.removeNote(target);
     }
 
     @Override
     public void addNote(Note note) {
-        addressBook.addNote(note);
+        appData.addNote(note);
         updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
     }
 
@@ -128,24 +128,24 @@ public class ModelManager implements Model {
     public void setNote(Note target, Note editedNote) {
         requireAllNonNull(target, editedNote);
 
-        addressBook.setNote(target, editedNote);
+        appData.setNote(target, editedNote);
     }
 
     // question
     @Override
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
-        return addressBook.hasQuestion(question);
+        return appData.hasQuestion(question);
     }
 
     @Override
     public void deleteQuestion(Question target) {
-        addressBook.removeQuestion(target);
+        appData.removeQuestion(target);
     }
 
     @Override
     public void addQuestion(Question question) {
-        addressBook.addQuestion(question);
+        appData.addQuestion(question);
         updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
     }
 
@@ -153,13 +153,13 @@ public class ModelManager implements Model {
     public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
-        addressBook.setQuestion(target, editedQuestion);
+        appData.setQuestion(target, editedQuestion);
     }
 
     @Override
     public Note getNote(Note note) {
         requireNonNull(note);
-        return addressBook.getNote(note);
+        return appData.getNote(note);
     }
 
     //quiz
@@ -167,45 +167,45 @@ public class ModelManager implements Model {
     public ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty) {
         requireAllNonNull(subject, difficulty);
 
-        return addressBook.getQuizQuestions(numOfQuestions, subject, difficulty);
+        return appData.getQuizQuestions(numOfQuestions, subject, difficulty);
     }
 
     @Override
     public void setQuizQuestionList(ObservableList<Question> quizQuestionList) {
         requireNonNull(quizQuestionList);
 
-        addressBook.setQuizQuestionList(quizQuestionList);
+        appData.setQuizQuestionList(quizQuestionList);
     }
 
     @Override
     public Answer showQuizAnswer(int index) {
-        return addressBook.showQuizAnswer(index);
+        return appData.showQuizAnswer(index);
     }
 
     @Override
     public boolean checkQuizAnswer(int index, Answer answer) {
         requireNonNull(answer);
 
-        return addressBook.checkQuizAnswer(index, answer);
+        return appData.checkQuizAnswer(index, answer);
     }
 
     @Override
     public void addQuizResult(QuizResult quizResult) {
         requireNonNull(quizResult);
 
-        addressBook.addQuizResult(quizResult);
+        appData.addQuizResult(quizResult);
     }
 
     @Override
     public void clearQuizQuestionList() {
-        addressBook.clearQuizQuestionList();
+        appData.clearQuizQuestionList();
     }
 
     //=========== Filtered Note List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Note}s backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedAppData}
      */
     @Override
     public ObservableList<Note> getFilteredNoteList() {
@@ -222,7 +222,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedAppData}
      */
     @Override
     public ObservableList<Question> getFilteredQuestionList() {
@@ -252,34 +252,34 @@ public class ModelManager implements Model {
     @Override
     public boolean hasTask(Task task) {
         requireNonNull(task);
-        return addressBook.hasTask(task);
+        return appData.hasTask(task);
     }
 
     @Override
     public void deleteTask(Task target) {
-        addressBook.removeTask(target);
+        appData.removeTask(target);
     }
 
     @Override
     public void addTask(Task task) {
-        addressBook.addTask(task);
+        appData.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
-        addressBook.setTask(target, editedTask);
+        appData.setTask(target, editedTask);
     }
 
     @Override
     public void markTaskAsDone(Task taskDone) {
-        addressBook.markTaskAsDone(taskDone);
+        appData.markTaskAsDone(taskDone);
     }
 
     /**
      * Returns an unmodifiable view of the list of {@code Task}s backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedAppData}
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
@@ -294,7 +294,7 @@ public class ModelManager implements Model {
 
     @Override
     public void clearTaskList() {
-        addressBook.clearTaskList();
+        appData.clearTaskList();
     }
 
     @Override
@@ -311,7 +311,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return appData.equals(other.appData)
                 && userPrefs.equals(other.userPrefs)
                 && filteredNotes.equals(other.filteredNotes)
                 && filteredQuestions.equals(other.filteredQuestions)
@@ -321,7 +321,7 @@ public class ModelManager implements Model {
     //=========== Statistics ===============================================================================
     /*@Override
     public void setStatistics() {
-        filteredQuizResults = new FilteredList<>(this.addressBook.getQuizResultList());
+        filteredQuizResults = new FilteredList<>(this.appData.getQuizResultList());
     }*/
 
     @Override
@@ -331,27 +331,27 @@ public class ModelManager implements Model {
 
     @Override
     public int getTotalQuestionsDone() {
-        return addressBook.getTotalQuestionsDone();
+        return appData.getTotalQuestionsDone();
     }
 
     @Override
     public int getTotalQuestionsCorrect() {
-        return addressBook.getTotalQuestionsCorrect();
+        return appData.getTotalQuestionsCorrect();
     }
 
     @Override
     public int getTotalQuestionsIncorrect() {
-        return addressBook.getTotalQuestionsIncorrect();
+        return appData.getTotalQuestionsIncorrect();
     }
 
     @Override
     public void setCorrectQnsList() {
-        statsQnsList = addressBook.getCorrectQns();
+        statsQnsList = appData.getCorrectQns();
     }
 
     @Override
     public void setIncorrectQnsList() {
-        statsQnsList = addressBook.getIncorrectQns();
+        statsQnsList = appData.getIncorrectQns();
     }
 
     @Override

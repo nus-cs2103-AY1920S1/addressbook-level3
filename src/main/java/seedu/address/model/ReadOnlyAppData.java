@@ -11,7 +11,7 @@ import seedu.address.model.task.Task;
 /**
  * Unmodifiable view of a lecture note list and a question list.
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyAppData {
     /**
      * Returns an unmodifiable view of the lecture note list.
      * This list will not contain any duplicate titles.

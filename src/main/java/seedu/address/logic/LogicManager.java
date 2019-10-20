@@ -11,11 +11,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.AppDataParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.quiz.QuizParser;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
 import seedu.address.model.statistics.TempStatsQnsModel;
@@ -32,13 +32,13 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final AppDataParser appDataParser;
     private final QuizParser quizParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        appDataParser = new AppDataParser();
         quizParser = new QuizParser();
     }
 
@@ -48,7 +48,7 @@ public class LogicManager implements Logic {
         if (!isQuiz) {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = appDataParser.parseCommand(commandText);
             commandResult = command.execute(model);
 
             if (commandResult.isShowStats()) {
@@ -62,7 +62,7 @@ public class LogicManager implements Logic {
         }
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAppData(model.getAppData());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -71,8 +71,8 @@ public class LogicManager implements Logic {
 
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyAppData getAppData() {
+        return model.getAppData();
     }
 
     @Override
@@ -101,8 +101,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getAppDataFilePath() {
+        return model.getAppDataFilePath();
     }
 
     @Override

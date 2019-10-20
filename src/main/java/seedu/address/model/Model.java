@@ -57,27 +57,27 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' application data file path.
      */
-    Path getAddressBookFilePath();
+    Path getAppDataFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' application data file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setAppDataFilePath(Path appDataFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces current application data with the data in {@code appData}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAppData(ReadOnlyAppData appData);
 
     /**
-     * Returns the AddressBook
+     * Returns the AppData
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyAppData getAppData();
 
     /**
-     * Returns true if a note with the same identity as {@code note} exists in the address book.
+     * Returns true if a note with the same identity as {@code note} exists in the current application data.
      */
     boolean hasNote(Note note);
 
@@ -99,8 +99,8 @@ public interface Model {
 
     /**
      * Replaces the given lecture note {@code target} with {@code editedNote}.
-     * {@code target} must exist in the address book.
-     * The title of {@code editedNote} must not be the same as another existing lecture note in the address book.
+     * {@code target} must exist, while the title of {@code editedNote} must not be the same as another
+     * existing lecture note.
      */
     void setNote(Note target, Note editedNote);
 

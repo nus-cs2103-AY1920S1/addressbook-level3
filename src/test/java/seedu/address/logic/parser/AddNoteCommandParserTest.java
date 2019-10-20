@@ -13,7 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalAppData.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,14 +21,14 @@ import seedu.address.logic.commands.AddNoteCommand;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.Title;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.NoteBuilder;
 
 public class AddNoteCommandParserTest {
     private AddNoteCommandParser parser = new AddNoteCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Note expectedNote = new PersonBuilder(BOB).build();
+        Note expectedNote = new NoteBuilder(BOB).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TITLE_DESC_BOB + CONTENT_DESC_BOB,
