@@ -16,14 +16,14 @@ public class InfoCommandParserTest {
     private static final String VALID_USER_INPUT = "info add";
     private static final String INVALID_USER_INPUT = "saidugasf";
 
-    private static MenuParser menuParser = new MenuParser();
+    private static SaveNusParser saveNusParser = new SaveNusParser();
 
     private static Model model = new ModelManager();
     private static Model expectedModel = new ModelManager();
 
     @Test
     public void input_validUserInput_parseSuccess() throws ParseException {
-        InfoCommand validEditInfo = (InfoCommand) menuParser.parseCommand(VALID_USER_INPUT);
+        InfoCommand validEditInfo = (InfoCommand) saveNusParser.parseCommand(VALID_USER_INPUT);
         CommandResult expectedCommandresult =
                 new CommandResult(InfoCommand.ADD_INFO, false, false, false);
         assertCommandSuccess(validEditInfo, model, expectedCommandresult, expectedModel);
@@ -31,6 +31,6 @@ public class InfoCommandParserTest {
 
     @Test
     public void input_invalidUserInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> menuParser.parseCommand(INVALID_USER_INPUT));
+        assertThrows(ParseException.class, () -> saveNusParser.parseCommand(INVALID_USER_INPUT));
     }
 }

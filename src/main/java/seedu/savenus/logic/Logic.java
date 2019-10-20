@@ -35,12 +35,17 @@ public interface Logic {
     ObservableList<Food> getFilteredFoodList();
 
     /** Returns an unmodifiable view of the purchase history */
-    ObservableList<Purchase> getPurchaseHistory();
+    ObservableList<Purchase> getPurchaseHistoryList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' menu file path.
      */
     Path getMenuFilePath();
+
+    /**
+     * Returns the user prefs' purchase history file path.
+     */
+    Path getPurchaseHistoryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

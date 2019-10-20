@@ -23,6 +23,8 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.Savings;
+//import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -37,15 +39,16 @@ public class ModelManager implements Model {
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
-    private final ObservableList<Purchase> purchaseHistory;
+    private final PurchaseHistory purchaseHistory;
     private final RecommendationSystem recommendationSystem;
     private final CustomSorter customSorter;
+    //private final SavingsAccount savingsAccount;
 
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
      */
     public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
-                        CustomSorter customSorter) {
+                        ReadOnlyPurchaseHistory purchaseHistory, CustomSorter customSorter) {
         super();
         requireAllNonNull(menu, userPrefs);
 
@@ -54,15 +57,15 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
-        purchaseHistory = this.menu.getPurchaseHistory();
-
+        // savingsAccount = new SavingsAccount();
         this.recommendationSystem = new RecommendationSystem();
         this.recommendationSystem.setUserRecommendations(userRecs);
+        this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.customSorter = customSorter;
     }
 
     public ModelManager() {
-        this(new Menu(), new UserPrefs(), new UserRecommendations(), new CustomSorter());
+        this(new Menu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(), new CustomSorter());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -98,6 +101,17 @@ public class ModelManager implements Model {
     public void setMenuFilePath(Path menuFilePath) {
         requireNonNull(menuFilePath);
         userPrefs.setMenuFilePath(menuFilePath);
+    }
+
+    @Override
+    public Path getPurchaseHistoryFilePath() {
+        return userPrefs.getPurchaseHistoryFilePath();
+    }
+
+    @Override
+    public void setPurchaseHistoryFilePath(Path menuFilePath) {
+        requireNonNull(menuFilePath);
+        userPrefs.setPurchaseHistoryFilePath(menuFilePath);
     }
 
     //=========== Menu ================================================================================
@@ -144,24 +158,29 @@ public class ModelManager implements Model {
     //=========== PurchaseHistory Methods =========================================================================
 
     @Override
+    public ReadOnlyPurchaseHistory getPurchaseHistory() {
+        return purchaseHistory;
+    }
+
+    @Override
     public void addPurchase(Purchase target) {
-        menu.addPurchase(target);
+        purchaseHistory.addPurchase(target);
     }
 
     @Override
     public void removePurchase(Purchase target) {
-        menu.removePurchase(target);
+        purchaseHistory.removePurchase(target);
     }
 
-    //=========== Filtered Purchase List Accessors =============================================================
+    //=========== PurchaseHistory List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the {@code PurchaseHistory} backed by the internal list of
      * {@code versionedMenu}
      */
     @Override
-    public ObservableList<Purchase> getPurchaseHistory() {
-        return purchaseHistory;
+    public ObservableList<Purchase> getPurchaseHistoryList() {
+        return purchaseHistory.getPurchaseHistoryList();
     }
 
     //=========== Wallet Accessors =========================================================================
@@ -204,7 +223,7 @@ public class ModelManager implements Model {
     @Override
     public void buyFood(Food foodToBuy) throws CommandException {
         requireNonNull(foodToBuy);
-        menu.getWallet().pay(foodToBuy.getPrice());
+        menu.getWallet().deduct(foodToBuy.getPrice());
     }
 
     //=========== Filtered Food List Accessors =============================================================
@@ -288,6 +307,25 @@ public class ModelManager implements Model {
     public void clearDislikes() {
         recommendationSystem.clearDislikes();
     }
+
+    @Override
+    public void addToSavings(Savings savings) {
+        // TODO @fatclarence
+    }
+
+    @Override
+    public void deductFromWallet(Savings savings) throws CommandException {
+        requireNonNull(savings);
+        menu.getWallet().deduct(savings);
+    }
+
+    /**
+     * TODO @fatclarence
+     */
+    //    @Override
+    //    public SavingsAccount getSavingsAccount() {
+    //        return null;
+    //    }
 
     @Override
     public boolean equals(Object obj) {

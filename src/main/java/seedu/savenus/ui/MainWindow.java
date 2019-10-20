@@ -83,13 +83,14 @@ public class MainWindow extends UiPart<Stage> {
         foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
         foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-        purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistory());
+        purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistoryList());
         purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMenuFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMenuFilePath(),
+                logic.getPurchaseHistoryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -233,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             // Update purchaseListPanel after every command
-            purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistory());
+            purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistoryList());
             purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
 
             return commandResult;

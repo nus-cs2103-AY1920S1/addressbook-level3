@@ -10,7 +10,7 @@ import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.Command;
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.exceptions.CommandException;
-import seedu.savenus.logic.parser.MenuParser;
+import seedu.savenus.logic.parser.SaveNusParser;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ReadOnlyMenu;
@@ -27,12 +27,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final MenuParser menuParser;
+    private final SaveNusParser saveNusParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        menuParser = new MenuParser();
+        saveNusParser = new SaveNusParser();
     }
 
     @Override
@@ -40,12 +40,13 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = menuParser.parseCommand(commandText);
+        Command command = saveNusParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
             storage.saveMenu(model.getMenu());
             storage.saveRecs(model.getRecommendationSystem().getUserRecommendations());
+            storage.savePurchaseHistory(model.getPurchaseHistory());
             storage.saveFields(model.getCustomSorter());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -65,13 +66,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Purchase> getPurchaseHistory() {
-        return model.getPurchaseHistory();
+    public ObservableList<Purchase> getPurchaseHistoryList() {
+        return model.getPurchaseHistoryList();
     }
 
     @Override
     public Path getMenuFilePath() {
         return model.getMenuFilePath();
+    }
+
+    @Override
+    public Path getPurchaseHistoryFilePath() {
+        return model.getPurchaseHistoryFilePath();
     }
 
     @Override
