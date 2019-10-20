@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
 
 /**
  * Represents a Person in the address book.
@@ -24,6 +25,8 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    private Amount balance;
+
     /**
      * Every field must be present and not null.
      */
@@ -34,6 +37,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.balance = new Amount(0);
     }
 
     public Name getName() {
@@ -50,6 +54,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Amount getBalance() {
+        return balance;
     }
 
     /**
@@ -73,6 +81,14 @@ public class Person {
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
+
+    /**
+     * @param amount amount of money spent in {@link seedu.address.model.transaction.SplitTransaction}
+     */
+    public void handleExpense(Amount amount) {
+        balance = balance.subtractAmount(amount);
+    }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.

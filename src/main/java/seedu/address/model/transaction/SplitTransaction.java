@@ -1,10 +1,14 @@
 package seedu.address.model.transaction;
 
+import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * SplitTransaction consists of Amount amount, Date date, List<Amount> splitAmount, and peopleInvolved
@@ -16,6 +20,7 @@ public class SplitTransaction extends Transaction {
 
     public SplitTransaction(Amount amount, Date date, List<Integer> shares, UniquePersonList people) {
         super(amount, date);
+        requireAllNonNull(shares, people);
         this.peopleInvolved = people;
         int denominator = shares.stream().mapToInt(i -> i).sum();
         splitAmounts = shares.stream()
@@ -30,6 +35,23 @@ public class SplitTransaction extends Transaction {
      */
     @Override
     public Amount handleBalance(Amount balance) {
+        return balance;
+    }
+
+    public Amount handleBalance(Amount balance, UniquePersonList peopleInLedger) {
+        Iterator<Person> personInvolvedIterator = peopleInvolved.iterator();
+        Iterator<Amount> amountIterator = splitAmounts.iterator();
+        while (personInvolvedIterator.hasNext()) {
+            Amount expenditure = amountIterator.next();
+            Person person = personInvolvedIterator.next();
+            if (peopleInLedger.contains(person)) {
+                person = peopleInLedger.get(person).get();
+            } else {
+                peopleInLedger.add(person);
+            }
+            balance = balance.subtractAmount(expenditure);
+            person.handleExpense(expenditure);
+        }
         return balance;
     }
 

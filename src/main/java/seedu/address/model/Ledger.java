@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.SplitTransaction;
@@ -19,5 +18,7 @@ public class Ledger {
 
 
     public void addSplitTransaction(SplitTransaction transaction) {
+        pot = transaction.handleBalance(pot, people);
+        splitHistory.add(transaction);
     }
 }

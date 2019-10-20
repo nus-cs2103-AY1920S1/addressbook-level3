@@ -155,7 +155,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addSplit(SplitTransaction transaction) {
-        bankAccount.split(transaction);
+        versionedBankAccount.split(transaction);
     }
 
     @Override

@@ -85,6 +85,7 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     public void split(SplitTransaction transaction) {
+        transactions.add(transaction);
         ledger.addSplitTransaction(transaction);
     }
 

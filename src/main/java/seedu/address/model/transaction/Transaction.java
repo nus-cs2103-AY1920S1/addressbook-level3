@@ -27,13 +27,6 @@ public abstract class Transaction {
     public Transaction(Amount amount, Date date) {
         this.amount = amount;
         this.date = date;
-        // TODO: remove this stub
-        this.peopleInvolved = new Person(
-                new Name("Alex"),
-                new Phone("82831821"),
-                new Email("person@gmail.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                new HashSet<Tag>());
     }
 
     public Transaction(Amount amount, Date date, Set<Tag> tags) {

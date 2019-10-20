@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -13,9 +14,9 @@ public class SplitCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Split amount successful";
     public static final String COMMAND_WORD = "split";
-    private final Transaction transaction;
+    private final SplitTransaction transaction;
 
-    public SplitCommand(Transaction transaction) {
+    public SplitCommand(SplitTransaction transaction) {
         this.transaction = transaction;
     }
 
