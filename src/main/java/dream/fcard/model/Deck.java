@@ -19,59 +19,57 @@ public class Deck implements JsonInterface {
     private String deckName;
     private ArrayList<FlashCard> cards;
 
-    // Testing sample deck with no name
-    // can remove subsequently
+    /**
+     * Constructor to create a Deck with no name and cards.
+     */
     public Deck() {
         cards = new ArrayList<>();
         deckName = "untitled";
     }
 
+    /**
+     * Constructor to create a Deck with name and cards.
+     *
+     * @param name String name of the deck.
+     */
     public Deck(String name) {
         cards = new ArrayList<>();
         deckName = name;
     }
 
+    /**
+     * Constructor to create a Deck with name and cards.
+     *
+     * @param name String name of the deck.
+     */
     public Deck(ArrayList<FlashCard> initialCards, String name) {
         cards = initialCards;
         deckName = name;
     }
 
-    public String getDeckName() {
-        return deckName;
+    /**
+     * Render all the cards of the deck in a list.
+     *
+     * @return Node of list
+     */
+    public Node renderListView() {
+        return null;
     }
 
     /**
-     * Adds new card to the ArrayList of card objects.
+     * Render tile icon of this deck to display alongside other decks.
+     *
+     * @return Node of tile
      */
-    public void addNewCard(FlashCard newCard) {
-        cards.add(newCard);
+    public Node renderTileView() {
+        return null;
     }
 
     /**
-     * Edit front of card.
+     * Returns Json format of Deck.
+     *
+     * @return JsonValue Json object of current Deck.
      */
-    public void editFrontCardInDeck(String newFront, int index) throws IndexNotFoundException {
-        if (index >= cards.size() || index < 0) {
-            String errorMessage = "Index entered is invalid: " + index;
-            throw new IndexNotFoundException(new Exception(errorMessage));
-        }
-        FlashCard cardToChange = cards.get(index);
-        cardToChange.editFront(newFront);
-    }
-
-    /**
-     * Edit back of card.
-     */
-    public void editBackCardInDeck(String newBack, int index) throws IndexNotFoundException {
-        if (index >= cards.size() || index < 0) {
-            String errorMessage = "Index entered is invalid: " + index;
-            throw new IndexNotFoundException(new Exception(errorMessage));
-        }
-        FlashCard cardToChange = cards.get(index);
-        cardToChange.editBack(newBack);
-    }
-
-
     @Override
     public JsonValue toJson() {
         JsonArray cardJson = new JsonArray();
@@ -86,28 +84,70 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     * Render all the cards of the deck in a list.
+     * Adds new card to the ArrayList of card objects.
      *
-     * @return node of list
+     * @param newCard FlashCard object to add to Deck.
      */
-    public Node renderListView() {
-        return null;
+    public void addNewCard(FlashCard newCard) {
+        cards.add(newCard);
     }
 
     /**
-     * Render tile icon of this deck to display alongside other decks.
+     * Removes a specified card using index from the list of cards.
      *
-     * @return node of tile
+     * @param index Integer index of card to remove from list of Cards.
      */
-    public Node renderTileView() {
-        return null;
+    public void removeCard(int index) throws IndexNotFoundException {
+        if (index >= cards.size() || index < 0) {
+            String errorMessage = "Index entered is invalid: " + index;
+            throw new IndexNotFoundException(new Exception(errorMessage));
+        }
+
+        cards.remove(index);
     }
 
-    public String getName() {
-        return deckName;
+    /**
+     * Edit front of card.
+     *
+     * @param newFront String of new text to replace front of card.
+     * @param index    Index of card in the Deck.
+     * @throws IndexNotFoundException If index >= number of cards in deck or < 0.
+     */
+    public void editFrontCardInDeck(String newFront, int index) throws IndexNotFoundException {
+        if (index >= cards.size() || index < 0) {
+            String errorMessage = "Index entered is invalid: " + index;
+            throw new IndexNotFoundException(new Exception(errorMessage));
+        }
+        FlashCard cardToChange = cards.get(index);
+        cardToChange.editFront(newFront);
     }
 
+    /**
+     * Edit back of card.
+     *
+     * @param newBack String of new text to replace back of card.
+     * @param index   Index of card in the Deck.
+     * @throws IndexNotFoundException If index >= number of cards in deck or < 0.
+     */
+    public void editBackCardInDeck(String newBack, int index) throws IndexNotFoundException {
+        if (index >= cards.size() || index < 0) {
+            String errorMessage = "Index entered is invalid: " + index;
+            throw new IndexNotFoundException(new Exception(errorMessage));
+        }
+        FlashCard cardToChange = cards.get(index);
+        cardToChange.editBack(newBack);
+    }
+
+    /**
+     * Returns list of FlashCards in Deck.
+     *
+     * @return ArrayList of FlashCard objects currently in Deck.
+     */
     public ArrayList<FlashCard> getCards() {
         return this.cards;
+    }
+
+    public String getDeckName() {
+        return deckName;
     }
 }
