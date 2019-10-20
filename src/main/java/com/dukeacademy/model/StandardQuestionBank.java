@@ -1,9 +1,6 @@
 package com.dukeacademy.model;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Collection;
-import java.util.List;
 
 import com.dukeacademy.model.question.Question;
 
@@ -49,12 +46,12 @@ public class StandardQuestionBank implements QuestionBank {
 
     @Override
     public void replaceQuestion(int id, Question question) {
-        this.questionList.set(id + 1, question);
+        this.questionList.set(id - 1, question);
     }
 
     @Override
     public void removeQuestion(int id) {
-        this.questionList.remove(id + 1);
+        this.questionList.remove(id - 1);
     }
 
     @Override
