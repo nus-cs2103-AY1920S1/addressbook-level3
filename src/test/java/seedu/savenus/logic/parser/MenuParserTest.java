@@ -6,6 +6,7 @@ import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.savenus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.savenus.logic.parser.CliSyntax.ASCENDING_DIRECTION;
 import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_EQUALS_TO;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
@@ -20,15 +21,20 @@ import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
 import seedu.savenus.logic.commands.CollapseCommand;
+import seedu.savenus.logic.commands.CustomSortCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.commands.DislikeCommand;
 import seedu.savenus.logic.commands.EditCommand;
 import seedu.savenus.logic.commands.ExitCommand;
+import seedu.savenus.logic.commands.ExpandCommand;
+import seedu.savenus.logic.commands.FilterCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
+import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
+import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
@@ -142,6 +148,38 @@ public class MenuParserTest {
     public void parseCommand_collapse() throws ParseException {
         assertTrue(
                 parser.parseCommand(CollapseCommand.COMMAND_WORD) instanceof CollapseCommand);
+    }
+
+    @Test
+    public void parseCommand_expand() throws ParseException {
+        assertTrue(
+                parser.parseCommand(ExpandCommand.COMMAND_WORD) instanceof ExpandCommand);
+    }
+
+    @Test
+    public void parseCommand_customSort() throws ParseException {
+        assertTrue(
+                parser.parseCommand(CustomSortCommand.COMMAND_WORD) instanceof CustomSortCommand);
+    }
+
+    @Test
+    public void parseCommand_makeSort() throws ParseException {
+        assertTrue(
+                parser.parseCommand(MakeSortCommand.COMMAND_WORD + " " + FIELD_NAME_NAME
+                        + " " + ASCENDING_DIRECTION) instanceof MakeSortCommand);
+    }
+
+    @Test
+    public void parseCommand_history() throws ParseException {
+        assertTrue(
+                parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
+    }
+
+    @Test
+    public void parseCommand_filter() throws ParseException {
+        assertTrue(
+                parser.parseCommand(FilterCommand.COMMAND_WORD + " " + FIELD_NAME_NAME
+                        + " " + QUANTIFY_EQUALS_TO + " Tom") instanceof FilterCommand);
     }
 
     @Test

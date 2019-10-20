@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class CommandHistoryTest {
 
-    private CommandHistory commandHistory = new CommandHistory();
+    private CommandHistory commandHistory = CommandHistory.getInstance();
 
     @Test
     public void storeInvalidCommand_success() {

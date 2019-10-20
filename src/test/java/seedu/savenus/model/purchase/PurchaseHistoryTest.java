@@ -3,6 +3,8 @@ package seedu.savenus.model.purchase;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.savenus.testutil.Assert.assertThrows;
+import static seedu.savenus.testutil.TypicalMenu.BEE_HOON;
+import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,16 +13,14 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
-import seedu.savenus.model.food.Name;
-import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
 
 public class PurchaseHistoryTest {
-    private final Purchase testPurchase = new Purchase(new Name("testFoodName"), new Price("1.50"));
+    private final Purchase testPurchase = new Purchase(CARBONARA);
     private final PurchaseHistory testPurchaseHistory = new PurchaseHistory();
     private final List<Purchase> testListOfPurchases = new ArrayList<>(List.of(
-            new Purchase(new Name("Ji Fan"), new Price("3.99"), new TimeOfPurchase("1570976664361")),
-            new Purchase(new Name("Wagyu steak"), new Price("50.00"), new TimeOfPurchase("1570976665687"))
+            new Purchase(CARBONARA, new TimeOfPurchase("1570976664361")),
+            new Purchase(BEE_HOON, new TimeOfPurchase("1570976665687"))
     ));
 
     @Test

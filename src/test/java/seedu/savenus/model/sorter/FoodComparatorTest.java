@@ -1,4 +1,4 @@
-package seedu.savenus.model.food;
+package seedu.savenus.model.sorter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -42,5 +42,12 @@ public class FoodComparatorTest {
         FoodComparator test = new FoodComparator(fields);
         assertTrue(test.isDirectionAscending(ASCENDING_DIRECTION));
         assertFalse(test.isDirectionAscending(DESCENDING_DIRECTION));
+    }
+
+    @Test
+    public void equals() {
+        FoodComparator comparator = new FoodComparator(new ArrayList<String>());
+        assertNotEquals(comparator, new Object());
+        assertEquals(comparator, comparator);
     }
 }

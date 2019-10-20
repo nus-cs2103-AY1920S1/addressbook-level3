@@ -3,8 +3,7 @@ package seedu.savenus.model.purchase;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import seedu.savenus.model.food.Name;
-import seedu.savenus.model.food.Price;
+import seedu.savenus.model.food.Food;
 import seedu.savenus.model.util.TimeFormatter;
 
 /**
@@ -13,28 +12,21 @@ import seedu.savenus.model.util.TimeFormatter;
  */
 public class Purchase {
     // Identity fields
-    private final Name foodPurchasedName;
-    private final Price foodPurchasedPrice;
+    private final Food foodPurchased;
     private final TimeOfPurchase timeOfPurchase;
 
-    public Purchase(Name foodPurchasedName, Price foodPurchasedPrice) {
-        this.foodPurchasedName = foodPurchasedName;
-        this.foodPurchasedPrice = foodPurchasedPrice;
+    public Purchase(Food foodPurchased) {
+        this.foodPurchased = foodPurchased;
         timeOfPurchase = TimeOfPurchase.generate();
     }
 
-    public Purchase(Name foodPurchasedName, Price foodPurchasedPrice, TimeOfPurchase timeOfPurchase) {
-        this.foodPurchasedName = foodPurchasedName;
-        this.foodPurchasedPrice = foodPurchasedPrice;
+    public Purchase(Food foodPurchased, TimeOfPurchase timeOfPurchase) {
+        this.foodPurchased = foodPurchased;
         this.timeOfPurchase = timeOfPurchase;
     }
 
-    public Name getPurchasedFoodName() {
-        return foodPurchasedName;
-    }
-
-    public Price getPurchasedFoodPrice() {
-        return foodPurchasedPrice;
+    public Food getPurchasedFood() {
+        return foodPurchased;
     }
 
     public TimeOfPurchase getTimeOfPurchase() {
@@ -76,19 +68,18 @@ public class Purchase {
         }
 
         Purchase otherPurchase = (Purchase) other;
-        return otherPurchase.getPurchasedFoodName().equals(getPurchasedFoodName())
-                && otherPurchase.getPurchasedFoodPrice().equals(getPurchasedFoodPrice())
+        return otherPurchase.getPurchasedFood().equals(getPurchasedFood())
                 && otherPurchase.getTimeOfPurchase().equals(getTimeOfPurchase());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(foodPurchasedName, foodPurchasedPrice, timeOfPurchase);
+        return Objects.hash(foodPurchased, timeOfPurchase);
     }
 
     @Override
     public String toString() {
-        return getPurchasedFoodName() + " for $" + getPurchasedFoodPrice();
+        return getPurchasedFood().getName() + " for $" + getPurchasedFood().getPrice();
     }
 }

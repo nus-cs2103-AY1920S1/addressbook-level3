@@ -9,7 +9,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.food.FoodComparator;
+import seedu.savenus.model.sorter.FoodComparator;
 
 /**
  * Sorts all the foods in the $aveNUS menu based on given criterion.
@@ -17,16 +17,7 @@ import seedu.savenus.model.food.FoodComparator;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
-    public static final String NO_ARGUMENTS_USAGE = "Note you have entered in zero arguments:\n"
-            + "Example Usage: " + COMMAND_WORD + " PRICE ASC NAME DESC";
-    public static final String DUPLICATE_FIELD_USAGE = "Note you have entered a duplicate field.";
-    public static final String MISSING_DIRECTION_USAGE = "Note that you need to have a direction for each field.";
-    public static final String INVALID_DIRECTION_USAGE = "Note you have entered an invalid direction:\n"
-            + "You are only allowed to enter the following directions:\n"
-            + "ASC for Ascending, DESC for descending.";
-    public static final String INVALID_FIELD_USAGE = "Note you have entered an invalid field:\n"
-            + "You are only allowed to enter the following fields:\n"
-            + "NAME, PRICE, CATEGORY, DESCRIPTION, LOCATION, OPENING_HOURS, RESTRICTIONS";
+    public static final String EXAMPLE_USAGE = "Example Usage: " + COMMAND_WORD + " PRICE ASC NAME DESC";
     public static final String MESSAGE_SUCCESS = "You have successfully sorted the food items!";
 
     private List<String> fields;

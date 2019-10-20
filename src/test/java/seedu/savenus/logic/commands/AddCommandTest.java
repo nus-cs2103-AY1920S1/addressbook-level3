@@ -30,6 +30,7 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -228,6 +229,16 @@ public class AddCommandTest {
         @Override
         public void setRecommendationSystemInUse(boolean inUse) {
             // Empty stub
+        }
+
+        @Override
+        public void setCustomSorter(List<String> fields) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CustomSorter getCustomSorter() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

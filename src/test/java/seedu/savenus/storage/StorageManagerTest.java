@@ -16,6 +16,8 @@ import seedu.savenus.model.Menu;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
+import seedu.savenus.model.recommend.UserRecommendations;
 
 public class StorageManagerTest {
 
@@ -29,7 +31,9 @@ public class StorageManagerTest {
         JsonMenuStorage addressBookStorage = new JsonMenuStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(getTempFilePath("recs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage);
+        JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(getTempFilePath("sort"));
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
+                customSortStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -64,6 +68,22 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void newUserRecommendationsSave() throws Exception {
+        UserRecommendations recommendations = new UserRecommendations();
+        storageManager.saveRecs(recommendations);
+        UserRecommendations retrieved = storageManager.readRecs().get();
+        assertEquals(recommendations, retrieved);
+    }
+
+    @Test
+    public void newCustomSortSave() throws Exception {
+        CustomSorter sorter = new CustomSorter();
+        storageManager.saveFields(sorter);
+        CustomSorter theSorter = storageManager.readFields().get();
+        assertEquals(theSorter, sorter);
+    }
+
+    @Test
     public void recsReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
@@ -86,6 +106,20 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getMenuFilePath());
     }
 
+    @Test
+    public void getUserPrefsFilePath() {
+        assertNotNull(storageManager.getUserPrefsFilePath());
+    }
+
+    @Test
+    public void getRecsFilePath() {
+        assertNotNull(storageManager.getRecsFilePath());
+    }
+
+    @Test
+    public void getSortFilePath() {
+        assertNotNull(storageManager.getSortFilePath());
+    }
     @Test
     public void getRecsFilePath() {
         assertNotNull(storageManager.getRecsFilePath());

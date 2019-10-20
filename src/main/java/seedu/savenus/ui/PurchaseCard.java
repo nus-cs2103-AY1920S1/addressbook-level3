@@ -37,8 +37,8 @@ public class PurchaseCard extends UiPart<Region> {
     public PurchaseCard(Purchase purchase) {
         super(FXML);
         this.purchase = purchase;
-        name.setText(purchase.getPurchasedFoodName().fullName);
-        price.setText("$" + purchase.getPurchasedFoodPrice());
+        name.setText(purchase.getPurchasedFood().getName().fullName);
+        price.setText("$" + purchase.getPurchasedFood().getPrice());
         timeAgo.setText(purchase.getTimeAgoString());
     }
 
