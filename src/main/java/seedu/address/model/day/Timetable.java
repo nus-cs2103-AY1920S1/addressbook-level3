@@ -1,7 +1,7 @@
 package seedu.address.model.day;
 
-import java.util.ArrayList;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -86,6 +86,9 @@ public class Timetable {
         return checkIfTwoListAreEqual(thisActivities, otherActivities);
     }
 
+    /**
+     * Compares the order and elements of two lists to determine if they are equal.
+     */
     private boolean checkIfTwoListAreEqual(List<ActivityWithTime> list1, List<ActivityWithTime> list2) {
         if (list1.size() != list2.size()) {
             return false;

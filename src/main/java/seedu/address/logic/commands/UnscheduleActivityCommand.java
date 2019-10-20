@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
@@ -38,8 +39,7 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
      * @param dayIndex      of the contacts in the filtered contacts list to edit
      */
     public UnscheduleActivityCommand(Index activityIndex, Index dayIndex) {
-        requireNonNull(activityIndex);
-        requireNonNull(dayIndex);
+        requireAllNonNull(activityIndex, dayIndex);
         this.activityIndexToUnschedule = activityIndex;
         this.dayIndex = dayIndex;
     }
@@ -88,6 +88,6 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
     private Day createUnscheduledActivityDay(Day dayToEdit, Activity activityToUnschedule) {
         List<ActivityWithTime> activitiesWithTime = dayToEdit.getListOfActivityWithTime();
         activitiesWithTime.remove(activityToUnschedule);
-        return new Day(editedActivitiesWithTime);
+        return new Day(activitiesWithTime);
     }
 }

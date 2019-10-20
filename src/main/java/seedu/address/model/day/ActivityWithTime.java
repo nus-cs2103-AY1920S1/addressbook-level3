@@ -1,10 +1,10 @@
 package seedu.address.model.day;
 
-import seedu.address.model.activity.Activity;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalTime;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.activity.Activity;
 
 /**
  * Wraps the Activity in an object with time and duration fields.
