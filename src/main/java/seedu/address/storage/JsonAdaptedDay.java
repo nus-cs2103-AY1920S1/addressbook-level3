@@ -147,11 +147,7 @@ public class JsonAdaptedDay {
         //No check for TotalBudget (defaults endTime 0)
         final Optional<Budget> modelTotalBudget;
 
-        if (totalBudget.isPresent()) {
-            modelTotalBudget = Optional.of(new Budget(totalBudget.get()));
-        } else {
-            modelTotalBudget = Optional.empty();
-        }
+        modelTotalBudget = totalBudget.map(Budget::new);
 
         EventList modelEventList = new EventList();
         modelEventList.set(events);

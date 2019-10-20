@@ -44,9 +44,9 @@ public class Day {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.description = description.isPresent() ? description.get() : null;
+        this.description = description.orElse(null);
         this.destination = destination;
-        this.totalBudget = totalBudget.isPresent() ? totalBudget.get() : null;
+        this.totalBudget = totalBudget.orElse(null);
         this.eventList = eventList;
     }
 
@@ -130,5 +130,13 @@ public class Day {
                 && this.getEndDate().compareTo(other.getEndDate()) <= 0);
     }
 
-
+    @Override
+    public String toString() {
+        return "Name: " + name +
+                ", Start Date:" + startDate +
+                ", End Date: " + endDate +
+                ", Destination: " + destination +
+                ", TotalBudget: " + totalBudget +
+                ", Description: " + description;
+    }
 }

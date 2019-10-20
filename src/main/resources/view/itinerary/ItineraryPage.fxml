@@ -26,12 +26,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="nameLabel" style="-fx-font-size: 20; -fx-font-weight: bold;" text="\$Name" />
             <Label fx:id="startDateLabel" text="\$StartDate" GridPane.rowIndex="1" />
             <Label fx:id="endDateLabel" text="\$EndDate" GridPane.rowIndex="2" />
             <Label fx:id="destinationLabel" text="\$Destination" GridPane.rowIndex="3" />
             <Label fx:id="totalBudgetLabel" text="\$TotalBudget" GridPane.rowIndex="4" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ImageView fx:id="tripImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../../../../build/resources/main/images/dummytrip.jpeg" />
                </image>
@@ -45,5 +44,6 @@
             <HBox fx:id="dayButtonsContainer" />
          </content>
       </ScrollPane>
+      <Label fx:id="nameLabel" layoutX="312.0" layoutY="30.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-alignment: center;" text="\$Name" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="30.0" />
    </children>
 </AnchorPane>

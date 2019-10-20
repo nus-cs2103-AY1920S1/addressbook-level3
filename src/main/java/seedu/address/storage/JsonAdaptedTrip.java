@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,6 +18,7 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 import seedu.address.storage.diary.JsonAdaptedDiary;
 
@@ -34,6 +36,7 @@ public class JsonAdaptedTrip {
     private final JsonAdaptedDiary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
     private final List<JsonAdaptedExpenditure> expenditureList = new ArrayList<>();
+    private final Optional<JsonAdaptedTripPhoto> photo;
 
     /**
      * Constructs a {@code JsonAdaptedTrip} with the given trip details.
@@ -47,7 +50,8 @@ public class JsonAdaptedTrip {
             @JsonProperty("totalBudget") Double totalBudget,
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
             @JsonProperty("expenditureList")List<JsonAdaptedExpenditure> expenditureList,
-            @JsonProperty("diary") JsonAdaptedDiary diary) {
+            @JsonProperty("diary") JsonAdaptedDiary diary,
+            @JsonProperty("photo") Optional<JsonAdaptedTripPhoto> photo) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -60,6 +64,7 @@ public class JsonAdaptedTrip {
             this.expenditureList.addAll(expenditureList);
         }
         this.diary = diary;
+        this.photo = photo;
     }
 
     /**
@@ -82,6 +87,11 @@ public class JsonAdaptedTrip {
                 .collect(Collectors.toList())
         );
         this.diary = new JsonAdaptedDiary(source.getDiary());
+        if (source.getPhoto().isPresent()) {
+            this.photo = Optional.of(new JsonAdaptedTripPhoto(source.getPhoto().get()));
+        } else {
+            this.photo = Optional.empty();
+        }
     }
 
     /**
@@ -140,6 +150,12 @@ public class JsonAdaptedTrip {
         //No check for TotalBudget (defaults to 0)
         Budget modelTotalBudget = new Budget(totalBudget);
 
+        Optional<Photo> modelPhoto;
+        if (photo.isPresent()) {
+            modelPhoto = Optional.of(photo.get().toModelType());
+        } else {
+            modelPhoto = Optional.empty();
+        }
 
         DayList modelDayList = new DayList();
         modelDayList.set(days);
@@ -147,7 +163,8 @@ public class JsonAdaptedTrip {
         ExpenditureList modelExpenditureList = new ExpenditureList();
         modelExpenditureList.set(expenditures);
 
+
         return new Trip(modelName, modelStartDate, modelEndDate,
-                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList, diary);
+                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList, diary, modelPhoto);
     }
 }

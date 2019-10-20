@@ -1,6 +1,7 @@
 package seedu.address.model.trip;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.diary.Diary;
@@ -26,6 +27,7 @@ public class Trip {
     private final ExpenditureList expenditureList;
     private final Budget totalBudget;
     private final Diary diary;
+    private final Photo photo;
 
     private final InventoryList inventoryList = new InventoryList();
 
@@ -33,7 +35,7 @@ public class Trip {
      * Constructs a trip.
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary) {
+                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary, Photo photo) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -43,6 +45,24 @@ public class Trip {
         this.expenditureList = expenditureList;
         this.tripId = new TripId();
         this.diary = diary;
+        this.photo = photo;
+    }
+
+    /**
+     * Constructs a trip with optional fields
+     */
+    public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
+                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary, Optional<Photo> photo) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.destination = destination;
+        this.totalBudget = totalBudget;
+        this.dayList = dayList;
+        this.expenditureList = expenditureList;
+        this.tripId = new TripId();
+        this.diary = diary;
+        this.photo = photo.orElse(null);
     }
 
     //Compulsory field getters
@@ -84,6 +104,11 @@ public class Trip {
 
     public Diary getDiary() {
         return diary;
+    }
+
+    // Optional fields
+    public Optional<Photo> getPhoto() {
+        return Optional.ofNullable(photo);
     }
 
     /**
@@ -145,7 +170,9 @@ public class Trip {
                 .append(" Destination: ")
                 .append(destination.toString())
                 .append(" Total Budget: ")
-                .append(totalBudget.toString());
+                .append(totalBudget.toString())
+                .append(" Image Path: ")
+                .append(photo==null?"default image" : photo.getImageFilePath());
 
         return builder.toString();
     }
