@@ -47,8 +47,8 @@ public class AddCommandParser {
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
         String category = argMultimap.getValue(PREFIX_CATEGORY).get();
         String amountString = argMultimap.getValue(PREFIX_AMOUNT).get();
-        double amount = Double.parseDouble(amountString);
         try {
+            double amount = Double.parseDouble(amountString);
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
             Transaction transaction = new Transaction(datetime, description, category, amount, person,
                     transactionListSize + 1, false);
@@ -58,6 +58,8 @@ public class AddCommandParser {
             throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
         } catch (DateTimeParseException e) {
             throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
+        } catch (NumberFormatException e) {
+            throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
         } catch (Exception e) {
             throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
         }

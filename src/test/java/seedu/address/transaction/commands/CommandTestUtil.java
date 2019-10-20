@@ -3,11 +3,15 @@ package seedu.address.transaction.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TransactionBuilder.DEFAULT_AMOUNT;
+import static seedu.address.testutil.TransactionBuilder.DEFAULT_CATEGORY;
+import static seedu.address.testutil.TransactionBuilder.DEFAULT_DATE;
+import static seedu.address.testutil.TransactionBuilder.DEFAULT_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.util.CliSyntax.PREFIX_NAME;
+import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.util.Arrays;
 
@@ -19,17 +23,32 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String VALID_NAME_ALICE = "Alice Pauline";
     public static final String VALID_NAME_BENSEN= "Benson Meier";
+    public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_DATE = "03-Sep-2019";
     public static final String VALID_AMOUNT = "20";
     public static final String VALID_DESC = "DeScRiPtIoN @12345";
     public static final String VALID_CATEGORY = "cAtEgOrY @12345";
 
-    public static final String DESC_NAME_ALICE = PREFIX_NAME + "Alice Pauline";
-    public static final String DESC_NAME_BENSEN= PREFIX_NAME + "Benson Meier";
-    public static final String DESC_DATE = PREFIX_DATETIME + "03-Sep-2019";
-    public static final String DESC_AMOUNT = PREFIX_AMOUNT + "20";
-    public static final String DESC_DESC = PREFIX_DESCRIPTION + "DeScRiPtIoN @12345";
-    public static final String DESC_CATEGORY = PREFIX_CATEGORY + "cAtEgOrY @12345";
+    public static final String DESC_NAME_ALICE = " " + PREFIX_PERSON + VALID_NAME_ALICE;
+    public static final String DESC_NAME_BENSEN= " " + PREFIX_PERSON + VALID_NAME_BENSEN;
+    public static final String DESC_NAME_AMY = " " + PREFIX_PERSON + VALID_NAME_AMY;
+    public static final String DESC_DATE = " " + PREFIX_DATETIME + VALID_DATE;
+    public static final String DESC_AMOUNT = " " + PREFIX_AMOUNT + VALID_AMOUNT;
+    public static final String DESC_DESC = " " + PREFIX_DESCRIPTION +VALID_DESC;
+    public static final String DESC_CATEGORY = " " + PREFIX_CATEGORY + VALID_CATEGORY;
+
+    public static final String DESC_BUILDER_DATE = " " + PREFIX_DATETIME + DEFAULT_DATE;
+    public static final String DESC_BUILDER_AMOUNT = " " + PREFIX_AMOUNT + DEFAULT_AMOUNT;
+    public static final String DESC_BUILDER_DESC = " " + PREFIX_DESCRIPTION + DEFAULT_DESCRIPTION;
+    public static final String DESC_BUILDER_CATEGORY = " " + PREFIX_CATEGORY + DEFAULT_CATEGORY;
+
+    public static final String INVALID_DATE_1 = " "  + PREFIX_DATETIME + "03-sep-2019";
+    public static final String INVALID_DATE_2 = " "  + PREFIX_DATETIME + "3-Sep-2019";
+    public static final String INVALID_DATE_3 = " "  + PREFIX_DATETIME + "3/Sep/2019";
+    public static final String INVALID_AMOUNT = " " + PREFIX_AMOUNT + "hi";
+
+    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
 
     /**
      * Executes the given {@code command}, confirms that <br>

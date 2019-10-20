@@ -66,4 +66,5 @@ public class TransactionMessages {
 
     public static final String MESSAGE_DELETE_BY_PERSON = "I've deleted all transactions by this member:\n%s";
 
+    public static final String MESSAGE_WRONG_AMOUNT_FORMAT = "Sorry! The amount should be a number.";
 }

@@ -16,6 +16,7 @@ public class CommandParserTestUtil {
             Command command = parser.parse(userInput, size, personModel);
             assertEquals(expectedCommand, command);
         } catch (Exception pe) {
+            System.out.println(pe.toString());
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
     }
@@ -28,6 +29,35 @@ public class CommandParserTestUtil {
                                                     int size, Model personModel) {
         try {
             parser.parse(userInput, size, personModel);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (Exception pe) {
+            assertEquals(expectedMessage, pe.getMessage());
+        }
+    }
+
+    /**
+     * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
+     * equals to {@code expectedCommand}.
+     */
+    public static void assertDeleteCommandParseSuccess(DeleteCommandParser parser, String userInput,
+                                                       Command expectedCommand, Model personModel) {
+        try {
+            Command command = parser.parse(userInput, personModel);
+            assertEquals(expectedCommand, command);
+        } catch (Exception pe) {
+            System.out.println(pe.toString());
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    /**
+     * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful and the error message
+     * equals to {@code expectedMessage}.
+     */
+    public static void assertDeleteCommandParseFailure(DeleteCommandParser parser, String userInput,
+                                                       String expectedMessage, Model personModel) {
+        try {
+            parser.parse(userInput, personModel);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (Exception pe) {
             assertEquals(expectedMessage, pe.getMessage());

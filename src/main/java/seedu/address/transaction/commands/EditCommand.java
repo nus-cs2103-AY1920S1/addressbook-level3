@@ -24,8 +24,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
     private static int id;
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private int index;
-    private EditTransactionDescriptor editTransactionDescriptor;
+    private final int index;
+    private final EditTransactionDescriptor editTransactionDescriptor;
 
     /**
      * Creates an EditCommand to edit the specified {@code Transaction}
@@ -92,6 +92,13 @@ public class EditCommand extends Command {
                 editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());
         return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount,
                 updatedPerson, id, updatedIsReimbursed);
+    }
+
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditCommand // instanceof handles nulls
+                && index == (((EditCommand) other).index))
+                && editTransactionDescriptor.equals(((EditCommand) other).editTransactionDescriptor);
     }
 
     /**

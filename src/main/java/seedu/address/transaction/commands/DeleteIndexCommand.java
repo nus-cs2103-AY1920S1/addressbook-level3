@@ -11,7 +11,7 @@ import seedu.address.transaction.ui.TransactionMessages;
  * Deletes a transaction to the transaction list according to the index shown on UI.
  */
 public class DeleteIndexCommand extends DeleteCommand {
-    private int index;
+    private final int index;
 
     /**
      * Creates an DeleteIndexCommand to delete the specified {@code Transaction} according to index.
@@ -30,5 +30,11 @@ public class DeleteIndexCommand extends DeleteCommand {
             throw new ParseException(TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION);
         }
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION, transaction));
+    }
+
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteIndexCommand // instanceof handles nulls
+                && index == ((DeleteIndexCommand) other).index);
     }
 }

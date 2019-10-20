@@ -11,7 +11,7 @@ import seedu.address.transaction.model.Transaction;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    private Transaction transaction;
+    private final Transaction transaction;
 
     /**
      * Creates an AddCommand to add the specified {@code Transaction}
@@ -26,5 +26,12 @@ public class AddCommand extends Command {
         model.resetPredicate();
         model.addTransaction(transaction);
         return new CommandResult(String.format(MESSAGE_ADD_TRANSACTION, transaction));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddCommand // instanceof handles nulls
+                && transaction.equals(((AddCommand) other).transaction));
     }
 }

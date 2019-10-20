@@ -2,9 +2,11 @@ package seedu.address.transaction.commands;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.transaction.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.transaction.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.commands.CommandTestUtil.showTransactionsOfPerson;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_BY_PERSON;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON;
 
 import java.util.function.Predicate;
 
@@ -43,13 +45,13 @@ class DeleteNameCommandTest {
         assertCommandSuccess(deleteNameCommand, model, message, expectedModel, personModel);
     }
 
-    /*@Test
+    @Test
     void execute_noTransactionOfPersonSpecifiedUnfilteredList_unsuccessful() {
         DeleteNameCommand deleteNameCommand = new DeleteNameCommand(TypicalPersons.DANIEL);
         String message = String.format(String.format(MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON,
                 TypicalPersons.DANIEL.getName().toString()));
         assertCommandFailure(deleteNameCommand, model, message, personModel);
-    }*/
+    }
 
     @Test
     void execute_noTransactionOfPersonSpecifiedFilteredListButInTransactionList_successful() {

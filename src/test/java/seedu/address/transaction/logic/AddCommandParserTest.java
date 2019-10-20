@@ -1,125 +1,164 @@
 package seedu.address.transaction.logic;
 
+import static seedu.address.testutil.TransactionBuilder.DEFAULT_CATEGORY;
+import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.commands.CommandTestUtil.DESC_AMOUNT;
+import static seedu.address.transaction.commands.CommandTestUtil.DESC_BUILDER_AMOUNT;
+import static seedu.address.transaction.commands.CommandTestUtil.DESC_BUILDER_CATEGORY;
+import static seedu.address.transaction.commands.CommandTestUtil.DESC_BUILDER_DATE;
+import static seedu.address.transaction.commands.CommandTestUtil.DESC_BUILDER_DESC;
 import static seedu.address.transaction.commands.CommandTestUtil.DESC_CATEGORY;
 import static seedu.address.transaction.commands.CommandTestUtil.DESC_DATE;
 import static seedu.address.transaction.commands.CommandTestUtil.DESC_DESC;
 import static seedu.address.transaction.commands.CommandTestUtil.DESC_NAME_ALICE;
+import static seedu.address.transaction.commands.CommandTestUtil.DESC_NAME_AMY;
+import static seedu.address.transaction.commands.CommandTestUtil.DESC_NAME_BENSEN;
+import static seedu.address.transaction.commands.CommandTestUtil.INVALID_AMOUNT;
+import static seedu.address.transaction.commands.CommandTestUtil.INVALID_DATE_1;
+import static seedu.address.transaction.commands.CommandTestUtil.INVALID_DATE_2;
+import static seedu.address.transaction.commands.CommandTestUtil.INVALID_DATE_3;
+import static seedu.address.transaction.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.transaction.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.transaction.commands.CommandTestUtil.VALID_AMOUNT;
+import static seedu.address.transaction.commands.CommandTestUtil.VALID_CATEGORY;
+import static seedu.address.transaction.commands.CommandTestUtil.VALID_DATE;
+import static seedu.address.transaction.commands.CommandTestUtil.VALID_DESC;
+import static seedu.address.transaction.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseFailure;
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseSuccess;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
+import seedu.address.person.model.person.Person;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.commands.AddCommand;
 import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.ui.TransactionMessages;
 
 import org.junit.jupiter.api.Test;
 
 class AddCommandParserTest {
-    private AddCommandParser parser;
+    private AddCommandParser parser = new AddCommandParser();
     private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void parse_allFieldsPresent_success() {
         Transaction expectedTransaction = new TransactionBuilder(TypicalPersons.ALICE).build();
+        Transaction  expectedTransaction2 = new TransactionBuilder(TypicalPersons.BENSON).build();
 
-        /*PREFIX_DATETIME, PREFIX_DESCRIPTION,
-                        PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON*/
+
         // whitespace only preamble
-        assertAddCommandParseSuccess(parser, PREAMBLE_WHITESPACE + DESC_NAME_ALICE + DESC_DATE + DESC_DESC
-                + DESC_CATEGORY + DESC_AMOUNT, new AddCommand(expectedTransaction),
+        assertAddCommandParseSuccess(parser, PREAMBLE_WHITESPACE + DESC_NAME_ALICE + DESC_BUILDER_DESC
+                        + DESC_BUILDER_CATEGORY + DESC_BUILDER_AMOUNT + DESC_BUILDER_DATE,
+                new AddCommand(expectedTransaction),
                 personModel.getFilteredPersonList().size(), personModel);
 
-        // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        //no whitespace preamble
+        assertAddCommandParseSuccess(parser, DESC_NAME_BENSEN + DESC_BUILDER_DATE + DESC_BUILDER_DESC
+                + DESC_BUILDER_CATEGORY + DESC_BUILDER_AMOUNT, new AddCommand(expectedTransaction2),
+                personModel.getFilteredPersonList().size(), personModel);
 
-        // multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        // multiple phones - last description accepted
+        assertAddCommandParseSuccess(parser, DESC_NAME_ALICE + DESC_DESC + DESC_BUILDER_DESC
+                        + DESC_BUILDER_AMOUNT + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE,
+                new AddCommand(expectedTransaction),
+                personModel.getFilteredPersonList().size(), personModel);
 
-        // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        // multiple emails - last category accepted
+        assertAddCommandParseSuccess(parser, DESC_NAME_ALICE + DESC_CATEGORY + DESC_BUILDER_CATEGORY
+                        + DESC_BUILDER_DESC + DESC_BUILDER_DATE + DESC_BUILDER_AMOUNT,
+                new AddCommand(expectedTransaction),
+                personModel.getFilteredPersonList().size(), personModel);
 
-        // multiple addresses - last address accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        // multiple addresses - last amount accepted
+        assertAddCommandParseSuccess(parser, DESC_NAME_ALICE + DESC_AMOUNT + DESC_BUILDER_AMOUNT
+                        + DESC_BUILDER_DESC + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE,
+                new AddCommand(expectedTransaction),
+                personModel.getFilteredPersonList().size(), personModel);
 
-        // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        assertAddCommandParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
+        // multiple addresses - last date accepted
+        assertAddCommandParseSuccess(parser, DESC_NAME_ALICE + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC
+                        + DESC_BUILDER_CATEGORY + DESC_DATE + DESC_BUILDER_DATE , new AddCommand(expectedTransaction),
+                personModel.getFilteredPersonList().size(), personModel);
     }
 
     @Test
-    public void parse_optionalFieldsMissing_success() {
-        // zero tags
+    public void parse_personNotInAddressBook_failure() {
+        //person not found in addressbook
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPerson));
+        assertAddCommandParseFailure(parser, DESC_NAME_AMY + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC
+                + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_NO_SUCH_PERSON,
+                personModel.getFilteredPersonList().size(), personModel);
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT;
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
+        assertAddCommandParseFailure(parser, VALID_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_CATEGORY
+                        + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC,
+                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
 
-        // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
+        // missing date prefix
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + VALID_DATE + DESC_BUILDER_CATEGORY
+                        + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC,
+                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
 
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
+        // missing amount prefix
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_CATEGORY
+                        + VALID_AMOUNT + DESC_BUILDER_DESC,
+                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
 
-        // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
+        // missing description prefix
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + DEFAULT_CATEGORY
+                        + DESC_BUILDER_AMOUNT + VALID_DESC,
+                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
+
+        // missing category prefix
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + VALID_CATEGORY
+                        + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC,
+                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
+        assertAddCommandParseFailure(parser, VALID_NAME_ALICE + VALID_DATE + VALID_CATEGORY
+                        + VALID_AMOUNT + VALID_DESC,
+                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+        // invalid amount
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_CATEGORY
+                + INVALID_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT,
+                personModel.getFilteredPersonList().size(), personModel);
 
-        // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+        // invalid date
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + INVALID_DATE_1 + DESC_BUILDER_CATEGORY
+                        + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_DATE_FORMAT,
+                personModel.getFilteredPersonList().size(), personModel);
 
-        // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + INVALID_DATE_2 + DESC_BUILDER_CATEGORY
+                        + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_DATE_FORMAT,
+                personModel.getFilteredPersonList().size(), personModel);
 
-        // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
-
-        // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + INVALID_DATE_3 + DESC_BUILDER_CATEGORY
+                        + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_DATE_FORMAT,
+                personModel.getFilteredPersonList().size(), personModel);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + INVALID_DATE_1 + DESC_BUILDER_CATEGORY
+                        + INVALID_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT,
+                personModel.getFilteredPersonList().size(), personModel);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertAddCommandParseFailure(parser, PREAMBLE_NON_EMPTY + DESC_NAME_ALICE + DESC_BUILDER_DATE
+                        + DESC_BUILDER_AMOUNT + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC,
+                TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT,
+                personModel.getFilteredPersonList().size(), personModel);
     }
-
 }
