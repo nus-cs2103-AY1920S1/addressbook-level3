@@ -19,20 +19,22 @@ public interface Logic {
     /**
      * Executes the command and returns the result. This method is used to differentiate between
      * an invalid merge command input by the user and a system called merge command.
-     * @param commandText The command as entered by the user.
+     *
+     * @param commandText   The command as entered by the user.
      * @param isSystemInput Whether the command was invoked by user or the program.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText, boolean isSystemInput) throws CommandException, ParseException;
 
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
@@ -43,14 +45,25 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered list of policies */
+    /**
+     * Returns an unmodifiable view of the filtered list of policies
+     */
     ObservableList<Policy> getFilteredPolicyList();
 
-    /** Returns policy popularity of address book. Key represents policy, value represents popularity. */
+    /**
+     * Returns policy popularity of address book. Key represents policy, value represents popularity.
+     */
     public ObservableMap<String, Integer> getPolicyPopularityBreakdown();
+
+    /**
+     * Returns key-value mapping of age group to number of people in the group.
+     */
+    public ObservableMap<String, Integer> getAgeGroupBreakdown();
 
     /**
      * Returns the user prefs' address book file path.

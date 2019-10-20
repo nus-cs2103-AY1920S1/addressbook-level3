@@ -14,6 +14,8 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.TimeUtil;
+import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -166,6 +168,7 @@ public class ModelManager implements Model {
         addressBook.setPolicy(target, editedPolicy);
     }
 
+    @Override
     public ObservableMap<String, Integer> getPolicyPopularityBreakdown() {
         // Set up map
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
@@ -183,11 +186,29 @@ public class ModelManager implements Model {
         return result;
     }
 
+    @Override
+    public ObservableMap<String, Integer> getAgeGroupBreakdown() {
+        // Set up age group
+        ObservableMap<String, Integer> result = FXCollections.observableHashMap();
+        TimeUtil.getAgeGroup().forEach(ageGroup -> result.put(ageGroup, 0));
+
+        // Add numbers
+        this.addressBook.getPersonList().forEach(person -> {
+            int yearOfBirth = person.getDateOfBirth().dateOfBirth.getYear();
+            String ageGroup = TimeUtil.parseAgeGroup(yearOfBirth);
+            result.put(ageGroup, result.get(ageGroup) + 1);
+        });
+
+        return result;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     // TODO: delete
+
     /**
      * Returns a list of unfiltered person.
+     *
      * @returnlist of unfiltered person.
      */
     @Override

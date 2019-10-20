@@ -15,12 +15,14 @@ public class DisplayIndicator {
     public static final String DATA_TYPE = "Indicator";
     public static final String CONTACT_LIST_GROWTH_RATE = "contact-list-growth-rate";
     public static final String POLICY_POPULARITY_BREAKDOWN = "policy-popularity-breakdown";
+    public static final String AGE_GROUP_BREAKDOWN = "age-group-breakdown";
     private static String MESSAGE_CONSTRAINTS = "Only the following indicators are allowed: ";
     private static Set<String> VALID_DISPLAY_INDICATORS = new HashSet<>();
 
     static {
         VALID_DISPLAY_INDICATORS.add(POLICY_POPULARITY_BREAKDOWN);
         VALID_DISPLAY_INDICATORS.add(CONTACT_LIST_GROWTH_RATE);
+        VALID_DISPLAY_INDICATORS.add(AGE_GROUP_BREAKDOWN);
 
         MESSAGE_CONSTRAINTS += getValidDisplayIndicators();
     }
@@ -56,7 +58,7 @@ public class DisplayIndicator {
 
     @Override
     public String toString() {
-        return displayIndicator;
+        return String.join(" ", displayIndicator.split("-"));
     }
 
     @Override

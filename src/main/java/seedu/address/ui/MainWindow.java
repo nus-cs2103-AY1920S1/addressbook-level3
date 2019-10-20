@@ -224,9 +224,14 @@ public class MainWindow extends UiPart<Stage> {
                 String displayIndicator = commandResult.getDisplayIndicator().toString();
                 // TODO (for larry): Display indicator sets data
                 ObservableMap<String, Integer> data;
+                String title = displayIndicator;
+
                 switch (displayIndicator) {
                 case DisplayIndicator.POLICY_POPULARITY_BREAKDOWN:
                     data = logic.getPolicyPopularityBreakdown();
+                    break;
+                case DisplayIndicator.AGE_GROUP_BREAKDOWN:
+                    data = logic.getAgeGroupBreakdown();
                     break;
                 default:
                     // TODO: display report as default instead
@@ -235,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
 
                 // TODO: Format sets type of visual
                 displayPlaceHolder.getChildren().clear();
-                displayPlaceHolder.getChildren().add(new PieChartVisual(data).getRoot());
+                displayPlaceHolder.getChildren().add(new PieChartVisual(data, title).getRoot());
             }
 
             if (commandResult.isExpandPerson()) {

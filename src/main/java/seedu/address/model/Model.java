@@ -116,6 +116,11 @@ public interface Model {
     ObservableMap<String, Integer> getPolicyPopularityBreakdown();
 
     /**
+     * Returns key-value mapping of age group to number of people in the group.
+     */
+    ObservableMap<String, Integer> getAgeGroupBreakdown();
+
+    /**
      * Adds the given policy.
      * {@code policy} must not already exist in the address book.
      */

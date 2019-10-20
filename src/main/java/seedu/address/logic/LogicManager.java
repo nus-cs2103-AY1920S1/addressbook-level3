@@ -89,6 +89,9 @@ public class LogicManager implements Logic {
     public ObservableMap<String, Integer> getPolicyPopularityBreakdown() { return model.getPolicyPopularityBreakdown(); }
 
     @Override
+    public ObservableMap<String, Integer> getAgeGroupBreakdown() { return model.getAgeGroupBreakdown(); }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }

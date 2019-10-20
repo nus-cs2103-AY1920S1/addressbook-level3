@@ -16,10 +16,11 @@ public class PieChartVisual extends UiPart<Region> {
     @FXML
     private PieChart piechart;
 
-    public PieChartVisual(ObservableMap<String, Integer> map) {
+    public PieChartVisual(ObservableMap<String, Integer> map, String title) {
         super(FXML);
         ObservableList<PieChart.Data> pieChartData = getData(map);
         piechart.setData(pieChartData);
+        piechart.setTitle(title);
     }
 
     private ObservableList<PieChart.Data> getData(ObservableMap<String, Integer> map) {
