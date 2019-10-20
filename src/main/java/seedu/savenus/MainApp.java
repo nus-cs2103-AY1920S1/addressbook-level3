@@ -15,12 +15,7 @@ import seedu.savenus.commons.util.ConfigUtil;
 import seedu.savenus.commons.util.StringUtil;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.LogicManager;
-import seedu.savenus.model.Menu;
-import seedu.savenus.model.Model;
-import seedu.savenus.model.ModelManager;
-import seedu.savenus.model.ReadOnlyMenu;
-import seedu.savenus.model.ReadOnlyUserPrefs;
-import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.*;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.util.SampleDataUtil;
@@ -69,7 +64,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs, userRecommendations, sort);
+        model = initModelManager(storage, userPrefs, userRecommendations, sort, savingsAccount);
 
         logic = new LogicManager(model, storage);
 
@@ -103,6 +98,7 @@ public class MainApp extends Application {
                 logger.info("Recommendation file not found. Will be starting with a blank Recommendation");
             }
             initialRecs = recsOptional.orElse(new UserRecommendations());
+
 
             sorterOptional = userSortFields.readFields();
             if (!sorterOptional.isPresent()) {

@@ -17,6 +17,11 @@ public class Savings {
 
     private final String savingsAmount;
 
+    // Default starting savings amount.
+    public Savings() {
+        savingsAmount = "0.00";
+    }
+
     public Savings(String savings) {
         requireNonNull(savings);
         checkArgument(isValidSaving(savings), MESSAGE_CONSTRAINTS);

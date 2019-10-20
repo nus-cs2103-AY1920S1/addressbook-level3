@@ -1,27 +1,48 @@
-//package seedu.savenus.model.savings;
-//
-//public class SavingsAccount {
-//
-//    private CurrentSavings currentSavings;
-//
-//    /**
-//     * Default constructor that sets {@code currentSavings} to 0.
-//     */
-//    public SavingsAccount() {
-//        this.currentSavings = new CurrentSavings("0");
-//    }
-//
-//    /**
-//     * Overloaded constructor that sets {@code currentSavings} according to input arguments.
-//     */
-//    public SavingsAccount(String savingsStr) {
-//        this.currentSavings = new CurrentSavings(savingsStr);
-//    }
-//
-//    /**
-//     * Overloaded constructor that sets {@code currentSavings} according to input arguments.
-//     */
-//    public SavingsAccount(CurrentSavings currSavings) {
-//        this.currentSavings = currSavings;
-//    }
-//}
+package seedu.savenus.model.savings;
+
+import javafx.collections.ObservableList;
+
+import static java.util.Objects.requireNonNull;
+
+public class SavingsAccount implements ReadOnlySavingsAccount {
+
+    // Testing this without the recommended non-static initialization blocks.
+    private final SavingsHistory savingsHistory = new SavingsHistory();
+
+    public SavingsAccount() {}
+
+    /**
+     * Creates an Menu using the foods in the {@code toBeCopied}
+     */
+    public SavingsAccount(ReadOnlySavingsAccount toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    /**
+     * Resets the existing data of this {@code SavingsAccount} with {@code newSavings}.
+     */
+    public void resetData(ReadOnlySavingsAccount newSavings) {
+        requireNonNull(newSavings);
+
+        // Overwrite the current savings history since there have been new ones added.
+        savingsHistory.setSavingsHistory(newSavings.getSavingsHistory());
+    }
+
+    @Override
+    public ObservableList<Savings> getSavingsHistory() {
+        return savingsHistory.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof SavingsAccount
+            && savingsHistory.equals(((SavingsAccount) other).savingsHistory));
+    }
+
+    @Override
+    public int hashCode() {
+        return savingsHistory.hashCode();
+    }
+}

@@ -61,4 +61,6 @@ public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, Cus
     @Override
     void saveFields(CustomSorter sorter, Path filePath) throws IOException;
 
+    @Override
+    void saveSavings(ReadOnlySavingsAccount savingsAccount);
 }

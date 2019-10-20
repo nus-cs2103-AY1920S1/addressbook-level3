@@ -16,7 +16,7 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.savings.Savings;
-//import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -225,5 +225,5 @@ public interface Model {
      * TODO @fatclarence
      * Return user's SavingsAccount.
      */
-    //SavingsAccount getSavingsAccount();
+    SavingsAccount getSavingsAccount();
 }
