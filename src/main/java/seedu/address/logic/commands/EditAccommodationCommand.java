@@ -33,7 +33,7 @@ public class EditAccommodationCommand extends EditCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD
             + ": Edits the details of the accommodation identified "
-            + "by the index number used in the displayed activity list. "
+            + "by the index number used in the displayed accommodation list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
