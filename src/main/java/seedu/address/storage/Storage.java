@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.storage.question.QuestionStorage;
+import seedu.address.storage.student.StudentRecordStorage;
 
 /**
  * API of the Storage component
