@@ -93,7 +93,6 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleSpendingsFound() {
         String expectedMessage = String.format(MESSAGE_SPENDINGS_LISTED_OVERVIEW, 3);
-        
         NameContainsKeywordsPredicate predicate = preparePredicate("flight encyclopedia cat");
         List<Predicate<Spending>> predicates = new ArrayList<>();
         predicates.add(predicate);
