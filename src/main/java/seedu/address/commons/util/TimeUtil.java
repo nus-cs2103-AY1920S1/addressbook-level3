@@ -3,14 +3,13 @@ package seedu.address.commons.util;
 import java.util.Calendar;
 import java.util.HashSet;
 
-// TODO: Write test
 /**
  * A container for time specific utility functions
  */
 public class TimeUtil {
-    private static final String BELOW_TWENTY = "Below 20 Years";
-    private static final String TWENTY_TO_SIXTYFOUR = "20 - 64 Years";
-    private static final String ABOVE_SIXTYFIVE = "65 years & Over";
+    public static final String BELOW_TWENTY = "Below 20 Years";
+    public static final String TWENTY_TO_SIXTYFOUR = "20 - 64 Years";
+    public static final String ABOVE_SIXTYFIVE = "65 years & Over";
     private static HashSet<String> AgeGroup = initializeAgeGroup();
 
     /**

@@ -26,6 +26,7 @@ import seedu.address.model.policy.EndAge;
 import seedu.address.model.policy.Price;
 import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visual.DisplayIndicator;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -54,6 +55,8 @@ public class ParserUtilTest {
     private static final String VALID_END_AGE = "20";
     private static final String VALID_TAG_1 = "smoker";
     private static final String VALID_TAG_2 = "diabetic";
+    private static final String VALID_DISPLAY_INDICATOR = DisplayIndicator.AGE_GROUP_BREAKDOWN;
+    private static final String INVALID_DISPLAY_INDICATOR = "A+ for CS2103";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -374,5 +377,17 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseDisplayIndicator_validDisplayIndicator_returnsDisplayIndicator() throws Exception {
+        DisplayIndicator actualDisplayIndicator = ParserUtil.parseDisplayIndicator(VALID_DISPLAY_INDICATOR);
+        DisplayIndicator expectedDisplayIndicator = new DisplayIndicator(VALID_DISPLAY_INDICATOR);
+        assertEquals(actualDisplayIndicator, expectedDisplayIndicator);
+    }
+
+    @Test
+    public void parseDisplayIndicator_invalidDisplayIndicator_throwsParseException() throws Exception {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDisplayIndicator(INVALID_DISPLAY_INDICATOR));
     }
 }

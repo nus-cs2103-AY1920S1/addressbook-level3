@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.commons.util.TimeUtil.ABOVE_SIXTYFIVE;
+import static seedu.address.commons.util.TimeUtil.BELOW_TWENTY;
+import static seedu.address.commons.util.TimeUtil.TWENTY_TO_SIXTYFOUR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_BIRTH_AMY;
@@ -16,6 +19,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETIC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SMOKER;
+import static seedu.address.model.person.Gender.FEMALE;
+import static seedu.address.model.person.Gender.MALE;
+import static seedu.address.model.person.Gender.UNKNOWN;
 import static seedu.address.testutil.TypicalPolicy.FIRE_INSURANCE;
 import static seedu.address.testutil.TypicalPolicy.HEALTH_INSURANCE;
 import static seedu.address.testutil.TypicalPolicy.LIFE_INSURANCE;
@@ -24,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.util.PersonBuilder;
 import seedu.address.model.person.Person;
 
@@ -82,5 +90,29 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static ObservableMap<String, Integer> getTypicalPolicyPopularityBreakdown() {
+        ObservableMap<String, Integer> result = FXCollections.observableHashMap();
+        result.put(HEALTH_INSURANCE.getName().toString(), 1);
+        result.put(LIFE_INSURANCE.getName().toString(), 1);
+        result.put(FIRE_INSURANCE.getName().toString(), 1);
+        return result;
+    }
+
+    public static ObservableMap<String, Integer> getAgeGroupBreakdown() {
+        ObservableMap<String, Integer> result = FXCollections.observableHashMap();
+        result.put(BELOW_TWENTY, 4);
+        result.put(TWENTY_TO_SIXTYFOUR, 2);
+        result.put(ABOVE_SIXTYFIVE, 1);
+        return result;
+    }
+
+    public static ObservableMap<String, Integer> getGenderBreakdown() {
+        ObservableMap<String, Integer> result = FXCollections.observableHashMap();
+        result.put(MALE, 5);
+        result.put(FEMALE, 2);
+        result.put(UNKNOWN, 0);
+        return result;
     }
 }

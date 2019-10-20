@@ -18,7 +18,7 @@ public class DisplayCommand extends Command {
         + "Parameters: "
         + PREFIX_INDICATOR + "INDICATOR\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_INDICATOR + "contact-list-growth-rate\n"
+        + PREFIX_INDICATOR + "policy-popularity-breakdown\n"
         + DisplayIndicator.getMessageConstraints();
 
     private final DisplayIndicator displayIndicator;
