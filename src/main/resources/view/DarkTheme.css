@@ -407,6 +407,13 @@
     -fx-font-size: 10pt;
 }
 
+#highlighted {
+    -fx-text-fill: #8cb0f5;
+}
+
+#slogan {
+    -fx-text-fill: #ec4c4c;
+}
 
 
 #tags {

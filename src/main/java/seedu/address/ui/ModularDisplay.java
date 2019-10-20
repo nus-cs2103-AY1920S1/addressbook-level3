@@ -14,6 +14,8 @@ import seedu.address.ui.modules.MainTitlePanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
 
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -56,7 +58,8 @@ public class ModularDisplay {
         // twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
         // twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
         twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
-                100, "Placeholder Word Bank Title",
+                100, new WordBankStatistics("PLACEHOLDER", 100,
+                Optional.empty(), new ArrayList<>(), new ArrayList<>()), // todo change from placeholder
                 new Random().nextInt(AvatarImage.TOTAL_NUM) + 1).getRoot()); // todo should depend on user prefs
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());

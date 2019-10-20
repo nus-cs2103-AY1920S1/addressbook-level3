@@ -15,37 +15,46 @@
         <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@DarkTheme.css">
             <children>
             <BorderPane fx:id="logoPlaceholder" />
+            <HBox>
+               <children>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label id="slogan" fx:id="slogan" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="Learn with Dukemon haha this is supposed to be the *catch* phrase." translateY="-40.0" />
+                  <Region HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
             <Separator prefWidth="200.0">
                <VBox.margin>
                   <Insets bottom="12.0" />
                </VBox.margin>
             </Separator>
-                <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
-                    <children>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Label fx:id="title1112" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Played " textAlignment="CENTER" />
-                        <Label fx:id="playedTimesText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="X times" textAlignment="CENTER" />
-                        <Region HBox.hgrow="ALWAYS" />
-                    </children>
-                    <padding>
-                        <Insets top="10.0" />
-                    </padding>
-                </HBox>
-                <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
-                    <children>
-                        <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="title1111" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Most played:  " textAlignment="CENTER" />
-                        <Label fx:id="favoriteWordBankText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="XXXX" textAlignment="CENTER" />
-                        <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                    </children>
-                    <padding>
-                        <Insets top="3.0" />
-                    </padding>
-                </HBox>
-            <BorderPane prefHeight="400.0">
-               <center>
-                  <ImageView fx:id="avatarImageView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-               </center></BorderPane>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="avatarImageView" fitHeight="440.0" fitWidth="440.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Region prefHeight="200.0" prefWidth="200.0" />
+                              <Label fx:id="title1112" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Total played:" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                              <Label id="highlighted" fx:id="playedTimesText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header" text="XX" textAlignment="CENTER" />
+                        <Label fx:id="timesText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="times" textAlignment="CENTER" />
+                              <Label fx:id="title1111" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Most played:" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </Label>
+                              <Label id="highlighted" fx:id="favoriteWordBankText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header2" text="XXXX" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets bottom="8.0" top="8.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Region prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
             </children>
         </VBox>
     </content>

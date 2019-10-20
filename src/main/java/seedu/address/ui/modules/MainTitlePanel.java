@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.AppUtil;
+import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.AvatarImage;
 import seedu.address.ui.UiPart;
 
@@ -16,18 +17,21 @@ public class MainTitlePanel extends UiPart<Region> {
     private static final Image LOGO = AppUtil.getImage("/images/logo.png");
 
     @FXML
-    BorderPane logoPlaceholder;
+    private BorderPane logoPlaceholder;
 
     @FXML
-    Label playedTimesText;
+    private Label playedTimesText;
 
     @FXML
-    Label favoriteWordBankText;
+    private Label timesText;
 
     @FXML
-    ImageView avatarImageView;
+    private Label favoriteWordBankText;
 
-    public MainTitlePanel(int playedTimes, String favoriteWordBankTitle, int avatarId) {
+    @FXML
+    private ImageView avatarImageView;
+
+    public MainTitlePanel(int playedTimes, WordBankStatistics maxWbStats, int avatarId) {
         super(FXML);
 
         ImageView titleImage = new ImageView();
@@ -36,11 +40,9 @@ public class MainTitlePanel extends UiPart<Region> {
         titleImage.setScaleX(2.5);
         titleImage.setScaleY(2.5);
         logoPlaceholder.setCenter(titleImage);
-        playedTimesText.setText(playedTimes
-            + (playedTimes == 1
-                ? " time"
-                : " times"));
-        favoriteWordBankText.setText(favoriteWordBankTitle);
+        playedTimesText.setText(playedTimes + "");
+        timesText.setText(playedTimes == 1 ? " time" : " times");
+        favoriteWordBankText.setText(maxWbStats.getWordBankName());
 
         Image avatarImage = AvatarImage.get(avatarId);
         avatarImageView.setImage(avatarImage);
