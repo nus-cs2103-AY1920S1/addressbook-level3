@@ -54,7 +54,7 @@ public class InitCommand extends Command {
         requireNonNull(model);
         model.setPlannerName(this.name);
         model.setPlannerStartDate(this.startDate);
-        String dateInString = this.startDate.format(ParserUtil.DATE_FORMAT_1);
+        String dateInString = this.startDate.format(ParserUtil.DATE_FORMATTER_1);
         if (numDays == null) {
             return new CommandResult(String.format(MESSAGE_SUCCESS_WITHOUT_INIT_DAY, name, dateInString));
         } else {

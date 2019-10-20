@@ -28,8 +28,10 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final DateTimeFormatter DATE_FORMAT_1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    public static final DateTimeFormatter DATE_FORMAT_2 = DateTimeFormatter.ofPattern("dd-MM-yy");
+    private static final String DATE_FORMAT_1 = "d-M-yyyy";
+    private static final String DATE_FORMAT_2 = "d-M-yy";
+    public static final DateTimeFormatter DATE_FORMATTER_1 = DateTimeFormatter.ofPattern(DATE_FORMAT_1);
+    public static final DateTimeFormatter DATE_FORMATTER_2 = DateTimeFormatter.ofPattern(DATE_FORMAT_2);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -174,7 +176,7 @@ public class ParserUtil {
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        return parseByDateFormats(trimmedDate, DATE_FORMAT_1, DATE_FORMAT_2);
+        return parseByDateFormats(trimmedDate, DATE_FORMATTER_1, DATE_FORMATTER_2);
     }
 
     /**
@@ -196,26 +198,19 @@ public class ParserUtil {
         if (parsedDate != null) {
             return parsedDate;
         } else {
-            throw new ParseException(acceptableDateFormats(dateFormats));
+            throw new ParseException(acceptableDateFormats());
         }
     }
 
     /**
      * Creates a message of possible date formats with the provided {@code dateFormats}.
      */
-    private static String acceptableDateFormats(DateTimeFormatter[] dateFormats) {
+    private static String acceptableDateFormats() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Date needs to be in the following formats: ");
-        boolean isFirst = true;
-        for (DateTimeFormatter format : dateFormats) {
-            if (isFirst) {
-                isFirst = false;
-                sb.append(format.toString());
-            } else {
-                sb.append(", ")
-                        .append(format.toString());
-            }
-        }
+        sb.append("Date needs to be in either of the following formats: ")
+            .append(DATE_FORMAT_1)
+            .append(", ")
+            .append(DATE_FORMAT_2);
         return sb.toString();
     }
 
