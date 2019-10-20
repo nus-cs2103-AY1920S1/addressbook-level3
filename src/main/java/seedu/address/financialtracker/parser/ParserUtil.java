@@ -60,21 +60,6 @@ public class ParserUtil {
         return new Description(trimmedPhone);
     }
 
-    /**
-     * Parses a {@code String country} into an {@code Country}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Country parseCountry(String country) throws ParseException {
-        requireNonNull(country);
-        String trimmedCountry = country.trim();
-        if (!Country.isValidCountry(trimmedCountry)) {
-            throw new ParseException(Country.MESSAGE_CONSTRAINTS);
-        }
-        return new Country(trimmedCountry);
-    }
-
     public static PageType parsePageType(String pageType) throws ParseException {
         requireNonNull(pageType);
         String trimmedPageType = pageType.trim();

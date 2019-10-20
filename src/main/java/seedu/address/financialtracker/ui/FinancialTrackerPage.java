@@ -2,10 +2,12 @@ package seedu.address.financialtracker.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.financialtracker.commands.AddFinCommand;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.commands.Command;
 import seedu.address.financialtracker.parser.FinancialTrackerParser;
@@ -35,6 +37,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     private final Logger logger = LogsCenter.getLogger(getClass());
     private FinancialTrackerParser financialTrackerParser;
     private Model model;
+    private CountriesDropdown countriesDropdown;
 
     @FXML
     private Scene financialTrackerScene;
@@ -77,6 +80,9 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        countriesDropdown = new CountriesDropdown();
+        commandBoxPlaceholder.getChildren().add(countriesDropdown.getRoot());
     }
 
     /**
@@ -87,6 +93,10 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             Command command = financialTrackerParser.parseCommand(commandText);
+            if (command instanceof AddFinCommand) {
+                AddFinCommand addFinCommand = (AddFinCommand) command;
+                addFinCommand.insertCountry(countriesDropdown.getDropdownText());
+            }
             CommandResult commandResult = command.execute(model);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
