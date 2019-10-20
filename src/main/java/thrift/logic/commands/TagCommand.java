@@ -1,6 +1,7 @@
 package thrift.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +24,7 @@ import thrift.model.transaction.Value;
 /**
  * Tags a specified Transaction
  */
-public class TagCommand extends Command {
+public class TagCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "tag";
 
@@ -45,6 +46,9 @@ public class TagCommand extends Command {
     private final Index index;
     private final Set<Tag> tagSet;
     private final StringBuilder existedTags;
+    private Index actualIndex;
+    private Transaction transactionToTag;
+    private Transaction updatedTransaction;
 
     /**
      * Creates a TagCommand to tag the specified {@code Transaction}
@@ -59,6 +63,9 @@ public class TagCommand extends Command {
         this.index = index;
         this.tagSet = tagSet;
         existedTags = new StringBuilder();
+        this.actualIndex = null;
+        this.transactionToTag = null;
+        this.updatedTransaction = null;
     }
 
     @Override
@@ -70,16 +77,16 @@ public class TagCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
-        Transaction transactionToTag = lastShownList.get(index.getZeroBased());
+        transactionToTag = lastShownList.get(index.getZeroBased());
         String originalTransactionNotification = String.format(MESSAGE_ORIGINAL_TRANSACTION, transactionToTag);
-        Transaction updatedTransaction = createTaggedTransaction(transactionToTag, tagSet);
+        updatedTransaction = createTaggedTransaction(transactionToTag, tagSet);
         String taggedTransactionNotification = String.format(MESSAGE_TAG_TRANSACTION_SUCCESS, updatedTransaction);
         String existedTagsNotification = existedTags.length() == 0
                 ? ""
                 : String.format(MESSAGE_TAG_EXISTED, existedTags.toString());
 
+        actualIndex = model.getIndexInFullTransactionList(transactionToTag).get();
         model.setTransactionWithIndex(index, updatedTransaction);
-        model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         return new CommandResult(taggedTransactionNotification
                 + existedTagsNotification
@@ -130,5 +137,17 @@ public class TagCommand extends Command {
         } else {
             return new Income(oldDescription, oldValue, oldRemark, oldDate, updatedTags);
         }
+    }
+
+    @Override
+    public void undo(Model model) {
+        requireAllNonNull(model, actualIndex, updatedTransaction, transactionToTag);
+        model.setTransactionWithIndex(actualIndex, transactionToTag);
+    }
+
+    @Override
+    public void redo(Model model) {
+        requireAllNonNull(model, actualIndex, updatedTransaction, transactionToTag);
+        model.setTransactionWithIndex(actualIndex, updatedTransaction);
     }
 }
