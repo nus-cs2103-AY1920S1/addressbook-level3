@@ -10,6 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.model.spending.Date;
 
@@ -33,6 +34,7 @@ public class GraphWindow extends UiPart<Stage> {
      */
     public GraphWindow(Stage root) {
         super(FXML, root);
+        root.initStyle(StageStyle.UTILITY);
     }
 
     /**
