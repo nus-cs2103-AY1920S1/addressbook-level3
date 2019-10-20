@@ -106,10 +106,12 @@ public class ModelManagerTest {
         foodList.setFoods(FOODS);
         UniqueRecordList recordList = new UniqueRecordList();
         UserList userList = new UserList();
+        Calendar calendar = new Calendar();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, userList, foodList, recordList);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, userList, foodList, recordList);
+        modelManager = new ModelManager(addressBook, userPrefs, userList, foodList, recordList, calendar);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, userList, foodList, recordList,
+                calendar);
 
         // same values -> returns true
         assertTrue(modelManager.equals(modelManagerCopy));
@@ -125,12 +127,13 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, userList, foodList,
-                recordList)));
+                recordList, calendar)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, userList, foodList, recordList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, userList, foodList, recordList,
+                calendar)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -139,6 +142,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, userList, foodList,
-                recordList)));
+                recordList, calendar)));
     }
 }

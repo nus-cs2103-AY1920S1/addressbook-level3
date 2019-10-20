@@ -11,7 +11,7 @@ import seedu.address.model.calendar.UniqueCalendarEntryList;
 /**
  * Wraps all data at the calendar level Duplicates are not allowed
  */
-public class Calendar implements ReadOnlyCalendar{
+public class Calendar implements ReadOnlyCalendar {
     private final UniqueCalendarEntryList calendarEntries;
 
     {

@@ -2,9 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -400,21 +398,6 @@ public class ParserUtil {
         return new Fat(verifyNutritionValue(value));
     }
 
-    private static LocalDate parseDate(String date) {
-        String[] dmy = date.split("-");
-        int day = Integer.parseInt(dmy[0]);
-        int month = Integer.parseInt(dmy[1]);
-        int year = Integer.parseInt(dmy[2]);
-        return LocalDate.of(day, month, year);
-    }
-
-    private static LocalTime parseTime(String time) {
-        String[] hm = time.split(":");
-        int hour = Integer.parseInt(hm[0]);
-        int minute = Integer.parseInt(hm[1]);
-        return LocalTime.of(hour, minute);
-    }
-
     /**
      * Parses a {@code String dateTime} into an {@code DateTime}. Leading and trailing whitespaces will be trimmed.
      *
@@ -512,7 +495,7 @@ public class ParserUtil {
         if (!TimeDuration.isValidTimeDuration(trimmedTimeDuration)) {
             throw new ParseException(TimeDuration.MESSAGE_CONSTRAINTS);
         }
-        try{
+        try {
             String[] hm = trimmedTimeDuration.split(":");
             int hours = Integer.parseInt(hm[0]);
             int minutes = Integer.parseInt(hm[1]);

@@ -59,7 +59,7 @@ public class Event extends CalendarEntry {
     @Override
     public boolean isSameCalendarEntry(CalendarEntry calendarEntry) {
         return calendarEntry instanceof Event
-                && isSameEvent((Event)calendarEntry);
+                && isSameEvent((Event) calendarEntry);
     }
 
     /**

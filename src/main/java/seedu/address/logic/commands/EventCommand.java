@@ -44,13 +44,13 @@ public class EventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasEvent(toAdd)) {
+        if (model.hasCalendarEntry(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        model.addEvent(toAdd);
+        model.addCalendarEntry(toAdd);
         if (toAdd.getAutoReminder().isPresent()) {
-            model.addReminder(toAdd.getAutoReminder().get());
+            model.addCalendarEntry(toAdd.getAutoReminder().get());
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }

@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.DateTimeException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -16,10 +15,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateTime {
 
-    //TODO: constraint
-    public static final String MESSAGE_CONSTRAINTS = "some constraint date time";
     public static final String VALIDATION_REGEX_STRING = "yyyy-MM-dd HH:mm";
     public static final SimpleDateFormat VALIDATION_REGEX = new SimpleDateFormat(VALIDATION_REGEX_STRING);
+    public static final String MESSAGE_CONSTRAINTS = "DateTime should be in the format: yyyy-MM-dd HH:mm and it "
+            + "should contain valid number";
 
     private LocalDate date;
     private LocalTime time;
@@ -31,12 +30,6 @@ public class DateTime {
         this.time = time;
     }
 
-    public DateTime(LocalDateTime localDateTime) {
-        requireNonNull(localDateTime);
-        this.date = localDateTime.toLocalDate();
-        this.time = localDateTime.toLocalTime();
-    }
-
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
         if (isValidDateTime(dateTime)) {
@@ -44,6 +37,12 @@ public class DateTime {
             this.time = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
         } else {
         }
+    }
+
+    public DateTime(LocalDateTime localDateTime) {
+        requireNonNull(localDateTime);
+        this.date = localDateTime.toLocalDate();
+        this.time = localDateTime.toLocalTime();
     }
 
     /**
@@ -75,6 +74,9 @@ public class DateTime {
         return dayString.substring(0, 1).concat(dayString.substring(1).toLowerCase());
     }
 
+    /**
+     * Returns a DateTime with a time duration subtracted.
+     */
     public DateTime minus(TimeDuration timeDuration) {
         LocalDateTime current = LocalDateTime.of(date, time);
         return new DateTime(current.minusHours(timeDuration.getHours()).minusMinutes(timeDuration.getMinutes()));

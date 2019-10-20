@@ -1,14 +1,13 @@
 package seedu.address.model;
 
-import java.time.Duration;
 import java.util.Objects;
 
 /**
  * Represents a time duration.
  */
 public class TimeDuration {
-    public static final String MESSAGE_CONSTRAINTS = "Time duration must be in the format: hh:mm and it should not be" +
-            "blank";
+    public static final String MESSAGE_CONSTRAINTS = "Time duration must be in the format: hh:mm and it should not be"
+            + "blank";
 
     public static final String VALIDATION_REGEX = "^\\d{2}:\\d{2}$";
 

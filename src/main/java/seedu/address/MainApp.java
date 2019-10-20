@@ -18,9 +18,11 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -100,12 +102,16 @@ public class MainApp extends Application {
         UniqueFoodList initialFoodListData;
         Optional<UniqueRecordList> recordListOptional;
         UniqueRecordList initialRecordListData;
+        Optional<ReadOnlyCalendar> calendarOptional;
+        ReadOnlyCalendar initialCalendar;
 
         // Todo Following can eventually be abstracted in later versions if there's time.
         try {
             addressBookOptional = storage.readAddressBook();
             foodListOptional = storage.readFoodList();
             recordListOptional = storage.readRecordList();
+            calendarOptional = storage.readCalendarEntryList();
+
             if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
@@ -118,16 +124,19 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
             initialRecordListData = recordListOptional.orElseGet(SampleDataUtil::getSampleRecordList);
+            initialCalendar = calendarOptional.orElseGet(SampleDataUtil::getSampleCalendar);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
             initialFoodListData = new UniqueFoodList();
             initialRecordListData = new UniqueRecordList();
+            initialCalendar = new Calendar();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
             initialFoodListData = new UniqueFoodList();
             initialRecordListData = new UniqueRecordList();
+            initialCalendar = new Calendar();
         }
 
         try {
@@ -145,7 +154,8 @@ public class MainApp extends Application {
             initialUserData = new UserList();
         }
 
-        return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData);
+        return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData,
+                initialCalendar);
     }
 
     private void initLogging(Config config) {

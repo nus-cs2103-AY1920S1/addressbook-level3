@@ -85,6 +85,6 @@ public class Reminder extends CalendarEntry {
     @Override
     public boolean isSameCalendarEntry(CalendarEntry calendarEntry) {
         return calendarEntry instanceof Reminder
-                && isSameReminder((Reminder)calendarEntry);
+                && isSameReminder((Reminder) calendarEntry);
     }
 }
