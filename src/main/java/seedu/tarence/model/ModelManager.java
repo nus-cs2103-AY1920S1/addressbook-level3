@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.logic.commands.Command;
+import seedu.tarence.logic.parser.PartialInput;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Name;
@@ -352,6 +353,41 @@ public class ModelManager implements Model {
     @Override
     public void deleteSuggestedCommands() {
         application.deleteSuggestedCommands();
+    }
+
+    @Override
+    public void storeSuggestedCompletions(PartialInput suggestedCompletions) {
+        application.storeSuggestedCompletions(suggestedCompletions);
+    }
+
+    @Override
+    public PartialInput getSuggestedCompletions() {
+        return application.getSuggestedCompletions();
+    }
+
+    @Override
+    public void deleteSuggestedCompletions() {
+        application.deleteSuggestedCompletions();
+    }
+
+    @Override
+    public boolean hasSuggestedCompletions() {
+        return application.hasSuggestionCompletions();
+    }
+
+    @Override
+    public void setInputChangedToTrue() {
+        application.setInputChangedToTrue();
+    }
+
+    @Override
+    public void setInputChangedToFalse() {
+        application.setInputChangedToFalse();
+    }
+
+    @Override
+    public boolean hasInputChanged() {
+        return application.hasInputChanged();
     }
 
     @Override

@@ -27,6 +27,16 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
+     * Tries to complete the current data field the user is typing.
+     * @param partialInput The partial input from the user.
+     * @return the autocomplete search result.
+     * @throws ParseException If no results can be found
+     */
+    String autocomplete(String partialInput) throws ParseException;
+
+    void markInputChanged();
+
+    /**
      * Returns the application.
      *
      * @see seedu.tarence.model.Model#getApplication()

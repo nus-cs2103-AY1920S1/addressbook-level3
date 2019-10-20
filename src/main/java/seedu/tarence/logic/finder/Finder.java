@@ -2,6 +2,8 @@ package seedu.tarence.logic.finder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import seedu.tarence.logic.commands.exceptions.CommandException;
@@ -14,8 +16,10 @@ import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
+ * Supports the autocorrect and autocomplete features of the application.
  * Provides methods for searching for objects similar to a user's input when an exact match is not found.
  * Uses fuzzy string matching to search for names with a high degree of similarity.
+ * Also provides methods for searching for string values that complete a partial input.
  */
 public class Finder {
 
@@ -73,6 +77,77 @@ public class Finder {
             }
         }
         return similarNames;
+    }
+
+    /**
+     * Searches for emails in the application beginning with the current partial input.
+     */
+    public List<String> autocompleteEmail (String partialEmail) {
+        return model.getFilteredStudentList().stream()
+                .map(student -> student.getEmail().value)
+                .filter(studentEmail -> studentEmail.toLowerCase().startsWith(partialEmail.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Searches for student names in the application beginning with the current partial input.
+     */
+    public List<String> autocompleteMatNo (String partialMatNo) {
+        return model.getFilteredStudentList().stream()
+                .filter(student -> student.getMatricNum().isPresent()
+                        && student.getMatricNum().get().toString().toLowerCase().startsWith(partialMatNo.toLowerCase()))
+                .map(student -> student.getMatricNum().get().toString())
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Searches for module codes in the application beginning with the current partial input.
+     */
+    public List<String> autocompleteModCode (String partialModCode) {
+        return model.getFilteredModuleList().stream()
+                .map(module -> module.getModCode().toString())
+                .filter(moduleCode -> moduleCode.toLowerCase().startsWith(partialModCode.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Searches for emails in the application beginning with the current partial input.
+     */
+    public List<String> autocompleteName (String partialName) {
+        return model.getFilteredStudentList().stream()
+                .map(student -> student.getName().toString())
+                .filter(studentName -> studentName.toLowerCase().startsWith(partialName.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Searches for student names in the application beginning with the current partial input.
+     */
+    public List<String> autocompleteNusId (String partialNusId) {
+        return model.getFilteredStudentList().stream()
+                .filter(student -> student.getNusnetId().isPresent()
+                        && student.getNusnetId().get().toString().toLowerCase().startsWith(partialNusId.toLowerCase()))
+                .map(student -> student.getNusnetId().get().toString())
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Searches for tutorial names in the application beginning with the current partial input.
+     */
+    public List<String> autocompleteTutName (String partialTutName) {
+        return model.getFilteredTutorialList().stream()
+                .map(tutorial -> tutorial.getTutName().toString())
+                .filter(tutorialName -> tutorialName.toLowerCase().startsWith(partialTutName.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Searches for day names beginning with the current partial input.
+     */
+    public List<String> autocompleteDay (String partialDay) {
+        return Stream.of("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+                .filter(day -> day.toLowerCase().startsWith(partialDay.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
 }

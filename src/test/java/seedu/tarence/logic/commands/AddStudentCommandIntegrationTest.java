@@ -32,6 +32,7 @@ public class AddStudentCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalApplication(), new UserPrefs());
+
     }
 
     @Test
