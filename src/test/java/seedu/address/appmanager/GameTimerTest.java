@@ -1,7 +1,6 @@
-package seedu.address.gamemanager;
+package seedu.address.appmanager;
 
 import javafx.stage.Stage;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,8 +26,8 @@ public class GameTimerTest {
 
     @Test
     public void run() {
-        GameManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
-        GameManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
+        AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
+        AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
         dummyTimer = new GameTimer("Dummy Message",
                 10, dummyMainCallBack, dummyTimerCallBack);
         dummyTimer.run();
@@ -46,8 +45,8 @@ public class GameTimerTest {
 
     @Test
     public void abortTimer() {
-        GameManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
-        GameManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
+        AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
+        AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
         dummyTimer = new GameTimer("Dummy Message",
                 1000, dummyMainCallBack, dummyTimerCallBack);
         dummyTimer.abortTimer();

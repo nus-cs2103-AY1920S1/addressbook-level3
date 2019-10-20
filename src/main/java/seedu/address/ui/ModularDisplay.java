@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import javafx.scene.layout.StackPane;
-import seedu.address.gamemanager.GameManager;
+import seedu.address.appmanager.AppManager;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
@@ -26,18 +26,18 @@ public class ModularDisplay {
     private BankLabelPanel bankLabelPanel;
     private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
-    private final GameManager gameManager;
+    private final AppManager appManager;
 
     /**
      * Changes the screen.
      *
-     * @param gameManager GameManager who will render lists.
+     * @param appManager GameManager who will render lists.
      */
-    public ModularDisplay(GameManager gameManager) {
-        loadBankPanel = new LoadBankPanel(gameManager.getFilteredWordBankList());
-        cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
+    public ModularDisplay(AppManager appManager) {
+        loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
+        cardListPanel = new CardListPanel(appManager.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
-        this.gameManager = gameManager;
+        this.appManager = appManager;
     }
 
     /**
@@ -93,7 +93,7 @@ public class ModularDisplay {
      */
     public void swapToList(StackPane paneToDisplay) {
         paneToDisplay.getChildren().clear();
-        cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
+        cardListPanel = new CardListPanel(appManager.getFilteredPersonList());
         paneToDisplay.getChildren().add(cardListPanel.getRoot());
     }
 

@@ -1,4 +1,4 @@
-package seedu.address.gamemanager;
+package seedu.address.appmanager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,9 +17,9 @@ public class GameTimer implements Runnable {
     private long totalTimeGiven; // the initial time allocated for the timer.
     private long timeLeft; // the time left of this timer, updated by the timer.
     private String mainMessage;
-    private GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
-    private GameManager.TimerDisplayCallBack timerDisplayCallBack;
-    private GameManager.ResultDisplayCallBack resultDisplayCallBack;
+    private AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
+    private AppManager.TimerDisplayCallBack timerDisplayCallBack;
+    private RequestHintCallBack requestHintCallBack;
     private boolean cancelled = false;
 
     /**
@@ -30,13 +30,13 @@ public class GameTimer implements Runnable {
      * @param mainWindowExecuteCallBack call-back function to send 'skip" command back to MainWindow.
      */
     public GameTimer(String mainMessage, long durationInMs,
-                     GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
-                     GameManager.TimerDisplayCallBack timerDisplayCallBack,
-                     GameManager.ResultDisplayCallBack resultDisplayCallBack) {
+                     AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
+                     AppManager.TimerDisplayCallBack timerDisplayCallBack,
+                     RequestHintCallBack requestHintCallBack) {
         this.mainMessage = mainMessage;
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
         this.timerDisplayCallBack = timerDisplayCallBack;
-        this.resultDisplayCallBack = resultDisplayCallBack;
+        this.requestHintCallBack = requestHintCallBack;
         this.totalTimeGiven = durationInMs;
         this.timeLeft = totalTimeGiven;
         this.timer = new Timer(true);
@@ -70,9 +70,14 @@ public class GameTimer implements Runnable {
                         timerDisplayCallBack.updateTimerDisplay(
                                 mainMessage + ": " + ((double) timeLeft) / 1000,
                                 timeLeft, totalTimeGiven);
-                    } else {
-                        cancelled = true;
+                    }
 
+                    if (timeLeft == (totalTimeGiven * 1.0) / 2) {
+                        requestHintCallBack.requestHint();
+                    }
+
+                    if (timeLeft < 0) {
+                        cancelled = true;
                         timer.cancel();
 
                         // Show Time is Up.
@@ -96,6 +101,15 @@ public class GameTimer implements Runnable {
 
     public long getElapsedMillis() {
         return totalTimeGiven - timeLeft;
+    }
+
+    /**
+     * Call-back functional interface from GameManager to MainWindow, represents the GameManager sending
+     * a command to the app as though it were another user.
+     */
+    @FunctionalInterface
+    public interface RequestHintCallBack {
+        void requestHint();
     }
 
 }

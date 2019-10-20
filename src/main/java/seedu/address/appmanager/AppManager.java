@@ -1,4 +1,4 @@
-package seedu.address.gamemanager;
+package seedu.address.appmanager;
 
 import java.nio.file.Path;
 
@@ -24,17 +24,17 @@ import seedu.address.statistics.WordBankStatistics;
  * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
  * of the game away from the GameTimer entirely, and to separate all GameTimer from the UI itself.
  */
-public class GameManager {
+public class AppManager {
 
     private Logic logic;
     private GameTimer gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
     // Call-back method to update ResultDisplay in MainWindow
-    private ResultDisplayCallBack resultDisplayCallBack = null; // not used for now.
+    private HintDisplayCallBack hintDisplayCallBack = null; // not used for now.
     private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
     private GameStatisticsBuilder gameStatisticsBuilder = null;
 
-    public GameManager(Logic logic) {
+    public AppManager(Logic logic) {
         this.logic = logic;
     }
 
@@ -46,7 +46,7 @@ public class GameManager {
         gameTimer = new GameTimer("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack,
-                this.resultDisplayCallBack);
+                this::requestHintAndCallBack);
         gameTimer.run();
     }
 
@@ -59,6 +59,8 @@ public class GameManager {
             this.gameTimer = null;
         }
     }
+
+
 
     /**
      * Processes the input command commandText by passing it through the GameManager's main logic.
@@ -101,6 +103,10 @@ public class GameManager {
         return commandResult;
     }
 
+    private void requestHintAndCallBack() {
+        hintDisplayCallBack.updateHintDisplay(this.logic.getHintFromCurrentGame().toString());
+    }
+
     public Logic getLogic() {
         return logic;
     }
@@ -137,8 +143,8 @@ public class GameManager {
         this.timerDisplayCallBack = updateTimerDisplay;
     }
 
-    public void setResultDisplayCallBack(ResultDisplayCallBack updateResultDisplay) {
-        this.resultDisplayCallBack = updateResultDisplay;
+    public void setHintDisplayCallBack(HintDisplayCallBack updateHintDisplay) {
+        this.hintDisplayCallBack = updateHintDisplay;
     }
 
     public void setMainWindowExecuteCallBack(MainWindowExecuteCallBack mainWindowExecuteCallBack) {
@@ -159,8 +165,8 @@ public class GameManager {
      * component of the UI.
      */
     @FunctionalInterface
-    public interface ResultDisplayCallBack {
-        void updateResultDisplay(String message);
+    public interface HintDisplayCallBack {
+        void updateHintDisplay(String message);
     }
 
     /**
