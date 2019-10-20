@@ -46,7 +46,7 @@ public class InCommand extends Command {
         requireNonNull(model);
 
         model.addTransaction(transaction);
-
+        model.commitBankAccount();
         return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
     }
 
