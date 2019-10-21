@@ -10,4 +10,5 @@ public enum DisplayPaneType {
     RECM_FOOD,
     ADD,
     LIST,
+    DELETE,
 }

@@ -55,6 +55,7 @@ public class MainDisplayPane {
                     newPaneIsToBeCreated);
         case ADD:
         case LIST:
+        case DELETE:
             return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()),
                     newPaneIsToBeCreated);
         default:
