@@ -6,8 +6,9 @@ package seedu.address.storage;
 
 import java.nio.file.Path;
 
-import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.io.TempDir;
 
 //import seedu.address.commons.core.GuiSettings;
@@ -22,12 +23,12 @@ public class StorageManagerTest {
 
     private StorageManager storageManager;
 
-    @BeforeEach
-    public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
-    }
+    //    @BeforeEach
+    //    public void setUp() {
+    //        JsonWordBankListStorage addressBookStorage = new JsonWordBankListStorage(getTempFilePath("ab"));
+    //        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+    //        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+    //    }
 
     private Path getTempFilePath(String fileName) {
         return testFolder.resolve(fileName);
@@ -52,18 +53,18 @@ public class StorageManagerTest {
     //    public void addressBookReadSave() throws Exception {
     //        /*
     //         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-    //         * {@link JsonAddressBookStorage} class.
+    //         * {@link JsonWordBankListStorage} class.
     //         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
     //         */
     //        WordBank original = getTypicalWordBank();
-    //        storageManager.saveAddressBook(original);
-    //        ReadOnlyWordBankList retrieved = storageManager.readAddressBook().get();
+    //        storageManager.saveWordBanks(original);
+    //        ReadOnlyWordBankList retrieved = storageManager.getWordBank().get();
     //        assertEquals(original, new WordBank(retrieved));
     //    }
 
     //    @Test
-    //    public void getAddressBookFilePath() {
-    //        assertNotNull(storageManager.getAddressBookFilePath());
+    //    public void getWordBankListFilePath() {
+    //        assertNotNull(storageManager.getWordBankListFilePath());
     //    }
 
 }

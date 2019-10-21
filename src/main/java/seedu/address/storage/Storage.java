@@ -8,11 +8,27 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.statistics.WordBankStatistics;
+import seedu.address.storage.statistics.WordBankStatisticsStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+import seedu.address.storage.wordbanks.WordBankListStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBankStatisticsStorage {
+
+    @Override
+    Optional<WordBankStatistics> readWordBankStatistics() throws DataConversionException, IOException;
+
+    @Override
+    Path getWordBankListFilePath();
+
+    @Override
+    void saveWordBankStatistics(WordBankStatistics wbStats) throws IOException;
+
+    @Override
+    Path getWordBankStatisticsFilePath();
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,17 +37,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    void removeWordBank(String wordBankName);
 
     @Override
-    Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException;
 
-    /*
-    Step 4.
-    Define method signature of readGame here.
-    Extends into concrete definition in StorageManager.java
-     */
-
-    @Override
-    void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
 }

@@ -7,11 +7,12 @@ import seedu.address.model.Model;
  * Represents a app command
  */
 public abstract class AppCommand extends Command {
+
     @Override
     public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
-        if (mode != ModeEnum.APP) {
+        if (mode != ModeEnum.SETTINGS) {
             throw new CommandException("You're not in App mode!");
         }
-        return ModeEnum.APP;
+        return ModeEnum.SETTINGS;
     }
 }

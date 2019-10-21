@@ -11,6 +11,9 @@ public abstract class GameCommand extends Command {
 
     @Override
     public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
+        if (mode != ModeEnum.GAME) {
+            throw new CommandException("You're not in Game mode");
+        }
         return ModeEnum.GAME;
     }
 }

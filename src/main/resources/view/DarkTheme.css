@@ -24,6 +24,13 @@
     -fx-opacity: 1;
 }
 
+.label-header2 {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -99,11 +106,11 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:filled:even {
+.list-cell:filled:even, #cardPaneEven {
     -fx-background-color: #3c3e3f;
 }
 
-.list-cell:filled:odd {
+.list-cell:filled:odd, #cardPaneOddd {
     -fx-background-color: #515658;
 }
 
@@ -123,17 +130,22 @@
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
 
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.scroll-pane {
+    -fx-background: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
 }
 
 .pane-with-border {
@@ -156,7 +168,7 @@
 .timer-display {
     -fx-background-color: transparent;
     -fx-font-family: "monospace";
-    -fx-font-size: 13pt;
+    -fx-font-size: 11.7pt;
     -fx-text-fill: pink;
 }
 
@@ -348,10 +360,20 @@
     -fx-background-radius: 0;
 }
 
-#timerDisplay .content {
+#timerText .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
 }
+
+.progress-bar > .track {
+    -fx-box-border: red;
+    -fx-control-inner-background: #383838;
+}
+
+.progress-bar {
+    -fx-accent: lightgreen;
+}
+
 
 #tags {
     -fx-hgap: 7;

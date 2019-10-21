@@ -10,12 +10,15 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.game.GameCommandResult;
+import seedu.address.logic.commands.gamecommands.GameCommandResult;
 import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.GameStatisticsBuilder;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
@@ -23,15 +26,13 @@ import seedu.address.statistics.GameStatistics;
  */
 public class GameManager {
 
-    public static final long TIMER_MILLIS = 3000;
-
     private Logic logic;
     private GameTimer gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
     // Call-back method to update ResultDisplay in MainWindow
     private ResultDisplayCallBack resultDisplayCallBack = null; // not used for now.
     private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
-    private GameStatistics gameStatistics = null;
+    private GameStatisticsBuilder gameStatisticsBuilder = null;
 
     public GameManager(Logic logic) {
         this.logic = logic;
@@ -41,8 +42,8 @@ public class GameManager {
         logic.setGuiSettings(guiSettings);
     }
 
-    private void setAndRunGameTimer() {
-        gameTimer = new GameTimer("Time Left", TIMER_MILLIS,
+    private void setAndRunGameTimer(long timeAllowedPerQuestion) {
+        gameTimer = new GameTimer("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack);
         gameTimer.run();
@@ -73,20 +74,28 @@ public class GameManager {
             initGameStatistics(startCommandResult.getTitle());
         }
 
+        // handles game related actions
         if (commandResult instanceof GameCommandResult) {
-            // update statistics upon receiving a GameCommandResult
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
-            gameStatistics.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
-                    gameCommandResult.getCard());
+
+            // update statistics upon receiving a GameCommandResult with a Card
+            if (gameCommandResult.getCard().isPresent()) {
+                gameStatisticsBuilder.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
+                        gameCommandResult.getCard().get());
+            }
+            // should make logic save the updated game statistics
+            if (gameCommandResult.isFinishedGame()) {
+                abortAnyExistingGameTimer();
+                logic.saveUpdatedWbStatistics(gameStatisticsBuilder.build());
+            }
         }
 
         // GameTimer is always abort when a new command is entered while Game is running.
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
-            Platform.runLater(() -> setAndRunGameTimer());
-        } else {
-            // todo clear the timer display
+
+            Platform.runLater(() -> setAndRunGameTimer(logic.getTimeAllowedPerQuestion()));
         }
 
         return commandResult;
@@ -97,15 +106,23 @@ public class GameManager {
     }
 
     public GameStatistics getGameStatistics() {
-        return gameStatistics;
+        return gameStatisticsBuilder.build();
     }
 
     public void initGameStatistics(String title) {
-        gameStatistics = new GameStatistics(title);
+        gameStatisticsBuilder = new GameStatisticsBuilder(title);
+    }
+
+    public WordBankStatistics getWordBankStatistics() {
+        return logic.getWordBankStatistics();
     }
 
     public ObservableList<Card> getFilteredPersonList() {
         return logic.getFilteredPersonList();
+    }
+
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return logic.getFilteredWordBankList();
     }
 
     public GuiSettings getGuiSettings() {
@@ -134,7 +151,7 @@ public class GameManager {
      */
     @FunctionalInterface
     public interface TimerDisplayCallBack {
-        void updateTimerDisplay(String timerMessage, long timeLeft);
+        void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven);
     }
 
     /**

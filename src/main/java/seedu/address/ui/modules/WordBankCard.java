@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.ui.UiPart;
 
 /**
@@ -12,7 +12,7 @@ import seedu.address.ui.UiPart;
  */
 public class WordBankCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "WordBankCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,7 +22,7 @@ public class WordBankCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Card card;
+    public final WordBank wordBank;
 
     @FXML
     private HBox cardPane;
@@ -30,21 +30,18 @@ public class WordBankCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label description;
 
     /**
      * Card containing the details of the word bank.
      *
-     * @param card The card representing its corresponding word bank.
+     * @param wordBank The card representing its corresponding word bank.
      * @param displayedIndex The index of the word bank.
      */
-    public WordBankCard(Card card, int displayedIndex) {
+    public WordBankCard(WordBank wordBank, int displayedIndex) {
         super(FXML);
-        this.card = card;
+        this.wordBank = wordBank;
         id.setText(displayedIndex + ". ");
-        name.setText(card.getWord().value);
-        description.setText(card.getMeaning().value);
+        name.setText(wordBank.getName());
     }
 
     @Override
@@ -60,8 +57,7 @@ public class WordBankCard extends UiPart<Region> {
         }
 
         // state check
-        WordBankCard card = (WordBankCard) other;
-        return id.getText().equals(card.id.getText())
-                && this.card.equals(card.card);
+        WordBankCard wordBankCard = (WordBankCard) other;
+        return false;
     }
 }

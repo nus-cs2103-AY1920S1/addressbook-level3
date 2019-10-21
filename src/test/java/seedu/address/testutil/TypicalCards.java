@@ -12,6 +12,8 @@ import seedu.address.model.wordbank.WordBank;
  */
 public class TypicalCards {
 
+    public static final String SAMPLE_ID = "sample-id";
+
     public static final Card ABRA = new CardBuilder().withWord("Abra")
             .withMeaning("It sleeps eighteen hours a day, but employs telekinesis even while sleeping.")
             .withTags("psychic").build();
@@ -55,7 +57,7 @@ public class TypicalCards {
      * Returns a {@code WordBank} with all the typical cards.
      */
     public static WordBank getTypicalWordBank() {
-        WordBank wb = new WordBank();
+        WordBank wb = new WordBank(SAMPLE_ID);
         for (Card card : getTypicalCards()) {
             wb.addCard(card);
         }

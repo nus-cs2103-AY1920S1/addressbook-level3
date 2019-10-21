@@ -9,6 +9,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -16,7 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.game.GameCommandResult;
+import seedu.address.logic.commands.gamecommands.GameCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -30,7 +31,10 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+
     private GameManager gameManager;
+    //Secondary parser for updating the Ui.
+    private UpdateUi updateUi;
 
     // Independent Ui parts residing in this Ui container
     private TimerDisplay timerDisplay;
@@ -38,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private ModularDisplay modularDisplay;
     private CurrentModeFooter currentModeFooter;
     private HelpWindow helpWindow;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -54,7 +59,7 @@ public class MainWindow extends UiPart<Stage> {
 
     //TimerDisplay placeholder
     @FXML
-    private StackPane timerDisplayPlaceholder;
+    private AnchorPane timerDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -70,6 +75,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
         this.modularDisplay = new ModularDisplay(gameManager);
+        this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
 
         // Configure the UI
         setWindowDefaultSize(gameManager.getGuiSettings());
@@ -122,8 +128,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        modularDisplay.displayTitle(modularDisplayPlaceholder);
-
+        modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -144,8 +149,11 @@ public class MainWindow extends UiPart<Stage> {
         currentModeFooter = new CurrentModeFooter();
         currentModePlaceholder.getChildren().add(currentModeFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        //Assigns only after initialisation.
+        this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
     }
 
     /**
@@ -198,7 +206,8 @@ public class MainWindow extends UiPart<Stage> {
             throw new IllegalStateException("gameStatistics in gameManager should not be null when game"
                     + "is finished");
         }
-        modularDisplay.swapToGameResult(modularDisplayPlaceholder, gameManager.getGameStatistics());
+        modularDisplay.swapToGameResult(modularDisplayPlaceholder, gameManager.getGameStatistics(),
+                gameManager.getWordBankStatistics());
     }
 
     /**
@@ -208,28 +217,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             CommandResult commandResult = gameManager.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            //This is temporary. Todo: Make a separate class to handle switching and ui updates.
-            if (commandText.equals("home")) {
-                currentModeFooter.changeMode("home");
-            } else if (commandText.matches("start [1-9]")) {
-                currentModeFooter.changeMode("game");
-            }
-
-            //So is this. Todo: Compile both the above and below into a new "UpdateUI" class.
-            if (commandText.equals("bank")) {
-                modularDisplay.swapToBanks(modularDisplayPlaceholder);
-            } else if (commandText.equals("list")) {
-                modularDisplay.swapToList(modularDisplayPlaceholder);
-            } else if (commandText.equals("help")) {
-                //modularDisplay.swapToBanks(modularDisplayPlaceholder);
-            } else {
-                modularDisplay.swapToHome(modularDisplayPlaceholder);
-            }
+            //Updates the Ui.
+            updateUi.updateMode(commandText);
+            updateUi.updateModularDisplay(commandText, modularDisplayPlaceholder);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -237,6 +233,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isPromptingGuess()) {
+                commandBox.setGuessTextAndCaret();
+            } else {
+                commandBox.clearCommandBox();
             }
 
             if (commandResult instanceof GameCommandResult) {
@@ -259,13 +261,16 @@ public class MainWindow extends UiPart<Stage> {
      * @param timerMessage Message to be displayed on the TimerDisplay.
      * @param timeLeft Time in milliseconds that is left in the current timer.
      */
-    private void updateTimerDisplay(String timerMessage, long timeLeft) {
-        if (timeLeft <= 200) {
+    private void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
+        double percentageTimeLeft = (timeLeft * 1.0) / totalTimeGiven;
+
+        if (percentageTimeLeft <= 0.5) { // when time left is <= half of time given, switch to alert colour
             this.timerDisplay.setAlertTextColour();
         } else {
             this.timerDisplay.setNormalTextColour();
         }
-        this.timerDisplay.setFeedbackToUser(timerMessage);
+        timerDisplay.setProgressBarProgress(percentageTimeLeft);
+        timerDisplay.setFeedbackToUser(timerMessage);
     }
 
     private void updateResultDisplay(String resultDisplayMessage) {

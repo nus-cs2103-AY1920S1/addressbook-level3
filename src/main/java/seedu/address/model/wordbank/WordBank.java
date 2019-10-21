@@ -28,13 +28,15 @@ public class WordBank implements ReadOnlyWordBank {
         cards = new UniqueCardList();
     }
 
-    public WordBank() {}
+    public WordBank(String name) {
+        this.name = name;
+    }
 
     /**
      * Creates a WordBank using the Cards in the {@code toBeCopied}
      */
-    public WordBank(ReadOnlyWordBank toBeCopied) {
-        this();
+    public WordBank(ReadOnlyWordBank toBeCopied, String name) {
+        this(name);
         resetData(toBeCopied);
     }
 
@@ -95,13 +97,6 @@ public class WordBank implements ReadOnlyWordBank {
     }
 
     //// util methods
-
-    @Override
-    public String toString() {
-        return cards.asUnmodifiableObservableList().size() + " cards";
-        // TODO: refine later
-    }
-
     @Override
     public int size() {
         return cards.size();
@@ -121,12 +116,13 @@ public class WordBank implements ReadOnlyWordBank {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WordBank // instanceof handles nulls
-                && cards.equals(((WordBank) other).cards));
+                && cards.equals(((WordBank) other).cards))
+                && name.equals(((WordBank) other).name);
     }
 
     @Override
     public int hashCode() {
-        return cards.hashCode();
+        return name.hashCode();
     }
     /**
      * Returns true if both cards have the same meaning.
@@ -140,6 +136,11 @@ public class WordBank implements ReadOnlyWordBank {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
 }

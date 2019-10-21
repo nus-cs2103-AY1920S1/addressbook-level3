@@ -20,15 +20,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
+import seedu.address.storage.statistics.WordBankStatisticsStorage;
+import seedu.address.storage.userprefs.JsonUserPrefsStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
+import seedu.address.storage.wordbanks.WordBankListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -42,9 +43,7 @@ import seedu.address.Game.*;
  * Runs the application.
  */
 public class MainApp extends Application {
-
     public static final Version VERSION = new Version(0, 6, 0, true);
-
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -61,7 +60,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Dukemon ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -69,8 +68,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath());
+        Path wbStatsPath = StorageManager.getWbStatsStoragePath(userPrefs.getDataFilePath());
+        WordBankStatisticsStorage wbStatsStorage = new JsonWordBankStatisticsStorage(wbStatsPath);
+        storage = new StorageManager(wordBankListStorage, userPrefsStorage, wbStatsStorage);
 
         initLogging(config);
 
@@ -110,23 +111,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyWordBank> addressBookOptional;
-        ReadOnlyWordBank initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample WordBank");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleWordBank);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-            initialData = new WordBank();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-            initialData = new WordBank();
-        }
-
-        return new ModelManager(initialData, userPrefs);
+        Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
+        WordBankList wbl = (WordBankList) optionalWbl.get();
+        WordBankList emptyWordBankList;
+        //        try {
+        //            addressBookOptional = storage.getWordBank();
+        //            if (!addressBookOptional.isPresent()) {
+        //                logger.info("Data file not found. Will be starting with a sample WordBank");
+        //            }
+        //        } catch (DataConversionException e) {
+        //            logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
+        //        } catch (IOException e) {
+        //            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
+        //        }
+        return new ModelManager(wbl, userPrefs);
     }
 
     /*
@@ -227,7 +225,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Dukemon ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class GameTimer implements Runnable {
 
     private Timer timer;
-    private long currentMilliSeconds; // the initial time allocated for the timer.
+    private long totalTimeGiven; // the initial time allocated for the timer.
     private long timeLeft; // the time left of this timer, updated by the timer.
     private String mainMessage;
     private GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
@@ -34,23 +34,18 @@ public class GameTimer implements Runnable {
         this.mainMessage = mainMessage;
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
         this.timerDisplayCallBack = timerDisplayCallBack;
-        this.currentMilliSeconds = durationInMs;
-        this.timeLeft = currentMilliSeconds;
+        this.totalTimeGiven = durationInMs;
+        this.timeLeft = totalTimeGiven;
         this.timer = new Timer(true);
-    }
-
-
-    public double getTimeLeft() {
-        return currentMilliSeconds;
     }
 
     /**
      * Aborts the current timer even if it has not finished running.
      */
     public void abortTimer() {
-        this.timer.cancel();
         cancelled = true;
-        timerDisplayCallBack.updateTimerDisplay("", 0);
+        this.timer.cancel();
+        timerDisplayCallBack.updateTimerDisplay("", 0, totalTimeGiven);
     }
 
     /**
@@ -59,7 +54,6 @@ public class GameTimer implements Runnable {
      */
     public void run() {
         timer.schedule(new TimerTask() {
-            private long timeLeft = currentMilliSeconds;
             public void run() {
                 Platform.runLater(() -> {
                     /* Guard block to prevent concurrency issues. Timer.cancel() has no
@@ -71,14 +65,16 @@ public class GameTimer implements Runnable {
 
                     if (timeLeft >= 0) {
                         timerDisplayCallBack.updateTimerDisplay(
-                                mainMessage + ": " + ((double) timeLeft) / 1000, timeLeft);
+                                mainMessage + ": " + ((double) timeLeft) / 1000,
+                                timeLeft, totalTimeGiven);
                     } else {
                         cancelled = true;
 
                         timer.cancel();
 
                         // Show Time is Up.
-                        timerDisplayCallBack.updateTimerDisplay("Time's up!", timeLeft);
+                        timerDisplayCallBack.updateTimerDisplay("Time's up!",
+                                timeLeft, totalTimeGiven);
 
                         // Makes a call-back to the mainWindow to execute a 'skip' command
                         try {
@@ -96,7 +92,7 @@ public class GameTimer implements Runnable {
     }
 
     public long getElapsedMillis() {
-        return currentMilliSeconds - timeLeft;
+        return totalTimeGiven - timeLeft;
     }
 
 }

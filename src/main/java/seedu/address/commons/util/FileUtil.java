@@ -80,4 +80,10 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    public static String getJustFileName(String str) {
+        String[] split1 = str.split("/");
+        String fileNameWithExt = split1[split1.length - 1];
+        return fileNameWithExt.replaceFirst("[.][^.]+$", "");
+    }
+
 }

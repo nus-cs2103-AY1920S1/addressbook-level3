@@ -62,7 +62,7 @@ public class CardBuilder {
     }
 
     public Card build() {
-        return new Card(word, meaning, tags);
+        return new Card(word, meaning, tags, "sample-id");
     }
 
 }

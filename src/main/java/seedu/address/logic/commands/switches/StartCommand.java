@@ -22,7 +22,7 @@ import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 
 /**
  * Starts the game.
@@ -36,11 +36,8 @@ public class StartCommand extends SwitchCommand {
             + "Example: " + COMMAND_WORD + " 1";
     private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
             + " (Use 'stop' to terminate) Guess the word:";
-    private String wordBankName;
 
-    public StartCommand(String wordBankName) {
-        this.wordBankName = wordBankName;
-    }
+    public StartCommand() {}
 
     @Override
     public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
@@ -49,20 +46,19 @@ public class StartCommand extends SwitchCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
         if (model.getGame() != null && !model.getGame().isOver()) {
             throw new CommandException(MESSAGE_GAME_IN_PROGRESS
                     + "\n" + model.getGame().getCurrQuestion());
         }
 
-        String pathString = "data/" + wordBankName + ".json";
-        Path filePath = Paths.get(pathString);
+        String wordBankName = model.getWordBank().getName();
+        Path filePath = Paths.get("data", wordBankName + ".json");
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
+        JsonWordBankListStorage addressBookStorage = new JsonWordBankListStorage(filePath);
         addressBookStorage.getWordBankList();
         String usedWordBankTitle = "Pokémon sample"; // todo change later
         try {
-            Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
+            Optional<ReadOnlyWordBank> thisBank = addressBookStorage.getWordBank();
             if (thisBank.isPresent()) {
                 wordBank = (WordBank) thisBank.get();
                 usedWordBankTitle = wordBankName;

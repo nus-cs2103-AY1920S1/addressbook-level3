@@ -7,7 +7,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
+import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * The API of the Model component.
@@ -51,6 +56,31 @@ public interface Model {
      */
     void setWordBank(ReadOnlyWordBank wordBank);
 
+    /**
+     * Set the word bank to empty.
+     */
+    void removeWordBank();
+
+    /**
+     * Returns the active word bank statistics. Null if no active.
+     */
+    WordBankStatistics getWordBankStatistics();
+
+    /**
+     * Replaces word bank stats data with the data in {@code wordBankStats}.
+     */
+    void setWordBankStatistics(WordBankStatistics wordBankStats);
+
+    /**
+     * Resets the word bank statistics data
+     */
+    void clearWordBankStatistics();
+
+    /**
+     * Resets the word bank data to be empty.
+     */
+    void clearWordBank();
+
     /** Returns the WordBank */
     ReadOnlyWordBank getWordBank();
 
@@ -81,6 +111,13 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCardList();
 
+    /** Returns an unmodifiable view of the filtered card list */
+    ObservableList<WordBank> getFilteredWordBankList();
+
+    WordBankList getWordBankList();
+
+    WordBankStatisticsList getWordBankStatisticsList();
+
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -90,4 +127,9 @@ public interface Model {
     void setGame(Game game);
 
     Game getGame();
+
+    void setDifficulty(DifficultyEnum difficultyEnum);
+
+    DifficultyEnum getDifficulty();
+
 }

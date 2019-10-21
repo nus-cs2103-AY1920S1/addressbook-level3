@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,8 +15,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
+import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,29 +28,40 @@ import seedu.address.model.wordbank.WordBank;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final WordBank wordBank;
+    private WordBank wordBank = new WordBank("Empty wordbank");
+    private final WordBankList wordBankList;
+
+    private WordBankStatistics wordBankStatistics;
+    private final WordBankStatisticsList wordBankStatisticsList;
+
     private final UserPrefs userPrefs;
-    private final FilteredList<Card> filteredCards;
+    private FilteredList<Card> filteredCards;
+    private final FilteredList<WordBank> filteredWordBanks;
 
     //Placeholder game model
     private Game game = null;
+    private DifficultyEnum difficulty;
 
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
      */
-    public ModelManager(ReadOnlyWordBank wordBank, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(WordBankList wordBankList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(wordBank, userPrefs);
+        requireAllNonNull(wordBankList, userPrefs);
 
-        logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
+        logger.fine("Initializing with word bank list: " + wordBankList + " and user prefs " + userPrefs);
 
-        this.wordBank = new WordBank(wordBank);
+        this.wordBankList = wordBankList;
+        this.wordBankStatisticsList = new WordBankStatisticsList();
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
+
+        // Default Difficulty is always EASY.
+        this.difficulty = DifficultyEnum.EASY;
     }
 
     public ModelManager() {
-        this(new WordBank(), new UserPrefs());
+        this(new WordBankList((List) new ArrayList<WordBankList>()), new UserPrefs());
     }
 
     // Placeholder setGame method
@@ -54,6 +71,16 @@ public class ModelManager implements Model {
 
     public Game getGame() {
         return this.game;
+    }
+
+    @Override
+    public void setDifficulty(DifficultyEnum difficultyEnum) {
+        this.difficulty = difficultyEnum;
+    }
+
+    @Override
+    public DifficultyEnum getDifficulty() {
+        return difficulty;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -82,26 +109,42 @@ public class ModelManager implements Model {
 
     @Override
     public Path getWordBankFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getDataFilePath();
     }
 
     @Override
-    public void setWordBankFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setWordBankFilePath(Path filePath) {
+        requireNonNull(filePath);
+        userPrefs.setDataFilePath(filePath);
     }
 
     //=========== WordBank ================================================================================
 
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
-        this.wordBank.resetData(wordBank);
+        this.wordBank = (WordBank) wordBank;
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        //        this.wordBank.resetData(wordBank);
+    }
+
+    /**
+     * Clears the WordBank.
+     */
+    public void clearWordBank() {
+        wordBank.resetData(new WordBank(wordBank.getName()));
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        //        this.wordBank.resetData(wordBank);
     }
 
     @Override
     public ReadOnlyWordBank getWordBank() {
         return wordBank;
     }
+
+    public void removeWordBank() {
+        this.wordBank = new WordBank("Empty wordbank");
+    }
+
 
     @Override
     public boolean hasCard(Card card) {
@@ -112,6 +155,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteCard(Card target) {
         wordBank.removeCard(target);
+        wordBankStatistics.removeCardStatistics(target.getId());
     }
 
     @Override
@@ -123,7 +167,6 @@ public class ModelManager implements Model {
     @Override
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
-
         wordBank.setCard(target, editedCard);
     }
 
@@ -135,13 +178,51 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
         return filteredCards;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code versionedAddressBook} // todo what is this versionedAddressBook?
+     */
+    @Override
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return filteredWordBanks;
+    }
+
+    @Override
+    public WordBankList getWordBankList() {
+        return wordBankList;
     }
 
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
         filteredCards.setPredicate(predicate);
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+    }
+
+    //=========== WordBankStatistics methods =============================================================
+
+    @Override
+    public WordBankStatisticsList getWordBankStatisticsList() {
+        return wordBankStatisticsList;
+    }
+
+    @Override
+    public WordBankStatistics getWordBankStatistics() {
+        return this.wordBankStatistics;
+    }
+
+    @Override
+    public void setWordBankStatistics(WordBankStatistics wordBankStats) {
+        this.wordBankStatistics = wordBankStats;
+    }
+
+    @Override
+    public void clearWordBankStatistics() {
+        this.wordBankStatistics = null;
     }
 
     @Override
@@ -162,5 +243,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredCards.equals(other.filteredCards);
     }
-
 }

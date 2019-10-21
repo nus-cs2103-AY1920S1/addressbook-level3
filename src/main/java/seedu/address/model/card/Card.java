@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.util.UidGenerator;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -15,6 +16,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Card {
 
+    private final String id;
     // field values
     private final Word word;
     private final Meaning meaning;
@@ -26,12 +28,20 @@ public class Card {
     /**
      * Every field must be present and not null.
      */
-    public Card(Word word, Meaning meaning, Set<Tag> tags) {
-        requireAllNonNull(word, meaning, tags);
+    public Card(Word word, Meaning meaning, Set<Tag> tags, String id) {
+        requireAllNonNull(id, word, meaning, tags);
+        this.id = id;
         this.word = word;
         this.meaning = meaning;
         this.tags.addAll(tags);
         this.hintSupplier = new HintSupplier(word.value);
+    }
+
+    /**
+     * Creates a new card with a new id.
+     */
+    public static Card createNewCard(Word word, Meaning meaning, Set<Tag> tags) {
+        return new Card(word, meaning, tags, UidGenerator.get());
     }
 
     public Word getWord() {
@@ -48,6 +58,13 @@ public class Card {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns the uniquely identifiable ID of this card
+     */
+    public String getId() {
+        return id;
     }
 
     /**

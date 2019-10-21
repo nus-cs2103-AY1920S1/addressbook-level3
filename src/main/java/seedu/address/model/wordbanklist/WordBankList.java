@@ -2,14 +2,11 @@ package seedu.address.model.wordbanklist;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.JsonAddressBookStorage;
 
 /**
  * Wraps all data at the address-book level
@@ -30,12 +27,14 @@ public class WordBankList implements ReadOnlyWordBankList {
         wordBankList = new UniqueWordBankList();
     }
 
-    public WordBankList() {
-        Path filePath = Paths.get("data/");
-        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
-        List<WordBank> wbl = storage.getWordBankList().get();
-        for (WordBank wb : wbl) {
-            wordBankList.add(wb);
+    public WordBankList(List<WordBank> wbl) {
+        if (!wbl.isEmpty()) {
+            for (WordBank wb : wbl) {
+                wordBankList.add(wb);
+            }
+        } else {
+            WordBank sampleWb = SampleDataUtil.getSampleWordBank();
+            wordBankList.add(sampleWb);
         }
     }
 
@@ -71,6 +70,7 @@ public class WordBankList implements ReadOnlyWordBankList {
     /**
      * Returns true if a card with the same meaning as {@code card} exists in the word bank.
      */
+    @Override
     public boolean hasWordBank(WordBank wordBank) {
         requireNonNull(wordBank);
         return wordBankList.contains(wordBank);
@@ -80,8 +80,8 @@ public class WordBankList implements ReadOnlyWordBankList {
      * Adds a card to the word bank.
      * A card with the same meaning must not already exist in the word bank.
      */
-    public void addCard(WordBank p) {
-        wordBankList.add(p);
+    public void addBank(WordBank wordBank) {
+        wordBankList.add(wordBank);
     }
 
     //    /**
@@ -99,8 +99,8 @@ public class WordBankList implements ReadOnlyWordBankList {
      * Removes {@code key} from this {@code WordBank}.
      * {@code key} must exist in the word bank.
      */
-    public void removeWordBank(WordBank key) {
-        wordBankList.remove(key);
+    public void removeWordBank(WordBank wordBankName) {
+        wordBankList.remove(wordBankName);
     }
 
     //// util methods
@@ -122,8 +122,13 @@ public class WordBankList implements ReadOnlyWordBankList {
     }
 
     @Override
-    public WordBank getWordBank(Index index) {
-        return wordBankList.get(index);
+    public WordBank getWordBank(String name) {
+        for (WordBank wb : wordBankList) {
+            if (wb.getName().equals(name)) {
+                return wb;
+            }
+        }
+        return null;
     }
 
     @Override
