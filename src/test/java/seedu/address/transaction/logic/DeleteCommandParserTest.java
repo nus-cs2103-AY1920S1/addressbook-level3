@@ -1,10 +1,10 @@
 package seedu.address.transaction.logic;
 
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_ALICE;
-import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_AMY;
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_ALICE;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_AMY;
 
 import org.junit.jupiter.api.Test;
 

@@ -3,6 +3,8 @@ package seedu.address.transaction.logic;
 import static seedu.address.testutil.TransactionBuilder.DEFAULT_CATEGORY;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseFailure;
+import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_CATEGORY;
@@ -25,8 +27,6 @@ import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_CAT
 import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_DATE;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_DESC;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseFailure;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
