@@ -18,6 +18,7 @@ public abstract class UiPart<T> {
      * Resource folder where FXML files are stored.
      */
     public static final String FXML_FILE_FOLDER = "/view/";
+    public static String fontColour = "white";
 
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -71,6 +72,21 @@ public abstract class UiPart<T> {
     public T getRoot() {
         return fxmlLoader.getRoot();
     }
+
+//    public static void setFontColour(Pane pane) {
+//        ObservableList<Node> childrenList = pane.getChildren();
+//        if (childrenList.isEmpty()) {
+//            for (Node node : childrenList) {
+//                if (node instanceof Pane) {
+//                    setFontColour((Pane) node);
+//                } else {
+//                    node.setStyle(node.getStyle() + "")
+//                }
+//            }
+//        }
+//    }
+
+
 
     /**
      * Loads the object hierarchy from a FXML document.

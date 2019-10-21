@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -13,6 +16,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -34,15 +38,18 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private ThemeManager themeManager;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
 
     @FXML
     private Scene scene;
+
+    @FXML
+    private VBox mainWindowPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -71,14 +78,11 @@ public class MainWindow extends UiPart<Stage> {
 
         mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
+        themeManager = new ThemeManager(scene);
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     private void setAccelerators() {
@@ -119,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts(String imagePath) {
+    void fillInnerParts(String imagePath) throws URISyntaxException {
 
         //        ImageView imageView = new ImageView(imagePath);
         //        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
@@ -134,6 +138,44 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        try {
+            System.out.println(themeManager.getThemeNameToStyleSheetPathMap());
+            themeManager.createNewStyleSheet();
+            System.out.println(themeManager.getThemeNameToStyleSheetPathMap());
+        } catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            resultDisplay.setFeedbackToUser(sw.toString());
+//            InputStream is = this.getClass().getResourceAsStream("/view/DarkTheme.css");
+//            try {
+//                resultDisplay.setFeedbackToUser(new String(is.readAllBytes(), StandardCharsets.UTF_8));
+//            } catch (IOException ex) {
+//                resultDisplay.setFeedbackToUser("IO Exception" + ex);
+//            }
+        }
+
+//        ObservableList<String> styleSheets = scene.getStylesheets();
+//        String darkThemeUri = styleSheets.get(0);
+//        try {
+//            Path darkThemePath = Paths.get(new URI(darkThemeUri));
+//            File darkTheme = new File(darkThemePath.toString());
+//            String myThemePathString = darkThemePath.getParent().toString() + "/MyTheme.css";
+//            File myTheme = new File(myThemePathString);
+//            System.out.println("myThemeExists" + myTheme.exists());
+//            styleSheets.set(0, myTheme.toURI().toString());
+//            System.out.println(styleSheets);
+//            System.out.println(darkThemeUri);
+//            System.out.println(darkTheme.exists());
+//            BufferedReader br = new BufferedReader(new FileReader(myTheme));
+//            String s;
+//            while ((s = br.readLine()) != null) {
+//                System.out.println(s);
+//            }
+//        } catch (URISyntaxException | IOException e) {
+//            System.out.println(e);
+//        }
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -178,10 +220,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
-    public void hide() {
-        getRoot().hide();
-    }
-
     /**
      * Closes the application.
      */
@@ -192,10 +230,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
