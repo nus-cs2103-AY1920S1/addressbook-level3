@@ -1,122 +1,98 @@
-== Basic Patient Features
+== Patient Features
 ====
-*Basic Patient Features*
+*Patient Features*
 
 As a community nurse, you will often need to visit various patients at their homes. This section describes the features that will allow you to manage the list of patients and their information in the application. This section covers the management of patients and their data.
 ====
 
-=== Listing All Patients: `patient list`
-You can see a list of all patients in the app by typing `patient list`.
+=== Listing All Patients: `pat-list`
+You can see a list of all patients in the app by typing `pat-list`.
 
-In the list displayed, each patient will have an *index* number which can then be used for other features that require you to select a patient by *index* e.g. `patient delete`. Take note that a patient will be given the same *index* regardless of other display commands such as `patient find`.
+In the list displayed, each patient will have an *index* number which can then be used for other features that require you to select a patient by *index* e.g. `pat-delete`. Take note that a patient will be given the same *index* regardless of other display commands such as `pat-find`. However, this index may change if the `pat-delete` command is executed.
 
-Format: `patient list`
+Format: `pat-list`
 
-=== Finding Patient(s): `patient find`
+=== Finding patients by name: `find`
 
-You can find patients that fit the parameters given using `patient find`.
+You can find patients whose names contain any keyword of your choice using `find`.
 
-In the list displayed, each patient will have an *index* number which can then be used for other features that require you to select a patient by *index* e.g. `patient delete`. Take note that a patient will be given the same *index* regardless of other display commands such as `patient list` or if different parameters are used.
-
-
-Format: `patient find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only patients that match *all* specified arguments will be displayed.
-* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+* Only the name of patients is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `patient find` +
-Returns all patients (since no search parameters were specified)
+* `find John` +
+Returns patients `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any patient(s) having names `Betsy`, `Tim`, or `John`
 
-* `patient find n/john` +
-Returns patients whose names are `john` and `John Doe`
+=== Adding a Patient: `pat-add`
 
-* `patient find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
-Returns patient, if found, with exact details as specified in the search, i.e. with name James Ho, phone number 22224444, etc.
+You can add a patient to the list of all patients by using `pat-add`.
 
-=== Viewing a Patient: `patient view`
-
-You can see a patient's full details using `patient view`. The patient is selected by their *index*. This full details include everything from their todo list, medical conditions, prescriptions, notes, appointments etc.
-
-Format: `patient view INDEX`
-
-****
-* View the patient at the specified `INDEX`.
-* The index refers to the index number shown in the list of patients displayed by `patient list` or `patient find`.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `patient list` +
-`patient view 1`
-View the item with index number 1. This index can be found from the full list of patients.
-
-* `patient view 2`
-View the item with the index number 2.
-
-=== Adding a Patient: `patient add`
-
-You can add a patient to the list of all patients by using `patient add`.
-
-Format: `patient add n/NAME ic/IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
+Format: `pat-add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [vt/VISIT_TODO]…​`
 
 ****
  * A patient can have any number of tags.
- * A patient can have next-of-kin contact details.
- * Priority can take values from 0 to 10.
+ * A patient can have any number of visit todos.
 ****
+
+Note: Visit Todos are described in further detail under <<Visits>>.
 
 Examples:
 
- * `patient add n/John Doe ic/S7012255C p/98765432 a/John street, block 123, #01-01`
+ * `pat-add n/John Doe p/98765432 e/john@email.com a/John street, block 123, #01-01`
 
- * `patient add n/Choong Siew Hwang ic/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
+ * `pat-add n/Choong Siew Hwang p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Male vt/Check Blood Pressure`
 
- * `patient add n/Betsy Crowe ic/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
+ * `pat-add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Street p/12345678 t/Female vt/Check fridge for expired food vt/Check for bed sores`
 
-=== Editing a Patient: `patient edit`
+=== Editing a Patient: `pat-edit`
 
-You can edit an existing patient in the app using `patient edit`.
+You can edit an existing patient in the app using `pat-edit`.
 
-Format: `patient edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `pat-edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… [vt/VISIT_TODO]…`
 
 ****
 * Edits the person at the specified `INDEX`.
-* The index refers to the index number shown in the list of patients displayed by `patient list` or `patient find`.
+* The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing visit todos, the existing visit todos of the person will be removed i.e adding of visit todos is not cumulative.
+* You can remove all the person's visit todos by typing `vt/` without specifying any visit todos after it.
 ****
 
 Examples:
 
-* `patient list` +
- `patient edit 1 p/91234567 e/johndoe@example.com` +
+* `pat-list` +
+ `pat-edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person in the entire patient's list to be `91234567` and `johndoe@example.com` respectively.
 
 
-* `patient edit 2 n/Betsy Crower t/` +
+* `pat-edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person in the entire patient's list with `Betsy Crower` and clears all existing tags.
 
 
 // tag::delete[]
-=== Deleting a Patient: `patient delete`
+=== Deleting a Patient: `pat-delete`
 
-You can delete a patient by *index* using `patient delete`.
+You can delete a patient by *index* using `pat-delete`.
 
-Format: `patient delete INDEX`
+Format: `pat-delete INDEX`
 
 ****
 * Deletes the patient at the specified `INDEX`.
-* The index refers to the index number shown in the list of patients displayed by `patient list` or `patient find`.
+* The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * All patients with an index number higher than the deleted patient will have their indexes decremented by 1. E.g. after
 deleting index 3, index 4 will become 3, 5 will become 4 and so on.
@@ -124,9 +100,12 @@ deleting index 3, index 4 will become 3, 5 will become 4 and so on.
 
 Examples:
 
-* `patient list` +
-`patient delete 2` +
+* `pat-list` +
+`pat-delete 2` +
 Deletes the 2nd patient in the patient list.
 
-* `patient delete 1` +
+* `pat-delete 1` +
 Deletes the patient which had been assigned the index 1.
+
+Warning:
+If `pat-delete` is successfully executed, the indexes of remaining patients may change. Please verify the index of the patient you are referencing after executing this command.

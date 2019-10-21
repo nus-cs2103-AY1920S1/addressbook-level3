@@ -71,6 +71,10 @@ include::./userguide/ImportExport.adoc[]
 
 include::./userguide/Exiting.adoc[]
 
+= How-To Guide(s) (as of v1.4)
+
+include::./userguide/VisitHowTo.adoc[]
+
 = Planned Feature(s) (coming in v2.0)
 
 //include::./userguide/Notification.adoc[]

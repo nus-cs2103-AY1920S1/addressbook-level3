@@ -1,15 +1,24 @@
-== Visits [Parameters not updated]
+[[Visits]]
+== Visit Management
 ====
-*Visits*
+*Visit Management*
 
 As a community nurse, you will often make home visits to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. You can use the application to mark the items you have done in a visit and add further details and notes about a visit (e.g. about a patient's symptoms). This section describes the features that will allow you to keep track of what you have to do during a visit and manage previous visits.
 
-****
- * Adding of Visits is unallowed in the app because a community nurse should make an appointment with the patient before making a visit.
-****
 ====
 
-=== Listing All Visits: `visit list`
+=== Mark a Todo Item of current Visit as done: `visit now todo done`[INCOMPLETE UG]
+//By index
+
+=== Updating the current Visit: `visit now add note`
+
+=== Finishing a Visit: `visit finish`
+
+If you have just finished your home visit to a patient, you can mark the visit as finished using `visit finish`.
+
+Format: `visit finish`.
+
+=== How to Listing All Visits
 You can see a list of all visits in the app by typing `visit list`.
 
 In the list displayed, each visit will have an *index* number which can then be used for other features that require you to select a visit by *index* e.g. `visit delete`. Take note that a visit will be given the same *index* regardless of other display commands such as `visit find`.
@@ -63,68 +72,3 @@ View the item with the index number 2.
 If you are currently visiting a patient, you can see the current visit's full details using `visit now`.
 
 Format: `visit now`
-
-=== Set details of a Todo Item of current Visit: `visit now todo note`
-
-You can set the details of a todo item of a current visit using `visit now todo note`.
-
-As a community nurse, some todo items require you to record some details (e.g. a todo item of "take blood pressure" would require you to record the blood pressure). If the index of the todo note is 2, you can do something like `visit now todo note t/2 n/120 over 80 mm HG`.
-
-Format: `visit now todo note t/INDEX n/NOTE`
-
-=== Mark a Todo Item of current Visit as done: `visit now todo done`[INCOMPLETE UG]
-//By index
-
-=== Add a note to the current Visit: `visit now add note`[INCOMPLETE UG]
-//Add a generic note to the current visit
-=== Remove a note from the current Visit: `visit now rm note`[INCOMPLETE UG]
-
-=== Finishing a Visit: `visit finish`
-
-If you have just finished your home visit to a patient, you can mark the visit as finished using `visit finish`.
-
-Format: `visit finish`.
-
-// tag::delete[]
-=== Deleting a Visit: `visit delete`
-
-You can delete a visit by *index* using `visit delete`.
-
-Format: `visit delete INDEX`
-
-****
-* Deletes the visit at the specified `INDEX`.
-* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `visit list` +
-`visit delete 2` +
-Deletes the 2nd visit in the visit list.
-
-* `visit delete 1` +
-Deletes the visit which had been assigned the index 1.
-// end::delete[]
-
-=== Deleting multiple Visits: `visit delete` `[coming in V2.0]`
-
-You can delete a visit by *indexes* using `visit delete`.
-
-Format: `visit delete INDEX_1 [INDEX_2] [INDEX_3]...`
-
-****
-* Deletes the visit at the specified `INDEX` es. You can put in as many indexes to delete as many visits as you wish.
-* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `visit list` +
-`visit delete 2` +
-Deletes the 2nd visit in the visit list.
-
-* `visit delete 1 2` +
-Deletes the and 2nd visits which had been assigned the index 1.
