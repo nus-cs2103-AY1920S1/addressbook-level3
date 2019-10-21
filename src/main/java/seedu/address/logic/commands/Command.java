@@ -24,6 +24,15 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 
-    public abstract ModeEnum check(Model model, ModeEnum mode) throws CommandException;
+    public abstract boolean check(Model model) throws CommandException;
+
+    public boolean precondition(Model model) {
+        return true;
+    }
+
+    public boolean postcondition() {
+        return true;
+    }
+
 
 }

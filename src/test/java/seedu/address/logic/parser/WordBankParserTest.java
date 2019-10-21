@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.app.AddCommand;
-import seedu.address.logic.commands.app.ClearCommand;
-import seedu.address.logic.commands.app.DeleteCommand;
-import seedu.address.logic.commands.app.EditCommand;
-import seedu.address.logic.commands.app.ExitCommand;
-import seedu.address.logic.commands.app.FindCommand;
-import seedu.address.logic.commands.app.HelpCommand;
-import seedu.address.logic.commands.app.ListCommand;
+import seedu.address.logic.commands.appcommands.AddCommand;
+import seedu.address.logic.commands.appcommands.ClearCommand;
+import seedu.address.logic.commands.appcommands.DeleteCommand;
+import seedu.address.logic.commands.appcommands.EditCommand;
+import seedu.address.logic.commands.appcommands.ExitCommand;
+import seedu.address.logic.commands.appcommands.FindCommand;
+import seedu.address.logic.commands.appcommands.HelpCommand;
+import seedu.address.logic.commands.appcommands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.WordContainsKeywordsPredicate;
@@ -30,7 +30,7 @@ import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class WordBankParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final DukemonParser parser = new DukemonParser();
 
     @Test
     public void parseCommand_add() throws Exception {

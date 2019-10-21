@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.ModeSwitchException;
+import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 
 /**
@@ -9,10 +11,11 @@ import seedu.address.model.Model;
 public abstract class SettingsCommand extends Command {
 
     @Override
-    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
-        if (mode != ModeEnum.SETTINGS) {
-            throw new CommandException("You're not in Settings mode!");
-        }
+    public boolean check(Model model) throws CommandException {
+        return true;
+    }
+
+    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
         return ModeEnum.SETTINGS;
     }
 }

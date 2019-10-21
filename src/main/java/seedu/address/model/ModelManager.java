@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -26,7 +28,7 @@ import seedu.address.statistics.WordBankStatistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private WordBank wordBank;
+    private WordBank wordBank = new WordBank("Empty wordbank");
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
@@ -43,19 +45,15 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
      */
-    public ModelManager(ReadOnlyWordBank wordBank, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(WordBankList wordBankList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(wordBank, userPrefs);
+        requireAllNonNull(wordBankList, userPrefs);
 
-        logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
+        logger.fine("Initializing with word bank list: " + wordBankList + " and user prefs " + userPrefs);
 
-        this.wordBank = new WordBank(wordBank, wordBank.getName());
-        this.wordBankList = new WordBankList();
-
+        this.wordBankList = wordBankList;
         this.wordBankStatisticsList = new WordBankStatisticsList();
-
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
         filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
 
         // Default Difficulty is always EASY.
@@ -63,7 +61,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new WordBank("Empty WordBank"), new UserPrefs());
+        this(new WordBankList((List) new ArrayList<WordBankList>()), new UserPrefs());
     }
 
     // Placeholder setGame method
@@ -111,13 +109,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getWordBankFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getDataFilePath();
     }
 
     @Override
-    public void setWordBankFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setWordBankFilePath(Path filePath) {
+        requireNonNull(filePath);
+        userPrefs.setDataFilePath(filePath);
     }
 
     //=========== WordBank ================================================================================
@@ -142,6 +140,11 @@ public class ModelManager implements Model {
     public ReadOnlyWordBank getWordBank() {
         return wordBank;
     }
+
+    public void removeWordBank() {
+        this.wordBank = new WordBank("Empty wordbank");
+    }
+
 
     @Override
     public boolean hasCard(Card card) {
@@ -196,14 +199,8 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        System.out.println("++++++++++");
-        System.out.println(wordBank.getName());
-        for (Card c : filteredCards) {
-            System.out.println(c);
-        }
         filteredCards.setPredicate(predicate);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
-        System.out.println("++++++++++");
     }
 
     //=========== WordBankStatistics methods =============================================================

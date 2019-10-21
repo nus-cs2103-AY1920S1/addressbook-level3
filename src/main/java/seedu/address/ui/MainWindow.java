@@ -15,9 +15,10 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.gamemanager.GameManager;
+import seedu.address.logic.UiLogicHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.game.GameCommandResult;
+import seedu.address.logic.commands.gamecommands.GameCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -33,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
 
     private GameManager gameManager;
+    private UiLogicHelper uiLogicHelper;
     //Secondary parser for updating the Ui.
     private UpdateUi updateUi;
 
@@ -74,6 +76,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
+        this.uiLogicHelper = gameManager.getLogic();
         this.modularDisplay = new ModularDisplay(gameManager);
         this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
 
@@ -149,7 +152,8 @@ public class MainWindow extends UiPart<Stage> {
         currentModeFooter = new CurrentModeFooter();
         currentModePlaceholder.getChildren().add(currentModeFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand);
+        //Set up command box
+        commandBox = new CommandBox(this::executeCommand, uiLogicHelper);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //Assigns only after initialisation.
