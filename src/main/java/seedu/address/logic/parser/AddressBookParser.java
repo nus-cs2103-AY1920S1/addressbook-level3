@@ -8,27 +8,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.cheatsheetcommands.AddCheatSheetCommand;
-import seedu.address.logic.commands.flashcardcommands.AddFlashcardCommand;
-import seedu.address.logic.commands.notecommands.AddNoteCommand;
+
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.cheatsheetcommands.DeleteCheatSheetCommand;
-import seedu.address.logic.commands.flashcardcommands.DeleteFlashcardCommand;
-import seedu.address.logic.commands.notecommands.DeleteNoteCommand;
-import seedu.address.logic.commands.cheatsheetcommands.EditCheatSheetCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.cheatsheetcommands.FilterCheatSheetByTagCommand;
-import seedu.address.logic.commands.flashcardcommands.FilterFlashcardByTagCommand;
-import seedu.address.logic.commands.notecommands.FilterNoteByTagCommand;
 import seedu.address.logic.commands.GlobalTagFilterCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTagCommand;
 import seedu.address.logic.commands.SwitchModeCommand;
-
+import seedu.address.logic.commands.cheatsheetcommands.AddCheatSheetCommand;
+import seedu.address.logic.commands.cheatsheetcommands.DeleteCheatSheetCommand;
+import seedu.address.logic.commands.cheatsheetcommands.EditCheatSheetCommand;
+import seedu.address.logic.commands.cheatsheetcommands.FilterCheatSheetByTagCommand;
 import seedu.address.logic.commands.cheatsheetcommands.ViewCheatSheetCommand;
+import seedu.address.logic.commands.flashcardcommands.AddFlashcardCommand;
+import seedu.address.logic.commands.flashcardcommands.DeleteFlashcardCommand;
+import seedu.address.logic.commands.flashcardcommands.FilterFlashcardByTagCommand;
 import seedu.address.logic.commands.flashcardcommands.ViewFlashcardCommand;
+import seedu.address.logic.commands.notecommands.AddNoteCommand;
+import seedu.address.logic.commands.notecommands.DeleteNoteCommand;
+import seedu.address.logic.commands.notecommands.FilterNoteByTagCommand;
 import seedu.address.logic.commands.notecommands.ViewNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
