@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.address.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 

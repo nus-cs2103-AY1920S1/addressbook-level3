@@ -1,17 +1,15 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.exercise.ClearExerciseCommand;
-import seedu.address.logic.commands.exercise.ListExerciseCommand;
-import seedu.address.logic.commands.recipe.ClearRecipeCommand;
-import seedu.address.logic.commands.recipe.ListRecipeCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.exercise.ClearExerciseCommand;
+import seedu.address.logic.commands.recipe.ClearRecipeCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddRecipeCommand object

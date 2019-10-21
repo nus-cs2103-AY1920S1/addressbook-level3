@@ -1,12 +1,11 @@
 package seedu.address.logic.commands.recipe;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.RecipeBook;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Clears Duke Cooks.

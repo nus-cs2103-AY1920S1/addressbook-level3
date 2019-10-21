@@ -15,12 +15,16 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exercise.ClearExerciseCommand;
 import seedu.address.logic.commands.exercise.ListExerciseCommand;
 import seedu.address.logic.commands.profile.EditProfileCommand;
-import seedu.address.logic.commands.recipe.*;
+import seedu.address.logic.commands.recipe.AddRecipeCommand;
+import seedu.address.logic.commands.recipe.ClearRecipeCommand;
+import seedu.address.logic.commands.recipe.DeleteRecipeCommand;
+import seedu.address.logic.commands.recipe.EditRecipeCommand;
 import seedu.address.logic.commands.recipe.EditRecipeCommand.EditRecipeDescriptor;
+import seedu.address.logic.commands.recipe.FindRecipeCommand;
+import seedu.address.logic.commands.recipe.ListRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.person.Person;
 import seedu.address.model.recipe.components.Recipe;
@@ -46,7 +50,7 @@ public class DukeCooksParserTest {
     @Test
     public void parseCommand_clearExercise() throws Exception {
         assertTrue(parser.parseCommand(ClearExerciseCommand.COMMAND_WORD
-                + " " +ClearExerciseCommand.VARIANT_WORD) instanceof ClearExerciseCommand);
+                + " " + ClearExerciseCommand.VARIANT_WORD) instanceof ClearExerciseCommand);
         assertTrue(parser.parseCommand(ClearExerciseCommand.COMMAND_WORD
                 + " " + ClearExerciseCommand.VARIANT_WORD
                 + " 3") instanceof ClearExerciseCommand);

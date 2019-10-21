@@ -6,40 +6,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.diary.AddDiaryCommand;
-import seedu.address.logic.commands.diary.AddPageCommand;
-import seedu.address.logic.commands.diary.DeleteDiaryCommand;
-import seedu.address.logic.commands.diary.DeletePageCommand;
-import seedu.address.logic.commands.diary.EditDiaryCommand;
-import seedu.address.logic.commands.exercise.AddExerciseCommand;
-import seedu.address.logic.commands.exercise.ClearExerciseCommand;
-import seedu.address.logic.commands.exercise.DeleteExerciseCommand;
-import seedu.address.logic.commands.exercise.EditExerciseCommand;
-import seedu.address.logic.commands.exercise.FindExerciseByIntensityCommand;
-import seedu.address.logic.commands.exercise.FindExerciseByMuscleCommand;
-import seedu.address.logic.commands.exercise.FindExerciseCommand;
-import seedu.address.logic.commands.exercise.ListExerciseCommand;
-import seedu.address.logic.commands.health.AddHealthCommand;
-import seedu.address.logic.commands.profile.AddProfileCommand;
-import seedu.address.logic.commands.profile.EditProfileCommand;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.stats.StatisticsCommand;
-
-import seedu.address.logic.parser.diary.AddDiaryCommandParser;
-import seedu.address.logic.parser.diary.AddPageCommandParser;
-import seedu.address.logic.parser.diary.DeleteDiaryCommandParser;
-import seedu.address.logic.parser.diary.DeletePageCommandParser;
-import seedu.address.logic.parser.diary.EditDiaryCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.exercise.AddExerciseCommandParser;
-import seedu.address.logic.parser.exercise.DeleteExerciseCommandParser;
-import seedu.address.logic.parser.exercise.EditExerciseCommandParser;
-import seedu.address.logic.parser.exercise.FindExerciseByIntensityCommandParser;
-import seedu.address.logic.parser.exercise.FindExerciseByMuscleCommandParser;
-import seedu.address.logic.parser.exercise.FindExerciseCommandParser;
-import seedu.address.logic.parser.health.AddHealthCommandParser;
-import seedu.address.logic.parser.profile.AddProfileCommandParser;
-import seedu.address.logic.parser.profile.EditProfileCommandParser;
 
 /**
  * Parses user input.
