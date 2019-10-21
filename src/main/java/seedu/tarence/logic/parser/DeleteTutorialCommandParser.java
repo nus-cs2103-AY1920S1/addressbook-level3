@@ -11,7 +11,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.TutName;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteTutorialCommand object
  */
 public class DeleteTutorialCommandParser extends CommandParser<DeleteTutorialCommand> {
 
@@ -19,8 +19,8 @@ public class DeleteTutorialCommandParser extends CommandParser<DeleteTutorialCom
     private static final OptionalArgument[] optionalArgs = {};
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteTutorialCommand
+     * and returns a DeleteTutorialCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteTutorialCommand parse(String args) throws ParseException {

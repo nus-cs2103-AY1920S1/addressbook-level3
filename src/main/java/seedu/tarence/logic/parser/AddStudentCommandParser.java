@@ -3,11 +3,11 @@ package seedu.tarence.logic.parser;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MATNO;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NUSID;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.Optional;
@@ -37,8 +37,8 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
         OptionalArgument.OPTIONAL_NUSID
     };
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddStudentCommand
+     * and returns an AddStudentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddStudentCommand parse(String args) throws ParseException {
@@ -72,21 +72,21 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
     private boolean formatIsUnclear(String args) {
         ArgumentMultimap argMultimap =
                 OptionalArgumentTokenizer.tokenize(args, optionalArgs,
-                        PREFIX_TUTORIAL_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME);
+                        PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME);
 
         // Tutorial name, module name and index are all present
-        if (arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_INDEX, PREFIX_NAME, PREFIX_EMAIL,
+        if (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL,
                 PREFIX_MODULE, PREFIX_TUTORIAL_NAME)) {
             return true;
         }
 
         // Tutorial name and index are present
-        if (arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_TUTORIAL_NAME)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_TUTORIAL_NAME)) {
             return true;
         }
 
         // Module name and index are all present
-        if (arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE)) {
             return true;
         }
         return false;
@@ -100,9 +100,9 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
     private Optional<ArgumentMultimap> validateIndexFormat(String args) {
         ArgumentMultimap argMultimap =
                 OptionalArgumentTokenizer.tokenize(args, optionalArgs,
-                        PREFIX_TUTORIAL_INDEX, PREFIX_NAME, PREFIX_EMAIL);
+                        PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_INDEX, PREFIX_NAME, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             return Optional.empty();
         }
@@ -162,7 +162,7 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
             student = new Student(name, email, matricNum, nusnetId, modCode, tutName);
             return new AddStudentCommand(student);
         } else {
-            argMultimap.getValue(PREFIX_TUTORIAL_INDEX);
+            argMultimap.getValue(PREFIX_INDEX);
             tutIdx = retrieveIndex(argMultimap);
             student = new Student(name, email, matricNum, nusnetId, TEMP_MOD_CODE, TEMP_TUT_NAME);
             return new AddStudentCommand(student, tutIdx);
@@ -174,7 +174,7 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
      */
     private Index retrieveIndex(ArgumentMultimap argumentMultimap) throws ParseException {
         try {
-            return Index.fromOneBased(Integer.valueOf(argumentMultimap.getValue(PREFIX_TUTORIAL_INDEX).get()));
+            return Index.fromOneBased(Integer.valueOf(argumentMultimap.getValue(PREFIX_INDEX).get()));
         } catch (RuntimeException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_TUTORIAL_INDEX_FORMAT,
                     AddStudentCommand.MESSAGE_USAGE));

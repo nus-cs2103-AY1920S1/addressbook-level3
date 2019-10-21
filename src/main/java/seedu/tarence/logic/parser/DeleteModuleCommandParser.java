@@ -9,7 +9,7 @@ import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteModuleCommand object
  */
 public class DeleteModuleCommandParser extends CommandParser<DeleteModuleCommand> {
 
@@ -17,8 +17,8 @@ public class DeleteModuleCommandParser extends CommandParser<DeleteModuleCommand
     private static final OptionalArgument[] optionalArgs = {};
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteModuleCommand
+     * and returns a DeleteModuleCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteModuleCommand parse(String args) throws ParseException {

@@ -5,11 +5,14 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
 
@@ -18,6 +21,7 @@ import seedu.tarence.model.student.Student;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Tutorial {
+    public static final int NOT_SUBMITTED = -1;
 
     // Identity fields
     protected final TutName tutName;
@@ -25,6 +29,8 @@ public class Tutorial {
     protected List<Student> students;
     protected ModCode modCode;
     protected Attendance attendance;
+    // TODO: Add assignments to storage
+    protected Map<Assignment, Map<Student, Integer>> assignments;
 
     /**
      * Every field must be present and not null.
@@ -38,6 +44,7 @@ public class Tutorial {
         this.students = students;
         this.modCode = modCode;
         this.attendance = new Attendance(weeks, students);
+        this.assignments = new TreeMap<>();
     }
 
     public TutName getTutName() {
@@ -52,6 +59,35 @@ public class Tutorial {
         return students;
     }
 
+    public ModCode getModCode() {
+        return modCode;
+    }
+
+    public Attendance getAttendance() {
+        return attendance;
+    }
+
+    public Assignment getAssignment(Index assignIndex) throws IndexOutOfBoundsException {
+        Set<Assignment> keys = ((TreeMap<Assignment, Map<Student, Integer>>) assignments).navigableKeySet();
+        Integer index = assignIndex.getZeroBased();
+        int i = 0;
+        for (Assignment assignment : keys) {
+            if (index == i) {
+                return assignment;
+            }
+            i++;
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    /**
+     * Adds a Student to a Tutorial.
+     */
+    public void addStudent(Student student) {
+        students.add(student);
+        attendance.addStudent(student);
+    }
+
     /**
      * Replaces the given student {@code target} in the list with {@code editedStudent}.
      * {@code target} must exist in the application.
@@ -64,25 +100,8 @@ public class Tutorial {
             }
         }
     }
-
-    public ModCode getModCode() {
-        return modCode;
-    }
-
-    public Attendance getAttendance() {
-        return attendance;
-    }
-
     /**
-     * Adds a Student to a Tutorial.
-     */
-    public void addStudent(Student student) {
-        students.add(student);
-        attendance.addStudent(student);
-    }
-
-    /**
-     * Removes a student from a tutorial
+     * Removes a Student from a Tutorial.
      */
     public void deleteStudent(Student student) {
         students.remove(student);
@@ -94,6 +113,32 @@ public class Tutorial {
      */
     public void setAttendance(Week week, Student student) {
         attendance.setAttendance(week, student);
+    }
+
+    /**
+     * Adds an Assignment to a Tutorial.
+     */
+    public void addAssignment(Assignment assignment) {
+        assignments.put(assignment, new HashMap<>());
+        for (Student student : students) {
+            assignments.get(assignment).put(student, NOT_SUBMITTED);
+        }
+    }
+
+    /**
+     * Removes an Assignment from a Tutorial. Returns true if removal is successful
+     */
+    public boolean deleteAssignment(Assignment assignment) {
+        return assignments.remove(assignment) != null;
+    }
+
+    /**
+     * Sets an Assignment in a Tutorial.
+     */
+    public void setAssignment(Assignment target, Assignment assignment) {
+        addAssignment(assignment);
+        assignments.get(target).putAll(assignments.get(assignment));
+        deleteAssignment(target);
     }
 
     /**

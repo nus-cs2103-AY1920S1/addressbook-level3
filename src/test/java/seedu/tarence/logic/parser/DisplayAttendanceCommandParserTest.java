@@ -10,8 +10,8 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_MODCODE_DESC;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_IDX_DESC;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_DESC;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.tarence.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
@@ -65,7 +65,7 @@ public class DisplayAttendanceCommandParserTest {
         assertParseFailure(parser, VALID_MODCODE_DESC, invalidCommandMessage);
 
         // Parsing invalid tutorial
-        String invalidTutorial = PREFIX_TUTORIAL_INDEX + "@#!";
+        String invalidTutorial = PREFIX_INDEX + "@#!";
         assertParseFailure(parser, invalidTutorial, invalidCommandMessage);
 
         // Parsing invalid module

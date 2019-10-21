@@ -131,7 +131,7 @@ public class MarkAttendanceCommand extends Command {
                     targetModCode.get(), targetTutName.get(), targetStudName.get(), model);
         }
 
-        model.setAttendance(targetTutorial, week, targetStudent);
+        targetTutorial.setAttendance(week, targetStudent);
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,

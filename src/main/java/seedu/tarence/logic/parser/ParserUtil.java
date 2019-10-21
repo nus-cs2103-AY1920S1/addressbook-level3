@@ -2,7 +2,6 @@ package seedu.tarence.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.logic.parser.ArgumentPatterns.PATTERN_WEEKRANGE;
-import static seedu.tarence.logic.parser.ParserMessages.MESSAGE_INVALID_WEEK_RANGE;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -217,7 +216,7 @@ public class ParserUtil {
             int start = Integer.parseInt(weekRange[0]);
             int end = Integer.parseInt(weekRange[1]);
             if (start < 1 || end > 13) {
-                throw new ParseException(MESSAGE_INVALID_WEEK_RANGE);
+                throw new ParseException(Week.MESSAGE_CONSTRAINTS);
             }
             for (int i = start; i <= end; i++) {
                 listOfWeeks.add(new Week(i));

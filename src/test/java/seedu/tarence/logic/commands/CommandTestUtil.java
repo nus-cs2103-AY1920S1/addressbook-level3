@@ -4,15 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DAY;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DURATION_IN_MINUTES;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_START_TIME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
-
 import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -65,8 +64,8 @@ public class CommandTestUtil {
     public static final String NUSNET_DESC_AMY = " " + VALID_NUSNET_AMY;
     public static final String TUTORIAL_DESC_AMY = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME_AMY;
     public static final String TUTORIAL_DESC_BOB = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME_BOB;
-    public static final String TUTORIAL_IDX_DESC_AMY = " " + PREFIX_TUTORIAL_INDEX + VALID_TUTORIAL_INDEX_AMY;
-    public static final String TUTORIAL_IDX_DESC_BOB = " " + PREFIX_TUTORIAL_INDEX + VALID_TUTORIAL_INDEX_BOB;
+    public static final String TUTORIAL_IDX_DESC_AMY = " " + PREFIX_INDEX + VALID_TUTORIAL_INDEX_AMY;
+    public static final String TUTORIAL_IDX_DESC_BOB = " " + PREFIX_INDEX + VALID_TUTORIAL_INDEX_BOB;
 
     public static final String VALID_MODCODE = "EC2303";
     public static final String VALID_TUTORIAL_NAME = "Tutorial 5";
@@ -98,7 +97,7 @@ public class CommandTestUtil {
     public static final String VALID_WEEKS_ODD_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_ODD;
     public static final String VALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_RANGE;
     public static final String VALID_WEEK_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEK;
-    public static final String VALID_TUTORIAL_IDX_DESC = " " + PREFIX_TUTORIAL_INDEX + VALID_TUTORIAL_IDX;
+    public static final String VALID_TUTORIAL_IDX_DESC = " " + PREFIX_INDEX + VALID_TUTORIAL_IDX;
     public static final String VALID_FILENAME_DESC = " " + PREFIX_FILE + VALID_FILENAME;
 
     public static final String INVALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + INVALID_WEEKS_RANGE;
@@ -109,9 +108,9 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
 
-    public static final String INVALID_TUTORIAL_INDEX_DESC_1 = " " + PREFIX_TUTORIAL_INDEX + "sa&";
-    public static final String INVALID_TUTORIAL_INDEX_DESC_2 = " " + PREFIX_TUTORIAL_INDEX + "☹";
-    public static final String INVALID_TUTORIAL_INDEX_DESC_3 = " " + PREFIX_TUTORIAL_INDEX + "0";
+    public static final String INVALID_TUTORIAL_INDEX_DESC_1 = " " + PREFIX_INDEX + "sa&";
+    public static final String INVALID_TUTORIAL_INDEX_DESC_2 = " " + PREFIX_INDEX + "☹";
+    public static final String INVALID_TUTORIAL_INDEX_DESC_3 = " " + PREFIX_INDEX + "0";
 
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

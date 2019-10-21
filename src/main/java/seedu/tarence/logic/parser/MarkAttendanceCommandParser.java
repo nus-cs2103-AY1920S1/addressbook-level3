@@ -1,9 +1,9 @@
 package seedu.tarence.logic.parser;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 
@@ -19,18 +19,18 @@ import seedu.tarence.model.tutorial.Week;
 
 
 /**
- * Parses input arguments and creates a new AddModuleCommand object
+ * Parses input arguments and creates a new MarkAttendanceCommand object
  */
 public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddModuleCommand
-     * and returns an AddModuleCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the MarkAttendanceCommand
+     * and returns a MarkAttendanceCommand object for execution.
      * @throws ParseException if the user input does not match the expected formats for the module code.
      */
     public MarkAttendanceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_TUTORIAL_INDEX, PREFIX_NAME, PREFIX_TUTORIAL_WEEKS);
+                PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_INDEX, PREFIX_NAME, PREFIX_TUTORIAL_WEEKS);
 
         ModCode modCode = null;
         TutName tutName = null;
@@ -40,7 +40,7 @@ public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand
             modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
             tutName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIAL_NAME).get());
         } else if (validateIndexFormat(argMultimap)) {
-            tutIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TUTORIAL_INDEX).get());
+            tutIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MarkAttendanceCommand.MESSAGE_USAGE));
@@ -64,7 +64,7 @@ public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand
         // modcode, tutorial name present without tutorial index - first format
         return (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TUTORIAL_NAME,
                 PREFIX_TUTORIAL_WEEKS)
-                && arePrefixesAbsent(argMultimap, PREFIX_TUTORIAL_INDEX));
+                && arePrefixesAbsent(argMultimap, PREFIX_INDEX));
     }
 
     /**
@@ -75,7 +75,7 @@ public class MarkAttendanceCommandParser implements Parser<MarkAttendanceCommand
     public static boolean validateIndexFormat(ArgumentMultimap argMultimap) {
         // student name not checked since it is optional
         // tutorial index present without modcode or tutorial name - second format
-        return (arePrefixesPresent(argMultimap, PREFIX_TUTORIAL_INDEX, PREFIX_TUTORIAL_WEEKS)
+        return (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_TUTORIAL_WEEKS)
                 && arePrefixesAbsent(argMultimap, PREFIX_MODULE, PREFIX_TUTORIAL_NAME));
     }
 

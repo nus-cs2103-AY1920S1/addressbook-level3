@@ -1,7 +1,6 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-// import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,7 +8,6 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-// import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -27,8 +25,6 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.builder.ModuleBuilder;
-// import seedu.tarence.model.builder.StudentBuilder;
-// import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Name;
@@ -37,7 +33,6 @@ import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
-import seedu.tarence.model.tutorial.Week;
 
 public class ExportAttendanceCommandTest {
 
@@ -345,11 +340,6 @@ public class ExportAttendanceCommandTest {
         }
 
         @Override
-        public void setAttendance(Tutorial tutorial, Week week, Student student) {
-            // TODO: implement
-        }
-
-        @Override
         public void storePendingCommand(Command command) {};
 
         @Override
@@ -503,12 +493,6 @@ public class ExportAttendanceCommandTest {
         @Override
         public ReadOnlyApplication getApplication() {
             return new Application();
-        }
-
-        @Override
-        public void setAttendance(Tutorial tutorial, Week week, Student student) {
-            requireAllNonNull(tutorial, week, student);
-            tutorial.setAttendance(week, student);
         }
 
         @Override

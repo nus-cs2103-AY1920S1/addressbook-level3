@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.Stack;
 
 import javafx.collections.ObservableList;
-
 import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.parser.PartialInput;
 import seedu.tarence.model.module.ModCode;
@@ -22,7 +21,6 @@ import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.UniqueTutorialList;
-import seedu.tarence.model.tutorial.Week;
 
 /**
  * Wraps all data at the application level
@@ -198,12 +196,21 @@ public class Application implements ReadOnlyApplication {
      * The person identity of {@code editedStudent} must not be the same as another existing student in the application.
      */
     public void setStudent(Student target, Student editedStudent) {
-        requireNonNull(editedStudent);
-        //students.setPerson(target, editedStudent);
-        removeStudent(target);
+        requireAllNonNull(target, editedStudent);
 
-        addStudent(editedStudent);
-        addStudentToTutorial(editedStudent);
+        Tutorial targetTutorial = null;
+        for (Tutorial tutorial : tutorials) {
+            if (tutorial.getTutName().equals(target.getTutName())) {
+                targetTutorial = tutorial;
+                break;
+            }
+        }
+
+        removeTutorial(targetTutorial);
+        targetTutorial.setStudent(target, editedStudent);
+        addTutorial(targetTutorial);
+        addTutorialToModule(targetTutorial);
+
     }
 
     /**
@@ -299,6 +306,7 @@ public class Application implements ReadOnlyApplication {
         }
     }
 
+    // TODO: Can merge with addTutorial()?
     /**
      * Adds a tutorial to its associated module. Assumes that a module of the given code exists.
      */
@@ -373,11 +381,6 @@ public class Application implements ReadOnlyApplication {
                 module.deleteTutorial(tutorial);
             }
         }
-    }
-
-    public void setAttendance(Tutorial tutorial, Week week, Student student) {
-        requireAllNonNull(tutorial, week, student);
-        tutorial.setAttendance(week, student);
     }
 
     //// util methods
