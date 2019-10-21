@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
 import seedu.address.storage.userprefs.UserPrefsStorage;
@@ -37,4 +38,8 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
 
     @Override
     void removeWordBank(String wordBankName);
+
+    @Override
+    Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException;
+
 }

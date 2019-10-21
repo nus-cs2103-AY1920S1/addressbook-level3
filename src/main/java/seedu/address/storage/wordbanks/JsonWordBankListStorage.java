@@ -81,7 +81,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    private Optional<ReadOnlyWordBank> getWordBank(Path filePath) throws DataConversionException {
+    @Override
+    public Optional<ReadOnlyWordBank> getWordBank(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableWordBank> jsonAddressBook = JsonUtil.readJsonFile(
@@ -92,7 +93,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
 
         try {
             String pathName = filePath.toString();
-            int len = wordBanksFilePath.toString().length();
+            int len = filePath.getParent().toString().length();
             String wordBankName = pathName.substring(len + 1, pathName.length() - 5);
             return Optional.of(jsonAddressBook.get().toModelType(wordBankName));
         } catch (IllegalValueException ive) {
@@ -138,7 +139,6 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             }
             Path wordBankPath = Paths.get(wordBanksFilePath.toString(), pathArray[i]);
             try {
-                System.out.println(wordBankPath.toString());
                 Optional<ReadOnlyWordBank> wordBank = getWordBank(wordBankPath);
                 ReadOnlyWordBank wb = wordBank.get();
                 WordBank wbToAdd = (WordBank) wb;

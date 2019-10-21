@@ -83,6 +83,12 @@ public class StorageManager implements Storage {
         wordBankListStorage.removeWordBank(wordBankName);
     }
 
+    @Override
+    public Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException {
+        return wordBankListStorage.getWordBank(wordBankPathFile);
+    }
+
+
     // ================ WordBankStatistics methods ==============================
 
     @Override

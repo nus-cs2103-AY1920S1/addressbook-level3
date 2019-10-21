@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
@@ -45,4 +46,11 @@ public interface WordBankListStorage {
      * @param wordBankName data. Cannot be null.
      */
     void removeWordBank(String wordBankName);
+
+    /**
+     * Get a word bank
+     *
+     * @param wordBankPathFile data. Cannot be null.
+     */
+    Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException;
 }
