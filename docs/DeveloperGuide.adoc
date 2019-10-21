@@ -170,8 +170,54 @@ There is three type of statistic to be calculated and only on `completed orders`
 It implements the following mode of operations:
 
 * default mode with no date input: generates on all completed order total `profit` , `cost` or `revenue`
+** The command enter by the user will be e.g for profit type `generate-s s/PROFIT`
+
 * mode with date input from user: The statistic command takes in 2 `dates`, `starting date` and `ending date` and generates the `profit`
 , `cost` or `revenue`  each `month` between this 2 dates.
+** command entered by user will be e.g for profit type`generate-s s/PROFIT s1/YYYY.MM.DD s2/YYYY.MM.DD`
+
+===== Statistic Module
+The statistic module exposes the calculation operations in the `Statistics` interface.
+analogous to the output mode, there are 2 types of methods in this module, one that returns a
+`String` and the other and `XYChart.Data<String,Number>`
+
+* Methods that return a `String`:
+
+** `calculateTotalProfitOnCompleted()`
+** `calculateTotalRevenueOnCompleted()`
+** `calculateTotalCostOnCompleted()`
+
+* Methods that return a `XYChart.Data<String,Number>`:
+
+** `calculateTotalProfitOnCompletedGraph()`
+** `calculateTotalRevenueOnCompletedGraph()`
+** `calculateTotalCostOnCompletedGraph()`
+
+===== Design Considerations / Alternative designs considered
+
+Given that the number of orders in a seller database might be scaled to be very large in the future
+the main focus of this feature was to *calculate statistics only when needed*.
+
+One way that was initially considered was actually to maintain a running statistic
+counter upon loading of the main app, update this counter when calculation is needed ,
+and then display it. This implementation would be much easier to implement within the existing AB3 code
+since it meant extending the `Model` class with a statistic model, than having the UI class to read from
+this value *However, we dropped this due to the consideration
+mentioned in the previous paragraph*
+
+Given that consideration, we decided that it will be the `UI` to trigger this call to `Logic` for calculation
+and then display the result of that call.
+
+Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
+the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
+with the actual changes on data done with a call to model during `execute(model)`. We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
+queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class.
+
+
+
+
+
+
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
