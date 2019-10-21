@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
@@ -49,7 +48,6 @@ public class JsonWordBankStatisticsListStorage implements WordBankStatisticsList
                 continue;
             }
             Path wbStatsPath = Path.of(wbStatsFilePath.toString(), path);
-            String wbName = FileUtil.getJustFileName(wbStatsPath.toString());
             Optional<WordBankStatistics> optionalWbStats = readWordBankStatistics(wbStatsPath);
             optionalWbStats.ifPresent(wordBankStatsList::add);
         }

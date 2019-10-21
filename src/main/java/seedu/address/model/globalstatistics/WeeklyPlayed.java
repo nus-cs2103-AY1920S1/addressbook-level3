@@ -35,7 +35,7 @@ public class WeeklyPlayed {
     /**
      * Increment the number of play for today.
      */
-    void incrementPlay() {
+    public void incrementPlay() {
         LocalDate curStartOfWeek = getCurrentStartOfWeek();
         if (!curStartOfWeek.equals(startOfWeek)) {
             // move to new week

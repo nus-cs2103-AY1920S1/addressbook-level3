@@ -37,7 +37,7 @@ public class JsonAdaptedWeeklyPlayed {
     /**
      * Converts this weekly played into the model's {@code WeeklyPlayed} object.
      */
-    WeeklyPlayed toModelType() {
+    public WeeklyPlayed toModelType() {
         Map<DayOfWeek, Integer> map = new HashMap<>();
         for (Map.Entry<Integer, Integer> entry : days.entrySet()) {
             map.put(DayOfWeek.of(entry.getKey()), entry.getValue());

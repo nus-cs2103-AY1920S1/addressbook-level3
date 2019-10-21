@@ -24,7 +24,7 @@ import seedu.address.commons.util.AppUtil;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.globalstatistics.WeeklyPlayed;
 import seedu.address.statistics.WordBankStatistics;
-import seedu.address.ui.AvatarImage;
+import seedu.address.ui.AvatarImageUtil;
 import seedu.address.ui.UiPart;
 
 /**
@@ -102,7 +102,7 @@ public class MainTitlePanel extends UiPart<Region> {
         barChart.getData().add(dataSeries);
         weeklyBarChartPlaceholder.getChildren().add(barChart);
 
-        Image avatarImage = AvatarImage.get(avatarId);
+        Image avatarImage = AvatarImageUtil.get(avatarId);
         avatarImageView.setImage(avatarImage);
 
         avatarShadow.setId("avatar-shadow");
