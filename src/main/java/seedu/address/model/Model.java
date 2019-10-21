@@ -64,16 +64,6 @@ public interface Model {
     void setPlanner(ReadOnlyPlanner planner);
 
     /**
-     * Replaces planner's name with {@code name}.
-     */
-    void setPlannerName(Name name);
-
-    /**
-     * Replaces planner's start date with {@code startDate}.
-     */
-    void setPlannerStartDate(LocalDate startDate);
-
-    /**
      * Returns the Planner
      */
     ReadOnlyPlanner getPlanner();
@@ -219,6 +209,16 @@ public interface Model {
     void setDays(List<Day> days);
 
     void setDays(Itinerary itinerary);
+
+    /**
+     * Replaces planner's name with {@code name}.
+     */
+    void setItineraryName(Name name);
+
+    /**
+     * Replaces planner's start date with {@code startDate}.
+     */
+    void setItineraryStartDate(LocalDate startDate);
 
     /**
      * Returns an unmodifiable view of the filtered days list

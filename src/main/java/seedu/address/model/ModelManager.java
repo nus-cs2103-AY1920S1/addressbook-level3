@@ -104,16 +104,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPlannerName(Name name) {
-        this.planner.setName(name);
-    }
-
-    @Override
-    public void setPlannerStartDate(LocalDate sd) {
-        this.planner.setStartDate(sd);
-    }
-
-    @Override
     public ReadOnlyPlanner getPlanner() {
         return planner;
     }
@@ -169,6 +159,16 @@ public class ModelManager implements Model {
     }
 
     //=========== DAY ================================================================================
+    @Override
+    public void setItineraryName(Name name) {
+        this.planner.setName(name);
+    }
+
+    @Override
+    public void setItineraryStartDate(LocalDate sd) {
+        this.planner.setStartDate(sd);
+    }
+
     @Override
     public void deleteDay(Day target) {
         planner.removeDay(target);

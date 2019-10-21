@@ -125,12 +125,12 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public void setPlannerName(Name name) {
+        public void setItineraryName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPlannerStartDate(LocalDate startDate) {
+        public void setItineraryStartDate(LocalDate startDate) {
             throw new AssertionError("This method should not be called.");
         }
 

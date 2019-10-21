@@ -26,8 +26,6 @@ import seedu.address.model.field.Name;
  */
 public class Planner implements ReadOnlyPlanner {
     private String country;
-    private Name name;
-    private LocalDate startDate;
     private final UniqueActivityList activities;
     private final UniqueAccommodationList accommodations;
     private final UniqueContactList contacts;
@@ -49,51 +47,18 @@ public class Planner implements ReadOnlyPlanner {
 
     public Planner() {}
 
-    public Planner(Name name, LocalDate startDate) {
-        this.name = name;
-        this.startDate = startDate;
-    }
-
     /**
      * Creates an Planner using the Persons in the {@code toBeCopied}
      */
     public Planner(ReadOnlyPlanner toBeCopied) {
         this();
-        Name copiedName = null;
-        LocalDate copiedStartDate = null;
-        if (toBeCopied.getName().isPresent()) {
-            copiedName = toBeCopied.getName().get();
-        }
-        if (toBeCopied.getStartDate().isPresent()) {
-            copiedStartDate = toBeCopied.getStartDate().get();
-        }
-        this.name = copiedName;
-        this.startDate = copiedStartDate;
         resetDataContact(toBeCopied);
         //resetDataActivity(toBeCopied);
         //resetDataAccommodation(toBeCopied);
         //resetDataDay(toBeCopied);
     }
 
-    //// other field operations
-    public Optional<Name> getName() {
-        return Optional.ofNullable(this.name);
-    }
-
-    public Optional<LocalDate> getStartDate() {
-        return Optional.ofNullable(this.startDate);
-    }
-
-    public void setName(Name name) {
-        this.name = name;
-    }
-
-    public void setStartDate(LocalDate date) {
-        this.startDate = date;
-    }
-
     //// For ACCOMMODATION list overwrite operations
-
     /**
      * Resets the existing data of this {@code Planner} with {@code newData}.
      */
@@ -279,7 +244,7 @@ public class Planner implements ReadOnlyPlanner {
         contacts.remove(key);
     }
 
-    //// For DAY list overwrite operations
+    //// For Itinerary overwrite operations
     /**
      * Resets the existing data of this {@code Planner} with {@code newData}.
      */
@@ -287,6 +252,22 @@ public class Planner implements ReadOnlyPlanner {
         requireNonNull(newData);
 
         setDays(newData.getDayList());
+    }
+
+    public Optional<Name> getName() {
+        return days.getName();
+    }
+
+    public Optional<LocalDate> getStartDate() {
+        return days.getStartDate();
+    }
+
+    public void setName(Name name) {
+        days.setName(name);
+    }
+
+    public void setStartDate(LocalDate date) {
+        days.setStartDate(date);
     }
 
     /**

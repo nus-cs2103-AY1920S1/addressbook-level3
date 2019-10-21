@@ -52,8 +52,8 @@ public class InitCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setPlannerName(this.name);
-        model.setPlannerStartDate(this.startDate);
+        model.setItineraryName(this.name);
+        model.setItineraryStartDate(this.startDate);
         String dateInString = this.startDate.format(ParserUtil.DATE_FORMATTER_1);
         if (numDays == null) {
             return new CommandResult(String.format(MESSAGE_SUCCESS_WITHOUT_INIT_DAY, name, dateInString));
