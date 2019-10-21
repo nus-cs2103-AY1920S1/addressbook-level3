@@ -115,7 +115,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setBudget(Budget budget) {
-        bankAccount.setBudget(budget);
+        versionedBankAccount.setBudget(budget);
     }
 
     /**

@@ -1,10 +1,11 @@
 package seedu.address.model.transaction;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.Date;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Handles Budget of a BankAccount.
@@ -56,9 +57,10 @@ public class Budget {
     }
 
     private Date calculateDeadline(int duration) {
-        Date deadline = new Date(System.currentTimeMillis()
-                            + duration * 24 * 60 * 60);
-        return deadline;
+        // Date deadline = new Date((System.currentTimeMillis()
+         //                   + duration * 24 * 60 * 60));
+        //return deadline;
+        return new Date("10102019");
     }
 
 }
