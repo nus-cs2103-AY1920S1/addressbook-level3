@@ -11,13 +11,12 @@ import budgetbuddy.model.Model;
  * Evaluates scripts on a model.
  */
 public class ScriptManager {
-    private static final ScriptEngine scriptEngine;
+    private static final Object scriptEngineLock;
+    private static ScriptEngine scriptEngine;
 
     static {
-        scriptEngine = new ScriptEngineManager().getEngineByExtension("js");
-        if (scriptEngine == null) {
-            throw new IllegalStateException("Could not instantiate JavaScript engine");
-        }
+        scriptEngineLock = new Object();
+        initialise();
     }
 
     /**
@@ -33,11 +32,25 @@ public class ScriptManager {
      * @throws ScriptException if an exception occurs during script evaluation
      */
     public static Object evaluateScript(String script, Model model) throws ScriptException {
-        scriptEngine.getBindings(ScriptContext.ENGINE_SCOPE).put("ab", model);
-        try {
-            return scriptEngine.eval(script);
-        } catch (Exception ex) {
-            throw new ScriptException(String.format("Exception while evaluating script: %1$s", ex.toString()), ex);
+        synchronized (scriptEngineLock) {
+            scriptEngine.getBindings(ScriptContext.ENGINE_SCOPE).put("ab", model);
+            try {
+                return scriptEngine.eval(script);
+            } catch (Exception ex) {
+                throw new ScriptException(String.format("Exception while evaluating script: %1$s", ex.toString()), ex);
+            }
+        }
+    }
+
+    /**
+     * Initialises the script engine of the script manager.
+     */
+    private static void initialise() {
+        synchronized (scriptEngineLock) {
+            scriptEngine = new ScriptEngineManager().getEngineByExtension("js");
+            if (scriptEngine == null) {
+                throw new IllegalStateException("Could not instantiate JavaScript engine");
+            }
         }
     }
 }
