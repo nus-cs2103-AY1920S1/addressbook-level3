@@ -89,6 +89,11 @@ public interface Logic {
      */
     Path getShoppingListFilePath();
 
+    ReadOnlyAddressBook getBoughtList();
+
+    ObservableList<GroceryItem> getFilteredBoughtList();
+
+    Path getBoughtListFilePath();
     /**
      * Returns the user prefs' GUI settings.
      */
