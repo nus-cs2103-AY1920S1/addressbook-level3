@@ -1,4 +1,4 @@
-package budgetbuddy.logic.rules;
+package budgetbuddy.logic.rules.testable;
 
 import java.util.function.Predicate;
 

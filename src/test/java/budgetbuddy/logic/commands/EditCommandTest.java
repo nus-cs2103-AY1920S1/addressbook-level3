@@ -23,6 +23,7 @@ import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.EditPersonDescriptorBuilder;
@@ -33,7 +34,7 @@ import budgetbuddy.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(new LoansManager(),
+    private Model model = new ModelManager(new LoansManager(), new RuleManager(),
             new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
 
     @Test
@@ -46,6 +47,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 model.getLoansManager(),
+                model.getRuleManager(),
                 model.getAccountsManager(),
                 new AddressBook(model.getAddressBook()),
                 new UserPrefs());
@@ -71,6 +73,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 model.getLoansManager(),
+                model.getRuleManager(),
                 model.getAccountsManager(),
                 new AddressBook(model.getAddressBook()),
                 new UserPrefs());
@@ -88,6 +91,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 model.getLoansManager(),
+                model.getRuleManager(),
                 model.getAccountsManager(),
                 new AddressBook(model.getAddressBook()),
                 new UserPrefs());
@@ -108,6 +112,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(
                 model.getLoansManager(),
+                model.getRuleManager(),
                 model.getAccountsManager(),
                 new AddressBook(model.getAddressBook()),
                 new UserPrefs());

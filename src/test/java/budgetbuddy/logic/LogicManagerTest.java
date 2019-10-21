@@ -125,8 +125,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getLoansManager(), model.getAccountsManager(),
-                model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLoansManager(), model.getRuleManager(),
+                model.getAccountsManager(), model.getAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

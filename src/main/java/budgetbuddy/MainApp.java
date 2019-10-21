@@ -20,6 +20,7 @@ import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.ReadOnlyUserPrefs;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.util.SampleDataUtil;
 import budgetbuddy.storage.AddressBookStorage;
@@ -78,11 +79,14 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         LoansManager loansManager;
         AccountsManager accountsManager;
+        RuleManager ruleManager;
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         loansManager = new LoansManager();
+        ruleManager = new RuleManager();
         accountsManager = new AccountsManager();
-        // TODO Load loan data from storage (if data present).
+        // TODO Load manager data from storage (if data present).
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -97,7 +101,8 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(loansManager, accountsManager, initialData, userPrefs);
+        return new ModelManager(loansManager, ruleManager, accountsManager, initialData, userPrefs);
+
     }
 
     private void initLogging(Config config) {

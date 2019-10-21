@@ -95,6 +95,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         LoansManager loansManager = new LoansManager();
+        RuleManager ruleManager = new RuleManager();
         AccountsManager accountsManager = new AccountsManager();
         AddressBook addressBook = new AddressBookBuilder()
                 .withPerson(TypicalPersons.ALICE).withPerson(TypicalPersons.BENSON).build();
@@ -102,8 +103,9 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(loansManager, accountsManager, addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(loansManager, accountsManager, addressBook, userPrefs);
+        modelManager = new ModelManager(loansManager, ruleManager, accountsManager addressBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(loansManager, ruleManager, accountsManager,
+                addressBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -116,13 +118,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(loansManager, accountsManager,
+        assertFalse(modelManager.equals(new ModelManager(loansManager, ruleManager, accountsManager,
                 differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = TypicalPersons.ALICE.getName().name.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(loansManager, accountsManager, addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(loansManager, ruleManager, accountsManager,
+                addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -130,7 +133,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(loansManager,
-                accountsManager, addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(loansManager, ruleManager, accountsManager,
+                addressBook, differentUserPrefs)));
     }
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 import budgetbuddy.logic.rules.RuleProcessingUtil;
 
 /**
- * Represents a Attribute in an ExpressionPredicate
+ * Represents a Attribute in an PredicateExpression
  * Guarantees: immutable; is valid as declared in {@link #isValidAttribute(String)}
  */
 public enum Attribute {

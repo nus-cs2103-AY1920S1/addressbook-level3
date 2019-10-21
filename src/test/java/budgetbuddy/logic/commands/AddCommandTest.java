@@ -21,6 +21,7 @@ import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.ReadOnlyUserPrefs;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.PersonBuilder;
 
@@ -86,6 +87,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public RuleManager getRuleManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+    
         @Override
         public AccountsManager getAccountsManager() {
             throw new AssertionError("This method should not be called.");

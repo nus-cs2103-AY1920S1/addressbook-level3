@@ -6,11 +6,21 @@ import java.util.Optional;
 import budgetbuddy.logic.rules.RuleProcessingUtil;
 
 /**
- * Represents an Operator in an ExpressionPredicate.
+ * Represents an Operator in an expression.
  * Guarantees: immutable; is valid as declared in {@link #isValidOperator(String)}
  */
 public enum Operator {
-    LESS_THAN("<", RuleProcessingUtil.TYPE_AMOUNT);
+    // Predicate operators
+    LESS_THAN("<", RuleProcessingUtil.TYPE_AMOUNT),
+    MORE_THAN(">", RuleProcessingUtil.TYPE_AMOUNT),
+    LESS_EQUAL("<=", RuleProcessingUtil.TYPE_AMOUNT),
+    MORE_EQUAL(">=", RuleProcessingUtil.TYPE_AMOUNT),
+    EQUAL_TO("=", RuleProcessingUtil.TYPE_AMOUNT),
+    CONTAINS("contains", RuleProcessingUtil.TYPE_DESC),
+
+    // Action operators
+    SET_CATEGORY("setcategory", RuleProcessingUtil.TYPE_CATEGORY),
+    SET_DESC("setdesc", RuleProcessingUtil.TYPE_DESC);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Operators are restricted to only the ones already pre-defined "

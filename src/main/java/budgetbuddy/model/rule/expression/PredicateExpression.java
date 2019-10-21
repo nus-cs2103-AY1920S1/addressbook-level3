@@ -9,12 +9,12 @@ import budgetbuddy.model.rule.RulePredicate;
 
 /**
  * Represents a RulePredicate written as an expression.
- * Guarantees: operator and params are present and not null, field values are validated, immutable.
+ * Guarantees: attribute, operator and value are present and not null, field values are validated, immutable.
  */
-public class ExpressionPredicate extends RulePredicate {
+public class PredicateExpression extends RulePredicate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expressions should only contain three terms in the order <attribute> <operator> <value> "
+            "Expressions should contain exactly three terms in the order <attribute> <operator> <value> "
             + "and should not be blank";
 
     public static final String MESSAGE_TYPE_REQUIREMENTS =
@@ -30,13 +30,13 @@ public class ExpressionPredicate extends RulePredicate {
     private final Value value;
 
     /**
-     * Constructs an {@code ExpressionPredicate}.
+     * Constructs an {@code PredicateExpression}.
      *
      * @param attribute the attribute used in the expression.
      * @param operator the operator used in the expression.
      * @param value the value used in the expression.
      */
-    public ExpressionPredicate(Attribute attribute, Operator operator, Value value) {
+    public PredicateExpression(Attribute attribute, Operator operator, Value value) {
         requireAllNonNull(attribute, operator, value);
         this.attribute = attribute;
         this.operator = operator;
@@ -56,7 +56,7 @@ public class ExpressionPredicate extends RulePredicate {
     }
 
     /**
-     * Returns true if both expression predicates have the same identity and detail fields.
+     * Returns true if both predicate expressions have the same identity and detail fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -64,11 +64,11 @@ public class ExpressionPredicate extends RulePredicate {
             return true;
         }
 
-        if (!(other instanceof ExpressionPredicate)) {
+        if (!(other instanceof PredicateExpression)) {
             return false;
         }
 
-        ExpressionPredicate otherPredicate = (ExpressionPredicate) other;
+        PredicateExpression otherPredicate = (PredicateExpression) other;
         return otherPredicate.getAttribute().equals(getAttribute())
                 && otherPredicate.getOperator().equals(getOperator())
                 && otherPredicate.getValue().equals(getValue());
@@ -77,5 +77,10 @@ public class ExpressionPredicate extends RulePredicate {
     @Override
     public int hashCode() {
         return Objects.hash(attribute, operator, value);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s %s", attribute, operator, value);
     }
 }

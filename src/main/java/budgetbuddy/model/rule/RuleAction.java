@@ -1,33 +1,11 @@
 package budgetbuddy.model.rule;
 
-import static java.util.Objects.requireNonNull;
-
 /**
- * Represents a RuleAction in a Rule.
+ * Represents a RuleAction in a Rule with hidden implementation.
  * Guarantees: immutable.
  */
-public class RuleAction {
-    private final String value;
-
-    /**
-     * Constructs a {@code RuleAction}.
-     *
-     * @param action A valid action.
-     */
-    public RuleAction(String action) {
-        requireNonNull(action);
-        value = action;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof RuleAction // instanceof handles nulls
-                && value.equals(((RuleAction) other).value)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
+public abstract class RuleAction {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Actions should be either expressions or scripts "
+                    + "and should not be blank";
 }

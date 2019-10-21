@@ -11,6 +11,7 @@ import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 
 /**
@@ -23,9 +24,10 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new LoansManager(), new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getLoansManager(),
-                model.getAccountsManager(), model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(new LoansManager(), new RuleManager(), new AccountsManager(),
+                getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getLoansManager(), model.getRuleManager(), model.getAccountsManager(),
+                model.getAddressBook(), new UserPrefs());
     }
 
     @Test

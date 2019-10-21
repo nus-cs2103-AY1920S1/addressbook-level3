@@ -3,7 +3,7 @@ package budgetbuddy.model.rule.expression;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Attribute in an ExpressionPredicate
+ * Represents a Value in an expression
  * Guarantees: immutable; is valid as declared in {@link #isValidValue(String)}
  */
 public class Value {

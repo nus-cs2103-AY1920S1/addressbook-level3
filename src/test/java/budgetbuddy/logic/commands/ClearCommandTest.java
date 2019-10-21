@@ -10,6 +10,7 @@ import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 
 public class ClearCommandTest {
@@ -24,9 +25,9 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(new LoansManager(),
-                new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new LoansManager(),
+        Model model = new ModelManager(new LoansManager(), new RuleManager(), new AccountsManager(),
+                getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new LoansManager(), new RuleManager(),
                 new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 

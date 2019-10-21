@@ -19,6 +19,7 @@ import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.person.NameContainsKeywordsPredicate;
 
@@ -26,9 +27,9 @@ import budgetbuddy.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(new LoansManager(),
+    private Model model = new ModelManager(new LoansManager(), new RuleManager(),
             new AccountsManager(), getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(model.getLoansManager(),
+    private Model expectedModel = new ModelManager(model.getLoansManager(), model.getRuleManager(),
             model.getAccountsManager(), getTypicalAddressBook(), new UserPrefs());
 
     @Test
