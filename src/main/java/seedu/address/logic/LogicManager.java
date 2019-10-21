@@ -14,6 +14,7 @@ import seedu.address.logic.parser.SystemParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyData;
+import seedu.address.model.competition.Competition;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -61,6 +62,10 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    public ObservableList<Competition> getFilteredCompetitionList() {
+        return model.getFilteredCompetitionList();
     }
 
     @Override

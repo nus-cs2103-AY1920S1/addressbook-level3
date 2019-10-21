@@ -172,8 +172,11 @@ Examples:
 
 
 === Participation
-This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit an Athlete’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, etc). 
-The flow of events, and the commands to facilitate the competition session will be presented in order below:
+This feature handles the entire flow of each session during Meet Day. It allows event
+organisers to submit an Athlete’s Squat, Bench, Deadlift attempts, as well as the
+success of their lifts. It will show the relevant information to prepare for the
+athletes lift (displaying name, weight, etc). The flow of events, and the commands to
+facilitate the competition session will be presented in order below:
 
 ==== Prepare for a new session: `new`
 Creates a new session of SBD lifts for the given ID of the competition, separated by a space. This will load all the athletes who are participating in this competition. *im giving a dummy competition id as i dont know the format for the real one yet.

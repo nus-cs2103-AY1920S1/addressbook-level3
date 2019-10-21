@@ -44,19 +44,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String dateOfBirth} into a {@code dateOfBirth}.
+     * Parses a {@code String date} into a {@code date}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @return CustomeDate objecct with dateOfBirth trimmed.
+     * @return CustomeDate object with date trimmed.
      * @throws ParseException if the given {@code dateOfBirth} is invalid.
      */
-    public static CustomDate parseDateOfBirth(String dateOfBirth) throws ParseException {
-        requireNonNull(dateOfBirth);
-        String trimmedDateOfBirth = dateOfBirth.trim();
-        if (!CustomDate.isValidDate(trimmedDateOfBirth)) {
+    public static CustomDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!CustomDate.isValidDate(trimmedDate)) {
             throw new ParseException(CustomDate.MESSAGE_CONSTRAINTS);
         }
-        return new CustomDate(trimmedDateOfBirth);
+        return new CustomDate(trimmedDate);
     }
 
     /**

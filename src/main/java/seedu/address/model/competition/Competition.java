@@ -19,9 +19,9 @@ public class Competition extends UniqueElement {
     private static final Exercise bench = new Exercise(Lift.BENCH);
     private static final Exercise deadlift = new Exercise(Lift.DEADLIFT);
 
-    private final Name name;
-    private final CustomDate startDate;
-    private final CustomDate endDate;
+    private Name name;
+    private CustomDate startDate;
+    private CustomDate endDate;
     private final List<Exercise> exerciseList;
 
     public Competition(Name name, CustomDate startDate, CustomDate endDate) {

@@ -67,26 +67,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDateOfBirth_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseDateOfBirth(null));
+    public void parseDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate(null));
     }
 
     @Test
-    public void parseDateOfBirth_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseDateOfBirth(INVALID_DOB));
+    public void parseDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DOB));
     }
 
     @Test
-    public void parseDateOfBirth_validValueWithoutWhitespace_returnsPhone() throws Exception {
+    public void parseDate_validValueWithoutWhitespace_returnsPhone() throws Exception {
         CustomDate expectedDateOfBirth = new CustomDate(VALID_DOB);
-        assertEquals(expectedDateOfBirth, ParserUtil.parseDateOfBirth(VALID_DOB));
+        assertEquals(expectedDateOfBirth, ParserUtil.parseDate(VALID_DOB));
     }
 
     @Test
-    public void parseDateOfBirth_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
+    public void parseDate_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
         String dobWithWhitespace = WHITESPACE + VALID_DOB + WHITESPACE;
         CustomDate expectedDateOfBirth = new CustomDate(VALID_DOB);
-        assertEquals(expectedDateOfBirth , ParserUtil.parseDateOfBirth(dobWithWhitespace));
+        assertEquals(expectedDateOfBirth , ParserUtil.parseDate(dobWithWhitespace));
     }
 
     @Test

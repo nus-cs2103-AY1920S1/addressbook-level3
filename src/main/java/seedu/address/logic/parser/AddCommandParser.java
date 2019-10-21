@@ -34,7 +34,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        CustomDate dateOfBirth = ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DOB).get());
+        CustomDate dateOfBirth = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DOB).get());
         Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
 
         Person person = new Person(name, dateOfBirth, gender);
