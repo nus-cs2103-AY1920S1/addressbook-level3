@@ -5,10 +5,10 @@ import static seedu.address.commons.core.Messages.FILTER;
 
 import java.util.ArrayList;
 
-import seedu.address.model.Model;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FilterByTagCommand;
+import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
 

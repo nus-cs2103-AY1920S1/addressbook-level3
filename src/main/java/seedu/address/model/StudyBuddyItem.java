@@ -1,10 +1,10 @@
 package seedu.address.model;
 
-import seedu.address.model.tag.Tag;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Superclass StudyBuddyItem
