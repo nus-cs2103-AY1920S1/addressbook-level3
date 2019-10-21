@@ -95,8 +95,8 @@ public class ModelManager implements Model {
 
     @Override
     public void setPlanner(ReadOnlyPlanner planner) {
-        planner.getName().ifPresent(this.planner::setName);
-        planner.getStartDate().ifPresent(this.planner::setStartDate);
+        this.planner.setName(planner.getName());
+        this.planner.setStartDate(planner.getStartDate());
         this.planner.resetDataAccommodation(planner);
         this.planner.resetDataActivity(planner);
         this.planner.resetDataContact(planner);

@@ -254,11 +254,11 @@ public class Planner implements ReadOnlyPlanner {
         setDays(newData.getDayList());
     }
 
-    public Optional<Name> getName() {
+    public Name getName() {
         return days.getName();
     }
 
-    public Optional<LocalDate> getStartDate() {
+    public LocalDate getStartDate() {
         return days.getStartDate();
     }
 

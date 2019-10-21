@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +26,10 @@ public class Itinerary implements Iterable<Day> {
     private Name name;
     private LocalDate startDate;
 
+    public Itinerary() {
+        this.name = new Name("Untitled");
+        this.startDate = LocalDate.now();
+    }
     /**
      * Returns true if the list contains an equivalent contacts as the given argument.
      */
@@ -46,19 +49,21 @@ public class Itinerary implements Iterable<Day> {
         }
     }
 
-    public Optional<Name> getName() {
-        return Optional.ofNullable(this.name);
+    public Name getName() {
+        return this.name;
     }
 
-    public Optional<LocalDate> getStartDate() {
-        return Optional.ofNullable(this.startDate);
+    public LocalDate getStartDate() {
+        return this.startDate;
     }
 
     public void setName(Name name) {
+        requireNonNull(name);
         this.name = name;
     }
 
     public void setStartDate(LocalDate date) {
+        requireNonNull(date);
         this.startDate = date;
     }
 

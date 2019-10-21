@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -93,8 +92,6 @@ public class PlannerTest {
      * A stub ReadOnlyPlanner whose contacts list can violate interface constraints.
      */
     private static class PlannerStub implements ReadOnlyPlanner {
-        private final Name name = null;
-        private final LocalDate startDate = null;
         private final ObservableList<Accommodation> accommodations = FXCollections.observableArrayList();
         private final ObservableList<Activity> activities = FXCollections.observableArrayList();
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
@@ -123,13 +120,15 @@ public class PlannerTest {
         }
 
         @Override
-        public Optional<Name> getName() {
-            return Optional.ofNullable(this.name);
+        public Name getName() {
+            throw new AssertionError("this method should not be called until modifications made to"
+                    + "ReadOnlyPlanner.");
         };
 
         @Override
-        public Optional<LocalDate> getStartDate() {
-            return Optional.ofNullable(this.startDate);
+        public LocalDate getStartDate() {
+            throw new AssertionError("this method should not be called until modifications made to"
+                    + "ReadOnlyPlanner.");
         };
 
     }
