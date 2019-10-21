@@ -2,6 +2,9 @@ package seedu.address.stubs;
 
 import java.util.ArrayList;
 
+import seedu.address.cashier.model.exception.NoSuchItemException;
+import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
 public class InventoryModelStubAcceptingItemAdded extends InventoryModelStub {
@@ -28,6 +31,19 @@ public class InventoryModelStubAcceptingItemAdded extends InventoryModelStub {
 
     public ArrayList<Item> getItemsAdded() {
         return itemsAdded;
+    }
+
+    public Item getOriginalItem(String description) throws NoSuchItemException {
+        for (int i = 0; i < itemsAdded.size(); i++) {
+            if (itemsAdded.get(i).getDescription().equalsIgnoreCase(description)) {
+                return itemsAdded.get(i);
+            }
+        }
+        throw new NoSuchItemException(CashierMessages.NO_SUCH_ITEM_CASHIER);
+    }
+
+    public InventoryList getInventoryList() {
+        return new InventoryList(itemsAdded);
     }
 
 }

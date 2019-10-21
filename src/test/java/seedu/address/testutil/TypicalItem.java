@@ -23,6 +23,24 @@ public class TypicalItem {
             .withQuantity(6)
             .build();
 
+    // not meant to be added to list
+    public static final Item BLACK_SHIRT = new ItemBuilder()
+            .withCategory("Shirt")
+            .withDescription("CCA shirt")
+            .withCost(31.93)
+            .withPrice(6.32)
+            .withQuantity(93)
+            .build();
+
+    // not available for sale
+    public static final Item PHONE_CASE = new ItemBuilder()
+            .withCategory("accessory")
+            .withDescription("black case")
+            .withCost(4.23)
+            .withPrice(0.00)
+            .withQuantity(92)
+            .build();
+
     /**
      * Returns an {@code InventoryList} with all the typical items.
      */

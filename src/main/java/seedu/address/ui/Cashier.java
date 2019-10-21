@@ -56,8 +56,8 @@ public class Cashier extends UiPart<Region> {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 System.out.println("Old: " + oldValue + ", New: " + newValue);
             }
-          });
-           totalAmountLabel.textProperty().bind(amount);
+        });
+        totalAmountLabel.textProperty().bind(amount);
 
         SimpleStringProperty cashierProperty = new SimpleStringProperty();
         String str = String.valueOf(logic.getCashier());

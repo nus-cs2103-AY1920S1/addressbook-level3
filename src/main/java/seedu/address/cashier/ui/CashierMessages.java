@@ -16,8 +16,8 @@ public class CashierMessages {
 
     public static final String NO_SUCH_COMMAND = "Sorry! There is no such command.";
 
-    public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with " +
-            "the specified description in the sales list.";
+    public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with "
+            + "the specified description in the sales list.";
 
     public static final String NO_SUCH_INDEX_CASHIER = "There is no item at the inputted index.";
 
@@ -40,7 +40,8 @@ public class CashierMessages {
 
     public static final String QUANTITY_NOT_A_NUMBER = "Please input an integer for the quantity of item to be sold.";
 
-    public static final String QUANTITY_NOT_POSITIVE = "Please input an positive integer for the quantity of item to be sold.";
+    public static final String QUANTITY_NOT_POSITIVE = "Please input an "
+            + "positive integer for the quantity of item to be sold.";
 
     public static final String MESSAGE_ADD_CASHIER = "Added cashier successfully. Cashier-in-charge is: %s.\n";
 

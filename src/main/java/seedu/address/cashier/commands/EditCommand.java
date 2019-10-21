@@ -2,6 +2,7 @@ package seedu.address.cashier.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_EDIT_SUCCESS;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
+import static seedu.address.person.commons.core.LogsCenter.logger;
 
 import seedu.address.cashier.logic.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.exception.ParseException;
@@ -26,6 +27,10 @@ public class EditCommand extends Command {
     public EditCommand(int index, int quantity) {
         assert index > 0 : "Index must be a positive integer.";
         assert quantity >= 0 : "Quantity cannot be negative.";
+
+        logger.info("index of item edited: " + index);
+        logger.info("quantity of item edited: " + quantity);
+
         this.index = index;
         this.quantity = quantity;
     }
@@ -46,6 +51,7 @@ public class EditCommand extends Command {
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
         i = model.editItem(index, quantity);
+        logger.info("Edited item: " + i.toString());
         return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, i.getDescription(), i.getQuantity()));
     }
 }

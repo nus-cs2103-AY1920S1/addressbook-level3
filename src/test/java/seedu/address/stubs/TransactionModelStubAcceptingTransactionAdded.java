@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.util.TransactionList;
 
 public class TransactionModelStubAcceptingTransactionAdded extends TransactionModelStub {
     final ArrayList<Transaction> transactionsAdded;
@@ -34,6 +35,11 @@ public class TransactionModelStubAcceptingTransactionAdded extends TransactionMo
     @Override
     public void resetPredicate() {
         this.predicate = transaction -> true;
+    }
+
+    @Override
+    public TransactionList getTransactionList() {
+        return new TransactionList(transactionsAdded);
     }
 
 }

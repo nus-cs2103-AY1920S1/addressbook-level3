@@ -15,7 +15,8 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws Exception If an error occurs during command execution.
      */
-    public abstract CommandResult execute(seedu.address.cashier.model.Model model, seedu.address.person.model.Model personModel,
+    public abstract CommandResult execute(seedu.address.cashier.model.Model model,
+                                          seedu.address.person.model.Model personModel,
                                           seedu.address.transaction.model.Model transactionModel,
                                           seedu.address.inventory.model.Model inventoryModel) throws Exception;
 }

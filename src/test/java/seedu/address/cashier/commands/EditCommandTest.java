@@ -38,6 +38,16 @@ public class EditCommandTest {
             new InventoryModelStubAcceptingItemAdded(TypicalItem.getTypicalItems());
 
     @Test
+    public void constructor_invalidIndex_throwAssertionException() {
+        assertThrows(AssertionError.class, () -> new EditCommand(INVALID_INDEX_1, VALID_QUANTITY));
+    }
+
+    @Test
+    public void constructor_invalidQuantity_throwAssertionException() {
+        assertThrows(AssertionError.class, () -> new EditCommand(VALID_INDEX, INVALID_QUANTITY));
+    }
+
+    @Test
     public void execute_validIndex_validQuantity_successful() throws NoSuchIndexException {
         EditCommand editCommand = new EditCommand(VALID_INDEX, VALID_QUANTITY);
         String message = String.format(CashierMessages.MESSAGE_EDIT_SUCCESS,
@@ -53,11 +63,6 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, message, expectedModel,
                 personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
-    }
-
-    @Test
-    public void execute_invalidIndex_throwAssertionException() {
-        assertThrows(AssertionError.class, () -> new EditCommand(INVALID_INDEX_1, VALID_QUANTITY));
     }
 
     @Test
@@ -81,10 +86,6 @@ public class EditCommandTest {
                 personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
     }
 
-    @Test
-    public void execute_invalidQuantity_throwAssertionException() {
-        assertThrows(AssertionError.class, () -> new EditCommand(VALID_INDEX, INVALID_QUANTITY));
-    }
 
 }
 

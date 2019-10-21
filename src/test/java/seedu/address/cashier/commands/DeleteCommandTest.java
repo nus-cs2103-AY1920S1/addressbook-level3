@@ -53,7 +53,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_negativeIndex_throwsAssertionException() {
+    public void constructor_negativeIndex_throwsAssertionException() {
         assertThrows(AssertionError.class, () -> new DeleteCommand(-5));
     }
 

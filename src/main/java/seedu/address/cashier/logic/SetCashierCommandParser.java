@@ -22,7 +22,8 @@ public class SetCashierCommandParser {
      * @throws NoSuchPersonException if the user input is an invalid person
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static SetCashierCommand parse(String name, seedu.address.cashier.model.Model modelManager, Model personModel)
+    public static SetCashierCommand parse(String name,
+                                          seedu.address.cashier.model.Model modelManager, Model personModel)
             throws NoSuchPersonException, ParseException {
         try {
             Person cashier = personModel.getPersonByName(name.trim());

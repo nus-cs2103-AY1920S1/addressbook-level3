@@ -10,7 +10,6 @@ import seedu.address.cashier.commands.DeleteCommand;
 import seedu.address.cashier.commands.EditCommand;
 import seedu.address.cashier.commands.SetCashierCommand;
 import seedu.address.cashier.logic.exception.ParseException;
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.ui.CashierMessages;
 
 import seedu.address.person.logic.commands.AddCommand;

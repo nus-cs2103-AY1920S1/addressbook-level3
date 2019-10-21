@@ -1,6 +1,7 @@
 package seedu.address.cashier.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADD_CASHIER;
+import static seedu.address.person.commons.core.LogsCenter.logger;
 
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.person.logic.commands.exceptions.CommandException;
@@ -21,6 +22,7 @@ public class SetCashierCommand extends Command {
      */
     public SetCashierCommand(Person p) {
         assert p != null : "Cashier cannot be null.";
+        logger.info("Person set as Cashier: " + p.getName().toString());
         cashier = p;
     }
 
@@ -30,6 +32,7 @@ public class SetCashierCommand extends Command {
                                  seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {
         modelManager.setCashier(cashier);
+        logger.info("Cashier: " + cashier.getName().toString());
         return new CommandResult(String.format(MESSAGE_ADD_CASHIER, cashier.getName()));
     }
 

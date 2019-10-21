@@ -28,7 +28,9 @@ public class EditCommandParser {
      * @throws NotANumberException if the user input is not a number
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static EditCommand parse(String args, Model modelManager) throws NotANumberException, ParseException, NoSuchItemException, InsufficientAmountException, NegativeQuantityException {
+    public static EditCommand parse(String args, Model modelManager)
+            throws NotANumberException, ParseException, NoSuchItemException,
+            InsufficientAmountException, NegativeQuantityException {
         int index;
         int quantity;
         ArgumentMultimap argMultimap;

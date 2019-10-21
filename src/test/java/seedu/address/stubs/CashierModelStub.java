@@ -20,7 +20,7 @@ public class CashierModelStub implements Model {
     }
 
     @Override
-    public Item addItem(String description, int qty) {
+    public Item addItem(String description, int qty) throws NoSuchItemException {
         throw new AssertionError("This method should not be called.");
     }
 

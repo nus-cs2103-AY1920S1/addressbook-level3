@@ -89,7 +89,8 @@ public class AddCommandParser {
         if (quantity < 0) {
             throw new NegativeQuantityException(CashierMessages.QUANTITY_NOT_POSITIVE);
         }
-        if (modelManager.hasItemInInventory(description) && modelManager.hasSufficientQuantityToAdd(description, quantity)) {
+        if (modelManager.hasItemInInventory(description)
+                && modelManager.hasSufficientQuantityToAdd(description, quantity)) {
             AddCommand addCommand = new AddCommand(description, quantity);
             return addCommand;
         }

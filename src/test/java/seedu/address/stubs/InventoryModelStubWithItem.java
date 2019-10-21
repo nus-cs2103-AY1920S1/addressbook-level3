@@ -12,11 +12,4 @@ public class InventoryModelStubWithItem extends InventoryModelStub {
         this.item = item;
     }
 
-    @Override
-    public boolean hasItemInInventory(Item i) {
-        requireNonNull(i);
-        return this.item.equals(i);
-    }
-
-
 }

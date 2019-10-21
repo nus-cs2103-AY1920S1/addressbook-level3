@@ -2,11 +2,19 @@ package seedu.address.stubs;
 
 import java.util.ArrayList;
 
+import seedu.address.cashier.model.exception.NoSuchItemException;
+import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
 public class CashierModelStubAcceptingItemAdded extends CashierModelStub {
 
     final ArrayList<Item> itemsAdded;
+    InventoryModelStubAcceptingItemAdded inventoryModelStub = new InventoryModelStubAcceptingItemAdded();
+
+    public void setInventoryModelStub(InventoryModelStubAcceptingItemAdded inventoryModelStub) {
+        this.inventoryModelStub = inventoryModelStub;
+        //inventoryModelStub.addItem(TypicalItem.FISH_BURGER);
+    }
 
     public CashierModelStubAcceptingItemAdded() {
         itemsAdded = new ArrayList<>();
@@ -30,6 +38,58 @@ public class CashierModelStubAcceptingItemAdded extends CashierModelStub {
         return itemsAdded;
     }
 
+    @Override
+    public Item addItem(String description, int qty) throws NoSuchItemException {
+        for (Item item : itemsAdded) {
+            if (item.getDescription().equalsIgnoreCase(description)) {
+                int originalQty = item.getQuantity();
+                item.setQuantity(originalQty + qty);
+                return item;
+            }
+        }
+        Item i = inventoryModelStub.getOriginalItem(description);
+        Item copy = new Item(i.getDescription(), i.getCategory(), qty, i.getCost(), i.getPrice(),
+                Integer.valueOf(i.getId()));
+        copy.setQuantity(qty);
+        itemsAdded.add(copy);
+        return i;
+    }
+
+    @Override
+    public boolean hasSufficientQuantityToAdd(String description, int quantity) throws NoSuchItemException {
+        Item originalItem = inventoryModelStub.getOriginalItem(description);
+        for (Item i : itemsAdded) {
+            if (originalItem.isSameItem(i)) {
+                int initialSalesQty = i.getQuantity();
+                return (originalItem.getQuantity() >= (initialSalesQty + quantity));
+            }
+        }
+        if (originalItem.getQuantity() >= quantity) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int getStockLeft(String description) throws NoSuchItemException {
+        return inventoryModelStub.getOriginalItem(description).getQuantity();
+    }
+
+    @Override
+    public ArrayList<Item> getSalesList() {
+        return this.itemsAdded;
+    }
+
+    @Override
+    public InventoryList getInventoryList() {
+        return this.inventoryModelStub.getInventoryList();
+    }
+
+    @Override
+    public boolean isSellable(String description) throws NoSuchItemException {
+        Item i = getInventoryList().getOriginalItem(description);
+        return i.isSellable();
+    }
 }
 
 

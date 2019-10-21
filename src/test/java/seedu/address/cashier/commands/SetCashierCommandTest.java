@@ -18,6 +18,7 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.stubs.InventoryModelStubAcceptingItemAdded;
 import seedu.address.stubs.PersonModelStub;
+import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
 import seedu.address.stubs.PersonModelStubWithPerson;
 import seedu.address.stubs.TransactionModelStubAcceptingTransactionAdded;
 import seedu.address.testutil.PersonBuilder;
@@ -41,7 +42,7 @@ public class SetCashierCommandTest {
             new InventoryModelStubAcceptingItemAdded(TypicalItem.getTypicalItems());
 
     @Test
-    public void execute_nullCashier_throwsAssertionException() {
+    public void constructor_nullCashier_throwsAssertionException() {
         assertThrows(AssertionError.class, () -> new SetCashierCommand(null));
     }
 
@@ -66,13 +67,16 @@ public class SetCashierCommandTest {
 
     }
 
+    // Not working
     @Test
     public void execute_invalidCashier_failure() throws NoSuchPersonException, NoSuchIndexException, CommandException {
-        Person nonExistingPerson = TypicalPersons.IDA;
+        //Person nonExistingPerson = new PersonBuilder().withName("Bob Li").build();
+        Person nonExistingPerson = TypicalPersons.AMY;
 
+        PersonModelStubAcceptingPersonAdded personModelStub2 = new PersonModelStubAcceptingPersonAdded();
         SetCashierCommand setCashierCommand = new SetCashierCommand(nonExistingPerson);
         CommandResult commandResult = setCashierCommand.execute(model,
-                personModelStub, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
+                personModelStub2, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
 
         System.out.println(commandResult.getFeedbackToUser());
         String expectedMessage = String.format(NO_SUCH_PERSON);

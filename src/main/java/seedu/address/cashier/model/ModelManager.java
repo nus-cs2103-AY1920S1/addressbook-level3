@@ -35,6 +35,13 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Initializes a ModelManager with the given transaction list.
+     */
+    public ModelManager(TransactionList transactionList) {
+        this.transactionList = transactionList;
+    }
+
+    /**
      * Initializes a ModelManager with the given storage manager.
      */
     public ModelManager(StorageManager storage) {
@@ -375,7 +382,7 @@ public class ModelManager implements Model {
     public Transaction checkoutAsTransaction(double amount, Person person,
                                              seedu.address.transaction.model.Model transactionModel) throws Exception {
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
-                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionList.size(), false);
+                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionModel.getTransactionList().size(), false);
         storage.appendToTransaction(transaction);
         transactionModel.addTransaction(transaction);
         return transaction;
@@ -399,7 +406,7 @@ public class ModelManager implements Model {
                 && salesList.equals(other.getSalesList());
     }
 
-    //public boolean isSalesListEqual
+
 }
 
 
