@@ -15,7 +15,7 @@ public class DiaryUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Diary diary) {
-        return AddDiaryCommand.COMMAND_WORD + " " + getDiaryDetails(diary);
+        return AddDiaryCommand.COMMAND_WORD + " " + AddDiaryCommand.VARIANT_WORD + " " + getDiaryDetails(diary);
     }
 
     /**

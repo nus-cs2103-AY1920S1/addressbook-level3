@@ -3,16 +3,16 @@ package seedu.address.logic.commands.exercise;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISE;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.Model;
 
 /**
  * Lists all persons in the Duke Cooks to the user.
  */
-public class ListExerciseCommand extends Command {
+public class ListExerciseCommand extends ListCommand {
 
-    public static final String COMMAND_WORD = "listExercise";
+    public static final String VARIANT_WORD = "exercise";
 
     public static final String MESSAGE_SUCCESS = "Listed all exercises";
 

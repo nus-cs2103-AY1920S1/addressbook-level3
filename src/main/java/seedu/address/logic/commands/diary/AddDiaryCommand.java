@@ -3,7 +3,7 @@ package seedu.address.logic.commands.diary;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,9 +12,9 @@ import seedu.address.model.diary.components.Diary;
 /**
  * Adds a diary to Duke Cooks.
  */
-public class AddDiaryCommand extends Command {
+public class AddDiaryCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "addDiary";
+    public static final String VARIANT_WORD = "diary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a diary to Duke Cooks. "
             + "Parameters: "

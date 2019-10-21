@@ -14,7 +14,7 @@ import seedu.address.model.exercise.components.ExerciseNameContainsKeywordsPredi
  */
 public class FindExerciseCommand extends FindCommand {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String VARIANT_WORD = "exercise";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all exercises with names containing any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
