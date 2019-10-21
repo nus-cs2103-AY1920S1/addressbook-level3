@@ -2,46 +2,46 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "budget": "10000",
   "spendings" : [ {
-    "name" : "Alice Pauline",
+    "name" : "Apple",
     "date" : "1/1/2019",
-    "remark": "Likes to watch movies",
-    "cost" : "123",
-    "tagged" : [ "friends" ]
+    "remark": "An apple a day keeps the doctor away",
+    "cost" : "1.00",
+    "tagged" : [ "fruit" ]
   }, {
-    "name" : "Benson Meier",
+    "name" : "Banana",
     "date" : "2/1/2019",
-    "remark": "Likes to play basketball",
-    "cost" : "311",
-    "tagged" : [ "owesMoney", "friends" ]
+    "remark": "The store ran out of apples",
+    "cost" : "1.00",
+    "tagged" : [ "fruit" ]
   }, {
-    "name" : "Carl Kurz",
+    "name" : "Cat food",
     "date" : "3/1/2019",
-    "remark": "Likes to eat",
-    "cost" : "1.50",
+    "remark": "For my pet cat",
+    "cost" : "5.50",
     "tagged" : [ ]
   }, {
-    "name" : "Daniel Meier",
+    "name" : "Dessert",
     "date" : "4/1/2019",
-    "remark": "Likes to travel",
-    "cost" : "10.10",
-    "tagged" : [ "friends" ]
+    "remark": "Supper",
+    "cost" : "15",
+    "tagged" : [ "supper" ]
   }, {
-    "name" : "Elle Meyer",
+    "name" : "Encyclopedia",
     "date" : "5/1/2019",
-    "remark": "Likes to sleep",
-    "cost" : "134.70",
+    "remark": "Hobby",
+    "cost" : "80",
     "tagged" : [ ]
   }, {
-    "name" : "Fiona Kunz",
+    "name" : "Flight ticket",
     "date" : "6/1/2019",
-    "remark": "Likes to cook",
-    "cost" : "52",
+    "remark": "To Hong Kong",
+    "cost" : "400",
     "tagged" : [ ]
   }, {
-    "name" : "George Best",
+    "name" : "Glasses",
     "date" : "7/1/2019",
-    "remark": "Likes to play golf",
-    "cost" : "27.10",
+    "remark": "New spectacles",
+    "cost" : "270",
     "tagged" : [ ]
   } ]
 }

@@ -27,6 +27,8 @@ public class JsonSerializableSpendingBookTest {
                 JsonSerializableSpendingBook.class).get();
         SpendingBook spendingBookFromFile = dataFromFile.toModelType();
         SpendingBook typicalSpendingBook = TypicalSpendings.getTypicalSpendingBook();
+        System.out.println(spendingBookFromFile.getSpendingList());
+        System.out.println(typicalSpendingBook.getSpendingList());
         assertEquals(spendingBookFromFile, typicalSpendingBook);
     }
 

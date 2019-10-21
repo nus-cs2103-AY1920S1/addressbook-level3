@@ -11,12 +11,11 @@ import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseS
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moneygowhere.logic.commands.StatsCommand;
+import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.model.spending.Date;
 
-public class StatsCommandParserTest {
-
-    private StatsCommandParser parser = new StatsCommandParser();
+class GraphCommandParserTest {
+    private GraphCommandParser parser = new GraphCommandParser();
 
     @Test
     public void parse_validInputs_success() {
@@ -25,17 +24,17 @@ public class StatsCommandParserTest {
 
         // 2 valid different dates
         assertParseSuccess(parser, DATE_DESC_AMY + DATE_DESC_BOB ,
-            new StatsCommand(date1, date2));
+            new GraphCommand(date1, date2));
 
         // 2 valid same dates
         assertParseSuccess(parser, DATE_DESC_AMY + DATE_DESC_AMY ,
-            new StatsCommand(date1, date1));
+            new GraphCommand(date1, date1));
     }
 
     @Test
     public void parse_noInputsProvided_success() {
         //no dates provided
-        StatsCommand expectedCommand = new StatsCommand();
+        GraphCommand expectedCommand = new GraphCommand();
         assertParseSuccess(parser, "", expectedCommand);
     }
 
@@ -50,13 +49,14 @@ public class StatsCommandParserTest {
     public void parse_invalidDateRange_failure() {
         // start date is later than end date
         assertParseFailure(parser, DATE_DESC_BOB + DATE_DESC_AMY ,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_moreThan2Parameters_failure() {
         // more than 2 date parameters
         assertParseFailure(parser, DATE_DESC_BOB + DATE_DESC_AMY + DATE_DESC_AMY ,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
     }
+
 }

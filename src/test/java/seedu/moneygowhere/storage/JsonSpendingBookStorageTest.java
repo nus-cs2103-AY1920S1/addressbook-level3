@@ -3,9 +3,9 @@ package seedu.moneygowhere.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
-import static seedu.moneygowhere.testutil.TypicalSpendings.HOON;
-import static seedu.moneygowhere.testutil.TypicalSpendings.IDA;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.HAT;
+import static seedu.moneygowhere.testutil.TypicalSpendings.ICECREAM;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.io.IOException;
@@ -72,14 +72,14 @@ public class JsonSpendingBookStorageTest {
         assertEquals(original, new SpendingBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addSpending(HOON);
-        original.removeSpending(ALICE);
+        original.addSpending(HAT);
+        original.removeSpending(APPLE);
         jsonSpendingBookStorage.saveSpendingBook(original, filePath);
         readBack = jsonSpendingBookStorage.readSpendingBook(filePath).get();
         assertEquals(original, new SpendingBook(readBack));
 
         // Save and read without specifying file path
-        original.addSpending(IDA);
+        original.addSpending(ICECREAM);
         jsonSpendingBookStorage.saveSpendingBook(original); // file path not specified
         readBack = jsonSpendingBookStorage.readSpendingBook().get(); // file path not specified
         assertEquals(original, new SpendingBook(readBack));
