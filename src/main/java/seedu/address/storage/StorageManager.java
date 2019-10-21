@@ -9,8 +9,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.statistics.WordBankStatistics;
+import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
 
 /**
@@ -22,13 +24,15 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private WordBankStatisticsStorage wbStatsStorage;
+    private GlobalStatisticsStorage globalStatsStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          WordBankStatisticsStorage wbStatsStorage) {
+                          WordBankStatisticsStorage wbStatsStorage, GlobalStatisticsStorage globalStatsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.wbStatsStorage = wbStatsStorage;
+        this.globalStatsStorage = globalStatsStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -107,6 +111,35 @@ public class StorageManager implements Storage {
     public Path getWordBankStatisticsFilePath() {
         return wbStatsStorage.getWordBankStatisticsFilePath();
     }
+
+    // ================ GlobalStatistics methods ==============================
+    @Override
+    public Optional<GlobalStatistics> readGlobalStatistics() throws DataConversionException, IOException {
+        return readGlobalStatistics(globalStatsStorage.getGlobalStatisticsFilePath());
+    }
+
+    @Override
+    public Optional<GlobalStatistics> readGlobalStatistics(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return globalStatsStorage.readGlobalStatistics(filePath);
+    }
+
+    @Override
+    public void saveGlobalStatistics(GlobalStatistics globalStatistics) throws IOException {
+        saveGlobalStatistics(globalStatistics, globalStatsStorage.getGlobalStatisticsFilePath());
+    }
+
+    @Override
+    public void saveGlobalStatistics(GlobalStatistics globalStatistics, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        globalStatsStorage.saveGlobalStatistics(globalStatistics, filePath);
+    }
+
+    @Override
+    public Path getGlobalStatisticsFilePath() {
+        return globalStatsStorage.getGlobalStatisticsFilePath();
+    }
+
 
     // ================ static methods ==============================
     /**

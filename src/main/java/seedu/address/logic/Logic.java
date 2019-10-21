@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
@@ -58,9 +59,16 @@ public interface Logic {
 
     void saveUpdatedWbStatistics(GameStatistics gameStats) throws CommandException;
 
+    /**
+     * This method should be called every time a game finishes to correctly update global statistics
+     */
+    void incrementPlay() throws CommandException;
+
     WordBankStatistics getActiveWordBankStatistics();
 
     WordBankStatisticsList getWordBankStatisticsList();
+
+    GlobalStatistics getGlobalStatistics();
 
     ReadOnlyWordBank getActiveWordBank();
 

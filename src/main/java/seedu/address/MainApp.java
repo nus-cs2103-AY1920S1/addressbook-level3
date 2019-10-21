@@ -29,6 +29,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
+import seedu.address.storage.globalstatistics.JsonGlobalStatisticsStorage;
 import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
 import seedu.address.ui.Ui;
@@ -74,7 +76,9 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         Path wbStatsPath = StorageManager.getWbStatsStoragePath(userPrefs.getAddressBookFilePath());
         WordBankStatisticsStorage wbStatsStorage = new JsonWordBankStatisticsStorage(wbStatsPath);
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, wbStatsStorage);
+        Path globalStatsPath = Path.of("data", "globalstats", "gstats.json"); // todo dont hardcode
+        GlobalStatisticsStorage globalStatsStorage = new JsonGlobalStatisticsStorage(globalStatsPath);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, wbStatsStorage, globalStatsStorage);
 
         initLogging(config);
 

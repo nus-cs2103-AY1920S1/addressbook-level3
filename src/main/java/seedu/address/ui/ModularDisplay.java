@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
@@ -15,8 +16,6 @@ import seedu.address.ui.modules.MainTitlePanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
 
-import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -59,8 +58,9 @@ public class ModularDisplay {
         // twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
         // twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
         WordBankStatisticsList wbStatsList = gameManager.getActiveWordBankStatisticsList();
+        GlobalStatistics globalStats = gameManager.getGlobalStatistics();
         twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
-                wbStatsList.getTotalPlayed(),
+                globalStats,
                 wbStatsList.getMostPlayedWordBankStatistics(),
                 new Random().nextInt(AvatarImage.TOTAL_NUM) + 1).getRoot()); // todo should depend on user prefs
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());

@@ -18,6 +18,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
@@ -146,6 +147,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void incrementPlay() throws CommandException {
+        try {
+            requireNonNull(model.getGlobalStatistics());
+            GlobalStatistics globalStats = model.getGlobalStatistics();
+            globalStats.addPlay();
+            storage.saveGlobalStatistics(globalStats);
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+    }
+
+    @Override
     public WordBankStatistics getActiveWordBankStatistics() {
         return model.getWordBankStatistics();
     }
@@ -153,6 +166,11 @@ public class LogicManager implements Logic {
     @Override
     public WordBankStatisticsList getWordBankStatisticsList() {
         return model.getWordBankStatisticsList();
+    }
+
+    @Override
+    public GlobalStatistics getGlobalStatistics() {
+        return model.getGlobalStatistics();
     }
 
     @Override

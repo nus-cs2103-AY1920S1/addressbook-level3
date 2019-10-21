@@ -15,6 +15,7 @@ import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
@@ -89,6 +90,7 @@ public class GameManager {
             if (gameCommandResult.isFinishedGame()) {
                 abortAnyExistingGameTimer();
                 logic.saveUpdatedWbStatistics(gameStatisticsBuilder.build());
+                logic.incrementPlay();
             }
         }
 
@@ -130,6 +132,10 @@ public class GameManager {
 
     public WordBankStatisticsList getActiveWordBankStatisticsList() {
         return logic.getWordBankStatisticsList();
+    }
+
+    public GlobalStatistics getGlobalStatistics() {
+        return logic.getGlobalStatistics();
     }
 
     public ObservableList<Card> getFilteredPersonList() {

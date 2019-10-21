@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -11,14 +12,18 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
+import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
+import seedu.address.storage.globalstatistics.JsonGlobalStatisticsStorage;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -31,6 +36,8 @@ public class ModelManager implements Model {
 
     private WordBankStatistics wordBankStatistics;
     private final WordBankStatisticsList wordBankStatisticsList;
+
+    private final GlobalStatistics globalStatistics;
 
     private final UserPrefs userPrefs;
     private FilteredList<Card> filteredCards;
@@ -53,6 +60,15 @@ public class ModelManager implements Model {
         this.wordBankList = new WordBankList();
 
         this.wordBankStatisticsList = new WordBankStatisticsList();
+
+        GlobalStatistics tempGlobalStats;
+        try {
+            tempGlobalStats = new JsonGlobalStatisticsStorage(Path.of("data", "globalstats",
+                    "gstats.json")).readGlobalStatistics().orElse(new GlobalStatistics());
+        } catch (DataConversionException | IOException e) {
+            tempGlobalStats = new GlobalStatistics();
+        }
+        this.globalStatistics = tempGlobalStats;
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
@@ -226,6 +242,11 @@ public class ModelManager implements Model {
     @Override
     public void clearWordBankStatistics() {
         this.wordBankStatistics = null;
+    }
+
+    @Override
+    public GlobalStatistics getGlobalStatistics() {
+        return globalStatistics;
     }
 
     @Override

@@ -31,7 +31,7 @@ public interface WordBankStatisticsStorage {
     Optional<WordBankStatistics> readWordBankStatistics(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link seedu.address.statistics.GameStatistics} to the storage.
+     * Saves the given {@link WordBankStatistics} to the storage.
      * @param statistics The statistics to be saved, cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

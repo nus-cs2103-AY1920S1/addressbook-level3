@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.AppUtil;
+import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.globalstatistics.WeeklyPlayed;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.AvatarImage;
 import seedu.address.ui.UiPart;
@@ -33,7 +35,8 @@ public class MainTitlePanel extends UiPart<Region> {
     @FXML
     private ImageView avatarImageView;
 
-    public MainTitlePanel(int playedTimes, Optional<WordBankStatistics> maxWbStats, int avatarId) {
+    public MainTitlePanel(GlobalStatistics globalStats, Optional<WordBankStatistics> maxWbStats,
+                          int avatarId) {
         super(FXML);
 
         ImageView titleImage = new ImageView();
@@ -42,8 +45,10 @@ public class MainTitlePanel extends UiPart<Region> {
         titleImage.setScaleX(2.5);
         titleImage.setScaleY(2.5);
         logoPlaceholder.setCenter(titleImage);
+        int playedTimes = globalStats.getNumPlayed();
         playedTimesText.setText(playedTimes + "");
         timesText.setText(playedTimes == 1 ? " time" : " times");
+
         maxWbStats.ifPresent(statistics -> favoriteWordBankText.setText(statistics.getWordBankName()));
 
         Image avatarImage = AvatarImage.get(avatarId);

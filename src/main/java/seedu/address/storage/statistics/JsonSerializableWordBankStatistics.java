@@ -20,8 +20,6 @@ import seedu.address.statistics.WordBankStatistics;
 @JsonRootName(value = "wbstats")
 public class JsonSerializableWordBankStatistics {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
-
     private final String wordBankName;
     private final int gamesPlayed;
     private final Double fastestClear;
