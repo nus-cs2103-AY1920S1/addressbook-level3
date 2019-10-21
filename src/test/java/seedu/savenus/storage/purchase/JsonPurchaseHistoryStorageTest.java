@@ -1,4 +1,4 @@
-package seedu.savenus.storage.purchasehistory;
+package seedu.savenus.storage.purchase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -19,7 +19,6 @@ import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.purchase.TimeOfPurchase;
-import seedu.savenus.storage.purchase.JsonPurchaseHistoryStorage;
 
 public class JsonPurchaseHistoryStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

@@ -1,4 +1,4 @@
-package seedu.savenus.model.packagehistory;
+package seedu.savenus.model.purchase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.savenus.testutil.Assert.assertThrows;
@@ -15,7 +15,6 @@ import javafx.collections.ObservableList;
 
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
-import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.wallet.Wallet;
 
 public class PurchaseHistoryTest {

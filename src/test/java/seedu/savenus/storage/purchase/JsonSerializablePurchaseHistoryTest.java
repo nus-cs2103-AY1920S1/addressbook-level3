@@ -1,4 +1,4 @@
-package seedu.savenus.storage.purchasehistory;
+package seedu.savenus.storage.purchase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.savenus.testutil.Assert.assertThrows;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.commons.util.JsonUtil;
 import seedu.savenus.model.purchase.PurchaseHistory;
-import seedu.savenus.storage.purchase.JsonSerializablePurchaseHistory;
 import seedu.savenus.testutil.TypicalPurchaseHistory;
 
 public class JsonSerializablePurchaseHistoryTest {

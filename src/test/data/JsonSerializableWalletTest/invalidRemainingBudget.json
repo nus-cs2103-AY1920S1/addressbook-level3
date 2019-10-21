@@ -1,0 +1,6 @@
+{
+  "wallet" : {
+    "remainingBudget" : "sdb",
+    "daysToExpire" : "30"
+  }
+}
