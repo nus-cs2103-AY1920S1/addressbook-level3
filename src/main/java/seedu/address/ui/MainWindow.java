@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -124,8 +125,8 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        Calendar calendar = new Calendar();
-        featureBoxPlaceholder.getChildren().add(calendar.getRoot());
+        CalendarPanel calendarPanel = new CalendarPanel();
+        featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
     }
 
     /**
@@ -186,9 +187,9 @@ public class MainWindow extends UiPart<Stage> {
             if (!(commandResult.getFeature() == null)) {
                 switch (commandResult.getFeature().toString()) {
                 case "calendar":
-                    Calendar calendar = new Calendar();
+                    CalendarPanel calendarPanel = new CalendarPanel();
                     featureBoxPlaceholder.getChildren().clear();
-                    featureBoxPlaceholder.getChildren().add(calendar.getRoot());
+                    featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
                     break;
                 case "attendance":
                     AttendancePanel attendance = new AttendancePanel();
