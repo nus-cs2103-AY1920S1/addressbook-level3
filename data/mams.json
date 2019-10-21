@@ -1,7 +1,7 @@
 {
   "students" : [ {
     "name" : "Paul",
-    "credits" : "20",
+    "credits" : "30",
     "prevMods" : "CS1010, CS5505",
     "matricId" : "A00192034Z",
     "tagged" : [ "CS1020" ]
@@ -16,7 +16,7 @@
     "credits" : "20",
     "prevMods" : "CS2030, CS4040",
     "matricId" : "A0180000R",
-    "tagged" : [ "CS1020", "friends" ]
+    "tagged" : [ "CS1020" ]
   }, {
     "name" : "Bernice Yu",
     "credits" : "20",
