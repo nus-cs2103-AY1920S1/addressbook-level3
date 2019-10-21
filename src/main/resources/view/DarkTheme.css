@@ -415,6 +415,9 @@
     -fx-text-fill: #ec4c4c;
 }
 
+#avatar-shadow {
+    -fx-fill: #353535;
+}
 
 #tags {
     -fx-hgap: 7;

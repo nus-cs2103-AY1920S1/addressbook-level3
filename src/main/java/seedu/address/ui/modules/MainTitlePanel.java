@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.util.StringConverter;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.model.globalstatistics.GlobalStatistics;
@@ -25,7 +26,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class MainTitlePanel extends UiPart<Region> {
 
@@ -49,6 +49,9 @@ public class MainTitlePanel extends UiPart<Region> {
 
     @FXML
     private ImageView avatarImageView;
+
+    @FXML
+    private Circle avatarShadow;
 
     public MainTitlePanel(GlobalStatistics globalStats, Optional<WordBankStatistics> maxWbStats,
                           int avatarId) {
@@ -98,5 +101,7 @@ public class MainTitlePanel extends UiPart<Region> {
 
         Image avatarImage = AvatarImage.get(avatarId);
         avatarImageView.setImage(avatarImage);
+
+        avatarShadow.setId("avatar-shadow");
     }
 }

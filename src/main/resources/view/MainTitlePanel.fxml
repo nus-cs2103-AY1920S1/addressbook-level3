@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <content>
@@ -30,7 +31,12 @@
             </Separator>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="avatarImageView" fitHeight="440.0" fitWidth="440.0" pickOnBounds="true" preserveRatio="true" />
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Circle fx:id="avatarShadow" fill="#bcbcbc" radius="195.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <ImageView fx:id="avatarImageView" fitHeight="440.0" fitWidth="440.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </StackPane>
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
                         <Region prefHeight="200.0" prefWidth="200.0" />
