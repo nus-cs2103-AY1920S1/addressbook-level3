@@ -1,6 +1,6 @@
 package seedu.address.ui;
 
-import javafx.fxml.FXML;;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import seedu.address.model.flashcard.Flashcard;
 

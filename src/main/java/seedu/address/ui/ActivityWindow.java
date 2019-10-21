@@ -58,7 +58,7 @@ public class ActivityWindow extends UiPart<Region> {
             activityWindow.getSelectionModel().select(NOTES_TAB_INDEX);
             break;
         default:
-            assert false: "Invalid target mode";
+            assert false : "Invalid target mode";
         }
     }
 

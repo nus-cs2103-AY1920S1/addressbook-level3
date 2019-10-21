@@ -16,6 +16,10 @@ public class NotesTabWindowController {
     @FXML
     private TextField noteCardContentTextField;
 
+    /**
+     * Displays the question of the note specified in the notes tab window.
+     * @param note note to be displayed
+     */
     public void displayNoteCard(Note note) {
         noteCardTitleTextField.setText(note.getTitle().toString());
         noteCardContentTextField.setText(note.getContent().toString());
