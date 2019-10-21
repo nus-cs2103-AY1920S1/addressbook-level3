@@ -208,6 +208,11 @@ public class AddCommandTest {
         public void updateFilteredCardList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void removeWordBank() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
