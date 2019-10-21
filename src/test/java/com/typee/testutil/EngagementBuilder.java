@@ -1,5 +1,7 @@
 package com.typee.testutil;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,10 +115,46 @@ public class EngagementBuilder {
     }
 
     /**
-     * Sets the {@code descrption} of the {@code Engagement} that we are building.
+     * Sets the {@code description} of the {@code Engagement} that we are building.
      */
     public EngagementBuilder withDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    /**
+     * Sets the {@code startTime} and {@code endTime} of the {@code Engagement} that we are building.
+     */
+    public EngagementBuilder withStartAndEndTime(LocalDateTime startTime, LocalDateTime endTime) {
+        requireNonNull(startTime);
+        requireNonNull(endTime);
+        assert startTime.compareTo(endTime) < 0;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        return this;
+    }
+
+    /**
+     * Sets the {@code attendees} of the {@code Engagement} that we are building.
+     */
+    public EngagementBuilder withAttendees(AttendeeList attendees) {
+        this.attendees = attendees;
+        return this;
+    }
+
+    /**
+     * Sets the {@code location} of the {@code Engagement} that we are building.
+     */
+    public EngagementBuilder withLocation(Location location) {
+        this.location = location;
+        return this;
+    }
+
+    /**
+     * Sets the {@code priority} of the {@code Engagement} that we are building.
+     */
+    public EngagementBuilder withPriority(Priority priority) {
+        this.priority = priority;
         return this;
     }
 
