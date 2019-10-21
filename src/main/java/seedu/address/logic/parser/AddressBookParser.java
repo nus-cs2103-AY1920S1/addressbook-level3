@@ -16,7 +16,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExpenseCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.InviteCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -73,9 +72,6 @@ public class AddressBookParser {
 
         case ActivityCommand.COMMAND_WORD:
             return new ActivityCommandParser().parse(arguments);
-
-        case InviteCommand.COMMAND_WORD:
-            return new InviteCommandParser().parse(arguments);
 
         case ExpenseCommand.COMMAND_WORD:
             return new ExpenseCommandParser().parse(arguments);
