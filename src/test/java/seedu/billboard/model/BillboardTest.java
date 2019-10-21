@@ -146,7 +146,7 @@ public class BillboardTest {
         }
 
         @Override
-        public Map<String, Tag>  getUniqueTagList() {
+        public Map<String, Tag> getUniqueTagList() {
             return uniqueTagList.getTagList();
         }
 

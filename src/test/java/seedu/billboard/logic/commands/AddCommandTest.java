@@ -161,6 +161,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public List<String> getTagNames() {
+            throw new AssertionError("This method should not be called. ");
+        }
+
+        @Override
         public ObservableList<Expense> getFilteredExpenses() {
             throw new AssertionError("This method should not be called.");
         }

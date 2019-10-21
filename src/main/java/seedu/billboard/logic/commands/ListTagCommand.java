@@ -6,7 +6,12 @@ import java.util.List;
 
 import seedu.billboard.model.Model;
 
-public class ListTagCommand extends TagCommand{
+/**
+ *
+ * Displays the list of unique tag names.
+ *
+ */
+public class ListTagCommand extends TagCommand {
     public static final String COMMAND_WORD = "list";
 
     @Override
