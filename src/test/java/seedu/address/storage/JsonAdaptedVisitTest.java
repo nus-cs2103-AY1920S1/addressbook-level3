@@ -100,7 +100,6 @@ public class JsonAdaptedVisitTest {
 
     @Test
     public void toModelType_nullVisitTasks_doNotThrowIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_START,
                 VALID_END,

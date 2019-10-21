@@ -36,14 +36,16 @@ public class JsonSerializableAddressBook {
             @JsonProperty("ongoingVisitPatientIndex") Integer ongoingVisitPatientIndex,
             @JsonProperty("ongoingVisitIndex") Integer ongoingVisitIndex) {
         this.persons.addAll(persons);
+        Integer resultingPatientIndex = ongoingVisitPatientIndex;
+        Integer resultingVisitIndex = ongoingVisitIndex;
         if (ongoingVisitPatientIndex == null) {
-            ongoingVisitPatientIndex = -1;
+            resultingPatientIndex = -1;
         }
         if (ongoingVisitIndex == null) {
-            ongoingVisitIndex = -1;
+            resultingVisitIndex = -1;
         }
-        this.ongoingVisitPatientIndex = ongoingVisitPatientIndex;
-        this.ongoingVisitIndex = ongoingVisitIndex;
+        this.ongoingVisitPatientIndex = resultingPatientIndex;
+        this.ongoingVisitIndex = resultingVisitIndex;
     }
 
     /**

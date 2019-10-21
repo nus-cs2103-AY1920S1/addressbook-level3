@@ -186,6 +186,18 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public OngoingVisitListPanel getOngoingVisitListPanel() {
+        return ongoingVisitListPanel;
+    }
+
+    public AutoCompletePanel getAutoCompletePanel() {
+        return autoCompletePanel;
+    }
+
+    public DataPanelsTabPaneManager getDataPanelsTabPaneManager() {
+        return dataPanelsTabPaneManager;
+    }
+
     /**
      * Executes the command and returns the result.
      *

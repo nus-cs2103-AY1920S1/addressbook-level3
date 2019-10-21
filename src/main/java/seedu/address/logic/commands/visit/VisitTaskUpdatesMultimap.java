@@ -18,7 +18,7 @@ import seedu.address.model.visittask.VisitTask;
 
 /**
  * Package private class that
- * Records the visit task updates into a multimap so that all changes can be made in one go.
+ * RecordsVisitTaskUpdatesMultimap the visit task updates into a multimap so that all changes can be made in one go.
  */
 class VisitTaskUpdatesMultimap {
     private final Map<Integer, Set<Object>> map = new HashMap<>();
@@ -76,7 +76,7 @@ class VisitTaskUpdatesMultimap {
     /**
      * Record in a multimap which Visit Tasks finished / unfinished using a list of indexes.
      */
-    void saveTasksFinishedByIndexes(
+    public void saveTasksFinishedByIndexes(
             List<VisitTask> taskList,
             List<Index> indexList,
             VisitTaskUpdatesMultimapKeys isMarkFinish) throws CommandException {
@@ -94,7 +94,7 @@ class VisitTaskUpdatesMultimap {
     /**
      * Record in a multimap the details of a VisitTask using a list of indexes.
      */
-    void saveTaskDetailsByIndexes(
+    public void saveTaskDetailsByIndexes(
             List<VisitTask> taskList,
             List<Pair<Index, String>> indexDetailPairList) throws CommandException {
         requireAllNonNull(taskList, indexDetailPairList);
@@ -111,7 +111,7 @@ class VisitTaskUpdatesMultimap {
     /**
      * Builds and returns an updated visit task list using changes recorded in the multimap.
      */
-    List<VisitTask> buildUpdatedVisitTasks(final List<VisitTask> visitTaskList) {
+    public List<VisitTask> buildUpdatedVisitTasks(final List<VisitTask> visitTaskList) {
         requireNonNull(visitTaskList);
         List<VisitTask> updatedVisitTaskList = new ArrayList<>();
         for (int i = 0; i < visitTaskList.size(); i++) {
@@ -139,7 +139,7 @@ class VisitTaskUpdatesMultimap {
                 } else {
                     throw new IllegalArgumentException();
                 }
-                visitTask = new VisitTask(visitTask.getVisitTodo(), detail, isDone);
+                return new VisitTask(visitTask.getVisitTodo(), detail, isDone);
             }
         }
         return visitTask;
