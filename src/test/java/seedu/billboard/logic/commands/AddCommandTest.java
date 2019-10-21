@@ -149,12 +149,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void incrementCount(List<Tag> toIncrement) {
+        public void incrementCount(Set<Tag> toIncrement) {
             throw new AssertionError("This method should not be called. ");
         }
 
         @Override
-        public void decreaseCount(List<Tag> toDecrease) {
+        public void decreaseCount(Set<Tag> toDecrease) {
             throw new AssertionError("This method should not be called. ");
         }
 

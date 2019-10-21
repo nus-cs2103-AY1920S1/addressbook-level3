@@ -101,12 +101,20 @@ public class UniqueTagList {
         }
     }
 
+    /**
+     * Sets current map to the one specified in the argument.
+     * @param tagList to replace the current map.
+     */
     public void setList(Map<String, Tag> tagList) {
         requireNonNull(tagList);
-        this.tagList = tagList;
+        this.tagList = new HashMap<>(tagList);
     }
 
+    /**
+     * Returns an unmodifiable current map.
+     * @return current map.
+     */
     public Map<String, Tag> getTagList() {
-        return tagList;
+        return Collections.unmodifiableMap(tagList);
     }
 }

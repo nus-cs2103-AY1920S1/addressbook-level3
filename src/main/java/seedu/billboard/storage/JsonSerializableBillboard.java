@@ -54,12 +54,13 @@ class JsonSerializableBillboard {
             if (billboard.hasExpense(expense)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
             }
+
             List<String> tagNames = expense.getTags().stream()
                     .map(x -> x.tagName).collect(Collectors.toList());
             Set<Tag> tags = billboard.retrieveTags(tagNames);
             Expense edited = new Expense(expense.getName(), expense.getDescription(), expense.getAmount(),
                     expense.getCreated(), tags);
-            billboard.incrementCount(new ArrayList<>(tags));
+            billboard.incrementCount(tags);
 
             billboard.addExpense(edited);
         }

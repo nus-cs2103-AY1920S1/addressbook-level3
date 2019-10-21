@@ -203,13 +203,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void incrementCount(List<Tag> toIncrement) {
+    public void incrementCount(Set<Tag> toIncrement) {
         requireNonNull(toIncrement);
         billboard.incrementCount(toIncrement);
     }
 
     @Override
-    public void decreaseCount(List<Tag> toDecrease) {
+    public void decreaseCount(Set<Tag> toDecrease) {
         requireNonNull(toDecrease);
         billboard.decreaseCount(toDecrease);
     }

@@ -96,13 +96,13 @@ public interface Model {
      * Also removes tags whose count is 0.
      * @param toDecrease tags to decrease count from.
      */
-    void decreaseCount(List<Tag> toDecrease);
+    void decreaseCount(Set<Tag> toDecrease);
 
     /**
      * Increment counts of tags.
      * @param toIncrement tags whose count are to be incremented.
      */
-    void incrementCount(List<Tag> toIncrement);
+    void incrementCount(Set<Tag> toIncrement);
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenses();

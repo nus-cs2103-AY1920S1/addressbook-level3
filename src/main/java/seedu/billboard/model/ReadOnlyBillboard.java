@@ -6,7 +6,6 @@ import java.util.Map;
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
-import seedu.billboard.model.tag.TagCountManager;
 
 /**
  * Unmodifiable view of a Billboard

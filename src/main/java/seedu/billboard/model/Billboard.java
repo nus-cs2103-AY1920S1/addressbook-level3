@@ -2,7 +2,6 @@ package seedu.billboard.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -145,15 +144,15 @@ public class Billboard implements ReadOnlyBillboard {
     /**
      * Increment count of tags which will be added to an expense.
      */
-    public void incrementCount(List<Tag> toIncrement) {
+    public void incrementCount(Set<Tag> toIncrement) {
         count.incrementAllCount(toIncrement);
     }
 
     /**
      * Decrease count of tags removed from an expense.
-     * Also removes tags whose count is 0.
+     * Also removes tags whose count is 0 from the unique tag list.
      */
-    public void decreaseCount(List<Tag> toDecrease) {
+    public void decreaseCount(Set<Tag> toDecrease) {
         count.decreaseAllCount(toDecrease);
         List<Tag> toRemove = count.removeAll();
         tags.removeAll(toRemove);
