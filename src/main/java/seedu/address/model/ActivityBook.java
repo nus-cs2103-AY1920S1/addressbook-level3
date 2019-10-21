@@ -1,12 +1,14 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.exceptions.ActivityNotFoundException;
 
 /**
  * Wrapper for all the activities stored by this application.
@@ -59,7 +61,10 @@ public class ActivityBook implements ReadOnlyActivityBook {
      * {@code key} must exist in the activity book.
      */
     public void removeActivity(Activity key) {
-        activityList.remove(key);
+        requireNonNull(key);
+        if (!activityList.remove(key)) {
+            throw new ActivityNotFoundException();
+        }
     }
 
     /**
@@ -67,18 +72,14 @@ public class ActivityBook implements ReadOnlyActivityBook {
      * {@code target} must exist in the activity book.
      */
     public void setActivity(Activity target, Activity editedActivity) {
-        requireNonNull(editedActivity);
+        requireAllNonNull(target, editedActivity);
 
-        int index = -1;
-        for (int z = 0; z < activityList.size(); z++) {
-            if (activityList.get(z).equals(target)) {
-                index = z;
-                break;
-            }
+        int index = activityList.indexOf(target);
+        if (index == -1) {
+            throw new ActivityNotFoundException();
         }
-        if (index != -1) {
-            activityList.set(index, editedActivity);
-        }
+
+        activityList.set(index, editedActivity);
     }
 
     // ================ Utility methods ================
