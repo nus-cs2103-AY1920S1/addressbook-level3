@@ -24,6 +24,11 @@ public class InTransaction extends Transaction {
     }
 
     @Override
+    public Budget handleBudget(Budget budget) {
+        return budget;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
