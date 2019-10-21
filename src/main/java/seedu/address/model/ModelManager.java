@@ -303,6 +303,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setServingBorrower(Borrower borrower) {
+        this.servingBorrower = Optional.of(borrower);
+    }
+
+    @Override
     public void servingBorrowerNewLoan(Loan newLoan) {
         if (!isServeMode()) {
             throw new NotInServeModeException();
@@ -312,6 +317,8 @@ public class ModelManager implements Model {
         Borrower loanAddedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
                 serving.getBorrowerId(), serving.getAddedCurrentLoanList(newLoan), serving.getReturnedLoanList());
         borrowerRecords.setBorrower(serving, loanAddedBorrower);
+
+        setServingBorrower(loanAddedBorrower);
     }
 
     @Override
@@ -328,6 +335,8 @@ public class ModelManager implements Model {
                 serving.getBorrowerId(), serving.getRemovedCurrentLoanList(returnedLoan),
                 serving.getAddedReturnedLoanList(returnedLoan));
         borrowerRecords.setBorrower(serving, loanReturnedBorrower);
+
+        setServingBorrower(loanReturnedBorrower);
     }
 
     @Override
