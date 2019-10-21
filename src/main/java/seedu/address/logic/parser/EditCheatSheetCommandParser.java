@@ -14,8 +14,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCheatSheetCommand;
-import seedu.address.logic.commands.EditCheatSheetCommand.EditCheatSheetDescriptor;
+import seedu.address.logic.commands.cheatsheetcommands.EditCheatSheetCommand;
+import seedu.address.logic.commands.cheatsheetcommands.EditCheatSheetCommand.EditCheatSheetDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.tag.Tag;
