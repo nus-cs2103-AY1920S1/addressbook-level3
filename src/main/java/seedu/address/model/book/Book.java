@@ -23,8 +23,7 @@ public class Book {
     private final SerialNumber serialNumber;
     private final Author author;
     private final Set<Genre> genres = new HashSet<>();
-
-    private Optional<Loan> loan;
+    private final Optional<Loan> loan;
 
     /**
      * Constructor when loading the file from history or when loading sample data/tests.
@@ -90,6 +89,27 @@ public class Book {
     }
 
     /**
+     * Checks if a book is same, regardless of serial number.
+     *
+     * @param b Book to be checked against
+     * @return true if both books are the same, even if they are different copies
+     */
+    public boolean isSameBook(Object b) {
+        if (b == this) {
+            return true;
+        }
+
+        if (!(b instanceof Book)) {
+            return false;
+        }
+        Book otherBook = (Book) b;
+        //same book different copy
+        return otherBook.getTitle().equals(getTitle())
+                && otherBook.getAuthor().equals(getAuthor())
+                && otherBook.getGenres().equals(getGenres());
+    }
+
+    /**
      * Returns true if both books have the same identity and data fields.
      * This defines a stronger notion of equality between two books.
      */
@@ -104,8 +124,11 @@ public class Book {
         }
 
         Book otherBook = (Book) other;
-        // allow for same books but different copies
-        return otherBook.getSerialNumber().equals(getSerialNumber());
+        //strictly same book, ignoring loan
+        return otherBook.getSerialNumber().equals(getSerialNumber())
+                && otherBook.getTitle().equals(getTitle())
+                && otherBook.getAuthor().equals(getAuthor())
+                && otherBook.getGenres().equals(getGenres());
     }
 
     @Override

@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
 
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -61,11 +60,12 @@ public class ReturnCommand extends Command {
         }
 
         Book bookToBeReturned = lastShownList.get(index.getZeroBased()); // TODO change to second list index
-        Optional<Loan> returningLoanOptional = bookToBeReturned.getLoan();
-        if (returningLoanOptional.isEmpty()) {
+        if (!bookToBeReturned.isCurrentlyLoanedOut()) {
             throw new CommandException(String.format(MESSAGE_BOOK_NOT_ON_LOAN, bookToBeReturned));
         }
-        Loan returningLoan = returningLoanOptional.get();
+
+        //is there a way to split this up so that we follow Law of demeter?
+        Loan returningLoan = bookToBeReturned.getLoan().get();
 
         Borrower servingBorrower = model.getServingBorrower();
         // check if servingBorrower has this Book loaned

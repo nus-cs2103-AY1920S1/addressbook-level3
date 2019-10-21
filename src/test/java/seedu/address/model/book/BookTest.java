@@ -45,39 +45,40 @@ public class BookTest {
 
     @Test
     public void isSameBook() {
+        // will return true if book is same, regardless of serial number
         // same object -> returns true
-        assertTrue(BOOK_1.equals(BOOK_1));
+        assertTrue(BOOK_1.isSameBook(BOOK_1));
 
         // null -> returns false
-        assertFalse(BOOK_1.equals(null));
+        assertFalse(BOOK_1.isSameBook(null));
 
         // different serial number and author -> returns false
         Book editedBook1 = new BookBuilder(BOOK_1).withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2)
                 .withAuthor(VALID_AUTHOR_BOOK_2).build();
-        assertFalse(BOOK_1.equals(editedBook1));
+        assertFalse(BOOK_1.isSameBook(editedBook1));
 
         // different title -> returns false
         editedBook1 = new BookBuilder(BOOK_1).withTitle(VALID_TITLE_BOOK_2)
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
-        assertFalse(BOOK_1.equals(editedBook1));
+        assertFalse(BOOK_1.isSameBook(editedBook1));
 
-        // same name, same phone, different attributes -> returns true
-        editedBook1 = new BookBuilder(BOOK_1).withAuthor(VALID_AUTHOR_BOOK_2)
-                .withGenres(VALID_GENRE_ACTION).build();
-        assertTrue(BOOK_1.equals(editedBook1));
+        // same attributes, different serial number -> returns true
+        editedBook1 = new BookBuilder(BOOK_1).withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).build();
+        assertTrue(BOOK_1.isSameBook(editedBook1));
 
-        // same name, same email, different attributes -> returns true
+        // same title, different serial number, different genre -> isSameBook returns false
         editedBook1 = new BookBuilder(BOOK_1).withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2)
                 .withGenres(VALID_GENRE_ACTION).build();
-        assertTrue(BOOK_2.equals(editedBook1));
+        assertFalse(BOOK_1.isSameBook(editedBook1));
 
-        // same title, same serial number, same author, different attributes -> returns true
+        // same attributes, different genres -> returns false
         editedBook1 = new BookBuilder(BOOK_1).withGenres(VALID_GENRE_ACTION).build();
-        assertTrue(BOOK_1.equals(editedBook1));
+        assertFalse(BOOK_1.equals(editedBook1));
     }
 
     @Test
     public void equals() {
+        // compares all attributes
         // same values -> returns true
         Book aliceCopy = new BookBuilder(BOOK_1).build();
         assertTrue(BOOK_1.equals(aliceCopy));
