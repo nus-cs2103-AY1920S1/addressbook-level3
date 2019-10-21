@@ -1,10 +1,11 @@
 package seedu.jarvis.model.financetracker;
 
-import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 
 /**
  * The API of Finance Tracker component.
@@ -12,6 +13,7 @@ import seedu.jarvis.model.financetracker.installment.Installment;
 public interface FinanceTrackerModel {
 
     Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
+    Predicate<Installment> PREDICATE_SHOW_ALL_INSTALLMENTS = unused -> true;
 
     /**
      * Gets the {@code FinanceTracker}.
@@ -20,16 +22,17 @@ public interface FinanceTrackerModel {
      */
     FinanceTracker getFinanceTracker();
 
+    Purchase getPurchase(int paymentIndex) throws CommandException;
+
+    void updateFilteredPurchaseList(Predicate<Purchase> predicate);
+
     /**
-     * Replaces {@code FinanceTracker} data with the data in {@code FinanceTracker} given as argument.
+     * Retrieves list of all purchases
      *
-     * @param financeTracker {@code FinanceTracker} data to be used.
+     * @return ObservableList
      */
-    void setFinanceTracker(FinanceTracker financeTracker);
+    ObservableList<Purchase> getFilteredPurchaseList();
 
-    Purchase getPurchase(int paymentIndex);
-
-    Installment getInstallment(int instalIndex);
     /**
      * Adds single use payment.
      *
@@ -42,9 +45,18 @@ public interface FinanceTrackerModel {
      *
      * @param itemNumber
      */
-    void deletePurchase(int itemNumber);
+    Purchase deletePurchase(int itemNumber);
 
-    boolean hasPurchase(Purchase purchase);
+    Installment getInstallment(int instalIndex) throws CommandException;
+
+    void updateFilteredInstallmentList(Predicate<Installment> predicate);
+
+    /**
+     * Retrieves list of all installments
+     *
+     * @return ObservableList
+     */
+    ObservableList<Installment> getFilteredInstallmentList();
 
     /**
      * Adds instalment.
@@ -60,23 +72,21 @@ public interface FinanceTrackerModel {
      */
     Installment deleteInstallment(int instalNumber);
 
+    /**
+     * Checks for the existence of the same installment in the finance tracker.
+     *
+     * @param installment to be checked
+     * @return boolean
+     */
     boolean hasInstallment(Installment installment);
 
     /**
-     * Edits an existing instalment by its value.
-     *
-     * @param installmentNumber
-     * @param description
-     * @param value
+     * Replaces the installment {@code target} in the list with {@code editedInstallment}.
+     * {@code target} must exist in the list.
+     * The identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * list.
      */
-    void editInstallmentByValue(int installmentNumber, String description, double value);
-
-    /**
-     * Retrieves list of all installments
-     *
-     * @return InstallmentList
-     */
-    ArrayList<Installment> getInstallmentList();
+    void setInstallment(Installment target, Installment editedInstallment);
 
     /**
      * Sets the monthly limit for spending.
@@ -91,13 +101,4 @@ public interface FinanceTrackerModel {
      */
     void listSpending();
 
-    ObservableList<Purchase> getPurchasesList();
-
-    /**
-     * Updates the filter of the filtered purchase list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPurchaseList(Predicate<Purchase> predicate);
-
-    ObservableList<Purchase> getFilteredPurchaseList();
 }

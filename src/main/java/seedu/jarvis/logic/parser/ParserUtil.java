@@ -140,7 +140,7 @@ public class ParserUtil {
      * Parses a {@code String description}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code description} is invalid.
+     * @throws ParseException if the given {@code money} is invalid.
      */
     public static InstallmentMoneyPaid parseMoneySpent(String money) throws ParseException {
         requireNonNull(money);
@@ -149,6 +149,29 @@ public class ParserUtil {
             throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
         }
         return new InstallmentMoneyPaid(trimmedMoney);
+    }
+
+    /**
+     * Parses a {@code String description}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parsePurchaseDes(String description) {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return trimmedDescription;
+    }
+
+    /**
+     * Parses a {@code String moneySpent}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static double parsePurchaseAmount(String moneySpent) throws ParseException {
+        requireNonNull(moneySpent);
+        String trimmedMoney = moneySpent.trim();
+        if (Double.parseDouble(moneySpent) < 0) {
+            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
+        }
+        return Double.parseDouble(trimmedMoney);
     }
 
     /**

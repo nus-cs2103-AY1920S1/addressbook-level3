@@ -24,11 +24,6 @@ public class InstallmentTest {
     }
 
     @Test
-    public void editInstallment_nullDescription_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new InstallmentStub().editDescription(null));
-    }
-
-    @Test
     public void isSameInstallment() {
         Installment installment1 = new InstallmentStub();
         Installment installment2 = new InstallmentStub();

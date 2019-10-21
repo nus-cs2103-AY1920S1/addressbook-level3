@@ -1,12 +1,12 @@
 package seedu.jarvis.commons.util;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.jarvis.commons.exceptions.CourseNotFoundException;
-
 
 /**
  * @author ryanYtan
@@ -36,58 +36,32 @@ public class CourseUtilTest {
         "???",
     };
 
-    public static final String[] VALID_COURSE_CODES_NO_PREREQ = {
-        "MA1511",
-        "MA1505",
-        "CS1231",
-        "ME1102",
-        "LC1001A",
-        "LC1004",
-        "SSA1202"
-    };
-
-    @Test
-    public void getCourseJsonString_validInput_doesNotThrowException() {
-        for (String course : VALID_COURSE_CODES) {
-            assertDoesNotThrow(() -> CourseUtil.getCourseJsonString(course));
-        }
-    }
-
-
-    @Test
-    public void getCourseJsonString_invalidInput_throwsException() {
-        for (String course : INVALID_COURSE_CODES) {
-            assertThrows(
-                CourseNotFoundException.class, () -> CourseUtil.getCourseJsonString(course));
-        }
-    }
-
-    @Test
-    public void getJsonMap_validInput_doesNotThrowException() {
-        for (String course : VALID_COURSE_CODES) {
-            assertDoesNotThrow(() -> CourseUtil.getCourseMap(course));
-        }
-    }
-
-    @Test
-    public void getJsonMap_invalidInput_throwsException() {
-        for (String course : INVALID_COURSE_CODES) {
-            assertThrows(
-                CourseNotFoundException.class, () -> CourseUtil.getCourseJsonString(course));
-        }
-    }
-
     @Test
     public void getCourse_validInput_success() {
         for (String course : VALID_COURSE_CODES) {
-            assertDoesNotThrow(() -> CourseUtil.getCourse(course));
+            assertTrue(CourseUtil.getCourse(course).isPresent());
         }
     }
 
     @Test
-    public void getCourse_invalidInput_throwsException() {
+    public void getCourse_invalidInput_returnsOptionalEmpty() {
         for (String course : INVALID_COURSE_CODES) {
-            assertThrows(CourseNotFoundException.class, () -> CourseUtil.getCourse(course));
+            assertEquals(CourseUtil.getCourse(course), Optional.empty());
         }
     }
+
+    @Test
+    public void courseExists_validInput_returnsTrue() {
+        for (String course : VALID_COURSE_CODES) {
+            assertTrue(CourseUtil.courseExists(course));
+        }
+    }
+
+    @Test
+    public void courseExists_invalidInput_returnsFalse() {
+        for (String course : INVALID_COURSE_CODES) {
+            assertFalse(CourseUtil.courseExists(course));
+        }
+    }
+
 }

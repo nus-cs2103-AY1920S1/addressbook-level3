@@ -15,7 +15,7 @@ import seedu.jarvis.model.financetracker.installment.Installment;
  */
 public class SetInstallmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "install-set";
+    public static final String COMMAND_WORD = "add-install";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an installment to the finance tracker. "
             + "Parameters: "

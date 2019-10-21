@@ -4,7 +4,9 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
+import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 
 /**
  * Tests purchase class.
@@ -13,6 +15,7 @@ public class PurchaseTest {
 
     @Test
     public void constructor_nullDescription_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Purchase(null, 0.0));
+        assertThrows(NullPointerException.class, () -> new Purchase(new PurchaseDescription(null),
+                new PurchaseMoneySpent("0.0")));
     }
 }

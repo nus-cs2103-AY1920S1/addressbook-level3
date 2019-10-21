@@ -3,13 +3,16 @@ package seedu.jarvis.model.finance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.financetracker.Purchase;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import seedu.jarvis.model.financetracker.PurchaseList;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
+import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 
 /**
  * Tests logic of purchase list class.
@@ -20,7 +23,7 @@ public class PurchaseListTest {
 
     @BeforeEach
     public void setUp() {
-        ArrayList<Purchase> listPurchases = new ArrayList<>();
+        ObservableList<Purchase> listPurchases = FXCollections.observableArrayList();
         listPurchases.add(new PurchaseStub());
         listPurchases.add(new PurchaseStub());
         listPurchases.add(new PurchaseStub());
@@ -68,7 +71,7 @@ public class PurchaseListTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super("lunch at Saizerya", 5.00);
+            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"));
         }
     }
 }

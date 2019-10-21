@@ -1,16 +1,11 @@
 package seedu.jarvis.commons.util.andor;
 
 import java.io.IOException;
-
 import java.util.Collection;
+import java.util.function.Function;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import seedu.jarvis.commons.exceptions.CourseNotFoundException;
-import seedu.jarvis.commons.util.CourseUtil;
-import seedu.jarvis.model.course.Course;
-
 
 /**
  * A representation of an And-Or Tree. The tree represents the requirements for the root node
@@ -20,13 +15,100 @@ import seedu.jarvis.model.course.Course;
  *
  * @author ryanYtan
  */
-public class AndOrTree {
-    private static final String NO_PREREQ_MESSAGE = "%s has no prerequisites!";
+public class AndOrTree<T> {
+    private AndOrNode<T> root;
 
-    private AndOrNode root;
-
-    private AndOrTree(AndOrNode root) {
+    private AndOrTree(AndOrNode<T> root) {
         this.root = root;
+    }
+
+    /**
+     * Builds a tree of type {@code R} from the given jsonString. The method requires a
+     * {@code Function<? super String, ? extends R>} to map from {@code String} nodes in the
+     * jsonString to the desired type {@code R}.
+     *
+     * @param rootData can be any {@code String} representing the root
+     * @param jsonString to be read
+     * @param function mapper function from {@code String -> R}
+     * @param <R> type of data the tree will be storing
+     * @return a new {@code AndOrTree} of type {@code R}
+     */
+    public static <R> AndOrTree<R> buildTree(String rootData, String jsonString,
+                                             Function<? super String, ? extends R> function) {
+        AndOrNode<R> rootNode = AndOrNode.createNode(function.apply(rootData));
+        try {
+            JsonNode node = new ObjectMapper().readTree(addQuotes(jsonString));
+            buildTree(node, rootNode, function);
+        } catch (IOException e) {
+            // return empty tree
+        }
+        return new AndOrTree<>(rootNode);
+    }
+
+    /**
+     * Builds a tree from the given JsonNode.
+     *
+     * @param node to build
+     * @param curr current node
+     * @param function mapper function from {@code String -> R}
+     * @param <R> type of data the tree will be storing
+     */
+    private static <R> void buildTree(JsonNode node, AndOrNode<R> curr,
+                                      Function<? super String, ? extends R> function) {
+        if (node.isObject()) {
+            handleObject(node, curr, function);
+        } else if (node.isArray()) {
+            handleArray(node, curr, function);
+        } else {
+            handleLeaf(node, curr, function);
+        }
+    }
+
+    /**
+     * Handles the case where the current JsonNode is an object.
+     */
+    private static <R> void handleObject(JsonNode node, AndOrNode<R> curr,
+                                         Function<? super String, ? extends R> function) {
+        AndOrNode<R> newNode = AndOrNode.createNode(null, getKey(node));
+        curr.insert(newNode);
+        node.fields().forEachRemaining(field -> {
+            buildTree(field.getValue(), newNode, function);
+        });
+    }
+
+    /**
+     * Handles the case where the current JsonNode is an array.
+     */
+    private static <R> void handleArray(JsonNode node, AndOrNode<R> curr,
+                                        Function<? super String, ? extends R> function) {
+        for (JsonNode children : node) {
+            buildTree(children, curr, function);
+        }
+    }
+
+    /**
+     * Handles the case where the current JsonNode is a leaf node.
+     */
+    private static <R> void handleLeaf(JsonNode node, AndOrNode<R> curr,
+                                       Function<? super String, ? extends R> function) {
+        R data = function.apply(node.asText());
+        AndOrNode<R> newNode = AndOrNode.createNode(data);
+        curr.insert(newNode);
+    }
+
+    /**
+     * Adds quotes around the given {@code String} if it follows the following conditions:
+     * 1. The {@code String} is not empty
+     * 2. The {@code String} is a json object and has "{".
+     *
+     * @param jsonString to check
+     * @return a new {@code String}
+     */
+    private static String addQuotes(String jsonString) {
+        if (!jsonString.contains("{") && !jsonString.isEmpty()) {
+            return "\"" + jsonString + "\"";
+        }
+        return jsonString;
     }
 
     /**
@@ -37,94 +119,15 @@ public class AndOrTree {
     }
 
     /**
-     * Builds the And-Or Tree from the given course code.
-     *
-     * @param courseCode of the course
-     * @return a new AndOr tree
-     * @throws IOException if the course file could not be found
-     */
-    public static AndOrTree buildTree(String courseCode) throws CourseNotFoundException {
-        Course course;
-        course = CourseUtil.getCourse(courseCode);
-        AndOrNode rootNode = AndOrNode.createLeafNode(course, null);
-        JsonNode node;
-        try {
-            String prereqTree = course.getPrereqTree().toString();
-            prereqTree = CourseUtil.addQuotes(prereqTree);
-            node = new ObjectMapper().readTree(prereqTree);
-            buildTree(node, rootNode);
-        } catch (NullPointerException e) {
-            // return empty tree
-        } catch (IOException e) {
-            throw new CourseNotFoundException();
-        }
-        return new AndOrTree(rootNode);
-    }
-
-    /**
-     * Helper method to build the tree from a JSON file.
-     */
-    private static void buildTree(JsonNode node, AndOrNode curr) {
-        if (node.isObject()) {
-            handleObject(node, curr);
-        } else if (node.isArray()) {
-            handleArray(node, curr);
-        } else {
-            handleLeaf(node, curr);
-        }
-    }
-
-    /**
-     * Handles the case where the current JsonNode is an object.
-     */
-    private static void handleObject(JsonNode node, AndOrNode curr) {
-        AndOrNode newNode = AndOrNode.createAndOrNode(curr, getKey(node));
-        curr.insert(newNode);
-        node.fields().forEachRemaining(field -> {
-            buildTree(field.getValue(), newNode);
-        });
-    }
-
-    /**
-     * Handles the case where the current JsonNode is an array.
-     */
-    private static void handleArray(JsonNode node, AndOrNode curr) {
-        for (JsonNode el : node) {
-            buildTree(el, curr);
-        }
-    }
-
-    /**
-     * Handles the case where the current JsonNode is a leaf node.
-     */
-    private static void handleLeaf(JsonNode node, AndOrNode curr) {
-        Course leaf;
-        try {
-            leaf = CourseUtil.getCourse(node.asText());
-        } catch (CourseNotFoundException e) {
-            // do not create the node -> if the file does not exist, means the
-            // course is likely no longer being offered
-            return;
-        }
-        AndOrNode newNode = AndOrNode.createLeafNode(leaf, curr);
-        curr.insert(newNode);
-    }
-
-    /**
      * Given the current And-Or tree, see if it satisfies the root requirement.
      *
      * @param collection of courses to check against the tree
      * @return true if it satisfies the root requirement
      */
-    public boolean fulfillsCondition(Collection<Course> collection) {
-        return root.getChildren().get(0).hasFulfilledCondition(collection);
-    }
-
-    @Override
-    public String toString() {
-        if (root.getChildren().size() <= 0) {
-            return String.format(NO_PREREQ_MESSAGE, root.toString());
+    public boolean fulfills(Collection<T> collection) {
+        if (root.getChildren().isEmpty()) {
+            return true;
         }
-        return this.root.toTreeString();
+        return root.getChildren().get(0).fulfills(collection);
     }
 }

@@ -18,8 +18,8 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.testutil.InstallmentBuilder;
 import seedu.jarvis.testutil.ModelStub;
+import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 public class SetInstallmentCommandTest {
 
@@ -73,7 +73,6 @@ public class SetInstallmentCommandTest {
         // different purchase -> returns false
         assertFalse(addSpotifyCommand.equals(addNetflixCommand));
     }
-
 
     /**
      * A Model stub that contains a single person.

@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.testutil.ModelStub;
-import seedu.jarvis.testutil.PurchaseBuilder;
+import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
-public class PaidCommandTest {
+public class SetPaidCommandTest {
 
     /**
      * Verifies that checking {@code PaidCommand} for the availability of inverse execution returns true.
@@ -27,13 +27,13 @@ public class PaidCommandTest {
     @BeforeEach
     public void hasInverseExecution() {
         Purchase validPurchase = new PurchaseBuilder().build();
-        PaidCommand paidCommand = new PaidCommand(validPurchase);
+        SetPaidCommand paidCommand = new SetPaidCommand(validPurchase);
         assertTrue(paidCommand.hasInverseExecution());
     }
 
     @Test
     public void constructor_nullPurchase_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new PaidCommand(null));
+        assertThrows(NullPointerException.class, () -> new SetPaidCommand(null));
     }
 
     @Test
@@ -41,9 +41,9 @@ public class PaidCommandTest {
         ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
         Purchase validPurchase = new PurchaseBuilder().build();
 
-        CommandResult commandResult = new PaidCommand(validPurchase).execute(modelStub);
+        CommandResult commandResult = new SetPaidCommand(validPurchase).execute(modelStub);
 
-        assertEquals(String.format(PaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
+        assertEquals(String.format(SetPaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPurchase), modelStub.purchasesAdded);
     }
 
@@ -51,14 +51,14 @@ public class PaidCommandTest {
     public void equals() {
         Purchase movie = new PurchaseBuilder().withDescription("movie ticket").build();
         Purchase karaoke = new PurchaseBuilder().withDescription("karaoke night").build();
-        PaidCommand addMovieCommand = new PaidCommand(movie);
-        PaidCommand addKaraokeCommand = new PaidCommand(karaoke);
+        SetPaidCommand addMovieCommand = new SetPaidCommand(movie);
+        SetPaidCommand addKaraokeCommand = new SetPaidCommand(karaoke);
 
         // same object -> returns true
         assertTrue(addMovieCommand.equals(addMovieCommand));
 
         // same values -> returns true
-        PaidCommand addMovieCommandCopy = new PaidCommand(movie);
+        SetPaidCommand addMovieCommandCopy = new SetPaidCommand(movie);
         assertTrue(addMovieCommand.equals(addMovieCommandCopy));
 
         // different types -> returns false
@@ -81,12 +81,6 @@ public class PaidCommandTest {
             requireNonNull(purchase);
             this.purchase = purchase;
         }
-
-        @Override
-        public boolean hasPurchase(Purchase purchase) {
-            requireNonNull(purchase);
-            return this.purchase.isSamePurchase(purchase);
-        }
     }
 
     /**
@@ -94,12 +88,6 @@ public class PaidCommandTest {
      */
     private class ModelStubAcceptingPurchaseAdded extends ModelStub {
         final ArrayList<Purchase> purchasesAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPurchase(Purchase purchase) {
-            requireNonNull(purchase);
-            return purchasesAdded.stream().anyMatch(purchase::isSamePurchase);
-        }
 
         @Override
         public void addPurchase(Purchase purchase) {
