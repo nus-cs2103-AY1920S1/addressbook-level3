@@ -11,6 +11,7 @@ import seedu.algobase.model.GuiState;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -52,6 +53,11 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getProcessedTaskList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of find rules.
+     */
+    ObservableList<ProblemSearchRule> getProcessedFindRuleList();
 
     /**
      * Returns the user prefs' algobase file path.
