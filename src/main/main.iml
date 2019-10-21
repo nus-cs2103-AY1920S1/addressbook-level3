@@ -8,12 +8,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:win:11" level="project" />
-<<<<<<< HEAD
-=======
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:win:11" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:win:11" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:win:11" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.7.0" level="project" />
->>>>>>> 499b33fec4d3c8f97413388ddd9b0a347151b475
   </component>
 </module>
