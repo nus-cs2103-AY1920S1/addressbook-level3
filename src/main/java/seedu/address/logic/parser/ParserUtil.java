@@ -13,7 +13,7 @@ import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
-import seedu.address.model.person.Time;
+import seedu.address.model.person.Date;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -67,9 +67,9 @@ public class ParserUtil {
      * @param time the time as a String.
      * @return the specified time as Time.
      */
-    public static Time parseTime(String time) {
+    public static Date parseTime(String time) {
         requireNonNull(time);
-        return new Time(time);
+        return new Date(time);
     }
 
     /**
@@ -91,6 +91,7 @@ public class ParserUtil {
         requireNonNull(sequence);
         return new SortSequence(sequence);
     }
+
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.

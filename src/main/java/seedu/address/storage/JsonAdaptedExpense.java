@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +25,7 @@ class JsonAdaptedExpense {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
 
     private final String desc;
-    private final String time;
+    private final String date;
     private final double amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -34,10 +34,10 @@ class JsonAdaptedExpense {
      */
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
-                              @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.desc = desc;
         this.amt = amt;
-        this.time = time;
+        this.date = date;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -50,7 +50,7 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
-        time = source.getTime().fullTime;
+        date = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -76,7 +76,7 @@ class JsonAdaptedExpense {
         }
         final Description modelDesc = new Description(desc);
 
-        final Time modelTime = new Time(time);
+        final Date modelTime = new Date(date);
 
         final Amount modelAmt = new Amount(amt);
 

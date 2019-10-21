@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -11,8 +12,12 @@ public class Wish extends Entry {
 
     private static final String ENTRY_TYPE = "Wish";
 
-    public Wish(Description desc, Time time, Amount amount, Set<Tag> tags) {
-        super(desc, time, amount, tags);
+    public Wish(Description desc, Date date, Amount amount, Set<Tag> tags) {
+        super(desc, date, amount, tags);
+    }
+
+    public Wish(Description desc, LocalDate date, Amount amount, Set<Tag> tags) {
+        super(desc, new Date(date), amount, tags);
     }
 
     public String getType() {
@@ -40,7 +45,7 @@ public class Wish extends Entry {
         return otherWish.getDesc().equals(getDesc())
                 && otherWish.getAmount().equals(getAmount())
                 && otherWish.getTags().equals(getTags())
-                && otherWish.getTime().equals(getTime());
+                && otherWish.getDate().equals(getDate());
     }
 
     @Override
@@ -52,7 +57,7 @@ public class Wish extends Entry {
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + getTime() + ")");
+        builder.append("(" + getDate() + ")");
         return builder.toString();
     }
 

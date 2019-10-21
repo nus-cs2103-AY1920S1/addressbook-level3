@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,8 +21,8 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Time;
 import seedu.address.model.person.Wish;
 import seedu.address.model.tag.Tag;
 
@@ -92,7 +93,7 @@ public class EditWishCommand extends Command {
     private static Wish createEditedWish(Wish wishToEdit, EditWishDescriptor editEntryDescriptor) {
         assert wishToEdit != null;
         Description updatedName = editEntryDescriptor.getDesc().orElse(wishToEdit.getDesc());
-        Time updatedTime = editEntryDescriptor.getTime().orElse(wishToEdit.getTime());
+        Date updatedTime = editEntryDescriptor.getDate().orElse(wishToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(wishToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(wishToEdit.getTags());
         return new Wish(updatedName, updatedTime, updatedAmount, updatedTags);
@@ -122,7 +123,7 @@ public class EditWishCommand extends Command {
      */
     public static class EditWishDescriptor {
         private Description desc;
-        private Time time;
+        private Date date;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -134,7 +135,7 @@ public class EditWishCommand extends Command {
          */
         public EditWishDescriptor(EditWishDescriptor toCopy) {
             setDesc(toCopy.desc);
-            setTime(toCopy.time);
+            setDate(toCopy.date);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
@@ -154,12 +155,12 @@ public class EditWishCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
-        public void setTime(Time time) {
-            this.time = time;
+        public void setDate(Date time) {
+            this.date = time;
         }
 
-        public Optional<Time> getTime() {
-            return Optional.ofNullable(time);
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         public void setAmount(Amount amt) {
@@ -205,7 +206,7 @@ public class EditWishCommand extends Command {
 
             return getDesc().equals(e.getDesc())
                     && getAmount().equals(e.getAmount())
-                    && getTime().equals(e.getTime())
+                    && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());
         }
     }

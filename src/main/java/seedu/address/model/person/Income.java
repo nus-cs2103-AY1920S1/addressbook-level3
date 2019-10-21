@@ -11,7 +11,7 @@ public class Income extends Entry {
 
     private static final String ENTRY_TYPE = "Income";
 
-    public Income(Description desc, Time time, Amount amt, Set<Tag> tags) {
+    public Income(Description desc, Date time, Amount amt, Set<Tag> tags) {
         super(desc, time, amt, tags);
     }
 
@@ -39,7 +39,7 @@ public class Income extends Entry {
         return otherIncome.getDesc().equals(getDesc())
                 && otherIncome.getAmount().equals(getAmount())
                 && otherIncome.getTags().equals(getTags())
-                && otherIncome.getTime().equals(getTime());
+                && otherIncome.getDate().equals(getDate());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Income extends Entry {
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + getTime() + ")");
+        builder.append("(" + getDate() + ")");
         return builder.toString();
     }
 

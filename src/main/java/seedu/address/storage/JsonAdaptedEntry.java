@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Time;
+import seedu.address.model.person.Date;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,7 +48,7 @@ class JsonAdaptedEntry {
      */
     public JsonAdaptedEntry(Entry source) {
         desc = source.getDesc().fullDesc;
-        time = source.getTime().fullTime;
+        time = source.getDate().toString();
         amt = source.getAmount().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -74,7 +74,7 @@ class JsonAdaptedEntry {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDesc = new Description(desc);
-        final Time modelTime = new Time(time);
+        final Date modelTime = new Date(time);
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);

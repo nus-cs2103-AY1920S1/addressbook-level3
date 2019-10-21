@@ -18,7 +18,7 @@ public class Entry {
     // Identity fields
     private final Description desc;
     private final Amount amt;
-    private final Time time;
+    private final Date date;
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -26,11 +26,11 @@ public class Entry {
      * Every field must be present and not null.
      */
 
-    public Entry(Description desc, Time time, Amount amount, Set<Tag> tags) {
+    public Entry(Description desc, Date date, Amount amount, Set<Tag> tags) {
         requireAllNonNull(desc, amount, tags);
         this.desc = desc;
         this.amt = amount;
-        this.time = time;
+        this.date = date;
         this.tags.addAll(tags);
     }
 
@@ -46,8 +46,8 @@ public class Entry {
         return "Not like this";
     }
 
-    public Time getTime() {
-        return this.time;
+    public Date getDate() {
+        return this.date;
     }
 
     /**
