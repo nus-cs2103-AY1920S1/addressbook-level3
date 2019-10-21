@@ -71,18 +71,17 @@ public class AddressBookPage extends UiPart<Region> implements Page {
         this.primaryStage = primaryStage;
         this.addressBookLogic = addressBookLogic;
 
-        // Configure the UI
-        setWindowDefaultSize(addressBookLogic.getGuiSettings());
-
-        //setAccelerators();
-
         helpWindow = new HelpWindow();
         codeWindow = new CodeWindow();
         addressBookScene = new Scene(addressBookBox);
+
+        setAccelerators();
+
         fillInnerParts();
     }
 
     private void setAccelerators() {
+        logger.info(helpMenuItem.toString());
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 

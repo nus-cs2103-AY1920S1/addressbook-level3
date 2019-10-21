@@ -2,21 +2,28 @@ package seedu.achievements.ui;
 
 import java.util.logging.Logger;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.achievements.logic.parser.AchievementsParser;
+import javafx.stage.Stage;
+import seedu.achievements.logic.AchievementsLogic;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
@@ -42,9 +49,15 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     @FXML
     private BorderPane achievementsPane;
 
-    private AddressBookLogic addressBookLogic;
+    private AchievementsLogic achievementsLogic;
+
+    private Stage primaryStage;
 
     private ResultDisplay resultDisplay;
+
+    private HelpWindow helpWindow;
+
+    private CodeWindow codeWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,17 +68,61 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    public AchievementsPage() {
-        super(FXML, new BorderPane());
-        achievementsScene = new Scene(achievementsPane);
-        title.setImage(new Image(this.getClass().getResourceAsStream("/images/achievements.png")));
-        fillInnerParts();
+    @FXML
+    private Label test;
+
+    public AchievementsPage AchievementsPage(AchievementsPage achievementsPage) {
+        return new AchievementsPage(achievementsPage.primaryStage, achievementsPage.achievementsLogic);
     }
+
+    public AchievementsPage(Stage primaryStage, AchievementsLogic achievementsLogic) {
+        super(FXML, new BorderPane());
+        this.primaryStage = primaryStage;
+        this.achievementsLogic = achievementsLogic;
+        this.achievementsScene = new Scene(achievementsPane);
+    }
+
+    private void setAccelerators() {
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    /**
+     * Sets the accelerator of a MenuItem.
+     *
+     * @param keyCombination the KeyCombination value of the accelerator
+     */
+    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+        menuItem.setAccelerator(keyCombination);
+
+        /*
+         * TODO: the code below can be removed once the bug reported here
+         * https://bugs.openjdk.java.net/browse/JDK-8131666 is fixed in later version of
+         * SDK.
+         *
+         * According to the bug report, TextInputControl (TextField, TextArea) will
+         * consume function-key events. Because CommandBox contains a TextField, and
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will not
+         * work when the focus is in them because the key event is consumed by the
+         * TextInputControl(s).
+         *
+         * For now, we add following event filter to capture such key events and open
+         * help window purposely so to support accelerators even when focus is in
+         * CommandBox or ResultDisplay.
+         */
+        achievementsScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
+            }
+        });
+    }
+
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -82,14 +139,16 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = new AchievementsParser().parseCommand(commandText).execute(null);
+            CommandResult commandResult = achievementsLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
+                handleHelp();
             }
 
             if (commandResult.isExit()) {
+                handleExit();
             }
 
             return commandResult;
@@ -99,10 +158,55 @@ public class AchievementsPage extends UiPart<Region> implements Page {
             throw e;
         }
     }
+    /**
+     * Opens the code window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCode() {
+        if (!codeWindow.isShowing()) {
+            codeWindow.show();
+        } else {
+            codeWindow.focus();
+        }
+    }
 
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+//        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(),
+//                primaryStage.getHeight(),
+//                (int) primaryStage.getX(),
+//                (int) primaryStage.getY());
+//        addressBookLogic.setGuiSettings(guiSettings);
+        helpWindow.hide();
+        primaryStage.hide();
+    }
 
     @Override
     public Scene getScene() {
+
+        title.setImage(new Image(this.getClass().getResourceAsStream("/images/achievements.png")));
+
+        setAccelerators();
+
+        this.helpWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
+        fillInnerParts();
+        test.setText("Total Number of Persons: " + achievementsLogic.getTotalPersons());
         return achievementsScene;
     }
 

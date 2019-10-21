@@ -1,7 +1,10 @@
 package seedu.main.model;
 
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
+import seedu.achievements.model.StatisticsModel;
+import seedu.achievements.model.StatisticsModelManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.AddressBookModel;
 
@@ -11,13 +14,13 @@ import seedu.address.model.AddressBookModel;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private MainModel mainModel;
+    //main model used to save GUI settings and get user preferences
+    private UserPrefsModel userPrefsModel;
     private AddressBookModel addressBookModel;
 
-    public ModelManager(MainModel mainModel, AddressBookModel addressBookModel) {
-        this.mainModel = mainModel;
+    public ModelManager(UserPrefsModel userPrefsModel, AddressBookModel addressBookModel) {
+        this.userPrefsModel = userPrefsModel;
         this.addressBookModel = addressBookModel;
-
     }
 
     @Override
@@ -26,7 +29,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public MainModel getMainModel() {
-        return mainModel;
+    public UserPrefsModel getUserPrefsModel() {
+        return userPrefsModel;
     }
+
+    @Override
+    public Supplier<StatisticsModel> statisticsModelSupplier() {
+        return new Supplier<StatisticsModel>() {
+            @Override
+            public StatisticsModel get() {
+                return new StatisticsModelManager(addressBookModel.getFilteredPersonList());
+            }
+        };
+    }
+
 }

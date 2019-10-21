@@ -20,8 +20,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.main.model.MainModel;
-import seedu.main.model.MainModelManager;
+import seedu.main.model.UserPrefsModel;
+import seedu.main.model.UserPrefsModelManager;
 import seedu.main.model.Model;
 import seedu.main.model.ModelManager;
 import seedu.main.model.UserPrefs;
@@ -41,9 +41,9 @@ public class LogicManagerTest {
         userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
         AddressBook addressBook = new AddressBookBuilder().withPerson(new PersonBuilder().build()).build();
         AddressBookModel addressBookModel = new AddressBookModelManager(addressBook, userPrefs);
-        MainModel mainModel = new MainModelManager(userPrefs);
+        UserPrefsModel userPrefsModel = new UserPrefsModelManager(userPrefs);
 
-        model = new ModelManager(mainModel, addressBookModel);
+        model = new ModelManager(userPrefsModel, addressBookModel);
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressbook.json"));
         JsonUserPrefsStorage userPrefsStorage =

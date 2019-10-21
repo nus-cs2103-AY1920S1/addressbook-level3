@@ -16,7 +16,7 @@ import seedu.address.model.AddressBookModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
-import seedu.main.model.MainModel;
+import seedu.main.model.UserPrefsModel;
 
 /**
  * The main AddressBookLogicManager of the app.
@@ -25,13 +25,13 @@ public class AddressBookLogicManager implements AddressBookLogic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(AddressBookLogicManager.class);
 
-    private final MainModel mainModel;
+    private final UserPrefsModel userPrefsModel;
     private final AddressBookModel addressBookModel;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public AddressBookLogicManager(MainModel mainModel, AddressBookModel addressBookModel, Storage storage) {
-        this.mainModel = mainModel;
+    public AddressBookLogicManager(UserPrefsModel userPrefsModel, AddressBookModel addressBookModel, Storage storage) {
+        this.userPrefsModel = userPrefsModel;
         this.addressBookModel = addressBookModel;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
@@ -71,11 +71,11 @@ public class AddressBookLogicManager implements AddressBookLogic {
 
     @Override
     public GuiSettings getGuiSettings() {
-        return mainModel.getGuiSettings();
+        return userPrefsModel.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        mainModel.setGuiSettings(guiSettings);
+        userPrefsModel.setGuiSettings(guiSettings);
     }
 }

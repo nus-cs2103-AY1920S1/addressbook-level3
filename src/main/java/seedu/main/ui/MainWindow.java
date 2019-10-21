@@ -100,7 +100,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         calendarPage = new CalendarPage();
         itineraryPage = new ItineraryPage();
         diaryPage = new DiaryPage();
-        achievementsPage = new AchievementsPage();
+        achievementsPage = new AchievementsPage(primaryStage, logic.getAchievementsLogic());
         addressBookPage = new AddressBookPage(primaryStage, logic.getAddressBookLogic());
 
         mainScene = primaryStage.getScene();

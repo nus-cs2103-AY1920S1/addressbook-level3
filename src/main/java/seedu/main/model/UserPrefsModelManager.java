@@ -10,16 +10,16 @@ import seedu.address.commons.core.LogsCenter;
 /**
  * Represents the in-memory addressBookModel of the address book data.
  */
-public class MainModelManager implements MainModel {
-    private static final Logger logger = LogsCenter.getLogger(MainModelManager.class);
+public class UserPrefsModelManager implements UserPrefsModel {
+    private static final Logger logger = LogsCenter.getLogger(UserPrefsModelManager.class);
 
     private UserPrefs userPrefs;
 
-    public MainModelManager() {
+    public UserPrefsModelManager() {
         this.userPrefs = new UserPrefs();
     }
 
-    public MainModelManager(ReadOnlyUserPrefs userPrefs) {
+    public UserPrefsModelManager(ReadOnlyUserPrefs userPrefs) {
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
@@ -52,12 +52,12 @@ public class MainModelManager implements MainModel {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof MainModelManager)) {
+        if (!(obj instanceof UserPrefsModelManager)) {
             return false;
         }
 
         // state check
-        MainModelManager other = (MainModelManager) obj;
+        UserPrefsModelManager other = (UserPrefsModelManager) obj;
         return userPrefs.equals(other.userPrefs);
     }
 }
