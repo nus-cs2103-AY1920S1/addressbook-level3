@@ -62,7 +62,7 @@ public class ModelManager implements Model {
     public RuleManager getRuleManager() {
         return ruleManager;
     }
-  
+
     @Override
     public AccountsManager getAccountsManager() {
         return accountsManager;

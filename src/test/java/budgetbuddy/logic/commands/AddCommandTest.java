@@ -91,7 +91,7 @@ public class AddCommandTest {
         public RuleManager getRuleManager() {
             throw new AssertionError("This method should not be called.");
         }
-    
+
         @Override
         public AccountsManager getAccountsManager() {
             throw new AssertionError("This method should not be called.");

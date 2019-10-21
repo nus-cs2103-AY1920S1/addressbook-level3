@@ -103,7 +103,7 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(loansManager, ruleManager, accountsManager addressBook, userPrefs);
+        modelManager = new ModelManager(loansManager, ruleManager, accountsManager, addressBook, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(loansManager, ruleManager, accountsManager,
                 addressBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));

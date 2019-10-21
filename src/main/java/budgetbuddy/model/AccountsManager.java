@@ -83,6 +83,6 @@ public class AccountsManager {
         }
 
         AccountsManager otherAccountsManager = (AccountsManager) other;
-        return accounts.equals(otherAccountsManager.getAccountsList());
+        return accounts.equals(otherAccountsManager.accounts);
     }
 }
