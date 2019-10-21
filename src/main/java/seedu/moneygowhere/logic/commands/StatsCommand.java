@@ -12,9 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
-import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
@@ -25,8 +23,6 @@ import seedu.moneygowhere.model.tag.Tag;
  */
 public class StatsCommand extends Command {
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
     public static final String COMMAND_WORD = "stats";
     public static final String MESSAGE_SUCCESS = "Statistics of all spending displayed below.\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -36,7 +32,7 @@ public class StatsCommand extends Command {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
         + PREFIX_DATE + "tomorrow ";
-    private static final String SHOWING_STATS_MESSAGE = "Opened stats window";
+    public static final String SHOWING_STATS_MESSAGE = "Opened stats window";
 
     private Date startDate;
     private Date endDate;
@@ -72,7 +68,6 @@ public class StatsCommand extends Command {
         Set<Tag> tagSet = getTagsOfSpendings(lastShownList);
         HashMap<Tag, Double> costPerTagList = getCostPerTagList(lastShownList, tagSet);
         Map<Tag, Double> sorted = sortCostPerTagList(costPerTagList);
-        logger.info(sorted.toString());
         return sorted;
     }
 

@@ -26,13 +26,13 @@ public class GraphCommandTest {
 
     @Test
     public void execute_graphMessage_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_GRAPH_MESSAGE, true, false);
+        CommandResult expectedCommandResult = new CommandResult(SHOWING_GRAPH_MESSAGE, true, false, false);
         assertCommandSuccess(new GraphCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_graphMessageValidDateRange_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_GRAPH_MESSAGE, true, false);
+        CommandResult expectedCommandResult = new CommandResult(SHOWING_GRAPH_MESSAGE, true, false, false);
         assertCommandSuccess(new GraphCommand(APPLE.getDate(), GLASSES.getDate()), model,
             expectedCommandResult, expectedModel);
     }
