@@ -97,7 +97,27 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredBookList().remove(0));
+    }
+
+    @Test
+    public void getCatalog_success() {
+        assertEquals(logic.getCatalog(), model.getCatalog());
+    }
+
+    @Test
+    public void getFilteredBookList_success() {
+        assertEquals(logic.getFilteredBookList(), model.getFilteredBookList());
+    }
+
+    @Test
+    public void getCatalogFilePath_success() {
+        assertEquals(logic.getCatalogFilePath(), model.getCatalogFilePath());
+    }
+
+    @Test
+    public void getGuiSettings_success() {
+        assertEquals(logic.getGuiSettings(), model.getGuiSettings());
     }
 
     /**

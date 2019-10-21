@@ -48,6 +48,15 @@ class LoanSlipUtilTest {
     }
 
     @Test
+    public void mountLoanSlip_inconsistentLoanAndFields_failure() {
+        LoanSlipUtil.unmountLoanSlip();
+        assertThrows(LoanSlipException.class, () -> LoanSlipUtil.mountLoanSlip(loan, BOOK_2, borrower));
+        assertFalse(LoanSlipUtil.isMounted());
+        assertThrows(LoanSlipException.class, () -> LoanSlipUtil.mountLoanSlip(loan, book, BOB));
+        assertFalse(LoanSlipUtil.isMounted());
+    }
+
+    @Test
     public void mountLoanSlip_loanSlipMounted_mountOverrideSuccess() {
         LoanSlipUtil.unmountLoanSlip();
         assertFalse(LoanSlipUtil.isMounted());
@@ -85,4 +94,11 @@ class LoanSlipUtilTest {
         assertThrows(LoanSlipException.class, () ->LoanSlipUtil.createLoanSlipInDirectory());
     }
 
+    @Test
+    public void openLoanSlip_loanSlipNotReady_failure() {
+        LoanSlipUtil.unmountLoanSlip();
+        assertThrows(LoanSlipException.class, () ->LoanSlipUtil.openLoanSlip());
+        assertDoesNotThrow(() -> LoanSlipUtil.mountLoanSlip(loan, book, borrower));
+        assertThrows(LoanSlipException.class, () ->LoanSlipUtil.openLoanSlip());
+    }
 }

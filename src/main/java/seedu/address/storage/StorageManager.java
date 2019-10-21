@@ -92,7 +92,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void openNewLoanSlip() {
+    public void openNewLoanSlip() throws LoanSlipException {
         LoanSlipUtil.openLoanSlip();
     }
 

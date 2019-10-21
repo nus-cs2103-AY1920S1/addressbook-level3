@@ -42,7 +42,7 @@ public interface Storage extends UserPrefsStorage,
 
     void storeNewLoanSlip() throws LoanSlipException;
 
-    void openNewLoanSlip();
+    void openNewLoanSlip() throws LoanSlipException;
 
     // CatalogStorage methods
 

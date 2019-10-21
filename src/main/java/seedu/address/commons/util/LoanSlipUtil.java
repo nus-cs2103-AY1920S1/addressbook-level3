@@ -88,10 +88,8 @@ public class LoanSlipUtil {
             File file = new File(finalDest);
             file.getParentFile().mkdirs();
             PdfWriter writer = new PdfWriter(finalDest);
-
             //Initialize PDF document
             PdfDocument pdf = new PdfDocument(writer);
-
             // Initialize document
             Document document = new Document(pdf);
             float [] pointColumnWidths = {75F, 325F, 125F};
@@ -100,25 +98,22 @@ public class LoanSlipUtil {
             //write logo
             doc.writeLogo();
             doc.writeLine();
-
             //Add paragraph to the document
             doc.writeHeader(currentBorrower.getName().toString());
             doc.writeSubHeader(currentBorrower.getBorrowerId().toString());
             doc.writeLine();
             doc.writeHeader("Books borrowed");
-
-
+            //populate table
             doc.addCell("S/N");
             doc.addCell("Book");
             doc.addCell("Due by");
             doc.addCell(currentBook.getSerialNumber().toString());
             doc.addCell(currentBook.getTitle().toString());
             doc.addCell(formatDate(currentLoan.getDueDate().toString()));
-
+            //add table to document
             doc.submitTable();
             doc.writeLine();
             doc.writeParagraph(BYE_MESSAGE);
-
             //Close document
             currentFile = file;
             isGenerated = true;
@@ -156,13 +151,14 @@ public class LoanSlipUtil {
      * Opens loan slip pdf to allow ease of printing loan slip.
      * (Cannot be tested autonomously)
      */
-    public static void openLoanSlip() {
-        if (isMounted && isGenerated) {
-            try {
-                Desktop.getDesktop().open(currentFile);
-            } catch (IOException e) {
-                e.printStackTrace(); // handle exception later
-            }
+    public static void openLoanSlip() throws LoanSlipException {
+        if (!isMounted || !isGenerated) {
+            throw new LoanSlipException("Loan slip is not generated");
+        }
+        try {
+            Desktop.getDesktop().open(currentFile);
+        } catch (IOException e) {
+            throw new LoanSlipException("Error in opening loan slip");
         }
     }
 

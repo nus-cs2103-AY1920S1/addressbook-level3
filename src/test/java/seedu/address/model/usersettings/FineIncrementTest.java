@@ -1,12 +1,16 @@
 package seedu.address.model.usersettings;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 public class FineIncrementTest {
+    private static final int TEST_FINE_INCREMENT = 500;
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -34,5 +38,20 @@ public class FineIncrementTest {
 
         // valid fineIncrement
         assertTrue(FineIncrement.isValidFineIncrement("12345")); // numbers only
+    }
+
+    @Test
+    public void toString_success() {
+        FineIncrement fi = new FineIncrement(TEST_FINE_INCREMENT);
+        assertEquals(fi.toString(), String.format("%d", TEST_FINE_INCREMENT));
+    }
+
+    @Test
+    public void equals() {
+        FineIncrement fi1 = new FineIncrement(TEST_FINE_INCREMENT);
+        FineIncrement fi2 = new FineIncrement(TEST_FINE_INCREMENT);
+        FineIncrement fi3 = new FineIncrement(TEST_FINE_INCREMENT + 1);
+        assertEquals(fi1, fi2);
+        assertNotEquals(fi1, fi3);
     }
 }
