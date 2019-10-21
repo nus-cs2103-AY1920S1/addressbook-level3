@@ -30,6 +30,7 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         try {
+            test.matches("(0?[1-9]|[12][0-9]|3[01])(0?[1-9]|1[0-2])\\d{4}");
             DATE_FORMATTER.parse(test);
             return true;
         } catch (DateTimeParseException e) {
@@ -55,7 +56,13 @@ public class Date {
         return this.date.format(DATE_FORMATTER);
     }
 
+    /**
+     * TODO: remove and refactor
+     */
     public LocalDate toLocalDate() {
         return this.date;
     }
+
+
+
 }
