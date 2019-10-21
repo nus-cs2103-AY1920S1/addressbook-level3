@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -27,7 +28,17 @@ public interface Model {
     /**
      * Gets the {@code Person} that is logged into the {@code Session}.
      */
-    Session getSession();
+    Person getLoggedInPerson();
+
+    /**
+     * Gets the {@code Person} that is logged into the {@code Session}.
+     */
+    Date getLoginTime();
+
+    /**
+     * Returns true if a user is logged in.
+     */
+    boolean isLoggedIn();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

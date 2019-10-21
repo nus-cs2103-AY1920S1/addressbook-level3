@@ -23,6 +23,7 @@ public class LoginCommand extends Command {
 
     private static final String MESSAGE_SUCCESS = "Login Successful!";
     private static final String MESSAGE_FAILURE = "You have entered an invalid username or password.";
+    private static final String MESSAGE_MISUSE = "You are already logged in.";
 
     private final LoginCredentialsPredicate predicate;
 
@@ -33,13 +34,19 @@ public class LoginCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.isLoggedIn()) {
+            throw new CommandException(MESSAGE_MISUSE);
+        }
+
         model.updateFilteredPersonList(predicate);
         if (model.getFilteredPersonList().size() != 1) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             throw new CommandException(MESSAGE_FAILURE);
         }
+
         model.setSession(model.getFilteredPersonList().get(0)); // Sets session to person remaining in list
-        return new CommandResult(MESSAGE_SUCCESS, true);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(MESSAGE_SUCCESS, true, false, false);
     }
 
     @Override

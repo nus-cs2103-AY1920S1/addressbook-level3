@@ -2,19 +2,21 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.Session;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Vehicle;
@@ -25,16 +27,20 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String ACCESS_CONTROL_MESSAGE = "Only Add and Login commands available.\n"
+            + "Please login to access other commands. See help page for more information.";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private boolean isPersonView;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        isPersonView = true;
     }
 
     @Override
@@ -43,6 +49,11 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
+
+        // Guard Statement for available commands prior to login.
+        if (!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand)) {
+            throw new CommandException(ACCESS_CONTROL_MESSAGE);
+        }
         commandResult = command.execute(model);
 
         try {
@@ -60,8 +71,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Session getSession() {
-        return model.getSession();
+    public Person getLoggedInPerson() {
+        return model.getLoggedInPerson();
+    }
+
+    @Override
+    public Date getLoginTime() {
+        return model.getLoginTime();
+    }
+
+    @Override
+    public boolean isPersonView() {
+        return isPersonView;
+    }
+
+    @Override
+    public void isPersonView(boolean isPersonView) {
+        this.isPersonView = isPersonView;
     }
 
     @Override

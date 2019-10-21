@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.Session;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Vehicle;
@@ -92,7 +92,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public Session getSession() {
+        public Person getLoggedInPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Date getLoginTime() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isLoggedIn() {
             throw new AssertionError("This method should not be called.");
         }
 
