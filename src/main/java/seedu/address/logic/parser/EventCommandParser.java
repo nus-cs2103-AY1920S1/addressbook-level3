@@ -5,6 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.EventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse input arguments and creates a new EventCommand object.
+ */
 public class EventCommandParser implements Parser<EventCommand> {
 
     @Override

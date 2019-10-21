@@ -10,9 +10,10 @@ import seedu.address.model.person.Person;
  */
 public class Event {
 
+    private static ArrayList<Event> events = new ArrayList<>();
+
     private String name;
     private TreeMap<Person, PerformanceEntry> performances;
-    private static ArrayList<Event> events = new ArrayList<>();
 
     /**
      * Creates a type of event that stores the members and their respective timings (performance) for this event.
