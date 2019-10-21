@@ -28,9 +28,9 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(CalendarModel calendarModel) {
         requireNonNull(calendarModel);
-        calendarModel.updateFilteredPersonList(predicate);
+        calendarModel.updateFilteredTaskList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, calendarModel.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, calendarModel.getFilteredTaskList().size()));
     }
 
     @Override

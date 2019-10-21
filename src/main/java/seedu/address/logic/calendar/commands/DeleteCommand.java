@@ -33,14 +33,14 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(CalendarModel calendarModel) throws CommandException {
         requireNonNull(calendarModel);
-        List<Task> lastShownList = calendarModel.getFilteredPersonList();
+        List<Task> lastShownList = calendarModel.getFilteredTaskList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Task taskToDelete = lastShownList.get(targetIndex.getZeroBased());
-        calendarModel.deletePerson(taskToDelete);
+        calendarModel.deleteTask(taskToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
     }
 

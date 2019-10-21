@@ -62,7 +62,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Task> getFilteredPersonList() {
-        return calendarModel.getFilteredPersonList();
+        return calendarModel.getFilteredTaskList();
     }
 
     @Override

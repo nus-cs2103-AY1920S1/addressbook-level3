@@ -40,7 +40,7 @@
 //import seedu.address.calendarModel.task.TaskPlace;
 //import seedu.address.calendarModel.task.TaskDescription;
 //import seedu.address.calendarModel.task.TaskTitle;
-//import seedu.address.calendarModel.task.TaskTime;
+//import seedu.address.calendarModel.task.TaskDay;
 //import seedu.address.calendarModel.tag.TaskTag;
 //import seedu.address.testutil.EditPersonDescriptorBuilder;
 //
@@ -85,17 +85,17 @@
 //    @Test
 //    public void parse_invalidValue_failure() {
 //        assertParseFailure(parser, "1" + INVALID_NAME_DESC, TaskTitle.MESSAGE_CONSTRAINTS); // invalid name
-//        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, TaskTime.MESSAGE_CONSTRAINTS); // invalid phone
+//        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, TaskDay.MESSAGE_CONSTRAINTS); // invalid phone
 //        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, TaskDescription.MESSAGE_CONSTRAINTS); // invalid email
 //        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, TaskPlace.MESSAGE_CONSTRAINTS); // invalid address
 //        assertParseFailure(parser, "1" + INVALID_TAG_DESC, TaskTag.MESSAGE_CONSTRAINTS); // invalid tag
 //
 //        // invalid phone followed by valid email
-//        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, TaskTime.MESSAGE_CONSTRAINTS);
+//        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, TaskDay.MESSAGE_CONSTRAINTS);
 //
 //        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
 //        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-//        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, TaskTime.MESSAGE_CONSTRAINTS);
+//        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, TaskDay.MESSAGE_CONSTRAINTS);
 //
 //        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Task} being edited,
 //        // parsing it together with a valid tag results in error

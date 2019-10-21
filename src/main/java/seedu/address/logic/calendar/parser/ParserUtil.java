@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
+import seedu.address.model.calendar.person.TaskDay;
 import seedu.address.model.calendar.person.TaskDeadline;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
-import seedu.address.model.calendar.person.TaskTime;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
 
@@ -52,18 +52,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code TaskTime}.
+     * Parses a {@code String phone} into a {@code TaskDay}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static TaskTime parseTime(String phone) throws ParseException {
+    public static TaskDay parseTime(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!TaskTime.isValidPhone(trimmedPhone)) {
-            throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
+        if (!TaskDay.isValidDay(trimmedPhone)) {
+            throw new ParseException(TaskDay.MESSAGE_CONSTRAINTS);
         }
-        return new TaskTime(trimmedPhone);
+        return new TaskDay(trimmedPhone);
     }
 
     /**

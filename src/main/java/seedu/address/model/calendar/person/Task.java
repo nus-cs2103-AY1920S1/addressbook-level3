@@ -17,7 +17,7 @@ public class Task {
 
     // Identity fields
     private final TaskTitle taskTitle;
-    private final TaskTime taskTime;
+    private final TaskDay taskDay;
     private final TaskDescription taskDescription;
 
     // Data fields
@@ -30,12 +30,12 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskTitle taskTitle, TaskTime taskTime, TaskDescription taskDescription, TaskDeadline taskDeadline,
+    public Task(TaskTitle taskTitle, TaskDay taskDay, TaskDescription taskDescription, TaskDeadline taskDeadline,
                 TaskPlace taskPlace, Set<TaskTag> taskTags) {
         this.taskDeadline = taskDeadline;
-        requireAllNonNull(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
+        requireAllNonNull(taskTitle, taskDay, taskDescription, taskPlace, taskTags);
         this.taskTitle = taskTitle;
-        this.taskTime = taskTime;
+        this.taskDay = taskDay;
         this.taskDescription = taskDescription;
         this.taskPlace = taskPlace;
         this.taskTags.addAll(taskTags);
@@ -45,8 +45,8 @@ public class Task {
         return taskTitle;
     }
 
-    public TaskTime getTaskTime() {
-        return taskTime;
+    public TaskDay getTaskDay() {
+        return taskDay;
     }
 
     public TaskDescription getTaskDescription() {
@@ -80,7 +80,7 @@ public class Task {
 
         return otherTask != null
                 && otherTask.getTaskTitle().equals(getTaskTitle())
-                && (otherTask.getTaskTime().equals(getTaskTime())
+                && (otherTask.getTaskDay().equals(getTaskDay())
                 && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 || otherTask.getTaskDescription().equals(getTaskDescription()));
     }
@@ -101,7 +101,7 @@ public class Task {
 
         Task otherTask = (Task) other;
         return otherTask.getTaskTitle().equals(getTaskTitle())
-                && otherTask.getTaskTime().equals(getTaskTime())
+                && otherTask.getTaskDay().equals(getTaskDay())
                 && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 && otherTask.getTaskDescription().equals(getTaskDescription())
                 && otherTask.getTaskPlace().equals(getTaskPlace())
@@ -111,7 +111,7 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
+        return Objects.hash(taskTitle, taskDay, taskDescription, taskPlace, taskTags);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class Task {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTaskTitle())
                 .append(" Time: ")
-                .append(getTaskTime())
+                .append(getTaskDay())
                 .append(" Description: ")
                 .append(getTaskDescription())
                 .append(" Deadline: ")

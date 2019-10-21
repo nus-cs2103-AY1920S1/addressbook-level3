@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.person.TaskDay;
 import seedu.address.model.calendar.person.TaskDeadline;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
-import seedu.address.model.calendar.person.TaskTime;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
 
@@ -55,7 +55,7 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Task source) {
         title = source.getTaskTitle().fullName;
-        time = source.getTaskTime().value;
+        time = source.getTaskDay().value;
         description = source.getTaskDescription().value;
         deadline = source.getTaskDeadline().getValue();
         place = source.getTaskPlace().value;
@@ -86,12 +86,12 @@ class JsonAdaptedPerson {
 
         if (time == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskTime.class.getSimpleName()));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskDay.class.getSimpleName()));
         }
-        if (!TaskTime.isValidPhone(time)) {
-            throw new IllegalValueException(TaskTime.MESSAGE_CONSTRAINTS);
+        if (!TaskDay.isValidDay(time)) {
+            throw new IllegalValueException(TaskDay.MESSAGE_CONSTRAINTS);
         }
-        final TaskTime modelTaskTime = new TaskTime(time);
+        final TaskDay modelTaskDay = new TaskDay(time);
 
         if (description == null) {
             throw new IllegalValueException(
@@ -121,7 +121,7 @@ class JsonAdaptedPerson {
         final TaskPlace modelTaskPlace = new TaskPlace(place);
 
         final Set<TaskTag> modelTaskTags = new HashSet<>(personTaskTags);
-        return new Task(modelTaskTitle, modelTaskTime, modelTaskDescription, modelTaskDeadline,
+        return new Task(modelTaskTitle, modelTaskDay, modelTaskDescription, modelTaskDeadline,
                 modelTaskPlace, modelTaskTags);
     }
 

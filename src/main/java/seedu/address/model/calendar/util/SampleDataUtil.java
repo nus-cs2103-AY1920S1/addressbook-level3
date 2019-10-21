@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 import seedu.address.model.calendar.CalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.person.TaskDay;
 import seedu.address.model.calendar.person.TaskDeadline;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
-import seedu.address.model.calendar.person.TaskTime;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
 
@@ -20,7 +20,7 @@ import seedu.address.model.calendar.tag.TaskTag;
 public class SampleDataUtil {
     public static Task[] getSamplePersons() {
         return new Task[] {
-            new Task(new TaskTitle("CS2100 Assignment"), new TaskTime("31 December 2019"),
+            new Task(new TaskTitle("CS2100 Assignment"), new TaskDay("monday"),
                     new TaskDescription("Hardcopy only"),
                     new TaskDeadline("12-10-2012"),
                     new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100"))

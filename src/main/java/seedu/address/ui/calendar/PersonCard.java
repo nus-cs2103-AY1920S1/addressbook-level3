@@ -38,6 +38,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label deadline;
+    @FXML
     private Label address;
     @FXML
     private Label email;
@@ -49,7 +51,8 @@ public class PersonCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getTaskTitle().fullName);
-        phone.setText(task.getTaskTime().value);
+        phone.setText(task.getTaskDay().value);
+        deadline.setText(task.getTaskDeadline().getValue());
         address.setText(task.getTaskPlace().value);
         email.setText(task.getTaskDescription().value);
         task.getTaskTags().stream()

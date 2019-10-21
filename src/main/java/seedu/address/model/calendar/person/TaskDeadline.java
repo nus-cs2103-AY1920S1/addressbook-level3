@@ -16,7 +16,7 @@ public class TaskDeadline {
     private String value;
 
     /**
-     * Constructs a {@code TaskTime}.
+     * Constructs a {@code TaskDay}.
      *
      * @param date A valid phone number.
      */
@@ -55,8 +55,8 @@ public class TaskDeadline {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskTime // instanceof handles nulls
-                && value.equals(((TaskTime) other).value)); // state check
+                || (other instanceof TaskDay // instanceof handles nulls
+                && value.equals(((TaskDay) other).value)); // state check
     }
 
     @Override
