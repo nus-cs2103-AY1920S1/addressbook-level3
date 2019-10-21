@@ -34,7 +34,7 @@ public class CommandBox extends UiPart<Region> {
     private TextField commandTextField;
 
     @FXML
-    private ListView<String> apSuggestions;
+    private ListView<String> acSuggestions;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
@@ -48,6 +48,7 @@ public class CommandBox extends UiPart<Region> {
      * Handles the autofill event
      */
     private void autoCompleteListener() {
+        AutoComplete.initAc();
         commandTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
@@ -55,31 +56,31 @@ public class CommandBox extends UiPart<Region> {
                 String[] terms = newValue.split(" ");
                 String latestQuery = terms[terms.length - 1];
                 ObservableList<String> suggestions =
-                    FXCollections.observableArrayList(new AutoComplete().getSuggestions(latestQuery));
-                apSuggestions.setItems(suggestions);
-                apSuggestions.setCellFactory(listView -> new AutocompleteListViewCell());
+                    FXCollections.observableArrayList(AutoComplete.getSuggestions(latestQuery));
+                acSuggestions.setItems(suggestions);
+                acSuggestions.setCellFactory(listView -> new AutocompleteListViewCell());
                 commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
                     @Override
                     public void handle(KeyEvent event) {
                         if (event.getCode() == KeyCode.DOWN) {
-                            apSuggestions.requestFocus();
-                            apSuggestions.getSelectionModel().selectFirst();
+                            acSuggestions.requestFocus();
+                            acSuggestions.getSelectionModel().selectFirst();
                         }
                     }
                 });
-                apSuggestions.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                acSuggestions.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         setTextField(latestQuery);
-                        apSuggestions.getItems().clear();
+                        acSuggestions.getItems().clear();
                     }
                 });
-                apSuggestions.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                acSuggestions.setOnKeyPressed(new EventHandler<KeyEvent>() {
                     @Override
                     public void handle(KeyEvent event) {
                         if (event.getCode() == KeyCode.ENTER) {
                             setTextField(latestQuery);
-                            apSuggestions.getItems().clear();
+                            acSuggestions.getItems().clear();
                         }
                     }
                 });
@@ -95,10 +96,10 @@ public class CommandBox extends UiPart<Region> {
 
     private void setTextField(String caretSelection) {
         String currentText = commandTextField.getText();
-        int index = commandTextField.getText().lastIndexOf(caretSelection);
-        String sub = currentText.substring(0, index);
-        commandTextField.setText(sub + apSuggestions.getSelectionModel().getSelectedItem());
+        String sub = currentText.substring(0, currentText.lastIndexOf(caretSelection));
+        commandTextField.setText(sub + acSuggestions.getSelectionModel().getSelectedItem());
         commandTextField.requestFocus();
+        commandTextField.positionCaret(commandTextField.getLength());
     }
 
     /**

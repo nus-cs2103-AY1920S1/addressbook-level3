@@ -6,17 +6,17 @@ import java.util.Arrays;
  * Given the data and the query, this class is for searching for words in the data
  * starting with the given query and returns the array in descending order w.r.t weight.
  */
-public class AutocompleteModel {
+public class AutoCompleteModel {
 
     private final Word[] dataCopy;
 
     /**
-     * Initialize an AutocompleteModel using array of words.
+     * Initialize an AutoCompleteModel using array of words.
      *
      * @param data - the array of queries
      * @throws NullPointerException - if queries == null
      */
-    public AutocompleteModel(Word[] data) {
+    public AutoCompleteModel(Word[] data) {
         if (data == null) {
             throw new NullPointerException("Data cannot be null");
         }

@@ -1,21 +1,24 @@
 package seedu.address.ui.autocomplete;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.MainApp;
+
 /**
- *
+ * Main controller class to execute the searching logic
  */
 public class AutoComplete {
 
-    private final int numOfSug = 10;
+    private static final int numOfSug = 10;
 
-    private Word[] matchedResults;
-    private boolean displayWeights;
-    private AutocompleteModel apModel;
+    private static AutoCompleteModel acModel;
+    private static Word[] matchedResults;
+    private static boolean displayWeights;
 
     public AutoComplete() {
         matchedResults = new Word[numOfSug];
@@ -23,39 +26,40 @@ public class AutoComplete {
     }
 
     /**
-     * @param filePath path for the library of words
+     * Read word storage from txt
+     *
+     * @param is path for the library of words
      * @return the suggestions to be shown in textField
      */
-    private static Word[] readWordsFromFile(String filePath) {
+    private static Word[] readWordsFromFile(InputStream is) {
         Word[] queries = null;
         try {
-            BufferedReader reader0 = new BufferedReader(new FileReader(filePath));
+            is.mark(0);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             int lines = 0;
-            while (reader0.readLine() != null) {
+            while (reader.readLine() != null) {
                 lines++;
             }
-            reader0.close();
-
-            BufferedReader reader1 = new BufferedReader(new FileReader(filePath));
+            is.reset();
             queries = new Word[lines];
             for (int i = 0; i < lines; i++) {
-                String line = reader1.readLine();
+                String line = reader.readLine();
                 if (line == null) {
-                    System.err.println("Could not read line " + (i + 1) + " of " + filePath);
+                    System.err.println("Could not read line " + (i + 1));
                     System.exit(1);
                 }
                 int tab = line.indexOf('\t');
                 if (tab == -1) {
-                    System.err.println("No tab character in line " + (i + 1) + " of " + filePath);
+                    System.err.println("No tab character in line " + (i + 1));
                     System.exit(1);
                 }
                 long weight = Long.parseLong(line.substring(0, tab).trim());
                 String query = line.substring(tab + 1);
                 queries[i] = new Word(query, weight);
             }
-            reader1.close();
+            reader.close();
         } catch (Exception e) {
-            System.err.println("Could not read or parse input file " + filePath);
+            System.err.println("Could not read or parse input file ");
             e.printStackTrace();
             System.exit(1);
         }
@@ -66,26 +70,25 @@ public class AutoComplete {
     /**
      * Initialize an autocomplete model
      */
-    private void initAP() {
-        Word[] data = readWordsFromFile("/Users/apple/Downloads/autocomplete.txt");
-        // Create the autocomplete object
-        apModel = new AutocompleteModel(data);
+    public static void initAc() {
+        InputStream in = MainApp.class.getResourceAsStream("/data/vocabulary.txt");
+        Word[] data = readWordsFromFile(in);
+        acModel = new AutoCompleteModel(data);
     }
 
     /**
-     * Makes a call to the implementation of AutocompleteModel to get
+     * Makes a call to the implementation of AutoCompleteModel to get
      * suggestions for the currently entered text.
      *
      * @param text string to search for
      */
-    public List<String> getSuggestions(String text) {
+    public static List<String> getSuggestions(String text) {
 
-        initAP();
         List<String> suggestions = new ArrayList<>();
         // don't search for suggestions if there is no input
         if (text.length() > 0) {
             // get all matching words
-            Word[] allResults = apModel.allMatches(text);
+            Word[] allResults = acModel.allMatches(text);
             if (allResults == null) {
                 throw new NullPointerException("allMatches() is null");
             }
