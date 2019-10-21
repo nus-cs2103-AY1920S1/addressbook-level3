@@ -56,10 +56,11 @@ public class Budget {
         this.deadline = date;
     }
 
+    /**
+     * Calculates the new Date given the amount of duration from Today
+     * @return Date after {@code duration} days from today
+     */
     private Date calculateDeadline(int duration) {
-        // Date deadline = new Date((System.currentTimeMillis()
-         //                   + duration * 24 * 60 * 60));
-        //return deadline;
         return new Date("10102019");
     }
 

@@ -13,10 +13,10 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InCommand;
-import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ProjectCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -77,7 +77,7 @@ public class BankAccountParser {
 
         case SetCommand.COMMAND_WORD:
             return new SetCommandParser().parse(arguments);
-            
+
         case ProjectCommand.COMMAND_WORD:
             return new ProjectCommandParser().parse(arguments);
 
