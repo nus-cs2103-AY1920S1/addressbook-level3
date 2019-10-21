@@ -118,6 +118,16 @@ public class Planner {
     }
 
     /**
+     * Deletes the specified task from the planner
+     *
+     * @param t the task to be deleted
+     */
+    //TODO test
+    public void deleteTask(Task t) {
+        taskList.deleteTask(t);
+    }
+
+    /**
      * Retrieves the size of the planner
      * @return the size of the planner, i.e. the number of tasks in the planner
      */

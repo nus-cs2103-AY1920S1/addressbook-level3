@@ -525,6 +525,16 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Deletes the specified task in the planner
+     * @param t the task to be deleted
+     */
+    //TODO test
+    @Override
+    public void deleteTask(Task t) {
+        planner.deleteTask(t);
+    }
+
+    /**
      * Retrieves the size of the planner, i.e. the number of tasks in the planner
      * @return the size of the planner
      */

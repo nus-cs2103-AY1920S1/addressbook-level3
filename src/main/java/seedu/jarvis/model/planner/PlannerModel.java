@@ -66,6 +66,12 @@ public interface PlannerModel {
     void deleteTask(Index index);
 
     /**
+     * Deletes the specified task from the planner
+     * @param t the task to be deleted
+     */
+    void deleteTask(Task t);
+
+    /**
      * Retrieves the size of the planner, i.e. the number of tasks in the planner
      * @return the size of the planner
      */

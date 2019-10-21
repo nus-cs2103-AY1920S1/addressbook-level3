@@ -120,4 +120,13 @@ public class TaskList {
         tasks.remove(index.getZeroBased());
     }
 
+    /**
+     * Deletes the specified task from the list of tasks
+     * @param t the task to be deleted
+     */
+    //TODO test
+    public void deleteTask(Task t) {
+        tasks.remove(t);
+    }
+
 }
