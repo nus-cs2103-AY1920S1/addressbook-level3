@@ -223,5 +223,16 @@ public interface Model {
      */
     void deleteCheatSheet(CheatSheet cheatSheet);
 
+    /**
+     * Collect tagged items
+     * @param predicate to test on the object
+     * @return arraylist of all the studybuddyitems that contains the specified tag
+     */
     public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate);
+
+    public ArrayList<CheatSheet> collectTaggedCheatSheets(Predicate<CheatSheet> predicate);
+
+    public ArrayList<Flashcard> collectTaggedFlashcards(Predicate<Flashcard> predicate);
+
+    public ArrayList<Note> collectTaggedNotes(Predicate<Note> predicate);
 }
