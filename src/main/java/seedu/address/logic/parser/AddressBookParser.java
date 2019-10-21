@@ -18,8 +18,13 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportReplaceCommand;
 import seedu.address.logic.commands.ListCommand;
-
+import seedu.address.logic.commands.visit.BeginVisitCommand;
+import seedu.address.logic.commands.visit.FinishOngoingVisitCommand;
+import seedu.address.logic.commands.visit.ShowOngoingVisitCommand;
+import seedu.address.logic.commands.visit.UpdateOngoingVisitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.visit.BeginVisitCommandParser;
+import seedu.address.logic.parser.visit.UpdateOngoingVisitCommandParser;
 
 /**
  * Parses user input.
@@ -80,6 +85,18 @@ public class AddressBookParser {
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
+
+        case BeginVisitCommand.COMMAND_WORD:
+            return new BeginVisitCommandParser().parse(arguments);
+
+        case FinishOngoingVisitCommand.COMMAND_WORD:
+            return new FinishOngoingVisitCommand();
+
+        case ShowOngoingVisitCommand.COMMAND_WORD:
+            return new ShowOngoingVisitCommand();
+
+        case UpdateOngoingVisitCommand.COMMAND_WORD:
+            return new UpdateOngoingVisitCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

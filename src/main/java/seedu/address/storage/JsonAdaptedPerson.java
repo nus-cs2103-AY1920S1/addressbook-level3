@@ -141,11 +141,13 @@ public class JsonAdaptedPerson {
         final Collection<VisitTodo> modelVisitTodos = new LinkedHashSet<VisitTodo>(visitTodoList);
 
         final List<Visit> modelVisits = new ArrayList<>();
+        Person result = new Person(modelName, modelPhone, modelEmail, modelAddress,
+                modelTags, modelVisitTodos, modelVisits);
         for (JsonAdaptedVisit visit : visits) {
-            modelVisits.add(visit.toModelType());
+            result.addVisit(visit.toModelType(result));
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelVisitTodos, modelVisits);
+        return result;
     }
 
 }
