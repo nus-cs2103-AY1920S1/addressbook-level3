@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATOR;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
 
 import java.util.stream.Stream;
 
@@ -31,7 +31,8 @@ public class SearchIncidentsCommandParser implements Parser<SearchIncidentsComma
         ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_OPERATOR);
 
         if (arePrefixesPresent(argDescMap, SEARCH_PREFIX_DESCRIPTION)) {
-            Description descriptionKeywords = ParserUtil.parseDescription(argDescMap.getValue(SEARCH_PREFIX_DESCRIPTION).get());
+            Description descriptionKeywords = ParserUtil.parseDescription(argDescMap
+                    .getValue(SEARCH_PREFIX_DESCRIPTION).get());
             return new SearchIncidentsCommand(new DescriptionKeywordsPredicate(descriptionKeywords));
         } else if (arePrefixesPresent(argIdMap, SEARCH_PREFIX_ID)) {
             IncidentId idKeywords = ParserUtil.parseId(argIdMap.getValue(SEARCH_PREFIX_ID).get());
