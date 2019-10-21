@@ -20,7 +20,7 @@ import seedu.address.logic.commands.loadCommands.CreateCommand;
 import seedu.address.logic.commands.loadCommands.ExportCommand;
 import seedu.address.logic.commands.loadCommands.ImportCommand;
 import seedu.address.logic.commands.loadCommands.RemoveCommand;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.DukemonParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
@@ -40,7 +40,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final DukemonParser dukemonParser;
 
     private boolean gameStarted;
     private ModeEnum mode;
@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
         Step 9.
         this.game = game //get from constructor
          */
-        addressBookParser = new AddressBookParser();
+        dukemonParser = new DukemonParser();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class LogicManager implements Logic {
         Modify parseCommand()
         2 user modes: Game mode and Normal mode
         */
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = dukemonParser.parseCommand(commandText);
 
         /*
         Step 11.
