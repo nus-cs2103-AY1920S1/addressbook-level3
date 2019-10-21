@@ -24,6 +24,7 @@ import seedu.address.logic.export.VisualExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.util.GroupDetailsExport;
 
 /**
@@ -136,7 +137,16 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new SuggestingCommandBox(this::executeCommand);
+        CommandBox commandBox;
+        if (logic instanceof SuggestionLogic) {
+            logger.info("logic supports suggestions, loading SuggestingCommandBox");
+            final SuggestionLogic suggestionLogic = (SuggestionLogic) logic;
+            commandBox = new SuggestingCommandBox(this::executeCommand, suggestionLogic);
+        } else {
+            logger.warning("logic does not suggestions, loading CommandBox");
+            commandBox = new CommandBox(this::executeCommand);
+        }
+
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting up default detailsview
