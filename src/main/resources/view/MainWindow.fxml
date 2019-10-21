@@ -3,21 +3,19 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="guiltTrip() - your personal finance tracker" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->
+
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="guiltTrip() - your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/guiltTrip()_32.png" />
   </icons>
@@ -27,11 +25,9 @@
         <URL value="@DarkTheme.css" />
         <URL value="@ExtensionsDark.css" />
       </stylesheets>
-
-        <HBox>
-
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+         <VBox>
+            <children>
+        <MenuBar fx:id="menuBar" prefWidth="249.0">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
@@ -39,46 +35,50 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
-<!--        <TabPane GridPane.rowIndex="0" GridPane.columnIndex="1" >-->
-<!--          <Tab text="text">-->
-<!--          </Tab>-->
-<!--        </TabPane>-->
-
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="entryList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-            <VBox>
-                <VBox fx:id="wishesPlaceHolder" prefHeight="200" minWidth="140">
-                    <Label fx:id="wishlistTitle" text="Wishlist" styleClass="cell_big_label"/>
-                  <Label text="subtext" styleClass="cell_small_label"/>
-                </VBox>
-                <VBox fx:id="budgetsPlaceHolder" prefHeight="200" minWidth="140">
-                    <Label fx:id="budgetTitle" text="Budgets" styleClass="cell_big_label"/>
-                  <Label text="subtext" styleClass="cell_small_label"/>
-                </VBox>
+      
+              <HBox>
+      
+                                             <VBox prefHeight="598.0" prefWidth="520.0">
+      <!--        <TabPane GridPane.rowIndex="0" GridPane.columnIndex="1" >-->
+      <!--          <Tab text="text">-->
+      <!--          </Tab>-->
+      <!--        </TabPane>-->
+      
+                                                         
+                                                                 <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" prefWidth="301.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+              </StackPane>
+      
+                                               <VBox fx:id="entryList" minWidth="340.0" prefHeight="260.0" prefWidth="307.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                <padding>
+                  <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+                <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+              </VBox>
+      
+                                               <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+              </StackPane>
+      
+                                               <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
             </VBox>
-        </HBox>
+                  <VBox>
+                      <VBox fx:id="wishesPlaceHolder" minWidth="240.0" prefHeight="250.0" prefWidth="187.0">
+                          <Label fx:id="wishlistTitle" styleClass="cell_big_label" text="Wishlist" />
+                        <Label styleClass="cell_small_label" text="subtext" />
+                      </VBox>
+                      <VBox fx:id="budgetsPlaceHolder" minWidth="140" prefHeight="200" prefWidth="187.0">
+                          <Label fx:id="budgetTitle" styleClass="cell_big_label" text="Budgets" />
+                        <Label styleClass="cell_small_label" text="subtext" />
+                      </VBox>
+                  </VBox>
+              </HBox>
+            </children>
+         </VBox>
     </Scene>
   </scene>
 </fx:root>
-<!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->

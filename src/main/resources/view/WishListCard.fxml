@@ -27,11 +27,11 @@
           </minWidth>
         </Label>
         <Label fx:id="desc" styleClass="cell_big_label" text="\$desc" />
-        <Label fx:id="amt" styleClass="cell_big_label" text="\$amt" />
 
       </HBox>
       <FlowPane fx:id="tags" GridPane.columnIndex="0" GridPane.rowIndex="1" />
       <Label fx:id="time" styleClass="cell_small_label" text="\$time" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+     <Label fx:id="amt" styleClass="cell_big_label" text="\$amt" GridPane.columnIndex="1" />
       <rowConstraints>
          <RowConstraints />
          <RowConstraints />

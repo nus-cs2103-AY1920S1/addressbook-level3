@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private EntryListPanel entryListPanel;
+    private WishListPanel wishListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -126,8 +127,9 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        /*wishesPlaceHolder = new WishListPanel(new WishList().add(new Wish(
-                new Description("sneakers"), (new Time("13:00")), new Amount(200), new Set<Tag>(new Tag("shoes")))));*/
+        wishListPanel = new WishListPanel(logic.getFilteredWishList());
+        wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
+
     }
 
     /**

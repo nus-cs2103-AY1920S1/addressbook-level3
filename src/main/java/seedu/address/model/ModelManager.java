@@ -53,11 +53,14 @@ public class ModelManager implements Model {
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(this.addressBook.getIncomeList());
         filteredWishes = new FilteredList<>(this.addressBook.getWishList());
+        filteredExpenseReminders = new FilteredList<>(this.addressBook.getExpenseReminderList());
+        expenseTrackers = new ExpenseTrackerManager(this.addressBook.getExpenseTrackerList());
+
+        //created a sorted and filtered entry list
         sortedEntryList = new SortedList<>(this.addressBook.getEntryList());
         sortedEntryList.setComparator(new EntryComparator(sortByDescription, sortByAsc));
         filteredEntries = new FilteredList<>(sortedEntryList);
-        filteredExpenseReminders = new FilteredList<>(this.addressBook.getExpenseReminderList());
-        expenseTrackers = new ExpenseTrackerManager(this.addressBook.getExpenseTrackerList());
+
     }
 
     public ModelManager() {
