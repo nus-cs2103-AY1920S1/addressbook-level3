@@ -56,6 +56,7 @@ public class AutoCompleteTextField extends TextField {
                     populatePopup(filteredEntries, enteredText);
                     if (!entriesPopup.isShowing()) {
                         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+                        entriesPopup.requestFocus();
                     }
                 } else {
                     entriesPopup.hide();
