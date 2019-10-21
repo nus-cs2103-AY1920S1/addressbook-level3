@@ -1,5 +1,7 @@
 package seedu.address.reimbursement.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class Reimbursement {
      * @param trans Transaction that I want to create reimbursement for.
      */
     public Reimbursement(Transaction trans) {
+        requireNonNull(trans);
         list = new ArrayList<>();
         list.add(trans);
         amount = trans.getAmount();
