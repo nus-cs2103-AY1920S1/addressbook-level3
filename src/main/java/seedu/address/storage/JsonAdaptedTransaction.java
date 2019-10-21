@@ -25,14 +25,13 @@ class JsonAdaptedTransaction {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
-    // TODO: Have to convert to Strings
     private final String amount;
     private final String date;
     private final JsonAdaptedPerson peopleInvolved;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedTransaction} with the given person details.
+     * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
      */
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("amount") String amount, @JsonProperty("date") String date,
@@ -47,7 +46,7 @@ class JsonAdaptedTransaction {
     }
 
     /**
-     * Converts a given {@code Transaction} into this class for Jackson use.
+     * Converts a given {@code Transaction} into this class for Jason use.
      */
     public JsonAdaptedTransaction(Transaction source) {
         amount = source.getAmount().toString();

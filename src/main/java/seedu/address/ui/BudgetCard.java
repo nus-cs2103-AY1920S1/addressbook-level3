@@ -7,18 +7,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.Budget;
 
 /**
- * An UI component that displays information of a {@code Transaction}.
+ * An UI component that displays information of a {@code Budget}.
  */
-public class TransactionCard extends UiPart<Region> {
+public class BudgetCard extends UiPart<Region> {
+    private static final String FXML = "BudgetListCard.fxml";
 
-    private static final String FXML = "TransactionListCard.fxml";
+    public final Budget budget;
 
-    public final Transaction transaction;
-
-    @FXML
+    @javafx.fxml.FXML
     private HBox cardPane;
     @FXML
     private Label amount;
@@ -27,18 +26,15 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label people;
-    @FXML
     private FlowPane tags;
 
-    public TransactionCard(Transaction transaction, int displayedIndex) {
+    public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
-        this.transaction = transaction;
+        this.budget = budget;
         id.setText(displayedIndex + ". ");
-        amount.setText(transaction.getAmount().toString());
-        date.setText(transaction.getDate().toString());
-        people.setText(transaction.getPeopleInvolved().getName().fullName);
-        transaction.getTags().stream()
+        amount.setText(budget.getBudget().toString());
+        date.setText(budget.getDeadline().toString());
+        budget.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -51,13 +47,13 @@ public class TransactionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TransactionCard)) {
+        if (!(other instanceof BudgetCard)) {
             return false;
         }
 
         // state check
-        TransactionCard card = (TransactionCard) other;
+        BudgetCard card = (BudgetCard) other;
         return id.getText().equals(card.id.getText())
-                && transaction.equals(card.transaction);
+                && budget.equals(card.budget);
     }
 }

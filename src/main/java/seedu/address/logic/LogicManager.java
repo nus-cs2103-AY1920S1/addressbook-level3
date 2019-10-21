@@ -14,6 +14,7 @@ import seedu.address.logic.parser.BankAccountParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.storage.Storage;
 
@@ -79,4 +80,10 @@ public class LogicManager implements Logic {
     public ObservableList<Transaction> getTransactionList() {
         return model.getFilteredTransactionList();
     }
+
+    @Override
+    public ObservableList<Budget> getBudgetList() {
+        return model.getFilteredBudgetList();
+    }
+
 }

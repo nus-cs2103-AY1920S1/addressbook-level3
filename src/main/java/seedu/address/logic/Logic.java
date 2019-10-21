@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -53,4 +54,6 @@ public interface Logic {
      * Returns an ObservableList of Transactions
      */
     ObservableList<Transaction> getTransactionList();
+
+    ObservableList<Budget> getBudgetList();
 }

@@ -16,17 +16,17 @@ import seedu.address.model.transaction.Budget;
 public class SetCommand extends Command {
     public static final String COMMAND_WORD = "set";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a budget to the bank account. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a budget to the bank account.\n"
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DATE + "DEADLINE "
-            + PREFIX_TAG + "TAG "
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_AMOUNT + "100 "
             + PREFIX_DATE + "2019/01/01 "
             + PREFIX_TAG + "food expenditure ";
 
-    public static final String MESSAGE_SUCCESS = "New budget set: %1$s";
+    public static final String MESSAGE_SUCCESS = "New budget successfully set: %1$s";
 
     private Budget budget;
 
@@ -38,9 +38,10 @@ public class SetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        model.addBudget(budget);
+        model.commitBankAccount();
         return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
     }
-
 
 
 }

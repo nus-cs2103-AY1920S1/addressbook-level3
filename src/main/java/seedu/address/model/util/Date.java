@@ -38,7 +38,6 @@ public class Date implements Comparable<Date> {
         }
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

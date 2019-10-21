@@ -17,12 +17,6 @@ public class OutTransaction extends Transaction {
     }
 
     @Override
-    public Budget handleBudget(Budget budget) {
-        Budget newBudget = budget.updateBudget(super.amount);
-        return newBudget;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

@@ -17,7 +17,7 @@ public class SplitCommand extends Command {
     public static final String COMMAND_WORD = "split";
     public static final String MESSAGE_SUCCESS = "Split successful";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Splits an expenditure between people and add that transaction to the bank account. "
+            + ": Splits an expenditure between people and add that transaction to the bank account.\n"
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + "[" + PREFIX_NAME + "NAME]...\n"

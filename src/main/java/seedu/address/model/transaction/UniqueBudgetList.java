@@ -12,37 +12,37 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
- * A list of transactions that enforces uniqueness between its elements and does not allow nulls.
- * A transaction is considered unique by comparing using {@code Transaction#isSameTransaction(Transaction)}.
- * As such, adding and updating of transactions uses Transaction#isSameTransaction(Transaction) for equality so as
- * to ensure that the transaction being added or updated is unique in terms of identity in the UniqueTransactionList.
- * However, the removal of a Transaction uses Transaction#equals(Object) so
- * as to ensure that the transaction with exactly the same fields will be removed.
+ * A list of budgets that enforces uniqueness between its elements and does not allow nulls.
+ * A budget is considered unique by comparing using {@code Budget#isSameBudget(Budget)}.
+ * As such, adding and updating of budgets uses Budget#isSameBudget(Budget) for equality so as
+ * to ensure that the transaction being added or updated is unique in terms of identity in the UniqueBudgetList.
+ * However, the removal of a Budget uses Budget#equals(Object) so
+ * as to ensure that the budget with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Transaction#isSameTransaction(Transaction)
+ * @see Budget#isSameBudget(Budget)
  */
-public class UniqueTransactionList implements Iterable<Transaction> {
+public class UniqueBudgetList implements Iterable<Budget> {
 
-    private final ObservableList<Transaction> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Transaction> internalUnmodifiableList =
+    private final ObservableList<Budget> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Budget> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent transaction as the given argument.
      */
-    public boolean contains(Transaction toCheck) {
+    public boolean contains(Budget toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
-     * Adds a transaction to the list.
-     * The transaction must not already exist in the list.
+     * Adds a budget to the list.
+     * The budget must not already exist in the list.
      * @param toAdd
      */
-    public void add(Transaction toAdd) {
+    public void add(Budget toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -51,12 +51,12 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Replaces the transaction {@code target} in the list with {@code editedTransaction}.
+     * Replaces the budget {@code target} in the list with {@code editedBudget}.
      * {@code target} must exist in the list.
-     * The transaction identity of {@code editedTransaction} must not be the same as
-     * another existing transaction in the list.
+     * The budget identity of {@code editedBudget} must not be the same as
+     * another existing budget in the list.
      */
-    public void setTransaction(Transaction target, Transaction editedTransaction) {
+    public void setBudget(Budget target, Budget editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 
         int index = internalList.indexOf(target);
@@ -75,7 +75,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * Removes the equivalent transaction from the list.
      * The transaction must exist in the list.
      */
-    public void remove(Transaction toRemove) {
+    public void remove(Budget toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
@@ -83,36 +83,36 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Replaces the contents of this list with {@code transactions}.
-     * {@code transaction} must not contain duplicate transactions.
+     * Replaces the contents of this list with {@code budgets}.
+     * {@code budgets} must not contain duplicate budgets.
      */
-    public void setTransactions(List<Transaction> transactions) {
-        requireAllNonNull(transactions);
-        if (!transactionsAreUnique(transactions)) {
+    public void setBudgets(List<Budget> budgets) {
+        requireAllNonNull(budgets);
+        if (!transactionsAreUnique(budgets)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(transactions);
+        internalList.setAll(budgets);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      * @return
      */
-    public ObservableList<Transaction> asUnmodifiableObservableList() {
+    public ObservableList<Budget> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Transaction> iterator() {
+    public Iterator<Budget> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTransactionList // instanceof handles nulls
-                        && internalList.equals(((UniqueTransactionList) other).internalList));
+                || (other instanceof UniqueBudgetList // instanceof handles nulls
+                && internalList.equals(((UniqueBudgetList) other).internalList));
     }
 
     @Override
@@ -123,10 +123,10 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     /**
      * Returns true if {@code transactions} contains only unique transactions.
      */
-    private boolean transactionsAreUnique(List<Transaction> transactions) {
-        for (int i = 0; i < transactions.size() - 1; i++) {
-            for (int j = i + 1; j < transactions.size(); j++) {
-                if (transactions.get(i).equals(transactions.get(j))) {
+    private boolean transactionsAreUnique(List<Budget> budgets) {
+        for (int i = 0; i < budgets.size() - 1; i++) {
+            for (int j = i + 1; j < budgets.size(); j++) {
+                if (budgets.get(i).equals(budgets.get(j))) {
                     return false;
                 }
             }

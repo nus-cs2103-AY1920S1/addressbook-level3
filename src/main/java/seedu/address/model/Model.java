@@ -116,9 +116,10 @@ public interface Model {
     void addTransaction(Transaction transaction);
 
     /**
-     * Sets the given budget.
+     * Adds the given budget.
+     * {@code budget} must not already exist in the bank account.
      */
-    void setBudget(Budget amount);
+    void addBudget(Budget budget);
 
     /**
      * Returns an unmodifiable view of the filtered transaction list
@@ -133,4 +134,9 @@ public interface Model {
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
 
     void addSplit(SplitTransaction transaction);
+
+    /** Returns an unmodifiable view of the filtered budget list
+     */
+    ObservableList<Budget> getFilteredBudgetList();
+
 }

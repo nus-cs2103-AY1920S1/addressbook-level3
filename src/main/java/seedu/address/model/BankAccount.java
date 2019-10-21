@@ -8,8 +8,10 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.UniqueTransactionList;
 
 /**
@@ -18,13 +20,13 @@ import seedu.address.model.transaction.UniqueTransactionList;
 public class BankAccount implements ReadOnlyBankAccount {
     private Amount balance;
     private Ledger ledger;
-    private Budget budget;
+    private UniqueBudgetList budgets;
     private UniqueTransactionList transactions;
 
     public BankAccount() {
         balance = new Amount(0);
         ledger = new Ledger();
-        budget = new Budget();
+        budgets = new UniqueBudgetList();
         transactions = new UniqueTransactionList();
     }
 
@@ -40,10 +42,15 @@ public class BankAccount implements ReadOnlyBankAccount {
         requireNonNull(newData);
 
         setTransactions(newData.getTransactionHistory());
+        setBudgets(newData.getBudgetHistory());
     }
 
     public void setTransactions(List<Transaction> transactionHistory) {
         this.transactions.setTransactions(transactionHistory);
+    }
+
+    public void setBudgets(List<Budget> budgetHistory) {
+        this.budgets.setBudgets(budgetHistory);
     }
 
     /**
@@ -60,15 +67,25 @@ public class BankAccount implements ReadOnlyBankAccount {
 
     /**
      * Adds a transaction to the bank account.
+     * Updates {@code balance} and {@code budgets} respectively.
      *
      * @param txn Transaction to be added to bank account.
      */
     public void addTransaction(Transaction txn) {
         transactions.add(txn);
+        updateBudgets(txn);
         Amount newBalance = txn.handleBalance(this.balance);
-        Budget newBudget = txn.handleBudget(this.budget);
         this.balance = newBalance;
-        this.budget = newBudget;
+    }
+
+    /**
+     * Adds a transaction to the bank account.
+     * Updates {@code budget}.
+     *
+     * @param bud Budget to be added to bank account.
+     */
+    public void addBudget(Budget bud) {
+        budgets.add(bud);
     }
 
     /**
@@ -101,15 +118,26 @@ public class BankAccount implements ReadOnlyBankAccount {
         ledger.addSplitTransaction(transaction);
     }
 
-    public void setBudget(Budget budget) {
-        requireNonNull(budget);
-
-        this.budget = budget;
+    /**
+     * Updates each budget in {@code budgets} when OutTransaction is made.
+     * @param txn Transaction can be either InTransaction or OutTransaction.
+     */
+    private void updateBudgets(Transaction txn) {
+        if (txn instanceof OutTransaction) {
+            for (Budget bd: budgets) {
+                bd.updateBudget(txn.getAmount());
+            }
+        }
     }
 
     @Override
     public ObservableList<Transaction> getTransactionHistory() {
         return transactions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Budget> getBudgetHistory() {
+        return budgets.asUnmodifiableObservableList();
     }
 
     @Override

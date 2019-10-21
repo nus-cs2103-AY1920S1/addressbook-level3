@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -34,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private TransactionListPanel transactionListPanel;
+    private BudgetListPanel budgetListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -45,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane transactionListPanelPlaceholder;
+
+    @FXML
+    private StackPane budgetListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -71,6 +76,9 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
+    /**
+     * TODO: implement keyboard shortcuts
+     */
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -109,12 +117,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //personListPanel = new PersonListPanel(logic.getBankAccount());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         ObservableList<Transaction> list = logic.getTransactionList();
         transactionListPanel = new TransactionListPanel(list);
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
+        ObservableList<Budget> budgetList = logic.getBudgetList();
+        budgetListPanel = new BudgetListPanel(budgetList);
+        budgetListPanelPlaceholder.setPrefSize(180, 180);
+        budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

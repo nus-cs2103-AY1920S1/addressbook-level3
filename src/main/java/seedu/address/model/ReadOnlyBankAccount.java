@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -24,4 +25,6 @@ public interface ReadOnlyBankAccount {
     ObservableList<Transaction> getSortedTransactionHistory(Comparator<Transaction> t);
 
     Amount getBalance();
+
+    ObservableList<Budget> getBudgetHistory();
 }

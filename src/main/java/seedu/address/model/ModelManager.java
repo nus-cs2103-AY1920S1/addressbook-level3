@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final VersionedBankAccount versionedBankAccount;
     private final FilteredList<Transaction> filteredTransactions;
+    private final FilteredList<Budget> filteredBudgets;
 
     /**
      * Initializes a ModelManager with the given bankAccount and userPrefs.
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
         this.versionedBankAccount = new VersionedBankAccount(bankAccount);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.versionedBankAccount.getTransactionHistory());
+        filteredBudgets = new FilteredList<>(this.versionedBankAccount.getBudgetHistory());
     }
 
     public ModelManager() {
@@ -116,8 +118,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setBudget(Budget budget) {
-        versionedBankAccount.setBudget(budget);
+    public void addBudget(Budget budget) {
+        versionedBankAccount.addBudget(budget);
     }
 
     /**
@@ -129,6 +131,10 @@ public class ModelManager implements Model {
         return filteredTransactions;
     }
 
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return filteredBudgets;
+    }
     @Override
     public boolean canUndoBankAccount() {
         return versionedBankAccount.canUndo();

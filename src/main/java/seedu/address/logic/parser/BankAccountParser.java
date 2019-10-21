@@ -62,6 +62,15 @@ public class BankAccountParser {
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
 
+        case SetCommand.COMMAND_WORD:
+            return new SetCommandParser().parse(arguments);
+
+        case ProjectCommand.COMMAND_WORD:
+            return new ProjectCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -82,15 +91,6 @@ public class BankAccountParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-
-        case SetCommand.COMMAND_WORD:
-            return new SetCommandParser().parse(arguments);
-
-        case ProjectCommand.COMMAND_WORD:
-            return new ProjectCommandParser().parse(arguments);
-
-        case SortCommand.COMMAND_WORD:
-            return new SortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

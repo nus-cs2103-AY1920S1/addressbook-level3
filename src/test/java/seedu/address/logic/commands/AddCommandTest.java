@@ -112,7 +112,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setBudget(Budget amount) {
+        public void addBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -184,6 +184,11 @@ public class AddCommandTest {
         @Override
         public void addSplit(SplitTransaction transaction) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Budget> getFilteredBudgetList() {
+            return null;
         }
     }
 
