@@ -66,29 +66,6 @@
     -fx-border-insets: 0 10 1 0;
 }
 
-.table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
-}
-
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
-}
-
-.split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
-}
-
-.split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
 
 .list-view {
     -fx-background-insets: 0;
@@ -96,6 +73,41 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 */
+#leftAnchorPane{
+    -fx-background-color: #3b88b8;
+}
+
+#rightAnchorPane{
+    -fx-background-color: #3b88b8;
+}
+
+/*#currentListHeader{
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #0f17b8;
+}
+
+#availableListHeader{
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-weight: bold;
+}
+
+#eventHeader{
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #0f17b8;
+    -fx-font-weight: bold;
+}*/
+
+#eventDescription{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-control-inner-background:#80a4e8;
+    -fx-highlight-fill: #80a4e8;
+    -fx-highlight-text-fill: #f0e051;
+}
+
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;

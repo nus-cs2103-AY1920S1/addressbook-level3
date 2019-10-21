@@ -152,4 +152,19 @@ public class Event {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
+    /**
+     * Returns a similar toString() variation with new line for GUI display.
+     */
+    public String toStringWithNewLine() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Event Name: ").append(getName());
+        builder.append(" \nEvent Venue: ").append(getVenue());
+        builder.append(" \nEvent Manpower Count: ").append(getManpowerAllocatedList().getCurrentManpowerCount() + " / ")
+                .append(getManpowerNeeded());
+        builder.append(" \nEvent Date: ").append(getStartDate()).append(" - " + getEndDate());
+        builder.append(" \nTags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 }
