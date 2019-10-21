@@ -9,9 +9,9 @@ import seedu.algobase.model.Model;
 /**
  * Switch tabs in the GUI.
  */
-public class SwitchCommand extends Command {
+public class SwitchTabCommand extends Command {
 
-    public static final String COMMAND_WORD = "switch";
+    public static final String COMMAND_WORD = "switchtab";
     public static final String MESSAGE_SUCCESS = "Switched to tab %1$s!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Switches the current display tab in the GUI"
@@ -23,7 +23,7 @@ public class SwitchCommand extends Command {
 
     private Index index = Index.fromZeroBased(0);
 
-    public SwitchCommand(Index displayTabIndex) {
+    public SwitchTabCommand(Index displayTabIndex) {
         requireNonNull(displayTabIndex);
         this.index = displayTabIndex;
     }

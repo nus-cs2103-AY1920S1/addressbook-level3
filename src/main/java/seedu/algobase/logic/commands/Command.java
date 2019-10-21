@@ -29,7 +29,7 @@ public abstract class Command {
         ListPlanCommand.class,
         ListTagCommand.class,
         SortCommand.class,
-        SwitchCommand.class,
+        SwitchTabCommand.class,
         UndoneTaskCommand.class
     };
 
