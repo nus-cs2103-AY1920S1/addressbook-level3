@@ -72,7 +72,7 @@ ModelManager o--> "1" "DataBook<Customer>"
 ModelManager o--> "1" "DataBook<Schedule>"
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
-ModelManager o-left-> "1" CalendarDate
+ModelManager *-left-> "1" CalendarDate
 
 Phone .up.|> Identifiable
 Order .up.|> Identifiable
