@@ -61,6 +61,8 @@ class JsonAdaptedFood {
 
     /**
      * Converts a given {@code Food} into this class for Jackson use.
+     *
+     * @param source Food item to be converted be saved/removed from Jackson file.
      */
     public JsonAdaptedFood(Food source) {
         name = source.getName().fullName;

@@ -29,6 +29,7 @@ import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 
@@ -43,7 +44,7 @@ public class RemovePreferenceCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new CustomSorter());
+                new CustomSorter(), new SavingsAccount());
         model.getRecommendationSystem().setUserRecommendations(getTypicalRecs());
     }
 
@@ -216,7 +217,7 @@ public class RemovePreferenceCommandTest {
     @Test
     public void removeLikeCommand_removeAll_success() throws CommandException {
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new CustomSorter());
+                new CustomSorter(), new SavingsAccount());
         model.addLikes(ADDED_ANOTHER_CATEGORY_SET, ADDED_ANOTHER_TAG_SET, ADDED_ANOTHER_LOCATION_SET);
         CommandResult result = new RemoveLikeCommand(true).execute(model);
 
@@ -229,7 +230,7 @@ public class RemovePreferenceCommandTest {
     @Test
     public void removeDislikeCommand_removeAll_success() throws CommandException {
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new CustomSorter());
+                new CustomSorter(), new SavingsAccount());
         model.addDislikes(ADDED_ANOTHER_CATEGORY_SET, ADDED_ANOTHER_TAG_SET, ADDED_ANOTHER_LOCATION_SET);
         CommandResult result = new RemoveDislikeCommand(true).execute(model);
 
@@ -245,7 +246,7 @@ public class RemovePreferenceCommandTest {
     @Test
     public void removeLikeCommand_notFound_failure() {
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new CustomSorter());
+                new CustomSorter(), new SavingsAccount());
         model.addLikes(ADDED_ANOTHER_CATEGORY_SET, ADDED_ANOTHER_TAG_SET, ADDED_ANOTHER_LOCATION_SET);
         RemoveLikeCommand command = new RemoveLikeCommand(new HashSet<>(), LIKED_TAG_SET, new HashSet<>(),
                 false);
@@ -256,7 +257,7 @@ public class RemovePreferenceCommandTest {
     @Test
     public void removeDislikeCommand_notFound_failure() {
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new CustomSorter());
+                new CustomSorter(), new SavingsAccount());
         model.addDislikes(ADDED_ANOTHER_CATEGORY_SET, ADDED_ANOTHER_TAG_SET, ADDED_ANOTHER_LOCATION_SET);
         RemoveDislikeCommand command = new RemoveDislikeCommand(LIKED_CATEGORY_SET, new HashSet<>(), new HashSet<>(),
                 false);

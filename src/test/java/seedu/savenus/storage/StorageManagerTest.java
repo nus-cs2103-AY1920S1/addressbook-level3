@@ -19,6 +19,7 @@ import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.JsonSavingsStorage;
 import seedu.savenus.model.sorter.CustomSorter;
 
 public class StorageManagerTest {
@@ -30,14 +31,15 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMenuStorage addressBookStorage = new JsonMenuStorage(getTempFilePath("ab"));
+        JsonMenuStorage menuStorage = new JsonMenuStorage(getTempFilePath("menuTemp"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+        JsonSavingsStorage savingsStorage = new JsonSavingsStorage(getTempFilePath("savingsTemp"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(getTempFilePath("recs"));
         JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(
                 getTempFilePath("purchases"));
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(getTempFilePath("sort"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage, customSortStorage);
+        storageManager = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
+                purchaseHistoryStorage, customSortStorage, savingsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -92,7 +94,6 @@ public class StorageManagerTest {
         assertEquals(recommendations, retrieved);
     }
 
-
     @Test
     public void newCustomSortSave() throws Exception {
         CustomSorter sorter = new CustomSorter();
@@ -133,5 +134,4 @@ public class StorageManagerTest {
     public void getSortFilePath() {
         assertNotNull(storageManager.getSortFilePath());
     }
-
 }

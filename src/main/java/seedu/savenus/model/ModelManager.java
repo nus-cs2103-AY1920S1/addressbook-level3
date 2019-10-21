@@ -23,8 +23,9 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.Savings;
-//import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -35,20 +36,22 @@ import seedu.savenus.model.wallet.Wallet;
  * Represents the in-memory model of the menu data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
     private final PurchaseHistory purchaseHistory;
     private final CustomSorter customSorter;
+    private final SavingsAccount savingsAccount;
     private boolean autoSortFlag;
-    //private final SavingsAccount savingsAccount;
 
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
      */
     public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
-                        ReadOnlyPurchaseHistory purchaseHistory, CustomSorter customSorter) {
+                        ReadOnlyPurchaseHistory purchaseHistory,
+                        CustomSorter customSorter, ReadOnlySavingsAccount savingsAccount) {
         super();
         requireAllNonNull(menu, userPrefs);
 
@@ -57,16 +60,16 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
-        // savingsAccount = new SavingsAccount();
-
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
+        this.savingsAccount = new SavingsAccount(savingsAccount);
         this.customSorter = customSorter;
         this.autoSortFlag = false;
         RecommendationSystem.getInstance().setUserRecommendations(userRecs);
     }
 
     public ModelManager() {
-        this(new Menu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(), new CustomSorter());
+        this(new Menu(), new UserPrefs(), new UserRecommendations(),
+                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -334,7 +337,8 @@ public class ModelManager implements Model {
 
     @Override
     public void addToSavings(Savings savings) {
-        // TODO @fatclarence
+        //requireNonNull(savings);
+        savingsAccount.addSavings(savings);
     }
 
     @Override
@@ -344,12 +348,12 @@ public class ModelManager implements Model {
     }
 
     /**
-     * TODO @fatclarence
+     * Returns an unmodifiable Savings Account of the user.
      */
-    //    @Override
-    //    public SavingsAccount getSavingsAccount() {
-    //        return null;
-    //    }
+    @Override
+    public ReadOnlySavingsAccount getSavingsAccount() {
+        return savingsAccount;
+    }
 
     @Override
     public boolean equals(Object obj) {

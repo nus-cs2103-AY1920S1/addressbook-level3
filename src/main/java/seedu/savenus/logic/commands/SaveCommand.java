@@ -19,11 +19,9 @@ public class SaveCommand extends Command {
             + "Restriction: " + Savings.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 100";
 
-    public static final String MESSAGE_SAVINGS_SUCCESS = "Current Savings: TODOOOOOOOOO";
+    public static final String MESSAGE_SAVINGS_SUCCESS = "Current Savings: TODO @FATCLARENCE";
 
     private final Savings savingsAmount;
-
-
 
     public SaveCommand(String savings) {
         this.savingsAmount = new Savings(savings);
