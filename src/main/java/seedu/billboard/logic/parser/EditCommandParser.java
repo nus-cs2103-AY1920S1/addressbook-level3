@@ -3,6 +3,7 @@ package seedu.billboard.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
@@ -31,7 +32,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION,
+                        PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
 
         Index index;
 
@@ -51,9 +53,16 @@ public class EditCommandParser implements Parser<EditCommand> {
             editExpenseDescriptor.setDescription(ParserUtil
                     .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
+
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editExpenseDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
+
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            editExpenseDescriptor.setCreated(
+                    ParserUtil.parseCreatedDateTime(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editExpenseDescriptor::setTags);
 
         if (!editExpenseDescriptor.isAnyFieldEdited()) {

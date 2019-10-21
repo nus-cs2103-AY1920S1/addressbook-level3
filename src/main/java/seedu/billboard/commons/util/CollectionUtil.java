@@ -27,6 +27,14 @@ public class CollectionUtil {
     }
 
     /**
+     * Returns true if and only if {@code items} is non empty.
+     */
+    public static boolean checkNonEmpty(Collection<?> items) {
+        requireNonNull(items);
+        return items.size() != 0;
+    }
+
+    /**
      * Returns true if {@code items} contain any elements that are non-null.
      */
     public static boolean isAnyNonNull(Object... items) {

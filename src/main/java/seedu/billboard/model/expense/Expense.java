@@ -19,28 +19,37 @@ public class Expense {
     private Name name;
     private Description description;
     private Amount amount;
+    private CreatedDateTime created;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
-
     private String archiveName;
+
     /**
      * Every field must be present and not null.
      */
-    public Expense(Name name, Description description, Amount amount, Set<Tag> tags) {
-        requireAllNonNull(name, description, amount);
+    public Expense(Name name, Description description,
+                   Amount amount, CreatedDateTime created,
+                   Set<Tag> tags) {
+
+        requireAllNonNull(name, description, created, amount, tags);
         this.name = name;
         this.description = description;
         this.amount = amount;
+        this.created = created;
         this.tags.addAll(tags);
         this.archiveName = "";
     }
 
-    public Expense(Name name, Description description, Amount amount, Set<Tag> tags, String archiveName) {
+    public Expense(Name name, Description description,
+                   Amount amount, CreatedDateTime created,
+                   Set<Tag> tags, String archiveName) {
+
         requireAllNonNull(name, description, amount);
         this.name = name;
         this.description = description;
         this.amount = amount;
+        this.created = created;
         this.tags.addAll(tags);
         this.archiveName = archiveName;
     }
@@ -55,6 +64,10 @@ public class Expense {
 
     public Amount getAmount() {
         return amount;
+    }
+
+    public CreatedDateTime getCreated() {
+        return created;
     }
 
     public String getArchiveName() {
@@ -95,13 +108,14 @@ public class Expense {
         return otherExpense.getName().equals(getName())
                 && otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getAmount().equals(getAmount())
+                && otherExpense.getCreated().equals(getCreated())
                 && otherExpense.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, amount);
+        return Objects.hash(name, description, amount, created, tags);
     }
 
     @Override
@@ -111,6 +125,10 @@ public class Expense {
                 + " Description: "
                 + getDescription()
                 + " Amount: "
-                + getAmount();
+                + getAmount()
+                + " Created: "
+                + getCreated()
+                + " Tags: "
+                + getTags();
     }
 }

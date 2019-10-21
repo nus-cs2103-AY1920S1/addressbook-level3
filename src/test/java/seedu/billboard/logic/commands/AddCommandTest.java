@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 
 import seedu.billboard.model.Billboard;
@@ -25,6 +26,7 @@ import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.ExpenseBuilder;
 
@@ -149,7 +151,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void incrementCount(List<Tag> toIncrement) {
+        public void incrementCount(Set<Tag> toIncrement) {
+            throw new AssertionError("This method should not be called. ");
+        }
+
+        @Override
+        public void decreaseCount(Set<Tag> toDecrease) {
             throw new AssertionError("This method should not be called. ");
         }
 
@@ -160,6 +167,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredExpenses(Predicate<Expense> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableData<StatisticsType> getStatisticsType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStatisticsType(StatisticsType type) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -190,6 +207,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasArchive(String archive) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteArchive(String archiveName) {
             throw new AssertionError("This method should not be called.");
         }
 

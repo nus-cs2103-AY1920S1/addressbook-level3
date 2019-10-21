@@ -2,6 +2,7 @@ package seedu.billboard.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -101,4 +102,28 @@ public class UniqueTagList {
         }
     }
 
+    /**
+     * Sets current map to the one specified in the argument.
+     * @param tagList to replace the current map.
+     */
+    public void setList(Map<String, Tag> tagList) {
+        requireNonNull(tagList);
+        this.tagList = new HashMap<>(tagList);
+    }
+
+    /**
+     * Returns an unmodifiable current map.
+     * @return current map.
+     */
+    public Map<String, Tag> getTagList() {
+        return Collections.unmodifiableMap(tagList);
+    }
+
+    /**
+     * Returns a list of unique tag names.
+     * @return list of unique tag names.
+     */
+    public List<String> getTagNames() {
+        return List.copyOf(tagList.keySet());
+    }
 }

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Expense's name in the address book.
+ * Represents a Expense's name in the Billboard.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.exceptions.IllegalValueException;
-import seedu.billboard.logic.commands.AddTagCommand;
 import seedu.billboard.logic.commands.RemoveTagCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
@@ -37,7 +36,8 @@ public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RemoveTagCommand.MESSAGE_USAGE), ive);
         }
 
         tagNames = ParserUtil.parseTagNames(argMultimap.getAllValues(PREFIX_TAG));

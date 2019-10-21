@@ -37,7 +37,7 @@ public class ExpenseListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Expense} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Expense} using a {@code ExpenseCard}.
      */
     class PersonListViewCell extends ListCell<Expense> {
         @Override
@@ -48,7 +48,7 @@ public class ExpenseListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(expense, getIndex() + 1).getRoot());
+                setGraphic(new ExpenseCard(expense, getIndex() + 1).getRoot());
             }
         }
     }

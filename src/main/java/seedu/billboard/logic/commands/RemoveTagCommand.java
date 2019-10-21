@@ -4,9 +4,7 @@ import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -57,13 +55,13 @@ public class RemoveTagCommand extends TagCommand {
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Tag> currTags = expenseToEdit.getTags();
-        Set<Tag> toRemove = toDelete(currTags, tagNames);
-        Set<Tag> remaining = getRemaining(currTags, toRemove);
-        model.decreaseCount(new ArrayList<>(toRemove));
+        Set<Tag> currentTags = expenseToEdit.getTags();
+        Set<Tag> tagsToRemove = getExistingTags(currentTags, tagNames);
+        Set<Tag> editedTags = getRemainingTags(currentTags, tagsToRemove);
+        model.decreaseCount(tagsToRemove);
 
         Expense editedExpense = new Expense(expenseToEdit.getName(), expenseToEdit.getDescription(),
-                expenseToEdit.getAmount(), remaining);
+                expenseToEdit.getAmount(), expenseToEdit.getCreated(), editedTags);
 
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
@@ -73,29 +71,29 @@ public class RemoveTagCommand extends TagCommand {
 
     /**
      * Checks and returns a set consisting of tags whose names exist in the set given in argument.
-     * @param set to check names against
+     * @param current to check names against
      * @param names of tags to be removed.
      * @return set consisting of tags whose names exist in set.
      */
-    private Set<Tag> toDelete(Set<Tag> set, List<String> names) {
-        Set<Tag> toReturn = new HashSet<Tag>();
-        Iterator<Tag> it = set.iterator();
-        while (it.hasNext()) {
-            Tag current = it.next();
-            if (names.contains(current.tagName)) {
-                toReturn.add(current);
+    private Set<Tag> getExistingTags(Set<Tag> current, List<String> names) {
+        requireAllNonNull(current, names);
+        Set<Tag> toReturn = new HashSet<>();
+        for (Tag tag : current) {
+            if (names.contains(tag.tagName)) {
+                toReturn.add(tag);
             }
         }
         return toReturn;
     }
 
     /**
-     * Removes all elements from a set from another set.
+     * Removes all elements of a set from another set.
      * @param current set which elements will be removed from.
      * @param toRemove set whose elements are to be removed.
      * @return set consisting of remaining elements.
      */
-    private Set<Tag> getRemaining(Set<Tag> current, Set<Tag> toRemove) {
+    private Set<Tag> getRemainingTags(Set<Tag> current, Set<Tag> toRemove) {
+        requireAllNonNull(current, toRemove);
         Set<Tag> toReturn = new HashSet<>(current);
         toReturn.removeAll(toRemove);
         return toReturn;

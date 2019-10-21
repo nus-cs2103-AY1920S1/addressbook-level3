@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
 import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.DATE_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_DINNER;
 import static seedu.billboard.testutil.Assert.assertThrows;
@@ -79,7 +80,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_DINNER + DESCRIPTION_DESC_DINNER
-                + AMOUNT_DESC_DINNER;
+                + AMOUNT_DESC_DINNER + DATE_DESC_DINNER;
         Expense expectedExpense = new ExpenseBuilder(DINNER).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExpense(expectedExpense);

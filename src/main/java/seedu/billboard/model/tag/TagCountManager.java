@@ -3,10 +3,12 @@ package seedu.billboard.model.tag;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Tracks tags and the number of expenses that uses them.
@@ -38,7 +40,7 @@ public class TagCountManager {
      * Checks and add tags that does not exist in the list.
      * @param tags to be checked.
      */
-    public void addNewTags(List<Tag> tags) {
+    public void addNewTags(Set<Tag> tags) {
         requireNonNull(tags);
         for (Tag tag : tags) {
             if (!contains(tag)) {
@@ -61,7 +63,7 @@ public class TagCountManager {
      * Increments count of all the tags in the list given in argument.
      * @param tags whose count to be incremented.
      */
-    public void incrementAllCount(List<Tag> tags) {
+    public void incrementAllCount(Set<Tag> tags) {
         requireNonNull(tags);
         addNewTags(tags);
         for (Tag tag : tags) {
@@ -82,7 +84,7 @@ public class TagCountManager {
      * Decrease count of all tags specified in argument.
      * @param tags whose count to be decreased.
      */
-    public void decreaseAllCount(List<Tag> tags) {
+    public void decreaseAllCount(Set<Tag> tags) {
         requireNonNull(tags);
         for (Tag tag : tags) {
             decreaseCount(tag);
@@ -107,5 +109,20 @@ public class TagCountManager {
         return toReturn;
     }
 
+    /**
+     * Sets the current map to the specified map given in argument.
+     * @param count to replace the current map.
+     */
+    public void setCount(Map<Tag, Integer> count) {
+        requireNonNull(count);
+        this.count = new HashMap<>(count);
+    }
 
+    /**
+     * Returns an unmodifiable current map.
+     * @return current map.
+     */
+    public Map<Tag, Integer> getCount() {
+        return Collections.unmodifiableMap(count);
+    }
 }

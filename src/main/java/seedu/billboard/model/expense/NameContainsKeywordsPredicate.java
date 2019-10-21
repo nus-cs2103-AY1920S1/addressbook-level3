@@ -9,6 +9,7 @@ import seedu.billboard.commons.util.StringUtil;
  * Tests that a {@code Expense}'s {@code Name} matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Expense> {
+    public static final String FINDTYPE = "name";
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {

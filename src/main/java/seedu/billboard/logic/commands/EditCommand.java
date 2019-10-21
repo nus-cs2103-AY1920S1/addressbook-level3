@@ -2,6 +2,7 @@ package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
@@ -19,6 +20,7 @@ import seedu.billboard.commons.util.CollectionUtil;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
@@ -38,6 +40,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "buy tea "
@@ -74,9 +77,7 @@ public class EditCommand extends Command {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        boolean b = !expenseToEdit.equals(editedExpense);
-        boolean b1 = model.hasExpense(editedExpense);
-        if (b && b1) {
+        if (!expenseToEdit.equals(editedExpense) && model.hasExpense(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
@@ -91,11 +92,12 @@ public class EditCommand extends Command {
      */
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
         assert expenseToEdit != null;
-        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
         Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
-        return new Expense(updatedName, updatedDescription, updatedAmount, updatedTags);
+        CreatedDateTime updatedCreated = editExpenseDescriptor.getCreated().orElse(expenseToEdit.getCreated());
+        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
+        return new Expense(updatedName, updatedDescription, updatedAmount, updatedCreated, updatedTags);
     }
 
     @Override
@@ -123,9 +125,10 @@ public class EditCommand extends Command {
     public static class EditExpenseDescriptor {
 
         private Name name;
-        private Set<Tag> tags;
         private Description description;
         private Amount amount;
+        private CreatedDateTime created;
+        private Set<Tag> tags;
 
         public EditExpenseDescriptor() {
         }
@@ -136,16 +139,17 @@ public class EditCommand extends Command {
          */
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setName(toCopy.name);
-            setTags(toCopy.tags);
             setDescription(toCopy.description);
+            setCreated(toCopy.created);
             setAmount(toCopy.amount);
+            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, description, amount, tags);
+            return CollectionUtil.isAnyNonNull(name, description, amount, created, tags);
         }
 
 
@@ -171,6 +175,14 @@ public class EditCommand extends Command {
 
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
+        }
+
+        public void setCreated(CreatedDateTime created) {
+            this.created = created;
+        }
+
+        public Optional<CreatedDateTime> getCreated() {
+            return Optional.ofNullable(created);
         }
 
         /**

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.billboard.logic.commands.AddTagCommand;
 import seedu.billboard.logic.commands.FilterTagCommand;
 import seedu.billboard.logic.commands.HelpCommand;
+import seedu.billboard.logic.commands.ListTagCommand;
 import seedu.billboard.logic.commands.RemoveTagCommand;
 import seedu.billboard.logic.commands.TagCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -45,6 +46,8 @@ public class TagCommandParser implements Parser<TagCommand> {
             return new FilterTagCommandParser().parse(arguments);
         case RemoveTagCommand.COMMAND_WORD:
             return new RemoveTagCommandParser().parse(arguments);
+        case ListTagCommand.COMMAND_WORD:
+            return new ListTagCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

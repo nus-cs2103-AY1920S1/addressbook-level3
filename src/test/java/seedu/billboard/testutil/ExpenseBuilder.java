@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
@@ -18,11 +19,13 @@ public class ExpenseBuilder {
     public static final String DEFAULT_NAME = "pay school fees";
     public static final String DEFAULT_DESCRIPTION = "this is a description.";
     public static final String DEFAULT_AMOUNT = "4.20";
+    public static final String DEFAULT_DATE = "1/1/2019 1234";
     public static final String DEFAULT_ARCHIVE_NAME = "";
 
     private Name name;
     private Description description;
     private Amount amount;
+    private CreatedDateTime created;
     private Set<Tag> tags;
     private String archiveName;
 
@@ -30,6 +33,7 @@ public class ExpenseBuilder {
         name = new Name(DEFAULT_NAME);
         description = new Description(DEFAULT_DESCRIPTION);
         amount = new Amount(DEFAULT_AMOUNT);
+        created = new CreatedDateTime(DEFAULT_DATE);
         tags = new HashSet<>();
         archiveName = DEFAULT_ARCHIVE_NAME;
     }
@@ -41,6 +45,7 @@ public class ExpenseBuilder {
         name = expenseToCopy.getName();
         description = expenseToCopy.getDescription();
         amount = expenseToCopy.getAmount();
+        created = expenseToCopy.getCreated();
         tags = new HashSet<>(expenseToCopy.getTags());
         archiveName = expenseToCopy.getArchiveName();
     }
@@ -91,6 +96,14 @@ public class ExpenseBuilder {
     }
 
     /**
+     * Sets the {@code CreatedDateTime} of the {@code Expense} that we are building.
+     */
+    public ExpenseBuilder withCreatedDateTime(String createdDateTime) {
+        this.created = new CreatedDateTime(createdDateTime);
+        return this;
+    }
+
+    /**
      * Sets the {@code Archive} of the {@code Expense} that we are building.
      */
     public ExpenseBuilder withArchiveName(String archiveName) {
@@ -99,7 +112,7 @@ public class ExpenseBuilder {
     }
 
     public Expense build() {
-        return new Expense(name, description, amount, tags, archiveName);
+        return new Expense(name, description, amount, created, tags, archiveName);
     }
 
 }
