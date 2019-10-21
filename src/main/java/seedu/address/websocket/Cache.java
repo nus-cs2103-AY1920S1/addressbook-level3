@@ -147,7 +147,6 @@ public class Cache {
     /**
      * Save json to file in resources
      * @param path file name to load from
-     * @return an Optional containing a JSONObject or empty.
      */
     private static void saveFullPathJsonArray(String path, JSONArray jsonObject) {
         try (FileWriter file = new FileWriter(path)) {
