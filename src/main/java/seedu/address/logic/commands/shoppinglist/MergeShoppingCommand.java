@@ -9,6 +9,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.ShoppingItem;
@@ -18,7 +19,7 @@ import seedu.address.model.food.ShoppingItem;
  */
 public class MergeShoppingCommand extends Command {
 
-    public static final String COMMAND_WORD = "merge bought";
+    public static final String COMMAND_WORD = "mergebought";
 
     public static final String MESSAGE_SUCCESS = "Merged all bought shopping items into grocery list.";
 
@@ -26,18 +27,25 @@ public class MergeShoppingCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        List<ShoppingItem> lastShownList = model.getFilteredShoppingList();
+        List<GroceryItem> lastShownBoughtList = model.getFilteredBoughtItemList();
+        List<ShoppingItem> lastShownShoppingList = model.getFilteredShoppingList();
 
-        for (int i = 0; i < lastShownList.size(); i++) {
-            ShoppingItem shoppingItem = lastShownList.get(i);
+        for (int i = 0; i < lastShownBoughtList.size(); i++) {
+            GroceryItem groceryItem = lastShownBoughtList.get(i);
+            model.addGroceryItem(groceryItem);
+        }
+
+        for (int i = 0; i < lastShownShoppingList.size(); i++) {
+            ShoppingItem shoppingItem = lastShownShoppingList.get(i);
             if (shoppingItem.isBought()) {
                 model.deleteShoppingItem(shoppingItem);
-                GroceryItem groceryItem = new GroceryItem(shoppingItem.getName(),
-                        shoppingItem.getAmount(),
-                        shoppingItem.getExpiryDate(), new HashSet<>());
-                model.addGroceryItem(groceryItem);
             }
         }
+
+        for (int i = 0; i < lastShownBoughtList.size(); i++) {
+           model.setBoughtList(new AddressBook());
+        }
+
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
