@@ -61,8 +61,8 @@ public class CommandTestUtil {
     public static final String VALID_AUTHOR_BOOK_1 = "J K Rowling";
     public static final String VALID_AUTHOR_BOOK_2 = "Jin Yong";
     public static final String VALID_GENRE_ACTION = "ACTION";
-    public static final String VALID_GENRE_FICTION = "FICTON";
-    public static final String VALID_GENRE_NONFICTION = "NON-FICTON";
+    public static final String VALID_GENRE_FICTION = "FICTION";
+    public static final String VALID_GENRE_NONFICTION = "NON-FICTION";
     public static final String VALID_BORROWER_ID = "K0001";
 
     public static final String TITLE_DESC_BOOK_1 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_1;

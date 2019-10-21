@@ -49,7 +49,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
     }
 
     public Stage getPrimaryStage() {

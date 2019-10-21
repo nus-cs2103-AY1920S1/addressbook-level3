@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
 
-
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="LiBerry" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<fx:root minHeight="600" minWidth="650.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <scene>
     <Scene>
       <stylesheets>
@@ -22,40 +23,44 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                  prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1"
-                  xmlns:fx="http://javafx.com/fxml/1">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
         <bottom>
-          <AnchorPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" prefHeight="35.0"
-                      prefWidth="600.0" BorderPane.alignment="CENTER" >
+          <AnchorPane fx:id="commandBoxPlaceholder" maxHeight="35.0" minHeight="35.0" minWidth="0.0" prefHeight="35.0" prefWidth="600.0" styleClass="pane-with-border" BorderPane.alignment="CENTER">
           </AnchorPane>
         </bottom>
-        <top>
-          <Pane fx:id="resultDisplayPlaceholder" minHeight="50" prefHeight="50" maxHeight="50"
-                      style="-fx-background-color: C8D3D5;" BorderPane.alignment="CENTER">
-          </Pane>
-        </top>
         <right>
-          <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #d8dae3#d8dae3;" BorderPane.alignment="CENTER">
+          <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="200.0" style="-fx-background-color: #d8dae3#d8dae3;" BorderPane.alignment="CENTER">
             <children>
-              <ImageView fitHeight="84.0" fitWidth="69.0" layoutX="66.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                  <Image url="@/images/Portrait_placeholder.png" />
-                </image>
-              </ImageView>
-              <Text layoutX="82.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-              <Text layoutX="31.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loans: 4" />
-              <Text layoutX="31.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unpaid fees: 0" />
+                     <Pane fx:id="resultDisplayPlaceholder" maxWidth="200.0" minWidth="200.0" prefHeight="115.0" prefWidth="200.0" />
+              <Text layoutX="31.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: John" wrappingWidth="109.7158203125" />
+              <Text layoutX="31.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loans: 4" />
+              <Text layoutX="31.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unpaid fees: 0" />
             </children></AnchorPane>
         </right>
         <center>
-            <VBox fx:id="bookList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+            <VBox fx:id="bookList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                 <padding>
-                    <Insets top="10" right="10" bottom="10" left="10" />
+                    <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
-                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
         </center>
+            <top>
+               <HBox prefHeight="47.0" prefWidth="615.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <ImageView fitHeight="47.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                        <image>
+                           <Image url="@../images/LiBerryLogo.png" />
+                        </image>
+                        <HBox.margin>
+                           <Insets left="7.0" top="7.0" />
+                        </HBox.margin>
+                     </ImageView>
+                     <Pane prefHeight="47.0" prefWidth="286.0" HBox.hgrow="ALWAYS" />
+                     <Label prefHeight="57.0" prefWidth="201.0" text="Mode: Serving" />
+                  </children>
+               </HBox>
+            </top>
       </BorderPane>
     </Scene>
   </scene>
