@@ -19,12 +19,15 @@ import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.commands.ExitCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.SearchCommand;
+import io.xpire.logic.commands.SortCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.sort.MethodOfSorting;
 import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.ItemUtil;
+
 
 public class XpireParserTest {
 
@@ -62,6 +65,13 @@ public class XpireParserTest {
         SearchCommand command = (SearchCommand) parser.parseCommand(
                 SearchCommand.COMMAND_WORD + "|" + keywords.stream().collect(Collectors.joining("|")));
         assertEquals(new SearchCommand(new ContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        SortCommand command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + "|name");
+        assertEquals(new SortCommand(new MethodOfSorting("name")), command);
     }
 
     @Test

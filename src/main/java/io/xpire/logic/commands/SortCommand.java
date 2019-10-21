@@ -30,7 +30,23 @@ public class SortCommand extends Command {
         requireNonNull(model);
         model.sortItemList(this.method);
         model.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
-        return new CommandResult(MESSAGE_SUCCESS + " by " + method.getValue());
+        return new CommandResult(MESSAGE_SUCCESS + " by " + method);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof SortCommand)) {
+            return false;
+        } else {
+            SortCommand other = (SortCommand) obj;
+            return this.method.equals(other.method);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.method.hashCode();
+    }
 }

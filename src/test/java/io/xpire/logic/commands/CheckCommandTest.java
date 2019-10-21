@@ -2,7 +2,7 @@ package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CheckCommand.MESSAGE_SUCCESS;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static io.xpire.testutil.TypicalItems.APPLE;
+import static io.xpire.testutil.TypicalItems.EXPIRED_APPLE;
 import static io.xpire.testutil.TypicalItems.EXPIRED_MILK;
 import static io.xpire.testutil.TypicalItems.EXPIRED_ORANGE;
 import static io.xpire.testutil.TypicalItems.EXPIRING_FISH;
@@ -37,7 +37,8 @@ public class CheckCommandTest {
         CheckCommand command = new CheckCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(APPLE, EXPIRING_FISH, EXPIRED_MILK, EXPIRED_ORANGE), model.getFilteredItemList());
+        assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRING_FISH, EXPIRED_MILK, EXPIRED_ORANGE),
+                model.getFilteredItemList());
     }
 
     @Test
@@ -47,7 +48,7 @@ public class CheckCommandTest {
         CheckCommand command = new CheckCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(APPLE, EXPIRED_MILK, EXPIRED_ORANGE), model.getFilteredItemList());
+        assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRED_MILK, EXPIRED_ORANGE), model.getFilteredItemList());
     }
 
     @Test

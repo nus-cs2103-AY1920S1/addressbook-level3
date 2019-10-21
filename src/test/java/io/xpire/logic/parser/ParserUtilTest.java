@@ -14,23 +14,28 @@ import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.sort.MethodOfSorting;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
 public class ParserUtilTest {
     public static final String INVALID_NAME = "@pple";
-    public static final String INVALID_EXPIRY_DATE = "50/50/5000";
+    public static final String INVALID_EXPIRY_DATE_1 = "50505000";
+    public static final String INVALID_EXPIRY_DATE_2 = "50/50/5000";
     public static final String INVALID_TAG = "$cold";
+    public static final String INVALID_METHOD_OF_SORTING = "random";
     public static final String INVALID_QUANTITY = "-2";
     public static final String INVALID_REMINDER_THRESHOLD = "-5";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_NAME = "Strawberry";
+    private static final String VALID_EXPIRY_DATE_1 = "2/12/2020";
+    private static final String VALID_EXPIRY_DATE_2 = "02/12/2020";
     private static final String VALID_TAG_1 = "Friend";
     private static final String VALID_TAG_2 = "Neighbour";
+    private static final String VALID_METHOD_OF_SORTING_NAME = "name";
+    private static final String VALID_METHOD_OF_SORTING_DATE = "date";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -56,7 +61,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -75,6 +80,34 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseExpiryDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseExpiryDate(null));
+    }
+
+    @Test
+    public void parseExpiryDate_invalidFormat_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE_1));
+    }
+
+    @Test
+    public void parseExpiryDate_invalidRange_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE_2));
+    }
+
+    @Test
+    public void parseExpiryDate_validValueWithoutWhitespace_returnsExpiryDate() throws Exception {
+        ExpiryDate expectedExpiryDate = new ExpiryDate(VALID_EXPIRY_DATE_1);
+        assertEquals(expectedExpiryDate, ParserUtil.parseExpiryDate(VALID_EXPIRY_DATE_1));
+    }
+
+    @Test
+    public void parseExpiryDate_validValueWithWhitespace_returnsTrimmedExpiryDate() throws Exception {
+        String expiryDateWithWhitespace = WHITESPACE + VALID_EXPIRY_DATE_2 + WHITESPACE;
+        ExpiryDate expectedExpiryDate = new ExpiryDate(VALID_EXPIRY_DATE_1);
+        assertEquals(expectedExpiryDate, ParserUtil.parseExpiryDate(expiryDateWithWhitespace));
     }
 
     @Test
@@ -122,4 +155,28 @@ public class ParserUtilTest {
         expectedTagSet.addAll(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseMethodOfSorting_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMethodOfSorting(null));
+    }
+
+    @Test
+    public void parseMethodOfSorting_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMethodOfSorting(INVALID_METHOD_OF_SORTING));
+    }
+
+    @Test
+    public void parseMethodOfSorting_validValueWithoutWhitespace_returnsMethodOfSorting() throws Exception {
+        MethodOfSorting expectedMethodOfSorting = new MethodOfSorting(VALID_METHOD_OF_SORTING_NAME);
+        assertEquals(expectedMethodOfSorting, ParserUtil.parseMethodOfSorting(VALID_METHOD_OF_SORTING_NAME));
+    }
+
+    @Test
+    public void parseMethodOfSorting_validValueWithWhitespace_returnsTrimmedMethodOfSorting() throws Exception {
+        String methodOfSortingWithWhitespace = WHITESPACE + VALID_METHOD_OF_SORTING_DATE + WHITESPACE;
+        MethodOfSorting expectedMethodOfSorting = new MethodOfSorting(VALID_METHOD_OF_SORTING_DATE);
+        assertEquals(expectedMethodOfSorting, ParserUtil.parseMethodOfSorting(methodOfSortingWithWhitespace));
+    }
+
 }

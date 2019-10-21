@@ -5,7 +5,7 @@ import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_APPLE;
 import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_BANANA;
 import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_DRINK;
 import static io.xpire.testutil.Assert.assertThrows;
-import static io.xpire.testutil.TypicalItems.APPLE;
+import static io.xpire.testutil.TypicalItems.EXPIRED_APPLE;
 import static io.xpire.testutil.TypicalItems.KIWI;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -60,7 +60,7 @@ public class ItemTest {
         assertFalse(KIWI.equals(5));
 
         // different item -> returns false
-        assertFalse(KIWI.equals(APPLE));
+        assertFalse(KIWI.equals(EXPIRED_APPLE));
 
         // different name -> returns false
         Item editedKiwi = new ItemBuilder(KIWI).withName(VALID_NAME_BANANA).build();

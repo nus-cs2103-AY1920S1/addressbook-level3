@@ -27,10 +27,11 @@ import javafx.collections.transformation.SortedList;
  */
 public class SortedUniqueItemList implements Iterable<Item> {
     private final ObservableList<Item> internalList = FXCollections.observableArrayList();
-    private final SortedList<Item> sortedInternalList = new SortedList<>(internalList);
+    private MethodOfSorting methodOfSorting = new MethodOfSorting("name");
+    private final SortedList<Item> sortedInternalList = new SortedList<>(internalList, methodOfSorting.getComparator());
     private final ObservableList<Item> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(this.sortedInternalList);
-    private MethodOfSorting methodOfSorting = new MethodOfSorting("name");
+
 
     /**
      * Returns true if the list contains an equivalent item as the given argument.
@@ -106,13 +107,13 @@ public class SortedUniqueItemList implements Iterable<Item> {
      */
     public void setMethodOfSorting(MethodOfSorting method) {
         this.methodOfSorting = method;
+        this.sortedInternalList.setComparator(methodOfSorting.getComparator());
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Item> asUnmodifiableObservableList() {
-        this.sortedInternalList.setComparator(methodOfSorting.getComparator());
         return this.internalUnmodifiableList;
     }
 
@@ -129,13 +130,13 @@ public class SortedUniqueItemList implements Iterable<Item> {
             return false;
         } else {
             SortedUniqueItemList other = (SortedUniqueItemList) obj;
-            return this.internalList.equals(other.internalList);
+            return this.internalUnmodifiableList.equals(other.internalUnmodifiableList);
         }
     }
 
     @Override
     public int hashCode() {
-        return this.internalList.hashCode();
+        return this.internalUnmodifiableList.hashCode();
     }
 
     /**
