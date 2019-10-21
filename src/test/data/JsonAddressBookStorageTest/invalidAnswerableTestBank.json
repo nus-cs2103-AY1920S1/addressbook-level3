@@ -1,14 +1,8 @@
 {
   "answerables": [ {
     "question": "",
-    "answerSet": {
-      "correctAnswerSet": [
-        { "answer": "CORRECT" }
-      ],
-      "wrongAnswerSet": [
-        { "answer": "WRONG" }
-      ] },
-    "difficulty": "9482424",
-    "category": "4th street"
+    "correctAnswerSet": [ "CORRECT" ],
+    "wrongAnswerSet": [ "WRONG" ],
+    "difficulty": "9482424"
   } ]
 }

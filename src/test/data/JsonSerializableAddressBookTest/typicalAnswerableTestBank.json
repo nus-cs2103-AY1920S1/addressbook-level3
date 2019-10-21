@@ -1,64 +1,34 @@
 {
   "_comment": "Revision Tool save file which contains the same Answerable values as in TypicalAnswerables#getTypicalAddressBook()",
   "answerables" : [ {
-    "question" : "A Question?",
-    "answerSet": {
-      "correctAnswerSet": [
-        { "answer": "CORRECT" }
-      ],
-      "wrongAnswerSet": [
-        { "answer": "WRONG" }
-      ] },
+    "question" : "If a subclass imposes more restrictive conditions than its parent class, it violates Liskov Substitution Principle.",
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
-    "category" : "Category A",
-    "tagged" : [ "easy" ]
+    "categories" : [ "LSP", "SOLID", "Week 9" ]
   }, {
     "question" : "Brownfield or Greenfield?",
-    "answerSet": {
-      "correctAnswerSet": [
-        { "answer": "CORRECT" }
-      ],
-      "wrongAnswerSet": [
-        { "answer": "WRONG" }
-      ] },
-    "difficulty" : "2",
-    "category" : "Requirements",
-    "tagged" : [ "field", "introduction" ]
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
+    "difficulty" : "1",
+    "categories" : [ "field", "introduction" ]
   }, {
     "question" : "Carl Kurz",
-    "answerSet": {
-      "correctAnswerSet": [
-        { "answer": "CORRECT" }
-      ],
-      "wrongAnswerSet": [
-        { "answer": "WRONG" }
-      ] },
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
-    "category" : "wall street",
-    "tagged" : [ ]
+    "categories" : [ "CATEGORY" ]
   }, {
     "question" : "Elle Meyer",
-    "answerSet": {
-      "correctAnswerSet": [
-        { "answer": "CORRECT" }
-      ],
-      "wrongAnswerSet": [
-        { "answer": "WRONG" }
-      ] },
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
-    "category" : "michegan ave",
-    "tagged" : [ ]
+    "categories" : [ "CATEGORY" ]
   }, {
     "question" : "Fiona Kunz",
-    "answerSet": {
-      "correctAnswerSet": [
-        { "answer": "CORRECT" }
-      ],
-      "wrongAnswerSet": [
-        { "answer": "WRONG" }
-      ] },
+    "correctAnswerSet": [ "Brownfield" ],
+    "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",
-    "category" : "little tokyo",
-    "tagged" : [ ]
+    "categories" : [ "CATEGORY" ]
   } ]
 }
