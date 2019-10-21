@@ -25,8 +25,8 @@ public class DisplayTabPane extends UiPart<Region> {
     public DisplayTabPane(GuiState guiState, DisplayTab... displayTabs) {
         super(FXML);
         addTabsToTabPane(displayTabs);
-        addListenerForIndex(guiState.getDisplayTabPaneIndex());
-        addListenerToTabPane(guiState::setDisplayTabPaneIndex);
+        addListenerForIndex(guiState.getTabManager().getDisplayTabPaneIndex());
+        addListenerToTabPane(guiState.getTabManager()::setDisplayTabPaneIndex);
     }
 
     /**

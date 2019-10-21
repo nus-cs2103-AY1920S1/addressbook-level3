@@ -9,18 +9,19 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.ModelEnum;
 import seedu.algobase.model.gui.GuiState;
+import seedu.algobase.model.gui.TabEnum;
 
 class SwitchTabCommandTest {
     @Test
     public void constructor_nullProblem_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new SwitchTabCommand(null));
+        assertThrows(NullPointerException.class, () -> new SwitchTabCommand(null, null));
     }
 
     @Test
     public void execute_displayTabIndexAcceptedByModel_switchSuccessful() throws Exception {
         ModelStubAcceptingDisplayTabIndex modelStub = new ModelStubAcceptingDisplayTabIndex();
         Index index = Index.fromOneBased(ModelEnum.PLAN.getDisplayTabPaneIndex());
-        CommandResult commandResult = new SwitchTabCommand(index).execute(modelStub);
+        CommandResult commandResult = new SwitchTabCommand(TabEnum.valueOf("DISPLAY"), index).execute(modelStub);
 
         assertEquals(
             String.format(SwitchTabCommand.MESSAGE_SUCCESS, index.getOneBased()),
@@ -33,7 +34,8 @@ class SwitchTabCommandTest {
         ModelStubAcceptingDisplayTabIndex modelStub = new ModelStubAcceptingDisplayTabIndex();
         Index index = Index.fromZeroBased(ModelEnum.values().length);
 
-        assertThrows(CommandException.class, () -> new SwitchTabCommand(index).execute(modelStub));
+        assertThrows(CommandException.class, () -> new SwitchTabCommand(TabEnum.valueOf("DISPLAY"), index)
+            .execute(modelStub));
     }
 
     /**

@@ -15,13 +15,13 @@ public class OpenTabCommand extends Command {
 
     public static final String COMMAND_WORD = "opentab";
     public static final String MESSAGE_SUCCESS = "opened tab %1$s!";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD // TODO
         + ": Switches the current display tab in the GUI"
         + "by the index number of the current tab.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_INVALID_INDEX = "There is no tab at index %1$s!";
+    public static final String MESSAGE_INVALID_INDEX = "There is no tab at index %1$s!"; // TODO
 
     private Index index = Index.fromZeroBased(0);
     private ModelEnum modelEnum;
@@ -37,9 +37,9 @@ public class OpenTabCommand extends Command {
         try {
             AlgoBaseTab algoBaseTab = new AlgoBaseTab(modelEnum, index);
             model.getGuiState().getTabManager().addTab(algoBaseTab);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased())); // TODO
         } catch (IndexOutOfBoundsException exception) {
-            throw new CommandException(String.format(MESSAGE_INVALID_INDEX, index.getOneBased()));
+            throw new CommandException(String.format(MESSAGE_INVALID_INDEX, index.getOneBased())); // TODO
         }
     }
 }

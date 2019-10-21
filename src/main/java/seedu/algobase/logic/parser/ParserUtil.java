@@ -14,8 +14,10 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.StringUtil;
 import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SortCommand;
+import seedu.algobase.logic.commands.SwitchTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelEnum;
+import seedu.algobase.model.gui.TabEnum;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
@@ -262,6 +264,31 @@ public class ParserUtil {
             throw new ParseException(Plan.DATE_TIME_CONSTRAINTS);
         }
     }
+
+    /** Parses a {@code String model enum} into an {@code ModelEnum}.
+     *
+     * @throws ParseException if the given {@code string model enum} is invalid.
+     */
+    public static TabEnum parseTabType(String tabType) throws ParseException {
+        try {
+            return TabEnum.valueOf(tabType.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.toString());
+        }
+    }
+
+    /** Parses a {@code String model enum} into an {@code ModelEnum}.
+     *
+     * @throws ParseException if the given {@code string model enum} is invalid.
+     */
+    public static Index parseTabIndex(String tabIndex) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(tabIndex);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
 
     /** Parses a {@code String model enum} into an {@code ModelEnum}.
      *
