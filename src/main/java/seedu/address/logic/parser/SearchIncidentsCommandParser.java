@@ -1,8 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
 
 import java.util.stream.Stream;
 
@@ -12,6 +13,8 @@ import seedu.address.model.incident.Description;
 import seedu.address.model.incident.DescriptionKeywordsPredicate;
 import seedu.address.model.incident.IdKeywordsPredicate;
 import seedu.address.model.incident.IncidentId;
+import seedu.address.model.incident.NameKeywordsPredicate;
+import seedu.address.model.person.Name;
 
 /**
  * Parses input arguments and creates a new SearchCommand object
@@ -24,15 +27,19 @@ public class SearchIncidentsCommandParser implements Parser<SearchIncidentsComma
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchIncidentsCommand parse(String args) throws ParseException {
-        ArgumentMultimap argDescMap = ArgumentTokenizer.tokenize(args, PREFIX_DESC);
-        ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, PREFIX_ID);
+        ArgumentMultimap argDescMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_DESCRIPTION);
+        ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_OPERATOR);
 
-        if (arePrefixesPresent(argDescMap, PREFIX_DESC)) {
-            Description descriptionKeywords = ParserUtil.parseDescription(argDescMap.getValue(PREFIX_DESC).get());
+        if (arePrefixesPresent(argDescMap, SEARCH_PREFIX_DESCRIPTION)) {
+            Description descriptionKeywords = ParserUtil.parseDescription(argDescMap
+                    .getValue(SEARCH_PREFIX_DESCRIPTION).get());
             return new SearchIncidentsCommand(new DescriptionKeywordsPredicate(descriptionKeywords));
-        } else if (arePrefixesPresent(argIdMap, PREFIX_ID)) {
-            IncidentId idKeywords = ParserUtil.parseId(argIdMap.getValue(PREFIX_ID).get());
+        } else if (arePrefixesPresent(argIdMap, SEARCH_PREFIX_ID)) {
+            IncidentId idKeywords = ParserUtil.parseId(argIdMap.getValue(SEARCH_PREFIX_ID).get());
             return new SearchIncidentsCommand(new IdKeywordsPredicate(idKeywords));
+        } else if (arePrefixesPresent(argIdMap, SEARCH_PREFIX_OPERATOR)) {
+            Name nameKeywords = ParserUtil.parseName(argIdMap.getValue(SEARCH_PREFIX_OPERATOR).get());
+            return new SearchIncidentsCommand(new NameKeywordsPredicate(nameKeywords));
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SearchIncidentsCommand.MESSAGE_USAGE));
