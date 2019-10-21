@@ -51,11 +51,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `AMOUNT n/ITEM`, `n/ITEM AMOUNT` is also acceptable.
 ====
 
-=== Viewing help : `help`
-
-Opens help page for list of usable commands +
-Format: `help`
-
 === Splitting expense with multiple people: `split`
 
 Split expenses with you friends +
@@ -148,11 +143,35 @@ Examples:
 * `update --out $/100 300 n/transport`
 * `update --in $/60 70 n/dad`
 
+=== Filtering based on tags: `filter`
+
+Shows all relevant transactions with given `CATEGORY` +
+Format: `filter CATEGORY`
+
+****
+* `CATEGORY` input accepts `CATEGORY` you have used in In or Out transactions before.
+****
+
+Examples:
+
+* `filter food`
+* `filter transport`
+
 // end::delete[]
 === Clearing all entries : `clear`
 
 Clears all entries from the Bank Account. +
 Format: `clear`
+
+=== Listing all entries : `list`
+
+Lists all entries from the Bank Account. +
+Format: `list`
+
+=== Viewing help : `help`
+
+Opens help page for list of usable commands +
+Format: `help`
 
 === Exiting the program : `exit`
 
