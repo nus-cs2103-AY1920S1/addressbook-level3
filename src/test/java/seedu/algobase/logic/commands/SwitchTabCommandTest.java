@@ -24,7 +24,7 @@ class SwitchTabCommandTest {
         CommandResult commandResult = new SwitchTabCommand(TabEnum.valueOf("DISPLAY"), index).execute(modelStub);
 
         assertEquals(
-            String.format(SwitchTabCommand.MESSAGE_SUCCESS, index.getOneBased()),
+            String.format(SwitchTabCommand.MESSAGE_SUCCESS, TabEnum.DISPLAY.getName(), index.getOneBased()),
             commandResult.getFeedbackToUser()
         );
     }
