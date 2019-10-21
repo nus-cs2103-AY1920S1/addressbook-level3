@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 
+/**
+ * Abstract class for scrolling.
+ */
 public abstract class ScrollCommand extends Command {
 
     public static final String COMMAND_WORD = "down";
@@ -13,16 +16,16 @@ public abstract class ScrollCommand extends Command {
 
     public ScrollCommand(String input) {
         switch(input.trim()) {
-            case "L":
-            case "l":
-                this.pane = "resultDisplay";
-                break;
-            case "R":
-            case "r":
-                this.pane = "tabPane";
-                break;
-            default:
-                this.pane = "Illegal";
+         case "L":
+         case "l":
+            this.pane = "resultDisplay";
+            break;
+         case "R":
+         case "r":
+             this.pane = "tabPane";
+             break;
+         default:
+             this.pane = "Illegal";
         }
     }
     @Override
