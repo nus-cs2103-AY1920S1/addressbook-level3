@@ -468,4 +468,7 @@
     -fx-font-size: 10;
 }
 
+.stackPaneClip{
+    -fx-background-radius: 20;
+}
 

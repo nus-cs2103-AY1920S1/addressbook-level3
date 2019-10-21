@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private BodyMasterDetailPane bodyMasterDetailPane;
+    private NotificationButton notificationButton;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -60,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane bodyMasterListPlaceholder;
+
+    @FXML
+    private StackPane notificationButtonPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -138,6 +142,9 @@ public class MainWindow extends UiPart<Stage> {
                 logic.selectedBodyProperty(), logic::setSelectedBody),
                         new BodyCardSelected(logic.selectedBodyProperty()));
         bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
+
+        notificationButton = new NotificationButton();
+        notificationButtonPlaceholder.getChildren().add(notificationButton.getRoot());
     }
 
     /**

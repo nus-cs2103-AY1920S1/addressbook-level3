@@ -48,6 +48,7 @@
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Text>
+                  <StackPane fx:id="notificationButtonPlaceholder" layoutX="890.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
             <HBox prefHeight="450.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
