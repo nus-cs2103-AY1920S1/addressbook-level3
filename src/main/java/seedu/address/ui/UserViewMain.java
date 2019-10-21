@@ -54,4 +54,14 @@ public class UserViewMain {
         userViewNavigator.loadTaskListView(logic);
         return userViewController.getCurrentView();
     }
+
+    /**
+     * Shows the user the statistics involved.
+     *
+     * @return the statistics view pane
+     */
+    public Pane loadStats() {
+        userViewNavigator.loadStatsView(logic);
+        return userViewController.getCurrentView();
+    }
 }

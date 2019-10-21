@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import seedu.address.logic.Logic;
 import seedu.address.ui.views.ProjectDashboardView;
+import seedu.address.ui.views.StatisticsView;
 import seedu.address.ui.views.TaskListPanel;
 
 /**
@@ -18,6 +19,7 @@ public class UserViewNavigator {
     /** The views to switch between **/
     private ProjectDashboardView projectDashboardView;
     private TaskListPanel taskListPanel;
+    private StatisticsView statisticsView;
 
     /**
      * Stores the main controller for later use in navigation tasks.
@@ -46,6 +48,15 @@ public class UserViewNavigator {
     public void loadTaskListView(Logic logic) {
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         userViewController.setUserView(taskListPanel);
+    }
+
+    /**
+     * Relays to controller to swap current user view with task list.
+     * @param logic to access task data
+     */
+    public void loadStatsView(Logic logic) {
+        statisticsView = new StatisticsView(logic.getStatistics());
+        userViewController.setUserView(statisticsView);
     }
 
 }

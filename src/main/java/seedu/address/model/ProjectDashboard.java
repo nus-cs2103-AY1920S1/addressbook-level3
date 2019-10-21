@@ -13,6 +13,7 @@ import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.UniqueMappingList;
 import seedu.address.model.member.UniqueMemberList;
 
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.UniqueTaskList;
@@ -330,4 +331,5 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public int hashCode() {
         return members.hashCode();
     }*/
+
 }

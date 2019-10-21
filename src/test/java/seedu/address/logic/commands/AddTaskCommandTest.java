@@ -24,6 +24,7 @@ import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
@@ -267,6 +268,16 @@ public class AddTaskCommandTest {
 
         @Override
         public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Statistics getStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStatistics(Statistics newStats) {
             throw new AssertionError("This method should not be called.");
         }
 

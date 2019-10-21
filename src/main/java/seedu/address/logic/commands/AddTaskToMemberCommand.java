@@ -31,6 +31,8 @@ public class AddTaskToMemberCommand extends Command {
             + PREFIX_TASK_INDEX + " 2 "
             + PREFIX_MEMBER_ID + " JD";
 
+    public static final String MESSAGE_SUCCESS = "New mapping added: %1$s";
+    public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
     public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
 
     private final Index taskId;

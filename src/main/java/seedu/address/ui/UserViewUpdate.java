@@ -29,10 +29,12 @@ public class UserViewUpdate {
         assert !(preamble.isEmpty());
 
         switch(preamble) {
-        case "list":
+        case "list-tasks":
             paneToRender = userViewMain.loadTasks();
             break;
-
+        case "get-stats":
+           paneToRender = userViewMain.loadStats();
+           break;
         default:
             paneToRender = userViewMain.loadDashboard();
         }
