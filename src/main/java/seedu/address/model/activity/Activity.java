@@ -4,29 +4,63 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Stream;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 
 /**
  * Represents an Activity class containing participants ID and expenses.
  */
 public class Activity {
 
+    private static int primaryKeyCounter;
+    private final int primaryKey;
     private final Title title;
-    private final ArrayList<Integer> participantIds = new ArrayList<>();
-    private final ArrayList<Expense> expenses = new ArrayList<>();
+    private final ArrayList<Integer> participantIds;
+    private final ArrayList<Expense> expenses;
 
     /**
      * Constructor for Activity.
+     * @param primaryKey The primary key of this activity.
      * @param title Title of the activity.
-     * @param people The people participating in the activity.
+     * @param ids The people participating in the activity.
      */
-    public Activity(Title title, Integer ... ids) {
+    public Activity(int primaryKey, Title title, Integer ... ids) {
         requireAllNonNull(title);
+        participantIds = new ArrayList<>();
+        expenses = new ArrayList<>();
+        this.primaryKey = primaryKey;
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);
         }
+    }
+    /**
+     * Constructor for Activity.
+     * @param title Title of the activity.
+     * @param ids The people participating in the activity.
+     */
+    public Activity(Title title, Integer ... ids) {
+        requireAllNonNull(title);
+        participantIds = new ArrayList<>();
+        expenses = new ArrayList<>();
+        this.primaryKey = primaryKeyCounter++;
+        this.title = title;
+        for (Integer id : ids) {
+            participantIds.add(id);
+        }
+    }
+
+    public int getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public static int getPrimaryKeyCounter() {
+        return primaryKeyCounter;
+    }
+
+    public static void setPrimaryKeyCounter(int pk) {
+        primaryKeyCounter = pk;
     }
 
     /**
@@ -54,27 +88,42 @@ public class Activity {
     }
 
     /**
-     * Invite people to the activity.
-     * @param people The people that will be added into the activity.
+     * Checks whether the person with ID is present in this activity.
+     * @param personId Id of the person to check.
+     * @return True if person exists, false otherwise.
      */
-    public void invite(Person ... people) {
-        // TODO: implement check for person with same name, add only if
-        // different name
+    public boolean hasPerson(Integer personId) {
+        return participantIds.contains(personId);
+    }
+
+    /**
+     * Invite a person into the activity.
+     * @param personId ID of the person to be invited.
+     */
+    public void invite(Integer personId) {
+        participantIds.add(personId);
     }
 
     /**
      * Remove people from the activity
-     * @param people The people that will be removed from the activity.
+     * @param personId The people that will be removed from the activity.
      */
-    public void disinvite(Person ... people) {
-        // haven't implemented what if list does not contain that specific person
+    public void disinvite(Integer personId) {
+        participantIds.remove(personId);
     }
 
     /**
      * Add expense to the activity
      * @param expenditures The expense(s) to be added.
+     * @throws PersonNotInActivityException if any person is not found
      */
-    public void addExpense(Expense ... expenditures) {
+    public void addExpense(Expense ... expenditures) throws PersonNotInActivityException {
+        boolean allPresent = Stream.of(expenditures)
+                .map(x -> x.getPersonId())
+                .allMatch(x -> participantIds.contains(x));
+        if (!allPresent) {
+            throw new PersonNotInActivityException();
+        }
         for (int i = 0; i < expenditures.length; i++) {
             expenses.add(expenditures[i]);
         }

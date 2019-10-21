@@ -1,11 +1,13 @@
 package seedu.address.model;
 
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 
 /**
 * This class holds the actual state of the application.*/
 public final class InternalState {
     private int personPriKeyCnt;
+    private int activityPriKeyCnt;
 
     public InternalState() {}
 
@@ -20,6 +22,7 @@ public final class InternalState {
     */
     public void applyInternalState() {
         Person.setPrimaryKeyCounter(personPriKeyCnt);
+        Activity.setPrimaryKeyCounter(activityPriKeyCnt);
     }
 
     /**
@@ -29,6 +32,7 @@ public final class InternalState {
     */
     public void updateInternalState(InternalState state) {
         personPriKeyCnt = state.personPriKeyCnt;
+        activityPriKeyCnt = state.activityPriKeyCnt;
     }
 
     /**
@@ -37,6 +41,7 @@ public final class InternalState {
     */
     public void updateInternalState() {
         personPriKeyCnt = Person.getPrimaryKeyCounter();
+        activityPriKeyCnt = Activity.getPrimaryKeyCounter();
     }
 
     @Override
@@ -49,6 +54,7 @@ public final class InternalState {
         }
 
         InternalState o = (InternalState) other;
-        return personPriKeyCnt == o.personPriKeyCnt;
+        return personPriKeyCnt == o.personPriKeyCnt
+            && activityPriKeyCnt == o.activityPriKeyCnt;
     }
 }
