@@ -97,4 +97,8 @@ public class LogicManager implements Logic {
     public ObservableMap<String, Integer> getObservableLikeData() {
         return model.getObservableLikeData();
     }
+
+    public void cleanUp() {
+        model.cleanMemeStorage();
+    }
 }

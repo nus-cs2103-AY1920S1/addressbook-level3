@@ -1,15 +1,18 @@
 package seedu.weme.testutil;
 
+import static seedu.weme.commons.util.FileUtil.MESSAGE_READ_FILE_FAILURE;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.weme.model.util.MemeUtil.copyMeme;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 
+import seedu.weme.commons.util.StringUtil;
 import seedu.weme.logic.commands.MemeAddCommand;
 import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.meme.Meme;
@@ -60,17 +63,28 @@ public class MemeUtil {
     }
 
     /**
-     * Similar to {@link seedu.weme.model.util.MemeUtil#copyMeme(Meme, Path)}, except this method deletes the copied
-     * image file immediately afterwards.
-     *
-     * @param toCopy       the {@code Meme} to copy
-     * @param memeLocation the meme image location
-     * @return a new {@code Meme} with the new {@code ImagePath}.
+     * Returns the SHA-1 hash of a given file as a String.
      */
-    public static Meme generateCopiedMeme(Meme toCopy, Path memeLocation) throws IOException {
-        Meme copied = copyMeme(toCopy, memeLocation);
-        Files.delete(copied.getFilePath().getFilePath());
-        return copied;
+    public static String generateSha1Hash(Path file) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            byte[] content = Files.readAllBytes(file);
+            return StringUtil.byteArrayToHex(digest.digest(content));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        } catch (IOException e) {
+            throw new IllegalArgumentException(String.format(MESSAGE_READ_FILE_FAILURE, file.toString()));
+        }
+    }
+
+    /**
+     * Returns true if {@code firstMeme} and {@code secondMeme} supplied have the same SHA-1 hash,
+     * and therefore the same contents.
+     */
+    public static boolean isSameMemeImage(Meme firstMeme, Meme secondMeme) {
+        return generateSha1Hash(firstMeme.getFilePath().getFilePath())
+                .equals(generateSha1Hash(secondMeme.getFilePath().getFilePath()));
     }
 
 }

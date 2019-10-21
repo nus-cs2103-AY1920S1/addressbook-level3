@@ -169,4 +169,9 @@ public interface Model {
      */
     void deleteLikesByMeme(Meme memeToDelete);
 
+
+    /**
+     * Clears the image data folder of any memes that are not referenced in weme.
+     */
+    void cleanMemeStorage();
 }

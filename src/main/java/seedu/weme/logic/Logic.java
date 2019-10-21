@@ -58,4 +58,9 @@ public interface Logic {
     LikeData getLikeData();
 
     ObservableMap<String, Integer> getObservableLikeData();
+
+    /**
+     * Handles any logic that needs to be done before exiting weme.
+     */
+    void cleanUp();
 }

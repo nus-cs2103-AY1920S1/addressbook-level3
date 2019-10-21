@@ -36,7 +36,11 @@ public class MemeUtil {
      */
     public static Path getNewImagePath(Path originalPath, Path memeLocation) {
         String extension = FileUtil.getExtension(originalPath).orElse("");
-        return memeLocation.resolve(FileUtil.hash(originalPath) + "." + extension);
+        Path newPath;
+        do {
+            newPath = memeLocation.resolve(FileUtil.generateUuidString() + "." + extension);
+        } while (FileUtil.isFileExists(newPath));
+        return newPath;
     }
 
 }

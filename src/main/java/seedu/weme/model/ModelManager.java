@@ -3,7 +3,13 @@ package seedu.weme.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -220,6 +226,24 @@ public class ModelManager implements Model {
     @Override
     public void deleteLikesByMeme(Meme meme) {
         statsEngine.deleteLikesByMeme(meme);
+    }
+
+    @Override
+    public void cleanMemeStorage() {
+        try {
+            Set<File> filesToKeep = new HashSet<>();
+            for (Meme meme : versionedMemeBook.getMemeList()) {
+                File file = meme.getFilePath().getFilePath().toFile();
+                filesToKeep.add(file);
+            }
+
+            Files.list(getMemeImagePath())
+                    .map(Path::toFile)
+                    .filter(file -> !filesToKeep.contains(file))
+                    .forEach(File::delete);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     @Override

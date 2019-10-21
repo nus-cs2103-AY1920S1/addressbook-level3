@@ -6,6 +6,7 @@ import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.weme.testutil.Assert.assertThrows;
+import static seedu.weme.testutil.MemeUtil.isSameMemeImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,37 @@ public class CommandTestUtil {
             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Special method for executing the given AddCommand, checks whether the final model contains the newly added meme.
+     * AddCommand requires a different test method as checking for model equality does not work anymore due to
+     * the command generating a different hash for the filename every time.
+     */
+    public static void assertAddCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
+            Meme expectedMeme) {
+        try {
+            int previousSize = actualModel.getFilteredMemeList().size();
+            CommandResult result = command.execute(actualModel);
+            List<Meme> actualFilteredList = new ArrayList<>(actualModel.getFilteredMemeList());
+            Meme addedMeme = actualFilteredList.get(actualFilteredList.size() - 1);
+
+            assertEquals(expectedCommandResult, result);
+            assertEquals(previousSize + 1, actualModel.getFilteredMemeList().size());
+            assertTrue(isSameMemeImage(expectedMeme, addedMeme));
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertAddCommandSuccess(Command, Model, CommandResult, Meme)} that takes
+     * a string {@code expectedMessage}.
+     */
+    public static void assertAddCommandSuccess(Command command, Model actualModel, String expectedMessage,
+            Meme expectedMeme) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertAddCommandSuccess(command, actualModel, expectedCommandResult, expectedMeme);
     }
 
     /**
