@@ -420,8 +420,8 @@ public class ModelManager implements Model {
     //=========== Cca Tracker ================================================================================
 
     @Override
-    public void contains(Cca cca) {
-
+    public boolean containsCca(Cca cca) {
+        return ccaTracker.containsCca(cca);
     }
 
     @Override
@@ -432,19 +432,14 @@ public class ModelManager implements Model {
 
     @Override
     public void removeCca(Cca cca) {
-
+        requireNonNull(cca);
+        ccaTracker.removeCca(cca);
     }
 
     @Override
     public void updateCca(Cca toBeUpdatedCca, Cca updatedCca) {
-
-    }
-
-    @Override
-    public boolean hasCca(Cca cca) {
-        requireNonNull(cca);
-
-        return ccaTracker.contains(cca);
+        requireAllNonNull(toBeUpdatedCca, updatedCca);
+        ccaTracker.updateCca(toBeUpdatedCca, updatedCca);
     }
 
     @Override
@@ -462,6 +457,17 @@ public class ModelManager implements Model {
         requireNonNull(index.getZeroBased());
         return ccaTracker.getCca(index);
     }
+
+    @Override
+    public void updateFilteredCcaList(Predicate<Cca> predicate) {
+        ccaTracker.updateFilteredCcaList(predicate);
+    };
+
+    @Override
+    public ObservableList<Cca> getFilteredCcaList() {
+        return ccaTracker.getFilteredCcaList();
+    }
+
 
     //=========== Planner =============================================================
 
@@ -547,8 +553,32 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addCourse(Course course) {
+        coursePlanner.addCourse(course);
+    }
+
+    @Override
+    public void addCourse(int zeroBasedIndex, Course course) {
+        coursePlanner.addCourse(zeroBasedIndex, course);
+    }
+
+    @Override
+    public void deleteCourse(Course course) {
+        coursePlanner.deleteCourse(course);
+    }
+
+    @Override
+    public boolean hasCourse(Course course) {
+        return coursePlanner.hasCourse(course);
+    }
+
+    @Override
+    public ObservableList<Course> getUnfilteredCourseList() {
+        return coursePlanner.getCourseList();
+    }
+
+    @Override
     public CoursePlanner getCoursePlanner() {
         return coursePlanner;
     }
-
 }

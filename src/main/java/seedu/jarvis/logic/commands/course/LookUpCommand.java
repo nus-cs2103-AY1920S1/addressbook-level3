@@ -3,8 +3,6 @@ package seedu.jarvis.logic.commands.course;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 
-import seedu.jarvis.commons.exceptions.CourseNotFoundException;
-import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -28,11 +26,8 @@ public class LookUpCommand extends Command {
         PREFIX_COURSE
     );
 
+    public static final String MESSAGE_SUCCESS = "Looked up %1$s";
     public static final String MESSAGE_NO_INVERSE = "The command " + COMMAND_WORD + " cannot be undone";
-
-    public static final String MESSAGE_COURSE_NOT_FOUND =
-        "%s: The given course could not be found!";
-
     public static final boolean HAS_INVERSE = false;
 
     private final Course toShow;
@@ -54,25 +49,14 @@ public class LookUpCommand extends Command {
 
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        try {
-            CourseUtil.getCourse(toShow.getCourseCode().toString());
-        } catch (CourseNotFoundException e) {
-            throw new CommandException(MESSAGE_COURSE_NOT_FOUND);
-        }
-
         model.lookUpCourse(toShow);
-
-        String toDisplay = toShow.toDisplayableString();
-
-        // TODO display a success instead of showing result via CommandResult
-        return new CommandResult(toDisplay);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toShow));
     }
 
     @Override
