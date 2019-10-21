@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.cli;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -17,7 +16,7 @@ public class BlockCurrentSemesterCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Block off the given semester, for reasons such as exchange, LOA, etc.\n. "
             + "Parameters: "
-            + PREFIX_SEMESTER + "SEMESTER ";
+            + "SEMESTER ";
 
     public static final String MESSAGE_SUCCESS = "Semester %1$s blocked";
 

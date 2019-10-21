@@ -2,8 +2,6 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -21,11 +19,11 @@ public class RemoveTagFromModuleCommand extends Command {
     public static final String COMMAND_WORD = "removetag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes the specified tag from the specified module "
-        + "Parameters: "
-        + PREFIX_MODULE_CODE + "MODULE_CODE "
-        + PREFIX_TAG + "TAG_NAME \n"
-        + "Example: "
-        + "remove m/CS3230 t/exchange";
+            + "Parameters: "
+            + "MODULE_CODE "
+            + "TAG_NAME \n"
+            + "Example: "
+            + "remove m/CS3230 t/exchange";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s removed from %2$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "The module %1$s does not have the tag [%2$s]";
@@ -36,7 +34,8 @@ public class RemoveTagFromModuleCommand extends Command {
 
     /**
      * Creates an {@code RemoveTagFromModuleCommand} to move a tag with the given name from the specified module.
-     * @param tagName The name of the tag.
+     *
+     * @param tagName    The name of the tag.
      * @param moduleCode The module code of the module from which the tag is to be deleted.
      */
 

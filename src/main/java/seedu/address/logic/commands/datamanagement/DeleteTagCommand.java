@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -17,10 +16,10 @@ public class DeleteTagCommand extends Command {
     public static final String COMMAND_WORD = "deletetag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Deletes the tag with the specified tag name "
-        + "Parameters: "
-        + PREFIX_TAG + "TAG_NAME \n"
-        + "Example: "
-        + "delete t/exchange";
+            + "Parameters: "
+            + "TAG_NAME \n"
+            + "Example: "
+            + "delete t/exchange";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been deleted";
     public static final String MESSAGE_TAG_NOT_FOUND = "There is no [%1$s] tag in this study plan";
@@ -30,6 +29,7 @@ public class DeleteTagCommand extends Command {
 
     /**
      * Creates an {@code DeleteTagCommand} to delete the tag with the given name.
+     *
      * @param tagName
      */
     public DeleteTagCommand(String tagName) {

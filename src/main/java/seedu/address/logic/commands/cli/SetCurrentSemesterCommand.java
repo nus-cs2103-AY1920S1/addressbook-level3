@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.cli;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -19,7 +18,7 @@ public class SetCurrentSemesterCommand extends Command {
             + "Semesters before the specified semester will be locked and therefore modules cannot"
             + " be added or removed from them.\n"
             + "Parameters: "
-            + PREFIX_SEMESTER + "SEMESTER\n";
+            + "SEMESTER\n";
 
     public static final String MESSAGE_SUCCESS = "Semester %1$s has been set as the current semester";
 
