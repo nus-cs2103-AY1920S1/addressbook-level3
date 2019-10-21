@@ -38,6 +38,7 @@ public class AutocorrectTextField extends TextField {
                 if (getText().length() == 0) {
                     suggestionsPopup.hide();
                 } else {
+                    //show the drop down
                     LinkedList<String> searchResult = new LinkedList<>();
                     searchResult.addAll(suggestions.subSet(getText(), getText() + Character.MAX_VALUE));
                     if (suggestions.size() > 0) {
@@ -89,4 +90,5 @@ public class AutocorrectTextField extends TextField {
         suggestionsPopup.getItems().addAll(menuItems);
 
     }
+
 }
