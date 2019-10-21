@@ -25,7 +25,7 @@ public class SetCommandParser implements Parser<SetCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG)
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
@@ -34,7 +34,7 @@ public class SetCommandParser implements Parser<SetCommand> {
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Budget newBudget = new Budget(budget, date);
+        Budget newBudget = new Budget(budget, date, tagList);
 
         return new SetCommand(newBudget);
 

@@ -1,5 +1,6 @@
 package seedu.address.model.transaction;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,16 +16,27 @@ public class Budget {
     private Date deadline;
     private boolean valid;
 
-    //Data fields
     private final Set<Tag> tags = new HashSet<>();
 
     public Budget() {
         this.valid = false;
     }
 
+    /**
+     * Constructor for Budget with no tags given.
+     * By default, tag is "general"
+     */
     public Budget(Amount amount, Date date) {
         this.amount = amount;
         this.deadline = date;
+        this.tags.add(new Tag("general"));
+        this.valid = true;
+    }
+
+    public Budget(Amount amount, Date date, Set<Tag> tags) {
+        this.amount = amount;
+        this.deadline = date;
+        this.tags.addAll(tags);
         this.valid = true;
     }
 
@@ -41,6 +53,11 @@ public class Budget {
     private Date getDeadline() {
         return this.deadline;
     }
+
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+
 
     public boolean isValid() {
         return this.valid;
