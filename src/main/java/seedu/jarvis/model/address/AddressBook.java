@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.UniquePersonList;
-import seedu.jarvis.model.financetracker.Purchase;
 
 /**
  * Wraps all data at the address-book level
@@ -120,11 +119,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Purchase> getPurchaseList() {
-        return null;
     }
 
     /**

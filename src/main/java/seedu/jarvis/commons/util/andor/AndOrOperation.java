@@ -1,10 +1,8 @@
 package seedu.jarvis.commons.util.andor;
 
 /**
- * @author ryanYtan
+ * An {@code enum} representing the different operations of the AndOrTree.
  */
 public enum AndOrOperation {
-    AND,
-    OR,
-    LEAF
+    AND, OR, DATA
 }

@@ -55,7 +55,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "Event: " + this.taskDes + " from " + this.start + " to " + this.end
-                + "\nPriority: " + priority + "\nFrequency: " + frequency + "\nTags:"
-                + getTags().toString();
+                + attributesString();
+
     }
 }

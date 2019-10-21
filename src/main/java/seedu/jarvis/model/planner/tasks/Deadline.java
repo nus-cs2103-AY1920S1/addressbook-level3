@@ -25,8 +25,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "Deadline: " + this.taskDes + " by " + this.deadline
-                + "\nPriority: " + priority + "\nFrequency: " + frequency + "\nTags:"
-                + getTags().toString();
+                + attributesString();
     }
 
     /**

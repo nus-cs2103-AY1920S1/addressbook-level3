@@ -2,41 +2,44 @@ package seedu.jarvis.model.financetracker;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.exceptions.NegativeLimitException;
+import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 
 /**
  * Manages the overall functionality of the Finance Tracker feature of JARVIS. The finance tracker manages purchases
  * spent by the user and instalments paid.
  */
 public class FinanceTracker {
-    private PurchaseList purchaseList;
-    private InstallmentList installmentList;
     private double monthlyLimit;
     private double totalSpending;
-    private final UniquePurchaseList purchases;
+
+    private final PurchaseList purchaseList;
     private final FilteredList<Purchase> filteredPurchases;
 
+    private final InstallmentList installmentList;
+    private final FilteredList<Installment> filteredInstallments;
+
     {
-        purchases = new UniquePurchaseList();
-        filteredPurchases = new FilteredList<>(getPurchasesList(), FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
+        purchaseList = new PurchaseList();
+        filteredPurchases = new FilteredList<>(getPurchaseList(), FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
+        installmentList = new InstallmentList();
+        filteredInstallments = new FilteredList<>(getInstallmentList(),
+                FinanceTrackerModel.PREDICATE_SHOW_ALL_INSTALLMENTS);
     }
 
     /**
      * Constructs an empty FinanceTracker to store data from the user.
      */
     public FinanceTracker() {
-        purchaseList = new PurchaseList(new ArrayList<>());
-        installmentList = new InstallmentList(new ArrayList<>());
-        monthlyLimit = 0;
+
     }
 
     //=========== Reset Methods ==================================================================================
@@ -48,7 +51,7 @@ public class FinanceTracker {
      * @param financeTracker {@code HistoryManager} whose data this {@code HistoryManager} is taking reference from.
      */
     public FinanceTracker(FinanceTracker financeTracker) {
-        this();
+        requireNonNull(financeTracker);
         resetData(financeTracker);
     }
 
@@ -59,64 +62,64 @@ public class FinanceTracker {
      */
     public void resetData(FinanceTracker financeTracker) {
         requireNonNull(financeTracker);
-        this.purchaseList = new PurchaseList(financeTracker.getPurchaseList());
-        this.installmentList = new InstallmentList(financeTracker.getInstallmentList());
+        setPurchaseList(financeTracker.getPurchaseList());
+        setInstallmentList(financeTracker.getInstallmentList());
+    }
+
+    //=========== Purchase List =======================================================================
+
+    // ========== Setter Methods ======================================================================
+
+    public void setPurchaseList(List<Purchase> purchaseList) {
+        requireNonNull(purchaseList);
+
+        this.purchaseList.setPurchases(purchaseList);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
-     */
-    public void resetData(ReadOnlyAddressBook newData) {
-        requireNonNull(newData);
-
-        setPurchases(newData.getPurchaseList());
-        filteredPurchases.setPredicate(FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
-    }
-
-    //=========== Setter Methods ==================================================================================
-
-    public void setPurchaseList(PurchaseList purchaseList) {
-        this.purchaseList = purchaseList;
-    }
-
-    public void setInstallmentList(InstallmentList installmentList) {
-        this.installmentList = installmentList;
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given purchase {@code target} in the list with {@code editedPurchase}.
+     * {@code target} must exist in the finance tracker.
+     * The identity of {@code editedPurchase} must not be the same as another existing purchase in the finance tracker.
      */
     public void setPurchase(Purchase target, Purchase editedPurchase) {
         requireNonNull(editedPurchase);
 
-        purchases.setPurchase(target, editedPurchase);
+        purchaseList.setPurchase(target, editedPurchase);
     }
 
-    //=========== Getter Methods ==================================================================================
+    //=========== Getter Methods ======================================================================
 
     public Purchase getPurchase(int paymentIndex) {
         return purchaseList.getPurchase(paymentIndex);
     }
 
-    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
-        return installmentList.getInstallment(instalIndex);
+    public int getNumPurchases() {
+        return purchaseList.getNumPurchases();
     }
 
-    public double getMonthlyLimit() {
-        return monthlyLimit;
+    /**
+     * Returns the purchase list.
+     */
+    public ObservableList<Purchase> getPurchaseList() {
+        return purchaseList.asUnmodifiableObservableList();
     }
 
-    public PurchaseList getPurchaseList() {
-        return purchaseList;
+    /**
+     * Returns an unmodifiable view of the list of {@code Purchase} backed by its internal list.
+     */
+    public ObservableList<Purchase> getFilteredPurchaseList() {
+        return filteredPurchases;
     }
 
-    public ArrayList<Installment> getInstallmentList() {
-        return installmentList.getAllInstallments();
+    /**
+     * Updates {@code Predicate} to be applied to filter {@code filteredPurchases}.
+     */
+    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+        requireNonNull(predicate);
+        filteredPurchases.setPredicate(predicate);
     }
 
-    //=========== Purchase List Command Methods =======================================================================
+    //=========== Command Methods =====================================================================
 
     /**
      * Adds single use payment.
@@ -132,7 +135,7 @@ public class FinanceTracker {
      *
      * @param itemNumber of payment to be deleted
      */
-    public Purchase deleteSinglePurchase(int itemNumber) {
+    public Purchase deleteSinglePurchase(int itemNumber) throws PurchaseNotFoundException {
         return purchaseList.deletePurchase(itemNumber);
     }
 
@@ -145,30 +148,30 @@ public class FinanceTracker {
         return purchaseList.getNumPurchases();
     }
 
-    //=========== Installment List Command Methods ====================================================================
+    //=========== Installment List ====================================================================
 
-    /**
-     * Adds instalment.
-     *
-     * @param installment to be added to the finance tracker
-     */
-    public void addInstallment(Installment installment) {
-        installmentList.addInstallment(installment);
-    }
+    //=========== Setter Methods ======================================================================
 
-    public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
-        return installmentList.deleteInstallment(instalNumber);
+    public void setInstallmentList(List<Installment> installmentList) {
+        requireNonNull(installmentList);
+
+        this.installmentList.setInstallments(installmentList);
     }
 
     /**
-     * Deletes instalment.
-     *
-     * @param installmentNumber of instalment to be deleted
-     * @param description to be edited
-     * @param value to be edited
+     * Replaces the installment {@code target} in the list with {@code editedInstallment}.
+     * {@code target} must exist in the list.
+     * The identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * list.
      */
-    public void editInstallment(int installmentNumber, String description, double value) {
-        installmentList.editInstallment(installmentNumber, description, value);
+    public void setInstallment(Installment target, Installment editedInstallment) {
+        installmentList.setInstallment(target, editedInstallment);
+    }
+
+    //=========== Getter Methods ======================================================================
+
+    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
+        return installmentList.getInstallment(instalIndex);
     }
 
     /**
@@ -181,6 +184,53 @@ public class FinanceTracker {
     }
 
     /**
+     * Returns the installment list.
+     */
+    public ObservableList<Installment> getInstallmentList() {
+        return installmentList.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Purchase} backed by its internal list.
+     */
+    public ObservableList<Installment> getFilteredInstallmentList() {
+        return filteredInstallments;
+    }
+
+    /**
+     * Updates {@code Predicate} to be applied to filter {@code filteredPurchases}.
+     */
+    public void updateFilteredInstallmentList(Predicate<Installment> installment) {
+        requireNonNull(installment);
+        filteredInstallments.setPredicate(installment);
+    }
+
+    //=========== Command Methods =====================================================================
+
+    /**
+     * Adds installment.
+     *
+     * @param installment to be added to the finance tracker
+     */
+    public void addInstallment(Installment installment) {
+        installmentList.addInstallment(installment);
+    }
+
+    public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
+        return installmentList.deleteInstallment(instalNumber);
+    }
+
+    public boolean hasInstallment(Installment installment) {
+        return installmentList.hasInstallment(installment);
+    }
+
+    //=========== General Finance Tracker =============================================================
+
+    public double getMonthlyLimit() {
+        return monthlyLimit;
+    }
+
+    /**
      * Sets the monthly limit for spending.
      *
      * @param limit
@@ -188,9 +238,8 @@ public class FinanceTracker {
     public void setMonthlyLimit(double limit) {
         if (limit < 0) {
             throw new NegativeLimitException();
-        } else {
-            monthlyLimit = limit;
         }
+        monthlyLimit = limit;
     }
 
     /**
@@ -198,6 +247,7 @@ public class FinanceTracker {
      */
     public void listSpending() {
         totalSpending = purchaseList.totalSpending() + installmentList.getTotalMoneySpentOnInstallments();
+        System.out.println("Here are your expenditures this month! Your current expenses are at: $" + totalSpending);
         installmentList.toString();
         purchaseList.toString();
     }
@@ -210,40 +260,5 @@ public class FinanceTracker {
                 || (other instanceof FinanceTracker // instanceof handles nulls
                 && purchaseList.equals(((FinanceTracker) other).purchaseList)
                 && installmentList.equals(((FinanceTracker) other).installmentList));
-    }
-
-    /**
-     * Replaces the contents of the person list with {@code purchases}.
-     * {@code purchases} must not contain duplicate purchases.
-     */
-    public void setPurchases(List<Purchase> purchases) {
-        this.purchases.setPurchases(purchases);
-    }
-
-
-    public ObservableList<Purchase> getPurchasesList() {
-        return purchases.asUnmodifiableObservableList();
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Purchase} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    public ObservableList<Purchase> getFilteredPurchaseList() {
-        return filteredPurchases;
-    }
-
-    /**
-     * Updates {@code filteredPurchases} according to the give {@code Predicate}.
-     *
-     * @param predicate {@code Predicate} to be applied to filter {@code filteredPurchases}.
-     */
-    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
-        requireNonNull(predicate);
-        filteredPurchases.setPredicate(predicate);
-    }
-
-    public boolean hasInstallment(Installment installment) {
-        return installmentList.hasInstallment(installment);
     }
 }

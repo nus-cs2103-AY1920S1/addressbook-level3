@@ -97,4 +97,33 @@ class EventTest {
         assertEquals(0, testCal.compareTo(testEvent.getEndDate()));
     }
 
+    @Test
+    void toString_withAllAttributesPresent() {
+        LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
+        LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
+        Event testEvent = new Event("borrow book", start, end);
+
+        testEvent.addFrequency(Frequency.WEEKLY);
+        testEvent.addPriority(Priority.HIGH);
+        testEvent.addTag(new Tag("school"));
+
+        String expected = "Event: borrow book from 2019-10-18 to 2019-10-19\nPriority: HIGH\nFrequency: WEEKLY"
+                           + "\nTags: [[school]]";
+
+        assertEquals(expected, testEvent.toString());
+
+    }
+
+    @Test
+    void toString_withNoAttributesPresent() {
+        LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
+        LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
+        Event testEvent = new Event("borrow book", start, end);
+
+        String expected = "Event: borrow book from 2019-10-18 to 2019-10-19";
+
+        assertEquals(expected, testEvent.toString());
+
+    }
+
 }

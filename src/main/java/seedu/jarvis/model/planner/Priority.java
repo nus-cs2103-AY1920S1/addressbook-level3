@@ -13,6 +13,10 @@ public enum Priority {
 
     public static final String MESSAGE_CONSTRAINTS = "Priority levels can only have the following values:\n"
                                                        + "'high', 'med' or 'low'";
+    public static final String PRIORITY_HIGH = "high";
+    public static final String PRIORITY_MED = "med";
+    public static final String PRIORITY_LOW = "low";
+
 
     /**
      * Returns if a given test is a valid Priority level
@@ -20,7 +24,7 @@ public enum Priority {
      * @return true if it is a valid Priority level, and false if it is not
      */
     public static boolean isValidPriority(String test) {
-        return test.equals("high") || test.equals("med") || test.equals("low");
+        return test.equals(PRIORITY_HIGH) || test.equals(PRIORITY_MED) || test.equals(PRIORITY_LOW);
     }
 
 }

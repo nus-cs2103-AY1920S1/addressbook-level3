@@ -66,5 +66,9 @@ public class JsonHistoryManagerStorageTest {
         assertThrows(DataConversionException.class, () -> readHistoryManager("notJsonFormatHistoryManager.json"));
     }
 
+    @Test
+    public void saveHistoryManager_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveAddressBook(new HistoryManager(), null));
+    }
 
 }

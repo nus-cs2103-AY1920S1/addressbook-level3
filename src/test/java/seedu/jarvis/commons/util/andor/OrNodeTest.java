@@ -3,47 +3,68 @@ package seedu.jarvis.commons.util.andor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.testutil.course.CourseTestUtil.CHILDREN;
-import static seedu.jarvis.testutil.course.CourseTestUtil.CourseStub;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.course.Course;
+class OrNodeTest {
+    private static final String EXPECTED_REPRESENTATION = OrNode.STRING_REPRESENTATION;
 
-public class OrNodeTest {
-    private static final List<Course> COLLECTION_PASSES_REQUIREMENTS_SINGLE = List.of(
-        new CourseStub("aaa")
+    private static final String[] EXAMPLE_CHILDREN = {
+        "aaa",
+        "bbb",
+        "ccc",
+        "ddd"
+    };
+
+    private static final List<String> COLLECTION_PASSES_REQUIREMENTS_SINGLE = List.of(
+        "aaa"
     );
 
-    private static final List<Course> COLLECTION_PASSES_REQUIREMENTS_MULTIPLE = List.of(
-        new CourseStub("aaa"),
-        new CourseStub("fff"),
-        new CourseStub("ggg")
+    private static final List<String> COLLECTION_PASSES_REQUIREMENTS_MULTIPLE = List.of(
+        "aaa",
+        "ccc",
+        "ddd"
     );
 
-    private static final List<Course> COLLECTION_FAILS_REQUIREMENTS = List.of(
-        new CourseStub("zzz"),
-        new CourseStub("yyy")
+    private static final List<String> COLLECTION_FAILS_REQUIREMENTS = List.of(
+        "zzz",
+        "yyy"
     );
 
-    @Test
-    public void hasFulfilledCondition_validInput_returnsTrue() {
-        OrNode or = new OrNode(null, null, CHILDREN);
-        assertTrue(() -> or.hasFulfilledCondition(COLLECTION_PASSES_REQUIREMENTS_SINGLE));
-        assertTrue(() -> or.hasFulfilledCondition(COLLECTION_PASSES_REQUIREMENTS_MULTIPLE));
+    private final OrNode<String> orNode = new OrNode<>();
+
+    @BeforeEach
+    public void initNode() {
+        for (String s : EXAMPLE_CHILDREN) {
+            orNode.insert(s);
+        }
     }
 
     @Test
-    public void hasFulfilledCondition_invalidInput_returnsFalse() {
-        OrNode or = new OrNode(null, null, CHILDREN);
-        assertFalse(() -> or.hasFulfilledCondition(COLLECTION_FAILS_REQUIREMENTS));
+    public void fulfills_oneMatch_returnsTrue() {
+        assertTrue(orNode.fulfills(COLLECTION_PASSES_REQUIREMENTS_SINGLE));
     }
 
     @Test
-    public void toString_returnsStringForm() {
-        assertEquals("one of",
-                new OrNode(null, null, null).toString());
+    public void fulfills_multipleMatch_returnsTrue() {
+        assertTrue(orNode.fulfills(COLLECTION_PASSES_REQUIREMENTS_MULTIPLE));
+    }
+
+    @Test
+    public void fulfills_noneMatch_returnsFalse() {
+        assertFalse(orNode.fulfills(COLLECTION_FAILS_REQUIREMENTS));
+    }
+
+    @Test
+    public void type_returnsCorrectType() {
+        assertEquals(orNode.type(), AndOrOperation.OR);
+    }
+
+    @Test
+    public void toString_returnsRepresentation() {
+        assertEquals(orNode.toString(), EXPECTED_REPRESENTATION);
     }
 }

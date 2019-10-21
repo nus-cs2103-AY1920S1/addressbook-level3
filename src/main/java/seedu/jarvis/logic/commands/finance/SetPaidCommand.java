@@ -8,14 +8,14 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 
 /**
  * Adds a purchase to the finance tracker.
  */
-public class PaidCommand extends Command {
+public class SetPaidCommand extends Command {
 
-    public static final String COMMAND_WORD = "paid";
+    public static final String COMMAND_WORD = "add-paid";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a payment to the finance tracker. "
             + "Parameters: "
@@ -37,7 +37,7 @@ public class PaidCommand extends Command {
     /**
      * Creates a {@code PaidCommand} to add the specified (@code Purchase}.
      */
-    public PaidCommand(Purchase purchase) {
+    public SetPaidCommand(Purchase purchase) {
         requireNonNull(purchase);
         toAdd = purchase;
     }
@@ -85,7 +85,7 @@ public class PaidCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PaidCommand // instanceof handles nulls
-                && toAdd.equals(((PaidCommand) other).toAdd));
+                || (other instanceof SetPaidCommand // instanceof handles nulls
+                && toAdd.equals(((SetPaidCommand) other).toAdd));
     }
 }

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
 import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.testutil.InstallmentBuilder;
+import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 public class SetInstallmentCommandParserTest {
 

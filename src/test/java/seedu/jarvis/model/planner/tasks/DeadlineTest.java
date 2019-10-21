@@ -74,4 +74,29 @@ class DeadlineTest {
         Deadline d = new Deadline("homework", due);
         assertEquals(due, d.getDueDate());
     }
+
+    @Test
+    void toString_withAllAttributesPresent() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+        d.addPriority(Priority.LOW);
+        d.addFrequency(Frequency.MONTHLY);
+        d.addTag(new Tag("school"));
+        d.addTag(new Tag("cs"));
+
+        String expected = "Deadline: homework by 2019-10-10\nPriority: LOW\nFrequency: MONTHLY"
+                            + "\nTags: [[cs], [school]]";
+
+        assertEquals(expected, d.toString());
+    }
+
+    @Test
+    void toString_withNoAttributesPresent() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        String expected = "Deadline: homework by 2019-10-10";
+
+        assertEquals(expected, d.toString());
+    }
 }

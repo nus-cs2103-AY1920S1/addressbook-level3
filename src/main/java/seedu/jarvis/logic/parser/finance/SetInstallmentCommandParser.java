@@ -37,9 +37,14 @@ public class SetInstallmentCommandParser implements Parser<SetInstallmentCommand
                     SetInstallmentCommand.MESSAGE_USAGE));
         }
 
-        InstallmentDescription description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION)
-                .get());
-        InstallmentMoneyPaid subscriptionFee = ParserUtil.parseMoneySpent(argMultimap.getValue(PREFIX_MONEY).get());
+        InstallmentDescription description = ParserUtil
+                .parseDescription(argMultimap
+                        .getValue(PREFIX_DESCRIPTION)
+                        .get());
+        InstallmentMoneyPaid subscriptionFee = ParserUtil
+                .parseMoneySpent(argMultimap
+                        .getValue(PREFIX_MONEY)
+                        .get());
 
         Installment installment = new Installment(description, subscriptionFee);
 

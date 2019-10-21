@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.financetracker.purchase;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,10 +6,10 @@ import static java.util.Objects.requireNonNull;
  * Purchase object stores a single payment including its details such as the description and the money spent.
  */
 public class Purchase {
-    private String description;
-    private double moneySpent;
+    private PurchaseDescription description;
+    private PurchaseMoneySpent moneySpent;
 
-    public Purchase(String description, double moneySpent) {
+    public Purchase(PurchaseDescription description, PurchaseMoneySpent moneySpent) {
         requireNonNull(description);
         this.description = description;
         this.moneySpent = moneySpent;
@@ -34,11 +34,11 @@ public class Purchase {
 
     //=========== Getter Methods ==================================================================================
 
-    public String getDescription() {
+    public PurchaseDescription getDescription() {
         return description;
     }
 
-    public double getMoneySpent() {
+    public PurchaseMoneySpent getMoneySpent() {
         return moneySpent;
     }
 
@@ -54,7 +54,7 @@ public class Purchase {
         return other == this // short circuit if same object
                 || (other instanceof Purchase // instanceof handles nulls
                 && description.equals(((Purchase) other).description)
-                && moneySpent == ((Purchase) other).moneySpent);
+                && moneySpent.equals(((Purchase) other).moneySpent));
     }
 
     public boolean isSamePurchase(Purchase purchase) {
