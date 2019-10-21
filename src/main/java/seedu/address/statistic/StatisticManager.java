@@ -50,8 +50,6 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList());
 
         listOfMonthlyProfit.stream().forEach(x -> series.getData().add(x));
-        //*****to remove when merging*********
-        //series.getData().forEach(x -> System.out.println(x));
         return series;
     }
 
@@ -76,8 +74,6 @@ public class StatisticManager implements Statistic {
                 .collect(Collectors.toList());
 
         listOfMonthlyRevenue.stream().forEach(x -> series.getData().add(x));
-        //*****to remove when merging*********
-        //series.getData().forEach(x -> System.out.println(x));
         return series;
     }
 
@@ -102,8 +98,6 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList());
 
         listOfMonthlyCost.stream().forEach(x -> series.getData().add(x));
-        //*****to remove when merging*********
-        //series.getData().forEach(x -> System.out.println(x));
         return series;
     }
 
