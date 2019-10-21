@@ -243,7 +243,11 @@ Allow users to get a recommendation from the application, based on the current b
 as well as the available food items entries. This also takes into account the
 user's likes and dislikes (see below).
 
+****
 Format: `recommend`
+****
+[NOTE]
+To clear the recommendations, use the `list` or `add` commands.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -251,63 +255,118 @@ ifdef::env-github[| :white_check_mark: a| The list of recommendations will be sh
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown.]
 |===
 
-[NOTE]
-To clear the recommendations, use the `list` or `add` commands.
-
 ==== Adding Likes and Dislikes
 Users can specify their liked and disliked categories, tags and/or locations. The
 recommendation system (as mentioned above) will then be able to generate more
 accurate recommendations with your preferences.
 
+[TIP]
 Users can provide multiple categories, tags and/or locations with each command.
 To list the user's likes and dislikes, use the command without providing any arguments.
 
-The user's likes and dislikes will be saved into the hard disk for their convenience.
+[NOTE]
+You cannot add what you have already liked into your current dislikes,
+and vice versa. The user's likes and dislikes will be also saved into the hard disk
+for their convenience.
 
 *To list likes/dislikes*:
 
-Format: `like` or `dislike`.
+****
+*Format*: `like` or `dislike`.
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of liked and disliked categories, tags and locations will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of liked and disliked categories, tags and locations will be shown.]
+|===
 
 *To add likes*:
 
-Format: `like c/CATEGORY t/TAG l/LOCATION`
+****
+*Format*: `like c/CATEGORY t/TAG l/LOCATION` +
+*Example*: `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+****
 
-Example: `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be added.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be added.]
+|===
 
 *To add dislikes*:
 
-Format: `dislike c/Chinese c/Western t/Healthy l/Univeristy Town`
+****
+*Format*: `dislike c/Chinese c/Western t/Healthy l/Univeristy Town` +
+*Example*: `dislike c/International t/Spicy l/The Deck l/The Terrace`
+****
 
-Example: `dislike c/International t/Spicy l/The Deck l/The Terrace`
-
-[NOTE]
-You cannot add what you have already liked into your current dislikes,
-and vice versa.
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be added.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be added.]
+|===
 
 ==== Removing Likes and Dislikes
 Users are able to remove their previously added likes and dislikes (if they exist)
-from the system. Using the command without providing any arguments clears the user's
-like or dislike list.
+from the system.
+
+[NOTE]
+Users can provide multiple categories, tags and/or locations with each command.
+
+[WARNING]
+To remove all likes or dislikes, use the command without providing any arguments.
+Only use the command if you are sure that you want to clear your likes and dislikes!
 
 *To remove likes*:
 
-Format: `removelike c/CATEGORY t/TAG l/LOCATION`
+****
+*Format*: `removelike c/CATEGORY t/TAG l/LOCATION` +
+*Example*: `removelike c/Japanese t/Spicy t/Healthy l/The Tea Party`
+****
 
-Example: `removelike c/Japanese t/Spicy t/Healthy l/The Tea Party`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be removed.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be removed.]
+|===
 
 *To remove dislikes*:
 
-Format: `removedislike c/CATEGORY t/TAG l/LOCATION`
+****
+*Format*: `removedislike c/CATEGORY t/TAG l/LOCATION` +
+*Example*: `removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
+****
 
-Example: `removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be removed.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be removed.]
+|===
 
 *To remove all likes*:
 
-Format: `removelike`
+****
+*Format*: `removelike`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be cleared.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be cleared.]
+|===
 
 *To remove all dislikes*:
 
-Format: `removedislike`
+****
+*Format*: `removedislike`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be cleared.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be cleared.]
+|===
 
 == Frequently Asked Questions
 
