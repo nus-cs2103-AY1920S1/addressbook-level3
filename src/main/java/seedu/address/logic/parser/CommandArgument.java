@@ -42,12 +42,12 @@ public class CommandArgument extends PrefixPosition {
             return false;
         }
         CommandArgument that = (CommandArgument) o;
-        return value.equals(that.value);
+        return super.equals(o) && value.equals(that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(super.hashCode(), value);
     }
 
     @Override

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
@@ -197,6 +198,24 @@ public class ArgumentTokenizer {
 
         public Prefix getPrefix() {
             return prefix;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            PrefixPosition that = (PrefixPosition) o;
+            return startPosition == that.startPosition
+                    && prefix.equals(that.prefix);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(prefix, startPosition);
         }
     }
 
