@@ -114,7 +114,7 @@ public class InviteCommand extends Command {
             activityToInviteTo.invite(id);
         }
 
-        model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
+        activityToInviteTo.updateContextAndView(model);
 
         return new CommandResult(String.format(MESSAGE_RESULT, messageInvited, messageNotInvited));
     }
