@@ -47,6 +47,10 @@ public class CalendarGridDay extends UiPart<Region> {
         return dayMonthYear;
     }
 
+    public void otherMonths() {
+        calendarDay.setStyle("-fx-opacity: " + 0.25);
+    }
+
     private void colorChange() {
         ColorAdjust colorAdjust = new ColorAdjust();
         if(this.totalEvents == 0) {

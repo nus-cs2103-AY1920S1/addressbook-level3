@@ -1,7 +1,6 @@
 package seedu.address.ui.panel.calendar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javafx.concurrent.Task;
@@ -94,7 +93,11 @@ public class TimelineDayView extends TimelineView {
      * @param year Represents the year of the timeline.
      * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
      */
-    public TimelineDayView(Integer day, Integer month, Integer year, UiParser uiParser) {
+    public TimelineDayView(Integer day,
+                           Integer month,
+                           Integer year,
+                           List<EventSource> eventList,
+                           UiParser uiParser) {
         super(FXML);
         this.uiParser = uiParser;
         this.day = day;
@@ -104,6 +107,7 @@ public class TimelineDayView extends TimelineView {
 
         this.timelineTitle.setText("Timeline: " + uiParser.getEnglishDate(day, month, year));
         addTimeBoxes();
+        eventChange(eventList);
     }
 
     /**

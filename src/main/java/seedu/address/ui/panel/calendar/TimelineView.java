@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class TimelineView extends UiPart<Region> {
 
     static final Integer SPACING = 62;
-    static final Integer TIMING = 25;
+    static final Integer TIMING = 10;
 
     public TimelineView(String FXML) {
         super(FXML);

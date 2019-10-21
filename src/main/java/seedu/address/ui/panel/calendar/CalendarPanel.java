@@ -1,6 +1,7 @@
 package seedu.address.ui.panel.calendar;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -26,6 +27,7 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
     private TimelineView timelineView;
     private Details details;
     private Instant date;
+    private List<EventSource> eventList;
 
     @FXML
     private StackPane timelinePlaceholder;
@@ -46,10 +48,11 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
         super(FXML);
         this.uiParser = uiParser;
         this.date = Instant.now();
+        this.eventList = new ArrayList<>();
 
         Integer[] dayMonthYear = uiParser.getDateToNumbers(this.date);
         this.calendarScreen = new CalendarScreen(dayMonthYear[1], dayMonthYear[2], uiParser);
-        this.timelineView = new TimelineDayView(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2], uiParser);
+        this.timelineView = new TimelineDayView(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2], eventList, uiParser);
         this.details = new Details(uiParser);
 
         timelinePlaceholder.getChildren().add(this.timelineView.getRoot()); // Left
@@ -62,6 +65,7 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
         calendarScreenPlaceholder.getChildren().clear();
         calendarScreen = new CalendarScreen(month, year, uiParser);
         calendarScreenPlaceholder.getChildren().add(calendarScreen.getRoot());
+        calendarScreen.eventChange(eventList);
     }
 
     public void resizeTimelineView() {
@@ -71,14 +75,14 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
     public void changeToDayView(int day, int month, int year) {
         changeCalendarScreenDate(month, year);
         timelinePlaceholder.getChildren().clear();
-        timelineView = new TimelineDayView(day, month, year, uiParser);
+        timelineView = new TimelineDayView(day, month, year, eventList, uiParser);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
     public void changeToWeekView(int week, int month, int year) {
         changeCalendarScreenDate(month, year);
         timelinePlaceholder.getChildren().clear();
-        this.timelineView = new TimelineWeekView(week, month, year, calendarScreen.getStartingDay(week), uiParser);
+        this.timelineView = new TimelineWeekView(week, month, year, calendarScreen.getStartingDay(week), eventList, uiParser);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
@@ -86,5 +90,6 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
     public void onEventListChange(List<EventSource> events) {
         this.timelineView.eventChange(events);
         this.calendarScreen.eventChange(events);
+        this.eventList = events;
     }
 }

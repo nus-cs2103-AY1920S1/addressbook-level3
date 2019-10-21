@@ -75,6 +75,7 @@ public class CalendarScreen extends UiPart<Region> {
 
     private void resetCurrentNextMonth() {
         // Adds Current Month Calendar.
+        boolean nextMonth = false;
         int index = 1;
         int startingDay = this.localDate.withDayOfMonth(1).getDayOfWeek().getValue();
         int totalDays = this.yearMonth.lengthOfMonth();
@@ -86,12 +87,25 @@ public class CalendarScreen extends UiPart<Region> {
                 }
                 if (index > totalDays) {
                     index = 1;  // Resets to next month.
+                    nextMonth = true;
                 }
-                CalendarGridDay calendarGridDay = new CalendarGridDay(index, month, year, 0);
-                calendarGrid.add(calendarGridDay.getRoot(), days, weeks);
-                weekList.get(weeks).add(calendarGridDay);
-                dayIndexList.add(calendarGridDay);
-                index++;
+                if(!nextMonth) {
+                    CalendarGridDay calendarGridDay = new CalendarGridDay(index, month, year, 0);
+                    calendarGrid.add(calendarGridDay.getRoot(), days, weeks);
+                    weekList.get(weeks).add(calendarGridDay);
+                    dayIndexList.add(calendarGridDay);
+                    index++;
+                } else {
+                    CalendarGridDay calendarGridDay = new CalendarGridDay(
+                            index, uiParser.getNextMonth(month), uiParser.getNextYear(month, year), 0);
+                    calendarGrid.add(calendarGridDay.getRoot(), days, weeks);
+                    calendarGridDay.otherMonths();
+                    weekList.get(weeks).add(calendarGridDay);
+                    dayIndexList.add(calendarGridDay);
+                    index++;
+
+                }
+
             }
         }
     }
@@ -106,6 +120,7 @@ public class CalendarScreen extends UiPart<Region> {
         while(startingDay <= days) {
             CalendarGridDay calendarGridDay = new CalendarGridDay(previousMonthDay, previousMonth, previousYear, 0);
             calendarGrid.add(calendarGridDay.getRoot(), startingDay, 0);
+            calendarGridDay.otherMonths();
             weekList.get(0).add(calendarGridDay);
             startingDay++;
             previousMonthDay++;

@@ -45,7 +45,12 @@ public class TimelineWeekView extends TimelineView {
      * @param year Represents the year of the timeline.
      * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
      */
-    public TimelineWeekView(Integer week, Integer month, Integer year, Integer[][] days, UiParser uiParser) {
+    public TimelineWeekView(Integer week,
+                            Integer month,
+                            Integer year,
+                            Integer[][] days,
+                            List<EventSource> eventList,
+                            UiParser uiParser) {
         super(FXML);
         this.uiParser = uiParser;
         this.week = week;
@@ -56,6 +61,7 @@ public class TimelineWeekView extends TimelineView {
 
         this.timelineTitle.setText("Timeline: " + uiParser.getEnglishWeekDate(week, month, year));
         addEventCardHolders();
+        eventChange(eventList);
     }
 
     private boolean sameWeek(EventSource event) {
@@ -96,7 +102,8 @@ public class TimelineWeekView extends TimelineView {
         eventCardHolder.addEvent(eventCard);
 
         // Set Constraints for the grid pane
-        RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventIndex);
+        System.out.println(eventIndex);
+        RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventIndex - 1);
 
         Task<Void> sleeper = new Task<Void>() {
             @Override
@@ -111,7 +118,7 @@ public class TimelineWeekView extends TimelineView {
         sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-                rowConstraints.setPrefHeight(eventCardHolder.getHeight() + SPACING);
+                resizeTimelineView();
             }
         });
         new Thread(sleeper).start();
