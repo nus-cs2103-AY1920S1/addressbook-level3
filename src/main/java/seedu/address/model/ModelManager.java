@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -44,6 +45,7 @@ public class ModelManager implements Model {
         filteredFlashCards = new FilteredList<>(this.addressBook.getFlashcardList());
         filteredDeadlines = new FilteredList<>(this.addressBook.getDeadlineList());
         categoryList = new FilteredList<>(this.addressBook.getCategoryList());
+        flashCardTestModel = new FlashCardTestModel(new LinkedList<>());
     }
 
     public ModelManager() {
@@ -269,7 +271,8 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredFlashCards.equals(other.filteredFlashCards)
                 && categoryList.equals(other.categoryList)
-                && filteredDeadlines.equals(other.filteredDeadlines);
+                && filteredDeadlines.equals(other.filteredDeadlines)
+                && flashCardTestModel.equals(other.flashCardTestModel);
     }
 
 }
