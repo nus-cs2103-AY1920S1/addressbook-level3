@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.aesthetics.Colour;
 
 /**
  * Represents User's preferences.
@@ -60,6 +61,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    //=========== User List =============================================================
+
     public Path getUserListFilePath() {
         return userListFilePath;
     }
@@ -69,9 +72,26 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.userListFilePath = userListFilePath;
     }
 
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public Colour getFontColour() {
+        return new Colour(this.guiSettings.getFontColour());
+    }
+
+    public void setFontColour(Colour fontColour) {
+        requireNonNull(fontColour);
+        this.guiSettings.setFontColour(fontColour);
+    }
+
+    //=========== Food Map =============================================================
+
+
     public Path getFoodListFilePath() {
         return foodListFilePath;
     }
+
+    //=========== Records =============================================================
 
     public Path getRecordListFilePath() {
         return recordListFilePath;
@@ -84,7 +104,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setRecordListFilePath(Path recordListFilePath) {
         this.recordListFilePath = recordListFilePath;
     }
-
 
     @Override
     public boolean equals(Object other) {

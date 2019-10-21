@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
@@ -133,6 +134,13 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<User> getFilteredUserList() {
         return model.getFilteredUserList();
+    }
+
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public Colour getFontColour() {
+        return model.getFontColour();
     }
 
 }

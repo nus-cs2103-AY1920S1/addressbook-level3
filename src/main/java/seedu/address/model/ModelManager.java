@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
@@ -272,6 +273,18 @@ public class ModelManager implements Model {
     }
 
 
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public Colour getFontColour() {
+        return userPrefs.getFontColour();
+    }
+
+    @Override
+    public void setFontColour(Colour fontColour) {
+        userPrefs.setFontColour(fontColour);
+    }
+
     //=========== Food Map =============================================================
 
     //addFood() Function
@@ -362,13 +375,6 @@ public class ModelManager implements Model {
     public void updateFilteredRecordList(Predicate<Record> predicate) {
         requireNonNull(predicate);
         filteredRecordList.setPredicate(predicate);
-    }
-
-    //=========== Aesthetics =============================================================
-
-    @Override
-    public void setFontColour(String colour) {
-        return colour;
     }
 
 }

@@ -1,8 +1,10 @@
 package seedu.address.commons.core;
 
-import java.awt.Point;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
+
+import seedu.address.model.aesthetics.Colour;
 
 /**
  * A Serializable class that contains the GUI settings. Guarantees: immutable.
@@ -11,20 +13,25 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 740;
+    private static final String DEFAULT_FONT_COLOUR = "white";
 
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
+    private String fontColour;
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
+        fontColour = DEFAULT_FONT_COLOUR;
     }
 
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition,
+                       Colour fontColour) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
+        this.fontColour = fontColour.toString();
         windowCoordinates = new Point(xPosition, yPosition);
     }
 
@@ -38,6 +45,14 @@ public class GuiSettings implements Serializable {
 
     public Point getWindowCoordinates() {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
+    }
+
+    public String getFontColour() {
+        return fontColour;
+    }
+
+    public void setFontColour(Colour fontColour) {
+        this.fontColour = fontColour.toString();
     }
 
     @Override

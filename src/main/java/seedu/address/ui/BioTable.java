@@ -38,9 +38,9 @@ public class BioTable extends UiPart<Region> {
     public BioTable() {
         super(FXML);
         field.setCellValueFactory(new PropertyValueFactory<String, String>("field"));
-        setFontColourToColumn(field, "yellow");
+//        setFontColourToColumn(field, "yellow");
         data.setCellValueFactory(new PropertyValueFactory<String, String>("data"));
-        setFontColourToColumn(data, "red");
+//        setFontColourToColumn(data, "red");
         tableView.setSelectionModel(null);
         list = FXCollections.observableArrayList();
         FIELD_LABELS.forEach(fieldLabel -> list.add(new BioTableFieldDataPair(fieldLabel, "")));

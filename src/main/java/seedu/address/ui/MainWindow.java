@@ -2,8 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
@@ -79,6 +77,8 @@ public class MainWindow extends UiPart<Stage> {
         mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
         themeManager = new ThemeManager(scene);
+        setFontColour(logic.getGuiSettings());
+
     }
 
     public Stage getPrimaryStage() {
@@ -139,22 +139,20 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        try {
-            System.out.println(themeManager.getThemeNameToStyleSheetPathMap());
-            themeManager.createNewStyleSheet();
-            System.out.println(themeManager.getThemeNameToStyleSheetPathMap());
-        } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            resultDisplay.setFeedbackToUser(sw.toString());
+//        try {
+//            themeManager.setFontColour("blue");
+//        } catch (Exception e) {
+//            StringWriter sw = new StringWriter();
+//            PrintWriter pw = new PrintWriter(sw);
+//            e.printStackTrace(pw);
+//            resultDisplay.setFeedbackToUser(sw.toString());
 //            InputStream is = this.getClass().getResourceAsStream("/view/DarkTheme.css");
 //            try {
 //                resultDisplay.setFeedbackToUser(new String(is.readAllBytes(), StandardCharsets.UTF_8));
 //            } catch (IOException ex) {
 //                resultDisplay.setFeedbackToUser("IO Exception" + ex);
 //            }
-        }
+//        }
 
 //        ObservableList<String> styleSheets = scene.getStylesheets();
 //        String darkThemeUri = styleSheets.get(0);
@@ -194,6 +192,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the font colour based on {@code guiSettings}.
+     * @param guiSettings
+     */
+    private void setFontColour(GuiSettings guiSettings) {
+        themeManager.setFontColour(guiSettings.getFontColour());
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -208,7 +214,9 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the main display pane to the specified UI part.
      */
     public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
-        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated) {
+        if (displayPaneType == DisplayPaneType.COLOUR) {
+            setFontColour(logic.getGuiSettings());
+        } else if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated) {
             mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
@@ -226,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -252,6 +260,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
                 return commandResult;
+
             } else {
                 try {
                     switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getnewPaneIsToBeCreated());
