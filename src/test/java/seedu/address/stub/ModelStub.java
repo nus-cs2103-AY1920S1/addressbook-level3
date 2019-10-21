@@ -21,22 +21,32 @@ import seedu.address.model.person.Person;
  */
 public class ModelStub implements Model {
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void setInternalState(InternalState internalState) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public InternalState getInternalState() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setContext(Context context) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Context getContext() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyUserPrefs getUserPrefs() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -96,16 +106,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public Path getActivityBookFilePath() {
         throw new AssertionError("This method should not be called.");
     }
@@ -140,12 +140,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setContext(Context context) {
+    public ObservableList<Person> getFilteredPersonList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public Context getContext() {
+    public void updateFilteredPersonList(Predicate<? super Person> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredActivityList(Predicate<? super Activity> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 }

@@ -2,31 +2,33 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.activity.Activity;
 
 /**
  * Wrapper for all the activities stored by this application.
  */
+public class ActivityBook implements ReadOnlyActivityBook {
 
-public class ActivityBook {
-
-    private final ArrayList<Activity> activityList;
+    private final ObservableList<Activity> activityList = FXCollections.observableArrayList();
+    private final ObservableList<Activity> unmodifiableActivityList;
 
     public ActivityBook() {
-        activityList = new ArrayList<Activity>();
+        unmodifiableActivityList = FXCollections.unmodifiableObservableList(activityList);
     }
 
     /**
      * Creates an ActivityBook using the Activities in the {@code previousActivityBook}
      */
     public ActivityBook(ActivityBook previousActivityBook) {
-        activityList = previousActivityBook.getActivityList();
+        activityList.addAll(previousActivityBook.getActivityList());
+        unmodifiableActivityList = previousActivityBook.getActivityList();
     }
 
-    //// list overwrite operations
+    // ================ List overwrite operations ================
 
     /**
      * Replaces the contents of the activity list with {@code activityList}.
@@ -44,11 +46,13 @@ public class ActivityBook {
         setActivities(newData.getActivityList());
     }
 
-    //// activity-level operations
+    // ================ Activity-level operations ================
+
     /**
      * Adds an activity to the activity book.
      */
     public void addActivity(Activity a) {
+        requireNonNull(a);
         activityList.add(a);
     }
 
@@ -79,15 +83,19 @@ public class ActivityBook {
         }
     }
 
-    //// util methods
+    // ================ Utility methods ================
 
     @Override
     public String toString() {
         return activityList.size() + " activities";
     }
 
-    public ArrayList<Activity> getActivityList() {
-        return this.activityList;
+    /**
+     * Returns the backing list of activities as an unmodifiable {@code ObservableList}.
+     */
+    @Override
+    public ObservableList<Activity> getActivityList() {
+        return unmodifiableActivityList;
     }
 
     @Override

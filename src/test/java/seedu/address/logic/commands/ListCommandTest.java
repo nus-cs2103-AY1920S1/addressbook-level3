@@ -22,6 +22,7 @@ public class ListCommandTest {
 
     private Model model;
     private Model expectedModel;
+    private String expectedMessage;
 
     @BeforeEach
     public void setUp() {
@@ -29,18 +30,19 @@ public class ListCommandTest {
                 getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+        expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, "contacts");
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListCommand(CommandSubType.CONTACT),
-                model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+                model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListCommand(CommandSubType.CONTACT),
-                model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+                model, expectedMessage, expectedModel);
     }
 }

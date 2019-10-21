@@ -94,7 +94,7 @@ public class Activity {
 
     @Override
     public String toString() {
-        return String.format("Activity \"%s\"\n", title);
+        return String.format("Activity \"%s\"", title);
     }
 
     @Override

@@ -12,6 +12,8 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.activity.Activity;
 
 public class ActivityBookTest {
@@ -49,18 +51,21 @@ public class ActivityBookTest {
     }
 
     /**
-     * A stub ReadOnlyActivityBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyActivityBook whose activity list can violate interface constraints.
      */
     private static class ActivityBookStub extends ActivityBook {
-        private final ArrayList<Activity> activityList = new ArrayList<Activity>();
+        private final ObservableList<Activity> activityList =
+                FXCollections.observableArrayList();
+        private final ObservableList<Activity> unmodifiableActivityList =
+                FXCollections.unmodifiableObservableList(activityList);
 
         ActivityBookStub(Collection<Activity> activities) {
             this.activityList.addAll(activities);
         }
 
         @Override
-        public ArrayList<Activity> getActivityList() {
-            return activityList;
+        public ObservableList<Activity> getActivityList() {
+            return unmodifiableActivityList;
         }
     }
 

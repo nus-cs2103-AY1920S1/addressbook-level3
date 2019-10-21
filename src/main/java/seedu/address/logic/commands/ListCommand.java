@@ -3,9 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import seedu.address.logic.CommandSubType;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -21,7 +22,8 @@ public class ListCommand extends Command {
             + "Parameters: " + PREFIX_CONTACT + " OR " + PREFIX_ACTIVITY + "\n"
             + "Example: list " + PREFIX_CONTACT;
 
-    public static final String MESSAGE_SUCCESS = "Listed all contacts";
+    public static final String MESSAGE_SUCCESS = "Listed all %s";
+    public static final String MESSAGE_UNKNOWN_LIST_TYPE = "List command has unknown type!";
 
     private final CommandSubType type;
 
@@ -31,10 +33,19 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        switch (this.type) {
+        case CONTACT:
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_ENTRIES);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "contacts"));
+        case ACTIVITY:
+            model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ENTRIES);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "activities"));
+        default:
+            throw new CommandException(MESSAGE_UNKNOWN_LIST_TYPE);
+        }
     }
 
     @Override

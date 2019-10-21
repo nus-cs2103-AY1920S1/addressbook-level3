@@ -26,11 +26,16 @@ public class ModelManager implements Model {
     private final ActivityBook activityBook;
     private final UserPrefs userPrefs;
     private final InternalState internalState;
+
+    // Lists of person or activity entries to display
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Activity> filteredActivities;
+
+    // Describes the nature of the content currently being displayed
     private Context context;
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs and internalState.
+     * Initializes a ModelManager with the given addressBook, userPrefs, internalState and activityBook.
      */
     public ModelManager(
             ReadOnlyAddressBook addressBook,
@@ -46,7 +51,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.activityBook = new ActivityBook(activityBook);
         this.internalState = new InternalState(internalState);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        filteredPersons = new FilteredList<Person>(this.addressBook.getPersonList());
+        filteredActivities = new FilteredList<Activity>(this.activityBook.getActivityList());
         context = new Context();
     }
 
@@ -54,18 +61,7 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
     }
 
-    //=========== Context ====================================================
-    @Override
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    @Override
-    public Context getContext() {
-        return context;
-    }
-
-    //=========== UserPrefs ====================================================
+    // =========== Internal model state ============================================================
 
     @Override
     public void setInternalState(InternalState internalState) {
@@ -78,7 +74,19 @@ public class ModelManager implements Model {
         return internalState;
     }
 
-    //=========== UserPrefs ====================================================
+    // =========== Context =========================================================================
+
+    @Override
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public Context getContext() {
+        return context;
+    }
+
+    // =========== UserPrefs =======================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -119,7 +127,7 @@ public class ModelManager implements Model {
         userPrefs.setActivityBookFilePath(activityBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    // =========== AddressBook =====================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -151,7 +159,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
@@ -161,7 +169,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //=========== ActivityBook================== =============================================================
+    // =========== ActivityBook ====================================================================
 
     @Override
     public Path getActivityBookFilePath() {
@@ -195,7 +203,7 @@ public class ModelManager implements Model {
         activityBook.setActivity(target, editedActivity);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    // =========== Filtered Person List Accessors ==================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -207,10 +215,29 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<? super Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    // =========== Filtered Activity List Accessors ================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Activity} backed by the internal list of
+     * {@code versionedActivityBook}
+     */
+    @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        return filteredActivities;
+    }
+
+    @Override
+    public void updateFilteredActivityList(Predicate<? super Activity> predicate) {
+        requireNonNull(predicate);
+        filteredActivities.setPredicate(predicate);
+    }
+
+    // =========== Overridden Java methods =========================================================
 
     @Override
     public boolean equals(Object obj) {
@@ -230,7 +257,8 @@ public class ModelManager implements Model {
                 && activityBook.equals(other.activityBook)
                 && userPrefs.equals(other.userPrefs)
                 && internalState.equals(other.internalState)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredActivities.equals(other.filteredActivities);
     }
 
 }
