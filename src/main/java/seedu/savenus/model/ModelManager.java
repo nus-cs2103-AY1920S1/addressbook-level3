@@ -21,6 +21,11 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.FoodFilter;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.Savings;
+//import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -34,13 +39,16 @@ public class ModelManager implements Model {
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
-    private final ObservableList<Purchase> purchaseHistory;
-    private final RecommendationSystem recommendationSystem;
+    private final PurchaseHistory purchaseHistory;
+    private final CustomSorter customSorter;
+    private boolean autoSortFlag;
+    //private final SavingsAccount savingsAccount;
 
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
      */
-    public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
+                        ReadOnlyPurchaseHistory purchaseHistory, CustomSorter customSorter) {
         super();
         requireAllNonNull(menu, userPrefs);
 
@@ -49,13 +57,16 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
-        purchaseHistory = this.menu.getPurchaseHistory();
+        // savingsAccount = new SavingsAccount();
 
-        this.recommendationSystem = new RecommendationSystem();
+        this.purchaseHistory = new PurchaseHistory(purchaseHistory);
+        this.customSorter = customSorter;
+        this.autoSortFlag = false;
+        RecommendationSystem.getInstance().setUserRecommendations(userRecs);
     }
 
     public ModelManager() {
-        this(new Menu(), new UserPrefs());
+        this(new Menu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(), new CustomSorter());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -91,6 +102,17 @@ public class ModelManager implements Model {
     public void setMenuFilePath(Path menuFilePath) {
         requireNonNull(menuFilePath);
         userPrefs.setMenuFilePath(menuFilePath);
+    }
+
+    @Override
+    public Path getPurchaseHistoryFilePath() {
+        return userPrefs.getPurchaseHistoryFilePath();
+    }
+
+    @Override
+    public void setPurchaseHistoryFilePath(Path menuFilePath) {
+        requireNonNull(menuFilePath);
+        userPrefs.setPurchaseHistoryFilePath(menuFilePath);
     }
 
     //=========== Menu ================================================================================
@@ -137,24 +159,29 @@ public class ModelManager implements Model {
     //=========== PurchaseHistory Methods =========================================================================
 
     @Override
+    public ReadOnlyPurchaseHistory getPurchaseHistory() {
+        return purchaseHistory;
+    }
+
+    @Override
     public void addPurchase(Purchase target) {
-        menu.addPurchase(target);
+        purchaseHistory.addPurchase(target);
     }
 
     @Override
     public void removePurchase(Purchase target) {
-        menu.removePurchase(target);
+        purchaseHistory.removePurchase(target);
     }
 
-    //=========== Filtered Purchase List Accessors =============================================================
+    //=========== PurchaseHistory List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the {@code PurchaseHistory} backed by the internal list of
      * {@code versionedMenu}
      */
     @Override
-    public ObservableList<Purchase> getPurchaseHistory() {
-        return purchaseHistory;
+    public ObservableList<Purchase> getPurchaseHistoryList() {
+        return purchaseHistory.getPurchaseHistoryList();
     }
 
     //=========== Wallet Accessors =========================================================================
@@ -197,7 +224,7 @@ public class ModelManager implements Model {
     @Override
     public void buyFood(Food foodToBuy) throws CommandException {
         requireNonNull(foodToBuy);
-        menu.getWallet().pay(foodToBuy.getPrice());
+        menu.getWallet().deduct(foodToBuy.getPrice());
     }
 
     //=========== Filtered Food List Accessors =============================================================
@@ -209,8 +236,8 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Food> getFilteredFoodList() {
         return filteredFoods
-                .filtered(recommendationSystem.getRecommendationPredicate())
-                .sorted(recommendationSystem.getRecommendationComparator());
+                .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
+                .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
     }
 
 
@@ -226,50 +253,103 @@ public class ModelManager implements Model {
         filteredFoods.setPredicate(new FoodFilter(fieldList));
     }
 
+    //=========== CustomSorter ========================================================================
+
+    @Override
+    public void setCustomSorter(List<String> fields) {
+        customSorter.setComparator(fields);
+    }
+
+    @Override
+    public CustomSorter getCustomSorter() {
+        return customSorter;
+    }
+
+    @Override
+    public void setAutoSortFlag(boolean autoSortFlag) {
+        this.autoSortFlag = autoSortFlag;
+    }
+
+    @Override
+    public boolean getAutoSortFlag() {
+        return this.autoSortFlag;
+    }
+
     //=========== Recommendation System =============================================================
     @Override
     public RecommendationSystem getRecommendationSystem() {
-        return recommendationSystem;
+        return RecommendationSystem.getInstance();
     }
 
     @Override
     public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
         requireNonNull(recommendationComparator);
-        this.recommendationSystem.setRecommendationComparator(recommendationComparator);
+        RecommendationSystem.getInstance().setRecommendationComparator(recommendationComparator);
     }
 
     @Override
     public void updateRecommendationPredicate(Predicate<Food> recommendationPredicate) {
         requireNonNull(recommendationPredicate);
-        this.recommendationSystem.setRecommendationPredicate(recommendationPredicate);
+        RecommendationSystem.getInstance().setRecommendationPredicate(recommendationPredicate);
     }
 
     @Override
     public void setRecommendationSystemInUse(boolean inUse) {
-        this.recommendationSystem.setInUse(inUse);
+        RecommendationSystem.getInstance().setInUse(inUse);
     }
 
     @Override
     public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         requireAllNonNull(categoryList, tagList, locationList);
-        recommendationSystem.addLikes(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().addLikes(categoryList, tagList, locationList);
     }
 
     @Override
     public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         requireAllNonNull(categoryList, tagList, locationList);
-        recommendationSystem.addDislikes(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().addDislikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().removeLikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().removeDislikes(categoryList, tagList, locationList);
     }
 
     @Override
     public void clearLikes() {
-        recommendationSystem.clearLikes();
+        RecommendationSystem.getInstance().clearLikes();
     }
 
     @Override
     public void clearDislikes() {
-        recommendationSystem.clearDislikes();
+        RecommendationSystem.getInstance().clearDislikes();
     }
+
+    @Override
+    public void addToSavings(Savings savings) {
+        // TODO @fatclarence
+    }
+
+    @Override
+    public void deductFromWallet(Savings savings) throws CommandException {
+        requireNonNull(savings);
+        menu.getWallet().deduct(savings);
+    }
+
+    /**
+     * TODO @fatclarence
+     */
+    //    @Override
+    //    public SavingsAccount getSavingsAccount() {
+    //        return null;
+    //    }
 
     @Override
     public boolean equals(Object obj) {
@@ -292,6 +372,6 @@ public class ModelManager implements Model {
 
     @Override
     public List<String> getCommandHistory() {
-        return CommandHistory.getCommandHistory();
+        return CommandHistory.getInstance().getCommandHistory();
     }
 }

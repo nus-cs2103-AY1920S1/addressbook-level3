@@ -2,7 +2,6 @@ package seedu.savenus.model.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -27,17 +26,6 @@ public class TimeFormatter {
     public static long getDaysAgo(LocalDateTime startTimeInLocalDateTime, LocalDateTime endTimeInLocalDateTime) {
         LocalDate inputTimeInLocalDate = startTimeInLocalDateTime.toLocalDate();
         return ChronoUnit.DAYS.between(inputTimeInLocalDate, endTimeInLocalDateTime);
-    }
-
-    /**
-     * Format input duration into timeAgo format.
-     * i.e. 0 for same month, 1 for last month ...
-     * @param inputTimeInLocalDateTime Input time
-     */
-    public static long getMonthsAgo(LocalDateTime inputTimeInLocalDateTime) {
-        LocalDate now = LocalDateTime.now(ZoneId.systemDefault()).toLocalDate();
-        LocalDate inputTimeInLocalDate = inputTimeInLocalDateTime.toLocalDate();
-        return ChronoUnit.MONTHS.between(inputTimeInLocalDate, now);
     }
 
     /**

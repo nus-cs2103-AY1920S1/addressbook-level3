@@ -63,15 +63,6 @@
     "openingHours": "0900 1700",
     "restrictions": "Halal"
   } ],
-  "purchases" : [ {
-    "purchasedFoodName" : "Ji Fan",
-    "purchasedFoodPrice" : "3.99",
-    "timeOfPurchaseInMillisSinceEpochString" : "1570976664361"
-  }, {
-    "purchasedFoodName" : "Wagyu steak",
-    "purchasedFoodPrice" : "50.00",
-    "timeOfPurchaseInMillisSinceEpochString" : "1570976665687"
-  } ],
   "wallet" : {
     "remainingBudget" : "abc",
     "daysToExpire" : "def"

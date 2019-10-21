@@ -10,9 +10,10 @@ import java.util.stream.Collectors;
 
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
-import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
+import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.tag.Tag;
 
 /**
@@ -34,11 +35,13 @@ public class PreferenceCommand extends Command {
     public final Set<Tag> tagList;
     public final Set<Location> locationList;
 
+    private final boolean isList;
+
     /**
      * Creates an PreferenceCommand to add the user's recommendations
      */
-    public PreferenceCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
-        requireAllNonNull(categoryList, tagList, locationList);
+    public PreferenceCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList, boolean isList) {
+        requireAllNonNull(categoryList, tagList, locationList, isList);
 
         // Convert all to lowercase
         this.categoryList = categoryList.stream()
@@ -47,6 +50,8 @@ public class PreferenceCommand extends Command {
                 .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet());
         this.locationList = locationList.stream()
                 .map(l -> new Location(l.location.toLowerCase())).collect(Collectors.toSet());
+
+        this.isList = isList;
     }
 
     @Override
@@ -61,65 +66,51 @@ public class PreferenceCommand extends Command {
      * @param isLike True if adding likes or false if adding dislikes
      * @return A success message including the list of likes and dislikes
      */
-    public CommandResult execute(Model model, boolean isLike) throws CommandException {
+    public CommandResult execute(Model model, boolean isLike, boolean isList) throws CommandException {
         StringBuilder result = new StringBuilder();
 
         RecommendationSystem recommendationSystem = model.getRecommendationSystem();
+        UserRecommendations userRecommendations = recommendationSystem.getUserRecommendations();
 
-        if (isLike) {
+        if (isLike && !isList) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (recommendationSystem.getDislikedCategories().stream().anyMatch(categoryList::contains)
-                    || recommendationSystem.getDislikedLocations().stream().anyMatch(locationList::contains)
-                    || recommendationSystem.getDislikedTags().stream().anyMatch(tagList::contains)) {
+            if (userRecommendations.getDislikedCategories().stream().anyMatch(categoryList::contains)
+                    || userRecommendations.getDislikedLocations().stream().anyMatch(locationList::contains)
+                    || userRecommendations.getDislikedTags().stream().anyMatch(tagList::contains)) {
                 throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
             }
 
             model.addLikes(categoryList, tagList, locationList);
-            result.append(" Liked: ");
-        } else {
+            result.append("Liked: ");
+        } else if (!isLike && !isList) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (recommendationSystem.getLikedCategories().stream().anyMatch(categoryList::contains)
-                    || recommendationSystem.getLikedLocations().stream().anyMatch(locationList::contains)
-                    || recommendationSystem.getLikedTags().stream().anyMatch(tagList::contains)) {
+            if (userRecommendations.getLikedCategories().stream().anyMatch(categoryList::contains)
+                    || userRecommendations.getLikedLocations().stream().anyMatch(locationList::contains)
+                    || userRecommendations.getLikedTags().stream().anyMatch(tagList::contains)) {
                 throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
             }
 
             model.addDislikes(categoryList, tagList, locationList);
-            result.append(" Disliked: ");
+            result.append("Disliked: ");
         }
 
-        String addedItems = "Categories: " + categoryList.stream()
+        if (!isList) {
+            String addedItems = "Categories: " + categoryList.stream()
                     .map(c -> c.category).collect(Collectors.joining(", "))
-                + " | Tags: " + tagList.stream()
+                    + " | Tags: " + tagList.stream()
                     .map(t -> t.tagName).collect(Collectors.joining(", "))
-                + " | Locations: " + locationList.stream()
+                    + " | Locations: " + locationList.stream()
                     .map(l -> l.location).collect(Collectors.joining(", ")) + "\n";
 
-        result.append(addedItems);
+            result.append(addedItems);
+        }
 
-        String currentItems = "Current likes:"
-                + " Categories: " + recommendationSystem.getLikedCategories()
-                    .stream().map(c -> c.category)
-                    .collect(Collectors.joining(", "))
-                + " | Tags: " + recommendationSystem.getLikedTags()
-                    .stream().map(t -> t.tagName)
-                    .collect(Collectors.joining(", "))
-                + " | Locations: " + recommendationSystem.getLikedLocations()
-                    .stream().map(l -> l.location)
-                    .collect(Collectors.joining(", "))
-                + "\nCurrent dislikes:"
-                + " Categories: " + recommendationSystem.getDislikedCategories()
-                    .stream().map(c -> c.category)
-                    .collect(Collectors.joining(", "))
-                + " | Tags: " + recommendationSystem.getDislikedTags()
-                    .stream().map(t -> t.tagName)
-                    .collect(Collectors.joining(", "))
-                + " | Locations: " + recommendationSystem.getDislikedLocations()
-                    .stream().map(l -> l.location)
-                    .collect(Collectors.joining(", "));
+        result.append(userRecommendations.toString());
 
-        result.append(currentItems);
-
-        return new CommandResult(MESSAGE_SUCCESS + result);
+        if (!isList) {
+            return new CommandResult(MESSAGE_SUCCESS + " " + result);
+        } else {
+            return new CommandResult(result.toString());
+        }
     }
 }

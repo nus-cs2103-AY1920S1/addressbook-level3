@@ -6,13 +6,16 @@ import java.util.Optional;
 
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends MenuStorage, UserPrefsStorage {
+public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, PurchaseHistoryStorage, CustomSortStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -28,5 +31,49 @@ public interface Storage extends MenuStorage, UserPrefsStorage {
 
     @Override
     void saveMenu(ReadOnlyMenu menu) throws IOException;
+
+    @Override
+    Path getRecsFilePath();
+
+    @Override
+    Optional<UserRecommendations> readRecs() throws DataConversionException, IOException;
+
+    @Override
+    Optional<UserRecommendations> readRecs(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void saveRecs(UserRecommendations recs) throws IOException;
+
+    @Override
+    void saveRecs(UserRecommendations recs, Path filePath) throws IOException;
+
+    @Override
+    Path getPurchaseHistoryFilePath();
+
+    @Override
+    Optional<ReadOnlyPurchaseHistory> readPurchaseHistory() throws DataConversionException, IOException;
+
+    @Override
+    Optional<ReadOnlyPurchaseHistory> readPurchaseHistory(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory) throws IOException;
+
+    @Override
+    void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException;
+
+    Path getSortFilePath();
+
+    @Override
+    Optional<CustomSorter> readFields() throws DataConversionException, IOException;
+
+    @Override
+    Optional<CustomSorter> readFields(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void saveFields(CustomSorter sorter) throws IOException;
+
+    @Override
+    void saveFields(CustomSorter sorter, Path filePath) throws IOException;
 
 }

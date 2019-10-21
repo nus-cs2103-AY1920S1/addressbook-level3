@@ -17,8 +17,8 @@ public class OpeningHours implements Field {
 
     // The first character must not be a whitespace. Otherwise " " becomes a valid input.
     // The format is exactly HHMM HHMM.
-    public static final String VALIDATION_REGEX = "\\d{4} \\d{4}";
-
+    public static final String VALIDATION_REGEX = "([0-1][0-9][0-5][0-9]|[0-2][0-3][0-5][0-9]|2400) "
+        + "([0-1][0-9][0-5][0-9]|[0-2][0-3][0-5][0-9]|2400)";
     public final String openingHours;
 
     /**
@@ -41,7 +41,9 @@ public class OpeningHours implements Field {
         if (hours.equals(OpeningHours.DEFAULT_VALUE)) {
             return true;
         } else {
-            return hours.matches(VALIDATION_REGEX);
+            String[] separateHours = hours.split(" ");
+            return hours.matches(VALIDATION_REGEX)
+                    && separateHours[0].compareTo(separateHours[1]) <= 0;
         }
     }
 

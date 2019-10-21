@@ -10,9 +10,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.AddCommand;
+import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
+import seedu.savenus.logic.commands.CollapseCommand;
+import seedu.savenus.logic.commands.CustomSortCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.commands.DislikeCommand;
@@ -26,8 +29,13 @@ import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
+import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.logic.commands.PreferenceCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
+import seedu.savenus.logic.commands.RemoveDislikeCommand;
+import seedu.savenus.logic.commands.RemoveLikeCommand;
+import seedu.savenus.logic.commands.RemovePreferenceCommand;
+import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
 /**
@@ -37,11 +45,14 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://github.com/AY1920S1"
             + "-CS2103T-F13-2/main/blob/master/docs/UserGuide.adoc";
-    public static final String HELP_MESSAGE = "Here are the list of available commands:\n\n"
+    public static final String HELP_MESSAGE = "Here is the list of available commands:\n\n"
             + AddCommand.COMMAND_WORD + "\n"
+            + AutoSortCommand.COMMAND_WORD + "\n"
             + BudgetCommand.COMMAND_WORD + "\n"
             + BuyCommand.COMMAND_WORD + "\n"
             + ClearCommand.COMMAND_WORD + "\n"
+            + CollapseCommand.COMMAND_WORD + "\n"
+            + CustomSortCommand.COMMAND_WORD + "\n"
             + DefaultCommand.COMMAND_WORD + "\n"
             + DeleteCommand.COMMAND_WORD + "\n"
             + DislikeCommand.COMMAND_WORD + "\n"
@@ -55,10 +66,14 @@ public class HelpWindow extends UiPart<Stage> {
             + InfoCommand.COMMAND_WORD + "\n"
             + LikeCommand.COMMAND_WORD + "\n"
             + ListCommand.COMMAND_WORD + "\n"
-            + PreferenceCommand.COMMAND_WORD + "\n"
+            + MakeSortCommand.COMMAND_WORD + "\n"
             + RecommendCommand.COMMAND_WORD + "\n"
+            + RemoveDislikeCommand.COMMAND_WORD + "\n"
+            + RemoveLikeCommand.COMMAND_WORD + "\n"
+            + SaveCommand.COMMAND_WORD + "\n"
             + SortCommand.COMMAND_WORD + "\n\n"
-            + "Click the user guide button below to open to full user guide.";
+            + "Click the user guide button below to open to full user guide.\n"
+            + "You would need internet connection to open the user guide.";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -80,6 +95,7 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         root.initStyle(StageStyle.UNDECORATED);
+        root.centerOnScreen();
         helpMessage.setText(HELP_MESSAGE);
     }
 

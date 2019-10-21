@@ -16,12 +16,14 @@ import static seedu.savenus.testutil.TypicalMenu.CHICKEN_RICE;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.logic.commands.CommandResult;
@@ -30,10 +32,16 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
+import seedu.savenus.storage.JsonCustomSortStorage;
 import seedu.savenus.storage.JsonMenuStorage;
+import seedu.savenus.storage.JsonPurchaseHistoryStorage;
+import seedu.savenus.storage.JsonRecsStorage;
 import seedu.savenus.storage.JsonUserPrefsStorage;
 import seedu.savenus.storage.StorageManager;
 import seedu.savenus.testutil.FoodBuilder;
@@ -50,10 +58,17 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMenuStorage addressBookStorage =
+        JsonMenuStorage menuStorage =
                 new JsonMenuStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("userPrefs-recs.json"));
+        JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(temporaryFolder
+                .resolve("userPrefs-purchases.json"));
+        JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
+                temporaryFolder.resolve("userPrefs-sort.json")
+        );
+        StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
+                purchaseHistoryStorage, customSortStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -78,11 +93,18 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonMenuIoExceptionThrowingStub
-        JsonMenuStorage addressBookStorage =
+        JsonMenuStorage menuStorage =
                 new JsonMenuIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMenu.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("ioExceptionUserRecs.json"));
+        JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(temporaryFolder
+                .resolve("ioExceptionPurchaseHistory.json"));
+        JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
+                temporaryFolder.resolve("ioExceptionUserRecs.json")
+        );
+        StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
+                purchaseHistoryStorage, customSortStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -108,8 +130,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getPurchaseHistory_successfulGet() {
-        assertTrue(logic.getPurchaseHistory() instanceof ObservableList);
+    public void getPurchaseHistoryList_successfulGet() {
+        assertTrue(logic.getPurchaseHistoryList() instanceof ObservableList);
     }
 
     @Test
@@ -127,6 +149,25 @@ public class LogicManagerTest {
         Logic newLogic = logic;
         logic.setGuiSettings(logic.getGuiSettings());
         assertEquals(logic, newLogic);
+    }
+
+    @Test
+    public void autoSortFlag_tests() {
+        Logic newLogic = logic;
+        assertEquals(newLogic.getAutoSortFlag(), false);
+    }
+
+    @Test
+    public void customSorter_tests() {
+        CustomSorter sorter = new CustomSorter();
+        assertEquals(logic.getCustomSorter(), sorter);
+    }
+
+    @Test
+    public void setFoods_success() {
+        logic.setFoods(new ArrayList<Food>());
+        ObservableList<Food> foodList = new SortedList<Food>(logic.getFilteredFoodList());
+        assertEquals(foodList, logic.getFilteredFoodList());
     }
 
     /**
@@ -165,7 +206,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
+                new PurchaseHistory(), new CustomSorter());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

@@ -5,7 +5,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -14,10 +16,18 @@
   </icons>
   <scene>
     <Scene stylesheets="@DarkTheme.css">
-         <VBox spacing="10.0">
+         <VBox spacing="10.0" styleClass="help-window" stylesheets="@DarkTheme.css">
             <children>
-               <Label fx:id="helpMessage" text="Label" />
-               <Button fx:id="openButton" mnemonicParsing="false" onAction="#openUrl" text="User Guide" />
+               <Label fx:id="helpMessage" styleClass="help-text" stylesheets="@DarkTheme.css" text="Label">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+               <HBox spacing="20.0">
+                  <children>
+                     <Button fx:id="openButton" mnemonicParsing="false" onAction="#openUrl" prefHeight="40.0" prefWidth="135.0" styleClass="help-button" stylesheets="@DarkTheme.css" text="User Guide" />
+                     <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" prefHeight="40.0" prefWidth="135.0" styleClass="help-button" stylesheets="@DarkTheme.css" text="Close" />
+                  </children>
+               </HBox>
             </children>
             <padding>
                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />

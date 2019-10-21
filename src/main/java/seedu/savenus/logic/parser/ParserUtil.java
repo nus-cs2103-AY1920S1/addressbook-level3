@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.commons.util.StringUtil;
 import seedu.savenus.logic.commands.BudgetCommand;
+import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
@@ -19,6 +20,7 @@ import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
+import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -42,6 +44,30 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String} into a {@code Saving}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if given {@code String} is invalid.
+     */
+    public static BigDecimal parseSavings(String savingsAmount) throws ParseException {
+        String trimmedSavingsString = savingsAmount.trim();
+        String[] splitSavingsString = trimmedSavingsString.split("\\s+");
+        if (splitSavingsString.length != 1
+            || !Savings.isValidSaving(splitSavingsString[0])) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+        }
+
+        /** if there is already a specified number of cents return the String with decimal
+         * else have to manually add to the string to parse into BigDecimal.
+         */
+
+
+        return new BigDecimal(splitSavingsString[0].contains(".")
+                ? splitSavingsString[0]
+                : String.format("%s.00", splitSavingsString[0]));
     }
 
     /**

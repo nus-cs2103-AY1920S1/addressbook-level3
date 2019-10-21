@@ -14,6 +14,10 @@ import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.savings.Savings;
+//import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -93,10 +97,38 @@ public interface Model {
     void setFoods(List<Food> list);
 
     /**
+     * Simply sets the auto-sort flag.
+     * @param autoSortFlag the auto-sort flag.
+     */
+    void setAutoSortFlag(boolean autoSortFlag);
+
+    /**
+     * Gets the auto-sort flag.
+     * @return the auto-sort flag as a boolean value.
+     */
+    boolean getAutoSortFlag();
+
+    /**
      * A simple method to replace the filtered food list with the contents of a new list.
      * @param fieldList the new list of food.
      */
     void editFilteredFoodList(List<String> fieldList);
+
+    /**
+     * Returns the user prefs' purchase history file path.
+     */
+    Path getPurchaseHistoryFilePath();
+
+    /**
+     * Sets the user prefs' purchase history file path.
+     */
+    void setPurchaseHistoryFilePath(Path menuFilePath);
+
+    /** Returns the $aveNUS menu */
+    ReadOnlyPurchaseHistory getPurchaseHistory();
+
+    /** Returns an unmodifiable view of the {@code PurchaseHistory} */
+    ObservableList<Purchase> getPurchaseHistoryList();
 
     /**
      * Buy the given food.
@@ -138,9 +170,6 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
-
-    /** Returns an unmodifiable view of the {@code PurchaseHistory} */
-    ObservableList<Purchase> getPurchaseHistory();
 
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.
@@ -187,6 +216,17 @@ public interface Model {
      */
     void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
 
+    /** Removes the user's liked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /**
+     * Removes the user's disliked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
     /**
      * Clears the user's liked categories, tags and locations.
      */
@@ -196,4 +236,30 @@ public interface Model {
      * Clears the user's liked categories, tags and locations.
      */
     void clearDislikes();
+
+    /**
+     * Sets the custom comparator.
+     */
+    void setCustomSorter(List<String> fields);
+
+    /**
+     * Gets the custom comparator.
+     */
+    CustomSorter getCustomSorter();
+
+    /**
+     * Add money from wallet to savings account.
+     */
+    void addToSavings(Savings savings);
+
+    /**
+     * Deduct money from wallet.
+     */
+    void deductFromWallet(Savings savings) throws CommandException;
+
+    /**
+     * TODO @fatclarence
+     * Return user's SavingsAccount.
+     */
+    //SavingsAccount getSavingsAccount();
 }

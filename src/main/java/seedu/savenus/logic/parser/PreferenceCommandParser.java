@@ -17,7 +17,7 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new LikeCommand or DislikeCommand object
  */
 public class PreferenceCommandParser implements Parser<PreferenceCommand> {
 
@@ -35,6 +35,12 @@ public class PreferenceCommandParser implements Parser<PreferenceCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION);
 
+        if (args.isBlank() && isLike) {
+            return new LikeCommand(true);
+        } else if (args.isBlank() && !isLike) {
+            return new DislikeCommand(true);
+        }
+
         // If none of these arguments are not present, will throw an error.
         if (!areAnyPrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -46,9 +52,9 @@ public class PreferenceCommandParser implements Parser<PreferenceCommand> {
         Set<Location> locationList = ParserUtil.parseLocations(argMultimap.getAllValues(PREFIX_LOCATION));
 
         if (isLike) {
-            return new LikeCommand(categoryList, tagList, locationList);
+            return new LikeCommand(categoryList, tagList, locationList, false);
         } else {
-            return new DislikeCommand(categoryList, tagList, locationList);
+            return new DislikeCommand(categoryList, tagList, locationList, false);
         }
     }
 

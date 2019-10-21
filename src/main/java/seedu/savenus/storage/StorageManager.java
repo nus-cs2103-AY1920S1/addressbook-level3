@@ -8,8 +8,11 @@ import java.util.logging.Logger;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.sorter.CustomSorter;
 
 /**
  * Manages storage of $aveNUS Menu Food data in local storage.
@@ -19,12 +22,19 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private MenuStorage menuStorage;
     private UserPrefsStorage userPrefsStorage;
+    private RecsStorage userRecsStorage;
+    private PurchaseHistoryStorage purchaseHistoryStorage;
+    private CustomSortStorage customSortStorage;
 
+    public StorageManager(MenuStorage menuStorage, UserPrefsStorage userPrefsStorage, RecsStorage userRecsStorage,
+                          PurchaseHistoryStorage purchaseHistoryStorage, CustomSortStorage customSortStorage) {
 
-    public StorageManager(MenuStorage menuStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.menuStorage = menuStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.userRecsStorage = userRecsStorage;
+        this.purchaseHistoryStorage = purchaseHistoryStorage;
+        this.customSortStorage = customSortStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -74,4 +84,88 @@ public class StorageManager implements Storage {
         menuStorage.saveMenu(menu, filePath);
     }
 
+    // =============== Recommendation methods ========================
+    @Override
+    public Path getRecsFilePath() {
+        return userRecsStorage.getRecsFilePath();
+    }
+
+    @Override
+    public Optional<UserRecommendations> readRecs() throws DataConversionException, IOException {
+        return readRecs(userRecsStorage.getRecsFilePath());
+    }
+
+    @Override
+    public Optional<UserRecommendations> readRecs(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read recommendations data from file: " + filePath);
+        return userRecsStorage.readRecs(filePath);
+    }
+
+    @Override
+    public void saveRecs(UserRecommendations recs) throws IOException {
+        saveRecs(recs, userRecsStorage.getRecsFilePath());
+    }
+
+    @Override
+    public void saveRecs(UserRecommendations recs, Path filePath) throws IOException {
+        logger.fine("Attempting to write recommendations to data file: " + filePath);
+        userRecsStorage.saveRecs(recs, filePath);
+    }
+
+    // =============== PurchaseHistory methods ========================
+    @Override
+    public Path getPurchaseHistoryFilePath() {
+        return purchaseHistoryStorage.getPurchaseHistoryFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyPurchaseHistory> readPurchaseHistory() throws DataConversionException, IOException {
+        return readPurchaseHistory(purchaseHistoryStorage.getPurchaseHistoryFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyPurchaseHistory> readPurchaseHistory(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read purchase history data from file: " + filePath);
+        return purchaseHistoryStorage.readPurchaseHistory(filePath);
+    }
+
+    @Override
+    public void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory) throws IOException {
+        savePurchaseHistory(purchaseHistory, purchaseHistoryStorage.getPurchaseHistoryFilePath());
+    }
+
+    @Override
+    public void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException {
+        logger.fine("Attempting to write purchase history to data file: " + filePath);
+        purchaseHistoryStorage.savePurchaseHistory(purchaseHistory, filePath);
+    }
+
+    // =============== CustomSorter methods ========================
+    @Override
+    public Path getSortFilePath() {
+        return customSortStorage.getSortFilePath();
+    }
+
+    @Override
+    public Optional<CustomSorter> readFields() throws DataConversionException, IOException {
+        return readFields(customSortStorage.getSortFilePath());
+    }
+
+    @Override
+    public Optional<CustomSorter> readFields(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read sort fields data from file: " + filePath);
+        return customSortStorage.readFields(filePath);
+    }
+
+    @Override
+    public void saveFields(CustomSorter sorter) throws IOException {
+        saveFields(sorter, customSortStorage.getSortFilePath());
+    }
+
+    @Override
+    public void saveFields(CustomSorter sorter, Path filePath) throws IOException {
+        logger.fine("Attempting to write sort fields to data file: " + filePath);
+        customSortStorage.saveFields(sorter, filePath);
+    }
 }

@@ -1,6 +1,7 @@
 package seedu.savenus.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
@@ -10,6 +11,7 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.sorter.CustomSorter;
 
 /**
  * API of the Logic component
@@ -31,16 +33,27 @@ public interface Logic {
      */
     ReadOnlyMenu getMenu();
 
+    CustomSorter getCustomSorter();
+
+    boolean getAutoSortFlag();
+
     /** Returns an unmodifiable view of the filtered list of food */
     ObservableList<Food> getFilteredFoodList();
 
     /** Returns an unmodifiable view of the purchase history */
-    ObservableList<Purchase> getPurchaseHistory();
+    ObservableList<Purchase> getPurchaseHistoryList();
+
+    void setFoods(List<Food> list);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' menu file path.
      */
     Path getMenuFilePath();
+
+    /**
+     * Returns the user prefs' purchase history file path.
+     */
+    Path getPurchaseHistoryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

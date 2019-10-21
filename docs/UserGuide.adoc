@@ -114,6 +114,22 @@ commands that were recently typed in order of which was most recent.
 
 Format: `history` or `h`
 
+==== Info
+
+Displays the information of the command specified.
+
+Format: `info COMMAND`
+
+Example: `info edit`
+
+==== Collapse
+
+Makes the Food Card more or less compact, depending on the user's preference.
+
+Format `collapse`
+
+Example: `collapse`
+
 ==== Undo
 Undoes a command a specific number of TIMES. Note: TIMES must be a positive integer. +
 
@@ -161,13 +177,20 @@ Format: `edit INDEX n/NAME d/DESCRIPTION ...`
 
 Example: `edit 2 n/Fried Rice`
 
-
 ==== Find
 Finds a food items based on a specific FIELD or fields. At least one FIELD must be given.
 
 Format: `find n/NAME d/DESCRIPTION ...`
 
 Example: `find n/Chicken d/Rice`
+
+==== Filter
+Filters the food items based on the criteria specified. Note: You can need to
+have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
+
+Format: `filter FIELD QUANTIFIER VALUE`
+
+Example: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
 
 ==== Delete
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
@@ -214,24 +237,33 @@ Example: `track -d`
 
 ==== Recommend
 Allow users to get a recommendation from the application, based on the budget
-as well as the available food items entries.
+as well as the available food items entries. This also takes into account the
+user's likes and dislikes (see below).
 
 Format: `recommend`
 
 ==== Likes and Dislikes
 Allows users to specify their liked categories, tags and/or locations. The
 recommendation system (as mentioned above) will then be able to generate more
-accurate recommendations with your preferences.
+accurate recommendations with your preferences. Users can provide multiple
+categories, tags and/or locations with each command. To list the user's likes and
+dislikes, use the command without providing any arguments.
+
+The user's likes and dislikes will be saved into the hard disk for their convenience.
+
+*To list likes/dislikes*:
+
+Format: `like` or `dislike`.
 
 *To add likes*:
 
-Format: `like`
+Format: `like c/CATEGORY t/TAG l/LOCATION`
 
 Example: `like c/Chinese c/Western t/Healthy l/Univeristy Town`
 
 *To add dislikes*:
 
-Format `dislike`
+Format: `dislike c/Chinese c/Western t/Healthy l/Univeristy Town`
 
 Example: `dislike c/International t/Spicy l/The Deck l/The Terrace`
 
@@ -277,16 +309,22 @@ of days.
 | Allows users the log a food expense into the application.
 | Clear <<Clear>>
 | Clears all food item
+| Collapse <<Collapse>>
+| Makes the Food Card more or less compact, depending on the user's preference.
 | Delete <<Delete>>
 | Deletes a food items based on the given index.
 | Edit <<Edit>>
 | Edits a food item at a index based on a specific field or fields.
 | Exit <<Exit>>
 | Exits the app.
+| Filter <<Filter>>
+| Filters the food items based on the criteria specified.
 | Find <<Find>>
 | Finds food items based on specified fields.
 | Help <<Help>>
 | Display possible uses of the application.
+| Info <<Info>>
+| Displays the information of the command specified.
 | List <<List>>
 | List all saved food items
 | Recommend <<Recommend>>

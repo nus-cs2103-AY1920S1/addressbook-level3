@@ -2,12 +2,13 @@ package seedu.savenus.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
@@ -15,6 +16,7 @@ import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
+import seedu.savenus.model.food.Food;
 
 /**
  * The Main Window.
@@ -64,7 +66,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        primaryStage.initStyle(StageStyle.UNDECORATED);
         this.logic = logic;
 
         // Configure the UI
@@ -85,13 +86,14 @@ public class MainWindow extends UiPart<Stage> {
         foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
         foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-        purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistory());
+        purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistoryList());
         purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMenuFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMenuFilePath(),
+                logic.getPurchaseHistoryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -165,6 +167,7 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
+        primaryStage.centerOnScreen();
     }
 
     /**
@@ -227,14 +230,22 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             // Update foodListPanel after every command
-            foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
+            ObservableList<Food> list = logic.getFilteredFoodList();
+            foodListPanel = new FoodListPanel(list);
             foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
-            if (commandResult.isJustAdd()) {
+
+            if (logic.getAutoSortFlag()) {
+                ObservableList<Food> foodList = logic.getFilteredFoodList();
+                SortedList<Food> sortedList = foodList.sorted(logic.getCustomSorter().getComparator());
+                logic.setFoods(sortedList);
+            }
+
+            if (commandResult.isJustAdd() && !logic.getAutoSortFlag()) {
                 foodListPanel.showLastItem();
             }
 
             // Update purchaseListPanel after every command
-            purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistory());
+            purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistoryList());
             purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
 
             return commandResult;

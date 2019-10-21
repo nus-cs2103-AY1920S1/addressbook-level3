@@ -8,11 +8,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.savenus.logic.commands.CollapseCommand;
-import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Restrictions;
+import seedu.savenus.model.recommend.RecommendationSystem;
 
 /**
  * An UI component that displays information of a {@code Food}.
@@ -98,14 +98,13 @@ public class FoodCard extends UiPart<Region> {
             textForOptionalInfo += "Restrictions: " + food.getRestrictions().restrictions;
         }
 
-        int recommendationValue = RecommendationSystem.calculateRecommendation(food);
+        double recommendationValue = RecommendationSystem.getInstance().calculateRecommendation(food);
 
         if (recommendationValue >= 0) {
-            textForOptionalInfo += partition + "Recommendation: +" + recommendationValue;
+            textForOptionalInfo += partition + "+" + String.format("%.2f", recommendationValue);
         } else {
-            textForOptionalInfo += partition + "Recommendation: " + recommendationValue;
+            textForOptionalInfo += partition + String.format("%.2f", recommendationValue);
         }
-
 
         // Setting the text for optional info.
         optionalInfo.setText(textForOptionalInfo);

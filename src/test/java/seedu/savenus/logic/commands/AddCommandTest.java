@@ -23,13 +23,16 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.Model;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyUserPrefs;
-import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -121,6 +124,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getPurchaseHistoryFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPurchaseHistoryFilePath(Path menuFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addFood(Food food) {
             throw new AssertionError("This method should not be called.");
         }
@@ -157,6 +170,11 @@ public class AddCommandTest {
 
         @Override
         public void editFilteredFoodList(List<String> fieldList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public PurchaseHistory getPurchaseHistory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -201,7 +219,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Purchase> getPurchaseHistory() {
+        public ObservableList<Purchase> getPurchaseHistoryList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -231,10 +249,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setCustomSorter(List<String> fields) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CustomSorter getCustomSorter() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public List<String> getCommandHistory() {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
             throw new AssertionError("This method should not be called.");
         }
@@ -245,12 +274,42 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void clearLikes() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void clearDislikes() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToSavings(Savings savings) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void deductFromWallet(Savings savings) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getAutoSortFlag() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAutoSortFlag(boolean autoSortFlag) {
             throw new AssertionError("This method should not be called.");
         }
     }
