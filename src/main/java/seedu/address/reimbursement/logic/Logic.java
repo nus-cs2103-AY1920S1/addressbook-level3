@@ -3,7 +3,7 @@ package seedu.address.reimbursement.logic;
 import java.io.IOException;
 
 import seedu.address.person.model.person.Person;
-import seedu.address.reimbursement.commands.CommandResult;
+import seedu.address.reimbursement.logic.commands.CommandResult;
 import seedu.address.reimbursement.model.ReimbursementList;
 
 /**

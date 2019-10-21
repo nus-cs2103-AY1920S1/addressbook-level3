@@ -6,10 +6,10 @@ import static seedu.address.util.CliSyntax.PREFIX_SALES;
 
 import java.util.stream.Stream;
 
-import seedu.address.overview.commands.SetBudgetCommand;
-import seedu.address.overview.commands.SetCommand;
-import seedu.address.overview.commands.SetExpenseCommand;
-import seedu.address.overview.commands.SetSalesCommand;
+import seedu.address.overview.logic.commands.SetBudgetCommand;
+import seedu.address.overview.logic.commands.SetCommand;
+import seedu.address.overview.logic.commands.SetExpenseCommand;
+import seedu.address.overview.logic.commands.SetSalesCommand;
 import seedu.address.overview.logic.exception.ParseException;
 import seedu.address.overview.ui.OverviewMessages;
 import seedu.address.util.ArgumentMultimap;

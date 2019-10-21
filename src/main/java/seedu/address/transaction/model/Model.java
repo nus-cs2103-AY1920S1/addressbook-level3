@@ -1,5 +1,7 @@
 package seedu.address.transaction.model;
 
+import java.util.function.Predicate;
+
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.util.TransactionList;
 
@@ -83,7 +85,7 @@ public interface Model {
      * Updates the predicate in the model to be applied on the transaction list.
      * @param predicate Predicate that was created with the user input keywords.
      */
-    void updatePredicate(TransactionContainsKeywordsPredicate predicate);
+    void updatePredicate(Predicate<Transaction> predicate);
 
     /**
      * Resets the predicate to the default one where all is true.
@@ -95,4 +97,13 @@ public interface Model {
      * @param person Person to check for in transaction.
      */
     void deleteAllTransactionOfPerson(Person person);
+
+    /**
+     * Returns whether the transaction list has transactions related to the name of the person specified.
+     * @param name Name of person.
+     * @return Boolean on whether there is such a transaction related to the person.
+     */
+    boolean hasTransactionWithName(String name);
+
+    Predicate<Transaction> getPredicate();
 }

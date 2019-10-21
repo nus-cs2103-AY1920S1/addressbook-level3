@@ -2,8 +2,9 @@ package seedu.address.transaction.logic;
 
 import java.io.IOException;
 
-import seedu.address.transaction.commands.Command;
-import seedu.address.transaction.commands.CommandResult;
+import seedu.address.transaction.logic.commands.Command;
+import seedu.address.transaction.logic.commands.CommandResult;
+import seedu.address.transaction.logic.parser.TransactionTabParser;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.storage.StorageManager;
@@ -39,7 +40,7 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText)
             throws Exception {
-        model.resetPredicate();
+        //model.resetPredicate();
         Command command = parser.parseCommand(commandText,
                 model.getTransactionList().size(), personModel);
         CommandResult commandResult = command.execute(model, personModel);

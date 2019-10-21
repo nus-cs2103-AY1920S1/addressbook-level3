@@ -5,7 +5,13 @@ package seedu.address.person.model.person.exceptions;
  * identity).
  */
 public class DuplicatePersonException extends RuntimeException {
+
     public DuplicatePersonException() {
         super("Operation would result in duplicate persons");
+    }
+
+    @Override
+    public String toString() {
+        return "Operation would result in duplicate persons";
     }
 }

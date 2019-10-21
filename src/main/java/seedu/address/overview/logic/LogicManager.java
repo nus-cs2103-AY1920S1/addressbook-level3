@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.util.InventoryList;
-import seedu.address.overview.commands.Command;
-import seedu.address.overview.commands.CommandResult;
+import seedu.address.overview.logic.commands.Command;
+import seedu.address.overview.logic.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.storage.StorageManager;
 import seedu.address.transaction.model.Transaction;

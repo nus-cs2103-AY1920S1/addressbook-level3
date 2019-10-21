@@ -159,6 +159,34 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+There are a total of 6 tabs in our application for each feature: Home Tab, Members Tab, Reimbursement Tab,
+Inventory Tab, Cashier Tab, Overview Tab.
+
+=== Home Tab
+This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
+cost of buying items to sell. Each transaction will require an input of its date, description, category, amount
+and member that is accountable for it. Revenue from each cashier checkout will also be automatically inputted as
+a positive transaction in this tab with the person being the cashier. The inputted transactions that corresponds to
+a spending will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
+
+==== Add Command feature
+
+
+==== Delete by Index Feature
+
+==== Delete by Person Feature
+
+==== Sort by Date Feature
+
+=== Members Tab
+
+=== Reimbursement Tab
+
+=== Inventory Tab
+
+=== Cashier Tab
+
+=== Overview Tab
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
