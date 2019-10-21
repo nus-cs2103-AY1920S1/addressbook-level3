@@ -17,7 +17,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.exceptions.DuplicateEngagementException;
+import com.typee.model.engagement.exceptions.DuplicateEngagementException;
 import com.typee.testutil.EngagementBuilder;
 
 import javafx.collections.FXCollections;

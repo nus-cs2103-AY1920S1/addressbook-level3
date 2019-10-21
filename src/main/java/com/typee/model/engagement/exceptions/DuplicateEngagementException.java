@@ -1,4 +1,4 @@
-package com.typee.model.person.exceptions;
+package com.typee.model.engagement.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Engagements
