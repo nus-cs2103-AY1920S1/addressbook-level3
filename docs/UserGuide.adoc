@@ -12,6 +12,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :exclamation:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
 
@@ -160,7 +161,7 @@ Deletes the 1st patient in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
-[TIP]
+[WARNING]
 Be careful when entering this, as this will erase all patient data from VISIT!
 
 
@@ -206,7 +207,7 @@ Adds new visitation report dated 19th of October 2019, will be added for the pat
 Opens a pop-up panel that enables the editing of an existing visitation record of a particular patient. +
 Format: `editVisit INDEX [i/REPORT INDEX]`
 
-[TIP]
+[NOTE]
 If no report index is specified, `editVisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit, simply re-enter the command with the desired report index.
 
 *Examples*:
@@ -221,7 +222,7 @@ A panel will appear to allow for the amendment of the 1st visitation report of t
 Deletes the specified visitation record. +
 Format: `deleteVisit INDEX [d/REPORT INDEX]`
 
-[TIP]
+[NOTE]
 If no report index is specified, `deleteVisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
 
 *Examples*:
@@ -237,11 +238,11 @@ VISIT also enables doctors to keep abreast and up-to-date on any events or deadl
 
 ==== Adding a follow-up reminder with patient : `followup`
 
-Adds a follow-up reminder after a set number of days to be prompted when the program is run. +
+Adds a follow-up reminder for a particular patient, which will generate a prompt after a set number of days when VISIT is run. +
 Format: `followup INDEX [d/DAYS]`
 
 [TIP]
-Creates a follow-up entry on patient with specified index for a set number of days or default 7 days.
+The follow-up entry will by default generate the prompt in 7 days if not specified.
 
 *Examples*:
 
@@ -254,7 +255,7 @@ Creates a new reminder to show up when the program is launched. +
 Format: `reminder TEXT [d/DAYS]`
 
 [TIP]
-Creates a reminder to be displayed when the program launches for a set number of days or default 7 days.
+The reminder entry will by default generate the prompt in 7 days if not specified.
 
 *Examples*:
 
