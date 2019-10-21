@@ -80,7 +80,7 @@ public class DaysToExpire {
 
     @Override
     public String toString() {
-        return String.format("%d days", getDaysToExpire());
+        return (getDaysToExpire() == 1) ? "today" : String.format("%d days", getDaysToExpire());
     }
 
     @Override

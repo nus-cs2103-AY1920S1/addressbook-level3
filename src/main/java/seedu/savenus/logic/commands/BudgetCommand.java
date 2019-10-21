@@ -12,8 +12,6 @@ import seedu.savenus.model.wallet.Wallet;
 /**
  * Command to add a {@code Wallet} for the user.
  * TODO Make Days to Expire optional
- * TODO Fix existing tests
- * TODO Add tests for the Budget Command
  */
 public class BudgetCommand extends Command {
 

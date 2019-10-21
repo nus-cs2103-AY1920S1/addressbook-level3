@@ -12,6 +12,7 @@ import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.commons.util.StringUtil;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.SaveCommand;
+import seedu.savenus.logic.commands.TopUpCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
@@ -47,6 +48,20 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String} into a valid TopUpAmount.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code String} is invalid.
+     */
+    public static BigDecimal parseTopUpAmount (String topUpAmountString) throws ParseException {
+        String trimmedTopUpAmount = topUpAmountString.trim();
+        if (!RemainingBudget.isValidRemainingBudget(trimmedTopUpAmount)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TopUpCommand.MESSAGE_USAGE));
+        }
+        return new BigDecimal(trimmedTopUpAmount);
+    }
+
+    /***
      * Parses a {@code String} into a {@code Saving}.
      * Leading and trailing whitespaces will be trimmed.
      *

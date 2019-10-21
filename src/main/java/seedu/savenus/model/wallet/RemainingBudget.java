@@ -47,7 +47,7 @@ public class RemainingBudget {
      * Returns true if this instance of {@code RemainingBudget} is out of bounds.
      */
     public boolean isOutOfBounds() {
-        return getRemainingBudget().compareTo(new BigDecimal(1000000.00)) == 1;
+        return getRemainingBudgetAmount().compareTo(new BigDecimal(1000000.00)) == 1;
     }
 
     /**
@@ -60,7 +60,7 @@ public class RemainingBudget {
     /**
      * Returns the {@code double} value of this instance.
      */
-    public BigDecimal getRemainingBudget() {
+    public BigDecimal getRemainingBudgetAmount() {
         return new BigDecimal(remainingBudgetProperty.get().substring(1));
     }
 
@@ -68,12 +68,12 @@ public class RemainingBudget {
      * Set new user's {@code RemainingBudget}.
      */
     public void setRemainingBudget(RemainingBudget newRemainingBudget) {
-        remainingBudgetProperty.setValue("$" + newRemainingBudget.getRemainingBudget().toString());
+        remainingBudgetProperty.setValue("$" + newRemainingBudget.getRemainingBudgetAmount().toString());
     }
 
     @Override
     public String toString() {
-        return String.format("$%.02f", getRemainingBudget());
+        return String.format("$%.02f", getRemainingBudgetAmount());
     }
 
     @Override
@@ -87,6 +87,6 @@ public class RemainingBudget {
         }
 
         RemainingBudget otherRemainingBudget = (RemainingBudget) other;
-        return otherRemainingBudget.getRemainingBudget().compareTo(this.getRemainingBudget()) == 0;
+        return otherRemainingBudget.getRemainingBudgetAmount().compareTo(this.getRemainingBudgetAmount()) == 0;
     }
 }
