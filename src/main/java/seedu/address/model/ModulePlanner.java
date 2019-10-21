@@ -24,6 +24,7 @@ import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
 import seedu.address.model.versiontracking.StudyPlanCommitManagerList;
 import seedu.address.model.versiontracking.VersionTrackingManager;
+import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
@@ -333,6 +334,20 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
         studyPlans.setStudyPlan(activeStudyPlan, newActiveStudyPlan);
         activateStudyPlan(newActiveStudyPlan.getIndex());
+    }
+
+    /**
+     * Deletes the commit specified by the given study plan index and commit number.
+     */
+    public void deleteCommit(int studyPlanIndex, int commitNumber) throws CommitNotFoundException {
+        requireNonNull(activeStudyPlan);
+
+        if (studyPlanIndex != activeStudyPlan.getIndex()) {
+            throw new StudyPlanNotFoundException();
+        }
+
+        StudyPlanCommitManager manager = versionTrackingManager.getStudyPlanCommitManagerByStudyPlan(activeStudyPlan);
+        manager.deleteCommit(commitNumber);
     }
 
     //=========== Tagging =================================================================================

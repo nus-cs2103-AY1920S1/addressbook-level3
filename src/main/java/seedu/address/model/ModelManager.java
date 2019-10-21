@@ -166,6 +166,11 @@ public class ModelManager implements Model {
         modulePlanner.revertToCommit(studyPlanIndex, commitNumber);
     }
 
+    @Override
+    public void deleteCommit(int studyPlanIndex, int commitNumber) {
+        modulePlanner.deleteCommit(studyPlanIndex, commitNumber);
+    }
+
     //=========== Module Information and Verification ===========================================================
 
     @Override

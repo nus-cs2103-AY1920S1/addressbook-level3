@@ -146,6 +146,11 @@ public interface Model {
      */
     void revertToCommit(int studyPlanIndex, int commitNumber);
 
+    /**
+     * Deletes the commit specified by the given study plan index and commit number.
+     */
+    void deleteCommit(int studyPlanIndex, int commitNumber);
+
     // ===================== MODULE INFORMATION AND VERIFICATION ==========================
 
     /**

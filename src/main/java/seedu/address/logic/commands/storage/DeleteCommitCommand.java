@@ -2,15 +2,12 @@ package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.exception.CommitNotFoundException;
+
 
 /**
  * Deletes a commit identified using it's displayed index in the commit list of the current active study plan.
@@ -20,62 +17,47 @@ public class DeleteCommitCommand extends Command {
     public static final String COMMAND_WORD = "deletecommit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the commit identified by the index number used in the displayed study plan list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the commit identified by the index number used in the displayed commit list.\n"
+            + "Parameters: STUDYPLAN_INDEX.COMMIT_INDEX (must be non-negative integers)\n"
+            + "Example: " + COMMAND_WORD + " 1.3";
 
-    public static final String MESSAGE_DELETE_STUDYPLAN_SUCCESS = "Deleted StudyPlan: %1$s";
-    public static final String MESSAGE_NO_MORE_STUDYPLAN = "You don't have any study plan currently. Create now!";
+    public static final String MESSAGE_DELETE_COMMIT_SUCCESS = "Deleted commit: %1$s";
+    public static final String MESSAGE_INVALID_COMMIT_INDEX = "The commit number you've entered is invalid.";
+    public static final String MESSAGE_INVALID_STUDY_PLAN_INDEX =
+            "You only can delete a commit in the active study plan!";
 
 
-    private final Index targetIndex;
+    private final int studyPlanIndex;
+    private final int commitNumber;
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommitCommand(int studyPlanIndex, int commitNumber) {
+        this.studyPlanIndex = studyPlanIndex;
+        this.commitNumber = commitNumber;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<StudyPlan> lastShownList = model.getFilteredStudyPlanList();
 
-        if (targetIndex.getZeroBased() > StudyPlan.getTotalNumberOfStudyPlans()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_STUDYPLAN_DISPLAYED_INDEX);
+        // if the study plan index does not match the current active plan, don't allow this operation.
+        if (studyPlanIndex != model.getActiveStudyPlan().getIndex()) {
+            return new CommandResult(MESSAGE_INVALID_STUDY_PLAN_INDEX);
         }
 
-        StudyPlan studyPlanToDelete = null;
-        for (StudyPlan studyPlan : lastShownList) {
-            if (studyPlan.getIndex() == targetIndex.getZeroBased()) {
-                studyPlanToDelete = studyPlan;
-            }
+        try {
+            model.deleteCommit(studyPlanIndex, commitNumber);
+            return new CommandResult(String.format(MESSAGE_DELETE_COMMIT_SUCCESS,
+                    studyPlanIndex + "." + commitNumber));
+        } catch (CommitNotFoundException e) {
+            return new CommandResult(MESSAGE_INVALID_COMMIT_INDEX);
         }
-        if (studyPlanToDelete == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_STUDYPLAN_DISPLAYED_INDEX);
-        }
-
-        model.deleteStudyPlan(studyPlanToDelete);
-
-        // if the deleted study plan is active, the first study plan in the list will be made active automatically
-        if (model.getActiveStudyPlan().equals(studyPlanToDelete)) {
-            boolean isSuccessful = model.activateFirstStudyPlan();
-            if (!isSuccessful) {
-                return new CommandResult(MESSAGE_NO_MORE_STUDYPLAN, true, false);
-            } else {
-                return new CommandResult(String.format(MESSAGE_DELETE_STUDYPLAN_SUCCESS, studyPlanToDelete),
-                        true, false);
-            }
-        }
-
-        // delete the corresponding study plan commit manager
-        model.deleteStudyPlanCommitManagerByIndex(studyPlanToDelete.getIndex());
-
-        return new CommandResult(String.format(MESSAGE_DELETE_STUDYPLAN_SUCCESS, studyPlanToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteCommitCommand // instanceof handles nulls
+                && studyPlanIndex == ((DeleteCommitCommand) other).studyPlanIndex
+                && commitNumber == ((DeleteCommitCommand) other).commitNumber); // state check
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 
 /**
  * Represents the list of all the commits in a study plan.
@@ -35,6 +36,17 @@ public class CommitList {
      */
     public StudyPlan getStudyPlanByCommitNumber(int commitNumber) {
         return getCommitByIndex(commitNumber).getStudyPlan();
+    }
+
+    /**
+     * Deletes one commit of the specified index.
+     */
+    public void deleteCommitByIndex(int index) throws CommitNotFoundException {
+        try {
+            commits.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommitNotFoundException();
+        }
     }
 
     /**

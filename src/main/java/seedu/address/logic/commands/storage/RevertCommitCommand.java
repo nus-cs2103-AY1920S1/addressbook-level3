@@ -16,7 +16,9 @@ public class RevertCommitCommand extends Command {
     public static final String COMMAND_WORD = "revert";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Reverts the study plan to the commit identified by the index used in the displayed commit list.\n"
-            + "Parameters: PLAN_INDEX.COMMIT_NUMBER (both must be non-negative integers)\n";
+            + "Parameters: PLAN_INDEX.COMMIT_NUMBER (both must be non-negative integers)\n"
+            + "Example: " + COMMAND_WORD + " 1.3";
+
     public static final String MESSAGE_SUCCESS = "Here's your study plan for this commit. All later commits discarded";
     public static final String MESSAGE_NOT_ACTIVE_STUDY_PLAN = "The study plan index must be the active one!";
     public static final String MESSAGE_NO_SUCH_COMMIT = "The commit index you've entered is invalid!";

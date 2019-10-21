@@ -1,6 +1,7 @@
 package seedu.address.model.versiontracking;
 
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 
 /**
  * Represents a manager that manages the commits for one study plan with a particular index.
@@ -45,6 +46,13 @@ public class StudyPlanCommitManager {
             e.printStackTrace();
         }
         commitList.commitStudyPlan(planToCommit, commitMessage);
+    }
+
+    /**
+     * Deletes a commit specified by the index.
+     */
+    public void deleteCommit(int index) throws CommitNotFoundException {
+        commitList.deleteCommitByIndex(index);
     }
 
     /**

@@ -100,10 +100,6 @@ public class Module implements Cloneable {
         return true;
     }
 
-    public void setPrereqTree(PrereqTree prereqTree) {
-        this.prereqTree = prereqTree;
-    }
-
     public void setColor(Color color) {
         this.color = color;
     }
