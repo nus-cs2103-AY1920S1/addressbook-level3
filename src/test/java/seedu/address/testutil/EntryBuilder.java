@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -22,13 +22,13 @@ public class EntryBuilder {
 
     private Description desc;
     private Amount amt;
-    private Time time;
+    private Date date;
     private Set<Tag> tags;
 
     public EntryBuilder() {
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
-        time = new Time(DEFAULT_TIME);
+        date = new Date(DEFAULT_TIME);
         tags = new HashSet<>();
     }
 
@@ -53,7 +53,7 @@ public class EntryBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public EntryBuilder withTime(String time) {
-        this.time = new Time(time);
+        this.date = new Date(time);
         return this;
     }
 
@@ -74,7 +74,7 @@ public class EntryBuilder {
     }
 
     public Entry build() {
-        return new Entry(desc, time, amt, tags);
+        return new Entry(desc, date, amt, tags);
     }
 
 }
