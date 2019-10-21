@@ -13,6 +13,7 @@ import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.food.exceptions.DuplicateFoodException;
+import seedu.deliverymans.model.food.exceptions.FoodNotFoundException;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.order.Order;
 
@@ -86,6 +87,13 @@ public class Restaurant {
             throw new DuplicateFoodException();
         }
         menu.add(toAdd);
+    }
+
+    public void removeFood(Food toRemove) {
+        requireAllNonNull(toRemove);
+        if (!menu.remove(toRemove)) {
+            throw new FoodNotFoundException();
+        }
     }
 
     /**

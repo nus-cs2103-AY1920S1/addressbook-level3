@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
-import seedu.deliverymans.logic.commands.restaurant.AddCommand;
+import seedu.deliverymans.logic.commands.restaurant.AddRestaurantCommand;
 import seedu.deliverymans.logic.commands.restaurant.EditRestaurantCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -38,7 +38,7 @@ public class RestaurantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
+        case AddRestaurantCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
         case EditRestaurantCommand.COMMAND_WORD:
