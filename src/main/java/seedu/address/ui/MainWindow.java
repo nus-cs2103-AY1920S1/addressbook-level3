@@ -17,7 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.versiontracking.Commit;
+//import seedu.address.model.versiontracking.Commit;
 import seedu.address.ui.exceptions.InvalidResultViewTypeException;
 
 /**
