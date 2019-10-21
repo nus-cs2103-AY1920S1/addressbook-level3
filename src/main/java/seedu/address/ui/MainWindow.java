@@ -179,7 +179,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    public void handleReminder() {
+    public void handleReminderBox() {
         if (!reminderWindow.isShowing()) {
             reminderWindow.show();
         } else {
@@ -188,8 +188,26 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
+    public void handleReminder() throws CommandException, ParseException {
+        String USER_COMMAND = "change_tab tab/reminders";
+        executeCommand(USER_COMMAND);
+    }
+
+    @FXML
     public void handleEarnings() throws ParseException, CommandException {
         String USER_COMMAND = "change_tab tab/earnings";
+        executeCommand(USER_COMMAND);
+    }
+
+    @FXML
+    public void handleCalendar() throws ParseException, CommandException {
+        String USER_COMMAND = "change_tab tab/calendar";
+        executeCommand(USER_COMMAND);
+    }
+
+    @FXML
+    public void handleNotes() throws ParseException, CommandException {
+        String USER_COMMAND = "change_tab tab/notepad";
         executeCommand(USER_COMMAND);
     }
 
