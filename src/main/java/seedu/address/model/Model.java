@@ -108,6 +108,12 @@ public interface Model {
      */
     void addTransaction(Transaction transaction);
 
+    /**
+     * Adds the given budget.
+     * {@code budget} must not already exist in the bank account.
+     */
+    void addBudget(Budget budget);
+
     /** Returns an unmodifiable view of the filtered transaction list
      */
     ObservableList<Transaction> getFilteredTransactionList();
@@ -124,4 +130,5 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered budget list
      */
     ObservableList<Budget> getFilteredBudgetList();
+
 }

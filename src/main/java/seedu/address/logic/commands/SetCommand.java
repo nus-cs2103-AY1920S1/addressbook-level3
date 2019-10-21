@@ -38,9 +38,10 @@ public class SetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        model.addBudget(budget);
+        model.commitBankAccount();
         return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
     }
-
 
 
 }

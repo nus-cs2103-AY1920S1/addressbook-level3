@@ -72,6 +72,16 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Adds a transaction to the bank account.
+     * Updates {@code budget}.
+     *
+     * @param bud Budget to be added to bank account.
+     */
+    public void addBudget(Budget bud) {
+        budgets.add(bud);
+    }
+
+    /**
      * Removes {@code key} from this {@code BankAccount}.
      * {@code key} must exist in the bank account.
      */
