@@ -29,6 +29,7 @@ import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
@@ -102,6 +103,7 @@ public class LogicManager implements Logic, UiLogicHelper {
          */
         try {
             ReadOnlyWordBank wb = model.getWordBank();
+
             Path wordBankListFilePath = storage.getWordBankListFilePath();
             if (!wb.getName().equals("Empty wordbank")) {
                 storage.saveWordBank(wb, wordBankListFilePath);
@@ -125,6 +127,7 @@ public class LogicManager implements Logic, UiLogicHelper {
                 storage.saveWordBank(wordBank, wordBankListFilePath);
                 model.getWordBankList().addBank(wordBank);
             }
+
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } catch (DataConversionException e) {
@@ -184,7 +187,22 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     @Override
     public long getTimeAllowedPerQuestion() {
-        return this.model.getDifficulty().getTimeAllowedPerQuestion();
+        return this.model.getTimeAllowedPerQuestion();
+    }
+
+    @Override
+    public FormattedHint getHintFormatFromCurrentGame() {
+        return this.model.getHintFormatFromCurrentGame();
+    }
+
+    @Override
+    public int getHintFormatSizeFromCurrentGame() {
+        return this.model.getHintFormatSizeFromCurrentGame();
+    }
+
+    @Override
+    public boolean hintsAreEnabled() {
+        return model.hintsAreEnabled();
     }
 
     @Override

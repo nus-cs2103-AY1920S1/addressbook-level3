@@ -10,6 +10,7 @@ package seedu.address.logic.commands.switches;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -70,7 +71,7 @@ public class StartCommand extends SwitchCommand {
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
-        Game newGame = new Game(wordBank);
+        Game newGame = new Game(wordBank, x -> Collections.shuffle(x));
         model.setGame(newGame);
         String currQuestion = model.getGame().getCurrQuestion();
         return new StartCommandResult(usedWordBankTitle, currQuestion);

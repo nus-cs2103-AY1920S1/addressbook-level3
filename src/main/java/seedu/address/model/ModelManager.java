@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -81,6 +82,29 @@ public class ModelManager implements Model {
     @Override
     public DifficultyEnum getDifficulty() {
         return difficulty;
+    }
+
+    @Override
+    public long getTimeAllowedPerQuestion() {
+        return getDifficulty().getTimeAllowedPerQuestion();
+    }
+
+    @Override
+    public FormattedHint getHintFormatFromCurrentGame() throws UnsupportedOperationException {
+        if (game == null || game.isOver()) {
+            throw new UnsupportedOperationException("No active game session to send hints from");
+        }
+        return game.getHintFormatForCurrCard();
+    }
+
+    @Override
+    public int getHintFormatSizeFromCurrentGame() {
+        return game.getHintFormatSizeOfCurrCard();
+    }
+
+    @Override
+    public boolean hintsAreEnabled() {
+        return difficulty.hintsAreEnabled();
     }
 
     //=========== UserPrefs ==================================================================================
@@ -199,6 +223,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
+
         filteredCards.setPredicate(predicate);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }

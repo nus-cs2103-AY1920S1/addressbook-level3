@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
@@ -65,9 +66,17 @@ public interface Logic extends UiLogicHelper {
 
     long getTimeAllowedPerQuestion();
 
-    public List<AutoFillAction> getMenuItems(String text);
 
-    public ModeEnum getMode();
+    FormattedHint getHintFormatFromCurrentGame();
 
-    public List<ModeEnum> getModes();
+    int getHintFormatSizeFromCurrentGame();
+
+    boolean hintsAreEnabled();
+
+    List<AutoFillAction> getMenuItems(String text);
+
+    ModeEnum getMode();
+
+    List<ModeEnum> getModes();
+
 }

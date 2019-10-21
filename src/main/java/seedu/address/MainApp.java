@@ -7,13 +7,13 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import seedu.address.appmanager.AppManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
@@ -51,7 +51,8 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected GameManager gameManager;
+    protected AppManager appManager;
+
     /*
     Step 1.
     protected Game game;
@@ -94,14 +95,14 @@ public class MainApp extends Application {
         Step 9.
         Create GameManager using logic and pass to UIManager.
          */
-        gameManager = new GameManager(logic);
+        appManager = new AppManager(logic);
 
         /*
         Step 10
         Initialize UIManager using GameManager
          */
 
-        ui = new UiManager(gameManager);
+        ui = new UiManager(appManager);
     }
 
     /**

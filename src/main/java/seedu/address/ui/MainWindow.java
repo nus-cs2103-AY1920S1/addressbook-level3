@@ -12,9 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.appmanager.AppManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.UiLogicHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -33,8 +33,10 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
 
-    private GameManager gameManager;
+    private AppManager appManager;
+
     private UiLogicHelper uiLogicHelper;
+
     //Secondary parser for updating the Ui.
     private UpdateUi updateUi;
 
@@ -70,18 +72,21 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane currentModePlaceholder;
 
 
-    public MainWindow(Stage primaryStage, GameManager gameManager) {
+    public MainWindow(Stage primaryStage, AppManager appManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.gameManager = gameManager;
-        this.uiLogicHelper = gameManager.getLogic();
-        this.modularDisplay = new ModularDisplay(gameManager);
+
+        this.appManager = appManager;
+        this.modularDisplay = new ModularDisplay(appManager);
+
+        this.uiLogicHelper = appManager.getLogic();
+
         this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
 
         // Configure the UI
-        setWindowDefaultSize(gameManager.getGuiSettings());
+        setWindowDefaultSize(appManager.getGuiSettings());
 
         setAccelerators();
 
@@ -139,13 +144,13 @@ public class MainWindow extends UiPart<Stage> {
         timerDisplay = new TimerDisplay();
         timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
         //Set up callback function in GameManager to update TimerDisplay
-        gameManager.setTimerDisplayCallBack(this::updateTimerDisplay);
+        appManager.setTimerDisplayCallBack(this::updateTimerDisplay);
         //Set up callback function in GameManager to update ResultDisplay
-        gameManager.setResultDisplayCallBack(this::updateResultDisplay);
+        appManager.setHintDisplayCallBack(this::updateHintDisplay);
         //Set up callback function in GameManager to call MainWindow's executeCommand
-        gameManager.setMainWindowExecuteCallBack(this::executeCommand);
+        appManager.setMainWindowExecuteCallBack(this::executeCommand);
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(gameManager.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         //Displays the current mode. Starts in "load" mode.
@@ -195,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        gameManager.setGuiSettings(guiSettings);
+        appManager.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
         //Platform.exit();
@@ -206,12 +211,12 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the result stats window when the game is finished.
      */
     private void handleFinishedGame() {
-        if (gameManager.getGameStatistics() == null) {
+        if (appManager.getGameStatistics() == null) {
             throw new IllegalStateException("gameStatistics in gameManager should not be null when game"
                     + "is finished");
         }
-        modularDisplay.swapToGameResult(modularDisplayPlaceholder, gameManager.getGameStatistics(),
-                gameManager.getWordBankStatistics());
+        modularDisplay.swapToGameResult(modularDisplayPlaceholder, appManager.getGameStatistics(),
+                appManager.getWordBankStatistics());
     }
 
     /**
@@ -222,7 +227,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
 
-            CommandResult commandResult = gameManager.execute(commandText);
+            CommandResult commandResult = appManager.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -277,8 +282,14 @@ public class MainWindow extends UiPart<Stage> {
         timerDisplay.setFeedbackToUser(timerMessage);
     }
 
-    private void updateResultDisplay(String resultDisplayMessage) {
-        this.resultDisplay.setFeedbackToUser(resultDisplayMessage);
+    /**
+     * Updates the HintDisplay section of the UI with the {@code resultDisplayMessage} string.
+     */
+    private void updateHintDisplay(String resultDisplayMessage) {
+        // Todo: implement HintDisplay window and show hints there instead
+        String[] tokens = resultDisplay.getCurrentTextOnDisplay().split("\n");
+        String toDisplay = tokens[0] + "\n" + tokens[1] + "\n" + resultDisplayMessage;
+        resultDisplay.setFeedbackToUser(toDisplay);
     }
 
 }
