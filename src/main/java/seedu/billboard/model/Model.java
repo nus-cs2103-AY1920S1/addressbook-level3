@@ -7,8 +7,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -118,7 +120,19 @@ public interface Model {
      */
     void updateFilteredExpenses(Predicate<Expense> predicate);
 
-    // ================ Archive methods ==============================
+    // ================ StatisticsGenerator Chart methods ======================
+
+    /**
+     * Returns the statistics type wrapped in an observable wrapper.
+     */
+    ObservableData<StatisticsType> getStatisticsType();
+
+    /**
+     * Sets the observable wrapper to the new statistics type, updating all observers in the process.
+     */
+    void setStatisticsType(StatisticsType type);
+
+    // ================ Archive methods ===============================
 
     /**
      * Returns a list of all existing archive names.
@@ -142,6 +156,12 @@ public interface Model {
      * Returns true if an archive with the same name as {@code archiveName} exists in the archives.
      */
     boolean hasArchive(String archive);
+
+    /**
+     * Deletes the given archive.
+     * The given {@code archiveName} must exist.
+     */
+    void deleteArchive(String archiveName);
 
     /**
      * Deletes the given expense in the given archive.

@@ -246,21 +246,9 @@ Usage:
 
 === Archiving past expenses: `archive`
 
-. _Creating a new archive: archive create_ +
-Adds a new archive with the specified name +
-{nbsp} +
-Usage:
-
- archive create [NAME]
-
-+
-Example: +
-`archive create “2018 expense”` +
-Creates a new archive called “2018 expenses”. +
-{nbsp} +
-
 . _Adding a record to an archive: archive add_ +
 Transfers the expense at the specified index to the specified archive. +
+If the specified archive does not exist, then the new archive is created before the expense is added. +
 {nbsp} +
 Usage:
 
@@ -268,21 +256,21 @@ Usage:
 +
 Options:
 
-* `--name`, `-n`: Specifies the name of the archive to add the expense to. (REQUIRED) +
+* `/arc`: Specifies the name of the archive to add the expense to. (REQUIRED) +
 {nbsp} +
 
 +
 Example: +
-`archive add 3 -n MBS casino winnings` +
+`archive add 3 arc/MBS casino winnings` +
 Archives the record at the 3rd index into an archive named “MBS casino winnings” +
 {nbsp} +
 
-. _Listing out all archives: archive list_ +
+. _Listing out all archives: archive listall_ +
 Displays the list of all archive names. +
 {nbsp} +
 Usage:
 
- archive list
+ archive listall
 
 +
 {nbsp} +
@@ -298,34 +286,42 @@ Example: +
 Lists out all the records in the “2018 expenses” archive +
 {nbsp} +
 
-. _Deleting an archived record: archive rm_ +
+. _Deleting an archived record: archive delete_ +
 Deletes the record at the specified index from a specified archive. +
+If the archive record deleted was the last record in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
 
- archive rm [INDEX] [OPTIONS]
+ archive delete [INDEX] [OPTIONS]
 +
 Options:
 
-* `--name`, `-n`: Specifies the name of the archive to delete the expense from. (REQUIRED) +
+* `arc/`: Specifies the name of the archive to delete the expense from. (REQUIRED) +
 {nbsp} +
 
 +
 Example: +
-`archive rm 5 -n 2018 expenses` +
+`archive delete 5 arc/2018 expenses` +
 Deletes the record at the 5th index in the “2018 expenses” archive +
 {nbsp} +
 
-. _Deleting an entire archive: archive rm_ +
-Deletes the entire specified archive. +
+. _Revert/unarchive an archived record: archive revert_ +
+Unarchives the record at the specified index from a specified archive, transferring it back to current list of expenses. +
+If the archive record reverted was the last record in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
 
- archive rm [NAME]
+ archive revert [INDEX] [OPTIONS]
++
+Options:
+
+* `arc/`: Specifies the name of the archive to revert the expense from. (REQUIRED) +
+{nbsp} +
+
 +
 Example: +
-`archive rm 2018 expenses` +
-Deletes the entire “2018 expenses” archive. +
+`archive revert 5 arc/2018 expenses` +
+Unarchives the record at the 5th index in the “2018 expenses” archive +
 {nbsp} +
 
 === Displaying of statistics: `show-stats`

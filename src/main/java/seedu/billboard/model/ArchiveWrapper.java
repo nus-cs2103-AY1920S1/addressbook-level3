@@ -83,8 +83,8 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         archiveList.put(newArchive.getArchiveName(), newArchive);
     }
 
-    public void removeArchive(Archive archive) {
-        archiveList.remove(archive);
+    public void removeArchive(String targetArchiveName) {
+        archiveList.remove(targetArchiveName);
     }
 
     //==================== Expense-Level operations ====================
@@ -106,15 +106,6 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         archiveList.get(archiveName).add(p);
     }
 
-    /**
-     * Replaces the given expense {@code target} in the given archive with {@code editedExpense}.
-     * The given {@code archiveName} must exist.
-     * {@code target} must exist in the archive.
-     */
-    public void setArchiveExpense(String archiveName, Expense target, Expense editedExpense) {
-        requireNonNull(editedExpense);
-        archiveList.get(archiveName).setExpense(target, editedExpense);
-    }
 
     /**
      * Removes {@code key} from the given archive.

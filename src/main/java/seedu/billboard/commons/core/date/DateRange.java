@@ -2,6 +2,7 @@ package seedu.billboard.commons.core.date;
 
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Represents a immutable {@code DateRange} from {@code startDate} to {@code endDate} inclusive.
+ * Represents a immutable {@code DateRange} from {@code startDate} to {@code endDate}.
  */
 public class DateRange {
 
@@ -19,37 +20,53 @@ public class DateRange {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    /**
-     * Creates a new date range starting from {@code startDate} to {@code endDate}.
-     *
-     * @param startDate The starting date.
-     * @param endDate   The ending date.
-     * @throws IllegalArgumentException if the end date is before the start date.
-     */
-    public DateRange(LocalDate startDate, LocalDate endDate) throws IllegalArgumentException {
-        requireAllNonNull(startDate, endDate);
-        if (endDate.isBefore(startDate)) {
-            throw new IllegalArgumentException(INVALID_DATES_MESSAGE);
+
+    private DateRange(LocalDate startDate, LocalDate endDateExclusive) throws DateTimeException {
+        requireAllNonNull(startDate, endDateExclusive);
+        if (endDateExclusive.isBefore(startDate)) {
+            throw new DateTimeException(INVALID_DATES_MESSAGE);
         }
 
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.endDate = endDateExclusive;
+    }
+
+    /**
+     * Creates a new date range starting from {@code startDate} to {@code endDate} exclusive.
+     *
+     * @param startDate The starting date.
+     * @param endDateExclusive  The ending date, exclusive
+     * @throws DateTimeException if the end date is before the start date.
+     */
+    public static DateRange from(LocalDate startDate, LocalDate endDateExclusive) throws DateTimeException {
+        return new DateRange(startDate, endDateExclusive);
+    }
+
+    /**
+     * Creates a new date range starting from {@code startDate} to {@code endDate} inclusive.
+     *
+     * @param startDate The starting date.
+     * @param endDateInclusive  The ending date, inclusive
+     * @throws DateTimeException if the end date is before the start date.
+     */
+    public static DateRange fromClosed(LocalDate startDate, LocalDate endDateInclusive) throws DateTimeException {
+        return new DateRange(startDate, endDateInclusive.plus(Period.ofDays(1)));
     }
 
     /**
      * Creates a date range starting at the given start date, and lasts for as long as the given period. Only accepts
-     * positive {@code Period} values. Zero or negative {@code Period} values will throw an exception.
+     * positive {@code Period} values. Negative {@code Period} values will throw an exception.
      *
      * @param startDate Given start date.
      * @param period    Period the date range should last for.
      * @return the newly created date range.
-     * @throws IllegalArgumentException if the period given is negative or zero.
+     * @throws DateTimeException if the period given is negative.
      */
-    public static DateRange overPeriod(LocalDate startDate, Period period) throws IllegalArgumentException {
-        if (period.isZero() || period.isNegative()) {
-            throw new IllegalArgumentException("Period cannot be negative or zero.");
+    public static DateRange overPeriod(LocalDate startDate, Period period) throws DateTimeException {
+        if (period.isNegative()) {
+            throw new DateTimeException("Period cannot be negative.");
         }
-        return new DateRange(startDate, startDate.plus(period).minus(Period.ofDays(1)));
+        return new DateRange(startDate, startDate.plus(period));
     }
 
     /**
@@ -62,12 +79,20 @@ public class DateRange {
     }
 
     /**
-     * Getter for end date.
-     *
+     * Getter for end date exclusive.
      * @return End date, as a {@code LocalDate}.
      */
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    /**
+     * Getter for end date inclusive.
+     *
+     * @return End date, as a {@code LocalDate}.
+     */
+    public LocalDate getEndDateInclusive() {
+        return endDate.minus(Period.ofDays(1));
     }
 
     /**
@@ -76,7 +101,7 @@ public class DateRange {
      * @return true if the date lies within the date range, false otherwise.
      */
     public boolean contains(LocalDate date) {
-        return !date.isBefore(startDate) && !date.isAfter(endDate);
+        return !date.isBefore(startDate) && !date.isAfter(getEndDateInclusive());
     }
 
     /**
