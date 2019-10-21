@@ -17,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
 import seedu.address.statistics.WordBankStatistics;
@@ -125,6 +126,10 @@ public class GameManager {
 
     public WordBankStatistics getActiveWordBankStatistics() {
         return logic.getActiveWordBankStatistics();
+    }
+
+    public WordBankStatisticsList getActiveWordBankStatisticsList() {
+        return logic.getWordBankStatisticsList();
     }
 
     public ObservableList<Card> getFilteredPersonList() {

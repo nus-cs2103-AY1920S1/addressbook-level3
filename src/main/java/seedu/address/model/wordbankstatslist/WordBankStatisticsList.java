@@ -81,6 +81,17 @@ public class WordBankStatisticsList implements ReadOnlyWordBankStatisticsList {
         internalList.remove(key);
     }
 
+    public Optional<WordBankStatistics> getMostPlayedWordBankStatistics() {
+        return internalList.stream()
+                .max((x, y) -> y.getGamesPlayed() - x.getGamesPlayed());
+    }
+
+    public int getTotalPlayed() {
+        return internalList.stream()
+                .mapToInt(WordBankStatistics::getGamesPlayed)
+                .sum();
+    }
+
     //// util methods
 
     @Override

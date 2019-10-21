@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
@@ -57,9 +58,10 @@ public class ModularDisplay {
 
         // twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
         // twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
+        WordBankStatisticsList wbStatsList = gameManager.getActiveWordBankStatisticsList();
         twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
-                100, new WordBankStatistics("PLACEHOLDER", 100,
-                Optional.empty(), new ArrayList<>(), new ArrayList<>()), // todo change from placeholder
+                wbStatsList.getTotalPlayed(),
+                wbStatsList.getMostPlayedWordBankStatistics(),
                 new Random().nextInt(AvatarImage.TOTAL_NUM) + 1).getRoot()); // todo should depend on user prefs
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());

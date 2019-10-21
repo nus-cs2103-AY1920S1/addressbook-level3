@@ -11,6 +11,8 @@ import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.AvatarImage;
 import seedu.address.ui.UiPart;
 
+import java.util.Optional;
+
 public class MainTitlePanel extends UiPart<Region> {
 
     private static final String FXML = "MainTitlePanel.fxml";
@@ -31,7 +33,7 @@ public class MainTitlePanel extends UiPart<Region> {
     @FXML
     private ImageView avatarImageView;
 
-    public MainTitlePanel(int playedTimes, WordBankStatistics maxWbStats, int avatarId) {
+    public MainTitlePanel(int playedTimes, Optional<WordBankStatistics> maxWbStats, int avatarId) {
         super(FXML);
 
         ImageView titleImage = new ImageView();
@@ -42,7 +44,7 @@ public class MainTitlePanel extends UiPart<Region> {
         logoPlaceholder.setCenter(titleImage);
         playedTimesText.setText(playedTimes + "");
         timesText.setText(playedTimes == 1 ? " time" : " times");
-        favoriteWordBankText.setText(maxWbStats.getWordBankName());
+        maxWbStats.ifPresent(statistics -> favoriteWordBankText.setText(statistics.getWordBankName()));
 
         Image avatarImage = AvatarImage.get(avatarId);
         avatarImageView.setImage(avatarImage);

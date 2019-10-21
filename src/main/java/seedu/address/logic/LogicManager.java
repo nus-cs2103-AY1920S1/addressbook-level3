@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
@@ -146,8 +147,12 @@ public class LogicManager implements Logic {
 
     @Override
     public WordBankStatistics getActiveWordBankStatistics() {
-        System.out.println(model.getWordBankStatistics());
         return model.getWordBankStatistics();
+    }
+
+    @Override
+    public WordBankStatisticsList getWordBankStatisticsList() {
+        return model.getWordBankStatisticsList();
     }
 
     @Override
