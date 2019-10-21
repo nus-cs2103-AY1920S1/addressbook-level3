@@ -7,6 +7,10 @@ public class CliSyntax {
 
     /* Prefix definitions */
 
+    /* Dashboard */
+    public static final Prefix PREFIX_TASKNAME = new Prefix("tn/");
+    public static final Prefix PREFIX_TASKDATE = new Prefix("td/");
+
     /* User Profile */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PRIMARY_MUSCLE = new Prefix("p/");
