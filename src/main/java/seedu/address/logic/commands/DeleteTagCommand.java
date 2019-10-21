@@ -70,7 +70,7 @@ public class DeleteTagCommand extends Command {
 
         for (Tag removeTag : removeTags) {
             for (Tag tag : personToEdit.getTags()) {
-                if (removeTag == tag) {
+                if (removeTag.equals(tag)) {
                     tagsRemoved = true;
                     break;
                 }

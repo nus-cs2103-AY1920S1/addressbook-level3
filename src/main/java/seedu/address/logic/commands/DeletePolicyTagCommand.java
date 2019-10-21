@@ -72,7 +72,7 @@ public class DeletePolicyTagCommand extends Command {
 
         for (Tag removeTag : removeTags) {
             for (Tag tag : policyToEdit.getTags()) {
-                if (removeTag == tag) {
+                if (removeTag.equals(tag)) {
                     tagsRemoved = true;
                     break;
                 }

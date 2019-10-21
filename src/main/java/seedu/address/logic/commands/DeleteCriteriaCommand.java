@@ -72,7 +72,7 @@ public class DeleteCriteriaCommand extends Command {
 
         for (Tag removeCriterion : removeCriteria) {
             for (Tag criterion : policyToEdit.getCriteria()) {
-                if (removeCriterion == criterion) {
+                if (removeCriterion.equals(criterion)) {
                     criteriaRemoved = true;
                     break;
                 }
