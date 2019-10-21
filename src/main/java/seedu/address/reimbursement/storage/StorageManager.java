@@ -46,6 +46,11 @@ public class StorageManager implements Storage {
         }
     }
 
+    /**
+     * Generates a hashmap which maps the person's name to the deadline date.
+     *
+     * @return the hashmap.
+     */
     private HashMap<String, LocalDate> readReimbursementFile() {
         try {
             HashMap<String, LocalDate> map = new HashMap<>();

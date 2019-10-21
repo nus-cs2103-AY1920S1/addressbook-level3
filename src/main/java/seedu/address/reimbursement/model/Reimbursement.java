@@ -60,6 +60,10 @@ public class Reimbursement {
         return deadline;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     /**
      * Calculates the total amount to reimburse based off the transaction list.
      */
