@@ -18,7 +18,7 @@ import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.UiLogicHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.game.GameCommandResult;
+import seedu.address.logic.commands.gamecommands.GameCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

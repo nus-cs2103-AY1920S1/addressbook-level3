@@ -7,10 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.app.HelpCommand;
-import seedu.address.logic.commands.game.GuessCommand;
-import seedu.address.logic.commands.game.SkipCommand;
-import seedu.address.logic.commands.game.StopCommand;
+import seedu.address.logic.commands.appcommands.HelpCommand;
+import seedu.address.logic.commands.gamecommands.GuessCommand;
+import seedu.address.logic.commands.gamecommands.SkipCommand;
+import seedu.address.logic.commands.gamecommands.StopCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

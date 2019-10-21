@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.game;
+package seedu.address.logic.commands.gamecommands;
 
 import seedu.address.model.card.Card;
 import seedu.address.statistics.GameDataPoint;

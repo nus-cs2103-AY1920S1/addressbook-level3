@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.io.IOException;
 
 import java.nio.file.Path;
@@ -14,9 +15,15 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.loadcommands.CreateCommand;
+import seedu.address.logic.commands.loadcommands.ExportCommand;
+import seedu.address.logic.commands.loadcommands.ImportCommand;
+import seedu.address.logic.commands.loadcommands.RemoveCommand;
+import seedu.address.logic.parser.DukemonParser;
 import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
@@ -35,10 +42,12 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic, UiLogicHelper {
     public static final String FILE_OPS_ERROR_MESSAGE = "File operation failed";
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
+
     private final ParserManager parserManager;
 
 
@@ -49,6 +58,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         Step 9.
         this.game = game //get from constructor
          */
+
         parserManager = new ParserManager();
     }
 
@@ -63,6 +73,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         Modify parseCommand()
         2 user modes: Game mode and Normal mode
         */
+
         Command command = parserManager.parseCommand(commandText);
 
         /*
@@ -88,18 +99,37 @@ public class LogicManager implements Logic, UiLogicHelper {
         /*
         Step 12.
         We save game here too.
-        Similar methods to saveAddressBook();
+        Similar methods to saveWordBanks();
          */
         try {
             ReadOnlyWordBank wb = model.getWordBank();
-            Path filePath = Paths.get("data/" + wb.getName() + ".json");
-            storage.saveAddressBook(model.getWordBank(), filePath);
-            System.out.println("_____bank" + model.getWordBank().getName());
-            for (Card c : wb.getCardList()) {
-                System.out.println(c);
+            Path wordBankListFilePath = storage.getWordBankListFilePath();
+            if (!wb.getName().equals("Empty wordbank")) {
+                storage.saveWordBank(wb, wordBankListFilePath);
+            }
+            if (command instanceof CreateCommand) {
+                storage.addWordBank(wb);
+            }
+            if (command instanceof RemoveCommand) {
+                storage.removeWordBank(((RemoveCommand) command).getWordBankName());
+            }
+            if (command instanceof ExportCommand) {
+                File dir = ((ExportCommand) command).getDirectory();
+                Path filePath = Paths.get(dir.toString());
+                storage.saveWordBank(((ExportCommand) command).getWordBank(), filePath);
+            }
+            if (command instanceof ImportCommand) {
+                File dir = ((ImportCommand) command).getDirectory();
+                String wordBankName = ((ImportCommand) command).getWordBankName() + ".json";
+                Path filePath = Paths.get(dir.toString(), wordBankName);
+                WordBank wordBank = (WordBank) storage.getWordBank(filePath).get();
+                storage.saveWordBank(wordBank, wordBankListFilePath);
+                model.getWordBankList().addBank(wordBank);
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        } catch (DataConversionException e) {
+            e.printStackTrace();
         }
 
         return commandResult;

@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.wordbanks;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,7 +19,6 @@ import seedu.address.model.tag.Tag;
  * Jackson-friendly version of {@link Card}.
  */
 class JsonAdaptedCard {
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
 
     private final String id;
@@ -61,9 +60,9 @@ class JsonAdaptedCard {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Card toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> cardTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            cardTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -83,7 +82,7 @@ class JsonAdaptedCard {
         }
         final Meaning modelMeaning = new Meaning(description);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(cardTags);
 
         if (id == null) {
             return Card.createNewCard(modelWord, modelMeaning, modelTags);

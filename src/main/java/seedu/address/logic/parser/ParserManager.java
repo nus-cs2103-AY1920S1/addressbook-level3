@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.SwitchCommand;
-import seedu.address.logic.commands.app.HelpCommand;
+import seedu.address.logic.commands.appcommands.HelpCommand;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.commands.switches.BankCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
