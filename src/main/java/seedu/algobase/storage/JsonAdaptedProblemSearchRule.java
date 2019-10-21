@@ -54,16 +54,41 @@ public class JsonAdaptedProblemSearchRule {
      */
     public JsonAdaptedProblemSearchRule(ProblemSearchRule rule) {
         name = rule.getName().name;
-        this.nameContainsKeywordsPredicate = new JsonAdaptedNameContainsKeywordsPredicate(rule.getNamePredicate());
-        this.authorMatchesKeywordPredicate = new JsonAdaptedAuthorMatchesKeywordPredicate(rule.getAuthorPredicate());
-        this.descriptionContainsKeywordsPredicate =
-            new JsonAdaptedDescriptionContainsKeywordsPredicate(rule.getDescriptionPredicate());
-        this.sourceMatchesKeywordPredicate =
-            new JsonAdaptedSourceMatchesKeywordPredicate(rule.getSourcePredicate());
-        this.difficultyIsInRangePredicate =
-            new JsonAdaptedDifficultyIsInRangePredicate(rule.getDifficultyPredicate());
-        this.tagIncludesKeywordsPredicate =
-            new JsonAdaptedTagIncludesKeywordsPredicate(rule.getTagPredicate());
+        if (!rule.hasDefaultNamePredicate()) {
+            this.nameContainsKeywordsPredicate = new JsonAdaptedNameContainsKeywordsPredicate(rule.getNamePredicate());
+        } else {
+            this.nameContainsKeywordsPredicate = null;
+        }
+        if (!rule.hasDefaultAuthorPredicate()) {
+            this.authorMatchesKeywordPredicate =
+                new JsonAdaptedAuthorMatchesKeywordPredicate(rule.getAuthorPredicate());
+        } else {
+            this.authorMatchesKeywordPredicate = null;
+        }
+        if (!rule.hasDefaultDescriptionPredicate()) {
+            this.descriptionContainsKeywordsPredicate =
+                new JsonAdaptedDescriptionContainsKeywordsPredicate(rule.getDescriptionPredicate());
+        } else {
+            this.descriptionContainsKeywordsPredicate = null;
+        }
+        if (!rule.hasDefaultSourcePredicate()) {
+            this.sourceMatchesKeywordPredicate =
+                new JsonAdaptedSourceMatchesKeywordPredicate(rule.getSourcePredicate());
+        } else {
+            this.sourceMatchesKeywordPredicate = null;
+        }
+        if (!rule.hasDefaultDifficultyPredicate()) {
+            this.difficultyIsInRangePredicate =
+                new JsonAdaptedDifficultyIsInRangePredicate(rule.getDifficultyPredicate());
+        } else {
+            this.difficultyIsInRangePredicate = null;
+        }
+        if (!rule.hasDefaultTagPredicate()) {
+            this.tagIncludesKeywordsPredicate =
+                new JsonAdaptedTagIncludesKeywordsPredicate(rule.getTagPredicate());
+        } else {
+            this.tagIncludesKeywordsPredicate = null;
+        }
     }
 
 
@@ -93,13 +118,19 @@ public class JsonAdaptedProblemSearchRule {
      */
     public ProblemSearchRule toModelType() throws IllegalValueException {
         final Name name = retrieveName(this.name);
-        final NameContainsKeywordsPredicate namePredicate = this.nameContainsKeywordsPredicate.toModelType();
-        final AuthorMatchesKeywordPredicate authorPredicate = this.authorMatchesKeywordPredicate.toModelType();
+        final NameContainsKeywordsPredicate namePredicate = this.nameContainsKeywordsPredicate == null ? null
+            : this.nameContainsKeywordsPredicate.toModelType();
+        final AuthorMatchesKeywordPredicate authorPredicate = this.authorMatchesKeywordPredicate == null ? null
+            : this.authorMatchesKeywordPredicate.toModelType();
         final DescriptionContainsKeywordsPredicate descriptionPredicate =
-            this.descriptionContainsKeywordsPredicate.toModelType();
-        final SourceMatchesKeywordPredicate sourcePredicate = this.sourceMatchesKeywordPredicate.toModelType();
-        final DifficultyIsInRangePredicate difficultyPredicate = this.difficultyIsInRangePredicate.toModelType();
-        final TagIncludesKeywordsPredicate tagPredicate = this.tagIncludesKeywordsPredicate.toModelType();
+            this.descriptionContainsKeywordsPredicate == null ? null
+                : this.descriptionContainsKeywordsPredicate.toModelType();
+        final SourceMatchesKeywordPredicate sourcePredicate = this.sourceMatchesKeywordPredicate == null ? null
+            : this.sourceMatchesKeywordPredicate.toModelType();
+        final DifficultyIsInRangePredicate difficultyPredicate = this.difficultyIsInRangePredicate == null ? null
+            : this.difficultyIsInRangePredicate.toModelType();
+        final TagIncludesKeywordsPredicate tagPredicate = this.tagIncludesKeywordsPredicate == null ? null
+            : this.tagIncludesKeywordsPredicate.toModelType();
         return new ProblemSearchRule(name, namePredicate, authorPredicate,
             descriptionPredicate, sourcePredicate, difficultyPredicate, tagPredicate);
     }
