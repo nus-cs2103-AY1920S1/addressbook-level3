@@ -80,10 +80,10 @@ public class TypicalEntities {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        ab.addIncident(new Incident(new IncidentId(3, 2018), new District(6),
+                new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
         ab.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
-        ab.addIncident(new Incident(new IncidentId(3, 2018), new District(3),
-                new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
         return ab;
     }
 

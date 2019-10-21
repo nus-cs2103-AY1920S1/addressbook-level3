@@ -180,8 +180,11 @@ public class Incident {
         }
 
         Incident otherIncident = (Incident) other;
+        return otherIncident.getDateTime().equals(getDateTime());
+        /* TODO: Fix equality check
         return otherIncident.getIncidentId().equals(getIncidentId())
                 && otherIncident.getDesc().equals(getDesc());
+         */
     }
 
 }
