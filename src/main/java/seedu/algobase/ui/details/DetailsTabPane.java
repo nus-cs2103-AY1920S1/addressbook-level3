@@ -48,11 +48,29 @@ public class DetailsTabPane extends UiPart<Region> {
         tabManager.getTabs().addListener(new ListChangeListener<AlgoBaseTab>() {
             @Override
             public void onChanged(Change<? extends AlgoBaseTab> change) {
+                tabsPlaceholder.getTabs().clear();
                 for (AlgoBaseTab algoBaseTab : change.getList()) {
                     Problem problem = logic.getProcessedProblemList().get(algoBaseTab.getModelIndex().getZeroBased());
                     addTabsToTabPane(new DetailsTab(problem.getName().fullName, new ProblemDetails(problem)));
                 }
+                selectLastTab();
             }
         });
+    }
+
+    /**
+     * Selects the tab to be displayed.
+     *
+     * @param index the index of the tab in the tab pane to be selected.
+     */
+    public void selectTab(int index) {
+        tabsPlaceholder.getSelectionModel().select(index);
+    }
+
+    /**
+     * Selects the last tab to be displayed.
+     */
+    public void selectLastTab() {
+        selectTab(tabsPlaceholder.getTabs().size() - 1);
     }
 }
