@@ -14,8 +14,10 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.OutCommand;
 import seedu.address.logic.commands.ProjectCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SplitCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -45,10 +47,15 @@ public class BankAccountParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-        // case SplitCommand.COMMAND_WORD:
-        //    return new SplitCommand(arguments);
+
+        case SplitCommand.COMMAND_WORD:
+            return new SplitCommandParser().parse(arguments);
+
         case InCommand.COMMAND_WORD:
             return new InCommandParser().parse(arguments);
+
+        case OutCommand.COMMAND_WORD:
+            return new OutCommandParser().parse(arguments);
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);

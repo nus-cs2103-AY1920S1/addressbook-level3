@@ -14,22 +14,13 @@ import seedu.address.model.transaction.SplitTransaction;
  */
 public class SplitCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Split amount successful";
     public static final String COMMAND_WORD = "split";
+    public static final String MESSAGE_SUCCESS = "Split successful";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Splits an expenditure between people and add that transaction to the bank account. "
-            + "Parameters: "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + "[" + PREFIX_NAME + "NAME]...\n"
-            + "[" + PREFIX_SHARE + "SHARE]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_AMOUNT + "600"
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_NAME + "John Soe"
-            + PREFIX_NAME + "John Moe "
-            + PREFIX_SHARE + "1"
-            + PREFIX_SHARE + "2"
-            + PREFIX_SHARE + "3";
+            + ": Splits an expenditure between people and add that transaction to the bank account. " + "Parameters: "
+            + PREFIX_AMOUNT + "AMOUNT " + "[" + PREFIX_NAME + "NAME]...\n" + "[" + PREFIX_SHARE + "SHARE]...\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_AMOUNT + "600" + PREFIX_NAME + "John Doe " + PREFIX_NAME
+            + "John Soe" + PREFIX_NAME + "John Moe " + PREFIX_SHARE + "1" + PREFIX_SHARE + "2" + PREFIX_SHARE + "3";
 
     private final SplitTransaction transaction;
 

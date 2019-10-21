@@ -9,39 +9,40 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.InCommand;
+import seedu.address.logic.commands.OutCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.Date;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.InTransaction;
+import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.util.Date;
 
 /**
- * Parses input arguments and creates a new InCommand object
+ * Parses input arguments and creates a new OutCommand object
  */
-public class InCommandParser implements Parser<InCommand> {
+public class OutCommandParser implements Parser<OutCommand> {
 
     @Override
-    public InCommand parse(String args) throws ParseException {
+    public OutCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE));
         }
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        Amount amount = ParserUtil.parseAmount("-" + argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Transaction transaction = new InTransaction(amount, date, tagList);
+        Transaction transaction = new OutTransaction(amount, date);
 
-        return new InCommand(transaction);
+        return new OutCommand(transaction);
 
     }
 
