@@ -9,7 +9,7 @@ import seedu.address.model.ItemStorage;
 /**
  * Clears the address book.
  */
-public class ClearCommand extends Command {
+public class ClearCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Item list has been cleared!";
@@ -20,15 +20,18 @@ public class ClearCommand extends Command {
     public CommandResult execute(ItemModel model) {
         requireNonNull(model);
         beforeClear = model.getItemStorage().deepCopy();
-        System.out.println(beforeClear.size());
         model.clear();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-        System.out.println(beforeClear.size());
         model.setItemStorage(beforeClear);
         model.updateLists();
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

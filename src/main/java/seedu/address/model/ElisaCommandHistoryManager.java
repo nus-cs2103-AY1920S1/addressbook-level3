@@ -3,8 +3,7 @@ package seedu.address.model;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UndoableCommand;
 
 
 /**
@@ -12,7 +11,7 @@ import seedu.address.logic.commands.UndoCommand;
  */
 
 public class ElisaCommandHistoryManager implements ElisaCommandHistory {
-    private Stack<Command> undoStack;
+    private Stack<UndoableCommand> undoStack;
 
     public ElisaCommandHistoryManager() {
         undoStack = new Stack<>();
@@ -23,8 +22,8 @@ public class ElisaCommandHistoryManager implements ElisaCommandHistory {
      * */
     @Override
     public void pushCommand(Command command) {
-        if (!(command instanceof UndoCommand || command instanceof ExitCommand)) {
-            undoStack.push(command);
+        if (command instanceof UndoableCommand) {
+            undoStack.push((UndoableCommand) command);
         }
     }
 
@@ -32,19 +31,15 @@ public class ElisaCommandHistoryManager implements ElisaCommandHistory {
      * pop last command
      * */
     @Override
-    public Command popCommand() {
-        if (undoStack.size() > 0) {
-            return undoStack.pop();
-        } else {
-            return null;
-        }
+    public UndoableCommand popCommand() {
+        return undoStack.pop();
     }
 
     /**
      * peek last command
      * */
     @Override
-    public Command peekCommand() {
+    public UndoableCommand peekCommand() {
         return undoStack.peek();
     }
 

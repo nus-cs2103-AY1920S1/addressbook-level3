@@ -17,6 +17,6 @@ public abstract class Command {
      */
     public abstract CommandResult execute(ItemModel model) throws CommandException;
 
-    public abstract void reverse(ItemModel model) throws CommandException;
+    public abstract String getCommandWord();
 
 }

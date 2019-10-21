@@ -14,7 +14,7 @@ import seedu.address.model.ItemModel;
 /**
  * Add an Item to the item list.
  */
-public abstract class AddCommand extends Command {
+public abstract class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Task to the Task List. "

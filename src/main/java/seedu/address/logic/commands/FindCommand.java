@@ -12,7 +12,7 @@ import seedu.address.model.item.VisualizeList;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "find";
 
@@ -48,5 +48,10 @@ public class FindCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
                 && searchString.equals(((FindCommand) other).searchString)); // state check
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

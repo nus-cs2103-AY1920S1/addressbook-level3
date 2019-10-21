@@ -7,7 +7,7 @@ import seedu.address.model.exceptions.IllegalListException;
 /**
  * Toggle the state of ELISA between priority and non-priority mode.
  */
-public class PriorityCommand extends Command {
+public class PriorityCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "priority";
 
     private static final String PRIORITY_MODE_ON = "Priority mode activated";
@@ -31,5 +31,10 @@ public class PriorityCommand extends Command {
         } catch (IllegalListException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

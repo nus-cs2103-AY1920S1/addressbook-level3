@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 
 /**
@@ -18,6 +17,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void reverse(ItemModel model) throws CommandException { }
-
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

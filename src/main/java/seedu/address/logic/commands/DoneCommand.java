@@ -13,7 +13,7 @@ import seedu.address.model.item.VisualizeList;
 /**
  * Mark a task as done using it's index in ELISA.
  */
-public class DoneCommand extends Command {
+public class DoneCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "done";
 
@@ -62,6 +62,11 @@ public class DoneCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DoneCommand // instanceof handles nulls
                 && targetIndex.equals(((DoneCommand) other).targetIndex)); // state check
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }
 

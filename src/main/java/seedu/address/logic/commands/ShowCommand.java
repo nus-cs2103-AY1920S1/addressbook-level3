@@ -9,7 +9,7 @@ import seedu.address.model.item.VisualizeList;
 /**
  * Switches the current view to the desired view.
  */
-public class ShowCommand extends Command {
+public class ShowCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "show";
     public static final String TASK_VIEW_COMMAND = "T";
@@ -65,6 +65,11 @@ public class ShowCommand extends Command {
     @Override
     public void reverse(ItemModel model) throws CommandException {
         model.setVisualizeList(beforeSwitch);
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }
 

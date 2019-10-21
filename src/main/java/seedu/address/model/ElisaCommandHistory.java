@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.UndoableCommand;
 
 /**
  * interface for state history
@@ -9,9 +10,9 @@ import seedu.address.logic.commands.Command;
 public interface ElisaCommandHistory {
     public void pushCommand(Command command);
 
-    public Command popCommand();
+    public UndoableCommand popCommand();
 
-    public Command peekCommand();
+    public UndoableCommand peekCommand();
 
     public int size();
 }

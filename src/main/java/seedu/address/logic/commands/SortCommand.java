@@ -9,7 +9,7 @@ import seedu.address.model.item.VisualizeList;
 /**
  * Sort the current list.
  */
-public class SortCommand extends Command {
+public class SortCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_SUCCESS = "Item list has been sorted!";
@@ -27,5 +27,10 @@ public class SortCommand extends Command {
     @Override
     public void reverse(ItemModel model) throws CommandException {
         model.setVisualizeList(beforeSort);
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }
