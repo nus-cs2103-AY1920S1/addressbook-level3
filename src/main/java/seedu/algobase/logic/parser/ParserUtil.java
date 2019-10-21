@@ -1,6 +1,7 @@
 package seedu.algobase.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -11,8 +12,10 @@ import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.StringUtil;
+import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.ModelEnum;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
@@ -260,4 +263,27 @@ public class ParserUtil {
         }
     }
 
+    /** Parses a {@code String model enum} into an {@code ModelEnum}.
+     *
+     * @throws ParseException if the given {@code string model enum} is invalid.
+     */
+    public static ModelEnum parseModelTab(String modelTab) throws ParseException {
+        try {
+            return ModelEnum.valueOf(modelTab.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.toString());
+        }
+    }
+
+    /** Parses a {@code String model index} into an {@code ModelEnum}.
+     *
+     * @throws ParseException if the given {@code string model enum} is invalid.
+     */
+    public static Index parseModelIndex(String modelIndex) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(modelIndex);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenTabCommand.MESSAGE_USAGE), pe);
+        }
+    }
 }
