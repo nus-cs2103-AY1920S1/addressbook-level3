@@ -1,6 +1,8 @@
 package seedu.address.logic.parser.addcommandparser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CONTACT_NUMBER_DESC;
@@ -9,8 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BEN;
-import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_REGULAR;
@@ -26,7 +26,6 @@ import static seedu.address.testutil.TypicalCustomers.ALICE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;

@@ -75,6 +75,8 @@ public class CommandTestUtil {
     public static final String VALID_COST_SAMSUNG = "$1298";
     public static final String VALID_PRICE_IPHONE = "$2000";
     public static final String VALID_PRICE_SAMSUNG = "$1500";
+    public static final String VALID_TAG_NEW = "New";
+    public static final String VALID_TAG_BESTSELLER = "Bestseller";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
