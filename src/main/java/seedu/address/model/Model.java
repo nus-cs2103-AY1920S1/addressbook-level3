@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -107,7 +108,11 @@ public interface Model {
     void addTransaction(Transaction transaction);
 
     /**
-     * Returns an unmodifiable view of the filtered transaction list
+     * Sets the given budget.
+     */
+    void setBudget(Budget amount);
+
+    /** Returns an unmodifiable view of the filtered transaction list
      */
     ObservableList<Transaction> getFilteredTransactionList();
 

@@ -143,4 +143,5 @@ public class ParserUtil {
     public static Amount parseAmount(String s) {
         return new Amount(Double.parseDouble(s));
     }
+
 }

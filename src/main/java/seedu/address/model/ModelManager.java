@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -110,6 +111,11 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction transaction) {
         versionedBankAccount.addTransaction(transaction);
+    }
+
+    @Override
+    public void setBudget(Budget budget) {
+        versionedBankAccount.setBudget(budget);
     }
 
     /**
