@@ -131,6 +131,10 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasExactEatery(Eatery eatery) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void deleteEatery(Eatery target) {
             throw new AssertionError("This method should not be called.");
         }

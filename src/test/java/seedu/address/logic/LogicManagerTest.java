@@ -84,8 +84,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY
-                + ADDRESS_DESC_AMY + CATEGORY_DESC;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + ADDRESS_DESC_AMY + CATEGORY_DESC;
         Eatery expectedEatery = new EateryBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addEatery(expectedEatery);

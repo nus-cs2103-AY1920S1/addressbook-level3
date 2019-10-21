@@ -14,54 +14,56 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.eatery.Eatery;
+import seedu.address.testutil.EateryBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code CloseCommand}.
  */
-public class DeleteCommandTest {
+public class CloseCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalFeedList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Eatery eateryToDelete = model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EATERY);
+        Eatery closedEatery = new EateryBuilder().withTags("friends").withIsOpen(false).build();
+        CloseCommand closeCommand = new CloseCommand(INDEX_FIRST_EATERY);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EATERY_SUCCESS, eateryToDelete);
+        String expectedMessage = String.format(CloseCommand.MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
-        expectedModel.deleteEatery(eateryToDelete);
+        expectedModel.setEatery(model.getFilteredEateryList().get(0), closedEatery);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(closeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredEateryList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        CloseCommand closeCommand = new CloseCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_EATERY_DISPLAYED_INDEX);
+        assertCommandFailure(closeCommand, model, Messages.MESSAGE_INVALID_EATERY_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_validIndexFilteredList_success() throws CommandException {
         showEateryAtIndex(model, INDEX_FIRST_EATERY);
 
-        Eatery eateryToDelete = model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EATERY);
+        model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased());
+        Eatery closedEatery = new EateryBuilder().withTags("friends").withIsOpen(false).build();
+        CloseCommand closeCommand = new CloseCommand(INDEX_FIRST_EATERY);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EATERY_SUCCESS, eateryToDelete);
+        String expectedMessage = String.format(CloseCommand.MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
-        expectedModel.deleteEatery(eateryToDelete);
-        showNoEatery(expectedModel);
+        expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), closedEatery);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(closeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -72,39 +74,30 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getEateryList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        CloseCommand closeCommand = new CloseCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_EATERY_DISPLAYED_INDEX);
+        assertCommandFailure(closeCommand, model, Messages.MESSAGE_INVALID_EATERY_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_EATERY);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_EATERY);
+        CloseCommand closeFirstCommand = new CloseCommand(INDEX_FIRST_EATERY);
+        CloseCommand closeSecondCommand = new CloseCommand(INDEX_SECOND_EATERY);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertTrue(closeFirstCommand.equals(closeFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_EATERY);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        CloseCommand closeFirstCommandCopy = new CloseCommand(INDEX_FIRST_EATERY);
+        assertTrue(closeFirstCommand.equals(closeFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertFalse(closeFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertFalse(closeFirstCommand.equals(null));
 
         // different eatery -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoEatery(Model model) {
-        model.updateFilteredEateryList(p -> false);
-
-        assertTrue(model.getFilteredEateryList().isEmpty());
+        assertFalse(closeFirstCommand.equals(closeSecondCommand));
     }
 }

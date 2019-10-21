@@ -78,6 +78,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a eatery with the exact same identity as {@code eatery} exists in the address book.
+     */
+    public boolean hasExactEatery(Eatery eatery) {
+        requireNonNull(eatery);
+        return eateries.containsExact(eatery);
+    }
+
+    /**
      * Adds a eatery to the address book.
      * The eatery must not already exist in the address book.
      */

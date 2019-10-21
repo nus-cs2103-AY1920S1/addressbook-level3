@@ -20,14 +20,17 @@ public class EateryBuilder {
     public static final String DEFAULT_CATEGORY = "Chinese";
 
     private Name name;
+    private boolean isOpen;
     private Address address;
     private Category category;
     private Set<Tag> tags;
 
     public EateryBuilder() {
         name = new Name(DEFAULT_NAME);
+        isOpen = true;
         address = new Address(DEFAULT_ADDRESS);
         category = new Category(DEFAULT_CATEGORY);
+        address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
 
@@ -36,6 +39,7 @@ public class EateryBuilder {
      */
     public EateryBuilder(Eatery eateryToCopy) {
         name = eateryToCopy.getName();
+        isOpen = eateryToCopy.getIsOpen();
         address = eateryToCopy.getAddress();
         category = eateryToCopy.getCategory();
         tags = new HashSet<>(eateryToCopy.getTags());
@@ -50,6 +54,17 @@ public class EateryBuilder {
     }
 
     /**
+<<<<<<< HEAD
+     * Sets the {@code isOpen} of the {@code Eatery} that we are building.
+     */
+    public EateryBuilder withIsOpen(boolean isOpen) {
+        this.isOpen = isOpen;
+        return this;
+    }
+
+    /**
+=======
+>>>>>>> upstream/master
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Eatery} that we are building.
      */
     public EateryBuilder withTags(String ... tags) {
@@ -74,7 +89,6 @@ public class EateryBuilder {
     }
 
     public Eatery build() {
-        return new Eatery(name, address, category, tags);
+        return new Eatery(name, isOpen, address, category, tags);
     }
-
 }

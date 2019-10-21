@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.CloseCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditEateryDescriptor;
@@ -60,6 +61,13 @@ public class AddressBookParserTest {
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_EATERY.getOneBased() + " " + EateryUtil.getEditEateryDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_EATERY, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_close() throws Exception {
+        CloseCommand command = (CloseCommand) parser.parseCommand(
+                CloseCommand.COMMAND_WORD + " " + INDEX_FIRST_EATERY.getOneBased());
+        assertEquals(new CloseCommand(INDEX_FIRST_EATERY), command);
     }
 
     @Test

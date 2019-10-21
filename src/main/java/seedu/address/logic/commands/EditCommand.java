@@ -23,7 +23,6 @@ import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
 import seedu.address.model.eatery.Tag;
 
-
 /**
  * Edits the details of an existing eatery in the address book.
  */
@@ -119,6 +118,7 @@ public class EditCommand extends Command {
      */
     public static class EditEateryDescriptor {
         private Name name;
+        private boolean isOpen;
         private Address address;
         private Category category;
         private Set<Tag> tags;

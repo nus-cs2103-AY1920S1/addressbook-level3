@@ -15,6 +15,7 @@ public class Eatery {
 
     // Identity fields
     private final Name name;
+    private final boolean isOpen;
     // Data fields
     private final Address address;
     private final Category category;
@@ -22,17 +23,36 @@ public class Eatery {
 
     /**
      * Every field must be present and not null.
+     * Used when adding a eatery for the first time
      */
     public Eatery(Name name, Address address, Category category, Set<Tag> tags) {
         requireAllNonNull(name, address, category, tags);
         this.name = name;
-        this.category = category;
+        this.isOpen = true;
         this.address = address;
+        this.category = category;
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     * Used for editing open or close
+     */
+    public Eatery(Name name, boolean isOpen, Address address, Category category, Set<Tag> tags) {
+        requireAllNonNull(name, address, category);
+        this.name = name;
+        this.isOpen = isOpen;
+        this.address = address;
+        this.category = category;
         this.tags = tags;
     }
 
     public Name getName() {
         return name;
+    }
+
+    public boolean getIsOpen() {
+        return isOpen;
     }
 
     public Address getAddress() {
@@ -80,6 +100,7 @@ public class Eatery {
 
         Eatery otherEatery = (Eatery) other;
         return otherEatery.getName().equals(getName())
+                && otherEatery.getIsOpen() == (getIsOpen())
                 && otherEatery.getAddress().equals(getAddress())
                 && otherEatery.getCategory().equals(getCategory())
                 && otherEatery.getTags().equals(getTags());
@@ -88,13 +109,15 @@ public class Eatery {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, address, tags);
+        return Objects.hash(name, isOpen, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" isOpen: ")
+                .append(getIsOpen())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Category: ")

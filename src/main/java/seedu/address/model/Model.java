@@ -12,6 +12,7 @@ import seedu.address.model.feed.Feed;
  * The API of the Model component.
  */
 public interface Model {
+
     /**
      * {@code Predicate} that always evaluate to true
      */
@@ -63,6 +64,11 @@ public interface Model {
     boolean hasEatery(Eatery eatery);
 
     /**
+     * Returns true if a eatery with the exact same identity as {@code eatery} exists in the address book.
+     */
+    boolean hasExactEatery(Eatery eatery);
+
+    /**
      * Deletes the given eatery.
      * The eatery must exist in the address book.
      */
@@ -91,7 +97,6 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered eatery list to filter by the given {@code predicate}.
-     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEateryList(Predicate<Eatery> predicate);

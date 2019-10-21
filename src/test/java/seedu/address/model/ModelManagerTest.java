@@ -90,6 +90,17 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasExactEatery_eateryNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasExactEatery(ALICE));
+    }
+
+    @Test
+    public void hasExactEatery_eateryInAddressBook_returnsTrue() {
+        modelManager.addEatery(ALICE);
+        assertTrue(modelManager.hasExactEatery(ALICE));
+    }
+
+    @Test
     public void getFilteredEateryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredEateryList().remove(0));
     }
