@@ -111,7 +111,7 @@ Creates a new contact with name John Doe and mobile number 98765432.
 
 Creates a new activity with a title, contacts (optional) and no expenses.
 
-The user creating the activity will be included automatically, and additional contacts can be specified - any contacts not found in the list of contacts will prompt the user to create them. Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
+The user creating the activity will be included automatically, and additional contacts can be specified by keywords. Only contacts found by valid keyword (keywords that find exactly 1 matching contact) will be added to the activity, rest will be ignored with warning message. Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
 
 Each activity will be assigned an activity ID automatically. +
 
@@ -119,7 +119,7 @@ Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
 
 Examples:
 
-* `activity n/Chalet p/John Doe` +
+* `activity t/Chalet p/John Doe p/` +
 Creates a new activity with title 'Chalet' and the user and John Doe as participants.
 
 === Add contacts to an activity: `invite`
