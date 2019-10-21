@@ -15,6 +15,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WasteList;
 import seedu.address.model.waste.WasteMonth;
+import seedu.address.storage.shoppinglist.BoughtListStorage;
 import seedu.address.storage.shoppinglist.ShoppingListStorage;
 import seedu.address.storage.wastelist.WasteListStorage;
 
@@ -29,17 +30,19 @@ public class StorageManager implements Storage {
     private TemplateListStorage templateListStorage;
     private WasteListStorage wasteListStorage;
     private ShoppingListStorage shoppingListStorage;
+    private BoughtListStorage boughtListStorage;
     private UserPrefsStorage userPrefsStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
                           TemplateListStorage templateListStorage, WasteListStorage wasteListStorage,
-                          ShoppingListStorage shoppingListStorage) {
+                          ShoppingListStorage shoppingListStorage, BoughtListStorage boughtListStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.templateListStorage = templateListStorage;
         this.wasteListStorage = wasteListStorage;
         this.shoppingListStorage = shoppingListStorage;
+        this.boughtListStorage = boughtListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -177,6 +180,36 @@ public class StorageManager implements Storage {
     public void saveShoppingList(ReadOnlyShoppingList shoppingList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         shoppingListStorage.saveShoppingList(shoppingList, filePath);
+    }
+
+// ================ BoughtList methods ==============================
+
+    @Override
+    public Path getBoughtListFilePath() {
+        return boughtListStorage.getBoughtListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readBoughtList() throws DataConversionException, IOException {
+        return readBoughtList(boughtListStorage.getBoughtListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readBoughtList(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return boughtListStorage.readBoughtList(filePath);
+    }
+
+    @Override
+    public void saveBoughtList(ReadOnlyAddressBook boughtList) throws IOException {
+        saveBoughtList(boughtList, boughtListStorage.getBoughtListFilePath());
+    }
+
+    @Override
+    public void saveBoughtList(ReadOnlyAddressBook boughtList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        boughtListStorage.saveBoughtList(boughtList, filePath);
     }
 
 
