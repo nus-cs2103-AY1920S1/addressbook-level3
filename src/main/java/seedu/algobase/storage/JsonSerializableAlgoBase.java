@@ -12,6 +12,7 @@ import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -22,18 +23,22 @@ class JsonSerializableAlgoBase {
 
     public static final String MESSAGE_DUPLICATE_PROBLEM = "Problems list contains duplicate Problem(s).";
     public static final String MESSAGE_DUPLICATE_TAG = "Tags list contains duplicate Tag(s).";
+    public static final String MESSAGE_DUPLICATE_FIND_RULE = "Find rules list contains duplicate rules.";
 
     private final List<JsonAdaptedProblem> problems = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedProblemSearchRule> findRules = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAlgoBase} with the given problems.
      */
     @JsonCreator
     public JsonSerializableAlgoBase(@JsonProperty("problems") List<JsonAdaptedProblem> problems,
-                                    @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                                    @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                                    @JsonProperty("findrules") List<JsonAdaptedProblemSearchRule> findRules) {
         this.problems.addAll(problems);
         this.tags.addAll(tags);
+        this.findRules.addAll(findRules);
     }
 
     /**
@@ -44,6 +49,8 @@ class JsonSerializableAlgoBase {
     public JsonSerializableAlgoBase(ReadOnlyAlgoBase source) {
         problems.addAll(source.getProblemList().stream().map(JsonAdaptedProblem::new).collect(Collectors.toList()));
         tags.addAll(source.getTagList().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
+        findRules.addAll(
+            source.getFindRules().stream().map(JsonAdaptedProblemSearchRule::new).collect(Collectors.toList()));
     }
 
     /**
@@ -66,6 +73,13 @@ class JsonSerializableAlgoBase {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
             }
             algoBase.addTag(tag);
+        }
+        for (JsonAdaptedProblemSearchRule jsonAdaptedProblemSearchRule: findRules) {
+            ProblemSearchRule rule = jsonAdaptedProblemSearchRule.toModelType();
+            if (algoBase.hasFindRule(rule)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_FIND_RULE);
+            }
+            algoBase.addFindRule(rule);
         }
         return algoBase;
     }
