@@ -22,10 +22,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.Logic;
-import seedu.address.ui.autocomplete.AutoCompleter;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.autocomplete.AutoCompleter;
 import seedu.address.ui.commandboxhistory.CommandBoxHistory;
 import seedu.address.ui.queue.QueueListPanel;
 
@@ -335,6 +335,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         case PATIENTS_TAB:
             personListPanel.regainSelector();
             break;
+        default:
         }
     }
 }

@@ -98,4 +98,21 @@ public class MainAppTest extends ApplicationTest {
         Assertions.assertThat(robot.window("Help")).isShowing();
         Assertions.assertThat(robot.listWindows().size()).isEqualTo(2);
     }
+
+    @Test
+    public void commandBoxHistoryTest(FxRobot robot) {
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        String[] testStrings = {"blabla", "   jUmPs. "};
+
+        robot.clickOn(commandBox).write(testStrings[0]).type(KeyCode.ENTER).type(KeyCode.UP);
+        Assertions.assertThat(commandBox.getText()).isEqualTo(testStrings[0]);
+        robot.eraseText(testStrings[0].length()).write(testStrings[1]).type(KeyCode.ENTER).type(KeyCode.UP);
+        Assertions.assertThat(commandBox.getText()).isEqualTo(testStrings[1]);
+        robot.type(KeyCode.UP, 2);
+        Assertions.assertThat(commandBox.getText()).isEqualTo(testStrings[0]);
+        robot.type(KeyCode.DOWN);
+        Assertions.assertThat(commandBox.getText()).isEqualTo(testStrings[1]);
+        robot.type(KeyCode.DOWN, 3);
+        Assertions.assertThat(commandBox.getText()).isBlank();
+    }
 }

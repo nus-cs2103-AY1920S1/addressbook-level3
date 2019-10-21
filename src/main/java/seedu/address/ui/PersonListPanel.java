@@ -62,6 +62,7 @@ public class PersonListPanel extends UiPart<Region> {
                 case TAB:
                 case LEFT:
                     dropSelector();
+                    break;
                 default:
                 }
             }
@@ -72,14 +73,20 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.setOnMouseClicked(e -> this.getRoot().requestFocus());
     }
 
+    /**
+     * Saves the current selected index.
+     * Then unselect the cell.
+     */
     public void dropSelector() {
         lastSelectedIndex = personListView.getSelectionModel().getSelectedIndex();
         personListView.getSelectionModel().select(-1);
     }
 
+    /**
+     * Restores the selection on the listview with the lastSelectedIndex.
+     */
     public void regainSelector() {
         personListView.getSelectionModel().select(lastSelectedIndex);
-        System.out.println(lastSelectedIndex);
     }
 
     /**
