@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Helper functions for handling strings.
@@ -135,20 +135,21 @@ public class StringUtil {
      */
     public static String getSuggestions(String invalidWord, Set<String> set, int limit) {
         StringBuilder matches = new StringBuilder();
-        TreeMap<Integer, LinkedList<String>> allMatches = new TreeMap<>();
+        TreeMap<Integer, TreeSet<String>> allMatches = new TreeMap<>();
         for (String s : set) {
             if (s.startsWith(invalidWord)) {
-                allMatches.putIfAbsent(-1, new LinkedList<>());
+                allMatches.putIfAbsent(-1, new TreeSet<>());
                 allMatches.get(-1).add(s);
             } else if (!allMatches.containsValue(s)) {
                 int i = StringUtil.computeDistance(s.toLowerCase(), invalidWord.toLowerCase());
                 if (i <= limit) {
-                    allMatches.putIfAbsent(i, new LinkedList<>());
+                    allMatches.putIfAbsent(i, new TreeSet<>());
                     allMatches.get(i).add(s);
+                    System.out.println(s);
                 }
             }
         }
-        for (Map.Entry<Integer, LinkedList<String>> entry : allMatches.entrySet()) {
+        for (Map.Entry<Integer, TreeSet<String>> entry : allMatches.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
             matches.append(entry.getValue());
         }

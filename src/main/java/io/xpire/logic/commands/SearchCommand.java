@@ -3,7 +3,6 @@ package io.xpire.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.xpire.commons.core.Messages;
@@ -40,21 +39,19 @@ public class SearchCommand extends Command {
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
                 model.getFilteredItemList().size()));
         if (model.getFilteredItemList().size() == 0) {
-            for (String s: predicate.getKeywords()) {
+            predicate.getKeywords().forEach(s -> {
                 if (s.startsWith("#")) {
-                    Set<String> tagList = model.getAllItemTags().stream()
-                                               .map(Tag::toString)
-                                               .collect(Collectors.toSet());
-                    sb.append(XpireParser.findSimilar(s, tagList, 3));
+                    sb.append(XpireParser.findSimilar(s, model.getAllItemTags().stream()
+                                                              .map(Tag::toString)
+                                                              .collect(Collectors.toSet()), 3));
                 } else {
-                    Set<String> nameList = model.getAllItemNames().stream()
-                                                .map(Name::toString)
-                                                .map(x-> x.split("\\s+"))
-                                                .flatMap(Arrays::stream)
-                                                .collect(Collectors.toSet());
-                    sb.append(XpireParser.findSimilar(s, nameList, 3));
+                    sb.append(XpireParser.findSimilar(s, model.getAllItemNames().stream()
+                                                              .map(Name::toString)
+                                                              .map(x -> x.split("\\s+"))
+                                                              .flatMap(Arrays::stream)
+                                                              .collect(Collectors.toSet()), 1));
                 }
-            }
+            });
         }
         return new CommandResult(sb.toString());
     }
