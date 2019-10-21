@@ -1,11 +1,13 @@
 package mams.logic.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Mass rejects appeals in Mams

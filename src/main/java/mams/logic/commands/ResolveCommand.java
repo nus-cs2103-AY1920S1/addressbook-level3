@@ -3,7 +3,7 @@ package mams.logic.commands;
 /**
  * Parent class for all resolve appeal commands
  */
-public abstract class ResolveCommand  extends Command {
+public abstract class ResolveCommand extends Command {
     public static final String COMMAND_WORD_APPROVE_APPEAL = "approve";
     public static final String COMMAND_WORD_REJECT_APPEAL = "reject";
 
