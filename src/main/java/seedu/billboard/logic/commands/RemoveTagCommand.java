@@ -4,6 +4,7 @@ import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -83,7 +84,7 @@ public class RemoveTagCommand extends TagCommand {
                 toReturn.add(tag);
             }
         }
-        return toReturn;
+        return Collections.unmodifiableSet(toReturn);
     }
 
     /**
@@ -96,6 +97,14 @@ public class RemoveTagCommand extends TagCommand {
         requireAllNonNull(current, toRemove);
         Set<Tag> toReturn = new HashSet<>(current);
         toReturn.removeAll(toRemove);
-        return toReturn;
+        return Collections.unmodifiableSet(toReturn);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RemoveTagCommand // instanceof handles nulls
+                && tagNames.equals(((RemoveTagCommand) other).tagNames))
+                && index.equals(((RemoveTagCommand) other).index);
     }
 }

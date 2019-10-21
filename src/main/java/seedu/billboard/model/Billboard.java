@@ -62,7 +62,7 @@ public class Billboard implements ReadOnlyBillboard {
     }
 
     public void setCountManager(Map<Tag, Integer> count) {
-        this.count.setCount(count);
+        this.count.setCountMap(count);
     }
 
 
@@ -89,7 +89,7 @@ public class Billboard implements ReadOnlyBillboard {
                 .stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
         Billboard billboard = new Billboard();
         billboard.setExpenses(nonArchiveExpenses);
-        billboard.setCountManager(count.getCount());
+        billboard.setCountManager(count.getCountMap());
         billboard.setUniqueTagList(tags.getTagList());
         return billboard;
     }
@@ -154,7 +154,7 @@ public class Billboard implements ReadOnlyBillboard {
      */
     public void decreaseCount(Set<Tag> toDecrease) {
         count.decreaseAllCount(toDecrease);
-        List<Tag> toRemove = count.removeAll();
+        List<Tag> toRemove = count.removeZeroCount();
         tags.removeAll(toRemove);
     }
 
@@ -192,7 +192,7 @@ public class Billboard implements ReadOnlyBillboard {
 
     @Override
     public Map<Tag, Integer> getCountManager() {
-        return count.getCount();
+        return count.getCountMap();
     }
 
     @Override

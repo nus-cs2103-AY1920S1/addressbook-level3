@@ -128,4 +128,18 @@ public class UniqueTagList {
         Collections.sort(tagNames);
         return List.copyOf(tagNames);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof UniqueTagList)) {
+            return false;
+        }
+
+        UniqueTagList otherList = (UniqueTagList) other;
+        return otherList.getTagList().equals(getTagList());
+    }
 }

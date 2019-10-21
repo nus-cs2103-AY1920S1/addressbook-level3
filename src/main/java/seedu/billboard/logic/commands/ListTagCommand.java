@@ -32,4 +32,10 @@ public class ListTagCommand extends TagCommand {
         }
         return new CommandResult(sb.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListTagCommand); // instanceof handles nulls
+    }
 }
