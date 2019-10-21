@@ -27,7 +27,7 @@ public class GameTimerTest {
         mainWindowStub = new MainWindowStub();
         timerDisplayStub = new TimerDisplayStub();
     }
-
+    /*
     @Test
     public void run() {
         AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
@@ -46,7 +46,7 @@ public class GameTimerTest {
         assertTrue(mainWindowStub.isExecutedFromGameTimer);
         assertTrue(timerDisplayStub.isUpdatedFromGameTimer);
     }
-
+    */
     @Test
     public void abortTimer() {
         AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
