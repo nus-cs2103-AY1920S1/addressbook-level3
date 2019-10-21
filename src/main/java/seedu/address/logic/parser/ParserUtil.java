@@ -30,7 +30,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
      * and trailing whitespaces will be trimmed.
-     * 
+     *
      * @throws ParseException if the specified index is invalid (not non-zero
      *                        unsigned integer).
      */
@@ -59,7 +59,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code Collection<String> names} into a {@code List<Name>}
-     * 
+     *
      * @param names
      * @return
      * @throws ParseException
@@ -162,7 +162,7 @@ public class ParserUtil {
 
     /**
      * Parses {@code Collection<String> shares} into a {@code List<Integer>}.
-     * 
+     *
      * @param shares
      * @return
      * @throws ParseException
@@ -178,7 +178,7 @@ public class ParserUtil {
 
     /**
      * Parse {@code String s} into an {@code Amount}
-     * 
+     *
      * @param s input
      * @return Amount
      */
