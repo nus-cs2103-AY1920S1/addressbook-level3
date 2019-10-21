@@ -1,20 +1,16 @@
 package seedu.address.ui;
 
+import java.util.Set;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.Content;
-import seedu.address.model.cheatsheet.ContentSortByIndex;
 import seedu.address.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Controller class that handles what happens within the Cheatsheet Tab within the Activity Window.
@@ -55,7 +51,7 @@ public class CheatsheetTabWindowController {
         highlightTabs(0);
     }
 
-    private void highlightTabs(int index ) {
+    private void highlightTabs(int index) {
         tagArea.getSelectionModel().select(index);
     }
 }
