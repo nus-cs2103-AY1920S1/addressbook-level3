@@ -112,8 +112,7 @@ public interface Model {
      */
     void setBudget(Budget amount);
 
-    /** Returns an unmodifiable view of the filtered transaction list */
-     * Returns an unmodifiable view of the filtered transaction list
+    /** Returns an unmodifiable view of the filtered transaction list
      */
     ObservableList<Transaction> getFilteredTransactionList();
 
