@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BOB;
 
 import java.util.Arrays;
@@ -29,19 +29,19 @@ public class UniqueSpendingListTest {
 
     @Test
     public void contains_spendingNotInList_returnsFalse() {
-        assertFalse(uniqueSpendingList.contains(ALICE));
+        assertFalse(uniqueSpendingList.contains(APPLE));
     }
 
     @Test
     public void contains_spendingInList_returnsTrue() {
-        uniqueSpendingList.add(ALICE);
-        assertTrue(uniqueSpendingList.contains(ALICE));
+        uniqueSpendingList.add(APPLE);
+        assertTrue(uniqueSpendingList.contains(APPLE));
     }
 
     @Test
     public void contains_spendingWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueSpendingList.add(ALICE);
-        Spending editedAlice = new SpendingBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        uniqueSpendingList.add(APPLE);
+        Spending editedAlice = new SpendingBuilder(APPLE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueSpendingList.contains(editedAlice));
     }
@@ -53,40 +53,40 @@ public class UniqueSpendingListTest {
 
     @Test
     public void add_duplicateSpending_throwsDuplicateSpendingException() {
-        uniqueSpendingList.add(ALICE);
-        assertThrows(DuplicateSpendingException.class, () -> uniqueSpendingList.add(ALICE));
+        uniqueSpendingList.add(APPLE);
+        assertThrows(DuplicateSpendingException.class, () -> uniqueSpendingList.add(APPLE));
     }
 
     @Test
     public void setSpending_nullTargetSpending_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueSpendingList.setSpending(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniqueSpendingList.setSpending(null, APPLE));
     }
 
     @Test
     public void setSpending_nullEditedSpending_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueSpendingList.setSpending(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniqueSpendingList.setSpending(APPLE, null));
     }
 
     @Test
     public void setSpending_targetSpendingNotInList_throwsSpendingNotFoundException() {
-        assertThrows(SpendingNotFoundException.class, () -> uniqueSpendingList.setSpending(ALICE, ALICE));
+        assertThrows(SpendingNotFoundException.class, () -> uniqueSpendingList.setSpending(APPLE, APPLE));
     }
 
     @Test
     public void setSpending_editedSpendingIsSameSpending_success() {
-        uniqueSpendingList.add(ALICE);
-        uniqueSpendingList.setSpending(ALICE, ALICE);
+        uniqueSpendingList.add(APPLE);
+        uniqueSpendingList.setSpending(APPLE, APPLE);
         UniqueSpendingList expectedUniqueSpendingList = new UniqueSpendingList();
-        expectedUniqueSpendingList.add(ALICE);
+        expectedUniqueSpendingList.add(APPLE);
         assertEquals(expectedUniqueSpendingList, uniqueSpendingList);
     }
 
     @Test
     public void setSpending_editedSpendingHasSameIdentity_success() {
-        uniqueSpendingList.add(ALICE);
-        Spending editedAlice = new SpendingBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        uniqueSpendingList.add(APPLE);
+        Spending editedAlice = new SpendingBuilder(APPLE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniqueSpendingList.setSpending(ALICE, editedAlice);
+        uniqueSpendingList.setSpending(APPLE, editedAlice);
         UniqueSpendingList expectedUniqueSpendingList = new UniqueSpendingList();
         expectedUniqueSpendingList.add(editedAlice);
         assertEquals(expectedUniqueSpendingList, uniqueSpendingList);
@@ -94,8 +94,8 @@ public class UniqueSpendingListTest {
 
     @Test
     public void setSpending_editedSpendingHasDifferentIdentity_success() {
-        uniqueSpendingList.add(ALICE);
-        uniqueSpendingList.setSpending(ALICE, BOB);
+        uniqueSpendingList.add(APPLE);
+        uniqueSpendingList.setSpending(APPLE, BOB);
         UniqueSpendingList expectedUniqueSpendingList = new UniqueSpendingList();
         expectedUniqueSpendingList.add(BOB);
         assertEquals(expectedUniqueSpendingList, uniqueSpendingList);
@@ -103,9 +103,9 @@ public class UniqueSpendingListTest {
 
     @Test
     public void setSpending_editedSpendingHasNonUniqueIdentity_throwsDuplicateSpendingException() {
-        uniqueSpendingList.add(ALICE);
+        uniqueSpendingList.add(APPLE);
         uniqueSpendingList.add(BOB);
-        assertThrows(DuplicateSpendingException.class, () -> uniqueSpendingList.setSpending(ALICE, BOB));
+        assertThrows(DuplicateSpendingException.class, () -> uniqueSpendingList.setSpending(APPLE, BOB));
     }
 
     @Test
@@ -115,13 +115,13 @@ public class UniqueSpendingListTest {
 
     @Test
     public void remove_spendingDoesNotExist_throwsSpendingNotFoundException() {
-        assertThrows(SpendingNotFoundException.class, () -> uniqueSpendingList.remove(ALICE));
+        assertThrows(SpendingNotFoundException.class, () -> uniqueSpendingList.remove(APPLE));
     }
 
     @Test
     public void remove_existingSpending_removesSpending() {
-        uniqueSpendingList.add(ALICE);
-        uniqueSpendingList.remove(ALICE);
+        uniqueSpendingList.add(APPLE);
+        uniqueSpendingList.remove(APPLE);
         UniqueSpendingList expectedUniqueSpendingList = new UniqueSpendingList();
         assertEquals(expectedUniqueSpendingList, uniqueSpendingList);
     }
@@ -133,7 +133,7 @@ public class UniqueSpendingListTest {
 
     @Test
     public void setSpendings_uniqueSpendingList_replacesOwnListWithProvidedUniqueSpendingList() {
-        uniqueSpendingList.add(ALICE);
+        uniqueSpendingList.add(APPLE);
         UniqueSpendingList expectedUniqueSpendingList = new UniqueSpendingList();
         expectedUniqueSpendingList.add(BOB);
         uniqueSpendingList.setSpendings(expectedUniqueSpendingList);
@@ -147,7 +147,7 @@ public class UniqueSpendingListTest {
 
     @Test
     public void setSpendings_list_replacesOwnListWithProvidedList() {
-        uniqueSpendingList.add(ALICE);
+        uniqueSpendingList.add(APPLE);
         List<Spending> spendingList = Collections.singletonList(BOB);
         uniqueSpendingList.setSpendings(spendingList);
         UniqueSpendingList expectedUniqueSpendingList = new UniqueSpendingList();
@@ -157,7 +157,7 @@ public class UniqueSpendingListTest {
 
     @Test
     public void setSpendings_listWithDuplicateSpendings_throwsDuplicateSpendingException() {
-        List<Spending> listWithDuplicateSpendings = Arrays.asList(ALICE, ALICE);
+        List<Spending> listWithDuplicateSpendings = Arrays.asList(APPLE, APPLE);
         assertThrows(DuplicateSpendingException.class, ()
             -> uniqueSpendingList.setSpendings(listWithDuplicateSpendings));
     }

@@ -2,6 +2,7 @@ package seedu.moneygowhere.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,7 +15,9 @@ import seedu.moneygowhere.logic.parser.SpendingBookParser;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
+import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
+import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.storage.Storage;
 
 /**
@@ -52,6 +55,24 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Map<Date, Double> getGraphData(String commandText) throws ParseException {
+        Command command = spendingBookParser.parseCommand(commandText);
+        return command.getGraphData(model);
+    }
+
+    @Override
+    public Map<Tag, Double> getStatsData(String commandText) throws ParseException {
+        Command command = spendingBookParser.parseCommand(commandText);
+        return command.getStatsData(model);
+    }
+
+    @Override
+    public String getStatsMessage(String commandText) throws ParseException {
+        Command command = spendingBookParser.parseCommand(commandText);
+        return command.getStatsMessage(model);
+    }
+
+    @Override
     public ReadOnlySpendingBook getSpendingBook() {
         return model.getSpendingBook();
     }
@@ -75,4 +96,5 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
 }

@@ -6,42 +6,42 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.moneygowhere.logic.commands.StatsCommand;
+import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.spending.Date;
 
 /**
- * Parses input arguments and creates a new StatsCommand object
+ * Parses input arguments and creates a new GraphCommand object
  */
-public class StatsCommandParser implements Parser<StatsCommand> {
+public class GraphCommandParser implements Parser<GraphCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the StatsCommand
-     * and returns a StatsCommand object
+     * Parses the given {@code String} of arguments in the context of the GraphCommand
+     * and returns a GraphCommand object
      * for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public StatsCommand parse(String args) throws ParseException {
+    public GraphCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
         if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             List<Date> datesList = ParserUtil.parseDates(argMultimap.getAllValues(PREFIX_DATE));
 
             if (datesList.size() != 2) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
             }
 
             Date startDate = datesList.get(0);
             Date endDate = datesList.get(1);
 
             if (startDate.value.compareTo(endDate.value) > 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
             }
 
-            return new StatsCommand(startDate, endDate);
+            return new GraphCommand(startDate, endDate);
         }
 
-        return new StatsCommand();
+        return new GraphCommand();
     }
 
     /**

@@ -7,7 +7,7 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BOB;
 
 import org.junit.jupiter.api.Test;
@@ -25,66 +25,66 @@ public class SpendingTest {
     @Test
     public void isSameSpending() {
         // same object -> returns true
-        assertTrue(ALICE.isSameSpending(ALICE));
+        assertTrue(APPLE.isSameSpending(APPLE));
 
         // null -> returns false
-        assertFalse(ALICE.isSameSpending(null));
+        assertFalse(APPLE.isSameSpending(null));
 
         // different date and remark -> returns false
-        Spending editedAlice = new SpendingBuilder(ALICE).withDate(VALID_DATE_BOB).withRemark(VALID_REMARK_BOB).build();
-        assertFalse(ALICE.isSameSpending(editedAlice));
+        Spending editedAlice = new SpendingBuilder(APPLE).withDate(VALID_DATE_BOB).withRemark(VALID_REMARK_BOB).build();
+        assertFalse(APPLE.isSameSpending(editedAlice));
 
         // different name -> returns false
-        editedAlice = new SpendingBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameSpending(editedAlice));
+        editedAlice = new SpendingBuilder(APPLE).withName(VALID_NAME_BOB).build();
+        assertFalse(APPLE.isSameSpending(editedAlice));
 
         // same name, same date, different attributes -> returns true
-        editedAlice = new SpendingBuilder(ALICE).withRemark(VALID_REMARK_BOB)
+        editedAlice = new SpendingBuilder(APPLE).withRemark(VALID_REMARK_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameSpending(editedAlice));
+        assertTrue(APPLE.isSameSpending(editedAlice));
 
         // same name, same remark, different attributes -> returns true
-        editedAlice = new SpendingBuilder(ALICE).withDate(VALID_DATE_BOB)
+        editedAlice = new SpendingBuilder(APPLE).withDate(VALID_DATE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameSpending(editedAlice));
+        assertTrue(APPLE.isSameSpending(editedAlice));
 
         // same name, same date, same remark, different attributes -> returns true
-        editedAlice = new SpendingBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameSpending(editedAlice));
+        editedAlice = new SpendingBuilder(APPLE).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(APPLE.isSameSpending(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Spending aliceCopy = new SpendingBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Spending aliceCopy = new SpendingBuilder(APPLE).build();
+        assertTrue(APPLE.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(APPLE.equals(APPLE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(APPLE.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(APPLE.equals(5));
 
         // different Spending -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(APPLE.equals(BOB));
 
         // different name -> returns false
-        Spending editedAlice = new SpendingBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Spending editedAlice = new SpendingBuilder(APPLE).withName(VALID_NAME_BOB).build();
+        assertFalse(APPLE.equals(editedAlice));
 
         // different date -> returns false
-        editedAlice = new SpendingBuilder(ALICE).withDate(VALID_DATE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new SpendingBuilder(APPLE).withDate(VALID_DATE_BOB).build();
+        assertFalse(APPLE.equals(editedAlice));
 
         // different remark -> returns false
-        editedAlice = new SpendingBuilder(ALICE).withRemark(VALID_REMARK_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new SpendingBuilder(APPLE).withRemark(VALID_REMARK_BOB).build();
+        assertFalse(APPLE.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new SpendingBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new SpendingBuilder(APPLE).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(APPLE.equals(editedAlice));
     }
 }

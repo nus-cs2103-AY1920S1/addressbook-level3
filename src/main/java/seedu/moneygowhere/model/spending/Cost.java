@@ -29,11 +29,11 @@ public class Cost {
     public Cost(String cost) {
         requireNonNull(cost);
         checkArgument(isValidCost(cost), MESSAGE_CONSTRAINTS);
-        value = cost;
+        value = String.format("%.2f", Double.parseDouble(cost));
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid cost.
      */
     public static boolean isValidCost(String test) {
         return test.matches(VALIDATION_REGEX);

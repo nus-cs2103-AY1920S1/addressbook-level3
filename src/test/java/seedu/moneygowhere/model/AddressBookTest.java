@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
@@ -52,9 +52,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateSpendings_throwsDuplicateSpendingException() {
         // Two persons with the same identity fields
-        Spending editedAlice = new SpendingBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
+        Spending editedAlice = new SpendingBuilder(APPLE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Spending> newSpendings = Arrays.asList(ALICE, editedAlice);
+        List<Spending> newSpendings = Arrays.asList(APPLE, editedAlice);
         SpendingBookStub newData = new SpendingBookStub(newSpendings);
 
         assertThrows(DuplicateSpendingException.class, () -> addressBook.resetData(newData));
@@ -72,7 +72,7 @@ public class AddressBookTest {
 
     @Test
     public void hasSpending_spendingNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasSpending(ALICE));
+        assertFalse(addressBook.hasSpending(APPLE));
     }
 
     @Test
@@ -82,8 +82,8 @@ public class AddressBookTest {
 
     @Test
     public void hasSpending_spendingInAddressBook_returnsTrue() {
-        addressBook.addSpending(ALICE);
-        assertTrue(addressBook.hasSpending(ALICE));
+        addressBook.addSpending(APPLE);
+        assertTrue(addressBook.hasSpending(APPLE));
     }
 
     @Test
@@ -94,8 +94,8 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addSpending(ALICE);
-        Spending editedAlice = new SpendingBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
+        addressBook.addSpending(APPLE);
+        Spending editedAlice = new SpendingBuilder(APPLE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasSpending(editedAlice));
     }
