@@ -15,7 +15,7 @@ public class ReimbursementMessages {
             + "reimbursement.";
 
     public static final String NO_SUCH_COMMAND = "Sorry! Please type with these commands:\n"
-            + "deadline done find list sortname sortamount sortdeadline";
+            + "deadline\ndone\nfind\nlist\nsort name\nsort amount\nsort date\n";
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Sorry! Please type with these parameters:\n"
             + "p/PERSON\n dt/DATE (eg.02-Sep-2019)";

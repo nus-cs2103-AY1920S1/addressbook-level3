@@ -9,16 +9,16 @@ import seedu.address.reimbursement.commands.DeadlineCommand;
 import seedu.address.reimbursement.commands.DoneCommand;
 import seedu.address.reimbursement.commands.ExitCommand;
 import seedu.address.reimbursement.commands.FindCommand;
-import seedu.address.reimbursement.commands.ListCommand;
 import seedu.address.reimbursement.commands.SortCommand;
 import seedu.address.reimbursement.logic.exception.ParseException;
+import seedu.address.reimbursement.logic.parser.BackCommandParser;
 import seedu.address.reimbursement.logic.parser.DeadlineCommandParser;
 import seedu.address.reimbursement.logic.parser.DoneCommandParser;
 import seedu.address.reimbursement.logic.parser.ExitCommandParser;
 import seedu.address.reimbursement.logic.parser.FindCommandParser;
-import seedu.address.reimbursement.logic.parser.ListCommandParser;
 import seedu.address.reimbursement.logic.parser.SortCommandParser;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
+import seedu.address.transaction.commands.BackCommand;
 
 /**
  * Parser for the Reimbursement tab.
@@ -49,8 +49,8 @@ public class ReimbursementTabParser {
             return new FindCommandParser().parse(arguments, personModel);
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments, personModel);
-        case ListCommand.COMMAND_WORD:
-            return new ListCommandParser().parse(arguments);
+        case BackCommand.COMMAND_WORD:
+            return new BackCommandParser().parse(arguments);
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
         case ExitCommand.COMMAND_WORD:
