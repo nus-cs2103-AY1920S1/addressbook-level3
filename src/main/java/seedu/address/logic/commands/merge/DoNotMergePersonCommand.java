@@ -21,7 +21,6 @@ public class DoNotMergePersonCommand extends Command {
 
     private final Person inputPerson;
     private Person originalPerson;
-    private ArrayList<String[]> differentFields = new ArrayList<>();
 
 
     /**

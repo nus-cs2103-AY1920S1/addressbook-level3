@@ -12,7 +12,6 @@ public abstract class MergeRejectedCommand extends Command {
 
     public static final String COMMAND_WORD = "no";
 
-
     /**
      * Creates an {@code MergeRejectedCommand}.
      */

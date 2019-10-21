@@ -5,14 +5,13 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
+import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
 import seedu.address.model.Model;
 
 /**
  * Rejects an update of a data field of a duplicate {@code Policy} in the Addressbook.
  */
-public class MergePolicyRejectedCommand extends Command {
-
-    public static final String COMMAND_WORD = "no";
+public class MergePolicyRejectedCommand extends MergeRejectedCommand {
 
     public static final String MESSAGE_MERGE_FIELD_NOT_EXECUTED = "%1$s not updated.";
 
@@ -28,7 +27,7 @@ public class MergePolicyRejectedCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws DuplicatePersonWithMergeException {
+    public CommandResult execute(Model model) throws DuplicatePolicyWithMergeException {
         requireNonNull(model);
         String fieldType = previousMergeCommand.getNextMergeFieldType();
         if (isLastMerge()) {
