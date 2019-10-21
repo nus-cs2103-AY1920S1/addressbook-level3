@@ -11,7 +11,7 @@ public class Content {
     public static final String MESSAGE_CONSTRAINTS = "Cheatsheet contents should not be blank. "
             + "For flashcard's components, images are not supported in the cheatsheet.";
     public static final String VALIDATION_REGEX = "\\S.*"; //"\\p{Alnum}+";
-    private static int COUNTER = 1;
+    private static int counter = 1;
 
     public final String content;
     public final int index;
@@ -26,7 +26,7 @@ public class Content {
         requireNonNull(content);
         checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
         this.content = content;
-        this.index = COUNTER++;
+        this.index = counter++;
     }
 
     public Content(String question, String answer) {
@@ -36,7 +36,7 @@ public class Content {
         this.content = "Question: " + question
                 + "; Answer: " + answer;
 
-        this.index = COUNTER++;
+        this.index = counter++;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Content {
     }
 
     public static void resetCounter() {
-        COUNTER = 1;
+        counter = 1;
     }
 
     public int getIndex() {

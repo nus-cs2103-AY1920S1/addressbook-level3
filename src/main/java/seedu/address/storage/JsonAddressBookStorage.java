@@ -146,7 +146,9 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     //============== note tools
     @Override
-    public Path getNoteFilePath() { return this.filePath; }
+    public Path getNoteFilePath() {
+        return this.filePath;
+    }
 
     //============== cheatsheet tools
     @Override
