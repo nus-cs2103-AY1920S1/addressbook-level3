@@ -1,19 +1,29 @@
 package seedu.address.model.quiz;
 
-import java.util.ArrayList;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Represents a storage class which holds all the quizzes created up to date.
  */
-public class QuizBank {
+public class QuizBank implements Iterable<Quiz> {
 
-    private ArrayList<Quiz> quizzes;
+    private final ObservableList<Quiz> quizzes = FXCollections.observableArrayList();
+    private final ObservableList<Quiz> quizzesUnmodifiableList =
+            FXCollections.unmodifiableObservableList(quizzes);
 
     /**
-     * Creates a QuizBank instance with the appropriate attributes.
+     * Replaces the contents of this list with {@code Quizzes}. {@code Quizzes} must not contain
+     * duplicate Quizzes.
      */
-    public QuizBank() {
-        quizzes = new ArrayList<>();
+    public void setQuizzes(List<Quiz> quizzes) {
+        requireAllNonNull(quizzes);
+        this.quizzes.setAll(quizzes);
     }
 
     /**
@@ -21,7 +31,9 @@ public class QuizBank {
      * @param quiz The quiz to be added to the quiz bank.
      */
     public void addQuiz(Quiz quiz) {
-        quizzes.add(quiz);
+        if(!isRepeated(quiz)) {
+            quizzes.add(quiz);
+        }
     }
 
     /**
@@ -58,5 +70,28 @@ public class QuizBank {
      */
     public Quiz getQuiz(int quizIndex) {
         return quizzes.get(quizIndex);
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Quiz> asUnmodifiableObservableList() {
+        return quizzesUnmodifiableList;
+    }
+
+    @Override
+    public Iterator<Quiz> iterator() {
+        return quizzes.iterator();
+    }
+
+    private boolean isRepeated(Quiz quiz) {
+        for(Quiz q : quizzes) {
+            String thisQuizId = q.getQuizId();
+            String otherQuizId = quiz.getQuizId();
+            if(thisQuizId.equals(otherQuizId)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -14,6 +14,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.quiz.SavedQuizzes;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -63,6 +65,11 @@ public class SampleDataUtil {
         OpenEndedQuestion oeq = new OpenEndedQuestion("Example question.", "Sample answer.");
         savedQuestions.addQuestion(oeq);
         return savedQuestions;
+    }
+
+    public static ReadOnlyQuizzes getSampleQuizList() {
+        SavedQuizzes savedQuizzes = new SavedQuizzes();
+        return savedQuizzes;
     }
 
     /**

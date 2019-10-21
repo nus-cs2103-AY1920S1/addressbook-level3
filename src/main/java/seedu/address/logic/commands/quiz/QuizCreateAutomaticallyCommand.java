@@ -53,7 +53,11 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Created quiz: " + quizId + " with " + numQuestions + " questions.";
+        if (numQuestions == 1) {
+            return "Created Quiz: " + quizId + " with " + numQuestions + " question.";
+        } else {
+            return "Created Quiz: " + quizId + " with " + numQuestions + " questions.";
+        }
     }
 
     @Override

@@ -11,7 +11,7 @@ public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the questions & answers for a quiz\n"
             + "Parameters:\n"
-            + "quizID/ [QUIZ_ID]\n"
+            + "list quizID/ [QUIZ_ID]\n"
             + "Example: quizID/ CS2103T Finals\n\n";
 
     private final String quizId;
@@ -41,7 +41,7 @@ public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage(String message) {
-        return "These are the questions & answers for " + quizId + " "
+        return "These are the questions & answers for "
                     + message;
     }
 
