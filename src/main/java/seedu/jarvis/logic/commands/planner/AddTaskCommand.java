@@ -44,7 +44,7 @@ public class AddTaskCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted task: %1$s";
     public static final String MESSAGE_INVERSE_PERSON_NOT_FOUND = "Task already deleted: %1$s";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Task toAdd;
 
@@ -98,6 +98,7 @@ public class AddTaskCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    //TODO method
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         return null;

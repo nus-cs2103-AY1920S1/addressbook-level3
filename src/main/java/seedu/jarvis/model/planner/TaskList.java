@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a list of tasks in the planner
  */
@@ -30,10 +32,24 @@ public class TaskList {
 
     /**
      * Adds a task to the task list
+     * The task must not already exist in the planner
      * @param t the task to be added to the planner
      */
     public void add(Task t) {
         tasks.add(t);
+    }
+
+    /**
+     * Adds a {@code Task} at a given {@code Index}
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Person} to
+     * @param toAdd {@code Person} to be added.
+     */
+    //TODO test
+    public void add(int zeroBasedIndex, Task toAdd) {
+        requireNonNull(toAdd);
+
+        tasks.add(zeroBasedIndex, toAdd);
     }
 
     /**

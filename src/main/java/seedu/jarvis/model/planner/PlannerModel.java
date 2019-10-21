@@ -21,6 +21,14 @@ public interface PlannerModel {
     void addTask(Task t);
 
     /**
+     * Adds a {@code Task} at a given {@code Index}
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Task} to
+     * @param task {@code Task} to be added
+     */
+    void addTask(int zeroBasedIndex, Task task);
+
+    /**
      * Determines whether the planner contains the given task
      * @param t the task in question
      * @return true if the planner already contains the task, false if

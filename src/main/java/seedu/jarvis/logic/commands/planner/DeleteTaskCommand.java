@@ -23,9 +23,25 @@ public class DeleteTaskCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task:\n%1$s";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New task added task: %1$s";
+    public static final String MESSAGE_INVERSE_TASK_TO_ADD_ALREADY_EXIST = "Task already added: %1$s";
+
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
+    private Task deletedTask;
+
+    /**
+     * Creates a {@code DeleteTaskCommand} and sets TargetIndex to the {@code Index} and {@code Task} that was
+     * deleted, which is null if the task has not been deleted.
+     *
+     * @param targetIndex {@code Index} of the {@code Task} to be deleted
+     * @param deletedTask {@code Task} that was deleted, which is null if the task has not been deleted
+     */
+    public DeleteTaskCommand(Index targetIndex, Task deletedTask) {
+        this.targetIndex = targetIndex;
+        this.deletedTask = deletedTask;
+    }
 
     /**
      * Creates a {@code DeleteTaskCommand} and sets targetIndex to the {@code Index}
@@ -88,9 +104,18 @@ public class DeleteTaskCommand extends Command {
 
     }
 
+    //TODO test
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (model.hasTask(deletedTask)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_TASK_TO_ADD_ALREADY_EXIST, deletedTask));
+        }
+
+        model.addTask(targetIndex.getZeroBased(), deletedTask);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedTask));
     }
 
     @Override
