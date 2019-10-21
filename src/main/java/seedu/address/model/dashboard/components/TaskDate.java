@@ -13,6 +13,7 @@ public class TaskDate {
     public final String day;
     public final String month;
     public final String year;
+    public final String taskDate;
 
     /**
      * Constructs a {@TaskDate}
@@ -25,18 +26,7 @@ public class TaskDate {
         day = d[0];
         month = d[1];
         year = d[2];
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public String getYear() {
-        return year;
+        taskDate = day + "/" + month + "/" + year;
     }
 
     /**
@@ -59,7 +49,7 @@ public class TaskDate {
 
     @Override
     public String toString() {
-        return getDay() + "/" + getMonth() + "/" + getYear();
+        return taskDate;
     }
 
 
