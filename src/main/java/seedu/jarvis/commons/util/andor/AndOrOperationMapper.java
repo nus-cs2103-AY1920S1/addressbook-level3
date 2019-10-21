@@ -19,9 +19,9 @@ public class AndOrOperationMapper {
      */
     protected static AndOrOperation ofType(String type) {
         switch (type) {
-        case "and":
+        case KEYWORD_AND_NODE:
             return AND;
-        case "or":
+        case KEYWORD_OR_NODE:
             return OR;
         default:
             return DATA;
