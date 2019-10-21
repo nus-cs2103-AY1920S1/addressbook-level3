@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.NoteBuilder;
 
 public class TitleContainsKeywordsPredicateTest {
 
@@ -35,7 +35,7 @@ public class TitleContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different note -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
@@ -44,33 +44,33 @@ public class TitleContainsKeywordsPredicateTest {
         // One keyword
         TitleContainsKeywordsPredicate predicate =
                 new TitleContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PersonBuilder().withTitle("Alice Bob").build()));
+        assertTrue(predicate.test(new NoteBuilder().withTitle("Alice Bob").build()));
 
         // Multiple keywords
         predicate = new TitleContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new PersonBuilder().withTitle("Alice Bob").build()));
+        assertTrue(predicate.test(new NoteBuilder().withTitle("Alice Bob").build()));
 
         // Only one matching keyword
         predicate = new TitleContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PersonBuilder().withTitle("Alice Carol").build()));
+        assertTrue(predicate.test(new NoteBuilder().withTitle("Alice Carol").build()));
 
         // Mixed-case keywords
         predicate = new TitleContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new PersonBuilder().withTitle("Alice Bob").build()));
+        assertTrue(predicate.test(new NoteBuilder().withTitle("Alice Bob").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         TitleContainsKeywordsPredicate predicate = new TitleContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withTitle("Alice").build()));
+        assertFalse(predicate.test(new NoteBuilder().withTitle("Alice").build()));
 
         // Non-matching keyword
         predicate = new TitleContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withTitle("Alice Bob").build()));
+        assertFalse(predicate.test(new NoteBuilder().withTitle("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name
         predicate = new TitleContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withTitle("Alice").withContent("Main Street").build()));
+        assertFalse(predicate.test(new NoteBuilder().withTitle("Alice").withContent("Main Street").build()));
     }
 }

@@ -6,16 +6,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.statistics.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.statistics.StatsChart;
+import seedu.address.ui.statistics.StatsQnsList;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,8 +39,13 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private NoteListPanel noteListPanel;
+    private TaskListPanel taskListPanel;
+    private QuestionListPanel questionListPanel;
+    private QuizQuestionListPanel quizQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsChart statsChart;
+    private StatsQnsList statsQnsList;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -45,10 +57,28 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane noteListPanelPlaceholder;
 
     @FXML
+    private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane statsPanelPlaceholder;
+
+    @FXML
+    private StackPane questionListPanelPlaceholder;
+
+    @FXML
+    private StackPane quizQuestionListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private HBox mainPanel;
+
+    @FXML
+    private VBox stats;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -75,26 +105,11 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
@@ -107,13 +122,24 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        stats.setVisible(false);
+
         noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
         noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
+
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getFilteredQuizQuestionList());
+        quizQuestionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAppDataFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -160,6 +186,46 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Shows a pie chart and returns the value of the data
+     * in each slice of the chart when the mouse hovers over it.
+     */
+    @FXML
+    private void showStats(Type type) throws ParseException {
+        mainPanel.setVisible(false);
+        stats.setVisible(true);
+        switch (type) {
+        case CHART:
+            statsChart = new StatsChart(logic.getStatsChartData(), logic.getTotalQuestionsDone());
+            statsPanelPlaceholder.getChildren().add(statsChart.getRoot());
+            statsChart.getChart().getData().forEach(data -> {
+                String value = "" + (int) data.getPieValue();
+                Tooltip toolTip = new Tooltip(value);
+                toolTip.setStyle("-fx-font-size: 20");
+                toolTip.setShowDelay(Duration.seconds(0));
+                Tooltip.install(data.getNode(), toolTip);
+            });
+            break;
+        case QUESTIONS:
+            statsPanelPlaceholder.getChildren().clear();
+            statsQnsList = new StatsQnsList(logic.getStatsQnsList());
+            statsPanelPlaceholder.getChildren().add(statsQnsList.getLabel());
+            break;
+        default:
+            throw new ParseException("Invalid type: " + type);
+        }
+
+    }
+
+    /**
+     * Remove the pie chart from the noteListPanel.
+     */
+    @FXML
+    private void removeStats() {
+        mainPanel.setVisible(true);
+        stats.setVisible(false);
+    }
+
     public NoteListPanel getNoteListPanel() {
         return noteListPanel;
     }
@@ -181,6 +247,16 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            //if (commandResult.isQuiz()) {
+            //
+            //}
+
+            if (commandResult.isShowStats()) {
+                showStats(commandResult.getType());
+            } else {
+                removeStats();
             }
 
             return commandResult;

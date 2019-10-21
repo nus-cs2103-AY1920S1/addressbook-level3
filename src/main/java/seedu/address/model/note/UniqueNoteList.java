@@ -70,6 +70,15 @@ public class UniqueNoteList implements Iterable<Note> {
         }
     }
 
+    public Note get(Note note) {
+        for (Note toGet : internalList) {
+            if (toGet.isSameNote(note)) {
+                return toGet;
+            }
+        }
+        throw new NoteNotFoundException();
+    }
+
     public void setNotes(UniqueNoteList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

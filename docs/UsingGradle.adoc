@@ -28,7 +28,7 @@ To run a Gradle command, open a command window on the project folder and enter t
 `./gradlew clean test`
 
 [NOTE]
-If you do not specify any tasks, Gradlew will run the default tasks `clean` `test` `coverage`
+If you do not specify any tasks, Gradlew will run the default tasks `clean` and `test`.
 
 == Cleaning the Project
 
@@ -42,7 +42,7 @@ When running a Gradle task, Gradle will try to figure out if the task needs runn
 == Creating the JAR file
 
 * *`shadowJar`* +
-Creates the `addressbook.jar` file in the `build/jar` folder, _if the current file is outdated_. +
+Creates `nustudy.jar` in the `build/jar` folder, _if the current file is outdated_. +
 e.g. `./gradlew shadowJar`
 
 ****

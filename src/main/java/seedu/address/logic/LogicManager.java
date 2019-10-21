@@ -5,16 +5,21 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.AppDataParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.quiz.QuizParser;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Question;
+import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
 /**
@@ -22,38 +27,52 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    private static boolean isQuiz = false;
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final AppDataParser appDataParser;
+    private final QuizParser quizParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        appDataParser = new AppDataParser();
+        quizParser = new QuizParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        if (!isQuiz) {
+            logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+            Command command = appDataParser.parseCommand(commandText);
+            commandResult = command.execute(model);
+
+            if (commandResult.isShowStats()) {
+                return commandResult;
+            }
+        } else {
+            logger.info("----------------[USER INPUT][" + commandText + "]");
+
+            Command command = quizParser.parseCommand(commandText);
+            commandResult = command.execute(model);
+        }
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAppData(model.getAppData());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
         return commandResult;
     }
 
+
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyAppData getAppData() {
+        return model.getAppData();
     }
 
     @Override
@@ -62,8 +81,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<PieChart.Data> getStatsChartData() {
+        return model.getStatsChartData();
+    }
+
+    @Override
+    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
+        return model.getStatsQnsList();
+    }
+
+    @Override
+    public int getTotalQuestionsDone() {
+        return model.getTotalQuestionsDone();
+    }
+
+    @Override
+    public ObservableList<Question> getFilteredQuestionList() {
+        return model.getFilteredQuestionList();
+    }
+
+    @Override
+    public Path getAppDataFilePath() {
+        return model.getAppDataFilePath();
     }
 
     @Override
@@ -74,5 +113,23 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    public static void setIsQuiz(boolean isQuiz) {
+        LogicManager.isQuiz = isQuiz;
+    }
+
+    public boolean getIsQuiz() {
+        return isQuiz;
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return model.getFilteredTaskList();
+    }
+
+    @Override
+    public ObservableList<Question> getFilteredQuizQuestionList() {
+        return model.getFilteredQuizQuestionList();
     }
 }

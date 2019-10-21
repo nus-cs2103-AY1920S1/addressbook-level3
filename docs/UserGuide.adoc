@@ -34,16 +34,12 @@ the results. The overall appearance is similar to a simple note-taking client.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing `help` and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* `list`: lists all contacts
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: adds a contact named `John Doe` to the Address Book.
-* `delete 3`: deletes the 3rd contact shown in the current list
+.  Type the command in the command box and press kbd:[Enter] to execute it. Some commands you can try are
+* `listnote`: lists all lecture notes
+* `addnote t/Title c/Content`: adds a lecture note with title "Title" and contents "Content".
+* `deletenote 1`: deletes the first lecture note
+* `help`: open the help window
 * `exit`: exits the app
-
-.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -57,6 +53,7 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+// tag::lecnote[]
 === Lecture notes
 
 ==== Adding lecture notes: `addnote`
@@ -76,42 +73,44 @@ Find lecture notes whose title contains every given word (space-separated, ignor
 and display them. +
 Format: `findnote WORD [WORD]…`
 
+==== Listing all lecture notes: `listnote`
+Simply show all lecture notes. +
+Format: `listnote`
+
 ==== Deleting lecture notes: `deletenote`
 Delete the lecture note with the given index, which follows the same restrictions as with `editnote`. +
 Format: `deletenote INDEX`
 
-==== Exporting all entries: `export`
-Export all items in NUStudy, both flash cards and lecture notes, into a file with the given name. +
-Format: `export FILENAME`
-
-==== Importing all entries: `import`
-Import all items in the given file into NUStudy. This overwrites any items already in the app. +
-Format: `import FILENAME`
+==== Clearing all lecture notes: `clearnote`
+Clear all lecture notes. This does not affect quiz questions, but may affect revision tasks linked
+to the cleared notes. +
+Format: `clearnote`
+// end::lecnote[]
 
 === Questions
 
 NUStudy can also store different sets of questions and answers;
 at your command, the system will prompt you to answer those questions.
 
-==== Adding Questions : `add`
+==== Adding Questions : `addq`
 
 Adds a question and its answer. +
-Format: `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 
-==== Listing all questions: `list`
+==== Listing all questions: `listq`
 
 Shows a list of questions. +
-Format: `list`
+Format: `listq`
 
-==== Listing all questions with answers: `list -all`
+==== Listing all questions with answers: `listq -all`
 
 Shows a list of questions and their corresponding answers. +
-Format: `list -all`
+Format: `listq -all`
 
-==== Editing a question: `edit`
+==== Editing a question: `editq`
 
 Edits the fields of an existing question. +
-Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
+Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ****
 * Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
@@ -120,15 +119,15 @@ Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
-==== Locating questions by keyword: `find`
+==== Locating questions by keyword: `findq`
 
 Finds questions containing the keyword. +
-Format: `find KEYWORD [MORE KEYWORDS]`
+Format: `findq KEYWORD [MORE KEYWORDS]`
 
-==== Deleting a question: `delete`
+==== Deleting a question: `deleteq`
 
 Deletes the specific question at the specified INDEX and its answer from the list. +
-Format: `delete INDEX`
+Format: `deleteq INDEX`
 
 ****
 * Deletes the question at the specified `INDEX`.
@@ -146,14 +145,18 @@ Format: `difficulty d/DIFFICULTY`
 Views the list of questions of a specified subject with a specific difficulty. +
 Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
 
-=== Test mode
+=== Quiz mode
 
 There is a built-in Test mode in NUStudy for you to take a revision test based on questions and answers input by you.
 
-==== Enter test mode : `test`
+==== Enter quiz mode : `quiz`
 
-Enters test mode for you to answer questions. +
-Format: `test [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+Enters quiz mode for you to answer questions. +
+Format: `quiz [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+
+==== Answer the quiz question : `type answer` +
+Answers the specified question. +
+Format: `INDEX:ANSWER`
 
 ==== Change the difficulty: : `change -dif`
 
@@ -172,15 +175,10 @@ Format: +
 Changes the subject of questions. +
 Format: `change -s SUBJECT [MORE_SUBJECTS]`
 
-====  Skip a question : `skip`
-
-Skips current question and goto the next one. +
-Format: `skip`
-
 ==== Show an answer : `show`
 
-Shows an answer for this question. +
-Format: `show`
+Shows an answer for a question with specific index. +
+Format: `show INDEX`
 
 ==== Mark a question: `mark`
 
@@ -189,87 +187,74 @@ Format: `mark`
 
 ==== Exit test mode : `quit`
 
-Exits from the test mode. +
+Exits from the quiz mode. +
 Format: `quit`
 
 === Get statistics
 
 ==== Get statistics for subjects : `stats`
 
-Gets statistics of how well you answered the questions for a subject.
-A pie chart of the number of questions that have been answered correctly and incorrectly will be returned.
+Returns a pie chart of the number of questions that have been answered correctly and incorrectly.
+You can choose to only get the statistics for a difficulty level by adding an optional `d/`.
 You can even get the combined statistics of more than one subject. +
-Format: `stats s/SUBJECT [s/SUBJECT1] [s/SUBJECT2]...`
+Format: `stats s/SUBJECT [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
 
-==== Get questions with correct answers: correct
-Gets all questions that have been answered correctly for a particular subject.
-You can also choose to see past answers to the questions by adding the `-a`. +
-Format: `correct s/SUBJECT [-a]`
+==== Get questions with correct/incorrect answers: `questions`
+Gets all questions that have been answered correctly/incorrectly for a particular subject by using `-c/-i` respectively.
+Either one of `-c` or `-i` must be used.
+You can also choose to see past answers to the questions by adding an optional `-a`. +
+Format: `questions s/SUBJECT [-c] [-i] [-a]`
 
-==== Get questions with incorrect answers: incorrect
-Gets all questions that have been answered incorrectly for a particular subject.
-You can also choose to see past answers to the questions by adding the `-a`. +
-Format: `incorrect s/SUBJECT [-a]`
-
-==== Get statistics for individual questions: stats
-Gets statistics of how well you answered a particular question,
+==== Get a report for individual questions: `report`
+Returns a report of how well you have answered a particular question,
 the number of times the question has been attempted and the past answers to the question. +
-Format: `stats INDEX`
+Format: `report INDEX`
 
-==== Statistics for difficulty level: stats -dif
-Gets statistics of the number of questions within a subject attempted at the specified difficulty level. +
-Format: `stats -dif d/DIFFICULTY s/SUBJECT`
-
-==== Statistics for difficulty level accuracy: accur -dif
-Gets statistics of the questions answered correctly and incorrectly within a subject of a specific difficulty level. +
-Format: `accur -dif d/DIFFICULTY s/SUBJECT`
-
-==== Get overview of lecture notes: overview -ln
+==== Get overview of lecture notes: `overview -ln`
 Gets an overview of the types of notes that have been added into the app.
 A stacked bar graph, sorted by subjects will be returned. +
 Format: `overview -ln`
 
-==== Get overview of questions attempted: overview -q
+==== Get overview of questions attempted: `overview -q`
 Gets an overview of the types of questions that have been attempted overall.
 A stacked bar graph, sorted by subjects will be returned. +
 Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks
 
-==== View revision tasks: `rv list`
+==== View revision tasks: `rlist`
 Displays the revision task list +
-Format: `rv list [n/NOTE_SET] [dt/DATE]`
+Format: `rlist`
 
-==== Add revision task: `rv add`
+==== Add revision task: `radd`
 Adds an item (to-do) to the current revision task list +
 Format: +
-`rv add ns/NOTE_SET dt/START_DATE dt/START_TIME` +
-`rv add qs/QUESTION_SET dt/START_DATE dt/START_TIME`
+`radd t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
 
-==== Remove revision task: `rv delete`
+==== Remove revision task: `rdelete`
 Removes the specified revision task from current list +
-Format: `rv delete INDEX`
+Format: `rdelete INDEX`
 
-==== Clear current revision plan: `rv clear`
+==== Clear current revision plan: `rclear`
 Deletes all revision tasks
-Format: `rv clear`
+Format: `rclear`
 
-==== Edit revision task: `rv edit`
+==== Edit revision task: `redit`
 Edits the specified revision task
-Format: `rv edit INDEX`
+Format: `redit INDEX`
 
-==== Label the revision task as important: `rv impt`
-Format: `rv impt INDEX`
+==== Label the revision task as important: `rimpt`
+Format: `rimpt INDEX`
 
-==== Mark the revision task as done: `rv done`
-Format: `rv done INDEX`
+==== Mark the revision task as done: `rdone`
+Format: `rdone INDEX`
 
-==== View incomplete revision task: `rv ndone`
+==== View incomplete revision task: `rndone`
 Displays the list of revision tasks that are yet to be completed
-Format: `rv ndone`
+Format: `rndone`
 
-==== View overdue revision tasks: `rv overdue`
-Format: `rv overdue`
+==== View overdue revision tasks: `overdue`
+Format: `roverdue`
 
 ==== Enable push notification: `notify -e`
 Format: `notify -e [-A] [INDEX]`
@@ -289,8 +274,10 @@ The student shares notes and questions with other students with Internet connect
 === Login using email and password `[coming in v2.0]`
 The student can register and login to the application using their email and password.
 
-=== Flash card grouping suggestions `[coming in v2.0]`
-NUStudy will intelligently suggest groupings of flash cards based on their content.
+// tag::lngroup[]
+=== Lecture note grouping suggestions `[coming in v2.0]`
+NUStudy will intelligently suggest groupings of lecture notes based on their content.
+// end::lngroup[]
 
 == FAQ
 

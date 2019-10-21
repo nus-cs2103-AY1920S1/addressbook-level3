@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.showNoteAtIndex;
+import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,16 +24,16 @@ import seedu.address.model.note.Note;
  */
 public class DeleteNoteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST_PERSON);
+        Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
+        DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAppData(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
 
         assertCommandSuccess(deleteNoteCommand, model, expectedMessage, expectedModel);
@@ -49,27 +49,27 @@ public class DeleteNoteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showNoteAtIndex(model, INDEX_FIRST);
 
-        Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST_PERSON);
+        Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
+        DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAppData(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
-        showNoPerson(expectedModel);
+        showNoNote(expectedModel);
 
         assertCommandSuccess(deleteNoteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showNoteAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getNoteList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAppData().getNoteList().size());
 
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(outOfBoundIndex);
 
@@ -78,14 +78,14 @@ public class DeleteNoteCommandTest {
 
     @Test
     public void equals() {
-        DeleteNoteCommand deleteFirstCommand = new DeleteNoteCommand(INDEX_FIRST_PERSON);
-        DeleteNoteCommand deleteSecondCommand = new DeleteNoteCommand(INDEX_SECOND_PERSON);
+        DeleteNoteCommand deleteFirstCommand = new DeleteNoteCommand(INDEX_FIRST);
+        DeleteNoteCommand deleteSecondCommand = new DeleteNoteCommand(INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteNoteCommand deleteFirstCommandCopy = new DeleteNoteCommand(INDEX_FIRST_PERSON);
+        DeleteNoteCommand deleteFirstCommandCopy = new DeleteNoteCommand(INDEX_FIRST);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -94,14 +94,14 @@ public class DeleteNoteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different note -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoNote(Model model) {
         model.updateFilteredNoteList(p -> false);
 
         assertTrue(model.getFilteredNoteList().isEmpty());

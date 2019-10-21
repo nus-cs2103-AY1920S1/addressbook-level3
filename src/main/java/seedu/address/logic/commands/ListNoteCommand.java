@@ -9,7 +9,7 @@ import seedu.address.model.Model;
  * Lists all lecture notes.
  */
 public class ListNoteCommand extends Command {
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "listnote";
 
     public static final String MESSAGE_SUCCESS = "Listed all lecture notes";
 

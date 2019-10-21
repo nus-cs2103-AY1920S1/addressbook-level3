@@ -6,19 +6,13 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-[NOTE]
-====
-This document was originally written for _AddressBook Level 4_ and hence its screenshots refer to `addressbook-level4`.
-For use with _AddressBook Level 3_, wherever `addressbook-level4` is used in the screenshots, you should use *`addressbook-level3`*.
-====
-
 https://travis-ci.org/[Travis CI] is a _Continuous Integration_ platform for GitHub projects.
 
 Travis CI can run the projects' tests automatically whenever new code is pushed to the repo. This ensures that existing functionality and features have not been broken by the changes.
 
 The current Travis CI set up performs the following things whenever someone push code to the repo:
 
-* Runs the `./gradlew clean test coverage coveralls -i` command (see <<UsingGradle#, UsingGradle>> for more details on what this command means).
+* Runs the `./gradlew clean test -i` command (see <<UsingGradle#, UsingGradle>> for more details on what this command means).
 * Renders documentation from asciidoc to html and automatically publishes them using GitHub Pages.
 * Runs additional link:#repository-wide-checks[repository-wide checks].
 
@@ -60,7 +54,6 @@ image:build_pending.png[Commit build]
 +
 image:travis_build.png[Travis build]
 +
-.  If the build is successful, you should be able to check the coverage details of the tests at http://coveralls.io/[Coveralls]
 .  Update the link to the 'build status' badge at the top of the `README.adoc` to point to the build status of your own repo.
 
 == Enabling auto-publishing of documentation
@@ -109,8 +102,7 @@ Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis sc
 
 .  Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
    Suggested change: Remove the codacy badge from `README`.
-.  Wait for Travis CI to finish running the build on your new commit.
-.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level3/`. You should see your `README` file displayed.
+.  Wait for Travis CI to finish running the build on your new commit. You should see your `README` file displayed.
 
 == Repository-wide checks
 

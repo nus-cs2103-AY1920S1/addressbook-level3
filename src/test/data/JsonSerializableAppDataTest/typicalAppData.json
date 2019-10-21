@@ -1,0 +1,44 @@
+{
+  "_comment": "AppData save file which contains the same values as in TypicalAppData#getTypicalAppData()",
+  "notes" : [ {
+    "title" : "Alice Pauline",
+    "content" : "123, Jurong West Ave 6, #08-111"
+  }, {
+    "title" : "Benson Meier",
+    "content" : "311, Clementi Ave 2, #02-25"
+  }, {
+    "title" : "Carl Kurz",
+    "content" : "wall street"
+  }, {
+    "title" : "Daniel Meier",
+    "content" : "10th street"
+  }, {
+    "title" : "Elle Meyer",
+    "content" : "michegan ave"
+  }, {
+    "title" : "Fiona Kunz",
+    "content" : "little tokyo"
+  }, {
+    "title" : "George Best",
+    "content" : "4th street"
+  } ],
+  "tasks" : [ {
+    "title" : "Alice Pauline",
+    "content" : "123, Jurong West Ave 6, #08-111",
+    "date" : "2019-08-06",
+    "time" : "16:00",
+    "status" : "[N]"
+  } ],
+  "questions" : [ {
+    "questionBody" : "(  ) is a measure of the degree of dependence between components, classes, methods, etc.",
+    "answer" : "Coupling",
+    "subject" : "CS2103T",
+    "difficulty" : "easy"
+  } ],
+  "quizResults" : [ {
+    "answer" : "Coupling",
+    "questionBody" : "(  ) is a measure of the degree of dependence between components, classes, methods, etc.",
+    "quizTime" : "2019/10/10 12:00",
+    "result" : true
+  } ]
+}
