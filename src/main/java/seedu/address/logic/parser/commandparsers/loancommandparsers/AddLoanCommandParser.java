@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.loan.AddLoanCommand;
+import seedu.address.logic.commands.loancommands.AddLoanCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.CommandParser;

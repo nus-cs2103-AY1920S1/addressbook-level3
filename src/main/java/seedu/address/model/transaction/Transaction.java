@@ -2,6 +2,7 @@ package seedu.address.model.transaction;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,14 +33,14 @@ public class Transaction {
      * Since we only accept one category in the argument, it is added to the set of categories.
      */
     public Transaction(Date date, Amount amount, Direction direction, Description description,
-                       Account account, Category category) {
-        requireAllNonNull(date, amount, direction, category);
+                       Account account, Category... categories) {
+        requireAllNonNull(date, amount, direction);
         this.date = date;
         this.amount = amount;
         this.direction = direction;
         this.account = account;
         this.description = description;
-        this.categories.add(category);
+        this.categories.addAll(Arrays.asList(categories));
     }
 
     public Date getDate() {
@@ -80,12 +81,12 @@ public class Transaction {
         }
 
         Transaction otherTransaction = (Transaction) other;
-        return otherTransaction.getDate().equals(date)
-                && otherTransaction.getAmount().equals(amount)
-                && otherTransaction.getDirection().equals(direction)
-                && otherTransaction.getAccount().equals(account)
-                && otherTransaction.getDescription().equals(description)
-                && otherTransaction.getCategories().equals(categories);
+        return otherTransaction.getDate().equals(getDate())
+                && otherTransaction.amount.equals(amount)
+                && otherTransaction.direction.equals(direction)
+                && otherTransaction.account.equals(account)
+                && otherTransaction.description.equals(description)
+                && otherTransaction.categories.equals(categories);
 
     }
 

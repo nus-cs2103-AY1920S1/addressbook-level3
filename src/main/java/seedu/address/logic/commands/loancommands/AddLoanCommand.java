@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loan;
+package seedu.address.logic.commands.loancommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;

@@ -60,7 +60,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
         Optional<String> optionalDescription = argMultimap.getValue(PREFIX_DESCRIPTION);
         Description description = optionalDescription.isPresent()
                 ? CommandParserUtil.parseDescription(optionalDescription.get())
-                : new Description("");
+                : null;
 
         Optional<String> optionalAccount = argMultimap.getValue(PREFIX_ACCOUNT);
         Account account = optionalAccount.isPresent()
@@ -70,7 +70,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
         Optional<String> optionalCategory = argMultimap.getValue(PREFIX_CATEGORY);
         Category category = optionalCategory.isPresent()
                 ? CommandParserUtil.parseCategory(optionalCategory.get())
-                : new Category("");
+                : null;
 
         /**
          * Return current date when optionalDate is not present
