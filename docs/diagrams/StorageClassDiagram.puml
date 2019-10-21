@@ -4,21 +4,32 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+Package Storage <<Rectangle>>{
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface ModuleBookStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonModuleBookStorage
+Class JsonSerializableModule
+Class JsonSerializableModuleBookStorage
+Class JsonArchivedModuleList
+Class JsonAdaptedArchivedModule
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Storage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> ModuleBookStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonModuleBookStorage .left.|> ModuleBookStorage
+JsonModuleBookStorage .right.> JsonArchivedModuleList
+JsonModuleBookStorage .down.> JsonSerializableModuleBookStorage
+JsonSerializableModuleBookStorage .right.> JsonSerializableModule
+
+JsonArchivedModuleList .down.> JsonAdaptedArchivedModule
 @enduml
