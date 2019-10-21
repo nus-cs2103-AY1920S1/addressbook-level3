@@ -18,7 +18,6 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelEnum;
-import seedu.algobase.ui.details.DetailsTab;
 import seedu.algobase.ui.details.DetailsTabPane;
 import seedu.algobase.ui.display.DisplayTab;
 import seedu.algobase.ui.display.DisplayTabPane;
@@ -118,9 +117,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         displayTabPane = getDisplayTabPane();
-        ProblemDetails problemDetails = new ProblemDetails(logic.getProcessedProblemList().get(0));
-        DetailsTab problemDetailsTab = new DetailsTab("problem 0", problemDetails);
-        detailsTabPane = new DetailsTabPane(problemDetailsTab);
+        detailsTabPane = new DetailsTabPane(logic);
 
         layoutPanePlaceholder.getItems().add(displayTabPane.getRoot());
         layoutPanePlaceholder.getItems().add(detailsTabPane.getRoot());

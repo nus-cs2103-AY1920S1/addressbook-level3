@@ -1,8 +1,14 @@
 package seedu.algobase.ui.details;
 
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
+import seedu.algobase.logic.Logic;
+import seedu.algobase.model.gui.AlgoBaseTab;
+import seedu.algobase.model.gui.TabManager;
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.ui.ProblemDetails;
 import seedu.algobase.ui.UiPart;
 
 /**
@@ -15,9 +21,10 @@ public class DetailsTabPane extends UiPart<Region> {
     @FXML
     private TabPane tabsPlaceholder;
 
-    public DetailsTabPane(DetailsTab... detailsTab) {
+    public DetailsTabPane(Logic logic) {
         super(FXML);
-        addTabsToTabPane(detailsTab);
+        TabManager tabManager = logic.getGuiState().getTabManager();
+        addListenerForTabChange(tabManager, logic);
     }
 
     /**
@@ -29,5 +36,23 @@ public class DetailsTabPane extends UiPart<Region> {
         for (DetailsTab detailsTab: detailsTabs) {
             this.tabsPlaceholder.getTabs().add(detailsTab.getTab());
         }
+    }
+
+    /**
+     * Adds a listener to handle tab changes.
+     *
+     * @param tabManager Tab manager that processes list changes.
+     * @param logic The logic to retrieve objects from.
+     */
+    private void addListenerForTabChange(TabManager tabManager, Logic logic) {
+        tabManager.getTabs().addListener(new ListChangeListener<AlgoBaseTab>() {
+            @Override
+            public void onChanged(Change<? extends AlgoBaseTab> change) {
+                for (AlgoBaseTab algoBaseTab : change.getList()) {
+                    Problem problem = logic.getProcessedProblemList().get(algoBaseTab.getModelIndex().getZeroBased());
+                    addTabsToTabPane(new DetailsTab(problem.getName().fullName, new ProblemDetails(problem)));
+                }
+            }
+        });
     }
 }
