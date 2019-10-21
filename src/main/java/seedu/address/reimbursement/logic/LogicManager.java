@@ -53,7 +53,8 @@ public class LogicManager implements Logic {
 
     @Override
     public void updateReimbursementList() throws IOException {
-        reimbursementModel.updateReimbursementList(reimbursementStorage.readReimbursementList());
+        reimbursementModel.updateReimbursementList(
+                reimbursementStorage.getReimbursementFromFile(transactionModel.getTransactionList()));
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
     }
 }
