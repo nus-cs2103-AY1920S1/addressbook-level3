@@ -6,12 +6,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javafx.scene.image.Image;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.feature.Feature;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Photo;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -138,10 +141,16 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String photo} into an {@code Photo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code photo} is invalid.
+     */
     public static Photo parsePhoto(String imageFilePath) throws ParseException {
         requireNonNull(imageFilePath);
         String trimmedPath = imageFilePath.trim();
-        if(!Photo.isValidFilePath(trimmedPath)) {
+        if (!Photo.isValidFilePath(trimmedPath)) {
             throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
         }
         return new Photo(trimmedPath);

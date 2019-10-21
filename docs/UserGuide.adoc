@@ -161,12 +161,19 @@ Example :
 `find n/James Ho`
 
 === Selecting a player : `select`
-Selects a member which will display their details.
+Selects a member by index which will display their personal information.
+
+****
+* Selects the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1 ,2 ,3, ...
+****
 
 Format : `select INDEX`
 
 Example:
 //to include examples
+`select 1`
 
 === Viewing help : `help`
 

@@ -235,10 +235,19 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Select feature
+==== Implementation
+The select feature is facilitated by `SelectCommand`. It extends `Command` and parses the arguments using
+`SelectCommandParser`.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Design Consideration
+===== Aspect: Method to display personal information of the selected person
+* Alternative 1 (current choice): Displaying it in an AnchorPane.
+** Pros: Minimises the use of mouse
+* Alternative 2: Displaying it in a TabPane.
+** Pros: Looks more organised compared to the other alternatives
+* Alternative 3: Displaying via a pop-up.
+** Pros:
 
 // end::dataencryption[]
 
