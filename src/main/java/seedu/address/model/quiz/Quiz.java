@@ -59,12 +59,29 @@ public class Quiz {
     }
 
     /**
+     * Returns a quiz's question list.
+     * @return The quiz's question list.
+     */
+    public QuestionList getQuestionList() {
+        return questionList;
+    }
+
+    /**
+     * Sets a quiz's question list.
+     * @param questionList The question list to be set.
+     */
+    public void setQuestionList(QuestionList questionList) {
+        this.questionList = questionList;
+    }
+
+    /**
      * Returns the quiz questions, formatted in String representation for writing to a text file.
      * @return The quiz questions, formatted in String representation for writing to the text file.
      */
     public String getFormattedQuestions() {
         ArrayList<Question> questions = questionList.getQuestions();
-        String formattedQuestions = quizId + "\n";
+        String formattedQuestions = quizId + ".\n\n";
+        formattedQuestions += "Questions:\n";
 
         int listSize = questions.size();
         for (int i = 0; i < listSize; i++) {
@@ -93,7 +110,7 @@ public class Quiz {
      */
     public String getFormattedAnswers() {
         ArrayList<String> answers = questionList.getAnswers();
-        String formattedAnswers = quizId + " Answers (Only for teachers!)\n";
+        String formattedAnswers = "Answers [Teacher's Copy]:\n";
 
         int listSize = answers.size();
         for (int i = 0; i < listSize; i++) {
@@ -104,6 +121,32 @@ public class Quiz {
         }
 
         return formattedAnswers;
+    }
+
+    /**
+     * Returns a String representation of a quiz's questions and answers.
+     * @return The String representation of the quiz's questions and answers.
+     */
+    public String getQuestionsAndAnswers() {
+        String questions = getFormattedQuestions();
+        String answers = getFormattedAnswers();
+        return questions + answers;
+    }
+
+    /**
+     * Sets the String represented questions as the questions of a question list.
+     * @param questions The questions in String representation.
+     */
+    public void setStringQuestions(String questions) {
+        questionList.setStringQuestions(questions);
+    }
+
+    /**
+     * Gets the questions of a question list in String representation.
+     * @return The questions of the question list in String representation.
+     */
+    public String getStringQuestions() {
+        return questionList.getStringQuestions();
     }
 
     /**
