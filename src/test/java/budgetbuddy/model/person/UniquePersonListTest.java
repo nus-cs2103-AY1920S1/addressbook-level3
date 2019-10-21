@@ -1,6 +1,5 @@
 package budgetbuddy.model.person;
 
-import static budgetbuddy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static budgetbuddy.testutil.Assert.assertThrows;
 import static budgetbuddy.testutil.TypicalPersons.ALICE;
 import static budgetbuddy.testutil.TypicalPersons.BOB;
@@ -41,7 +40,7 @@ public class UniquePersonListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE)
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
@@ -84,8 +83,7 @@ public class UniquePersonListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Person editedAlice = new PersonBuilder(ALICE).build();
         uniquePersonList.setPerson(ALICE, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
         expectedUniquePersonList.add(editedAlice);

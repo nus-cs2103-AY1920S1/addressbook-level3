@@ -2,24 +2,24 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
-    "tagged" : [ "friends" ]
+    "loans" : [ ]
   }, {
     "name" : "Benson Meier",
-    "tagged" : [ "owesMoney", "friends" ]
+    "loans" : [ ]
   }, {
     "name" : "Carl Kurz",
-    "tagged" : [ ]
+    "loans" : [ ]
   }, {
     "name" : "Daniel Meier",
-    "tagged" : [ "friends" ]
+    "loans" : [ ]
   }, {
     "name" : "Elle Meyer",
-    "tagged" : [ ]
+    "loans" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "tagged" : [ ]
+    "loans" : [ ]
   }, {
     "name" : "George Best",
-    "tagged" : [ ]
+    "loans" : [ ]
   } ]
 }

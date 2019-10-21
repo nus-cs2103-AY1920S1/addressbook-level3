@@ -1,13 +1,8 @@
 package budgetbuddy.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.tag.Tag;
-import budgetbuddy.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -18,12 +13,10 @@ public class PersonBuilder {
 
     private Name name;
     private LoanList loans;
-    private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         loans = new LoanList();
-        tags = new HashSet<>();
     }
 
     /**
@@ -31,7 +24,8 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
-        tags = new HashSet<>(personToCopy.getTags());
+        loans = new LoanList();
+        loans.replaceList(personToCopy.getLoans());
     }
 
     /**
@@ -50,16 +44,8 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
     public Person build() {
-        return new Person(name, tags);
+        return new Person(name, loans);
     }
 
 }

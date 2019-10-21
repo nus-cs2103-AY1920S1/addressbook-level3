@@ -1,8 +1,9 @@
 {
   "persons": [ {
     "name": "Alice Pauline",
-    "tagged": [ "friends" ]
+    "loans": [ ]
   }, {
-    "name": "Alice Pauline"
+    "name": "Alice Pauline",
+    "loans": [ ]
   } ]
 }

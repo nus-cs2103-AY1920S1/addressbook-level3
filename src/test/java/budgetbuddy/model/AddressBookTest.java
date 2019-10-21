@@ -12,11 +12,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import budgetbuddy.logic.commands.CommandTestUtil;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.person.exceptions.DuplicatePersonException;
 import budgetbuddy.testutil.PersonBuilder;
 import budgetbuddy.testutil.TypicalPersons;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -44,7 +44,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE)
                 .build();
         List<Person> newPersons = Arrays.asList(TypicalPersons.ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
@@ -71,7 +71,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(TypicalPersons.ALICE);
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
