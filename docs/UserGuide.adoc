@@ -157,7 +157,19 @@ Examples:
 * `filter food`
 * `filter transport`
 
-// end::delete[]
+=== Projecting balance based on transactions: `project`
+
+Projects future balace based on past In or Out transactions +
+Format: `project d/DATE`
+
+****
+* `DATE` input only accepts date in format DDMMYYYY.
+****
+
+Examples:
+
+* `project d/10012019`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the Bank Account. +
