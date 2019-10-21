@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.ReadOnlyBudgetList;
 
 /**
  * Manages storage of ExpenseList data in local storage.
@@ -18,12 +19,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ExpenseListStorage expenseListStorage;
+    private BudgetListStorage budgetListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(ExpenseListStorage expenseListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExpenseListStorage expenseListStorage,
+            BudgetListStorage budgetListStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.expenseListStorage = expenseListStorage;
+        this.budgetListStorage = budgetListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -72,6 +76,35 @@ public class StorageManager implements Storage {
     public void saveExpenseList(ReadOnlyExpenseList expenseList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         expenseListStorage.saveExpenseList(expenseList, filePath);
+    }
+
+    // ================ BudgetList methods ==============================
+
+    @Override
+    public Path getBudgetListFilePath() {
+        return budgetListStorage.getBudgetListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyBudgetList> readBudgetList() throws DataConversionException, IOException {
+        return readBudgetList(budgetListStorage.getBudgetListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyBudgetList> readBudgetList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return budgetListStorage.readBudgetList(filePath);
+    }
+
+    @Override
+    public void saveBudgetList(ReadOnlyBudgetList budgetList) throws IOException {
+        saveBudgetList(budgetList, budgetListStorage.getBudgetListFilePath());
+    }
+
+    @Override
+    public void saveBudgetList(ReadOnlyBudgetList budgetList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        budgetListStorage.saveBudgetList(budgetList, filePath);
     }
 
 }
