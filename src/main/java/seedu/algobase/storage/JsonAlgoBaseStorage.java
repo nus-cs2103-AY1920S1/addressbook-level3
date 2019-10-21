@@ -47,7 +47,7 @@ public class JsonAlgoBaseStorage implements AlgoBaseStorage {
 
         Optional<JsonSerializableAlgoBase> jsonAlgoBase = JsonUtil.readJsonFile(
                 filePath, JsonSerializableAlgoBase.class);
-        if (!jsonAlgoBase.isPresent()) {
+        if (jsonAlgoBase.isEmpty()) {
             return Optional.empty();
         }
 
