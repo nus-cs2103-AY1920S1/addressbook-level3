@@ -26,8 +26,19 @@ public class ActivityBook {
         activityList = previousActivityBook.getActivityList();
     }
 
-    //// list overwrite operations
+    /**
+     * Returns true if an activity with the same primary key as {@code primaryKey} exists in the activity book.
+     */
+    public boolean hasPrimaryKey(int primaryKey) {
+        for (Activity activity : activityList) {
+            if (activity.getPrimaryKey() == primaryKey) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    //// list overwrite operations
     /**
      * Replaces the contents of the activity list with {@code activityList}.
      */

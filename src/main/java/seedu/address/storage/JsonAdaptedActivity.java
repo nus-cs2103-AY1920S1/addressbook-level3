@@ -18,6 +18,7 @@ public class JsonAdaptedActivity {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Activity's %s field is missing!";
 
+    private final int primaryKey;
     private final String title;
     private final ArrayList<Integer> participants = new ArrayList<Integer>();
     private final ArrayList<JsonAdaptedExpense> expenses = new ArrayList<JsonAdaptedExpense>();
@@ -26,8 +27,10 @@ public class JsonAdaptedActivity {
      * Constructs a {@code JsonAdaptedActivity} with the given activity details.
      */
     @JsonCreator
-    public JsonAdaptedActivity(@JsonProperty("title") String title,
-                               @JsonProperty("participants") ArrayList<Integer> participants) {
+    public JsonAdaptedActivity(@JsonProperty("primaryKey") int primaryKey,
+                                @JsonProperty("title") String title,
+                                @JsonProperty("participants") ArrayList<Integer> participants) {
+        this.primaryKey = primaryKey;
         this.title = title;
         if (participants != null) {
             this.participants.addAll(participants);
@@ -38,6 +41,7 @@ public class JsonAdaptedActivity {
      * Converts a given {@code Activity} into this class for Jackson use.
      */
     public JsonAdaptedActivity(Activity source) {
+        primaryKey = source.getPrimaryKey();
         title = source.getTitle().title;
         participants.addAll(source.getParticipantIds());
         expenses.addAll(source.getExpenses().stream()
@@ -69,7 +73,7 @@ public class JsonAdaptedActivity {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
         final Title activityTitle = new Title(title);
-        Activity activity = new Activity(activityTitle, participantIds);
+        Activity activity = new Activity(primaryKey, activityTitle, participantIds);
         activity.addExpense(expenditures);
 
         return activity;

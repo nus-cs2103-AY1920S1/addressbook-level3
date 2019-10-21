@@ -98,7 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a person with the same primary key as {@code person} exists in the address book.
+     * Returns true if a person with the same primary key as {@code primaryKey} exists in the address book.
      */
     public boolean hasPrimaryKey(int primaryKey) {
         for (Person person : persons) {
