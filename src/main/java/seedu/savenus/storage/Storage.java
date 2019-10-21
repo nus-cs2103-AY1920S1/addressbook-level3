@@ -6,24 +6,26 @@ import java.util.Optional;
 
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.menu.ReadOnlyMenu;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.storage.menu.MenuStorage;
-import seedu.savenus.storage.purchasehistory.PurchaseHistoryStorage;
+import seedu.savenus.storage.purchase.PurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.RecsStorage;
 import seedu.savenus.storage.savings.SavingsStorage;
 import seedu.savenus.storage.sort.CustomSortStorage;
 import seedu.savenus.storage.userprefs.UserPrefsStorage;
+import seedu.savenus.storage.wallet.WalletStorage;
 
 /**
  * API of the Storage component
  */
 public interface Storage extends MenuStorage, UserPrefsStorage,
-        RecsStorage, PurchaseHistoryStorage, CustomSortStorage, SavingsStorage {
+        RecsStorage, PurchaseHistoryStorage, CustomSortStorage, SavingsStorage, WalletStorage {
 
     // ============================= User Preferences Methods ================================================
     @Override
@@ -74,6 +76,23 @@ public interface Storage extends MenuStorage, UserPrefsStorage,
 
     @Override
     void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException;
+
+    // ============================= Wallet Methods ================================================
+
+    @Override
+    Path getWalletFilePath();
+
+    @Override
+    Optional<Wallet> readWallet() throws DataConversionException, IOException;
+
+    @Override
+    Optional<Wallet> readWallet(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void saveWallet(Wallet wallet) throws IOException;
+
+    @Override
+    void saveWallet(Wallet wallet, Path filePath) throws IOException;
 
     // ============================= Custom Sort Methods ================================================
 

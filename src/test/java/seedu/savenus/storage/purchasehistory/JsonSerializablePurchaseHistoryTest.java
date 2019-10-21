@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.commons.util.JsonUtil;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
+import seedu.savenus.storage.purchase.JsonSerializablePurchaseHistory;
 import seedu.savenus.testutil.TypicalPurchaseHistory;
 
 public class JsonSerializablePurchaseHistoryTest {

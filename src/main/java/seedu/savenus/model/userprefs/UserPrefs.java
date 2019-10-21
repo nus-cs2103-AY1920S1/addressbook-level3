@@ -19,6 +19,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path purchaseHistoryFilePath = Paths.get("data" , "savenus-purchases.json");
     private Path sortFilePath = Paths.get("data" , "savenus-sort.json");
     private Path savingsAccountFilePath = Paths.get("data", "savings.json");
+    private Path walletFilePath = Paths.get("data", "savenus-wallet.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -42,6 +43,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setMenuFilePath(newUserPrefs.getMenuFilePath());
         setPurchaseHistoryFilePath(newUserPrefs.getPurchaseHistoryFilePath());
         setSavingsAccountFilePath(newUserPrefs.getSavingsAccountFilePath());
+        setWalletFilePath(newUserPrefs.getWalletFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -87,6 +89,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setPurchaseHistoryFilePath(Path purchaseHistoryFilePath) {
         requireNonNull(recsFilePath);
         this.purchaseHistoryFilePath = purchaseHistoryFilePath;
+    }
+
+    public Path getWalletFilePath() {
+        return walletFilePath;
+    }
+
+    public void setWalletFilePath(Path walletFilePath) {
+        requireNonNull(recsFilePath);
+        this.walletFilePath = walletFilePath;
     }
 
     public Path getSortFilePath() {
