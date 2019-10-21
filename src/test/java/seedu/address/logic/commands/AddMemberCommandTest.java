@@ -238,6 +238,11 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public void setInventory(Inventory target, Inventory editedInventory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addMapping(Mapping mapping) {
             throw new AssertionError("This method should not be called.");
         }

@@ -193,6 +193,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setInventory(Inventory target, Inventory editedInventory) {
+        requireAllNonNull(target, editedInventory);
+
+        projectDashboard.setInventory(target, editedInventory);
+    }
+
+    @Override
     public ObservableList<Inventory> getFilteredInventoriesList() {
         return filteredInventories;
     }

@@ -19,6 +19,7 @@ import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DoingTaskCommand;
 import seedu.address.logic.commands.DoneTaskCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditInventoryCommand;
 import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -114,6 +115,9 @@ public class ProjectDashboardParser {
 
         case AddInventoryCommand.COMMAND_WORD:
             return new AddInventoryCommandParser().parse(arguments);
+
+        case EditInventoryCommand.COMMAND_WORD:
+            return new EditInventoryCommandParser().parse(arguments);
 
         case DeleteInventoryCommand.COMMAND_WORD:
             return new DeleteInventoryCommandParser().parse(arguments);

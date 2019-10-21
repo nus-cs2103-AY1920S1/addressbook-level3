@@ -33,6 +33,10 @@ public class UserViewUpdate {
             paneToRender = userViewMain.loadTasks();
             break;
 
+        case "list-inv":
+            paneToRender = userViewMain.loadInventories();
+            break;
+
         default:
             paneToRender = userViewMain.loadDashboard();
         }

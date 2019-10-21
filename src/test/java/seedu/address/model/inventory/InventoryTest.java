@@ -28,12 +28,6 @@ public class InventoryTest {
                 .withName(VALID_INVENTORY_NAME_SPORTS).build();
         assertFalse(SHIRTS.isSameInventory(editedShirtInventory));
 
-        // same name, different attributes -> returns true
-        editedShirtInventory = new InventoryBuilder(SHIRTS)
-                .withPrice(new Price(VALID_INVENTORY_PRICE_MUSIC))
-                .build();
-        assertTrue(SHIRTS.isSameInventory(editedShirtInventory));
-
     }
 
     @Test
