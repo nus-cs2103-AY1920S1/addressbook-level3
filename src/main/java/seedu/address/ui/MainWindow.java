@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
 import static seedu.address.ui.DisplayPaneType.BIO;
 import static seedu.address.ui.DisplayPaneType.COLOUR;
 
@@ -140,6 +141,16 @@ public class MainWindow extends UiPart<Stage> {
                 + "-fx-background-size: contain;");
 
         resultDisplay = new ResultDisplay();
+
+        if (!logic.getFilteredUserList().isEmpty()) {
+            String name = logic.getFilteredUserList().get(0).getName().toString();
+            resultDisplay.setFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
+                    + "assist you today?");
+        } else {
+            resultDisplay.setFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
+                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
+        }
+
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

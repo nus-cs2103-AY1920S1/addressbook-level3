@@ -32,7 +32,11 @@ public class Colour {
         requireNonNull(colour);
         checkArgument(isValidColour(colour), MESSAGE_CONSTRAINTS);
         ColourName colourName = getColourNameAsHexadecimal(colour);
-        this.colour = (colourName != null) ? colourName.toString().toLowerCase() : colour.toLowerCase();
+        this.colour = (colourName != null)
+                ? colourName.toString().toLowerCase()
+                : isHexaDecimal(colour)
+                ? colour.toUpperCase()
+                : colour.toLowerCase();
     }
 
     /**
@@ -46,7 +50,7 @@ public class Colour {
         for (int i = 0; i < COLOUR_NAMES_AS_HEXADECIMAL.size(); i++) {
             ColourNameAsHexadecimal colourNameAsHexadecimal = COLOUR_NAMES_AS_HEXADECIMAL.get(i);
             String colourNameAsHexadecimalToString = "#" + colourNameAsHexadecimal.toString().substring(4, 10);
-            if (colourNameAsHexadecimalToString.equals(hexadecimal)) {
+            if (colourNameAsHexadecimalToString.equals(hexadecimal.toUpperCase())) {
                 hexIndex = i;
                 break;
             }
@@ -62,7 +66,7 @@ public class Colour {
      * Returns true if a given string is a valid colour.
      */
     public static boolean isValidColour(String test) {
-        if (test.matches(HEXADECIMAL_VALIDATION_REGEX)) {
+        if (isHexaDecimal(test)) {
             return true;
         } else {
             for (ColourName colourName : getColourNames()) {
@@ -72,6 +76,13 @@ public class Colour {
             }
             return false;
         }
+    }
+
+    /**
+     * Returns true if a given string is a hexadecimal colour.
+     */
+    public static boolean isHexaDecimal(String test) {
+        return test.matches(HEXADECIMAL_VALIDATION_REGEX);
     }
 
     @Override

@@ -20,7 +20,6 @@ public class StyleManager {
 
     private Scene scene;
 
-    private String themeName = DEFAULT_THEME_NAME;
     private String fontColour = "yellow";
     private String backgroundColour;
 
@@ -42,8 +41,23 @@ public class StyleManager {
      * @return New styleSheet to be used by the program for rendering.
      */
     public File getNewStyleSheet() {
-        File styleSheet = new File(System.getProperty("user.dir") + SEPARATOR
-                + "stylesheets" + SEPARATOR + "MyTheme.css");
+        String directoryName = System.getProperty("user.dir") + SEPARATOR
+                + "stylesheets";
+        File directory = new File(directoryName);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File styleSheet = new File(directoryName + SEPARATOR + "MyTheme.css");
+
+        if (!styleSheet.exists()) {
+            try {
+                styleSheet.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         setStyleSheet(styleSheet);
         return styleSheet;
     }
@@ -66,44 +80,35 @@ public class StyleManager {
         File outputCss = getNewStyleSheet();
         String replaceWith = fontColour;
 
-        if (!outputCss.exists()) {
-            try {
-                outputCss.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         try {
             InputStream is = this.getClass().getResourceAsStream("/view/DarkTheme.css");
             String lineReadFromReader;
             String lineToWriteViaWriter = "";
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-                while ((lineReadFromReader = br.readLine()) != null) {
-                    int textFillIndex = lineReadFromReader.indexOf("-fx-text-fill: ");
-                    if (textFillIndex != -1) {
-                        String subText = lineReadFromReader.substring(textFillIndex, lineReadFromReader.length());
-                        int semiColonIndex = subText.indexOf(":");
-                        int exclamationIndex = subText.indexOf("!");
-                        String toReplace;
-                        if (exclamationIndex == -1) {
-                            int colonIndex = subText.indexOf(";");
-                            toReplace = lineReadFromReader.substring(textFillIndex + semiColonIndex + 1, textFillIndex
-                                    + colonIndex);
-                            lineReadFromReader = lineReadFromReader.replace(toReplace, " " + replaceWith);
-                        } else {
-                            toReplace = lineReadFromReader.substring(textFillIndex + semiColonIndex + 1,
-                                    textFillIndex + exclamationIndex);
-                            lineReadFromReader = lineReadFromReader.replace(toReplace, " " + replaceWith
-                                    + " ");
-                        }
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            while ((lineReadFromReader = br.readLine()) != null) {
+                int textFillIndex = lineReadFromReader.indexOf("-fx-text-fill: ");
+                if (textFillIndex != -1) {
+                    String subText = lineReadFromReader.substring(textFillIndex, lineReadFromReader.length());
+                    int semiColonIndex = subText.indexOf(":");
+                    int exclamationIndex = subText.indexOf("!");
+                    String toReplace;
+                    if (exclamationIndex == -1) {
+                        int colonIndex = subText.indexOf(";");
+                        toReplace = lineReadFromReader.substring(textFillIndex + semiColonIndex + 1, textFillIndex
+                                + colonIndex);
+                        lineReadFromReader = lineReadFromReader.replace(toReplace, " " + replaceWith);
+                    } else {
+                        toReplace = lineReadFromReader.substring(textFillIndex + semiColonIndex + 1,
+                                textFillIndex + exclamationIndex);
+                        lineReadFromReader = lineReadFromReader.replace(toReplace, " " + replaceWith
+                                + " ");
                     }
-                    lineToWriteViaWriter += lineReadFromReader + "\n";
                 }
-                FileWriter fw = new FileWriter(outputCss);
-                fw.write(lineToWriteViaWriter);
-                fw.close();
+                lineToWriteViaWriter += lineReadFromReader + "\n";
             }
+            FileWriter fw = new FileWriter(outputCss);
+            fw.write(lineToWriteViaWriter);
+            fw.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

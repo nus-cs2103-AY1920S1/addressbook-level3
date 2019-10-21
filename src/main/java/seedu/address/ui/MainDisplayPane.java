@@ -41,7 +41,7 @@ public class MainDisplayPane {
             ObservableList<User> filteredUserList = logic.getFilteredUserList();
             BioPane previousPane = (BioPane) map.get(DisplayPaneType.BIO);
             Image previousDp = previousPane != null ? previousPane.getImg() : null;
-            if (previousDp != null && filteredUserList.get(0).getDpPath().toString()
+            if (!filteredUserList.isEmpty() && previousDp != null && filteredUserList.get(0).getDpPath().toString()
                     .equals(previousPane.getDpPath())) {
                 return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList, previousDp,
                                 logic.getFontColour()),
