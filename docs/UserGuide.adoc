@@ -247,7 +247,7 @@ Examples:
 ==== Marking a task as undone: `undonetask`
 
 Marks a specified task in a specified plan as undone. +
-Format: `undone plan/PLAN_INDEX prob/TASK_INDEX`
+Format: `undonetask plan/PLAN_INDEX task/TASK_INDEX`
 
 Examples:
 
@@ -367,9 +367,9 @@ e.g. `delete 3`
 * *Sort* : `sort m/METHOD [d/DIRECTION]` +
 e.g. `sort m/alphabetical d/ASC`
 
-* *New Tag* : `newtag n/NAME` +
-e.g. `newtag n/sssp`
-* *List Tags* : `lstag`
+* *New Tag* : `addtag n/NAME` +
+e.g. `addtag n/sssp`
+* *List Tags* : `listtag`
 * *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
 
@@ -380,10 +380,14 @@ e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 * *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
 e.g. `find training set`
 * *List Training Plans* : `listplan`
-* *Mark Training Plan as done* : `done PLAN_INDEX PROBLEM_INDEX` +
-e.g. `done 1 2`
-* *Mark Training Plan as undone* : `undone PLAN_INDEX PROBLEM_INDEX` +
-e.g. `undone 1 2`
+* *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
+e.g. `addtask plan/1 prob/2`
+* *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `deletetask plan/1 task/2`
+* *Mark Task as done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `donetask plan/1 task/2`
+* *Mark Task as undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `undonetask plan/1 task/2`
 
 * *Importing data* : `import f/FORMAT p/PATH` +
 e.g. `import t/plan p/./steven_halim_secret.json`
