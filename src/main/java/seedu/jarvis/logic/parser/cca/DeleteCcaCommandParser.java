@@ -5,7 +5,6 @@ import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.cca.DeleteCcaCommand;
 import seedu.jarvis.logic.parser.Parser;
-import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 
 /**
@@ -20,7 +19,7 @@ public class DeleteCcaCommandParser implements Parser<DeleteCcaCommand> {
      */
     public DeleteCcaCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
+            Index index = CcaParserUtil.parseIndex(args);
             return new DeleteCcaCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
