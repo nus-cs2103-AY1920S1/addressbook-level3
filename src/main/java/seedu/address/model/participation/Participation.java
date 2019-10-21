@@ -75,6 +75,30 @@ public class Participation extends UniqueElement {
     }
 
     /**
+     * @return the total score of the person's participation at a specified competition
+     */
+    public int getTotalScore() {
+        int score = 0;
+        for (Exercise exercise : competition.getExerciseList()) {
+            score += getLiftScore(exercise.getLift());
+        }
+        return score;
+    }
+
+    /**
+     * @return the total score of the person's participation at a specified competition for a specified lift
+     */
+    public int getLiftScore(Lift lift) {
+        int score = 0;
+        for (Attempt attempt : attempts) {
+            if (attempt.getLift() == lift && attempt.getIsSuccessful()) {
+                score = Math.max(score, attempt.getWeightAttempted());
+            }
+        }
+        return score;
+    }
+
+    /**
      * Returns true if both participations have the same identity and data fields.
      * This defines a stronger notion of equality between two participations.
      */
