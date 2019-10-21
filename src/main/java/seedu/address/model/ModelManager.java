@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,14 +16,17 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.NoteList;
+import seedu.address.model.note.NotesRecord;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizBank;
+import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
+import seedu.address.model.student.StudentRecord;
 
 
 /**
@@ -37,12 +39,13 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final QuizBank quizBank;
     private final ListOfGroups groupList;
-    private final NoteList notes;
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
     private final SavedQuestions savedQuestions;
+    private final NotesRecord notesRecord;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Student> filteredStudents;
+    private final FilteredList<Note> filteredNotes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -50,9 +53,10 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyAddressBook addressBook,
                         ReadOnlyStudentRecord studentRecord,
                         ReadOnlyQuestions savedQuestions,
+                        ReadOnlyNotesRecord notesRecord,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, studentRecord, savedQuestions, notesRecord, userPrefs);
 
         logger.fine(
                 "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -60,20 +64,21 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.quizBank = new QuizBank();
         this.groupList = new ListOfGroups();
-        this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
         this.savedQuestions = new SavedQuestions(savedQuestions);
+        this.notesRecord = new NotesRecord(notesRecord);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
+        filteredNotes = new FilteredList<>(this.notesRecord.getNotesList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new UserPrefs());
+        this(new AddressBook(), new StudentRecord(), new SavedQuestions(),
+                new NotesRecord(), new UserPrefs());
     }
 
     //region PREFERENCES & SETTINGS
-
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
@@ -95,7 +100,6 @@ public class ModelManager implements Model {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
     }
-
     //endregion
 
     //region AddressBook
@@ -119,11 +123,9 @@ public class ModelManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
-
     //endregion
 
     //region FilteredPerson List Accessors
-
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -231,11 +233,9 @@ public class ModelManager implements Model {
     public String getStudentSummary() {
         return studentRecord.getStudentSummary();
     }
-
     //endregion
 
     //region Group
-
     /**
      * Creates a group manually.
      */
@@ -295,9 +295,9 @@ public class ModelManager implements Model {
         }
         return students;
     }
+    //endregion
 
     //region Questions
-
     @Override
     public void addQuestion(Question question) {
         savedQuestions.addQuestion(question);
@@ -322,7 +322,6 @@ public class ModelManager implements Model {
     public String getQuestionsSummary() {
         return savedQuestions.getQuestionsSummary();
     }
-
     //endregion
 
     //region SavedQuestions
@@ -349,7 +348,6 @@ public class ModelManager implements Model {
     //endregion
 
     //region Quizzes
-
     @Override
     public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
         Quiz quiz = new Quiz(quizId);
@@ -445,41 +443,70 @@ public class ModelManager implements Model {
     private static int getRandomQuestionIndex(int listSize) {
         return (int) Math.floor(Math.random() * listSize);
     }
+    //endregion
 
+    //region NotesRecord
+    @Override
+    public Path getNotesRecordFilePath() {
+        return userPrefs.getNotesRecordFilePath();
+    }
+
+    @Override
+    public void setNotesRecordFilePath(Path notesRecordFilePath) {
+        requireNonNull(notesRecordFilePath);
+        userPrefs.setNotesRecordFilePath(notesRecordFilePath);
+    }
+
+    @Override
+    public void setNotesRecord(ReadOnlyNotesRecord notesRecord) {
+        this.notesRecord.resetData(notesRecord);
+    }
+
+    @Override
+    public ReadOnlyNotesRecord getNotesRecord() {
+        return notesRecord;
+    }
+    //endregion
+
+    //region FilteredNote List Accessors
+    /**
+     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of notes record.
+     */
+    @Override
+    public ObservableList<Note> getFilteredNotesList() {
+        return filteredNotes;
+    }
+
+    @Override
+    public void updateFilteredNotesList(Predicate<Note> predicate) {
+        requireNonNull(predicate);
+        filteredNotes.setPredicate(predicate);
+    }
     //endregion
 
     //region Notes
+    @Override
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return notesRecord.hasNote(note);
+    }
+
+    @Override
+    public void deleteNote(Note note) {
+        notesRecord.removeNote(note);
+    }
 
     @Override
     public void addNote(Note note) {
-        notes.addNote(note);
+        notesRecord.addNote(note);
+        updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
     }
 
     @Override
-    public Note deleteNote(Index index) {
-        return notes.deleteNote(index);
+    public void setNote(Note target, Note editedNote) {
+        requireAllNonNull(target, editedNote);
+        notesRecord.setNote(target, editedNote);
     }
-
-    @Override
-    public Note getNote(Index index) {
-        return notes.getNote(index);
-    }
-
-    @Override
-    public void setNote(Index index, Note question) {
-        notes.setNote(index, question);
-    }
-
-    @Override
-    public List<Note> getNotes() {
-        return notes.getNotes();
-    }
-
-    @Override
-    public String getNoteSummary() {
-        return notes.getNoteSummary();
-    }
-
     //endregion
 
     @Override

@@ -69,7 +69,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
                             String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                     StudentDeleteCommand.MESSAGE_USAGE));
                 }
-                index.fromOneBased(indexToDelete);
+                index = index.fromOneBased(indexToDelete);
             } catch (NumberFormatException e) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT,
