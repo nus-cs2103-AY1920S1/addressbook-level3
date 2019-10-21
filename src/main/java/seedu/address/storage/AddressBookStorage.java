@@ -10,12 +10,15 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
  */
-public interface AddressBookStorage {
 
+public interface AddressBookStorage {
+    // TO RENAME THE INTERFACE NAME
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getCheatSheetFilePath();
+    Path getFlashcardFilePath();
+    Path getNoteFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
@@ -28,7 +31,8 @@ public interface AddressBookStorage {
     /**
      * @see #getAddressBookFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath,
+                                                  Path cheatsheetFilePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
@@ -40,6 +44,7 @@ public interface AddressBookStorage {
     /**
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
-
+    void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath, Path noteFilePath,
+                         Path cheatsheetFilePath) throws IOException;
 }
+

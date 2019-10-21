@@ -17,6 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.TitleContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -25,6 +27,15 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    public static final String VALID_QUESTION_ONE = "What is the IntelliJ keyboard shortcut to find a class, file or "
+            + "symbol?";
+    public static final String VALID_ANSWER_ONE = "Ctrl + Shift + N";
+    public static final String VALID_QUESTION_TWO = "What is the IntelliJ keyboard shortcut to highlight all "
+            + "occurrences of the selected fragment in the current file?";
+    public static final String VALID_ANSWER_TWO = "Ctrl + Shift + F7";
+    public static final String VALID_TAG_INTELLIJ = "IntelliJ";
+    public static final String VALID_TAG_SHORTCUTS = "Shortcuts";
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -47,6 +58,21 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+    public static final String VALID_TITLE_SAMPLE = "Sample title";
+    public static final String VALID_TITLE_PIPELINE = "Pipelining Definition";
+    public static final String VALID_CONTENT_SAMPLE = "Sample Content";
+    public static final String VALID_CONTENT_PIPELINE = "Pipelining is the process of making a single processor run "
+            + "multiple instructions simultaneously.";
+
+    public static final String EXPECTED_VIEW_SAMPLE = "\nTitle: Sample Title\nContent: Sample Content\nTags: "
+            + "[SampleTag2][SampleTag1]";
+    public static final String EXPECTED_VIEW_PIPELINE = "\nTitle: Pipelining Definition\nContent: Pipelining is the "
+            + "process of making a single processor run multiple instructions simultaneously.\nTags: [CS2100] "
+            + "[Midterms]";
+    public static final String EXPECTED_LIST_RESULT = "1. Sample Title - Sample Content\n2. Pipelining Definition - "
+            + "Pipelining is the process of making a single processor run multiple instructions simultaneously.\n3. "
+            + "Potatoes - I really like potatoes.";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -78,6 +104,8 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
+            System.out.println("expectedCommandResult " + expectedCommandResult.getFeedbackToUser());
+            System.out.println("result " + result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -123,6 +151,20 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showNoteAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredNoteList().size());
+
+        Note note = model.getFilteredNoteList().get(targetIndex.getZeroBased());
+        final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredNoteList(new TitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+
+        assertEquals(1, model.getFilteredNoteList().size());
     }
 
 }

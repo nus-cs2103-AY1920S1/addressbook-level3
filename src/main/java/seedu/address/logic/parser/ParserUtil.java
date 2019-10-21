@@ -9,6 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.flashcard.Answer;
+import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Title;
+import seedu.address.model.note.Content;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -48,6 +52,36 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String title} into a {@code Content}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static seedu.address.model.note.Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedContent = title.trim();
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.note.Title(trimmedContent);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Content}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code content} is invalid.
+     */
+    public static Content parseContent(String content) throws ParseException {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Content(trimmedContent);
     }
 
     /**
@@ -96,6 +130,94 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String question} into a {@code Question}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code question} is invalid.
+     */
+    public static Question parseQuestion(String question) throws ParseException {
+        requireNonNull(question);
+        String trimmedQuestion = question.trim();
+        if (!Question.isValidQuestion(trimmedQuestion)) {
+            throw new ParseException(Question.MESSAGE_CONSTRAINTS);
+        }
+        return new Question(trimmedQuestion);
+    }
+
+    /**
+     * Parses a {@code String answer} into a {@code Answer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code answer} is invalid.
+     */
+    public static Answer parseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        if (!Answer.isValidAnswer(trimmedAnswer)) {
+            throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
+        }
+        return new Answer(trimmedAnswer);
+    }
+
+    /**
+     * Parses a {@code String title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Title parseFlashcardTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static seedu.address.model.cheatsheet.Title parseCheatSheetTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.cheatsheet.Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String content} into a {@code content}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code content} is invalid.
+     */
+    public static seedu.address.model.cheatsheet.Content parseCheatSheetContent(String content) throws ParseException {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        if (!seedu.address.model.cheatsheet.Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.cheatsheet.Content(trimmedContent);
+    }
+
+    /**
+     * Parses {@code Collection<String> contents} into a {@code Set<Content>}.
+     */
+    public static Set<seedu.address.model.cheatsheet.Content> parseCheatSheetContents(Collection<String> contents)
+            throws ParseException {
+        requireNonNull(contents);
+        final Set<seedu.address.model.cheatsheet.Content> contentSet = new HashSet<>();
+        for (String contentName : contents) {
+            contentSet.add(parseCheatSheetContent(contentName));
+        }
+        return contentSet;
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -121,4 +243,6 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+
 }
