@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.Model;
+import seedu.savenus.model.PurchaseHistory;
+import seedu.savenus.model.savings.SavingsAccount;
 
 /**
  * Clears all food items from our $aveNUS menu.
@@ -18,6 +20,8 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setMenu(new Menu());
+        model.setPurchaseHistory(new PurchaseHistory());
+        model.setSavingsAccount(new SavingsAccount());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
