@@ -167,7 +167,8 @@ public class Reimbursement {
             msg = person.getName().toString() + " $" + amount + System.lineSeparator()
                     + description.toString();
         } else {
-            msg = person.getName().toString() + " $" + amount + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
+            msg = person.getName().toString() + " $" + amount
+                    + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
                     + description.toString();
         }
         return msg;
