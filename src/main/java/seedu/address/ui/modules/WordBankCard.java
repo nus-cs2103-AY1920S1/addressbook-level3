@@ -41,7 +41,6 @@ public class WordBankCard extends UiPart<Region> {
         super(FXML);
         this.wordBank = wordBank;
         id.setText(displayedIndex + ". ");
-        System.out.println(wordBank.getName());
         name.setText(wordBank.getName());
     }
 

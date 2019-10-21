@@ -58,6 +58,11 @@ public interface Model {
     void setWordBank(ReadOnlyWordBank wordBank);
 
     /**
+     * Set the word bank to empty.
+     */
+    void removeWordBank();
+
+    /**
      * Returns the active word bank statistics. Null if no active.
      */
     WordBankStatistics getWordBankStatistics();

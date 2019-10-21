@@ -15,15 +15,16 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.ModeSwitchException;
+import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 
 /**
  * Starts the game.
@@ -38,32 +39,31 @@ public class StartCommand extends SwitchCommand {
     private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
             + " (Use 'stop' to terminate) Guess the word:";
 
+
     public StartCommand() {
 
     }
 
-    @Override
-    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
+    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
         return ModeEnum.GAME;
     }
 
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
         if (model.getGame() != null && !model.getGame().isOver()) {
             throw new CommandException(MESSAGE_GAME_IN_PROGRESS
                     + "\n" + model.getGame().getCurrQuestion());
         }
 
         String wordBankName = model.getWordBank().getName();
-        String pathString = "data/" + wordBankName + ".json";
-        Path filePath = Paths.get(pathString);
+        Path filePath = Paths.get("data", wordBankName + ".json");
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
+        JsonWordBankListStorage addressBookStorage = new JsonWordBankListStorage(filePath);
         addressBookStorage.getWordBankList();
         String usedWordBankTitle = "Pokémon sample"; // todo change later
         try {
-            Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
+            Optional<ReadOnlyWordBank> thisBank = addressBookStorage.getWordBank();
             if (thisBank.isPresent()) {
                 wordBank = (WordBank) thisBank.get();
                 usedWordBankTitle = wordBankName;

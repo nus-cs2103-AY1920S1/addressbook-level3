@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.app.AddCommand;
+import seedu.address.logic.commands.appcommands.AddCommand;
 //import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
@@ -227,6 +227,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeWordBank() {
             throw new AssertionError("This method should not be called.");
         }
     }
