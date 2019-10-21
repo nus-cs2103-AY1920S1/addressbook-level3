@@ -414,6 +414,8 @@ of days.
 | Makes the Food Card more or less compact, depending on the user's preference.
 | Delete <<Delete>>
 | Deletes a food items based on the given index.
+| Dislike <<Adding Likes and Dislikes>>
+| Specifies the user's disliked categories, tags and locations
 | Edit <<Edit>>
 | Edits a food item at a index based on a specific field or fields.
 | Exit <<Exit>>
@@ -426,16 +428,18 @@ of days.
 | Display possible uses of the application.
 | Info <<Info>>
 | Displays the information of the command specified.
+| Like <<Adding Likes and Dislikes>>
+| Specifies the user's liked categories, tags and locations
 | List <<List>>
 | List all saved food items
 | Recommend <<Recommend>>
 | Recommend a food item, based on the user's budget.
-| Like <<Likes and Dislikes>>
-| Likes categories, tags and locations
-| Dislike <<Likes and Dislikes>>
-| Dislikes categories, tags and locations
 | Redo <<Redo>>
 | Redo a command a specified number of times.
+| Removedislike <<Removing Likes and Dislikes>>
+| Remove dislikes from the user's specified dislikes or clears the dislikes list
+| Removelike <<Removing Likes and Dislikes>>
+| Remove likes from the user's specified likes or clears the likes list
 | Sort <<Sort>>
 | Sort all the food items by a specified field.
 | Track <<Track>>
