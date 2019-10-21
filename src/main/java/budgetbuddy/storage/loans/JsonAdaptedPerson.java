@@ -1,6 +1,6 @@
 package budgetbuddy.storage.loans;
 
-import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +23,16 @@ public class JsonAdaptedPerson {
 
     private final String name;
     private final List<JsonAdaptedLoan> loans = new ArrayList<>();
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name,
-            @JsonProperty("loans") List<JsonAdaptedLoan> loans,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        requireAllNonNull(loans, tagged);
+            @JsonProperty("loans") List<JsonAdaptedLoan> loans) {
+        requireNonNull(loans);
         this.name = name;
         this.loans.addAll(loans);
-        this.tagged.addAll(tagged);
     }
 
     /**
@@ -45,9 +42,6 @@ public class JsonAdaptedPerson {
         name = source.getName().name;
         loans.addAll(source.getLoans().stream()
                 .map(JsonAdaptedLoan::new)
-                .collect(Collectors.toList()));
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
 

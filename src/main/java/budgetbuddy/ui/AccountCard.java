@@ -1,6 +1,7 @@
 package budgetbuddy.ui;
 
 import budgetbuddy.model.account.Account;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

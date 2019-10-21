@@ -3,15 +3,12 @@ package budgetbuddy.model.person;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.LoanList;
-import budgetbuddy.model.tag.Tag;
+
 import javafx.collections.ObservableList;
 
 /**
@@ -24,7 +21,6 @@ public class Person {
     private final Name name;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>(); // TODO Get rid of Person's tags attribute.
     private final LoanList loans = new LoanList();
 
     /**
@@ -38,20 +34,8 @@ public class Person {
         resetLoans(toBeCopied);
     }
 
-    // TODO Get rid of obsolete constructor (person no longer has tags).
-    public Person(Name name, Set<Tag> tags) {
-        requireAllNonNull(name, tags);
-        this.name = name;
-        this.tags.addAll(tags);
-    }
-
     public Name getName() {
         return name;
-    }
-
-    // TODO Get rid of Person's getTags() method.
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**

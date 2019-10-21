@@ -2,9 +2,7 @@ package budgetbuddy.logic.parser.commandparsers;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
-import static budgetbuddy.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import budgetbuddy.logic.commands.AddCommand;
@@ -15,8 +13,8 @@ import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -34,7 +32,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -42,9 +40,8 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         }
 
         Name name = CommandParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Set<Tag> tagList = CommandParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, tagList);
+        Person person = new Person(name, new LoanList());
 
         return new AddCommand(person);
     }

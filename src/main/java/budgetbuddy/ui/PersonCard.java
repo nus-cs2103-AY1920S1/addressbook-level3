@@ -1,11 +1,9 @@
 package budgetbuddy.ui;
 
-import java.util.Comparator;
-
 import budgetbuddy.model.person.Person;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -32,17 +30,12 @@ public class PersonCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private FlowPane tags;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().name);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
