@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.flashcardcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.VIEW;
@@ -8,49 +8,51 @@ import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class ViewCheatSheetCommand extends Command {
+public class ViewFlashcardCommand extends Command {
 
     public static final String COMMAND_WORD = VIEW;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays a cheatsheet.\n"
+            + ": Displays a flashcard.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String VIEW_CHEATSHEET_SUCCESS = "Viewing cheatsheet: %1$s";
+    public static final String VIEW_FLASHCARD_SUCCESS = "Viewing flashcard: %1$s";
 
     private final Index targetIndex;
 
-    public ViewCheatSheetCommand(Index targetIndex) {
+    public ViewFlashcardCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<CheatSheet> lastShownList = model.getFilteredCheatSheetList();
+        List<Flashcard> lastShownList = model.getFilteredFlashcardList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
         }
 
-        CheatSheet cheatSheet = lastShownList.get(targetIndex.getZeroBased());
+        Flashcard flashcard = lastShownList.get(targetIndex.getZeroBased());
 
-        return new CommandResult(String.format(VIEW_CHEATSHEET_SUCCESS, cheatSheet), false, false,
-                false, Optional.empty(), Optional.empty(), Optional.of(cheatSheet), Optional.empty());
+        return new CommandResult(String.format(VIEW_FLASHCARD_SUCCESS, flashcard), false, false,
+                false, Optional.empty(), Optional.of(flashcard), Optional.empty(), Optional.empty());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ViewCheatSheetCommand // instanceof handles nulls
-                && targetIndex.equals(((ViewCheatSheetCommand) other).targetIndex)); // state check
+                || (other instanceof ViewFlashcardCommand // instanceof handles nulls
+                && targetIndex.equals(((ViewFlashcardCommand) other).targetIndex)); // state check
     }
 }

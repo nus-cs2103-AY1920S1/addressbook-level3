@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddFlashcardCommand;
+import seedu.address.logic.commands.flashcardcommands.AddFlashcardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.flashcard.Answer;

@@ -1,8 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.flashcardcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.FILTER;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.FilterByTagCommand;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCheatSheetCommand;
+import seedu.address.logic.commands.cheatsheetcommands.AddCheatSheetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.Content;
