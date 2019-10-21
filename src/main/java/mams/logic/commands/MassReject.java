@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Mass rejects appeals in Mams
  */
-public class MassReject extends Reject{
+public class MassReject extends Reject {
 
     private final List<String> validIds;
     private final List<String> invalidIds;

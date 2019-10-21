@@ -14,10 +14,12 @@ import mams.logic.commands.ApproveCommand;
 import mams.logic.commands.MassApprove;
 import mams.logic.parser.exceptions.ParseException;
 
+import mams.commons.exceptions.IllegalValueException;
+
 import mams.model.appeal.Appeal;
 
 import mams.commons.core.index.Index;
-import mams.commons.exceptions.IllegalValueException;
+
 
 /**
  * Parses input arguments and creates a new {@code ApproveCommand} object
@@ -37,8 +39,8 @@ public class ApproveCommandParser implements Parser<Approve> {
             try {
                 index = ParserUtil.parseIndex(argMultimap.getPreamble());
             } catch (IllegalValueException ive) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
-                        , ApproveCommand.MESSAGE_USAGE_APPROVE), ive);
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ApproveCommand.MESSAGE_USAGE_APPROVE), ive);
             }
             String remark = argMultimap.getValue(PREFIX_REASON).orElse("");
             return new ApproveCommand(index, remark);
