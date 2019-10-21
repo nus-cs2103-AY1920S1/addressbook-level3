@@ -29,7 +29,7 @@ public class SearchIncidentsCommand extends Command {
             + PREFIX_OPERATOR + "<OPERATOR> OR "
             + PREFIX_DESC + "<KEYWORD [MORE_KEYWORDS]...>\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESC + "arson";
+            + PREFIX_OPERATOR + "alex";
 
     private final Predicate<Incident> predicate;
 
