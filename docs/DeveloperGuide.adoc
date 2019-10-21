@@ -210,8 +210,16 @@ and then display the result of that call.
 
 Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
 the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
-with the actual changes on data done with a call to model during `execute(model)`. We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
-queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class.
+with the actual changes on data done with a call to model during `execute(model)`.
+
+We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
+queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class to the
+`UI` to use in its query to logic.
+
+Attached below is a quick summary of what occurs when a statistic command is entered by the user:
+
+image::StatsCommandSequenceDiagram.png[]
+
 
 
 
