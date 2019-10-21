@@ -31,6 +31,10 @@ public class Event {
         return events;
     }
 
+    /**
+     * Adds an event to the event list.
+     * @param name of event added.
+     */
     public static void addEvent(String name) {
         Event newEvent = new Event(name);
         events.add(newEvent);

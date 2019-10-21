@@ -6,6 +6,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.performance.Event;
 
+/**
+ * Adds an event for the performance recording.
+ */
 public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
@@ -16,11 +19,12 @@ public class EventCommand extends Command {
     private final String name;
 
     /**
+     * Creates an EventCommand to add the specified event.
      * @param name of the event.
      */
     public EventCommand(String name) {
         requireNonNull(name);
-        this.name = name.trim();
+        this.name = name;
     }
 
     @Override
