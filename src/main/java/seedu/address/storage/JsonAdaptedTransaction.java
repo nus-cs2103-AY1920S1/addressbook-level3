@@ -86,7 +86,7 @@ class JsonAdaptedTransaction {
         final Set<Tag> modelTags = new HashSet<>(transactionTags);
         // temporary return InTransaction to store transaction (should eventually return in or out transaction)
 
-        return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date), modelTags);
+        return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date), modelTags, person);
     }
 
 }

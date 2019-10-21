@@ -54,7 +54,7 @@ public class Person {
     }
 
     public Phone getPhone() {
-        return phone.orElse(new Phone("000"));
+        return phone.orElse(new Phone("65166666"));
     }
 
     public Email getEmail() {
