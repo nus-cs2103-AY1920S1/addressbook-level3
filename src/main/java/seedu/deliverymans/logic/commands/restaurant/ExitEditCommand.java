@@ -5,6 +5,9 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 
+/**
+ * Exits editing mode for a restaurant
+ */
 public class ExitEditCommand extends Command {
     public static final String COMMAND_WORD = "exitedit";
 

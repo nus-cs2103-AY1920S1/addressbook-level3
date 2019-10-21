@@ -7,9 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.restaurant.AddFoodCommand;
 import seedu.deliverymans.logic.commands.restaurant.DeleteFoodCommand;
 import seedu.deliverymans.logic.commands.restaurant.EditDetailsCommand;
-import seedu.deliverymans.logic.commands.restaurant.AddFoodCommand;
 import seedu.deliverymans.logic.commands.restaurant.ExitEditCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -40,20 +40,20 @@ public class EditingParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-            case EditDetailsCommand.COMMAND_WORD:
-                return new EditDetailsCommandParser().parse(arguments);
+        case EditDetailsCommand.COMMAND_WORD:
+            return new EditDetailsCommandParser().parse(arguments);
 
-            case AddFoodCommand.COMMAND_WORD:
-                return new AddFoodCommandParser().parse(arguments);
+        case AddFoodCommand.COMMAND_WORD:
+            return new AddFoodCommandParser().parse(arguments);
 
-            case DeleteFoodCommand.COMMAND_WORD:
-                return new DeleteFoodCommandParser().parse(arguments);
+        case DeleteFoodCommand.COMMAND_WORD:
+            return new DeleteFoodCommandParser().parse(arguments);
 
-            case ExitEditCommand.COMMAND_WORD:
-                return new ExitEditCommand();
+        case ExitEditCommand.COMMAND_WORD:
+            return new ExitEditCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

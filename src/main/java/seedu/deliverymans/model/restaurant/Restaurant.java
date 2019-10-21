@@ -90,6 +90,10 @@ public class Restaurant {
         return menu;
     }
 
+    /**
+     * Adds the food item to the restaurant's menu
+     * @param toAdd
+     */
     public void addFood(Food toAdd) {
         requireNonNull(toAdd);
         boolean isDuplicate = menu.stream().anyMatch(toAdd::isSameFood);
@@ -99,6 +103,10 @@ public class Restaurant {
         menu.add(toAdd);
     }
 
+    /**
+     * Removes the food time from the restaurant's menu
+     * @param toRemove
+     */
     public void removeFood(Food toRemove) {
         requireAllNonNull(toRemove);
         if (!menu.remove(toRemove)) {

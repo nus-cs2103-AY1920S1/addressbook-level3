@@ -88,6 +88,10 @@ public class EditDetailsCommand extends Command {
         return new Restaurant(updatedName, updatedLocation, updatedTags);
     }
 
+    /**
+     * Stores the details to edit the restaurant with. Each non-empty field value will replace the
+     * corresponding field value of the restaurant.
+     */
     public static class EditRestaurantDescriptor {
         private Name name;
         private Location location;
