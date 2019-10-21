@@ -66,6 +66,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableValue<Integer> getCurrentParserManagerIndex() {
+        return ichiFundParser.getCurrentParserManagerIndex();
+    }
+
+    @Override
+    public void setParserManager(int index) {
+        ichiFundParser.setParserManager(index);
+    }
+
+    @Override
     public ObservableValue<TransactionContext> getTransactionContextProperty() {
         return model.getTransactionContextProperty();
     }

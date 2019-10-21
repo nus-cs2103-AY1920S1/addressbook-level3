@@ -16,7 +16,7 @@ public class Amount implements Comparable<Amount> {
                     + "<dollars> consists of numbers with no leading zeroes, unless it is '0'.\n"
                     + "<cents> consists of numbers, and is exactly 2 digits long.";
     public static final String NEGATIVE_AMOUNT_CONSTRAINT =
-            "Amount should not be negative for transactions, repeatables, budgets, and loans.\n";
+            "Amount should not be negative for transactions, repeatables, budgets, and loan.\n";
     public static final String CENTS_REGEX = "(\\.\\d\\d)"; // '.' followed by exactly two numerical digits
     public static final String DOLLARS_REGEX = "\\-?([1-9]\\d*|0)"; // '0', or number without leading zeroes
     public static final String VALIDATION_REGEX = DOLLARS_REGEX + CENTS_REGEX + "?"; // Dollars, with cents optionally

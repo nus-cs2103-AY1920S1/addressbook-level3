@@ -34,6 +34,16 @@ public interface Logic {
     void executeAllTasks();
 
     /**
+     * Returns an unmodifiable version of the index of the current parser manager.
+     */
+    ObservableValue<Integer> getCurrentParserManagerIndex();
+
+    /**
+     * Sets the current parser manager according to the given index.
+     */
+    void setParserManager(int index);
+
+    /**
      * Returns the FundBook.
      *
      * @see seedu.ichifund.model.Model#getFundBook()

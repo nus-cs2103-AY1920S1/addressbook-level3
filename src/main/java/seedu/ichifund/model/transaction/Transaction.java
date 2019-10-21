@@ -112,8 +112,11 @@ public class Transaction implements Comparable<Transaction> {
     @Override
     public int compareTo(Transaction other) {
         int dateComparison = getDate().compareTo(other.getDate());
+        int categoryComparison = getCategory().compareTo(other.getCategory());
         if (dateComparison != 0) {
             return dateComparison;
+        } else if (categoryComparison != 0) {
+            return categoryComparison;
         } else {
             return getDescription().compareTo(other.getDescription());
         }
