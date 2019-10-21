@@ -108,11 +108,6 @@ public interface Model {
      */
     void addTransaction(Transaction transaction);
 
-    /**
-     * Sets the given budget.
-     */
-    void setBudget(Budget amount);
-
     /** Returns an unmodifiable view of the filtered transaction list
      */
     ObservableList<Transaction> getFilteredTransactionList();
@@ -125,4 +120,8 @@ public interface Model {
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
 
     void addSplit(SplitTransaction transaction);
+
+    /** Returns an unmodifiable view of the filtered budget list
+     */
+    ObservableList<Budget> getFilteredBudgetList();
 }

@@ -1,5 +1,8 @@
 package seedu.address.model.transaction;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,11 +49,11 @@ public class Budget {
         this.valid = true;
     }
 
-    private Amount getBudget() {
+    public Amount getBudget() {
         return this.amount;
     }
 
-    private Date getDeadline() {
+    public Date getDeadline() {
         return this.deadline;
     }
 
@@ -63,7 +66,7 @@ public class Budget {
         return this.valid;
     }
 
-    protected Budget updateBudget(Amount amount) {
+    public Budget updateBudget(Amount amount) {
         Amount newBudget = this.amount.subtractAmount(amount);
         this.amount = newBudget;
         return this;
@@ -78,12 +81,37 @@ public class Budget {
      * @return Date after {@code duration} days from today
      */
     private Date calculateDeadline(int duration) {
-        return new Date("10102019");
+        LocalDate today = LocalDate.now();
+        LocalDate newDeadline = today.plus(duration, DAYS);
+        return new Date(newDeadline.toString());
+    }
+
+    public boolean isSameBudget(Budget otherBudget) {
+        if (otherBudget == this) {
+            return true;
+        }
+
+        return otherBudget != null
+                && otherBudget.getBudget().equals(getBudget())
+                && otherBudget.getDeadline().equals(getDeadline());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Budget) {
+            Budget inObj = (Budget) obj;
+            return amount.equals(inObj.amount)
+                    && deadline.equals(inObj.deadline);
+        } else {
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-        return String.format("%s by %s", this.amount.toString(), this.deadline.toString());
+        return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
     }
 
 }

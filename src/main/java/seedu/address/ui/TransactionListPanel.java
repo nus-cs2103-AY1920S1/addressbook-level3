@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of transactions.
  */
 public class TransactionListPanel extends UiPart<Region> {
     private static final String FXML = "TransactionListPanel.fxml";
@@ -27,7 +27,7 @@ public class TransactionListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Transaction} using a {@code TransactionCard}.
      */
     class TransactionListViewCell extends ListCell<Transaction> {
         @Override
