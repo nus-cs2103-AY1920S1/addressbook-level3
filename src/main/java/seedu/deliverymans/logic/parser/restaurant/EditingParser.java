@@ -10,22 +10,18 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.restaurant.AddCommand;
 import seedu.deliverymans.logic.commands.restaurant.EditDetailsCommand;
 import seedu.deliverymans.logic.commands.restaurant.EditRestaurantCommand;
-import seedu.deliverymans.logic.commands.restaurant.FoodCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
 
 /**
- * Parses user input in restaurant context
+ * Parses user input in editing context
  */
-public class RestaurantParser {
+public class EditingParser {
     /**
      * Used for initial separation of command word and args.
      */
-    public static final String COMMAND_WORD = "restaurant";
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    private static Context currentContext = Context.RESTAURANT;
 
     /**
      * Parses user input into command for execution.
@@ -42,19 +38,13 @@ public class RestaurantParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            case EditDetailsCommand.COMMAND_WORD:
+                return new EditDetailsCommandParser().parse(arguments);
 
-        case EditRestaurantCommand.COMMAND_WORD:
-            this.currentContext = Context.EDITING;
-            return new EditRestaurantCommandParser().parse(arguments);
-
-        case FoodCommand.COMMAND_WORD:
-            return new FoodCommandParser().parse(arguments);
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

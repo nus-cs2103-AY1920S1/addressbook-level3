@@ -273,6 +273,8 @@ public interface Model {
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
 
+    void updateEditingRestaurantList(Predicate<Restaurant> predicate);
+
     //=========== Deliveryman Methods =============================================================
 
     /** Returns an unmodifiable view of the filtered deliverymen list */
