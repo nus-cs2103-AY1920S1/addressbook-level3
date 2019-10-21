@@ -13,7 +13,6 @@ import seedu.address.model.WindowView;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
-import seedu.address.model.earnings.Module;
 import seedu.address.model.earnings.Month;
 import seedu.address.model.earnings.Week;
 import seedu.address.model.person.Attendance;
@@ -232,21 +231,6 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
-    }
-
-    /**
-     * Parses a {@code String module} into an {@code Module}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code module} is invalid.
-     */
-    public static Module parseModule(String module) throws ParseException {
-        requireNonNull(module);
-        String trimmedModule = module.trim();
-        if (!Module.isValidModuleName(trimmedModule)) {
-            throw new ParseException(Module.MESSAGE_CONSTRAINTS);
-        }
-        return new Module(trimmedModule);
     }
 
     /**
