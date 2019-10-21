@@ -18,7 +18,14 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 
-import seedu.address.model.*;
+import seedu.address.model.ElisaStateHistory;
+import seedu.address.model.ElisaStateHistoryManager;
+import seedu.address.model.ItemModel;
+import seedu.address.model.ItemModelManager;
+import seedu.address.model.ItemStorage;
+import seedu.address.model.JokeList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 
 import seedu.address.storage.ItemListStorage;
 import seedu.address.storage.JsonItemStorage;
