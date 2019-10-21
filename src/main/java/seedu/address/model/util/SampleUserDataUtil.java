@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.DisplayPicPath;
 import seedu.address.model.bio.Gender;
 import seedu.address.model.bio.Goal;
 import seedu.address.model.bio.MedicalCondition;
@@ -25,7 +26,8 @@ import seedu.address.model.bio.UserList;
 public class SampleUserDataUtil {
     public static User[] getSampleUsers() {
         return new User[] {
-            new User(new Name("Alex Yeoh"), new ProfileDesc("Sometimes I pretend I'm a carrot."),
+            new User(new Name("Alex Yeoh"), new DisplayPicPath(""),
+                    new ProfileDesc("Sometimes I pretend I'm a carrot."),
                     new Nric("S1234567A"), new Gender("Male"), new DateOfBirth("21/12/1900"),
                     getContactNumberList("91234567"), getEmergencyContactList("81234567"),
                     getMedicalConditionList("Type II Diabetes"),

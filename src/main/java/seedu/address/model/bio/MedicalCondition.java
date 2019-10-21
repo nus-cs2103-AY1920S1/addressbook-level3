@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class MedicalCondition implements ListableField {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Medical condition can take any values, and it should not be blank.";
+            "Medical conditions can take any values, and it should not be blank.";
 
     /*
      * The first character of the medicalCondition must not be a whitespace,
@@ -36,7 +36,7 @@ public class MedicalCondition implements ListableField {
      */
     public static boolean isValidMedicalCondition(String test) {
         requireNonNull(test);
-        return test.matches(VALIDATION_REGEX);
+        return !test.isEmpty() && test.matches(VALIDATION_REGEX);
     }
 
     @Override

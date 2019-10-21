@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DP_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOALS;
@@ -25,6 +26,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.DisplayPicPath;
 import seedu.address.model.bio.Gender;
 import seedu.address.model.bio.Goal;
 import seedu.address.model.bio.MedicalCondition;
@@ -47,9 +49,9 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
      */
     public AddBioCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROFILE_DESC, PREFIX_NRIC, PREFIX_GENDER,
-                        PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT, PREFIX_MEDICAL_CONDITION,
-                        PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DP_PATH, PREFIX_PROFILE_DESC, PREFIX_NRIC,
+                        PREFIX_GENDER, PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT,
+                        PREFIX_MEDICAL_CONDITION, PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT,
                 PREFIX_MEDICAL_CONDITION)
@@ -58,6 +60,7 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        DisplayPicPath displayPicPath = ParserUtil.parseDpPath(argMultimap.getValue(PREFIX_DP_PATH));
         ProfileDesc profileDesc = ParserUtil.parseProfileDesc(argMultimap.getValue(PREFIX_PROFILE_DESC));
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC));
         Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER));
@@ -70,8 +73,8 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
         List<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOALS));
         OtherBioInfo otherInfo = ParserUtil.parseOtherBioInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO));
 
-        User user = new User(name, profileDesc, nric, gender, dateOfBirth, contactNumberList, emergencyContactList,
-                medicalConditionList, address, goalList, otherInfo);
+        User user = new User(name, displayPicPath, profileDesc, nric, gender, dateOfBirth, contactNumberList,
+                emergencyContactList, medicalConditionList, address, goalList, otherInfo);
 
         return new AddBioCommand(user);
     }

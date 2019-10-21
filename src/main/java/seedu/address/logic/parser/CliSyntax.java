@@ -12,6 +12,7 @@ public class CliSyntax {
 
     // Biography Prefixes
     public static final Prefix PREFIX_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_DP_PATH = new Prefix("dp/");
     public static final Prefix PREFIX_PROFILE_DESC = new Prefix("desc/");
     public static final Prefix PREFIX_NRIC = new Prefix("nric/");
     public static final Prefix PREFIX_GENDER = new Prefix("gender/");
