@@ -32,7 +32,6 @@ public class ScheduleActivityCommand extends ScheduleCommand {
             + ": Schedule the activity identified "
             + "by the index number used in the displayed activity list "
             + "to a day.\n"
-            + "Parameters:"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_START_TIME + "START_TIME "
             + PREFIX_END_TIME + "END_TIME "
@@ -59,7 +58,6 @@ public class ScheduleActivityCommand extends ScheduleCommand {
         this.startTime = startTime;
         this.endTime = endTime;
         this.dayIndex = dayIndex;
-
     }
 
     @Override

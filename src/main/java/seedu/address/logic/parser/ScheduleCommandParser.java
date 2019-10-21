@@ -22,7 +22,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ScheduleCommandParser {
 
-    private static final Pattern ADD_COMMAND_FORMAT = Pattern.compile("(?<type>activity)(?<arguments>.*)");
+    private static final Pattern SCHEDULE_COMMAND_FORMAT = Pattern.compile("(?<type>activity)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the ScheduleActivityCommand
@@ -31,7 +31,7 @@ public class ScheduleCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ScheduleCommand parse(String args) throws ParseException {
-        final Matcher matcher = ADD_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = SCHEDULE_COMMAND_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -73,12 +73,18 @@ public class ScheduleCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ScheduleActivityCommand.MESSAGE_USAGE), pe);
         }
+
         if (!arePrefixesPresent(argMultimap, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DAY)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ScheduleActivityCommand.MESSAGE_USAGE));
         }
+
         LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
         LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME).get());
+        if (startTime.compareTo(endTime) >= 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ScheduleActivityCommand.MESSAGE_USAGE));
+        }
         Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
 
         return new ScheduleActivityCommand(activityIndex, startTime, endTime, dayIndex);
