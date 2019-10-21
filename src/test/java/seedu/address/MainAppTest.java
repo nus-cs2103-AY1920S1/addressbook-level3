@@ -21,20 +21,43 @@ public class MainAppTest extends ApplicationTest {
     @Test
     public void traverseTabBarTest(FxRobot robot) {
         var patientsTabStyleClass = robot.lookup("#patientsTab").query().getStyleClass();
+        var appointmentsTabStyleClass = robot.lookup("#appointmentsTab").query().getStyleClass();
         var doctorsTabStyleClass = robot.lookup("#doctorsTab").query().getStyleClass();
-
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        var tabBar = robot.lookup("#tabBar").query();
 
         robot.clickOn("#doctorsTab");
         Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("selected-tab");
 
-        robot.type(KeyCode.DOWN);
+        robot.type(KeyCode.UP);
+        Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("selected-tab");
+        Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+
+        robot.type(KeyCode.UP);
         Assertions.assertThat(patientsTabStyleClass).containsOnly("selected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
 
         robot.type(KeyCode.UP);
         Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("selected-tab");
+
+        robot.type(KeyCode.DOWN);
+        Assertions.assertThat(patientsTabStyleClass).containsOnly("selected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+
+        robot.type(KeyCode.TAB);
+        Assertions.assertThat(tabBar).isNotFocused();
+        Assertions.assertThat(commandBox).isFocused();
+
+        robot.type(KeyCode.TAB);
+        Assertions.assertThat(tabBar).isFocused();
+        Assertions.assertThat(commandBox).isNotFocused();
     }
 
     @Test
