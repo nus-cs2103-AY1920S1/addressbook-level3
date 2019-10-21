@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
@@ -27,6 +28,7 @@ public class ContactBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Set<Id> claims;
 
     public ContactBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -34,6 +36,7 @@ public class ContactBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        claims = new HashSet<>();
     }
 
     /**
@@ -45,6 +48,7 @@ public class ContactBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
+        claims = new HashSet<>(contactToCopy.getClaims());
     }
 
     /**
@@ -60,6 +64,14 @@ public class ContactBuilder {
      */
     public ContactBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code claims} into a {@code Set<Id>} and set it to the {@code FinSec} that we are building.
+     */
+    public ContactBuilder withClaims(String ... claims) {
+        this.claims = SampleDataUtil.getClaimSet(claims);
         return this;
     }
 
@@ -88,7 +100,7 @@ public class ContactBuilder {
     }
 
     public Contact build() {
-        return new Contact(name, phone, email, address, tags);
+        return new Contact(name, phone, email, address, tags, claims);
     }
 
 }

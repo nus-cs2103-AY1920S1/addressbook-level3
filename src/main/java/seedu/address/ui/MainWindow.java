@@ -39,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ClaimListPanel claimListPanel;
     private IncomeListPanel incomeListPanel;
-    private IndividualClaimWindow individualClaimWindow;
+
     private IndividualContactWindow individualContactWindow;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;

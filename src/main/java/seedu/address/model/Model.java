@@ -129,6 +129,13 @@ public interface Model {
     void setClaim(Claim target, Claim editedClaim);
 
     /**
+     * Checks whether there is an existing {@code contact} for a {@code claim}.
+     * @param target Claim to be checked for
+     * @return true if contact exists.
+     */
+    boolean hasContactFor(Claim target);
+
+    /**
      * Returns true if an income with the same identity as {@code income} exists in the address book.
      */
     boolean hasIncome(Income income);

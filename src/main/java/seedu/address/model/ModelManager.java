@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import javafx.fxml.FXML;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -160,6 +159,15 @@ public class ModelManager implements Model {
     public void rejectClaim(Claim claim) {
         requireNonNull(claim);
         finSec.rejectClaim(claim);
+    }
+
+    /** Finds the {@code contact} for a {@code claim}.
+    *
+    * @return true if contact has been found.
+    */
+    public boolean hasContactFor(Claim claim) {
+        requireNonNull(claim);
+        return finSec.hasContact(claim.getName(), claim.getPhone());
     }
 
     /**
