@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -84,6 +85,12 @@ public interface Model {
     void commitBankAccount();
 
     /**
+     * Replaces the existing transaction history in the bank account
+     * with {@code transactionHistory}.
+     */
+    void setTransactions(List<Transaction> transactionHistory);
+
+    /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the bank account.
      */
     boolean hasTransaction(Transaction transaction);
@@ -113,7 +120,8 @@ public interface Model {
      */
     void setBudget(Budget amount);
 
-    /** Returns an unmodifiable view of the filtered transaction list
+    /**
+     * Returns an unmodifiable view of the filtered transaction list
      */
     ObservableList<Transaction> getFilteredTransactionList();
 
