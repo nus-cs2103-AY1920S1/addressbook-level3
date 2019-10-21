@@ -275,8 +275,6 @@ Also the amount withdrawn is added into your wallet.
 
 === Recommendations
 
-=== Recommendations
-
 ==== Recommend
 Allow users to get a recommendation from the application, based on the current budget
 as well as the available food items entries. This also takes into account the
@@ -287,13 +285,6 @@ Format: `recommend`
 ****
 [NOTE]
 To clear the recommendations, use the `list` or `add` commands.
-<<<<<<< branch-savings-account
-
-[width="100%",cols="5%,95%", grid=none]
-|===
-ifdef::env-github[| :white_check_mark: a| The list of recommendations will be shown.]
-ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown.]
-|===
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -365,25 +356,6 @@ To remove all likes or dislikes, use the command without providing any arguments
 Only use this command if you are sure that you want to clear your likes and dislikes!
 
 *To remove likes*:
-<<<<<<< branch-savings-account
-
-****
-*Format*: `removelike c/CATEGORY t/TAG l/LOCATION` +
-*Example*: `removelike c/Japanese t/Spicy t/Healthy l/The Tea Party`
-****
-
-[width="100%",cols="5%,95%", grid=none]
-|===
-ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be removed.]
-ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be removed.]
-|===
-
-*To remove dislikes*:
-
-****
-*Format*: `removedislike c/CATEGORY t/TAG l/LOCATION` +
-*Example*: `removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
-****
 
 ****
 *Format*: `removelike c/CATEGORY t/TAG l/LOCATION` +
@@ -499,6 +471,10 @@ of days.
 | List all saved food items
 | Recommend <<Recommend>>
 | Recommend a food item, based on the user's budget.
+| Like <<Likes and Dislikes>>
+| Likes categories, tags and locations
+| Dislike <<Likes and Dislikes>>
+| Dislikes categories, tags and locations
 | Redo <<Redo>>
 | Redo a command a specified number of times.
 | Removedislike <<Removing Likes and Dislikes>>
