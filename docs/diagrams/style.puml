@@ -31,6 +31,15 @@
 !define STORAGE_COLOR_T3 #806600
 !define STORAGE_COLOR_T2 #544400
 
+!define PARSER_COLOR #Olive
+
+!define COMMAND_COLOR #Coral
+
+!define RESULT_COLOR #Purple
+
+!define STATISTICS_COLOR #Silver
+!define STATISTICS_COLOR_T2 #SlateGrey
+
 !define USER_COLOR #000000
 
 skinparam BackgroundColor #FFFFFFF

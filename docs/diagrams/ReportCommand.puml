@@ -4,11 +4,11 @@
 Actor User as user USER_COLOR
 Participant ":Ui" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
-Participant ":CommandParser" as parser LOGIC_COLOR
-Participant "reportCommand:Command" as command LOGIC_COLOR
+Participant ":CommandParser" as parser PARSER_COLOR
+Participant "reportCommand:Command" as command COMMAND_COLOR
 Participant "model:Model" as model MODEL_COLOR
-Participant ":Statistics" as statistics MODEL_COLOR
-Participant "result:CommandResult" as result LOGIC_COLOR
+Participant ":Statistics" as statistics STATISTICS_COLOR
+Participant "result:CommandResult" as result RESULT_COLOR
 
 user -[USER_COLOR]> ui : "report"
 activate ui UI_COLOR
@@ -17,44 +17,52 @@ ui -[UI_COLOR]> logic : execute("report")
 activate logic LOGIC_COLOR
 
 logic -[LOGIC_COLOR]> parser : parseCommand("report")
-activate parser LOGIC_COLOR
+activate parser PARSER_COLOR
 
-parser -[LOGIC_COLOR]> command : ReportCommand()
-activate command LOGIC_COLOR
+create command
+parser -[PARSER_COLOR]> command : ReportCommand()
+activate command COMMAND_COLOR
 
-command -[LOGIC_COLOR]-> parser : reportCommand
+command -[COMMAND_COLOR]-> parser : reportCommand
 deactivate command
 
-parser -[LOGIC_COLOR]-> logic : reportCommand
+parser -[PARSER_COLOR]-> logic : reportCommand
 deactivate parser
 
 logic -[LOGIC_COLOR]> command : execute(model)
-activate command LOGIC_COLOR
+activate command COMMAND_COLOR
 
-command -[LOGIC_COLOR]> model : updateStatistics()
+command -[COMMAND_COLOR]> model : updateStatistics()
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]> statistics : Statistics.generateStatistics()
-activate statistics MODEL_COLOR
+activate statistics STATISTICS_COLOR
 
-statistics -[MODEL_COLOR]> statistics : Statistics()
-activate statistics MODEL_COLOR
+statistics -[STATISTICS_COLOR]> statistics : Statistics()
+activate statistics STATISTICS_COLOR
 
-statistics -[MODEL_COLOR]-> statistics : s
+statistics -[STATISTICS_COLOR]-> statistics : s
 deactivate statistics
 
-statistics -[MODEL_COLOR]-> model : s
+statistics -[STATISTICS_COLOR]-> model : s
 deactivate statistics
 
+create result
 model -[MODEL_COLOR]> result : CommandResult()
-activate result
+activate result RESULT_COLOR
 
-result -[MODEL_COLOR]-> model : result
+result -[RESULT_COLOR]-> model : result
 deactivate result
 
-model -[MODEL_COLOR]-> logic : result
+model -[MODEL_COLOR]-> command : result
 deactivate model
+
+command -[COMMAND_COLOR]-> logic : result
+deactivate command
 
 logic -[LOGIC_COLOR]-> ui : result
 deactivate logic
+
+ui -[UI_COLOR]-> user : result
+deactivate ui
 @enduml
