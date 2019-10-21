@@ -47,7 +47,7 @@ public class WishListCard extends UiPart<Region> {
         String descWithType = wish.getDesc().fullDesc;
         desc.setText(descWithType);
 
-        time.setText(wish.getTime().fullTime);
+        time.setText(wish.getDate().toString());
         amt.setText("$" + wish.getAmount().value);
 
         wish.getTags().stream()

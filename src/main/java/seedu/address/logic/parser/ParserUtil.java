@@ -77,7 +77,7 @@ public class ParserUtil {
      * @param type the time as a String.
      * @return the specified time as SortType.
      */
-    public static SortType parseSortType(String type) {
+    public static SortType parseSortType(String type) throws IllegalArgumentException {
         requireNonNull(type);
         return new SortType(type);
     }

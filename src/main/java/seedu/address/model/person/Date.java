@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 /**
  * Represents a Person's name in the address book.
@@ -23,7 +24,23 @@ public class Date {
     //public final String fullDate;
     private LocalDate date;
     private String fullTime;
+    private static DateTimeFormatter INPUTFORMATTER = new DateTimeFormatterBuilder()
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy MM dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/d"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-d"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy.MM.d"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-MM-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy"))
+            .toFormatter();
 
+    private static DateTimeFormatter OUTPUTFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     /**
      * Constructs a {@code Time}.
      *
@@ -37,9 +54,8 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         //checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
-        String[] stringDate = date.toString().split(" ");
-        this.date = LocalDate.of(Integer.parseInt(stringDate[0]), Integer.parseInt(stringDate[1]),
-                Integer.parseInt(stringDate[2]));
+        LocalDate ldt = LocalDate.parse(date, INPUTFORMATTER);
+        this.date = ldt;
         parseDate();
 
     }
@@ -51,8 +67,7 @@ public class Date {
         parseDate();
     }
     private void parseDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
-        fullTime = date.format(formatter);
+        fullTime = date.format(OUTPUTFORMATTER);
     }
     /**
      * Returns true if a given string is a valid name.
