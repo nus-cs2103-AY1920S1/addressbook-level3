@@ -21,6 +21,7 @@ import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertPreferenceParseFailure;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertPreferenceParseSuccess;
+import static seedu.savenus.testutil.Assert.assertThrows;
 
 import java.util.HashSet;
 
@@ -179,5 +180,10 @@ public class PreferenceCommandParserTest {
                 new DislikeCommand(expectedCategory, expectedTags, expectedLocation, false), false);
         assertPreferenceParseSuccess(parser, command,
                 new LikeCommand(expectedCategory, expectedTags, expectedLocation, false), true);
+    }
+
+    @Test
+    public void wrongMethodCalled_failure() {
+        assertThrows(AssertionError.class, () -> parser.parse("Test"));
     }
 }

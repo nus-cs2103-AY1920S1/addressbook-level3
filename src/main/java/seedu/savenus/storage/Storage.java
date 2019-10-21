@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -16,7 +17,8 @@ import seedu.savenus.model.sorter.CustomSorter;
 /**
  * API of the Storage component
  */
-public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, CustomSortStorage, SavingsStorage {
+public interface Storage extends MenuStorage, UserPrefsStorage,
+        RecsStorage, PurchaseHistoryStorage, CustomSortStorage, SavingsStorage {
 
     // ============================= User Preferences Methods ================================================
     @Override
@@ -51,8 +53,25 @@ public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, Cus
     @Override
     void saveRecs(UserRecommendations recs, Path filePath) throws IOException;
 
-    // ============================= Custom Sort Methods ================================================
+    // ============================= Purchase History Methods ================================================
+
     @Override
+    Path getPurchaseHistoryFilePath();
+
+    @Override
+    Optional<ReadOnlyPurchaseHistory> readPurchaseHistory() throws DataConversionException, IOException;
+
+    @Override
+    Optional<ReadOnlyPurchaseHistory> readPurchaseHistory(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory) throws IOException;
+
+    @Override
+    void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException;
+
+    // ============================= Custom Sort Methods ================================================
+
     Path getSortFilePath();
 
     @Override

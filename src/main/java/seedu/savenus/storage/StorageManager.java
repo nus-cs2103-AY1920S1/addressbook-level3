@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -25,15 +26,18 @@ public class StorageManager implements Storage {
     private SavingsStorage savingsAccountStorage;
     private UserPrefsStorage userPrefsStorage;
     private RecsStorage userRecsStorage;
+    private PurchaseHistoryStorage purchaseHistoryStorage;
     private CustomSortStorage customSortStorage;
 
     public StorageManager(MenuStorage menuStorage, UserPrefsStorage userPrefsStorage, RecsStorage userRecsStorage,
+                          PurchaseHistoryStorage purchaseHistoryStorage,
                           CustomSortStorage customSortStorage, SavingsStorage savingsAccountStorage) {
         super();
         this.menuStorage = menuStorage;
         this.savingsAccountStorage = savingsAccountStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.userRecsStorage = userRecsStorage;
+        this.purchaseHistoryStorage = purchaseHistoryStorage;
         this.customSortStorage = customSortStorage;
     }
 
@@ -110,6 +114,35 @@ public class StorageManager implements Storage {
     public void saveRecs(UserRecommendations recs, Path filePath) throws IOException {
         logger.fine("Attempting to write recommendations to data file: " + filePath);
         userRecsStorage.saveRecs(recs, filePath);
+    }
+
+    // =============== PurchaseHistory methods ========================
+    @Override
+    public Path getPurchaseHistoryFilePath() {
+        return purchaseHistoryStorage.getPurchaseHistoryFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyPurchaseHistory> readPurchaseHistory() throws DataConversionException, IOException {
+        return readPurchaseHistory(purchaseHistoryStorage.getPurchaseHistoryFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyPurchaseHistory> readPurchaseHistory(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read purchase history data from file: " + filePath);
+        return purchaseHistoryStorage.readPurchaseHistory(filePath);
+    }
+
+    @Override
+    public void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory) throws IOException {
+        savePurchaseHistory(purchaseHistory, purchaseHistoryStorage.getPurchaseHistoryFilePath());
+    }
+
+    @Override
+    public void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException {
+        logger.fine("Attempting to write purchase history to data file: " + filePath);
+        purchaseHistoryStorage.savePurchaseHistory(purchaseHistory, filePath);
     }
 
     // =============== CustomSorter methods ========================

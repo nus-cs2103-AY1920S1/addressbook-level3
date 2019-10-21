@@ -101,11 +101,39 @@ public interface Model {
     void setFoods(List<Food> list);
 
     /**
+     * Simply sets the auto-sort flag.
+     * @param autoSortFlag the auto-sort flag.
+     */
+    void setAutoSortFlag(boolean autoSortFlag);
+
+    /**
+     * Gets the auto-sort flag.
+     * @return the auto-sort flag as a boolean value.
+     */
+    boolean getAutoSortFlag();
+
+    /**
      * A simple method to replace the filtered food list with the contents of a new list.
      *
      * @param fieldList the new list of food.
      */
     void editFilteredFoodList(List<String> fieldList);
+
+    /**
+     * Returns the user prefs' purchase history file path.
+     */
+    Path getPurchaseHistoryFilePath();
+
+    /**
+     * Sets the user prefs' purchase history file path.
+     */
+    void setPurchaseHistoryFilePath(Path menuFilePath);
+
+    /** Returns the $aveNUS menu */
+    ReadOnlyPurchaseHistory getPurchaseHistory();
+
+    /** Returns an unmodifiable view of the {@code PurchaseHistory} */
+    ObservableList<Purchase> getPurchaseHistoryList();
 
     /**
      * Buy the given food.
@@ -150,11 +178,6 @@ public interface Model {
      * Returns an unmodifiable view of the filtered food list
      */
     ObservableList<Food> getFilteredFoodList();
-
-    /**
-     * Returns an unmodifiable view of the {@code PurchaseHistory}
-     */
-    ObservableList<Purchase> getPurchaseHistory();
 
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.
@@ -207,6 +230,17 @@ public interface Model {
      * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
      */
     void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /** Removes the user's liked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /**
+     * Removes the user's disliked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
 
     /**
      * Clears the user's liked categories, tags and locations.

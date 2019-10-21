@@ -18,7 +18,9 @@ import seedu.savenus.logic.LogicManager;
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -31,9 +33,11 @@ import seedu.savenus.model.util.SampleDataUtil;
 import seedu.savenus.storage.CustomSortStorage;
 import seedu.savenus.storage.JsonCustomSortStorage;
 import seedu.savenus.storage.JsonMenuStorage;
+import seedu.savenus.storage.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.JsonRecsStorage;
 import seedu.savenus.storage.JsonUserPrefsStorage;
 import seedu.savenus.storage.MenuStorage;
+import seedu.savenus.storage.PurchaseHistoryStorage;
 import seedu.savenus.storage.RecsStorage;
 import seedu.savenus.storage.Storage;
 import seedu.savenus.storage.StorageManager;
@@ -69,12 +73,16 @@ public class MainApp extends Application {
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
         SavingsStorage savingsAccountStorage = new JsonSavingsStorage(userPrefs.getSavingsAccountFilePath());
         RecsStorage userRecommendations = new JsonRecsStorage(userPrefs.getRecsFilePath());
+        PurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(userPrefs
+                .getPurchaseHistoryFilePath());
         CustomSortStorage sort = new JsonCustomSortStorage(userPrefs.getSortFilePath());
-        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations, sort, savingsAccountStorage);
+        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations,
+                purchaseHistoryStorage, sort, savingsAccountStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs, userRecommendations, sort, savingsAccountStorage);
+        model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage,
+                sort, savingsAccountStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -87,12 +95,16 @@ public class MainApp extends Application {
      * or an empty menu will be used instead if errors occur when reading {@code storage}'s menu.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs,
+                                   PurchaseHistoryStorage purchaseHistoryStorage,
                                    CustomSortStorage userSortFields, SavingsStorage savingsAccountStorage) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
 
         Optional<ReadOnlySavingsAccount> savingsAccountOptional;
         ReadOnlySavingsAccount initialSavingsAccount;
+
+        Optional<ReadOnlyPurchaseHistory> purchaseHistoryOptional;
+        ReadOnlyPurchaseHistory initialPurchaseHistory;
 
         Optional<UserRecommendations> recsOptional;
         UserRecommendations initialRecs;
@@ -118,6 +130,11 @@ public class MainApp extends Application {
             }
             initialRecs = recsOptional.orElse(new UserRecommendations());
 
+            purchaseHistoryOptional = storage.readPurchaseHistory();
+            if (!purchaseHistoryOptional.isPresent()) {
+                logger.info("Purchase History file not found. Will be starting with a blank Purchase History");
+            }
+            initialPurchaseHistory = purchaseHistoryOptional.orElse(new PurchaseHistory());
 
             sorterOptional = userSortFields.readFields();
             if (!sorterOptional.isPresent()) {
@@ -125,19 +142,22 @@ public class MainApp extends Application {
             }
             initialSorter = sorterOptional.orElse(new CustomSorter());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Menu");
+            logger.warning("Data file not in the correct format. Will be starting with an empty application");
             initialData = new Menu();
             initialSavingsAccount = new SavingsAccount();
             initialRecs = new UserRecommendations();
+            initialPurchaseHistory = new PurchaseHistory();
             initialSorter = new CustomSorter();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Menu");
+            logger.warning("Problem while reading from the file. Will be starting with an empty application");
             initialData = new Menu();
             initialSavingsAccount = new SavingsAccount();
             initialRecs = new UserRecommendations();
+            initialPurchaseHistory = new PurchaseHistory();
             initialSorter = new CustomSorter();
         }
-        return new ModelManager(initialData, userPrefs, initialRecs, initialSorter, initialSavingsAccount);
+        return new ModelManager(initialData, userPrefs, initialRecs, initialPurchaseHistory,
+                initialSorter, initialSavingsAccount);
     }
 
     private void initLogging(Config config) {

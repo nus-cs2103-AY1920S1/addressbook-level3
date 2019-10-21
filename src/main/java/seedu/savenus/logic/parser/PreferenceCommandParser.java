@@ -17,7 +17,7 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new LikeCommand or DislikeCommand object
  */
 public class PreferenceCommandParser implements Parser<PreferenceCommand> {
 

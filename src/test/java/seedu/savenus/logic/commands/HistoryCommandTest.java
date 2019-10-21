@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
@@ -19,7 +20,7 @@ public class HistoryCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
                 new CustomSorter(), new SavingsAccount());
     }
 

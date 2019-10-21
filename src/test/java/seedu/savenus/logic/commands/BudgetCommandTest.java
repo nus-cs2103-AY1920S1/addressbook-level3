@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
@@ -25,7 +26,7 @@ import seedu.savenus.model.wallet.Wallet;
 public class BudgetCommandTest {
 
     private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-            new CustomSorter(), new SavingsAccount());
+            new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
 
     @Test
     public void execute_validBudgetAmountAndDuration_success() {
@@ -38,7 +39,7 @@ public class BudgetCommandTest {
                 testRemainingBudget.toString(), testDaysToExpire.toString());
 
         ModelManager expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
         try {
             expectedModel.setRemainingBudget(testRemainingBudget);
             expectedModel.setDaysToExpire(testDaysToExpire);

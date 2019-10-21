@@ -3,6 +3,8 @@ package seedu.savenus.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalPurchaseHistory.getTypicalPurchaseHistory;
+import static seedu.savenus.testutil.TypicalRecs.getTypicalRecs;
 
 import java.nio.file.Path;
 
@@ -12,7 +14,9 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.Menu;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.JsonSavingsStorage;
@@ -31,9 +35,11 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonSavingsStorage savingsStorage = new JsonSavingsStorage(getTempFilePath("savingsTemp"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(getTempFilePath("recs"));
+        JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(
+                getTempFilePath("purchases"));
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(getTempFilePath("sort"));
         storageManager = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                customSortStorage, savingsStorage);
+                purchaseHistoryStorage, customSortStorage, savingsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -68,6 +74,19 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void purchaseHistoryReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonPurchaseHistoryStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonPurchaseHistoryStorage} class.
+         */
+        PurchaseHistory original = getTypicalPurchaseHistory();
+        storageManager.savePurchaseHistory(original);
+        ReadOnlyPurchaseHistory retrieved = storageManager.readPurchaseHistory().get();
+        assertEquals(original, new PurchaseHistory(retrieved));
+    }
+
+    @Test
     public void newUserRecommendationsSave() throws Exception {
         UserRecommendations recommendations = new UserRecommendations();
         storageManager.saveRecs(recommendations);
@@ -84,13 +103,26 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getMenuFilePath() {
-        assertNotNull(storageManager.getMenuFilePath());
+    public void recsReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonRecsStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonRecsStorageTest} class.
+         */
+        UserRecommendations original = getTypicalRecs();
+        storageManager.saveRecs(original);
+        UserRecommendations retrieved = storageManager.readRecs().get();
+        assertEquals(original, retrieved);
     }
 
     @Test
     public void getUserPrefsFilePath() {
         assertNotNull(storageManager.getUserPrefsFilePath());
+    }
+
+    @Test
+    public void getMenuFilePath() {
+        assertNotNull(storageManager.getMenuFilePath());
     }
 
     @Test

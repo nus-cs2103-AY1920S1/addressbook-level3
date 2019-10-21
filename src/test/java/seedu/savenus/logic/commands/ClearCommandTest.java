@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
@@ -26,9 +27,9 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyMenu_success() {
         Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-                new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
         Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-                new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
         expectedModel.setMenu(new Menu());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

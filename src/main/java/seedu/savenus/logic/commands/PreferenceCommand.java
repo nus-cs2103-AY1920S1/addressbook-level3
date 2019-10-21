@@ -41,7 +41,7 @@ public class PreferenceCommand extends Command {
      * Creates an PreferenceCommand to add the user's recommendations
      */
     public PreferenceCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList, boolean isList) {
-        requireAllNonNull(categoryList, tagList, locationList);
+        requireAllNonNull(categoryList, tagList, locationList, isList);
 
         // Convert all to lowercase
         this.categoryList = categoryList.stream()
@@ -105,28 +105,7 @@ public class PreferenceCommand extends Command {
             result.append(addedItems);
         }
 
-        String currentItems = "Current likes:"
-                + " Categories: " + userRecommendations.getLikedCategories()
-                    .stream().map(c -> c.category)
-                    .collect(Collectors.joining(", "))
-                + " | Tags: " + userRecommendations.getLikedTags()
-                    .stream().map(t -> t.tagName)
-                    .collect(Collectors.joining(", "))
-                + " | Locations: " + userRecommendations.getLikedLocations()
-                    .stream().map(l -> l.location)
-                    .collect(Collectors.joining(", "))
-                + "\nCurrent dislikes:"
-                + " Categories: " + userRecommendations.getDislikedCategories()
-                    .stream().map(c -> c.category)
-                    .collect(Collectors.joining(", "))
-                + " | Tags: " + userRecommendations.getDislikedTags()
-                    .stream().map(t -> t.tagName)
-                    .collect(Collectors.joining(", "))
-                + " | Locations: " + userRecommendations.getDislikedLocations()
-                    .stream().map(l -> l.location)
-                    .collect(Collectors.joining(", "));
-
-        result.append(currentItems);
+        result.append(userRecommendations.toString());
 
         if (!isList) {
             return new CommandResult(MESSAGE_SUCCESS + " " + result);
