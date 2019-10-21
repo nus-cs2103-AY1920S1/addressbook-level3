@@ -176,6 +176,7 @@ public class ActivityTest {
                     ));
 
         assertEquals(matrix, a.getTransferMatrix());
+    }
 
     public void getParticipantIds() {
         Activity lunch = TypicalActivities.LUNCH;

@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import seedu.address.model.activity.exceptions.PersonNotInActivityException;
+import seedu.address.model.person.Person;
 
 /**
  * Represents an Activity class containing participants ID and expenses.
@@ -122,12 +123,18 @@ public class Activity {
      * @param people The people that will be added into the activity.
      */
     public void invite(Person ... people) {
+        invite(Stream.of(people)
+                .mapToInt(x -> x.getPrimaryKey())
+                .toArray());
+    }
+
+    public void invite(int ... primaryKeys) {
         int len = participantIds.size();
-        int newlen = len + people.length;
-        for (int i = 0; i < people.length; i++) {
-            Person p = people[i];
-            if (!participantIds.contains(p.getPrimaryKey())) {
-                participantIds.add(p.getPrimaryKey());
+        int newlen = len + primaryKeys.length;
+        for (int i = 0; i < primaryKeys.length; i++) {
+            int p = primaryKeys[i];
+            if (!participantIds.contains(p)) {
+                participantIds.add(p);
                 participantBalances.add(0.0); // newcomers don't owe.
                 for (int j = 0; j < len; j++) {
                     debtMatrix.get(j).add(0.0); // extend columns
@@ -137,7 +144,9 @@ public class Activity {
                 transferMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
             }
         }
-      
+    }
+
+    /*
      * Checks whether the person with ID is present in this activity.
      * @param personId Id of the person to check.
      * @return True if person exists, false otherwise.
