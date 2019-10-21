@@ -71,7 +71,7 @@ public class HelpWindow extends UiPart<Stage> {
             + SaveCommand.COMMAND_WORD + "\n"
             + SortCommand.COMMAND_WORD + "\n\n"
             + "Click the user guide button below to open to full user guide.\n"
-            + "You would need internet connection to open the user guide.";
+            + "You will need internet connection to open the user guide.";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
