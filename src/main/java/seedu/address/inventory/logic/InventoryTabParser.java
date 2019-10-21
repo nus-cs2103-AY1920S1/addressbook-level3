@@ -9,7 +9,7 @@ import seedu.address.inventory.commands.EditCommand;
 import seedu.address.inventory.commands.SortCommand;
 import seedu.address.inventory.logic.exception.ParseException;
 import seedu.address.inventory.ui.InventoryMessages;
-import seedu.address.transaction.commands.DeleteIndexCommand;
+import seedu.address.transaction.logic.commands.DeleteIndexCommand;
 
 /**
  * Parses user inputs to the Inventory Tab.

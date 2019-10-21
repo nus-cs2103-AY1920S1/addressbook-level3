@@ -1,8 +1,8 @@
 package seedu.address.transaction.logic;
 
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_NAME_ALICE;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_NAME_AMY;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_ALICE;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_AMY;
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
 
@@ -12,8 +12,9 @@ import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.transaction.commands.DeleteIndexCommand;
-import seedu.address.transaction.commands.DeleteNameCommand;
+import seedu.address.transaction.logic.commands.DeleteIndexCommand;
+import seedu.address.transaction.logic.commands.DeleteNameCommand;
+import seedu.address.transaction.logic.parser.DeleteCommandParser;
 import seedu.address.transaction.ui.TransactionMessages;
 
 class DeleteCommandParserTest {

@@ -3,7 +3,10 @@ package seedu.address.transaction.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.address.person.model.Model;
-import seedu.address.transaction.commands.Command;
+import seedu.address.transaction.logic.commands.Command;
+import seedu.address.transaction.logic.parser.AddCommandParser;
+import seedu.address.transaction.logic.parser.CommandParserWithPersonModel;
+import seedu.address.transaction.logic.parser.IndependentCommandParser;
 
 /**
  * Contains helper methods for testing command parsers.
@@ -19,7 +22,6 @@ public class CommandParserTestUtil {
             Command command = parser.parse(userInput, size, personModel);
             assertEquals(expectedCommand, command);
         } catch (Exception pe) {
-            System.out.println(pe.toString());
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
     }
@@ -48,7 +50,6 @@ public class CommandParserTestUtil {
             Command command = parser.parse(userInput, personModel);
             assertEquals(expectedCommand, command);
         } catch (Exception pe) {
-            System.out.println(pe.toString());
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
     }
@@ -72,7 +73,7 @@ public class CommandParserTestUtil {
      * equals to {@code expectedCommand}.
      */
     public static void assertCommandParseSuccess(IndependentCommandParser parser, String userInput,
-                                                       Command expectedCommand) {
+                                                 Command expectedCommand) {
         try {
             Command command = parser.parse(userInput);
             assertEquals(expectedCommand, command);

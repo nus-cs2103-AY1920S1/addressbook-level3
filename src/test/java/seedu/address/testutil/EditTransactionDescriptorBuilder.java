@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.transaction.commands.EditCommand;
+import seedu.address.transaction.logic.commands.EditCommand;
 import seedu.address.transaction.model.Transaction;
 
 /**

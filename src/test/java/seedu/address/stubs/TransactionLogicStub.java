@@ -2,10 +2,10 @@ package seedu.address.stubs;
 
 import java.io.IOException;
 
-import seedu.address.transaction.commands.Command;
-import seedu.address.transaction.commands.CommandResult;
+import seedu.address.transaction.logic.commands.Command;
+import seedu.address.transaction.logic.commands.CommandResult;
 import seedu.address.transaction.logic.Logic;
-import seedu.address.transaction.logic.TransactionTabParser;
+import seedu.address.transaction.logic.parser.TransactionTabParser;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
