@@ -213,6 +213,11 @@ public class MemeAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void cleanMemeStorage() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

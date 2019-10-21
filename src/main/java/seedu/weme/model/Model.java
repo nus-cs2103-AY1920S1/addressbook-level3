@@ -135,4 +135,9 @@ public interface Model {
      * Saves the current meme book state for undo/redo.
      */
     void commitMemeBook();
+
+    /**
+     * Clears the image data folder of any memes that are not referenced in weme.
+     */
+    void cleanMemeStorage();
 }
