@@ -160,6 +160,16 @@ public class ModelManager implements Model {
         finSec.rejectClaim(claim);
     }
 
+    /**
+     * Finds the {@code contact} for a {@code claim}.
+     *
+     * @return true if contact has been found.
+     */
+    public boolean hasContactFor(Claim claim) {
+        requireNonNull(claim);
+        return finSec.hasContact(claim.getName(), claim.getPhone());
+    }
+
     //=========== Suggestions ================================================================================
     @Override
     public boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion) {

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.commonvariables.Date;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
@@ -17,6 +18,7 @@ import seedu.address.model.tag.Tag;
 public abstract class Claim {
 
     // Identity fields
+    private final Id id;
     private final Description description;
     private final Amount amount;
     private final Name name;
@@ -33,6 +35,7 @@ public abstract class Claim {
     public Claim(Description description, Amount amount, Date date,
                  Name name, Phone phone, Set<Tag> tags, Status status) {
         requireAllNonNull(description, amount, name, phone, tags);
+        id = Id.incrementId();
         this.description = description;
         this.amount = amount;
         this.date = date;
@@ -40,6 +43,26 @@ public abstract class Claim {
         this.phone = phone;
         this.tags.addAll(tags);
         this.status = status;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Claim(Id id, Description description, Amount amount, Date date,
+                 Name name, Phone phone, Set<Tag> tags, Status status) {
+        requireAllNonNull(description, amount, name, phone, tags);
+        this.id = id;
+        this.description = description;
+        this.amount = amount;
+        this.date = date;
+        this.name = name;
+        this.phone = phone;
+        this.tags.addAll(tags);
+        this.status = status;
+    }
+
+    public Id getId() {
+        return id;
     }
 
     public Description getDescription() {
