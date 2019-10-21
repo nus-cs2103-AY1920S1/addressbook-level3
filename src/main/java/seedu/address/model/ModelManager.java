@@ -252,7 +252,7 @@ public class ModelManager implements Model {
     @Override
     public Borrower getServingBorrower() {
         if (!isServeMode()) {
-            throw new AssertionError("Not in Serve mode!");
+            throw new NotInServeModeException();
         }
         return servingBorrower.get();
     }
@@ -351,7 +351,9 @@ public class ModelManager implements Model {
 
     @Override
     public List<Book> getBorrowerBooks() {
-        assert(isServeMode());
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
 
         ArrayList<Loan> loans = new ArrayList<>();
         servingBorrower.get()

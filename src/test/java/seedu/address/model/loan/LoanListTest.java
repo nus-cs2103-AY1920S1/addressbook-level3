@@ -41,4 +41,24 @@ class LoanListTest {
         assertTrue(loanList.contains(LOAN_1));
         assertFalse(loanList.contains(LOAN_2));
     }
+
+    @Test
+    public void addToNewCopy() {
+        LoanList loanList1 = new LoanList();
+        loanList1.add(LOAN_1);
+        LoanList loanList2 = loanList1.addToNewCopy(LOAN_2);
+        loanList1.add(LOAN_2);
+        assertEquals(loanList1, loanList2);
+        assertFalse(loanList1 == loanList2);
+    }
+
+    @Test
+    public void removeFromNewCopy() {
+        LoanList loanList1 = new LoanList();
+        loanList1.add(LOAN_1);
+        loanList1.add(LOAN_2);
+        LoanList loanList2 = loanList1.removeFromNewCopy(LOAN_2);
+        assertEquals(loanList2.size(), 1);
+        assertFalse(loanList1 == loanList2);
+    }
 }

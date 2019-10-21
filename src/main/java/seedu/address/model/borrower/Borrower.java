@@ -67,24 +67,35 @@ public class Borrower {
         return returnedLoanList;
     }
 
+    /**
+     * Adds a new Loan object to a new copy of the currentLoanList.
+     *
+     * @param newLoan New {@code Loan} object to be added to currentLoanList.
+     * @return A new copy of currentLoanList with new Loan object added in to it.
+     */
     public LoanList getAddedCurrentLoanList(Loan newLoan) {
         return currentLoanList.addToNewCopy(newLoan);
     }
 
+    /**
+     * Removes a Loan object from a new copy of the currentLoanList.
+     *
+     * @param returnedLoan {@code Loan} object to be removed from the currentLoanList.
+     * @return A new copy of the currentLoanList with the returned Loan object removed from it.
+     */
     public LoanList getRemovedCurrentLoanList(Loan returnedLoan) {
         return currentLoanList.removeFromNewCopy(returnedLoan);
     }
 
+    /**
+     * Adds a returned Loan object to a new copy of the returnedLoanList.
+     *
+     * @param returnedLoan {@code Loan} object to be added to returnedLoanList.
+     * @return A new copy of currentLoanList with returned Loan object added in to it.
+     */
     public LoanList getAddedReturnedLoanList(Loan returnedLoan) {
         return returnedLoanList.addToNewCopy(returnedLoan);
     }
-
-    /**
-     * Adds a new Loan object representing a book loaned by the Borrower.
-     */
-//    public void addNewLoan(Loan loan) {
-//        currentLoanList.addToNewCopy(loan);
-//    }
 
     /**
      * Returns true if Borrower currently loans a Book represented by the given Loan object.
@@ -92,18 +103,6 @@ public class Borrower {
     public boolean hasCurrentLoan(Loan loan) {
         return currentLoanList.contains(loan);
     }
-
-    /**
-     * Returns a Book that is borrowed by the Borrower.
-     *
-     * @param loan Loan object that is being returned.
-     */
-//    public void returnLoan(Loan loan) {
-//        assert hasCurrentLoan(loan) : "Borrower does not have the loan to be returned.";
-//
-//        currentLoanList.removeFromNewCopy(loan);
-//        returnedLoanList.addToNewCopy(loan);
-//    }
 
     /**
      * Returns true if both borrowers have the same borrower_id.

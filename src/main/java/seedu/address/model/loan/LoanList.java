@@ -19,12 +19,17 @@ public class LoanList implements Iterable<Loan> {
         this.loanList = newList;
     }
 
+    /**
+     * Adds a {@code Loan} object into the list.
+     *
+     * @param loan {@code Loan} object to be added.
+     */
     public void add(Loan loan) {
         loanList.add(loan);
     }
 
     /**
-     * Adds a {@code Loan} object into the list.
+     * Adds a {@code Loan} object into a copy of list.
      *
      * @param loan {@code Loan} object to be added.
      * @return A new LoanList with the Loan object added.
@@ -47,7 +52,7 @@ public class LoanList implements Iterable<Loan> {
     }
 
     /**
-     * Removes a {@code Loan} object from the list.
+     * Removes a {@code Loan} object from a copy of the list.
      *
      * @param loan {@code Loan} object to be removed.
      * @return A new LoanList with the Loan object removed.
@@ -61,5 +66,19 @@ public class LoanList implements Iterable<Loan> {
     @Override
     public Iterator<Loan> iterator() {
         return loanList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof LoanList)) {
+            return false;
+        }
+
+        LoanList otherLoanList = (LoanList) o;
+        return this.loanList.equals(otherLoanList.loanList);
     }
 }

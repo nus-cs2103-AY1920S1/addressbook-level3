@@ -23,9 +23,6 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     private ObservableList<Borrower> listOfBorrowers = FXCollections.observableArrayList();
     private HashMap<BorrowerId, Borrower> borrowersMap = new HashMap<>();
 
-    /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
-     */
     public BorrowerRecords() {
     }
 
@@ -94,11 +91,20 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
         return borrowersMap.get(id);
     }
 
+    /**
+     * Returns true if the list contains an equivalent borrower as the given argument.
+     */
     public boolean contains(Borrower toCheck) {
         requireNonNull(toCheck);
         return listOfBorrowers.stream().anyMatch(toCheck::equals);
     }
+    // why does hasBorrower check by phone number or email only????
 
+    /**
+     * Replaces the borrower {@code target} in the list with {@code editedBorrower}.
+     * {@code target} must exist in the list.
+     * The borrower identity of {@code editedBorrower} must not be the same as another existing borrower in the list.
+     */
     public void setBorrower(Borrower target, Borrower editedBorrower) {
         requireAllNonNull(target, editedBorrower);
         int index = listOfBorrowers.indexOf(target);
