@@ -21,6 +21,10 @@ public class Concentration {
         this.concentration = Double.parseDouble(concentration);
     }
 
+    public double getConcentration() {
+        return concentration;
+    }
+
     public static boolean isValidConcentration(String test) {
         return test.matches(VALIDATION_REGEX);
     }

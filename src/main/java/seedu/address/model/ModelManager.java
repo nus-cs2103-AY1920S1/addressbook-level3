@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,7 +18,10 @@ import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
+import seedu.address.model.statistics.AverageMap;
+import seedu.address.model.statistics.AverageType;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -37,6 +42,8 @@ public class ModelManager implements Model {
     private final FilteredList<Record> filteredRecordList;
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
+
+    private AverageMap averageMap;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -61,6 +68,7 @@ public class ModelManager implements Model {
         this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
         this.calendar = new Calendar(calendar);
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
+        this.averageMap = new AverageMap();
     }
 
     public ModelManager() {
@@ -362,5 +370,17 @@ public class ModelManager implements Model {
     public void updateFilteredRecordList(Predicate<Record> predicate) {
         requireNonNull(predicate);
         filteredRecordList.setPredicate(predicate);
+    }
+
+    //=========== Statistics List =============================================================
+    @Override
+    public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
+        averageMap = new AverageMap();
+        averageMap.calculateAverage(getRecordList(), averageType, recordType, count);
+    }
+
+    @Override
+    public Map<LocalDate, Double> getAverageMap() {
+        return averageMap.getAverageMap();
     }
 }

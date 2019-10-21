@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -9,7 +11,9 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
+import seedu.address.model.statistics.AverageType;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -178,6 +182,18 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecordList(Predicate<Record> predicate);
+
+    //=========== Statistics List =============================================================
+
+    /**
+     * Calculate average values of a record type.
+     */
+    void calculateAverageMap(AverageType averageType, RecordType recordType, int count);
+
+    /**
+     * Returns a {@code AverageMap} object that maps time period to the respective average values.
+     */
+    Map<LocalDate, Double> getAverageMap();
 
     //=========== User List =============================================================
 

@@ -1,6 +1,8 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -101,5 +103,12 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of users
      */
     ObservableList<User> getFilteredUserList();
+
+    //=========== Statistics List =============================================================
+
+    /**
+     * Returns a {@code Map} object that maps time period to the respective average values.
+     */
+    Map<LocalDate, Double> getAverageMap();
 
 }

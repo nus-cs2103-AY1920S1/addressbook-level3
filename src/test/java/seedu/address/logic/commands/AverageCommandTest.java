@@ -14,12 +14,12 @@ import seedu.address.model.record.RecordType;
 public class AverageCommandTest {
     private Model model = new ModelManager();
 
-    @Test
-    public void execute_zeroRecordType_throwsCommandException() {
-        AverageCommand command = new AverageCommand(AverageType.DAILY,
-                RecordType.HEIGHTANDWEIGHT, 5);
-        assertThrows(CommandException.class, String.format(MESSAGE_NO_RECORD,
-                RecordType.HEIGHTANDWEIGHT), () -> command.execute(model));
-    }
+//    @Test
+//    public void execute_zeroRecordType_throwsCommandException() {
+//        AverageCommand command = new AverageCommand(AverageType.DAILY,
+//                RecordType.HEIGHTANDWEIGHT, 5);
+//        assertThrows(CommandException.class, String.format(MESSAGE_NO_RECORD,
+//                RecordType.HEIGHTANDWEIGHT), () -> command.execute(model));
+//    }
 
 }
