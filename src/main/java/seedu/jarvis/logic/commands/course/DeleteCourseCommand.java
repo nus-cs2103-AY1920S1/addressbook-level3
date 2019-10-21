@@ -2,6 +2,7 @@ package seedu.jarvis.logic.commands.course;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.isAnyNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 
@@ -15,6 +16,9 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.course.Course;
 
+/**
+ * Delete a course into Jarvis.
+ */
 public class DeleteCourseCommand extends Command {
     public static final String COMMAND_WORD = "delete-course";
 
@@ -26,14 +30,10 @@ public class DeleteCourseCommand extends Command {
         COMMAND_WORD, PREFIX_COURSE, COMMAND_WORD, COMMAND_WORD, COMMAND_WORD, PREFIX_COURSE
     );
 
-    public static final String MESSAGE_SUCCESS =
-        "Course deleted: %1$s";
-    public static final String MESSAGE_COURSE_NOT_IN_LIST =
-        "The given course is not inside your list!";
-    public static final String MESSAGE_INVERSE_SUCCESS_ADD =
-        "Re-added course: %1$s";
-    public static final String MESSAGE_INVERSE_COURSE_ALREADY_EXISTS =
-        "The course given is already in your list!";
+    public static final String MESSAGE_SUCCESS = "Course deleted: %1$s";
+    public static final String MESSAGE_COURSE_NOT_IN_LIST = "The given course is not inside your list!";
+    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "Re-added course: %1$s";
+    public static final String MESSAGE_INVERSE_COURSE_ALREADY_EXISTS = "The course given is already in your list!";
     public static final String REPRESENTATION = "%s: %s";
 
     public static final boolean HAS_INVERSE = true;
@@ -56,16 +56,36 @@ public class DeleteCourseCommand extends Command {
         requireNonNull(toDelete);
     }
 
+    /**
+     * Gets the command word of the command.
+     *
+     * @return {@code String} representation of the command word.
+     */
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
     }
 
+    /**
+     * Returns whether the command has an inverse execution.
+     * If the command has no inverse execution, then calling {@code executeInverse}
+     * will be guaranteed to always throw a {@code CommandException}.
+     *
+     * @return Whether the command has an inverse execution.
+     */
     @Override
     public boolean hasInverseExecution() {
         return HAS_INVERSE;
     }
 
+    /**
+     * Deletes a {@code Course} to the course planner, if the course is already
+     * inside course planner.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return {@code CommandResult} that course was deleted successfully
+     * @throws CommandException if there is no matching course or index is out of bounds
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -79,7 +99,7 @@ public class DeleteCourseCommand extends Command {
         assert !isNull(targetIndex) && !isNull(toDelete);
 
         model.deleteCourse(toDelete);
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));
     }
 
     private Course getCourseToDeleteByIndex(List<Course> lastShownList) throws CommandException {
@@ -116,5 +136,26 @@ public class DeleteCourseCommand extends Command {
             return String.format(REPRESENTATION, COMMAND_WORD, toDelete);
         }
         return String.format(REPRESENTATION, COMMAND_WORD, targetIndex.getOneBased());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof DeleteCourseCommand)) {
+            return false;
+        }
+        DeleteCourseCommand other = (DeleteCourseCommand) o;
+
+        if (!isAnyNonNull(targetIndex, other.targetIndex, toDelete, other.toDelete)) {
+            return toDelete.equals(other.toDelete) && targetIndex.equals(other.targetIndex);
+        }
+        if (isNull(toDelete) && isNull(other.toDelete)) {
+            return targetIndex.equals(other.targetIndex);
+        }
+        if (isNull(targetIndex) && isNull(other.targetIndex)) {
+            return toDelete.equals(other.toDelete);
+        }
+        return false;
     }
 }
