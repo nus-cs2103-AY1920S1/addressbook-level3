@@ -11,6 +11,8 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 
+import java.util.Objects;
+
 /**
  * Deletes a task from JARVIS
  */
@@ -120,8 +122,17 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteTaskCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex));
+        if (other == this) {
+            // short circuit if same object
+            return true;
+        }
+
+        //instanceof handles nulls
+        if (!(other instanceof DeleteTaskCommand)) {
+            return false;
+        }
+
+        return targetIndex.equals(((DeleteTaskCommand) other).targetIndex)
+                && Objects.equals(deletedTask, ((DeleteTaskCommand) other).deletedTask);
     }
 }
