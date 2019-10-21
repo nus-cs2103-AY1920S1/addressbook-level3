@@ -16,13 +16,15 @@ public class ScheduleView extends UiPart<Region> {
 
     private static final String FXML = "ScheduleView.fxml";
 
-    private List<ObservableList<ObservableList<String>>> scheduleList;
+    private List<List<String>> titles;
+    private List<ObservableList<ObservableList<String>>> scheduleList; // Excluding titles
 
     @FXML
     private TableView tableView;
 
-    ScheduleView(List<ObservableList<ObservableList<String>>> scheduleList) {
+    ScheduleView(List<List<String>> titles, List<ObservableList<ObservableList<String>>> scheduleList) {
         super(FXML);
+        this.titles = titles;
         this.scheduleList = scheduleList;
         initialise();
     }
@@ -31,11 +33,12 @@ public class ScheduleView extends UiPart<Region> {
      * Allow the creation of table.
      */
     private void initialise() {
-        for (int i = 0; i < this.scheduleList.get(0).get(0).size(); i++) {
+        // Currently the code here will only retrieve the first list of titles.
+        for (int i = 0; i < titles.get(0).size(); i++) {
             final int finalIdx = i;
             TableColumn<ObservableList<String>, String> column =
                     new TableColumn<ObservableList<String>, String>(
-                            this.scheduleList.get(0).get(0).get(i)
+                            titles.get(0).get(i)
                     );
             column.setCellValueFactory(param ->
                     new ReadOnlyObjectWrapper<>(param.getValue().get(finalIdx))
@@ -44,7 +47,8 @@ public class ScheduleView extends UiPart<Region> {
             this.tableView.setColumnResizePolicy(this.tableView.CONSTRAINED_RESIZE_POLICY);
         }
 
-        for (int i = 1; i < this.scheduleList.get(0).size(); i++) {
+        // the data of the schedule now excludes the titles, so titles is not in the first row of data returned anymore
+        for (int i = 0; i < this.scheduleList.get(0).size(); i++) {
             this.tableView.getItems().add(
                     this.scheduleList.get(0).get(i)
             );

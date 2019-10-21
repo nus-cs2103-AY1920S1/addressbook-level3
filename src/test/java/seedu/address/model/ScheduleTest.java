@@ -72,8 +72,9 @@ public class ScheduleTest {
 
         // Generate the expected Schedule
         Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
-        String[] newColumn = new String[]{"Technical - Alice Pauline", "1", "0", "0", "0", "0", "0"};
-        addColumn(expectedSchedule, newColumn);
+        String newTitle = "Technical - Alice Pauline";
+        String[] newColumn = new String[]{"1", "0", "0", "0", "0", "0"};
+        addColumn(expectedSchedule, newTitle, newColumn);
 
         assertTrue(scheduleTest.addInterviewer(interviewer));
         assertEquals(expectedSchedule, scheduleTest);
@@ -86,8 +87,9 @@ public class ScheduleTest {
 
         // Generate the expected Schedule
         Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
-        String[] newColumn = new String[]{"Technical - Alice Pauline", "0", "1", "1", "0", "1", "0"};
-        addColumn(expectedSchedule, newColumn);
+        String newTitle = "Technical - Alice Pauline";
+        String[] newColumn = new String[]{"0", "1", "1", "0", "1", "0"};
+        addColumn(expectedSchedule, newTitle, newColumn);
 
         assertTrue(scheduleTest.addInterviewer(interviewer));
         assertEquals(expectedSchedule, scheduleTest);
@@ -110,8 +112,9 @@ public class ScheduleTest {
 
         // Generate the expected Schedule
         Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
-        String[] newColumn = new String[]{"Technical - Alice Pauline", "0", "0", "1", "0", "1", "0"};
-        addColumn(expectedSchedule, newColumn);
+        String newTitle = "Technical - Alice Pauline";
+        String[] newColumn = new String[]{ "0", "0", "1", "0", "1", "0"};
+        addColumn(expectedSchedule, newTitle, newColumn);
 
         assertTrue(scheduleTest.addInterviewer(interviewer));
         assertEquals(expectedSchedule, scheduleTest);
@@ -120,11 +123,14 @@ public class ScheduleTest {
     /**
      * Add a column into the schedule.
      */
-    private void addColumn(Schedule schedule, String[] newColumn) {
-        ObservableList<ObservableList<String>> table = schedule.getObservableList();
-        int numColumns = table.size();
-        IntStream.range(0, numColumns).forEach(i -> {
-            ObservableList<String> row = table.get(i);
+    private void addColumn(Schedule schedule, String newTitle, String[] newColumn) {
+        ObservableList<String> titles = schedule.getTitles();
+        titles.add(newTitle);
+
+        ObservableList<ObservableList<String>> data = schedule.getObservableList();
+        int numRows = data.size();
+        IntStream.range(0, numRows).forEach(i -> {
+            ObservableList<String> row = data.get(i);
             row.add(newColumn[i]);
         });
     }
@@ -148,8 +154,9 @@ public class ScheduleTest {
         Schedule schedule = SampleSchedules.getSampleFilledSchedule();
         Schedule cloneSchedule = Schedule.cloneSchedule(schedule);
 
-        String[] newColumn = new String[]{"Technical - Alice Pauline", "0", "0", "1", "0", "1", "0"};
-        addColumn(schedule, newColumn);
+        String newTitle = "Technical - Alice Pauline";
+        String[] newColumn = new String[]{"0", "0", "1", "0", "1", "0"};
+        addColumn(schedule, newTitle, newColumn);
 
         assertNotEquals(schedule, cloneSchedule);
     }

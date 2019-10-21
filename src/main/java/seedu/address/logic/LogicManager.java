@@ -79,6 +79,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public List<List<String>> getTitlesLists() {
+        return model.getTitlesLists();
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }

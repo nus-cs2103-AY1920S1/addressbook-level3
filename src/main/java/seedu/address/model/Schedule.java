@@ -17,11 +17,20 @@ import seedu.address.model.person.Slot;
  */
 public class Schedule {
     private String date;
-    private ObservableList<ObservableList<String>> table; // Include the first row which is the column titles
+    private ObservableList<String> titles;
+    private ObservableList<ObservableList<String>> data; // EXCLUDE the first row which is the column titles
 
     public Schedule(String date, LinkedList<LinkedList<String>> list) {
         this.date = date;
-        this.table = toTwoDimensionalObservableList(list);
+
+        ObservableList<ObservableList<String>> table = toTwoDimensionalObservableList(list);
+        if (table.isEmpty()) {
+            this.titles = FXCollections.observableList(new LinkedList<>());
+        } else {
+            this.titles = table.remove(0);
+        }
+
+        this.data = table;
     }
 
     private Schedule() {
@@ -31,17 +40,22 @@ public class Schedule {
         return date;
     }
 
+    public ObservableList<String> getTitles() {
+        return titles;
+    }
+
     public ObservableList<ObservableList<String>> getObservableList() {
-        return table;
+        return data;
     }
 
     public List<Slot> getInterviewSlots(String intervieweeName) {
         List<Slot> slots = new LinkedList<>();
-        int tableSize = table.size();
+        int tableSize = data.size();
 
-        // Exclude search in the first row as the first row is column titles
-        for (int i = 1; i < tableSize; i++) {
-            ObservableList<String> row = table.get(i);
+        // Need to search the first row as well because now the first row of data(table) is not the titles,
+        // it is data.
+        for (int i = 0; i < tableSize; i++) {
+            ObservableList<String> row = data.get(i);
             int rowSize = row.size();
 
             // Exclude search in the first cell as the first cell is the time slot
@@ -67,10 +81,9 @@ public class Schedule {
      */
     public boolean hasInterviewer(Interviewer interviewer) {
         String columnTitle = generateColumnTitle(interviewer);
-        ObservableList<String> firstRow = table.get(0);
 
         boolean found = false;
-        for (String title : firstRow) {
+        for (String title : titles) {
             if (title.equals(columnTitle)) {
                 found = true;
                 break;
@@ -100,9 +113,9 @@ public class Schedule {
                     .collect(Collectors.toList());
 
         boolean added = false;
-        int currRowIndex = 1;
+        int currRowIndex = 0;
         for (String availability : availabilities) {
-            if (currRowIndex > table.size()) {
+            if (currRowIndex > data.size()) {
                 break;
             }
 
@@ -115,10 +128,10 @@ public class Schedule {
             }
 
             // Iterate through the table rows
-            int tableSize = table.size();
             int i;
+            int tableSize = data.size();
             for (i = currRowIndex; i < tableSize; i++) {
-                ObservableList<String> currRow = table.get(i);
+                ObservableList<String> currRow = data.get(i);
                 String currRowTime = currRow.get(0);
 
                 if (!currRowTime.equals(time)) {
@@ -132,12 +145,13 @@ public class Schedule {
             currRowIndex = i;
         }
 
-        // Add 0 to other rows to ensure that the table rows size are correct
         if (added) {
-            int initialRowSize = table.get(0).size();
-            table.get(0).add(columnTitle);
-            for (int i = 1; i < table.size(); i++) {
-                ObservableList<String> currRow = table.get(i);
+            int initialRowSize = titles.size();
+            titles.add(columnTitle);
+
+            // Add 0 to other rows to ensure that the table rows size are correct
+            for (int i = 0; i < data.size(); i++) {
+                ObservableList<String> currRow = data.get(i);
                 if (currRow.size() == initialRowSize) {
                     currRow.add("0");
                 }
@@ -169,36 +183,29 @@ public class Schedule {
         }
         Schedule sCasted = (Schedule) s;
         return date.equals(sCasted.date)
-            && table.equals(sCasted.table);
+            && titles.equals(sCasted.titles)
+            && data.equals(sCasted.data);
     }
 
     /**
      * Returns a copy of the @code{Schedule} object given.
-     *
-     * @param schedule the @code{Schedule} object to be copied.
-     * @return the copy of the @code{Schedule} object.
      */
     public static Schedule cloneSchedule(Schedule schedule) {
         Schedule clone = new Schedule();
         clone.date = String.valueOf(schedule.date);
-        clone.table = cloneTable(schedule.table);
+        clone.titles = cloneRow(schedule.titles);
+        clone.data = cloneTable(schedule.data);
         return clone;
     }
 
     /**
-     * Returns an independent copy of the table given in observable list form.
-     *
-     * @param table the table to copy.
-     * @return the copy of the table.
+     * Returns an independent deep copy of the table given in observable list form.
      */
     private static ObservableList<ObservableList<String>> cloneTable(ObservableList<ObservableList<String>> table) {
         ObservableList<ObservableList<String>> tableClone = FXCollections.observableList(new LinkedList<>());
 
         for (ObservableList<String> row : table) {
-            ObservableList<String> rowClone = FXCollections.observableList(new LinkedList<>());
-            for (String string : row) {
-                rowClone.add(String.valueOf(string));
-            }
+            ObservableList<String> rowClone = cloneRow(row);
             tableClone.add(rowClone);
         }
 
@@ -206,10 +213,18 @@ public class Schedule {
     }
 
     /**
+     * Returns an independent deep copy of the row given in observable list form.
+     */
+    private static ObservableList<String> cloneRow(ObservableList<String> row) {
+        ObservableList<String> rowClone = FXCollections.observableList(new LinkedList<>());
+        for (String string : row) {
+            rowClone.add(String.valueOf(string));
+        }
+        return rowClone;
+    }
+
+    /**
      * Convert a two-dimensional LinkedList into a two-dimensional Observable list.
-     *
-     * @param list a two-dimensional LinkedList
-     * @return the corresponding two-dimensional Observable list
      */
     public static ObservableList<ObservableList<String>> toTwoDimensionalObservableList(
         LinkedList<LinkedList<String>> list) {
@@ -226,15 +241,34 @@ public class Schedule {
 
     @Override
     public String toString() {
-        StringBuffer buffer = new StringBuffer(450);
-        for (ObservableList<String> row : table) {
-            for (String value : row) {
-                buffer.append(value);
-                buffer.append(",");
-            }
-            buffer.append("\n");
+        StringBuilder builder = new StringBuilder(450);
+
+        // Append the title rows
+        String titleRep = rowToString(titles);
+        builder.append(titleRep);
+
+        // Append the other rows
+        for (ObservableList<String> row : data) {
+            String rowRep = rowToString(row);
+            builder.append(rowRep);
         }
 
-        return buffer.toString();
+        return builder.toString();
+    }
+
+    /**
+     * Convert a row to its string representation (each value separated by a comma, then the row ends with
+     * a newline character.
+     */
+    private String rowToString(List<String> row) {
+        StringBuilder builder = new StringBuilder(110);
+
+        for (String value : row) {
+            builder.append(value);
+            builder.append(",");
+        }
+
+        builder.append("\n");
+        return builder.toString();
     }
 }

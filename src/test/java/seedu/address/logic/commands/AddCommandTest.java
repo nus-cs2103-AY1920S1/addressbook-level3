@@ -121,6 +121,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public List<List<String>> getTitlesLists() {
+            // TODO: Implementation
+            return null;
+        }
+
+        @Override
         public void emailInterviewee(Interviewee interviewee) {
             throw new AssertionError("This method should not be called.");
         }

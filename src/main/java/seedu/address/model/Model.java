@@ -53,6 +53,9 @@ public interface Model {
      */
     List<ObservableList<ObservableList<String>>> getObservableLists();
 
+    /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
+    List<List<String>> getTitlesLists();
+
     /**
      * Returns an Interviewee given the intervieweeName.
      * The Interviewee must exist in the database.

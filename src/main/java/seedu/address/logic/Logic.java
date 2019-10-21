@@ -50,6 +50,9 @@ public interface Logic {
     /** Returns a list of @code{ObservableList} objects, each representing a Schedule table*/
     List<ObservableList<ObservableList<String>>> getObservableLists();
 
+    /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
+    List<List<String>> getTitlesLists();
+
     /**
      * Returns the user prefs' GUI settings.
      */

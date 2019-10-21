@@ -109,7 +109,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        scheduleView = new ScheduleView(logic.getObservableLists());
+        scheduleView = new ScheduleView(logic.getTitlesLists(), logic.getObservableLists());
         schedulePanelPlaceholder.getChildren().add(scheduleView.getRoot());
 
         resultDisplay = new ResultDisplay();

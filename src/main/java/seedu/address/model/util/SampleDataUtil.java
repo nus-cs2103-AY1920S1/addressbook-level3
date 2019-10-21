@@ -24,12 +24,12 @@ public class SampleDataUtil {
     private static String[][] sampleFilledTable =
             new String[][]{
                     {"10/9/2019", "Welfare - Hazel", "Technical - Johnathan", "Publicity - Lucia"},
-                    {"18:00 - 18:30", "John", "Steven", "0"},
-                    {"18:30 - 19:00", "Alex", "Clark", "John"},
-                    {"19:00 - 19:30", "Alicia", "0", "charlie"},
-                    {"19:30 - 20:00", "Charlie", "0", "Selina"},
-                    {"20:00 - 20:30", "Selina", "0", "0"},
-                    {"20:30 - 21:00", "Natal", "0", "0"}};
+                    {"18:00-18:30", "John", "Steven", "0"},
+                    {"18:30-19:00", "Alex", "Clark", "John"},
+                    {"19:00-19:30", "Alicia", "0", "charlie"},
+                    {"19:30-20:00", "Charlie", "0", "Selina"},
+                    {"20:00-20:30", "Selina", "0", "0"},
+                    {"20:30-21:00", "Natal", "0", "0"}};
 
     public static Person[] getSamplePersons() {
         return new Person[] {
