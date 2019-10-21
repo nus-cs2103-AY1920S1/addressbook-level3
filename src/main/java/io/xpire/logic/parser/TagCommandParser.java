@@ -25,6 +25,9 @@ public class TagCommandParser implements Parser<TagCommand> {
         requireNonNull(args);
         String[] splitArgs = args.split("\\|", 2);
         Index index;
+        if (splitArgs[0].isEmpty()) {
+            return new TagCommand();
+        }
         try {
             index = ParserUtil.parseIndex(splitArgs[0]);
         } catch (ParseException pe) {

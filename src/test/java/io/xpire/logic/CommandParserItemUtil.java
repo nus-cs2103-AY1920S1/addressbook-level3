@@ -45,7 +45,6 @@ public class CommandParserItemUtil {
     public static final String VALID_QUANTITY_EXPIRING_FISH = "1";
     public static final String VALID_QUANTITY_EXPIRED_ORANGE = "1";
 
-
     public static final String VALID_TAG_FRUIT = "Fruit";
     public static final String VALID_TAG_DRINK = "Drink";
     public static final String VALID_TAG_FRIDGE = "Fridge";
@@ -61,7 +60,8 @@ public class CommandParserItemUtil {
     public static final String VALID_REMINDER_THRESHOLD_MILK = "0";
 
     public static final String INVALID_NAME = "@pple";
-    public static final String INVALID_EXPIRY_DATE = "50/50/5000";
+    public static final String INVALID_EXPIRY_DATE = "50505000";
+    public static final String INVALID_EXPIRY_DATE_RANGE = "50/50/5000";
     public static final String INVALID_TAG = "$cold";
     public static final String INVALID_QUANTITY = "-2";
     public static final String INVALID_REMINDER_THRESHOLD = "-5";

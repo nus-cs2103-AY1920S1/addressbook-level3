@@ -9,22 +9,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import io.xpire.logic.CommandParserItemUtil;
 import io.xpire.logic.commands.AddCommand;
+import io.xpire.logic.commands.CheckCommand;
 import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.commands.ExitCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.SearchCommand;
+import io.xpire.logic.commands.SetReminderCommand;
 import io.xpire.logic.commands.SortCommand;
+import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.sort.MethodOfSorting;
 import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.ItemUtil;
 
@@ -38,6 +40,12 @@ public class XpireParserTest {
         Item item = new ItemBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(ItemUtil.getAddCommand(item));
         assertEquals(new AddCommand(item), command);
+    }
+
+    @Test
+    public void parseCommand_check() throws Exception {
+        assertTrue(parser.parseCommand(CheckCommand.COMMAND_WORD) instanceof CheckCommand);
+        assertTrue(parser.parseCommand(CheckCommand.COMMAND_WORD + "|5") instanceof CheckCommand);
     }
 
     @Test
@@ -60,28 +68,43 @@ public class XpireParserTest {
     }
 
     @Test
-    public void parseCommand_search() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        SearchCommand command = (SearchCommand) parser.parseCommand(
-                SearchCommand.COMMAND_WORD + "|" + keywords.stream().collect(Collectors.joining("|")));
-        assertEquals(new SearchCommand(new ContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
-    public void parseCommand_sort() throws Exception {
-        SortCommand command = (SortCommand) parser.parseCommand(
-                SortCommand.COMMAND_WORD + "|name");
-        assertEquals(new SortCommand(new MethodOfSorting("name")), command);
-    }
-
-    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + "|3") instanceof HelpCommand);
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
+    public void parseCommand_search() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_WORD + "|" + String.join("|", keywords));
+        assertEquals(new SearchCommand(new ContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_setReminder() throws Exception {
+        assertTrue(parser.parseCommand(SetReminderCommand.COMMAND_WORD
+                + "|" + INDEX_FIRST_ITEM.getOneBased()
+                + "|10") instanceof SetReminderCommand);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD
+                + "|name") instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD
+                + "|date") instanceof SortCommand);
+    }
+
+    @Test
+    public void parseCommand_tag() throws Exception {
+        assertTrue(parser.parseCommand(TagCommand.COMMAND_WORD) instanceof TagCommand);
+        assertTrue(parser.parseCommand(TagCommand.COMMAND_WORD + "|1|#"
+                + CommandParserItemUtil.VALID_TAG_DRINK) instanceof TagCommand);
+    }
+
+    @Test
+    public void parseCommand_view() throws Exception {
         assertTrue(parser.parseCommand(ViewCommand.COMMAND_WORD) instanceof ViewCommand);
         assertTrue(parser.parseCommand(ViewCommand.COMMAND_WORD + "|3") instanceof ViewCommand);
     }

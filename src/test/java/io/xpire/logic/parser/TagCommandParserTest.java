@@ -50,4 +50,9 @@ public class TagCommandParserTest {
     public void parse_invalidTagWithValidTag_throwsParserException() {
         assertParseFailure(parser, "2|" + "#" + INVALID_TAG + "#" + VALID_TAG_FRUIT, Tag.MESSAGE_CONSTRAINTS);
     }
+
+    @Test
+    public void parse_showTags_returnsShowCommand() {
+        assertEqualsParseSuccess(parser, "", new TagCommand());
+    }
 }

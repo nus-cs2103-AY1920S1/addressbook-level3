@@ -119,5 +119,4 @@ class JsonAdaptedItem {
         item.setReminderThreshold(modelReminderThreshold);
         return item;
     }
-
 }

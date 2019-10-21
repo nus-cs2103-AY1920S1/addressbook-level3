@@ -38,10 +38,11 @@ public class ItemTest {
         editedKiwi = new ItemBuilder(KIWI).withName(VALID_NAME_APPLE).build();
         assertFalse(KIWI.isSameItem(editedKiwi));
 
-        // same name, same , different attributes -> returns true
+        // same name, same expiry date , different attributes -> returns true
         editedKiwi = new ItemBuilder(KIWI).withExpiryDate(VALID_EXPIRY_DATE_KIWI)
                                             .withTags(VALID_TAG_DRINK).build();
         assertTrue(KIWI.isSameItem(editedKiwi));
+
     }
 
     @Test

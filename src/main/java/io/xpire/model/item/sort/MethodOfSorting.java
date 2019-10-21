@@ -14,6 +14,8 @@ import io.xpire.model.item.Item;
 public class MethodOfSorting {
 
     public static final String MESSAGE_CONSTRAINTS = "Sorting can only be done by 'name' or 'date'.";
+    public static final String SORT_NAME = "name";
+    public static final String SORT_DATE = "date";
     private final String method;
 
     /**
@@ -30,7 +32,7 @@ public class MethodOfSorting {
      * Returns true if a given string is a valid method of sorting.
      */
     public static boolean isValidMethodOfSorting(String test) {
-        return (test.equals("name") || test.equals("date"));
+        return (test.equals(SORT_NAME) || test.equals(SORT_DATE));
     }
 
     /**
@@ -75,6 +77,4 @@ public class MethodOfSorting {
     public int hashCode() {
         return method.hashCode();
     }
-
-
 }

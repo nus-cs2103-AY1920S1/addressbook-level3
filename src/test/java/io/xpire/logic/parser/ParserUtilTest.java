@@ -1,5 +1,17 @@
 package io.xpire.logic.parser;
 
+import static io.xpire.logic.CommandParserItemUtil.INVALID_EXPIRY_DATE;
+import static io.xpire.logic.CommandParserItemUtil.INVALID_EXPIRY_DATE_RANGE;
+import static io.xpire.logic.CommandParserItemUtil.INVALID_NAME;
+import static io.xpire.logic.CommandParserItemUtil.INVALID_QUANTITY;
+import static io.xpire.logic.CommandParserItemUtil.INVALID_REMINDER_THRESHOLD;
+import static io.xpire.logic.CommandParserItemUtil.INVALID_TAG;
+import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_DRINK;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
 import static io.xpire.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
@@ -16,28 +28,20 @@ import org.junit.jupiter.api.Test;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
+import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.sort.MethodOfSorting;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
 public class ParserUtilTest {
-    public static final String INVALID_NAME = "@pple";
-    public static final String INVALID_EXPIRY_DATE_1 = "50505000";
-    public static final String INVALID_EXPIRY_DATE_2 = "50/50/5000";
-    public static final String INVALID_TAG = "$cold";
-    public static final String INVALID_METHOD_OF_SORTING = "random";
-    public static final String INVALID_QUANTITY = "-2";
-    public static final String INVALID_REMINDER_THRESHOLD = "-5";
 
-    private static final String VALID_NAME = "Strawberry";
-    private static final String VALID_EXPIRY_DATE_1 = "2/12/2020";
-    private static final String VALID_EXPIRY_DATE_2 = "02/12/2020";
-    private static final String VALID_TAG_1 = "Friend";
-    private static final String VALID_TAG_2 = "Neighbour";
+    private static final String WHITESPACE = "       ";
+    private static final String VALID_EXPIRY_DATE_1 = "2/9/2050";
+    private static final String VALID_EXPIRY_DATE_2 = "02/09/2050";
     private static final String VALID_METHOD_OF_SORTING_NAME = "name";
     private static final String VALID_METHOD_OF_SORTING_DATE = "date";
-
-    private static final String WHITESPACE = " \t\r\n";
+    private static final String INVALID_METHOD_OF_SORTING = "random";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -71,14 +75,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+        Name expectedName = new Name(VALID_NAME_JELLY);
+        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME_JELLY));
     }
 
     @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
+        String nameWithWhitespace = WHITESPACE + VALID_NAME_JELLY + WHITESPACE;
+        Name expectedName = new Name(VALID_NAME_JELLY);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
     }
 
@@ -89,12 +93,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseExpiryDate_invalidFormat_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE_1));
+        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE));
     }
 
     @Test
     public void parseExpiryDate_invalidRange_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE_2));
+        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE_RANGE));
     }
 
     @Test
@@ -122,14 +126,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+        Tag expectedTag = new Tag(VALID_TAG_DRINK);
+        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_DRINK));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
+        String tagWithWhitespace = WHITESPACE + VALID_TAG_DRINK + WHITESPACE;
+        Tag expectedTag = new Tag(VALID_TAG_DRINK);
         assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
     }
 
@@ -140,7 +144,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_DRINK, INVALID_TAG)));
     }
 
     @Test
@@ -150,10 +154,68 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_DRINK, VALID_TAG_FRUIT));
         Set<Tag> expectedTagSet = new TreeSet<>(new TagComparator());
-        expectedTagSet.addAll(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        expectedTagSet.addAll(Arrays.asList(new Tag(VALID_TAG_DRINK), new Tag(VALID_TAG_FRUIT)));
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseExpiryDate_validDate_returnsExpiryDate() throws Exception {
+        ExpiryDate validDate = new ExpiryDate(VALID_EXPIRY_DATE_KIWI);
+        assertEquals(validDate, ParserUtil.parseExpiryDate(VALID_EXPIRY_DATE_KIWI));
+    }
+
+    @Test
+    public void parseExpiryDate_validDateWithWhiteSpace_returnsExpiryDate() throws Exception {
+        ExpiryDate validDate = new ExpiryDate(VALID_EXPIRY_DATE_KIWI);
+        assertEquals(validDate, ParserUtil.parseExpiryDate(WHITESPACE + VALID_EXPIRY_DATE_KIWI + WHITESPACE));
+    }
+
+    //Note: I think need to catch DateTimeParseException somehow? If not here always got warning.
+    @Test
+    public void parseExpiryDate_emptyDate_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(WHITESPACE));
+    }
+
+    @Test
+    public void parseExpiryDate_invalidDate_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseExpiryDate(INVALID_EXPIRY_DATE));
+    }
+
+    @Test
+    public void parseQuantity_validQuantity_returnsQuantity() throws Exception {
+        Quantity validQuantity = new Quantity(VALID_QUANTITY_JELLY);
+        assertEquals(validQuantity, ParserUtil.parseQuantity(VALID_QUANTITY_JELLY));
+    }
+
+    @Test
+    public void parseQuantity_invalidQuantity_returnsQuantity() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseQuantity(INVALID_QUANTITY));
+    }
+
+    @Test
+    public void parseReminderThreshold_validThreshold_returnsReminderThreshold() throws Exception {
+        ReminderThreshold validThreshold = new ReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY);
+        assertEquals(validThreshold, ParserUtil.parseReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY));
+    }
+
+    @Test
+    public void parseReminderThreshold_invalidThreshold_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseReminderThreshold(INVALID_REMINDER_THRESHOLD));
+    }
+
+    @Test
+    public void parseTagsFromInput_validTags_returnsSet() throws Exception {
+        Set<Tag> set = new TreeSet<>(new TagComparator());
+        set.add(new Tag(VALID_TAG_DRINK));
+        set.add(new Tag(VALID_TAG_FRUIT));
+        assertEquals(set, ParserUtil.parseTagsFromInput("#" + VALID_TAG_FRUIT + "#" + VALID_TAG_DRINK));
+    }
+
+    @Test
+    public void parseTagsFromInput_invalidTags_returnsSet() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTagsFromInput("#"));
     }
 
     @Test
@@ -178,5 +240,4 @@ public class ParserUtilTest {
         MethodOfSorting expectedMethodOfSorting = new MethodOfSorting(VALID_METHOD_OF_SORTING_DATE);
         assertEquals(expectedMethodOfSorting, ParserUtil.parseMethodOfSorting(methodOfSortingWithWhitespace));
     }
-
 }

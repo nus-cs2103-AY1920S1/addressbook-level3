@@ -67,9 +67,9 @@ public class DeleteCommandParserTest {
         assertEqualsParseSuccess(parser, "1|1", new DeleteCommand(INDEX_FIRST_ITEM, validQuantity));
     }
 
+    //invalid Quantity
     @Test
     public void parse_deleteInvalidQuantity_throwsParseException() {
-        //invalid Quantity
         assertParseFailure(parser, "1|-2", Quantity.MESSAGE_CONSTRAINTS);
     }
 
