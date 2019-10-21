@@ -100,7 +100,7 @@ public class UniqueAccountList implements Iterable<Account> {
         }
 
         if (targetAccount == null) {
-            throw new PersonNotFoundException();
+            throw new AccountNotFoundException();
         }
 
         return targetAccount;

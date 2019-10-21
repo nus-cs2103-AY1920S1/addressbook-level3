@@ -15,7 +15,6 @@ import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.PersonBuilder;
 
-
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */

@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.core.Messages;
 import budgetbuddy.commons.core.index.Index;
-
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;

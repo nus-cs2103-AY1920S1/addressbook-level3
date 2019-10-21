@@ -27,6 +27,7 @@ import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.testutil.EditPersonDescriptorBuilder;
 import budgetbuddy.testutil.PersonBuilder;
+
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
