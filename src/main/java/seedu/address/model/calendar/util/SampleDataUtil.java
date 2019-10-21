@@ -22,7 +22,7 @@ public class SampleDataUtil {
         return new Task[] {
             new Task(new TaskTitle("CS2100 Assignment"), new TaskTime("31 December 2019"),
                     new TaskDescription("Hardcopy only"),
-                    new TaskDeadline("12/10/2012"),
+                    new TaskDeadline("12-10-2012"),
                     new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100"))
         };
     }
