@@ -265,4 +265,12 @@ public interface Model {
      * Returns an unmodifiable view of the filtered calendar entry list
      */
     ObservableList<CalendarEntry> getFilteredCalendarEntryList();
+
+    //=========== Aesthetics =============================================================
+
+    /**
+     * Sets the font colour of this application and saves it to the user preferences file.
+     */
+    void setFontColour();
+
 }

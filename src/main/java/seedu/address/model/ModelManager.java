@@ -363,4 +363,12 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredRecordList.setPredicate(predicate);
     }
+
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public void setFontColour(String colour) {
+        return colour;
+    }
+
 }

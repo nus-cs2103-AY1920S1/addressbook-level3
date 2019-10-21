@@ -71,6 +71,7 @@ public class MainWindow extends UiPart<Stage> {
 
         mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
+        getRoot().setFont
     }
 
     public Stage getPrimaryStage() {
