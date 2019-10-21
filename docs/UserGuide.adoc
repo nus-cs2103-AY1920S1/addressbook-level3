@@ -144,7 +144,7 @@ Sorts all items in your list by either name or date. +
 Format: `sort|<key>`
 
 ****
-* Items can be sorted by either name and date.
+* Items can be sorted by either name or date.
 * For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
 ****
 
