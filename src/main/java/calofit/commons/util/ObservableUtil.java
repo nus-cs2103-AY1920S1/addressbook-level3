@@ -51,6 +51,18 @@ public class ObservableUtil {
     }
 
     /**
+     * Given two observable values, compute an observable result.
+     * @param left First source value
+     * @param right Second source value
+     * @param op Mapper function
+     * @return Observable result
+     */
+    public static DoubleExpression liftA2(ObservableDoubleValue left, ObservableDoubleValue right,
+                                          DoubleBinaryOperator op) {
+        return Bindings.createDoubleBinding(() -> op.applyAsDouble(left.get(), right.get()), left, right);
+    }
+
+    /**
      * Represents a function that takes 3 doubles and returns a double.
      */
     @FunctionalInterface

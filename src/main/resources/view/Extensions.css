@@ -22,6 +22,8 @@
 BudgetBar {
     -fx-pref-height: 30px;
     -fx-max-height: 30px;
+    -fx-font-size: 20px;
+    -fx-background-color: #383838;
 }
 
 .budgetbar-info {
@@ -35,4 +37,28 @@ BudgetBar {
     -fx-border-width: 2px;
     -fx-background-color: white;
     -fx-text-alignment: center;
+}
+
+#budgetMark {
+    -fx-stroke: orange;
+    -fx-stroke-width: 10px;
+}
+#budgetExtraMark {
+    -fx-stroke: red;
+    -fx-stroke-width: 10px;
+}
+
+.meal-segment > Label {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-max-width: Infinity;
+    -fx-alignment: center;
+}
+
+.buffer-segment {
+    -fx-background-color: white;
+}
+
+.buffer-segment > Label {
+    -fx-alignment: center;
 }
