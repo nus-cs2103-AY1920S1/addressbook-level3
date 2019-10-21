@@ -8,6 +8,7 @@ import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.ExpenseTracker;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.WishReminder;
 
 /**
  * Unmodifiable view of an address book
@@ -31,4 +32,6 @@ public interface ReadOnlyAddressBook {
     ObservableList<ExpenseReminder> getExpenseReminderList();
 
     ObservableList<ExpenseTracker> getExpenseTrackerList();
+
+    ObservableList<WishReminder> getWishReminderList();
 }

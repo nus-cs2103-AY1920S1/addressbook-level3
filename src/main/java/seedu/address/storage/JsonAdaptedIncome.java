@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Income;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -50,7 +50,7 @@ class JsonAdaptedIncome {
     public JsonAdaptedIncome(Income source) {
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
-        time = source.getTime().fullTime;
+        time = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -76,7 +76,7 @@ class JsonAdaptedIncome {
         }
         final Description modelDesc = new Description(desc);
 
-        final Time modelTime = new Time(time);
+        final Date modelTime = new Date(time);
 
         final Amount modelAmt = new Amount(amt);
 
