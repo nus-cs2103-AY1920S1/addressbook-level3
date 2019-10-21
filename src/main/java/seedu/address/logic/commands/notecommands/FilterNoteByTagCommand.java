@@ -51,5 +51,6 @@ public class FilterNoteByTagCommand extends Command implements FilterByTagComman
         }
         return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
                 + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
-                + "\n" + sb.toString());    }
+                + "\n" + sb.toString());
+    }
 }

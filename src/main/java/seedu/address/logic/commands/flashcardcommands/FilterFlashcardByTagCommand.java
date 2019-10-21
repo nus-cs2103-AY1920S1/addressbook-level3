@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FilterByTagCommand;
+import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
-import seedu.address.model.Model;
 
 /**
  * Command to filter flashcard(s) with the related tag(s).
