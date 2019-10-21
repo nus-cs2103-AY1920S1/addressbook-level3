@@ -1,11 +1,11 @@
 package seedu.savenus.logic.parser;
 
-import seedu.savenus.model.food.Prefix;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import seedu.savenus.model.food.Prefix;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>

@@ -3,7 +3,6 @@ package seedu.savenus.model.userprefs;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import seedu.savenus.model.userprefs.UserPrefs;
 
 public class UserPrefsTest {
 

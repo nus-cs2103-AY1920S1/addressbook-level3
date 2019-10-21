@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchasehistory.PurchaseHistory;
 import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
-import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.storage.purchase.JsonAdaptedPurchase;
 
 /**

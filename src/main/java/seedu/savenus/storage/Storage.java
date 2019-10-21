@@ -7,16 +7,16 @@ import java.util.Optional;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
-import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
-import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
-import seedu.savenus.storage.savings.SavingsStorage;
 import seedu.savenus.model.sort.CustomSorter;
-import seedu.savenus.storage.sort.CustomSortStorage;
+import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
+import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.storage.menu.MenuStorage;
 import seedu.savenus.storage.purchasehistory.PurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.RecsStorage;
+import seedu.savenus.storage.savings.SavingsStorage;
+import seedu.savenus.storage.sort.CustomSortStorage;
 import seedu.savenus.storage.userprefs.UserPrefsStorage;
 
 /**

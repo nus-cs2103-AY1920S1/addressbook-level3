@@ -19,7 +19,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.storage.recommend.JsonRecsStorage;
 
 public class JsonRecsStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonRecsStorageTest");

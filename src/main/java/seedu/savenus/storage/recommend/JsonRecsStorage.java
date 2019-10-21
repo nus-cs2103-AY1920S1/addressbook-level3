@@ -14,8 +14,6 @@ import seedu.savenus.commons.util.FileUtil;
 import seedu.savenus.commons.util.JsonUtil;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.storage.menu.JsonMenuStorage;
-import seedu.savenus.storage.recommend.JsonSerializableRecs;
-import seedu.savenus.storage.recommend.RecsStorage;
 
 /**
  * A class to access Recommendation data stored as a json file on the hard disk.

@@ -20,8 +20,6 @@ import javafx.collections.ObservableList;
 
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.exceptions.DuplicateFoodException;
-import seedu.savenus.model.menu.Menu;
-import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.FoodBuilder;
 

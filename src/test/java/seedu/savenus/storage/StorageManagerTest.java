@@ -14,17 +14,17 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.menu.Menu;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
 import seedu.savenus.model.menu.ReadOnlyMenu;
+import seedu.savenus.model.purchasehistory.PurchaseHistory;
 import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
-import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.storage.savings.JsonSavingsStorage;
 import seedu.savenus.model.sort.CustomSorter;
-import seedu.savenus.storage.sort.JsonCustomSortStorage;
+import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.storage.menu.JsonMenuStorage;
 import seedu.savenus.storage.purchasehistory.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.JsonRecsStorage;
+import seedu.savenus.storage.savings.JsonSavingsStorage;
+import seedu.savenus.storage.sort.JsonCustomSortStorage;
 import seedu.savenus.storage.userprefs.JsonUserPrefsStorage;
 
 public class StorageManagerTest {

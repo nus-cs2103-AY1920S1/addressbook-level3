@@ -15,10 +15,10 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.purchasehistory.PurchaseHistory;
-import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
+import seedu.savenus.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests and unit tests for RecommendCommand.

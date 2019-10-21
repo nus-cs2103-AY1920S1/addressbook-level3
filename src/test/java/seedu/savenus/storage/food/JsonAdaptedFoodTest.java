@@ -19,8 +19,6 @@ import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
-import seedu.savenus.storage.food.JsonAdaptedFood;
-import seedu.savenus.storage.food.JsonAdaptedTag;
 
 public class JsonAdaptedFoodTest {
     private static final String INVALID_NAME = "R@chel";

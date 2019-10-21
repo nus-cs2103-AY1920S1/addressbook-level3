@@ -15,11 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.savenus.commons.exceptions.DataConversionException;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.TimeOfPurchase;
-import seedu.savenus.storage.purchasehistory.JsonPurchaseHistoryStorage;
+import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
 
 public class JsonPurchaseHistoryStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

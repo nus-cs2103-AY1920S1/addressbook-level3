@@ -3,7 +3,6 @@ package seedu.savenus.model.commandhistory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import seedu.savenus.model.commandhistory.CommandHistory;
 
 
 public class CommandHistoryTest {

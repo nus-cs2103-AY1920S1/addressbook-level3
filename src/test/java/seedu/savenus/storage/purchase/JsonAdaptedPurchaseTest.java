@@ -12,7 +12,6 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.TimeOfPurchase;
 import seedu.savenus.storage.food.JsonAdaptedFood;
-import seedu.savenus.storage.purchase.JsonAdaptedPurchase;
 
 
 public class JsonAdaptedPurchaseTest {

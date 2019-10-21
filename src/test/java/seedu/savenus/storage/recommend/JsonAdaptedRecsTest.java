@@ -23,9 +23,8 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
-import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.food.Tag;
-import seedu.savenus.storage.recommend.JsonAdaptedRecs;
+import seedu.savenus.model.recommend.UserRecommendations;
 
 public class JsonAdaptedRecsTest {
 

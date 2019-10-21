@@ -18,7 +18,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
-import seedu.savenus.storage.menu.JsonMenuStorage;
 
 public class JsonMenuStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonMenuStorageTest");

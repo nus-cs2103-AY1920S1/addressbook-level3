@@ -18,10 +18,10 @@ import java.util.List;
 
 import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.commands.exceptions.CommandException;
-import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
+import seedu.savenus.model.menu.Menu;
 import seedu.savenus.testutil.EditFoodDescriptorBuilder;
 
 /**

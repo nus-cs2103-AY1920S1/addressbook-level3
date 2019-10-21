@@ -10,7 +10,6 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
-import seedu.savenus.storage.wallet.JsonAdaptedWallet;
 
 public class JsonAdaptedWalletTest {
 

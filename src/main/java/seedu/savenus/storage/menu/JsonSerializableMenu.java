@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
+import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
-import seedu.savenus.model.food.Food;
 import seedu.savenus.storage.food.JsonAdaptedFood;
 import seedu.savenus.storage.wallet.JsonAdaptedWallet;
 

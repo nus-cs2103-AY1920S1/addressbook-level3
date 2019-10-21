@@ -8,8 +8,8 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
-import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.sort.CustomSorter;
 
