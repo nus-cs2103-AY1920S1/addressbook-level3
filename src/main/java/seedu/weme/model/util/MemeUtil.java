@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import seedu.weme.commons.util.FileUtil;
-import seedu.weme.model.meme.ImagePath;
+import seedu.weme.model.image_path.ImagePath;
 import seedu.weme.model.meme.Meme;
 
 /**

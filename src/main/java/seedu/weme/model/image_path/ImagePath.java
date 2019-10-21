@@ -1,4 +1,4 @@
-package seedu.weme.model.meme;
+package seedu.weme.model.image_path;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.AppUtil.checkArgument;

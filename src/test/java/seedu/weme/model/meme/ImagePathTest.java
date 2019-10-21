@@ -6,6 +6,8 @@ import static seedu.weme.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.weme.model.image_path.ImagePath;
+
 public class ImagePathTest {
 
     @Test

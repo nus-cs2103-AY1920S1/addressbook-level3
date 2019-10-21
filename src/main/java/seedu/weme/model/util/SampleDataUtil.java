@@ -13,8 +13,8 @@ import seedu.weme.commons.util.FileUtil;
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
+import seedu.weme.model.image_path.ImagePath;
 import seedu.weme.model.meme.Description;
-import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 
