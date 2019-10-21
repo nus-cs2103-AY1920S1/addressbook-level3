@@ -3,6 +3,8 @@ package com.typee.commons.util;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -81,19 +83,11 @@ public class JsonUtil {
 
     /**
      * Returns the deserialized the Json object or {@code Optional.empty()} to a list of specified object.
-     * @param filePath cannot be null.
      * @param listClassReference Json file has to correspond to the structure in the class given here.
      * @throws DataConversionException if the file is not as expected.
      */
     public static <T> Optional<List<T>> readJsonFileIntoList(Path filePath, Class<T> listClassReference)
             throws DataConversionException {
-        requireNonNull(filePath);
-
-        if (!Files.exists(filePath)) {
-            logger.info("Json file " + filePath + " not found");
-            return Optional.empty();
-        }
-
         List<T> jsonFile;
 
         try {

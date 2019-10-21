@@ -10,7 +10,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.typee.model.report.Report;
 
 /**
  * Generates report of engagement with a specified template.
@@ -19,7 +18,7 @@ public class PdfUtil {
     /**
      * Generates a {@code Report} in .pdf format and opens the file.
      */
-    public void generateDocument(Report report) throws IOException, DocumentException {
+    public void generateDocument() throws IOException, DocumentException {
         Document document = new Document();
         PdfWriter.getInstance(document, new FileOutputStream("iTextHelloWorld.pdf"));
 

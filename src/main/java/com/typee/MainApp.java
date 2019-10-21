@@ -28,10 +28,12 @@ import com.typee.storage.Storage;
 import com.typee.storage.StorageManager;
 import com.typee.storage.TypeeStorage;
 import com.typee.storage.UserPrefsStorage;
+import com.typee.ui.Tab;
 import com.typee.ui.Ui;
 import com.typee.ui.UiManager;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 /**
@@ -60,7 +62,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        TypeeStorage typeeStorage = new JsonTypeeStorage(config.getTabMenuFilePath());
+        TypeeStorage typeeStorage = new JsonTypeeStorage(userPrefs.getTabMenusFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, typeeStorage);
 
         initLogging(config);

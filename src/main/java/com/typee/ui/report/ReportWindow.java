@@ -1,8 +1,11 @@
 package com.typee.ui.report;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
+import com.itextpdf.text.DocumentException;
 import com.typee.commons.core.LogsCenter;
+import com.typee.commons.util.PdfUtil;
 import com.typee.ui.UiPart;
 
 import javafx.fxml.FXML;
@@ -17,6 +20,7 @@ import javafx.scene.layout.Region;
 public class ReportWindow extends UiPart<Region> {
     public static final String FXML = "ReportWindow.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private PdfUtil pdfUtil;
 
     @FXML
     private Label lblStatus;
@@ -26,10 +30,12 @@ public class ReportWindow extends UiPart<Region> {
 
     public ReportWindow() {
         super(FXML);
+        pdfUtil = new PdfUtil();
     }
 
     @FXML
-    private void setTextForLabel(MouseEvent event) {
+    private void generateReport(MouseEvent event) throws IOException, DocumentException {
         lblStatus.setText("Testing report window");
+        pdfUtil.generateDocument();
     }
 }

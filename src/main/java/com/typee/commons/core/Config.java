@@ -15,7 +15,6 @@ public class Config {
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
     private Path userPrefsFilePath = Paths.get("preferences.json");
-    private Path tabMenuFilePath = Paths.get("tabMenus.json");
 
     public Level getLogLevel() {
         return logLevel;
@@ -27,10 +26,6 @@ public class Config {
 
     public Path getUserPrefsFilePath() {
         return userPrefsFilePath;
-    }
-
-    public Path getTabMenuFilePath() {
-        return tabMenuFilePath;
     }
 
     public void setUserPrefsFilePath(Path userPrefsFilePath) {
