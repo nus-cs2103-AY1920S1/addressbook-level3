@@ -80,7 +80,7 @@ public class Card {
     /**
      * Returns the next hint of the name, and null if no more hints available.
      */
-    public HintFormat getHint() {
+    public FormattedHint getHint() {
         return hintSupplier.get();
     }
 

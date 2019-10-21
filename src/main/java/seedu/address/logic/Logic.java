@@ -8,8 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.Hint;
-import seedu.address.model.card.HintFormat;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
@@ -63,7 +62,7 @@ public interface Logic {
 
     long getTimeAllowedPerQuestion();
 
-    HintFormat getHintFormatFromCurrentGame();
+    FormattedHint getHintFormatFromCurrentGame();
 
     int getHintFormatSizeFromCurrentGame();
 

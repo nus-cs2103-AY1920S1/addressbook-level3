@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
-import seedu.address.model.card.HintFormat;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -92,7 +92,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public HintFormat getHintFormatFromCurrentGame() throws UnsupportedOperationException {
+    public FormattedHint getHintFormatFromCurrentGame() throws UnsupportedOperationException {
         if (game == null || game.isOver()) {
             throw new UnsupportedOperationException("No active game session to send hints from");
         }

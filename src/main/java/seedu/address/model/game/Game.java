@@ -2,13 +2,13 @@ package seedu.address.model.game;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.card.Card;
-import seedu.address.model.card.HintFormat;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 
 /**
  * Represents a game session using Cards from a specified WordBank.
@@ -19,7 +19,7 @@ public class Game {
     public static final int CORRECT_GUESS = 1;
     public static final int WRONG_GUESS = 0;
     private boolean isOver = false;
-    private HintFormat hintFormat;
+    private FormattedHint formattedHint;
 
     // Shuffled Deck of Cards using cards from ReadOnlyWordBank
     private final List<Card> shuffledDeckOfCards;
@@ -59,7 +59,7 @@ public class Game {
         return getCurrCard().getMeaning().toString();
     }
 
-    public HintFormat getHintFormatForCurrCard() {
+    public FormattedHint getHintFormatForCurrCard() {
         return getCurrCard().getHint();
     }
 
@@ -119,6 +119,10 @@ public class Game {
         return shuffledDeckOfCards;
     }
 
+    /**
+     * Functional interface that represents a specific method to shuffle the Cards for this current
+     * game session.
+     */
     @FunctionalInterface
     public interface CardShuffler {
         void shuffle(List<Card> cardsToShuffle);

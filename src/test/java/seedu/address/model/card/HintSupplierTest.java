@@ -22,11 +22,13 @@ public class HintSupplierTest {
 
     @Test
     public void get() {
-        String name = "Sudowoodo";
-        HintSupplier hintSupplier = new HintSupplier(name);
-        while (hintSupplier.getRemainingHints() > 0) {
-            Hint hint = hintSupplier.get();
-            assertEquals(name.charAt(hint.index.getZeroBased()), (char) hint.letter);
+        String word = "Sudowoodo";
+        HintSupplier hintSupplier = new HintSupplier(word);
+        FormattedHint formattedHint = hintSupplier.get();
+        for (int i = 0; i < word.length() - 1; i++) {
+            formattedHint = hintSupplier.get();
         }
+        // After all hint characters are supplied, the formatted hint should be same as original word.
+        assertEquals(word, formattedHint.toString());
     }
 }

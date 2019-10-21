@@ -12,9 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.address.appmanager.AppManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.appmanager.AppManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.game.GameCommandResult;
@@ -273,6 +273,9 @@ public class MainWindow extends UiPart<Stage> {
         timerDisplay.setFeedbackToUser(timerMessage);
     }
 
+    /**
+     * Updates the HintDisplay section of the UI with the {@code resultDisplayMessage} string.
+     */
     private void updateHintDisplay(String resultDisplayMessage) {
         // Todo: implement HintDisplay window and show hints there instead
         String[] tokens = resultDisplay.getCurrentTextOnDisplay().split("\n");

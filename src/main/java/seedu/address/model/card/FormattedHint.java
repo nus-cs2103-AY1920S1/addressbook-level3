@@ -1,16 +1,15 @@
 package seedu.address.model.card;
 
-public class HintFormat {
+/**
+ * Class that represents a Hint that is formatted in a HangMan-style, ready to be output.
+ */
+public class FormattedHint {
     private int totalNumberOfCharacters;
     private char[] arrayOfHintCharacters;
 
-    HintFormat(int totalNumberOfCharacters) {
+    FormattedHint(int totalNumberOfCharacters) {
         this.totalNumberOfCharacters = totalNumberOfCharacters;
         arrayOfHintCharacters = new char[totalNumberOfCharacters];
-    }
-
-    public int getHintFormatSize() {
-        return totalNumberOfCharacters;
     }
 
     void updateHintArray(Hint hint) {

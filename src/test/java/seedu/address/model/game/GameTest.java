@@ -10,6 +10,9 @@ import static seedu.address.testutil.TypicalCards.CHARIZARD;
 import static seedu.address.testutil.TypicalCards.DITTO;
 import static seedu.address.testutil.TypicalCards.EEVEE;
 
+import java.util.Collections;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -17,8 +20,6 @@ import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.testutil.WordBankBuilder;
 
-import java.util.Collections;
-import java.util.HashMap;
 
 public class GameTest {
 

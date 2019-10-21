@@ -1,28 +1,31 @@
 package seedu.address.appmanager;
 
-import javafx.stage.Stage;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
+
+import javafx.stage.Stage;
+
 import seedu.address.appmanager.timer.GameTimer;
 import seedu.address.logic.commands.CommandResult;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 @ExtendWith(ApplicationExtension.class)
 public class GameTimerTest {
 
     private GameTimer dummyTimer;
-    MainWindowStub mainWindowStub;
-    TimerDisplayStub timerDisplayStub;
+    private MainWindowStub mainWindowStub;
+    private TimerDisplayStub timerDisplayStub;
 
+    /**
+     * Initializes the JavaFX Application Thread when this test starts.
+     */
     @Start
     public void start(Stage stage) {
-         mainWindowStub = new MainWindowStub();
-         timerDisplayStub = new TimerDisplayStub();
+        mainWindowStub = new MainWindowStub();
+        timerDisplayStub = new TimerDisplayStub();
     }
 
     @Test
@@ -58,8 +61,8 @@ public class GameTimerTest {
 
     // Stub class for TimerDisplay component of UI
     class TimerDisplayStub {
-        boolean isUpdatedFromGameTimer = false;
-        boolean timeLeftEqualsZero = false;
+        private boolean isUpdatedFromGameTimer = false;
+        private boolean timeLeftEqualsZero = false;
 
         void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
             this.isUpdatedFromGameTimer = true;
@@ -70,7 +73,7 @@ public class GameTimerTest {
 
     // Stub class for MainWindow component of UI
     class MainWindowStub {
-        boolean isExecutedFromGameTimer = false;
+        private boolean isExecutedFromGameTimer = false;
 
         CommandResult execute(String commandText) {
             isExecutedFromGameTimer = true;
