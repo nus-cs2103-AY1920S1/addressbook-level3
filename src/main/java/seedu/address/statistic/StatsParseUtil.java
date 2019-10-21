@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.address.statistic;
 
 import java.util.Arrays;
 import java.util.Calendar;

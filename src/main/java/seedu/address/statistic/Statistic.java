@@ -1,7 +1,6 @@
 package seedu.address.statistic;
 
 import javafx.scene.chart.XYChart;
-import seedu.address.commons.util.StatsPayload;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 
