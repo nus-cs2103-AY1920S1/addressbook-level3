@@ -102,6 +102,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void replaceStagedAddressBook(List<Person> persons) {
+        AddressBook newBook = new AddressBook();
+        for (Person person : persons) {
+            newBook.addPerson(person);
+        }
+        setStagedAddressBook(newBook);
+        refreshStagedPersons();
+    }
+
+    @Override
     public ReadOnlyAddressBook getStagedAddressBook() {
         return stagedAddressBook;
     }

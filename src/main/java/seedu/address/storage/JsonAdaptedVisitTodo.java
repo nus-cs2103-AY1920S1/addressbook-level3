@@ -9,7 +9,7 @@ import seedu.address.model.visittodo.VisitTodo;
 /**
  * Jackson-friendly version of {@link VisitTodo}.
  */
-class JsonAdaptedVisitTodo {
+public class JsonAdaptedVisitTodo {
 
     private final String description;
 

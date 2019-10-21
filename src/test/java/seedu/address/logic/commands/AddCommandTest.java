@@ -123,6 +123,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void replaceStagedAddressBook(List<Person> persons) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyAddressBook getStagedAddressBook() {
             throw new AssertionError("This method should not be called.");
         }

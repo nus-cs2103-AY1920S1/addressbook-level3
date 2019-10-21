@@ -52,6 +52,10 @@ public interface Model {
      */
     void setStagedAddressBook(ReadOnlyAddressBook addressBook);
 
+    /**
+     * Replaces all persons in address book with new persons from the list.
+     */
+    void replaceStagedAddressBook(List<Person> persons);
     /** Returns the current AddressBook */
     ReadOnlyAddressBook getStagedAddressBook();
 

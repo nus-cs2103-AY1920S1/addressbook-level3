@@ -41,7 +41,52 @@
     "address" : "wall street",
     "tagged" : [ ],
     "visitTodos" : [ ],
-    "visits" : [ ]
+    "visits" : [
+      {
+        "remark" : "",
+        "startDateTime" : "10-11-2019 1500",
+        "endDateTime" : "10-11-2019 1700",
+        "visitTasks" : [
+          {
+            "visitTodo" : "Apply Eyedrops",
+            "detail" : "",
+            "isDone" : true
+          },
+          {
+            "visitTodo" : "Top-up medicine",
+            "detail" : "",
+            "isDone" : true
+          },
+          {
+            "visitTodo" : "Check his diet",
+            "detail" : "Stopped eating donuts",
+            "isDone" : true
+          },
+          {
+            "visitTodo" : "Check his sleep cycle",
+            "detail" : "Could not sleep on Monday and Thursday",
+            "isDone" : true
+          }
+        ]
+      },
+      {
+        "remark" : "Patient was very quiet.",
+        "startDateTime" : "12-11-2018 1500",
+        "endDateTime" : "12-11-2018 1700",
+        "visitTasks" : [
+          {
+            "visitTodo" : "Check bed for bugs",
+            "detail" : "",
+            "isDone" : true
+          },
+          {
+            "visitTodo" : "Top-up medicine",
+            "detail" : "",
+            "isDone" : true
+          }
+        ]
+      }
+    ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
@@ -24,16 +25,24 @@ import seedu.address.model.visittodo.VisitTodo;
 /**
  * Jackson-friendly version of {@link Person}.
  */
-class JsonAdaptedPerson {
+@JsonPropertyOrder({"name", "phone", "email", "address", "tagged", "visitTodos", "visits"})
+public class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
+    @JsonProperty("name")
     private final String name;
+    @JsonProperty("phone")
     private final String phone;
+    @JsonProperty("email")
     private final String email;
+    @JsonProperty("address")
     private final String address;
+    @JsonProperty("tagged")
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    @JsonProperty("visitTodos")
     private final List<JsonAdaptedVisitTodo> visitTodos = new ArrayList<>();
+    @JsonProperty("visits")
     private final List<JsonAdaptedVisit> visits = new ArrayList<>();
 
     /**

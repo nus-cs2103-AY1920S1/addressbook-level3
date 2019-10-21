@@ -11,12 +11,12 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Exports Person data from the AddressBook
+ * Exports all Person data from the AddressBook
  */
 
-public class ExportCommand extends Command {
+public class ExportAllCommand extends Command {
 
-    public static final String COMMAND_WORD = "export";
+    public static final String COMMAND_WORD = "export-all";
 
     public static final String MESSAGE_SUCCESS = "Export success!";
     public static final String MESSAGE_FAILURE = "Export failed.";
@@ -29,7 +29,7 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getStagedPersonList();
         try {
             CsvUtil.writePersonsToCsv(lastShownList);
         } catch (IOException e) {

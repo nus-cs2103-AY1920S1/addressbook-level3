@@ -8,15 +8,15 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.datetime.EndDateTime;
+import seedu.address.model.datetime.StartDateTime;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.visit.EndDateTime;
 import seedu.address.model.visit.Remark;
-import seedu.address.model.visit.StartDateTime;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visittask.Detail;
 import seedu.address.model.visittask.VisitTask;
