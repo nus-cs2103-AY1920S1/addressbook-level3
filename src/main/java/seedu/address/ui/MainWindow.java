@@ -134,7 +134,8 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
         phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList());
+        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList(),
+                logic.getCalendarDate());
 
         tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, calendarPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
@@ -317,7 +318,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * switch selected tab to schedule tab
+     * switch selected tab to order tab
      */
     private void showSchedulePanel() {
         tabPanel.switchTabSchedule();

@@ -1,8 +1,9 @@
 package seedu.address.logic.commands.editcommand;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SCHEDULE;
 
@@ -38,11 +39,13 @@ public class EditScheduleCommand extends Command {
             + "by the schedule's order index number in the displayed order list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_CALENDAR + "CALENDAR] "
+            + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_VENUE + "VENUE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CALENDAR + "2019.12.12.12.12 "
+            + PREFIX_DATE + "2019.12.12 "
+            + PREFIX_TIME + "12.12 "
             + PREFIX_VENUE + "NUS";
 
     public static final String MESSAGE_EDIT_SCHEDULE_SUCCESS = "Edited Schedule: %1$s";
@@ -107,11 +110,24 @@ public class EditScheduleCommand extends Command {
         assert scheduleToEdit != null;
 
         UUID id = scheduleToEdit.getId();
-        Calendar updatedCalendar = editScheduleDescriptor.getCalendar().orElse(scheduleToEdit.getCalendar());
+        Calendar updatedDate = editScheduleDescriptor.getDate().orElse(scheduleToEdit.getCalendar());
+        Calendar updatedTime = editScheduleDescriptor.getTime().orElse(scheduleToEdit.getCalendar());
+        Calendar updatedCalendar = getUpdatedCalendar(updatedDate, updatedTime);
         Venue updatedVenue = editScheduleDescriptor.getVenue().orElse(scheduleToEdit.getVenue());
         Set<Tag> updatedTags = editScheduleDescriptor.getTags().orElse(scheduleToEdit.getTags());
 
         return new Schedule(id, updatedCalendar, updatedVenue, updatedTags);
+    }
+
+    private static Calendar getUpdatedCalendar(Calendar updatedDate, Calendar updatedTime) {
+        int year = updatedDate.get(Calendar.YEAR);
+        int month = updatedDate.get(Calendar.MONTH);
+        int date = updatedDate.get(Calendar.DAY_OF_MONTH);
+        int hour = updatedTime.get(Calendar.HOUR_OF_DAY);
+        int minute = updatedTime.get(Calendar.MINUTE);
+
+        return new Calendar.Builder().setDate(year, month, date)
+                .setTimeOfDay(hour, minute, 0).build();
     }
 
     @Override
@@ -137,7 +153,8 @@ public class EditScheduleCommand extends Command {
      * corresponding field value of the schedule.
      */
     public static class EditScheduleDescriptor {
-        private Calendar calendar;
+        private Calendar date;
+        private Calendar time;
         private Venue venue;
         private Set<Tag> tags;
 
@@ -148,7 +165,8 @@ public class EditScheduleCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditScheduleDescriptor(EditScheduleDescriptor toCopy) {
-            setCalendar(toCopy.calendar);
+            setDate(toCopy.date);
+            setTime(toCopy.time);
             setVenue(toCopy.venue);
             setTags(toCopy.tags);
         }
@@ -157,15 +175,23 @@ public class EditScheduleCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(calendar, venue, tags);
+            return CollectionUtil.isAnyNonNull(date, time, venue, tags);
         }
 
-        public void setCalendar(Calendar calendar) {
-            this.calendar = calendar;
+        public void setDate(Calendar calendar) {
+            date = calendar;
         }
 
-        public Optional<Calendar> getCalendar() {
-            return Optional.ofNullable(calendar);
+        public void setTime(Calendar calendar) {
+            time = calendar;
+        }
+
+        public Optional<Calendar> getDate() {
+            return Optional.ofNullable(date);
+        }
+
+        public Optional<Calendar> getTime() {
+            return Optional.ofNullable(time);
         }
 
         public void setVenue(Venue venue) {
@@ -209,7 +235,8 @@ public class EditScheduleCommand extends Command {
             // state check
             EditScheduleDescriptor e = (EditScheduleDescriptor) other;
 
-            return getCalendar().equals(e.getCalendar())
+            return getDate().equals(e.getDate())
+                    && getTime().equals(e.getTime())
                     && getVenue().equals(e.getVenue())
                     && getTags().equals(e.getTags());
         }
