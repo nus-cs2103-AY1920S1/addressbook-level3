@@ -9,31 +9,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
-import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPredicate;
 
-public class JsonAdaptedNameContainsKeywordsPredicate {
+public class JsonAdaptedTagIncludesKeywordsPredicate {
 
     private final List<JsonAdaptedKeyword> keywords;
 
     @JsonCreator
-    public JsonAdaptedNameContainsKeywordsPredicate(@JsonProperty("keywords") List<JsonAdaptedKeyword> keywords) {
+    public JsonAdaptedTagIncludesKeywordsPredicate(@JsonProperty("keywords") List<JsonAdaptedKeyword> keywords) {
         this.keywords = keywords;
     }
 
-    public JsonAdaptedNameContainsKeywordsPredicate(NameContainsKeywordsPredicate predicate) {
-        this.keywords = predicate.getKeywords().stream()
-            .map(JsonAdaptedKeyword::new)
-            .collect(Collectors.toList());
+    public JsonAdaptedTagIncludesKeywordsPredicate(TagIncludesKeywordsPredicate predicate) {
+        this.keywords = predicate.getKeywords().stream().map(JsonAdaptedKeyword::new).collect(Collectors.toList());
     }
 
-    public NameContainsKeywordsPredicate toModelType() throws IllegalValueException {
+    public TagIncludesKeywordsPredicate toModelType() throws IllegalValueException {
         final List<Keyword> predicateKeywords = new ArrayList<>();
 
         for (JsonAdaptedKeyword keyword: keywords) {
             predicateKeywords.add(keyword.toModelType());
         }
 
-        return new NameContainsKeywordsPredicate(predicateKeywords);
+        return new TagIncludesKeywordsPredicate(predicateKeywords);
     }
 
 }

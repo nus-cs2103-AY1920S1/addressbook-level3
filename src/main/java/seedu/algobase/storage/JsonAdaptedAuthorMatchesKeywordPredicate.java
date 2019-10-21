@@ -12,8 +12,6 @@ import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPre
  */
 public class JsonAdaptedAuthorMatchesKeywordPredicate {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "AuthorMatchesKeywordPredicate's %s field is missing!";
-
     private final JsonAdaptedKeyword keyword;
 
     @JsonCreator

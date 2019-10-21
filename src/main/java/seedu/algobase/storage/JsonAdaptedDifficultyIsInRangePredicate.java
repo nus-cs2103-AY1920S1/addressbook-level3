@@ -7,9 +7,6 @@ import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePred
 
 public class JsonAdaptedDifficultyIsInRangePredicate {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT =
-        "DifficultyIsInRangePredicate's %s field is missing!";
-
     private final double lowerBound;
     private final double upperBound;
 
