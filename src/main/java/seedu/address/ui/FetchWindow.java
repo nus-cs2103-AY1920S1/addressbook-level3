@@ -31,6 +31,9 @@ public class FetchWindow extends UiPart<Stage> {
     @FXML
     private Text eventDescription;
 
+    @FXML
+    private Text employeeListText;
+
     /**
      * Creates a new FetchWindow.
      *
@@ -47,7 +50,8 @@ public class FetchWindow extends UiPart<Stage> {
         personListView.setCellFactory(listView -> new PersonListViewCell());
         eventListView.setItems(list);
         eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
-        eventDescription.setText("EVENT DISPLAYED:" + event.toString());
+        eventDescription.setText("Event Details Displayed:\n" + event.toString());
+        employeeListText.setText("List of employees who are available for the event:");
     }
 
     /**

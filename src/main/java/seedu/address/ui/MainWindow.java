@@ -156,6 +156,8 @@ public class MainWindow extends UiPart<Stage> {
     public void handleFetch(ObservableList<Employee> employeeList,
                             ObservableList<Event> filteredEventList, Event event) {
         fetchWindow = new FetchWindow(employeeList, filteredEventList, event);
+        //fetchWindow.getRoot().setScene();
+        fetchWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!fetchWindow.isShowing()) {
             fetchWindow.show();
         } else {

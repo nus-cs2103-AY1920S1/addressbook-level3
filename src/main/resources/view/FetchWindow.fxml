@@ -18,7 +18,7 @@
    <scene>
       <Scene>
          <root>
-            <HBox alignment="CENTER" prefHeight="463.0" prefWidth="566.0">
+            <HBox alignment="CENTER" prefHeight="500.0" prefWidth="650.0">
                <opaqueInsets>
                   <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                </opaqueInsets>
@@ -26,19 +26,31 @@
                   <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                </padding>
                <children>
-                  <ListView fx:id="personListView" prefHeight="448.0" prefWidth="258.0" />
-                  <VBox prefHeight="448.0" prefWidth="361.0">
+                  <VBox prefHeight="485.0" prefWidth="478.0">
+                     <children>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="258.0">
+                           <children>
+                              <Text fx:id="employeeListText" fill="#1c1919" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="188.536865234375" />
+                           </children>
+                        </AnchorPane>
+                        <ListView fx:id="personListView" prefHeight="497.0" prefWidth="162.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="485.0" prefWidth="685.0">
                      <children>
                         <ScrollPane prefHeight="200.0" prefWidth="200.0">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="258.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="193.0" prefWidth="415.0">
                                  <children>
-                                    <Text fx:id="eventDescription" fill="#1c1919" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="221.3367156982422" />
+                                    <Text fx:id="eventDescription" fill="#1c1919" layoutX="38.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="332.5366668701172" />
                                  </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
                               </AnchorPane>
                            </content>
                         </ScrollPane>
-                        <ListView fx:id="eventListView" prefHeight="266.0" prefWidth="258.0" />
+                        <ListView fx:id="eventListView" prefHeight="286.0" prefWidth="403.0" />
                      </children>
                   </VBox>
                </children>

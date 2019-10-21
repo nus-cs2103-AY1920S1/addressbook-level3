@@ -30,6 +30,9 @@ public class ListPanelForFetch extends UiPart<Region> {
     @FXML
     private Text eventDescription;
 
+    @FXML
+    private Text employeeListText;
+
     /**
      * Constructor for fetch command
      */
@@ -46,6 +49,7 @@ public class ListPanelForFetch extends UiPart<Region> {
         eventListView.setItems(list);
         eventListView.setCellFactory(listView -> new PersonListViewCell());
         eventDescription.setText("EVENT DISPLAYED:" + event.toString());
+
     }
 
 
