@@ -1,4 +1,4 @@
-package seedu.jarvis.model.cca.CcaProgress;
+package seedu.jarvis.model.cca.ccaprogress;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
@@ -38,6 +38,11 @@ public class CcaMilestone {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Checks if another {@code CcaMilestone} is the same.
+     * @param otherCcaMilestone
+     * @return true if another {@code CcaMilestone} is the same.
+     */
     public boolean isSameCcaMilestone(CcaMilestone otherCcaMilestone) {
         if (otherCcaMilestone == this) {
             return true;

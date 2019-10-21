@@ -1,8 +1,8 @@
-package seedu.jarvis.model.cca.CcaProgress;
-
-import java.util.List;
+package seedu.jarvis.model.cca.ccaprogress;
 
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
 
 /**
  * Represents the progress of a CCA.

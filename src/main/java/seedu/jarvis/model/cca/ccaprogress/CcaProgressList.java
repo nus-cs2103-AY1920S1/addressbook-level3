@@ -1,15 +1,17 @@
-package seedu.jarvis.model.cca.CcaProgress;
+package seedu.jarvis.model.cca.ccaprogress;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jarvis.model.cca.exceptions.CcaMilestoneNotFoundException;
 import seedu.jarvis.model.cca.exceptions.DuplicateCcaMilestoneException;
 
-import java.util.Iterator;
-import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * A list of cca progress milestones that the user can set and increment.
@@ -61,7 +63,8 @@ public class CcaProgressList implements Iterable<CcaMilestone> {
     /**
      * Replaces the CcaMilestone {@code target} in the list with {@code editedCcaMilestone}.
      * {@code target} must exist in the list.
-     * The CcaMilestone identity of {@code editedCcaMilestone} must not be the same as another existing CcaMilestone in the list.
+     * The CcaMilestone identity of {@code editedCcaMilestone} must not be the same as another existing CcaMilestone in
+     * the list.
      */
     public void setCcaMilestone(CcaMilestone target, CcaMilestone editedCcaMilestone) {
         requireAllNonNull(target, editedCcaMilestone);
