@@ -1,15 +1,19 @@
 package seedu.flashcard.logic.parser;
 
-import seedu.flashcard.logic.commands.StatsCommand;
-import seedu.flashcard.logic.parser.exceptions.ParseException;
-import seedu.flashcard.model.tag.Tag;
+import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
+import seedu.flashcard.logic.commands.StatsCommand;
+import seedu.flashcard.logic.parser.exceptions.ParseException;
+import seedu.flashcard.model.tag.Tag;
 
+
+/**
+ * Parses the arguments for the stats command.
+ */
 public class StatsCommandParser implements Parser<StatsCommand> {
 
     /**
@@ -26,9 +30,9 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
         }
 
-        if(!arePrefixesPresent(argMultimap, PREFIX_TAG)){
+        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
             return new StatsCommand(null);
-        }else {
+        } else {
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
             return new StatsCommand(tagList);
         }

@@ -9,6 +9,8 @@ import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.Statistics;
+
 
 /**
  * API of the logic component
@@ -51,4 +53,10 @@ public interface Logic {
      * set user prefs' GUI settings
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Get the desired statistics
+     * @return
+     */
+    Statistics getStatistics();
 }
