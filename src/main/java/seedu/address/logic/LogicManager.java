@@ -2,8 +2,10 @@ package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.loadCommands.CreateCommand;
+import seedu.address.logic.commands.loadCommands.ExportCommand;
 import seedu.address.logic.commands.loadCommands.RemoveCommand;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -30,7 +33,7 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static final String FILE_OPS_ERROR_MESSAGE = "File operation failed";
+    public static final String FILE_OPS_ERROR_MESSAGE = "File operation failed ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -99,8 +102,10 @@ public class LogicManager implements Logic {
             if (command instanceof RemoveCommand) {
                 storage.removeWordBank(((RemoveCommand) command).wordBankName);
             }
-            if (command instanceof RemoveCommand) {
-                storage.removeWordBank(((RemoveCommand) command).wordBankName);
+            if (command instanceof ExportCommand) {
+                File dir = ((ExportCommand) command).directory;
+                Path filePath = Paths.get(dir.toString());
+                storage.saveWordBank(((ExportCommand) command).wordBank, filePath);
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

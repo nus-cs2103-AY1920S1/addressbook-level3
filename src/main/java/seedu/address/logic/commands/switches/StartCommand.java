@@ -52,8 +52,7 @@ public class StartCommand extends SwitchCommand {
         }
 
         String wordBankName = model.getWordBank().getName();
-        String pathString = "data/" + wordBankName + ".json";
-        Path filePath = Paths.get(pathString);
+        Path filePath = Paths.get("data", wordBankName + ".json");
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
         JsonWordBankListStorage addressBookStorage = new JsonWordBankListStorage(filePath);
         addressBookStorage.getWordBankList();

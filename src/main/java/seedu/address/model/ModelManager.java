@@ -28,7 +28,7 @@ import seedu.address.statistics.WordBankStatistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private WordBank wordBank = new WordBank("Empty Wordbank");
+    private WordBank wordBank = new WordBank("Empty wordbank");
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;

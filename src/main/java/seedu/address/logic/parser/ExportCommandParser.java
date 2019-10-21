@@ -1,20 +1,15 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.appCommands.AddCommand;
 import seedu.address.logic.commands.loadCommands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.card.Card;
-import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;
-import seedu.address.model.tag.Tag;
 
 import java.io.File;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
 public class ExportCommandParser implements Parser<ExportCommand> {
     /**
@@ -23,9 +18,9 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ExportCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_FILEPATH);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_WORD, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_WORD, PREFIX_FILEPATH) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 

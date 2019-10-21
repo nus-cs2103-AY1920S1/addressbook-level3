@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -12,11 +13,9 @@ import seedu.address.commons.core.GuiSettings;
  * Represents User's preferences.
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
-
     private GuiSettings guiSettings = new GuiSettings();
-    //private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path dataFilePath = Paths.get("data");
-    private Path wordBankListFilePath = Paths.get("data/wordbanks");
+    private Path wordBankListFilePath = Paths.get("data" ," wordbanks");
 
     /**
      * Creates a {@code UserPrefs} with default values.

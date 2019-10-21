@@ -59,6 +59,9 @@ public class ParserUtil {
     public static File parseFile(String pathFile) throws ParseException {
         requireNonNull(pathFile);
         String trimmedPathFile = pathFile.trim();
+        if (trimmedPathFile.charAt(0) == '~') {
+            trimmedPathFile = System.getProperty("user.home") + File.separator + trimmedPathFile.substring(1);
+        }
         File directory = Paths.get(trimmedPathFile ).toFile();
         if (!directory.exists()) {
             throw new ParseException("File does not exist");

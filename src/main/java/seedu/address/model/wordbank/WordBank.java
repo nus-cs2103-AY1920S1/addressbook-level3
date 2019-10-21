@@ -97,13 +97,6 @@ public class WordBank implements ReadOnlyWordBank {
     }
 
     //// util methods
-
-    @Override
-    public String toString() {
-        return cards.asUnmodifiableObservableList().size() + " cards";
-        // TODO: refine later
-    }
-
     @Override
     public int size() {
         return cards.size();
@@ -143,6 +136,11 @@ public class WordBank implements ReadOnlyWordBank {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
 }

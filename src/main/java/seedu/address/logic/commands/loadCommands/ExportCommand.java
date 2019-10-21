@@ -23,15 +23,15 @@ public class ExportCommand extends LoadCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Export the word bank selected to a folder.\n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_WORD + "sample"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_WORD + "sample "
             + PREFIX_FILEPATH + "~/downloads";
 
-    public static final String MESSAGE_EXPORT_CARD_SUCCESS = "Exported word bank: %1$s to location : %s";
+    public static final String MESSAGE_EXPORT_CARD_SUCCESS = "Exported word bank: %1$s to location : %2$s";
 
     public static String wordBankName;
     public static File directory;
-
+    public static WordBank wordBank;
 
     public ExportCommand(String wordBankName, File directory) {
         this.wordBankName = wordBankName;
@@ -42,11 +42,11 @@ public class ExportCommand extends LoadCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         WordBank wb = model.getWordBankList().getWordBank(wordBankName);
+        this.wordBank = wb;
         if (wb == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_NAME);
         }
 
-        model.removeWordBank();
         return new CommandResult(String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directory));
     }
 
