@@ -12,6 +12,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.category.Category;
 
 
@@ -33,11 +34,11 @@ public class SampleDataUtil {
                     new Difficulty("99272758"), getCategorySet("colleagues", "friends")),
             new Mcq(new Question("Charlotte Oliveiro"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
                     new Difficulty("93210283"), getCategorySet("neighbours")),
-            new Mcq(new Question("David Li"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+            new Saq(new Question("David Li"), defaultCorrectAnswerSet,
                     new Difficulty("91031282"), getCategorySet("family")),
-            new Mcq(new Question("Irfan Ibrahim"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+            new Saq(new Question("Irfan Ibrahim"), defaultCorrectAnswerSet,
                     new Difficulty("92492021"), getCategorySet("classmates")),
-            new Mcq(new Question("Roy Balakrishnan"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
+            new Saq(new Question("Roy Balakrishnan"), defaultCorrectAnswerSet,
                     new Difficulty("92624417"), getCategorySet("colleagues"))
         };
     }

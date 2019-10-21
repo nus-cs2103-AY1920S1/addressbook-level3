@@ -1,17 +1,24 @@
 package seedu.revision.model.answerable;
 
+import seedu.revision.logic.commands.AddCommand;
+import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 
 import java.util.Arrays;
 import java.util.Set;
 
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 /**
  * Represents a Answerable in the Test Bank.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Mcq extends Answerable {
+
+    public static final String MESSAGE_CONSTRAINTS = "MCQs should only have 1 correct answer and 4 options in total";
 
     /**
      * Every field must be present and not null.
@@ -28,22 +35,13 @@ public class Mcq extends Answerable {
     }
 
     public String toString() {
-        String correctAnswers;
-        String wrongAnswers;
-        if (wrongAnswerSet.isEmpty()) {
-            correctAnswers = "Correct Answers: " + Arrays.toString(correctAnswerSet.toArray());
-            wrongAnswers = "";
-        } else {
-            correctAnswers = "Correct Answers: " + Arrays.toString(correctAnswerSet.toArray());
-            wrongAnswers = "Wrong Answers: " + Arrays.toString(wrongAnswerSet.toArray());
-        }
-
         final StringBuilder builder = new StringBuilder();
-        builder.append("Question: ")
+        builder.append("Type: MCQ ")
+                .append("Question: ")
                 .append(getQuestion())
-                .append(" Answers: ")
-                .append(correctAnswers)
-                .append(wrongAnswers)
+                .append(" Answers:")
+                .append(" Correct Answers: " + getCorrectAnswerSet())
+                .append(" Wrong Answers: " + getWrongAnswerSet())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
                 .append(" Categories: ");
