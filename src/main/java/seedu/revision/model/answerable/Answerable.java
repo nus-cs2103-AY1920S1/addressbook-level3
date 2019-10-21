@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 /**
  * Represents a Answerable in the Test Bank.
@@ -14,7 +15,6 @@ import seedu.revision.model.category.Category;
  */
 public abstract class Answerable {
 
-    // Identity fields
     protected final Question question;
     protected final Difficulty difficulty;
 
@@ -25,8 +25,8 @@ public abstract class Answerable {
     /**
      * Every field must be present and not null.
      */
-    public Answerable(Question question, Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet,
-              Difficulty difficulty, Set<Category> categories) {
+    public Answerable(Question question, Set<Answer> correctAnswerSet,
+              Set<Answer> wrongAnswerSet, Difficulty difficulty, Set<Category> categories) {
         requireAllNonNull(question, difficulty, categories);
         this.question = question;
         this.correctAnswerSet = correctAnswerSet;
@@ -71,12 +71,20 @@ public abstract class Answerable {
         if (otherAnswerable == this) {
             return true;
         }
+        if (!(otherAnswerable.getClass().equals(this.getClass()))) {
+            return false;
+        }
+
+        boolean isSameMCq = true;
+        if (this instanceof Mcq) {
+            isSameMCq = otherAnswerable.getWrongAnswerSet().equals(getWrongAnswerSet());
+        }
 
         return otherAnswerable != null
-                && otherAnswerable.getQuestion().equals(getQuestion())
-                && otherAnswerable.getCorrectAnswerSet().equals(getCorrectAnswerSet())
-                && otherAnswerable.getWrongAnswerSet().equals(getWrongAnswerSet())
-                && otherAnswerable.getDifficulty().equals(getDifficulty());
+            && otherAnswerable.getQuestion().equals(getQuestion())
+            && otherAnswerable.getCorrectAnswerSet().equals(getCorrectAnswerSet())
+            && otherAnswerable.getDifficulty().equals(getDifficulty())
+            && isSameMCq;
     }
 
     /**
@@ -112,9 +120,9 @@ public abstract class Answerable {
         final StringBuilder builder = new StringBuilder();
         builder.append("Question: ")
                 .append(getQuestion())
-                .append(" Answers: ")
-                .append("Correct Answers: " + getCorrectAnswerSet())
-                .append("Wrong Answers: " + getWrongAnswerSet())
+                .append(" Answers:")
+                .append(" Correct Answers: " + getCorrectAnswerSet())
+                .append(" Wrong Answers: " + getWrongAnswerSet())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
                 .append(" Categories: ");

@@ -22,6 +22,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.category.Category;
 
 /**
@@ -92,15 +93,19 @@ public class EditCommand extends Command {
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());
         Set<Answer> updatedCorrectAnswerSet = editAnswerableDescriptor.getCorrectAnswerSet()
                 .orElse(answerableToEdit.getCorrectAnswerSet());
-        Set<Answer> updatedWrongAnswerSet = editAnswerableDescriptor.getWrongAnswerSet()
-                .orElse(answerableToEdit.getWrongAnswerSet());
         Difficulty updatedDifficulty = editAnswerableDescriptor.getDifficulty().orElse(answerableToEdit
                 .getDifficulty());
         Set<Category> updatedCategories = editAnswerableDescriptor.getCategories().orElse(answerableToEdit
                 .getCategories());
 
-        return new Mcq(updatedQuestion, updatedCorrectAnswerSet, updatedWrongAnswerSet, updatedDifficulty,
-                updatedCategories);
+        if (answerableToEdit instanceof Mcq) {
+            Set<Answer> updatedWrongAnswerSet = editAnswerableDescriptor.getWrongAnswerSet()
+                    .orElse(answerableToEdit.getWrongAnswerSet());
+            return new Mcq(updatedQuestion, updatedCorrectAnswerSet, updatedWrongAnswerSet, updatedDifficulty,
+                    updatedCategories);
+        } else {
+            return new Saq(updatedQuestion, updatedCorrectAnswerSet, updatedDifficulty, updatedCategories);
+        }
     }
 
     @Override
