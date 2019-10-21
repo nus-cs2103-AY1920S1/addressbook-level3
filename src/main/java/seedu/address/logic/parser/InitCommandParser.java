@@ -1,12 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.InitCommand;
@@ -23,7 +21,7 @@ public class InitCommandParser implements Parser<InitCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public InitCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_START_DATE, PREFIX_DAY);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_START_DATE);
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_START_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InitCommand.MESSAGE_USAGE));
@@ -31,13 +29,8 @@ public class InitCommandParser implements Parser<InitCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         LocalDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
-        Optional<String> numDayArgument = argMultimap.getValue(PREFIX_DAY);
-        Integer numDays = null;
-        if (numDayArgument.isPresent()) {
-            numDays = ParserUtil.parseDays(numDayArgument.get());
-        }
 
-        return new InitCommand(name, startDate, numDays);
+        return new InitCommand(name, startDate);
     }
 
     /**
