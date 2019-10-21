@@ -53,4 +53,11 @@ public class RenewPeriodTest {
         assertEquals(rp1, rp2);
         assertNotEquals(rp1, rp3);
     }
+
+    @Test
+    public void hashcode() {
+        RenewPeriod rp1 = new RenewPeriod(TEST_RENEW_PERIOD);
+        RenewPeriod rp2 = new RenewPeriod(TEST_RENEW_PERIOD);
+        assertEquals(rp1.hashCode(), rp2.hashCode());
+    }
 }

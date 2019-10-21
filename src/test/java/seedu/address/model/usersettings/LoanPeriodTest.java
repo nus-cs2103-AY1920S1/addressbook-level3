@@ -53,4 +53,11 @@ public class LoanPeriodTest {
         assertEquals(lp1, lp2);
         assertNotEquals(lp1, lp3);
     }
+
+    @Test
+    public void hashcode() {
+        LoanPeriod lp1 = new LoanPeriod(TEST_LOAN_PERIOD);
+        LoanPeriod lp2 = new LoanPeriod(TEST_LOAN_PERIOD);
+        assertEquals(lp1.hashCode(), lp2.hashCode());
+    }
 }

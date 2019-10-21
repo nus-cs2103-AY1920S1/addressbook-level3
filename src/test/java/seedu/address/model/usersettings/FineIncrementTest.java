@@ -54,4 +54,11 @@ public class FineIncrementTest {
         assertEquals(fi1, fi2);
         assertNotEquals(fi1, fi3);
     }
+
+    @Test
+    public void hashcode() {
+        FineIncrement fi1 = new FineIncrement(TEST_FINE_INCREMENT);
+        FineIncrement fi2 = new FineIncrement(TEST_FINE_INCREMENT);
+        assertEquals(fi1.hashCode(), fi2.hashCode());
+    }
 }
