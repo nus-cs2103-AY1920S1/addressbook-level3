@@ -23,6 +23,8 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.Savings;
+//import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -38,8 +40,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
     private final PurchaseHistory purchaseHistory;
-    private final RecommendationSystem recommendationSystem;
     private final CustomSorter customSorter;
+    //private final SavingsAccount savingsAccount;
 
     /**
      * Initializes a ModelManager with the given menu and userPrefs.
@@ -54,12 +56,11 @@ public class ModelManager implements Model {
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
-
-        this.recommendationSystem = new RecommendationSystem();
-        this.recommendationSystem.setUserRecommendations(userRecs);
+        // savingsAccount = new SavingsAccount();
 
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.customSorter = customSorter;
+        RecommendationSystem.getInstance().setUserRecommendations(userRecs);
     }
 
     public ModelManager() {
@@ -221,7 +222,7 @@ public class ModelManager implements Model {
     @Override
     public void buyFood(Food foodToBuy) throws CommandException {
         requireNonNull(foodToBuy);
-        menu.getWallet().pay(foodToBuy.getPrice());
+        menu.getWallet().deduct(foodToBuy.getPrice());
     }
 
     //=========== Filtered Food List Accessors =============================================================
@@ -233,8 +234,8 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Food> getFilteredFoodList() {
         return filteredFoods
-                .filtered(recommendationSystem.getRecommendationPredicate())
-                .sorted(recommendationSystem.getRecommendationComparator());
+                .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
+                .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
     }
 
 
@@ -261,50 +262,82 @@ public class ModelManager implements Model {
     public CustomSorter getCustomSorter() {
         return customSorter;
     }
+
     //=========== Recommendation System =============================================================
     @Override
     public RecommendationSystem getRecommendationSystem() {
-        return recommendationSystem;
+        return RecommendationSystem.getInstance();
     }
 
     @Override
     public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
         requireNonNull(recommendationComparator);
-        this.recommendationSystem.setRecommendationComparator(recommendationComparator);
+        RecommendationSystem.getInstance().setRecommendationComparator(recommendationComparator);
     }
 
     @Override
     public void updateRecommendationPredicate(Predicate<Food> recommendationPredicate) {
         requireNonNull(recommendationPredicate);
-        this.recommendationSystem.setRecommendationPredicate(recommendationPredicate);
+        RecommendationSystem.getInstance().setRecommendationPredicate(recommendationPredicate);
     }
 
     @Override
     public void setRecommendationSystemInUse(boolean inUse) {
-        this.recommendationSystem.setInUse(inUse);
+        RecommendationSystem.getInstance().setInUse(inUse);
     }
 
     @Override
     public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         requireAllNonNull(categoryList, tagList, locationList);
-        recommendationSystem.addLikes(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().addLikes(categoryList, tagList, locationList);
     }
 
     @Override
     public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         requireAllNonNull(categoryList, tagList, locationList);
-        recommendationSystem.addDislikes(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().addDislikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().removeLikes(categoryList, tagList, locationList);
+    }
+
+    @Override
+    public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        requireAllNonNull(categoryList, tagList, locationList);
+        RecommendationSystem.getInstance().removeDislikes(categoryList, tagList, locationList);
     }
 
     @Override
     public void clearLikes() {
-        recommendationSystem.clearLikes();
+        RecommendationSystem.getInstance().clearLikes();
     }
 
     @Override
     public void clearDislikes() {
-        recommendationSystem.clearDislikes();
+        RecommendationSystem.getInstance().clearDislikes();
     }
+
+    @Override
+    public void addToSavings(Savings savings) {
+        // TODO @fatclarence
+    }
+
+    @Override
+    public void deductFromWallet(Savings savings) throws CommandException {
+        requireNonNull(savings);
+        menu.getWallet().deduct(savings);
+    }
+
+    /**
+     * TODO @fatclarence
+     */
+    //    @Override
+    //    public SavingsAccount getSavingsAccount() {
+    //        return null;
+    //    }
 
     @Override
     public boolean equals(Object obj) {

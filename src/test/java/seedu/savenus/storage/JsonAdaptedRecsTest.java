@@ -28,7 +28,6 @@ import seedu.savenus.model.tag.Tag;
 
 public class JsonAdaptedRecsTest {
 
-
     @Test
     public void toModelType_validRecDetails_returnsRec() throws Exception {
         JsonAdaptedRecs recs = new JsonAdaptedRecs(LIKED_CATEGORY_SET_STRING, LIKED_TAG_SET_STRING,
@@ -38,8 +37,20 @@ public class JsonAdaptedRecsTest {
         UserRecommendations expectedRecs =
                 new UserRecommendations(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET,
                         DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET);
+
         assertEquals(recs.toModelType(), recs.toModelType());
         assertEquals(recs.toModelType(), expectedRecs);
+    }
+
+    @Test
+    public void toModelType_validRecDetails_jsonAdaptedRecs() throws Exception {
+        UserRecommendations recs =
+                new UserRecommendations(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET,
+                        DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET);
+        JsonAdaptedRecs expectedRecs = new JsonAdaptedRecs(recs);
+
+        assertEquals(expectedRecs.toModelType(), expectedRecs.toModelType());
+        assertEquals(expectedRecs.toModelType(), recs);
     }
 
     @Test

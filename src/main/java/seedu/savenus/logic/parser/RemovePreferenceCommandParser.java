@@ -8,21 +8,21 @@ import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.savenus.logic.commands.DislikeCommand;
-import seedu.savenus.logic.commands.LikeCommand;
-import seedu.savenus.logic.commands.PreferenceCommand;
+import seedu.savenus.logic.commands.RemoveDislikeCommand;
+import seedu.savenus.logic.commands.RemoveLikeCommand;
+import seedu.savenus.logic.commands.RemovePreferenceCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new LikeCommand or DislikeCommand object
+ * Parses input arguments and creates a new RemoveLikeCommand or RemoveDislikeCommand object
  */
-public class PreferenceCommandParser implements Parser<PreferenceCommand> {
+public class RemovePreferenceCommandParser implements Parser<RemovePreferenceCommand> {
 
     @Override
-    public PreferenceCommand parse(String args) {
+    public RemovePreferenceCommand parse(String args) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -31,20 +31,21 @@ public class PreferenceCommandParser implements Parser<PreferenceCommand> {
      * and returns A LikeCommand or DislikeCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public PreferenceCommand parse(String args, boolean isLike) throws ParseException {
+    public RemovePreferenceCommand parse(String args, boolean isLike) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION);
 
         if (args.isBlank() && isLike) {
-            return new LikeCommand(true);
+            return new RemoveLikeCommand(true);
         } else if (args.isBlank() && !isLike) {
-            return new DislikeCommand(true);
+            return new RemoveDislikeCommand(true);
         }
 
         // If none of these arguments are not present, will throw an error.
         if (!areAnyPrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PreferenceCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RemovePreferenceCommand.MESSAGE_USAGE));
         }
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
@@ -52,9 +53,9 @@ public class PreferenceCommandParser implements Parser<PreferenceCommand> {
         Set<Location> locationList = ParserUtil.parseLocations(argMultimap.getAllValues(PREFIX_LOCATION));
 
         if (isLike) {
-            return new LikeCommand(categoryList, tagList, locationList, false);
+            return new RemoveLikeCommand(categoryList, tagList, locationList, false);
         } else {
-            return new DislikeCommand(categoryList, tagList, locationList, false);
+            return new RemoveDislikeCommand(categoryList, tagList, locationList, false);
         }
     }
 

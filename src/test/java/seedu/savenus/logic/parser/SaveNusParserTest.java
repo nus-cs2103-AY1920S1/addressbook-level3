@@ -44,9 +44,9 @@ import seedu.savenus.testutil.EditFoodDescriptorBuilder;
 import seedu.savenus.testutil.FoodBuilder;
 import seedu.savenus.testutil.FoodUtil;
 
-public class MenuParserTest {
+public class SaveNusParserTest {
 
-    private final MenuParser parser = new MenuParser();
+    private final SaveNusParser parser = new SaveNusParser();
 
     @Test
     public void parseCommand_add() throws Exception {

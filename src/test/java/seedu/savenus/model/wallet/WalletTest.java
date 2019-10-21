@@ -16,10 +16,10 @@ public class WalletTest {
     public static final Price VALIDPRICE = new Price("2.50");
 
     @Test
-    public void pay_validPriceEnoughFunds_success() {
+    public void deduct_validPriceEnoughFunds_success() {
         Wallet modelWallet = new Wallet(RICHWALLET.getRemainingBudget(), RICHWALLET.getDaysToExpire());
         try {
-            modelWallet.pay(VALIDPRICE);
+            modelWallet.deduct(VALIDPRICE);
         } catch (Exception e) {
             return;
         }
@@ -27,15 +27,16 @@ public class WalletTest {
     }
 
     @Test
-    public void pay_invalidPriceEnoughFunds_throwsIllegalArgumentException() {
+    public void deduct_invalidPriceEnoughFunds_throwsIllegalArgumentException() {
         Wallet modelWallet = new Wallet(RICHWALLET.getRemainingBudget(), RICHWALLET.getDaysToExpire());
-        assertThrows(IllegalArgumentException.class, () -> modelWallet.pay(new Price("abc")));
+        assertThrows(IllegalArgumentException.class, () -> modelWallet.deduct(new Price("abc")));
     }
 
     @Test
-    public void pay_validPriceNotEnoughFunds_throwsCommandException() {
+    public void deduct_validPriceNotEnoughFunds_throwsCommandException() {
         Wallet modelWallet = new Wallet(EMPTYWALLET.getRemainingBudget(), EMPTYWALLET.getDaysToExpire());
-        assertThrows(CommandException.class, Messages.MESSAGE_INSUFFICIENT_FUNDS, () -> modelWallet.pay(VALIDPRICE));
+        assertThrows(CommandException.class, Messages.MESSAGE_INSUFFICIENT_FUNDS
+                + " to make purchase!", () -> modelWallet.deduct(VALIDPRICE));
     }
 
 }

@@ -30,6 +30,7 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -261,6 +262,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
             throw new AssertionError("This method should not be called.");
         }
@@ -271,12 +273,32 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void clearLikes() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void clearDislikes() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToSavings(Savings savings) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void deductFromWallet(Savings savings) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
     }

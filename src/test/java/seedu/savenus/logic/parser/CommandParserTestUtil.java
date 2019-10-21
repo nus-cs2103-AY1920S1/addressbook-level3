@@ -63,4 +63,32 @@ public class CommandParserTestUtil {
             assertEquals(expectedMessage, pe.getMessage());
         }
     }
+
+    /**
+     * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful and the error message
+     * equals to {@code expectedMessage}.
+     */
+    public static void assertRemovePreferenceParseSuccess(RemovePreferenceCommandParser parser, String userInput,
+                                                    Command expectedCommand, boolean isLike) {
+        try {
+            Command command = parser.parse(userInput, isLike);
+            assertEquals(expectedCommand, command);
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    /**
+     * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful and the error message
+     * equals to {@code expectedMessage}.
+     */
+    public static void assertRemovePreferenceParseFailure(RemovePreferenceCommandParser parser, String userInput,
+                                                    String expectedMessage, boolean isLike) {
+        try {
+            parser.parse(userInput, isLike);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(expectedMessage, pe.getMessage());
+        }
+    }
 }

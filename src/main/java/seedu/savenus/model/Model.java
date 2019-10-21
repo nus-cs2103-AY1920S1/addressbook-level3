@@ -14,6 +14,8 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.savings.Savings;
+//import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -201,6 +203,17 @@ public interface Model {
      */
     void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
 
+    /** Removes the user's liked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /**
+     * Removes the user's disliked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
     /**
      * Clears the user's liked categories, tags and locations.
      */
@@ -220,4 +233,20 @@ public interface Model {
      * Gets the custom comparator.
      */
     CustomSorter getCustomSorter();
+
+    /**
+     * Add money from wallet to savings account.
+     */
+    void addToSavings(Savings savings);
+
+    /**
+     * Deduct money from wallet.
+     */
+    void deductFromWallet(Savings savings) throws CommandException;
+
+    /**
+     * TODO @fatclarence
+     * Return user's SavingsAccount.
+     */
+    //SavingsAccount getSavingsAccount();
 }

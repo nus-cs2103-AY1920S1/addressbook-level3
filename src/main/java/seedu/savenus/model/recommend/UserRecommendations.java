@@ -2,6 +2,7 @@ package seedu.savenus.model.recommend;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
@@ -63,6 +64,32 @@ public class UserRecommendations {
     }
 
     /**
+     * Removes likes from the recommendation system.
+     *
+     * @param categoryList The list of categories
+     * @param tagList      The list of tags
+     * @param locationList The list of locations
+     */
+    public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        likedCategories.removeAll(categoryList);
+        likedTags.removeAll(tagList);
+        likedLocations.removeAll(locationList);
+    }
+
+    /**
+     * Removes dislikes from the recommendation system.
+     *
+     * @param categoryList The list of categories
+     * @param tagList      The list of tags
+     * @param locationList The list of locations
+     */
+    public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        dislikedCategories.removeAll(categoryList);
+        dislikedTags.removeAll(tagList);
+        dislikedLocations.removeAll(locationList);
+    }
+
+    /**
      * Clear the recommendation system's likes.
      */
     public void clearLikes() {
@@ -121,5 +148,28 @@ public class UserRecommendations {
                 && getDislikedCategories().equals(otherRec.getDislikedCategories())
                 && getDislikedTags().equals(otherRec.getDislikedTags())
                 && getDislikedLocations().equals(otherRec.getDislikedLocations());
+    }
+
+    @Override
+    public String toString() {
+        return "Current likes: Categories: " + getLikedCategories()
+                .stream().map(c -> c.category)
+                .collect(Collectors.joining(", "))
+                + " | Tags: " + getLikedTags()
+                .stream().map(t -> t.tagName)
+                .collect(Collectors.joining(", "))
+                + " | Locations: " + getLikedLocations()
+                .stream().map(l -> l.location)
+                .collect(Collectors.joining(", "))
+                + "\nCurrent dislikes:"
+                + " Categories: " + getDislikedCategories()
+                .stream().map(c -> c.category)
+                .collect(Collectors.joining(", "))
+                + " | Tags: " + getDislikedTags()
+                .stream().map(t -> t.tagName)
+                .collect(Collectors.joining(", "))
+                + " | Locations: " + getDislikedLocations()
+                .stream().map(l -> l.location)
+                .collect(Collectors.joining(", "));
     }
 }
