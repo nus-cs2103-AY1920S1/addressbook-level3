@@ -10,6 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.appcommands.HelpCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.settings.DifficultyCommandParser;
 
 /**
  * Parses user input.

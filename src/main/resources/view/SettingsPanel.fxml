@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@DarkTheme.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
    <content>
       <VBox>
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="105.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" styleClass="pane-with-border">
                <children>
-                  <Label styleClass="label-header2" text="Difficulty" />
-                  <HBox fx:id="difficultyOptions" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Label styleClass="label-header2" text="Difficulty">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <HBox fx:id="difficultyOptions" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="105.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" styleClass="pane-with-border">
                <children>
-                  <Label styleClass="label-header2" text="Theme" />
-                  <HBox fx:id="themeOptions" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Label styleClass="label-header2" text="Theme">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <HBox fx:id="themeOptions" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="105.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" styleClass="pane-with-border">
                <children>
-                  <Label styleClass="label-header2" text="Hints" />
-                  <HBox fx:id="hintsOptions" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Label styleClass="label-header2" text="Hints">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <HBox fx:id="hintsOptions" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>

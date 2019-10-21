@@ -23,8 +23,8 @@ import seedu.address.logic.commands.loadcommands.CreateCommand;
 import seedu.address.logic.commands.loadcommands.ExportCommand;
 import seedu.address.logic.commands.loadcommands.ImportCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
-import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.DukemonParser;
+import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
@@ -32,12 +32,13 @@ import seedu.address.model.Model;
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
-
 
 /**
  * The main LogicManager of the app.
@@ -180,16 +181,46 @@ public class LogicManager implements Logic, UiLogicHelper {
             requireNonNull(model.getWordBankStatistics());
             WordBankStatistics currWbStats = model.getWordBankStatistics();
             currWbStats.update(gameStatistics);
-            storage.saveWordBankStatistics(currWbStats,
-                    Path.of("data/wbstats/" + currWbStats.getWordBankName() + ".json"));
+
+            Path targetPath = Path.of(model.getUserPrefs().getDataFilePath().toString(), "wbstats",
+                    currWbStats.getWordBankName() + ".json");
+
+            storage.saveWordBankStatistics(currWbStats, targetPath);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
     }
 
     @Override
-    public WordBankStatistics getWordBankStatistics() {
+    public void incrementPlay() throws CommandException {
+        try {
+            requireNonNull(model.getGlobalStatistics());
+            GlobalStatistics globalStats = model.getGlobalStatistics();
+            globalStats.addPlay();
+            storage.saveGlobalStatistics(globalStats);
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+    }
+
+    @Override
+    public WordBankStatistics getActiveWordBankStatistics() {
         return model.getWordBankStatistics();
+    }
+
+    @Override
+    public WordBankStatisticsList getWordBankStatisticsList() {
+        return model.getWordBankStatisticsList();
+    }
+
+    @Override
+    public GlobalStatistics getGlobalStatistics() {
+        return model.getGlobalStatistics();
+    }
+
+    @Override
+    public ReadOnlyWordBank getActiveWordBank() {
+        return model.getWordBank();
     }
 
     @Override

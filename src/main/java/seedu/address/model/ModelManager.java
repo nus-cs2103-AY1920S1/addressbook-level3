@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,12 +13,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.appsettings.ReadOnlyAppSettings;
 import seedu.address.model.appsettings.ThemeEnum;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
-import seedu.address.model.appsettings.DifficultyEnum;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -38,6 +38,8 @@ public class ModelManager implements Model {
     private WordBankStatistics wordBankStatistics;
     private final WordBankStatisticsList wordBankStatisticsList;
 
+    private final GlobalStatistics globalStatistics;
+
     private final UserPrefs userPrefs;
 
     //Settings for the app.
@@ -52,14 +54,18 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
      */
-    public ModelManager(WordBankList wordBankList, ReadOnlyUserPrefs userPrefs, ReadOnlyAppSettings appSettings) {
+    public ModelManager(WordBankList wordBankList, WordBankStatisticsList wbStatsList,
+                        GlobalStatistics globalStatistics, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyAppSettings appSettings) {
         super();
         requireAllNonNull(wordBankList, userPrefs);
 
         logger.fine("Initializing with word bank list: " + wordBankList + " and user prefs " + userPrefs);
 
         this.wordBankList = wordBankList;
-        this.wordBankStatisticsList = new WordBankStatisticsList();
+        this.wordBankStatisticsList = wbStatsList;
+        this.globalStatistics = globalStatistics;
+
         this.userPrefs = new UserPrefs(userPrefs);
         this.appSettings = new AppSettings(appSettings);
 
@@ -68,7 +74,11 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new WordBankList((List) new ArrayList<WordBankList>()), new UserPrefs(), new AppSettings());
+        this(new WordBankList(Collections.emptyList()),
+                new WordBankStatisticsList(Collections.emptyList()),
+                new GlobalStatistics(),
+                new UserPrefs(),
+                new AppSettings());
     }
 
     // Placeholder setGame method
@@ -142,7 +152,8 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hintsAreEnabled() {
-        return difficulty.hintsAreEnabled();
+        return true;
+        //        return difficulty.hintsAreEnabled();
     }
 
     //=========== UserPrefs ==================================================================================
@@ -286,6 +297,11 @@ public class ModelManager implements Model {
     @Override
     public void clearWordBankStatistics() {
         this.wordBankStatistics = null;
+    }
+
+    @Override
+    public GlobalStatistics getGlobalStatistics() {
+        return globalStatistics;
     }
 
     @Override

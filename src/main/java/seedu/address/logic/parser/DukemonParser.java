@@ -7,8 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.settings.HintsCommand;
-import seedu.address.logic.commands.settings.ThemeCommand;
 import seedu.address.logic.commands.appcommands.AddCommand;
 import seedu.address.logic.commands.appcommands.ClearCommand;
 import seedu.address.logic.commands.appcommands.DeleteCommand;
@@ -25,6 +23,8 @@ import seedu.address.logic.commands.loadcommands.ExportCommand;
 import seedu.address.logic.commands.loadcommands.ImportCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
+import seedu.address.logic.commands.settingcommands.HintsCommand;
+import seedu.address.logic.commands.settingcommands.ThemeCommand;
 import seedu.address.logic.commands.switches.BankCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.LoadScreenCommand;
@@ -34,6 +34,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
 import seedu.address.logic.parser.settings.HintsCommandParser;
 import seedu.address.logic.parser.settings.ThemeCommandParser;
+
 
 /**
  * Parses user input.

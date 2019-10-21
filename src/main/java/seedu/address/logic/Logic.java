@@ -9,13 +9,15 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appsettings.AppSettings;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
+import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 
@@ -63,7 +65,18 @@ public interface Logic extends UiLogicHelper {
 
     void saveUpdatedWbStatistics(GameStatistics gameStats) throws CommandException;
 
-    WordBankStatistics getWordBankStatistics();
+    /**
+     * This method should be called every time a game finishes to correctly update global statistics
+     */
+    void incrementPlay() throws CommandException;
+
+    WordBankStatistics getActiveWordBankStatistics();
+
+    WordBankStatisticsList getWordBankStatisticsList();
+
+    GlobalStatistics getGlobalStatistics();
+
+    ReadOnlyWordBank getActiveWordBank();
 
     long getTimeAllowedPerQuestion();
 

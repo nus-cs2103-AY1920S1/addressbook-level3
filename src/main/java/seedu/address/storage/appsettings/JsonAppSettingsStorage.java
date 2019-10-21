@@ -1,21 +1,17 @@
 package seedu.address.storage.appsettings;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.appsettings.AppSettings;
-import seedu.address.model.appsettings.ReadOnlyAppSettings;
-import seedu.address.statistics.WordBankStatistics;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.appsettings.AppSettings;
 /**
  * A class to access {@code WordBankStatistics} data stored as a json file on the hard disk.
  */

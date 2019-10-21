@@ -17,7 +17,7 @@ public class SwitchToSettingsCommand extends SwitchCommand {
     public static final String COMMAND_WORD = "settings";
 
     public static final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Now on settings page. "
-            + "You can change the game difficulty from here.";
+            + "You can change various settings from here.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

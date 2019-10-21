@@ -1,10 +1,9 @@
-package seedu.address.logic.commands.settings;
+package seedu.address.logic.commands.settingcommands;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.appsettings.DifficultyEnum;
 
 /**
  * Class that represents a command to change the Model's difficulty for all its games.

@@ -1,7 +1,8 @@
 package seedu.address.model.appsettings;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
+/**
+ * Enums for either a light theme or a dark theme.
+ */
 public enum ThemeEnum {
     DARK("DarkTheme.css"), LIGHT("LightTheme.css");
 
@@ -11,6 +12,11 @@ public enum ThemeEnum {
         themeUrl = s;
     }
 
+    /**
+     * Gets the name of the .css file.
+     *
+     * @return Either "LightTheme.css" or "DarkTheme.css".
+     */
     public String getThemeUrl() {
         return themeUrl;
     }

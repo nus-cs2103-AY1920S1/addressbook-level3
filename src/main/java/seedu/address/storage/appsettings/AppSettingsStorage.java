@@ -1,13 +1,12 @@
 package seedu.address.storage.appsettings;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.appsettings.AppSettings;
-import seedu.address.model.appsettings.ReadOnlyAppSettings;
-import seedu.address.statistics.WordBankStatistics;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * Represents a storage for {@link WordBankStatistics}.

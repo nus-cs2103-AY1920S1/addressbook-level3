@@ -16,14 +16,16 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.appcommands.AddCommand;
-//import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.DifficultyEnum;
+import seedu.address.model.appsettings.ThemeEnum;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
-import seedu.address.model.appsettings.DifficultyEnum;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -96,6 +98,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public AppSettings getAppSettings() {
+            return null;
+        }
+
+        @Override
+        public Path getAppSettingsFilePath() {
+            return null;
+        }
+
+        @Override
         public void setDefaultDifficulty(DifficultyEnum difficultyEnum) {
 
         }
@@ -103,6 +115,26 @@ public class AddCommandTest {
         @Override
         public DifficultyEnum getDefaultDifficulty() {
             return null;
+        }
+
+        @Override
+        public void setDefaultTheme(ThemeEnum themeEnum) {
+
+        }
+
+        @Override
+        public ThemeEnum getDefaultTheme() {
+            return null;
+        }
+
+        @Override
+        public void setHintsEnabled(boolean enabled) {
+
+        }
+
+        @Override
+        public boolean getHintsEnabled() {
+            return false;
         }
 
         @Override
@@ -232,6 +264,11 @@ public class AddCommandTest {
 
         @Override
         public void removeWordBank() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GlobalStatistics getGlobalStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }

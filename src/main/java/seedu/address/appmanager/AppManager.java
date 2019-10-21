@@ -17,7 +17,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
+import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
 import seedu.address.statistics.WordBankStatistics;
@@ -93,6 +96,7 @@ public class AppManager {
             if (gameCommandResult.isFinishedGame()) {
                 abortAnyExistingGameTimer();
                 logic.saveUpdatedWbStatistics(gameStatisticsBuilder.build());
+                logic.incrementPlay();
             }
         }
 
@@ -107,12 +111,20 @@ public class AppManager {
         return commandResult;
     }
 
+    public String getSelectedWbName() {
+        return logic.getActiveWordBankStatistics().getWordBankName();
+    }
+
     private void requestHintAndCallBack() {
         hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
     }
 
     public Logic getLogic() {
         return logic;
+    }
+
+    public ReadOnlyWordBank getActiveWordBank() {
+        return logic.getActiveWordBank();
     }
 
     public AppSettings getAppSettings() {
@@ -127,8 +139,16 @@ public class AppManager {
         gameStatisticsBuilder = new GameStatisticsBuilder(title);
     }
 
-    public WordBankStatistics getWordBankStatistics() {
-        return logic.getWordBankStatistics();
+    public WordBankStatistics getActiveWordBankStatistics() {
+        return logic.getActiveWordBankStatistics();
+    }
+
+    public WordBankStatisticsList getActiveWordBankStatisticsList() {
+        return logic.getWordBankStatisticsList();
+    }
+
+    public GlobalStatistics getGlobalStatistics() {
+        return logic.getGlobalStatistics();
     }
 
     public ObservableList<Card> getFilteredPersonList() {
