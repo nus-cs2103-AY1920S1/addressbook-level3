@@ -11,7 +11,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.meme.Meme;
 
 /**
- * Edits the details of an existing meme in the meme book.
+ * Likes a meme in the display window.
  */
 public class LikeCommand extends Command {
 

@@ -86,9 +86,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return statsDataFilePath;
     }
 
-    public void setStatsDataFilePath(Path likeDataFilePath) {
-        requireNonNull(likeDataFilePath);
-        this.statsDataFilePath = likeDataFilePath;
+    public void setStatsDataFilePath(Path statsDataFilePath) {
+        requireNonNull(statsDataFilePath);
+        this.statsDataFilePath = statsDataFilePath;
     }
 
     @Override

@@ -71,7 +71,6 @@ public class JsonStatsDataStorage implements StatsDataStorage {
      */
     public void saveStatsData(StatsEngine statsEngine, Path filePath) throws IOException {
         requireNonNull(statsEngine);
-        requireNonNull(statsEngine);
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableStatsData(statsEngine), filePath);
