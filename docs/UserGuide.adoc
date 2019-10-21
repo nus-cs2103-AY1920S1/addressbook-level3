@@ -225,6 +225,11 @@ An item can have any number of tags (including 0)
 Tags an item from the list according to user input +
 Format: `tag|<index>|<tag>[<other tags>]...`
 
+OR
+
+Shows the tags you have created +
+Format: `tag`
+
 ****
 * Tags the item at the specified `<index>`.
 * The index refers to the index number shown in the list.
@@ -239,6 +244,8 @@ Examples:
 `tag|2|#Nestle #Caffeine` +
 Tags the 2nd item in the list with `#Nestle` and `#Caffeine`.
 
+* `tag` +
+Shows all tags created.
 
 === Clearing all entries : `clear`
 

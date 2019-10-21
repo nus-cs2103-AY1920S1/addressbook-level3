@@ -3,6 +3,7 @@ package io.xpire.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -166,6 +167,13 @@ public class ModelManager implements Model {
             // search commands have been executed before
             this.filteredItems.setPredicate(predicate.and(p));
         }
+    }
+
+    // =========== Tag Item List Accessors =============================================================
+
+    @Override
+    public List<Item> getAllItemList() {
+        return this.xpire.getItemList();
     }
 
     @Override

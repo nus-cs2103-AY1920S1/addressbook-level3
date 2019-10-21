@@ -110,21 +110,7 @@ public class XpireParser {
             CheckCommand.COMMAND_WORD
         };
         Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
-        sb.append(findSimilar(command, allCommandsSet, 1));
+        sb.append(StringUtil.findSimilar(command, allCommandsSet, 1));
         throw new ParseException(sb.toString());
-    }
-
-    /**
-     * Finds similar words to the word specified.
-     * @param word The word specified to find similar words for.
-     * @param allWordsToCompare The set that contains all words to compare the word to.
-     * @param limit The maximum degree of polarity between words acceptable.
-     * @return The string which contains all similar words.
-     */
-    public static String findSimilar(String word, Set<String> allWordsToCompare, int limit) {
-        if (!StringUtil.getSuggestions(word, allWordsToCompare, limit).isEmpty()) {
-            return " Did you perhaps mean " + StringUtil.getSuggestions(word, allWordsToCompare, limit) + "?";
-        }
-        return "";
     }
 }

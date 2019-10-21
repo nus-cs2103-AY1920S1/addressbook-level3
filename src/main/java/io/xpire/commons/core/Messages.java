@@ -12,5 +12,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_REMINDER_THRESHOLD = "%s is not a valid reminder threshold.";
     public static final String MESSAGE_INVALID_TAGS = "Tags are not in the item specified!";
     public static final String MESSAGE_UNKNOWN_DELETE_MODE = "Unknown Delete mode.";
+    public static final String MESSAGE_SUGGESTIONS = " Did you perhaps mean %s?";
 
 }

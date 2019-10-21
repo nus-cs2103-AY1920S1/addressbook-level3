@@ -129,8 +129,9 @@ public class ParserUtil {
         requireNonNull(key);
         String trimmedMethodOfSorting = key.trim();
         if (!MethodOfSorting.isValidMethodOfSorting(trimmedMethodOfSorting)) {
-            Set<String> allowedArgs = new TreeSet<>(Arrays.asList(new String[]{"name", "date"}));
-            String output = XpireParser.findSimilar(key, allowedArgs, 2);
+            Set<String> allowedArgs = new TreeSet<>(Arrays.asList(
+                    MethodOfSorting.SORT_NAME, MethodOfSorting.SORT_DATE));
+            String output = StringUtil.findSimilar(key, allowedArgs, 1);
             throw new ParseException(MethodOfSorting.MESSAGE_CONSTRAINTS + output);
         }
         return new MethodOfSorting(trimmedMethodOfSorting);

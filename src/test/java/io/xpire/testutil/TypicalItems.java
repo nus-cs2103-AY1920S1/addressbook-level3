@@ -27,9 +27,7 @@ public class TypicalItems {
                                             .withExpiryDate(IN_TWO_WEEKS)
                                             .withQuantity("5").build();
 
-    public static final Item APPLE = new ItemBuilder().withName("Apple")
-                                                      .withExpiryDate(TODAY)
-                                                      .withQuantity("1").build();
+
 
     public static final Item KIWI = new ItemBuilder().withName("Kiwi")
                                                       .withExpiryDate(IN_A_MONTH)
@@ -56,6 +54,10 @@ public class TypicalItems {
                                                                .withQuantity("1")
                                                                .withThreshold("8").build();
     // already expired
+    public static final Item EXPIRED_APPLE = new ItemBuilder().withName("Apple")
+                                                              .withExpiryDate(TODAY)
+                                                              .withQuantity("1").build();
+
     public static final Item EXPIRED_ORANGE = new ItemBuilder().withName("Orange")
                                                              .withExpiryDate(PASSED_A_DAY)
                                                              .withQuantity("1").build();
@@ -81,7 +83,7 @@ public class TypicalItems {
 
     public static List<Item> getTypicalItems() {
 
-        return new ArrayList<>(Arrays.asList(EXPIRED_MILK, BANANA, APPLE, EXPIRED_ORANGE, EXPIRING_FISH, DUCK,
+        return new ArrayList<>(Arrays.asList(EXPIRED_MILK, BANANA, EXPIRED_APPLE, EXPIRED_ORANGE, EXPIRING_FISH, DUCK,
                 JELLY));
 
     }

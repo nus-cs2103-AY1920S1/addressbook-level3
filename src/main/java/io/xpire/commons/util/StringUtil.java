@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import io.xpire.commons.core.Messages;
+
 /**
  * Helper functions for handling strings.
  */
@@ -80,6 +82,28 @@ public class StringUtil {
         }
     }
 
+    /**
+     * Converts string to sentence-case (first character upper-case, the rest lower-case).
+     *
+     * @param string String to be converted.
+     * @return new String in sentence case.
+     */
+    public static String convertToSentenceCase(String string) {
+        requireNonNull(string);
+        String newString;
+        switch (string.length()) {
+        case 0:
+            newString = "";
+            break;
+        case 1:
+            newString = string.toUpperCase();
+            break;
+        default:
+            newString = Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+        }
+        return newString;
+    }
+
     //@@author febee99-reused
     //Reused from
     //https://github.com/crwohlfeil/damerau-levenshtein/blob/master/src/main/java/com/codeweasel/DamerauLevenshtein.java
@@ -92,7 +116,7 @@ public class StringUtil {
      * @param target the second string
      * @return The Levenshtein Distance between the two strings.
      */
-    public static int computeDistance (String source, String target) {
+    private static int computeDistance (String source, String target) {
         if (source == null || target == null) {
             throw new IllegalArgumentException("Parameter must not be null");
         }
@@ -114,7 +138,9 @@ public class StringUtil {
         for (int i = 1; i < sourceLength + 1; i++) {
             for (int j = 1; j < targetLength + 1; j++) {
                 int cost = source.charAt(i - 1) == target.charAt(j - 1) ? 0 : 1;
+                //minimum cost between insertion, deletion, replacement
                 dist[i][j] = Math.min(Math.min(dist[i - 1][j] + 1, dist[i][j - 1] + 1), dist[i - 1][j - 1] + cost);
+                //check for transpositions
                 if (i > 1 && j > 1
                         && source.charAt(i - 1) == target.charAt(j - 2)
                         && source.charAt(i - 2) == target.charAt(j - 1)) {
@@ -133,7 +159,7 @@ public class StringUtil {
      * @param limit The maximum degree of differences to which is accepted.
      * @return Suggestions that are the most appropriate replacements for the word entered.
      */
-    public static String getSuggestions(String invalidWord, Set<String> set, int limit) {
+    private static String getSuggestions(String invalidWord, Set<String> set, int limit) {
         StringBuilder matches = new StringBuilder();
         TreeMap<Integer, TreeSet<String>> allMatches = new TreeMap<>();
         for (String s : set) {
@@ -157,24 +183,16 @@ public class StringUtil {
     }
 
     /**
-     * Converts string to sentence-case (first character upper-case, the rest lower-case).
-     *
-     * @param string String to be converted.
-     * @return new String in sentence case.
+     * Returns a formatted string containing similar words to the word specified.
+     * @param word The word specified to find similar words for.
+     * @param allWordsToCompare The set that contains all words to compare the word to.
+     * @param limit The maximum degree of polarity between words acceptable.
+     * @return The string which contains all similar words.
      */
-    public static String convertToSentenceCase(String string) {
-        requireNonNull(string);
-        String newString;
-        switch (string.length()) {
-        case 0:
-            newString = "";
-            break;
-        case 1:
-            newString = string.toUpperCase();
-            break;
-        default:
-            newString = Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+    public static String findSimilar(String word, Set<String> allWordsToCompare, int limit) {
+        if (!StringUtil.getSuggestions(word, allWordsToCompare, limit).isEmpty()) {
+            return String.format(Messages.MESSAGE_SUGGESTIONS, getSuggestions(word, allWordsToCompare, limit));
         }
-        return newString;
+        return "";
     }
 }

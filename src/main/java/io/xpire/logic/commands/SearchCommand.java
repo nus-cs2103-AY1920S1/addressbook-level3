@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import io.xpire.commons.core.Messages;
-import io.xpire.logic.parser.XpireParser;
+import io.xpire.commons.util.StringUtil;
 import io.xpire.model.Model;
 import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Name;
@@ -41,11 +41,11 @@ public class SearchCommand extends Command {
         if (model.getFilteredItemList().size() == 0) {
             predicate.getKeywords().forEach(s -> {
                 if (s.startsWith("#")) {
-                    sb.append(XpireParser.findSimilar(s, model.getAllItemTags().stream()
-                                                              .map(Tag::toString)
-                                                              .collect(Collectors.toSet()), 3));
+                    sb.append(StringUtil.findSimilar(s, model.getAllItemTags().stream()
+                                                             .map(Tag::toString)
+                                                             .collect(Collectors.toSet()), 3));
                 } else {
-                    sb.append(XpireParser.findSimilar(s, model.getAllItemNames().stream()
+                    sb.append(StringUtil.findSimilar(s, model.getAllItemNames().stream()
                                                               .map(Name::toString)
                                                               .map(x -> x.split("\\s+"))
                                                               .flatMap(Arrays::stream)
