@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.incident.DescriptionKeywordsPredicate;
 import seedu.address.model.incident.IdKeywordsPredicate;
 import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.NameKeywordsPredicate;
 
 
 /**
@@ -38,6 +39,10 @@ public class SearchIncidentsCommand extends Command {
 
     public SearchIncidentsCommand(IdKeywordsPredicate idPredicate) {
         this.predicate = idPredicate;
+    }
+
+    public SearchIncidentsCommand(NameKeywordsPredicate namePredicate) {
+        this.predicate = namePredicate;
     }
 
     @Override
