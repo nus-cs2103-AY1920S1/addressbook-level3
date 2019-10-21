@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.typee.commons.util.CollectionUtil;
 import com.typee.model.person.Person;
+import com.typee.model.person.exceptions.DuplicateEngagementException;
 import com.typee.model.person.exceptions.DuplicatePersonException;
 import com.typee.model.person.exceptions.PersonNotFoundException;
 
@@ -94,7 +95,7 @@ public class UniqueEngagementList implements Iterable<Engagement> {
     public void setEngagements(List<Engagement> engagements) {
         CollectionUtil.requireAllNonNull(engagements);
         if (!engagementsAreUnique(engagements)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEngagementException();
         }
 
         internalList.setAll(engagements);
