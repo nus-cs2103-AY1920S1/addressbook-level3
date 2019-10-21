@@ -289,7 +289,6 @@ public interface Model {
     void updateFilteredNotesList(Predicate<Note> predicate);
     //endregion
 
-<<<<<<< HEAD
     //region EventRecord
     void setEventRecord(Path eventRecordFilePath);
 
@@ -307,6 +306,4 @@ public interface Model {
     void setVEvent(VEvent target, VEvent editedVEvent);
     String getVEventSummary();
     //endregion
-=======
->>>>>>> upstream/master
 }
