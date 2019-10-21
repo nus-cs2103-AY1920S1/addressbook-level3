@@ -13,6 +13,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -54,10 +56,8 @@ public class AutoCompleteTextField extends TextField {
                         .collect(Collectors.toList());
                 if (!filteredEntries.isEmpty()) {
                     populatePopup(filteredEntries, enteredText);
-                    if (!entriesPopup.isShowing()) {
-                        entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
-                        entriesPopup.requestFocus();
-                    }
+                    entriesPopup.hide(); // This ensures the down key always works
+                    entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
                 } else {
                     entriesPopup.hide();
                 }
