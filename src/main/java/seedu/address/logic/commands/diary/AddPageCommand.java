@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PAGE_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -19,9 +19,9 @@ import seedu.address.model.diary.components.Page;
 /**
  * Adds a diary to Duke Cooks.
  */
-public class AddPageCommand extends Command {
+public class AddPageCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "addPage";
+    public static final String VARIANT_WORD = "page";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a page to a diary in DiaryRecords. "
             + "Parameters: "

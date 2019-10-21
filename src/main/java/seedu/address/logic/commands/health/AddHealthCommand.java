@@ -2,7 +2,7 @@ package seedu.address.logic.commands.health;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -11,9 +11,9 @@ import seedu.address.model.health.components.Record;
 /**
  * Adds a record to Duke Cooks.
  */
-public class AddHealthCommand extends Command {
+public class AddHealthCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "addHealth";
+    public static final String VARIANT_WORD = "health";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a health record";
 
