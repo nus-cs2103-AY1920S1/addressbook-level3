@@ -288,10 +288,8 @@ public class ModelManager implements Model {
      */
     @Override
     public Model getClone() {
-        Billboard billboard = this.billboard.getClone();
-        FilteredList<Expense> filteredExpense = new FilteredList<>(billboard.getExpenses());
-        return new ModelManager(billboard, archives.getClone(), userPrefs, statsType.getClone(),
-                filteredExpense, (HashMap<String, FilteredList<Expense>>) filteredArchives.clone());
+        Billboard billboard = getCombinedBillboard().getClone();
+        return new ModelManager(billboard, userPrefs);
     }
 
     /**
