@@ -82,7 +82,7 @@
 }
 
 .help-text {
-    -fx-font-size: 15pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Franklin Gothic Demi Cond";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -338,7 +338,7 @@
 
 .help-button {
     -fx-text-fill: white;
-    -fx-font-size: 15pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Franklin Gothic Demi Cond";
 }
 
