@@ -220,11 +220,11 @@ Format: `listplan`
 ==== Adding a new task to a plan: `addtask`
 
 Adds a task to a specified plan. +
-Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX`
+Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/TARGET_DATE]`
 
 Examples:
 
-* `addtask plan/1 prob/1`
+* `addtask plan/1 prob/1 due/2019-12-12`
 
 ==== Deleting a task from a plan: `deletetask`
 

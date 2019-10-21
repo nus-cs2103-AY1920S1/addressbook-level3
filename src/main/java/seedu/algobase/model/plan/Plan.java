@@ -2,8 +2,7 @@ package seedu.algobase.model.plan;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,23 +16,20 @@ import seedu.algobase.model.task.Task;
  */
 public class Plan {
 
-    public static final String DATE_TIME_CONSTRAINTS = "DateTime format should be 'yyyy-MM-dd HH:mm:ss'.";
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     // Identity fields
     private final long id;
     private final PlanName planName;
 
     // Data fields
     private final PlanDescription planDescription;
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
     private final Set<Task> tasks;
 
     /**
      * Every field must be present and not null.
      */
-    public Plan(PlanName planName, PlanDescription planDescription, LocalDateTime startDate, LocalDateTime endDate,
+    public Plan(PlanName planName, PlanDescription planDescription, LocalDate startDate, LocalDate endDate,
                 Set<Task> tasks) {
         requireAllNonNull(planName, planDescription, startDate, endDate, tasks);
         this.id = System.currentTimeMillis() / 1000L;
@@ -45,8 +41,8 @@ public class Plan {
         this.tasks.addAll(tasks);
     }
 
-    public Plan(long id, PlanName planName, PlanDescription planDescription, LocalDateTime startDate,
-                LocalDateTime endDate, Set<Task> tasks) {
+    public Plan(long id, PlanName planName, PlanDescription planDescription, LocalDate startDate,
+                LocalDate endDate, Set<Task> tasks) {
         requireAllNonNull(id, planName, planDescription, startDate, endDate, tasks);
         this.id = id;
         this.planName = planName;
@@ -67,8 +63,8 @@ public class Plan {
         long id = planToUpdate.id;
         PlanName name = planToUpdate.planName;
         PlanDescription description = planToUpdate.planDescription;
-        LocalDateTime startDate = planToUpdate.startDate;
-        LocalDateTime endDate = planToUpdate.endDate;
+        LocalDate startDate = planToUpdate.startDate;
+        LocalDate endDate = planToUpdate.endDate;
 
         return new Plan(id, name, description, startDate, endDate, taskSet);
     }
@@ -85,11 +81,11 @@ public class Plan {
         return planDescription;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 

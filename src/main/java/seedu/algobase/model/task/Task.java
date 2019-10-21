@@ -2,8 +2,7 @@ package seedu.algobase.model.task;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,39 +22,28 @@ import seedu.algobase.model.tag.Tag;
  */
 public class Task {
 
-    public static final String DATE_TIME_CONSTRAINTS = "DateTime format should be 'yyyy-MM-dd HH:mm:ss'.";
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     private final long id;
     private final Problem problem;
     private final Boolean isSolved;
-    private final LocalDateTime dateTime;
+    private final LocalDate targetDate;
 
     /**
      * Problem field must be present and not null.
      */
-    public Task(Problem problem) {
-        requireAllNonNull(problem);
-        this.id = System.currentTimeMillis() / 1000L;
-        this.problem = problem;
-        this.isSolved = false;
-        this.dateTime = LocalDateTime.now();
-    }
-
-    public Task(Problem problem, boolean isSolved) {
+    public Task(Problem problem, LocalDate targetDate, boolean isSolved) {
         requireAllNonNull(problem);
         this.id = System.currentTimeMillis() / 1000L;
         this.problem = problem;
         this.isSolved = isSolved;
-        this.dateTime = LocalDateTime.now();
+        this.targetDate = targetDate;
     }
 
-    public Task(long id, Problem problem, boolean isSolved) {
+    public Task(long id, Problem problem, LocalDate targetDate, boolean isSolved) {
         requireAllNonNull(id, problem);
         this.id = id;
         this.problem = problem;
         this.isSolved = isSolved;
-        this.dateTime = LocalDateTime.now();
+        this.targetDate = targetDate;
     }
 
     /**
@@ -67,8 +55,9 @@ public class Task {
 
         long id = taskToUpdate.id;
         Problem problem = taskToUpdate.problem;
+        LocalDate targetDate = taskToUpdate.targetDate;
 
-        return new Task(id, problem, isSolved);
+        return new Task(id, problem, targetDate, isSolved);
     }
 
     public long getId() {
@@ -119,8 +108,8 @@ public class Task {
         return isSolved;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getTargetDate() {
+        return targetDate;
     }
 
     /**
@@ -150,13 +139,13 @@ public class Task {
         Task otherTask = (Task) other;
         return otherTask.getProblem().equals(getProblem())
                 && otherTask.getIsSolved().equals(getIsSolved())
-                && otherTask.getDateTime().equals(getDateTime());
+                && otherTask.getTargetDate().equals(getTargetDate());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(problem, isSolved, dateTime);
+        return Objects.hash(problem, isSolved, targetDate);
     }
 
     @Override
@@ -165,7 +154,7 @@ public class Task {
         builder.append("Problem: ")
             .append(getProblem())
             .append(" Date: ")
-            .append(getDateTime())
+            .append(getTargetDate())
             .append(" isSolved: ")
             .append(getIsSolved());
         return builder.toString();

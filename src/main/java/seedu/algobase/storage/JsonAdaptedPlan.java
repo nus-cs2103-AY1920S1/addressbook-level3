@@ -1,7 +1,7 @@
 package seedu.algobase.storage;
 
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
@@ -59,8 +60,8 @@ class JsonAdaptedPlan {
         id = Long.toString(plan.getId());
         name = plan.getPlanName().fullName;
         description = plan.getPlanDescription().value;
-        startDate = plan.getStartDate().format(Plan.FORMATTER);
-        endDate = plan.getEndDate().format(Plan.FORMATTER);
+        startDate = plan.getStartDate().format(ParserUtil.FORMATTER);
+        endDate = plan.getEndDate().format(ParserUtil.FORMATTER);
         taskList.addAll(plan.getTasks().stream()
             .map(JsonAdaptedTask::new)
             .collect(Collectors.toList()));
@@ -80,8 +81,8 @@ class JsonAdaptedPlan {
         final long modelId = retrieveId(id);
         final PlanName modelName = retrieveName(name);
         final PlanDescription modelDescription = retrieveDescription(description);
-        final LocalDateTime modelStartDate = retrieveDate(startDate);
-        final LocalDateTime modelEndDate = retrieveDate(endDate);
+        final LocalDate modelStartDate = retrieveDate(startDate);
+        final LocalDate modelEndDate = retrieveDate(endDate);
         final Set<Task> modelTasks = new HashSet<>(tasks);
 
         return new Plan(modelId, modelName, modelDescription, modelStartDate, modelEndDate,
@@ -159,16 +160,16 @@ class JsonAdaptedPlan {
      * @return the corresponding LocalDateTime Object.
      * @throws IllegalValueException if {@code date} is invalid.
      */
-    private LocalDateTime retrieveDate(String date) throws IllegalValueException {
+    private LocalDate retrieveDate(String date) throws IllegalValueException {
         if (date == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "Date"));
         }
 
         try {
-            return LocalDateTime.parse(date, Plan.FORMATTER);
+            return LocalDate.parse(date, ParserUtil.FORMATTER);
         } catch (DateTimeException e) {
-            throw new IllegalValueException(Plan.DATE_TIME_CONSTRAINTS);
+            throw new IllegalValueException(ParserUtil.DATE_CONSTRAINTS);
         }
     }
 }

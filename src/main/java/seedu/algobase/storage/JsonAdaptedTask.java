@@ -1,12 +1,13 @@
 package seedu.algobase.storage;
 
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.task.Task;
@@ -43,7 +44,7 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(Task task) {
         id = Long.toString(task.getId());
         problemId = Long.toString(task.getProblem().getId());
-        dateTime = task.getDateTime().format(Task.FORMATTER);
+        dateTime = task.getTargetDate().format(ParserUtil.FORMATTER);
         isSolved = Boolean.toString(task.getIsSolved());
     }
 
@@ -55,10 +56,10 @@ class JsonAdaptedTask {
     public Task toModelType(AlgoBase algoBase) throws IllegalValueException {
         final long modelId = retrieveId(id);
         final Problem modelProblem = algoBase.findProblemById(retrieveId(problemId));
-        final LocalDateTime modelDateTime = retrieveDate(dateTime);
+        final LocalDate modelDateTime = retrieveDate(dateTime);
         final boolean modelIsSolved = retrieveIsSolved(isSolved);
 
-        return new Task(modelId, modelProblem, modelIsSolved);
+        return new Task(modelId, modelProblem, modelDateTime, modelIsSolved);
     }
 
     /**
@@ -88,16 +89,16 @@ class JsonAdaptedTask {
      * @return the corresponding LocalDateTime Object.
      * @throws IllegalValueException if {@code date} is invalid.
      */
-    private LocalDateTime retrieveDate(String date) throws IllegalValueException {
+    private LocalDate retrieveDate(String date) throws IllegalValueException {
         if (date == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "Date"));
         }
 
         try {
-            return LocalDateTime.parse(date, Task.FORMATTER);
+            return LocalDate.parse(date, ParserUtil.FORMATTER);
         } catch (DateTimeException e) {
-            throw new IllegalValueException(Task.DATE_TIME_CONSTRAINTS);
+            throw new IllegalValueException(ParserUtil.DATE_CONSTRAINTS);
         }
     }
 

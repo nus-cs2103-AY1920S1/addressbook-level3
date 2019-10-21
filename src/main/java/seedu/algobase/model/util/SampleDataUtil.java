@@ -1,6 +1,6 @@
 package seedu.algobase.model.util;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -87,15 +87,24 @@ public class SampleDataUtil {
         Set<Task> tasks = new HashSet<>();
         for (Problem sampleProblem : getSampleProblems()) {
             sampleAb.addProblem(sampleProblem);
-            tasks.add(new Task(sampleProblem));
+            tasks.add(new Task(sampleProblem, LocalDate.now().plusMonths(1), false));
         }
-        Plan samplePlan = new Plan(new PlanName("Graph Algo"),
-            new PlanDescription("CS2040 Graph Algorithms"),
-            LocalDateTime.now(),
-            LocalDateTime.now(),
+        Plan samplePlan = new Plan(
+            new PlanName("Data Structures"),
+            new PlanDescription("CS2040 Data Structures"),
+            LocalDate.now(),
+            LocalDate.now().plusMonths(1),
             tasks
         );
         sampleAb.addPlan(samplePlan);
+        Plan samplePlan2 = new Plan(
+            new PlanName("Graph Algorithms"),
+            new PlanDescription("CS3230 Graph Algorithms"),
+            LocalDate.now(),
+            LocalDate.now().plusMonths(1),
+            tasks
+        );
+        sampleAb.addPlan(samplePlan2);
         return sampleAb;
     }
 

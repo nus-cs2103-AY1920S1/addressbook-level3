@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -33,6 +34,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label targetDate;
+    @FXML
     private Label author;
     @FXML
     private Label description;
@@ -52,6 +55,7 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName + task.getStatusIcon());
+        targetDate.setText(task.getTargetDate().format(ParserUtil.FORMATTER));
         author.setText(task.getAuthor().value);
         description.setText(task.getDescription().value);
         weblink.setText(task.getWebLink().value);

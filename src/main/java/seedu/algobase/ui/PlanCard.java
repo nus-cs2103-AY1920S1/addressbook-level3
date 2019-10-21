@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.plan.Plan;
 
 
@@ -35,8 +36,8 @@ public class PlanCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         planName.setText(plan.getPlanName().fullName + " (" + plan.getTasks().size() + " tasks)");
         planDescription.setText(plan.getPlanDescription().value);
-        startDate.setText(plan.getStartDate().format(Plan.FORMATTER));
-        endDate.setText(plan.getEndDate().format(Plan.FORMATTER));
+        startDate.setText(plan.getStartDate().format(ParserUtil.FORMATTER));
+        endDate.setText(plan.getEndDate().format(ParserUtil.FORMATTER));
     }
 
     @Override
