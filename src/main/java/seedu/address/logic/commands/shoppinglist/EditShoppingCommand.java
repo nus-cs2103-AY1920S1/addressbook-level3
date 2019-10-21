@@ -67,8 +67,10 @@ public class EditShoppingCommand extends Command {
         ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
         ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
 
-        model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
-        model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+        if (!shoppingItemToEdit.isBought()) {
+            model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
+            model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+        }
         CommandResult commandResult =
                 new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem));
         commandResult.setShoppingListCommand();
@@ -85,9 +87,8 @@ public class EditShoppingCommand extends Command {
 
         Name updatedName = editShoppingItemDescriptor.getName().orElse(shoppingItemToEdit.getName());
         Amount updatedAmount = editShoppingItemDescriptor.getAmount().orElse(shoppingItemToEdit.getAmount());
-        boolean updatedUrgentStatus = editShoppingItemDescriptor.getUrgent().orElse(shoppingItemToEdit.isUrgent());
 
-        return new ShoppingItem(updatedName, updatedAmount, updatedUrgentStatus);
+        return new ShoppingItem(updatedName, updatedAmount);
     }
 
     /**
@@ -97,8 +98,6 @@ public class EditShoppingCommand extends Command {
     public static class EditShoppingItemDescriptor {
         private Name name;
         private Amount amount;
-        private boolean bought;
-        private boolean urgent;
 
         public EditShoppingItemDescriptor() {}
 
@@ -109,8 +108,6 @@ public class EditShoppingCommand extends Command {
         public EditShoppingItemDescriptor(EditShoppingItemDescriptor toCopy) {
             setName(toCopy.name);
             setAmount(toCopy.amount);
-            setBought(toCopy.bought);
-            setUrgent(toCopy.urgent);
             //setExpiryDate(toCopy.expiryDate);
             //setTags(toCopy.tags);
         }
@@ -130,13 +127,6 @@ public class EditShoppingCommand extends Command {
             this.amount = amount;
         }
 
-        public void setBought(boolean bought) {
-            this.bought = bought;
-        }
-
-        public void setUrgent(boolean urgent) {
-            this.urgent = urgent;
-        }
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
@@ -145,12 +135,5 @@ public class EditShoppingCommand extends Command {
             return Optional.ofNullable(amount);
         }
 
-        public Optional<Boolean> getBought() {
-            return Optional.ofNullable(bought);
-        }
-
-        public Optional<Boolean> getUrgent() {
-            return Optional.ofNullable(urgent);
-        }
     }
 }

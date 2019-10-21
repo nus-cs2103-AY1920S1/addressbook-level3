@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.shoppinglist.EditShoppingCommand;
 import seedu.address.logic.commands.shoppinglist.EditShoppingCommand.EditShoppingItemDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -49,7 +48,7 @@ public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
         }
 
         if (!editShoppingItemDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditShoppingCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditShoppingCommand(index, editShoppingItemDescriptor);
