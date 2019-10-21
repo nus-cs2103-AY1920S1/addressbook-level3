@@ -10,7 +10,7 @@
    <center>
       <HBox style="-fx-border-color: #383838;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="qnsTextArea" editable="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="result-display" stylesheets="@DarkTheme.css" text="QnsTextArea">
+            <TextArea fx:id="qnsTextArea" editable="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="result-display" stylesheets="@DarkTheme.css">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -19,7 +19,7 @@
                </HBox.margin>
             </TextArea>
             <Separator fx:id="flashcardSeparator" orientation="VERTICAL" />
-            <TextArea fx:id="ansTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" text="AnsTextArea" />
+            <TextArea fx:id="ansTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" />
          </children>
       </HBox>
    </center>
