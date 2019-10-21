@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
+
 class DescriptionContainsKeywordsPredicateTest {
 
     private static final String KEYWORD_NOT_IN_QUICK_SORT_DESCRIPTION = "1mP0ss1ble";

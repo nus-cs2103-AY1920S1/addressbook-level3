@@ -6,6 +6,8 @@ import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
+
 class DifficultyIsInRangePredicateTest {
     @Test
     public void test_difficultyInRange_returnTrue() {

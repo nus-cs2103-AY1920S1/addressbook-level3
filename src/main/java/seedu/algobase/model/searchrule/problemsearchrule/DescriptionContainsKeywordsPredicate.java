@@ -1,9 +1,10 @@
-package seedu.algobase.model.problem;
+package seedu.algobase.model.searchrule.problemsearchrule;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.algobase.commons.util.StringUtil;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Tests that a {@code Problem}'s {@code Description} includes all of the given keywords (ignoring cases).

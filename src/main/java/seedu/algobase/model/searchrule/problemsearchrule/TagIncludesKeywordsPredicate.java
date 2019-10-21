@@ -1,8 +1,9 @@
-package seedu.algobase.model.problem;
+package seedu.algobase.model.searchrule.problemsearchrule;
 
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
 /**

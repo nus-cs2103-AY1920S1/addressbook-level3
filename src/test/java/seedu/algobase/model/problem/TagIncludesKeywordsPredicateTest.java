@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPredicate;
 import seedu.algobase.model.tag.Tag;
 
 class TagIncludesKeywordsPredicateTest {

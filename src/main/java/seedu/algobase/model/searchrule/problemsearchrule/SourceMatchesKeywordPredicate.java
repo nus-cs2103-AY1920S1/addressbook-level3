@@ -1,6 +1,9 @@
-package seedu.algobase.model.problem;
+package seedu.algobase.model.searchrule.problemsearchrule;
 
 import java.util.function.Predicate;
+
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Source;
 
 /**
  * Tests that a {@code Problem}'s {@code Source} matches the given keyword exactly.

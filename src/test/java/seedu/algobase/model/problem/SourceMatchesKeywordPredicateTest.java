@@ -6,6 +6,8 @@ import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPredicate;
+
 class SourceMatchesKeywordPredicateTest {
     @Test
     public void test_sourcerMatches_returnTrue() {

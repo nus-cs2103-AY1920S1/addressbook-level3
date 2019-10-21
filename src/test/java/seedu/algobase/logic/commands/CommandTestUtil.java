@@ -19,8 +19,8 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
 
 /**
  * Contains helper methods for testing commands.

@@ -1,6 +1,9 @@
-package seedu.algobase.model.problem;
+package seedu.algobase.model.searchrule.problemsearchrule;
 
 import java.util.function.Predicate;
+
+import seedu.algobase.model.problem.Difficulty;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Tests that a {@code Problem}'s {@code Difficulty} is in the range [{@code lowerBound}, {@code upperBound}].

@@ -14,12 +14,12 @@ import java.util.List;
 
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.problem.AuthorMatchesKeywordPredicate;
-import seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate;
-import seedu.algobase.model.problem.DifficultyIsInRangePredicate;
-import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
-import seedu.algobase.model.problem.SourceMatchesKeywordPredicate;
-import seedu.algobase.model.problem.TagIncludesKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

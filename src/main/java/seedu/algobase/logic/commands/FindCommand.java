@@ -7,12 +7,12 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.algobase.model.problem.AuthorMatchesKeywordPredicate.DEFAULT_AUTHOR_PREDICATE;
-import static seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate.DEFAULT_DESCRIPTION_PREDICATE;
-import static seedu.algobase.model.problem.DifficultyIsInRangePredicate.DEFAULT_DIFFICULTY_PREDICATE;
-import static seedu.algobase.model.problem.NameContainsKeywordsPredicate.DEFAULT_NAME_PREDICATE;
-import static seedu.algobase.model.problem.SourceMatchesKeywordPredicate.DEFAULT_SOURCE_PREDICATE;
-import static seedu.algobase.model.problem.TagIncludesKeywordsPredicate.DEFAULT_TAG_PREDICATE;
+import static seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate.DEFAULT_AUTHOR_PREDICATE;
+import static seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate.DEFAULT_DESCRIPTION_PREDICATE;
+import static seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate.DEFAULT_DIFFICULTY_PREDICATE;
+import static seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate.DEFAULT_NAME_PREDICATE;
+import static seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPredicate.DEFAULT_SOURCE_PREDICATE;
+import static seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPredicate.DEFAULT_TAG_PREDICATE;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -20,13 +20,13 @@ import java.util.function.Predicate;
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.problem.AuthorMatchesKeywordPredicate;
-import seedu.algobase.model.problem.DescriptionContainsKeywordsPredicate;
-import seedu.algobase.model.problem.DifficultyIsInRangePredicate;
-import seedu.algobase.model.problem.NameContainsKeywordsPredicate;
 import seedu.algobase.model.problem.Problem;
-import seedu.algobase.model.problem.SourceMatchesKeywordPredicate;
-import seedu.algobase.model.problem.TagIncludesKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPredicate;
 
 /**
  * Finds and lists all problems in algobase fulfilling all the given constraints.
