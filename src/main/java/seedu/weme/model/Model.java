@@ -109,6 +109,15 @@ public interface Model {
      */
     void updateFilteredMemeList(Predicate<Meme> predicate);
 
+    /** Returns an unmodifiable view of the filtered template list */
+    ObservableList<Template> getFilteredTemplateList();
+
+    /**
+     * Updates the filter of the filtered template list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTemplateList(Predicate<Template> predicate);
+
     /**
      * Returns the context of the model.
      */
