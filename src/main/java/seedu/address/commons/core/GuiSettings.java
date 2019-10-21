@@ -27,6 +27,13 @@ public class GuiSettings implements Serializable {
         fontColour = DEFAULT_FONT_COLOUR;
     }
 
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
+        this.windowWidth = windowWidth;
+        this.windowHeight = windowHeight;
+        this.fontColour = DEFAULT_FONT_COLOUR;
+        windowCoordinates = new Point(xPosition, yPosition);
+    }
+
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition,
                        Colour fontColour) {
         this.windowWidth = windowWidth;

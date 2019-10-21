@@ -39,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private ThemeManager themeManager;
+    private StyleManager styleManager;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -79,7 +79,7 @@ public class MainWindow extends UiPart<Stage> {
 
         mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
-        themeManager = new ThemeManager(scene);
+        styleManager = new StyleManager(scene);
         setFontColour(logic.getGuiSettings());
 
     }
@@ -142,42 +142,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-//        try {
-//            themeManager.setFontColour("blue");
-//        } catch (Exception e) {
-//            StringWriter sw = new StringWriter();
-//            PrintWriter pw = new PrintWriter(sw);
-//            e.printStackTrace(pw);
-//            resultDisplay.setFeedbackToUser(sw.toString());
-//            InputStream is = this.getClass().getResourceAsStream("/view/DarkTheme.css");
-//            try {
-//                resultDisplay.setFeedbackToUser(new String(is.readAllBytes(), StandardCharsets.UTF_8));
-//            } catch (IOException ex) {
-//                resultDisplay.setFeedbackToUser("IO Exception" + ex);
-//            }
-//        }
-
-//        ObservableList<String> styleSheets = scene.getStylesheets();
-//        String darkThemeUri = styleSheets.get(0);
-//        try {
-//            Path darkThemePath = Paths.get(new URI(darkThemeUri));
-//            File darkTheme = new File(darkThemePath.toString());
-//            String myThemePathString = darkThemePath.getParent().toString() + "/MyTheme.css";
-//            File myTheme = new File(myThemePathString);
-//            System.out.println("myThemeExists" + myTheme.exists());
-//            styleSheets.set(0, myTheme.toURI().toString());
-//            System.out.println(styleSheets);
-//            System.out.println(darkThemeUri);
-//            System.out.println(darkTheme.exists());
-//            BufferedReader br = new BufferedReader(new FileReader(myTheme));
-//            String s;
-//            while ((s = br.readLine()) != null) {
-//                System.out.println(s);
-//            }
-//        } catch (URISyntaxException | IOException e) {
-//            System.out.println(e);
-//        }
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -200,7 +164,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param guiSettings
      */
     private void setFontColour(GuiSettings guiSettings) {
-        themeManager.setFontColour(guiSettings.getFontColour());
+        styleManager.setFontColour(guiSettings.getFontColour());
     }
 
     /**

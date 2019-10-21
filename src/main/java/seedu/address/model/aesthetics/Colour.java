@@ -15,15 +15,11 @@ public class Colour {
     public static final String MESSAGE_CONSTRAINTS =
             "Colour should be a valid colour or a hexadecimal representation of a colour.";
 
+    public static final String HEXADECIMAL_VALIDATION_REGEX = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+
     private static final List<ColourName> COLOUR_NAMES = Arrays.asList(ColourName.values());
     private static final List<ColourNameAsHexadecimal> COLOUR_NAMES_AS_HEXADECIMAL = Arrays
             .asList(ColourNameAsHexadecimal.values());
-
-    /*
-     * The first character of the colour must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String HEXADECIMAL_VALIDATION_REGEX = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
 
     public final String colour;
 
@@ -39,7 +35,13 @@ public class Colour {
         this.colour = (colourName != null) ? colourName.toString().toLowerCase() : colour.toLowerCase();
     }
 
-    public static ColourName getColourNameAsHexadecimal(String hexadecimal) {
+    /**
+     * Converts a hexadecimal value entered into a colour name, if available.
+     * Otherwise returns null.
+     * @param hexadecimal String representation of hexadecimal to be converted.
+     * @return Colour name converted from a hexadecimal value if any.
+     */
+    private static ColourName getColourNameAsHexadecimal(String hexadecimal) {
         int hexIndex = -1;
         for (int i = 0; i < COLOUR_NAMES_AS_HEXADECIMAL.size(); i++) {
             ColourNameAsHexadecimal colourNameAsHexadecimal = COLOUR_NAMES_AS_HEXADECIMAL.get(i);

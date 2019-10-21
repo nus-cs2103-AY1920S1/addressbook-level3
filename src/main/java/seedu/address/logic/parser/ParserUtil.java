@@ -345,7 +345,6 @@ public class ParserUtil {
         }
         return new Colour(trimmedColour);
     }
-    
 
     //=========== Food Map =============================================================
     /**

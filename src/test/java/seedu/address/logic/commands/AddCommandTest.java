@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
@@ -327,6 +328,19 @@ public class AddCommandTest {
         public void setUserListFilePath(Path userListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
+
+        //=========== User List =============================================================
+
+        @Override
+        public Colour getFontColour() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFontColour(Colour fontColour) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
