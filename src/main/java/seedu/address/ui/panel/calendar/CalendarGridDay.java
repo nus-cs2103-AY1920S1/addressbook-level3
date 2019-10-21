@@ -16,7 +16,9 @@ public class CalendarGridDay extends UiPart<Region> {
     private static final float MAX_SATURATION = 0.75f;
     private static final int MAX_EVENT = 10;
     private static final String FXML = "CalendarGridDay.fxml";
-    private Integer dayIndex;
+    private Integer day;
+    private Integer month;
+    private Integer year;
     private Integer totalEvents;
 
     @FXML
@@ -25,21 +27,24 @@ public class CalendarGridDay extends UiPart<Region> {
     @FXML
     private Label calendarDay;
 
-    /**
-     * Constructor for CalendarGridDay. Displays a number in the grid representing a day.
-     * @param dayIndex The number given.
-     */
-    public CalendarGridDay(Integer dayIndex, Integer totalEvents) {
+    public CalendarGridDay(Integer day, Integer month, Integer year, Integer totalEvents) {
         super(FXML);
-        this.dayIndex = dayIndex;
+        this.day = day;
+        this.month = month;
+        this.year = year;
         this.totalEvents = totalEvents;
-        calendarDay.setText(dayIndex.toString());
+        calendarDay.setText(day.toString());
         colorChange();
     }
 
     public void addAnEvent() {
         this.totalEvents++;
         colorChange();
+    }
+
+    public Integer[] getDayMonthYear() {
+        Integer[] dayMonthYear = {day, month, year};
+        return dayMonthYear;
     }
 
     private void colorChange() {

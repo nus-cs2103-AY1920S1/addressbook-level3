@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.security.Key;
 import java.time.Instant;
 import java.util.List;
 import java.util.function.Consumer;
@@ -180,6 +179,16 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         viewTitle.setText("Calendar");
     }
 
+    public void viewDay(int day, int month, int year) {
+        calendarPanel.changeToDayView(day, month, year);
+        viewCalendar();
+    }
+
+    public void viewWeek(int week, int month, int year) {
+        calendarPanel.changeToWeekView(week, month, year);
+        viewCalendar();
+    }
+
     /**
      * Temporary method to view the event list
      */
@@ -205,6 +214,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
      */
     private void createOutputLogBox(String feedbackToUser, String color) {
         requireNonNull(feedbackToUser);
+        popUpPanel.getChildren().clear();
         PopUpBox popUpBox = new PopUpBox(feedbackToUser, color);
         Region popUpBoxRoot = popUpBox.getRoot();
         Timeline popUpAnimation = new Timeline(
@@ -217,19 +227,21 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
                     translateTransition.setToY(initialPos + 40);
                     translateTransition.setCycleCount(1);
                     translateTransition.setAutoReverse(true);
+                    translateTransition.setDuration(new Duration(250));
                     translateTransition.play();
                 }),
-                new KeyFrame(Duration.seconds(5), event -> {
+                new KeyFrame(Duration.seconds(3), event -> {
                     TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
                     double initialPos = popUpBoxRoot.getTranslateY();
                     translateTransition.setFromY(initialPos);
                     translateTransition.setToY(initialPos - 40);
                     translateTransition.setCycleCount(1);
                     translateTransition.setAutoReverse(true);
+                    translateTransition.setDuration(new Duration(250));
                     translateTransition.play();
                 }),
-                new KeyFrame(Duration.seconds(8), event -> {
-                    popUpPanel.getChildren().clear();
+                new KeyFrame(Duration.seconds(4), event -> {
+                    popUpPanel.getChildren().remove(popUpBoxRoot);
                 })
         );
         popUpAnimation.setCycleCount(1);
@@ -256,24 +268,17 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Changes of the timeline of the calendar
-     */
-    public void changeTimelineDate(Instant dateTime) {
-        calendarPanel.changeTimelineDate(dateTime);
-    }
-
-    /**
      * Changes of the calendar screen of the calendar
      */
-    public void changeCalendarScreenDate(Instant dateTime) {
-        calendarPanel.changeCalendarScreenDate(dateTime);
+    public void changeCalendarScreenDate(int month, int year) {
+        calendarPanel.changeCalendarScreenDate(month, year);
     }
 
     private void addResizingListeners() {
         primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                calendarPanel.resizeTimelineDayView();
+                calendarPanel.resizeTimelineView();
             }
         });
     }

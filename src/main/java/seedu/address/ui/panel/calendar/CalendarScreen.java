@@ -26,6 +26,7 @@ public class CalendarScreen extends UiPart<Region> {
     private Integer year;
     private LocalDate localDate;
     private YearMonth yearMonth;
+    private ArrayList<ArrayList<CalendarGridDay>> weekList;
     private ArrayList<CalendarGridDay> dayIndexList;
 
     private UiParser uiParser;
@@ -55,6 +56,10 @@ public class CalendarScreen extends UiPart<Region> {
         this.localDate = LocalDate.of(year, month, 1);
         this.yearMonth = YearMonth.of(year, month);
         this.dayIndexList = new ArrayList<>();
+        this.weekList = new ArrayList<>();
+        for(int i = 0; i < 7; i++) {
+            this.weekList.add(new ArrayList<CalendarGridDay>());
+        }
         this.monthYearTitle.setText(uiParser.getEnglishDate(month, year));
 
         resetCalendar();
@@ -64,6 +69,12 @@ public class CalendarScreen extends UiPart<Region> {
      * Fills the index of the calendar and resets when needed to.
      */
     private void resetCalendar() {
+        resetPreviousMonth();
+        resetCurrentNextMonth();
+    }
+
+    private void resetCurrentNextMonth() {
+        // Adds Current Month Calendar.
         int index = 1;
         int startingDay = this.localDate.withDayOfMonth(1).getDayOfWeek().getValue();
         int totalDays = this.yearMonth.lengthOfMonth();
@@ -74,13 +85,30 @@ public class CalendarScreen extends UiPart<Region> {
                     continue;
                 }
                 if (index > totalDays) {
-                    break;
+                    index = 1;  // Resets to next month.
                 }
-                CalendarGridDay calendarGridDay = new CalendarGridDay(index, 0);
+                CalendarGridDay calendarGridDay = new CalendarGridDay(index, month, year, 0);
                 calendarGrid.add(calendarGridDay.getRoot(), days, weeks);
+                weekList.get(weeks).add(calendarGridDay);
                 dayIndexList.add(calendarGridDay);
                 index++;
             }
+        }
+    }
+
+    private void resetPreviousMonth() {
+        // Adds Previous Month Calendar;
+        int days = this.localDate.withDayOfMonth(1).getDayOfWeek().getValue() - 2;
+        Integer previousMonthDay = uiParser.getPreviousMonthDays(this.month, this.year) - days;
+        int previousMonth = uiParser.getPreviousMonth(this.month);
+        int previousYear = uiParser.getPreviousYear(this.month, this.year);
+        int startingDay = 0;
+        while(startingDay <= days) {
+            CalendarGridDay calendarGridDay = new CalendarGridDay(previousMonthDay, previousMonth, previousYear, 0);
+            calendarGrid.add(calendarGridDay.getRoot(), startingDay, 0);
+            weekList.get(0).add(calendarGridDay);
+            startingDay++;
+            previousMonthDay++;
         }
     }
 
@@ -92,7 +120,22 @@ public class CalendarScreen extends UiPart<Region> {
         changeColor(events);
     }
 
+    public Integer[][] getStartingDay(int week) {
+        ArrayList<CalendarGridDay> currentWeek = weekList.get(week - 1);
+        // 7 days a week
+        // Each day contains a day, month and year.
+        Integer[][] days = new Integer[7][3];
+        int dayIndex = 0;
+        for(CalendarGridDay day : currentWeek) {
+            Integer[] dayMonthYear = day.getDayMonthYear();
+            days[dayIndex] = dayMonthYear;
+            dayIndex++;
+        }
+        return days;
+    }
+
     private void changeColor(List<EventSource> events) {
+        // We do not want tp change the color of next and previous month.
         for(EventSource event : events) {
             if(sameMonthYear(event)) {
                 Integer day = uiParser.getDay(event.getStartDateTime().toInstant());

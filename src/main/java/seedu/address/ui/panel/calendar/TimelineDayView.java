@@ -10,26 +10,21 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.EventCard;
 import seedu.address.ui.UiParser;
-import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays the feedback to the user.
  */
-public class TimelineDayView extends UiPart<Region> {
+public class TimelineDayView extends TimelineView {
 
     private static final String FXML = "TimelineDayView.fxml";
-    private static final Integer SPACING = 62;
-    private static final Integer TIMING = 25;
 
     private UiParser uiParser;
-    private HashMap<Integer, EventSource> eventMap; // The Key is the Hour of the day
     private Integer day;
     private Integer month;
     private Integer year;
@@ -105,7 +100,6 @@ public class TimelineDayView extends UiPart<Region> {
         this.day = day;
         this.month = month;
         this.year = year;
-        this.eventMap = new HashMap<Integer, EventSource>();
         this.timeBoxes = new ArrayList<>();
 
         this.timelineTitle.setText("Timeline: " + uiParser.getEnglishDate(day, month, year));
@@ -113,25 +107,13 @@ public class TimelineDayView extends UiPart<Region> {
     }
 
     /**
-     * Changes the event in the timeline.
-     * @param eventList Represents the list of events.
-     */
-    public void eventChange(List<EventSource> eventList) {
-        resetTimeline();
-        for (EventSource event : eventList) {
-            if (sameDay(event)) {
-                addEventCard(event);
-            }
-        }
-    }
-
-    /**
      * Returns true if the event is the same day as the current timeline.
      * @param event The given event.
      * @return True if the event is the same day as the current timeline.
      */
-    private boolean sameDay(EventSource event) {
-        return uiParser.getDay(event.getStartDateTime().toInstant()).equals(this.day);
+    private boolean sameDate(EventSource event) {
+        Integer[] dayMonthYear = uiParser.getDateToNumbers(event.getStartDateTime().toInstant());
+        return dayMonthYear[0].equals(day) && dayMonthYear[1].equals(month) && dayMonthYear[2].equals(year);
     }
 
     /**
@@ -141,7 +123,6 @@ public class TimelineDayView extends UiPart<Region> {
     private void addEventCard(EventSource event) {
         // Gets the event Hour
         Integer eventHour = uiParser.getHour(event.getStartDateTime().toInstant());
-        this.eventMap.put(eventHour, event);
 
         // Creates and add the event card
         EventCard eventCard = new EventCard(event, uiParser);
@@ -168,26 +149,12 @@ public class TimelineDayView extends UiPart<Region> {
             }
         });
         new Thread(sleeper).start();
-        // For the last row
-        if (eventHour.equals(23)) {
-            // rowConstraints.setPrefHeight();
-        }
-
-    }
-
-    public void resizeTimelineDayView() {
-        for(int eventHour = 0; eventHour < timeBoxes.size(); eventHour++) {
-            VBox timeBox = timeBoxes.get(eventHour);
-            RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventHour);
-            rowConstraints.setPrefHeight(timeBox.getHeight() + SPACING);
-        }
     }
 
     /**
      * Resets the timeline by removing all of the eventCards and reset the size.
      */
     private void resetTimeline() {
-        eventMap.clear();
         for (int eventHour = 0; eventHour < 24; eventHour++) {
             // Reset RowConstraints
             RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventHour);
@@ -226,5 +193,24 @@ public class TimelineDayView extends UiPart<Region> {
         this.timeBoxes.add(timeBox21);
         this.timeBoxes.add(timeBox22);
         this.timeBoxes.add(timeBox23);
+    }
+
+    @Override
+    public void resizeTimelineView() {
+        for(int eventHour = 0; eventHour < timeBoxes.size(); eventHour++) {
+            VBox timeBox = timeBoxes.get(eventHour);
+            RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventHour);
+            rowConstraints.setPrefHeight(timeBox.getHeight() + SPACING);
+        }
+    }
+
+    @Override
+    public void eventChange(List<EventSource> eventList) {
+        resetTimeline();
+        for (EventSource event : eventList) {
+            if (sameDate(event)) {
+                addEventCard(event);
+            }
+        }
     }
 }
