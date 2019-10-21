@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import seedu.address.model.Model;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.note.Note;
 
 /**
  * Globally searches for any StudyBuddyItem that has tags which matches the user input of keywords.
@@ -42,6 +45,15 @@ public class GlobalTagFilterCommand extends Command {
         ArrayList<StudyBuddyItem> tagListResult = model.collectTaggedItems(tagPredicate);
         StringBuilder sb = new StringBuilder("");
         for (StudyBuddyItem sbi : tagListResult) {
+            if (sbi instanceof Flashcard) {
+                sb.append("Flashcard : ");
+            }
+            if (sbi instanceof Note) {
+                sb.append("Note : ");
+            }
+            if (sbi instanceof CheatSheet) {
+                sb.append("CheatSheet : ");
+            }
             sb.append(sbi.toString());
             sb.append("\n");
         }
