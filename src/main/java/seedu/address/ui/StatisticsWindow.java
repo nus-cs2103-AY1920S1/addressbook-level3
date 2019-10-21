@@ -38,10 +38,7 @@ public class StatisticsWindow extends UiPart<Stage> {
         if (axisSeriesOptional.isPresent()) {
             this.axisSeries = axisSeriesOptional.get();
             buildChart();
-        } else {
-
         }
-
     }
 
     /**
