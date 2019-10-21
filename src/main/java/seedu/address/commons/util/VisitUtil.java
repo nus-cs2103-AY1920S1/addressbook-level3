@@ -14,8 +14,9 @@ import seedu.address.model.visit.Visit;
 public class VisitUtil {
     /**
      * Get ongoing visit if exists. For Visit Commands that require an ongoing visit.
+     * Throws a CommandException if the ongoingVisit is empty.
      */
-    public static Visit ensureOngoingVisitExistsAndGet(Model model, String messageNoOngoingVisit)
+    public static Visit getOngoingVisitIfExists(Model model, String messageNoOngoingVisit)
             throws CommandException {
         requireAllNonNull(model, messageNoOngoingVisit);
         Optional<Visit> ongoingVisit = model.getOngoingVisit();

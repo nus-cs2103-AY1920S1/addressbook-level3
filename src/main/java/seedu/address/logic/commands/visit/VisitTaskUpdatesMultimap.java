@@ -125,6 +125,7 @@ class VisitTaskUpdatesMultimap {
      */
     private VisitTask updateVisitTask(VisitTask visitTask, int index) {
         requireNonNull(visitTask);
+        VisitTask result = visitTask;
         if (map.containsKey(index)) {
             Detail detail = visitTask.getDetail();
             boolean isDone = visitTask.isDone();
@@ -139,9 +140,9 @@ class VisitTaskUpdatesMultimap {
                 } else {
                     throw new IllegalArgumentException();
                 }
-                return new VisitTask(visitTask.getVisitTodo(), detail, isDone);
             }
+            result = new VisitTask(visitTask.getVisitTodo(), detail, isDone);
         }
-        return visitTask;
+        return result;
     }
 }

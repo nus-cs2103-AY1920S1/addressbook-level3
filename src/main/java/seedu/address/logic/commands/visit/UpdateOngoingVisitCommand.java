@@ -69,7 +69,7 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
             throw new CommandException(MESSAGE_ONGOING_VISIT_NOT_MODIFIED);
         }
 
-        Visit visitToUpdate = VisitUtil.ensureOngoingVisitExistsAndGet(model, MESSAGE_NO_ONGOING_VISIT);
+        Visit visitToUpdate = VisitUtil.getOngoingVisitIfExists(model, MESSAGE_NO_ONGOING_VISIT);
         Visit updatedVisit = createUpdated(visitToUpdate, updateOngoingVisitDescriptor);
 
         if (visitToUpdate.equals(updatedVisit)) {
