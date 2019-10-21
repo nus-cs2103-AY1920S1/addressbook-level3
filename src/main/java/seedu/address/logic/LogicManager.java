@@ -21,6 +21,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemStorage;
+import seedu.address.model.JokeList;
 import seedu.address.model.item.VisualizeList;
 import seedu.address.storage.Storage;
 
@@ -35,12 +36,13 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final ScheduledThreadPoolExecutor checker;
+    private final JokeList jokeList;
 
-    public LogicManager(ItemModel model, Storage storage) {
+    public LogicManager(ItemModel model, Storage storage, JokeList jokeList) {
         this.storage = storage;
         this.model = model;
-
-        addressBookParser = new AddressBookParser(model.getElisaStateHistory());
+        this.jokeList = jokeList;
+        addressBookParser = new AddressBookParser(model.getElisaStateHistory(), this.jokeList);
 
         //Create new thread class to check
         /*
