@@ -1,18 +1,18 @@
-== Medicines [Parameters not updated]
+== Medicines `[coming in v2.0]`
 ====
 *Medicines*
 
 As a community nurse, you will often come across and use various medicines. This section describes the features that will allow you to manage the list of medicines and their information in the application.
 ====
 
-=== Listing All Medicines: `med list`
+=== Listing All Medicines: `med-list`
 You can see a list of all medicines in the app by typing `med list`.
 
 In the list displayed, each medicine will have an *index* number which can then be used for other features that require you to select a medicine by *index* e.g. `med delete`. Take note that a medicine will be given the same *index* regardless of other display commands such as `med find`.
 
 Format: `med list`
 
-=== Finding Medicine(s): `med find`
+=== Finding Medicine(s): `med-find`
 
 You can find medicines that fit the parameters given using `med find`.
 

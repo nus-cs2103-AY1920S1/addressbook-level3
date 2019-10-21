@@ -71,13 +71,13 @@ include::./userguide/ImportExport.adoc[]
 
 include::./userguide/Exiting.adoc[]
 
-= Planned Features (coming in v2.0)
+= Planned Feature(s) (coming in v2.0)
 
-include::./userguide/Notification.adoc[]
+//include::./userguide/Notification.adoc[]
 
-include::./userguide/MedicalCondition.adoc[]
+//include::./userguide/MedicalCondition.adoc[]
 
-include::./userguide/Medicine.adoc[]
+//include::./userguide/Medicine.adoc[]
 
 include::./userguide/Security.adoc[]
 
