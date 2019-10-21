@@ -23,11 +23,14 @@ import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.StudentRecord;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.note.NotesRecord;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
+import seedu.address.model.student.StudentRecord;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleNotesUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -36,6 +39,8 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.event.EventStorage;
 import seedu.address.storage.event.JsonEventStorage;
+import seedu.address.storage.note.JsonNotesRecordStorage;
+import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.JsonQuestionStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.student.JsonStudentRecordStorage;
@@ -77,8 +82,9 @@ public class MainApp extends Application {
             new JsonQuestionStorage(userPrefs.getSavedQuestionsFilePath());
         EventStorage eventStorage =
             new JsonEventStorage(userPrefs.getEventRecordFilePath());
+        NotesRecordStorage notesRecordStorage = new JsonNotesRecordStorage(userPrefs.getNotesRecordFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, studentRecordStorage,
-            savedQuestionStorage, eventStorage);
+            savedQuestionStorage, notesRecordStorage, eventStorage);
 
         initLogging(config);
 
@@ -100,16 +106,19 @@ public class MainApp extends Application {
         Optional<ReadOnlyStudentRecord> studentRecordOptional;
         Optional<ReadOnlyQuestions> questionsOptional;
         Optional<ReadOnlyEvents> eventsOptional;
+        Optional<ReadOnlyNotesRecord> notesRecordOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
         ReadOnlyEvents initialEvents;
+        ReadOnlyNotesRecord initialNotesRecord;
 
         try {
             addressBookOptional = storage.readAddressBook();
             studentRecordOptional = storage.readStudentRecord();
             questionsOptional = storage.readQuestions();
             eventsOptional = storage.readEvents();
+            notesRecordOptional = storage.readNotesRecord();
 
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
@@ -123,11 +132,16 @@ public class MainApp extends Application {
             if (!eventsOptional.isPresent()) {
                 logger.info("Events file not found. Will create an empty one.");
             }
+            if (!notesRecordOptional.isPresent()) {
+                logger.info("Notes Record not found. Will start with sample NotesRecord");
+            }
             initialAddressBook = addressBookOptional
                 .orElseGet(SampleDataUtil::getSampleAddressBook);
             initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudentRecord);
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
             initialEvents = eventsOptional.orElseGet(SampleDataUtil::getSampleEventsList);
+            initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
+
 
         } catch (DataConversionException e) {
             logger.warning(
@@ -136,7 +150,7 @@ public class MainApp extends Application {
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
             initialEvents = new EventRecord();
-
+            initialNotesRecord = new NotesRecord();
         } catch (IOException e) {
             logger.warning(
                 "Problem while reading from the file. Will be starting with an empty AddressBook");
@@ -144,10 +158,10 @@ public class MainApp extends Application {
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
             initialEvents = new EventRecord();
+            initialNotesRecord = new NotesRecord();
         }
-
-        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialEvents,
-            userPrefs);
+        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialNotesRecord,
+                                initialEvents, userPrefs);
     }
 
     private void initLogging(Config config) {

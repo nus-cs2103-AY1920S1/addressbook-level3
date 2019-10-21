@@ -6,9 +6,10 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.student.ReadOnlyStudentRecord;
+import seedu.address.model.student.StudentRecord;
 
 /**
- * Represents a storage for {@link seedu.address.model.StudentRecord}.
+ * Represents a storage for {@link StudentRecord}.
  */
 public interface StudentRecordStorage {
 

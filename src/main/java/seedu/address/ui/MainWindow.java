@@ -61,6 +61,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
     private SchedulerPanel schedulePanel;
+    private NotesListPanel notesListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -70,6 +71,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane notesListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -142,6 +146,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
+        notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -169,6 +176,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
+        //primaryStage.setFullScreen(true);
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
@@ -213,74 +221,74 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
-
-        VCalendar vCalendar = new VCalendar();
-        ArrayList<VEvent> testEvents = new ArrayList<>();
-
+//
+//        VCalendar vCalendar = new VCalendar();
+//        ArrayList<VEvent> testEvents = new ArrayList<>();
+//
 //        String str = "1986-04-08 12:30";
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 //        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-
-
-        VEvent first = new VEvent();
-        first.setDateTimeStart(LocalDateTime.now().withHour(12).truncatedTo(ChronoUnit.MINUTES));
-        first.setDateTimeEnd(LocalDateTime.now().withHour(14).truncatedTo(ChronoUnit.MINUTES));
-        first.setSummary("first Event");
-        first.setRecurrenceRule("FREQ=DAILY;INTERVAL=1");
-        first.setUniqueIdentifier("njoyassistant");
-        first.withCategories("group00");
-
-        VEvent second = new VEvent();
-        second.setDateTimeStart(LocalDateTime.now().withHour(15));
-        second.setDateTimeEnd(LocalDateTime.now().withHour(16));
-        second.setSummary("second Event");
-        second.setRecurrenceRule("FREQ=DAILY;INTERVAL=1");
-        second.setUniqueIdentifier("njoyassistant");
-        second.withCategories("group01");
-
-        String testDateTimeStart = first.getDateTimeStart().toString();
-        String testDateTimeStart2 = first.getDateTimeStart().getValue().toString();
-        DateTimeStart dateTimeStart = first.getDateTimeStart();
-        Temporal temporal1 = first.getDateTimeStart().getValue();
-
-        String dateTimeEnd = first.getDateTimeEnd().getValue().toString();
-
-        LocalDateTime temporalFormatterTest = LocalDateTime.parse(first.getDateTimeEnd().getValue().toString());
-
-        testEvents.add(first);
-        testEvents.add(second);
-
-        for (int i = 0; i < testEvents.size(); i++) {
-            VEvent currentEvent = testEvents.get(i);
-            currentEvent.withSummary(String.format("[%d] %s", i, currentEvent.getSummary().getValue()));
-        }
-
-        ObservableList<VEvent> oList = FXCollections.observableArrayList(testEvents);
-
-        vCalendar.setVEvents(oList);
-
-//        var result = oList.remove(firstEvent);
-        ICalendarAgenda agenda = new ICalendarAgenda(vCalendar);
-        LocalDateTime startTime = LocalDateTime.now();
-        LocalDateTime endTime = LocalDateTime.now().plusDays(14);
-
-        Locale myLocale = Locale.UK;
-        agenda.setLocale(myLocale);
-        agenda.setDisplayedLocalDateTime(endTime);
-
-        AgendaDaysFromDisplayedSkin dynamicSkin = new AgendaDaysFromDisplayedSkin(agenda);
-        dynamicSkin.setDaysAfterFurthest(20);
-        dynamicSkin.setDaysBeforeFurthest(20);
-
-        AgendaWeekSkin weekSkin = new AgendaWeekSkin(agenda);
-
-
-        agenda.setSkin(weekSkin);
-
-        BorderPane root = new BorderPane();
-        root.setCenter(agenda);
-        Scene scene = new Scene(root, 1400, 800);
-        primaryStage.setScene(scene);
+//
+//
+//        VEvent first = new VEvent();
+//        first.setDateTimeStart(LocalDateTime.now().withHour(12).truncatedTo(ChronoUnit.MINUTES));
+//        first.setDateTimeEnd(LocalDateTime.now().withHour(14).truncatedTo(ChronoUnit.MINUTES));
+//        first.setSummary("first Event");
+//        first.setRecurrenceRule("FREQ=DAILY;INTERVAL=1");
+//        first.setUniqueIdentifier("njoyassistant");
+//        first.withCategories("group00");
+//
+//        VEvent second = new VEvent();
+//        second.setDateTimeStart(LocalDateTime.now().withHour(15));
+//        second.setDateTimeEnd(LocalDateTime.now().withHour(16));
+//        second.setSummary("second Event");
+//        second.setRecurrenceRule("FREQ=DAILY;INTERVAL=1");
+//        second.setUniqueIdentifier("njoyassistant");
+//        second.withCategories("group01");
+//
+//        String testDateTimeStart = first.getDateTimeStart().toString();
+//        String testDateTimeStart2 = first.getDateTimeStart().getValue().toString();
+//        DateTimeStart dateTimeStart = first.getDateTimeStart();
+//        Temporal temporal1 = first.getDateTimeStart().getValue();
+//
+//        String dateTimeEnd = first.getDateTimeEnd().getValue().toString();
+//
+//        LocalDateTime temporalFormatterTest = LocalDateTime.parse(first.getDateTimeEnd().getValue().toString());
+//
+//        testEvents.add(first);
+//        testEvents.add(second);
+//
+//        for (int i = 0; i < testEvents.size(); i++) {
+//            VEvent currentEvent = testEvents.get(i);
+//            currentEvent.withSummary(String.format("[%d] %s", i, currentEvent.getSummary().getValue()));
+//        }
+//
+//        ObservableList<VEvent> oList = FXCollections.observableArrayList(testEvents);
+//
+//        vCalendar.setVEvents(oList);
+//
+////        var result = oList.remove(firstEvent);
+//        ICalendarAgenda agenda = new ICalendarAgenda(vCalendar);
+//        LocalDateTime startTime = LocalDateTime.now();
+//        LocalDateTime endTime = LocalDateTime.now().plusDays(14);
+//
+//        Locale myLocale = Locale.UK;
+//        agenda.setLocale(myLocale);
+//        agenda.setDisplayedLocalDateTime(endTime);
+//
+//        AgendaDaysFromDisplayedSkin dynamicSkin = new AgendaDaysFromDisplayedSkin(agenda);
+//        dynamicSkin.setDaysAfterFurthest(20);
+//        dynamicSkin.setDaysBeforeFurthest(20);
+//
+//        AgendaWeekSkin weekSkin = new AgendaWeekSkin(agenda);
+//
+//
+//        agenda.setSkin(weekSkin);
+//
+//        BorderPane root = new BorderPane();
+//        root.setCenter(agenda);
+//        Scene scene = new Scene(root, 1400, 800);
+//        primaryStage.setScene(scene);
         primaryStage.show();
 
     }

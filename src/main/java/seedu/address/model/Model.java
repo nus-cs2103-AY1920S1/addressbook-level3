@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -12,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
@@ -25,6 +25,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
+    Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     //region PREFERENCES & SETTINGS
     /**
@@ -102,7 +103,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
     //endregion
 
     //region StudentRecord
@@ -145,7 +145,6 @@ public interface Model {
     ObservableList<Student> getFilteredStudentList();
     void updateFilteredStudentList(Predicate<Student> predicate);
     String getStudentSummary();
-
     //endregion
 
     //region Group
@@ -235,39 +234,62 @@ public interface Model {
 
     //endregion
 
+    //region NotesRecord
+    /**
+     * Returns the user prefs' notes record file path.
+     */
+    Path getNotesRecordFilePath();
+
+    /**
+     * Sets the user prefs' notes record file path.
+     */
+    void setNotesRecordFilePath(Path notesRecordFilePath);
+
+    /**
+     * Replaces notes record data with the data in {@code notesRecord}.
+     */
+    void setNotesRecord(ReadOnlyNotesRecord notesRecord);
+
+    /** Returns the NotesRecord */
+    ReadOnlyNotesRecord getNotesRecord();
+    //endregion
+
     //region Notes
     /**
+     * Returns true if a note with the same identity as {@code note} exists in the notes record.
+     */
+    boolean hasNote(Note note);
+
+    /**
+     * Deletes the given note.
+     * The note must exist in the notes record.
+     */
+    void deleteNote(Note target);
+
+    /**
      * Adds the given note.
-     * {@code note} must not exist in the note list.
+     * {@code note} must not already exist in the notes record.
      */
     void addNote(Note note);
 
     /**
-     * Returns the note that has been deleted based on the index.
+     * Replaces the given note {@code target} with {@code editedNote}.
+     * {@code target} must exist in the notes record.
+     * The note title of {@code editedNote} must not be the same as another existing note in the notes record.
      */
-    Note deleteNote(Index index);
+    void setNote(Note target, Note editedNote);
+
+    /** Returns an unmodifiable view of the filtered notes list */
+    ObservableList<Note> getFilteredNotesList();
 
     /**
-     * Returns the note based on its Index.
+     * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    Note getNote(Index index);
-
-    /**
-     * Replaces the note at the specified index.
-     */
-    void setNote(Index index, Note question);
-
-    /**
-     * Returns the notes summary.
-     *
-     * @return Summary of notes list.
-     */
-    String getNoteSummary();
-
-    List<Note> getNotes();
-
+    void updateFilteredNotesList(Predicate<Note> predicate);
     //endregion
 
+<<<<<<< HEAD
     //region EventRecord
     void setEventRecord(Path eventRecordFilePath);
 
@@ -285,4 +307,6 @@ public interface Model {
     void setVEvent(VEvent target, VEvent editedVEvent);
     String getVEventSummary();
     //endregion
+=======
+>>>>>>> upstream/master
 }

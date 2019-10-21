@@ -7,29 +7,28 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.ReadOnlyEvents;
-import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.storage.event.EventStorage;
+import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.student.StudentRecordStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRecordStorage, EventStorage,
-    QuestionStorage {
-
+public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRecordStorage,
+        QuestionStorage, NotesRecordStorage, EventStorage {
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    // ================ AddressBook methods ==============================
-
+    //region AddressBook methods
     @Override
     Path getAddressBookFilePath();
 
@@ -38,9 +37,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
 
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    //endregion
 
-    // ================ StudentRecord methods ==============================
-
+    //region StudentRecord methods
     @Override
     Path getStudentRecordFilePath();
 
@@ -49,9 +48,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
 
     @Override
     void saveStudentRecord(ReadOnlyStudentRecord studentRecord) throws IOException;
+    //endregion
 
-    // ================ Question methods ==============================
-
+    //region Question methods
     @Override
     Path getSavedQuestionsFilePath();
 
@@ -60,6 +59,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
 
     @Override
     void saveQuestions(ReadOnlyQuestions savedQuestions) throws IOException;
+
     // ================ Event methods ==============================
 
     @Override
@@ -70,4 +70,17 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
 
     @Override
     void saveEvents(ReadOnlyEvents events) throws IOException;
+
+    //endregion
+
+    //region NotesRecord methods
+    @Override
+    Path getNotesRecordFilePath();
+
+    @Override
+    Optional<ReadOnlyNotesRecord> readNotesRecord() throws DataConversionException, IOException;
+
+    @Override
+    void saveNotesRecord(ReadOnlyNotesRecord notesRecord) throws IOException;
+    //endregion
 }
