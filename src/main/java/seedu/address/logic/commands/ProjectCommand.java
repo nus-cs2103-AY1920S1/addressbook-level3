@@ -35,7 +35,7 @@ public class ProjectCommand extends Command {
         requireNonNull(model);
 
         ObservableList<Transaction> transactionHistory =
-                model.getBankAccount().getTransactionHistory().sorted(new DateComparator());
+                model.getBankAccount().getSortedTransactionHistory(new DateComparator());
 
         Projection projection = new Projection(transactionHistory, date, model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString()));

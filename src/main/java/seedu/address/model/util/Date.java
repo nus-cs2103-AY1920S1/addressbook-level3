@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  * Represents a date within PalPay.
  * Guarantees:  immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class Date implements Comparable<Date> {
 
     public static final String MESSAGE_CONSTRAINTS = "Date objects must adhere to the format: DDMMYYYY\n";
 
@@ -64,5 +64,8 @@ public class Date {
     }
 
 
-
+    @Override
+    public int compareTo(Date date) {
+        return this.date.compareTo(date.date);
+    }
 }

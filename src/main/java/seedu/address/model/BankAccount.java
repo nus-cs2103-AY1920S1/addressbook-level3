@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -91,6 +92,7 @@ public class BankAccount implements ReadOnlyBankAccount {
 
     /**
      * Handles SplitTransactions separately from normal transactions
+     *
      * @param transaction Adds transaction to transactionHistory and
      *                    passes to ledger to handle
      */
@@ -110,7 +112,12 @@ public class BankAccount implements ReadOnlyBankAccount {
         return transactions.asUnmodifiableObservableList();
     }
 
+    @Override
+    public ObservableList<Transaction> getSortedTransactionHistory(Comparator<Transaction> t) {
+        return getTransactionHistory().sorted(t);
+    }
 
+    @Override
     public Amount getBalance() {
         return this.balance;
     }
