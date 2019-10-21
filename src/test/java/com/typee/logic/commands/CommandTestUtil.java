@@ -19,6 +19,11 @@ import com.typee.model.person.DescriptionContainsKeywordsPredicate;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    public static final String VALID_DESCRIPTION_LUNCH_APPOINTMENT = "Lunch";
+    public static final String VALID_DESCRIPTION_GOOGLE_INTERVIEW = "Googs";
+    public static final String VALID_DESCRIPTION_TEAM_MEETING = "Team Project Meeting";
+
     /*
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";

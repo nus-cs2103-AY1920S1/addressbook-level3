@@ -306,7 +306,7 @@ public class AddCommandTest {
         @Override
         public boolean hasEngagement(Engagement engagement) {
             requireNonNull(engagement);
-            return this.engagement.isEqualEngagement(engagement);
+            return this.engagement.isSameEngagement(engagement);
         }
     }
 
@@ -319,7 +319,7 @@ public class AddCommandTest {
         @Override
         public boolean hasEngagement(Engagement engagement) {
             requireNonNull(engagement);
-            return engagementsAdded.stream().anyMatch(engagement::isEqualEngagement);
+            return engagementsAdded.stream().anyMatch(engagement::isSameEngagement);
         }
 
         @Override
