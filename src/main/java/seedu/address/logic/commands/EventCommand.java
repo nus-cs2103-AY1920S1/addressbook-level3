@@ -11,7 +11,6 @@ public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new event with the specified name";
     public static final String MESSAGE_CREATE_EVENT_SUCCESS = "Event Created: %1$s";
-    public static final String MESSAGE_NOT_CREATED = "Please provide the name of the event";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in Athletick.";
 
     private final String name;
