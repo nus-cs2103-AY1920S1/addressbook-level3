@@ -30,6 +30,7 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
@@ -273,6 +274,11 @@ public class AddCommandTest {
 
         @Override
         public void deductFromWallet(Savings savings) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlySavingsAccount getSavingsAccount() {
             throw new AssertionError("This method should not be called.");
         }
     }

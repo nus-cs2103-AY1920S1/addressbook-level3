@@ -67,7 +67,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new Menu(), new UserPrefs(), new UserRecommendations(), new CustomSorter());
+        this(new Menu(), new UserPrefs(), new UserRecommendations(), new CustomSorter(), new SavingsAccount());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -296,7 +296,8 @@ public class ModelManager implements Model {
 
     @Override
     public void addToSavings(Savings savings) {
-        // TODO @fatclarence
+        //requireNonNull(savings);
+        savingsAccount.addSavings(savings);
     }
 
     @Override
@@ -309,8 +310,8 @@ public class ModelManager implements Model {
      * TODO @fatclarence
      */
     @Override
-    public SavingsAccount getSavingsAccount() {
-        return null;
+    public ReadOnlySavingsAccount getSavingsAccount() {
+        return savingsAccount;
     }
 
     @Override

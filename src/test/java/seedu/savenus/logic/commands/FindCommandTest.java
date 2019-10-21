@@ -20,6 +20,7 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 
 /**
@@ -27,9 +28,9 @@ import seedu.savenus.model.sorter.CustomSorter;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-            new CustomSorter());
+            new CustomSorter(), new SavingsAccount());
     private Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-            new CustomSorter());
+            new CustomSorter(), new SavingsAccount());
 
     @Test
     public void equals() {

@@ -1,15 +1,20 @@
 package seedu.savenus.model.savings;
 
-import javafx.collections.ObservableList;
-
 import static java.util.Objects.requireNonNull;
 
+import javafx.collections.ObservableList;
+
+/**
+ * A savings account to track the user's savings.
+ */
 public class SavingsAccount implements ReadOnlySavingsAccount {
 
     // Testing this without the recommended non-static initialization blocks.
-    private final SavingsHistory savingsHistory = new SavingsHistory();
+    private final SavingsHistory savingsHistory;
 
-    public SavingsAccount() {}
+    public SavingsAccount() {
+        savingsHistory = new SavingsHistory();
+    }
 
     /**
      * Creates an Menu using the foods in the {@code toBeCopied}
@@ -17,6 +22,13 @@ public class SavingsAccount implements ReadOnlySavingsAccount {
     public SavingsAccount(ReadOnlySavingsAccount toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    /**
+     * Adds a saving into the savings account.
+     */
+    public void addSavings(Savings savings) {
+        savingsHistory.add(savings);
     }
 
     /**

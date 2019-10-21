@@ -15,6 +15,7 @@ import seedu.savenus.model.Menu;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.JsonSavingsStorage;
 import seedu.savenus.model.sorter.CustomSorter;
 
 public class StorageManagerTest {
@@ -26,12 +27,13 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMenuStorage addressBookStorage = new JsonMenuStorage(getTempFilePath("ab"));
+        JsonMenuStorage menuStorage = new JsonMenuStorage(getTempFilePath("menuTemp"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+        JsonSavingsStorage savingsStorage = new JsonSavingsStorage(getTempFilePath("savingsTemp"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(getTempFilePath("recs"));
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(getTempFilePath("sort"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
-                customSortStorage);
+        storageManager = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
+                customSortStorage, savingsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -53,7 +55,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void menuReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonMenuStorage} class.

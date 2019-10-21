@@ -15,7 +15,13 @@ public class Savings {
 
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
-    private final String savingsAmount;
+    // Identity fields of a saving.
+    private final String savingsAmount; // the amount to be saved.
+
+    /**
+     * TODO @FATCLARENCE
+     * Add time stamp of savings.
+     */
 
     // Default starting savings amount.
     public Savings() {

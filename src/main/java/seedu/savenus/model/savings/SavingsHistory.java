@@ -2,12 +2,15 @@ package seedu.savenus.model.savings;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+/**
+ * A list of the user's savings history.
+ */
 public class SavingsHistory implements Iterable<Savings> {
 
     private final ObservableList<Savings> internalSavingsHistory = FXCollections.observableArrayList();

@@ -15,8 +15,8 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.Savings;
-import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
@@ -26,7 +26,9 @@ import seedu.savenus.model.wallet.RemainingBudget;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Food> PREDICATE_SHOW_ALL_FOOD = unused -> true;
 
     /**
@@ -64,7 +66,9 @@ public interface Model {
      */
     void setMenu(ReadOnlyMenu menu);
 
-    /** Returns the $aveNUS menu */
+    /**
+     * Returns the $aveNUS menu
+     */
     ReadOnlyMenu getMenu();
 
     /**
@@ -98,6 +102,7 @@ public interface Model {
 
     /**
      * A simple method to replace the filtered food list with the contents of a new list.
+     *
      * @param fieldList the new list of food.
      */
     void editFilteredFoodList(List<String> fieldList);
@@ -136,18 +141,24 @@ public interface Model {
 
     /**
      * Buy Food.
+     *
      * @param foodToBuy Food to buy
      */
     void buyFood(Food foodToBuy) throws CommandException;
 
-    /** Returns an unmodifiable view of the filtered food list */
+    /**
+     * Returns an unmodifiable view of the filtered food list
+     */
     ObservableList<Food> getFilteredFoodList();
 
-    /** Returns an unmodifiable view of the {@code PurchaseHistory} */
+    /**
+     * Returns an unmodifiable view of the {@code PurchaseHistory}
+     */
     ObservableList<Purchase> getPurchaseHistory();
 
     /**
      * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFoodList(Predicate<Food> predicate);
@@ -159,18 +170,21 @@ public interface Model {
 
     /**
      * Updates the comparator of the food list to filter by the given {@code comparator}.
+     *
      * @throws NullPointerException if {@code comparator} is null.
      */
     void updateRecommendationComparator(Comparator<Food> recommendationComparator);
 
     /**
      * Updates the filter of the recommendation system's food list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateRecommendationPredicate(Predicate<Food> recommendationPredicate);
 
     /**
      * Updates if the recommendation system is currently in use.
+     *
      * @throws NullPointerException if {@code inUse} is null.
      */
     void setRecommendationSystemInUse(boolean inUse);
@@ -180,13 +194,16 @@ public interface Model {
      */
     List<String> getCommandHistory();
 
-    /** Updates the user's liked categories, tags and locations.
+    /**
+     * Updates the user's liked categories, tags and locations.
+     *
      * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
      */
     void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
 
     /**
      * Updates the user's disliked categories, tags and locations.
+     *
      * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
      */
     void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
@@ -222,8 +239,7 @@ public interface Model {
     void deductFromWallet(Savings savings) throws CommandException;
 
     /**
-     * TODO @fatclarence
-     * Return user's SavingsAccount.
+     * Return an unmodifiable version of the user's SavingsAccount.
      */
-    SavingsAccount getSavingsAccount();
+    ReadOnlySavingsAccount getSavingsAccount();
 }

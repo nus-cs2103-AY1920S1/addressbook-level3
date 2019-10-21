@@ -12,6 +12,7 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.testutil.FoodBuilder;
 
@@ -24,7 +25,8 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new CustomSorter());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
+                new CustomSorter(), new SavingsAccount());
     }
 
     @Test
@@ -32,7 +34,7 @@ public class AddCommandIntegrationTest {
         Food validFood = new FoodBuilder().build();
 
         Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new CustomSorter());
+                new CustomSorter(), new SavingsAccount());
         expectedModel.addFood(validFood);
 
         assertCommandSuccess(new AddCommand(validFood), model,

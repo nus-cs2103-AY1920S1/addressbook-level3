@@ -34,6 +34,9 @@ import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.JsonSavingsStorage;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.storage.JsonCustomSortStorage;
 import seedu.savenus.storage.JsonMenuStorage;
@@ -54,15 +57,16 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMenuStorage addressBookStorage =
-                new JsonMenuStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonMenuStorage menuStorage =
+                new JsonMenuStorage(temporaryFolder.resolve("savenus.json"));
+        JsonSavingsStorage savingsAccountStorage = new JsonSavingsStorage(temporaryFolder.resolve("savings.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("userPrefs-recs.json"));
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
                 temporaryFolder.resolve("userPrefs-sort.json")
         );
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
-                customSortStorage);
+        StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
+                customSortStorage, savingsAccountStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -87,16 +91,18 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonMenuIoExceptionThrowingStub
-        JsonMenuStorage addressBookStorage =
+        JsonMenuStorage menuStorage =
                 new JsonMenuIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMenu.json"));
+        JsonSavingsStorage savingsAccountStorage =
+                new JsonSavingsIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionSavings.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(temporaryFolder.resolve("ioExceptionUserRecs.json"));
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
                 temporaryFolder.resolve("ioExceptionUserRecs.json")
         );
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userRecsStorage,
-                customSortStorage);
+        StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
+                customSortStorage, savingsAccountStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -180,7 +186,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new CustomSorter());
+                new CustomSorter(), new SavingsAccount());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -206,7 +212,21 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveMenu(ReadOnlyMenu addressBook, Path filePath) throws IOException {
+        public void saveMenu(ReadOnlyMenu menu, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonSavingsIoExceptionThrowingStub extends JsonSavingsStorage {
+        private JsonSavingsIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -18,6 +18,7 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 
 /**
@@ -31,7 +32,7 @@ public class BuyCommandTest {
     // Please refer to the wallet and purchase history tests
 
     private Model model = new ModelManager(getTypicalMenu(),
-            new UserPrefs(), new UserRecommendations(), new CustomSorter());
+            new UserPrefs(), new UserRecommendations(), new CustomSorter(), new SavingsAccount());
 
     @Test
     public void equals() {

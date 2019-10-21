@@ -15,8 +15,17 @@ import seedu.savenus.commons.util.ConfigUtil;
 import seedu.savenus.commons.util.StringUtil;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.LogicManager;
-import seedu.savenus.model.*;
+import seedu.savenus.model.Menu;
+import seedu.savenus.model.Model;
+import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyUserPrefs;
+import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.JsonSavingsStorage;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.SavingsAccount;
+import seedu.savenus.model.savings.SavingsStorage;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.util.SampleDataUtil;
 import seedu.savenus.storage.CustomSortStorage;
@@ -58,13 +67,14 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         MenuStorage menuStorage = new JsonMenuStorage(userPrefs.getMenuFilePath());
+        SavingsStorage savingsAccountStorage = new JsonSavingsStorage(userPrefs.getSavingsAccountFilePath());
         RecsStorage userRecommendations = new JsonRecsStorage(userPrefs.getRecsFilePath());
         CustomSortStorage sort = new JsonCustomSortStorage(userPrefs.getSortFilePath());
-        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations, sort);
+        storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations, sort, savingsAccountStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs, userRecommendations, sort, savingsAccount);
+        model = initModelManager(storage, userPrefs, userRecommendations, sort, savingsAccountStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -77,9 +87,12 @@ public class MainApp extends Application {
      * or an empty menu will be used instead if errors occur when reading {@code storage}'s menu.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs,
-                                   CustomSortStorage userSortFields) {
+                                   CustomSortStorage userSortFields, SavingsStorage savingsAccountStorage) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
+
+        Optional<ReadOnlySavingsAccount> savingsAccountOptional;
+        ReadOnlySavingsAccount initialSavingsAccount;
 
         Optional<UserRecommendations> recsOptional;
         UserRecommendations initialRecs;
@@ -92,6 +105,12 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample Menu");
             }
             initialData = menuOptional.orElseGet(SampleDataUtil::getSampleMenu);
+
+            savingsAccountOptional = storage.readSavingsAccount();
+            if (!savingsAccountOptional.isPresent()) {
+                logger.info("Savings Account file is not found. Will be starting with an empty Savings Account");
+            }
+            initialSavingsAccount = savingsAccountOptional.orElse(new SavingsAccount());
 
             recsOptional = userRecs.readRecs();
             if (!recsOptional.isPresent()) {
@@ -108,15 +127,17 @@ public class MainApp extends Application {
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Menu");
             initialData = new Menu();
+            initialSavingsAccount = new SavingsAccount();
             initialRecs = new UserRecommendations();
             initialSorter = new CustomSorter();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Menu");
             initialData = new Menu();
+            initialSavingsAccount = new SavingsAccount();
             initialRecs = new UserRecommendations();
             initialSorter = new CustomSorter();
         }
-        return new ModelManager(initialData, userPrefs, initialRecs, initialSorter);
+        return new ModelManager(initialData, userPrefs, initialRecs, initialSorter, initialSavingsAccount);
     }
 
     private void initLogging(Config config) {
