@@ -27,19 +27,18 @@ public class StartCommand extends Command {
 
     public static final String MESSAGE_NO_FLASHCARDS = "No flashcards to test!";
 
-    public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
+    public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...\n%s";
 
     private final AddressBookParser addressBookParser;
 
     private final String tagName;
 
     public StartCommand(AddressBookParser addressBookParser) {
-        this.tagName = "";
         this.addressBookParser = addressBookParser;
+        tagName = "";
     }
 
     public StartCommand(AddressBookParser addressBookParser, String tagName) {
-        assert(!tagName.isEmpty());
         this.tagName = tagName;
         this.addressBookParser = addressBookParser;
     }
@@ -55,7 +54,7 @@ public class StartCommand extends Command {
         addressBookParser.startTest();
         String question = model.getTestQuestion();
         addressBookParser.setAwaitingAnswer(true);
-        return new CommandResult(MESSAGE_START_TEST_SUCCESS + "\n" + question);
+        return new CommandResult(String.format(MESSAGE_START_TEST_SUCCESS, question));
     }
 
     @Override
@@ -77,7 +76,7 @@ public class StartCommand extends Command {
 
     /** Converts tagName to a CategoryContainsAnyKeywordsPredicate for searchTag(). */
     private CategoryContainsAnyKeywordsPredicate processSearchTerm() {
-        String[] tagList = tagName.split(" ");
+        String[] tagList = tagName.split("\\s+");
         return new CategoryContainsAnyKeywordsPredicate(Arrays.asList(tagList));
     }
 }
