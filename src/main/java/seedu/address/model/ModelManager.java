@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
@@ -176,7 +175,7 @@ public class ModelManager implements Model {
 
     @Override
     public String getSavedCommand() {
-       return this.savedCommand.peek();
+        return this.savedCommand.peek();
     }
 
     //=========== Filtered Person List Accessors =============================================================

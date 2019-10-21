@@ -73,7 +73,9 @@ public class CommandResult {
         return showEarnings;
     }
 
-    public boolean isUnknown() { return unknown; }
+    public boolean isUnknown() {
+        return unknown;
+    }
 
     public Earnings getEarnings() {
         return earnings;

@@ -22,8 +22,8 @@ public class NewCommand extends Command {
 
         model.addCommand(newCommand);
 
-        return new CommandResult(SHOWING_NEW_COMMAND_MESSAGE +
-                prevUnknownCommand + " to " + this.userInput,
+        return new CommandResult(SHOWING_NEW_COMMAND_MESSAGE
+                + prevUnknownCommand + " to " + this.userInput,
                 false, false, false, false);
     }
 

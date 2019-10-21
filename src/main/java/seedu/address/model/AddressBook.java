@@ -58,10 +58,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.earning.setEarnings(earnings);
     }
 
-    public void setCommands(List<CommandObject> commands) {
-        this.commands.setCommands(commands);
-    }
-
     /**
      * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -73,15 +69,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         earning.setEarnings(target, editedEarnings);
     }
 
-    /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
-     */
-    public void resetData(ReadOnlyAddressBook newData) {
-        requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
-        setEarnings(newData.getEarningsList());
-        setCommands(newData.getCommandsList());
+    public void setCommands(List<CommandObject> commands) {
+        this.commands.setCommands(commands);
     }
 
     /**
@@ -93,6 +82,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedCommands);
 
         commands.setCommands(target, editedCommands);
+    }
+
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
+    public void resetData(ReadOnlyAddressBook newData) {
+        requireNonNull(newData);
+
+        setPersons(newData.getPersonList());
+        setEarnings(newData.getEarningsList());
+        setCommands(newData.getCommandsList());
     }
 
     //// person-level operations

@@ -1,11 +1,8 @@
 package seedu.address.model.commands;
 
-import seedu.address.model.commands.CommandAction;
-import seedu.address.model.commands.CommandWord;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class CommandObject {
 
@@ -76,7 +73,7 @@ public class CommandObject {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-         builder.append(" Word: ")
+        builder.append(" Word: ")
                 .append(getCommandWord())
                 .append(" Action: ")
                 .append(getCommandAction());

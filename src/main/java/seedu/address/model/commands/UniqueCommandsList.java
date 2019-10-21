@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.commands.commandsexceptions.CommandNotFoundException;
 import seedu.address.model.earnings.earningsexception.DuplicateEarningsException;
 import seedu.address.model.earnings.earningsexception.EarningsNotFoundException;

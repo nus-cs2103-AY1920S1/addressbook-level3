@@ -8,7 +8,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.commands.CommandAction;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
-import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.Module;
@@ -29,10 +28,8 @@ public class JsonAdaptedCommand {
     @JsonCreator
     public JsonAdaptedCommand(@JsonProperty("commandWord") String commandWord,
                                @JsonProperty("commandAction") String commandAction) {
-
-       this.commandAction = commandAction;
-       this.commandWord = commandWord;
-
+        this.commandAction = commandAction;
+        this.commandWord = commandWord;
     }
 
     /**
@@ -65,7 +62,6 @@ public class JsonAdaptedCommand {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS);
         }
         final CommandWord modelWord = new CommandWord(commandWord);
-//need to edit this
         return new CommandObject(modelWord, modelAction);
     }
 }

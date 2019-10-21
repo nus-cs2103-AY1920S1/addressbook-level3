@@ -189,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void handleUnknown() {
-       this.unknown = !this.unknown;
+        this.unknown = !this.unknown;
     }
 
     public EarningsListPanel getEarningsListPanel() {
@@ -233,11 +233,6 @@ public class MainWindow extends UiPart<Stage> {
                 if (commandResult.isUnknown()) {
                     handleUnknown();
                 }
-
-            /*if (commandResult.isEarnings()) {
-                Earnings earnings = commandResult.getEarnings();
-                handleEarnings(earnings);
-            }*/
 
                 return commandResult;
             }
