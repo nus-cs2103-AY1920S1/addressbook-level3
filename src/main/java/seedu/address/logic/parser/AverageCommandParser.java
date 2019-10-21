@@ -53,15 +53,9 @@ public class AverageCommandParser implements Parser<AverageCommand> {
         RecordType recordType;
 
         switch (argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase()) {
-        case "DIET":
-            //fallthrough
-        case "EXERCISE":
-            //fallthrough
         case "BLOODSUGAR":
             //fallthrough
-        case "HEIGHTANDWEIGHT":
-            //fallthrough
-        case "MEDICALEXPENSES":
+        case "BMI":
             recordType = RecordType.valueOf(argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase());
             break;
         default:

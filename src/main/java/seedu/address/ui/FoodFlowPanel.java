@@ -40,7 +40,7 @@ public class FoodFlowPanel extends UiPart<Region> {
     }
 
     /**
-     * Updates the food recommendation panel.
+     * Updates the avefood recommendation panel.
      */
     private void refreshFlowPanel(ObservableList<Food> foodList) {
         flowPane.getChildren().clear();

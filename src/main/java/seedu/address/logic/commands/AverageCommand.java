@@ -20,13 +20,13 @@ public class AverageCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows daily/weekly/monthly average of different "
             + "record types.\n"
             + "Parameters: a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
-            + "Example: " + COMMAND_WORD + " a/daily r/bloodsugar n/5";
+            + "Example: " + COMMAND_WORD + " a/daily rt/bloodsugar n/5";
 
     public static final String MESSAGE_INVALID_COUNT = "n/COUNT";
 
     public static final String MESSAGE_INVALID_AVGTYPE = "a/AVERAGE_TYPE";
 
-    public static final String MESSAGE_INVALID_RECORDTYPE = "r/RECORD_TYPE";
+    public static final String MESSAGE_INVALID_RECORDTYPE = "rt/RECORD_TYPE";
 
     public static final String MESSAGE_NO_RECORD = "Sorry! You do not have any %1$s record.";
 
@@ -76,5 +76,10 @@ public class AverageCommand extends Command {
                 && averageType.equals(((AverageCommand) other).averageType) // state check
                 && recordType.equals(((AverageCommand) other).recordType)
                 && count == ((AverageCommand) other).count);
+    }
+
+    @Override
+    public boolean getnewPaneIsToBeCreated() {
+        return true;
     }
 }

@@ -2,10 +2,10 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
@@ -186,6 +186,26 @@ public interface Model {
     //=========== Statistics List =============================================================
 
     /**
+     * Returns the last average type calculated.
+     */
+    AverageType getAverageType();
+
+    /**
+     * Returns the last record type whose average is calculated.
+     */
+    RecordType getRecordType();
+
+    /**
+     * Sets the average type being calculated currently.
+     */
+    void setAverageType(AverageType averageType);
+
+    /**
+     * Sets the record type whose average is being calculated currently.
+     */
+    void setRecordType(RecordType recordType);
+
+    /**
      * Calculate average values of a record type.
      */
     void calculateAverageMap(AverageType averageType, RecordType recordType, int count);
@@ -193,7 +213,7 @@ public interface Model {
     /**
      * Returns a {@code AverageMap} object that maps time period to the respective average values.
      */
-    Map<LocalDate, Double> getAverageMap();
+    ObservableMap<LocalDate, Double> getAverageMap();
 
     //=========== User List =============================================================
 

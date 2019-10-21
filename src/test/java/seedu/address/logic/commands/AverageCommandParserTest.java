@@ -7,9 +7,9 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.statistics.AverageType;
 import seedu.address.logic.parser.AverageCommandParser;
 import seedu.address.model.record.RecordType;
+import seedu.address.model.statistics.AverageType;
 
 public class AverageCommandParserTest {
     private AverageCommandParser parser = new AverageCommandParser();
@@ -41,7 +41,7 @@ public class AverageCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE);
 
         // missing average type prefix
-        assertParseFailure(parser, " rt/BBLOODSUGAR", expectedMessage);
+        assertParseFailure(parser, " rt/BLOODSUGAR", expectedMessage);
 
         // missing record type prefix
         assertParseFailure(parser, " a/DAILY", expectedMessage);

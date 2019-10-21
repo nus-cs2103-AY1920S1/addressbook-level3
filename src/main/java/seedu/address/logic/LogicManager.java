@@ -3,10 +3,10 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -20,7 +20,8 @@ import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.model.statistics.AverageMap;
+import seedu.address.model.record.RecordType;
+import seedu.address.model.statistics.AverageType;
 import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
@@ -141,7 +142,17 @@ public class LogicManager implements Logic {
     //=========== Statistics List =============================================================
 
     @Override
-    public Map<LocalDate, Double> getAverageMap() {
+    public AverageType getAverageType() {
+        return model.getAverageType();
+    }
+
+    @Override
+    public RecordType getRecordType() {
+        return model.getRecordType();
+    }
+
+    @Override
+    public ObservableMap<LocalDate, Double> getAverageMap() {
         return model.getAverageMap();
     }
 }

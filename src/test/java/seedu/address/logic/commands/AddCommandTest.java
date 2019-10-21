@@ -12,12 +12,12 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -334,12 +334,32 @@ public class AddCommandTest {
         //=========== Statistics List =============================================================
 
         @Override
+        public AverageType getAverageType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public RecordType getRecordType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAverageType(AverageType averageType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRecordType(RecordType recordType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Map<LocalDate, Double> getAverageMap() {
+        public ObservableMap<LocalDate, Double> getAverageMap() {
             throw new AssertionError("This method should not be called.");
         }
 

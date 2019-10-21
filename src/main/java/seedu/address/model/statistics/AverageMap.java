@@ -1,8 +1,5 @@
 package seedu.address.model.statistics;
 
-import static seedu.address.model.record.RecordType.BLOODSUGAR;
-import static seedu.address.model.record.RecordType.BMI;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjuster;
@@ -14,7 +11,9 @@ import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
@@ -34,15 +33,9 @@ public class AverageMap {
             AverageType.MONTHLY, TemporalAdjusters.firstDayOfMonth()
     );
 
-    private Map<LocalDate, Double> averageMap;
-
-    public AverageMap() {
-        this.averageMap = new TreeMap<>();
-    }
-
-    public Map<LocalDate, Double> getAverageMap() {
-        return averageMap;
-    }
+    private final ObservableMap<LocalDate, Double> internalMap = FXCollections.observableHashMap();
+    private final ObservableMap<LocalDate, Double> internalUnmodifiableMap =
+            FXCollections.unmodifiableObservableMap(internalMap);
 
     /**
      * Calculates average values of a given record type based on the average type given.
@@ -64,12 +57,15 @@ public class AverageMap {
         Map<LocalDate, Double> averages = getAverage(recordType, groupByTimeRecords);
 
         // Sort by descending date
-        averageMap = new TreeMap<>(Collections.reverseOrder());
+        Map<LocalDate, Double> averageMap = new TreeMap<>(Collections.reverseOrder());
         averageMap.putAll(averages);
 
         // get latest "count" records
-        averageMap = averageMap.entrySet().stream().limit(count)
+        Map<LocalDate, Double> countAverageMap = averageMap.entrySet().stream().limit(count)
                 .collect(TreeMap::new, (m, e) -> m.put(e.getKey(), e.getValue()), Map::putAll);
+
+        internalMap.clear();
+        internalMap.putAll(countAverageMap);
     }
 
     //TODO: abstract this by using ModelManager#updateFilteredRecordList.
@@ -139,5 +135,13 @@ public class AverageMap {
             // will not happen
             return null;
         }
+    }
+
+    /**
+     * Returns the backing map as an unmodifiable {@code ObservableMap}
+     * @return
+     */
+    public ObservableMap<LocalDate, Double> asUnmodifiableObservableMap() {
+        return internalUnmodifiableMap;
     }
 }
