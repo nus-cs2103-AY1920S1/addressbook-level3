@@ -86,7 +86,7 @@ Examples:
 * `in $/200 n/mom c/family`
 * `in $/120 n/work`
 
-=== Setting budget: `set`
+=== Setting a budget: `set`
 
 Sets a budget for a particular category till the given deadline +
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
