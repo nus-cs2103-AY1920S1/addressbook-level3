@@ -9,10 +9,11 @@ import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
-import seedu.address.model.member.UniqueMemberList;
-
+import seedu.address.model.member.MemberId;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.UniqueMappingList;
+import seedu.address.model.member.UniqueMemberList;
+
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.UniqueTaskList;
@@ -165,6 +166,20 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }
 
     //// util methods TODO add them to the another util class, this breaks SRP
+    /**
+     * Replaces the given inventory {@code target} in the list with {@code editedInventory}.
+     * {@code target} must exist in the project dashboard.
+     * The inventory identity of {@code editedInventory} must not be the same as another existing inventory in the project dashboard.
+     */
+    public void setInventory(Inventory target, Inventory editedInventory) {
+        requireNonNull(editedInventory);
+
+        inventories.setInventory(target, editedInventory);
+    }
+
+    //// util methods
+
+    // TODO make this algo more efficient, code may break if lists are overloaded
 
     /**
      * Utility method to split the main task list into three separate lists based on progress status.
@@ -228,6 +243,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         mappings.remove(mapping);
     }
 
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
     public boolean hasMapping(Mapping mapping) {
         requireNonNull(mapping);
         return mappings.contains(mapping);
@@ -298,6 +316,14 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public boolean hasMember(Member member) {
         requireNonNull(member);
         return members.contains(member);
+    }
+
+    /**
+     * Returns true if a member with the same identity as {@code memberId} exists in the dashboard.
+     */
+    public boolean hasMemId(MemberId memId) {
+        requireNonNull(memId);
+        return members.containsId(memId);
     }
 
     /**

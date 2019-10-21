@@ -62,6 +62,10 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadDashboard());
             break;
 
+        case "list-inv":
+            paneToRender = userViewMain.loadInventories();
+            break;
+
         default:
             // show nothing (only exit has no case)
         }

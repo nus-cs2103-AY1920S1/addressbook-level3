@@ -9,80 +9,112 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.Price;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.member.MemberName;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.TaskBuilder;
+import seedu.address.testutil.InventoryBuilder;
 
-public class AddTaskCommandTest {
-
+public class AddInventoryCommandTest {
     @Test
     public void constructor_nullTask_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddTaskCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddInventoryCommand(null,null,null));
     }
 
     @Test
-    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new TaskBuilder().build();
+    public void execute_inventoryAcceptedByModel_addSuccessful() throws Exception {
+        AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub = new AddInventoryCommandTest
+                                                                                .ModelStubAcceptingInventoryAdded();
+        Inventory validInventory = new InventoryBuilder().build();
 
-        CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub);
+        CommandResult commandResult = new AddInventoryCommand(new Index(0),
+                validInventory.getName(), validInventory.getPrice(), new MemberId("rak")).execute(modelStub);
 
-        assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
+        assertEquals(String.format(AddInventoryCommand.MESSAGE_SUCCESS, validInventory),
+                                                        commandResult.getFeedbackToUser());
+        assertEquals(Collections.singletonList(validInventory), modelStub.inventoriesAdded);
     }
 
     @Test
-    public void execute_duplicateTask_throwsCommandException() {
-        Task validTask = new TaskBuilder().build();
-        AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
-        ModelStub modelStub = new ModelStubWithTask(validTask);
+    public void execute_duplicateInventory_throwsCommandException() {
+        Inventory validInventory = new InventoryBuilder().build();
+        AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
+                                    validInventory.getName(), validInventory.getPrice(), new MemberId("rak"));
+        ModelStub modelStub = new ModelStubWithInventory(validInventory);
+        assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_DUPLICATE_INVENTORY, () ->
+                addInventoryCommand.execute(modelStub));
+    }
 
-        assertThrows(CommandException.class, addTaskCommand.MESSAGE_DUPLICATE_TASK, () ->
-            addTaskCommand.execute(modelStub));
+    @Test
+    public void execute_inValidMemberId_throwsCommandException() {
+        AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
+                new InvName("Toy"), new Price(1), new MemberId("invalidId"));
+        AddInventoryCommandTest.ModelStub modelStub = new AddInventoryCommandTest.ModelStub();
+
+        assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_MEMBERID_INVALID, () ->
+                addInventoryCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_inValidTaskId_throwsCommandException() {
+        AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(2),
+                new InvName("Toy"), new Price(1), new MemberId("rak"));
+        ModelStub modelStub = new ModelStub();
+
+        assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_INDEX_EXCEEDED, () ->
+                addInventoryCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Task alice = new TaskBuilder().withName("Alice").build();
-        Task bob = new TaskBuilder().withName("Bob").build();
-        AddTaskCommand addAliceCommand = new AddTaskCommand(alice);
-        AddTaskCommand addBobCommand = new AddTaskCommand(bob);
+        Inventory toy = new InventoryBuilder().withName("Toy").build();
+        Inventory ball = new InventoryBuilder().withName("Ball").build();
+        AddInventoryCommand addToyCommand = new AddInventoryCommand(new Index(1),
+                                                    toy.getName(), toy.getPrice(), new MemberId("rak"));
+        AddInventoryCommand addBallCommand = new AddInventoryCommand(new Index(1),
+                                                    ball.getName(), ball.getPrice(), new MemberId("rak"));
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addToyCommand.equals(addToyCommand));
 
         // same values -> returns true
-        AddTaskCommand addAliceCommandCopy = new AddTaskCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddInventoryCommand addToyCommandCopy = new AddInventoryCommand(new Index(1),
+                                                    toy.getName(), toy.getPrice(), new MemberId("rak"));
+        assertTrue(addToyCommand.equals(addToyCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addToyCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addToyCommand == null);
 
         // different task -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addToyCommand.equals(addBallCommand));
     }
 
     /**
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -150,12 +182,12 @@ public class AddTaskCommandTest {
 
         @Override
         public ObservableList<Task> getFilteredTaskListNotStarted() {
-            throw new AssertionError("This method should not be called");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Task> getFilteredTaskListDoing() {
-            throw new AssertionError("This method should not be called");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -185,7 +217,7 @@ public class AddTaskCommandTest {
 
         @Override
         public boolean hasMemberId(MemberId memId) {
-            return false;
+            return memId.getDisplayId().equals("rak");
         }
 
         @Override
@@ -200,7 +232,7 @@ public class AddTaskCommandTest {
 
         @Override
         public int getMembersLength() {
-            return 0;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -215,7 +247,7 @@ public class AddTaskCommandTest {
 
         @Override
         public int getTasksLength() {
-            throw new AssertionError("This method should not be called.");
+            return 1;
         }
 
         @Override
@@ -228,6 +260,7 @@ public class AddTaskCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
         @Override
         public void addInventory(Inventory inventory) {
             throw new AssertionError("This method should not be called.");
@@ -235,7 +268,8 @@ public class AddTaskCommandTest {
 
         @Override
         public boolean hasInventory(Inventory inventory) {
-            throw new AssertionError("This method should not be called.");        }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void deleteInventory(Inventory target) {
@@ -259,11 +293,13 @@ public class AddTaskCommandTest {
 
         @Override
         public boolean hasMapping(Mapping mapping) {
-            throw new AssertionError("This method should not be called.");        }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ObservableList<Mapping> getFilteredMappingsList() {
-            throw new AssertionError("This method should not be called.");        }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
@@ -279,43 +315,42 @@ public class AddTaskCommandTest {
         public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
             throw new AssertionError("This method should not be called.");
         }
-
     }
 
     /**
      * A Model stub that contains a single task.
      */
-    private class ModelStubWithTask extends ModelStub {
-        private final Task task;
+    private class ModelStubWithInventory extends AddInventoryCommandTest.ModelStub {
+        private final Inventory inventory;
 
-        ModelStubWithTask(Task task) {
-            requireNonNull(task);
-            this.task = task;
+        ModelStubWithInventory(Inventory inventory) {
+            requireNonNull(inventory);
+            this.inventory = inventory;
         }
 
         @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return this.task.isSameTask(task);
+        public boolean hasInventory(Inventory inventory) {
+            requireNonNull(inventory);
+            return this.inventory.isSameInventory(inventory);
         }
     }
 
     /**
-     * A Model stub that always accept the task being added.
+     * A Model stub that always accept the inventory being added.
      */
-    private class ModelStubAcceptingTaskAdded extends ModelStub {
-        final ArrayList<Task> tasksAdded = new ArrayList<>();
+    private class ModelStubAcceptingInventoryAdded extends AddInventoryCommandTest.ModelStub {
+        final ArrayList<Inventory> inventoriesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return tasksAdded.stream().anyMatch(task::isSameTask);
+        public boolean hasInventory(Inventory inventory) {
+            requireNonNull(inventory);
+            return inventoriesAdded.stream().anyMatch(inventory::isSameInventory);
         }
 
         @Override
-        public void addTask(Task task) {
-            requireNonNull(task);
-            tasksAdded.add(task);
+        public void addInventory(Inventory inventory) {
+            requireNonNull(inventory);
+            inventoriesAdded.add(inventory);
         }
 
         @Override
@@ -323,5 +358,4 @@ public class AddTaskCommandTest {
             return new ProjectDashboard();
         }
     }
-
 }

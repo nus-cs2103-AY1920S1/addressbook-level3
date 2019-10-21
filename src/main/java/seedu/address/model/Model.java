@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
 import seedu.address.model.mapping.Mapping;
@@ -22,7 +23,7 @@ public interface Model {
     Predicate<Member> PREDICATE_SHOW_ALL_MEMBERS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Task> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
+    Predicate<Inventory> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
 
 
     /**
@@ -117,6 +118,11 @@ public interface Model {
     boolean hasMember(Member member);
 
     /**
+     * Returns true if a member with the same identity as {@code memberId} exists in the dashboard.
+     */
+    boolean hasMemberId(MemberId memId);
+
+    /**
      * Deletes the given member.
      * The member must exist in the address book.
      */
@@ -134,6 +140,11 @@ public interface Model {
      * The member identity of {@code editedMember} must not be the same as another existing task in the address book.
      */
     void setMember(Member target, Member editedMember);
+
+    /**
+     * returns length of filteredMembers
+     */
+    int getMembersLength();
 
     /** Returns an unmodifiable view of the filtered member list */
     ObservableList<Member> getFilteredMembersList();
@@ -157,8 +168,10 @@ public interface Model {
     /**
      * Updates the filter of the filtered inventories list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
+     * @param predicate
      */
     void updateFilteredInventoriesList(Predicate<Inventory> predicate);
+
 
     /**
      * Adds the given inventory.
@@ -178,6 +191,13 @@ public interface Model {
     void deleteInventory(Inventory target);
 
     // Mapping
+
+    /**
+     * Replaces the given task {@code target} with {@code editedInventory}.
+     * {@code target} must exist in the address book.
+     * The task identity of {@code editedInventory} must not be the same as another existing inventory in the dashboard.
+     */
+    void setInventory(Inventory target, Inventory editedInventory);
 
     void addMapping(Mapping mapping);
 

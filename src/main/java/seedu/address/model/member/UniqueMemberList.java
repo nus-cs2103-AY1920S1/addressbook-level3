@@ -36,6 +36,19 @@ public class UniqueMemberList implements Iterable<Member> {
     }
 
     /**
+     * Returns true if the list contains an equivalent memId as the given argument.
+     */
+    public boolean containsId(MemberId memId) {
+        requireAllNonNull(memId);
+        for(Member mem: internalList) {
+            if(mem.getId().equals(memId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a task to the list.
      * The task must not already exist in the list.
      */

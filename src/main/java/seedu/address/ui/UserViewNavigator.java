@@ -2,10 +2,9 @@ package seedu.address.ui;
 
 import seedu.address.logic.Logic;
 import seedu.address.ui.views.MemberListPanel;
+import seedu.address.ui.views.InventoryListPanel;
 import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.TaskListPanel;
-
-import java.util.logging.Logger;
 
 /**
  * Utility class for controlling navigation between user views.
@@ -17,6 +16,11 @@ public class UserViewNavigator {
 
     /** The main application layout controller. */
     private static UserViewController userViewController;
+
+    /** The views to switch between **/
+    private ProjectDashboardView projectDashboardView;
+    private TaskListPanel taskListPanel;
+    private InventoryListPanel inventoryListPanel;
 
     /**
      * Stores the main controller for later use in navigation tasks.
@@ -33,7 +37,6 @@ public class UserViewNavigator {
      * @param logic to access the task data
      */
     public void loadDashboard(Logic logic) {
-        System.out.println("Trying to load a dashboard");
         ProjectDashboardView projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(),
                 logic.getFilteredTaskListDoing(), logic.getFilteredTaskListDone(),
                 logic.getFilteredTaskListByDeadline());
@@ -45,7 +48,6 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskListView(Logic logic) {
-        System.out.println("Trying to load the task list!");
         TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         userViewController.setUserView(taskListPanel);
     }
@@ -57,6 +59,15 @@ public class UserViewNavigator {
     public void loadMemberListView(Logic logic) {
         MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList());
         userViewController.setUserView(memberListPanel);
+    }
+
+    /**
+     * Relays to controller to swap current user view with inventory list.
+     * @param logic to access inventory data
+     */
+    public void loadInventoriesListView(Logic logic) {
+        inventoryListPanel = new InventoryListPanel(logic.getFilteredInventoryList());
+        userViewController.setUserView(inventoryListPanel);
     }
 
 }

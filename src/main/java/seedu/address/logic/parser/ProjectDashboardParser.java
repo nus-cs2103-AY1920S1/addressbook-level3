@@ -19,6 +19,7 @@ import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DoingTaskCommand;
 import seedu.address.logic.commands.DoneTaskCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditInventoryCommand;
 import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -26,12 +27,12 @@ import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
 import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-//Remove these lines once stubbing not required
 import seedu.address.logic.parser.stub.DoneTaskCommandParserStub;
 import seedu.address.logic.parser.stub.SetDeadlineCommandParserStub;
 
@@ -92,6 +93,9 @@ public class ProjectDashboardParser {
         case ListMemberCommand.COMMAND_WORD:
             return new ListMemberCommand();
 
+        case ListInventoryCommand.COMMAND_WORD:
+            return new ListInventoryCommand();
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -115,6 +119,9 @@ public class ProjectDashboardParser {
 
         case AddInventoryCommand.COMMAND_WORD:
             return new AddInventoryCommandParser().parse(arguments);
+
+        case EditInventoryCommand.COMMAND_WORD:
+            return new EditInventoryCommandParser().parse(arguments);
 
         case DeleteInventoryCommand.COMMAND_WORD:
             return new DeleteInventoryCommandParser().parse(arguments);
