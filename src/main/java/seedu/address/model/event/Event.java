@@ -2,9 +2,12 @@ package seedu.address.model.event;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import seedu.address.model.employee.Employee;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -63,6 +66,21 @@ public class Event {
 
     public EventDateTimeMap getEventDateTimeMap() {
         return eventDateTimeMap;
+    }
+
+    /**
+     * Checks if an employee is available for this event.
+     * @param employee
+     * @param filteredEventList
+     */
+    public boolean isAvailableForEvent(Employee employee, List<Event> filteredEventList) {
+        List<Event> containsEmployeeEventList = filteredEventList.stream()
+                .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId().id))
+                .collect(Collectors.toList());
+        long nonOverlapEventsCount = containsEmployeeEventList.stream()
+                .filter(x -> startDate.date.compareTo(x.getEndDate().date) > 0
+                        && endDate.date.compareTo(x.getStartDate().date) < 0).count();
+        return nonOverlapEventsCount == containsEmployeeEventList.size();
     }
 
     /**

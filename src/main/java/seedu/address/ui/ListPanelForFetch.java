@@ -1,12 +1,15 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
@@ -14,25 +17,36 @@ import seedu.address.model.event.Event;
 /**
  * Panel containing the list of persons and events.
  */
-public class ListPanel extends UiPart<Region> {
-    private static final String FXML = "ListPanel.fxml";
+public class ListPanelForFetch extends UiPart<Region> {
+    private static final String FXML = "ListPanelForFetch.fxml";
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
     @FXML
     private ListView<Employee> personListView;
 
     @FXML
-    private ListView<Event> eventListView;
+    private ListView<Employee> eventListView;
 
+    @FXML
+    private Text eventDescription;
 
-    public ListPanel(ObservableList<Employee> employeeList, ObservableList<Event> eventList) {
+    /**
+     * Constructor for fetch command
+     */
+    public ListPanelForFetch(ObservableList<Employee> employeeList,
+                             ObservableList<Event> filteredEventList, Event event) {
+
         super(FXML);
-        personListView.setItems(employeeList);
+        ObservableList<Employee> list = event.getManpowerAllocatedList().getManpowerList().stream()
+                .flatMap(x -> employeeList.stream().map(y -> y.getEmployeeId().id.equals(x) ? y : new Employee()))
+                .filter(employee -> employee.getEmployeeName() != null)
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        eventListView.setItems(eventList);
-        eventListView.setCellFactory(listView -> new EventListViewCell());
+        eventListView.setItems(list);
+        eventListView.setCellFactory(listView -> new PersonListViewCell());
+        eventDescription.setText("EVENT DISPLAYED:" + event.toString());
     }
-
 
 
     /**

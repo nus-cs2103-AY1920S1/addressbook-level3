@@ -252,4 +252,23 @@ public class ParserUtil {
         }
         return new EventManpowerNeeded(trimmed);
     }
+
+    /**
+     * Parses a {@code String manpowerNeeded} into a {@code Integer manpowerCount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given manpowerNeeded is invalid.
+     */
+    public static Integer parseManpowerToAllocate(String manpowerToAllocate) throws ParseException {
+        if (manpowerToAllocate == null) {
+            return null;
+        }
+
+        String trimmed = manpowerToAllocate.trim();
+        Integer manpowerToAdd = Integer.valueOf(trimmed);
+        if (manpowerToAdd <= 0) {
+            throw new ParseException("Number of employees to allocate must be a positive integer!");
+        }
+        return manpowerToAdd;
+    }
 }

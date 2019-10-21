@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +17,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.event.Event;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,8 +35,10 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
+    private ListPanelForFetch listPanelForFetch;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private FetchWindow fetchWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,7 +113,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
-        personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -144,6 +149,21 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the fetch window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleFetch(ObservableList<Employee> employeeList,
+                            ObservableList<Event> filteredEventList, Event event) {
+        fetchWindow = new FetchWindow(employeeList, filteredEventList, event);
+        if (!fetchWindow.isShowing()) {
+            fetchWindow.show();
+        } else {
+            fetchWindow.focus();
+        }
+    }
+
+
     void show() {
         primaryStage.show();
     }
@@ -159,6 +179,8 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
+
+
 
     public seedu.address.ui.ListPanel getListPanel() {
         return listPanel;
@@ -182,6 +204,20 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+            if (commandResult.getFetch() != null) {
+                handleFetch(logic.getFilteredEmployeeList(),
+                        logic.getFilteredEventList(), logic.getFilteredEventList().get(commandResult.getFetch()));
+                //listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+            }
+
+            /*if (commandResult.isFetch()) {
+                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(),
+                        logic.getFilteredEventList(), logic.getFilteredEventList().get(0));
+                listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+            } else {
+                listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
+                listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
+            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -190,4 +226,8 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+
+
+
 }
