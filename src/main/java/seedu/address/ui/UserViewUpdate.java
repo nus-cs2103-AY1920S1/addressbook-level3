@@ -62,8 +62,12 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadDashboard());
             break;
 
+        case "delete-inv":
+
+        case "add-inv":
+
         case "list-inv":
-            paneToRender = userViewMain.loadInventories();
+            paneToRender.getChildren().add(userViewMain.loadInventories());
             break;
 
         default:

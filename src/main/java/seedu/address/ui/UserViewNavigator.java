@@ -52,6 +52,7 @@ public class UserViewNavigator {
         userViewController.setUserView(taskListPanel);
     }
 
+    // TODO get filtered member list from logic interface
     /**
      * Relays to controller to swap current user view with member list.
      * @param logic to access task data
