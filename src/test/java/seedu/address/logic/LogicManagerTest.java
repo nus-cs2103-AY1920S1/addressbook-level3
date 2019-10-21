@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCalendarStorage;
 import seedu.address.storage.JsonFoodListStorage;
 import seedu.address.storage.JsonRecordListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -49,9 +50,10 @@ public class LogicManagerTest {
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(
             temporaryFolder.resolve("recordList.json")
         );
+        JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("eventlist.json"),
+                temporaryFolder.resolve("reminderlist.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage,
-                jsonFoodListStorage,
-            jsonRecordListStorage);
+                jsonFoodListStorage, jsonRecordListStorage, jsonCalendarStorage);
         logic = new LogicManager(model, storage);
     }
 

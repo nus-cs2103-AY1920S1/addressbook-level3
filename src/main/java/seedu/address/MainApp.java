@@ -32,6 +32,7 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCalendarStorage;
 import seedu.address.storage.JsonFoodListStorage;
 import seedu.address.storage.JsonRecordListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -73,8 +74,10 @@ public class MainApp extends Application {
         UserListStorage userListStorage = new JsonUserListStorage(userPrefs.getUserListFilePath());
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(userPrefs.getRecordListFilePath());
+        JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(userPrefs.getEventListFilePath(),
+                userPrefs.getReminderListFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
-                jsonRecordListStorage);
+                jsonRecordListStorage, jsonCalendarStorage);
 
         initLogging(config);
 
@@ -110,7 +113,7 @@ public class MainApp extends Application {
             addressBookOptional = storage.readAddressBook();
             foodListOptional = storage.readFoodList();
             recordListOptional = storage.readRecordList();
-            calendarOptional = storage.readCalendarEntryList();
+            calendarOptional = storage.readCalendar();
 
             if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
@@ -120,6 +123,9 @@ public class MainApp extends Application {
             }
             if (recordListOptional.isEmpty()) {
                 logger.info("Record list data file not found. Will be starting with a sample Recordlist");
+            }
+            if (calendarOptional.isEmpty()) {
+                logger.info("Calendar data file not found. Will be starting with a sample Calendar");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
