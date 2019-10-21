@@ -3,46 +3,40 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.InCommand;
+import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.Date;
-import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.InTransaction;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.Budget;
 
 /**
- * Parses input arguments and creates a new InCommand object.
+ * Parses input arguments and creates a new SetCommand object.
  */
-public class InCommandParser implements Parser<InCommand> {
+public class SetCommandParser implements Parser<SetCommand> {
 
     @Override
-    public InCommand parse(String args) throws ParseException {
+    public SetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        Amount budget = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Transaction transaction = new InTransaction(amount, date, tagList);
+        Budget newBudget = new Budget(budget, date);
 
-        return new InCommand(transaction);
+        return new SetCommand(newBudget);
 
     }
 
@@ -53,4 +47,5 @@ public class InCommandParser implements Parser<InCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
 }
