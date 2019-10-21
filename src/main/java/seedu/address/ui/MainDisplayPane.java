@@ -43,10 +43,13 @@ public class MainDisplayPane {
             Image previousDp = previousPane != null ? previousPane.getImg() : null;
             if (previousDp != null && filteredUserList.get(0).getDpPath().toString()
                     .equals(previousPane.getDpPath())) {
-                return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList, previousDp),
+                return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList, previousDp,
+                                logic.getFontColour()),
                         newPaneIsToBeCreated);
             } else {
-                return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList), newPaneIsToBeCreated);
+                return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList,
+                                logic.getFontColour()),
+                        newPaneIsToBeCreated);
             }
         case ACHVM:
             return getMappedPane(displayPaneType, AchievementsPane::new, newPaneIsToBeCreated);

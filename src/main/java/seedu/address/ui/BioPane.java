@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.MainApp;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 
 /**
@@ -33,11 +34,11 @@ public class BioPane extends UiPart<Region> {
     @FXML
     private VBox bioTablePlaceholder;
 
-    public BioPane(ObservableList<User> filteredUserList) {
-        this(filteredUserList, null);
+    public BioPane(ObservableList<User> filteredUserList, Colour fontColour) {
+        this(filteredUserList, null, fontColour);
     }
 
-    public BioPane(ObservableList<User> filteredUserList, Image img) {
+    public BioPane(ObservableList<User> filteredUserList, Image img, Colour fontColour) {
         super(FXML);
 
         if (!filteredUserList.isEmpty()) {
@@ -50,12 +51,12 @@ public class BioPane extends UiPart<Region> {
             String nric = user.getNric().toString();
             String gender = user.getGender().toString();
             String dob = user.getDateOfBirth().toString();
-            String hp = listToString(user.getContactNumbers());;
+            String hp = listToString(user.getContactNumbers());
             String emergencyHp = listToString(user.getEmergencyContacts());;
             String medicalCondition = listToString(user.getMedicalConditions());
             String address = user.getAddress().toString();
+            String fontColourToString = fontColour.toString();
             String bgColour = "navy-blue";
-            String fontColour = "yellow";
             String myGoals = listToString(user.getGoals());
             String otherBioInfo = user.getOtherBioInfo().toString();
 
@@ -78,7 +79,7 @@ public class BioPane extends UiPart<Region> {
             }
             profilePlaceholder.getChildren().add(profile.getRoot());
             bioTable = new BioTable(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath,
-                    bgColour, fontColour, myGoals, otherBioInfo);
+                    bgColour, fontColourToString, myGoals, otherBioInfo);
         } else {
             img = new Image(MainApp.class.getResourceAsStream(DEFAULT_DP_PATH));
             this.img = img;

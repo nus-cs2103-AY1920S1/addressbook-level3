@@ -33,7 +33,7 @@ public class FontColourCommand extends Command {
         Colour previousColour = model.getFontColour();
         Colour newColour = fontColour;
         model.setFontColour(newColour);
-        String updateMessage = "Colour has been changed from " + previousColour + " to " + newColour;
+        String updateMessage = "Colour has been changed from " + previousColour + " to " + newColour + ".";
         return new CommandResult(MESSAGE_SUCCESS + " " + updateMessage);
     }
 

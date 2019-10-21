@@ -16,6 +16,8 @@ public class Colour {
             "Colour should be a valid colour or a hexadecimal representation of a colour.";
 
     private static final List<ColourName> COLOUR_NAMES = Arrays.asList(ColourName.values());
+    private static final List<ColourNameAsHexadecimal> COLOUR_NAMES_AS_HEXADECIMAL = Arrays
+            .asList(ColourNameAsHexadecimal.values());
 
     /*
      * The first character of the colour must not be a whitespace,
@@ -33,7 +35,25 @@ public class Colour {
     public Colour(String colour) {
         requireNonNull(colour);
         checkArgument(isValidColour(colour), MESSAGE_CONSTRAINTS);
-        this.colour = colour;
+        ColourName colourName = getColourNameAsHexadecimal(colour);
+        this.colour = (colourName != null) ? colourName.toString().toLowerCase() : colour.toLowerCase();
+    }
+
+    public static ColourName getColourNameAsHexadecimal(String hexadecimal) {
+        int hexIndex = -1;
+        for (int i = 0; i < COLOUR_NAMES_AS_HEXADECIMAL.size(); i++) {
+            ColourNameAsHexadecimal colourNameAsHexadecimal = COLOUR_NAMES_AS_HEXADECIMAL.get(i);
+            String colourNameAsHexadecimalToString = "#" + colourNameAsHexadecimal.toString().substring(4, 10);
+            if (colourNameAsHexadecimalToString.equals(hexadecimal)) {
+                hexIndex = i;
+                break;
+            }
+        }
+        if (hexIndex != -1) {
+            return COLOUR_NAMES.get(hexIndex);
+        } else {
+            return null;
+        }
     }
 
     /**

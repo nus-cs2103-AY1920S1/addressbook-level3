@@ -1,8 +1,11 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.ui.DisplayPaneType.BIO;
+import static seedu.address.ui.DisplayPaneType.COLOUR;
 
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -193,6 +196,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the font colour based on {@code guiSettings}.
+     *
      * @param guiSettings
      */
     private void setFontColour(GuiSettings guiSettings) {
@@ -210,17 +214,56 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
+
+    /**
+     * Returns the pane to be displayed depending on the type of pane to be displayed and whether the GUI has
+     * been modified.
+     * If the GUI has been modified, then the BIO page needs to reload to display the update if the current
+     * pane displayed happens to be so.
+     * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
+     * @param guiIsModified Boolean indicating whether the GUI has been modified.
+     * @return
+     */
+    private DisplayPaneType getPaneToDisplay(DisplayPaneType displayPaneType, boolean guiIsModified) {
+        if (guiIsModified && mainDisplayPane.getCurrPaneType() == BIO) {
+            return BIO;
+        } else if (guiIsModified) {
+            return null;
+        } else {
+            return displayPaneType;
+        }
+    }
+
+    /**
+     * Modifies the GUI based on the displayPaneType and returns true if the GUI has been modified
+     * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
+     * @return Boolean indicating whether the GUI has been modified.
+     */
+    private boolean guiIsModified(DisplayPaneType displayPaneType) {
+        if (displayPaneType == COLOUR) {
+            setFontColour(logic.getGuiSettings());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Switches the main display pane to the specified UI part.
      */
     public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
-        if (displayPaneType == DisplayPaneType.COLOUR) {
-            setFontColour(logic.getGuiSettings());
-        } else if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated) {
+        if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
+            throw new NullPointerException();
+        } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
+            DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
+            if (paneToDisplay == null) {
+                return;
+            }
+            newPaneIsToBeCreated = (displayPaneType == COLOUR && paneToDisplay == BIO) || newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(displayPaneType, newPaneIsToBeCreated).getRoot()));
+                .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
         }
     }
 
