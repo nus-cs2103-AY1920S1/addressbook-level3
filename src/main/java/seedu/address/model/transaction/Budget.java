@@ -81,4 +81,9 @@ public class Budget {
         return new Date("10102019");
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s by %s", this.amount.toString(), this.deadline.toString());
+    }
+
 }
