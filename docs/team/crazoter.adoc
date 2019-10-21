@@ -36,9 +36,7 @@ https://github.com/AY1920S1-CS2103-F10-1/main/pull/71[#71],
 https://github.com/AY1920S1-CS2103-F10-1/main/pull/72[#72],
 https://github.com/AY1920S1-CS2103-F10-1/main/pull/73[#73]
 *** Contributed to discussions (in Pull Request(s) https://github.com/AY1920S1-CS2103-F10-1/main/pull/42[#42] and offline/Telegram discussions)
-*** Contributed to discussions within my own Pull Requests: https://github.com/AY1920S1-CS2103-F10-1/main/pull/68[#68], https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69], 
-https://github.com/AY1920S1-CS2103-F10-1/main/pull/75[#75],
-https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]
+*** Contributed to discussions within my own Pull Requests: https://github.com/AY1920S1-CS2103-F10-1/main/pull/68[#68], https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69], https://github.com/AY1920S1-CS2103-F10-1/main/pull/75[#75], https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]
 *** Setup example Milestone issue format (https://github.com/AY1920S1-CS2103-F10-1/main/issues/53[#53])
 ** Tools:
 *** Helped in setting up team repo

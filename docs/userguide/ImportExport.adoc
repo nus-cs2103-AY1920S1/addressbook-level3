@@ -1,0 +1,45 @@
+== Importing and Exporting of Patient Data
+====
+*Importing and Exporting of Patient Data*
+
+As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses. To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
+====
+
+=== Importing patient data from a CSV file: `import`
+
+You can import patient data from a .csv file into the application using `import`.
+
+****
+ * Only the file format .csv is supported.
+ * The application will look for filename.csv in the ./import folder.
+ * Imported data can either replace or be combined with existing data.
+ * The .csv file must adhere to the following format: `example.csv`.
+****
+
+Format: `import [flag]/filename.csv` +
+	 `flag: r/ (replace) or c/ (combine)`
+
+Examples:
+
+ * `import r/my_patients.csv`
+ * `import c/my_new_patients.csv`
+
+=== Exporting data into .csv: `export`
+
+You can export patient data from the application into a .csv file using `export`.
+
+****
+ * Only the file format .csv is supported.
+ * Creates filename.csv in the ./export folder
+ * Exported data will be in the following format: example.csv
+ * Patient data can be selectively exported (?)
+****
+
+Format: `export filename.csv [flag?] [num...]` +
+	 `flag: r/(range) or i/(indexes)`
+
+Examples:
+
+ * `export patients.csv`
+ * `export patients.csv r/5 10`
+ * `export patients.csv i/2 4 6 7 10`

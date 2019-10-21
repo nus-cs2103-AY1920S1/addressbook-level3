@@ -1,0 +1,288 @@
+== Medical Conditions
+====
+*Medical Conditions*
+
+As a community nurse, you will often have to keep track of your patients' medical conditions. This section describes the features that will allow you to manage the full list of medical conditions, as well as the list of medical conditions of a patient.
+====
+
+=== Listing All Medical Conditions: `medcon list`
+You can see a list of all medical conditions in the app by typing `medcon list`.
+
+In the list displayed, each medical condition will have an *index* number which can then be used for other features that require you to select a medical condition by *index* e.g. `medcon delete`. Take note that a medical condition will be given the same *index* regardless of other display commands such as `medcon find`.
+
+Format: `medcon list`
+
+=== Finding Medical Condition(s): `medcon find`
+
+You can find medical conditions that fit the parameters given using `medcon find`.
+
+In the list displayed, each medical condition will have an *index* number which can then be used for other features that require you to select a medical condition by *index* e.g. `medcon delete`. Take note that a medical condition will be given the same *index* regardless of other display commands such as `medcon list` or if different parameters are used.
+
+
+Format: `medcon find [KEYWORD] [n/NAME] [s/SYMPTOMS] [d/DIAGNOSIS] [t/TREATMENT]`
+
+****
+* The search is case insensitive. e.g `asthma` will match `Asthma`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/Diabetes` will return `Diabetes, Type 1` and `Diabetes, Type 2`.
+* If KEYWORD is specified, will attempt search all fields for a match for KEYWORD.
+****
+
+Examples:
+
+* `medcon find asthma` +
+Returns all medical conditions with the keyword `asthma` in it
+
+* `medcon find` +
+Returns all medical conditions in the application database
+
+=== Viewing a Medical Condition: `medcon view`
+
+You can see a medical condition's full details using `medcon view`. The medical condition is selected by their *index*.
+
+Format: `medcon view INDEX`
+
+****
+* View the medical condition at the specified `INDEX`.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon view 1`
+View the item with index number 1. This index can be found from the full list of medical conditions.
+
+* `medcon view 2`
+View the item with the index number 2.
+
+=== Adding a Medical Condition: `medcon add`
+
+You can add a medical condition to the list of all conditions by using `medcon add`.
+
+Format: `medcon add n/NAME s/SYMPTOMS d/DIAGNOSIS t/TREATMENT`
+
+****
+ * All fields must be specified.
+****
+
+Examples:
+
+ * `medcon add n/Diabetes, Type 1 s/Increased thirst, frequent urination, extreme hunger, unexplained weight loss
+    d/A1C test, blood sugar test, oral glucose test t/Insulin injections, insulin pump, blood sugar monitoring,
+    carbohydrate counting`
+
+=== Editing a Medical Condition: `medcon edit`
+
+You can edit an existing medical condition in the app using `medcon edit`.
+
+Format: `medcon edit INDEX [n/NAME] [s/SYMPTOMS] [d/DIAGNOSIS] [t/TREATMENT]`
+
+****
+* Edits the medical condition at the specified `INDEX`.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `medcon list` +
+ `medcon edit 3 s/increased hunger, increased thirst, weight loss, frequent urination, blurry vision, extreme fatigue, sores that don’t heal` +
+Edits the symptoms of the medical condition with index 3.
+
+// tag::delete[]
+=== Deleting a Medical Condition: `medcon delete`
+
+You can delete a medical condition by *index* using `medcon delete`.
+
+Format: `medcon delete INDEX`
+
+****
+* Deletes the medical condition at the specified `INDEX`.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon delete 2` +
+Deletes the 2nd medical condition in the medical condition list.
+
+* `medcon delete 1` +
+Deletes the medical condition which had been assigned the index 1.
+
+// end::delete[]
+
+=== Deleting multiple Medical Conditions: `medcon delete` `[coming in V2.0]`
+
+You can delete a medical condition by *indexes* using `medcon delete`.
+
+Format: `medcon delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the medical condition at the specified `INDEX` es. You can put in as many indexes to delete as many medical conditions as you wish.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon delete 2` +
+Deletes the 2nd medical condition in the medical condition list.
+
+* `medcon delete 1 2` +
+Deletes the and 2nd medical conditions with which had been assigned the 1.command.
+
+== Medicines [Parameters not updated]
+====
+*Medicines*
+
+As a community nurse, you will often come across and use various medicines. This section describes the features that will allow you to manage the list of medicines and their information in the application.
+====
+
+=== Listing All Medicines: `med list`
+You can see a list of all medicines in the app by typing `med list`.
+
+In the list displayed, each medicine will have an *index* number which can then be used for other features that require you to select a medicine by *index* e.g. `med delete`. Take note that a medicine will be given the same *index* regardless of other display commands such as `med find`.
+
+Format: `med list`
+
+=== Finding Medicine(s): `med find`
+
+You can find medicines that fit the parameters given using `med find`.
+
+In the list displayed, each medicine will have an *index* number which can then be used for other features that require you to select a medicine by *index* e.g. `med delete`. Take note that a medicine will be given the same *index* regardless of other display commands such as `med list` or if different parameters are used.
+
+
+Format: `med find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+* `med find panadol` +
+Returns all medicines with the keyword `panadol` in it
+
+=== Viewing a Medicine: `med view`
+
+You can see a medicine's full details using `med view`. The medicine is selected by their *index*.
+
+Format: `med view INDEX`
+
+****
+* View the medicine at the specified `INDEX`.
+* The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `med list` +
+`med view 1`
+View the item with index number 1. This index can be found from the full list of medicines.
+
+* `med view 2`
+View the item with the index number 2.
+
+=== Adding a Medicine: `med add`
+
+You can add a medicine to the list of all medicines by using `med add`.
+
+Format: `med add pn/MEDICINE_NAME pi/MEDICINE_IC p/PHONE_NUMBER a/ADDRESS [e/EMAIL] [t/TAG]…​ [kn/NOK_NAME] [kp/NOK_PHONE_NUMBER] [ka/NOK_ADDRESS] [ke/NOK_EMAIL] [imp/PRIORITY]`
+
+****
+ * A medicine can have any number of tags.
+ * A medicine can have next-of-kin contact details.
+ * Every medicine is uniquely identified by their IC.
+ * Priority can take values from 0 to 10.
+****
+
+Examples:
+
+ * `med add n/John Doe pi/S7012255C p/98765432 a/John street, block 123, #01-01`
+
+ * `med add n/Choong Siew Hwang pi/S7015376D p/91239876 a/22 College Avenue East; Singapore 138608 e/cho0ng@email.com t/Big kn/Choong Tee Ling kp/85639274 ka/10 Buangkok View, Singapore 534194 ke/ch1ng@email.com`
+
+ * `med add n/Betsy Crowe pi/S0011239X t/friend e/betsycrowe@example.com a/Newgate Prison p/12345678 t/criminal imp/4`
+
+=== Editing a Medicine: `med edit`
+
+You can edit an existing medicine in the app using `med edit`.
+
+Format: `med edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`.
+* The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `med list` +
+ `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person in the entire medicine's list to be `91234567` and `johndoe@example.com` respectively.
+
+
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person with the index 1.Crower` and clears all existing tags.
+
+
+// tag::delete[]
+=== Deleting a Medicine: `med delete`
+
+You can delete a medicine by *index* using `med delete`.
+
+Format: `med delete INDEX`
+
+****
+* Deletes the medicine at the specified `INDEX`.
+* The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `med list` +
+`med delete 2` +
+Deletes the 2nd medicine in the medicine list.
+
+* `med delete 1` +
+Deletes the medicine which had been assigned the index 1.
+
+// end::delete[]
+
+=== Deleting multiple Medicines: `med delete` `[coming in V2.0]`
+
+You can delete a medicine by *indexes* using `med delete`.
+
+Format: `med delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the medicine at the specified `INDEX` es. You can put in as many indexes to delete as many medicines as you wish.
+* The index refers to the index number shown in the list of medicines displayed by `med list` or `med find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `med list` +
+`med delete 2` +
+Deletes the 2nd medicine in the medicine list.
+
+* `med delete 1 2` +
+Deletes the and 2nd medicines which had been assigned the index 1.
