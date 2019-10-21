@@ -8,6 +8,7 @@ import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
 import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_RESTRICTIONS;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +20,6 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
  * Parses and Checks validity of fields.
  */
 public class FieldParser {
-    public static final String NO_ARGUMENTS_USAGE = "Note you have entered in zero arguments.";
     public static final String DUPLICATE_FIELD_USAGE = "Note you have entered a duplicate field.";
     public static final String MISSING_DIRECTION_USAGE = "Note that you need to have a direction for each field.";
     public static final String INVALID_DIRECTION_USAGE = "Note you have entered an invalid direction:\n"
@@ -32,7 +32,7 @@ public class FieldParser {
     public List<String> parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(NO_ARGUMENTS_USAGE);
+            return new ArrayList<String>();
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

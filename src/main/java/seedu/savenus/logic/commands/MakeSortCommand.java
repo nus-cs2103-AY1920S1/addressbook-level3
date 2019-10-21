@@ -31,4 +31,21 @@ public class MakeSortCommand extends Command {
         model.setCustomSorter(fields);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    public List<String> getFields() {
+        return this.fields;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof MakeSortCommand) {
+            return this.getFields().equals(((MakeSortCommand) obj).getFields());
+        } else {
+            return false;
+        }
+    }
 }

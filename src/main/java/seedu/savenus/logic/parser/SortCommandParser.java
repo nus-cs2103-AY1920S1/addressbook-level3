@@ -18,6 +18,9 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String args) throws ParseException {
         try {
             List<String> list = new FieldParser().parse(args);
+            if (list.size() == 0) {
+                throw new ParseException(SortCommand.NO_FIELDS_ERROR);
+            }
             return new SortCommand(list);
         } catch (ParseException e) {
             String message = e.getMessage();
