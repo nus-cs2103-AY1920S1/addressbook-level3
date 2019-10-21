@@ -15,7 +15,7 @@ import seedu.address.model.tag.Tag;
  */
 public class TagListPanel extends UiPart<Region> {
     private static final String FXML = "TagListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(TagListPanel.class);
+    //private final Logger logger = LogsCenter.getLogger(TagListPanel.class);
 
     @FXML
     private ListView<Tag> tagListView;
