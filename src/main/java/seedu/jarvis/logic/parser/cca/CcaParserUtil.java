@@ -1,5 +1,9 @@
 package seedu.jarvis.logic.parser.cca;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Collection;
+
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.commons.util.StringUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
@@ -7,10 +11,6 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
-
-import java.util.Collection;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Contains utility methods used for parsing strings in the Cca classes.

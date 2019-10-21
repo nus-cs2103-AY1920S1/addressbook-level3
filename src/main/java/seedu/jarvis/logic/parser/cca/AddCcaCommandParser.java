@@ -35,7 +35,8 @@ public class AddCcaCommandParser implements Parser<AddCcaCommand> {
 
         CcaName ccaName = CcaParserUtil.parseCcaName(argumentMultimap.getValue(PREFIX_CCA_NAME).get());
         CcaType ccaType = CcaParserUtil.parseCcaType(argumentMultimap.getValue(PREFIX_CCA_TYPE).get());
-        EquipmentList equipmentList = CcaParserUtil.parseEquipments(argumentMultimap.getAllValues(PREFIX_EQUIPMENT_NAME));
+        EquipmentList equipmentList = CcaParserUtil.parseEquipments(argumentMultimap
+                .getAllValues(PREFIX_EQUIPMENT_NAME));
         Cca cca = new Cca(ccaName, ccaType, equipmentList);
 
         return new AddCcaCommand(cca);

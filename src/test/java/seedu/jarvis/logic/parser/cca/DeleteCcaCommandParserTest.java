@@ -4,11 +4,9 @@ import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_CCA;
-import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
 import seedu.jarvis.logic.commands.cca.DeleteCcaCommand;
 
 /**
