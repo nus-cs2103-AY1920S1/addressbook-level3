@@ -1,13 +1,12 @@
 package seedu.address.model.quiz;
 
-import seedu.address.model.question.SavedQuestions;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.question.SavedQuestions;
 
 /**
  * Wraps all data at the questions level Duplicates are not allowed (by .isRepeated comparison)

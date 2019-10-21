@@ -1,16 +1,17 @@
 package seedu.address.storage.quiz;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.quiz.SavedQuizzes;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable savedQuestions that is serializable to JSON format.

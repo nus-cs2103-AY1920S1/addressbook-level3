@@ -31,7 +31,7 @@ public class QuizBank implements Iterable<Quiz> {
      * @param quiz The quiz to be added to the quiz bank.
      */
     public void addQuiz(Quiz quiz) {
-        if(!isRepeated(quiz)) {
+        if (!isRepeated(quiz)) {
             quizzes.add(quiz);
         }
     }
@@ -84,11 +84,16 @@ public class QuizBank implements Iterable<Quiz> {
         return quizzes.iterator();
     }
 
+    /**
+     * Checks if a quiz has been repeated, i.e same quizIds.
+     * @param quiz The quiz to be checked.
+     * @return True if the quiz is repeated, else false.
+     */
     private boolean isRepeated(Quiz quiz) {
-        for(Quiz q : quizzes) {
+        for (Quiz q : quizzes) {
             String thisQuizId = q.getQuizId();
             String otherQuizId = quiz.getQuizId();
-            if(thisQuizId.equals(otherQuizId)) {
+            if (thisQuizId.equals(otherQuizId)) {
                 return true;
             }
         }

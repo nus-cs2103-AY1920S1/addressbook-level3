@@ -1,12 +1,12 @@
 package seedu.address.storage.quiz;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.quiz.ReadOnlyQuizzes;
-import seedu.address.model.quiz.SavedQuizzes;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.quiz.SavedQuizzes;
 
 /**
  * Represents a storage for {@link SavedQuizzes}.

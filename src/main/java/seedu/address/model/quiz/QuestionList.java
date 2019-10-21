@@ -86,10 +86,10 @@ public class QuestionList {
     public void setStringQuestions(String stringQuestions) {
         System.out.println("StringQuestionsSet" + stringQuestions);
         String[] splitBySymbol = stringQuestions.split("//");
-        for(String s : splitBySymbol) {
+        for (String s : splitBySymbol) {
             System.out.println("CurrentQUESTION" + s);
             String[] split = s.split(":");
-            if(split.length <= 2) {
+            if (split.length <= 2) {
                 String question = split[0];
                 System.out.println(question);
                 String answer = split[1];
@@ -106,8 +106,8 @@ public class QuestionList {
                 String optionD = split[5];
                 System.out.println("splitMCQStringQuestion: " + question);
                 System.out.println("splitMCQStringAnswer: " + answer);
-                McqQuestion mcqQuestion = new McqQuestion(question, answer, optionA, optionB
-                                            , optionC, optionD);
+                McqQuestion mcqQuestion = new McqQuestion(question, answer, optionA, optionB,
+                                            optionC, optionD);
                 questions.add(mcqQuestion);
             }
         }
@@ -122,7 +122,7 @@ public class QuestionList {
         System.out.println(firstQuestion);
         System.out.println(questions.get(1));
         String returnQuestions = "";
-        if(firstQuestion instanceof OpenEndedQuestion) {
+        if (firstQuestion instanceof OpenEndedQuestion) {
             String question = firstQuestion.getQuestion();
             String answer = firstQuestion.getAnswer();
             returnQuestions += question + ":" + answer;
@@ -134,9 +134,9 @@ public class QuestionList {
                                 + mcqQuestion.getOptionA() + ":" + mcqQuestion.getOptionB()
                                 + mcqQuestion.getOptionC() + ":" + mcqQuestion.getOptionD();
         }
-        for(int i = 1; i < questions.size(); i++) {
+        for (int i = 1; i < questions.size(); i++) {
             Question nextQuestion = questions.get(i);
-            if(nextQuestion instanceof OpenEndedQuestion) {
+            if (nextQuestion instanceof OpenEndedQuestion) {
                 String question = nextQuestion.getQuestion();
                 String answer = nextQuestion.getAnswer();
                 returnQuestions += "//" + question + ":" + answer;
