@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.SplitTransaction;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
 
@@ -16,11 +17,13 @@ import seedu.address.model.transaction.UniqueTransactionList;
 public class BankAccount implements ReadOnlyBankAccount {
     private Amount balance;
     private Ledger ledger;
+    private Budget budget;
     private UniqueTransactionList transactions;
 
     public BankAccount() {
         balance = new Amount(0);
         ledger = new Ledger();
+        budget = new Budget();
         transactions = new UniqueTransactionList();
     }
 
@@ -62,7 +65,9 @@ public class BankAccount implements ReadOnlyBankAccount {
     public void addTransaction(Transaction txn) {
         transactions.add(txn);
         Amount newBalance = txn.handleBalance(this.balance);
+        Budget newBudget = txn.handleBudget(this.budget);
         this.balance = newBalance;
+        this.budget = newBudget;
     }
 
     /**
@@ -92,6 +97,10 @@ public class BankAccount implements ReadOnlyBankAccount {
     public void split(SplitTransaction transaction) {
         transactions.add(transaction);
         ledger.addSplitTransaction(transaction);
+    public void setBudget(Budget budget) {
+        requireNonNull(budget);
+
+        this.budget = budget;
     }
 
     @Override

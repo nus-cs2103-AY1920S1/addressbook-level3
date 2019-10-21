@@ -186,4 +186,5 @@ public class ParserUtil {
         requireNonNull(s);
         return new Amount(Double.parseDouble(s));
     }
+
 }
