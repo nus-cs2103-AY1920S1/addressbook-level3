@@ -117,7 +117,7 @@ public class CommandTestUtil {
             seedu.address.transaction.model.Model transactionModel =
                     new seedu.address.transaction.model.ModelManager(transactionList);
             seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
-            seedu.address.reimbursement.model.Model reimbursementModel=
+            seedu.address.reimbursement.model.Model reimbursementModel =
                     new seedu.address.reimbursement.model.ModelManager(reimbursementList);
             seedu.address.cashier.model.ModelManager cashierModel =
                     new seedu.address.cashier.model.ModelManager(cashierList);
@@ -127,13 +127,15 @@ public class CommandTestUtil {
             //all related StorageManagers
             seedu.address.transaction.storage.StorageManager transactionManager =
                     new StorageManager("", personModel);
-            seedu.address.person.storage.StorageManager personManager=
+            seedu.address.person.storage.StorageManager personManager =
                     new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
             seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                     new seedu.address.reimbursement.storage.StorageManager(
                             "data/test/reimbursement.txt", transactionModel);
-            seedu.address.cashier.storage.StorageManager cashierManager = new seedu.address.cashier.storage.StorageManager(
-                    "data/test/inventory.txt", "data/test/transaction.txt", personModel);
+            seedu.address.cashier.storage.StorageManager cashierManager =
+                    new seedu.address.cashier.storage.StorageManager(
+                    "data/test/inventory.txt", "data/test/transaction.txt",
+                            personModel);
             seedu.address.inventory.storage.StorageManager inventoryManager =
                     new seedu.address.inventory.storage.StorageManager("data/test/inventory.txt");
 
@@ -192,7 +194,7 @@ public class CommandTestUtil {
         seedu.address.transaction.model.Model transactionModel =
                 new seedu.address.transaction.model.ModelManager(transactionList);
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
-        seedu.address.reimbursement.model.Model reimbursementModel=
+        seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.cashier.model.ModelManager cashierModel =
                 new seedu.address.cashier.model.ModelManager(cashierList);
@@ -202,7 +204,7 @@ public class CommandTestUtil {
         //all related StorageManagers
         seedu.address.transaction.storage.StorageManager transactionManager =
                 new StorageManager("", personModel);
-        seedu.address.person.storage.StorageManager personManager=
+        seedu.address.person.storage.StorageManager personManager =
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(

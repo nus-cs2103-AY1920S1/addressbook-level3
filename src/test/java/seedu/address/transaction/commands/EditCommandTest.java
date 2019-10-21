@@ -1,11 +1,14 @@
 package seedu.address.transaction.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.transaction.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.commands.CommandTestUtil.showTransactionsOfPerson;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.UserPrefs;
@@ -17,8 +20,6 @@ import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
-
-import org.junit.jupiter.api.Test;
 
 class EditCommandTest {
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
@@ -44,7 +45,7 @@ class EditCommandTest {
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         int filterListSize = model.getFilteredList().size();
         Transaction lastTransaction = model.getFilteredList().get(filterListSize - 1);
-        Transaction editedTransaction =  new TransactionBuilder(lastTransaction.getPerson())
+        Transaction editedTransaction = new TransactionBuilder(lastTransaction.getPerson())
                 .withAmount(80.0).withDate("01-Jan-2019")
                 .build();
 
@@ -173,7 +174,35 @@ class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditTransactionDescriptorBuilder().withAmount(88.0).build());
 
-        assertCommandFailure(editCommand, model, TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION,personModel);
+        assertCommandFailure(editCommand, model, TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION, personModel);
+    }
+
+    @Test
+    public void equals() {
+        // same values -> returns true
+        EditCommand.EditTransactionDescriptor copyDescriptor = new EditCommand.EditTransactionDescriptor();
+        EditCommand.EditTransactionDescriptor descriptor = new EditCommand.EditTransactionDescriptor();
+        EditCommand.EditTransactionDescriptor anotherDescriptor = new EditCommand.EditTransactionDescriptor();
+        anotherDescriptor.setDescription("dummy description");
+        final EditCommand standardCommand = new EditCommand(1, descriptor);
+        EditCommand commandWithSameValues = new EditCommand(1, copyDescriptor);
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new BackCommand()));
+
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new EditCommand(2, descriptor)));
+
+        // different descriptor -> returns false
+        assertFalse(standardCommand.equals(new EditCommand(1, anotherDescriptor)));
     }
 
     /*@Test

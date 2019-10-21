@@ -1,6 +1,8 @@
 package seedu.address.transaction.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.address.person.model.person.Person;
 import seedu.address.stubs.PersonModelStubWithPerson;
@@ -8,8 +10,6 @@ import seedu.address.stubs.TransactionModelStubWithTransaction;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.transaction.model.Transaction;
-
-import org.junit.jupiter.api.Test;
 
 class BackCommandTest {
 

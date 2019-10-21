@@ -10,6 +10,8 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_T
 
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.person.model.Model;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
@@ -17,10 +19,7 @@ import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.Transaction;
 
-import org.junit.jupiter.api.Test;
-
 class DeleteNameCommandTest {
-    
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
     private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 

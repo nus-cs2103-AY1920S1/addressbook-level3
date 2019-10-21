@@ -32,6 +32,7 @@ public class DeleteIndexCommand extends DeleteCommand {
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION, transaction));
     }
 
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteIndexCommand // instanceof handles nulls

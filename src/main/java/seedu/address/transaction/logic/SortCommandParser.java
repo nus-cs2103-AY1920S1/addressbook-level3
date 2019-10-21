@@ -11,7 +11,7 @@ import seedu.address.transaction.ui.TransactionMessages;
 /**
  * Parses input arguments and creates a new SortCommand object
  */
-public class SortCommandParser implements IndependentCommandParser  {
+public class SortCommandParser implements IndependentCommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand

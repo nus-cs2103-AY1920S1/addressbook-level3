@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
@@ -34,8 +36,6 @@ import seedu.address.transaction.commands.SortNameCommand;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 import seedu.address.transaction.ui.TransactionMessages;
-
-import org.junit.jupiter.api.Test;
 
 class TransactionTabParserTest {
     private final TransactionTabParser parser = new TransactionTabParser();
@@ -101,23 +101,23 @@ class TransactionTabParserTest {
                 personModel.getFilteredPersonList().size(), personModel) instanceof BackCommand);
     }
 
-   @Test
+    @Test
     public void parseCommand_sort() throws Exception {
-       SortNameCommand command = (SortNameCommand) parser.parseCommand(
+        SortNameCommand command = (SortNameCommand) parser.parseCommand(
                SortCommand.COMMAND_WORD + " name", personModel.getFilteredPersonList().size(), personModel);
-       assertEquals(new SortNameCommand(), command);
+        assertEquals(new SortNameCommand(), command);
     }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(Exception.class, TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT, ()
-                -> parser.parseCommand("", personModel.getFilteredPersonList().size(), personModel));
+        assertThrows(Exception.class, TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT, () ->
+                parser.parseCommand("", personModel.getFilteredPersonList().size(), personModel));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(Exception.class, TransactionMessages.MESSAGE_NO_SUCH_COMMAND,
-                () -> parser.parseCommand("unknownCommand", personModel.getFilteredPersonList().size(),
+        assertThrows(Exception.class, TransactionMessages.MESSAGE_NO_SUCH_COMMAND, () ->
+                parser.parseCommand("unknownCommand", personModel.getFilteredPersonList().size(),
                         personModel));
     }
 }

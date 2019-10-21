@@ -1,14 +1,13 @@
 package seedu.address.transaction.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.transaction.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
-
-import org.junit.jupiter.api.Test;
 
 class ExitCommandTest {
     private Model model = new ModelManager(TypicalTransactions.getTypicalTransactionList());

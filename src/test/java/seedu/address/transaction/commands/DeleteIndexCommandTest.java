@@ -9,6 +9,8 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_TR
 
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.person.model.UserPrefs;
 import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
 import seedu.address.stubs.TransactionModelStubAcceptingTransactionAdded;
@@ -19,14 +21,12 @@ import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
 
-import org.junit.jupiter.api.Test;
-
 class DeleteIndexCommandTest {
 
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
     private TransactionModelStubAcceptingTransactionAdded modelStubWithTransaction =
             new TransactionModelStubAcceptingTransactionAdded(TypicalTransactions.getTypicalTransactions());
-    private PersonModelStubAcceptingPersonAdded modelStubWithPerson=
+    private PersonModelStubAcceptingPersonAdded modelStubWithPerson =
             new PersonModelStubAcceptingPersonAdded(TypicalPersons.getTypicalPersons());
     private seedu.address.person.model.Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -45,7 +45,7 @@ class DeleteIndexCommandTest {
 
     @Test
     //this uses model stub
-    void execute_UnfilteredList_unsuccessful_outOfBounds() {
+    void execute_unfilteredList_outOfBounds() {
         DeleteIndexCommand deleteIndexCommand = new DeleteIndexCommand(20);
         String message = TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
         assertCommandFailure(deleteIndexCommand, model, message, personModel);
@@ -70,7 +70,7 @@ class DeleteIndexCommandTest {
 
     @Test
     //this uses the actual model not stub with the ab also uses
-    public void execute_validIndexFilteredList_unsuccessful_outOfBounds() {
+    public void execute_validIndexFilteredList_outOfBounds() {
         //transaction list index is 2 but it is index 1 in filtered list (BENSON)
         showTransactionsOfPerson(model, TypicalPersons.BENSON.getName().toString());
         DeleteIndexCommand deleteCommand = new DeleteIndexCommand(2);

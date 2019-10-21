@@ -26,6 +26,8 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_P
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_DATE_FORMAT;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
@@ -33,11 +35,9 @@ import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.commands.EditCommand;
 
-import org.junit.jupiter.api.Test;
-
 class EditCommandParserTest {
+    private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private EditCommandParser parser = new EditCommandParser();
-    Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void parse_missingParts_failure() {
@@ -80,7 +80,7 @@ class EditCommandParserTest {
                 personModel); // invalid date
         assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_DATE_2, MESSAGE_WRONG_DATE_FORMAT,
                 personModel); // invalid date
-        assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_DATE_3,MESSAGE_WRONG_DATE_FORMAT,
+        assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_DATE_3, MESSAGE_WRONG_DATE_FORMAT,
                 personModel); // invalid date
         assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_AMOUNT, MESSAGE_WRONG_AMOUNT_FORMAT,
                 personModel); // invalid tag
@@ -145,7 +145,7 @@ class EditCommandParserTest {
         assertCommandParseWithPersonModelSuccess(parser, userInput3, expectedCommand3, personModel);
 
         // person
-        String userInput4 = targetIndex+ DESC_NAME_BENSEN;
+        String userInput4 = targetIndex + DESC_NAME_BENSEN;
         EditCommand.EditTransactionDescriptor descriptor4 = new EditTransactionDescriptorBuilder()
                 .withName(VALID_NAME_BENSEN).build();
         EditCommand expectedCommand4 = new EditCommand(targetIndex, descriptor4);

@@ -11,13 +11,13 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_FIND_COMM
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
-
-import org.junit.jupiter.api.Test;
 
 class FindCommandTest {
     private Model model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
@@ -77,7 +77,7 @@ class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code TransactionContainsKeywordsPredicate}.
      */
     private TransactionContainsKeywordsPredicate preparePredicate(String userInput) {
         String[] nameKeywords = userInput.split("\\s+");

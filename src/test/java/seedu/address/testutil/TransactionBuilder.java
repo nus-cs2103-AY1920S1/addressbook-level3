@@ -3,6 +3,9 @@ package seedu.address.testutil;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
 
+/**
+ * Builds a transaction with default attributes.
+ */
 public class TransactionBuilder {
     public static final int DEFAULT_ID = 1;
     public static final String DEFAULT_DATE = "24-Aug-2019";
@@ -20,7 +23,7 @@ public class TransactionBuilder {
     private boolean isReimbursed;
 
     /**
-     * Initializes the PersonBuilder with the data of {@code person}.
+     * Initializes the TransactionBuilder with the data of {@code person}.
      */
     public TransactionBuilder(Person person) {
         this.date = DEFAULT_DATE;
@@ -33,7 +36,7 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the date of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withDate(String date) {
         this.date = date;
@@ -41,7 +44,7 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the category of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withCategory(String cat) {
         this.category = cat;
@@ -49,28 +52,40 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the description of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withDescription(String description) {
         this.description = description;
         return this;
     }
 
+    /**
+     * Sets the {@code Person} of the {@code Transaction} that we are building.
+     */
     public TransactionBuilder withPerson(Person person) {
         this.person = person;
         return this;
     }
 
+    /**
+     * Sets id of the {@code Transaction} that we are building.
+     */
     public TransactionBuilder withId(int id) {
         this.id = id;
         return this;
     }
 
+    /**
+     * Sets amount of the {@code Transaction} that we are building.
+     */
     public TransactionBuilder withAmount(double amount) {
         this.amount = amount;
         return this;
     }
 
+    /**
+     * Builds the {@code Transaction}.
+     */
     public Transaction build() {
         return new Transaction(date, description, category, amount, person, id, isReimbursed);
     }

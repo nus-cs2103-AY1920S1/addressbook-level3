@@ -6,13 +6,13 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.commands.CommandTestUtil.showTransactionsOfPerson;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_SORTED_BY_NAME;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.person.model.Model;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.ModelManager;
-
-import org.junit.jupiter.api.Test;
 
 class SortNameCommandTest {
     private seedu.address.transaction.model.Model model =
@@ -28,18 +28,19 @@ class SortNameCommandTest {
         assertEquals(sortNameCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getNameSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettList(),
-                TypicalTransactions.getNameSortedTransactionList().gettList());
+        assertEquals(model.getTransactionList().gettArrList(),
+                TypicalTransactions.getNameSortedTransactionList().gettArrList());
     }
 
     @Test
     void execute_unfilteredList_success() {
-        SortNameCommand sortNameCommand = new SortNameCommand(); //original is random, tArrList is random, but tList is sorted
+        SortNameCommand sortNameCommand = new SortNameCommand();
+        //original is random, tArrList is random, but tList is sorted
         String message = String.format(MESSAGE_SORTED_BY_NAME);
         assertEquals(sortNameCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getNameSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettList(),
-                TypicalTransactions.getNameSortedTransactionList().gettList());
+        assertEquals(model.getTransactionList().gettArrList(),
+                TypicalTransactions.getNameSortedTransactionList().gettArrList());
     }
 }

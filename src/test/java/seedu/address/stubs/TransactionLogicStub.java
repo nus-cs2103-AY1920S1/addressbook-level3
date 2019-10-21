@@ -10,6 +10,9 @@ import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Represents a home tab's Logic stub.
+ */
 public class TransactionLogicStub implements Logic {
     private Model model;
     private seedu.address.person.model.Model personModel;

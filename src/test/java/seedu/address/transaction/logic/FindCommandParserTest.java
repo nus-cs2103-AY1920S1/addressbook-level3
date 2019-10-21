@@ -6,10 +6,10 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_F
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.transaction.commands.FindCommand;
 import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
-
-import org.junit.jupiter.api.Test;
 
 class FindCommandParserTest {
     private FindCommandParser parser = new FindCommandParser();

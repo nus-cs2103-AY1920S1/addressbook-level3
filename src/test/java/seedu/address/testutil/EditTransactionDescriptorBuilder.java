@@ -3,6 +3,9 @@ package seedu.address.testutil;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.model.Transaction;
 
+/**
+ * Builds a edit transaction descriptor.
+ */
 public class EditTransactionDescriptorBuilder {
     private EditCommand.EditTransactionDescriptor descriptor;
 
@@ -15,7 +18,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code transaction}'s details
      */
     public EditTransactionDescriptorBuilder(Transaction toCopy) {
         descriptor = new EditCommand.EditTransactionDescriptor();
@@ -28,7 +31,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the date of the {@code EditPersonDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withDate(String date) {
         descriptor.setDate(date);
@@ -36,7 +39,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the description of the {@code EditPersonDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(description);
@@ -44,7 +47,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the category of the {@code EditPersonDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withCategory(String category) {
         descriptor.setCategory(category);
@@ -52,7 +55,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the amount of the {@code EditPersonDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withAmount(Double amount) {
         descriptor.setAmount(amount);
@@ -60,7 +63,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Set the person to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditTransactionDescriptorBuilder withName(String person) {

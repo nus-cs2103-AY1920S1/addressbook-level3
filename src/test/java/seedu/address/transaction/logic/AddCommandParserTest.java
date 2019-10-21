@@ -28,6 +28,8 @@ import static seedu.address.transaction.commands.CommandTestUtil.VALID_NAME_ALIC
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseFailure;
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseSuccess;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
@@ -39,8 +41,6 @@ import seedu.address.transaction.commands.AddCommand;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
 
-import org.junit.jupiter.api.Test;
-
 class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
     private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -48,7 +48,7 @@ class AddCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Transaction expectedTransaction = new TransactionBuilder(TypicalPersons.ALICE).build();
-        Transaction  expectedTransaction2 = new TransactionBuilder(TypicalPersons.BENSON).build();
+        Transaction expectedTransaction2 = new TransactionBuilder(TypicalPersons.BENSON).build();
 
 
         // whitespace only preamble

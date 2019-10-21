@@ -21,7 +21,8 @@ public class DeleteNameCommand extends DeleteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws NoSuchPersonException {
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
+            throws NoSuchPersonException {
         if (!model.hasTransactionWithName(person.getName().toString())) {
             throw new NoSuchPersonException(String.format(MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON,
                     person.getName().toString()));
@@ -30,6 +31,7 @@ public class DeleteNameCommand extends DeleteCommand {
         return new CommandResult(String.format(MESSAGE_DELETE_BY_PERSON, person));
     }
 
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteNameCommand // instanceof handles nulls

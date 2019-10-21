@@ -19,10 +19,13 @@ import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Contains helper methods for testing commands.
+ */
 public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String VALID_NAME_ALICE = "Alice Pauline";
-    public static final String VALID_NAME_BENSEN= "Benson Meier";
+    public static final String VALID_NAME_BENSEN = "Benson Meier";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_DATE = "03-Sep-2019";
     public static final String VALID_AMOUNT = "20";
@@ -34,7 +37,7 @@ public class CommandTestUtil {
     public static final String DESC_NAME_AMY = " " + PREFIX_PERSON + VALID_NAME_AMY;
     public static final String DESC_DATE = " " + PREFIX_DATETIME + VALID_DATE;
     public static final String DESC_AMOUNT = " " + PREFIX_AMOUNT + VALID_AMOUNT;
-    public static final String DESC_DESC = " " + PREFIX_DESCRIPTION +VALID_DESC;
+    public static final String DESC_DESC = " " + PREFIX_DESCRIPTION + VALID_DESC;
     public static final String DESC_CATEGORY = " " + PREFIX_CATEGORY + VALID_CATEGORY;
 
     public static final String DESC_BUILDER_DATE = " " + PREFIX_DATETIME + DEFAULT_DATE;
@@ -42,9 +45,9 @@ public class CommandTestUtil {
     public static final String DESC_BUILDER_DESC = " " + PREFIX_DESCRIPTION + DEFAULT_DESCRIPTION;
     public static final String DESC_BUILDER_CATEGORY = " " + PREFIX_CATEGORY + DEFAULT_CATEGORY;
 
-    public static final String INVALID_DATE_1 = " "  + PREFIX_DATETIME + "03-sep-2019";
-    public static final String INVALID_DATE_2 = " "  + PREFIX_DATETIME + "3-Sep-2019";
-    public static final String INVALID_DATE_3 = " "  + PREFIX_DATETIME + "3/Sep/2019";
+    public static final String INVALID_DATE_1 = " " + PREFIX_DATETIME + "03-sep-2019";
+    public static final String INVALID_DATE_2 = " " + PREFIX_DATETIME + "3-Sep-2019";
+    public static final String INVALID_DATE_3 = " " + PREFIX_DATETIME + "3/Sep/2019";
     public static final String INVALID_AMOUNT = " " + PREFIX_AMOUNT + "hi";
 
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -52,7 +55,7 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link seedu.address.person.logic.commands.CommandResult} matches {@code expectedCommandResult} <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model transactionModel,
@@ -87,7 +90,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the transaction list, filtered transaction list in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
                                             seedu.address.person.model.Model personModel) {

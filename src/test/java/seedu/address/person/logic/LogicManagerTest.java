@@ -14,6 +14,10 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.logic.commands.AddCommand;
 import seedu.address.person.logic.commands.CommandResult;
@@ -34,9 +38,7 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.util.TransactionList;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+
 
 
 public class LogicManagerTest {
@@ -64,16 +66,17 @@ public class LogicManagerTest {
 
         //For Person Storage and Manager
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
-        seedu.address.person.storage.StorageManager personManager=
+        seedu.address.person.storage.StorageManager personManager =
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
 
         //For Transaction Storage and Manager
-        seedu.address.transaction.model.Model transactionModel = new seedu.address.transaction.model.ModelManager(transactionList);
+        seedu.address.transaction.model.Model transactionModel =
+                new seedu.address.transaction.model.ModelManager(transactionList);
         seedu.address.transaction.storage.StorageManager transactionManager =
                 new seedu.address.transaction.storage.StorageManager(FILE_PATH_TRANSACTION, personModel);
 
         //For Reimbursement Storage and Manager
-        seedu.address.reimbursement.model.Model reimbursementModel=
+        seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
@@ -93,7 +96,9 @@ public class LogicManagerTest {
                 new seedu.address.inventory.storage.StorageManager(FILE_PATH_INVENTORY);
 
         //All related logics
-        seedu.address.transaction.logic.Logic transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager, personModel, personManager,
+        seedu.address.transaction.logic.Logic transactionLogic =
+                new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager,
+                        personModel, personManager,
                 reimbursementModel, reimbursementManager);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
@@ -146,7 +151,7 @@ public class LogicManagerTest {
         seedu.address.cashier.util.InventoryList cashierList = new seedu.address.cashier.util.InventoryList();
         //all related ModelManagers
 
-        seedu.address.reimbursement.model.Model reimbursementModel=
+        seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.cashier.model.ModelManager cashierModel =
                 new seedu.address.cashier.model.ModelManager(cashierList);
@@ -156,17 +161,19 @@ public class LogicManagerTest {
         //all related StorageManagers
         seedu.address.transaction.storage.StorageManager transactionManager =
                 new seedu.address.transaction.storage.StorageManager("", personModel);
-        seedu.address.person.storage.StorageManager personManager=
+        seedu.address.person.storage.StorageManager personManager =
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
                         "data/test/reimbursement.txt", transactionModel);
-        seedu.address.cashier.storage.StorageManager cashierManager = new seedu.address.cashier.storage.StorageManager(
+        seedu.address.cashier.storage.StorageManager cashierManager =
+                new seedu.address.cashier.storage.StorageManager(
                 "data/test/inventory.txt", "data/test/transaction.txt", personModel);
         seedu.address.inventory.storage.StorageManager inventoryManager =
                 new seedu.address.inventory.storage.StorageManager("data/test/inventory.txt");
 
-        seedu.address.cashier.storage.StorageManager cashierStorage = new seedu.address.cashier.storage.StorageManager("data"
+        seedu.address.cashier.storage.StorageManager cashierStorage =
+                new seedu.address.cashier.storage.StorageManager("data"
                 + "/test/inventory.txt", "data/test/transaction.txt", personModel);
 
         seedu.address.inventory.storage.StorageManager inventoryStorage =

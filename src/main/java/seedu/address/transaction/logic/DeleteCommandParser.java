@@ -20,7 +20,7 @@ import seedu.address.util.Prefix;
 /**
  * Parses input arguments and creates a new DeleteIndexCommand object
  */
-public class DeleteCommandParser implements CommandParserWithPersonModel{
+public class DeleteCommandParser implements CommandParserWithPersonModel {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteIndexCommand

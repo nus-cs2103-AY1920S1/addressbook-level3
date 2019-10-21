@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Test;
+
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
@@ -26,9 +28,6 @@ import seedu.address.transaction.logic.LogicManager;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.util.TransactionList;
-
-import org.junit.jupiter.api.Test;
-
 
 public class AddCommandTest {
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";
@@ -59,7 +58,7 @@ public class AddCommandTest {
 
         //For Person Storage and Manager
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
-        seedu.address.person.storage.StorageManager personManager=
+        seedu.address.person.storage.StorageManager personManager =
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
 
         //For Transaction Storage and Manager
@@ -68,7 +67,7 @@ public class AddCommandTest {
                 new StorageManager(FILE_PATH_TRANSACTION, personModel);
 
         //For Reimbursement Storage and Manager
-        seedu.address.reimbursement.model.Model reimbursementModel=
+        seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
@@ -123,7 +122,7 @@ public class AddCommandTest {
 
         //For Person Storage and Manager
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
-        seedu.address.person.storage.StorageManager personManager=
+        seedu.address.person.storage.StorageManager personManager =
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
 
         //For Transaction Storage and Manager
@@ -132,7 +131,7 @@ public class AddCommandTest {
                 new StorageManager(FILE_PATH_TRANSACTION, personModel);
 
         //For Reimbursement Storage and Manager
-        seedu.address.reimbursement.model.Model reimbursementModel=
+        seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
@@ -162,8 +161,8 @@ public class AddCommandTest {
                         personManager, reimbursementModel, reimbursementManager, transactionModel,
                         transactionManager, inventoryModel, inventoryManager);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON,
-                () -> addCommand.execute(personModelStub, logic, reimbursementLogic, cashierLogic));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () ->
+                addCommand.execute(personModelStub, logic, reimbursementLogic, cashierLogic));
     }
 
     @Test

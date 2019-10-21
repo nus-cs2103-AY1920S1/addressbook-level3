@@ -29,7 +29,7 @@ import seedu.address.util.Prefix;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser implements CommandParserWithPersonModel{
+public class EditCommandParser implements CommandParserWithPersonModel {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

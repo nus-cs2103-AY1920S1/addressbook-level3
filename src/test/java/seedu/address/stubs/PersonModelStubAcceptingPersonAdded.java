@@ -8,11 +8,14 @@ import seedu.address.person.model.AddressBook;
 import seedu.address.person.model.ReadOnlyAddressBook;
 import seedu.address.person.model.person.Person;
 
+/**
+ * Represents an address book Model stub.
+ */
 public class PersonModelStubAcceptingPersonAdded extends PersonModelStub {
     final ArrayList<Person> personsAdded;
 
     public PersonModelStubAcceptingPersonAdded() {
-        personsAdded  = new ArrayList<>();
+        personsAdded = new ArrayList<>();
     }
 
 

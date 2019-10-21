@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import seedu.address.person.model.Model;
 import seedu.address.transaction.commands.Command;
 
+/**
+ * Contains helper methods for testing command parsers.
+ */
 public class CommandParserTestUtil {
     /**
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created

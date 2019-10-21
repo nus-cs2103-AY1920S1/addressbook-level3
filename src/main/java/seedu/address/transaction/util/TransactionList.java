@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import seedu.address.transaction.model.Transaction;
 
 /**
@@ -17,7 +14,7 @@ import seedu.address.transaction.model.Transaction;
 public class TransactionList {
     private final ArrayList<Transaction> original;
     private ArrayList<Transaction> tArrList;
-    private ObservableList<Transaction> tList;
+    //private ObservableList<Transaction> tList;
 
     /**
      * Initialises the transaction list when there are no prior transactions inputted.
@@ -25,7 +22,7 @@ public class TransactionList {
     public TransactionList() {
         this.tArrList = new ArrayList<>();
         this.original = new ArrayList<>();
-        this.tList = FXCollections.observableList(tArrList);
+        //this.tList = FXCollections.observableList(tArrList);
     }
 
     /**
@@ -35,7 +32,7 @@ public class TransactionList {
     public TransactionList(ArrayList<Transaction> tArrList) {
         this.tArrList = tArrList;
         this.original = new ArrayList<>(tArrList);
-        this.tList = FXCollections.observableList(this.tArrList);
+        //this.tList = FXCollections.observableList(this.tArrList);
     }
 
     public ArrayList<Transaction> gettArrList() {
@@ -46,9 +43,9 @@ public class TransactionList {
         return original;
     }
 
-    public ObservableList<Transaction> gettList() {
+    /*public ObservableList<Transaction> gettList() {
         return tList;
-    }
+    }*/
 
     /**
      * Returns the transaction of given index.
@@ -57,10 +54,10 @@ public class TransactionList {
      * @throws IndexOutOfBoundsException If an error occurs when index is out of bounds.
      */
     public Transaction get(int index) throws IndexOutOfBoundsException {
-        if (index >= tList.size()) {
+        if (index >= tArrList.size()) {
             throw new IndexOutOfBoundsException();
         } else {
-            return tList.get(index);
+            return tArrList.get(index);
         }
     }
 
@@ -69,7 +66,7 @@ public class TransactionList {
      * @param transaction Transaction to be added.
      */
     public void add(Transaction transaction) {
-        tList.add(transaction);
+        tArrList.add(transaction);
         original.add(transaction);
     }
 
@@ -78,8 +75,8 @@ public class TransactionList {
      * @param index Index of transaction to be deleted.
      */
     public void delete(int index) {
-        Transaction transaction = tList.get(index);
-        tList.remove(index);
+        Transaction transaction = tArrList.get(index);
+        tArrList.remove(index);
         original.remove(transaction);
     }
 
@@ -88,7 +85,7 @@ public class TransactionList {
      * @return Integer size of the number of transactions in the transaction list.
      */
     public int size() {
-        return tList.size();
+        return tArrList.size();
     }
 
     /**
@@ -97,8 +94,8 @@ public class TransactionList {
      * @param transaction Transaction to replace current transaction at specified index.
      */
     public void set(int index, Transaction transaction) {
-        Transaction trans = tList.get(index);
-        tList.set(index, transaction);
+        Transaction trans = tArrList.get(index);
+        tArrList.set(index, transaction);
         int id = original.indexOf(trans);
         original.set(id, transaction);
     }
@@ -108,28 +105,28 @@ public class TransactionList {
      */
     public void unSort() {
         tArrList = new ArrayList<>(original);
-        tList = FXCollections.observableList(tArrList);
+        //tList = FXCollections.observableList(tArrList);
     }
 
     /**
      * Sorts all the transactions in the transaction list by date.
      */
     public void sortByDate() {
-        Collections.sort(tList, new SortByDate());
+        Collections.sort(tArrList, new SortByDate());
     }
 
     /**
      * Sorts all the transactions in the transaction list by name.
      */
     public void sortByName() {
-        Collections.sort(tList, new SortByName());
+        Collections.sort(tArrList, new SortByName());
     }
 
     /**
      * Sorts all the transactions in the transaction list by amount.
      */
     public void sortByAmount() {
-        Collections.sort(tList, new SortByAmount());
+        Collections.sort(tArrList, new SortByAmount());
     }
 
     /**
@@ -137,7 +134,7 @@ public class TransactionList {
      * @return Stream of transactions.
      */
     public Stream<Transaction> stream() {
-        return this.tList.stream();
+        return this.tArrList.stream();
     }
 
     @Override
@@ -145,8 +142,8 @@ public class TransactionList {
         return other == this // short circuit if same object
                 || (other instanceof TransactionList // instanceof handles nulls
                 && tArrList.equals(((TransactionList) other).gettArrList())
-                && original.equals(((TransactionList) other).getOriginal())
-                && tList.equals(((TransactionList) other).gettList()));
+                && original.equals(((TransactionList) other).getOriginal()));
+        //&& tList.equals(((TransactionList) other).gettList()));
     }
 }
 
