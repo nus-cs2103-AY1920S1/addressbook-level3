@@ -31,12 +31,17 @@ class JsonAdaptedPlan {
     private final String description;
     private final String startDate;
     private final String endDate;
+<<<<<<< HEAD
     private final List<JsonAdaptedTask> taskList = new ArrayList<>();
+=======
+    private final List<JsonAdaptedTask> tasked = new ArrayList<>();
+>>>>>>> Hard-code json task for fields in json plan
 
     /**
      * Constructs a {@code JsonAdaptedPlan} with the given Plan details.
      */
     @JsonCreator
+<<<<<<< HEAD
     public JsonAdaptedPlan(@JsonProperty("id") String id,
                            @JsonProperty("name") String name,
                            @JsonProperty("description") String description,
@@ -50,6 +55,19 @@ class JsonAdaptedPlan {
         this.endDate = endDate;
         if (taskList != null) {
             this.taskList.addAll(taskList);
+=======
+    public JsonAdaptedPlan(@JsonProperty("planName") String planName,
+                           @JsonProperty("planDescription") String planDescription,
+                           @JsonProperty("startDate") String startDate,
+                           @JsonProperty("endDate") String endDate,
+                           @JsonProperty("tasked") List<JsonAdaptedTask> tasked) {
+        this.planName = planName;
+        this.planDescription = planDescription;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        if (tasked != null) {
+            this.tasked.addAll(tasked);
+>>>>>>> Hard-code json task for fields in json plan
         }
     }
 
@@ -57,6 +75,7 @@ class JsonAdaptedPlan {
      * Converts a given {@code Plan} into this class for Jackson use.
      */
     public JsonAdaptedPlan(Plan plan) {
+<<<<<<< HEAD
         id = Long.toString(plan.getId());
         name = plan.getPlanName().fullName;
         description = plan.getPlanDescription().value;
@@ -65,6 +84,13 @@ class JsonAdaptedPlan {
         taskList.addAll(plan.getTasks().stream()
                 .map(JsonAdaptedTask::new)
                 .collect(Collectors.toList()));
+=======
+        planName = plan.getPlanName().fullName;
+        planDescription = plan.getPlanDescription().value;
+        startDate = plan.getStartDate().format(Plan.FORMATTER);
+        endDate = plan.getEndDate().format(Plan.FORMATTER);
+        tasked.addAll(plan.getTasks().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
+>>>>>>> Hard-code json task for fields in json plan
     }
 
     /**
@@ -72,10 +98,17 @@ class JsonAdaptedPlan {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Plan.
      */
+<<<<<<< HEAD
     public Plan toModelType(AlgoBase algoBase) throws IllegalValueException {
         final List<Task> tasks = new ArrayList<>();
         for (JsonAdaptedTask task : taskList) {
             tasks.add(task.toModelType(algoBase));
+=======
+    public Plan toModelType() throws IllegalValueException {
+        final List<Task> planTasks = new ArrayList<>();
+        for (JsonAdaptedTask task : tasked) {
+            planTasks.add(task.toModelType());
+>>>>>>> Hard-code json task for fields in json plan
         }
 
         final long modelId = retrieveId(id);
