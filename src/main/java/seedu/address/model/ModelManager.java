@@ -42,43 +42,43 @@ public class ModelManager implements Model {
     private final DiaryRecords diaryRecords;
     private final RecipeBook recipeBook;
     private final WorkoutPlanner workoutPlanner;
-    private final DashboardRecords dashboards;
+    private final DashboardRecords dashboard;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Record> filteredRecords;
     private final FilteredList<Recipe> filteredRecipes;
     private final FilteredList<Exercise> filteredExercises;
     private final FilteredList<Diary> filteredDiaries;
-    private final FilteredList<Dashboard> filteredDashboards;
+    private final FilteredList<Dashboard> filteredDashboard;
 
     /**
      * Initializes a ModelManager with the given dukeCooks and userPrefs.
      */
-    public ModelManager(ReadOnlyUserProfile dukeCooks, ReadOnlyHealthRecords healthRecords,
+    public ModelManager(ReadOnlyUserProfile dukeCooks, ReadOnlyDashboard dashboard, ReadOnlyHealthRecords healthRecords,
                         ReadOnlyRecipeBook recipeBook, ReadOnlyWorkoutPlanner workoutPlanner, ReadOnlyDiary diary,
-                        ReadOnlyUserPrefs userPrefs, ReadOnlyDashboard dashboards) {
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(dukeCooks, healthRecords, userPrefs, recipeBook, dashboards);
+        requireAllNonNull(dukeCooks, dashboard, healthRecords, userPrefs, recipeBook);
 
         logger.fine("Initializing with Duke Cooks: " + dukeCooks
-                + "with dashboard " + dashboards
+                + "with dashboard " + dashboard
                 + "with Health Records: " + healthRecords
                 + "with Recipe Book: " + recipeBook
                 + "with Diary Records: " + diary
                 + "and user prefs " + userPrefs);
 
+        this.dashboard = new DashboardRecords(dashboard);
         this.userProfile = new UserProfile(dukeCooks);
         this.healthRecords = new HealthRecords(healthRecords);
         this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
         this.diaryRecords = new DiaryRecords(diary);
-        this.dashboards = new DashboardRecords(dashboards);
+        filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
-        filteredDashboards = new FilteredList<>(this.dashboards.getDashboardList());
     }
 
     /**
@@ -91,24 +91,24 @@ public class ModelManager implements Model {
         logger.fine("Initializing with Workout Planner: " + workoutPlanner
                 + "and user prefs " + userPrefs);
 
+        this.dashboard = null;
         this.userProfile = null;
         this.healthRecords = null;
         this.recipeBook = null;
         this.userPrefs = new UserPrefs(userPrefs);
         this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
         this.diaryRecords = null;
-        this.dashboards = null;
+        filteredDashboard = null;
         filteredPersons = null;
         filteredRecords = null;
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredExercises = null;
         filteredDiaries = null;
-        filteredDashboards = null;
     }
 
     public ModelManager() {
-        this(new UserProfile(), new HealthRecords(), new RecipeBook(),
-                new WorkoutPlanner(), new DiaryRecords(), new UserPrefs(), new DashboardRecords());
+        this(new UserProfile(), new DashboardRecords(), new HealthRecords(), new RecipeBook(),
+                new WorkoutPlanner(), new DiaryRecords(), new UserPrefs());
     }
 
     public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
@@ -118,19 +118,19 @@ public class ModelManager implements Model {
         logger.fine("Initializing with Workout Planner: " + recipeBook
                 + "and user prefs " + userPrefs);
 
+        this.dashboard = null;
         this.userProfile = null;
         this.healthRecords = null;
         this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.workoutPlanner = null;
         this.diaryRecords = null;
-        this.dashboards = null;
+        filteredDashboard = null;
         filteredPersons = null;
         filteredRecords = null;
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredExercises = null;
         filteredDiaries = null;
-        filteredDashboards = null;
     }
 
     public ModelManager(ReadOnlyDiary diaryRecord, ReadOnlyUserPrefs userPrefs) {
@@ -140,19 +140,19 @@ public class ModelManager implements Model {
         logger.fine("Initializing with Diary Record: " + diaryRecord
                 + "and user prefs " + userPrefs);
 
+        this.dashboard = null;
         this.userProfile = null;
         this.healthRecords = null;
         this.recipeBook = null;
         this.workoutPlanner = null;
         this.diaryRecords = new DiaryRecords(diaryRecord);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.dashboards = null;
+        filteredDashboard = null;
         filteredPersons = null;
         filteredRecords = null;
         filteredRecipes = null;
         filteredExercises = null;
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
-        filteredDashboards = null;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -405,29 +405,29 @@ public class ModelManager implements Model {
 
     @Override
     public void setDashboardRecords(ReadOnlyDashboard dashboardRecords) {
-        this.dashboards.resetData(dashboardRecords);
+        this.dashboard.resetData(dashboardRecords);
     }
 
     @Override
     public ReadOnlyDashboard getDashboardRecords() {
-        return dashboards;
+        return dashboard;
     }
 
     @Override
-    public boolean hasDashboard(Dashboard dashboard) {
+    public boolean hasDashboard(Dashboard dash) {
         requireNonNull(dashboard);
-        return dashboards.hasDashboard(dashboard);
+        return dashboard.hasDashboard(dash);
     }
 
 
     @Override
     public void deleteDashboard(Dashboard target) {
-        dashboards.removeDashboard(target);
+        dashboard.removeDashboard(target);
     }
 
     @Override
-    public void addDashboard(Dashboard dashboard) {
-        dashboards.addDashboard(dashboard);
+    public void addDashboard(Dashboard dash) {
+        dashboard.addDashboard(dash);
         updateFilteredDashboardList(PREDICATE_SHOW_ALL_DASHBOARD);
     }
 
@@ -435,7 +435,7 @@ public class ModelManager implements Model {
     public void setDashboard(Dashboard target, Dashboard editedDashboard) {
         requireAllNonNull(target, editedDashboard);
 
-        dashboards.setDashboard(target, editedDashboard);
+        dashboard.setDashboard(target, editedDashboard);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -545,12 +545,12 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Dashboard> getFilteredDashboardList() {
-        return filteredDashboards;
+        return filteredDashboard;
     }
 
     @Override
     public void updateFilteredDashboardList(Predicate<Dashboard> predicate) {
         requireAllNonNull(predicate);
-        filteredDashboards.setPredicate(predicate);
+        filteredDashboard.setPredicate(predicate);
     }
 }

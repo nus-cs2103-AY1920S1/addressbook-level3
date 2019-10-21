@@ -121,8 +121,8 @@ public class MainApp extends Application {
         ReadOnlyDashboard initialDashboard;
         initialDashboard = initDashboard(storage);
 
-        return new ModelManager(initialDukeCooks, initialHealthRecords, initialRecipeBook, initialWorkoutPlanner,
-                initialDiary, userPrefs, initialDashboard);
+        return new ModelManager(initialDukeCooks, initialDashboard, initialHealthRecords, initialRecipeBook, initialWorkoutPlanner,
+                initialDiary, userPrefs);
     }
 
     /**
