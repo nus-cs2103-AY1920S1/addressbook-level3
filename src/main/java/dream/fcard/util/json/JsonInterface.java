@@ -9,7 +9,8 @@ public interface JsonInterface {
 
     /**
      * Returns JSONValue representation of this object.
-     * @return  JSONValue
+     *
+     * @return JSONValue
      */
     JsonValue toJson();
 }
