@@ -76,6 +76,9 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
+    /**
+     * TODO: implement keyboard shortcuts
+     */
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -120,6 +123,7 @@ public class MainWindow extends UiPart<Stage> {
 
         ObservableList<Budget> budgetList = logic.getBudgetList();
         budgetListPanel = new BudgetListPanel(budgetList);
+        budgetListPanelPlaceholder.setPrefSize(180, 180);
         budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

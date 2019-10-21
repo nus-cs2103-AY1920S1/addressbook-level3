@@ -22,13 +22,16 @@ class JsonSerializableBankAccount {
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
 
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
+    private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBankAccount} with the given transactions.
      */
     @JsonCreator
-    public JsonSerializableBankAccount(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions) {
+    public JsonSerializableBankAccount(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions,
+                                       @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
         this.transactions.addAll(transactions);
+        this.budgets.addAll(budgets);
     }
 
     /**
@@ -37,6 +40,11 @@ class JsonSerializableBankAccount {
      * @param source future changes to this will not affect the created {@code JsonSerializableBankAccount}.
      */
     public JsonSerializableBankAccount(ReadOnlyBankAccount source) {
+        budgets
+                .addAll(source.getBudgetHistory()
+                        .stream()
+                        .map(JsonAdaptedBudget::new)
+                        .collect(Collectors.toList()));
         transactions
                 .addAll(source.getTransactionHistory()
                         .stream()
@@ -45,7 +53,7 @@ class JsonSerializableBankAccount {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this bank account into the model's {@code BankAccount} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

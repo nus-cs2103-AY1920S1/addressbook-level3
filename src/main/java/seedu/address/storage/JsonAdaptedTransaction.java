@@ -32,7 +32,7 @@ class JsonAdaptedTransaction {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedTransaction} with the given person details.
+     * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
      */
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("amount") String amount, @JsonProperty("date") String date,
@@ -47,7 +47,7 @@ class JsonAdaptedTransaction {
     }
 
     /**
-     * Converts a given {@code Transaction} into this class for Jackson use.
+     * Converts a given {@code Transaction} into this class for Jason use.
      */
     public JsonAdaptedTransaction(Transaction source) {
         amount = source.getAmount().toString();
