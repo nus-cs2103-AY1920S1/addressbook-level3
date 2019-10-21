@@ -254,6 +254,30 @@
     -fx-border-color: transparent;
 }
 
+.help-window {
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: white;
+}
+
+.help-window-header {
+    -fx-text-fill : white;
+    -fx-font-family : "Arial Black";
+    -fx-font-size : 52;
+}
+
+.help-window-info {
+    -fx-text-fill : white;
+    -fx-font-family : "Bookshelf Symbol 7";
+    -fx-font-size : 20;
+}
+
+.user-guide-button {
+    -fx-background-color: black;
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+    -fx-border-color:white;
+}
+
 .button:hover {
     -fx-background-color: #3a3a3a;
 }
