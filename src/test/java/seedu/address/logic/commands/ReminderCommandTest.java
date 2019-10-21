@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,9 @@ import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
+import seedu.address.model.statistics.AverageType;
 import seedu.address.testutil.ReminderBuilder;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
@@ -318,6 +322,18 @@ class ReminderCommandTest {
 
         @Override
         public void setUserListFilePath(Path userListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Statistics List =============================================================
+
+        @Override
+        public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<LocalDate, Double> getAverageMap() {
             throw new AssertionError("This method should not be called.");
         }
     }

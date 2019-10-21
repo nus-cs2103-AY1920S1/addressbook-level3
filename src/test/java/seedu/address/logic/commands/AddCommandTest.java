@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -34,8 +35,10 @@ import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.record.Weight;
+import seedu.address.model.statistics.AverageType;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -327,6 +330,19 @@ public class AddCommandTest {
         public void setUserListFilePath(Path userListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
+
+        //=========== Statistics List =============================================================
+
+        @Override
+        public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<LocalDate, Double> getAverageMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

@@ -84,6 +84,20 @@ public class SampleDataUtil {
             new BmiBuilder().withDateTime("2019-01-02 09:09").withHeight("1.1").withWeight("45.6").build(),
             new BloodSugarBuilder().build(),
             new BloodSugarBuilder().withDateTime("2019-01-03 09:09").withConcentration("1.23").build(),
+            new BloodSugarBuilder().withDateTime("2019-01-03 09:10").withConcentration("1.2").build(),
+            new BloodSugarBuilder().withDateTime("2019-01-04 09:11").withConcentration("1.3").build(),
+            new BloodSugarBuilder().withDateTime("2019-01-05 09:12").withConcentration("1.33").build(),
+            new BloodSugarBuilder().withDateTime("2019-01-06 09:13").withConcentration("1.26").build(),
+            new BloodSugarBuilder().withDateTime("2019-01-07 09:14").withConcentration("1.27").build(),
+            new BloodSugarBuilder().withDateTime("2019-01-08 09:15").withConcentration("1.24").build(),
+            new BloodSugarBuilder().withDateTime("2019-01-09 09:16").withConcentration("1.01").build(),
+            new BloodSugarBuilder().withDateTime("2019-01-10 09:17").withConcentration("1.31").build(),
+            new BloodSugarBuilder().withDateTime("2019-02-03 09:18").withConcentration("1.24").build(),
+            new BloodSugarBuilder().withDateTime("2019-02-04 09:19").withConcentration("1.02").build(),
+            new BloodSugarBuilder().withDateTime("2019-03-03 09:20").withConcentration("1.13").build(),
+            new BloodSugarBuilder().withDateTime("2019-03-04 09:21").withConcentration("1.16").build(),
+            new BloodSugarBuilder().withDateTime("2019-04-03 09:22").withConcentration("1.40").build(),
+            new BloodSugarBuilder().withDateTime("2019-04-04 09:23").withConcentration("1.12").build()
         };
     }
 

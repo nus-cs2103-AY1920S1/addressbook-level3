@@ -24,9 +24,9 @@ public class AverageGraphPanel extends UiPart<Region> {
         super(FXML);
         XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
         for (Map.Entry<LocalDate, Double> entry : averageMap.entrySet()) {
-            LocalDate key = entry.getKey();
-            Double value = entry.getValue();
-            dataSeries.getData().add(new XYChart.Data<String, Double>("jan", value));
+            LocalDate date = entry.getKey();
+            Double average = entry.getValue();
+            dataSeries.getData().add(new XYChart.Data<String, Double>(date.toString(), average));
         }
         lineChart.getData().add(dataSeries);
     }
