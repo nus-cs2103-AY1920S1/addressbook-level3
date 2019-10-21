@@ -6,11 +6,12 @@ import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
 import thrift.model.transaction.Income;
+import thrift.ui.TransactionListPanel;
 
 /**
  * Adds an expense transaction to the THRIFT.
  */
-public class AddIncomeCommand extends NonScrollingCommand implements Undoable {
+public class AddIncomeCommand extends ScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add_income";
 
@@ -39,9 +40,15 @@ public class AddIncomeCommand extends NonScrollingCommand implements Undoable {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, TransactionListPanel transactionListPanel) {
         requireNonNull(model);
         model.addIncome(toAdd);
+
+        // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
+        // handle JavaFX initialization
+        if (model.isInView(toAdd) && transactionListPanel != null) {
+            transactionListPanel.getTransactionListView().scrollTo(toAdd);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

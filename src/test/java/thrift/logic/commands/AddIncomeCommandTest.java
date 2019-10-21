@@ -43,7 +43,7 @@ public class AddIncomeCommandTest {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         Income validIncome = new IncomeBuilder().build();
 
-        CommandResult commandResult = new AddIncomeCommand(validIncome).execute(modelStub);
+        CommandResult commandResult = new AddIncomeCommand(validIncome).execute(modelStub, null);
 
         assertEquals(String.format(AddIncomeCommand.MESSAGE_SUCCESS, validIncome), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validIncome), modelStub.transactionsAdded);
@@ -259,6 +259,11 @@ public class AddIncomeCommandTest {
         }
 
         @Override
+        public boolean isInView(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void keepTrackCommands(Undoable command) {
             throw new AssertionError("This method should not be called.");
         }
@@ -318,6 +323,11 @@ public class AddIncomeCommandTest {
         public void addIncome(Income income) {
             requireNonNull(income);
             transactionsAdded.add(income);
+        }
+
+        @Override
+        public boolean isInView(Transaction transaction) {
+            return transactionsAdded.contains(transaction);
         }
 
         @Override

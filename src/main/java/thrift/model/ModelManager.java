@@ -248,6 +248,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isInView(Transaction transaction) {
+        return filteredTransactions.contains(transaction);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

@@ -1,6 +1,7 @@
 package thrift.logic;
 
 import static java.util.Objects.requireNonNull;
+import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -53,24 +54,8 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText, TransactionListPanel transactionListPanel, BalanceBar balanceBar)
             throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-
-        CommandResult commandResult;
         Command command = thriftParser.parseCommand(commandText);
-        if (command instanceof ScrollingCommand) {
-            commandResult = ((ScrollingCommand) command).execute(model, transactionListPanel);
-        } else {
-            commandResult = ((NonScrollingCommand) command).execute(model);
-        }
-        if (isRefreshingFilteredList(command)) {
-            model.updateBalanceForCurrentMonth();
-            balanceBar.setMonthYear(getCurrentMonthYear());
-            balanceBar.setMonthBudget(getCurrentMonthBudget());
-            balanceBar.setMonthBalance(getCurrentMonthBalance());
-        }
-        if (command instanceof Undoable) {
-            model.keepTrackCommands((Undoable) command);
-            logger.info("[UNDOABLE COMMAND][" + commandText + "] is tracked");
-        }
+        CommandResult commandResult = processParsedCommand(command, commandText, transactionListPanel, balanceBar);
         try {
             storage.saveThrift(model.getThrift());
         } catch (IOException ioe) {
@@ -83,6 +68,55 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyThrift getThrift() {
         return model.getThrift();
+    }
+
+    @Override
+    public CommandResult processParsedCommand(Command command, String commandText,
+                                               TransactionListPanel transactionListPanel,
+                                               BalanceBar balanceBar) throws CommandException {
+        requireAllNonNull(command, commandText);
+        CommandResult commandResult = parseScrollable(command, transactionListPanel);
+        parseRefreshable(command, balanceBar);
+        parseUndoable(command, commandText);
+        return commandResult;
+    }
+
+    @Override
+    public CommandResult parseScrollable(Command command, TransactionListPanel transactionListPanel)
+            throws CommandException {
+        requireNonNull(command);
+        CommandResult commandResult;
+        if (command instanceof ScrollingCommand) {
+            commandResult = ((ScrollingCommand) command).execute(model, transactionListPanel);
+        } else {
+            commandResult = ((NonScrollingCommand) command).execute(model);
+        }
+        return commandResult;
+    }
+
+    @Override
+    public void parseRefreshable(Command command, BalanceBar balanceBar) {
+        requireNonNull(command);
+        if (isRefreshingFilteredList(command)) {
+            model.updateBalanceForCurrentMonth();
+            updateBalanceBar(balanceBar);
+        }
+    }
+
+    @Override
+    public void parseUndoable(Command command, String commandText) {
+        requireAllNonNull(command, commandText);
+        if (command instanceof Undoable) {
+            model.keepTrackCommands((Undoable) command);
+            logger.info("[UNDOABLE COMMAND][" + commandText + "] is tracked");
+        }
+    }
+
+    @Override
+    public void updateBalanceBar(BalanceBar balanceBar) {
+        balanceBar.setMonthYear(getCurrentMonthYear());
+        balanceBar.setMonthBudget(getCurrentMonthBudget());
+        balanceBar.setMonthBalance(getCurrentMonthBalance());
     }
 
     @Override

@@ -161,6 +161,11 @@ public interface Model {
     double getBalance();
 
     /**
+     * Returns if {@code transaction} is currently in {@code FilteredList<Transaction>}.
+     */
+    boolean isInView(Transaction transaction);
+
+    /**
      * Keeps track of past undoable commands.
      */
     void keepTrackCommands(Undoable command);

@@ -38,7 +38,52 @@ public interface Logic {
      */
     ReadOnlyThrift getThrift();
 
-    /** Returns if the given command requires a refresh of the filteredlist. */
+    /**
+     * Processes the parsed command, checking if it requires scrolling the view, updating the balancebar, or record
+     * keeping for possible undo/redo.
+     *
+     * @param command processed command that is ready to execute.
+     * @param commandText raw user input for the command.
+     * @param transactionListPanel transaction list pane that houses the transactions displayed to the user.
+     * @param balanceBar GUI object that displays the current balance, budget and month to the user.
+     * @return {@code CommandResult} object that is created as a result from executing the command.
+     * @throws CommandException if the command encounters any runtime errors.
+     */
+    CommandResult processParsedCommand(Command command, String commandText, TransactionListPanel transactionListPanel,
+                                       BalanceBar balanceBar) throws CommandException;
+
+    /**
+     * Takes the given command and executes it, checking if the command requires scrolling the
+     * {@code transactionListPanel} into view.
+     *
+     * @param command processed command that is ready to execute.
+     * @param transactionListPanel transaction list pane that houses the transactions displayed to the user.
+     * @return {@code CommandResult} object that is created as a result from executing the command.
+     * @throws CommandException if the command encounters any runtime errors.
+     */
+    CommandResult parseScrollable(Command command, TransactionListPanel transactionListPanel)
+            throws CommandException;
+
+    /**
+     * Checks if the given command requires the {@code BalanceBar} to be refreshed.
+     *
+     * @param command processed command that is ready to execute.
+     * @param balanceBar GUI object that displays the current balance, budget and month to the user.
+     */
+    void parseRefreshable(Command command, BalanceBar balanceBar);
+
+    /**
+     * Checks if the given command requires to be record-kept for possible undo/redo in the future.
+     *
+     * @param command processed command that is ready to execute.
+     * @param commandText raw user input for the command.
+     */
+    void parseUndoable(Command command, String commandText);
+
+    /** Updates the various components of the {@code BalnaceBar}. */
+    void updateBalanceBar(BalanceBar balanceBar);
+
+    /** Returns if the given command requires a refresh of the {@code filteredList}. */
     boolean isRefreshingFilteredList(Command command);
 
     /** Returns the current month and year in MMM yyyy format. */

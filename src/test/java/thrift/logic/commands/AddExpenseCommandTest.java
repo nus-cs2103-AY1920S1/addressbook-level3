@@ -43,7 +43,7 @@ public class AddExpenseCommandTest {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         Expense validExpense = new ExpenseBuilder().build();
 
-        CommandResult commandResult = new AddExpenseCommand(validExpense).execute(modelStub);
+        CommandResult commandResult = new AddExpenseCommand(validExpense).execute(modelStub, null);
 
         assertEquals(String.format(AddExpenseCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validExpense), modelStub.transactionsAdded);
@@ -260,6 +260,11 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public boolean isInView(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void keepTrackCommands(Undoable command) {
             throw new AssertionError("This method should not be called.");
         }
@@ -319,6 +324,11 @@ public class AddExpenseCommandTest {
         public void addExpense(Expense expense) {
             requireNonNull(expense);
             transactionsAdded.add(expense);
+        }
+
+        @Override
+        public boolean isInView(Transaction transaction) {
+            return transactionsAdded.contains(transaction);
         }
 
         @Override
