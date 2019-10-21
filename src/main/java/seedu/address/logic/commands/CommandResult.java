@@ -9,19 +9,21 @@ import java.util.Objects;
  */
 public class CommandResult {
 
-    private final String feedbackToUser;
+    protected final String feedbackToUser;
 
-    private final boolean undo;
+    protected String pane;
+
+    protected final boolean undo;
 
     /**
      * Help information should be shown to the user.
      */
-    private final boolean showHelp;
+    protected final boolean showHelp;
 
     /**
      * The application should exit.
      */
-    private final boolean exit;
+    protected final boolean exit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -87,4 +89,7 @@ public class CommandResult {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
+    public String getPane() {
+        return this.pane;
+    }
 }

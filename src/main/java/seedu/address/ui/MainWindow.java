@@ -16,6 +16,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.item.Item;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DownCommandResult;
+import seedu.address.logic.commands.UpCommand;
+import seedu.address.logic.commands.UpCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.CalendarList;
@@ -176,6 +179,40 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Scrolls the target pane up
+     *
+     * @param pane
+     */
+    private void scrollUp(String pane) {
+        switch(pane) {
+            case "resultDisplay":
+                resultDisplay.scrollUp();
+                break;
+            case "tabPane":
+                eventListPanel.scrollUp();
+                taskListPanel.scrollUp();
+                reminderListPanel.scrollUp();
+        }
+    }
+
+    /**
+     * Scrolls the target pane down
+     *
+     * @param pane
+     */
+    private void scrollDown(String pane) {
+        switch(pane) {
+            case "resultDisplay":
+                resultDisplay.scrollDown();
+                break;
+            case "tabPane":
+                eventListPanel.scrollDown();
+                taskListPanel.scrollDown();
+                reminderListPanel.scrollDown();
+        }
+    }
+
+    /**
      * Updates the panels to display the correct list of item.
      */
     public void updatePanels() {
@@ -212,13 +249,26 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setMessageFromUser(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult)) {
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            }
 
             if (commandResult.isExit()) {
                 handleExit();
             }
 
             handleSwitchView(logic.getVisualList());
+
+            if (commandResult instanceof UpCommandResult) {
+                scrollUp(commandResult.getPane());
+                return commandResult;
+            }
+
+            if (commandResult instanceof DownCommandResult) {
+                scrollDown(commandResult.getPane());
+                return commandResult;
+            }
+
             updatePanels();
             return commandResult;
         } catch (CommandException | ParseException e) {

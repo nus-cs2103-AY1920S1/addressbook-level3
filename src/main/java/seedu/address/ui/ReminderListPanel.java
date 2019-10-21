@@ -17,6 +17,10 @@ public class ReminderListPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
+    private final int NUM_OF_ITEMS_TO_SCROLL = 5;
+    private static int currentPosition;
+    private static int itemSize;
+
     @FXML
     private ListView<Item> reminderListView;
 
@@ -24,8 +28,9 @@ public class ReminderListPanel extends UiPart<Region> {
         super(FXML);
         reminderListView.setItems(itemList);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
-        reminderListView.scrollTo(itemList.size());
-
+        itemSize = reminderListView.getItems().size();
+        reminderListView.scrollTo(itemSize);
+        currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
     }
 
     /**
@@ -45,4 +50,22 @@ public class ReminderListPanel extends UiPart<Region> {
         }
     }
 
+    public void scrollUp() {
+        if (currentPosition - NUM_OF_ITEMS_TO_SCROLL <= 0) {
+            currentPosition = 0;
+        } else {
+            currentPosition = currentPosition - NUM_OF_ITEMS_TO_SCROLL;
+        }
+        reminderListView.scrollTo(currentPosition);
+
+    }
+
+    public void scrollDown() {
+        if (currentPosition + NUM_OF_ITEMS_TO_SCROLL >= itemSize) {
+            currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
+        } else {
+            currentPosition = currentPosition + NUM_OF_ITEMS_TO_SCROLL;
+        }
+        reminderListView.scrollTo(currentPosition);
+    }
 }

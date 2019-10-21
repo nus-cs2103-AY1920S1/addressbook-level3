@@ -17,6 +17,10 @@ public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
+    private final int NUM_OF_ITEMS_TO_SCROLL = 5;
+    private static int currentPosition;
+    private static int itemSize;
+
     @FXML
     private ListView<Item> eventListView;
 
@@ -24,8 +28,9 @@ public class EventListPanel extends UiPart<Region> {
         super(FXML);
         eventListView.setItems(itemList);
         eventListView.setCellFactory(listView -> new EventListViewCell());
-        eventListView.scrollTo(itemList.size());
-
+        itemSize = eventListView.getItems().size();
+        eventListView.scrollTo(itemSize);
+        currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
     }
 
     /**
@@ -45,4 +50,22 @@ public class EventListPanel extends UiPart<Region> {
         }
     }
 
+    public void scrollUp() {
+        if (currentPosition - NUM_OF_ITEMS_TO_SCROLL <= 0) {
+            currentPosition = 0;
+        } else {
+            currentPosition = currentPosition - NUM_OF_ITEMS_TO_SCROLL;
+        }
+        eventListView.scrollTo(currentPosition);
+
+    }
+
+    public void scrollDown() {
+        if (currentPosition + NUM_OF_ITEMS_TO_SCROLL >= itemSize) {
+            currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
+        } else {
+            currentPosition = currentPosition + NUM_OF_ITEMS_TO_SCROLL;
+        }
+        eventListView.scrollTo(currentPosition);
+    }
 }

@@ -38,4 +38,14 @@ public class ResultDisplay extends UiPart<Region> {
         );
     }
 
+    public void scrollUp() {
+        scrollPane.setVvalue(scrollPane.getVvalue()+5);
+        System.out.println(scrollPane.getVvalue());
+    }
+
+    public void scrollDown() {
+        dialogContainer.heightProperty().addListener(
+                (observable) -> scrollPane.setVvalue(1.0)
+        );
+    }
 }
