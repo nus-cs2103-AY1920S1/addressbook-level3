@@ -52,7 +52,6 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected GameManager gameManager;
-
     /*
     Step 1.
     protected Game game;

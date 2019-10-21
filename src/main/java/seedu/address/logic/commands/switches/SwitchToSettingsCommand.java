@@ -1,9 +1,10 @@
 package seedu.address.logic.commands.switches;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.ModeSwitchException;
+import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
 
@@ -26,9 +27,11 @@ public class SwitchToSettingsCommand extends SwitchCommand {
                 + " (" + (difficulty.getTimeAllowedPerQuestion() * 1.0) / 1000 + " seconds)");
     }
 
-    @Override
-    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
-        return ModeEnum.SETTINGS;
+    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
+        return ModeEnum.LOAD;
     }
+
+
+
 
 }
