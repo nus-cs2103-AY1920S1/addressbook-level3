@@ -18,7 +18,7 @@ import seedu.tarence.model.tutorial.Week;
 
 
 /**
- * A utility class to help with building Module objects.
+ * A utility class to help with building Tutorial objects.
  */
 public class TutorialBuilder {
 

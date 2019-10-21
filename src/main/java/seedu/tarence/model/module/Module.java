@@ -2,6 +2,7 @@ package seedu.tarence.model.module;
 
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,8 @@ import seedu.tarence.model.tutorial.Tutorial;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Module {
+    // TODO: Add to storage
+    private static Date semStart = null;
 
     // Identity fields
     protected final ModCode modCode;
@@ -26,6 +29,17 @@ public class Module {
         requireAllNonNull(modCode, tutorials);
         this.modCode = modCode;
         this.tutorials = tutorials;
+    }
+
+    public static Date getSemStart() {
+        return semStart;
+    }
+
+    /**
+     * Sets the start of semester date. Does not modify event log of tutorials.
+     */
+    public static void setSemStart(Date semStart) {
+        Module.semStart = semStart;
     }
 
     public ModCode getModCode() {

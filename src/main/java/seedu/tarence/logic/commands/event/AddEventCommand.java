@@ -1,9 +1,8 @@
-package seedu.tarence.logic.commands.assignment;
+package seedu.tarence.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MAX_SCORE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_START_DATE;
@@ -18,51 +17,49 @@ import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
-import seedu.tarence.model.tutorial.Assignment;
+import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
- * Adds Assignment to a Tutorial.
+ * Adds Event to a Tutorial.
  * Keyword matching is case insensitive.
  */
-public class AddAssignmentCommand extends AssignmentCommand {
+public class AddEventCommand extends EventCommand {
 
-    public static final String MESSAGE_ADD_ASSIGNMENT_SUCCESS = "%1$s created successfully";
-    public static final String COMMAND_WORD = "addAssign";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "adda", "addasm", "addassn"};
+    public static final String MESSAGE_ADD_EVENT_SUCCESS = "%1$s added successfully";
+    public static final String COMMAND_WORD = "addEvent";
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "adde", "addev", "addevnt"};
 
     // TODO: Update message to include index format
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates an assignment for a tutorial.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates an event for a tutorial.\n"
             + "Parameters: "
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
             + PREFIX_MODULE + "MODULE CODE "
-            + PREFIX_NAME + "ASSIGNMENT NAME "
-            + PREFIX_MAX_SCORE + "MAX SCORE "
-            + PREFIX_START_DATE + "START DATE "
-            + PREFIX_END_DATE + "END DATE\n"
+            + PREFIX_NAME + "EVENT NAME "
+            + PREFIX_START_DATE + "START TIME "
+            + PREFIX_END_DATE + "END TIME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 "
             + PREFIX_NAME + "Lab01 "
-            + PREFIX_MAX_SCORE + "10 "
             + PREFIX_START_DATE + "09-11-2001 0000 "
             + PREFIX_END_DATE + "31-10-2019 2359";
 
-    public AddAssignmentCommand(ModCode modCode, TutName tutName, Index tutIndex,
-            String assignName, Integer maxScore, Date startDate, Date endDate) {
-        super(modCode, tutName, tutIndex, null, assignName, maxScore, startDate, endDate);
-        requireAllNonNull(assignName, maxScore, startDate, endDate);
+    public AddEventCommand(ModCode modCode, TutName tutName, Index tutIndex,
+            String eventName, Date startTime, Date endTime) {
+        super(modCode, tutName, tutIndex, null, eventName, startTime, endTime);
+        requireAllNonNull(eventName, startTime, endTime);
     }
 
-    public AddAssignmentCommand() {
+    public AddEventCommand() {
         super();
     }
 
     @Override
-    public AssignmentCommand build(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
-            String assignName, Integer maxScore, Date startDate, Date endDate) {
-        return new AddAssignmentCommand(modCode, tutName, tutIndex, assignName, maxScore, startDate, endDate);
+    public EventCommand build(ModCode modCode, TutName tutName, Index tutIndex, Index eventIndex,
+            String eventName, Date startTime, Date endTime) {
+        return new AddEventCommand(modCode, tutName, tutIndex, eventName, startTime, endTime);
     }
 
     @Override
@@ -80,7 +77,7 @@ public class AddAssignmentCommand extends AssignmentCommand {
                     .findFirst()
                     .orElse(null);
             if (targetTutorial == null) {
-                return handleSuggestedCommands(model, new AddAssignmentCommand());
+                return handleSuggestedCommands(model, new AddEventCommand());
             }
         } else if (targetTutIndex.isPresent()) {
             // format with tutorial index
@@ -93,17 +90,16 @@ public class AddAssignmentCommand extends AssignmentCommand {
         }
 
         try {
-            targetTutorial.addAssignment(new Assignment(
-                assignName.get(),
-                maxScore.get(),
-                startDate.get(),
-                endDate.get()));
+            targetTutorial.addEvent(new Event(
+                eventName.get(),
+                startTime.get(),
+                endTime.get()));
         } catch (IllegalArgumentException e) {
             throw new CommandException(e.getMessage());
         }
 
         return new CommandResult(
-                String.format(MESSAGE_ADD_ASSIGNMENT_SUCCESS, assignName.get()));
+                String.format(MESSAGE_ADD_EVENT_SUCCESS, eventName.get()));
     }
 
     /**
@@ -124,7 +120,7 @@ public class AddAssignmentCommand extends AssignmentCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddAssignmentCommand // instanceof handles nulls
+                || (other instanceof AddEventCommand // instanceof handles nulls
                 && super.equals(other)); // state check
     }
 }

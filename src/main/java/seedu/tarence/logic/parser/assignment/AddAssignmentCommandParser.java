@@ -1,4 +1,4 @@
-package seedu.tarence.logic.parser;
+package seedu.tarence.logic.parser.assignment;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_END_DATE;
@@ -15,17 +15,21 @@ import java.util.stream.Stream;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.assignment.AddAssignmentCommand;
-import seedu.tarence.logic.commands.assignment.AssignmentCommand;
+import seedu.tarence.logic.parser.ArgumentMultimap;
+import seedu.tarence.logic.parser.ArgumentTokenizer;
+import seedu.tarence.logic.parser.Parser;
+import seedu.tarence.logic.parser.ParserUtil;
+import seedu.tarence.logic.parser.Prefix;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.TutName;
-
+import seedu.tarence.model.tutorial.Tutorial;
 
 /**
- * Parses input arguments and creates a new AddModuleCommand object
+ * Parses input arguments and creates a new AddAssignmentCommand object
  */
-public class AddAssignmentCommandParser implements Parser<AssignmentCommand> {
+public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddAssignmentCommand
@@ -57,7 +61,7 @@ public class AddAssignmentCommandParser implements Parser<AssignmentCommand> {
         } catch (NumberFormatException e) {
             throw new ParseException(Assignment.MESSAGE_CONSTRAINTS_MAX_SCORE);
         }
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(Assignment.DATE_FORMAT);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(Tutorial.DATE_FORMAT);
         Date startDate;
         Date endDate;
         try {

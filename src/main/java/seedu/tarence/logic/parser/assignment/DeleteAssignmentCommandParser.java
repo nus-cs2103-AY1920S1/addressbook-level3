@@ -1,4 +1,4 @@
-package seedu.tarence.logic.parser;
+package seedu.tarence.logic.parser.assignment;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_END_DATE;
@@ -14,18 +14,22 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 import seedu.tarence.commons.core.index.Index;
-import seedu.tarence.logic.commands.assignment.AssignmentCommand;
 import seedu.tarence.logic.commands.assignment.DeleteAssignmentCommand;
+import seedu.tarence.logic.parser.ArgumentMultimap;
+import seedu.tarence.logic.parser.ArgumentTokenizer;
+import seedu.tarence.logic.parser.Parser;
+import seedu.tarence.logic.parser.ParserUtil;
+import seedu.tarence.logic.parser.Prefix;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.TutName;
-
+import seedu.tarence.model.tutorial.Tutorial;
 
 /**
  * Parses input arguments and creates a new DeleteAssignmentCommand object
  */
-public class DeleteAssignmentCommandParser implements Parser<AssignmentCommand> {
+public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteAssignmentCommand
@@ -62,7 +66,7 @@ public class DeleteAssignmentCommandParser implements Parser<AssignmentCommand> 
             } catch (NumberFormatException e) {
                 throw new ParseException(Assignment.MESSAGE_CONSTRAINTS_MAX_SCORE);
             }
-            SimpleDateFormat dateFormatter = new SimpleDateFormat(Assignment.DATE_FORMAT);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(Tutorial.DATE_FORMAT);
             try {
                 startDate = dateFormatter.parse(argMultimap.getValue(PREFIX_START_DATE).get());
                 endDate = dateFormatter.parse(argMultimap.getValue(PREFIX_END_DATE).get());
@@ -86,7 +90,6 @@ public class DeleteAssignmentCommandParser implements Parser<AssignmentCommand> 
      * else false.
      */
     public static boolean validateModCodeTutNameFormat(ArgumentMultimap argMultimap) {
-        // student name not checked since it is optional
         // modcode, tutorial name present without tutorial index - first format
         return (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TUTORIAL_NAME)
                 && arePrefixesAbsent(argMultimap, PREFIX_INDEX));
