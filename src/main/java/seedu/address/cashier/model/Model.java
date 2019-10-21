@@ -50,7 +50,7 @@ public interface Model {
 
     void clearSalesList();
 
-    Item editItem(int index, int qty);
+    Item editItem(int index, int qty) throws NoSuchIndexException;
 
     double getSubtotal(Item i);
 
@@ -70,5 +70,6 @@ public interface Model {
     int findIndexByDescription(String description) throws NoSuchItemException;
 
     boolean hasSufficientQuantityToEdit(int index, int quantity) throws NoSuchItemException;
+
 
 }

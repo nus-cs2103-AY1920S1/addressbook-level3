@@ -69,8 +69,8 @@ public class CommandTestUtil {
             System.out.println(result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             System.out.println("did first assert equals");
+            assertEquals(expectedModel, cashierModel);
             assertEquals(expectedModel.getSalesList(), cashierModel.getSalesList());
-            //consider checking the filtered list
         } catch (Exception ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }

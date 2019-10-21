@@ -15,10 +15,12 @@ import java.util.stream.Stream;
 
 import seedu.address.cashier.commands.AddCommand;
 import seedu.address.cashier.logic.exception.InsufficientAmountException;
+import seedu.address.cashier.logic.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.exception.NotANumberException;
 import seedu.address.cashier.logic.exception.ParseException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
+import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 import seedu.address.util.Prefix;
@@ -83,6 +85,9 @@ public class AddCommandParser {
         if (!modelManager.hasSufficientQuantityToAdd(description, quantity)) {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
+        }
+        if (quantity < 0) {
+            throw new NegativeQuantityException(CashierMessages.QUANTITY_NOT_POSITIVE);
         }
         if (modelManager.hasItemInInventory(description) && modelManager.hasSufficientQuantityToAdd(description, quantity)) {
             AddCommand addCommand = new AddCommand(description, quantity);

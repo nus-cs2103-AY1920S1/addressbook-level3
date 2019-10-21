@@ -8,6 +8,7 @@ import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import seedu.address.cashier.commands.EditCommand;
 import seedu.address.cashier.logic.exception.InsufficientAmountException;
+import seedu.address.cashier.logic.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.exception.NotANumberException;
 import seedu.address.cashier.logic.exception.ParseException;
 import seedu.address.cashier.model.Model;
@@ -27,7 +28,7 @@ public class EditCommandParser {
      * @throws NotANumberException if the user input is not a number
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static EditCommand parse(String args, Model modelManager) throws NotANumberException, ParseException, NoSuchItemException, InsufficientAmountException {
+    public static EditCommand parse(String args, Model modelManager) throws NotANumberException, ParseException, NoSuchItemException, InsufficientAmountException, NegativeQuantityException {
         int index;
         int quantity;
         ArgumentMultimap argMultimap;
@@ -63,6 +64,9 @@ public class EditCommandParser {
             quantity = Integer.parseInt(quantityString);
         } catch (Exception e) {
             throw new NotANumberException(CashierMessages.QUANTITY_NOT_A_NUMBER);
+        }
+        if (quantity < 0) {
+            throw new NegativeQuantityException(CashierMessages.QUANTITY_NOT_POSITIVE);
         }
         if (!modelManager.hasSufficientQuantityToEdit(index, quantity)) {
             String description = modelManager.findItemByIndex(index).getDescription();

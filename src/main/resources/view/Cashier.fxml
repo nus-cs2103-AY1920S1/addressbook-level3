@@ -29,10 +29,13 @@
                   <TableColumn fx:id="quantityCol" text="Quantity" />
                   <TableColumn fx:id="subtotalCol" prefWidth="120.0" text="Subtotal" />
               </columns>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </TableView>
             <Label text="Total amount:" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets left="350.0" />
                </GridPane.margin>
                <font>
                   <Font size="16.0" />
@@ -40,7 +43,23 @@
             </Label>
             <Label text="Cashier:" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="400.0" />
+                  <Insets left="20.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="cashierLabel" text="Label" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="100.0" top="2.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalAmountLabel" text="Label" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="480.0" />
                </GridPane.margin>
                <font>
                   <Font size="16.0" />

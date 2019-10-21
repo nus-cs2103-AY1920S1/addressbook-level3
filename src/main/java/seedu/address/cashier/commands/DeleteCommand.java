@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
      * @param index of the item in the sales list to be deleted
      */
     public DeleteCommand(int index) {
-        assert index >= 0 : "Index must be a positive integer.";
+        assert index > 0 : "Index must be a positive integer.";
         this.index = index;
     }
 

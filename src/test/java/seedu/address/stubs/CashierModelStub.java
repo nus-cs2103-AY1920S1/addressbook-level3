@@ -100,6 +100,16 @@ public class CashierModelStub implements Model {
     }
 
     @Override
+    public int findIndexByDescription(String description) throws NoSuchItemException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasSufficientQuantityToEdit(int index, int quantity) throws NoSuchItemException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setItem(int i, Item editedItem) throws Exception {
         throw new AssertionError("This method should not be called.");
     }
@@ -130,7 +140,7 @@ public class CashierModelStub implements Model {
     }
 
     @Override
-    public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
+    public boolean hasSufficientQuantityToAdd(String description, int quantity) throws NoSuchItemException {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import seedu.address.cashier.commands.Command;
 import seedu.address.cashier.commands.CommandResult;
+import seedu.address.cashier.logic.exception.NoCashierFoundException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.util.InventoryList;
@@ -15,7 +16,7 @@ import seedu.address.inventory.model.Item;
 public class LogicManager implements Logic {
 
     //private final Model model;
-    private final Model cashierManager;
+    private final Model model;
     private final StorageManager storage;
     private CashierTabParser parser;
     private final seedu.address.person.model.Model personModel;
@@ -33,7 +34,7 @@ public class LogicManager implements Logic {
                         seedu.address.inventory.model.Model inventoryModel,
                         seedu.address.inventory.storage.Storage inventoryStorage) {
         //this.model = inventoryModel;
-        this.cashierManager = cashierManager;
+        this.model = cashierManager;
         this.storage = cashierStorage;
 
         parser = new CashierTabParser();
@@ -49,8 +50,8 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws Exception {
-        Command command = parser.parseCommand(commandText, cashierManager, personModel);
-        CommandResult commandResult = command.execute(cashierManager, personModel,
+        Command command = parser.parseCommand(commandText, model, personModel);
+        CommandResult commandResult = command.execute(model, personModel,
                 transactionModel, inventoryModel);
         return commandResult;
     }
@@ -60,15 +61,30 @@ public class LogicManager implements Logic {
     }
 
     public void writeIntoInventoryFile() throws Exception {
-        cashierManager.writeInInventoryFile();
+        model.writeInInventoryFile();
     }
 
     public InventoryList getInventoryList() {
-        return cashierManager.getInventoryList();
+        return model.getInventoryList();
     }
 
     public ArrayList<Item> getSalesList() {
-        return cashierManager.getSalesList();
+        return model.getSalesList();
+    }
+
+    @Override
+    public String getAmount() {
+        return String.valueOf(model.getTotalAmount());
+    }
+
+    @Override
+    public String getCashier() throws NoCashierFoundException {
+        try {
+            model.getCashier();
+        } catch (NoCashierFoundException e) {
+            return "";
+        }
+        return String.valueOf(model.getCashier().getName());
     }
 
 }

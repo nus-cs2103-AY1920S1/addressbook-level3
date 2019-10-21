@@ -40,6 +40,8 @@ public class CashierMessages {
 
     public static final String QUANTITY_NOT_A_NUMBER = "Please input an integer for the quantity of item to be sold.";
 
+    public static final String QUANTITY_NOT_POSITIVE = "Please input an positive integer for the quantity of item to be sold.";
+
     public static final String MESSAGE_ADD_CASHIER = "Added cashier successfully. Cashier-in-charge is: %s.\n";
 
     public static final String MESSAGE_CHECKOUT_SUCCESS = "Total amount is %s.\nThe change is %s.\n"

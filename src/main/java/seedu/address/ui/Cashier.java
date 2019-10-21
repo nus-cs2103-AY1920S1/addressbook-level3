@@ -3,7 +3,11 @@ package seedu.address.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,6 +34,10 @@ public class Cashier extends UiPart<Region> {
     private TableColumn<Item, String> quantityCol;
     @FXML
     private TableColumn<Item, Double> subtotalCol;
+    @FXML
+    private Label totalAmountLabel;
+    @FXML
+    private Label cashierLabel;
 
     public Cashier (Logic logic) throws Exception {
         super(FXML);
@@ -39,6 +47,28 @@ public class Cashier extends UiPart<Region> {
         priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
         quantityCol.setCellValueFactory(new PropertyValueFactory<Item, String>("quantity"));
         subtotalCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
+
+        SimpleStringProperty amount = new SimpleStringProperty();
+        String s = String.valueOf(logic.getAmount());
+        amount.setValue(s);
+        amount.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                System.out.println("Old: " + oldValue + ", New: " + newValue);
+            }
+          });
+           totalAmountLabel.textProperty().bind(amount);
+
+        SimpleStringProperty cashierProperty = new SimpleStringProperty();
+        String str = String.valueOf(logic.getCashier());
+        cashierProperty.setValue(str);
+        cashierProperty.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                System.out.println("Old: " + oldValue + ", New: " + newValue);
+            }
+        });
+        cashierLabel.textProperty().bind(cashierProperty);
     }
 
     /**
@@ -62,3 +92,6 @@ public class Cashier extends UiPart<Region> {
 
 
 }
+
+
+

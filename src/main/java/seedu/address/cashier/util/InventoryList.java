@@ -35,6 +35,14 @@ public class InventoryList {
         this.iList = FXCollections.observableList(iArrayList);
     }
 
+    public ArrayList<Item> getiArrayList() {
+        return iArrayList;
+    }
+
+    public ObservableList<Item> getiList() {
+        return iList;
+    }
+
     /**
      * Returns the item of given description.
      * @param description of the item
@@ -139,4 +147,14 @@ public class InventoryList {
         }
         return categoryItems;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof InventoryList // instanceof handles nulls
+                && iArrayList.equals(((InventoryList) other).getiArrayList())
+                && iList.equals(((InventoryList) other).getiList()));
+    }
+
 }
+

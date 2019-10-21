@@ -16,11 +16,11 @@ public class SetCashierCommand extends Command {
     public static final String COMMAND_WORD = "cashier";
     private Person cashier;
 
-
     /**
      * Creates a SetCashierCommand to add the specified {@code Person}
      */
     public SetCashierCommand(Person p) {
+        assert p != null : "Cashier cannot be null.";
         cashier = p;
     }
 
