@@ -27,13 +27,10 @@ class JsonAdaptedTask {
 =======
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.problem.Problem;
-import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 
 /**
