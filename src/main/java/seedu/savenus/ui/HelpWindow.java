@@ -30,11 +30,9 @@ import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.MakeSortCommand;
-import seedu.savenus.logic.commands.PreferenceCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.RemoveDislikeCommand;
 import seedu.savenus.logic.commands.RemoveLikeCommand;
-import seedu.savenus.logic.commands.RemovePreferenceCommand;
 import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
