@@ -6,10 +6,7 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.Duration;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
@@ -43,6 +40,16 @@ public class Food {
         this.price = price;
         this.prepTime = prepTime;
         this.tags = Collections.unmodifiableSet(tags);
+    }
+
+    public Food(Name name, BigDecimal price, Duration prepTime) {
+        requireAllNonNull(name, price, prepTime);
+        checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
+        checkArgument(isValidPrepTime(prepTime), PREP_CONSTRAINTS);
+        this.name = name;
+        this.price = price;
+        this.prepTime = prepTime;
+        this.tags = new HashSet<>();
     }
 
     /**

@@ -46,6 +46,16 @@ public class Restaurant {
         this.tags.addAll(tags);
     }
 
+    public Restaurant(Name name, Location location, Set<Tag> tags, ObservableList<Food> menu) {
+        requireAllNonNull(name, location, tags, menu);
+        this.numberOfRatings = 0;
+        this.name = name;
+        this.location = location;
+        this.rating = new Rating("0");
+        this.tags.addAll(tags);
+        this.menu.addAll(menu);
+    }
+
     public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu) {
         requireAllNonNull(name, location, rating, numberOfRatings, tags);
         this.numberOfRatings = 0;
