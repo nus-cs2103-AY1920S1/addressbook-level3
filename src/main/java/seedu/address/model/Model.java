@@ -140,4 +140,13 @@ public interface Model {
      */
     void updateFilteredEventList(Predicate<Event> predicate);
 
+    /** Returns an unmodifiable view of the filtered event list */
+    ObservableList<Event> getFilteredScheduledEventList();
+
+    /**
+     * Updates the filter of the filtered Event list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredScheduledEventList(Predicate<Event> predicate);
+
 }

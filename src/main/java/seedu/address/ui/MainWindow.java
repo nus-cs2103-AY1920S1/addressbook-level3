@@ -39,6 +39,10 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private FetchWindow fetchWindow;
+    private ScheduleBox scheduleBox;
+
+    @FXML
+    private StackPane schedulePlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -123,6 +127,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
+        schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
     }
 
     /**
@@ -191,7 +198,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

@@ -199,6 +199,16 @@ public class AddCommandTest {
         public void updateFilteredEventList(Predicate<Event> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Event> getFilteredScheduledEventList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredScheduledEventList(Predicate<Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -241,6 +251,8 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+
     }
 
 }

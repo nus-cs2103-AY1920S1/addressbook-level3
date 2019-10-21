@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final FilteredList<Employee> filteredEmployees;
     private final EventBook eventBook;
     private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Event> filteredScheduledEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,6 +42,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredEmployees = new FilteredList<>(this.addressBook.getEmployeeList());
         filteredEvents = new FilteredList<>(this.eventBook.getEventList());
+        filteredScheduledEvents = new FilteredList<>(this.eventBook.getEventList());
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
@@ -160,6 +162,7 @@ public class ModelManager implements Model {
     public void addEvent(Event event) {
         eventBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredScheduledEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
@@ -201,6 +204,21 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
+     * {@code versionedEventBook}
+     */
+    @Override
+    public ObservableList<Event> getFilteredScheduledEventList() {
+        return filteredScheduledEvents;
+    }
+
+    @Override
+    public void updateFilteredScheduledEventList(Predicate<Event> predicate) {
+        requireNonNull(predicate);
+        filteredScheduledEvents.setPredicate(predicate);
     }
 
     @Override
