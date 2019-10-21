@@ -93,6 +93,14 @@ is provided in the command descriptions.
 
 === General Commands
 
+==== Alias
+Adds a custom ALIAS to a COMMAND. All future occurrences of that alias
+will be executing that COMMAND. +
+
+Format: `alias ALIAS_COMMAND`
+
+Example: `alias roby exit`
+
 ==== Help
 
 Display the help screen that contains helpful information on how to use the application. +
@@ -121,6 +129,20 @@ Makes the Food Card more or less compact, depending on the user's preference.
 Format `collapse`
 
 Example: `collapse`
+
+==== Undo
+Undoes a command a specific number of TIMES. Note: TIMES must be a positive integer. +
+
+Format: `undo TIMES`
+
+Example: `undo 1`
+
+==== Redo
+Redoes a command a specific number of TIMES. TIMES must be a positive integer. +
+
+Format: `redo TIMES`
+
+Example: `redo 1`
 
 ==== Exit
 Exits the app. +
@@ -183,7 +205,8 @@ Clears all the food items in the list.
 Format: `clear`
 
 ==== Sort
-Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY, LOCATION, OPENING_HOURS, RESTRICTIONS.
+Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY,
+LOCATION, OPENING_HOURS, RESTRICTIONS.
 
 Format: `sort FIELD`
 
@@ -249,7 +272,6 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 [NOTE]
 If you click the "Savings" tab on the right panel, you will be able to view your savings history.
 Also the amount withdrawn is added into your wallet.
-
 
 === Recommendations
 
