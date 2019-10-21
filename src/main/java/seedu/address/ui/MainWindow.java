@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.item.Item;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -83,11 +84,11 @@ public class MainWindow extends UiPart<Stage> {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
                         try {
-                            logic.execute("show " + t1.getId());
+                            logic.getModel().setVisualList(t1.getId());
                             updatePanels();
-                        } catch (CommandException e) {
-                            e.printStackTrace();
                         } catch (ParseException e) {
+                            e.printStackTrace();
+                        } catch (IllegalValueException e) {
                             e.printStackTrace();
                         }
                     }
