@@ -16,23 +16,30 @@ NurseTraverse is a desktop application meant for community nurse to help manage 
 * *Major enhancement*: added *the ability to manage visits*
 ** What it does: allows the user to manage their visits to their patients. They can create their own "checklist" of things to do for each patient, record said data during a visit and view data from previous visits.
 ** Justification: This feature has been identified as a required feature by user stories https://github.com/AY1920S1-CS2103-F10-1/main/issues/5[#5], https://github.com/AY1920S1-CS2103-F10-1/main/issues/6[#6] and https://github.com/AY1920S1-CS2103-F10-1/main/issues/25[#25] and will provide significant value-add by allowing users to manage visit data directly.
-** Highlights: --To add //This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Highlights: This enhancement adds a new feature for the user. From a design perspective, it was challenging as there was a need to make the use cases and commands usable and efficient while keeping the workload manageable. The implementation too was challenging as it is a rather big feature involving changes to existing commands and the creation of new commands.
 ** Credits: No code or ideas were referenced to outside of this application (beyond code that already exists within _Address Book 3_).
 
 * *Code contributed*: Code contributed can be found via references in issues: (v1.2: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/62[#62], v1.3: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/53[#53])
 
 * *Other contributions*:
-
 ** Project management:
+*** Setup initial https://github.com/AY1920S1-CS2103-F10-1/main/projects/1[Project Management Board]
 ** Enhancements to existing features:
-*** Modified relative to absolute indexing for Person list, find and edit (Pull Request https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69])
+*** Modified relative to absolute indexing for Person list, find and edit (Pull Request https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69]) which was required for this feature and some other features e.g. Appointment Management
 *** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77])
-*** Added tabs to main window (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77])
+*** Added tabs to main window (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]) which was required for this feature and some other features e.g. Appointment Management
 ** Documentation:
 *** Setup initial User Guide to guide direction of project: (Pull Requests https://github.com/AY1920S1-CS2103-F10-1/main/pull/36[#36], https://github.com/AY1920S1-CS2103-F10-1/main/pull/37[#37])
 ** Community:
-*** Pull Requests reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Pull Requests reviewed with non-trivial review comments or reviewed to approve: https://github.com/AY1920S1-CS2103-F10-1/main/pull/66[#66], https://github.com/AY1920S1-CS2103-F10-1/main/pull/67[#67],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/71[#71],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/72[#72],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/73[#73]
+*** Contributed to discussions (in Pull Request(s) https://github.com/AY1920S1-CS2103-F10-1/main/pull/42[#42] and offline/Telegram discussions)
+*** Contributed to discussions within my own Pull Requests: https://github.com/AY1920S1-CS2103-F10-1/main/pull/68[#68], https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69], 
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/75[#75],
+https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77]
+*** Setup example Milestone issue format (https://github.com/AY1920S1-CS2103-F10-1/main/issues/53[#53])
 ** Tools:
 *** Helped in setting up team repo
 *** Helped in integrating Travis
