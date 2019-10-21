@@ -125,4 +125,18 @@ public class InventoryList {
         iList.set(i, item);
     }
 
+    /**
+     * Returns a list of description of items according to category
+     * @param category of the items
+     * @return a list of description of items according to category
+     */
+    public ArrayList<String> getAllSalesDescriptionByCategory(String category) {
+        ArrayList<String> categoryItems = new ArrayList<>();
+        for (Item i : iList) {
+            if (i.getCategory().equalsIgnoreCase(category) && i.isSellable()) {
+                categoryItems.add(i.getDescription());
+            }
+        }
+        return categoryItems;
+    }
 }

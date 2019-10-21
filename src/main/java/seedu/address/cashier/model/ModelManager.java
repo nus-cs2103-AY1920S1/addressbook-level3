@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import seedu.address.cashier.logic.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.ui.CashierMessages;
@@ -67,6 +68,18 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Updates the inventory list from the data file.
+     */
+    @Override
+    public void readInUpdatedList() {
+        try {
+            this.inventoryList = storage.getInventoryList();
+        } catch (Exception e) {
+            this.inventoryList = new InventoryList();
+        }
+    }
+
+    /**
      * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
      * Else, return false.
      *
@@ -75,7 +88,6 @@ public class ModelManager implements Model {
      * @return true if sufficient quantity in inventory
      * @throws NoSuchItemException if there is no such item in the inventory
      */
-
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         Item originalItem = inventoryList.getOriginalItem(description);
         for (Item i : salesList) {
@@ -125,14 +137,6 @@ public class ModelManager implements Model {
      */
     public boolean hasItemInInventory(String description) {
         return inventoryList.hasItem(description);
-    }
-
-    /**
-     * Updates the {@code InventoryList} from the data file.
-     * @throws Exception
-     */
-    public void updateRecentInventory() throws Exception {
-        this.inventoryList = storage.getInventoryList();
     }
 
     @Override
@@ -217,25 +221,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Creates a new {@code Transaction} and append it to the data file.
-     * Adds the transaction to the transaction model.
-     *
-     * @param amount to paid by customer
-     * @param person cashier who is in-charge
-     * @param transactionModel the transaction model being used
-     * @return the new transaction made from the sales
-     * @throws Exception if the user input is invalid
-     */
-    public Transaction checkoutAsTransaction(double amount, Person person,
-                                             seedu.address.transaction.model.Model transactionModel) throws Exception {
-        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
-                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionList.size(), false);
-        storage.appendToTransaction(transaction);
-        transactionModel.addTransaction(transaction);
-        return transaction;
-    }
-
-    /**
      * Returns the total amount of all the items in the Sales List.
      * @return the total amount of all the items in the Sales List
      */
@@ -283,16 +268,75 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Updates the inventory list from the data file.
+     * Returns true if the item with the specified description is available for sale. Else, returns false.
+     * @param description of the item
+     * @return true if available for sale
+     * @throws NoSuchItemException if not for sale
      */
-    @Override
-    public void readInUpdatedList() {
-        try {
-            this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
-            this.inventoryList = new InventoryList();
-        }
+    public boolean isSellable(String description) throws NoSuchItemException {
+        Item i = inventoryList.getOriginalItem(description);
+        return i.isSellable();
     }
+
+    /**
+     * Returns a list of sales items according to their category.
+     * @param category of the items
+     * @return a list of sales items according to their category
+     */
+    public ArrayList<String> getDescriptionByCategory(String category) {
+        readInUpdatedList();
+        return inventoryList.getAllSalesDescriptionByCategory(category);
+    }
+
+
+    /**
+     * Returns a list of recommended items based on the initial input description.
+     * @param description of the item
+     * @return a list of recommended items
+     * @throws NoSuchIndexException if inventory list is invalid
+     */
+    public ArrayList<String> getRecommendedItems(String description) throws NoSuchIndexException {
+        readInUpdatedList();
+        ArrayList<String> recommendedItems = new ArrayList<>();
+        for (int i = 0; i < inventoryList.size(); i++) {
+            Item item = inventoryList.getItemByIndex(i);
+            if (item.getDescription().startsWith(description)) {
+                recommendedItems.add(item.getDescription());
+                continue;
+            }
+            if (description.length() >= 3
+                    && ((item.getDescription().contains(description)) || description.contains(item.getDescription()))) {
+                recommendedItems.add(item.getDescription());
+                continue;
+            }
+            if (item.getDescription().endsWith(description)) {
+                recommendedItems.add(item.getDescription());
+                continue;
+            }
+        }
+        return recommendedItems;
+    }
+
+
+    /**
+     * Creates a new {@code Transaction} and append it to the data file.
+     * Adds the transaction to the transaction model.
+     *
+     * @param amount to paid by customer
+     * @param person cashier who is in-charge
+     * @param transactionModel the transaction model being used
+     * @return the new transaction made from the sales
+     * @throws Exception if the user input is invalid
+     */
+    public Transaction checkoutAsTransaction(double amount, Person person,
+                                             seedu.address.transaction.model.Model transactionModel) throws Exception {
+        Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
+                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionList.size(), false);
+        storage.appendToTransaction(transaction);
+        transactionModel.addTransaction(transaction);
+        return transaction;
+    }
+
 }
 
 
