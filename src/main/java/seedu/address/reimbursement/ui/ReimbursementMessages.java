@@ -5,7 +5,7 @@ package seedu.address.reimbursement.ui;
  */
 public class ReimbursementMessages {
 
-    public static final String LIST_COMMAND = "List all reimbursements.\n";
+    public static final String BACK_COMMAND = "List all reimbursements.\n";
 
     public static final String SORT_BY_NAME = "The reimbursement list has been sorted by person's name.";
 
@@ -15,7 +15,7 @@ public class ReimbursementMessages {
             + "reimbursement.";
 
     public static final String NO_SUCH_COMMAND = "Sorry! Please type with these commands:\n"
-            + "deadline done find list sortname sortamount sortdeadline";
+            + "deadline\ndone\nfind\nback\nsort name\nsort amount\nsort date\nexit";
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Sorry! Please type with these parameters:\n"
             + "p/PERSON\n dt/DATE (eg.02-Sep-2019)";
@@ -26,8 +26,8 @@ public class ReimbursementMessages {
     public static final String MESSAGE_INVALID_DONECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
             + "done p/PERSON";
 
-    public static final String MESSAGE_INVALID_LISTCOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
-            + "list";
+    public static final String MESSAGE_INVALID_BACKCOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
+            + "back";
 
     public static final String MESSAGE_INVALID_FINDCOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
             + "find p/PERSON";

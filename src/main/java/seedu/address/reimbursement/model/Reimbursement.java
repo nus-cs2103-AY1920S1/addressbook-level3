@@ -162,8 +162,16 @@ public class Reimbursement {
      * @return string
      */
     public String toString() {
-        return person.getName() + " $" + amount + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
-                + description.toString();
+        String msg = "";
+        if (deadline == null) {
+            msg = person.getName().toString() + " $" + amount + System.lineSeparator()
+                    + description.toString();
+        } else {
+            msg = person.getName().toString() + " $" + amount
+                    + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
+                    + description.toString();
+        }
+        return msg;
     }
 
     /**
@@ -172,7 +180,7 @@ public class Reimbursement {
      * @return string the reimbursement is converted to.
      */
     public String toStringNoDeadline() {
-        return person.getName() + " $" + amount + System.lineSeparator() + description.toString();
+        return person.getName().toString() + " $" + amount + System.lineSeparator() + description.toString();
     }
 
     /**
@@ -181,9 +189,9 @@ public class Reimbursement {
     public String writeIntoFile() {
         String msg = "";
         if (deadline == null) {
-            msg = this.person.getName() + VB + this.amount + VB + "";
+            msg = this.person.getName().toString() + VB + this.amount + VB + "";
         } else {
-            msg = this.person.getName() + VB + this.amount + VB + this.deadline.format(DATE_TIME_FORMATTER);
+            msg = this.person.getName().toString() + VB + this.amount + VB + this.deadline.format(DATE_TIME_FORMATTER);
         }
         return msg;
     }
