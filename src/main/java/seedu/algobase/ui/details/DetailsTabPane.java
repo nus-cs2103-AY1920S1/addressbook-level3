@@ -30,9 +30,9 @@ public class DetailsTabPane extends UiPart<Region> {
     public DetailsTabPane(Logic logic) {
         super(FXML);
         TabManager tabManager = logic.getGuiState().getTabManager();
-        addListenerForTabChange(tabManager, logic);
-        addListenerForIndex(logic.getGuiState().getTabManager().getDetailsTabPaneIndex());
-        addListenerToTabPane(logic.getGuiState().getTabManager()::setDetailsTabPaneIndex);
+        addListenerForTabChanges(tabManager, logic);
+        addListenerForIndexChange(logic.getGuiState().getTabManager().getDetailsTabPaneIndex());
+        addListenerToTabPaneIndexChange(logic.getGuiState().getTabManager()::setDetailsTabPaneIndex);
     }
 
     /**
@@ -51,7 +51,7 @@ public class DetailsTabPane extends UiPart<Region> {
      *
      * @param detailsTabPaneIndex The observable index.
      */
-    private void addListenerForIndex(ObservableIntegerValue detailsTabPaneIndex) {
+    private void addListenerForIndexChange(ObservableIntegerValue detailsTabPaneIndex) {
         detailsTabPaneIndex.addListener((observable, oldValue, newValue) -> {
             selectTab((newValue.intValue()));
         });
@@ -62,7 +62,7 @@ public class DetailsTabPane extends UiPart<Region> {
      *
      * @param indexChangeHandler A callback function for when the index of the tabPane changes.
      */
-    private void addListenerToTabPane(Consumer<Index> indexChangeHandler) {
+    private void addListenerToTabPaneIndexChange(Consumer<Index> indexChangeHandler) {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -77,7 +77,7 @@ public class DetailsTabPane extends UiPart<Region> {
      * @param tabManager Tab manager that processes list changes.
      * @param logic The logic to retrieve objects from.
      */
-    private void addListenerForTabChange(TabManager tabManager, Logic logic) {
+    private void addListenerForTabChanges(TabManager tabManager, Logic logic) {
         tabManager.getTabs().addListener(new ListChangeListener<AlgoBaseTab>() {
             @Override
             public void onChanged(Change<? extends AlgoBaseTab> change) {

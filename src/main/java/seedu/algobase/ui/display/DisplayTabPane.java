@@ -25,8 +25,8 @@ public class DisplayTabPane extends UiPart<Region> {
     public DisplayTabPane(GuiState guiState, DisplayTab... displayTabs) {
         super(FXML);
         addTabsToTabPane(displayTabs);
-        addListenerForIndex(guiState.getTabManager().getDisplayTabPaneIndex());
-        addListenerToTabPane(guiState.getTabManager()::setDisplayTabPaneIndex);
+        addListenerForIndexChange(guiState.getTabManager().getDisplayTabPaneIndex());
+        addListenerToTabPaneIndexChange(guiState.getTabManager()::setDisplayTabPaneIndex);
     }
 
     /**
@@ -45,7 +45,7 @@ public class DisplayTabPane extends UiPart<Region> {
      *
      * @param displayTabPaneIndex The observable index.
      */
-    private void addListenerForIndex(ObservableIntegerValue displayTabPaneIndex) {
+    private void addListenerForIndexChange(ObservableIntegerValue displayTabPaneIndex) {
         displayTabPaneIndex.addListener((observable, oldValue, newValue) -> {
             selectTab((newValue.intValue()));
         });
@@ -56,7 +56,7 @@ public class DisplayTabPane extends UiPart<Region> {
      *
      * @param indexChangeHandler A callback function for when the index of the tabPane changes.
      */
-    private void addListenerToTabPane(Consumer<Index> indexChangeHandler) {
+    private void addListenerToTabPaneIndexChange(Consumer<Index> indexChangeHandler) {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
