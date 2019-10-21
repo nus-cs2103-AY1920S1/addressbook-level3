@@ -38,6 +38,11 @@ public class GmapsJsonUtils {
         return distanceMatrixArrayList;
     }
 
+    /**
+     * This method is used to get the status of the api response
+     * @param apiResponse
+     * @return
+     */
     public static String getStatus(JSONObject apiResponse) {
         String status = (String) apiResponse.get("status");
         return status;

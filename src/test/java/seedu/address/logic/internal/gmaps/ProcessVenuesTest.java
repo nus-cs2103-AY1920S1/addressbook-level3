@@ -24,6 +24,6 @@ class ProcessVenuesTest {
 
     @Test
     void getGmapsRecognisedLocationList() {
-        assertEquals(processVenues.getGmapsRecognisedLocationList(), new ArrayList<>());
+        assertEquals(processVenues.getValidLocationList(), new ArrayList<>());
     }
 }

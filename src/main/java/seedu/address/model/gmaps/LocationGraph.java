@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
-import seedu.address.logic.internal.gmaps.ProcessVenues;
 
 
 /**
@@ -16,31 +15,29 @@ public class LocationGraph implements java.io.Serializable {
     private static final long serialVersionUID = 6529685098267757690L;
     private ArrayList<Location> locations;
 
-    private ArrayList<String> gmapsRecognisedLocationList;
+    private ArrayList<String> validLocationList;
 
     private ArrayList<ArrayList<Long>> distanceMatrix = new ArrayList<>();
 
-    private ProcessVenues processVenues;
-
-    public LocationGraph(ProcessVenues processVenues) throws ConnectException, TimeBookInvalidState {
-        this.processVenues = processVenues;
-        this.locations = processVenues.getLocations();
-        this.gmapsRecognisedLocationList = processVenues.getGmapsRecognisedLocationList();
-        int gmapsRecognisedLocationListSize = gmapsRecognisedLocationList.size();
-        for (int i = 0; i < gmapsRecognisedLocationListSize; i++) {
+    public LocationGraph(ArrayList<Location> locations, ArrayList<String> validLocationList) {
+        this.locations = locations;
+        this.validLocationList = validLocationList;
+        int validLocationListSize = validLocationList.size();
+        for (int i = 0; i < validLocationListSize; i++) {
             distanceMatrix.add(new ArrayList<>());
         }
     }
 
-    private LocationGraph(ProcessVenues processVenues, ArrayList<ArrayList<Long>> distanceMatrix)
+    private LocationGraph(ArrayList<Location> locations, ArrayList<String> validLocationList,
+             ArrayList<ArrayList<Long>> distanceMatrix)
             throws ConnectException, TimeBookInvalidState {
-        this.locations = processVenues.getLocations();
-        this.gmapsRecognisedLocationList = processVenues.getGmapsRecognisedLocationList();
+        this.locations = locations;
+        this.validLocationList = validLocationList;
         this.distanceMatrix = distanceMatrix;
     }
 
-    public ArrayList<String> getGmapsRecognisedLocationList() {
-        return gmapsRecognisedLocationList;
+    public ArrayList<String> getValidLocationList() {
+        return validLocationList;
     }
 
     public ArrayList<Location> getLocations() {
@@ -53,7 +50,7 @@ public class LocationGraph implements java.io.Serializable {
 
     public ArrayList<Long> getLocationRow(int index) throws IllegalValueException {
         if (distanceMatrix.size() <= index) {
-            throw new IllegalValueException("Index " + index + "exceeds the size of the matix");
+            throw new IllegalValueException("Index " + index + "exceeds the size of the matrix");
         } else {
             System.out.println(distanceMatrix.size());
             return distanceMatrix.get(index);
@@ -66,7 +63,7 @@ public class LocationGraph implements java.io.Serializable {
     //TODO refactor out the return statement
     public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) throws ConnectException, TimeBookInvalidState {
         distanceMatrix.get(rowNum).addAll(row);
-        return new LocationGraph(processVenues, distanceMatrix);
+        return new LocationGraph(locations, validLocationList, distanceMatrix);
     }
 
 }

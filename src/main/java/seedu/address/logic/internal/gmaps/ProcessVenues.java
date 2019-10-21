@@ -74,7 +74,7 @@ public class ProcessVenues implements Serializable {
      * @return
      * @throws ConnectException
      */
-    public ProcessVenues process() throws ConnectException {
+    public ProcessVenues process() throws ConnectException, TimeBookInvalidState {
         ProcessVenues processVenuesWNusMods = getVenuesJsonArray();
         ProcessVenues processVenuesWVenues = processVenuesWNusMods.populateVenues();
         try {
@@ -93,10 +93,11 @@ public class ProcessVenues implements Serializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        System.out.println(processVenuesWVenues.getLocations());
         return processVenuesWVenues;
     }
 
-    public ArrayList<String> getGmapsRecognisedLocationList() {
+    public ArrayList<String> getValidLocationList() {
         return sanitizeLocation.getValidLocationList();
     }
 

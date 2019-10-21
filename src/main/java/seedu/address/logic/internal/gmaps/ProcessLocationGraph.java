@@ -40,13 +40,12 @@ public class ProcessLocationGraph {
 
     /**
      * This method is used to populate the distance matrix.
-     * #TODO Handle the locationList%10 cases
      * @throws ConnectException
      */
     public void populateMatrix() throws ConnectException, TimeBookInvalidState {
         ProcessLocationGraph processLocationGraph = this;
         System.out.println("Start populating");
-        ArrayList<String> gmapsRecognisedLocationList = locationGraph.getGmapsRecognisedLocationList();
+        ArrayList<String> gmapsRecognisedLocationList = locationGraph.getValidLocationList();
         for (int i = 0; i <= gmapsRecognisedLocationList.size() / 10; i++) {
             ArrayList<String> locationRowString = new ArrayList<String>(gmapsRecognisedLocationList
                     .subList(i * 10 , Math.min((i + 1) * 10, gmapsRecognisedLocationList.size())));

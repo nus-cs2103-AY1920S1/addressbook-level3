@@ -24,7 +24,7 @@ class LocationGraphTest {
     @Test
     void getGmapsRecognisedLocationList() {
         ArrayList<String> expectedLocationList = new ArrayList<>(Arrays.asList("NUS_FOO", "NUS_BAR", "NUS_FOOBAR"));
-        assertEquals(locationGraph.getGmapsRecognisedLocationList(), expectedLocationList);
+        assertEquals(locationGraph.getValidLocationList(), expectedLocationList);
     }
 
     @Test

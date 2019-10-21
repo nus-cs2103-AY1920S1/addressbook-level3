@@ -21,7 +21,7 @@ public class GmapsApi {
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GmapsApi() {
-        this.apiKey = "INSERT KEY HERE";
+        this.apiKey = "AIzaSyCFr1epgRKPYSO7ux5NvCeYJ4pfTDR4pR4";
     }
 
     /**
@@ -61,10 +61,12 @@ public class GmapsApi {
     }
 
     public JSONObject getLocation(String locationName) throws ConnectException {
-        String baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?location=.sg&";
+        String baseUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&"
+                + "inputtype=textquery&fields=name,place_id&";
         String apiKeyQueryParams = "key=" + apiKey + "&";
-        String queryParams = "query=" + locationName + "&";
+        String queryParams = "input=" + locationName + "&";
         String fullUrl = baseUrl + queryParams + apiKeyQueryParams;
+        System.out.println(fullUrl);
         ApiQueryFactory query = new ApiQueryFactory(fullUrl, CacheFileNames.GMAPS_PLACES_PATH);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
