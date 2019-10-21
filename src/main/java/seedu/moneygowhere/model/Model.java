@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -96,4 +97,15 @@ public interface Model {
      * Gets the current budget of the MoneyGoWhere list.
      */
     Budget getBudget();
+
+    /**
+     * Adds the given Reminder.
+     * {@code Reminder} must not NULL.
+     */
+    void addReminder(Reminder reminder);
+
+    /**
+     * Returns true if a Reminder with the same identity as {@code Reminder} exists in the Reminder list.
+     */
+    boolean hasReminder(Reminder reminder);
 }

@@ -14,6 +14,7 @@ import seedu.moneygowhere.commons.util.DateUtil;
 import seedu.moneygowhere.commons.util.StringUtil;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.ReminderMessage;
 import seedu.moneygowhere.model.spending.Cost;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Name;
@@ -177,5 +178,16 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses a {@code String message} into an {@code ReminderMessage}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code message} is invalid.
+     */
+    public static ReminderMessage parseMessage(String message) throws ParseException {
+        requireNonNull(message);
+        String trimmedMessage = message.trim();
+        return new ReminderMessage(trimmedMessage);
     }
 }

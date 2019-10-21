@@ -17,6 +17,7 @@ import java.util.List;
 
 import seedu.moneygowhere.model.SpendingBook;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -55,6 +56,7 @@ public class TypicalSpendings {
     public static final Spending BOB = new SpendingBuilder().withName(VALID_NAME_BOB).withDate(VALID_DATE_BOB)
             .withRemark(VALID_REMARK_BOB).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+    public static final Reminder BILL_REMINDER = new ReminderBuilder().build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -68,6 +70,7 @@ public class TypicalSpendings {
         for (Spending spending : getTypicalSpendings()) {
             ab.addSpending(spending);
         }
+        ab.addReminder(BILL_REMINDER);
         ab.setBudget(getTypicalBudget());
         return ab;
     }

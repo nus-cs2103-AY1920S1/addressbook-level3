@@ -27,13 +27,16 @@ import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.ImportCommand;
 import seedu.moneygowhere.logic.commands.ListCommand;
+import seedu.moneygowhere.logic.commands.ReminderCommand;
 import seedu.moneygowhere.logic.commands.ShowBudgetCommand;
 import seedu.moneygowhere.logic.commands.StatsCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.NameContainsKeywordsPredicate;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.EditSpendingDescriptorBuilder;
+import seedu.moneygowhere.testutil.ReminderBuilder;
 import seedu.moneygowhere.testutil.SpendingBuilder;
 import seedu.moneygowhere.testutil.SpendingUtil;
 
@@ -108,6 +111,13 @@ public class SpendingBookParserTest {
     public void parseCommand_stats() throws Exception {
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " 3") instanceof StatsCommand);
+    }
+
+    @Test
+    public void parseCommand_reminder() throws Exception {
+        Reminder reminder = new ReminderBuilder().build();
+        ReminderCommand command = (ReminderCommand) parser.parseCommand(SpendingUtil.getReminderCommand(reminder));
+        assertEquals(new ReminderCommand(reminder), command);
     }
 
     @Test

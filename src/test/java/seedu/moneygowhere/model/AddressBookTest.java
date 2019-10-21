@@ -7,8 +7,10 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.spending.exceptions.DuplicateSpendingException;
 import seedu.moneygowhere.testutil.SpendingBuilder;
@@ -30,6 +33,7 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getSpendingList());
+        assertEquals(Collections.emptyList(), addressBook.getReminderList());
         assertEquals(new Budget(0), addressBook.getBudget());
     }
 
@@ -62,14 +66,30 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasReminder_nullReminder_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasReminder(null));
+    }
+
+    @Test
     public void hasSpending_spendingNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasSpending(APPLE));
+    }
+
+    @Test
+    public void hasReminder_reminderNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasReminder(BILL_REMINDER));
     }
 
     @Test
     public void hasSpending_spendingInAddressBook_returnsTrue() {
         addressBook.addSpending(APPLE);
         assertTrue(addressBook.hasSpending(APPLE));
+    }
+
+    @Test
+    public void hasReminder_reminderInAddressBook_returnsTrue() {
+        addressBook.addReminder(BILL_REMINDER);
+        assertTrue(addressBook.hasReminder(BILL_REMINDER));
     }
 
     @Test
@@ -97,6 +117,7 @@ public class AddressBookTest {
      */
     private static class SpendingBookStub implements ReadOnlySpendingBook {
         private final ObservableList<Spending> spendings = FXCollections.observableArrayList();
+        private final List<Reminder> reminders = new ArrayList<>();
         private final Budget budget = new Budget(0);
         SpendingBookStub(Collection<Spending> spendings) {
             this.spendings.setAll(spendings);
@@ -105,6 +126,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Spending> getSpendingList() {
             return spendings;
+        }
+
+        @Override
+        public List<Reminder> getReminderList() {
+            return reminders;
         }
 
         @Override

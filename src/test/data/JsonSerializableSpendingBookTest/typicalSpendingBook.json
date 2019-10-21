@@ -43,5 +43,9 @@
     "remark": "New spectacles",
     "cost" : "270",
     "tagged" : [ ]
+  } ],
+  "reminders" : [ {
+    "deadline" : "25/12/2019",
+    "reminderMessage" : "Pay Bill"
   } ]
 }

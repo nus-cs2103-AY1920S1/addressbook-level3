@@ -2,11 +2,13 @@ package seedu.moneygowhere.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.spending.UniqueSpendingList;
 
@@ -18,6 +20,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
 
     private final UniqueSpendingList spendings;
     private final Budget budget;
+    private List<Reminder> reminders;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +32,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
     {
         spendings = new UniqueSpendingList();
         budget = new Budget(0);
+        reminders = new ArrayList<>();
     }
 
     public SpendingBook() {}
@@ -59,6 +63,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
 
         setSpendings(newData.getSpendingList());
         setBudget(newData.getBudget());
+        setReminders(newData.getReminderList());
     }
 
     //// Spending-level operations
@@ -99,6 +104,38 @@ public class SpendingBook implements ReadOnlySpendingBook {
         spendings.remove(key);
     }
 
+    //// Reminder-level operations
+
+    /**
+     * Replaces the contents of the Reminder list with {@code reminders}.
+     */
+    public void setReminders(List<Reminder> reminders) {
+        this.reminders = reminders;
+    }
+
+    /**
+     * Returns true if a Reminder with the same identity as {@code Reminder} exists in MoneyGoWhere.
+     */
+    public boolean hasReminder(Reminder reminder) {
+        requireNonNull(reminder);
+        return reminders.contains(reminder);
+    }
+
+    /**
+     * Adds a Reminder to the reminder list.
+     */
+    public void addReminder(Reminder r) {
+        reminders.add(r);
+    }
+
+    /**
+     * Removes {@code key} from this {@code  Reminderlist}.
+     * {@code key} must exist in the Reminder list.
+     */
+    public void removeReminder(Reminder key) {
+        reminders.remove(key);
+    }
+
     //// Budget related operations
 
     @Override
@@ -127,15 +164,21 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     @Override
+    public List<Reminder> getReminderList() {
+        return reminders;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SpendingBook // instanceof handles nulls
                 && spendings.equals(((SpendingBook) other).spendings)
+                && reminders.equals(((SpendingBook) other).reminders)
                 && budget.equals(((SpendingBook) other).budget));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(spendings, budget);
+        return Objects.hash(spendings, reminders, budget);
     }
 }

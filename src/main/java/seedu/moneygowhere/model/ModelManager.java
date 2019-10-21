@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -123,6 +124,19 @@ public class ModelManager implements Model {
     @Override
     public Budget getBudget() {
         return spendingBook.getBudget();
+    }
+
+    //=========== Reminder related functions =====================================================================
+
+    @Override
+    public void addReminder(Reminder reminder) {
+        spendingBook.addReminder(reminder);
+    }
+
+    @Override
+    public boolean hasReminder(Reminder reminder) {
+        requireNonNull(reminder);
+        return spendingBook.hasReminder(reminder);
     }
 
     //=========== Filtered Person List Accessors =============================================================

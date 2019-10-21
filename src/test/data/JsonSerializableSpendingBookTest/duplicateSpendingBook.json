@@ -1,14 +1,16 @@
 {
+  "budget" : "0.0",
   "spendings": [ {
-    "name": "Alice Pauline",
+    "name": "milk",
     "date": "1/1/2019",
-    "remark": "Likes to watch movies",
-    "cost": "123",
+    "remark": "expensive sia",
+    "cost": "10",
     "tagged": [ "friends" ]
   }, {
-    "name": "Alice Pauline",
+    "name": "milk",
     "date": "1/1/2019",
-    "remark": "Likes to watch movies",
-    "cost": "4"
-  } ]
+    "remark": "expensive sia",
+    "cost": "10"
+  } ],
+  "reminders" : [ ]
 }
