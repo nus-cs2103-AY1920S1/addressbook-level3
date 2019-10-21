@@ -17,7 +17,7 @@ import seedu.address.websocket.util.QueryResult;
  */
 public class GmapsApi {
 
-    private static final String API_KEY = "AIzaSyAbbblr33yEEYFNqFgiqfSckdgBANayVms";
+    private static final String API_KEY = "APIKEY HEERE";
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GmapsApi() {
