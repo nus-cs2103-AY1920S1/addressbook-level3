@@ -16,7 +16,7 @@ import mams.model.appeal.Appeal;
 /**
  * Approves a appeal in mams.
  */
-public class ApproveCommand extends ResolveCommand {
+public class ApproveCommand extends Approve {
 
     private final Index index;
     private final String reason;
@@ -28,6 +28,8 @@ public class ApproveCommand extends ResolveCommand {
         this.reason = reason;
 
     }
+
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         List<Appeal> lastShownList = model.getFilteredAppealList();

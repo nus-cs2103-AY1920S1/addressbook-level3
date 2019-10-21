@@ -20,6 +20,7 @@ public class CliSyntax {
     /*Prefix definitions for Appeal class */
     public static final Prefix PREFIX_REASON = new Prefix("rr/");
     public static final Prefix PREFIX_APPEALID = new Prefix("a/");
+    public static final Prefix PREFIX_MASS_RESOLVE = new Prefix("mass/");
 
 
 }

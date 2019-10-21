@@ -149,7 +149,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : true,
-    "result" : "APPROVED",
+    "result" : "REJECTED",
     "remark" : ""
   }, {
     "appealId" : "C000001",
@@ -206,7 +206,7 @@
     "moduleToDrop" : "",
     "resolved" : false,
     "result" : "",
-    "remark" : "a"
+    "remark" : ""
   }, {
     "appealId" : "C000005",
     "appealType" : "Add module",
@@ -246,8 +246,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   } ]
 }

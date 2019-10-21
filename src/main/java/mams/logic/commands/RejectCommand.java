@@ -15,7 +15,7 @@ import mams.model.appeal.Appeal;
 /**
  * Rejects a appeal in mams.
  */
-public class RejectCommand extends ResolveCommand {
+public class RejectCommand extends Reject {
 
     private final Index index;
     private final String reason;
