@@ -2,8 +2,6 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -22,8 +20,8 @@ public class AddTagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds the specified tag to the specified module. "
             + "Parameters: "
-            + PREFIX_MODULE_CODE + "MODULE CODE "
-            + PREFIX_TAG + "TAG_NAME \n"
+            + "MODULE CODE "
+            + "TAG_NAME \n"
             + "Example: "
             + "tag m/CS3230 t/exchange";
 
@@ -81,7 +79,7 @@ public class AddTagCommand extends Command {
     /**
      * Creates a new tag with the given tag name and adds it to the {@code UniqueTaglist}
      *
-     * @param tagName       The name of the tag.
+     * @param tagName The name of the tag.
      * @return The tag that was created.
      */
     private UserTag createNewTag(String tagName) {

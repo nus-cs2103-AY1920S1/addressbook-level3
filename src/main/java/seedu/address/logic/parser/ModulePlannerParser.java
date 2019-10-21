@@ -75,6 +75,7 @@ public class ModulePlannerParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddModuleCommand.COMMAND_WORD:
