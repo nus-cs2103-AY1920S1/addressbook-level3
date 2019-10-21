@@ -12,7 +12,8 @@ import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
 class AuthorMatchesKeywordPredicateTest {
     @Test
     public void test_authorMatches_returnTrue() {
-        AuthorMatchesKeywordPredicate predicate = new AuthorMatchesKeywordPredicate(new Keyword(QUICK_SORT.getAuthor().value));
+        AuthorMatchesKeywordPredicate predicate = new AuthorMatchesKeywordPredicate(
+            new Keyword(QUICK_SORT.getAuthor().value));
         assertTrue(predicate.test(QUICK_SORT));
     }
 

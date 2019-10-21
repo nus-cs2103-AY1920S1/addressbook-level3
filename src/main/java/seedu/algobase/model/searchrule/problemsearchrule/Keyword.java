@@ -3,6 +3,10 @@ package seedu.algobase.model.searchrule.problemsearchrule;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Predicate's Keyword in the algobase.
+ * Guarantees: immutable; is valid as declared in {@link #isValidKeyword(String)}
+ */
 public class Keyword {
 
     public static final String MESSAGE_CONSTRAINTS = "Keyword should not be blank";
