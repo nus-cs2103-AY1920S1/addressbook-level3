@@ -100,8 +100,8 @@ public class WordBankList implements ReadOnlyWordBankList {
      * Removes {@code key} from this {@code WordBank}.
      * {@code key} must exist in the word bank.
      */
-    public void removeWordBank(WordBank key) {
-        wordBankList.remove(key);
+    public void removeWordBank(WordBank wordBankName) {
+        wordBankList.remove(wordBankName);
     }
 
     //// util methods

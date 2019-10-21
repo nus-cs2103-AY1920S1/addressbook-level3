@@ -151,6 +151,17 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         this.readOnlyWordBankList = new WordBankList(wordBankList);
     }
 
+    @Override
+    public void removeWordBank(String wordBankName) {
+        Path filePath = Paths.get(wordBanksFilePath.toString(), wordBankName + ".json");
+        File toDelete = filePath.toFile();
+        WordBank wb = readOnlyWordBankList.getWordBank(wordBankName);
+        if (toDelete.exists()) {
+            toDelete.delete();
+        }
+        ((WordBankList) readOnlyWordBankList).removeWordBank(wb);
+    }
+
     public Optional<ReadOnlyWordBankList> getWordBankList() {
         return Optional.of(readOnlyWordBankList);
     }

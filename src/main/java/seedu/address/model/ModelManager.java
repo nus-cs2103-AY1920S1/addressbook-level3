@@ -141,6 +141,11 @@ public class ModelManager implements Model {
         return wordBank;
     }
 
+    public void removeWordBank() {
+        this.wordBank = new WordBank("Empty wordbank");
+    }
+
+
     @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);

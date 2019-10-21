@@ -14,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.loadCommands.CreateCommand;
+import seedu.address.logic.commands.loadCommands.RemoveCommand;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -94,6 +95,9 @@ public class LogicManager implements Logic {
             }
             if (command instanceof CreateCommand) {
                 storage.addWordBank(wb);
+            }
+            if (command instanceof RemoveCommand) {
+                storage.removeWordBank(((RemoveCommand) command).wordBankName);
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

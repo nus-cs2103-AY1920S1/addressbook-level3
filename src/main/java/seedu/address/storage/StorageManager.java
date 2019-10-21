@@ -78,6 +78,11 @@ public class StorageManager implements Storage {
         return wordBankListStorage.getWordBankList();
     }
 
+    @Override
+    public void removeWordBank(String wordBankName) {
+        wordBankListStorage.removeWordBank(wordBankName);
+    }
+
     // ================ WordBankStatistics methods ==============================
 
     @Override

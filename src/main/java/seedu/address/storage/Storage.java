@@ -34,4 +34,7 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
+
+    @Override
+    void removeWordBank(String wordBankName);
 }

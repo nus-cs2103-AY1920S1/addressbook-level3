@@ -38,4 +38,11 @@ public interface WordBankListStorage {
      * @param wordBank data. Cannot be null.
      */
     void addWordBank(ReadOnlyWordBank wordBank);
+
+    /**
+     * Remove a word bank
+     *
+     * @param wordBankName data. Cannot be null.
+     */
+    void removeWordBank(String wordBankName);
 }
