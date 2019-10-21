@@ -24,10 +24,7 @@ import org.jfree.data.xy.XYDataset;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.stage.Stage;
-
 import seedu.address.model.waste.WasteMonth;
 import seedu.address.model.waste.WasteReport;
 import seedu.address.model.waste.WasteStatistic;
@@ -53,7 +50,7 @@ public class ReportWasteWindow {
         stage = new Stage();
         stage.setTitle("Waste Report");
         stage.setWidth(700);
-        stage.setHeight(390);
+        stage.setHeight(400);
     }
 
     /**
@@ -76,8 +73,6 @@ public class ReportWasteWindow {
 
 
         ChartViewer weightViewer = getChartViewer(historicalWeightData, WEIGHT_TITLE, WEIGHT_UNIT);
-        weightViewer.setBackground(new Background(new BackgroundFill(
-                javafx.scene.paint.Color.rgb(202, 229, 230), null, null)));
         ChartViewer volumeViewer = getChartViewer(historicalVolumeData, VOLUME_TITLE, VOLUME_UNIT);
         ChartViewer quantityViewer = getChartViewer(historicalQuantityData, QUANTITY_TITLE, QUANTITY_UNIT);
 
@@ -138,7 +133,7 @@ public class ReportWasteWindow {
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setDefaultShapesVisible(false);
+            renderer.setDefaultShapesVisible(true);
             renderer.setDrawSeriesLineAsPath(true);
             // set the default stroke for all series
             renderer.setAutoPopulateSeriesStroke(false);
