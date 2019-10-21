@@ -5,15 +5,21 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyMenu <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Menu
+Class ReadOnlyMenu
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class PurchaseHistory
+
+Package Sorter {
+Class CustomSorter
+Class FoodComparator
+}
 
 Package Food {
 Class Food
@@ -26,6 +32,10 @@ Class UniqueFoodList
 Class Restrictions
 }
 
+Package Savings {
+Class SavingsAccount
+}
+
 Package Tag {
 Class Tag
 }
@@ -34,15 +44,20 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Menu .up.|> ReadOnlyMenu
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Menu
+ModelManager o--> "1" PurchaseHistory
+ModelManager o--> "1" CustomSorter
+ModelManager o--> "1" SavingsAccount
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueFoodList
+CustomSorter *--> "1" FoodComparator
+
+Menu *--> "1" UniqueFoodList
 UniqueFoodList o--> "*" Food
 Food *--> Name
 Food *--> Price
@@ -56,5 +71,5 @@ Name -[hidden]right-> Price
 Price -[hidden]right-> Description
 Description -[hidden]right-> Category
 
-ModelManager -->"1" Food : filtered list
+ModelManager -->"1" Food : filteredList
 @enduml

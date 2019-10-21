@@ -12,9 +12,13 @@ Class MainWindow
 Class HelpWindow
 Class ResultDisplay
 Class FoodListPanel
-Class foodCard
+Class FoodCard
+Class PurchaseListPanel
+Class PurchaseCard
 Class StatusBarFooter
 Class CommandBox
+class InfoWindow
+class PurchaseHistory
 }
 
 package Model <<Rectangle>> {
@@ -33,10 +37,11 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> foodListPanel
 MainWindow *-down-> StatusBarFooter
-
-FoodListPanel -down-> foodCard
+MainWindow *-down-> InfoWindow
+MainWindow *-down-> PurchaseHistory
+MainWindow *-down-> FoodListPanel
+MainWindow *-down-> PurchaseListPanel
 
 MainWindow -left-|> UiPart
 
@@ -45,9 +50,14 @@ CommandBox --|> UiPart
 FoodListPanel --|> UiPart
 FoodCard --|> UiPart
 StatusBarFooter --|> UiPart
+PurchaseHistory --|> UiPart
+InfoWindow --|> UiPart
 HelpWindow -down-|> UiPart
+FoodListPanel --> FoodCard
+PurchaseListPanel --> PurchaseCard
 
 FoodCard ..> Model
+PurchaseCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
