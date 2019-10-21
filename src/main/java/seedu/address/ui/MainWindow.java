@@ -60,8 +60,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
-    private SchedulerPanel schedulePanel;
     private NotesListPanel notesListPanel;
+    private EventSchedulePanel eventSchedulePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -82,7 +82,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane schedulerPanelPlaceholder;
+    private StackPane eventSchedulePanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -143,8 +143,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+//        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+//        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -158,16 +158,8 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-//        schedulePanel = new SchedulerPanel(primaryStage, logic.getSchedulerList());
-
-        // for testing purposes
-        Agenda.AppointmentImpl testAppointment = new Agenda.AppointmentImpl();
-        testAppointment.setSummary("Summary");
-        testAppointment.setStartLocalDateTime(LocalDateTime.of(2011, 5, 28, 4, 00));
-        testAppointment.setEndLocalDateTime(LocalDateTime.of(2011, 5, 28, 5, 00));
-        ObservableList<Agenda.AppointmentImpl> appointmentsList = FXCollections.observableArrayList();
-        appointmentsList.addAll(testAppointment);
-        schedulePanel = new SchedulerPanel(primaryStage, appointmentsList);
+        eventSchedulePanel= new EventSchedulePanel(logic.getVEventList());
+        eventSchedulePanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
     }
 
     /**
@@ -207,18 +199,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the scheduler window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleSchedule() {
-        schedulePanel.show();
-//        if (!schedulePanel.isShowing()) {
-//            schedulePanel.show();
-//        } else {
-//            schedulePanel.focus();
-//        }
-    }
 
     void show() {
 //
@@ -281,8 +261,7 @@ public class MainWindow extends UiPart<Stage> {
 //        dynamicSkin.setDaysBeforeFurthest(20);
 //
 //        AgendaWeekSkin weekSkin = new AgendaWeekSkin(agenda);
-//
-//
+
 //        agenda.setSkin(weekSkin);
 //
 //        BorderPane root = new BorderPane();
@@ -321,10 +300,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (true) {
-                handleSchedule();
-            }
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -335,6 +310,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isScheduleChange()) {
+                eventSchedulePanel.updateScheduler();
             }
 
 

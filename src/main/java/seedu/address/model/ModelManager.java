@@ -569,6 +569,11 @@ public class ModelManager implements Model {
     public String getVEventSummary() {
         return eventRecord.getVEventSummary();
     }
+
+    @Override
+    public ObservableList<VEvent> getVEventList() {
+        return eventRecord.getVEventList();
+    }
     //endregion
 
     @Override

@@ -15,6 +15,15 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     // END OF ADDRESS BOOK PREFIX
 
+    // EVENT PREFIX
+    public static final Prefix PREFIX_EVENT = new Prefix("event/");
+    public static final Prefix PREFIX_EVENTNAME = new Prefix("eventName/");
+    public static final Prefix PREFIX_STARTDATETIME = new Prefix("startDateTime/");
+    public static final Prefix PREFIX_ENDDATETIME = new Prefix("endDateTime/");
+    public static final Prefix PREFIX_RECUR = new Prefix("recur/");
+    public static final Prefix PREFIX_COLOR = new Prefix("color/");
+    // END OF EVENT PREFIX
+
     // QUESTION PREFIX
     public static final Prefix PREFIX_QUESTION = new Prefix("question/");
     public static final Prefix PREFIX_ANSWER = new Prefix("answer/");

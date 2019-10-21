@@ -111,7 +111,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     private Event vEventToEventMapper(VEvent vEventToMap) {
         Event resultEvent = new Event();
         LocalDateTime startDateTime = LocalDateTime.parse(vEventToMap.getDateTimeStart().getValue().toString());
-        LocalDateTime endDateTime = LocalDateTime.parse(vEventToMap.getDateTimeStart().getValue().toString());
+        LocalDateTime endDateTime = LocalDateTime.parse(vEventToMap.getDateTimeEnd().getValue().toString());
         String uniqueIdentifier = vEventToMap.getUniqueIdentifier().getValue();
         String eventName = vEventToMap.getSummary().getValue();
         resultEvent.setStartDateTime(startDateTime);
@@ -214,7 +214,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<VEvent> getVEventList() {
-        return vEventsUnmodifiableList;
+        return this.vEventsUnmodifiableList;
     }
 
     /**

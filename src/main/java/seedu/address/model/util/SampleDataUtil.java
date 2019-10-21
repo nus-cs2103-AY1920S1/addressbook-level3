@@ -13,7 +13,6 @@ import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.event.RecurrenceType;
 import seedu.address.model.student.ReadOnlyStudentRecord;
-import seedu.address.model.StudentRecord;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -23,6 +22,7 @@ import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.student.Student;
+import seedu.address.model.student.StudentRecord;
 import seedu.address.model.tag.Tag;
 
 /**

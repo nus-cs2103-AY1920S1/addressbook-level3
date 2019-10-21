@@ -14,6 +14,7 @@ public class QuestionSlideshowCommand extends QuestionCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult("Starting slideshow.", false, true, false);
+        return new CommandResult("Starting slideshow.",
+                false, true, false, false);
     }
 }

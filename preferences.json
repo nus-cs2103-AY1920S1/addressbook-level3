@@ -1,29 +1,15 @@
 {
   "guiSettings" : {
-<<<<<<< HEAD
-    "windowWidth" : 865.0,
-    "windowHeight" : 600.0,
+    "windowWidth" : 1296.0,
+    "windowHeight" : 877.0,
     "windowCoordinates" : {
-      "x" : 2026,
-      "y" : -369
+      "x" : 1992,
+      "y" : -447
     }
   },
   "addressBookFilePath" : "data/addressbook.json",
   "studentRecordFilePath" : "data/students.json",
   "savedQuestionsFilePath" : "data/questions.json",
-  "eventRecordFilePath" : "data/events.json"
+  "eventRecordFilePath" : "data/events.json",
+  "notesRecordFilePath" : "data/notes.json"
 }
-=======
-    "windowWidth" : 1550.4000244140625,
-    "windowHeight" : 838.4000244140625,
-    "windowCoordinates" : {
-      "x" : -7,
-      "y" : -7
-    }
-  },
-  "addressBookFilePath" : "data\\addressbook.json",
-  "studentRecordFilePath" : "data\\students.json",
-  "savedQuestionsFilePath" : "data\\questions.json",
-  "notesRecordFilePath" : "data\\notes.json"
-}
->>>>>>> upstream/master

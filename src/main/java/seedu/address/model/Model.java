@@ -299,11 +299,12 @@ public interface Model {
     ReadOnlyEvents getEventRecord();
     //endregion
 
-    //region Events
+    //region VEvents
     boolean hasVEvent(VEvent vEvent);
     void deleteVEvent(VEvent vEvent);
     void addVEvent(VEvent vEvent);
     void setVEvent(VEvent target, VEvent editedVEvent);
     String getVEventSummary();
+    ObservableList<VEvent> getVEventList();
     //endregion
 }
