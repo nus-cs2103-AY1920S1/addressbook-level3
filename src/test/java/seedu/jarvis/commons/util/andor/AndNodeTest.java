@@ -3,47 +3,71 @@ package seedu.jarvis.commons.util.andor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.testutil.course.CourseTestUtil.CHILDREN;
-import static seedu.jarvis.testutil.course.CourseTestUtil.CourseStub;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.course.Course;
+class AndNodeTest {
+    private static final String EXPECTED_REPRESENTATION = AndNode.STRING_REPRESENTATION;
 
-public class AndNodeTest {
-    private static final List<Course> COLLECTION_PASSES_REQUIREMENTS = List.of(
-        new CourseStub("aaa"),
-        new CourseStub("bbb"),
-        new CourseStub("ccc"),
-        new CourseStub("ddd"),
-        new CourseStub("eee"),
-        new CourseStub("fff")
+    private static final String[] EXAMPLE_CHILDREN = {
+        "aaa",
+        "bbb",
+        "ccc",
+        "ddd"
+    };
+
+    private static final List<String> COLLECTION_PASSES_REQUIREMENTS = List.of(
+        "aaa",
+        "bbb",
+        "ccc",
+        "ddd"
     );
 
-    private static final List<Course> COLLECTION_FAILS_REQUIREMENTS = List.of(
-        new CourseStub("bbb"),
-        new CourseStub("ccc"),
-        new CourseStub("ddd"),
-        new CourseStub("eee")
+    private static final List<String> COLLECTION_FAILS_REQUIREMENTS_PARTIAL_MATCH = List.of(
+        "aaa",
+        "bbb",
+        "ccc"
     );
 
-    @Test
-    public void hasFulfilledCondition_validInput_returnsTrue() {
-        AndNode an = new AndNode(null, null, CHILDREN);
-        assertTrue(() -> an.hasFulfilledCondition(COLLECTION_PASSES_REQUIREMENTS));
+    private static final List<String> COLLECTION_FAILS_REQUIREMENTS_NONE_MATCH = List.of(
+        "yyy",
+        "zzz"
+    );
+
+    private final AndNode<String> andNode = new AndNode<>();
+
+    @BeforeEach
+    public void initNode() {
+        for (String s : EXAMPLE_CHILDREN) {
+            andNode.insert(s);
+        }
     }
 
     @Test
-    public void hasFulfilledCondition_invalidInput_returnsFalse() {
-        AndNode an = new AndNode(null, null, CHILDREN);
-        assertFalse(() -> an.hasFulfilledCondition(COLLECTION_FAILS_REQUIREMENTS));
+    public void fulfills_allMatch_returnsTrue() {
+        assertTrue(andNode.fulfills(COLLECTION_PASSES_REQUIREMENTS));
     }
 
     @Test
-    public void toString_returnsStringForm() {
-        assertEquals("all of",
-                new AndNode(null, null, null).toString());
+    public void fulfills_partialMatch_returnsFalse() {
+        assertFalse(andNode.fulfills(COLLECTION_FAILS_REQUIREMENTS_PARTIAL_MATCH));
+    }
+
+    @Test
+    public void fulfills_noneMatch_returnsFalse() {
+        assertFalse(andNode.fulfills(COLLECTION_FAILS_REQUIREMENTS_NONE_MATCH));
+    }
+
+    @Test
+    public void type_returnsCorrectType() {
+        assertEquals(andNode.type(), AndOrOperation.AND);
+    }
+
+    @Test
+    public void toString_returnsRepresentation() {
+        assertEquals(andNode.toString(), EXPECTED_REPRESENTATION);
     }
 }

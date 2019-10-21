@@ -5,11 +5,13 @@ import java.io.IOException;
 
 import java.nio.file.Files;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,13 +28,12 @@ import seedu.jarvis.model.course.Preclusion;
 import seedu.jarvis.model.course.PrereqTree;
 import seedu.jarvis.model.course.Title;
 
-
 /**
  * Finds and reads Json files located in resources/modinfo.
  */
 public class CourseUtil {
-    /** The length of "LL5009GRSII" */
-    private static final int LONGEST_STRING_LEN = 11;
+    public static final String MESSAGE_COURSE_NOT_FOUND =
+        "These course(s) could not be found: %1$s";
 
     /**
      * Regex that removes all whitespace not found within quotes.
@@ -42,7 +43,13 @@ public class CourseUtil {
 
     private static final String COURSE_FOLDER = "modinfo";
 
-    private static final String removeSpacesNotWithinQuotes(String string) {
+    /**
+     * Removes all spaces in a given {@code String} that are not within quotes.
+     *
+     * @param string to check
+     * @return a new {@code String}
+     */
+    private static String removeSpacesNotWithinQuotes(String string) {
         return string.replaceAll(REMOVE_WHITESPACE_REGEX, "").trim();
     }
 
@@ -52,11 +59,7 @@ public class CourseUtil {
      * @return a {@code String} containing the file path
      */
     private static String getFilePath(String... paths) {
-        StringBuilder newFilePath = new StringBuilder(COURSE_FOLDER);
-        for (String s : paths) {
-            newFilePath.append("/").append(s);
-        }
-        return newFilePath.toString();
+        return Arrays.stream(paths).reduce(COURSE_FOLDER, (p1, p2) -> p1 + "/" + p2);
     }
 
     /**
@@ -66,8 +69,7 @@ public class CourseUtil {
      * @return a {@code File} object
      * @throws IOException if the file is not found
      */
-    private static File getCourseFile(String courseCode)
-            throws CourseNotFoundException {
+    private static File getCourseFile(String courseCode) throws CourseNotFoundException {
         String coursePrefix = getCoursePrefix(courseCode);
         String fileName = (courseCode.contains(".json")) ? courseCode : courseCode + ".json";
 
@@ -86,10 +88,8 @@ public class CourseUtil {
      *
      * @param courseCode of the course
      * @return a {@code json String}
-     * @throws IOException if the file is not found
      */
-    public static String getCourseJsonString(String courseCode)
-            throws CourseNotFoundException {
+    private static String getCourseJsonString(String courseCode) throws CourseNotFoundException {
         File file = getCourseFile(courseCode);
         StringBuilder text = new StringBuilder();
         try (Stream<String> fileStream = Files.lines(file.toPath())) {
@@ -126,7 +126,7 @@ public class CourseUtil {
      * @return a {@code Map<String, String>} of all values
      * @throws IOException if the file is not found
      */
-    public static Map<String, String> getCourseMap(String courseCode)
+    private static Map<String, String> getCourseMap(String courseCode)
             throws CourseNotFoundException {
         String json = getCourseJsonString(courseCode);
         JsonNode root;
@@ -159,14 +159,13 @@ public class CourseUtil {
     }
 
     /**
-     * Returns a {@code Course} object containing the information in the course file.
+     * Returns an {@code Optional<Course>} object containing the information
+     * in the course file, and {@code Optional.empty} if the file could not be found.
      *
      * @param code of the course
      * @return a {@code Course} object containing information of the course.
      */
-    public static Course getCourse(String code)
-            throws CourseNotFoundException {
-        // TODO somehow refactor this function
+    public static Optional<Course> getCourse(String code) {
         AtomicReference<CourseCode> courseCode = new AtomicReference<>();
         AtomicReference<Title> title = new AtomicReference<>();
         AtomicReference<CourseCredit> courseCredit = new AtomicReference<>();
@@ -176,51 +175,44 @@ public class CourseUtil {
         AtomicReference<FulfillRequirements> fulfillRequirements = new AtomicReference<>();
         AtomicReference<PrereqTree> prereqTree = new AtomicReference<>();
 
-        Map<String, String> courseInformation = getCourseMap(code);
+        Map<String, String> courseInformation;
+        try {
+            courseInformation = getCourseMap(code);
+        } catch (CourseNotFoundException e) {
+            return Optional.empty();
+        }
+        Map<String, Consumer<String>> mapper = Map.of(
+            "courseCode", (prop) -> courseCode.set(new CourseCode(prop)),
+            "title", (prop) -> title.set(new Title(prop)),
+            "courseCredit", (prop) -> courseCredit.set(new CourseCredit(prop)),
+            "description", (prop) -> description.set(new Description(prop)),
+            "faculty", (prop) -> faculty.set(new Faculty(prop)),
+            "preclusion", (prop) -> preclusion.set(new Preclusion(prop)),
+            "fulfillRequirements", (prop) -> fulfillRequirements.set(new FulfillRequirements(prop)),
+            "prereqTree", (prop) -> prereqTree.set(new PrereqTree(prop))
+        );
 
-        courseInformation.forEach((key, value) -> {
-            Optional<String> arg = Optional.ofNullable(value);
-
-            arg.ifPresent(s -> {
-                switch (key) {
-                case "courseCode":
-                    courseCode.set(new CourseCode(s));
-                    break;
-                case "title":
-                    title.set(new Title(s));
-                    break;
-                case "courseCredit":
-                    courseCredit.set(new CourseCredit(s));
-                    break;
-                case "description":
-                    description.set(new Description(s));
-                    break;
-                case "faculty":
-                    faculty.set(new Faculty(s));
-                    break;
-                case "preclusion":
-                    preclusion.set(new Preclusion(s));
-                    break;
-                case "fulfillRequirements":
-                    fulfillRequirements.set(new FulfillRequirements(s));
-                    break;
-                case "prereqTree":
-                    prereqTree.set(new PrereqTree(s));
-                    break;
-                default:
-                }
-            });
+        courseInformation.forEach((k, v) -> {
+            Consumer<String> setter = mapper.get(k);
+            if (setter != null) {
+                setter.accept(v);
+            }
         });
-        return new Course(
+
+        return Optional.of(new Course(
             title.get(), faculty.get(), description.get(), courseCode.get(), courseCredit.get(),
             prereqTree.get(), preclusion.get(), fulfillRequirements.get()
-        );
+        ));
     }
 
     /**
-     * Add quotes to start and end of {@code String} to avoid json parsing error.
+     * Returns true if the given course exists.
+     *
+     * @param courseCode of the course
+     * @return true if the course exists
      */
-    public static String addQuotes(String s) {
-        return (s.length() <= CourseUtil.LONGEST_STRING_LEN) ? "\"" + s + "\"" : s;
+    public static boolean courseExists(String courseCode) {
+        return getCourse(courseCode).isPresent();
     }
+
 }

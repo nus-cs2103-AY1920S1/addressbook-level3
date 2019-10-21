@@ -1,120 +1,101 @@
 package seedu.jarvis.commons.util.andor;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.commons.util.CourseUtilTest.INVALID_COURSE_CODES;
-import static seedu.jarvis.commons.util.CourseUtilTest.VALID_COURSE_CODES;
-import static seedu.jarvis.commons.util.CourseUtilTest.VALID_COURSE_CODES_NO_PREREQ;
 
 import java.util.List;
-import java.util.Map;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.commons.exceptions.CourseNotFoundException;
-import seedu.jarvis.commons.util.CourseUtil;
-import seedu.jarvis.model.course.Course;
+class AndOrTreeTest {
+    private static final String EXAMPLE_JSON_STRING =
+        "{\"and\":[{\"or\":[\"CS2010\",\"CS2020\",\"CS2040\"]},{\"or\":[\"ESP1107\",\"ESP2107\","
+        + "\"ST1232\",\"ST2131\",\"ST2132\",\"ST2334\"]},{\"or\":[\"MA1102R\",\"MA1505\",{\"and\":["
+        + "\"MA1511\",\"MA1512\"]},\"MA1521\"]},{\"or\":[\"MA1101R\",\"MA1311\",\"MA1506\","
+        + "\"MA1508E\"]}]}";
 
-/**
- * @author ryanYtan
- */
-public class AndOrTreeTest {
+    private static final String EXAMPLE_JSON_STRING_ONE_DATA_ONLY = "CS1010";
+
+    private static final String EMPTY_STRING = "";
+
+    private static final String EXAMPLE_ROOT_DATA = "CS3244";
+
+    private static final Function<? super String, ? extends String> STRING_FUNCTION = (t) -> t;
+
+    private static final List<String> COLLECTION_PASSES_REQUIREMENTS_OF_EXAMPLE = List.of(
+        "CS2040",
+        "ST2334",
+        "MA1511",
+        "MA1512",
+        "MA1101R"
+    );
+
+    private static final List<String> COLLECTION_BARELY_FAILS_REQUIREMENTS_OF_EXAMPLE = List.of(
+        "CS2040",
+        "ST2334",
+        "MA1101R"
+    );
+
+    private static final List<String> COLLECTION_FAILS_REQUIREMENTS_OF_EXAMPLE = List.of(
+        "ST2334",
+        "MA1511",
+        "MA1512",
+        "MA1101R"
+    );
+
+    private static final List<String> COLLECTION_PASSES_REQUIREMENTS_OF_ONE_DATA = List.of(
+        "CS1010",
+        "CS2040",
+        "CS2030"
+    );
+
+    private static final List<String> COLLECTION_FAILS_REQUIREMENTS_OF_ONE_DATA = List.of(
+        "MA1511",
+        "GET1011"
+    );
 
     @Test
-    public void buildTree_validCourse_doesNotThrowException() {
-        for (String course : VALID_COURSE_CODES) {
-            assertDoesNotThrow(() -> AndOrTree.buildTree(course));
-        }
+    void fulfills_exampleJsonPasses_returnsTrue() {
+        AndOrTree<String> tree = AndOrTree.buildTree(
+            EXAMPLE_ROOT_DATA, EXAMPLE_JSON_STRING, STRING_FUNCTION);
+        assertTrue(tree.fulfills(COLLECTION_PASSES_REQUIREMENTS_OF_EXAMPLE));
     }
 
     @Test
-    public void buildTree_invalidCourse_throwsException() {
-        for (String course : INVALID_COURSE_CODES) {
-            assertThrows(CourseNotFoundException.class, () -> AndOrTree.buildTree(course));
-        }
+    void fulfills_exampleJsonBarelyFails_returnsFalse() {
+        AndOrTree<String> tree = AndOrTree.buildTree(
+            EXAMPLE_ROOT_DATA, EXAMPLE_JSON_STRING, STRING_FUNCTION);
+        assertFalse(tree.fulfills(COLLECTION_BARELY_FAILS_REQUIREMENTS_OF_EXAMPLE));
     }
 
     @Test
-    public void buildTree_validCourseWithNoRequirements_doesNotThrowException() {
-        for (String course : VALID_COURSE_CODES_NO_PREREQ) {
-            assertDoesNotThrow(() -> AndOrTree.buildTree(course));
-        }
+    void fulfills_exampleJsonFails_returnsFalse() {
+        AndOrTree<String> tree = AndOrTree.buildTree(
+            EXAMPLE_ROOT_DATA, EXAMPLE_JSON_STRING, STRING_FUNCTION);
+        assertFalse(tree.fulfills(COLLECTION_FAILS_REQUIREMENTS_OF_EXAMPLE));
     }
 
     @Test
-    public void fulfillCondition_courseWithNoPrereqs_printsNoPrereqString() {
-        for (String course : VALID_COURSE_CODES_NO_PREREQ) {
-            assertEquals(
-                    assertDoesNotThrow(() -> AndOrTree.buildTree(course).toString()),
-                    course + " has no prerequisites!");
-        }
+    void fulfills_oneDataJsonPasses_returnsTrue() {
+        AndOrTree<String> tree = AndOrTree.buildTree(
+            EXAMPLE_ROOT_DATA, EXAMPLE_JSON_STRING_ONE_DATA_ONLY, STRING_FUNCTION);
+        assertTrue(tree.fulfills(COLLECTION_PASSES_REQUIREMENTS_OF_ONE_DATA));
     }
 
     @Test
-    public void fulfillsCondition_sufficientRequirements_returnsTrueAndDoesNotThrowException() {
-        assertDoesNotThrow(() -> {
-            Map<String, List<Course>> toTest = Map.of(
-                "CS3244", List.of(
-                    CourseUtil.getCourse("CS2040"),
-                    CourseUtil.getCourse("ST2334"),
-                    CourseUtil.getCourse("MA1505"),
-                    CourseUtil.getCourse("MA1101R")
-                ),
-                "CS3230", List.of(
-                    CourseUtil.getCourse("CS2040"),
-                    CourseUtil.getCourse("CS1231")
-                ),
-                "CS2102", List.of(
-                    CourseUtil.getCourse("CS1010"),
-                    CourseUtil.getCourse("CS2040"),
-                    CourseUtil.getCourse("CS1231")
-                ),
-                "CS2040", List.of(
-                    CourseUtil.getCourse("CS1010")
-                )
-            );
-
-            toTest.forEach((course, taken) -> {
-                AndOrTree tree = assertDoesNotThrow(() -> AndOrTree.buildTree(course));
-                assertTrue(tree.fulfillsCondition(taken));
-            });
-        });
+    void fulfills_oneDataJsonFails_returnsFalse() {
+        AndOrTree<String> tree = AndOrTree.buildTree(
+            EXAMPLE_ROOT_DATA, EXAMPLE_JSON_STRING_ONE_DATA_ONLY, STRING_FUNCTION);
+        assertFalse(tree.fulfills(COLLECTION_FAILS_REQUIREMENTS_OF_ONE_DATA));
     }
 
     @Test
-    public void fulfillsCondition_insufficientRequirements_returnsFalseAndDoesNotThrowException() {
-        assertDoesNotThrow(() -> {
-            Map<String, List<Course>> toTest = Map.of(
-                "CS3244", List.of(
-                    CourseUtil.getCourse("CS2040"),
-                    CourseUtil.getCourse("ST2334"),
-                    CourseUtil.getCourse("MA1511"),
-                    CourseUtil.getCourse("MA1101R")
-                ),
-                "CS3230", List.of(
-                    CourseUtil.getCourse("CS2040"),
-                    CourseUtil.getCourse("CS1010"),
-                    CourseUtil.getCourse("MA1521")
-                ),
-                "CS2102", List.of(
-                    CourseUtil.getCourse("CS1010"),
-                    CourseUtil.getCourse("CS2040"),
-                    CourseUtil.getCourse("CS2030"),
-                    CourseUtil.getCourse("CS2010")
-                ),
-                "CS2040", List.of(
-                    CourseUtil.getCourse("CS1101S"),
-                    CourseUtil.getCourse("CS1010J")
-                )
-            );
-
-            toTest.forEach((course, taken) -> {
-                AndOrTree tree = assertDoesNotThrow(() -> AndOrTree.buildTree(course));
-                assertFalse(tree.fulfillsCondition(taken));
-            });
-        });
+    void fulfills_emptyJson_alwaysReturnsTrue() {
+        AndOrTree<String> tree = AndOrTree.buildTree(
+            EXAMPLE_ROOT_DATA, EMPTY_STRING, STRING_FUNCTION);
+        assertTrue(tree.fulfills(List.of()));
+        assertTrue(tree.fulfills(COLLECTION_PASSES_REQUIREMENTS_OF_ONE_DATA));
+        assertTrue(tree.fulfills(COLLECTION_FAILS_REQUIREMENTS_OF_EXAMPLE));
     }
 }

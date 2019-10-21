@@ -529,8 +529,32 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addCourse(Course course) {
+        coursePlanner.addCourse(course);
+    }
+
+    @Override
+    public void addCourse(int zeroBasedIndex, Course course) {
+        coursePlanner.addCourse(zeroBasedIndex, course);
+    }
+
+    @Override
+    public void deleteCourse(Course course) {
+        coursePlanner.deleteCourse(course);
+    }
+
+    @Override
+    public boolean hasCourse(Course course) {
+        return coursePlanner.hasCourse(course);
+    }
+
+    @Override
+    public ObservableList<Course> getUnfilteredCourseList() {
+        return coursePlanner.getCourseList();
+    }
+
+    @Override
     public CoursePlanner getCoursePlanner() {
         return coursePlanner;
     }
-
 }

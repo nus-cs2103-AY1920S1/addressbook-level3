@@ -1,39 +1,36 @@
 package seedu.jarvis.commons.util.andor;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import seedu.jarvis.model.course.Course;
 
 /**
- * Represents an {@code OR} node of an And-Or Tree.
- *
- * @author ryanYtan
+ * Represents a node with logical disjunction against its children.
+ * @param <T> generic type
  */
-public class OrNode extends AndOrNode {
-    private static final String STRING_FORM = "one of";
+public class OrNode<T> extends NoDataNode<T> {
+    protected static final String STRING_REPRESENTATION = "one of";
 
-    protected OrNode(Course data, AndOrNode parent, List<AndOrNode> children) {
-        super(data, parent, children);
+    protected OrNode() {
+        super();
     }
 
-    protected OrNode(Course data, AndOrNode parent) {
-        super(data, parent);
+    /**
+     * returns true only if at least one of elements in col exist in this node's children.
+     *
+     * @param col collection to check against
+     * @return true if it follows the above condition
+     */
+    @Override
+    protected boolean fulfills(Collection<T> col) {
+        return children.stream().anyMatch((child) -> child.fulfills(col));
     }
 
     @Override
-    public boolean hasFulfilledCondition(Collection<Course> collection) {
-        Set<Boolean> bool = new HashSet<>();
-        for (AndOrNode node : children) {
-            bool.add(node.hasFulfilledCondition(collection));
-        }
-        return bool.contains(true);
+    protected AndOrOperation type() {
+        return AndOrOperation.OR;
     }
 
     @Override
     public String toString() {
-        return STRING_FORM;
+        return STRING_REPRESENTATION;
     }
 }
