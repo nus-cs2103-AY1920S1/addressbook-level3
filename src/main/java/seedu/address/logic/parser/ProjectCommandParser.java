@@ -12,7 +12,7 @@ import seedu.address.model.util.Date;
 /**
  * Parses input arguments and creates a new ProjectCommand object
  */
-public class ProjectCommandParser implements CommandParser<ProjectCommand> {
+public class ProjectCommandParser implements Parser<ProjectCommand> {
 
     @Override
     public ProjectCommand parse(String userInput) throws ParseException {

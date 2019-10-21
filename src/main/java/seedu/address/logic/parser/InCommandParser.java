@@ -22,7 +22,7 @@ import seedu.address.model.util.Date;
 /**
  * Parses input arguments and creates a new InCommand object.
  */
-public class InCommandParser implements CommandParser<InCommand> {
+public class InCommandParser implements Parser<InCommand> {
 
     @Override
     public InCommand parse(String args) throws ParseException {

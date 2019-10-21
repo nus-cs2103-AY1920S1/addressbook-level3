@@ -23,7 +23,7 @@ import seedu.address.model.util.Date;
 /**
  * Parses input arguments and creates a new SplitCommand object
  */
-public class SplitCommandParser implements CommandParser<SplitCommand> {
+public class SplitCommandParser implements Parser<SplitCommand> {
 
     @Override
     public SplitCommand parse(String args) throws ParseException {
