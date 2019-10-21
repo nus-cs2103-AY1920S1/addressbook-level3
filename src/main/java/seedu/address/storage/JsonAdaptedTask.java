@@ -41,7 +41,9 @@ class JsonAdaptedTask {
                              @JsonProperty("taskTimes") List<JsonAdaptedTaskTime> taskTimes) {
         this.description = description;
         this.marking = marking;
-        this.taskTimes.addAll(taskTimes);
+        if (taskTimes != null) {
+            this.taskTimes.addAll(taskTimes);
+        }
     }
 
     /**

@@ -212,7 +212,7 @@ public class ModelManager implements Model {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
-        //UiManager.startTasks();
+        UiManager.startTasks();
     }
 
     @Override

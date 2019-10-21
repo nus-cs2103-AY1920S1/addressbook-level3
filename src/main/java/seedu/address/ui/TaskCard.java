@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.task.Task;
@@ -33,7 +36,7 @@ public class TaskCard extends UiPart<Region> {
     private Label classid;
      */
     @FXML
-    private Label time;
+    private FlowPane times;
     @FXML
     private Label mark;
 
@@ -43,8 +46,10 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(task.getDescription().fullTaskDescription);
         //classid.setText(person.getClassId().value);
-        time.setText("Time: " + task.getTime());
-        mark.setText("Marking Status: " + task.getMarking());
+        mark.setText("Marking Status: " + task.getMarking().status);
+        task.getTime().stream()
+                .sorted(Comparator.comparing(taskTime -> taskTime.fullTime))
+                .forEach(taskTime -> times.getChildren().add(new Label(taskTime.fullTime)));
     }
 
     @Override

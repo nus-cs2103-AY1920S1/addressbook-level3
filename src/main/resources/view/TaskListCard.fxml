@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -24,10 +25,10 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="description" text="\$description" styleClass="cell_big_label" />
+                <Label fx:id="description" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
-            <Label fx:id="marking" styleClass="cell_small_label" text="\$marking" />
+                <FlowPane fx:id="times" />
+                <Label fx:id="mark" styleClass="cell_small_label" text="\$marking" />
         </VBox>
     </GridPane>
 </HBox>
