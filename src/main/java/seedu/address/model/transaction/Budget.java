@@ -3,8 +3,8 @@ package seedu.address.model.transaction;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.Date;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.Date;
 
 
 /**

@@ -17,8 +17,8 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.OutCommand;
 import seedu.address.logic.commands.ProjectCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SplitCommand;
 import seedu.address.logic.commands.SetCommand;
+import seedu.address.logic.commands.SplitCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

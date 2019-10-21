@@ -13,8 +13,8 @@ import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Transaction;
 
 public class AddCommandTest {

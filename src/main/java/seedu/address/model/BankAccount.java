@@ -6,8 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
 
@@ -97,6 +97,8 @@ public class BankAccount implements ReadOnlyBankAccount {
     public void split(SplitTransaction transaction) {
         transactions.add(transaction);
         ledger.addSplitTransaction(transaction);
+    }
+
     public void setBudget(Budget budget) {
         requireNonNull(budget);
 
