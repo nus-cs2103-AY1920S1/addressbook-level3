@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,6 +23,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.statistic.Statistic;
+import seedu.address.statistic.StatsPayload;
 import seedu.address.storage.Storage;
 
 /**
@@ -135,5 +136,20 @@ public class LogicManager implements Logic {
     @Override
     public CalendarDate getCalendarDate() {
         return model.getCalendarDate();
+    }
+
+    @Override
+    public XYChart.Series<String, Number> calculateTotalProfitGraph(StatsPayload statsPayload) {
+        return this.statistic.calculateTotalProfitOnCompletedGraph(this.getOrderBook(), statsPayload);
+    }
+
+    @Override
+    public XYChart.Series<String, Number> calculateTotalRevenueGraph(StatsPayload statsPayload) {
+        return this.statistic.calculateTotalRevenueOnCompletedGraph(this.getOrderBook(), statsPayload);
+    }
+
+    @Override
+    public XYChart.Series<String, Number> calculateTotalCostGraph(StatsPayload statsPayload) {
+        return this.statistic.calculateTotalCostOnCompletedGraph(this.getOrderBook(), statsPayload);
     }
 }

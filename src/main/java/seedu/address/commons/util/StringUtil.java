@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Helper functions for handling strings.
@@ -77,6 +78,17 @@ public class StringUtil {
         //offset month
         display.append((inputDate.get(Calendar.MONTH) + 1) + ".");
         display.append(inputDate.get(Calendar.DATE));
+        return display.toString();
+    }
+
+    /**
+     * Utility Method to convert date in calendar to string for display without Day
+     */
+    public static String convertCalendarDateToGraphDisplay(Calendar inputDate) {
+        StringBuilder display = new StringBuilder();
+        //offset month
+        display.append((inputDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())) + " ");
+        display.append(inputDate.get(Calendar.YEAR) + "");
         return display.toString();
     }
 }

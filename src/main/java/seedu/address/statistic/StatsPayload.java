@@ -1,13 +1,16 @@
-package seedu.address.commons.util;
+package seedu.address.statistic;
 
 import java.util.Calendar;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.statisticcommand.StatisticType;
 
 /**
  * Payload class to send user input to logic Manager via commandResult
  */
 public class StatsPayload {
+
+    private final boolean isDefaultQuery;
 
     private final Calendar startingDate;
     private final Calendar endingDate;
@@ -24,6 +27,15 @@ public class StatsPayload {
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.statisticType = statisticType;
+        if (startingDate.equals(StatsParseUtil.MIN_DATE) && endingDate.equals(StatsParseUtil.MAX_DATE)) {
+            this.isDefaultQuery = true;
+        } else {
+            this.isDefaultQuery = false;
+        }
+    }
+
+    public boolean isDefaultQuery() {
+        return this.isDefaultQuery;
     }
 
     public Calendar getStartingDate() {

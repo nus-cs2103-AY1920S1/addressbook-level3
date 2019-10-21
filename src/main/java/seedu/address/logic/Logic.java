@@ -3,8 +3,8 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -16,6 +16,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
+import seedu.address.statistic.StatsPayload;
 
 /**
  * API of the Logic component
@@ -101,4 +102,22 @@ public interface Logic {
      * Returns the CalendarDate object
      */
     CalendarDate getCalendarDate();
+
+     /**
+     * Gets logic to calculate total profit based on user input
+     * return a XYChart.series
+     */
+     XYChart.Series<String, Number> calculateTotalRevenueGraph(StatsPayload statsPayload);
+
+    /**
+     * Gets logic to calculate total cost based on user input
+     * return a XYChart.series
+     */
+    XYChart.Series<String, Number> calculateTotalCostGraph(StatsPayload statsPayload);
+
+    /**
+     * Gets logic to calculate total cost based on user input
+     * return a XYChart.series
+     */
+    XYChart.Series<String, Number> calculateTotalProfitGraph(StatsPayload statsPayload);
 }
