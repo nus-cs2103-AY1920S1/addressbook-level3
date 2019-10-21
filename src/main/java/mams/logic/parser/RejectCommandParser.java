@@ -49,7 +49,7 @@ public class RejectCommandParser implements Parser<Reject> {
             List<String> invalidIds = new ArrayList<>();
             for (String appeal : appeals) {
                 if (Appeal.isValidAppealId(appeal)) {
-                    if(!validIds.contains(appeal)) {
+                    if (!validIds.contains(appeal)) {
                         validIds.add(appeal);
                     }
                 } else {
