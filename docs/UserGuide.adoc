@@ -41,7 +41,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
-= Features
+= Features (as of v1.4)
 
 ====
 *Command Format*
@@ -49,34 +49,38 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Parameters are additional pieces of information required/used when running a command.
 * Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items that are not in square brackets are required e.g. `n/NAME` from the `patient add` command.
+* Items that are not in square brackets are required e.g. `n/NAME` from the `pat-add` command.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-* Due to the number of commands, each command will follow the syntax of `*ENTITY ACTION [PARAMETERS]*`. For example, if you wanted to delete a patient, you would do something like `patient delete 3`.
+* Due to the number of commands, each command will follow the syntax of `*ENTITY ACTION [PARAMETERS]*`. For example, if you wanted to delete a patient, you would do something like `pat-delete 3`.
 ====
-
+//The spacing is required
 include::./userguide/Misc.adoc[]
 
 include::./userguide/Patient.adoc[]
-
-include::./userguide/PatientAdvanced.adoc[]
-
-include::./userguide/MedicalCondition.adoc[]
 
 include::./userguide/Appointment.adoc[]
 
 include::./userguide/Visit.adoc[]
 
-include::./userguide/VisitTodoTemplate.adoc[]
+include::./userguide/AutoComplete.adoc[]
 
 include::./userguide/DataSavingUndoRedo.adoc[]
 
 include::./userguide/ImportExport.adoc[]
 
+include::./userguide/Exiting.adoc[]
+
+= Planned Features (coming in v2.0)
+
 include::./userguide/Notification.adoc[]
+
+include::./userguide/MedicalCondition.adoc[]
+
+include::./userguide/Medicine.adoc[]
 
 include::./userguide/Security.adoc[]
 
-include::./userguide/Exiting.adoc[]
+= FAQ
 
 include::./userguide/Faq.adoc[]
