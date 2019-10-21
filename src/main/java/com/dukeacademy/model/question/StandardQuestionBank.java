@@ -1,7 +1,11 @@
 package com.dukeacademy.model.question;
 
 import java.util.Collection;
+import java.util.Set;
 
+import com.dukeacademy.model.question.entities.Difficulty;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.Topic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -35,6 +39,13 @@ public class StandardQuestionBank implements QuestionBank {
     @Override
     public void addQuestion(Question question) {
         this.questionList.add(question);
+    }
+
+    @Override
+    public void addQuestionBank(QuestionBank questionBank) {
+        for (Question question : questionBank.getReadOnlyQuestionListObservable()) {
+            this.addQuestion(question);
+        }
     }
 
     @Override

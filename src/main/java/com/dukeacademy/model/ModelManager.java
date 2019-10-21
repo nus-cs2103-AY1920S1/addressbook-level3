@@ -128,24 +128,4 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return standardQuestionBank.equals(other.standardQuestionBank)
-                && userPrefs.equals(other.userPrefs)
-                && filteredQuestions.equals(other.filteredQuestions);
-    }
-
 }

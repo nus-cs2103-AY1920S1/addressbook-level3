@@ -1,4 +1,4 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.questions;
 
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.storage.question.JsonAdaptedTestCase;

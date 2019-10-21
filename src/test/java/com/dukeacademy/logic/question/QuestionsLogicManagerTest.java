@@ -1,5 +1,7 @@
 package com.dukeacademy.logic.question;
 
+import com.dukeacademy.commons.exceptions.DataConversionException;
+import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Difficulty;
@@ -7,10 +9,22 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
+import com.dukeacademy.observable.Observable;
+import com.dukeacademy.storage.Storage;
+import com.dukeacademy.storage.question.JsonQuestionBankStorage;
+import com.dukeacademy.storage.question.QuestionBankStorage;
+import com.dukeacademy.testutil.TypicalQuestions;
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,110 +36,206 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class QuestionsLogicManagerTest {
-    private QuestionsLogicManager questionsLogicManager;
-    private StandardQuestionBank questionBank;
+    @TempDir
+    public Path tempFolder;
+
+    private Path typicalQuestionBankPath;
+    private Path emptyQuestionBankPath;
+
 
     @BeforeEach
-    void initializeTest() {
-        questionBank = new StandardQuestionBank();
-        questionsLogicManager = new QuestionsLogicManager(questionBank);
+    void initializeTest() throws IOException {
+        typicalQuestionBankPath = tempFolder.resolve("typical.json");
+        Files.createFile(typicalQuestionBankPath);
+
+        String typicalQuestionData = Files.readString(Paths.get("src", "test", "data",
+                "JsonSerializableQuestionBankTest", "typicalQuestionQuestionBank.json"));
+        Files.writeString(typicalQuestionBankPath, typicalQuestionData);
+
+        emptyQuestionBankPath = tempFolder.resolve("empty.json");
+        Files.createFile(emptyQuestionBankPath);
+        Files.writeString(emptyQuestionBankPath, "{ \"questions\" : []}");
+    }
+
+    @AfterEach
+    void closeTest() throws IOException {
+        Files.delete(typicalQuestionBankPath);
+        Files.delete(emptyQuestionBankPath);
     }
 
     @Test
     void getFilteredQuestionsList() {
         // Ensure that the list in the question bank always corresponds to the list in the logic manager
+
+        // Load empty question bank
+        QuestionBankStorage storage = new JsonQuestionBankStorage(emptyQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
         ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
         assertEquals(0, questionsObservableList.size());
 
-        List<Question> mockQuestionData = this.getMockQuestionData();
-        questionBank.setQuestions(mockQuestionData);
-        assertTrue(this.matchListData(questionsObservableList, mockQuestionData));
+        // Load typical questions
+        QuestionBankStorage storage1 = new JsonQuestionBankStorage(typicalQuestionBankPath);
+       QuestionsLogicManager questionsLogicManager1 = new QuestionsLogicManager(storage1);
 
-        Question newQuestion = this.getMockQuestion("Test4");
-        questionBank.addQuestion(newQuestion);
-        List<Question> newList = new ArrayList<>(questionBank.getReadOnlyQuestionListObservable());
-        assertTrue(this.matchListData(questionsObservableList, newList));
+        ObservableList<Question> questionsObservableList1 = questionsLogicManager1.getFilteredQuestionsList();
+        assertTrue(this.matchListData(questionsObservableList1, TypicalQuestions.getTypicalQuestions()));
 
+        // Assert that the list returned is read-only
         assertThrows(UnsupportedOperationException.class, () -> questionsObservableList
                 .add(this.getMockQuestion("Test5")));
     }
 
     @Test
-    void filterQuestionsList() {
+    void filterQuestionsList() throws DataConversionException, IOException {
+        // Load typical questions
+        QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
         ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
-        List<Question> mockQuestionData = this.getMockQuestionData();
-        mockQuestionData.add(this.getMockQuestion("abc"));
-        mockQuestionData.add(this.getMockQuestion("abc"));
-        questionBank.setQuestions(mockQuestionData);
+        List<Question> typicalQuestions = TypicalQuestions.getTypicalQuestions();
+        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
 
         // Assert that the filter works
-        questionsLogicManager.filterQuestionsList(question -> question.getTitle().equals("abc"));
-        assertEquals(2, questionsObservableList.size());
-        assertTrue(questionsObservableList.stream().allMatch(question -> question.getTitle().equals("abc")));
+        questionsLogicManager.filterQuestionsList(question -> question.getTitle().equals("Valid Sudoku"));
+        assertEquals(1, questionsObservableList.size());
+        assertTrue(questionsObservableList.stream().allMatch(question -> question.getTitle().equals("Valid Sudoku")));
 
         // Assert that the filter did not modify the original list data in the bank and in the logic manager
-        assertTrue(this.matchListData(questionBank.getReadOnlyQuestionListObservable(), mockQuestionData));
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        assertTrue(this.matchListData(storageQuestions, TypicalQuestions.getTypicalQuestions()));
         questionsLogicManager.filterQuestionsList(question -> true);
-        assertTrue(this.matchListData(questionsObservableList, mockQuestionData));
+        assertTrue(this.matchListData(questionsObservableList, TypicalQuestions.getTypicalQuestions()));
+
     }
 
     @Test
     void getQuestion() {
+        // Load typical questions
+        QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
         ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
-        List<Question> mockQuestionData = this.getMockQuestionData();
-        questionBank.setQuestions(mockQuestionData);
+        List<Question> typicalQuestions = TypicalQuestions.getTypicalQuestions();
+        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
 
         Question question0 = questionsObservableList.get(0);
         Question question2 = questionsObservableList.get(2);
 
-        assertEquals(questionsLogicManager.getQuestion(0), question0);
-        assertEquals(question2, questionsLogicManager.getQuestion(2));
+        assertEquals(typicalQuestions.get(0), question0);
+        assertEquals(typicalQuestions.get(2), question2);
     }
 
     @Test
-    void setQuestion() {
+    void addQuestion() throws IOException, DataConversionException {
+        // Load empty question bank
+        QuestionBankStorage storage = new JsonQuestionBankStorage(emptyQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
         ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
-        List<Question> mockQuestionData = this.getMockQuestionData();
-        questionBank.setQuestions(mockQuestionData);
+        assertEquals(0, questionsObservableList.size());
 
-        // Check the question is replaced both in the logic manager and in the question bank
+        // Verify added question is reflected in the logic manager and the storage
+        Question newQuestion = this.getMockQuestion("abc");
+        questionsLogicManager.addQuestion(newQuestion);
+        assertTrue(this.matchListData(questionsObservableList, List.of(newQuestion)));
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        assertTrue(this.matchListData(storageQuestions, List.of(newQuestion)));
+    }
+
+    @Test
+    void addQuestions() throws IOException, DataConversionException {
+        // Load empty question bank
+        QuestionBankStorage storage = new JsonQuestionBankStorage(emptyQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
+        ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
+        assertEquals(0, questionsObservableList.size());
+
+        // Verify added questions are reflected in the logic manager and the storage
+        List<Question> mockQuestions = this.getMockQuestionData();
+        questionsLogicManager.addQuestions(mockQuestions);
+        assertTrue(this.matchListData(questionsObservableList, mockQuestions));
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        assertTrue(this.matchListData(storageQuestions, mockQuestions));
+    }
+
+    @Test
+    void addQuestionsFromPath() throws IOException, DataConversionException {
+        // Load empty question bank
+        QuestionBankStorage storage = new JsonQuestionBankStorage(emptyQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
+        ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
+        assertEquals(0, questionsObservableList.size());
+
+        // Verify that original data is untouched if file path is invalid.
+        questionsLogicManager.addQuestionsFromPath(Paths.get("a!3@"));
+        assertEquals(0, questionsObservableList.size());
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        assertEquals(0, storageQuestions.size());
+
+        // Verify added questions are reflected in the logic manager and the storage
+        questionsLogicManager.addQuestionsFromPath(typicalQuestionBankPath);
+        List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
+        assertTrue(this.matchListData(questionsObservableList, expectedQuestions));
+        ObservableList<Question> storageQuestions1 = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        assertTrue(this.matchListData(storageQuestions1, expectedQuestions));
+
+    }
+
+    @Test
+    void setQuestion() throws IOException, DataConversionException {
+        // Load typical questions
+        QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
+        ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
+        List<Question> typicalQuestions = TypicalQuestions.getTypicalQuestions();
+        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
+
+        // Check the question is replaced both in the logic manager and in the storage
         Question newQuestion = this.getMockQuestion("Test4");
         questionsLogicManager.setQuestion(1, newQuestion);
-        mockQuestionData.remove(1);
-        mockQuestionData.add(1, newQuestion);
-        assertTrue(this.matchListData(questionsObservableList, mockQuestionData));
-        assertTrue(this.matchListData(questionBank.getReadOnlyQuestionListObservable(), mockQuestionData));
+        List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
+        expectedQuestions.remove(1);
+        expectedQuestions.add(1, newQuestion);
+        assertTrue(this.matchListData(questionsObservableList, expectedQuestions));
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        assertTrue(this.matchListData(storageQuestions, expectedQuestions));
 
         assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.setQuestion(100, newQuestion));
         assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.setQuestion(-1, newQuestion));
     }
 
     @Test
-    void deleteQuestion() {
+    void deleteQuestion() throws IOException, DataConversionException {
+        // Load typical questions
+        QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
         ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
-        List<Question> mockQuestionData = this.getMockQuestionData();
-        questionBank.setQuestions(mockQuestionData);
+        List<Question> typicalQuestions = TypicalQuestions.getTypicalQuestions();
+        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
 
-        // Check that the questions are deleted in both the logic manager and in the question bank
+        // Check that the questions are deleted in both the logic manager and in the storage
         questionsLogicManager.deleteQuestion(1);
-        mockQuestionData.remove(1);
-        assertTrue(this.matchListData(questionsObservableList, mockQuestionData));
-        assertTrue(this.matchListData(questionBank.getReadOnlyQuestionListObservable(), mockQuestionData));
-
+        List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
+        expectedQuestions.remove(1);
+        assertTrue(this.matchListData(questionsObservableList, expectedQuestions));
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        assertTrue(this.matchListData(storageQuestions, expectedQuestions));
+//
         assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.deleteQuestion(100));
         assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.deleteQuestion(-1));
     }
 
     @Test
-    void deleteAllQuestions() {
+    void deleteAllQuestions() throws IOException, DataConversionException {
+        // Load typical questions
+        QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
         ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
-        List<Question> mockQuestionData = this.getMockQuestionData();
-        questionBank.setQuestions(mockQuestionData);
+        List<Question> typicalQuestions = TypicalQuestions.getTypicalQuestions();
+        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
 
         // Check that the questions are deleted in both the logic manager and in the question bank
         questionsLogicManager.deleteAllQuestions();
         assertEquals(0, questionsObservableList.size());
-        assertEquals(0, questionBank.getReadOnlyQuestionListObservable().size());
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        assertEquals(0, storageQuestions.size());
     }
 
     private boolean matchListData(ObservableList<Question> observableList, List<Question> questionList) {
@@ -174,4 +284,5 @@ class QuestionsLogicManagerTest {
             return new Question(name, Status.ATTEMPTED, Difficulty.EASY, topics, testCases, userProgram);
         }
     }
+
 }

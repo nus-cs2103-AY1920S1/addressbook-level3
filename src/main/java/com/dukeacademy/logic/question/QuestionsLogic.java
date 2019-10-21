@@ -3,6 +3,8 @@ package com.dukeacademy.logic.question;
 import com.dukeacademy.model.question.Question;
 import javafx.collections.ObservableList;
 
+import java.nio.file.Path;
+import java.util.Collection;
 import java.util.function.Predicate;
 
 /**
@@ -21,6 +23,24 @@ public interface QuestionsLogic {
      * @param predicate the predicate to be applied as a filter.
      */
     void filterQuestionsList(Predicate<Question> predicate);
+
+    /**
+     * Adds a question to the model.
+     * @param question the new question to be added.
+     */
+    void addQuestion(Question question);
+
+    /**
+     * Adds a collection of questions to the model.
+     * @param questions the collection of questions to be added.
+     */
+    void addQuestions(Collection<Question> questions);
+
+    /**
+     * Loads questions from a specified file type, depending on the implementation.
+     * @param questionsFilePath the path of the file to be loaded.
+     */
+    void addQuestionsFromPath(Path questionsFilePath);
 
     /**
      * Returns the question corresponding to the index in the list returned by getFilteredQuestionsList.

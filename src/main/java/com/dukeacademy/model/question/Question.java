@@ -89,4 +89,19 @@ public class Question {
 
         return true;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Question) {
+            Question other = (Question) o;
+            return other.getTitle().equals(this.title)
+                    && other.getStatus().equals(this.status)
+                    && other.getDifficulty().equals(this.difficulty)
+                    && other.getTopics().equals(this.topics)
+                    && other.getTestCases().equals(this.testCases)
+                    && other.getUserProgram().equals(this.userProgram);
+        }
+
+        return false;
+    }
 }

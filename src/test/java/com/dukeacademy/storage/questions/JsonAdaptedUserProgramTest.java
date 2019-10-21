@@ -1,4 +1,4 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.questions;
 
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.storage.question.JsonAdaptedUserProgram;

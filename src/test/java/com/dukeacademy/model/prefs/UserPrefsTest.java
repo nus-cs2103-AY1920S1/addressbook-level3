@@ -1,4 +1,4 @@
-package com.dukeacademy.model;
+package com.dukeacademy.model.prefs;
 
 import static com.dukeacademy.testutil.Assert.assertThrows;
 

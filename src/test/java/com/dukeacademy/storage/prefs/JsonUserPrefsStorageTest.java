@@ -1,4 +1,4 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.prefs;
 
 import static com.dukeacademy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;

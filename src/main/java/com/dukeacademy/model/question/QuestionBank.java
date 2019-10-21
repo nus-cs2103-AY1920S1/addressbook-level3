@@ -26,6 +26,12 @@ public interface QuestionBank {
     void addQuestion(Question question);
 
     /**
+     * Adds the questions from a different question bank to this instance.
+     * @param questionBank the question bank from which the questions are to be added.
+     */
+    void addQuestionBank(QuestionBank questionBank);
+
+    /**
      * Replaces all the questions in the question bank with the new collection.
      * @param questions new collection of questions.
      */

@@ -1,4 +1,4 @@
-package com.dukeacademy.storage;
+package com.dukeacademy.storage.questions;
 
 import static com.dukeacademy.testutil.Assert.assertThrows;
 

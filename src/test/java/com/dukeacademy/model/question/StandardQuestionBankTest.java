@@ -1,4 +1,4 @@
-package com.dukeacademy.model;
+package com.dukeacademy.model.question;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,15 +11,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import com.dukeacademy.model.question.UserProgram;
-import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
+import com.dukeacademy.testutil.TypicalQuestions;
 import org.junit.jupiter.api.Test;
-
-import com.dukeacademy.model.question.Question;
 
 import javafx.collections.ObservableList;
 
@@ -79,6 +76,17 @@ public class StandardQuestionBankTest {
         List<Question> mockQuestions = this.getMockQuestionData();
         this.standardQuestionBank.setQuestions(mockQuestions);
         assertTrue(this.matchListData(questionObservableList, mockQuestions));
+    }
+
+    @Test
+    void addQuestionBank() {
+        ObservableList<Question> questionObservableList = standardQuestionBank.getReadOnlyQuestionListObservable();
+        this.standardQuestionBank.setQuestions(new ArrayList<>());
+        assertTrue(this.matchListData(questionObservableList, new ArrayList<>()));
+
+        QuestionBank questionBank = TypicalQuestions.getTypicalQuestionBank();
+        this.standardQuestionBank.addQuestionBank(questionBank);
+        assertTrue(this.matchListData(questionObservableList, questionBank.getReadOnlyQuestionListObservable()));
     }
 
     @Test
