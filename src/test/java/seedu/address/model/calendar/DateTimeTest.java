@@ -9,6 +9,8 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.DateTime;
+
 class DateTimeTest {
     private LocalDate validDate = LocalDate.of(2020, 1, 20);
     private LocalTime validTime = LocalTime.of(12, 30);

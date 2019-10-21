@@ -286,7 +286,7 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhones_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parsePhones(Collections.emptyList()).isEmpty());
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhones(Collections.emptyList()).isEmpty());
     }
 
     @Test
@@ -381,7 +381,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseMedicalConditions_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseMedicalConditions(Collections.emptyList()).isEmpty());
+        assertThrows(ParseException.class, () -> ParserUtil.parseMedicalConditions(Collections.emptyList()).isEmpty());
     }
 
     @Test

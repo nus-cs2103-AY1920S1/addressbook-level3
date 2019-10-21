@@ -17,9 +17,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.bio.User;
+import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
@@ -36,7 +38,7 @@ class ReminderCommandTest {
 
     @Test
     public void execute_reminderAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingReminder modelStub = new ModelStubAcceptingReminder();
+        ModelStubAcceptingReminderAdded modelStub = new ModelStubAcceptingReminderAdded();
         Reminder validReminder = new ReminderBuilder().build();
 
         CommandResult commandResult = new ReminderCommand(validReminder).execute(modelStub);
@@ -182,21 +184,11 @@ class ReminderCommandTest {
 
         @Override
         public void deleteRecord(Record record) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredRecordList(Predicate<Record> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasReminder(Reminder reminder) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -290,6 +282,36 @@ class ReminderCommandTest {
         }
 
         @Override
+        public ReadOnlyCalendar getCalendar() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCalendarEntry(CalendarEntry calendarEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCalendarEntry(CalendarEntry target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCalendarEntry(CalendarEntry calendarEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUser(User target, User editedUser) {
             throw new AssertionError("This method should not be called.");
         }
@@ -312,28 +334,28 @@ class ReminderCommandTest {
         }
 
         @Override
-        public boolean hasReminder(Reminder reminder) {
-            requireNonNull(reminder);
-            return this.reminder.isSameReminder(reminder);
+        public boolean hasCalendarEntry(CalendarEntry calendarEntry) {
+            requireNonNull(calendarEntry);
+            return this.reminder.isSameCalendarEntry(calendarEntry);
         }
     }
 
     /**
      * A Model stub that always accept the reminder being added.
      */
-    private class ModelStubAcceptingReminder extends ModelStub {
+    private class ModelStubAcceptingReminderAdded extends ModelStub {
         final ArrayList<Reminder> remindersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasReminder(Reminder reminder) {
-            requireNonNull(reminder);
-            return remindersAdded.stream().anyMatch(reminder::isSameReminder);
+        public boolean hasCalendarEntry(CalendarEntry calendarEntry) {
+            requireNonNull(calendarEntry);
+            return remindersAdded.stream().anyMatch(calendarEntry::isSameCalendarEntry);
         }
 
         @Override
-        public void addReminder(Reminder reminder) {
-            requireNonNull(reminder);
-            remindersAdded.add(reminder);
+        public void addCalendarEntry(CalendarEntry calendarEntry) {
+            requireNonNull(calendarEntry);
+            remindersAdded.add((Reminder) calendarEntry);
         }
 
         @Override
@@ -341,4 +363,5 @@ class ReminderCommandTest {
             return new AddressBook();
         }
     }
+
 }

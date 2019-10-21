@@ -1,6 +1,6 @@
 package seedu.address.model.record;
 
-import seedu.address.model.calendar.DateTime;
+import seedu.address.model.DateTime;
 
 /**
  * A utility class to help with building Food objects.

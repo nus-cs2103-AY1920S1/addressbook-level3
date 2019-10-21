@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class DateOfBirth {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Dates should be in the format DD/MM/YYYY, should only contain numbers. "
+            "Date should be in the format DD/MM/YYYY, should only contain numbers. "
                     + "Please also check that the number of days in a month (including those for leap years), "
                     + "and the number of months in a year are correct.";
     public static final String VALIDATION_REGEX = "^$|^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";

@@ -17,8 +17,8 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.DateTime;
 import seedu.address.model.Model;
-import seedu.address.model.calendar.DateTime;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
 import seedu.address.ui.DisplayPaneType;

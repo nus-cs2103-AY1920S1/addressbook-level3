@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -51,6 +52,8 @@ public interface Storage extends AddressBookStorage, UserListStorage, UserPrefsS
     public void saveRecordList(UniqueRecordList recordList) throws IOException;
 
     public void saveRecordList(UniqueRecordList recordList, Path filePath) throws IOException;
+
+    Optional<ReadOnlyCalendar> readCalendarEntryList();
 
     // ================ UserList methods ==============================
     @Override
