@@ -12,11 +12,10 @@ import java.util.Optional;
 import mams.commons.core.index.Index;
 import mams.commons.exceptions.IllegalValueException;
 
-import mams.logic.parser.exceptions.ParseException;
-
 import mams.logic.commands.Approve;
 import mams.logic.commands.ApproveCommand;
 import mams.logic.commands.MassApprove;
+import mams.logic.parser.exceptions.ParseException;
 
 import mams.model.appeal.Appeal;
 
