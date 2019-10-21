@@ -153,6 +153,73 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Slideshow feature
+
+The slideshow feature is dependent on the questions added by the `question slideshow [question no(s).]` command and
+interacts with the `ModelManager` to retrieve the list of questions to be displayed in the slideshow.
+The logic control for displaying the ui resides in the `SlideshowWindow` class and handles the controls and instantiation
+of the various `QuestionPanel` that contains each question. +
+
+Below is the sequence diagram of the interactions that happen from when the slideshow command is entered, to the corresponding
+questions displayed in the slideshow.
+
+image::SlideshowFeature.png[]
+
+The following is a detailed explanation as to how the questions are fetched and displayed on the slideshow. +
+
+Step 1. The user requests to start a slideshow with a selection of questions using the `question slideshow [question no(s).]` command.
+This will add questions based on the `Index` specified to the `slideshowQuestions` list under the `SavedQuestions` class. The usage of
+`Index` here is such that it follows the same convention of when the user edits or deletes a question.
+[NOTE]
+The order of the questions displayed on the slideshow will be *based on the input order*.
+
+Step 2. The command is executed and the `MainWindow` calls `CommandResult#isShowSlideshow()` to verify if the command specified
+is to start a slideshow. The `SlideshowWindow` is then displayed through the `SlideshowWindow#slideShowWindow.show()`.
+[NOTE]
+The slideshow window has already been instantiated on application launch and the window is merely being hidden or shown.
+
+Step 3. The window is now visible and existing questions are cleared. The list of slideshow questions is then fetched through
+`Logic#getSlideshowQuestions()` which in turn calls the `ModelManager#getSlideshowQuestions()` that fetches
+the `slideshowQuestions` list in `SavedQuestions`.
+
+Step 4. The user will then navigate and control the slideshow using the `Left/Right`, `Space` and `Esc` key as defined by the key
+listeners in `SlideshowWindow#initialiseKeyboardControls(Stage root)`.
+
+Step 5. The user exits the slideshow when the `Esc` key event is triggered or when the `currQuestionIndex` exceeds the `questionPanels.size()` or
+it falls below `0`. The behaviour of this follows the common procedure that most presentation programs adopt thus, it will not
+feel foreign to users.
+
+==== Design Considerations
+
+===== Controls
+
+* ** Current Implementation: **
+** The choice of using the arrow keys for navigation and the `Escape` key to quit the slideshow is such that it will feel
+familiar to users who uses presentation programs often as they have similar controls. The only difference will be the usage
+of the `Space` key to show answers as it will be something new to the users and is unique to `Njoy`.
+
+* ** Alternatives Considered: **
+** Usage of the `A` key to show answers. However, this is not very feasible as it is easily forgotten and not as user-friendly
+due to the smaller surface of the key as compared to the `Space` key.
+
+===== Display
+
+* ** Current Implementation: **
+** The ordering of the questions is defined based on the user input so it gives flexibility to the user to choose the ordering
+that they want the questions to be displayed.
+** Placement of the question numbering, topic, options and answer follows the common convention where
+the question numbering will be at the top followed by the topic, options and then the answer. This is such that viewers
+will not be confused by the layout.
+** *Font sizes* are displayed in the following descending order to allow the text for easy viewing:
+*** *Question Number*
+*** *Question Topic & Options*
+*** *Answer*
+
+* ** Alternatives Considered: **
+** Having a separate answer format for MCQ such that it will have an arrow beside the correct option _e.g A) 1965_ *< (Answer)*.
+However, this is not feasible as it will break the standard formatting of the answers display since both *Open Ended* and *MCQ*
+questions will have 2 different answer formats and may cause confusion to the users.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -650,6 +717,8 @@ _{More to be added}_
 
 *Class* - A manageable unit of Student that Teacher can create, read, edit and delete.
 
+*UI* - User Interface that users use to interact with the application.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
@@ -660,8 +729,6 @@ A contact detail that is not meant to be shared with others
 == Product Survey
 
 *Njoy*
-
-Author: Jeong Yu Han
 
 Pros:
 

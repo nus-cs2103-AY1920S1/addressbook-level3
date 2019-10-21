@@ -15,7 +15,9 @@ import seedu.address.model.Model;
 public class QuestionSlideshowCommand extends QuestionCommand {
 
     public static final String MESSAGE_USAGE =
-        COMMAND_WORD + " slideshow: Start a questions slideshow";
+        COMMAND_WORD + " slideshow [question no(s).]: Start a questions slideshow\n"
+            + "Example: slideshow 1 2 3\n"
+            + "(This will start a slideshow with question 1, 2 and 3)";
 
     private final List<Index> questionIndexes;
 

@@ -75,6 +75,8 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
                             QuestionSlideshowCommand.MESSAGE_USAGE));
             }
 
+            // TODO: Throw exception when no question index is entered
+
             return new QuestionSlideshowCommand(argMultimap.getValue(PREFIX_SLIDESHOW).orElse(""));
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(index, argMultimap);
