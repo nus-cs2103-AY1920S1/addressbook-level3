@@ -223,18 +223,55 @@ Format: `budget AMOUNT DAYS`
 Example: `budget 100.00 10`
 
 ==== Buy
-Allows users the log a food expense into the application.
+Allows users to log a food expense into the application.
 
-Format: `buy FOOD`
+Format: `buy FOOD_INDEX`
 
-Example: `buy Chicken Rice`
+Example: `buy 1`
 
-==== Track
-Brings up statistics of expenditure over the past day, month, or year.
+==== Save
+Allows users to log an amount of money to save in his savings account from user's wallet.
 
-Format: `track -d | -w | -m`
+****
+*Format*: `save` +
+*Example*: `save 10`
+****
 
-Example: `track -d`
+
+[IMPORTANT]
+Make sure you have money in your wallet before you save! You cannot save
+money without having money in your wallet.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and the amount of money you have saved in your savings account.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have saved in your savings account.]
+|===
+
+[NOTE]
+If you click the "Savings" tab on the right panel, you will be able to view your savings history.
+Also the amount saved is deducted from your wallet.
+
+==== Withdraw
+Allows users to log an amount of money to withdraw from his savings account into his wallet.
+
+****
+*Format*: `withdraw` +
+*Example*: `withdraw 10`
+****
+
+[IMPORTANT]
+You must have money in your savings account before you can withdraw from it.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and the amount of money you have withdrew from your savings account.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have withdrew from your savings account.]
+|===
+
+[NOTE]
+If you click the "Savings" tab on the right panel, you will be able to view your savings history.
+Also the amount withdrawn is added into your wallet.
 
 === Recommendations
 
@@ -401,8 +438,6 @@ Unfortunately you are unable to change the app’s language
 | Command | Description
 | Add <<Add>>
 | Add food item.
-| Alias <<Alias>>
-| Adds a custom alias to a command. All future occurrences of that alias will be executing that command.
 | Budget <<Budget>>
 | Allows the user to set a budget amount for food expenses for a certain number
 of days.
@@ -426,6 +461,8 @@ of days.
 | Finds food items based on specified fields.
 | Help <<Help>>
 | Display possible uses of the application.
+| History <<History>>
+| Displays the list of commands that has been typed by the user.
 | Info <<Info>>
 | Displays the information of the command specified.
 | Like <<Adding Likes and Dislikes>>
@@ -434,6 +471,10 @@ of days.
 | List all saved food items
 | Recommend <<Recommend>>
 | Recommend a food item, based on the user's budget.
+| Like <<Likes and Dislikes>>
+| Likes categories, tags and locations
+| Dislike <<Likes and Dislikes>>
+| Dislikes categories, tags and locations
 | Redo <<Redo>>
 | Redo a command a specified number of times.
 | Removedislike <<Removing Likes and Dislikes>>
@@ -442,10 +483,8 @@ of days.
 | Remove likes from the user's specified likes or clears the likes list
 | Sort <<Sort>>
 | Sort all the food items by a specified field.
-| Track <<Track>>
-| Brings up statistics of food expenditure.
+| Save <<Save>>
+| Saves a specified amount of money from the user's wallet into his savings account.
 | Tutorial <<Tutorial>>
 | Give users a brief guide on how to use the application.
-| Undo <<Undo>>
-| Undo a command a specified number of times.
 |===

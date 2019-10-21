@@ -23,6 +23,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -38,6 +39,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Menu(), new Menu(modelManager.getMenu()));
+        assertEquals(new SavingsAccount(), new SavingsAccount(modelManager.getSavingsAccount()));
     }
 
     @Test
@@ -155,8 +157,6 @@ public class ModelManagerTest {
         assertNotEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
     }
 
-    // WALLET
-
     @Test
     public void get_wallet_test() {
         Wallet wallet = modelManager.getWallet();
@@ -214,14 +214,16 @@ public class ModelManagerTest {
     public void equals() {
         Menu menu = new MenuBuilder().withfood(CARBONARA).withfood(TONKATSU_RAMEN).build();
         Menu differentMenu = new Menu();
+        SavingsAccount savingsAccount = new SavingsAccount();
         UserPrefs userPrefs = new UserPrefs();
         UserRecommendations userRecs = new UserRecommendations();
         PurchaseHistory purchaseHistory = new PurchaseHistory();
         CustomSorter customSorter = new CustomSorter();
 
         // same values -> returns true
-        modelManager = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, customSorter);
-        ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, customSorter);
+        modelManager = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, customSorter, savingsAccount);
+        ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs, purchaseHistory,
+                customSorter, savingsAccount);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -235,12 +237,13 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs, userRecs, purchaseHistory,
-                customSorter)));
+                customSorter, savingsAccount)));
 
         // different filteredList -> returns false
         String[] keywords = CARBONARA.getName().fullName.split("\\s+");
         modelManager.updateFilteredFoodList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs, purchaseHistory, customSorter)));
+        assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs, purchaseHistory,
+                customSorter, savingsAccount)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
@@ -249,6 +252,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMenuFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs, userRecs, purchaseHistory,
-                customSorter)));
+                customSorter, savingsAccount)));
     }
 }

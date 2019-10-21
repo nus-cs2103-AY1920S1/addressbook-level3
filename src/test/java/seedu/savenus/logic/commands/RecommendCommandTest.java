@@ -17,6 +17,7 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sorter.CustomSorter;
 
 /**
@@ -29,10 +30,10 @@ public class RecommendCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new CustomSorter());
+        model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
+                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
         expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new CustomSorter());
+                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
     }
 
     @Test

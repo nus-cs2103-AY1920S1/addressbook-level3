@@ -47,7 +47,7 @@ public class JsonMenuStorage implements MenuStorage {
 
         Optional<JsonSerializableMenu> jsonMenu = JsonUtil.readJsonFile(
                 filePath, JsonSerializableMenu.class);
-        if (!jsonMenu.isPresent()) {
+        if (jsonMenu.isEmpty()) {
             return Optional.empty();
         }
 

@@ -12,6 +12,8 @@ import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.SavingsStorage;
 import seedu.savenus.model.sorter.CustomSorter;
 
 /**
@@ -21,16 +23,18 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private MenuStorage menuStorage;
+    private SavingsStorage savingsAccountStorage;
     private UserPrefsStorage userPrefsStorage;
     private RecsStorage userRecsStorage;
     private PurchaseHistoryStorage purchaseHistoryStorage;
     private CustomSortStorage customSortStorage;
 
     public StorageManager(MenuStorage menuStorage, UserPrefsStorage userPrefsStorage, RecsStorage userRecsStorage,
-                          PurchaseHistoryStorage purchaseHistoryStorage, CustomSortStorage customSortStorage) {
-
+                          PurchaseHistoryStorage purchaseHistoryStorage,
+                          CustomSortStorage customSortStorage, SavingsStorage savingsAccountStorage) {
         super();
         this.menuStorage = menuStorage;
+        this.savingsAccountStorage = savingsAccountStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.userRecsStorage = userRecsStorage;
         this.purchaseHistoryStorage = purchaseHistoryStorage;
@@ -167,5 +171,34 @@ public class StorageManager implements Storage {
     public void saveFields(CustomSorter sorter, Path filePath) throws IOException {
         logger.fine("Attempting to write sort fields to data file: " + filePath);
         customSortStorage.saveFields(sorter, filePath);
+    }
+
+
+    @Override
+    public Path getSavingsAccountFilePath() {
+        return savingsAccountStorage.getSavingsAccountFilePath();
+    }
+
+    @Override
+    public void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount) throws IOException {
+        saveSavingsAccount(savingsAccount, savingsAccountStorage.getSavingsAccountFilePath());
+    }
+
+    @Override
+    public void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        savingsAccountStorage.saveSavingsAccount(savingsAccount, filePath);
+    }
+
+    @Override
+    public Optional<ReadOnlySavingsAccount> readSavingsAccount() throws DataConversionException, IOException {
+        return readSavingsAccount(savingsAccountStorage.getSavingsAccountFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlySavingsAccount> readSavingsAccount(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read savings account data from file: " + filePath);
+        return savingsAccountStorage.readSavingsAccount(filePath);
     }
 }

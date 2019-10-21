@@ -10,19 +10,24 @@ import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
+import seedu.savenus.model.savings.SavingsStorage;
 import seedu.savenus.model.sorter.CustomSorter;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, PurchaseHistoryStorage, CustomSortStorage {
+public interface Storage extends MenuStorage, UserPrefsStorage,
+        RecsStorage, PurchaseHistoryStorage, CustomSortStorage, SavingsStorage {
 
+    // ============================= User Preferences Methods ================================================
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
+    // ============================= Menu Methods ================================================
     @Override
     Path getMenuFilePath();
 
@@ -32,6 +37,7 @@ public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, Pur
     @Override
     void saveMenu(ReadOnlyMenu menu) throws IOException;
 
+    // ============================= Recommendation System Methods ================================================
     @Override
     Path getRecsFilePath();
 
@@ -46,6 +52,8 @@ public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, Pur
 
     @Override
     void saveRecs(UserRecommendations recs, Path filePath) throws IOException;
+
+    // ============================= Purchase History Methods ================================================
 
     @Override
     Path getPurchaseHistoryFilePath();
@@ -62,6 +70,8 @@ public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, Pur
     @Override
     void savePurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory, Path filePath) throws IOException;
 
+    // ============================= Custom Sort Methods ================================================
+
     Path getSortFilePath();
 
     @Override
@@ -76,4 +86,15 @@ public interface Storage extends MenuStorage, UserPrefsStorage, RecsStorage, Pur
     @Override
     void saveFields(CustomSorter sorter, Path filePath) throws IOException;
 
+    // ============================= Savings Account Methods ================================================
+    @Override
+    Path getSavingsAccountFilePath();
+
+    @Override
+    void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount) throws IOException;
+
+    @Override
+    void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount, Path filePath) throws IOException;
+
+    Optional<ReadOnlySavingsAccount> readSavingsAccount() throws DataConversionException, IOException;
 }
