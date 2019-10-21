@@ -2,9 +2,11 @@ package seedu.algobase.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanList;
 import seedu.algobase.model.problem.Problem;
@@ -58,6 +60,21 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     //========== Problem ================================================================
+
+    /**
+     * Returns the {@code Problem} with the same id in the algobase.
+     */
+    public Problem findProblemById(long problemId) throws IllegalValueException {
+        requireNonNull(problemId);
+        Iterator<Problem> iterator = problems.iterator();
+        while (iterator.hasNext()) {
+            Problem problem = iterator.next();
+            if (problem.getId() == problemId) {
+                return problem;
+            }
+        }
+        throw new IllegalValueException("No problem found");
+    }
 
     /**
      * Replaces the contents of the Problem list with {@code problems}.

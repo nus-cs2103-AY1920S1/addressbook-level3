@@ -67,7 +67,7 @@ class JsonAdaptedProblem {
      * Converts a given {@code Problem} into this class for Jackson use.
      */
     public JsonAdaptedProblem(Problem problem) {
-        id = problem.getId() + "";
+        id = Long.toString(problem.getId());
         name = problem.getName().fullName;
         author = problem.getAuthor().value;
         weblink = problem.getWebLink().value;
@@ -106,17 +106,22 @@ class JsonAdaptedProblem {
     }
 
     /**
-     * Converts a name in string format to a Name Object.
+     * Converts an id in string format to a long number.
      *
      * @param id id in String format.
      * @return id in long format.
      * @throws IllegalValueException if string format is invalid.
      */
     public long retrieveId(String id) throws IllegalValueException {
+        if (id == null) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
+        }
+
         try {
             return Long.parseLong(id);
         } catch (NumberFormatException e) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ID"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
     }
 

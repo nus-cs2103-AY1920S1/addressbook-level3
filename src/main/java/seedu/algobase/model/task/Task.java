@@ -3,6 +3,7 @@ package seedu.algobase.model.task;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,6 +23,9 @@ import seedu.algobase.model.tag.Tag;
  */
 public class Task {
 
+    public static final String DATE_TIME_CONSTRAINTS = "DateTime format should be 'yyyy-MM-dd HH:mm:ss'.";
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     private final long id;
     private final Problem problem;
     private final Boolean isSolved;
@@ -35,7 +39,7 @@ public class Task {
         this.id = System.currentTimeMillis() / 1000L;
         this.problem = problem;
         this.isSolved = false;
-        this.dateTime = null;
+        this.dateTime = LocalDateTime.now();
     }
 
     public Task(Problem problem, boolean isSolved) {
@@ -43,7 +47,7 @@ public class Task {
         this.id = System.currentTimeMillis() / 1000L;
         this.problem = problem;
         this.isSolved = isSolved;
-        this.dateTime = null;
+        this.dateTime = LocalDateTime.now();
     }
 
     public Task(long id, Problem problem, boolean isSolved) {
@@ -51,7 +55,7 @@ public class Task {
         this.id = id;
         this.problem = problem;
         this.isSolved = isSolved;
-        this.dateTime = null;
+        this.dateTime = LocalDateTime.now();
     }
 
     /**

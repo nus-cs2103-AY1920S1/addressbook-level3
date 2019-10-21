@@ -61,7 +61,7 @@ public class Plan {
      * Creates and returns a {@code Plan} with the details of {@code planToUpdate}
      * with an updated {@code taskSet}.
      */
-    public static Plan updateTasks(Plan planToUpdate, Set taskSet) {
+    public static Plan updateTasks(Plan planToUpdate, Set<Task> taskSet) {
         assert planToUpdate != null;
 
         long id = planToUpdate.id;
