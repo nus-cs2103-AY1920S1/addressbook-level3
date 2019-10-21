@@ -11,10 +11,10 @@ import seedu.address.model.module.UniqueModuleList;
  */
 public class Semester {
     // Identity fields
-    private final SemesterName semesterName;
+    private SemesterName semesterName; // removed final keyword for the clone() method below
 
     // Data fields
-    private final UniqueModuleList modules = new UniqueModuleList();
+    private UniqueModuleList modules = new UniqueModuleList(); // removed final keyword for the clone() method below
     private boolean isBlocked;
     private String reasonForBlocked;
     private boolean isExpanded = false;
@@ -99,4 +99,5 @@ public class Semester {
 
         return result.toString();
     }
+
 }

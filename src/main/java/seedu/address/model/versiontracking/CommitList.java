@@ -41,7 +41,7 @@ public class CommitList {
      * Deletes all the commits after a given index.
      */
     public void deleteAllLaterCommits(int index) {
-        for (int i = index + 1; i < commits.size(); i++) {
+        for (int i = commits.size() - 1; i > index; i--) {
             commits.remove(i);
         }
     }
