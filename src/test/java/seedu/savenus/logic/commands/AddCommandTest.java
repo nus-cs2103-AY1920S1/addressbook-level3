@@ -24,6 +24,7 @@ import seedu.savenus.model.Menu;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.PurchaseHistory;
 import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
@@ -179,6 +180,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setPurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPurchase(Purchase purchase) {
             throw new AssertionError("This method should not be called.");
         }
@@ -315,6 +321,11 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlySavingsAccount getSavingsAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSavingsAccount(ReadOnlySavingsAccount savingsAccount) {
             throw new AssertionError("This method should not be called.");
         }
     }
