@@ -19,7 +19,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyStudentRecord;
+import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.StudentRecord;
 import seedu.address.model.UserPrefs;
@@ -32,6 +34,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.event.EventStorage;
+import seedu.address.storage.event.JsonEventStorage;
 import seedu.address.storage.question.JsonQuestionStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.student.JsonStudentRecordStorage;
@@ -71,8 +75,10 @@ public class MainApp extends Application {
             new JsonStudentRecordStorage(userPrefs.getStudentRecordFilePath());
         QuestionStorage savedQuestionStorage =
             new JsonQuestionStorage(userPrefs.getSavedQuestionsFilePath());
+        EventStorage eventStorage =
+            new JsonEventStorage(userPrefs.getEventRecordFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, studentRecordStorage,
-            savedQuestionStorage);
+            savedQuestionStorage, eventStorage);
 
         initLogging(config);
 
@@ -93,14 +99,17 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyStudentRecord> studentRecordOptional;
         Optional<ReadOnlyQuestions> questionsOptional;
+        Optional<ReadOnlyEvents> eventsOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
+        ReadOnlyEvents initialEvents;
 
         try {
             addressBookOptional = storage.readAddressBook();
             studentRecordOptional = storage.readStudentRecord();
             questionsOptional = storage.readQuestions();
+            eventsOptional = storage.readEvents();
 
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
@@ -111,10 +120,14 @@ public class MainApp extends Application {
             if (!questionsOptional.isPresent()) {
                 logger.info("Question file not found. Will create an empty one.");
             }
+            if (!eventsOptional.isPresent()) {
+                logger.info("Events file not found. Will create an empty one.");
+            }
             initialAddressBook = addressBookOptional
                 .orElseGet(SampleDataUtil::getSampleAddressBook);
             initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudentRecord);
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
+            initialEvents = eventsOptional.orElseGet(SampleDataUtil::getSampleEventsList);
 
         } catch (DataConversionException e) {
             logger.warning(
@@ -122,6 +135,7 @@ public class MainApp extends Application {
             initialAddressBook = new AddressBook();
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
+            initialEvents = new EventRecord();
 
         } catch (IOException e) {
             logger.warning(
@@ -129,9 +143,10 @@ public class MainApp extends Application {
             initialAddressBook = new AddressBook();
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
+            initialEvents = new EventRecord();
         }
 
-        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions,
+        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialEvents,
             userPrefs);
     }
 

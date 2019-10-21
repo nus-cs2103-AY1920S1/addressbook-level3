@@ -2,6 +2,13 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -14,10 +21,21 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import jfxtras.icalendarfx.VCalendar;
+import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.properties.calendar.CalendarScale;
+import jfxtras.icalendarfx.properties.calendar.Version;
+import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
+import jfxtras.icalendarfx.properties.component.time.DateTimeStart;
+import jfxtras.internal.scene.control.skin.agenda.*;
+import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
+import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -195,23 +213,76 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
-//
-//        Agenda agenda = new Agenda();
-//
-//        Agenda.AppointmentImpl testAppointment = new Agenda.AppointmentImpl();
-//        testAppointment.setSummary("Summary");
-//        testAppointment.setStartLocalDateTime(LocalDateTime.of(2011, 5, 28, 4, 00));
-//        testAppointment.setEndLocalDateTime(LocalDateTime.of(2011, 5, 28, 5, 00));
-//
-//        // add an appointment
-//        agenda.appointments().addAll(
-//                testAppointment
-//        );
-//
-//        // show it
-//        primaryStage.setScene(new Scene(agenda, 500, 400));
 
+        VCalendar vCalendar = new VCalendar();
+        ArrayList<VEvent> testEvents = new ArrayList<>();
+
+//        String str = "1986-04-08 12:30";
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+
+
+        VEvent first = new VEvent();
+        first.setDateTimeStart(LocalDateTime.now().withHour(12).truncatedTo(ChronoUnit.MINUTES));
+        first.setDateTimeEnd(LocalDateTime.now().withHour(14).truncatedTo(ChronoUnit.MINUTES));
+        first.setSummary("first Event");
+        first.setRecurrenceRule("FREQ=DAILY;INTERVAL=1");
+        first.setUniqueIdentifier("njoyassistant");
+        first.withCategories("group00");
+
+        VEvent second = new VEvent();
+        second.setDateTimeStart(LocalDateTime.now().withHour(15));
+        second.setDateTimeEnd(LocalDateTime.now().withHour(16));
+        second.setSummary("second Event");
+        second.setRecurrenceRule("FREQ=DAILY;INTERVAL=1");
+        second.setUniqueIdentifier("njoyassistant");
+        second.withCategories("group01");
+
+        String testDateTimeStart = first.getDateTimeStart().toString();
+        String testDateTimeStart2 = first.getDateTimeStart().getValue().toString();
+        DateTimeStart dateTimeStart = first.getDateTimeStart();
+        Temporal temporal1 = first.getDateTimeStart().getValue();
+
+        String dateTimeEnd = first.getDateTimeEnd().getValue().toString();
+
+        LocalDateTime temporalFormatterTest = LocalDateTime.parse(first.getDateTimeEnd().getValue().toString());
+
+        testEvents.add(first);
+        testEvents.add(second);
+
+        for (int i = 0; i < testEvents.size(); i++) {
+            VEvent currentEvent = testEvents.get(i);
+            currentEvent.withSummary(String.format("[%d] %s", i, currentEvent.getSummary().getValue()));
+        }
+
+        ObservableList<VEvent> oList = FXCollections.observableArrayList(testEvents);
+
+        vCalendar.setVEvents(oList);
+
+//        var result = oList.remove(firstEvent);
+        ICalendarAgenda agenda = new ICalendarAgenda(vCalendar);
+        LocalDateTime startTime = LocalDateTime.now();
+        LocalDateTime endTime = LocalDateTime.now().plusDays(14);
+
+        Locale myLocale = Locale.UK;
+        agenda.setLocale(myLocale);
+        agenda.setDisplayedLocalDateTime(endTime);
+
+        AgendaDaysFromDisplayedSkin dynamicSkin = new AgendaDaysFromDisplayedSkin(agenda);
+        dynamicSkin.setDaysAfterFurthest(20);
+        dynamicSkin.setDaysBeforeFurthest(20);
+
+        AgendaWeekSkin weekSkin = new AgendaWeekSkin(agenda);
+
+
+        agenda.setSkin(weekSkin);
+
+        BorderPane root = new BorderPane();
+        root.setCenter(agenda);
+        Scene scene = new Scene(root, 1400, 800);
+        primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     /**
@@ -258,9 +329,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-//            if (commandResult.isShowSchedule()) {
-//                handleSchedule();
-//            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {

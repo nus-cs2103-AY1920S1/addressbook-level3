@@ -6,17 +6,20 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyStudentRecord;
+import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
+import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.storage.event.EventStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.student.StudentRecordStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRecordStorage,
+public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRecordStorage, EventStorage,
     QuestionStorage {
 
     @Override
@@ -57,4 +60,14 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
 
     @Override
     void saveQuestions(ReadOnlyQuestions savedQuestions) throws IOException;
+    // ================ Event methods ==============================
+
+    @Override
+    Path getEventRecordFilePath();
+
+    @Override
+    Optional<ReadOnlyEvents> readEvents() throws DataConversionException, IOException;
+
+    @Override
+    void saveEvents(ReadOnlyEvents events) throws IOException;
 }

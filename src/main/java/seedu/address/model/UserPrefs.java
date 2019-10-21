@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path studentRecordFilePath = Paths.get("data" , "students.json");
     private Path savedQuestionsFilePath = Paths.get("data" , "questions.json");
+    private Path eventRecordFilePath = Paths.get("data" , "events.json");
 
 
     /**
@@ -82,6 +83,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.savedQuestionsFilePath = savedQuestionsFilePath;
     }
 
+    //endregion
+
+    //region EventRecord
+    public Path getEventRecordFilePath() {
+        return eventRecordFilePath;
+    }
+
+    public void setEventRecordFilePath(Path eventRecordFilePath) {
+        requireNonNull(eventRecordFilePath);
+        this.eventRecordFilePath = eventRecordFilePath;
+    }
     //endregion
 
     @Override

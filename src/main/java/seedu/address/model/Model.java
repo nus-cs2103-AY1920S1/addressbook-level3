@@ -6,12 +6,16 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 
 /**
@@ -104,7 +108,7 @@ public interface Model {
     //region StudentRecord
     Path getStudentRecordFilePath();
 
-    void setStudentRecordFilePath(Path addressBookFilePath);
+    void setStudentRecordFilePath(Path studentRecordFilePath);
 
     void setStudentRecord(ReadOnlyStudentRecord studentRecord);
 
@@ -167,6 +171,7 @@ public interface Model {
      * Returns a students from a group in list view.
      */
     String getStudentsFromGroup(String groupId);
+    //endregion
 
     //region Questions
     /**
@@ -261,5 +266,23 @@ public interface Model {
 
     List<Note> getNotes();
 
+    //endregion
+
+    //region EventRecord
+    void setEventRecord(Path eventRecordFilePath);
+
+    Path getEventRecordFilePath();
+
+    void setEventRecord(ReadOnlyEvents events);
+
+    ReadOnlyEvents getEventRecord();
+    //endregion
+
+    //region Events
+    boolean hasVEvent(VEvent vEvent);
+    void deleteVEvent(VEvent vEvent);
+    void addVEvent(VEvent vEvent);
+    void setVEvent(VEvent target, VEvent editedVEvent);
+    String getVEventSummary();
     //endregion
 }

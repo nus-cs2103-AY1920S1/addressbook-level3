@@ -11,9 +11,15 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import jfxtras.icalendarfx.VElement;
+import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+//import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
@@ -24,6 +30,7 @@ import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizBank;
+import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 
 
@@ -41,6 +48,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
     private final SavedQuestions savedQuestions;
+    private final EventRecord eventRecord;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Student> filteredStudents;
 
@@ -50,7 +58,9 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyAddressBook addressBook,
                         ReadOnlyStudentRecord studentRecord,
                         ReadOnlyQuestions savedQuestions,
-                        ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyEvents readEvents,
+                        ReadOnlyUserPrefs userPrefs
+                        ) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -64,12 +74,13 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
         this.savedQuestions = new SavedQuestions(savedQuestions);
+        this.eventRecord = new EventRecord(readEvents);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new UserPrefs());
+        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new EventRecord(), new UserPrefs());
     }
 
     //region PREFERENCES & SETTINGS
@@ -295,6 +306,7 @@ public class ModelManager implements Model {
         }
         return students;
     }
+    //endregion
 
     //region Questions
 
@@ -480,6 +492,59 @@ public class ModelManager implements Model {
         return notes.getNoteSummary();
     }
 
+    //endregion
+
+    //region EventRecord
+    @Override
+    public void setEventRecord(Path eventRecordFilePath) {
+        requireNonNull(eventRecordFilePath);
+        userPrefs.setEventRecordFilePath(eventRecordFilePath);
+    }
+
+    @Override
+    public Path getEventRecordFilePath() {
+        return userPrefs.getEventRecordFilePath();
+    }
+
+    @Override
+    public void setEventRecord(ReadOnlyEvents events) {
+        this.eventRecord.resetData(events);
+    }
+
+    @Override
+    public ReadOnlyEvents getEventRecord() {
+        return eventRecord;
+    }
+
+    //endregion
+
+    //region Events
+    @Override
+    public boolean hasVEvent(VEvent vEvent) {
+        requireNonNull(vEvent);
+        return eventRecord.contains(vEvent);
+    }
+
+    @Override
+    public void deleteVEvent(VEvent vEvent) {
+        eventRecord.deleteVEvent(vEvent);
+    }
+
+    @Override
+    public void addVEvent(VEvent vEvent) {
+        eventRecord.addVEvent(vEvent);
+    }
+
+    @Override
+    public void setVEvent(VEvent target, VEvent editedVEvent) {
+        requireAllNonNull(target, editedVEvent);
+        eventRecord.setVEvent(target, editedVEvent);
+    }
+
+    @Override
+    public String getVEventSummary() {
+        return eventRecord.getVEventSummary();
+    }
     //endregion
 
     @Override

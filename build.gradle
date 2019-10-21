@@ -66,8 +66,8 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
     compile group: 'org.jfxtras', name: 'jfxtras-agenda', version: '9.0-r1-SNAPSHOT'
-    compile group: 'org.jfxtras', name: 'jfxtras-icalendaragenda', version: '9.0-r1-SNAPSHOT'
-    compile group: 'org.jfxtras', name: 'jfxtras-icalendarfx', version: '9.0-r1-SNAPSHOT'
+    compile group: 'org.jfxtras', name: 'jfxtras-icalendaragenda', version: '8.0-r6-SNAPSHOT'
+    compile group: 'org.jfxtras', name: 'jfxtras-icalendarfx', version: '8.0-r6-SNAPSHOT'
 }
 
 shadowJar {
