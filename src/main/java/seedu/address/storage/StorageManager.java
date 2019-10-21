@@ -9,11 +9,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
+import seedu.address.storage.appsettings.AppSettingsStorage;
 import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsListStorage;
 import seedu.address.storage.userprefs.UserPrefsStorage;
@@ -29,15 +31,19 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private WordBankStatisticsListStorage wbStatsStorage;
     private GlobalStatisticsStorage globalStatsStorage;
+    private AppSettingsStorage settingsStorage;
+
 
     public StorageManager(WordBankListStorage wordBankListStorage,
                           UserPrefsStorage userPrefsStorage,
                           WordBankStatisticsListStorage wbStatsStorage,
-                          GlobalStatisticsStorage globalStatsStorage) {
+                          GlobalStatisticsStorage globalStatsStorage,
+                          AppSettingsStorage settingsStorage) {
         super();
         this.wordBankListStorage = wordBankListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.wbStatsStorage = wbStatsStorage;
+        this.settingsStorage = settingsStorage;
         this.globalStatsStorage = globalStatsStorage;
     }
 
@@ -155,4 +161,32 @@ public class StorageManager implements Storage {
     public static Path getWbStatsStoragePath(Path wbPath) {
         return Path.of(wbPath.toString(), "wbstats", wbPath.getFileName().toString());
     }
+
+    //================ AppSettings methods ==============================
+    @Override
+    public Path getAppSettingsFilePath() {
+        return settingsStorage.getAppSettingsFilePath();
+    }
+
+    @Override
+    public Optional<AppSettings> readAppSettings() throws DataConversionException, IOException {
+        return readAppSettings(settingsStorage.getAppSettingsFilePath());
+    }
+
+    @Override
+    public Optional<AppSettings> readAppSettings(Path filePath) throws DataConversionException, IOException {
+        return settingsStorage.readAppSettings(filePath);
+    }
+
+    @Override
+    public void saveAppSettings(AppSettings settings) throws IOException {
+        saveAppSettings(settings, settingsStorage.getAppSettingsFilePath());
+    }
+
+    @Override
+    public void saveAppSettings(AppSettings settings, Path filePath) throws IOException {
+        settingsStorage.saveAppSettings(settings, filePath);
+    }
+
+
 }

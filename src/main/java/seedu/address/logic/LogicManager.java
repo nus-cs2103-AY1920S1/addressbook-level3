@@ -23,11 +23,13 @@ import seedu.address.logic.commands.loadcommands.CreateCommand;
 import seedu.address.logic.commands.loadcommands.ExportCommand;
 import seedu.address.logic.commands.loadcommands.ImportCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
+import seedu.address.logic.parser.DukemonParser;
 import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
+import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
@@ -48,6 +50,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     private final Model model;
     private final Storage storage;
+    private final DukemonParser dukemonParser;
 
     private final ParserManager parserManager;
 
@@ -59,6 +62,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         Step 9.
         this.game = game //get from constructor
          */
+        dukemonParser = new DukemonParser();
 
         parserManager = new ParserManager();
     }
@@ -103,6 +107,9 @@ public class LogicManager implements Logic, UiLogicHelper {
         Similar methods to saveWordBanks();
          */
         try {
+            if (getMode().equals(ModeEnum.SETTINGS)) {
+                storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
+            }
             ReadOnlyWordBank wb = model.getWordBank();
 
             Path wordBankListFilePath = storage.getWordBankListFilePath();
@@ -255,4 +262,10 @@ public class LogicManager implements Logic, UiLogicHelper {
         temp.add(ModeEnum.SETTINGS);
         return temp;
     }
+
+    @Override
+    public AppSettings getAppSettings() {
+        return this.model.getAppSettings();
+    }
+
 }

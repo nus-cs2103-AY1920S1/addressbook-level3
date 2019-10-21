@@ -20,12 +20,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.ReadOnlyAppSettings;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.appsettings.AppSettingsStorage;
+import seedu.address.storage.appsettings.JsonAppSettingsStorage;
 import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
 import seedu.address.storage.globalstatistics.JsonGlobalStatisticsStorage;
 import seedu.address.storage.statistics.JsonWordBankStatisticsListStorage;
@@ -76,7 +80,9 @@ public class MainApp extends Application {
         WordBankStatisticsListStorage wbStatsStorage =
                 new JsonWordBankStatisticsListStorage(userPrefs.getDataFilePath());
         GlobalStatisticsStorage globalStatsStorage = new JsonGlobalStatisticsStorage(userPrefs.getDataFilePath());
-        storage = new StorageManager(wordBankListStorage, userPrefsStorage, wbStatsStorage, globalStatsStorage);
+        AppSettingsStorage appSettingsStorage = new JsonAppSettingsStorage(userPrefs.getAppSettingsFilePath());
+        storage = new StorageManager(wordBankListStorage, userPrefsStorage,
+                wbStatsStorage, globalStatsStorage, appSettingsStorage);
 
         initLogging(config);
 
@@ -115,13 +121,20 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
+
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
         WordBankList wbl = (WordBankList) optionalWbl.get();
         WordBankStatisticsList wbStatsList = storage.getWordBankStatisticsList();
         GlobalStatistics globalStatistics = storage.getGlobalStatistics();
-
-        return new ModelManager(wbl, wbStatsList, globalStatistics, userPrefs);
+        ReadOnlyAppSettings appSettings = null;
+        try {
+            Optional<AppSettings> settingsOptional = storage.readAppSettings();
+            appSettings = settingsOptional.orElse(new AppSettings());
+        } catch (IOException | DataConversionException e) {
+            logger.warning("Welp this sucks.");
+        }
+        return new ModelManager(wbl, wbStatsList, globalStatistics, userPrefs, appSettings);
     }
 
     /*

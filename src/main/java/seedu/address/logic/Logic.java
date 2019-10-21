@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
+import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
@@ -78,6 +79,8 @@ public interface Logic extends UiLogicHelper {
     ReadOnlyWordBank getActiveWordBank();
 
     long getTimeAllowedPerQuestion();
+
+    AppSettings getAppSettings();
 
 
     FormattedHint getHintFormatFromCurrentGame();

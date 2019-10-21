@@ -15,6 +15,7 @@ import seedu.address.ui.modules.CardListPanel;
 import seedu.address.ui.modules.GameResultPanel;
 import seedu.address.ui.modules.LoadBankPanel;
 import seedu.address.ui.modules.MainTitlePanel;
+import seedu.address.ui.modules.SettingsPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
 
@@ -32,6 +33,7 @@ public class ModularDisplay {
     private BankLabelPanel bankLabelPanel;
     private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
+    private final SettingsPanel settingsPanel;
     private final AppManager appManager;
 
     /**
@@ -42,6 +44,7 @@ public class ModularDisplay {
     public ModularDisplay(AppManager appManager) {
         loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
         titleScreenPanel = new TitleScreenPanel();
+        settingsPanel = new SettingsPanel(appManager.getAppSettings());
         this.appManager = appManager;
     }
 
@@ -130,6 +133,17 @@ public class ModularDisplay {
     public void swapToBanks(StackPane paneToDisplay) {
         paneToDisplay.getChildren().clear();
         paneToDisplay.getChildren().add(loadBankPanel.getRoot());
+    }
+
+    /**
+     * Changes to the settings page.
+     *
+     * @param paneToDisplay
+     */
+    public void swapToSettings(StackPane paneToDisplay) {
+        paneToDisplay.getChildren().clear();
+        settingsPanel.updateSettings();
+        paneToDisplay.getChildren().add(settingsPanel.getRoot());
     }
 
 }

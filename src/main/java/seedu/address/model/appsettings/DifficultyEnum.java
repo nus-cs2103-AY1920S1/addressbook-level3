@@ -1,4 +1,5 @@
-package seedu.address.model.gamedifficulty;
+package seedu.address.model.appsettings;
+
 
 /**
  * Difficulty levels for the Game

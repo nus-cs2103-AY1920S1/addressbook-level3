@@ -11,16 +11,18 @@ import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
+import seedu.address.storage.appsettings.AppSettingsStorage;
 import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsListStorage;
 import seedu.address.storage.userprefs.UserPrefsStorage;
 import seedu.address.storage.wordbanks.WordBankListStorage;
 
+
 /**
  * API of the Storage component
  */
 public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBankStatisticsListStorage,
-        GlobalStatisticsStorage {
+        GlobalStatisticsStorage, AppSettingsStorage {
 
     // ===================== word bank statistics =====================
     @Override

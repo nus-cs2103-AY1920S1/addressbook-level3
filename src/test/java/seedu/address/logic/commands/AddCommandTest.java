@@ -16,14 +16,15 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.appcommands.AddCommand;
-//import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.DifficultyEnum;
+import seedu.address.model.appsettings.ThemeEnum;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
-import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -97,13 +98,43 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setDifficulty(DifficultyEnum difficultyEnum) {
+        public AppSettings getAppSettings() {
+            return null;
+        }
+
+        @Override
+        public Path getAppSettingsFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setDefaultDifficulty(DifficultyEnum difficultyEnum) {
 
         }
 
         @Override
-        public DifficultyEnum getDifficulty() {
+        public DifficultyEnum getDefaultDifficulty() {
             return null;
+        }
+
+        @Override
+        public void setDefaultTheme(ThemeEnum themeEnum) {
+
+        }
+
+        @Override
+        public ThemeEnum getDefaultTheme() {
+            return null;
+        }
+
+        @Override
+        public void setHintsEnabled(boolean enabled) {
+
+        }
+
+        @Override
+        public boolean getHintsEnabled() {
+            return false;
         }
 
         @Override

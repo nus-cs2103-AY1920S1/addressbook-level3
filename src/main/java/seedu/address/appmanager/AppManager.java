@@ -15,6 +15,7 @@ import seedu.address.logic.commands.gamecommands.GameCommandResult;
 import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -124,6 +125,10 @@ public class AppManager {
 
     public ReadOnlyWordBank getActiveWordBank() {
         return logic.getActiveWordBank();
+    }
+
+    public AppSettings getAppSettings() {
+        return logic.getAppSettings();
     }
 
     public GameStatistics getGameStatistics() {
