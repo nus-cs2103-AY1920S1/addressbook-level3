@@ -8,8 +8,6 @@ import static seedu.savenus.testutil.TypicalMenu.NASI_AYAM;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.savenus.model.sorter.DefaultComparator;
-
 public class DefaultComparatorTest {
 
     @Test
