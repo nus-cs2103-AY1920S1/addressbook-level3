@@ -216,7 +216,7 @@ public class MainWindow extends UiPart<Stage> {
                     + "is finished");
         }
         modularDisplay.swapToGameResult(modularDisplayPlaceholder, appManager.getGameStatistics(),
-                appManager.getWordBankStatistics());
+                appManager.getActiveWordBankStatistics());
     }
 
     /**

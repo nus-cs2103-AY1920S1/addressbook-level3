@@ -24,6 +24,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -232,6 +233,11 @@ public class AddCommandTest {
 
         @Override
         public void removeWordBank() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GlobalStatistics getGlobalStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }

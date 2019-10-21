@@ -20,12 +20,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
-import seedu.address.storage.statistics.WordBankStatisticsStorage;
+import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
+import seedu.address.storage.globalstatistics.JsonGlobalStatisticsStorage;
+import seedu.address.storage.statistics.JsonWordBankStatisticsListStorage;
+import seedu.address.storage.statistics.WordBankStatisticsListStorage;
 import seedu.address.storage.userprefs.JsonUserPrefsStorage;
 import seedu.address.storage.userprefs.UserPrefsStorage;
 import seedu.address.storage.wordbanks.JsonWordBankListStorage;
@@ -69,9 +73,10 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath());
-        Path wbStatsPath = StorageManager.getWbStatsStoragePath(userPrefs.getDataFilePath());
-        WordBankStatisticsStorage wbStatsStorage = new JsonWordBankStatisticsStorage(wbStatsPath);
-        storage = new StorageManager(wordBankListStorage, userPrefsStorage, wbStatsStorage);
+        WordBankStatisticsListStorage wbStatsStorage =
+                new JsonWordBankStatisticsListStorage(userPrefs.getDataFilePath());
+        GlobalStatisticsStorage globalStatsStorage = new JsonGlobalStatisticsStorage(userPrefs.getDataFilePath());
+        storage = new StorageManager(wordBankListStorage, userPrefsStorage, wbStatsStorage, globalStatsStorage);
 
         initLogging(config);
 
@@ -113,18 +118,10 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
         WordBankList wbl = (WordBankList) optionalWbl.get();
-        WordBankList emptyWordBankList;
-        //        try {
-        //            addressBookOptional = storage.getWordBank();
-        //            if (!addressBookOptional.isPresent()) {
-        //                logger.info("Data file not found. Will be starting with a sample WordBank");
-        //            }
-        //        } catch (DataConversionException e) {
-        //            logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-        //        } catch (IOException e) {
-        //            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-        //        }
-        return new ModelManager(wbl, userPrefs);
+        WordBankStatisticsList wbStatsList = storage.getWordBankStatisticsList();
+        GlobalStatistics globalStatistics = storage.getGlobalStatistics();
+
+        return new ModelManager(wbl, wbStatsList, globalStatistics, userPrefs);
     }
 
     /*

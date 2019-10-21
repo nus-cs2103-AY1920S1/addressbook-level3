@@ -1,7 +1,11 @@
 package seedu.address.ui;
 
+import java.util.Random;
+
 import javafx.scene.layout.StackPane;
 import seedu.address.appmanager.AppManager;
+import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
@@ -10,7 +14,10 @@ import seedu.address.ui.modules.BankLabelPanel;
 import seedu.address.ui.modules.CardListPanel;
 import seedu.address.ui.modules.GameResultPanel;
 import seedu.address.ui.modules.LoadBankPanel;
+import seedu.address.ui.modules.MainTitlePanel;
 import seedu.address.ui.modules.TitleScreenPanel;
+import seedu.address.ui.modules.WordBankStatisticsPanel;
+
 
 /**
  * Displays the screen for Dukemon.
@@ -22,7 +29,6 @@ public class ModularDisplay {
     private TwoSplitRowLayout twoSplitRowLayout;
 
     //Modules
-    private CardListPanel cardListPanel;
     private BankLabelPanel bankLabelPanel;
     private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
@@ -35,7 +41,6 @@ public class ModularDisplay {
      */
     public ModularDisplay(AppManager appManager) {
         loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
-        cardListPanel = new CardListPanel(appManager.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
         this.appManager = appManager;
     }
@@ -46,13 +51,18 @@ public class ModularDisplay {
      * @param paneToDisplay The view to change.
      */
     public void swapToLoadDisplay(StackPane paneToDisplay) {
-        TitleScreenPanel globalStatsPlaceholder = new TitleScreenPanel();
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
 
-        twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
-        twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
-        twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
+        // twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
+        // twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
+        WordBankStatisticsList wbStatsList = appManager.getActiveWordBankStatisticsList();
+        GlobalStatistics globalStats = appManager.getGlobalStatistics();
+        twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
+                globalStats,
+                wbStatsList.getMostPlayedWordBankStatistics(),
+                new Random().nextInt(AvatarImageUtil.TOTAL_NUM) + 1).getRoot());
+        // todo avatar should depend on user prefs
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
@@ -63,16 +73,19 @@ public class ModularDisplay {
      * @param paneToDisplay The view to change.
      */
     public void swapToBankDisplay(StackPane paneToDisplay) {
-        //I'm gonna need a way to get current wb name from gameManager as well.
-        bankLabelPanel = new BankLabelPanel("HELLO");
-        TitleScreenPanel localStatsPlaceholder = new TitleScreenPanel();
+        bankLabelPanel = new BankLabelPanel(appManager.getSelectedWbName());
+        //  TitleScreenPanel localStatsPlaceholder = new TitleScreenPanel();
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
 
-        twoSplitRowLayout.addToTopPane(bankLabelPanel.getRoot());
-        twoSplitRowLayout.addToBottomPane(localStatsPlaceholder.getRoot());
-        twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
-        twoSplitColumnLayout.addToRightPane(cardListPanel.getRoot());
+        //  twoSplitRowLayout.addToTopPane(bankLabelPanel.getRoot ());
+        //  twoSplitRowLayout.addToBottomPane(localStatsPlaceholder.getRoot());
+        //  twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
+        twoSplitColumnLayout.addToLeftPane(
+                new WordBankStatisticsPanel(appManager.getActiveWordBankStatistics(),
+                        appManager.getActiveWordBank()).getRoot());
+        twoSplitColumnLayout.addToRightPane(
+                new CardListPanel(appManager.getFilteredPersonList()).getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
 
@@ -93,8 +106,7 @@ public class ModularDisplay {
      */
     public void swapToList(StackPane paneToDisplay) {
         paneToDisplay.getChildren().clear();
-        cardListPanel = new CardListPanel(appManager.getFilteredPersonList());
-        paneToDisplay.getChildren().add(cardListPanel.getRoot());
+        paneToDisplay.getChildren().add(new CardListPanel(appManager.getFilteredPersonList()).getRoot());
     }
 
     /**

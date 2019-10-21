@@ -9,6 +9,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -118,6 +119,8 @@ public interface Model {
     WordBankList getWordBankList();
 
     WordBankStatisticsList getWordBankStatisticsList();
+
+    GlobalStatistics getGlobalStatistics();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
