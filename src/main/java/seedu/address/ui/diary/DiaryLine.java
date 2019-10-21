@@ -21,6 +21,8 @@ class DiaryLine extends UiPart<HBox> {
 
     private static final String FXML = "diary/DiaryLine.fxml";
 
+    private static final double MAX_IMAGE_WIDTH_FACTOR = 0.3;
+
     @FXML
     private Label lineTextLabel;
 
@@ -52,7 +54,8 @@ class DiaryLine extends UiPart<HBox> {
         this(text);
         requireNonNull(photo);
         DiaryEntryPhotoCard diaryEntryPhotoCard = new DiaryEntryPhotoCard(photo);
-        diaryEntryPhotoCard.bindImageViewHeight(lineTextLabel.heightProperty());
+        diaryEntryPhotoCard.bindImageViewDimensions(
+                getRoot().widthProperty().multiply(MAX_IMAGE_WIDTH_FACTOR));
         photoCardsDisplay.getChildren().add(diaryEntryPhotoCard.getRoot());
         lineTextLabel.setGraphic(photoCardsDisplay);
         if (placeOnLeft) {

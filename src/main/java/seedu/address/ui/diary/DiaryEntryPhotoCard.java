@@ -1,5 +1,6 @@
 package seedu.address.ui.diary;
 
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
@@ -37,11 +38,12 @@ class DiaryEntryPhotoCard extends UiPart<StackPane> {
      * Binds the fit height of the {@code photoImageView} to the given {@link ReadOnlyDoubleProperty}.
      * Maintains the aspect ratio of the image in {@code photo}.
      *
-     * @param height {@link ReadOnlyDoubleProperty} to bind the fit width to.
+     * @param width {@link DoubleBinding} to bind the fit width to.
      */
-    void bindImageViewHeight(ReadOnlyDoubleProperty height) {
+    void bindImageViewDimensions(DoubleBinding width) {
         double aspectRatio = photo.getImage().getWidth() / photo.getImage().getHeight();
-        photoImageView.fitHeightProperty().bind(height);
-        photoImageView.fitWidthProperty().bind(height.multiply(aspectRatio));
+        photoImageView.fitWidthProperty().bind(width);
+        photoImageView.fitHeightProperty()
+                .bind(width.subtract(BOUND_HEIGHT_OFFSET).divide(aspectRatio));
     }
 }
