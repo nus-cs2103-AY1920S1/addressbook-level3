@@ -1,24 +1,23 @@
 package mams.logic.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import static java.util.Objects.requireNonNull;
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static mams.logic.parser.CliSyntax.PREFIX_MASS_RESOLVE;
 import static mams.logic.parser.CliSyntax.PREFIX_REASON;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
+import mams.commons.core.index.Index;
 import mams.commons.exceptions.IllegalValueException;
+
+import mams.logic.parser.exceptions.ParseException;
 
 import mams.logic.commands.Approve;
 import mams.logic.commands.ApproveCommand;
 import mams.logic.commands.MassApprove;
 
-import mams.commons.core.index.Index;
-
-import mams.logic.parser.exceptions.ParseException;
 import mams.model.appeal.Appeal;
 
 /**
