@@ -1,14 +1,17 @@
 package seedu.savenus.model.recommend;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
+import seedu.savenus.model.purchase.Purchase;
 
 /**
  * Represents the Recommendation System of the menu.
@@ -18,13 +21,9 @@ public class RecommendationSystem {
     private static final Predicate<Food> DEFAULT_PREDICATE = x -> true;
 
     private static RecommendationSystem recommendationSystem;
-
-    private static double budget = 50.00;
-
     private static Comparator<Food> comparator =
             Comparator.comparingDouble(getInstance()::calculateRecommendation).reversed()
             .thenComparingDouble(x -> Double.parseDouble(x.getPrice().value));;
-    private static Predicate<Food> predicate = f -> Double.parseDouble(f.getPrice().value) < budget;
 
     // TODO
     private static final double LIKED_TAG_WEIGHT = 0.1;
@@ -40,6 +39,11 @@ public class RecommendationSystem {
     private static final double CHOSEN_CATEGORY_WEIGHT = 0.01;
 
     private UserRecommendations userRecommendations;
+
+    private ObservableList<Purchase> purchaseHistory;
+    private BigDecimal budget = new BigDecimal("10000");
+    private Predicate<Food> predicate = f -> budget.compareTo(new BigDecimal(f.getPrice().value)) >= 0;
+
     private boolean inUse;
 
     private RecommendationSystem() {
@@ -147,4 +151,13 @@ public class RecommendationSystem {
     public void setUserRecommendations(UserRecommendations userRecommendations) {
         this.userRecommendations = userRecommendations;
     }
+
+    public void updatePurchaseHistory(ObservableList<Purchase> purchaseHistory) {
+        this.purchaseHistory = purchaseHistory;
+    }
+
+    public void updateBudget(BigDecimal budget) {
+        this.budget = budget;
+    }
+
 }
