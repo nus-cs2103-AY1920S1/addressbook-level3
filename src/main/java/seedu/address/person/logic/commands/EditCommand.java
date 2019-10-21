@@ -106,10 +106,6 @@ public class EditCommand extends Command {
         }
     }
 
-    private static void editPersonInReimbursementList(seedu.address.reimbursement.logic.Logic reimbursementLogic)
-            throws IOException {
-        reimbursementLogic.updateReimbursementList();
-    }
 
     @Override
     public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
@@ -132,7 +128,6 @@ public class EditCommand extends Command {
 
         if (editPersonDescriptor.getName().isPresent()) {
             editPersonInTransactionList(editedPerson, personToEdit, transactionLogic);
-            editPersonInReimbursementList(reimbursementLogic);
         }
 
         model.setPerson(personToEdit, editedPerson);
