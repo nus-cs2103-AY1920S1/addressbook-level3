@@ -32,4 +32,9 @@ public class JsonSerializableGlobalStatistics {
         return new GlobalStatistics(numPlayed,
                 weeklyPlayed.toModelType());
     }
+
+    @Override
+    public String toString() {
+        return numPlayed + " times played.";
+    }
 }

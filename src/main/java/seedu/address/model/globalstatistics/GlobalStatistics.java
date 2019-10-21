@@ -27,4 +27,9 @@ public class GlobalStatistics {
     public WeeklyPlayed getWeeklyPlayed() {
         return weeklyPlayed;
     }
+
+    @Override
+    public String toString() {
+        return numPlayed + " times played";
+    }
 }

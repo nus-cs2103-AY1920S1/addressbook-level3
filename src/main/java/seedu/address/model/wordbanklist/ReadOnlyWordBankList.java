@@ -14,9 +14,9 @@ public interface ReadOnlyWordBankList {
      */
     ObservableList<WordBank> getWordBankList();
 
-    //    WordBank getWordBank(Index index);
     WordBank getWordBank(String name);
 
     int size();
 
+    boolean hasWordBank(WordBank wordBank);
 }

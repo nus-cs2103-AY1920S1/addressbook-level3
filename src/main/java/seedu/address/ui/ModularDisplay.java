@@ -1,9 +1,10 @@
 package seedu.address.ui;
 
 import javafx.scene.layout.StackPane;
-import seedu.address.gamemanager.GameManager;
+
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
+import seedu.address.appmanager.AppManager;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
@@ -28,22 +29,20 @@ public class ModularDisplay {
     private TwoSplitRowLayout twoSplitRowLayout;
 
     //Modules
-    private CardListPanel cardListPanel;
     private BankLabelPanel bankLabelPanel;
     private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
-    private final GameManager gameManager;
+    private final AppManager appManager;
 
     /**
      * Changes the screen.
      *
-     * @param gameManager GameManager who will render lists.
+     * @param appManager GameManager who will render lists.
      */
-    public ModularDisplay(GameManager gameManager) {
-        loadBankPanel = new LoadBankPanel(gameManager.getFilteredWordBankList());
-        cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
+    public ModularDisplay(AppManager appManager) {
+        loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
         titleScreenPanel = new TitleScreenPanel();
-        this.gameManager = gameManager;
+        this.appManager = appManager;
     }
 
     /**
@@ -57,12 +56,13 @@ public class ModularDisplay {
 
         // twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
         // twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
-        WordBankStatisticsList wbStatsList = gameManager.getActiveWordBankStatisticsList();
-        GlobalStatistics globalStats = gameManager.getGlobalStatistics();
+        WordBankStatisticsList wbStatsList = appManager.getActiveWordBankStatisticsList();
+        GlobalStatistics globalStats = appManager.getGlobalStatistics();
         twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
                 globalStats,
                 wbStatsList.getMostPlayedWordBankStatistics(),
-                new Random().nextInt(AvatarImage.TOTAL_NUM) + 1).getRoot()); // todo should depend on user prefs
+                new Random().nextInt(AvatarImage.TOTAL_NUM) + 1).getRoot());
+        // todo avatar should depend on user prefs
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
@@ -73,7 +73,7 @@ public class ModularDisplay {
      * @param paneToDisplay The view to change.
      */
     public void swapToBankDisplay(StackPane paneToDisplay) {
-        bankLabelPanel = new BankLabelPanel(gameManager.getSelectedWbName());
+        bankLabelPanel = new BankLabelPanel(appManager.getSelectedWbName());
         //  TitleScreenPanel localStatsPlaceholder = new TitleScreenPanel();
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
@@ -82,9 +82,10 @@ public class ModularDisplay {
         //  twoSplitRowLayout.addToBottomPane(localStatsPlaceholder.getRoot());
         //  twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
         twoSplitColumnLayout.addToLeftPane(
-                new WordBankStatisticsPanel(gameManager.getActiveWordBankStatistics(),
-                        gameManager.getActiveWordBank()).getRoot());
-        twoSplitColumnLayout.addToRightPane(cardListPanel.getRoot());
+                new WordBankStatisticsPanel(appManager.getActiveWordBankStatistics(),
+                        appManager.getActiveWordBank()).getRoot());
+        twoSplitColumnLayout.addToRightPane(
+                new CardListPanel(appManager.getFilteredPersonList()).getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
 
@@ -105,8 +106,7 @@ public class ModularDisplay {
      */
     public void swapToList(StackPane paneToDisplay) {
         paneToDisplay.getChildren().clear();
-        cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
-        paneToDisplay.getChildren().add(cardListPanel.getRoot());
+        paneToDisplay.getChildren().add(new CardListPanel(appManager.getFilteredPersonList()).getRoot());
     }
 
     /**

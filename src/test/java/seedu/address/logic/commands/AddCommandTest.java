@@ -15,12 +15,13 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.app.AddCommand;
+import seedu.address.logic.commands.appcommands.AddCommand;
 //import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -102,6 +103,26 @@ public class AddCommandTest {
         @Override
         public DifficultyEnum getDifficulty() {
             return null;
+        }
+
+        @Override
+        public long getTimeAllowedPerQuestion() {
+            return 0;
+        }
+
+        @Override
+        public FormattedHint getHintFormatFromCurrentGame() {
+            return null;
+        }
+
+        @Override
+        public int getHintFormatSizeFromCurrentGame() {
+            return 0;
+        }
+
+        @Override
+        public boolean hintsAreEnabled() {
+            return false;
         }
 
         @Override
@@ -206,6 +227,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeWordBank() {
             throw new AssertionError("This method should not be called.");
         }
     }

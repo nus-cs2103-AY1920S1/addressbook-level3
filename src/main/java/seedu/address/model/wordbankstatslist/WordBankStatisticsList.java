@@ -2,8 +2,6 @@ package seedu.address.model.wordbankstatslist;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.WordBankStatistics;
-import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
 
 /**
  * Wraps all word bank statistics
@@ -20,11 +17,8 @@ public class WordBankStatisticsList implements ReadOnlyWordBankStatisticsList {
 
     private final ObservableList<WordBankStatistics> internalList = FXCollections.observableArrayList();
 
-    public WordBankStatisticsList() {
-        Path filePath = Paths.get("data/wbstats/");
-        JsonWordBankStatisticsStorage storage = new JsonWordBankStatisticsStorage(filePath);
-        Optional<List<WordBankStatistics>> optionalWbStatsList = storage.getWordBankStatisticsList();
-        optionalWbStatsList.ifPresent(internalList::addAll);
+    public WordBankStatisticsList(List<WordBankStatistics> wbStatsList) {
+        internalList.addAll(wbStatsList);
     }
 
     //// list overwrite operations

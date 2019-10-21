@@ -10,19 +10,22 @@ package seedu.address.logic.commands.switches;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.ModeSwitchException;
+import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 
 /**
  * Starts the game.
@@ -37,42 +40,27 @@ public class StartCommand extends SwitchCommand {
     private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
             + " (Use 'stop' to terminate) Guess the word:";
 
-    public StartCommand() {
 
-    }
+    public StartCommand() {}
 
-    @Override
-    public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
+    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
         return ModeEnum.GAME;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
         if (model.getGame() != null && !model.getGame().isOver()) {
             throw new CommandException(MESSAGE_GAME_IN_PROGRESS
                     + "\n" + model.getGame().getCurrQuestion());
         }
 
         String wordBankName = model.getWordBank().getName();
-        String pathString = "data/" + wordBankName + ".json";
-        Path filePath = Paths.get(pathString);
-        WordBank wordBank = SampleDataUtil.getSampleWordBank();
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
-        addressBookStorage.getWordBankList();
-        String usedWordBankTitle = "Pokémon sample"; // todo change later
-        try {
-            Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
-            if (thisBank.isPresent()) {
-                wordBank = (WordBank) thisBank.get();
-                usedWordBankTitle = wordBankName;
-            }
-        } catch (DataConversionException e) {
-            e.printStackTrace();
-        }
-        Game newGame = new Game(wordBank);
+        WordBankList wbList = model.getWordBankList();
+        WordBank wordBank = wbList.getWordBank(wordBankName);
+
+        Game newGame = new Game(wordBank, x -> Collections.shuffle(x));
         model.setGame(newGame);
         String currQuestion = model.getGame().getCurrQuestion();
-        return new StartCommandResult(usedWordBankTitle, currQuestion);
+        return new StartCommandResult(wordBankName, currQuestion);
     }
 }

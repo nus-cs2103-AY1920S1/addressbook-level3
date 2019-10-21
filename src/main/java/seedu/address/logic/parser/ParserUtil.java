@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +48,25 @@ public class ParserUtil {
             throw new ParseException(Word.MESSAGE_CONSTRAINTS);
         }
         return new Word(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String pathFile} into a {@code File}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code word} is invalid.
+     */
+    public static File parseFile(String pathFile) throws ParseException {
+        requireNonNull(pathFile);
+        String trimmedPathFile = pathFile.trim();
+        if (trimmedPathFile.charAt(0) == '~') {
+            trimmedPathFile = System.getProperty("user.home") + File.separator + trimmedPathFile.substring(1);
+        }
+        File directory = Paths.get(trimmedPathFile).toFile();
+        if (!directory.exists()) {
+            throw new ParseException("File does not exist");
+        }
+        return directory;
     }
 
     /**

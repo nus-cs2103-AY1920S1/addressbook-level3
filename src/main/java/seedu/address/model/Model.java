@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.globalstatistics.GlobalStatistics;
@@ -56,6 +57,11 @@ public interface Model {
      * Replaces word bank data with the data in {@code wordBank}.
      */
     void setWordBank(ReadOnlyWordBank wordBank);
+
+    /**
+     * Set the word bank to empty.
+     */
+    void removeWordBank();
 
     /**
      * Returns the active word bank statistics. Null if no active.
@@ -130,4 +136,11 @@ public interface Model {
 
     DifficultyEnum getDifficulty();
 
+    long getTimeAllowedPerQuestion();
+
+    FormattedHint getHintFormatFromCurrentGame();
+
+    int getHintFormatSizeFromCurrentGame();
+
+    boolean hintsAreEnabled();
 }

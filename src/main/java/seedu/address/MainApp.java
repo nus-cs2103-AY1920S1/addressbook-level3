@@ -7,32 +7,33 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import seedu.address.appmanager.AppManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.model.wordbank.WordBank;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
 import seedu.address.storage.globalstatistics.JsonGlobalStatisticsStorage;
-import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
-import seedu.address.storage.statistics.WordBankStatisticsStorage;
+import seedu.address.storage.statistics.JsonWordBankStatisticsListStorage;
+import seedu.address.storage.statistics.WordBankStatisticsListStorage;
+import seedu.address.storage.userprefs.JsonUserPrefsStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
+import seedu.address.storage.wordbanks.WordBankListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -46,9 +47,7 @@ import seedu.address.Game.*;
  * Runs the application.
  */
 public class MainApp extends Application {
-
     public static final Version VERSION = new Version(0, 6, 0, true);
-
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -56,7 +55,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected GameManager gameManager;
+    protected AppManager appManager;
 
     /*
     Step 1.
@@ -65,7 +64,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Dukemon ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -73,12 +72,11 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        Path wbStatsPath = StorageManager.getWbStatsStoragePath(userPrefs.getAddressBookFilePath());
-        WordBankStatisticsStorage wbStatsStorage = new JsonWordBankStatisticsStorage(wbStatsPath);
-        Path globalStatsPath = Path.of("data", "globalstats", "gstats.json"); // todo dont hardcode
-        GlobalStatisticsStorage globalStatsStorage = new JsonGlobalStatisticsStorage(globalStatsPath);
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, wbStatsStorage, globalStatsStorage);
+        WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath());
+        WordBankStatisticsListStorage wbStatsStorage =
+                new JsonWordBankStatisticsListStorage(userPrefs.getDataFilePath());
+        GlobalStatisticsStorage globalStatsStorage = new JsonGlobalStatisticsStorage(userPrefs.getDataFilePath());
+        storage = new StorageManager(wordBankListStorage, userPrefsStorage, wbStatsStorage, globalStatsStorage);
 
         initLogging(config);
 
@@ -102,14 +100,14 @@ public class MainApp extends Application {
         Step 9.
         Create GameManager using logic and pass to UIManager.
          */
-        gameManager = new GameManager(logic);
+        appManager = new AppManager(logic);
 
         /*
         Step 10
         Initialize UIManager using GameManager
          */
 
-        ui = new UiManager(gameManager);
+        ui = new UiManager(appManager);
     }
 
     /**
@@ -118,23 +116,12 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyWordBank> addressBookOptional;
-        ReadOnlyWordBank initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample WordBank");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleWordBank);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-            initialData = new WordBank("Empty WordBank");
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-            initialData = new WordBank("Empty WordBank");
-        }
+        Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
+        WordBankList wbl = (WordBankList) optionalWbl.get();
+        WordBankStatisticsList wbStatsList = storage.getWordBankStatisticsList();
+        GlobalStatistics globalStatistics = storage.getGlobalStatistics();
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(wbl, wbStatsList, globalStatistics, userPrefs);
     }
 
     /*
@@ -235,7 +222,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Dukemon ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

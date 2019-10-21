@@ -13,10 +13,10 @@ import seedu.address.commons.core.index.Index;
  * Supplies a hint consisting of a letter and the index the letter occurs.
  * Each character in the string is output once in random order.
  */
-public class HintSupplier implements Supplier<Hint> {
+public class HintSupplier implements Supplier<FormattedHint> {
 
-    private List<Hint> hints;
-
+    private List<Hint> hintCharacters;
+    private FormattedHint formattedHint;
     /**
      * Constructs a {@code HintSupplier}.
      *
@@ -24,22 +24,28 @@ public class HintSupplier implements Supplier<Hint> {
      */
     public HintSupplier(String text) {
         requireNonNull(text);
-        hints = new LinkedList<>();
+        hintCharacters = new LinkedList<>();
         for (int i = 0; i < text.length(); ++i) {
-            hints.add(new Hint(text.charAt(i), Index.fromZeroBased(i)));
+            hintCharacters.add(new Hint(text.charAt(i), Index.fromZeroBased(i)));
         }
-        Collections.shuffle(hints);
+        Collections.shuffle(hintCharacters);
+        formattedHint = new FormattedHint(hintCharacters.size());
     }
 
     public int getRemainingHints() {
-        return hints.size();
+        return hintCharacters.size();
     }
 
     /**
-     * Returns the next hint. Null if no more hints available.
+     * Returns the next formatted hint. Returns same formatted hint of no more characters available.
      */
     @Override
-    public Hint get() {
-        return hints.isEmpty() ? null : hints.remove(0);
+    public FormattedHint get() {
+        if (hintCharacters.isEmpty()) {
+            return formattedHint;
+        } else {
+            formattedHint.updateHintArray(hintCharacters.remove(0));
+            return formattedHint;
+        }
     }
 }

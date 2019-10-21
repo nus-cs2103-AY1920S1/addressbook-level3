@@ -9,52 +9,52 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
-import seedu.address.storage.statistics.WordBankStatisticsStorage;
+import seedu.address.storage.statistics.WordBankStatisticsListStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+import seedu.address.storage.wordbanks.WordBankListStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, WordBankStatisticsStorage,
+public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBankStatisticsListStorage,
         GlobalStatisticsStorage {
 
+    // ===================== word bank statistics =====================
     @Override
-    Optional<WordBankStatistics> readWordBankStatistics() throws DataConversionException, IOException;
+    Path getWordBankStatisticsListFilePath();
 
     @Override
-    void saveWordBankStatistics(WordBankStatistics wbStats) throws IOException;
+    WordBankStatisticsList getWordBankStatisticsList();
 
     @Override
-    Path getWordBankStatisticsFilePath();
+    void saveWordBankStatistics(WordBankStatistics statistics, Path filePath) throws IOException;
 
+
+    // ===================== global statistics =====================
     @Override
-    Optional<GlobalStatistics> readGlobalStatistics() throws DataConversionException, IOException;
+    Path getGlobalStatisticsFilePath();
 
     @Override
     void saveGlobalStatistics(GlobalStatistics globalStatistics) throws IOException;
 
-    @Override
-    Path getGlobalStatisticsFilePath();
 
+    // ===================== user prefs =====================
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    @Override
-    Path getAddressBookFilePath();
+
+
 
     @Override
-    Optional<ReadOnlyWordBank> readAddressBook() throws DataConversionException, IOException;
-
-    /*
-    Step 4.
-    Define method signature of readGame here.
-    Extends into concrete definition in StorageManager.java
-     */
+    void removeWordBank(String wordBankName);
 
     @Override
-    void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
+    Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException;
+
 }
