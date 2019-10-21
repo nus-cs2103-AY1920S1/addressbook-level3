@@ -1,9 +1,10 @@
 package seedu.address.logic.parser.cli;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.MODULE_PATTERN;
+import static seedu.address.logic.parser.CliSyntax.SEMESTER_PATTERN;
 
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
@@ -11,7 +12,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.semester.SemesterName;
 
@@ -24,8 +24,8 @@ public class SetCurrentSemesterParser implements Parser<SetCurrentSemesterComman
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Pattern... patterns) {
+        return Stream.of(patterns).allMatch(pattern -> argumentMultimap.getValue(pattern).isPresent());
     }
 
     /**
@@ -36,14 +36,14 @@ public class SetCurrentSemesterParser implements Parser<SetCurrentSemesterComman
      */
     public SetCurrentSemesterCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SEMESTER, PREFIX_MODULE_CODE);
+                ArgumentTokenizer.tokenize(args, SEMESTER_PATTERN, MODULE_PATTERN);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_SEMESTER)
+        if (!arePrefixesPresent(argMultimap, SEMESTER_PATTERN)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetCurrentSemesterCommand.MESSAGE_USAGE));
         }
-        SemesterName semesterName = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+        SemesterName semesterName = ParserUtil.parseSemester(argMultimap.getValue(SEMESTER_PATTERN).get());
 
         return new SetCurrentSemesterCommand(semesterName);
     }

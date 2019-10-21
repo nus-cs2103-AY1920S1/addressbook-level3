@@ -2,7 +2,6 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.joining;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -18,10 +17,10 @@ public class ViewModuleTagsCommand extends Command {
     public static final String COMMAND_WORD = "viewtags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all tags attached to a specific module. "
-        + "Parameters: "
-        + PREFIX_MODULE_CODE + "MODULE CODE \n"
-        + "Example: "
-        + "viewtags t/CS3230";
+            + "Parameters: "
+            + "MODULE CODE \n"
+            + "Example: "
+            + "viewtags t/CS3230";
 
     public static final String MESSAGE_SUCCESS = "All tags for the module shown \n%1$s";
 
@@ -41,8 +40,8 @@ public class ViewModuleTagsCommand extends Command {
         UniqueTagList tags = model.getModuleTagsFromActiveSp(moduleCode);
 
         final String stringOfTags = tags.asUnmodifiableObservableList().stream()
-            .map(item -> item.toString())
-            .collect(joining("\n"));
+                .map(Object::toString)
+                .collect(joining("\n"));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfTags));
     }

@@ -2,7 +2,6 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -23,8 +22,8 @@ public class RenameTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Renames the tag with the specified original name "
             + "with the specified new name. "
             + "Parameters: "
-            + PREFIX_TAG + "ORIGINAL_TAG_NAME "
-            + PREFIX_TAG + "NEW_TAG_NAME \n"
+            + "ORIGINAL_TAG_NAME "
+            + "NEW_TAG_NAME \n"
             + "Example: "
             + "rename t/exchange t/SEP";
 

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.cli;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -18,7 +17,7 @@ public class NameUeFromSemesterCommand extends Command {
             + ": Names a UE from the given semester with the given module name. "
             + "This feature is purely for aesthetic purposes and has no functional implications.\n"
             + "Parameters: "
-            + PREFIX_SEMESTER + "SEMESTER "
+            + "SEMESTER "
             + "MODULE_CODE\n";
 
     public static final String MESSAGE_SUCCESS = "Module %1$s added to %2$s";

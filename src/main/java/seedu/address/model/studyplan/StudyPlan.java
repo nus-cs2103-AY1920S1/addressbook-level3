@@ -219,8 +219,9 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Assigns a default core tag to the module.
-     * @param moduleInfo The module info of the current module.
-     * @param moduleTagList The list of tags for the current module.
+     *
+     * @param moduleInfo       The module info of the current module.
+     * @param moduleTagList    The list of tags for the current module.
      * @param studyPlanTagList The list of tags for the current study plan.
      */
     private void assignCoreTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList, UniqueTagList studyPlanTagList) {
@@ -232,12 +233,13 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Assigns a default completed tag to the module.
-     * @param moduleInfo The module info of the current module.
-     * @param moduleTagList The list of tags for the current module.
+     *
+     * @param moduleInfo       The module info of the current module.
+     * @param moduleTagList    The list of tags for the current module.
      * @param studyPlanTagList The list of tags for the current study plan.
      */
     private void assignCompletedTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
-            UniqueTagList studyPlanTagList) {
+                                    UniqueTagList studyPlanTagList) {
         for (Semester semester : semesters) {
             UniqueModuleList uniqueModuleList = semester.getModules();
             for (Module module : uniqueModuleList) {
@@ -253,8 +255,9 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Assigns a default S/U-able tag to the module.
-     * @param moduleInfo The module info of the current module.
-     * @param moduleTagList The list of tags for the current module.
+     *
+     * @param moduleInfo       The module info of the current module.
+     * @param moduleTagList    The list of tags for the current module.
      * @param studyPlanTagList The list of tags for the current study plan.
      */
     private void assignSuTag(ModuleInfo moduleInfo, UniqueTagList moduleTagList, UniqueTagList studyPlanTagList) {
@@ -266,12 +269,13 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Assigns all the default focus elective tags to the module.
-     * @param moduleInfo The module info of the current module.
-     * @param moduleTagList The list of tags for the current module.
+     *
+     * @param moduleInfo       The module info of the current module.
+     * @param moduleTagList    The list of tags for the current module.
      * @param studyPlanTagList The list of tags for the current study plan.
      */
     private void assignFocusElectiveTags(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
-            UniqueTagList studyPlanTagList) {
+                                         UniqueTagList studyPlanTagList) {
         List<String> focusElectives = moduleInfo.getFocusElectives();
         for (String focusElective : focusElectives) {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective + ":E"));
@@ -280,12 +284,13 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Assigns all the default focus primary tags to the module.
-     * @param moduleInfo The module info of the current module.
-     * @param moduleTagList The list of tags for the current module.
+     *
+     * @param moduleInfo       The module info of the current module.
+     * @param moduleTagList    The list of tags for the current module.
      * @param studyPlanTagList The list of tags for the current study plan.
      */
     private void assignFocusPrimaryTags(ModuleInfo moduleInfo, UniqueTagList moduleTagList,
-            UniqueTagList studyPlanTagList) {
+                                        UniqueTagList studyPlanTagList) {
         List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
         for (String focusPrimary : focusPrimaries) {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
@@ -309,11 +314,12 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Adds completed tags to all modules in the given semester.
+     *
      * @param semester The semester where the modules are contained.
      */
     private void addCompletedTags(Semester semester) {
         UniqueModuleList uniqueModuleList = semester.getModules();
-        for (Module module: uniqueModuleList) {
+        for (Module module : uniqueModuleList) {
             UniqueTagList uniqueTagList = module.getTags();
             DefaultTag completedTag = tags.getDefaultTag("Completed");
             if (uniqueTagList.contains(completedTag)) {
@@ -325,11 +331,12 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Removes completed tags from all modules in the given semester.
+     *
      * @param semester The semester where the modules are contained.
      */
     private void removeCompletedTags(Semester semester) {
         UniqueModuleList uniqueModuleList = semester.getModules();
-        for (Module module: uniqueModuleList) {
+        for (Module module : uniqueModuleList) {
             UniqueTagList uniqueTagList = module.getTags();
             DefaultTag completedTag = tags.getDefaultTag("Completed");
             if (uniqueTagList.contains(completedTag)) {
@@ -480,7 +487,8 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Adds the given {@code UserTag} to the module with the given module code in this study plan.
-     * @param tag The tag to be added.
+     *
+     * @param tag        The tag to be added.
      * @param moduleCode The module code of the target module
      * @return True if the tag was successfully added.
      */
@@ -494,6 +502,7 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Checks if this study plan contains the given {@code UserTag}
+     *
      * @param tagName The name of the tag to be checked.
      * @return True if this study plan contains the tag.
      */
@@ -515,7 +524,7 @@ public class StudyPlan implements Cloneable {
     public void deleteTag(UserTag toDelete) {
         tags.remove(toDelete);
         Set<String> moduleCodes = modules.keySet();
-        for (String moduleCode: moduleCodes) {
+        for (String moduleCode : moduleCodes) {
             Module currentModule = modules.get(moduleCode);
             currentModule.deleteUserTag(toDelete);
         }
@@ -527,7 +536,7 @@ public class StudyPlan implements Cloneable {
      */
     public void removeTagFromAllModules(UserTag toRemove) {
         Set<String> moduleCodes = modules.keySet();
-        for (String moduleCode: moduleCodes) {
+        for (String moduleCode : moduleCodes) {
             Module currentModule = modules.get(moduleCode);
             currentModule.deleteUserTag(toRemove);
         }
@@ -535,6 +544,7 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Removes the given {@code UserTag} from the {@code Module} with the given module code.
+     *
      * @return True if the tag was successfully removed.
      */
     public boolean removeTagFromModule(UserTag toRemove, String moduleCode) {
@@ -544,6 +554,7 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Returns all the tags that the module with the given module code is attached to.
+     *
      * @return The UniqueTagList containing all the tags.
      */
     public UniqueTagList getModuleTags(String moduleCode) {

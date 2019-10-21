@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SEMESTER;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,10 +18,6 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_SEMESTER = "Semester is not valid.";
-    public static final String MESSAGE_INVALID_MODULE = "Module specified is not valid.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

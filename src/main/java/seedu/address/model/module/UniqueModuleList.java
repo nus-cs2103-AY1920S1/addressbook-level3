@@ -44,6 +44,7 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * Adds the equivalent module to the list.
+     *
      * @param toAdd Module to be added
      */
     public void add(Module toAdd) {
