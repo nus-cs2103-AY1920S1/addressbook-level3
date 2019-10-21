@@ -16,6 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.ExpiryDate;
+import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.ShoppingItem;
 
 /**
@@ -35,21 +36,26 @@ public class BoughtShoppingCommand extends Command {
             + PREFIX_AMOUNT + "2";
 
     public static final String MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS = "Edited shopping item: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_PROPER = "At least one of the required fields (amount and expiry date) "
+            + "are not provided.";
 
     private final Index index;
-    private final BoughtShoppingItemDescriptor boughtShoppingItemDescriptor;
+    private final Amount amount;
+    private final ExpiryDate expiryDate;
 
     /**
      * @param index of the shopping item in the filtered shopping list to edit
-     * @param boughtShoppingItemDescriptor details to edit the shoppingItem with
+     * @param amount of the item to be marked as bought
+     * @param expiryDate of the item to be marked as bought
      */
-    public BoughtShoppingCommand(Index index, BoughtShoppingItemDescriptor boughtShoppingItemDescriptor) {
+    public BoughtShoppingCommand(Index index, Amount amount, ExpiryDate expiryDate) {
         requireNonNull(index);
-        requireNonNull(boughtShoppingItemDescriptor);
+        requireNonNull(amount);
+        requireNonNull(expiryDate);
 
         this.index = index;
-        this.boughtShoppingItemDescriptor = new BoughtShoppingItemDescriptor(boughtShoppingItemDescriptor);
+        this.amount = amount;
+        this.expiryDate = expiryDate;
     }
 
     @Override
@@ -62,66 +68,17 @@ public class BoughtShoppingCommand extends Command {
         }
 
         ShoppingItem shoppingItemToMarkAsBought = lastShownList.get(index.getZeroBased());
-        ShoppingItem boughtShoppingItem = createBoughtShoppingItem(shoppingItemToMarkAsBought,
-                boughtShoppingItemDescriptor);
+        ShoppingItem boughtShoppingItem = shoppingItemToMarkAsBought.setBought(true);
+
+        GroceryItem boughtItem = shoppingItemToMarkAsBought.getBoughtItem(amount, expiryDate);
 
         model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+        model.addBoughtItem(boughtItem);
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS,
                 boughtShoppingItem));
         commandResult.setShoppingListCommand();
         return commandResult;
     }
 
-    /**
-     * Creates and returns a {@code ShoppingItem} with the details of {@code shoppingItemToEdit}
-     * edited with {@code boughtShoppingItemDescriptor}.
-     */
-    private static ShoppingItem createBoughtShoppingItem(ShoppingItem shoppingItemToEdit,
-                                                 BoughtShoppingItemDescriptor boughtShoppingItemDescriptor) {
-        assert shoppingItemToEdit != null;
-
-        Amount updatedAmount = boughtShoppingItemDescriptor.getAmount().orElse(shoppingItemToEdit.getAmount());
-        ExpiryDate updatedExpiryDate = boughtShoppingItemDescriptor.getExpiryDate()
-                .orElse(shoppingItemToEdit.getExpiryDate());
-        return new ShoppingItem(shoppingItemToEdit.getName(), updatedAmount, updatedExpiryDate);
-    }
-
-    /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
-     */
-    public static class BoughtShoppingItemDescriptor {
-        private Amount amount;
-        private ExpiryDate expiryDate;
-
-        public BoughtShoppingItemDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public BoughtShoppingItemDescriptor(BoughtShoppingItemDescriptor toCopy) {
-            setAmount(toCopy.amount);
-            setExpiryDate(toCopy.expiryDate);
-            //setExpiryDate(toCopy.expiryDate);
-            //setTags(toCopy.tags);
-        }
-
-        public void setAmount(Amount amount) {
-            this.amount = amount;
-        }
-
-        public void setExpiryDate(ExpiryDate expiryDate) {
-            this.expiryDate = expiryDate;
-        }
-
-        public Optional<Amount> getAmount() {
-            return Optional.ofNullable(amount);
-        }
-
-        public Optional<ExpiryDate> getExpiryDate() {
-            return Optional.ofNullable(expiryDate);
-        }
-    }
 }
