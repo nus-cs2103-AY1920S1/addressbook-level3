@@ -6,8 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
-import seedu.savenus.model.sorter.DefaultComparator;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.sorter.DefaultComparator;
 
 /**
  * Sorts all the foods in the $aveNUS menu based on their default ordering, which is:
