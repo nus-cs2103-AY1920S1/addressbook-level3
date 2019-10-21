@@ -235,12 +235,77 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::archive[]
+=== Archive
+==== Implementation
+===== Modelling Archive
+The archive feature supports the following actions:
 
-_{Explain here how the data encryption feature will be implemented}_
+* Creating an archive
+* Added an expense to an archive
+* Reverting/"unarchiving" an archived expense
+* Deleting an archived expense
+* Displaying the list of expense of a particular archive
+* Listing all existing archive names
 
-// end::dataencryption[]
+
+These actions is facilitated by the `ArchiveWrapper` and `Archive` classes:
+
+*  `Archive` extends from `ExpenseList` in order to encapsulate an archive name and a list of expenses together as an archive.
+* `ArchiveWrapper` manages all existing archives and hashes each `Archive` object to its archive name.
+
+Similar to `Billboard`, which manages the list of current non-archived expenses,
+`ArchiveWrapper` is used in `ModelManager` and its respective operations are called to access and manipulate archive expenses when an archive command is entered. +
+Such operations include:
+
+* `ArchiveWrapper#AddArchive(Archive)` - Adds the given archive to the current map of archive objects.
+* `ArchiveWrapper#HasArchive(String)` - Checks if the specified archive by the given archive name exists.
+* `ArchiveWrapper#removeArchive(Archive)` - Deletes the given archive from the current map of archive objects. (Assumes given archive already exists)
+* `ArchiveWrapper#hasArchiveExpense(String, Expense)` - Checks if the specified archive by the given archive name has the given expense.
+* `ArchiveWrapper#addArchiveExpense(String, Expense)` - Adds the given expense into the specified archive by the given archive name. (Assumes given archive already exists)
+* `ArchiveWrapper#removeArchiveExpense(String, Expense)` - Deletes the given expense into the specified archive by the given archive name. (Assumes given archive and expense already exists)
+* `ArchiveWrapper#getArchiveNames()` - Returns a set of all existing archive names
+
+These operations are exposed in the `Model` interface respectively as:
+
+* `Model#addArchive(Archive)`
+* `Model#HasArchive(String)`
+* `Model#deleteArchive(Archive)`
+* `Model#hasArchiveExpense(String, Expense)`
+* `Model#addArchiveExpense(String, Expense)`
+* `Model#deleteArchiveExpense(String, Expense)`
+* `Model#getArchiveNames()`
+
+Given below is an example usage scenario of the add expense to archive function, and how the archive model behaves at each step: +
+
+Firstly, the user has the application running and has a non empty list of current expenses. The user can enter the `list` command to bring up
+this list. +
+
+Next, the user executes the command `archive add 3 arc/archiveName` to archive an expense. The command is first parsed by `BillboardParser` to determine what kind of command it is,
+`archive` indicates it is an archive command, so the remaining command is parsed through `ArchiveCommandParser` to determine which archive command it is.
+`add` indicates it is an add command, so it is parsed for the final time by `AddArchiveCommandParser` to extract out the arguments entered for the operation.
+In this case, the arguments are `3` and `archiveName` +
+
+`AddArchiveCommandParser` then returns a `AddArchiveCommand` object to be executed. The `AddArchiveCommand` performs two checks before executing any changes:
+
+* First, it is changed if entered index, `3`, is a valid index from the current expense list. An exception is thrown and the command is aborted if the index is invalid.
+so the model is left unmodified.
+* Next, it is checked if the entered archive name, `archiveName`, is an existing archive by calling `Model#HasArchive(String)`. If the archive does not already exist,
+then a new archive is created with the given archive name using `Model#addArchive(Archive)`. +
+
+After the checks are completed and if no exception is thrown, the command executes the archiving of the expense through these steps:
+
+* The expense to be archived is first retrieved by `Model#getFilteredList()#get(int)`
+* The expense is then deleted from the list of current expenses by calling `model#deleteExpense(Expense)`
+* Next, the expense's `archiveName` field is updated using `Expense#archiveTo(String)`
+* Lastly, the expense is added to the specified archive using `Model#addArchiveExpense(String, Expense)`
+
+Finally, a `CommandResult` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful.
+
+===== Storing Archive
+
+==== Design Considerations
+// end::archive[]
 
 === Logging
 
