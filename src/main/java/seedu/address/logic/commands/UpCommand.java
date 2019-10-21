@@ -18,10 +18,10 @@ public class UpCommand extends Command {
 
     public UpCommand(String input) {
         switch(input.trim()) {
-        case "L":
+        case "L": case "l":
             this.pane = "resultDisplay";
             break;
-        case "R":
+        case "R": case "r":
             this.pane = "tabPane";
             break;
         default:
