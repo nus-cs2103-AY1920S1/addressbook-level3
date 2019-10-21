@@ -33,10 +33,7 @@ public class NewCommandParser implements Parser<NewCommand> {
         District location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         boolean isAuto = ParserUtil.parseAuto(argMultimap.getValue(PREFIX_AUTO).get());
 
-        // create new incident
-        Incident incident = new Incident(location);
-
-        return new NewCommand(incident, isAuto);
+        return new NewCommand(location, isAuto);
     }
 
     /**

@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
+import seedu.address.model.person.Person;
+import seedu.address.model.vehicle.District;
 
 /**
  * Generates a new incident report.
@@ -25,15 +27,16 @@ public class NewCommand extends Command {
     public static final String MESSAGE_DUPLICATE_REPORT = "This draft already exists in the incident "
             + "management system";
 
-    private final Incident draft;
+    private final District location;
     private final boolean auto;
+    private Incident draft;
 
     /**
      * Creates a NewCommand to generate a new {@code Incident}
      */
-    public NewCommand(Incident draft, boolean auto) {
-        requireNonNull(draft);
-        this.draft = draft;
+    public NewCommand(District location, boolean auto) {
+        requireNonNull(location);
+        this.location = location;
         this.auto = auto;
     }
 
@@ -53,6 +56,10 @@ public class NewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        Person operator = model.getSession().getLoggedInPerson();
+        Incident draft = new Incident(operator, location);
+        this.draft = draft;
+
         if (model.hasIncident(draft)) {
             throw new CommandException(MESSAGE_DUPLICATE_REPORT);
         }
@@ -69,6 +76,7 @@ public class NewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof NewCommand // instanceof handles nulls
-                && draft.equals(((NewCommand) other).draft));
+                && location.equals(((NewCommand) other).location))
+                && draft.equals(((NewCommand) other).draft);
     }
 }
