@@ -238,13 +238,19 @@ Format: `loan edit <person number>.<loan number> [x/<amount>] [d/<description>] 
 
 Marks the specified loan(s) as paid.
 
-Format: `loan paid <person number>[(<loan number ...>)] ...`
+Format: `loan paid <person number>[.<loan number>[- ...]] ...`
+
+==== Mark loan(s) as unpaid : `loan unpaid`
+
+Marks the specified loan(s) as unpaid.
+
+Format:  `loan unpaid <person number>[.<loan number>[- ...]] ...`
 
 ==== Delete loan(s) : `loan delete`
 
 Deletes the loan(s) with the specified loan ID(s).
 
-Format: `loan delete <person number>[(<id ...>)] ...`
+Format: `loan delete <person number>[.<loan number>[- ...]] ...`
 
 ==== Calculate loans : `loan split`
 
