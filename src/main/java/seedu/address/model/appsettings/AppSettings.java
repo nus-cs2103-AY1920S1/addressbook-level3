@@ -75,7 +75,7 @@ public class AppSettings implements ReadOnlyAppSettings {
 
     @Override
     public boolean getHintsEnabled() {
-        return false;
+        return hintsEnabled;
     }
 
     public void setHintsEnabled(boolean enabled) {

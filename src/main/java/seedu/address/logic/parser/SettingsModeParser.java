@@ -9,8 +9,12 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.appcommands.HelpCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
+import seedu.address.logic.commands.settingcommands.HintsCommand;
+import seedu.address.logic.commands.settingcommands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
+import seedu.address.logic.parser.settings.HintsCommandParser;
+import seedu.address.logic.parser.settings.ThemeCommandParser;
 
 /**
  * Parses user input.
@@ -48,6 +52,12 @@ public class SettingsModeParser extends ModeParser {
 
         case DifficultyCommand.COMMAND_WORD:
             return new DifficultyCommandParser().parse(arguments);
+
+        case HintsCommand.COMMAND_WORD:
+            return new HintsCommandParser().parse(arguments);
+
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
