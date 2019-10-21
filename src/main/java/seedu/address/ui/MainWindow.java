@@ -191,6 +191,7 @@ public class MainWindow extends UiPart<Stage> {
             eventListPanel.scrollUp();
             taskListPanel.scrollUp();
             reminderListPanel.scrollUp();
+            break;
         default:
         }
     }
@@ -209,6 +210,7 @@ public class MainWindow extends UiPart<Stage> {
             eventListPanel.scrollDown();
             taskListPanel.scrollDown();
             reminderListPanel.scrollDown();
+            break;
         default:
         }
     }

@@ -14,11 +14,13 @@ import seedu.address.commons.core.item.Item;
  * Panel containing the list of items.
  */
 public class ReminderListPanel extends UiPart<Region> {
+
+    private static final int NUM_OF_ITEMS_TO_SCROLL = 5;
     private static final String FXML = "ReminderListPanel.fxml";
+
     private static int currentPosition;
     private static int itemSize;
 
-    private final int NUM_OF_ITEMS_TO_SCROLL = 5;
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     @FXML

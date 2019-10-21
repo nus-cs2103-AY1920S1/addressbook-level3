@@ -23,7 +23,7 @@ public class UpCommand extends Command {
             break;
         case "R":
             this.pane = "tabPane";
-                break;
+            break;
         default:
             this.pane = "Illegal";
         }
