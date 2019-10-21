@@ -5,7 +5,10 @@ import seedu.address.model.person.Person;
 
 /**
  * Unmodifiable view of an address book
+ *
+ * @deprecated use the generic {@code ReadOnlyEntityManager} instead
  */
+@Deprecated
 public interface ReadOnlyAddressBook {
 
     /**

@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOODS;
 
 import seedu.address.logic.commands.EditTaskCommand;
@@ -27,7 +27,7 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_GOODS, PREFIX_CUSTOMER,
-                                            PREFIX_DATETIME, PREFIX_DRIVER, PREFIX_DURATION);
+                                            PREFIX_DATETIME, PREFIX_DRIVER, PREFIX_EVENT_TIME);
 
         int id;
 
@@ -61,8 +61,8 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
         }
 
         //set duration of delivery task into temp task if any
-        if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
-            editTaskDescriptor.setEventTime(ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_DURATION).get()));
+        if (argMultimap.getValue(PREFIX_EVENT_TIME).isPresent()) {
+            editTaskDescriptor.setEventTime(ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_EVENT_TIME).get()));
         }
 
         if (!editTaskDescriptor.isAnyFieldEdited()) {

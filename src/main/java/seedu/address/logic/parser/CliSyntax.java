@@ -12,20 +12,25 @@ import seedu.address.model.task.Task;
 public class CliSyntax {
 
     /* Prefix definitions */
+    public static final Prefix PREFIX_CUSTOMER = new Prefix("c/");
+    public static final Prefix PREFIX_DRIVER = new Prefix("d/");
+    public static final Prefix PREFIX_TASK = new Prefix("t/");
+
+    /**
+     * For Persons (customer, driver)
+     */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("tt/");
 
-    public static final Prefix PREFIX_TASK = new Prefix("t/");
-
+    /**
+     * For Tasks
+     */
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
+    public static final Prefix PREFIX_EVENT_TIME = new Prefix("at/");
     public static final Prefix PREFIX_GOODS = new Prefix("g/");
-    public static final Prefix PREFIX_CUSTOMER = new Prefix("c/");
-
-    public static final Prefix PREFIX_DRIVER = new Prefix("d/");
-    public static final Prefix PREFIX_DURATION = new Prefix("dd/");
 
     //Link Syntax to their respective classes
     public static final HashMap<String, String> PREFIX_CLASS_MAP = createPrefixClassMap();

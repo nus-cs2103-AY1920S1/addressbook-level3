@@ -14,9 +14,10 @@ import seedu.address.model.person.exceptions.SchedulingException;
  * Manages the availability of the owner.
  */
 public class Schedule {
+    public static final String MESSAGE_EMPTY_SCHEDULE = "No task assigned";
+    public static final String MESSAGE_SUGGEST_TIME_FORMAT = "Suggested Time: %s";
     public static final String MESSAGE_SCHEDULE_CONFLICT = "The duration conflicts with the existing schedule.";
     public static final String MESSAGE_OUTSIDE_WORKING_HOURS = "The person does not work during the specified time.";
-    public static final String MESSAGE_EMPTY_SCHEDULE = "No task assigned";
 
     private static final String START_WORK_TIME = "0900";
     private static final String END_WORK_TIME = "1800";
@@ -38,14 +39,31 @@ public class Schedule {
         schedule.add(afterWorkingHours);
     }
 
+
+    public String getSchedulingSuggestion(EventTime eventTime) {
+        String suggested = findFirstAvailableSlot(eventTime)
+                .map(x -> String.format(MESSAGE_SUGGEST_TIME_FORMAT, x.toString()))
+                .orElse("");
+
+        String returnSuggestion = suggested.isEmpty() ? "" : "\n" + suggested;
+        if (isOutsideWorkingHours(eventTime)) {
+            return MESSAGE_OUTSIDE_WORKING_HOURS + returnSuggestion;
+        }
+
+        if (!isAvailable(eventTime)) {
+            return MESSAGE_SCHEDULE_CONFLICT + returnSuggestion;
+        }
+
+        return suggested;
+    }
+
     /**
      * Blocks off the owner's schedule with the given duration.
      *
      * @param eventTime incoming task
-     * @throws SchedulingException when the duration is outside working hours, or conflicts with the existing schedule
      */
     public void add(EventTime eventTime) throws SchedulingException {
-        if (!isInWorkingHours(eventTime)) {
+        if (isOutsideWorkingHours(eventTime)) {
             throw new SchedulingException(MESSAGE_OUTSIDE_WORKING_HOURS);
         }
 
@@ -58,7 +76,6 @@ public class Schedule {
         }
     }
 
-    // check within
 
     /**
      * Finds the earliest available EventTime has the same length of proposed, and fits in the schedule.
@@ -69,10 +86,6 @@ public class Schedule {
      */
     public Optional<EventTime> findFirstAvailableSlot(EventTime proposed) {
         Duration length = proposed.getDuration();
-
-        if (!this.isInWorkingHours(proposed)) {
-            return Optional.empty();
-        }
 
         EventTime lastCandidate = schedule.ceiling(proposed);
         NavigableSet<EventTime> candidates = schedule.headSet(lastCandidate, true);
@@ -108,10 +121,10 @@ public class Schedule {
     }
 
 
-    private boolean isInWorkingHours(EventTime eventTime) {
-        return (eventTime.getEnd().compareTo(eventTime.getStart()) > 0)
-                && (eventTime.getStart().compareTo(workingHours.getStart()) >= 0)
-                && (eventTime.getEnd().compareTo(workingHours.getEnd()) <= 0);
+    private boolean isOutsideWorkingHours(EventTime eventTime) {
+        return (eventTime.getEnd().compareTo(eventTime.getStart()) <= 0)
+                || (eventTime.getStart().compareTo(workingHours.getStart()) < 0)
+                || (eventTime.getEnd().compareTo(workingHours.getEnd()) > 0);
     }
 
 

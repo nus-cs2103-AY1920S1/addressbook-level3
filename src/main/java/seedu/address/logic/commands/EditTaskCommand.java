@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOODS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
@@ -37,7 +37,7 @@ public class EditTaskCommand extends Command {
             + "[" + PREFIX_CUSTOMER + "CUSTOMER ID] "
             + "[" + PREFIX_DATETIME + "DATE] "
             + "[" + PREFIX_DRIVER + "DRIVER ID] "
-            + "[" + PREFIX_DURATION + "DURATION]\n"
+            + "[" + PREFIX_EVENT_TIME + "DURATION]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK + "2 "
             + PREFIX_GOODS + "10 ice boxes of red groupers "
