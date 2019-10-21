@@ -131,6 +131,33 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterModelClassDiagram.png[]
 
+[[Design-Person]]
+==== Incident component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Person.java[`Person.java`]
+
+The `Person`,
+
+...
+
+[[Design-Incident]]
+==== Incident component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Incident.java[`Incident.java`]
+
+The `Incident`,
+
+...
+
+[[Design-Vehicle]]
+==== Incident component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Vehicle.java[`Vehicle.java`]
+
+The `Vehicle`,
+
+...
+
 [[Design-Storage]]
 === Storage component
 
@@ -152,6 +179,96 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::loginlogout[]
+=== [Proposed] Login/Logout feature
+==== Proposed Implementation
+
+The login/logout mechanism is facilitated by ...
+
+==== Design Considerations
+
+===== Aspect: How login & logout executes
+
+* **Alternative 1 (current choice):** ...
+** Pros: ...
+** Cons: ...
+* **Alternative 2:** ...
+** Pros: ...
+** Cons: ...
+// end::loginlogout[]
+
+// tag::incidentdraftcreation[]
+=== [Proposed] Incident Draft Creation feature
+==== Proposed Implementation
+
+The incident draft creation mechanism is facilitated by ...
+
+==== Design Considerations
+
+===== Aspect: How incident draft creation executes
+
+* **Alternative 1 (current choice):** ...
+** Pros: ...
+** Cons: ...
+* **Alternative 2:** ...
+** Pros: ...
+** Cons: ...
+// end::incidentdraftcreation[]
+
+// tag::incidentfill[]
+=== [Proposed] Incident Fill feature
+==== Proposed Implementation
+
+The incident fill mechanism is facilitated by ...
+
+==== Design Considerations
+
+===== Aspect: How incident fill executes
+
+* **Alternative 1 (current choice):** ...
+** Pros: ...
+** Cons: ...
+* **Alternative 2:** ...
+** Pros: ...
+** Cons: ...
+// end::incidentfill[]
+
+// tag::incidentsearch[]
+=== [Proposed] Incident Search feature
+==== Proposed Implementation
+
+The incident search mechanism is facilitated by ...
+
+==== Design Considerations
+
+===== Aspect: How incident search executes
+
+* **Alternative 1 (current choice):** ...
+** Pros: ...
+** Cons: ...
+* **Alternative 2:** ...
+** Pros: ...
+** Cons: ...
+// end::incidentsearch[]
+
+// tag::incidentedit[]
+=== [Proposed] Incident Edit feature
+==== Proposed Implementation
+
+The incident edit mechanism is facilitated by ...
+
+==== Design Considerations
+
+===== Aspect: How incident edit executes
+
+* **Alternative 1 (current choice):** ...
+** Pros: ...
+** Cons: ...
+* **Alternative 2:** ...
+** Pros: ...
+** Cons: ...
+// end::incidentedit[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
