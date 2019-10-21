@@ -3,8 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_ACTIVITY_NOT_PRESENT_IN_DAY;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
 import java.time.LocalTime;
@@ -28,9 +27,12 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
             + ": Unschedules an activity by a time occupied by the activity on a certain day. "
-            + "Parameters: "
-            + PREFIX_START_TIME + "TIME "
-            + PREFIX_DAY + "DAY";
+            + "Parameters: TIME (in 24-hour clock format) "
+            + PREFIX_DAY + "DAY\n"
+            + "Example: " + COMMAND_WORD
+            + " " + SECOND_COMMAND_WORD
+            + " 0900 "
+            + PREFIX_DAY + "3";
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity unscheduled: %1$s";
     public static final String MESSAGE_ACTIVITY_DOES_NOT_EXIST = "Activity does not exist at given time.";

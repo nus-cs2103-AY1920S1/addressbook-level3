@@ -27,7 +27,11 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
             + ": Unschedules all instances of an activity on a certain day. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_DAY + "DAY";
+            + PREFIX_DAY + "DAY\n"
+            + "Example: " + COMMAND_WORD
+            + " " + SECOND_COMMAND_WORD
+            + " 2 "
+            + PREFIX_DAY + "3";
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity %d unscheduled from Day %d";
 

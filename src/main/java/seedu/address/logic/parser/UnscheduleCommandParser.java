@@ -62,14 +62,19 @@ public class UnscheduleCommandParser implements Parser<UnscheduleCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private UnscheduleTimeCommand parseUnscheduleTime(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_DAY);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_START_TIME, PREFIX_DAY) || !argMultimap.getPreamble().isEmpty()) {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DAY);
+        LocalTime time;
+        try {
+            time = ParserUtil.parseTime(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UnscheduleCommand.MESSAGE_USAGE), pe);
+        }
+        if (!arePrefixesPresent(argMultimap, PREFIX_DAY)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnscheduleCommand.MESSAGE_USAGE));
         }
-        LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
         Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
-        return new UnscheduleTimeCommand(startTime, dayIndex);
+        return new UnscheduleTimeCommand(time, dayIndex);
     }
 
     /**
@@ -95,6 +100,4 @@ public class UnscheduleCommandParser implements Parser<UnscheduleCommand> {
 
         return new UnscheduleActivityCommand(activityIndex, dayIndex);
     }
-
-
 }
