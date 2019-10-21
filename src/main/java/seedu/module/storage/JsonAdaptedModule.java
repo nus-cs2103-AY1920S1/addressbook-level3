@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.module.commons.exceptions.IllegalValueException;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.ArchivedModuleList;
+import seedu.module.model.module.Deadline;
 import seedu.module.model.module.TrackedModule;
 
 /**
@@ -18,13 +19,15 @@ class JsonAdaptedModule {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
     private final String moduleCode;
+    private final String deadline;
 
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode) {
+    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, @JsonProperty("deadline") String deadline) {
         this.moduleCode = moduleCode;
+        this.deadline = deadline;
     }
 
     /**
@@ -32,6 +35,7 @@ class JsonAdaptedModule {
      */
     public JsonAdaptedModule(TrackedModule source) {
         moduleCode = source.getModuleCode();
+        deadline = source.getDeadline().getValue();
     }
 
     /**
@@ -53,7 +57,13 @@ class JsonAdaptedModule {
             throw new IllegalValueException(String.format("Archived Module %s not found", moduleCode));
         }
 
-        return new TrackedModule(archivedModule.get());
+        if (deadline == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Deadline.class.getSimpleName()));
+        }
+        final Deadline modelDeadline = new Deadline(deadline);
+
+        return new TrackedModule(archivedModule.get(), modelDeadline);
     }
 
 }

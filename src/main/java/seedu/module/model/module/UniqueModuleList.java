@@ -78,6 +78,23 @@ public class UniqueModuleList implements Iterable<TrackedModule> {
     }
 
     /**
+     * Replaces the module {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the list.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the list.
+     */
+    public void setModule(TrackedModule target, TrackedModule editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ModuleNotFoundException();
+        }
+
+        internalList.set(index, editedModule);
+    }
+
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<TrackedModule> asUnmodifiableObservableList() {

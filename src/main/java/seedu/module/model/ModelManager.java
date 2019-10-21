@@ -90,6 +90,16 @@ public class ModelManager implements Model {
         this.moduleBook.resetData(moduleBook);
     }
 
+    /**
+     * Replaces the given module {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the module book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the module book.
+     */
+    public void setModule(TrackedModule target, TrackedModule editedModule) {
+        requireNonNull(editedModule);
+        moduleBook.setModule(target, editedModule);
+    }
+
     @Override
     public ReadOnlyModuleBook getModuleBook() {
         return moduleBook;
