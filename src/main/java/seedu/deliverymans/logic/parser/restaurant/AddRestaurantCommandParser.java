@@ -23,7 +23,7 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<AddRestaurantCommand> {
+public class AddRestaurantCommandParser implements Parser<AddRestaurantCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.

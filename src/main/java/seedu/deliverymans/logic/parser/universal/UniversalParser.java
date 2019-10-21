@@ -106,6 +106,9 @@ public class UniversalParser {
             case DELIVERYMEN:
                 return new DeliverymanParser().parseCommand(userInput);
             case EDITING:
+                if (commandWord.equals("exitedit")) {
+                    currentContext = Context.RESTAURANT;
+                }
                 return new EditingParser().parseCommand(userInput);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

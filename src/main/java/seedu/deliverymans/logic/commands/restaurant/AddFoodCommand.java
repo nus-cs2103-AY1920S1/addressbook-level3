@@ -17,7 +17,7 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  * Adds a food to the current restaurant.
  */
 public class AddFoodCommand extends Command {
-    public static final String COMMAND_WORD = "addfood";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food to the current restaurant. "
             + "Parameters: "
