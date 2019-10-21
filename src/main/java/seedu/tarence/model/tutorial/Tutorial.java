@@ -47,6 +47,20 @@ public class Tutorial {
         this.assignments = new TreeMap<>();
     }
 
+    /**
+     * Constructor for a tutorial read from saved file. Difference is that the attendance objact is specified.
+     */
+    public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
+                    Set<Week> weeks, Duration duration,
+                    List<Student> students, ModCode modCode, Attendance attendance) {
+        requireAllNonNull(tutName, day, startTime, weeks, students, modCode);
+        this.tutName = tutName;
+        this.timeTable = new TimeTable(day, startTime, weeks, duration);
+        this.students = students;
+        this.modCode = modCode;
+        this.attendance = attendance;
+    }
+
     public TutName getTutName() {
         return tutName;
     }
