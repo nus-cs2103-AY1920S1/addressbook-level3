@@ -17,6 +17,7 @@ import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
 
+//@@author arjavibahety
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
@@ -147,3 +148,4 @@ public class DeleteCommand extends UndoableCommand {
                 && targetIndexNum.equals(((DeleteCommand) other).targetIndexNum)); // state check
     }
 }
+//@@author

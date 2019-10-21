@@ -118,3 +118,4 @@ public class FridgeTest {
         assertEquals(" Fridge ID: F01 Status: UNOCCUPIED Body: Optional.empty", EMPTY_FRIDGE.toString());
     }
 }
+//@@author

@@ -153,6 +153,8 @@ public class UpdateCommand extends UndoableCommand {
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
                 if (!originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
                     handleUpdatingFridgeAndEntity(model, originalBodyDescriptor, updateBodyDescriptor);
+                } else {
+                    model.setEntity(entity, updateEntityDescriptor.apply(entity));
                 }
             } else {
                 model.setEntity(entity, updateEntityDescriptor.apply(entity));
@@ -172,6 +174,7 @@ public class UpdateCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
     }
 
+    //@@author arjavibahety
     /**
      * Assigns body to the new fridge when fridgeId is updated and removes it from the old fridge.
      * @param model refers to the AddressBook model.
@@ -202,6 +205,7 @@ public class UpdateCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
         }
     }
+    //@@author
 
     /**
      * Undoes the effects of the UpdateCommand. Only can be executed if this command was previously executed before.

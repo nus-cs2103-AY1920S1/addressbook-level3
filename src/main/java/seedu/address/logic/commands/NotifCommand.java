@@ -10,10 +10,14 @@ import javafx.application.Platform;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.Model;
+import seedu.address.model.entity.body.Body;
 import seedu.address.model.notif.Notif;
+import seedu.address.ui.NotifWindow;
+
+//@@author arjavibahety
 
 /**
- * Notifes a user when there is an automatic change in BodyStatus.
+ * Notifies a user when there is an automatic change in BodyStatus.
  */
 public class NotifCommand extends Command {
     public static final String MESSAGE_DUPLICATE_NOTIF = "This notif already exists in the address book";
@@ -61,11 +65,21 @@ public class NotifCommand extends Command {
      * @param model refers to the ModelManager
      */
     public void startSesChangeBodyStatusUi(Model model) throws CommandException {
+        Body body = toAdd.getBody();
+        String notifContent = "Body Id: " + body.getIdNum()
+                                + "\nName: " + body.getName()
+                                + "\nNext of Kin has been uncontactable. Please contact the police";
+
         Runnable changeUi = () -> Platform.runLater(() -> {
-            UpdateCommand up = new UpdateCommand(toAdd.getBody().getIdNum(), new UpdateBodyDescriptor(toAdd.getBody()));
+            UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
             up.setUpdateFromNotif(true);
             try {
                 up.execute(model);
+
+                NotifWindow notifWindow = new NotifWindow();
+                notifWindow.setTitle("Contact Police!");
+                notifWindow.setContent(notifContent);
+                notifWindow.display();
             } catch (CommandException e) {
                 // todo what to throw?
             }
@@ -78,7 +92,6 @@ public class NotifCommand extends Command {
     public void stopSes() {
         ses.shutdown();
     }
-
      */
 
     @Override
@@ -88,3 +101,5 @@ public class NotifCommand extends Command {
                 && toAdd.equals(((NotifCommand) other).toAdd));
     }
 }
+
+//@@author

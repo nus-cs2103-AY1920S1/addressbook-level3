@@ -25,3 +25,4 @@ public class TypicalFridges {
         return new ArrayList<>(Arrays.asList(ALICE_FRIDGE, BOB_FRIDGE, EMPTY_FRIDGE));
     }
 }
+//@@author

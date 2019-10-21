@@ -81,6 +81,7 @@ public class UpdateCommandTest {
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
+    //@@author arjavibahety
     @Test
     public void executeBody_fridgeIdInFilteredList_success() throws CommandException {
         Fridge f1 = new Fridge();
@@ -134,6 +135,7 @@ public class UpdateCommandTest {
 
         assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
     }
+    //@@author
 
     @Test
     public void executeBody_bodyIdNotInFilteredList_failure() throws CommandException {
