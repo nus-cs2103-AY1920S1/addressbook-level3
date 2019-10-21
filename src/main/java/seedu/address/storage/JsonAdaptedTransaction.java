@@ -25,7 +25,6 @@ class JsonAdaptedTransaction {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
-    // TODO: Have to convert to Strings
     private final String amount;
     private final String date;
     private final JsonAdaptedPerson peopleInvolved;

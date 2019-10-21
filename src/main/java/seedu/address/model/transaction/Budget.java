@@ -66,6 +66,11 @@ public class Budget {
         return this.valid;
     }
 
+    /**
+     * Updates the amount of this budget given a new amount.
+     * @param amount
+     * @return
+     */
     public Budget updateBudget(Amount amount) {
         Amount newBudget = this.amount.subtractAmount(amount);
         this.amount = newBudget;
@@ -77,7 +82,7 @@ public class Budget {
     }
 
     /**
-     * Calculates the new Date given the amount of duration from Today
+     * Calculates the new Date given the amount of duration from Today.
      * @return Date after {@code duration} days from today
      */
     private Date calculateDeadline(int duration) {
@@ -86,6 +91,11 @@ public class Budget {
         return new Date(newDeadline.toString());
     }
 
+    /**
+     * Checks if the given budget is the same Budget object as this budget.
+     * @param otherBudget
+     * @return
+     */
     public boolean isSameBudget(Budget otherBudget) {
         if (otherBudget == this) {
             return true;

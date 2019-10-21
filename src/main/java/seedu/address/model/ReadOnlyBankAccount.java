@@ -5,8 +5,6 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 
-import java.util.List;
-
 /**
  * Unmodifiable view of an address book
  */

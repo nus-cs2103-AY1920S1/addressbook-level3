@@ -26,9 +26,9 @@ public class SetCommand extends Command {
             + PREFIX_DATE + "2019/01/01 "
             + PREFIX_TAG + "food expenditure ";
 
-    private Budget budget;
+    public static final String MESSAGE_SUCCESS = "New budget successfully set: %1$s";
 
-    public static final String MESSAGE_SUCCESS = "New budget set: %1$s";
+    private Budget budget;
 
     public SetCommand(Budget budget) {
         this.budget = budget;

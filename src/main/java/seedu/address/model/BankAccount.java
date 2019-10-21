@@ -5,7 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.transaction.*;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.OutTransaction;
+import seedu.address.model.transaction.SplitTransaction;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.UniqueBudgetList;
+import seedu.address.model.transaction.UniqueTransactionList;
 
 /**
  * Bank account of the user.
@@ -110,6 +116,10 @@ public class BankAccount implements ReadOnlyBankAccount {
         ledger.addSplitTransaction(transaction);
     }
 
+    /**
+     * Updates each budget in {@code budgets} when OutTransaction is made.
+     * @param txn Transaction can be either InTransaction or OutTransaction.
+     */
     private void updateBudgets(Transaction txn) {
         if (txn instanceof OutTransaction) {
             for (Budget bd: budgets) {
