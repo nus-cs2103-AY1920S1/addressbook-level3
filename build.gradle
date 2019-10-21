@@ -97,6 +97,14 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
+task extrachecks(type: Exec) {
+    commandLine 'bash', './config/travis/run-checks.sh'
+}
+
+tasks.check {
+    dependsOn extrachecks
+}
+
 test {
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
