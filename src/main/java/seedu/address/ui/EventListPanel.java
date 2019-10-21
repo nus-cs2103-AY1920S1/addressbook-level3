@@ -14,12 +14,12 @@ import seedu.address.commons.core.item.Item;
  * Panel containing the list of items.
  */
 public class EventListPanel extends UiPart<Region> {
-    private static final String FXML = "EventListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
-
-    private final int NUM_OF_ITEMS_TO_SCROLL = 5;
     private static int currentPosition;
     private static int itemSize;
+    private static final String FXML = "EventListPanel.fxml";
+
+    private final int NUMOFITEMSTOSCROLL = 5;
+    private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
     @FXML
     private ListView<Item> eventListView;
@@ -30,7 +30,7 @@ public class EventListPanel extends UiPart<Region> {
         eventListView.setCellFactory(listView -> new EventListViewCell());
         itemSize = eventListView.getItems().size();
         eventListView.scrollTo(itemSize);
-        currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
+        currentPosition = itemSize - NUMOFITEMSTOSCROLL;
     }
 
     /**
@@ -50,21 +50,27 @@ public class EventListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Scrolls up.
+     */
     public void scrollUp() {
-        if (currentPosition - NUM_OF_ITEMS_TO_SCROLL <= 0) {
+        if (currentPosition - NUMOFITEMSTOSCROLL <= 0) {
             currentPosition = 0;
         } else {
-            currentPosition = currentPosition - NUM_OF_ITEMS_TO_SCROLL;
+            currentPosition = currentPosition - NUMOFITEMSTOSCROLL;
         }
         eventListView.scrollTo(currentPosition);
 
     }
 
+    /**
+     * Scrolls down.
+     */
     public void scrollDown() {
-        if (currentPosition + NUM_OF_ITEMS_TO_SCROLL >= itemSize) {
-            currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
+        if (currentPosition + NUMOFITEMSTOSCROLL >= itemSize) {
+            currentPosition = itemSize - NUMOFITEMSTOSCROLL;
         } else {
-            currentPosition = currentPosition + NUM_OF_ITEMS_TO_SCROLL;
+            currentPosition = currentPosition + NUMOFITEMSTOSCROLL;
         }
         eventListView.scrollTo(currentPosition);
     }

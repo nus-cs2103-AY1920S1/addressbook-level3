@@ -17,7 +17,6 @@ import seedu.address.commons.core.item.Item;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DownCommandResult;
-import seedu.address.logic.commands.UpCommand;
 import seedu.address.logic.commands.UpCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -185,13 +184,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void scrollUp(String pane) {
         switch(pane) {
-            case "resultDisplay":
-                resultDisplay.scrollUp();
-                break;
-            case "tabPane":
-                eventListPanel.scrollUp();
-                taskListPanel.scrollUp();
-                reminderListPanel.scrollUp();
+        case "resultDisplay":
+            resultDisplay.scrollUp();
+            break;
+        case "tabPane":
+            eventListPanel.scrollUp();
+            taskListPanel.scrollUp();
+            reminderListPanel.scrollUp();
+        default:
         }
     }
 
@@ -202,13 +202,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void scrollDown(String pane) {
         switch(pane) {
-            case "resultDisplay":
-                resultDisplay.scrollDown();
-                break;
-            case "tabPane":
-                eventListPanel.scrollDown();
-                taskListPanel.scrollDown();
-                reminderListPanel.scrollDown();
+        case "resultDisplay":
+            resultDisplay.scrollDown();
+            break;
+        case "tabPane":
+            eventListPanel.scrollDown();
+            taskListPanel.scrollDown();
+            reminderListPanel.scrollDown();
+        default:
         }
     }
 

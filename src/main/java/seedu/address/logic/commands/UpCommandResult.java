@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+/**
+ * A class to identify when a command result is an up command.
+ */
 public class UpCommandResult extends CommandResult {
 
     private String pane;

@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Command for scrolling up.
+ */
 public class UpCommand extends Command {
 
     public static final String COMMAND_WORD = "up";
@@ -15,14 +18,14 @@ public class UpCommand extends Command {
 
     public UpCommand(String input) {
         switch(input.trim()) {
-            case "L":
-                this.pane = "resultDisplay";
+        case "L":
+            this.pane = "resultDisplay";
+            break;
+        case "R":
+            this.pane = "tabPane";
                 break;
-            case "R":
-                this.pane = "tabPane";
-                break;
-            default:
-                this.pane = "Illegal";
+        default:
+            this.pane = "Illegal";
         }
     }
 

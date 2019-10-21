@@ -15,11 +15,11 @@ import seedu.address.commons.core.item.Item;
  */
 public class TaskListPanel extends UiPart<Region> {
     private static final String FXML = "TaskListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-
-    private final int NUM_OF_ITEMS_TO_SCROLL = 5;
     private static int currentPosition;
     private static int itemSize;
+
+    private final int NUM_OF_ITEMS_TO_SCROLL = 5;
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
     private ListView<Item> taskListView;
@@ -50,6 +50,9 @@ public class TaskListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Scrolls up.
+     */
     public void scrollUp() {
         if (currentPosition - NUM_OF_ITEMS_TO_SCROLL <= 0) {
             currentPosition = 0;
@@ -60,6 +63,9 @@ public class TaskListPanel extends UiPart<Region> {
 
     }
 
+    /**
+     * Scrolls down.
+     */
     public void scrollDown() {
         if (currentPosition + NUM_OF_ITEMS_TO_SCROLL >= itemSize) {
             currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
