@@ -43,6 +43,10 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
 
     }
 
+    public ArchiveWrapper(HashMap<String, Archive> archiveList) {
+        this.archiveList.putAll(archiveList);
+    }
+
     //==================== HashMap Overwrite operations ====================
 
     /**
@@ -150,6 +154,17 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     }
 
     @Override
+    public ArchiveWrapper getClone() {
+        ArchiveWrapper clonedWrapper = new ArchiveWrapper((HashMap<String, Archive>) archiveList.clone());
+
+        return clonedWrapper;
+    }
+
+    public void setArchives(ReadOnlyArchiveWrapper archives) {
+        setArchiveList(archives.getArchiveList());
+    }
+
+    @Override
     public String toString() {
         return getArchiveNames().toString();
         // TODO: refine later
@@ -166,4 +181,6 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     public int hashCode() {
         return archiveList.hashCode();
     }
+
+
 }
