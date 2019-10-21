@@ -144,6 +144,33 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+[[Design-Person]]
+=== Incident component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Person.java[`Person.java`]
+
+The `Person`,
+
+...
+
+[[Design-Incident]]
+=== Incident component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Incident.java[`Incident.java`]
+
+The `Incident`,
+
+...
+
+[[Design-Vehicle]]
+=== Incident component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Vehicle.java[`Vehicle.java`]
+
+The `Vehicle`,
+
+...
+
 [[Design-Commons]]
 === Common classes
 
