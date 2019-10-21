@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Amount in terms of cents
  */
-public class Amount {
+public class Amount implements Comparable<Amount> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amounts should only be in integer or double, and it should not be blank";
@@ -47,6 +47,7 @@ public class Amount {
 
     /**
      * Adds this.amount by amount.
+     *
      * @param amount Amount to be added.
      * @return New amount after addition.
      */
@@ -57,6 +58,7 @@ public class Amount {
 
     /**
      * Subtracts this.amount by amount.
+     *
      * @param amount Amount to be subtracted.
      * @return New amount after subtraction.
      */
@@ -67,6 +69,7 @@ public class Amount {
 
     /**
      * Multiplies amount by some fraction.
+     *
      * @param portion Fraction of Amount.
      * @return
      */
@@ -86,5 +89,16 @@ public class Amount {
         return this == obj
                 || (obj instanceof Amount
                 && amount == ((Amount) obj).amount);
+    }
+
+    @Override
+    public int compareTo(Amount amount) {
+        if (this.amount == amount.amount) {
+            return 0;
+        } else if (this.amount > amount.amount) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -147,6 +148,11 @@ public class AddCommandTest {
 
         @Override
         public void commitBankAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTransactions(List<Transaction> transactionHistory) {
             throw new AssertionError("This method should not be called.");
         }
 
