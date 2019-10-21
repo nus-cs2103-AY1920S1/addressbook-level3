@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T2
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":MergePersonCommandParser" as MergePersonCommandParser LOGIC_COLOR
+participant ":MergePersonCommand" as MergePersonCommand LOGIC_COLOR
+participant ":MergePersonConfirmedCommand" as MergePersonConfirmedCommand LOGIC_COLOR
+participant ":EditCommand" as EditCommand LOGIC_COLOR
+end box
+
+[->LogicManager: execute("merge add...")
+activate LogicManager
+LogicManager -> AddressBookParser: parse(String)
+activate AddressBookParser
+AddressBookParser -> MergePersonCommandParser: parse(String)
+activate MergePersonCommandParser
+create MergePersonCommand
+MergePersonCommandParser -> MergePersonCommand: new MergePersonCommand(Person, Person)
+activate MergePersonCommand
+MergePersonCommand --> MergePersonCommandParser
+deactivate MergePersonCommand
+MergePersonCommandParser --> AddressBookParser
+deactivate MergePersonCommandParser
+AddressBookParser --> LogicManager
+deactivate AddressBookParser
+LogicManager -> MergePersonCommand: execute(Model)
+activate MergePersonCommand
+MergePersonCommand -> MergePersonCommand: getDifferences()
+MergePersonCommand -> MergePersonCommand: getNextMergePrompt()
+MergePersonCommand --> LogicManager: CommandResult(String)
+note left
+Includes the prompt for the next merge
+end note
+deactivate MergePersonCommand
+<-- LogicManager
+deactivate LogicManager
+
+[->LogicManager: execute("yes")
+activate LogicManager
+LogicManager -> AddressBookParser: parse(String)
+activate AddressBookParser
+create MergePersonConfirmedCommand
+AddressBookParser -> MergePersonConfirmedCommand: new MergePersonConfirmedCommand(MergePersonCommand)
+activate MergePersonConfirmedCommand
+MergePersonConfirmedCommand --> AddressBookParser
+deactivate MergePersonConfirmedCommand
+AddressBookParser --> LogicManager
+deactivate AddressBookParser
+LogicManager -> MergePersonConfirmedCommand: execute(Model)
+activate MergePersonConfirmedCommand
+MergePersonConfirmedCommand -> MergePersonCommand: getOriginalPerson()
+MergePersonCommand --> MergePersonConfirmedCommand
+MergePersonConfirmedCommand -> MergePersonCommand: getInputPerson();
+MergePersonCommand --> MergePersonConfirmedCommand
+MergePersonConfirmedCommand -> MergePersonCommand: getNextMergeFieldType();
+MergePersonCommand --> MergePersonConfirmedCommand
+create EditCommand
+MergePersonConfirmedCommand -> EditCommand: new EditCommand()
+activate EditCommand
+EditCommand --> MergePersonConfirmedCommand
+deactivate EditCommand
+MergePersonConfirmedCommand -> EditCommand: executeForMerge(Person, EditPersonDescriptor, Model)
+MergePersonConfirmedCommand --> MergePersonCommand: removeFirstDifferentField()
+MergePersonConfirmedCommand --> LogicManager: CommandResult(String)
+deactivate MergePersonConfirmedCommand
+<-- LogicManager
+deactivate LogicManager
+
+@enduml

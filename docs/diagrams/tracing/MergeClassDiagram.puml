@@ -1,0 +1,108 @@
+@startuml
+
+abstract class MergeCommand
+class MergePersonCommand
+class MergePolicyCommand
+MergeCommand <|-- MergePersonCommand
+MergeCommand <|-- MergePolicyCommand
+
+MergeCommand : {abstract} getDifferences(): String[]
+MergeCommand : {abstract} removeFirstDifferentField()
+MergeCommand : {abstract} getNextMergeType(): String
+MergeCommand : {abstract} onlyOneMergeLeft(): boolean
+MergeCommand : equals(Object): boolean
+
+MergePersonCommand : originalPerson: Person
+MergePersonCommand : inputPerson: Person
+MergePersonCommand : differentFields: ArrayList<String[]>
+MergePersonCommand : MergePersonCommand(Person)
+MergePersonCommand : execute(Model): CommandResult
+MergePersonCommand : updateOriginalPerson(Person)
+MergePersonCommand : getNextMergePrompt(): String
+MergePersonCommand : getDifferences(): String[]
+MergePersonCommand : removeFirstDifferentField()
+MergePersonCommand : getNextMergeType(): String
+MergePersonCommand : getInputPerson(): Person
+MergePersonCommand : getOriginalPerson(): Person
+MergePersonCommand : onlyOneMergeLeft(): boolean
+MergePersonCommand : equals(Object)
+
+MergePolicyCommand : originalPolicy: Policy
+MergePolicyCommand : inputPolicy: Policy
+MergePolicyCommand : differentFields: ArrayList<String[]>
+MergePolicyCommand : MergePolicyCommand(Policy)
+MergePolicyCommand : execute(Model): CommandResult
+MergePolicyCommand : updateOriginalPolicy(Policy)
+MergePolicyCommand : getNextMergePrompt(): String
+MergePolicyCommand : getDifferences(): String[]
+MergePolicyCommand : removeFirstDifferentField()
+MergePolicyCommand : getNextMergeType(): String
+MergePolicyCommand : getInputPolicy(): Policy
+MergePolicyCommand : getOriginalPolicy(): Policy
+MergePolicyCommand : onlyOneMergeLeft(): boolean
+MergePolicyCommand : equals(Object)
+
+abstract class MergeConfirmedCommand
+class MergePersonConfirmedCommand
+class MergePolicyConfirmedCommand
+MergeConfirmedCommand <|-- MergePersonConfirmedCommand
+MergeConfirmedCommand <|-- MergePolicyConfirmedCommand
+
+MergeConfirmedCommand : {abstract} execute(Model): CommandResult
+MergeConfirmedCommand : {abstract} isLastMerge(Model): boolean
+MergeConfirmedCommand : equals(Object): boolean
+
+MergePersonCommand <-- MergePersonConfirmedCommand
+MergePersonConfirmedCommand : MergePersonConfirmedCommand(MergePersonCommand)
+MergePersonConfirmedCommand : execute(Model): CommandResult
+MergePersonConfirmedCommand : isLastMerge(Model): boolean
+
+MergePolicyCommand <-- MergePolicyConfirmedCommand
+MergePolicyConfirmedCommand : MergePolicyConfirmedCommand(MergePolicyCommand)
+MergePolicyConfirmedCommand : execute(Model): CommandResult
+MergePolicyConfirmedCommand : isLastMerge(Model): boolean
+
+abstract class MergeRejectedCommand
+class MergePersonRejectedCommand
+class MergePolicyRejectedCommand
+MergeRejectedCommand <|-- MergePersonRejectedCommand
+MergeRejectedCommand <|-- MergePolicyRejectedCommand
+
+MergeRejectedCommand : {abstract} execute(Model): CommandResult
+MergeRejectedCommand : {abstract} isLastMerge(): boolean
+MergeRejectedCommand : equals(Object): boolean
+
+MergePersonCommand <-- MergePersonRejectedCommand
+MergePersonRejectedCommand : MergePersonRejectedCommand(MergePersonCommand)
+MergePersonRejectedCommand : execute(Model): CommandResult
+MergePersonRejectedCommand : isLastMerge(Model): boolean
+MergePersonRejectedCommand : equals(Object): boolean
+
+MergePolicyCommand <-- MergePolicyRejectedCommand
+MergePolicyRejectedCommand : MergePolicyRejectedCommand(MergePolicyCommand)
+MergePolicyRejectedCommand : execute(Model): CommandResult
+MergePolicyRejectedCommand : isLastMerge(Model): boolean
+MergePolicyRejectedCommand : equals(Object): boolean
+
+class DoNotMergePersonCommand
+DoNotMergePersonCommand : originalPerson: Person
+DoNotMergePersonCommand : inputPerson: Person
+DoNotMergePersonCommand : DoNotMergePersonCommand(Person)
+DoNotMergePersonCommand : execute(Model): CommandResult
+DoNotMergePersonCommand : equals(Object): boolean
+
+class DoNotMergePolicyCommand
+DoNotMergePolicyCommand : originalPolicy: Policy
+DoNotMergePolicyCommand : inputPolicy: Policy
+DoNotMergePolicyCommand : DoNotMergePolicyCommand(Person)
+DoNotMergePolicyCommand : execute(Model): CommandResult
+DoNotMergePolicyCommand : equals(Object): boolean
+
+class AddressBookParser
+AddressBookParser : ...()
+MergeCommand <-- AddressBookParser
+AddressBookParser : isMerging: boolean
+AddressBookParser : mergeType: String
+AddressBookParser : parseMerge(String): Command
+
+@enduml

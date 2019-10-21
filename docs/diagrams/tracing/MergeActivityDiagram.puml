@@ -1,0 +1,20 @@
+@startuml
+start
+
+:Prompt user for merge;
+:User executes command;
+
+while (has different fields)
+    :prompt next merge;
+    if () then (["yes" or ""])
+
+    :update field;
+
+    else (["no"])
+
+    :skip merge;
+
+    endif
+endwhile
+stop
+@enduml
