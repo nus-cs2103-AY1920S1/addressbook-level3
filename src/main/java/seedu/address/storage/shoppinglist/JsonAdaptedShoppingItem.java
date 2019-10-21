@@ -69,8 +69,10 @@ public class JsonAdaptedShoppingItem {
         //    final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
         //    return new ShoppingItem(modelName, modelAmount, modelExpiryDate);
         //}
-
-        return new ShoppingItem(modelName, modelAmount, urgent);
+        ShoppingItem result = new ShoppingItem(modelName, modelAmount);
+        result = result.setBought(bought);
+        result = result.setUrgent(urgent);
+        return result;
     }
 
 }
