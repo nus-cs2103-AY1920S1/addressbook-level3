@@ -2,10 +2,7 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.model.category.Category;
 
@@ -22,27 +19,27 @@ public class Expense {
     private final Price price;
     private final Timestamp timestamp;
 
-    private final Set<Category> categories = new HashSet<>();
+    private final Category category;
 
     /**
      * Every field must be present and not null.
      */
-    public Expense(Description description, Price price, Set<Category> categories, UniqueIdentifier uniqueIdentifier) {
-        requireAllNonNull(description, price, categories, uniqueIdentifier);
+    public Expense(Description description, Price price, Category category, UniqueIdentifier uniqueIdentifier) {
+        requireAllNonNull(description, price, category, uniqueIdentifier);
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
-        this.categories.addAll(categories);
+        this.category = category;
         this.timestamp = Timestamp.getCurrentTimestamp();
     }
 
-    public Expense(Description description, Price price, Set<Category> categories, Timestamp timestamp,
+    public Expense(Description description, Price price, Category category, Timestamp timestamp,
                    UniqueIdentifier uniqueIdentifier) {
-        requireAllNonNull(description, price, categories, uniqueIdentifier);
+        requireAllNonNull(description, price, category, uniqueIdentifier);
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
-        this.categories.addAll(categories);
+        this.category = category;
         this.timestamp = timestamp;
     }
 
@@ -62,12 +59,8 @@ public class Expense {
         return uniqueIdentifier;
     }
 
-    /**
-     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Category> getCategories() {
-        return Collections.unmodifiableSet(categories);
+    public Category getCategory() {
+        return category;
     }
 
     /**
@@ -102,13 +95,14 @@ public class Expense {
                 && otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getPrice().equals(getPrice())
                 && otherExpense.getTimestamp().equals(getTimestamp())
-                && otherExpense.getCategories().equals(getCategories());
+
+                && otherExpense.getCategory().equals(getCategory());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, categories, uniqueIdentifier);
+        return Objects.hash(description, price, category, uniqueIdentifier);
     }
 
     @Override
@@ -120,10 +114,9 @@ public class Expense {
                 .append(getPrice())
                 .append(" Date: ")
                 .append(getTimestamp())
-                .append(" [Tags: ");
-        getCategories().forEach(builder::append);
-        builder.append("]");
-        builder.append("Timestamp: ")
+                .append(" Category: ")
+                .append(category)
+                .append("Timestamp: ")
                 .append(getTimestamp());
         return builder.toString();
     }

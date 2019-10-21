@@ -20,7 +20,7 @@ public class CategoryTest {
     @Test
     public void isValidTagName() {
         // null category name
-        assertThrows(NullPointerException.class, () -> Category.isValidTagName(null));
+        assertThrows(NullPointerException.class, () -> Category.isValidCategoryName(null));
     }
 
 }

@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
@@ -61,12 +60,12 @@ public class EditCommandTest {
         Expense editedExpense = expenseInList
                 .withDescription(VALID_DESCRIPTION_TRANSPORT)
                 .withPrice(VALID_PRICE_TRANSPORT)
-                .withTags(VALID_TAG_CLAIMABLE).build();
+                .withCategory(VALID_TAG_CLAIMABLE).build();
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_TRANSPORT)
                 .withPrice(VALID_PRICE_TRANSPORT)
-                .withTags(VALID_TAG_CLAIMABLE).build();
+                .withCategory(VALID_TAG_CLAIMABLE).build();
         EditCommand editCommand = new EditCommand(indexLastExpense, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
@@ -165,9 +164,6 @@ public class EditCommandTest {
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_EXPENSE, DESC_CHICKEN)));
-
-        // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_EXPENSE, DESC_TRANSPORT)));
     }
 
 }

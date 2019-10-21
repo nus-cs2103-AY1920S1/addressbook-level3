@@ -2,11 +2,7 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-
-import java.util.Set;
 
 import seedu.address.model.category.Category;
 
@@ -19,16 +15,16 @@ public class Event {
     private final Description description;
     private final Price price;
     private final Timestamp timestamp;
-    private final Set<Category> categories = new HashSet<>();
+    private final Category category;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Description description, Price price, Set<Category> categories, Timestamp timestamp) {
+    public Event(Description description, Price price, Category category, Timestamp timestamp) {
         requireAllNonNull(description, price, timestamp);
         this.description = description;
         this.price = price;
-        this.categories.addAll(categories);
+        this.category = category;
         this.timestamp = timestamp;
     }
 
@@ -44,12 +40,8 @@ public class Event {
         return timestamp;
     }
 
-    /**
-     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Category> getCategories() {
-        return Collections.unmodifiableSet(categories);
+    public Category getCategory() {
+        return category;
     }
 
     /**
@@ -84,14 +76,14 @@ public class Event {
         Event otherEvent = (Event) other;
         return otherEvent.getDescription().equals(getDescription())
                 && otherEvent.getPrice().equals(getPrice())
-                && otherEvent.getCategories().equals(getCategories())
+                && otherEvent.getCategory().equals(getCategory())
                 && (otherEvent.getTimestamp().equals(getTimestamp()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, timestamp, categories);
+        return Objects.hash(description, price, timestamp, category);
     }
 
     @Override
@@ -101,10 +93,9 @@ public class Event {
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
-                .append(" [Tags: ");
-        getCategories().forEach(builder::append);
-        builder.append("]");
-        builder.append("Timestamp: ")
+                .append(" Category: ")
+                .append(category)
+                .append("Timestamp: ")
                 .append(getTimestamp());
         return builder.toString();
     }

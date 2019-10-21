@@ -315,11 +315,8 @@ public class Statistics {
             Timestamp date = expense.getTimestamp();
             if (date.compareTo(startDate) != -1 && date.compareTo(endDate) != 1) {
                 data.get(categories.size()).add(expense);
-                for (Category category : new ArrayList<>(expense.getCategories())) {
-                    int index = categories.indexOf(category);
-                    data.get(index).add(expense);
-                }
-
+                int index = categories.indexOf(expense.getCategory());
+                data.get(index).add(expense);
             }
         }
         return data;
@@ -331,7 +328,7 @@ public class Statistics {
     private static List<Category> collateTagNames(FilteredList<Expense> expenses) {
         Set<Category> categories = new HashSet<>();
         for (Expense expense: expenses) {
-            categories.addAll(expense.getCategories());
+            categories.add(expense.getCategory());
         }
 
         List<Category> result = new ArrayList<>(categories);

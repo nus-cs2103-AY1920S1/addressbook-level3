@@ -3,10 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.time.Period;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.index.Index;
@@ -69,32 +66,20 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String category} into a {@code Tag}.
+     * Parses a {@code String category} into a {@code Category}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code category} is invalid.
      */
-    public static Category parseCategory(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Category.isValidTagName(trimmedTag)) {
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (!Category.isValidCategoryName(trimmedCategory)) {
             throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
-        return new Category(trimmedTag);
+        return new Category(trimmedCategory);
     }
 
-    //has to be removed
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Category> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Category> categorySet = new HashSet<>();
-        for (String tagName : tags) {
-            categorySet.add(parseCategory(tagName));
-        }
-        return categorySet;
-    }
 
     /**
      * Parses {@code String aliasName} and {@code String input} into a user defined {@code Alias}.

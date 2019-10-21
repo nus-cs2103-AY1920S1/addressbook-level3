@@ -20,12 +20,11 @@ public class AddCommand extends UndoableCommand {
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
-            + "[" + PREFIX_CATEGORY + "TAG]...\n"
+            + PREFIX_CATEGORY + "CATEGORY "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Chicken Rice "
             + PREFIX_PRICE + "3.50 "
-            + PREFIX_CATEGORY + "nusDeck "
-            + PREFIX_CATEGORY + "chicken";
+            + PREFIX_CATEGORY + "Food";
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book";

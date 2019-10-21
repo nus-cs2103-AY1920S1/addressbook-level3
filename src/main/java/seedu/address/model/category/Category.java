@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Guarantees: immutable; name is valid as declared in {@link #isValidCategoryName(String)}
  */
 public class Category {
 
@@ -21,14 +21,14 @@ public class Category {
      */
     public Category(String categoryName) {
         requireNonNull(categoryName);
-        checkArgument(isValidTagName(categoryName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCategoryName(categoryName), MESSAGE_CONSTRAINTS);
         this.categoryName = categoryName;
     }
 
     /**
      * Returns true if a given string is a valid category name.
      */
-    public static boolean isValidTagName(String test) {
+    public static boolean isValidCategoryName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

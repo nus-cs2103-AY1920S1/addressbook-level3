@@ -1,11 +1,6 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,7 +23,7 @@ class JsonAdaptedEvent {
     private final String description;
     private final String price;
     private final String rawTimestamp;
-    private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
+    private final String category;
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -36,26 +31,23 @@ class JsonAdaptedEvent {
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
-                              @JsonProperty("tagged") List<JsonAdaptedCategory> tagged,
+                              @JsonProperty("category") String category,
                               @JsonProperty("timestamp") String rawTimestamp) {
         this.description = description;
         this.price = price;
         this.rawTimestamp = rawTimestamp;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
+        this.category = category;
     }
 
     /**
      * Converts a given {@code Event} into this class for Jackson use.
      */
     public JsonAdaptedEvent(Event source) {
-        description = source.getDescription().fullDescription;
-        price = source.getPrice().value;
-        rawTimestamp = source.getTimestamp().toString();
-        tagged.addAll(source.getCategories().stream()
-                .map(JsonAdaptedCategory::new)
-                .collect(Collectors.toList()));
+        this.description = source.getDescription().fullDescription;
+        this.price = source.getPrice().value;
+        this.rawTimestamp = source.getTimestamp().toString();
+        this.category = source.getCategory().categoryName;
+
     }
 
     /**
@@ -64,10 +56,13 @@ class JsonAdaptedEvent {
      * @throws IllegalValueException if there were any data constraints violated in the adapted event.
      */
     public Event toModelType() throws IllegalValueException {
-        final List<Category> expenseCategories = new ArrayList<>();
-        for (JsonAdaptedCategory tag : tagged) {
-            expenseCategories.add(tag.toModelType());
+
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
+
+        Category modelCategory = new Category(category);
 
         if (description == null) {
             throw new IllegalValueException(
@@ -98,8 +93,7 @@ class JsonAdaptedEvent {
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 
-        final Set<Category> modelCategories = new HashSet<>(expenseCategories);
-        return new Event(modelDescription, modelPrice, modelCategories, modelTimestamp);
+        return new Event(modelDescription, modelPrice, modelCategory, modelTimestamp);
     }
 
 }

@@ -1,16 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueIdentifier;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Expense objects.
@@ -25,27 +20,27 @@ public class ExpenseBuilder {
 
     private Description description;
     private Price price;
-    private Set<Category> categories;
+    private Category category;
     private UniqueIdentifier uniqueIdentifier;
     private Timestamp timestamp;
 
     public ExpenseBuilder() {
-        description = new Description(DEFAULT_DESCRIPTION);
-        price = new Price(DEFAULT_PRICE);
-        categories = new HashSet<>(Arrays.asList(new Category(DEFAULT_TAGS)));
-        uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
-        timestamp = Timestamp.createTimestampIfValid(DEFAULT_TIMESTAMP).get();
+        this.description = new Description(DEFAULT_DESCRIPTION);
+        this.price = new Price(DEFAULT_PRICE);
+        this.category = new Category(DEFAULT_TAGS);
+        this.uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
+        this.timestamp = Timestamp.createTimestampIfValid(DEFAULT_TIMESTAMP).get();
     }
 
     /**
      * Initializes the ExpenseBuilder with the data of {@code expenseToCopy}.
      */
     public ExpenseBuilder(Expense expenseToCopy) {
-        description = expenseToCopy.getDescription();
-        price = expenseToCopy.getPrice();
-        categories = new HashSet<>(expenseToCopy.getCategories());
-        uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
-        timestamp = expenseToCopy.getTimestamp();
+        this.description = expenseToCopy.getDescription();
+        this.price = expenseToCopy.getPrice();
+        this.category = expenseToCopy.getCategory();
+        this.uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
+        this.timestamp = expenseToCopy.getTimestamp();
     }
 
     /**
@@ -57,10 +52,10 @@ public class ExpenseBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expense} that we are building.
+     * Sets the {@code Category} of the {@code Expense} that we are building.
      */
-    public ExpenseBuilder withTags(String ... tags) {
-        this.categories = SampleDataUtil.getTagSet(tags);
+    public ExpenseBuilder withCategory(String category) {
+        this.category = new Category(category);
         return this;
     }
 
@@ -89,7 +84,7 @@ public class ExpenseBuilder {
     }
 
     public Expense build() {
-        return new Expense(description, price, categories, timestamp, uniqueIdentifier);
+        return new Expense(description, price, category, timestamp, uniqueIdentifier);
     }
 
 }

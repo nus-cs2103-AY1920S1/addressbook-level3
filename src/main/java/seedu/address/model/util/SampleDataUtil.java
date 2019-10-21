@@ -1,9 +1,5 @@
 package seedu.address.model.util;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
@@ -22,17 +18,13 @@ public class SampleDataUtil {
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
             new Expense(new Description("Chickens"), new Price("30"),
-                    getTagSet("friends"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
-            new Expense(new Description("Chicken Rice"), new Price("2.50"),
-                    getTagSet("nusDeck", "oldFriends"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
-            new Expense(new Description("Popcorn Chicken"), new Price("12"),
-                    getTagSet("fairprice", "frozen"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+                    getCategory("friends"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
             new Expense(new Description("David Li"), new Price("15000"),
-                getTagSet("family"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+                    getCategory("family"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
             new Expense(new Description("Invite only Chicken Event"), new Price("1000"),
-                getTagSet("chickenNetworking"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+                    getCategory("chickenNetworking"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
             new Expense(new Description("Chicken Rice extra Chicken"), new Price("15"),
-                getTagSet("nusDeck"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier())
+                    getCategory("nusDeck"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier())
         };
     }
 
@@ -44,13 +36,8 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
-    /**
-     * Returns a category set containing the list of strings given.
-     */
-    public static Set<Category> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Category::new)
-                .collect(Collectors.toSet());
+    public static Category getCategory(String category) {
+        return new Category(category);
     }
 
 }

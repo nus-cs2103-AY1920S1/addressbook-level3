@@ -40,8 +40,8 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_TRANSPORT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TRANSPORT;
     public static final String PRICE_DESC_CHICKEN = " " + PREFIX_PRICE + VALID_PRICE_CHICKEN;
     public static final String PRICE_DESC_TRANSPORT = " " + PREFIX_PRICE + VALID_PRICE_TRANSPORT;
-    public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_CATEGORY + VALID_TAG_DISCOUNTED;
-    public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_CATEGORY + VALID_TAG_CLAIMABLE;
+    public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_CATEGORY + VALID_TAG_CLAIMABLE;
+    public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_CATEGORY + VALID_TAG_DISCOUNTED;
 
     // '&' not allowed in descriptions
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";
@@ -54,7 +54,6 @@ public class CommandTestUtil {
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditExpenseDescriptor DESC_CHICKEN;
-    public static final EditCommand.EditExpenseDescriptor DESC_TRANSPORT;
 
     public static final String STATS_WITHOUT_TAG = " 5";
     public static final String STATS_PREFIX_WITHOUT_INPUT = String.format(" %s ", PREFIX_START_DATE);
@@ -70,10 +69,7 @@ public class CommandTestUtil {
     static {
         DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_CHICKEN)
                 .withPrice(VALID_PRICE_CHICKEN)
-                .withTags(VALID_TAG_DISCOUNTED).build();
-        DESC_TRANSPORT = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TRANSPORT)
-                .withPrice(VALID_PRICE_TRANSPORT)
-                .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED).build();
+                .withCategory(VALID_TAG_DISCOUNTED).build();
     }
 
     /**

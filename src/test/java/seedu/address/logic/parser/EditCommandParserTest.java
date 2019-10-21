@@ -13,7 +13,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHI
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DISCOUNTED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -88,13 +87,6 @@ public class EditCommandParserTest {
         assertParseFailure(
                 parser,
                 "1" + TAG_DESC_CLAIMABLE + TAG_DESC_DISCOUNTED + TAG_EMPTY, Category.MESSAGE_CONSTRAINTS);
-        assertParseFailure(
-                parser,
-                "1" + TAG_DESC_CLAIMABLE + TAG_EMPTY + TAG_DESC_DISCOUNTED, Category.MESSAGE_CONSTRAINTS);
-        assertParseFailure(
-                parser,
-                "1" + TAG_EMPTY + TAG_DESC_CLAIMABLE + TAG_DESC_DISCOUNTED, Category.MESSAGE_CONSTRAINTS);
-
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(
                 parser,
@@ -106,13 +98,13 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_EXPENSE;
-        String userInput = targetIndex.getOneBased() + PRICE_DESC_TRANSPORT + TAG_DESC_DISCOUNTED
+        String userInput = targetIndex.getOneBased() + PRICE_DESC_TRANSPORT
                 + DESCRIPTION_DESC_CHICKEN + TAG_DESC_CLAIMABLE;
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_CHICKEN)
                 .withPrice(VALID_PRICE_TRANSPORT)
-                .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED).build();
+                .withCategory(VALID_TAG_CLAIMABLE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -148,23 +140,8 @@ public class EditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_CLAIMABLE;
-        descriptor = new EditExpenseDescriptorBuilder().withTags(VALID_TAG_DISCOUNTED).build();
+        descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_TAG_CLAIMABLE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_EXPENSE;
-        String userInput = targetIndex.getOneBased() + PRICE_DESC_CHICKEN + TAG_DESC_CLAIMABLE
-                + PRICE_DESC_CHICKEN + TAG_DESC_CLAIMABLE + PRICE_DESC_TRANSPORT + TAG_DESC_DISCOUNTED;
-
-        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
-                .withPrice(VALID_PRICE_TRANSPORT)
-                .withTags(VALID_TAG_DISCOUNTED, VALID_TAG_CLAIMABLE)
-                .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -182,17 +159,6 @@ public class EditCommandParserTest {
         userInput = targetIndex.getOneBased() + INVALID_PRICE_DESC + PRICE_DESC_TRANSPORT;
         descriptor = new EditExpenseDescriptorBuilder().withPrice(VALID_PRICE_TRANSPORT).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_EXPENSE;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
-
-        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }
