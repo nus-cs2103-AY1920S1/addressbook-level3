@@ -23,6 +23,7 @@ import seedu.moneygowhere.logic.commands.AddCommand;
 import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.commands.ListCommand;
+import seedu.moneygowhere.logic.commands.StatsCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.Model;
@@ -31,6 +32,7 @@ import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.UserPrefs;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
+import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.storage.JsonSpendingBookStorage;
 import seedu.moneygowhere.storage.JsonUserPrefsStorage;
 import seedu.moneygowhere.storage.StorageManager;
@@ -96,6 +98,18 @@ public class LogicManagerTest {
     @Test
     public void getGraphData_validCommand_success() throws Exception {
         Map<Date, Double> data = logic.getGraphData(GraphCommand.COMMAND_WORD);
+        assertTrue(data != null);
+    }
+
+    @Test
+    public void getStatsData_validCommand_success() throws Exception {
+        Map<Tag, Double> data = logic.getStatsData(StatsCommand.COMMAND_WORD);
+        assertTrue(data != null);
+    }
+
+    @Test
+    public void getStatsMessage_validCommand_success() throws Exception {
+        String data = logic.getStatsMessage(StatsCommand.COMMAND_WORD);
         assertTrue(data != null);
     }
 
