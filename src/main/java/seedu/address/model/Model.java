@@ -181,6 +181,13 @@ public interface Model {
      */
     void deleteInventory(Inventory target);
 
+    /**
+     * Replaces the given task {@code target} with {@code editedInventory}.
+     * {@code target} must exist in the address book.
+     * The task identity of {@code editedInventory} must not be the same as another existing inventory in the dashboard.
+     */
+    void setInventory(Inventory target, Inventory editedInventory);
+
     void addMapping(Mapping mapping);
 
     void deleteMapping(Mapping mapping);

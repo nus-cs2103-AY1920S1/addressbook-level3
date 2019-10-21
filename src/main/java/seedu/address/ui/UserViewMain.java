@@ -54,4 +54,14 @@ public class UserViewMain {
         userViewNavigator.loadTaskListView(logic);
         return userViewController.getCurrentView();
     }
+
+    /**
+     * Shows the user the list of inventories.
+     *
+     * @return the task list pane
+     */
+    public Pane loadInventories() {
+        userViewNavigator.loadInventoriesListView(logic);
+        return userViewController.getCurrentView();
+    }
 }
