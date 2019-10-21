@@ -100,7 +100,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setBankAccountFilePath(Path addressBookFilePath) {
+        public void setBankAccountFilePath(Path bankAccountFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -121,6 +121,31 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyBankAccount getBankAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoBankAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoBankAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoBankAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoBankAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitBankAccount() {
             throw new AssertionError("This method should not be called.");
         }
 

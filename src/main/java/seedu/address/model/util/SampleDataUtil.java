@@ -1,11 +1,12 @@
 package seedu.address.model.util;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.BankAccount;
+import seedu.address.model.Date;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -24,11 +25,11 @@ import seedu.address.model.transaction.Transaction;
 public class SampleDataUtil {
     public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
-            new InTransaction(new Amount(100), new Date(System.currentTimeMillis())),
-            new OutTransaction(new Amount(44.44), new Date(System.currentTimeMillis())),
-            new OutTransaction(new Amount(23.3), new Date(System.currentTimeMillis())),
-            new InTransaction(new Amount(34.01), new Date(System.currentTimeMillis())),
-            new OutTransaction(new Amount(9.99), new Date(System.currentTimeMillis())),
+            new InTransaction(new Amount(100), new Date(LocalDate.now().toString())),
+            new OutTransaction(new Amount(44.44), new Date(LocalDate.now().toString())),
+            new OutTransaction(new Amount(23.3), new Date(LocalDate.now().toString())),
+            new InTransaction(new Amount(34.01), new Date(LocalDate.now().toString())),
+            new OutTransaction(new Amount(9.99), new Date(LocalDate.now().toString()))
         };
     }
 

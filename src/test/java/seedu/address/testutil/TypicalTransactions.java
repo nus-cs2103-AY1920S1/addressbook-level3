@@ -14,44 +14,52 @@ public class TypicalTransactions {
 
     public static final Transaction ALICE = new TransactionBuilder()
             .withAmount("100")
-            .withDate("1")
+            .withDate("19112019")
+            .withTags("food")
             .withPeopleInvolved("ALICE").build();
     public static final Transaction BENSON = new TransactionBuilder()
             .withAmount("200")
-            .withDate("2")
+            .withDate("19112019")
+            .withTags("breakfast")
             .withPeopleInvolved("BENSON").build();
     public static final Transaction CARL = new TransactionBuilder()
             .withAmount("300")
-            .withDate("3")
+            .withDate("19112019")
+            .withTags("dinner")
             .withPeopleInvolved("CARL").build();
     public static final Transaction DANIEL = new TransactionBuilder()
             .withAmount("400")
-            .withDate("4")
+            .withDate("19112019")
+            .withTags("drink")
             .withPeopleInvolved("DANIEL").build();
     public static final Transaction ELLE = new TransactionBuilder()
             .withAmount("500")
-            .withDate("5")
+            .withDate("19112019")
+            .withTags("lunch")
             .withPeopleInvolved("ELLE").build();
     public static final Transaction FIONA = new TransactionBuilder()
             .withAmount("600")
-            .withDate("6")
+            .withDate("19112019")
+            .withTags("club")
             .withPeopleInvolved("FIONA").build();
     public static final Transaction GEORGE = new TransactionBuilder()
             .withAmount("700")
-            .withDate("7")
+            .withDate("19112019")
+            .withTags("grocery")
             .withPeopleInvolved("GEORGE").build();
 
     // Manually added
     public static final Transaction HOON = new TransactionBuilder()
             .withAmount("800")
-            .withDate("8")
+            .withDate("19112019")
             .withPeopleInvolved("HOON").build();
     public static final Transaction IDA = new TransactionBuilder()
             .withAmount("900")
-            .withDate("9")
+            .withDate("19112019")
             .withPeopleInvolved("IDA").build();
 
-    private TypicalTransactions() {} // prevents instantiation
+    private TypicalTransactions() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.

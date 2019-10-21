@@ -12,7 +12,9 @@ import seedu.address.model.transaction.Transaction;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
 
     /**
@@ -50,8 +52,35 @@ public interface Model {
      */
     void setBankAccount(ReadOnlyBankAccount bankAccount);
 
-    /** Returns the BankAccount*/
+    /**
+     * Returns the BankAccount
+     */
     ReadOnlyBankAccount getBankAccount();
+
+    /**
+     * Returns true if the model has previous bank account states to restore.
+     */
+    boolean canUndoBankAccount();
+
+    /**
+     * Restores the model's bank account to its previous state.
+     */
+    void undoBankAccount();
+
+    /**
+     * Returns true if the model has undone bank account states to restore.
+     */
+    boolean canRedoBankAccount();
+
+    /**
+     * Restores the model's bank account to its previously undone state.
+     */
+    void redoBankAccount();
+
+    /**
+     * Saves the current bank account state for undo/redo.
+     */
+    void commitBankAccount();
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the bank account.
@@ -84,10 +113,13 @@ public interface Model {
     void setBudget(Budget amount);
 
     /** Returns an unmodifiable view of the filtered transaction list */
+     * Returns an unmodifiable view of the filtered transaction list
+     */
     ObservableList<Transaction> getFilteredTransactionList();
 
     /**
      * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);

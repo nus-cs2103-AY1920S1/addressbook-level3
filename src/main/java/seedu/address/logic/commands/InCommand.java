@@ -43,7 +43,19 @@ public class InCommand extends Command {
         requireNonNull(model);
 
         model.addTransaction(transaction);
-
+        model.commitBankAccount();
         return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof InCommand) {
+            InCommand inCommand = (InCommand) obj;
+            return transaction.equals(inCommand.transaction);
+        } else {
+            return false;
+        }
     }
 }
