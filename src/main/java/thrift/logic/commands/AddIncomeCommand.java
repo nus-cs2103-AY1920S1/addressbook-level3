@@ -15,7 +15,7 @@ public class AddIncomeCommand extends ScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add_income";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an income transaction to THRIFT. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an income transaction to THRIFT.\n"
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION "
             + CliSyntax.PREFIX_VALUE + "VALUE "

@@ -15,7 +15,7 @@ public class AddExpenseCommand extends ScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add_expense";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense transaction to THRIFT. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense transaction to THRIFT.\n"
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION "
             + CliSyntax.PREFIX_VALUE + "VALUE "

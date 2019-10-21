@@ -13,10 +13,10 @@ public class BudgetCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "budget";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets your monthly budget to the specified amount. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets your monthly budget to the specified amount.\n"
             + "Parameters: "
             + CliSyntax.PREFIX_VALUE + "AMOUNT "
-            + CliSyntax.PREFIX_DATE + "MM/YYYY "
+            + CliSyntax.PREFIX_DATE + "MM/YYYY\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_VALUE + "1000 "
             + CliSyntax.PREFIX_DATE + "10/2019 ";

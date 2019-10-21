@@ -12,7 +12,7 @@ public class UndoCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the previous undoable command"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the previous undoable command.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Undo successful";

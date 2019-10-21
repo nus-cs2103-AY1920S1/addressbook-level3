@@ -12,7 +12,7 @@ public class RedoCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo undone command"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo undone command.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Redo successful";
