@@ -128,6 +128,11 @@ public class Activity {
                 .toArray());
     }
 
+    /**
+     * Invite people to the activity.
+     * @param primaryKeys The primary keys of the people that will be added
+     * into the activity.
+     */
     public void invite(int ... primaryKeys) {
         int len = participantIds.size();
         int newlen = len + primaryKeys.length;
@@ -146,7 +151,7 @@ public class Activity {
         }
     }
 
-    /*
+    /**
      * Checks whether the person with ID is present in this activity.
      * @param personId Id of the person to check.
      * @return True if person exists, false otherwise.
@@ -157,7 +162,7 @@ public class Activity {
 
     /**
      * Remove people from the activity
-     * @param personId The people that will be removed from the activity.
+     * @param people The people that will be removed from the activity.
      */
     public void disinvite(Person ... people) {
         // haven't implemented what if list does not contain that specific person
