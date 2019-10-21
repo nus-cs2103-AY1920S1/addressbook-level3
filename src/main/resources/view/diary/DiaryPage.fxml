@@ -43,7 +43,7 @@
             <StackPane fx:id="diaryEntryPlaceholder" style="-fx-border-color: #121420; -fx-border-width: 1;" />
             <HBox style="-fx-background-color: #040F0F;" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="dayIndexLabel" contentDisplay="RIGHT" graphicTextGap="0.0" style="-fx-font-size: 25; -fx-font-family: Lucida Handwriting; -fx-font-weight: bold; -fx-text-fill: #FFFFFA;" text="Label">
+                  <Label fx:id="dayIndexLabel" contentDisplay="RIGHT" graphicTextGap="0.0" style="-fx-font-size: 25; -fx-font-family: Lucida Handwriting; -fx-font-weight: bold; -fx-text-fill: #FFFFFA;" text="Type &quot;create&quot;!">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
