@@ -11,8 +11,6 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.logic.script.ScriptManager;
-import budgetbuddy.logic.script.exceptions.ScriptException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.person.Person;
@@ -51,11 +49,6 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
-    }
-
-    @Override
-    public Object evaluateScript(String script) throws ScriptException {
-        return ScriptManager.evaluateScript(script, model);
     }
 
     @Override

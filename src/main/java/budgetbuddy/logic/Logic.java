@@ -6,7 +6,6 @@ import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.logic.script.exceptions.ScriptException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.person.Person;
@@ -24,14 +23,6 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
-
-    /**
-     * Evaluates the script and returns the result.
-     * @param script the script to evaluate
-     * @return the result
-     * @throws ScriptException if an exception occurs during script execution
-     */
-    Object evaluateScript(String script) throws ScriptException;
 
     /**
      * Returns the AddressBook.
