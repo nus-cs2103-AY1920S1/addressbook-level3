@@ -14,23 +14,20 @@ NurseTraverse is a desktop application meant for community nurse to help manage 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to manage visits*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
-
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** What it does: allows the user to manage their visits to their patients. They can create their own "checklist" of things to do for each patient, record said data during a visit and view data from previous visits.
+** Justification: This feature has been identified as a required feature by user stories https://github.com/AY1920S1-CS2103-F10-1/main/issues/5[#5], https://github.com/AY1920S1-CS2103-F10-1/main/issues/6[#6] and https://github.com/AY1920S1-CS2103-F10-1/main/issues/25[#25] and will provide significant value-add by allowing users to manage visit data directly.
+** Highlights: --To add //This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: No code or ideas were referenced to outside of this application (beyond code that already exists within _Address Book 3_).
 
 * *Code contributed*: Code contributed can be found via references in issues: (v1.2: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/62[#62], v1.3: Issue https://github.com/AY1920S1-CS2103-F10-1/main/issues/53[#53])
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
+*** Modified relative to absolute indexing for Person list, find and edit (Pull Request https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69])
 *** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77])
 *** Added tabs to main window (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/77[#77])
-*** Modify relative to absolute indexing for Person list, find and edit (Pull Request https://github.com/AY1920S1-CS2103-F10-1/main/pull/69[#69])
 ** Documentation:
 *** Setup initial User Guide to guide direction of project: (Pull Requests https://github.com/AY1920S1-CS2103-F10-1/main/pull/36[#36], https://github.com/AY1920S1-CS2103-F10-1/main/pull/37[#37])
 ** Community:
