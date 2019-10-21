@@ -43,8 +43,8 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
         // updates model after a successful command execution.
         updateModel(command);
-        // saves
-        saveHistory();
+        // saves the model to local storage.
+        saveModel();
 
         return commandResult;
     }
@@ -69,7 +69,7 @@ public class LogicManager implements Logic {
      *
      * @throws CommandException If there was an {@code IOException} when saving a component to local storage.
      */
-    private void saveHistory() throws CommandException {
+    private void saveModel() throws CommandException {
         try {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveHistoryManager(model.getHistoryManager());
