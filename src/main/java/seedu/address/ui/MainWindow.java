@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
@@ -21,8 +20,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.note.Note;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -41,20 +38,16 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private Flashcard flashcard;
-    private NoteCardListPanel noteCardListPanel;
+    private ActivityWindow activityWindow;
+
+    @FXML
+    private StackPane activityWindowPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane flashcardQnsPanelPlaceholder;
-
-    @FXML
-    private StackPane flashcardAnsPanelPlaceholder;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -80,17 +73,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private ImageView currentHighlightedCircle;
 
-    @FXML
-    private Label qnLabel;
-
-    @FXML
-    private Label ansLabel;
-
-    @FXML
-    private Label noteCardTitleLabel;
-
-    @FXML
-    private Label noteCardContentLabel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -105,8 +87,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        currentHighlightedCircle = fcHighlightCircle;
+        activityWindow = new ActivityWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -152,6 +133,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     //To adjust this method to show relative path when switching between modes
     void fillInnerParts() {
+        activityWindow = new ActivityWindow();
+        activityWindowPlaceholder.getChildren().add(activityWindow.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -230,11 +214,10 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFlashcard().isPresent()) {
-                displayFlashcard(commandResult.getFlashcard().get());
+                activityWindow.displayFlashcard(commandResult.getFlashcard().get());
             }
 
             if (commandResult.getNote().isPresent()) {
-                displayNoteCard(commandResult.getNote().get());
             }
 
             return commandResult;
@@ -263,6 +246,8 @@ public class MainWindow extends UiPart<Stage> {
             break;
         default:
         }
+
+        activityWindow.switchWindowTo(targetMode);
         highlightCircle(currentHighlightedCircle);
     }
 
@@ -276,15 +261,5 @@ public class MainWindow extends UiPart<Stage> {
         FadeTransition ft = new FadeTransition(Duration.millis(400), targetCircle);
         ft.setToValue(1);
         ft.play();
-    }
-
-    private void displayFlashcard(Flashcard flashcard) {
-        qnLabel.setText(flashcard.getQuestion().toString());
-        ansLabel.setText(flashcard.getAnswer().toString());
-    }
-
-    private void displayNoteCard(Note note) {
-        noteCardTitleLabel.setText(note.getTitle().toString());
-        noteCardContentLabel.setText(note.getContent().toString());
     }
 }
