@@ -13,7 +13,6 @@ import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBoo
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,10 +23,8 @@ import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.SpendingBook;
 import seedu.moneygowhere.model.UserPrefs;
-import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.NameContainsKeywordsPredicate;
 import seedu.moneygowhere.model.spending.Spending;
-import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.testutil.EditSpendingDescriptorBuilder;
 
 /**
