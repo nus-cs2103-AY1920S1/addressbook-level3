@@ -35,8 +35,6 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private Label price;
     @FXML
-    private Label prep;
-    @FXML
     private FlowPane tags;
 
     public FoodCard(Food food, int displayedIndex) {
@@ -45,7 +43,6 @@ public class FoodCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(food.getName().fullName);
         price.setText(food.getDisplayPrice());
-        prep.setText(food.getDisplayPrepTime());
         food.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

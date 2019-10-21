@@ -1,4 +1,4 @@
-package seedu.deliverymans.storage;
+package seedu.deliverymans.storage.restaurant;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -16,6 +16,7 @@ import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
+import seedu.deliverymans.storage.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Food}.
@@ -27,7 +28,7 @@ class JsonAdaptedFood {
     private final String name;
     private final String price;
     private final long prepTime;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<seedu.deliverymans.storage.JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedFood} with the given {@code foodName}.
@@ -36,7 +37,7 @@ class JsonAdaptedFood {
     public JsonAdaptedFood(@JsonProperty("name") String name,
                            @JsonProperty("price") String price,
                            @JsonProperty("prep") long prepTime,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("tagged") List<seedu.deliverymans.storage.JsonAdaptedTag> tagged) {
         this.name = name;
         this.price = price;
         this.prepTime = prepTime;
@@ -53,7 +54,7 @@ class JsonAdaptedFood {
         price = source.getPrice().toPlainString();
         prepTime = source.getPrepTime().getSeconds();
         tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+                .map(seedu.deliverymans.storage.JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
 

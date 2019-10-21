@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.deliverymans.logic.commands.restaurant.FoodCommand;
+import seedu.deliverymans.logic.commands.restaurant.AddFoodCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
 import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.Parser;
@@ -25,20 +25,20 @@ import seedu.deliverymans.model.food.Food;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class FoodCommandParser implements Parser<FoodCommand> {
+public class AddFoodCommandParser implements Parser<AddFoodCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FoodCommand parse(String args) throws ParseException {
+    public AddFoodCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_TIME, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_TIME, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FoodCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFoodCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -48,7 +48,7 @@ public class FoodCommandParser implements Parser<FoodCommand> {
 
         Food food = new Food(name, price, duration, tagList);
 
-        return new FoodCommand(food);
+        return new AddFoodCommand(food);
     }
 
     /**

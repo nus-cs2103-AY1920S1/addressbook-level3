@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.Duration;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
@@ -43,6 +44,16 @@ public class Food {
         this.price = price;
         this.prepTime = prepTime;
         this.tags = Collections.unmodifiableSet(tags);
+    }
+
+    public Food(Name name, BigDecimal price, Duration prepTime) {
+        requireAllNonNull(name, price, prepTime);
+        checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
+        checkArgument(isValidPrepTime(prepTime), PREP_CONSTRAINTS);
+        this.name = name;
+        this.price = price;
+        this.prepTime = prepTime;
+        this.tags = new HashSet<>();
     }
 
     /**
@@ -82,6 +93,19 @@ public class Food {
     public String getDisplayPrepTime() {
         long seconds = getPrepTime().getSeconds();
         return seconds / 60 + "m " + seconds % 60 + "s";
+    }
+
+    /**
+     * Returns true if both food are of the same name.
+     * This defines a weaker notion of equality between two food.
+     */
+    public boolean isSameFood(Food otherFood) {
+        if (otherFood == this) {
+            return true;
+        }
+
+        return otherFood != null
+                && otherFood.getName().equals(getName());
     }
 
     @Override
