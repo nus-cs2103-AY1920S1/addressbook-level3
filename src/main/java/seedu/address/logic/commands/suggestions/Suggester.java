@@ -7,7 +7,19 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.AddNusModsCommand;
+import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
+import seedu.address.logic.commands.DeleteGroupCommand;
+import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.commands.EditGroupCommand;
+import seedu.address.logic.commands.EditPersonCommand;
+import seedu.address.logic.commands.FindGroupCommand;
+import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.logic.commands.ScheduleCommand;
+import seedu.address.logic.commands.suggestions.stateless.GroupNameSuggester;
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
@@ -20,7 +32,19 @@ import seedu.address.model.Model;
 public abstract class Suggester {
     protected static final ObservableList<String> NO_SUGGESTIONS = FXCollections.emptyObservableList();
     static final Map<String, Class<? extends Suggester>> SUGGESTER_MAP = Map.ofEntries(
-            Map.entry(AddToGroupCommand.COMMAND_WORD, AddToGroupCommandSuggester.class)
+            Map.entry(AddEventCommand.COMMAND_WORD, AddEventCommandSuggester.class),
+            Map.entry(AddGroupCommand.COMMAND_WORD, AddGroupCommandSuggester.class),
+            Map.entry(AddNusModsCommand.COMMAND_WORD, AddNusModsCommandSuggester.class),
+            Map.entry(AddPersonCommand.COMMAND_WORD, AddPersonCommandSuggester.class),
+            Map.entry(AddToGroupCommand.COMMAND_WORD, AddToGroupCommandSuggester.class),
+            Map.entry(DeleteGroupCommand.COMMAND_WORD, DeleteGroupCommandSuggester.class),
+            Map.entry(DeletePersonCommand.COMMAND_WORD, DeletePersonCommandSuggester.class),
+            Map.entry(EditGroupCommand.COMMAND_WORD, EditGroupCommandSuggester.class),
+            Map.entry(EditPersonCommand.COMMAND_WORD, EditPersonCommandSuggester.class),
+            Map.entry(FindGroupCommand.COMMAND_WORD, GroupNameSuggester.class),
+            Map.entry(FindPersonCommand.COMMAND_WORD, FindPersonCommandSuggester.class),
+            Map.entry(ScheduleCommand.COMMAND_WORD, GroupNameSuggester.class)
+
     );
 
     protected static <T> ObservableList<T> createUnmodifiableObservableList(final List<T> list) {
