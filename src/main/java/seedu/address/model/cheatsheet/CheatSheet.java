@@ -2,6 +2,7 @@ package seedu.address.model.cheatsheet;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -67,6 +68,15 @@ public class CheatSheet implements StudyBuddyItem {
         }
 
         return null;
+    }
+
+    public ArrayList<Content> getSortedContents() {
+        ArrayList<Content> contentList = new ArrayList<>(contents);
+
+        ContentSortByIndex comp = new ContentSortByIndex();
+        contentList.sort(comp);
+
+        return contentList;
     }
 
     public String getContentsInStringForm() {

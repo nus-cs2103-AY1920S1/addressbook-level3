@@ -217,6 +217,10 @@ public class MainWindow extends UiPart<Stage> {
                 activityWindow.displayFlashcard(commandResult.getFlashcard().get());
             }
 
+            if (commandResult.getCheatSheet().isPresent()) {
+                activityWindow.displayCheatSheet(commandResult.getCheatSheet().get());
+            }
+
             if (commandResult.getNote().isPresent()) {
             }
 

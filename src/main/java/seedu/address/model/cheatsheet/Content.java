@@ -1,5 +1,7 @@
 package seedu.address.model.cheatsheet;
 
+import java.util.ArrayList;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -15,7 +17,6 @@ public class Content {
 
     public final String content;
     public final int index;
-
 
     /**
      * Constructs a {@code Content}.
