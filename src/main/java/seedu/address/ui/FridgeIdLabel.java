@@ -31,8 +31,9 @@ public class FridgeIdLabel extends UiPart<Region> {
             fridgeIdPlaceholder.setText(id.toString());
             circle.getStyleClass().add("fridgeIdCircleFilled");
         }
+        fridgeIdPlaceholder.setStyle("-fx-font-weight: bold");
         circle.setStrokeWidth(0.0);
-        circle.radiusProperty().bind(fridgeIdPlaceholder.widthProperty());
+        circle.setRadius(15.0);
     }
 
     @Override
