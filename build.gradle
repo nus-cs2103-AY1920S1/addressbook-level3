@@ -129,7 +129,7 @@ asciidoctor {
 
     attributes = [
         linkcss: true,
-        stylesheet: 'gh-pages.css',
+        stylesheet: 'dark.css',
         'source-highlighter': 'coderay',
         icons: 'font',
         experimental: true,
