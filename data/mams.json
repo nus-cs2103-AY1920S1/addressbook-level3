@@ -148,9 +148,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "REJECTED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000001",
     "appealType" : "Drop module",
@@ -162,9 +162,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000002",
     "appealType" : "Drop module",
@@ -177,7 +177,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000003",
@@ -191,7 +191,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000004",
@@ -205,7 +205,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000005",
@@ -219,7 +219,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000006",
@@ -233,7 +233,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000007",
@@ -246,8 +246,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   } ]
 }
