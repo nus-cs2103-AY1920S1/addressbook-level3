@@ -1,7 +1,6 @@
 package seedu.weme.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
 
 import java.util.List;
 
@@ -48,7 +47,6 @@ public class LikeCommand extends Command {
         Meme memeToLike = lastShownList.get(index.getZeroBased());
 
         model.incrementLikesByMeme(memeToLike);
-        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES); // This line only re-renders the GUI on first like.
         return new CommandResult(String.format(MESSAGE_LIKE_MEME_SUCCESS, memeToLike));
     }
 

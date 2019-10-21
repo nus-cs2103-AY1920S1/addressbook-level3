@@ -5,10 +5,12 @@ import java.util.logging.Logger;
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
 
@@ -30,6 +32,7 @@ public class MemeGridPanel extends UiPart<Region> {
         memeGridView.setItems(memeList);
         memeGridView.setCellFactory(listView -> new MemeGridViewCell());
         this.likeData = likeData;
+        likeData.addListener((MapChangeListener<String, Integer>) change -> memeGridView.autosize());
     }
 
     /**
