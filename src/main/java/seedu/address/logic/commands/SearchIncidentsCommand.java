@@ -25,11 +25,11 @@ public class SearchIncidentsCommand extends Command {
             + "or description contains any of the specified keywords (case-insensitive) and displays them as a list "
             + "with index numbers.\n"
             + "Parameters: "
-            + PREFIX_ID + "<ID> OR "
-            + PREFIX_OPERATOR + "<OPERATOR> OR "
-            + PREFIX_DESC + "<KEYWORD [MORE_KEYWORDS]...>\n"
+            + SEARCH_PREFIX_ID + "<ID> OR "
+            + SEARCH_PREFIX_OPERATOR + "<OPERATOR> OR "
+            + SEARCH_PREFIX_DESCRIPTION + "<KEYWORD [MORE_KEYWORDS]...>\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_OPERATOR + "alex";
+            + SEARCH_PREFIX_OPERATOR + "alex";
 
     private final Predicate<Incident> predicate;
 
