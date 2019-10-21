@@ -3,4 +3,4 @@
 <?import org.controlsfx.control.MasterDetailPane?>
 
 
-<MasterDetailPane fx:id="bodyMasterDetailPane" dividerPosition="0.85" minHeight="100.0" prefHeight="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<MasterDetailPane fx:id="bodyMasterDetailPane" dividerPosition="0.7" minHeight="100.0" prefHeight="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
