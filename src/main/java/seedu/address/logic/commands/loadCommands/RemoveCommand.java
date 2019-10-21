@@ -38,7 +38,7 @@ public class RemoveCommand extends LoadCommand {
         }
 
         model.removeWordBank();
-        return new CommandResult(MESSAGE_REMOVE_CARD_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_REMOVE_CARD_SUCCESS, wordBankName));
     }
 
     @Override

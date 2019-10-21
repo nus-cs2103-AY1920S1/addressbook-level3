@@ -90,7 +90,7 @@ public class LogicManager implements Logic {
         try {
             ReadOnlyWordBank wb = model.getWordBank();
             Path wordBankListFilePath = storage.getWordBankListFilePath();
-            if (!wb.getName().equals("Empty Wordbank")) {
+            if (!wb.getName().equals("Empty wordbank")) {
                 storage.saveWordBank(wb, wordBankListFilePath);
             }
             if (command instanceof CreateCommand) {
