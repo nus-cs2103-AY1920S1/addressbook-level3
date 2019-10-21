@@ -7,13 +7,14 @@ import seedu.address.commons.core.item.Item;
  * */
 
 public class ItemIndexWrapper {
-    private Item item;
-    private int visual;
-    private int storage;
-    private int task;
-    private int eve;
-    private int rem;
-    private int frem;
+    private Item item; //the item
+    private int visual; //its index in VisualizeList
+    private int storage; //index in ItemStorage
+    private int task; //index in TaskList
+    private int eve; //index in EventList
+    private int rem; //index in ReminderList
+    private int frem; //index in FutureReminders
+    //All indices are -1 if not in the respective list.
 
     public ItemIndexWrapper(Item item, int visual, int storage, int task, int eve, int rem, int frem) {
         this.item = item;

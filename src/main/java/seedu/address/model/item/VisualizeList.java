@@ -66,7 +66,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      * @param index the integer value of the index of the item to be removed
      * @return the item that is removed from this operation
      */
-    public Item remove(int index) {
+    public Item removeItemFromList(int index) {
         return list.remove(index);
     }
 
@@ -74,7 +74,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      * Removes an item from the list.
      * @param item the item to be removed from the list
      */
-    public Item remove(Item item) {
+    public Item removeItemFromList(Item item) {
         list.remove(item);
         return item;
     }

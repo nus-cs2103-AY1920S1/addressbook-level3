@@ -296,13 +296,13 @@ public class ItemModelManager implements ItemModel {
      * @return the item that was removed
      */
     public Item removeItem(int index) {
-        Item item = visualList.remove(index);
+        Item item = visualList.removeItemFromList(index);
         if (visualList instanceof TaskList) {
-            taskList.remove(item);
+            taskList.removeItemFromList(item);
         } else if (visualList instanceof EventList) {
-            eventList.remove(item);
+            eventList.removeItemFromList(item);
         } else if (visualList instanceof ReminderList) {
-            reminderList.remove(item);
+            reminderList.removeItemFromList(item);
         } else {
             // never reached here as there are only three variants for the visualList
         }
@@ -315,13 +315,13 @@ public class ItemModelManager implements ItemModel {
      * */
 
     public Item removeItem(Item item) {
-        Item removedItem = visualList.remove(item);
+        Item removedItem = visualList.removeItemFromList(item);
         if (visualList instanceof TaskList) {
-            taskList.remove(item);
+            taskList.removeItemFromList(item);
         } else if (visualList instanceof EventList) {
-            eventList.remove(item);
+            eventList.removeItemFromList(item);
         } else if (visualList instanceof ReminderList) {
-            reminderList.remove(item);
+            reminderList.removeItemFromList(item);
         } else {
             // never reached here as there are only three variants for the visualList
         }
@@ -334,11 +334,11 @@ public class ItemModelManager implements ItemModel {
      * @return the item that was deleted from the program
      */
     public Item deleteItem(int index) {
-        Item item = visualList.remove(index);
+        Item item = visualList.removeItemFromList(index);
         itemStorage.remove(item);
-        taskList.remove(item);
-        eventList.remove(item);
-        reminderList.remove(item);
+        taskList.removeItemFromList(item);
+        eventList.removeItemFromList(item);
+        reminderList.removeItemFromList(item);
         if (priorityMode) {
             getNextTask();
         }
