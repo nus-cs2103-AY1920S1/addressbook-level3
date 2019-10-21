@@ -179,7 +179,7 @@ It implements the following mode of operations:
 ===== Statistic Module
 The statistic module exposes the calculation operations in the `Statistics` interface.
 analogous to the output mode, there are 2 types of methods in this module, one that returns a
-`String` and the other and `XYChart.Data<String,Number>`
+`String` and the other and `XYChart.Series<String,Number>`
 
 * Methods that return a `String`:
 
@@ -187,7 +187,7 @@ analogous to the output mode, there are 2 types of methods in this module, one t
 ** `calculateTotalRevenueOnCompleted()`
 ** `calculateTotalCostOnCompleted()`
 
-* Methods that return a `XYChart.Data<String,Number>`:
+* Methods that return a `XYChart.Series<String,Number>`:
 
 ** `calculateTotalProfitOnCompletedGraph()`
 ** `calculateTotalRevenueOnCompletedGraph()`
@@ -216,7 +216,7 @@ We decided to extend this command pattern by creating a `statsPayload` object. T
 queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class to the
 `UI` to use in its query to logic.
 
-Attached below is a quick summary of what occurs when a statistic command is entered by the user:
+Attached below is a quick summary of what occurs in the when a statistic command is entered by the user and parsed:
 
 image::StatsCommandSequenceDiagram.png[]
 
