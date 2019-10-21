@@ -40,35 +40,44 @@ import seedu.address.model.entity.IdentificationNumber;
 public class UpdateCommandParser implements Parser<UpdateCommand> {
 
     /**
+     *
+     * @param argsString
+     * @param prefixes
+     * @return
+     */
+    private ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
+        return ArgumentTokenizer.tokenize(argsString,
+                PREFIX_FLAG,
+                PREFIX_IDENTIFICATION_NUMBER,
+                PREFIX_SEX,
+                PREFIX_NAME, // Start of Body Fields
+                PREFIX_NRIC,
+                PREFIX_RELIGION,
+                PREFIX_CAUSE_OF_DEATH,
+                PREFIX_ORGANS_FOR_DONATION,
+                PREFIX_STATUS,
+                PREFIX_FRIDGE_ID,
+                PREFIX_DATE_OF_BIRTH,
+                PREFIX_DATE_OF_DEATH,
+                PREFIX_NAME_NOK,
+                PREFIX_RELATIONSHIP,
+                PREFIX_PHONE_NOK,
+                PREFIX_PHONE_NUMBER, // Worker-only Fields
+                PREFIX_DATE_JOINED,
+                PREFIX_DESIGNATION,
+                PREFIX_EMPLOYMENT_STATUS,
+                PREFIX_BODY); // Fridge-only field
+    }
+
+    /**
      * Parses the given {@code String} of arguments in the context of the UpdateCommand
      * and returns an UpdateCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format
      */
     public UpdateCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args,
-                        PREFIX_FLAG,
-                        PREFIX_IDENTIFICATION_NUMBER,
-                        PREFIX_SEX,
-                        PREFIX_NAME, // Start of Body Fields
-                        PREFIX_NRIC,
-                        PREFIX_RELIGION,
-                        PREFIX_CAUSE_OF_DEATH,
-                        PREFIX_ORGANS_FOR_DONATION,
-                        PREFIX_STATUS,
-                        PREFIX_FRIDGE_ID,
-                        PREFIX_DATE_OF_BIRTH,
-                        PREFIX_DATE_OF_DEATH,
-                        PREFIX_NAME_NOK,
-                        PREFIX_RELATIONSHIP,
-                        PREFIX_PHONE_NOK,
-                    PREFIX_PHONE_NUMBER, // Worker-only Fields
-                        PREFIX_DATE_JOINED,
-                        PREFIX_DESIGNATION,
-                        PREFIX_EMPLOYMENT_STATUS,
-                        PREFIX_BODY); // Fridge-only field
 
+        ArgumentMultimap argMultimap = tokenize(args);
         String flag = argMultimap.getValue(PREFIX_FLAG).orElse("");
         String idNum = argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).orElse(null);
 
@@ -81,7 +90,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         }
 
         boolean arePrefixesPresent;
-
         switch (flag) {
         case "b":
             identificationNumber = IdentificationNumber.customGenerateId("B", Integer.parseInt(idNum));
@@ -112,7 +120,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             break;
         case "f":
             identificationNumber = IdentificationNumber.customGenerateId("F", Integer.parseInt(idNum));
-            // Use /body ID instead of /id ID as /id is used for identifying the fridge already
+            // Use /body ID instead of /id ID because /id is used for identifying the fridge itself.
             arePrefixesPresent = arePrefixesPresent(argMultimap, PREFIX_STATUS, PREFIX_BODY);
             break;
         default:
@@ -124,7 +132,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
-        // Get fields from arguments.
+        // Get input fields from arguments.
         switch(flag) {
         case "b":
             updateEntityDescriptor = parseBodyFields(new UpdateBodyDescriptor(), argMultimap);

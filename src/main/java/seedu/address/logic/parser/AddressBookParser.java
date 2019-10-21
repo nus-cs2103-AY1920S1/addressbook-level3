@@ -72,10 +72,14 @@ public class AddressBookParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
-        case UndoCommand.COMMAND_WORD:
+        case UndoCommand.COMMAND_WORD: // Fallthrough
+
+        case UndoCommand.SHORTCUT_WORD:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+
+        case RedoCommand.SHORTCUT_WORD: // Fallthrough
             return new RedoCommand();
 
         case HelpCommand.COMMAND_WORD:

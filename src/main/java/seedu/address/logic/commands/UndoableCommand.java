@@ -22,8 +22,6 @@ public abstract class UndoableCommand extends Command {
     public static final String MESSAGE_NOT_EXECUTED_BEFORE = "Command cannot be undone before it is "
             + "successfully executed.";
     public static final String MESSAGE_NOT_UNDONE_BEFORE = "Command cannot be redone before it is successfully undone!";
-    public static final String MESSAGE_UNDO_FAIL = "Command cannot be undone before it is successfully executed.";
-    public static final String MESSAGE_REDO_FAIL = "Command cannot be redone before it is successfully undone!";
 
     private UndoableCommandState commandState = UndoableCommandState.PRE_EXECUTION;
 
@@ -40,14 +38,24 @@ public abstract class UndoableCommand extends Command {
         return execute(model);
     }
 
+    /**
+     * Sets the command status to Undoable. This is done only after a command is executed.
+     */
     public void setUndoable() {
         commandState = UndoableCommandState.UNDOABLE;
     }
 
+    /**
+     * Sets the command status to Redoable. This is done after a command is undone.
+     */
     public void setRedoable() {
         commandState = UndoableCommandState.REDOABLE;
     }
 
+    /**
+     * Returns the status of the command, allowing UndoableCommands to check if undoing or redoing is a valid action.
+     * @return
+     */
     public UndoableCommandState getCommandState() {
         return commandState;
     }
