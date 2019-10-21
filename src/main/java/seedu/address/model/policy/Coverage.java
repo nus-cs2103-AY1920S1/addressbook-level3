@@ -92,6 +92,14 @@ public class Coverage {
         return coverage;
     }
 
+    public String toReadableString() {
+        ArrayList<String> coverageBreakDown = getCoverageBreakDown(coverage);
+        String days = coverageBreakDown.get(dayIndex);
+        String months = coverageBreakDown.get(monthIndex);
+        String years = coverageBreakDown.get(yearIndex);
+        return years + " years, " + months + " months, " + days + " days";
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

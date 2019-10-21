@@ -2,11 +2,9 @@ package seedu.address.model.policy;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -141,6 +139,13 @@ public class Policy {
                 && otherPolicy.getEndAge().equals(getEndAge())
                 && otherPolicy.getCriteria().equals(getCriteria())
                 && otherPolicy.getTags().equals(getTags());
+    }
+
+    public boolean isEligible(Person person) {
+        int year = person.getDateOfBirth().toLocalDate().getYear();
+        return person.getTags().containsAll(criteria)
+                && year > Integer.parseInt(this.startAge.age)
+                && year < Integer.parseInt(this.endAge.age);
     }
 
     @Override

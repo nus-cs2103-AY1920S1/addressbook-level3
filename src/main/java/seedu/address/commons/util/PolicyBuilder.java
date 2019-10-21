@@ -74,8 +74,8 @@ public class PolicyBuilder {
         price = new Price(DEFAULT_PRICE);
         startAge = new StartAge(DEFAULT_START_AGE);
         endAge = new EndAge(DEFAULT_END_AGE);
-        criteria = new HashSet<>(criteria);
-        tags = new HashSet<>(tags);
+        this.criteria = new HashSet<>(criteria);
+        this.tags = new HashSet<>(tags);
     }
 
     /**
@@ -151,10 +151,26 @@ public class PolicyBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Policy} that we are building.
+     * Parses the {@code criteria} into a {@code Set<Tag>} and set it to the {@code Policy} that we are building.
      */
     public PolicyBuilder withCriteria(String... criteria) {
         this.criteria = getCriteriaSet(criteria);
+        return this;
+    }
+
+    /**
+     * Adds the {@code criteria} to the {@code Policy} that we are building.
+     */
+    public PolicyBuilder addCriteria(List<Tag> criteria) {
+        this.criteria.addAll(criteria);
+        return this;
+    }
+
+    /**
+     * Removes the {@code criteria} from the {@code Policy} that we are building.
+     */
+    public PolicyBuilder removeCriteria(List<Tag> criteria) {
+        this.criteria.removeAll(criteria);
         return this;
     }
 
