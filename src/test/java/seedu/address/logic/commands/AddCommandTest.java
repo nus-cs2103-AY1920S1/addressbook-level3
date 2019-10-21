@@ -14,12 +14,16 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.FunctionMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -142,6 +146,12 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=============Person stuff===============================================
+        @Override
+        public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         //=============Flashcard stuff===============================================
 
         @Override
@@ -173,7 +183,7 @@ public class AddCommandTest {
 
         @Override
         public void addFlashcard(Flashcard flashcard) {
-            // To be implemented
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -183,16 +193,31 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public String formatOutputListString(FunctionMode mode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public <T> String formatList(FilteredList<T> object) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteFlashcard(Flashcard flashcard) {
-            // To be implemented
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasFlashcard(Flashcard flashcard) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -21,6 +21,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCheatSheetByTagCommand;
 import seedu.address.logic.commands.FilterFlashcardByTagCommand;
 import seedu.address.logic.commands.FilterNoteByTagCommand;
+import seedu.address.logic.commands.GlobalTagFilterCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTagCommand;
@@ -76,6 +77,9 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case GlobalTagFilterCommand.COMMAND_WORD:
+            return new GlobalTagFilterCommandParser().parse(arguments);
+
         default:
 
             switch (LogicManager.getMode()) {
@@ -89,7 +93,6 @@ public class AddressBookParser {
                 return parseNoteCommands(commandWord, arguments);
 
             default:
-                System.out.println("test");
                 throw new ParseException(SPECIFY_MODE);
             }
         }
@@ -248,9 +251,6 @@ switch (commandWord) {
 
         case AddFlashcardCommand.COMMAND_WORD:
             return new AddFlashcardCommandParser().parse(arguments);
-
-        case ListFlashcardCommand.COMMAND_WORD:
-            return new ListFlashcardCommand();
 
         case DeleteFlashcardCommand.COMMAND_WORD:
             return new DeleteFlashcardCommandParser().parse(arguments);

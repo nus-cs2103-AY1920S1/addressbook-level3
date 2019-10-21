@@ -17,6 +17,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX = "The flashcard index provided is invalid";
 
     public static final String MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX = "The cheatsheet index provided is invalid";
+    public static final String MESSAGE_INVALID_CHEATSHEET_CONTENT_DISPLAYED_INDEX = "The content index "
+            + "provided is invalid";
 
     public static final String SPECIFY_MODE = "Please specify a mode to start with: Cheatsheet, Flashcard or Note";
 
@@ -26,5 +28,6 @@ public class Messages {
     public static final String VIEW = "view";
     public static final String LIST = "list";
     public static final String FILTER = "filter";
+    public static final String GLOBAL_TAG_FILTER = "globaltagfilter";
 
 }

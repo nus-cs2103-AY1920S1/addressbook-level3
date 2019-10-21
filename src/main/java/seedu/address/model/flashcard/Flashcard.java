@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a flashcard in the StudyBuddy application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Flashcard {
+public class Flashcard implements StudyBuddyItem {
 
     private final Question question;
     private final Answer answer;

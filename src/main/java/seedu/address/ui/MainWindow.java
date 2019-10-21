@@ -131,6 +131,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
+    //To adjust this method to show relative path when switching between modes
     void fillInnerParts() {
         activityWindow = new ActivityWindow();
         activityWindowPlaceholder.getChildren().add(activityWindow.getRoot());
