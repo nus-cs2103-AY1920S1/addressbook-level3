@@ -4,9 +4,7 @@ import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.LikeCommand;
-import seedu.weme.logic.commands.MemeDeleteCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
-import seedu.weme.statistics.LikeData;
 
 /**
  * Parses input arguments and creates a new MemeDeleteCommand object
