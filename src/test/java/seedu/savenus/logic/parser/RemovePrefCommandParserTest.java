@@ -33,7 +33,7 @@ import seedu.savenus.logic.commands.RemoveLikeCommand;
 import seedu.savenus.logic.commands.RemovePreferenceCommand;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 public class RemovePrefCommandParserTest {
     private RemovePreferenceCommandParser parser = new RemovePreferenceCommandParser();

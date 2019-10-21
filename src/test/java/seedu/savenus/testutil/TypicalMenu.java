@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.savenus.model.Menu;
+import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.wallet.Wallet;
 

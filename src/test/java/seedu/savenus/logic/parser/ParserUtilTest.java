@@ -18,7 +18,7 @@ import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "@yam";

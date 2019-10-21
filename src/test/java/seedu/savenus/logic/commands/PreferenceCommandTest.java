@@ -14,14 +14,14 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
-import seedu.savenus.model.PurchaseHistory;
-import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
-import seedu.savenus.model.sorter.CustomSorter;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.sort.CustomSorter;
+import seedu.savenus.model.food.Tag;
 
 /**
  * Contains tests for both LikeCommand and DislikeCommand

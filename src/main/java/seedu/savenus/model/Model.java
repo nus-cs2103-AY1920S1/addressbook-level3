@@ -12,12 +12,15 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
+import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.Savings;
-import seedu.savenus.model.sorter.CustomSorter;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.sort.CustomSorter;
+import seedu.savenus.model.food.Tag;
+import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 

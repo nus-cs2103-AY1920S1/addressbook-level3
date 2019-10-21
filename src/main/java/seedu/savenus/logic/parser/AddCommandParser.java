@@ -21,9 +21,10 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
+import seedu.savenus.model.food.Prefix;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object

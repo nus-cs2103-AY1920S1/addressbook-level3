@@ -14,7 +14,7 @@ import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 /**
  * Creates a RemovePreferenceCommand that either removes likes or dislikes from the $aveNUS recommendation system.

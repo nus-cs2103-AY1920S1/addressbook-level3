@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
-import seedu.savenus.model.PurchaseHistory;
-import seedu.savenus.model.UserPrefs;
+import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
-import seedu.savenus.model.sorter.CustomSorter;
+import seedu.savenus.model.sort.CustomSorter;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

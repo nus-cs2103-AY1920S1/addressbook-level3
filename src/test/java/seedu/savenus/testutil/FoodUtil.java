@@ -14,7 +14,7 @@ import java.util.Set;
 import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.logic.commands.EditCommand.EditFoodDescriptor;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 /**
  * A utility class for Food.

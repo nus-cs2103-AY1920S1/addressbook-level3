@@ -1,6 +1,6 @@
 package seedu.savenus.testutil;
 
-import seedu.savenus.model.Menu;
+import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.food.Food;
 
 /**

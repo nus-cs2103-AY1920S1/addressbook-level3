@@ -1,5 +1,7 @@
 package seedu.savenus.logic.parser;
 
+import seedu.savenus.model.food.Prefix;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -6,7 +6,7 @@ import java.util.Set;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.recommend.UserRecommendations;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 /**
  * A utility class containing a list of sets to be used in recommendation tests.

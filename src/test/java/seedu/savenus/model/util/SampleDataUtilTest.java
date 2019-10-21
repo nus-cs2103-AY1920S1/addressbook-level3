@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.wallet.Wallet;
 
 public class SampleDataUtilTest {

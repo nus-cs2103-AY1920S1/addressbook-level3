@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.savenus.model.Menu;
-import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.menu.Menu;
+import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Food;
@@ -14,7 +14,7 @@ import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.wallet.Wallet;
 
 /**

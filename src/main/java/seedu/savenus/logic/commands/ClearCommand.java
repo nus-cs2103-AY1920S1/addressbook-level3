@@ -2,7 +2,7 @@ package seedu.savenus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.savenus.model.Menu;
+import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.Model;
 
 /**
