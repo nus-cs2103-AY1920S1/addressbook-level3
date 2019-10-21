@@ -8,13 +8,14 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import seedu.address.model.activity.exceptions.PersonNotInActivityException;
-import seedu.address.model.person.Person;
 
 /**
  * Represents an Activity class containing participants ID and expenses.
  */
 public class Activity {
 
+    private static int primaryKeyCounter;
+    private final int primaryKey;
     private final Title title;
     private final ArrayList<Expense> expenses;
 
@@ -29,6 +30,28 @@ public class Activity {
 
     /**
      * Constructor for Activity.
+     * @param primaryKey The primary key of this activity.
+     * @param title Title of the activity.
+     * @param ids The people participating in the activity.
+     */
+    public Activity(int primaryKey, Title title, Integer ... ids) {
+        requireAllNonNull(title);
+        participantIds = new ArrayList<>();
+        expenses = new ArrayList<>();
+        participantBalances = new ArrayList<>();
+        transferMatrix = new ArrayList<>();
+        debtMatrix = new ArrayList<>();
+        this.primaryKey = primaryKey;
+        this.title = title;
+        for (Integer id : ids) {
+            participantIds.add(id);
+            participantBalances.add(0.0);
+            transferMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
+            debtMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
+        }
+    }
+    /**
+     * Constructor for Activity.
      * @param title Title of the activity.
      * @param ids The people participating in the activity.
      */
@@ -39,6 +62,7 @@ public class Activity {
         participantBalances = new ArrayList<>();
         transferMatrix = new ArrayList<>();
         debtMatrix = new ArrayList<>();
+        this.primaryKey = primaryKeyCounter++;
         this.title = title;
         for (Integer id : ids) {
             participantIds.add(id);
@@ -46,6 +70,18 @@ public class Activity {
             transferMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
             debtMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
         }
+    }
+
+    public int getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public static int getPrimaryKeyCounter() {
+        return primaryKeyCounter;
+    }
+
+    public static void setPrimaryKeyCounter(int pk) {
+        primaryKeyCounter = pk;
     }
 
     /**
@@ -101,15 +137,23 @@ public class Activity {
                 transferMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
             }
         }
+      
+     * Checks whether the person with ID is present in this activity.
+     * @param personId Id of the person to check.
+     * @return True if person exists, false otherwise.
+     */
+    public boolean hasPerson(Integer personId) {
+        return participantIds.contains(personId);
     }
 
     /**
      * Remove people from the activity
-     * @param people The people that will be removed from the activity.
+     * @param personId The people that will be removed from the activity.
      */
     public void disinvite(Person ... people) {
         // haven't implemented what if list does not contain that specific person
         // TODO: also care about transfermatrix and debtmatrix
+        // perhaps this? public void disinvite(Integer personId)
     }
 
     /**
