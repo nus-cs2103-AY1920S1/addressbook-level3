@@ -5,6 +5,9 @@ import java.awt.TextField;
 import javafx.fxml.FXML;
 import seedu.address.model.note.Note;
 
+/**
+ * Controller class that handles what happens within the Notes Tab within the Activity Window.
+ */
 public class NotesTabWindowController {
 
     @FXML

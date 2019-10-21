@@ -7,6 +7,9 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.FunctionMode;
 import seedu.address.model.flashcard.Flashcard;
 
+/**
+ * The UI Component responsible for displaying the windows of different features as tabs.
+ */
 public class ActivityWindow extends UiPart<Region> {
 
     private static final String FXML = "ActivityWindow.fxml";
@@ -45,16 +48,17 @@ public class ActivityWindow extends UiPart<Region> {
      */
     public void switchWindowTo(FunctionMode targetMode) {
         switch (targetMode) {
-            case FLASHCARD:
-                activityWindow.getSelectionModel().select(FLASHCARD_TAB_INDEX);
-                break;
-            case CHEATSHEET:
-                activityWindow.getSelectionModel().select(CHEATSHEET_TAB_INDEX);
-                break;
-            case NOTE:
-                activityWindow.getSelectionModel().select(NOTES_TAB_INDEX);
-                break;
-            default:
+        case FLASHCARD:
+            activityWindow.getSelectionModel().select(FLASHCARD_TAB_INDEX);
+            break;
+        case CHEATSHEET:
+            activityWindow.getSelectionModel().select(CHEATSHEET_TAB_INDEX);
+            break;
+        case NOTE:
+            activityWindow.getSelectionModel().select(NOTES_TAB_INDEX);
+            break;
+        default:
+            assert false: "Invalid target mode";
         }
     }
 

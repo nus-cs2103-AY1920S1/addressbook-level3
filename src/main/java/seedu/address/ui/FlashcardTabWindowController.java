@@ -4,6 +4,9 @@ import javafx.fxml.FXML;;
 import javafx.scene.control.TextArea;
 import seedu.address.model.flashcard.Flashcard;
 
+/**
+ * Controller class that handles what happens within the Flashcard Tab within the Activity Window.
+ */
 public class FlashcardTabWindowController {
 
     @FXML
