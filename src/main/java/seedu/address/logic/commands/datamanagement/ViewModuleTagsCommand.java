@@ -40,7 +40,7 @@ public class ViewModuleTagsCommand extends Command {
         UniqueTagList tags = model.getModuleTagsFromActiveSp(moduleCode);
 
         final String stringOfTags = tags.asUnmodifiableObservableList().stream()
-                .map(item -> item.toString())
+                .map(Object::toString)
                 .collect(joining("\n"));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfTags));
