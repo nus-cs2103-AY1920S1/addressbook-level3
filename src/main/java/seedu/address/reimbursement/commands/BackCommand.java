@@ -9,7 +9,7 @@ import seedu.address.reimbursement.ui.ReimbursementMessages;
 /**
  * Represents a command to list all reimbursements.
  */
-public class ListCommand extends Command {
+public class BackCommand extends Command {
     public static final String COMMAND_WORD = "back";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
