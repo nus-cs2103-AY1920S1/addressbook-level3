@@ -143,11 +143,9 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some important details on how the features are implemented
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Claim feature
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
@@ -227,14 +225,13 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Income feature
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
-=== Logging
+=== Budget feature
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -250,10 +247,27 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+=== Goto feature
+==== Introduction
+This section describes the different Views that Goto can bring a user to. This is also an overview of the goto details and how users can interact
+with goto based on commands implemented with the revamp of the original list feature.
+It also provides some design considerations to give users an insight of how the current solutions are worked out.
 
+==== Current Implementation
+
+==== Design Consideration
+
+
+=== Check feature
+==== Introduction
+This section is an overview of the check feature, an extended feature of the Goto feature. This feature can only be used
+after going to contacts or claims page. It is used to examine each contact or claim individually.
+It also provides some design considerations to give users an insight of how the current solutions are worked out.
+
+==== Current Implementation
+
+==== Design Consideration
 
 [appendix]
 == Product Scope
