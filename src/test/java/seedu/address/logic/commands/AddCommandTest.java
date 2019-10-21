@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Transaction;
 
 public class AddCommandTest {
@@ -171,6 +172,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addSplit(SplitTransaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
     }

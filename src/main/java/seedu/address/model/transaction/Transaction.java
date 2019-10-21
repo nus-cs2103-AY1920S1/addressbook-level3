@@ -4,13 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.Date;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.Date;
 
 /**
  * API of Transaction.
@@ -27,13 +23,6 @@ public abstract class Transaction {
     public Transaction(Amount amount, Date date) {
         this.amount = amount;
         this.date = date;
-        // TODO: remove this stub
-        this.peopleInvolved = new Person(
-                new Name("Alex"),
-                new Phone("82831821"),
-                new Email("person@gmail.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                new HashSet<Tag>());
     }
 
     public Transaction(Amount amount, Date date, Set<Tag> tags) {

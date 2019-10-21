@@ -1,21 +1,39 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.SplitTransaction;
 
 /**
  * Splits an amount into smaller different amounts.
  */
 public class SplitCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Split amount successful";
     public static final String COMMAND_WORD = "split";
-    private final Transaction transaction;
+    public static final String MESSAGE_SUCCESS = "Split successful";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Splits an expenditure between people and add that transaction to the bank account. "
+            + "Parameters: "
+            + PREFIX_AMOUNT + "AMOUNT "
+            + "[" + PREFIX_NAME + "NAME]...\n"
+            + "[" + PREFIX_SHARE + "SHARE]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_AMOUNT + "600"
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "John Soe"
+            + PREFIX_NAME + "John Moe "
+            + PREFIX_SHARE + "1"
+            + PREFIX_SHARE + "2"
+            + PREFIX_SHARE + "3";
 
-    public SplitCommand(Transaction transaction) {
+    private final SplitTransaction transaction;
+
+    public SplitCommand(SplitTransaction transaction) {
         this.transaction = transaction;
     }
 
@@ -23,7 +41,7 @@ public class SplitCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addTransaction(transaction);
+        model.addSplit(transaction);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
     }

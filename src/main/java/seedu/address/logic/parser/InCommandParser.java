@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.Date;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Date;
 
 /**
  * Parses input arguments and creates a new InCommand object.
@@ -33,7 +33,6 @@ public class InCommandParser implements Parser<InCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
-
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());

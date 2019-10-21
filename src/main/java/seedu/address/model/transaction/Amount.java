@@ -11,11 +11,17 @@ public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
             "Amounts should only be in integer or double, and it should not be blank";
 
+    public static final String DOUBLE_CONSTRAINTS =
+            "Doubles passed into Amount constructor should have maximum 2 decimal places";
+
+    public static final String SHARE_CONSTRAINTS =
+            "Shares cannot be negative";
+
     private int amount;
 
     public Amount(double amount) {
         requireNonNull(amount);
-        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAmount(amount), DOUBLE_CONSTRAINTS);
         this.amount = (int) Math.floor(amount * 100);
     }
 
@@ -25,12 +31,11 @@ public class Amount {
         this.amount = amount;
     }
 
-    // TODO: Confirm?
     /**
      * Returns true if a given value is a valid amount.
      */
     public static boolean isValidAmount(double amount) {
-        return true;
+        return (amount * 100) % 1 < 2 * Double.MIN_VALUE;
     }
 
     /**
@@ -61,17 +66,14 @@ public class Amount {
     }
 
     /**
-     * Divides amount by number of people.
-     * @param numOfPeople Number of people for amount to be divided.
-     * @return Equally (TO BE CHANGED) divided amount.
+     * Multiplies amount by some fraction.
+     * @param portion Fraction of Amount.
+     * @return
      */
-    public Amount divideAmount(int numOfPeople) {
-        final int newAmount = this.amount / numOfPeople;
-        return new Amount(newAmount);
-    }
-
-    public void updateAmount(Amount amount) {
-        this.amount = amount.amount;
+    public Amount byShare(double portion) {
+        checkArgument(portion >= 0, SHARE_CONSTRAINTS);
+        double newAmount = this.amount * portion;
+        return new Amount((int) newAmount);
     }
 
     @Override
