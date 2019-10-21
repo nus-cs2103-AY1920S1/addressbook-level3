@@ -5,9 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
 
 /**
  * Represents a Person in the address book.
@@ -17,12 +19,14 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Optional<Phone> phone;
+    private final Optional<Email> email;
 
     // Data fields
-    private final Address address;
+    private final Optional<Address> address;
     private final Set<Tag> tags = new HashSet<>();
+
+    private Amount balance;
 
     /**
      * Every field must be present and not null.
@@ -30,10 +34,19 @@ public class Person {
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.phone = Optional.of(phone);
+        this.email = Optional.of(email);
+        this.address = Optional.of(address);
         this.tags.addAll(tags);
+        this.balance = new Amount(0);
+    }
+
+    public Person(Name name) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.phone = Optional.empty();
+        this.email = Optional.empty();
+        this.address = Optional.empty();
     }
 
     public Name getName() {
@@ -41,15 +54,19 @@ public class Person {
     }
 
     public Phone getPhone() {
-        return phone;
+        return phone.orElse(new Phone("000"));
     }
 
     public Email getEmail() {
-        return email;
+        return email.orElse(new Email("empty@emptyemail.com"));
     }
 
     public Address getAddress() {
-        return address;
+        return address.orElse(new Address("empty"));
+    }
+
+    public Amount getBalance() {
+        return balance;
     }
 
     /**
@@ -73,6 +90,14 @@ public class Person {
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
+
+    /**
+     * @param amount amount of money spent in {@link seedu.address.model.transaction.SplitTransaction}
+     */
+    public void handleExpense(Amount amount) {
+        balance = balance.subtractAmount(amount);
+    }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.
@@ -106,6 +131,8 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Balance: ")
+                .append(getBalance())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")

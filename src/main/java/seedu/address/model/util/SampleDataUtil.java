@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.BankAccount;
-import seedu.address.model.Date;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;

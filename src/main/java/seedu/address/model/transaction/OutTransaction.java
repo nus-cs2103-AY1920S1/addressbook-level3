@@ -1,6 +1,6 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.Date;
+import seedu.address.model.util.Date;
 
 /**
  * Handles out transactions.

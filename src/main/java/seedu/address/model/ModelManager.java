@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.transaction.SplitTransaction;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -150,6 +151,11 @@ public class ModelManager implements Model {
     public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
+    }
+
+    @Override
+    public void addSplit(SplitTransaction transaction) {
+        versionedBankAccount.split(transaction);
     }
 
     @Override
