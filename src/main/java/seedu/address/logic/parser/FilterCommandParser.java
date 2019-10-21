@@ -10,7 +10,7 @@ import seedu.address.model.transaction.TransactionContainsTagsPredicate;
 /**
  * Parses input arguments and creates a new FilterCommand object
  */
-public class FilterCommandParser implements Parser<FilterCommand> {
+public class FilterCommandParser implements CommandParser<FilterCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FilterCommand

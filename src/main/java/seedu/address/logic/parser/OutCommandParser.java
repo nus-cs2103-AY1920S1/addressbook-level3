@@ -22,7 +22,7 @@ import seedu.address.model.transaction.Transaction;
 /**
  * Parses input arguments and creates a new OutCommand object
  */
-public class OutCommandParser implements Parser<OutCommand> {
+public class OutCommandParser implements CommandParser<OutCommand> {
 
     @Override
     public OutCommand parse(String args) throws ParseException {
