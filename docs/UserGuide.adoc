@@ -185,51 +185,51 @@ Format: `profile INDEX`
 * `profile 2` +
 Opens up a pop-up panel detailing the profile of the patient with the index of 2.
 
-==== Adding a new visitation report for a patient : `addVisit`
-Opens a pop-up panel that enables the specification of a new visitation record for a particular patient. +
-Format: `addVisit INDEX [v/DATE]`
+==== Adding a new visitation report for a patient : `addvisit`
+Opens a pop-up panel that enables the specification of a new visitation report for a particular patient. +
+Format: `addvisit INDEX [v/DATE]`
 
 * Date must be in the "dd/MM/yyyy" format (i.e. `v/19/10/2019`)
 
 [TIP]
-If no date is specified, `addVisit` will default to the current local date of the computer.
+If no date is specified, `addvisit` will default to the current local date of the computer.
 
 *Examples*:
 
-* `addVisit 1` +
+* `addvisit 1` +
 Adds new visitation report for the patient at index 1, defaulting to the current date on the computer. A new panel allowing the specifications of the visitation to be entered.
 
-* `addVisit 1 v/19/10/2019` +
+* `addvisit 1 v/19/10/2019` +
 Adds new visitation report dated 19th of October 2019, will be added for the patient at index 1. A new panel allowing the specifications of the visitation to be entered.
 
-==== Editing the particulars of a Visit : `editVisit`
+==== Editing the particulars of a visitation report : `editvisit`
 
-Opens a pop-up panel that enables the editing of an existing visitation record of a particular patient. +
-Format: `editVisit INDEX [i/REPORT INDEX]`
+Opens a pop-up panel that enables the editing of an existing visitation report of a particular patient. +
+Format: `editvisit INDEX [i/REPORT INDEX]`
 
 [NOTE]
-If no report index is specified, `editVisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit, simply re-enter the command with the desired report index.
+If no report index is specified, `editvisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit, simply re-enter the command with the desired report index.
 
 *Examples*:
 
-* `editVisit 1` +
+* `editvisit 1` +
 A panel will appear showing the list of visits for the patient at index 1 along with the relevant report indexes.
-* `editVisit 1 i/1` +
+* `editvisit 1 i/1` +
 A panel will appear to allow for the amendment of the 1st visitation report of the person at index 1.
 
-==== Deleting a visitation record : `deleteVisit`
+==== Deleting a visitation report : `deletevisit`
 
-Deletes the specified visitation record. +
-Format: `deleteVisit INDEX [d/REPORT INDEX]`
+Deletes the specified visitation report. +
+Format: `deletevisit INDEX [d/REPORT INDEX]`
 
 [NOTE]
-If no report index is specified, `deleteVisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
+If no report index is specified, `deletevisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
 
 *Examples*:
 
-* `deleteVisit 1` +
+* `deletevisit 1` +
 A panel will appear showing the list of visits for the patient at index 1 along with the relevant report indexes.
-* `deleteVisit 1 d/1` +
+* `deletevisit 1 d/1` +
 The 1st visitation report of the person at index 1 will be deleted.
 
 
@@ -345,12 +345,12 @@ e.g. `delete 2`
 
 * *Viewing Full Profile* : `profile INDEX` +
 e.g. `profile 1`
-* *Adding a new visitation report for a patient* : `addVisit INDEX [v/DATE]` +
-e.g. `addVisit 1 v/19/10/2019`
-* *Editing the particulars of a Visit* : `editVisit INDEX [i/REPORT INDEX]` +
-e.g. `editVisit 1 i/1`
-* *Deleting a visitation record* : `deleteVisit INDEX [d/REPORT INDEX]` +
-e.g. `deleteVisit 1 d/1`
+* *Adding a new visitation report for a patient* : `addvisit INDEX [v/DATE]` +
+e.g. `addvisit 1 v/19/10/2019`
+* *Editing the particulars of a visitation report* : `editvisit INDEX [i/REPORT INDEX]` +
+e.g. `editvisit 1 i/1`
+* *Deleting a visitation report* : `deletevisit INDEX [d/REPORT INDEX]` +
+e.g. `deletevisit 1 d/1`
 
 === *Follow-Ups and Reminders*
 
