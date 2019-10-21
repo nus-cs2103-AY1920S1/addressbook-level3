@@ -2,7 +2,7 @@ package seedu.address.overview.logic;
 
 import java.util.List;
 
-import seedu.address.overview.commands.CommandResult;
+import seedu.address.overview.logic.commands.CommandResult;
 
 /**
  * API of the Logic component

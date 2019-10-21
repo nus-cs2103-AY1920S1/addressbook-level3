@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.person.model.person.Person;
 
+/**
+ * Represents an address book Model stub.
+ */
 public class PersonModelStubWithPerson extends PersonModelStub {
     protected final Person person;
 

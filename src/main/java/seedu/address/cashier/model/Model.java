@@ -2,7 +2,7 @@ package seedu.address.cashier.model;
 
 import java.util.ArrayList;
 
-import seedu.address.cashier.logic.exception.NoCashierFoundException;
+import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.util.InventoryList;
@@ -44,7 +44,7 @@ public interface Model {
 
     void setCashier(Person p);
 
-    Person getCashier() throws NoCashierFoundException;
+    Person getCashier() throws NoCashierFoundException, NoCashierFoundException;
 
     ArrayList<Item> getSalesList();
 

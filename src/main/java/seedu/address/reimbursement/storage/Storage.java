@@ -1,12 +1,13 @@
 package seedu.address.reimbursement.storage;
 
 import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.transaction.util.TransactionList;
 
 /**
  * Storage interfaces. Defines the methods that a StorageManager has to implement.
  */
 public interface Storage {
-    public ReimbursementList readReimbursementList() throws Exception;
+    ReimbursementList getReimbursementFromFile(TransactionList transList) throws Exception;
 
-    public void writeFile(ReimbursementList reimbursementList) throws Exception;
+    void writeFile(ReimbursementList reimbursementList) throws Exception;
 }

@@ -7,6 +7,9 @@ import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Represents a home tab's model stub.
+ */
 public class TransactionModelStub implements Model {
     @Override
     public void addTransaction(Transaction transaction) {

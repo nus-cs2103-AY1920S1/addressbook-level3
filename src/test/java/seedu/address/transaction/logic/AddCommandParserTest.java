@@ -3,30 +3,32 @@ package seedu.address.transaction.logic;
 import static seedu.address.testutil.TransactionBuilder.DEFAULT_CATEGORY;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_AMOUNT;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_BUILDER_AMOUNT;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_BUILDER_CATEGORY;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_BUILDER_DATE;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_BUILDER_DESC;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_CATEGORY;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_DATE;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_DESC;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_NAME_ALICE;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_NAME_AMY;
-import static seedu.address.transaction.commands.CommandTestUtil.DESC_NAME_BENSEN;
-import static seedu.address.transaction.commands.CommandTestUtil.INVALID_AMOUNT;
-import static seedu.address.transaction.commands.CommandTestUtil.INVALID_DATE_1;
-import static seedu.address.transaction.commands.CommandTestUtil.INVALID_DATE_2;
-import static seedu.address.transaction.commands.CommandTestUtil.INVALID_DATE_3;
-import static seedu.address.transaction.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.transaction.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.transaction.commands.CommandTestUtil.VALID_AMOUNT;
-import static seedu.address.transaction.commands.CommandTestUtil.VALID_CATEGORY;
-import static seedu.address.transaction.commands.CommandTestUtil.VALID_DATE;
-import static seedu.address.transaction.commands.CommandTestUtil.VALID_DESC;
-import static seedu.address.transaction.commands.CommandTestUtil.VALID_NAME_ALICE;
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseFailure;
 import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseSuccess;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_AMOUNT;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_AMOUNT;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_CATEGORY;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_DATE;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_DESC;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_CATEGORY;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_DATE;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_DESC;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_ALICE;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_AMY;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_BENSEN;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.INVALID_AMOUNT;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.INVALID_DATE_1;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.INVALID_DATE_2;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.INVALID_DATE_3;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_AMOUNT;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_CATEGORY;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_DATE;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_DESC;
+import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
@@ -35,11 +37,10 @@ import seedu.address.person.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.transaction.commands.AddCommand;
+import seedu.address.transaction.logic.commands.AddCommand;
+import seedu.address.transaction.logic.parser.AddCommandParser;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
-
-import org.junit.jupiter.api.Test;
 
 class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -48,7 +49,7 @@ class AddCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Transaction expectedTransaction = new TransactionBuilder(TypicalPersons.ALICE).build();
-        Transaction  expectedTransaction2 = new TransactionBuilder(TypicalPersons.BENSON).build();
+        Transaction expectedTransaction2 = new TransactionBuilder(TypicalPersons.BENSON).build();
 
 
         // whitespace only preamble

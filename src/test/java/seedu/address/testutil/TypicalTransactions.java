@@ -6,6 +6,9 @@ import java.util.Arrays;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * A utility class containing a list of {@code Transaction} objects to be used in tests.
+ */
 public class TypicalTransactions {
     public static final Transaction ALICE_TRANSACTION_1 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(1)
@@ -80,7 +83,7 @@ public class TypicalTransactions {
 
     public static TransactionList getNameSortedTransactionList() {
         ArrayList<Transaction> transactionArrayList = new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_1,
-                ALICE_TRANSACTION_3, ALICE_TRANSACTION_4,BENSON_TRANSACTION_2,  CARL_TRANSACTION_5,
+                ALICE_TRANSACTION_3, ALICE_TRANSACTION_4, BENSON_TRANSACTION_2, CARL_TRANSACTION_5,
                 ELLE_TRANSACTION_6, FIONA_TRANSACTION_8, GEORGE_TRANSACTION_7));
         return new TransactionList(transactionArrayList);
     }
@@ -88,7 +91,7 @@ public class TypicalTransactions {
     public static TransactionList getDateSortedTransactionList() {
         ArrayList<Transaction> transactionArrayList = new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_1,
                 FIONA_TRANSACTION_8, ALICE_TRANSACTION_3, GEORGE_TRANSACTION_7, ELLE_TRANSACTION_6,
-                BENSON_TRANSACTION_2, ALICE_TRANSACTION_4,  CARL_TRANSACTION_5));
+                BENSON_TRANSACTION_2, ALICE_TRANSACTION_4, CARL_TRANSACTION_5));
         return new TransactionList(transactionArrayList);
     }
 

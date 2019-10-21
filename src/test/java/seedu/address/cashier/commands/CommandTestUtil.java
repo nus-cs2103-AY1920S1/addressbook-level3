@@ -15,6 +15,8 @@ import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.ArrayList;
 
+import seedu.address.cashier.logic.commands.Command;
+import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
@@ -54,7 +56,7 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link seedu.address.cashier.commands.CommandResult} matches {@code expectedCommandResult} <br>
+     * - the returned {@link seedu.address.cashier.logic.commands.CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model cashierModel,

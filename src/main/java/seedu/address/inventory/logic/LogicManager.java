@@ -1,7 +1,8 @@
 package seedu.address.inventory.logic;
 
-import seedu.address.inventory.commands.Command;
-import seedu.address.inventory.commands.CommandResult;
+import seedu.address.inventory.logic.commands.Command;
+import seedu.address.inventory.logic.commands.CommandResult;
+import seedu.address.inventory.logic.parser.InventoryTabParser;
 import seedu.address.inventory.util.InventoryList;
 
 /**

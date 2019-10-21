@@ -99,7 +99,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             TransactionList transactionList = new TransactionList();
             ReimbursementList reimbursementList = new ReimbursementList();
@@ -117,7 +117,7 @@ public class CommandTestUtil {
             seedu.address.transaction.model.Model transactionModel =
                     new seedu.address.transaction.model.ModelManager(transactionList);
             seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
-            seedu.address.reimbursement.model.Model reimbursementModel=
+            seedu.address.reimbursement.model.Model reimbursementModel =
                     new seedu.address.reimbursement.model.ModelManager(reimbursementList);
             seedu.address.cashier.model.ModelManager cashierModel =
                     new seedu.address.cashier.model.ModelManager(cashierList);
@@ -127,13 +127,15 @@ public class CommandTestUtil {
             //all related StorageManagers
             seedu.address.transaction.storage.StorageManager transactionManager =
                     new StorageManager("", personModel);
-            seedu.address.person.storage.StorageManager personManager=
+            seedu.address.person.storage.StorageManager personManager =
                     new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
             seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                     new seedu.address.reimbursement.storage.StorageManager(
-                            "data/test/reimbursement.txt", transactionModel);
-            seedu.address.cashier.storage.StorageManager cashierManager = new seedu.address.cashier.storage.StorageManager(
-                    "data/test/inventory.txt", "data/test/transaction.txt", personModel);
+                            "data/test/reimbursement.txt");
+            seedu.address.cashier.storage.StorageManager cashierManager =
+                    new seedu.address.cashier.storage.StorageManager(
+                    "data/test/inventory.txt",
+                    "data/test/transaction.txt", personModel);
             seedu.address.inventory.storage.StorageManager inventoryManager =
                     new seedu.address.inventory.storage.StorageManager("data/test/inventory.txt");
 
@@ -159,7 +161,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -191,7 +193,7 @@ public class CommandTestUtil {
         seedu.address.transaction.model.Model transactionModel =
                 new seedu.address.transaction.model.ModelManager(transactionList);
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
-        seedu.address.reimbursement.model.Model reimbursementModel=
+        seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.cashier.model.ModelManager cashierModel =
                 new seedu.address.cashier.model.ModelManager(cashierList);
@@ -201,11 +203,11 @@ public class CommandTestUtil {
         //all related StorageManagers
         seedu.address.transaction.storage.StorageManager transactionManager =
                 new StorageManager("", personModel);
-        seedu.address.person.storage.StorageManager personManager=
+        seedu.address.person.storage.StorageManager personManager =
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
-                        "data/test/reimbursement.txt", transactionModel);
+                        "data/test/reimbursement.txt");
         seedu.address.cashier.storage.StorageManager cashierManager = new seedu.address.cashier.storage.StorageManager(
                 "data/test/inventory.txt", "data/test/transaction.txt", personModel);
         seedu.address.inventory.storage.StorageManager inventoryManager =
@@ -226,6 +228,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.

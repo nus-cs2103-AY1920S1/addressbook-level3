@@ -1,10 +1,10 @@
 package seedu.address.reimbursement.logic.parser;
 
-import seedu.address.reimbursement.commands.Command;
-import seedu.address.reimbursement.commands.SortAmountCommand;
-import seedu.address.reimbursement.commands.SortDeadlineCommand;
-import seedu.address.reimbursement.commands.SortNameCommand;
-import seedu.address.reimbursement.logic.exception.ParseException;
+import seedu.address.reimbursement.logic.commands.Command;
+import seedu.address.reimbursement.logic.commands.SortAmountCommand;
+import seedu.address.reimbursement.logic.commands.SortDeadlineCommand;
+import seedu.address.reimbursement.logic.commands.SortNameCommand;
+import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
 /**

@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 
 import seedu.address.transaction.model.Transaction;
 
+/**
+ * Represents a home tab's model stub.
+ */
 public class TransactionModelStubWithTransaction extends TransactionModelStub {
     private Transaction transaction;
     private Predicate<Transaction> predicate;
