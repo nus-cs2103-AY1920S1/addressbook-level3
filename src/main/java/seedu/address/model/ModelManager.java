@@ -358,7 +358,7 @@ public class ModelManager implements Model {
         filteredCheatSheets.setPredicate(predicate);
     }
 
-    //========================GLOBAL COLLECT TAGGED ITEMS======================================
+    //========================COLLECT TAGGED ITEMS TO DISPLAY======================================
     @Override
     public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
         ArrayList<StudyBuddyItem> taggedItems = new ArrayList<>();
@@ -372,6 +372,39 @@ public class ModelManager implements Model {
                 taggedItems.add(cs);
             }
         }
+        for (Note n : addressBook.getNoteList()) {
+            if (predicate.test(n)) {
+                taggedItems.add(n);
+            }
+        }
+        return taggedItems;
+    }
+
+    @Override
+    public ArrayList<CheatSheet> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
+        ArrayList<CheatSheet> taggedItems = new ArrayList<>();
+        for (CheatSheet cs : addressBook.getCheatSheetList()) {
+            if (predicate.test(cs)) {
+                taggedItems.add(cs);
+            }
+        }
+        return taggedItems;
+    }
+
+    @Override
+    public ArrayList<Flashcard> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
+        ArrayList<Flashcard> taggedItems = new ArrayList<>();
+        for (Flashcard fc : addressBook.getFlashcardList()) {
+            if (predicate.test(fc)) {
+                taggedItems.add(fc);
+            }
+        }
+        return taggedItems;
+    }
+
+    @Override
+    public ArrayList<Note> collectTaggedNotes(Predicate<Note> predicate) {
+        ArrayList<Note> taggedItems = new ArrayList<>();
         for (Note n : addressBook.getNoteList()) {
             if (predicate.test(n)) {
                 taggedItems.add(n);

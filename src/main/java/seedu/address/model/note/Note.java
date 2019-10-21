@@ -2,8 +2,6 @@ package seedu.address.model.note;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,23 +12,21 @@ import seedu.address.model.tag.Tag;
  * Represents a Note in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Note implements StudyBuddyItem {
+public class Note extends StudyBuddyItem {
 
     // Identity fields
     private final Title title;
     private final Content content;
 
-    // Data field
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null, except for tags.
      */
     public Note(Title title, Content content, Set<Tag> tags) {
+        super(tags);
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
-        this.tags.addAll(tags);
     }
 
     public Title getTitle() {
@@ -39,18 +35,6 @@ public class Note implements StudyBuddyItem {
 
     public Content getContent() {
         return content;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    public boolean containsTag(Tag tag) {
-        return this.tags.contains(tag);
     }
 
     /**
@@ -88,7 +72,7 @@ public class Note implements StudyBuddyItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, content, tags);
+        return Objects.hash(title, content, getTags());
     }
 
     @Override
