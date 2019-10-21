@@ -104,6 +104,11 @@ public interface Model {
      */
     void incrementCount(Set<Tag> toIncrement);
 
+    /**
+     * Returns a list of unique tag names.
+     * @return list of unique tag names.
+     */
+    List<String> getTagNames();
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenses();
 

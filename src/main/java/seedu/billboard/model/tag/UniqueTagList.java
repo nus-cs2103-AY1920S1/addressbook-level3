@@ -2,6 +2,7 @@ package seedu.billboard.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -116,5 +117,13 @@ public class UniqueTagList {
      */
     public Map<String, Tag> getTagList() {
         return Collections.unmodifiableMap(tagList);
+    }
+
+    /**
+     * Returns a list of unique tag names.
+     * @return list of unique tag names.
+     */
+    public List<String> getTagNames() {
+        return List.copyOf(tagList.keySet());
     }
 }

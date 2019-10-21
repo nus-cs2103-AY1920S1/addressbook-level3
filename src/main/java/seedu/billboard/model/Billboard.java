@@ -158,6 +158,13 @@ public class Billboard implements ReadOnlyBillboard {
         tags.removeAll(toRemove);
     }
 
+    /**
+     * Gets a list of unique tag names.
+     */
+    public List<String> getTagNames() {
+        return tags.getTagNames();
+    }
+
     //// util methods
 
     @Override

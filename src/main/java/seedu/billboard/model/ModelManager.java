@@ -214,6 +214,11 @@ public class ModelManager implements Model {
         billboard.decreaseCount(toDecrease);
     }
 
+    @Override
+    public List<String> getTagNames() {
+        return billboard.getTagNames();
+    }
+
     //=========== Filtered Expense List Accessors =============================================================
 
     /**
