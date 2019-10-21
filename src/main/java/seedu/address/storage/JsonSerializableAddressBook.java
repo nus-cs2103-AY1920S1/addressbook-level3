@@ -53,8 +53,8 @@ class JsonSerializableAddressBook {
         expenseReminders.addAll(
                 source.getExpenseReminderList().stream().map(
                         JsonAdaptedExpenseReminder::new).collect(Collectors.toList()));
-        wishReminders.addAll
-                (source.getWishReminderList().stream().map(JsonAdaptedWishReminder::new).collect(Collectors.toList()));
+        wishReminders.addAll(
+                source.getWishReminderList().stream().map(JsonAdaptedWishReminder::new).collect(Collectors.toList()));
     }
 
     /**

@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
