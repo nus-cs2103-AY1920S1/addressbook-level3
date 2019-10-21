@@ -19,8 +19,6 @@ import seedu.moneygowhere.model.spending.Date;
  */
 public class GraphWindow extends UiPart<Stage> {
 
-    public static final String GRAPH_MESSAGE = "Spending of current month";
-
     private static final Logger logger = LogsCenter.getLogger(GraphWindow.class);
     private static final String FXML = "GraphWindow.fxml";
 

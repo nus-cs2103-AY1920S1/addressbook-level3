@@ -9,9 +9,6 @@
 <!-- TODO: set a more appropriate initial size -->
 
 <fx:root resizable="false" title="Graph" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-    <icons>
-        <Image url="@/images/graph_icon.png" />
-    </icons>
     <scene>
         <Scene>
          <VBox>

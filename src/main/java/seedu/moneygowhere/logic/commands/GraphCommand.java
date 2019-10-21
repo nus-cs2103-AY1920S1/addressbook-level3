@@ -2,6 +2,7 @@ package seedu.moneygowhere.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,8 @@ public class GraphCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_GRAPH_MESSAGE, true, false);
+        model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
+        return new CommandResult(SHOWING_GRAPH_MESSAGE, true, false, false);
     }
 
     @Override

@@ -11,6 +11,7 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
+import seedu.moneygowhere.model.tag.Tag;
 
 /**
  * API of the Logic component
@@ -57,4 +58,9 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    Map<Tag, Double> getStatsData(String commandText) throws ParseException;
+
+    String getStatsMessage(String commandText) throws ParseException;
+
 }

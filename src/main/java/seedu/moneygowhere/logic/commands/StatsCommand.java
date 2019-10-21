@@ -3,6 +3,7 @@ package seedu.moneygowhere.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toMap;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,7 +12,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
@@ -22,6 +25,8 @@ import seedu.moneygowhere.model.tag.Tag;
  */
 public class StatsCommand extends Command {
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     public static final String COMMAND_WORD = "stats";
     public static final String MESSAGE_SUCCESS = "Statistics of all spending displayed below.\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -31,6 +36,7 @@ public class StatsCommand extends Command {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
         + PREFIX_DATE + "tomorrow ";
+    private static final String SHOWING_STATS_MESSAGE = "Opened stats window";
 
     private Date startDate;
     private Date endDate;
@@ -56,8 +62,22 @@ public class StatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        requireNonNull(model);
+        model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
+        return new CommandResult(SHOWING_STATS_MESSAGE, false, true, false);
+    }
 
+    @Override
+    public Map<Tag, Double> getStatsData(Model model) {
+        List<Spending> lastShownList = filterListByDate(model);
+        Set<Tag> tagSet = getTagsOfSpendings(lastShownList);
+        HashMap<Tag, Double> costPerTagList = getCostPerTagList(lastShownList, tagSet);
+        Map<Tag, Double> sorted = sortCostPerTagList(costPerTagList);
+        logger.info(sorted.toString());
+        return sorted;
+    }
+
+    @Override
+    public String getStatsMessage(Model model) {
         List<Spending> lastShownList = filterListByDate(model);
 
         double totalCost = getTotalCost(lastShownList);
@@ -68,7 +88,7 @@ public class StatsCommand extends Command {
         Map<Tag, Double> sorted = sortCostPerTagList(costPerTagList);
         feedbackToUser = getStringCostPerTag(totalCost, feedbackToUser, sorted);
 
-        return new CommandResult(feedbackToUser);
+        return feedbackToUser;
     }
 
     private double getTotalCost(List<Spending> lastShownList) {

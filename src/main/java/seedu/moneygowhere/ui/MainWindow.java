@@ -19,6 +19,7 @@ import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.spending.Date;
+import seedu.moneygowhere.model.tag.Tag;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private SpendingListPanel spendingListPanel;
     private ResultDisplay resultDisplay;
     private GraphWindow graphWindow;
+    private StatsWindow statsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -66,6 +68,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         graphWindow = new GraphWindow();
+        statsWindow = new StatsWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -152,6 +155,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats() {
+        if (!statsWindow.isShowing()) {
+            statsWindow.show();
+        } else {
+            statsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -165,6 +180,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         graphWindow.hide();
+        statsWindow.hide();
         primaryStage.hide();
     }
 
@@ -188,9 +204,16 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowGraph()) {
-                Map<Date, Double> graphData = logic.getGraphData(commandText);
-                graphWindow.loadData(graphData);
+                Map<Date, Double> statsData = logic.getGraphData(commandText);
+                graphWindow.loadData(statsData);
                 handleGraph();
+            }
+
+            if (commandResult.isShowStats()) {
+                String statsMessage = logic.getStatsMessage(commandText);
+                Map<Tag, Double> statsData = logic.getStatsData(commandText);
+                statsWindow.loadData(statsData, statsMessage);
+                handleStats();
             }
 
             return commandResult;

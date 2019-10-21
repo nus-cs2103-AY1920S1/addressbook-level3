@@ -17,12 +17,16 @@ public class CommandResult {
     /** Graph information should be shown to the user. */
     private final boolean showGraph;
 
+    /** Stats information should be shown to the user. */
+    private final boolean showStats;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showGraph, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showGraph, boolean showStats, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showGraph = showGraph;
+        this.showStats = showStats;
         this.exit = exit;
     }
 
@@ -31,7 +35,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -46,6 +50,9 @@ public class CommandResult {
         return showGraph;
     }
 
+    public boolean isShowStats() {
+        return showStats;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -61,11 +68,12 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
             && showGraph == otherCommandResult.showGraph
+            && showStats == otherCommandResult.showStats
             && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showGraph, exit);
+        return Objects.hash(feedbackToUser, showGraph, showStats, exit);
     }
 }
