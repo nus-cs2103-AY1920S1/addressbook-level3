@@ -6,9 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Writes and reads files
@@ -88,22 +87,10 @@ public class FileUtil {
     }
 
     /**
-     * Computes the SHA-1 hash of a file.
-     *
-     * @param file the file to compute
-     * @return the SHA-1 hash of the file
+     * Returns a randomly generated UUID String
      */
-    public static String hash(Path file) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-1");
-            byte[] content = Files.readAllBytes(file);
-            return StringUtil.byteArrayToHex(digest.digest(content));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        } catch (IOException e) {
-            throw new IllegalArgumentException(String.format(MESSAGE_READ_FILE_FAILURE, file.toString()));
-        }
+    public static String generateUuidString() {
+        return UUID.randomUUID().toString();
     }
 
     /**

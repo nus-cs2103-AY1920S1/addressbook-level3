@@ -25,15 +25,15 @@ public class SampleDataUtil {
     public static Meme[] getSampleMemes(ReadOnlyUserPrefs userPrefs) {
         // array of sample memes from resources folder
         MemeFieldsContainer[] memeFields = new MemeFieldsContainer[]{
-            new MemeFieldsContainer("memes/5E88E068898624CAA37E4DFA50E1E240470EB2F8.png",
+            new MemeFieldsContainer("memes/5642dc30-927c-4e02-805d-831ea16bc68e.png",
                     "A meme about doge.", "doge"), // doge
-            new MemeFieldsContainer("memes/F32C68AD80EE2754BCD012A37530A16239E6A587.jpg",
+            new MemeFieldsContainer("memes/74b9fc9f-a545-4bbc-98d5-09596a9166a9.jpg",
                     "A meme about Char and charmander.", "charmander"), // charmander
-            new MemeFieldsContainer("memes/EB469F0CC92EFE4589C7529CD0AA2D2E49DE96FB.png",
+            new MemeFieldsContainer("memes/8de6b9f5-32a5-4eab-aebe-f47c2257e7d5.png",
                     "A meme about joker.", "joker"), // joker
-            new MemeFieldsContainer("memes/FA03CFED3E876472A3EF9745EC9080879DF417EC.png",
+            new MemeFieldsContainer("memes/ab6e1ed6-6025-4e84-b5da-8555ef1e0b05.png",
                     "A meme about toy.", "toy", "jokes"), // toy
-            new MemeFieldsContainer("memes/C37F673DE2C942D0330F02AC62598EC7D4736723.jpg",
+            new MemeFieldsContainer("memes/b3afd215-8746-4113-aa19-1747d3578f41.jpg",
                     "A meme about a test.", "test") // test
         };
         return createSampleMemes(memeFields, userPrefs);

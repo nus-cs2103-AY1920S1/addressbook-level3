@@ -90,9 +90,7 @@ public class Meme {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Path: ")
-                .append(getFilePath())
-                .append(" Description: ")
+        builder.append(" Description: ")
                 .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
