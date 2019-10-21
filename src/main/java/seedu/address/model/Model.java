@@ -9,7 +9,6 @@ import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
-import seedu.address.model.member.Member;
 import seedu.address.model.mapping.Mapping;
 
 /**
@@ -168,7 +167,6 @@ public interface Model {
     /**
      * Updates the filter of the filtered inventories list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
-     * @param predicate
      */
     void updateFilteredInventoriesList(Predicate<Inventory> predicate);
 

@@ -13,18 +13,18 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 public class DateTimeUtilTest {
 
-    private static String VALID_DATE_TIME_FORMAT = "10/10/2018 18:00";
-    private static String INVALID_DATE_TIME_FORMAT_DASH = "10-10-2018 18-00";
-    private static String INVALID_DATE_TIME_FORMAT_ZERO = "1/1/2019 18:00";
+    private static final String VALID_DATE_TIME_FORMAT = "10/10/2018 18:00";
+    private static final String INVALID_DATE_TIME_FORMAT_DASH = "10-10-2018 18-00";
+    private static final String INVALID_DATE_TIME_FORMAT_ZERO = "1/1/2019 18:00";
 
-    private static String EXCEEDING_DAY_DATE_TIME_FORMAT = "32/10/2018 18:00";
-    private static String EXCEEDING_TIME_DATE_TIME_FORMAT = "22/10/2018 25:00";
-    private static String EXCEEDING_MONTH_DATE_TIME_FORMAT = "22/15/2018 15:00";
+    private static final String EXCEEDING_DAY_DATE_TIME_FORMAT = "32/10/2018 18:00";
+    private static final String EXCEEDING_TIME_DATE_TIME_FORMAT = "22/10/2018 25:00";
+    private static final String EXCEEDING_MONTH_DATE_TIME_FORMAT = "22/15/2018 15:00";
 
-    private static String FALL_SHORT_DAY_DATE_TIME_FORMAT = "0/10/2018 18:00";
-    private static String FALL_SHORT_MONTH_DATE_TIME_FORMAT = "22/00/2018 15:00";
+    private static final String FALL_SHORT_DAY_DATE_TIME_FORMAT = "0/10/2018 18:00";
+    private static final String FALL_SHORT_MONTH_DATE_TIME_FORMAT = "22/00/2018 15:00";
 
-    private static String DUE_SOON_DATE_TIME = "31/01/2020 10:00";
+    private static final String DUE_SOON_DATE_TIME = "31/01/2020 10:00";
 
     @Test
     public void parseDateTime_null_throwsNullPointerException() {
@@ -39,7 +39,7 @@ public class DateTimeUtilTest {
 
     @Test
     public void parseDateTime_validFormat_success() throws ParseException {
-        assertEquals(LocalDateTime.parse(VALID_DATE_TIME_FORMAT, DateTimeUtil.defaultFormatter),
+        assertEquals(LocalDateTime.parse(VALID_DATE_TIME_FORMAT, DateTimeUtil.getDefaultFormatter()),
                 DateTimeUtil.parseDateTime(VALID_DATE_TIME_FORMAT));
     }
 
@@ -51,7 +51,7 @@ public class DateTimeUtilTest {
 
     // EP day/month/time exceeds calendar
     @Test
-    public void parseDateTime_dateTimeExceeded_ParseException() {
+    public void parseDateTime_dateTimeExceeded_throwsParseException() {
         assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(EXCEEDING_DAY_DATE_TIME_FORMAT));
         assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(EXCEEDING_TIME_DATE_TIME_FORMAT));
         assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(EXCEEDING_MONTH_DATE_TIME_FORMAT));
@@ -59,7 +59,7 @@ public class DateTimeUtilTest {
 
     // EP day/month falls short
     @Test
-    public void parseDateTime_dateTimeFallsShort_ParseException() {
+    public void parseDateTime_dateTimeFallsShort_throwsParseException() {
         assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(FALL_SHORT_DAY_DATE_TIME_FORMAT));
         assertThrows(ParseException.class, () -> DateTimeUtil.parseDateTime(FALL_SHORT_MONTH_DATE_TIME_FORMAT));
     }

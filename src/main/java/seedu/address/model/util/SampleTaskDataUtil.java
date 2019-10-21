@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.inventory.InvName;
@@ -40,23 +39,23 @@ public class SampleTaskDataUtil {
 
     public static Member[] getSampleMembers() {
         return new Member[] {
-                new Member(new MemberName("Gabriel Seow"), new MemberId("GS"), getTagSet("Programmer")),
-                new Member(new MemberName("Abhinav"), new MemberId("AB"), getTagSet("UIDesigner")),
-                new Member(new MemberName("Arun"), new MemberId("AR"), getTagSet("Programmer")),
-                new Member(new MemberName("Seah Lynn"), new MemberId("SL"), getTagSet("Pitcher")),
-                new Member(new MemberName("Elsa Koh"), new MemberId("EK"), getTagSet("Pitcher")),
-                new Member(new MemberName("John Doe"), new MemberId("JD"), getTagSet("Helper"))
+            new Member(new MemberName("Gabriel Seow"), new MemberId("GS"), getTagSet("Programmer")),
+            new Member(new MemberName("Abhinav"), new MemberId("AB"), getTagSet("UIDesigner")),
+            new Member(new MemberName("Arun"), new MemberId("AR"), getTagSet("Programmer")),
+            new Member(new MemberName("Seah Lynn"), new MemberId("SL"), getTagSet("Pitcher")),
+            new Member(new MemberName("Elsa Koh"), new MemberId("EK"), getTagSet("Pitcher")),
+            new Member(new MemberName("John Doe"), new MemberId("JD"), getTagSet("Helper"))
         };
     }
 
     public static Inventory[] getSampleInventory() {
         return new Inventory[] {
-                new Inventory(new InvName("Toy"), new Price(8.90)),
-                new Inventory(new InvName("Bench"), new Price(59.90)),
-                new Inventory(new InvName("Chairs")),
-                new Inventory(new InvName("Bag"), new Price(50.0)),
-                new Inventory(new InvName("Condoms"), new Price(17.90)),
-                new Inventory(new InvName("Laptop"), new Price(1111.11)),
+            new Inventory(new InvName("Toy"), new Price(8.90)),
+            new Inventory(new InvName("Bench"), new Price(59.90)),
+            new Inventory(new InvName("Chairs")),
+            new Inventory(new InvName("Bag"), new Price(50.0)),
+            new Inventory(new InvName("Condoms"), new Price(17.90)),
+            new Inventory(new InvName("Laptop"), new Price(1111.11)),
         };
     }
 

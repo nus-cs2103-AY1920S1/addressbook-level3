@@ -19,12 +19,26 @@ public class DateTimeUtil {
 
     public static final String MESSAGE_CONSTRAINTS = "Please follow the " + DEFAULT_INPUT_FORMAT + " format required";
 
-    public static DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern(DEFAULT_INPUT_FORMAT);
-    public static DateTimeFormatter displayFormatterTwentyFourHour =
+    private static DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern(DEFAULT_INPUT_FORMAT);
+    private static DateTimeFormatter displayFormatterTwentyFourHour =
             DateTimeFormatter.ofPattern(DISPLAY_FORMAT_TWENTY_FOUR_HOUR);
-    public static DateTimeFormatter displayFormatterTwelveHour =
+    private static DateTimeFormatter displayFormatterTwelveHour =
             DateTimeFormatter.ofPattern(DISPLAY_FORMAT_TWELVE_HOUR);
-    public static DateTimeFormatter defaultDisplayFormat = displayFormatterTwentyFourHour;
+    private static DateTimeFormatter defaultDisplayFormat = displayFormatterTwentyFourHour;
+
+    public static DateTimeFormatter getDisplayFormatterTwentyFourHour() {
+        return displayFormatterTwentyFourHour;
+    }
+
+    public static DateTimeFormatter getDisplayFormatterTwelveHour() {
+        return displayFormatterTwelveHour;
+    }
+
+
+
+    public static DateTimeFormatter getDefaultFormatter() {
+        return defaultFormatter;
+    }
 
     /**
      * Allows user to switch display formats.
@@ -71,4 +85,7 @@ public class DateTimeUtil {
         return LocalDateTime.now().isAfter(dueDate);
     }
 
+    public static DateTimeFormatter getDefaultDisplayFormat() {
+        return defaultDisplayFormat;
+    }
 }
