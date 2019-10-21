@@ -97,23 +97,28 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addRoom(ReferenceId id) {
-        queueManager.addRoom(id);
+    public void addRoom(Room room) {
+        queueManager.addRoom(room);
     }
 
     @Override
-    public void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom) {
-        queueManager.addRoomToIndex(doctorReferenceId, indexOfRoom);
+    public void addRoomToIndex(Room room, int indexOfRoom) {
+        queueManager.addRoomToIndex(room, indexOfRoom);
     }
 
     @Override
-    public void removeRoom(ReferenceId target) {
+    public void removeRoom(Room target) {
         queueManager.removeRoom(target);
     }
 
     @Override
-    public boolean hasRoom(ReferenceId doctorReferenceId) {
-        return queueManager.hasRoom(doctorReferenceId);
+    public void setRoom(Room target, Room editedRoom) {
+        queueManager.setRoom(target, editedRoom);
+    }
+
+    @Override
+    public boolean hasRoom(Room room) {
+        return queueManager.hasRoom(room);
     }
 
     //=========== UserPrefs ==================================================================================

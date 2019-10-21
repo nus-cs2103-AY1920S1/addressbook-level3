@@ -150,22 +150,27 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addRoom(ReferenceId id) {
+    public void addRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void addRoomToIndex(ReferenceId id, int index) {
+    public void addRoomToIndex(Room room, int indexOfRoom) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void removeRoom(ReferenceId target) {
+    public void removeRoom(Room target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean hasRoom(ReferenceId id) {
+    public void setRoom(Room target, Room editedRoom) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 

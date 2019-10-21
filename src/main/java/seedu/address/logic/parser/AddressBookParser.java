@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AddConsultationRoomCommand;
 import seedu.address.logic.commands.AppointmentsCommand;
+import seedu.address.logic.commands.BreakCommand;
 import seedu.address.logic.commands.CancelAppCommand;
 import seedu.address.logic.commands.ChangeAppCommand;
 import seedu.address.logic.commands.DequeueCommand;
@@ -19,8 +20,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MissAppCommand;
+import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveRoomCommand;
+import seedu.address.logic.commands.ResumeCommand;
 import seedu.address.logic.commands.SettleAppCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.common.Command;
@@ -127,6 +130,14 @@ public class AddressBookParser {
         case RemoveRoomCommand.COMMAND_WORD:
             return new RemoveRoomCommandParser(model).parse(arguments);
 
+        case NextCommand.COMMAND_WORD:
+            return new NextCommandParser(model).parse(arguments);
+
+        case BreakCommand.COMMAND_WORD:
+            return new BreakCommandParser(model).parse(arguments);
+
+        case ResumeCommand.COMMAND_WORD:
+            return new ResumeCommandParser(model).parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

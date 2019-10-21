@@ -25,6 +25,7 @@ public interface Model extends ReferenceIdResolver {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<ReferenceId> PREDICATE_SHOW_ALL_ID = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    Predicate<Room> PREDICATE_SHOW_ALL_ROOMS = unused -> true;
 
 
     //=========== UserPrefs ==================================================================================
@@ -144,13 +145,15 @@ public interface Model extends ReferenceIdResolver {
 
     void undoServeNextPatient(int index);
 
-    void addRoom(ReferenceId id);
+    void addRoom(Room room);
 
-    void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom);
+    void addRoomToIndex(Room room, int indexOfRoom);
 
-    void removeRoom(ReferenceId target);
+    void removeRoom(Room target);
 
-    public boolean hasRoom(ReferenceId doctorReferenceId);
+    public void setRoom(Room target, Room editedRoom);
+
+    public boolean hasRoom(Room room);
 
     ObservableList<Room> getConsultationRoomList();
 
