@@ -11,24 +11,24 @@ import seedu.address.model.AddressBookModel;
 import seedu.address.model.AddressBookModelManager;
 
 public class ModelManagerTest {
-    private MainModel mainModel = new MainModelManager();
+    private UserPrefsModel userPrefsModel = new UserPrefsModelManager();
     private AddressBookModel addressBookModel = new AddressBookModelManager();
-    private Model modelManager = new ModelManager(mainModel, addressBookModel);
+    private Model modelManager = new ModelManager(userPrefsModel, addressBookModel);
 
     @Test
     public void constructor() {
         assertEquals(addressBookModel, modelManager.getAddressBookModel());
-        assertEquals(mainModel, modelManager.getMainModel());
+        assertEquals(userPrefsModel, modelManager.getUserPrefsModel());
     }
 
     @Test
     public void getAddressBookModel_throwsNullPointerException() {
-        assertEquals(null, new ModelManager(mainModel, null).getAddressBookModel());
+        assertEquals(null, new ModelManager(userPrefsModel, null).getAddressBookModel());
     }
 
     @Test
     public void getMainBookModel_throwsNullPointerException() {
-        assertEquals(null, new ModelManager(null, addressBookModel).getMainModel());
+        assertEquals(null, new ModelManager(null, addressBookModel).getUserPrefsModel());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class ModelManagerTest {
 
     @Test
     public void getMainModel_equals() {
-        assertEquals(modelManager.getMainModel(), new MainModelManager());
+        assertEquals(modelManager.getUserPrefsModel(), new UserPrefsModelManager());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(
                 new GuiSettings(2.0, 3.0, 5, 6));
-        assertNotEquals(modelManager.getMainModel(), new MainModelManager(userPrefs));
+        assertNotEquals(modelManager.getUserPrefsModel(), new UserPrefsModelManager(userPrefs));
     }
 
 }

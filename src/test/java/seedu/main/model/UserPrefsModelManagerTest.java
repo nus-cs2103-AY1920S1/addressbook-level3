@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 
-public class MainModelManagerTest {
+public class UserPrefsModelManagerTest {
 
-    private MainModelManager mainModelManager = new MainModelManager();
+    private UserPrefsModelManager mainModelManager = new UserPrefsModelManager();
 
     @Test
     public void constructor() {
@@ -23,7 +23,7 @@ public class MainModelManagerTest {
     public void getUserPrefs_success() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
-        assertEquals(userPrefs, new MainModelManager(userPrefs).getUserPrefs());
+        assertEquals(userPrefs, new UserPrefsModelManager(userPrefs).getUserPrefs());
     }
 
     @Test
@@ -31,7 +31,7 @@ public class MainModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(100, 200, 150, 50);
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, new MainModelManager(userPrefs).getGuiSettings());
+        assertEquals(guiSettings, new UserPrefsModelManager(userPrefs).getGuiSettings());
     }
 
     @Test

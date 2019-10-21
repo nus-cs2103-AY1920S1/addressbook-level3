@@ -362,7 +362,6 @@
 }
 
 .achievement-pane {
-    -fx-background-image: url("/images/test1.jpeg");
+    -fx-background-color: #383838;
     -fx-background-size: cover;
-    -fx-background-color:transparent;
 }

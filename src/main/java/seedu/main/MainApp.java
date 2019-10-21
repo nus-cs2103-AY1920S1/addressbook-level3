@@ -26,7 +26,7 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.main.logic.Logic;
 import seedu.main.logic.LogicManager;
-import seedu.main.model.MainModelManager;
+import seedu.main.model.UserPrefsModelManager;
 import seedu.main.model.Model;
 import seedu.main.model.ModelManager;
 import seedu.main.model.ReadOnlyUserPrefs;
@@ -68,8 +68,11 @@ public class MainApp extends Application {
 
         initLogging(config);
 
+        //model should now include all relevant models
+        //use of a model manager to get different models from different pages
         model = initModelManager(storage, userPrefs);
 
+        //contain different logic: mainLogic + addressBookLogic
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
@@ -96,8 +99,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-
-        return new ModelManager(new MainModelManager(userPrefs), new AddressBookModelManager(initialData, userPrefs));
+        return new ModelManager(new UserPrefsModelManager(userPrefs), new AddressBookModelManager(initialData, userPrefs));
     }
 
     private void initLogging(Config config) {
@@ -182,7 +184,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
-            storage.saveUserPrefs(model.getMainModel().getUserPrefs());
+            storage.saveUserPrefs(model.getUserPrefsModel().getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

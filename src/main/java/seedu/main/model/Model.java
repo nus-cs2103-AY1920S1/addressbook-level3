@@ -1,5 +1,8 @@
 package seedu.main.model;
 
+import java.util.function.Supplier;
+
+import seedu.achievements.model.StatisticsModel;
 import seedu.address.model.AddressBookModel;
 
 /**
@@ -9,5 +12,7 @@ public interface Model {
 
     AddressBookModel getAddressBookModel();
 
-    MainModel getMainModel();
+    UserPrefsModel getUserPrefsModel();
+
+    Supplier<StatisticsModel> statisticsModelSupplier();
 }

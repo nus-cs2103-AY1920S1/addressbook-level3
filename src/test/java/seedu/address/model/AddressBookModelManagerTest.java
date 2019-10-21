@@ -17,13 +17,13 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.main.model.MainModelManager;
+import seedu.main.model.UserPrefsModelManager;
 import seedu.main.model.UserPrefs;
 
 public class AddressBookModelManagerTest {
 
     private AddressBookModelManager addressBookModelManager = new AddressBookModelManager();
-    private MainModelManager mainModelManager = new MainModelManager();
+    private UserPrefsModelManager mainModelManager = new UserPrefsModelManager();
 
     @Test
     public void constructor() {

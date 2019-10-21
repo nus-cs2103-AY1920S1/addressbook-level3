@@ -5,7 +5,7 @@ import seedu.address.commons.core.GuiSettings;
 /**
  * Main Model to get and set {@Code UserPrefs} and {@Code GuiSettings}.
  */
-public interface MainModel {
+public interface UserPrefsModel {
 
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
