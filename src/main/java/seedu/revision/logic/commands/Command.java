@@ -1,6 +1,7 @@
 package seedu.revision.logic.commands;
 
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 
 /**

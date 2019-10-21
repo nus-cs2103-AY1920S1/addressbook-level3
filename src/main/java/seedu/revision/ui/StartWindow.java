@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.revision.ui;
 
 public class StartWindow {
 }

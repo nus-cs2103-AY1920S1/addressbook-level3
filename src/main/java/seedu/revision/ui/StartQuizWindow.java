@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.revision.ui;
 
 import java.net.URL;
 import java.util.HashSet;
@@ -13,18 +13,18 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.answerable.Answer;
-import seedu.address.model.answerable.AnswerSet;
-import seedu.address.model.answerable.Category;
-import seedu.address.model.answerable.Difficulty;
-import seedu.address.model.answerable.Mcq;
-import seedu.address.model.answerable.Question;
+import seedu.revision.commons.core.GuiSettings;
+import seedu.revision.commons.core.LogsCenter;
+import seedu.revision.logic.Logic;
+import seedu.revision.logic.commands.CommandResult;
+import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.AnswerSet;
+import seedu.revision.model.answerable.Category;
+import seedu.revision.model.answerable.Difficulty;
+import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Question;
 
 
 /**
@@ -203,7 +203,7 @@ public class StartQuizWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.revision.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {

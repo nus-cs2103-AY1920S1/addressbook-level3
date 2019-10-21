@@ -1,10 +1,10 @@
-package seedu.address.logic.parser;
+package seedu.revision.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.StartQuizCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.revision.commons.core.index.Index;
+import seedu.revision.logic.commands.StartQuizCommand;
+import seedu.revision.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new StartQuizCommand object

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.revision.ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,9 @@ import java.util.logging.Logger;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.answerable.Answer;
-import seedu.address.model.answerable.AnswerSet;
-import seedu.address.model.answerable.Answerable;
+import seedu.revision.commons.core.LogsCenter;
+import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.Answerable;
 import javafx.fxml.FXML;
 
 public class AnswersGridPane extends UiPart<Region> {
@@ -33,7 +32,7 @@ public class AnswersGridPane extends UiPart<Region> {
     public AnswersGridPane(Answerable answerable) {
         super(FXML);
         this.answerable = answerable;
-        Set<Answer> answerSet = answerable.getAnswerSet().getCombinedAnswerSet();
+        Set<Answer> answerSet = answerable.getCombinedAnswerSet();
         List<Answer> answerList = new ArrayList<>(answerSet);
         option1.setText(answerList.get(0).answer);
         option2.setText(answerList.get(1).answer);

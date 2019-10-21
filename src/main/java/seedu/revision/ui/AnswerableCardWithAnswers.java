@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.revision.ui;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.answerable.Answer;
-import seedu.address.model.answerable.Answerable;
+import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.Answerable;
 
 /**
  * An UI component that displays information of a {@code Answerable}.

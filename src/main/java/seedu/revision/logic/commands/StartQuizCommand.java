@@ -1,18 +1,18 @@
-package seedu.address.logic.commands;
+package seedu.revision.logic.commands;
 
-import seedu.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.answerable.Answerable;
+import seedu.revision.logic.parser.AddressBookParser;
+import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.Model;
+import seedu.revision.model.answerable.Answerable;
 
 
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEFAULT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_DEFAULT;
+import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 public class StartQuizCommand extends Command{
 
