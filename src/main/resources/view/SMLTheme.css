@@ -3,6 +3,41 @@
     background-color: #484B95; /* Used in the default.html file */
 }
 
+.chart {
+    -fx-padding: 10px;
+}
+.chart-content {
+    -fx-padding: 30px;
+}
+.chart-title {
+    -fx-text-fill: #4682b4;
+    -fx-font-size: 1.6em;
+}
+
+.axis-label {
+    -fx-text-fill: #4682b4;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 3px;
+    -fx-effect: null;
+    -fx-stroke: green;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.axis {
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: darkgreen;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Light";

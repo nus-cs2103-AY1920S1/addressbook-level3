@@ -2,17 +2,23 @@ package seedu.address.statistic;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.math3.stat.StatUtils;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.util.MoneyUtil;
 import seedu.address.commons.util.StatsPayload;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
+import seedu.address.model.util.SampleDataUtil;
+
 
 /**
  * Represents the in-memory statistics module of the current SML data.Ò
@@ -23,6 +29,78 @@ public class StatisticManager implements Statistic {
     public StatisticManager() {}
 
     /*--------------------Methods to calculate--------------------------*/
+    @Override
+    public XYChart.Series<String, Number> calculateTotalProfitOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
+                                                                                StatsPayload statsPayload) {
+        //filter the list of orders to be only the orders within the starting and ending date.
+        //dummy data here to test, should be passing orderBook straight in
+        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(SampleDataUtil.getSampleOrderBook(),
+                statsPayload)
+                .collect(Collectors.toList());
+
+        // returns a list of Months between starting and ending date.
+        List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        // loops through the list of months, for each month, calculate the revenue for all orders in that month
+        // returns this in the format of XYChat.DaTa().
+        List<XYChart.Data<String, Number>> listOfMonthlyProfit =
+                listOfMonth.stream()
+                        .map(month -> processProfitByMonth(listOfFilteredOrders, month))
+                        .collect(Collectors.toList());
+
+        listOfMonthlyProfit.stream().forEach(x -> series.getData().add(x));
+        return series;
+    }
+
+    @Override
+    public XYChart.Series<String, Number> calculateTotalRevenueOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
+                                                                     StatsPayload statsPayload) {
+        //filter the list of orders to be only the orders within the starting and ending date.
+        //dummy data here to test, should be passing orderBook straight in
+        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(SampleDataUtil.getSampleOrderBook(),
+                statsPayload)
+                .collect(Collectors.toList());
+
+        // returns a list of Months between starting and ending date.
+        List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        // loops through the list of months, for each month, calculate the revenue for all orders in that month
+        // returns this in the format of XYChat.DaTa().
+        List<XYChart.Data<String, Number>> listOfMonthlyRevenue =
+                listOfMonth.stream()
+                .map(month -> processRevenueByMonth(listOfFilteredOrders, month))
+                .collect(Collectors.toList());
+
+        listOfMonthlyRevenue.stream().forEach(x -> series.getData().add(x));
+        return series;
+    }
+
+    @Override
+    public XYChart.Series<String, Number> calculateTotalCostOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
+                                                                               StatsPayload statsPayload) {
+        //filter the list of orders to be only the orders within the starting and ending date.
+        //dummy data here to test, should be passing orderBook straight in
+        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(SampleDataUtil.getSampleOrderBook(),
+                statsPayload)
+                .collect(Collectors.toList());
+
+        // returns a list of Months between starting and ending date.
+        List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        // loops through the list of months, for each month, calculate the cost for all orders in that month
+        // returns this in the format of XYChat.DaTa().
+        List<XYChart.Data<String, Number>> listOfMonthlyCost =
+                listOfMonth.stream()
+                        .map(month -> processCostByMonth(listOfFilteredOrders, month))
+                        .collect(Collectors.toList());
+
+        listOfMonthlyCost.stream().forEach(x -> series.getData().add(x));
+        return series;
+    }
+
     @Override
     public String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook,
                                                   StatsPayload statsPayload) {
@@ -46,7 +124,86 @@ public class StatisticManager implements Statistic {
         return String.valueOf(totalCost);
     }
 
+
+
+    /*-------Methods to help with calculating monthly detail---------*/
+
+    // utility function to help with extract the relevant data to an XYChar.Data<A,B> object
+    private XYChart.Data<String, Number> processProfitByMonth(List<Order> listOfOrders, Calendar month) {
+        return new XYChart.Data<String, Number>(
+                StringUtil.convertCalendarDateToGraphDisplay(month),
+                StatisticManager.calculateProfitByMonth(listOfOrders, month));
+    }
+
+    // utility function to help with extract the relevant data to an XYChar.Data<A,B> object
+    private XYChart.Data<String, Number> processRevenueByMonth(List<Order> listOfOrders, Calendar month) {
+        return new XYChart.Data<String, Number>(
+                StringUtil.convertCalendarDateToGraphDisplay(month),
+                StatisticManager.calculateRevenueByMonth(listOfOrders, month));
+    }
+
+    // utility function to help with extract the relevant data to an XYChar.Data<A,B> object
+    private XYChart.Data<String, Number> processCostByMonth(List<Order> listOfOrders, Calendar month) {
+        return new XYChart.Data<String, Number>(
+                StringUtil.convertCalendarDateToGraphDisplay(month),
+                StatisticManager.calculateCostByMonth(listOfOrders, month));
+    }
+
+    /**
+     * Takes in an orderlist, calculates the profit of all orders in this month
+     */
+    private static double calculateProfitByMonth(List<Order> orderList, Calendar month) {
+        double[] doubleProfitList =
+                StatisticManager.checkIfOrderIsPresent(orderList.stream())
+                        .filter(currentOrder ->
+                                DateUtil.extractMonth(currentOrder) == month.get(2)
+                                        && DateUtil.extractYear(currentOrder) == month.get(1))
+                        .map(currentOrder ->
+                                MoneyUtil.convertToDouble(currentOrder.getPrice())
+                                -
+                                MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
+                        .collect(Collectors.toList())
+                        .stream()
+                        .mapToDouble(d -> d).toArray();
+        return StatUtils.sum(doubleProfitList);
+    }
+
+    /**
+     * Takes in an orderlist, calculates the revenue of all orders in this month
+     * @param orderList list of Orders
+     * @param month the month
+     */
+    private static double calculateRevenueByMonth(List<Order> orderList, Calendar month) {
+        double[] doubleRevenueList =
+                StatisticManager.checkIfOrderIsPresent(orderList.stream())
+                .filter(currentOrder ->
+                        DateUtil.extractMonth(currentOrder) == month.get(2)
+                        && DateUtil.extractYear(currentOrder) == month.get(1))
+                .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
+                .collect(Collectors.toList())
+                .stream()
+                .mapToDouble(d -> d).toArray();
+        return StatUtils.sum(doubleRevenueList);
+    }
+
+    /**
+     * Takes in an orderlist, calculates the cost of all orders in this month
+     */
+    private static double calculateCostByMonth(List<Order> orderList, Calendar month) {
+        double[] doubleCostList =
+                StatisticManager.checkIfOrderIsPresent(orderList.stream())
+                        .filter(currentOrder ->
+                                DateUtil.extractMonth(currentOrder) == month.get(2)
+                                        && DateUtil.extractYear(currentOrder) == month.get(1))
+                        .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
+                        .collect(Collectors.toList())
+                        .stream()
+                        .mapToDouble(d -> d).toArray();
+        return StatUtils.sum(doubleCostList);
+    }
+
     /*-------------- helper methods ------------------*/
+
     private double getTotalRevenue(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         double[] completedOrderPriceArray = getDoubleOrderPriceArray(orderBook, statsPayload);
         return StatUtils.sum(completedOrderPriceArray);
@@ -56,34 +213,43 @@ public class StatisticManager implements Statistic {
         double[] completedOrderPhoneCostList = getDoublePhoneCostArray(orderBook, statsPayload);
         return StatUtils.sum(completedOrderPhoneCostList);
     }
+
+    /*-----Methods that deal with returning double[]----*/
     private static double[] getDoubleOrderPriceArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         ObservableList<Order> orderList = orderBook.getList();
-        List<Double> completedOrderPriceList =
-               orderList.stream()
-                       .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
-                       .filter(currentOrder -> currentOrder.getSchedule().isPresent())
-                       .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
-                               currentOrder.getSchedule().get().getCalendar()) <= 0)
-                       .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
-                               currentOrder.getSchedule().get().getCalendar()) > 0)
-                       .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
-                       .collect(Collectors.toList());
-        completedOrderPriceList.forEach(x -> System.out.println(x));
+        List<Double> completedOrderPriceList = getFilteredOrderListByDate(orderBook, statsPayload)
+                .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
+                .collect(Collectors.toList());
         return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
     }
 
     private static double[] getDoublePhoneCostArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         ObservableList<Order> orderList = orderBook.getList();
-        List<Double> completedOrderPhoneList =
-                orderList.stream()
-                        .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
-                        .filter(currentOrder -> currentOrder.getSchedule().isPresent())
+        List<Double> completedOrderPhoneList = getFilteredOrderListByDate(orderBook, statsPayload)
+                .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
+                .collect(Collectors.toList());
+        return completedOrderPhoneList.stream().mapToDouble(d -> d).toArray();
+    }
+
+
+
+    /*-----helper methods with regards to Stream----*/
+    private static Stream<Order> checkIfOrderIsPresent(Stream<Order> streamOrder) {
+        return streamOrder.filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
+                .filter(currentOrder -> currentOrder.getSchedule().isPresent());
+    }
+
+    private static Stream<Order> getFilteredOrderListByDate(ReadOnlyDataBook<Order> orderBook,
+                                                            StatsPayload statsPayload) {
+        ObservableList<Order> orderList = orderBook.getList();
+        Stream<Order> filteredOrderListByDate =
+                StatisticManager.checkIfOrderIsPresent(orderList.stream())
                         .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
                                 currentOrder.getSchedule().get().getCalendar()) <= 0)
                         .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
-                                currentOrder.getSchedule().get().getCalendar()) > 0)
-                        .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
-                        .collect(Collectors.toList());
-        return completedOrderPhoneList.stream().mapToDouble(d -> d).toArray();
+                                currentOrder.getSchedule().get().getCalendar()) > 0);
+        return filteredOrderListByDate;
     }
 }
+
+
