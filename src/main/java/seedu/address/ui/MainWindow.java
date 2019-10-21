@@ -13,9 +13,11 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.WindowView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReminderWindow reminderWindow;
     private ReminderBox reminderBox;
 
     @FXML
@@ -69,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        reminderWindow = new ReminderWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -120,7 +124,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         reminderBox = new ReminderBox();
-        reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -173,6 +177,20 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    @FXML
+    public void handleReminder() {
+        if (!reminderWindow.isShowing()) {
+            reminderWindow.show();
+        } else {
+            reminderWindow.focus();
+        }
+    }
+
+    @FXML
+    public ChangeTabCommand handleEarnings() {
+        return new ChangeTabCommand( new WindowView("earnings"));
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -216,6 +234,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
 
             /*if (commandResult.isEarnings()) {
                 Earnings earnings = commandResult.getEarnings();
