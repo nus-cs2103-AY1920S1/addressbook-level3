@@ -33,7 +33,6 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
             + PREFIX_DAY + "DAY";
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity unscheduled: %1$s";
-    public static final String MESSAGE_DUPLICATE_DAY = "This day already exists in the planner.";
     public static final String MESSAGE_ACTIVITY_DOES_NOT_EXIST = "Activity does not exist at given time.";
 
     private final Index dayIndex;
@@ -62,10 +61,6 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
         Day editedDay = createUnscheduledActivityDay(dayToEdit, this.time);
         List<Day> editedDays = new ArrayList<>(lastShownDays);
         editedDays.set(dayIndex.getZeroBased(), editedDay);
-
-        //if (!dayToEdit.isSameDay(editedDay) && model.hasDay(editedDay)) {
-        //    throw new CommandException(MESSAGE_DUPLICATE_DAY);
-        //}
 
         model.setDays(editedDays);
         model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
