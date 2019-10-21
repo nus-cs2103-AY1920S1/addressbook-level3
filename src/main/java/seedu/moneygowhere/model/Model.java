@@ -103,4 +103,9 @@ public interface Model {
      * {@code Reminder} must not NULL.
      */
     void addReminder(Reminder reminder);
+
+    /**
+     * Returns true if a Reminder with the same identity as {@code Reminder} exists in the Reminder list.
+     */
+    boolean hasReminder(Reminder reminder);
 }

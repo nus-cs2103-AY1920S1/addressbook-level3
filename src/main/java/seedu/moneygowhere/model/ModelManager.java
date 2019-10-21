@@ -133,6 +133,12 @@ public class ModelManager implements Model {
         spendingBook.addReminder(reminder);
     }
 
+    @Override
+    public boolean hasReminder(Reminder reminder) {
+        requireNonNull(reminder);
+        return spendingBook.hasReminder(reminder);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

@@ -165,6 +165,11 @@ public class AddCommandTest {
         public void addReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

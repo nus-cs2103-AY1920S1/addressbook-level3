@@ -7,6 +7,7 @@ import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BENSON;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -86,6 +87,22 @@ public class ModelManagerTest {
     public void hasSpending_spendingInAddressBook_returnsTrue() {
         modelManager.addSpending(ALICE);
         assertTrue(modelManager.hasSpending(ALICE));
+    }
+
+    @Test
+    public void hasReminder_nullReminder_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasReminder(null));
+    }
+
+    @Test
+    public void hasReminder_reminderNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasReminder(BILL_REMINDER));
+    }
+
+    @Test
+    public void hasReminder_reminderInAddressBook_returnsTrue() {
+        modelManager.addReminder(BILL_REMINDER);
+        assertTrue(modelManager.hasReminder(BILL_REMINDER));
     }
 
     @Test
