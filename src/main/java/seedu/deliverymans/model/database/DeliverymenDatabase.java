@@ -1,21 +1,27 @@
 package seedu.deliverymans.model.database;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.model.deliveryman.DeliverymanStatus.AVAILABLE;
+import static seedu.deliverymans.model.deliveryman.DeliverymanStatus.DELIVERING;
+import static seedu.deliverymans.model.deliveryman.DeliverymanStatus.UNAVAILABLE;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.DeliverymanStatus;
 import seedu.deliverymans.model.deliveryman.DeliverymanStatusList;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 
 /**
- * To be added
+ * Wraps all Deliverymen data at the deliverymen-database level
+ * Duplicates are not allowed (by .isSameDeliveryman comparison)
  */
 public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
 
     private final UniqueDeliverymanList deliverymen;
     private DeliverymanStatusList statusList; // to be implemented
+    // private final List<DeliverymanStatus> statusTag;
 
     {
         deliverymen = new UniqueDeliverymanList();
@@ -72,7 +78,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      * Replaces the given deliveryman {@code target} in the list with {@code editedDeliveryman}.
      * {@code target} must exist in the deliveryman database.
      * The customer identity of {@code editedDeliveryman} must not be the same as another existing deliveryman in the
-     * delvierymen database.
+     * deliverymen database.
      */
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireNonNull(editedDeliveryman);
@@ -85,6 +91,13 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void removeDeliveryman(Deliveryman key) {
         deliverymen.remove(key);
+    }
+
+    /**
+     * Replaces the current status of a deliveryman.
+     */
+    public void setStatusOf(Deliveryman target, DeliverymanStatus newStatus) {
+        deliverymen.setStatusOf(target, newStatus);
     }
 
     //// util methods
