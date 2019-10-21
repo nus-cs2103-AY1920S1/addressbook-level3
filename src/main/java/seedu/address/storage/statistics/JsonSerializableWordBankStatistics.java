@@ -16,7 +16,6 @@ import seedu.address.statistics.WordBankStatistics;
 /**
  * A Word Bank Statistics class that is serializable to JSON format.
  */
-
 @JsonRootName(value = "wbstats")
 public class JsonSerializableWordBankStatistics {
 

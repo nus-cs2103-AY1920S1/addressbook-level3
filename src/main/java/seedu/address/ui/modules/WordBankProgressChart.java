@@ -1,5 +1,8 @@
 package seedu.address.ui.modules;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -14,9 +17,6 @@ import seedu.address.statistics.ScoreData;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * A ui component of the word bank progress chart.
  */
@@ -25,10 +25,10 @@ public class WordBankProgressChart extends UiPart<Region> {
     private static final String FXML = "WordBankProgressChart.fxml";
 
     @FXML
-    StackPane progressChartPlaceholder;
+    private StackPane progressChartPlaceholder;
 
     @FXML
-    ComboBox<String> progressChartModeSelector;
+    private ComboBox<String> progressChartModeSelector;
 
     public WordBankProgressChart(WordBankStatistics wbStatistics) {
         super(FXML);
@@ -46,12 +46,14 @@ public class WordBankProgressChart extends UiPart<Region> {
                         .ifPresent(x -> initProgressChart(wbStatistics, x.getNumGames()));
             }
         });
-
-//        progressChartModeSelector.on
-
         initProgressChart(wbStatistics, numGamesValues[0].getNumGames());
     }
 
+    /**
+     * Initialize the progress chart ui.
+     * @param wbStatistics The statistics to be used to populate the chart.
+     * @param numGames The most recent number of games to be shown.
+     */
     private void initProgressChart(WordBankStatistics wbStatistics, int numGames) {
         progressChartPlaceholder.getChildren().clear();
         NumberAxis xAxis = new NumberAxis();
@@ -100,12 +102,15 @@ public class WordBankProgressChart extends UiPart<Region> {
         progressChartPlaceholder.getChildren().add(progressChart);
     }
 
+    /**
+     * Possible values for the most recent number of games shown in the progress chart.
+     */
     private enum NumGamesValues {
         THIRTY(30, "Last 30 games"),
         ONE_HUNDRED(100, "Last 100 games");
 
-        int numGames;
-        String msg;
+        private int numGames;
+        private String msg;
 
         NumGamesValues(int numGames, String msg) {
             this.numGames = numGames;

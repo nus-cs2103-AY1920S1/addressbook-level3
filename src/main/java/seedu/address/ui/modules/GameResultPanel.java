@@ -1,7 +1,6 @@
 package seedu.address.ui.modules;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalInt;
 
 import javafx.collections.FXCollections;
@@ -93,13 +92,13 @@ public class GameResultPanel extends UiPart<Region> {
         // init high score text
         highScoreHbox.setAlignment(Pos.CENTER);
         highScoreText.setText(wbStatistics.getHighestScore().toString());
-        OptionalInt previousMax =  wbStatistics.getScoreStats()
+        OptionalInt previousMax = wbStatistics.getScoreStats()
                 .stream()
                 .mapToInt(ScoreData::getScore)
                 .limit(wbStatistics.getScoreStats().size() - 1)
                 .max(); // the highest score before this game
-        if (wbStatistics.getGamesPlayed() == 1 ||
-                (previousMax.isPresent() && previousMax.getAsInt() < wbStatistics.getHighestScore().getScore())) {
+        if (wbStatistics.getGamesPlayed() == 1
+                || (previousMax.isPresent() && previousMax.getAsInt() < wbStatistics.getHighestScore().getScore())) {
             // is highest score, give some visual feedback
             highScoreText.setStyle("-fx-text-fill: yellow; -fx-font-size: 16pt");
         }

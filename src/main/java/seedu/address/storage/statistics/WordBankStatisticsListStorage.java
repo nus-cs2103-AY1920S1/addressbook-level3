@@ -2,9 +2,7 @@ package seedu.address.storage.statistics;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Optional;
 
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 

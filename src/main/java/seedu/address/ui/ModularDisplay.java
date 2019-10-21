@@ -1,10 +1,11 @@
 package seedu.address.ui;
 
-import javafx.scene.layout.StackPane;
+import java.util.Random;
 
+import javafx.scene.layout.StackPane;
+import seedu.address.appmanager.AppManager;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
-import seedu.address.appmanager.AppManager;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
@@ -17,7 +18,6 @@ import seedu.address.ui.modules.MainTitlePanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
 
-import java.util.Random;
 
 /**
  * Displays the screen for Dukemon.

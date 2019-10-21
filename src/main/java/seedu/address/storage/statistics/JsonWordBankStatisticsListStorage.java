@@ -56,6 +56,10 @@ public class JsonWordBankStatisticsListStorage implements WordBankStatisticsList
         this.wbStatsList = new WordBankStatisticsList(wordBankStatsList);
     }
 
+    /**
+     * Reads a word bank statistics from the data.
+     * @param path The path of the word bank statistics to be read.
+     */
     private Optional<WordBankStatistics> readWordBankStatistics(Path path) {
         requireNonNull(path);
 

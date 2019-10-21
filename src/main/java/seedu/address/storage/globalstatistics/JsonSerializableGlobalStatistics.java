@@ -3,8 +3,12 @@ package seedu.address.storage.globalstatistics;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.model.globalstatistics.GlobalStatistics;
 
+/**
+ * A Global Statistics class that is serializable in JSON format.
+ */
 @JsonRootName(value = "globalstats")
 public class JsonSerializableGlobalStatistics {
     private int numPlayed;

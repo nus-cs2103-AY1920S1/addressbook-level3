@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents how many times a user has played in the current week.
+ */
 public class WeeklyPlayed {
 
     private Map<DayOfWeek, Integer> numPlayed;
@@ -16,6 +19,11 @@ public class WeeklyPlayed {
         startOfWeek = getCurrentStartOfWeek();
     }
 
+    /**
+     * Constructor.
+     * @param numPlayed A map from the day of week to how many times the user has played.
+     * @param startOfWeek The start of week {@code numPlayed} was recorded.
+     */
     public WeeklyPlayed(Map<DayOfWeek, Integer> numPlayed, LocalDate startOfWeek) {
         this();
         if (startOfWeek.equals(this.startOfWeek)) {
@@ -24,6 +32,9 @@ public class WeeklyPlayed {
         }
     }
 
+    /**
+     * Increment the number of play for today.
+     */
     void incrementPlay() {
         LocalDate curStartOfWeek = getCurrentStartOfWeek();
         if (!curStartOfWeek.equals(startOfWeek)) {

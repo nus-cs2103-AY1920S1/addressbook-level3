@@ -1,27 +1,20 @@
 package seedu.address.ui.modules;
 
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import seedu.address.commons.util.AppUtil;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.statistics.CardStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
-
-
-import javax.tools.Tool;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 /**
  * Panel containing the word bank statistics
@@ -33,28 +26,28 @@ public class WordBankStatisticsPanel extends UiPart<Region> {
     private static final String FXML = "WordBankStatisticsPanel.fxml";
 
     @FXML
-    Label title;
+    private Label title;
 
     @FXML
-    StackPane badgesRowPlaceholder;
+    private StackPane badgesRowPlaceholder;
 
     @FXML
-    Label playedTimesText;
+    private Label playedTimesText;
 
     @FXML
-    Label highScoreText;
+    private Label highScoreText;
 
     @FXML
-    Label fastestClearText;
+    private Label fastestClearText;
 
     @FXML
-    StackPane progressChartPlaceholder;
+    private StackPane progressChartPlaceholder;
 
     @FXML
-    VBox mostMissedBox;
+    private VBox mostMissedBox;
 
     @FXML
-    VBox mostMissedList;
+    private VBox mostMissedList;
 
     public WordBankStatisticsPanel(WordBankStatistics wbStatistics, ReadOnlyWordBank wordBank) {
         super(FXML);

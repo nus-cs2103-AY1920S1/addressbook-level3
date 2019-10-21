@@ -1,5 +1,8 @@
 package seedu.address.model.globalstatistics;
 
+/**
+ * Represents user's global statistics.
+ */
 public class GlobalStatistics {
 
     private int numPlayed;
@@ -15,6 +18,9 @@ public class GlobalStatistics {
         this.weeklyPlayed = new WeeklyPlayed();
     }
 
+    /**
+     * Increment the number of play for today.
+     */
     public void addPlay() {
         ++numPlayed;
         weeklyPlayed.incrementPlay();

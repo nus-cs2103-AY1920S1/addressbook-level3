@@ -9,6 +9,9 @@ import javafx.util.Duration;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.ui.UiPart;
 
+/**
+ * A ui component of a row of badges.
+ */
 public class BadgesRow extends UiPart<Region> {
     private static final String FXML = "BadgesRow.fxml";
 
@@ -50,11 +53,11 @@ public class BadgesRow extends UiPart<Region> {
             this.badge3.setImage(BADGE_3_BNW);
         }
 
-        Tooltip easyTooltip =  new Tooltip("Received on clearing easy mode.");
+        Tooltip easyTooltip = new Tooltip("Received on clearing easy mode.");
         easyTooltip.setShowDelay(Duration.ZERO);
-        Tooltip mediumTooltip =  new Tooltip("Received on clearing medium mode.");
+        Tooltip mediumTooltip = new Tooltip("Received on clearing medium mode.");
         mediumTooltip.setShowDelay(Duration.ZERO);
-        Tooltip hardTooltip =  new Tooltip("Received on clearing hard mode.");
+        Tooltip hardTooltip = new Tooltip("Received on clearing hard mode.");
         hardTooltip.setShowDelay(Duration.ZERO);
         Tooltip.install(badge1, easyTooltip);
         Tooltip.install(badge2, mediumTooltip);

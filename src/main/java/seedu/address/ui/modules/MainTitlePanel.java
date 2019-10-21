@@ -1,5 +1,12 @@
 package seedu.address.ui.modules;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -20,13 +27,9 @@ import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.AvatarImage;
 import seedu.address.ui.UiPart;
 
-import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
+/**
+ * A UI component for the main title panel, containing title and global statistics.
+ */
 public class MainTitlePanel extends UiPart<Region> {
 
     private static final String FXML = "MainTitlePanel.fxml";

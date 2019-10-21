@@ -1,12 +1,13 @@
 package seedu.address.storage.globalstatistics;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.address.model.globalstatistics.WeeklyPlayed;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.address.model.globalstatistics.WeeklyPlayed;
 
 /**
  * Jackson-friendly version of {@link WeeklyPlayed}.
@@ -33,6 +34,9 @@ public class JsonAdaptedWeeklyPlayed {
         this.startOfWeekEpochDays = weeklyPlayed.getStartOfWeek().toEpochDay();
     }
 
+    /**
+     * Converts this weekly played into the model's {@code WeeklyPlayed} object.
+     */
     WeeklyPlayed toModelType() {
         Map<DayOfWeek, Integer> map = new HashMap<>();
         for (Map.Entry<Integer, Integer> entry : days.entrySet()) {
