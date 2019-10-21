@@ -8,8 +8,8 @@ import org.json.simple.JSONArray;
 import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.model.gmaps.Location;
+import seedu.address.websocket.Cache;
 import seedu.address.websocket.GmapsApi;
-import seedu.address.websocket.NusModsApi;
 
 /**
  * This class is used to get nus venues
@@ -70,8 +70,7 @@ public class ProcessVenues {
     }
 
     private ProcessVenues getVenuesJsonArray() {
-        NusModsApi nusModApi = new NusModsApi();
-        JSONArray currVenuesNusMod = nusModApi.getVenues("/1").orElse(new JSONArray());
+        JSONArray currVenuesNusMod = Cache.loadVenues();
         return new ProcessVenues(currVenuesNusMod, venues, sanitizeLocation);
     }
 
