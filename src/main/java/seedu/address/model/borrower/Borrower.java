@@ -11,12 +11,12 @@ import seedu.address.model.loan.LoanList;
  */
 public class Borrower {
 
-    private Name name;
-    private Phone phone;
-    private Email email;
+    private final Name name;
+    private final Phone phone;
+    private final Email email;
     private final BorrowerId borrowerId;
-    private LoanList currentLoanList;
-    private LoanList returnedLoanList;
+    private final LoanList currentLoanList;
+    private final LoanList returnedLoanList;
 
     public Borrower(Name name, Phone phone, Email email) {
         this(name, phone, email, BorrowerIdGenerator.generateBorrowerId());
@@ -67,12 +67,24 @@ public class Borrower {
         return returnedLoanList;
     }
 
+    public LoanList getAddedCurrentLoanList(Loan newLoan) {
+        return currentLoanList.addToNewCopy(newLoan);
+    }
+
+    public LoanList getRemovedCurrentLoanList(Loan returnedLoan) {
+        return currentLoanList.removeFromNewCopy(returnedLoan);
+    }
+
+    public LoanList getAddedReturnedLoanList(Loan returnedLoan) {
+        return returnedLoanList.addToNewCopy(returnedLoan);
+    }
+
     /**
      * Adds a new Loan object representing a book loaned by the Borrower.
      */
-    public void addNewLoan(Loan loan) {
-        currentLoanList.add(loan);
-    }
+//    public void addNewLoan(Loan loan) {
+//        currentLoanList.addToNewCopy(loan);
+//    }
 
     /**
      * Returns true if Borrower currently loans a Book represented by the given Loan object.
@@ -86,12 +98,12 @@ public class Borrower {
      *
      * @param loan Loan object that is being returned.
      */
-    public void returnLoan(Loan loan) {
-        assert hasCurrentLoan(loan) : "Borrower does not have the loan to be returned.";
-
-        currentLoanList.remove(loan);
-        returnedLoanList.add(loan);
-    }
+//    public void returnLoan(Loan loan) {
+//        assert hasCurrentLoan(loan) : "Borrower does not have the loan to be returned.";
+//
+//        currentLoanList.removeFromNewCopy(loan);
+//        returnedLoanList.addToNewCopy(loan);
+//    }
 
     /**
      * Returns true if both borrowers have the same borrower_id.

@@ -15,13 +15,24 @@ public class LoanList implements Iterable<Loan> {
         loanList = new ArrayList<>();
     }
 
+    private LoanList(ArrayList<Loan> newList) {
+        this.loanList = newList;
+    }
+
+    public void add(Loan loan) {
+        loanList.add(loan);
+    }
+
     /**
      * Adds a {@code Loan} object into the list.
      *
      * @param loan {@code Loan} object to be added.
+     * @return A new LoanList with the Loan object added.
      */
-    public void add(Loan loan) {
-        loanList.add(loan);
+    public LoanList addToNewCopy(Loan loan) {
+        ArrayList<Loan> newList = new ArrayList<>(this.loanList);
+        newList.add(loan);
+        return new LoanList(newList);
     }
 
     /**
@@ -35,8 +46,16 @@ public class LoanList implements Iterable<Loan> {
         return loanList.contains(loan);
     }
 
-    public void remove(Loan loan) {
-        loanList.remove(loan);
+    /**
+     * Removes a {@code Loan} object from the list.
+     *
+     * @param loan {@code Loan} object to be removed.
+     * @return A new LoanList with the Loan object removed.
+     */
+    public LoanList removeFromNewCopy(Loan loan) {
+        ArrayList<Loan> newList = new ArrayList<>(this.loanList);
+        newList.remove(loan);
+        return new LoanList(newList);
     }
 
     @Override

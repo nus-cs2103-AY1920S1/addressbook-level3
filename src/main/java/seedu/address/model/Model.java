@@ -148,6 +148,10 @@ public interface Model {
 
     void setServingBorrower(BorrowerId borrowerId);
 
+    void servingBorrowerNewLoan(Loan newLoan);
+
+    void servingBorrowerReturnLoan(Loan returnedLoan);
+
     boolean hasBorrowerId(BorrowerId borrowerId);
 
     void exitsServeMode();

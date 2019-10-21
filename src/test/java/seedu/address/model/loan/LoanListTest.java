@@ -41,13 +41,4 @@ class LoanListTest {
         assertTrue(loanList.contains(LOAN_1));
         assertFalse(loanList.contains(LOAN_2));
     }
-
-    @Test
-    public void remove() {
-        LoanList loanList = new LoanList();
-        loanList.add(LOAN_1);
-
-        loanList.remove(LOAN_1);
-        assertFalse(loanList.contains(LOAN_1));
-    }
 }
