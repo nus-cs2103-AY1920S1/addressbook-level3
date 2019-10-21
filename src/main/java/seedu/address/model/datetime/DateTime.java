@@ -3,9 +3,12 @@ package seedu.address.model.datetime;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 /**
  * Represents a Visit's datetime in the application.
@@ -24,12 +27,23 @@ public class DateTime {
     /**
      * Constructs a {@code DateTime}.
      *
-     * @param dateTime A valid dateTime address.
+     * @param dateTime A valid dateTime string.
      */
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
         checkArgument(isValidDateTime(dateTime), MESSAGE_CONSTRAINTS_BODY);
         this.dateTime = parseDateTime(dateTime);
+    }
+
+    /**
+     * Constructs a {@code DateTime}.
+     *
+     * @param date A valid Date.
+     */
+    public DateTime(Date date) {
+        requireNonNull(date);
+        Instant current = date.toInstant();
+        this.dateTime = LocalDateTime.ofInstant(current, ZoneId.systemDefault());
     }
 
     /**

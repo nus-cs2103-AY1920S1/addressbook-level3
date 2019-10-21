@@ -4,18 +4,23 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -31,6 +36,10 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final ObservableList<Person> stagedPersons; // Modifiable list containing current stagedAddressBook persons
     private final FilteredList<Person> filteredPersons; // Unmodifiable view for the UI linked to stagedPersons
+
+    //Placing ongoingVisitList here so that any changes to the ongoing visit will be reflected
+    //in the UI
+    private final ObservableList<Visit> ongoingVisitList;
 
     //Previous predicate variable to keep track of the predicate used by FindCommands
     private Predicate<Person> previousPredicate = PREDICATE_SHOW_ALL_PERSONS;
@@ -48,10 +57,15 @@ public class ModelManager implements Model {
         this.stagedAddressBook = this.baseAddressBook.deepCopy();
         this.historyManager = new HistoryManager(MAX_HISTORY_SIZE);
         this.userPrefs = new UserPrefs(userPrefs);
+
         stagedPersons = FXCollections.observableArrayList();
         filteredPersons = new FilteredList<>(FXCollections.unmodifiableObservableList(stagedPersons));
-
         refreshStagedPersons();
+
+        //Initializing ongoingVisitList here instead of in AddressBook as it is a wrapper of the data
+        ongoingVisitList = FXCollections.observableArrayList();
+        Optional<Visit> ongoingVisit = this.stagedAddressBook.getOngoingVisit();
+        ongoingVisit.ifPresent(ongoingVisitList::add);
     }
 
     public ModelManager() {
@@ -114,6 +128,50 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getStagedAddressBook() {
         return stagedAddressBook;
+    }
+
+    /**
+     * Record ongoing visit of person in the model.
+     * This will be saved until the visit is finished.
+     */
+    @Override
+    public void setNewOngoingVisit(Visit visit) {
+        requireNonNull(visit);
+        ongoingVisitList.clear();
+        ongoingVisitList.add(visit);
+        stagedAddressBook.setOngoingVisit(visit);
+    }
+
+    @Override
+    public void unsetOngoingVisit() {
+        ongoingVisitList.clear();
+        stagedAddressBook.unsetOngoingVisit();
+    }
+
+    @Override
+    public void updateOngoingVisit(Visit updatedVisit) {
+        requireNonNull(updatedVisit);
+        Optional<Visit> optionalOngoingVisit = getOngoingVisit();
+        if (optionalOngoingVisit.isPresent()) {
+            Visit ongoingVisit = optionalOngoingVisit.get();
+            ongoingVisit.getPatient().updateVisit(ongoingVisit, updatedVisit);
+            setNewOngoingVisit(updatedVisit);
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    @Override
+    public Optional<Visit> getOngoingVisit() {
+        return stagedAddressBook.getOngoingVisit();
+    }
+
+    @Override
+    public boolean patientHasOngoingVisit(Person patientToDelete) {
+        requireNonNull(patientToDelete);
+        Optional<Visit> optionalVisit = getOngoingVisit();
+        return optionalVisit.isPresent()
+                && patientToDelete.equals(optionalVisit.get().getPatient());
     }
 
     @Override
@@ -222,6 +280,11 @@ public class ModelManager implements Model {
      * Returns true if the current state of this {@code ModelManager} is the same as {@code obj}.
      * It does NOT take into account {@code baseAddressBook} or {@code historyManager}.
      */
+    @Override
+    public ObservableList<Visit> getObservableOngoingVisitList() {
+        return FXCollections.unmodifiableObservableList(ongoingVisitList);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

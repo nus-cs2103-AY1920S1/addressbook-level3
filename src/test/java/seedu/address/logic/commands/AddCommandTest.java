@@ -7,15 +7,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -24,7 +27,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 import seedu.address.testutil.PersonBuilder;
+
 
 public class AddCommandTest {
 
@@ -159,6 +164,36 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Visit> getObservableOngoingVisitList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNewOngoingVisit(Visit visit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateOngoingVisit(Visit updatedVisit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unsetOngoingVisit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Visit> getOngoingVisit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean patientHasOngoingVisit(Person personToDelete) {
             throw new AssertionError("This method should not be called.");
         }
 
