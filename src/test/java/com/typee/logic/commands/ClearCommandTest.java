@@ -13,7 +13,7 @@ import com.typee.model.UserPrefs;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyEngagementList_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.saveEngagementList();
@@ -22,7 +22,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyEngagementList_success() {
         Model model = new ModelManager(getTypicalEngagementList(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalEngagementList(), new UserPrefs());
         expectedModel.setHistoryManager(new EngagementList());
