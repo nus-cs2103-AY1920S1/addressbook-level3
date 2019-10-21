@@ -15,6 +15,10 @@ public class FlashcardTabWindowController {
     @FXML
     private TextArea ansTextArea;
 
+    /**
+     * Displays the question of the flashcard specified in the flashcard tab window.
+     * @param flashcard flashcard to be displayed
+     */
     public void loadFlashcard(Flashcard flashcard) {
         qnsTextArea.setText(flashcard.getQuestion().toString());
         ansTextArea.setVisible(false);
