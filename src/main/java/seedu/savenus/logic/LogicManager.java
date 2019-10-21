@@ -2,6 +2,7 @@ package seedu.savenus.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.sorter.CustomSorter;
 import seedu.savenus.storage.Storage;
 
 /**
@@ -58,6 +60,21 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyMenu getMenu() {
         return model.getMenu();
+    }
+
+    @Override
+    public CustomSorter getCustomSorter() {
+        return model.getCustomSorter();
+    }
+
+    @Override
+    public boolean getAutoSortFlag() {
+        return model.getAutoSortFlag();
+    }
+
+    @Override
+    public void setFoods(List<Food> list) {
+        model.setFoods(list);
     }
 
     @Override

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.logic.commands.AddCommand;
+import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
@@ -180,6 +181,12 @@ public class SaveNusParserTest {
         assertTrue(
                 parser.parseCommand(FilterCommand.COMMAND_WORD + " " + FIELD_NAME_NAME
                         + " " + QUANTIFY_EQUALS_TO + " Tom") instanceof FilterCommand);
+    }
+
+    @Test
+    public void parseCommand_autosort() throws ParseException {
+        assertTrue(
+                parser.parseCommand(AutoSortCommand.COMMAND_WORD + " ON") instanceof AutoSortCommand);
     }
 
     @Test

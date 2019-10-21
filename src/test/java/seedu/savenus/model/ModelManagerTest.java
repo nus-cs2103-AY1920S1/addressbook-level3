@@ -204,6 +204,13 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void autoSortFlag_tests() {
+        assertEquals(modelManager.getAutoSortFlag(), false);
+        modelManager.setAutoSortFlag(true);
+        assertEquals(modelManager.getAutoSortFlag(), true);
+    }
+
+    @Test
     public void equals() {
         Menu menu = new MenuBuilder().withfood(CARBONARA).withfood(TONKATSU_RAMEN).build();
         Menu differentMenu = new Menu();

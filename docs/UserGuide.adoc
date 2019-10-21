@@ -205,7 +205,8 @@ Clears all the food items in the list.
 Format: `clear`
 
 ==== Sort
-Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY, LOCATION, OPENING_HOURS, RESTRICTIONS.
+Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY,
+LOCATION, OPENING_HOURS, RESTRICTIONS.
 
 Format: `sort FIELD`
 
@@ -235,37 +236,137 @@ Format: `track -d | -w | -m`
 
 Example: `track -d`
 
+=== Recommendations
+
 ==== Recommend
-Allow users to get a recommendation from the application, based on the budget
+Allow users to get a recommendation from the application, based on the current budget
 as well as the available food items entries. This also takes into account the
 user's likes and dislikes (see below).
 
+****
 Format: `recommend`
+****
+[NOTE]
+To clear the recommendations, use the `list` or `add` commands.
 
-==== Likes and Dislikes
-Allows users to specify their liked categories, tags and/or locations. The
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of recommendations will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown.]
+|===
+
+==== Adding Likes and Dislikes
+Users can specify their liked and disliked categories, tags and/or locations. The
 recommendation system (as mentioned above) will then be able to generate more
-accurate recommendations with your preferences. Users can provide multiple
-categories, tags and/or locations with each command. To list the user's likes and
-dislikes, use the command without providing any arguments.
+accurate recommendations with your preferences.
 
-The user's likes and dislikes will be saved into the hard disk for their convenience.
+[TIP]
+Users can provide multiple categories, tags and/or locations with each command.
+To list the user's likes and dislikes, use the command without providing any arguments.
+
+[NOTE]
+You cannot add what you have already liked into your current dislikes,
+and vice versa. The user's likes and dislikes will be also saved into the hard disk
+for their convenience.
 
 *To list likes/dislikes*:
 
-Format: `like` or `dislike`.
+****
+*Format*: `like` or `dislike`.
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of liked or disliked categories, tags and locations will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of liked or disliked categories, tags and locations will be shown.]
+|===
 
 *To add likes*:
 
-Format: `like c/CATEGORY t/TAG l/LOCATION`
+****
+*Format*: `like c/CATEGORY t/TAG l/LOCATION` +
+*Example*: `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+****
 
-Example: `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be added.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be added.]
+|===
 
 *To add dislikes*:
 
-Format: `dislike c/Chinese c/Western t/Healthy l/Univeristy Town`
+****
+*Format*: `dislike c/CATEGORY t/TAG l/LOCATION` +
+*Example*: `dislike c/International t/Spicy l/The Deck l/The Terrace`
+****
 
-Example: `dislike c/International t/Spicy l/The Deck l/The Terrace`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be added.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be added.]
+|===
+
+==== Removing Likes and Dislikes
+Users are able to remove their previously added likes and dislikes (if they exist)
+from the system.
+
+[NOTE]
+Users can provide multiple categories, tags and/or locations with each command.
+
+[WARNING]
+To remove all likes or dislikes, use the command without providing any arguments.
+Only use this command if you are sure that you want to clear your likes and dislikes!
+
+*To remove likes*:
+
+****
+*Format*: `removelike c/CATEGORY t/TAG l/LOCATION` +
+*Example*: `removelike c/Japanese t/Spicy t/Healthy l/The Tea Party`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be removed.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be removed.]
+|===
+
+*To remove dislikes*:
+
+****
+*Format*: `removedislike c/CATEGORY t/TAG l/LOCATION` +
+*Example*: `removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be removed.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be removed.]
+|===
+
+*To remove all likes*:
+
+****
+*Format*: `removelike`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be cleared.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be cleared.]
+|===
+
+*To remove all dislikes*:
+
+****
+*Format*: `removedislike`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be cleared.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be cleared.]
+|===
 
 == Frequently Asked Questions
 
@@ -313,6 +414,8 @@ of days.
 | Makes the Food Card more or less compact, depending on the user's preference.
 | Delete <<Delete>>
 | Deletes a food items based on the given index.
+| Dislike <<Adding Likes and Dislikes>>
+| Specifies the user's disliked categories, tags and locations
 | Edit <<Edit>>
 | Edits a food item at a index based on a specific field or fields.
 | Exit <<Exit>>
@@ -325,16 +428,18 @@ of days.
 | Display possible uses of the application.
 | Info <<Info>>
 | Displays the information of the command specified.
+| Like <<Adding Likes and Dislikes>>
+| Specifies the user's liked categories, tags and locations
 | List <<List>>
 | List all saved food items
 | Recommend <<Recommend>>
 | Recommend a food item, based on the user's budget.
-| Like <<Likes and Dislikes>>
-| Likes categories, tags and locations
-| Dislike <<Likes and Dislikes>>
-| Dislikes categories, tags and locations
 | Redo <<Redo>>
 | Redo a command a specified number of times.
+| Removedislike <<Removing Likes and Dislikes>>
+| Remove dislikes from the user's specified dislikes or clears the dislikes list
+| Removelike <<Removing Likes and Dislikes>>
+| Remove likes from the user's specified likes or clears the likes list
 | Sort <<Sort>>
 | Sort all the food items by a specified field.
 | Track <<Track>>

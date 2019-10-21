@@ -41,6 +41,7 @@ public class ModelManager implements Model {
     private final FilteredList<Food> filteredFoods;
     private final PurchaseHistory purchaseHistory;
     private final CustomSorter customSorter;
+    private boolean autoSortFlag;
     //private final SavingsAccount savingsAccount;
 
     /**
@@ -60,6 +61,7 @@ public class ModelManager implements Model {
 
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
         this.customSorter = customSorter;
+        this.autoSortFlag = false;
         RecommendationSystem.getInstance().setUserRecommendations(userRecs);
     }
 
@@ -261,6 +263,16 @@ public class ModelManager implements Model {
     @Override
     public CustomSorter getCustomSorter() {
         return customSorter;
+    }
+
+    @Override
+    public void setAutoSortFlag(boolean autoSortFlag) {
+        this.autoSortFlag = autoSortFlag;
+    }
+
+    @Override
+    public boolean getAutoSortFlag() {
+        return this.autoSortFlag;
     }
 
     //=========== Recommendation System =============================================================
