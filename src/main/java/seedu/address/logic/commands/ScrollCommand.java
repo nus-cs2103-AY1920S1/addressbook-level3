@@ -16,16 +16,16 @@ public abstract class ScrollCommand extends Command {
 
     public ScrollCommand(String input) {
         switch(input.trim()) {
-         case "L":
-         case "l":
+        case "L":
+        case "l":
             this.pane = "resultDisplay";
             break;
-         case "R":
-         case "r":
-             this.pane = "tabPane";
-             break;
-         default:
-             this.pane = "Illegal";
+        case "R":
+        case "r":
+            this.pane = "tabPane";
+            break;
+        default:
+            this.pane = "Illegal";
         }
     }
     @Override
