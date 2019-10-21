@@ -1,6 +1,8 @@
-package seedu.savenus.model.food;
+package seedu.savenus.model.sorter;
 
 import java.util.Comparator;
+
+import seedu.savenus.model.food.Food;
 
 /**
  * A Simple Comparator that compares by category, name and then price.

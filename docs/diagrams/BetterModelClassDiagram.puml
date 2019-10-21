@@ -4,8 +4,8 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniqueFoodList
-AddressBook *-right-> "1" UniqueTagList
+Menu *-right-> "1" UniqueFoodList
+Menu *-right-> "1" UniqueTagList
 UniqueTagList -[hidden]down- UniqueFoodList
 UniqueTagList -[hidden]down- UniqueFoodList
 
