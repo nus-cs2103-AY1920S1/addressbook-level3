@@ -36,19 +36,22 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
-            <AnchorPane maxHeight="30.0" prefHeight="21.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
+            <AnchorPane maxHeight="21.0" prefHeight="21.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
                <children>
                   <Text fill="LIGHTGRAY" fontSmoothingType="LCD" layoutX="220.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Body List" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Text>
-                  <Text fill="LIGHTGRAY" fontSmoothingType="LCD" layoutX="1032.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Workers List" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="15.0">
+                  <Text fill="LIGHTGRAY" fontSmoothingType="LCD" layoutX="1032.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Workers List" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="15.333333333333332">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Text>
-                  <StackPane fx:id="notificationButtonPlaceholder" layoutX="890.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <StackPane fx:id="notificationButtonPlaceholder" alignment="BOTTOM_CENTER" layoutX="890.0" maxHeight="15.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.rightAnchor="265.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></StackPane>
                </children>
             </AnchorPane>
             <HBox prefHeight="450.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">

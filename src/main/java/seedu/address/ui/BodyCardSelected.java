@@ -1,8 +1,14 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.entity.body.Body;
@@ -12,7 +18,7 @@ import seedu.address.model.entity.body.Body;
  */
 public class BodyCardSelected extends UiPart<Region> {
 
-    private static final String FXML = "BodyListCard.fxml";
+    private static final String FXML = "SelectedBodyCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,15 +31,34 @@ public class BodyCardSelected extends UiPart<Region> {
     public final Body body = null;
 
     @FXML
-    private HBox cardPane;
+    private Label selectedBodyId;
     @FXML
-    private Label name;
+    private Label selectedBodyName;
     @FXML
-    private Label id;
+    private Label selectedBodySex;
     @FXML
-    private Label bodyId;
+    private ImageView sexIcon;
     @FXML
-    private Label dateOfAdmission;
+    private Label selectedBodyNric;
+    @FXML
+    private Label selectedBodyReligion;
+    @FXML
+    private Label selectedBodyDateOfAdmission;
+    @FXML
+    private Label selectedBodyDateOfDeath;
+    @FXML
+    private Label selectedBodyDateOfBirth;
+    @FXML
+    private FlowPane organs;
+    @FXML
+    private Label selectedBodyNokName;
+    @FXML
+    private Label selectedBodyNokRelationship;
+    @FXML
+    private Label selectedBodyNokPhone;
+    @FXML
+    private Label selectedBodyCauseOfDeath;
+
 
     public BodyCardSelected(ObservableValue<Body> selectedBody) {
         super(FXML);
@@ -42,9 +67,22 @@ public class BodyCardSelected extends UiPart<Region> {
             if (newValue == null) {
                 return;
             }
-            name.setText(newValue.getName().fullName);
-            bodyId.setText(newValue.getIdNum().toString());
-            dateOfAdmission.setText(newValue.getDateOfAdmission().toString());
+            selectedBodyName.setText(newValue.getName().fullName);
+            selectedBodyId.setText(newValue.getIdNum().toString());
+            selectedBodySex.setText(newValue.getSex().toString());
+            selectedBodyNric.setText(newValue.getNric().toString());
+            selectedBodyReligion.setText(newValue.getReligion().toString());
+            selectedBodyDateOfAdmission.setText(newValue.getDateOfAdmission().toString());
+            selectedBodyDateOfDeath.setText(newValue.getDateOfDeath().toString());
+            selectedBodyDateOfBirth.setText(newValue.getDateOfBirth().toString());
+            selectedBodyNokName.setText(newValue.getNextOfKin().toString());
+            selectedBodyNokRelationship.setText(newValue.getRelationship().toString());
+            selectedBodyNokPhone.setText(newValue.getKinPhoneNumber().toString());
+            selectedBodyCauseOfDeath.setText(newValue.getCauseOfDeath().toString());
+
+            newValue.getOrgansForDonation().orElse(new ArrayList<>()).stream()
+                .sorted(Comparator.comparing(organ -> organ))
+                .forEach(organ -> organs.getChildren().add(new Label(organ)));
         });
     }
 
@@ -62,7 +100,7 @@ public class BodyCardSelected extends UiPart<Region> {
 
         // state check
         BodyCardSelected card = (BodyCardSelected) other;
-        return id.getText().equals(card.id.getText())
+        return selectedBodyId.getText().equals(card.selectedBodyId.getText())
                 && body.equals(card.body);
     }
 }

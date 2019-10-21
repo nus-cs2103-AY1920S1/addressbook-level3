@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<ScrollPane prefHeight="450.0" prefWidth="294.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+    <VBox alignment="CENTER" minHeight="105" prefHeight="450.0" prefWidth="280.0" styleClass="box">
+      <padding>
+        <Insets left="15.0" right="5.0" top="10.0" />
+      </padding>
+         <Label fx:id="selectedBodyId" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" styleClass="cell_small_label" text="Body ID">
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin>
+         </Label>
+      <HBox alignment="CENTER" fillHeight="false" spacing="5.0">
+        <Label fx:id="selectedBodyName" text="Name">
+          <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE" />
+          </minWidth>
+        </Label>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="|" />
+        <Label fx:id="selectedBodySex" text="Sex" />
+            <ImageView fx:id="sexIcon" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true" />
+      </HBox>
+         <VBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="129.0">
+            <children>
+               <HBox alignment="CENTER_LEFT" spacing="5.0">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NRIC:" />
+                  <Label fx:id="selectedBodyNric" text="NRIC" />
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER_LEFT" spacing="5.0">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Religion:" />
+                     <Label fx:id="selectedBodyReligion" text="Religion" />
+                     <ImageView fx:id="religionIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
+                  </children>
+               </HBox>
+            </children>
+            <padding>
+               <Insets top="10.0" />
+            </padding>
+         </VBox>
+         <VBox alignment="CENTER_LEFT" prefHeight="155.0" prefWidth="260.0">
+            <children>
+               <AnchorPane prefHeight="60.0" prefWidth="260.0">
+                  <children>
+                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Admission:" />
+                     <Label fx:id="selectedBodyDateOfAdmission" layoutX="23.0" layoutY="18.0" text="Date Of Admission:" />
+                  </children>
+               </AnchorPane>
+               <AnchorPane prefHeight="60.0" prefWidth="260.0">
+                  <children>
+                     <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Death:" />
+                     <Label fx:id="selectedBodyDateOfDeath" layoutX="24.0" layoutY="16.0" text="Date Of Death:" />
+                  </children>
+               </AnchorPane>
+               <AnchorPane prefHeight="60.0" prefWidth="260.0">
+                  <children>
+                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Birth:" />
+                     <Label fx:id="selectedBodyDateOfBirth" layoutX="24.0" layoutY="17.0" text="Date Of Birth:" />
+                  </children>
+               </AnchorPane>
+            </children>
+            <padding>
+               <Insets top="15.0" />
+            </padding>
+         </VBox>
+         <VBox prefHeight="0.0" prefWidth="129.0">
+            <children>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organs For Donation" />
+               <FlowPane fx:id="organs" />
+            </children>
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
+         </VBox>
+         <AnchorPane prefHeight="58.0" prefWidth="237.0">
+            <children>
+            <Label fx:id="NOK" alignment="CENTER" contentDisplay="RIGHT" layoutX="-35.0" layoutY="12.0" text="NOK" />
+               <VBox alignment="CENTER_LEFT" layoutX="78.0" layoutY="6.0" prefHeight="72.0" prefWidth="160.0" AnchorPane.rightAnchor="22.0">
+                  <children>
+                     <Label fx:id="selectedBodyNokName" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Name" />
+                     <Label fx:id="selectedBodyNokRelationship" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="14.0" prefWidth="89.0" text="NOK Relationship" />
+                     <Label fx:id="selectedBodyNokPhone" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Phone" />
+                  </children>
+               </VBox>
+            </children>
+            <VBox.margin>
+               <Insets top="20.0" />
+            </VBox.margin>
+         </AnchorPane>
+         <VBox prefHeight="111.0" prefWidth="260.0">
+            <children>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cause Of Death">
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+               </Text>
+            <Label fx:id="selectedBodyCauseOfDeath" text="COD" />
+            </children>
+            <padding>
+               <Insets bottom="30.0" top="20.0" />
+            </padding>
+         </VBox>
+    </VBox>
+   </content>
+</ScrollPane>

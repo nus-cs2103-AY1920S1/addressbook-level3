@@ -18,11 +18,13 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
 
+/**
+ * Notification button to open up alerts view.
+ */
 public class NotificationButton extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(NotificationButton.class);
     private static final String FXML = "NotificationButton.fxml";
-    private static final String ICON_URL = "/images/bell_icon.png";
 
     @FXML
     private ImageView buttonIcon;
@@ -39,20 +41,28 @@ public class NotificationButton extends UiPart<Region> {
         super(FXML);
         notifButton.setGraphic(buttonIcon);
         notifButton.setStyle("-fx-border-width: 0");
-        iconNumber = new Label();
-        iconNumber.setText("1");
-        addJumpingAnimation();
-        addImageViewSizeBindings();
-        bindToStack();
+        initIconNumber();
     }
 
     /**
-     * the jump animation changes the position of the mini-icon
+     * Initializes the icon number.
+     */
+    private void initIconNumber() {
+        iconNumber = new Label();
+        iconNumber.setText("0");
+        iconNumber.getStyleClass().add("notificationButtonLabel");
+        addJumpingAnimation();
+        addIconNumberSizeBindingsToButtonSize();
+        bindIconNumberToStackPane();
+    }
+
+    /**
+     * Sets up the jumping animation for the icon number.
      */
     private void addJumpingAnimation() {
-        final TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), iconNumber);
-        final double start = 0.0;
-        final double end = start - 4.0;
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), iconNumber);
+        double start = 0.0;
+        double end = start - 4.0;
         translateTransition.setFromY(start);
         translateTransition.setToY(end);
         translateTransition.setCycleCount(-1);
@@ -61,22 +71,22 @@ public class NotificationButton extends UiPart<Region> {
         translateTransition.play();
     }
 
-    private void addImageViewSizeBindings() {
-        final ReadOnlyDoubleProperty widthProperty = notifButton.widthProperty();
-        final ReadOnlyDoubleProperty heightProperty = notifButton.heightProperty();
-        final DoubleBinding widthBinding = widthProperty.divide(4.0);
-        final DoubleBinding heightBinding = heightProperty.divide(4.0);
+    private void addIconNumberSizeBindingsToButtonSize() {
+        ReadOnlyDoubleProperty widthProperty = notifButton.widthProperty();
+        ReadOnlyDoubleProperty heightProperty = notifButton.heightProperty();
+        DoubleBinding widthBinding = widthProperty.divide(4.0);
+        DoubleBinding heightBinding = heightProperty.divide(4.0);
         iconNumber.setPrefWidth(widthBinding.doubleValue());
         iconNumber.setPrefWidth(heightBinding.doubleValue());
-        widthBinding.addListener((ChangeListener) (o, oldVal, newVal) ->
+        widthBinding.addListener((ChangeListener<? super Number>) (o, oldVal, newVal) ->
                 iconNumber.setPrefWidth(widthBinding.doubleValue()));
-        heightBinding.addListener((ChangeListener) (o, oldVal, newVal) ->
+        heightBinding.addListener((ChangeListener<? super Number>) (o, oldVal, newVal) ->
                 iconNumber.setPrefWidth(heightBinding.doubleValue()));
     }
 
-    private void bindToStack() {
+    private void bindIconNumberToStackPane() {
         buttonPane.setAlignment(iconNumber, Pos.TOP_RIGHT);
-        buttonPane.setMargin(iconNumber, new Insets(4, 6, 4, 4));
+        buttonPane.setMargin(iconNumber, new Insets(4, 12, 4, 0));
         buttonPane.getChildren().addAll(iconNumber);
     }
 
