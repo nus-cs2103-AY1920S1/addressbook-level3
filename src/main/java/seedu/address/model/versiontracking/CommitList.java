@@ -39,6 +39,13 @@ public class CommitList {
     }
 
     /**
+     * Gets the commit message represented by the commit index.
+     */
+    public String getCommitMessageByCommitNumber(int commitNumber) {
+        return getCommitByIndex(commitNumber).getCommitMessage();
+    }
+
+    /**
      * Deletes one commit of the specified index.
      */
     public void deleteCommitByIndex(int index) throws CommitNotFoundException {

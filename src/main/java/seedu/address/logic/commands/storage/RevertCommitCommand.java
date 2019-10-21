@@ -9,7 +9,7 @@ import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * Represents a command for the user to revert to the version of the current active study plan for a particular commit.
- * This discards all the commits after the specified commit.
+ * This creates a new revert commit.
  */
 public class RevertCommitCommand extends Command {
 

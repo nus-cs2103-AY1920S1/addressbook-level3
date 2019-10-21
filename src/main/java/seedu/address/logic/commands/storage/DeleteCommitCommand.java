@@ -6,6 +6,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 
 
@@ -21,10 +22,10 @@ public class DeleteCommitCommand extends Command {
             + "Parameters: STUDYPLAN_INDEX.COMMIT_INDEX (must be non-negative integers)\n"
             + "Example: " + COMMAND_WORD + " 1.3";
 
+    public static final String MESSAGE_NO_MORE_STUDYPLAN = "You don't have any study plan currently. Create now!";
     public static final String MESSAGE_DELETE_COMMIT_SUCCESS = "Deleted commit: %1$s";
     public static final String MESSAGE_INVALID_COMMIT_INDEX = "The commit number you've entered is invalid.";
-    public static final String MESSAGE_INVALID_STUDY_PLAN_INDEX =
-            "You only can delete a commit in the active study plan!";
+    public static final String MESSAGE_NOT_ACTIVE_STUDY_PLAN = "The study plan index must be the active one!";
 
 
     private final int studyPlanIndex;
@@ -39,9 +40,16 @@ public class DeleteCommitCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // if the study plan index does not match the current active plan, don't allow this operation.
-        if (studyPlanIndex != model.getActiveStudyPlan().getIndex()) {
-            return new CommandResult(MESSAGE_INVALID_STUDY_PLAN_INDEX);
+        StudyPlan activeStudyPlan = model.getActiveStudyPlan();
+
+        // if the current active study plan is null
+        if (activeStudyPlan == null) {
+            return new CommandResult(MESSAGE_NO_MORE_STUDYPLAN);
+        }
+
+        // if the index entered is not the current active study plan
+        if (studyPlanIndex != activeStudyPlan.getIndex()) {
+            return new CommandResult(MESSAGE_NOT_ACTIVE_STUDY_PLAN);
         }
 
         try {
