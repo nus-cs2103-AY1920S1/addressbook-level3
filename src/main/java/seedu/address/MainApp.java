@@ -257,9 +257,10 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ReadOnlyDiary} with the data from {@code storage}'s Diary Records. <br>
-     * The data from the sample diary will be used instead if {@code storage}'s diary records are not found,
-     * or an empty Diary Record will be used instead if errors occur when reading {@code storage}'s Diary Records.
+     * Returns a {@code ReadOnlyDashboard} with the data from {@code storage}'s Dashboard Records. <br>
+     * The data from the sample dashaboard will be used instead if {@code storage}'s dashboard records are not found,
+     * or an empty Dashboard Record will be used instead if errors occur when reading
+     * {@code storage}'s Dashboard Records.
      */
     private ReadOnlyDashboard initDashboard(Storage storage) {
         Optional<ReadOnlyDashboard> dashboardRecordsOptional;
