@@ -9,6 +9,7 @@ import java.util.List;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
+import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
@@ -86,8 +87,14 @@ public class AddAnnotationCommand extends Command {
         } else {
             an = new Annotation(highlight, note);
         }
-        doc.addAnnotation(pid, an);
 
+        try {
+            doc.addAnnotation(pid, an);
+        } catch (IllegalValueException e) {
+            throw new CommandException(e.getMessage());
+        }
+
+        model.updateDocument(doc);
         model.saveMark();
         return new CommandResult(String.format(MESSAGE_ANNOTATE_BOOKMARK_ACKNOWLEDGEMENT, pid));
     }
@@ -98,7 +105,8 @@ public class AddAnnotationCommand extends Command {
                 || (other instanceof AddAnnotationCommand // instanceof handles nulls
                 && index.equals(((AddAnnotationCommand) other).index)
                 && pid.equals(((AddAnnotationCommand) other).pid)
-                && note.equals(((AddAnnotationCommand) other).note)
+                && (this.note == ((AddAnnotationCommand) other).note
+                || note.equals(((AddAnnotationCommand) other).note))
                 && highlight.equals(((AddAnnotationCommand) other).highlight)); // state check
     }
 

@@ -192,6 +192,9 @@ public class ParserUtil {
      */
     public static ParagraphIdentifier parseParagraphIdentifier(String pidString) throws ParseException {
         requireNonNull(pidString);
+        if (pidString.trim().length() < 1) {
+            throw new ParseException(AddAnnotationCommand.MESSAGE_CONSTRAINTS);
+        }
 
         ParagraphIdentifier.ParagraphType t;
         switch (pidString.charAt(0)) {
@@ -213,7 +216,7 @@ public class ParserUtil {
         try {
             idx = ParserUtil.parseIndex(pidString.substring(1));
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(AddAnnotationCommand.MESSAGE_CONSTRAINTS);
         }
 
         return new ParagraphIdentifier(idx, t);

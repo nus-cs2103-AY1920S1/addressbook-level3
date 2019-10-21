@@ -48,7 +48,7 @@ public class TrueParagraph extends Paragraph {
     }
 
     @Override
-    public boolean hasHighlight() {
+    public boolean hasAnnotation() {
         return annotation != null;
     }
 

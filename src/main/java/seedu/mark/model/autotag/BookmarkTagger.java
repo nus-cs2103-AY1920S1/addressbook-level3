@@ -36,7 +36,7 @@ public class BookmarkTagger {
         updatedTags.add(new Tag(tagToApply)); // does not allow duplicate tags
 
         return new Bookmark(bookmark.getName(), bookmark.getUrl(),
-                bookmark.getRemark(), bookmark.getFolder(), updatedTags);
+                bookmark.getRemark(), bookmark.getFolder(), updatedTags, bookmark.getCachedCopies());
     }
 
     @Override

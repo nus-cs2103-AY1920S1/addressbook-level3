@@ -34,7 +34,9 @@ public class AnnotationParagraphCard extends UiPart<Region> {
             note.setText(paragraph.getNote().toString());
         }
         //TODO: set para background colour
-        para.setStyle(String.format("text-area-bkgrd: %s;", paragraph.getHighlight()));
+        if (paragraph.hasAnnotation()) {
+            para.setStyle(String.format("text-area-bkgrd: %s;", paragraph.getHighlight()));
+        }
     }
 
     @Override

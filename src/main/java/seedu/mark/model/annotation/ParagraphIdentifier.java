@@ -25,14 +25,14 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof ParagraphIdentifier
-                && ((ParagraphIdentifier) other).index == this.index
+                && ((ParagraphIdentifier) other).index.equals(this.index)
                 && ((ParagraphIdentifier) other).type == this.type);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(index, type);
+        return Objects.hash(index.getOneBased(), type);
     }
 
     @Override

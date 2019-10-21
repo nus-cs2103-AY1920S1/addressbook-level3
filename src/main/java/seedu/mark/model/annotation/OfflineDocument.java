@@ -162,8 +162,14 @@ public class OfflineDocument {
         }
     }
 
-    public void addAnnotation(ParagraphIdentifier pid, Annotation an) {
+    public void addAnnotation(ParagraphIdentifier pid, Annotation an) throws IllegalValueException {
+        //for (ParagraphIdentifier id : paragraphs.keySet()) logger.info("this doc currently has pid: "+id);
+        //logger.info("but i want to find pid: "+pid);
         Paragraph p = paragraphs.get(pid);
+        if (p == null) {
+            throw new IllegalValueException("Annotate: invalid paragraph index provided. " +
+                    "Unable to annotate nonexistent paragraph.");
+        }
         p.addAnnotation(an);
     }
 

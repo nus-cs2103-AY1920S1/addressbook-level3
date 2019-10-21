@@ -3,6 +3,7 @@ package seedu.mark.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.mark.logic.parser.ParserUtil.parseParagraphIdentifier;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
@@ -13,7 +14,10 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.commons.core.index.Index;
+import seedu.mark.logic.commands.AddAnnotationCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
@@ -173,4 +177,41 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseParagraphId_validId_returnsParagraphIdentifier() throws Exception {
+        Index index = Index.fromOneBased(1);
+        assertEquals(new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.EXIST),
+                ParserUtil.parseParagraphIdentifier("p1"));
+        assertEquals(new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.EXIST),
+                ParserUtil.parseParagraphIdentifier("P1"));
+        assertEquals(new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.STRAY),
+                ParserUtil.parseParagraphIdentifier("s1"));
+        assertEquals(new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.STRAY),
+                ParserUtil.parseParagraphIdentifier("S1"));
+    }
+
+    @Test
+    public void parseParagraphId_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseParagraphIdentifier(null));
+    }
+
+    @Test
+    public void parseParagraphId_invalidId_throwsParseException() {
+        assertThrows(ParseException.class,
+                AddAnnotationCommand.MESSAGE_CONSTRAINTS, () -> ParserUtil.parseParagraphIdentifier(" "));
+        assertThrows(ParseException.class,
+                AddAnnotationCommand.MESSAGE_CONSTRAINTS, () -> ParserUtil.parseParagraphIdentifier(""));
+
+        assertThrows(ParseException.class,
+                AddAnnotationCommand.MESSAGE_CONSTRAINTS, () -> ParserUtil.parseParagraphIdentifier("ello"));
+        assertThrows(ParseException.class,
+                AddAnnotationCommand.MESSAGE_CONSTRAINTS, () -> ParserUtil.parseParagraphIdentifier("1p"));
+
+        assertThrows(ParseException.class,
+                AddAnnotationCommand.MESSAGE_CONSTRAINTS, () -> ParserUtil.parseParagraphIdentifier("ps2"));
+        assertThrows(ParseException.class,
+                AddAnnotationCommand.MESSAGE_CONSTRAINTS, () -> ParserUtil.parseParagraphIdentifier("p2s"));
+    }
+
 }

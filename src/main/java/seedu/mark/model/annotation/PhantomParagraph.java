@@ -41,7 +41,7 @@ public class PhantomParagraph extends Paragraph {
      * Returns false. Phantom paragraphs can never have highlights. The only possible annotation is a note.
      */
     @Override
-    public boolean hasHighlight() {
+    public boolean hasAnnotation() {
         return false;
     }
 

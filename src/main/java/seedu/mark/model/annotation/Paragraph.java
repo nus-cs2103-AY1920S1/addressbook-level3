@@ -10,7 +10,7 @@ public abstract class Paragraph {
 
     public abstract ParagraphContent getParagraphContent();
 
-    public abstract boolean hasHighlight();
+    public abstract boolean hasAnnotation();
     public abstract Highlight getHighlight();
 
     public abstract boolean hasNote();
