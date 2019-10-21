@@ -1,6 +1,6 @@
 package seedu.address.reimbursement.logic;
 
-import seedu.address.reimbursement.commands.CommandResult;
+import seedu.address.reimbursement.logic.commands.CommandResult;
 import seedu.address.reimbursement.model.ReimbursementList;
 
 /**

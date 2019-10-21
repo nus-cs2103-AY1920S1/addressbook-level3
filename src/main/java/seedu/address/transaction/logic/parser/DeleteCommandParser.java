@@ -10,7 +10,7 @@ import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.DeleteCommand;
 import seedu.address.transaction.logic.commands.DeleteIndexCommand;
 import seedu.address.transaction.logic.commands.DeleteNameCommand;
-import seedu.address.transaction.logic.commands.exception.exception.NotANumberException;
+import seedu.address.transaction.logic.commands.exception.NotANumberException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
 import seedu.address.util.ArgumentMultimap;

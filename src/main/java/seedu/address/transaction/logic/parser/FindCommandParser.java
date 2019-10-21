@@ -3,7 +3,7 @@ package seedu.address.transaction.logic.parser;
 import java.util.Arrays;
 
 import seedu.address.transaction.logic.commands.FindCommand;
-import seedu.address.transaction.logic.commands.exception.exception.ParseException;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 import seedu.address.transaction.ui.TransactionMessages;
 

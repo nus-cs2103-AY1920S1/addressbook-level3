@@ -12,9 +12,9 @@ import seedu.address.transaction.logic.commands.EditCommand;
 import seedu.address.transaction.logic.commands.ExitCommand;
 import seedu.address.transaction.logic.commands.FindCommand;
 import seedu.address.transaction.logic.commands.SortCommand;
-import seedu.address.transaction.logic.commands.exception.exception.NoSuchSortException;
-import seedu.address.transaction.logic.commands.exception.exception.NotANumberException;
-import seedu.address.transaction.logic.commands.exception.exception.ParseException;
+import seedu.address.transaction.logic.commands.exception.NoSuchSortException;
+import seedu.address.transaction.logic.commands.exception.NotANumberException;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
 

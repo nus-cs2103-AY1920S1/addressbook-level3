@@ -13,7 +13,7 @@ import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.AddCommand;
-import seedu.address.transaction.logic.commands.exception.exception.ParseException;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;

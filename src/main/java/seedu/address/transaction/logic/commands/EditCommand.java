@@ -12,7 +12,7 @@ import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.logic.commands.exception.exception.ParseException;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchIndexException;

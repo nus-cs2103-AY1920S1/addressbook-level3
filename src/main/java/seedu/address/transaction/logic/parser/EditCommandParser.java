@@ -19,7 +19,7 @@ import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.EditCommand;
-import seedu.address.transaction.logic.commands.exception.exception.ParseException;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
 import seedu.address.util.ArgumentMultimap;

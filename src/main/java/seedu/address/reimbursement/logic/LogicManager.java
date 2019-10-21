@@ -1,7 +1,8 @@
 package seedu.address.reimbursement.logic;
 
-import seedu.address.reimbursement.commands.Command;
-import seedu.address.reimbursement.commands.CommandResult;
+import seedu.address.reimbursement.logic.commands.Command;
+import seedu.address.reimbursement.logic.commands.CommandResult;
+import seedu.address.reimbursement.logic.parser.ReimbursementTabParser;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.ReimbursementList;
 

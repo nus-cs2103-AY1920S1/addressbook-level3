@@ -2,7 +2,7 @@ package seedu.address.transaction.logic.commands;
 
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_TRANSACTION;
 
-import seedu.address.transaction.logic.commands.exception.exception.ParseException;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;

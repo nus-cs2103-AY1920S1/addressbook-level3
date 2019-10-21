@@ -5,7 +5,7 @@ import seedu.address.transaction.logic.commands.SortCommand;
 import seedu.address.transaction.logic.commands.SortDateCommand;
 import seedu.address.transaction.logic.commands.SortNameCommand;
 import seedu.address.transaction.logic.commands.SortResetCommand;
-import seedu.address.transaction.logic.commands.exception.exception.NoSuchSortException;
+import seedu.address.transaction.logic.commands.exception.NoSuchSortException;
 import seedu.address.transaction.ui.TransactionMessages;
 
 /**

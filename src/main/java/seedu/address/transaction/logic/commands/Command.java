@@ -1,7 +1,7 @@
 package seedu.address.transaction.logic.commands;
 
 import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.transaction.logic.commands.exception.exception.ParseException;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
