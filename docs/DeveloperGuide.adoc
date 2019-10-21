@@ -267,10 +267,24 @@ Commands support the given operations:
 * `Command#execute(Model)` -- Executes the command on the given `Model`.
 * `Command#executeInverse(Model)` -- Executes on the given `Model` such that it will undo whatever changes were made when `Command#execute(Model)` was called.
 
-
 The following activity diagram illustrates how commands are remembered when a user types in a command:
 
 image::CommandActivityDiagram.png[]
+
+Undo and redo operations are executed with `UndoCommand` and `RedoCommand`. These commands store an integer value referencing the number of commands to undo or redo,
+represented by `UndoCommand#numberOfTimes` and `RedoCommand#numberOfTimes`.
+
+Given below is an example usage scenario of how undo/redo mechanism behaves.
+
+Step 1. The user launches the application for the first time. The `HistoryManager` is initialized. `HistoryManager#executedCommands` and `HistoryManager#inverselyExecutedCommands`
+are empty.
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. A `DeleteAddressCommand` is created and executed in `LogicManager#execute(String)`. Since `DeleteCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
+
+Step 3. The user executes `add n/David ...` to add a new person. A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`. Since `AddAddressCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
+
+[NOTE]
+If a invertible command execution fails, `HistoryManager` will not remember it, therefore it will not be stored for undo/redo capabilities.
 
 
 // end::undoredo[]
