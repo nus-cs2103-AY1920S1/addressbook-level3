@@ -51,7 +51,7 @@ public class CcaTracker {
     /**
      * Constructor to be used if cca list is already present.
      *
-     * @param the cca list to be copied.
+     * @param ccaList - the cca list to be copied.
      */
     public CcaTracker(CcaList ccaList) {
         requireNonNull(ccaList);
@@ -155,6 +155,18 @@ public class CcaTracker {
      */
     public ObservableList<Cca> getFilteredCcaList() {
         return filteredCcas;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CcaTracker // instanceof handles nulls
+                && ccaList.equals(((CcaTracker) other).ccaList));
+    }
+
+    @Override
+    public int hashCode() {
+        return ccaList.hashCode();
     }
 
 }

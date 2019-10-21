@@ -3,11 +3,7 @@ package seedu.jarvis.logic.commands.cca;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jarvis.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.showCcaAtIndex;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_CCA;
-import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;

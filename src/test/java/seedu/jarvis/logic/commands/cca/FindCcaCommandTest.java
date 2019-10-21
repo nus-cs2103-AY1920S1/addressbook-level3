@@ -93,12 +93,14 @@ public class FindCcaCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleCcasFound() {
+        model.addCca(CANOEING);
+        model.addCca(GUITAR_ENSEMBLE);
         String expectedMessage = String.format(MESSAGE_CCAS_LISTED_OVERVIEW, 2);
         CcaNameContainsKeywordsPredicate predicate = preparePredicate("Canoeing Guitar");
         FindCcaCommand command = new FindCcaCommand(predicate);
         expectedModel.updateFilteredCcaList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CANOEING, GUITAR_ENSEMBLE), model.getFilteredCcaList());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     /**
