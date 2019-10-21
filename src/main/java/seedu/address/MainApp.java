@@ -25,6 +25,8 @@ import seedu.address.model.note.NotesRecord;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.quiz.SavedQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.StudentRecord;
 import seedu.address.model.util.SampleDataUtil;
@@ -39,6 +41,8 @@ import seedu.address.storage.note.JsonNotesRecordStorage;
 import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.JsonQuestionStorage;
 import seedu.address.storage.question.QuestionStorage;
+import seedu.address.storage.quiz.JsonQuizStorage;
+import seedu.address.storage.quiz.QuizStorage;
 import seedu.address.storage.student.JsonStudentRecordStorage;
 import seedu.address.storage.student.StudentRecordStorage;
 import seedu.address.ui.Ui;
@@ -76,9 +80,11 @@ public class MainApp extends Application {
             new JsonStudentRecordStorage(userPrefs.getStudentRecordFilePath());
         QuestionStorage savedQuestionStorage =
             new JsonQuestionStorage(userPrefs.getSavedQuestionsFilePath());
+        QuizStorage savedQuizStorage =
+                new JsonQuizStorage(userPrefs.getSavedQuizzesFilePath());
         NotesRecordStorage notesRecordStorage = new JsonNotesRecordStorage(userPrefs.getNotesRecordFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, studentRecordStorage,
-            savedQuestionStorage, notesRecordStorage);
+            savedQuestionStorage, savedQuizStorage, notesRecordStorage);
 
         initLogging(config);
 
@@ -99,16 +105,19 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyStudentRecord> studentRecordOptional;
         Optional<ReadOnlyQuestions> questionsOptional;
+        Optional<ReadOnlyQuizzes> quizzesOptional;
         Optional<ReadOnlyNotesRecord> notesRecordOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
+        ReadOnlyQuizzes initialQuizzes;
         ReadOnlyNotesRecord initialNotesRecord;
 
         try {
             addressBookOptional = storage.readAddressBook();
             studentRecordOptional = storage.readStudentRecord();
             questionsOptional = storage.readQuestions();
+            quizzesOptional = storage.readQuizzes();
             notesRecordOptional = storage.readNotesRecord();
 
             if (!addressBookOptional.isPresent()) {
@@ -120,6 +129,9 @@ public class MainApp extends Application {
             if (!questionsOptional.isPresent()) {
                 logger.info("Question file not found. Will create an empty one.");
             }
+            if (!quizzesOptional.isPresent()) {
+                logger.info("Quiz file not found. Will create an empty one.");
+            }
             if (!notesRecordOptional.isPresent()) {
                 logger.info("Notes Record not found. Will start with sample NotesRecord");
             }
@@ -128,6 +140,7 @@ public class MainApp extends Application {
             initialStudentRecord = studentRecordOptional.orElseGet(null); //get samplestudentrecord
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
             initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
+            initialQuizzes = quizzesOptional.orElseGet(SampleDataUtil::getSampleQuizList);
 
         } catch (DataConversionException e) {
             logger.warning(
@@ -135,6 +148,8 @@ public class MainApp extends Application {
             initialAddressBook = new AddressBook();
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
+            initialQuizzes = new SavedQuizzes();
+
             initialNotesRecord = new NotesRecord();
 
         } catch (IOException e) {
@@ -143,11 +158,12 @@ public class MainApp extends Application {
             initialAddressBook = new AddressBook();
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
+            initialQuizzes = new SavedQuizzes();
             initialNotesRecord = new NotesRecord();
         }
 
-        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialNotesRecord,
-            userPrefs);
+        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialQuizzes,
+                initialNotesRecord, userPrefs);
     }
 
     private void initLogging(Config config) {

@@ -41,6 +41,14 @@ public class SavedQuestions implements ReadOnlyQuestions {
     //// list overwrite operations
 
     /**
+     * Returns a question bank.
+     * @return The question bank.
+     */
+    public QuestionBank getQuestionBank() {
+        return questions;
+    }
+
+    /**
      * Replaces the contents of the Question list with {@code Questions}. {@code Questions} must not
      * contain duplicate Questions.
      */

@@ -2,6 +2,8 @@ package seedu.address.model.quiz;
 
 import java.util.ArrayList;
 
+import seedu.address.model.question.McqQuestion;
+import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.Question;
 
 /**
@@ -75,6 +77,79 @@ public class QuestionList {
             answers.add(q.getAnswer());
         }
         return answers;
+    }
+
+    /**
+     * Sets the String represented questions as the questions of a question list.
+     * @param stringQuestions The questions in String representation.
+     */
+    public void setStringQuestions(String stringQuestions) {
+        System.out.println("StringQuestionsSet" + stringQuestions);
+        String[] splitBySymbol = stringQuestions.split("//");
+        for (String s : splitBySymbol) {
+            System.out.println("CurrentQUESTION" + s);
+            String[] split = s.split(":");
+            if (split.length <= 2) {
+                String question = split[0];
+                System.out.println(question);
+                String answer = split[1];
+                System.out.println("splitStringQuestion: " + question);
+                System.out.println("splitStringAnswer: " + answer);
+                OpenEndedQuestion openEndedQuestion = new OpenEndedQuestion(question, answer);
+                questions.add(openEndedQuestion);
+            } else {
+                String question = split[0];
+                String answer = split[1];
+                String optionA = split[2];
+                String optionB = split[3];
+                String optionC = split[4];
+                String optionD = split[5];
+                System.out.println("splitMCQStringQuestion: " + question);
+                System.out.println("splitMCQStringAnswer: " + answer);
+                McqQuestion mcqQuestion = new McqQuestion(question, answer, optionA, optionB,
+                                            optionC, optionD);
+                questions.add(mcqQuestion);
+            }
+        }
+    }
+
+    /**
+     * Gets the questions of a question list in String representation.
+     * @return The questions of the question list in String representation.
+     */
+    public String getStringQuestions() {
+        Question firstQuestion = questions.get(0);
+        System.out.println(firstQuestion);
+        System.out.println(questions.get(1));
+        String returnQuestions = "";
+        if (firstQuestion instanceof OpenEndedQuestion) {
+            String question = firstQuestion.getQuestion();
+            String answer = firstQuestion.getAnswer();
+            returnQuestions += question + ":" + answer;
+        } else {
+            McqQuestion mcqQuestion = (McqQuestion) firstQuestion;
+            String question = firstQuestion.getQuestion();
+            String answer = firstQuestion.getAnswer();
+            returnQuestions += question + ":" + answer
+                                + mcqQuestion.getOptionA() + ":" + mcqQuestion.getOptionB()
+                                + mcqQuestion.getOptionC() + ":" + mcqQuestion.getOptionD();
+        }
+        for (int i = 1; i < questions.size(); i++) {
+            Question nextQuestion = questions.get(i);
+            if (nextQuestion instanceof OpenEndedQuestion) {
+                String question = nextQuestion.getQuestion();
+                String answer = nextQuestion.getAnswer();
+                returnQuestions += "//" + question + ":" + answer;
+            } else {
+                McqQuestion mcqQuestion = (McqQuestion) nextQuestion;
+                String question = nextQuestion.getQuestion();
+                String answer = nextQuestion.getAnswer();
+                returnQuestions += "//" + question + ":" + answer
+                        + mcqQuestion.getOptionA() + ":" + mcqQuestion.getOptionB()
+                        + mcqQuestion.getOptionC() + ":" + mcqQuestion.getOptionD();
+            }
+        }
+        return returnQuestions;
     }
 
     /**
