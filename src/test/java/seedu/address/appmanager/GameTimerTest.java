@@ -47,6 +47,7 @@ public class GameTimerTest {
         assertTrue(timerDisplayStub.isUpdatedFromGameTimer);
     }
     */
+    /*
     @Test
     public void abortTimer() {
         AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
@@ -57,6 +58,7 @@ public class GameTimerTest {
         // abortTimer() is supposed to pass timeLeft = 0 to the timerDisplay.
         assertTrue(timerDisplayStub.timeLeftEqualsZero);
     }
+    */
 
 
     // Stub class for TimerDisplay component of UI
