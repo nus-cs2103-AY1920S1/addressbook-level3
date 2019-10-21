@@ -11,7 +11,7 @@ public class Feature {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Please indicate one of the following features to view: 1) calender, 2) attendance, "
-                    + "3) ";
+                    + "3) performance";
 
     private final String name;
 
