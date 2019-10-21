@@ -2,8 +2,6 @@ package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import static mams.logic.parser.CliSyntax.PREFIX_REASON;
-
 import java.util.List;
 
 import mams.commons.core.Messages;
@@ -17,22 +15,7 @@ import mams.model.appeal.Appeal;
 /**
  * Rejects a appeal in mams.
  */
-public class RejectCommand extends ModCommand {
-
-    public static final String COMMAND_WORD = "reject";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": rejects the appeal selected "
-            + "by the index number used in the displayed appeal list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_REASON + "[REASON]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_REASON + "module quota exceeded.";
-
-    public static final String MESSAGE_REJECT_APPEAL_SUCCESS = "Rejected appeal: %1$s";
-    public static final String MESSAGE_REJECT_UNSUCCESSFUL = "At least one field to edit must be provided.";
-    public static final String MESSAGE_REJECT_ALREADY_REJECTED = "The appeal was already resolved";
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Reason: %2$s";
+public class RejectCommand extends ResolveCommand {
 
     private final Index index;
     private final String reason;

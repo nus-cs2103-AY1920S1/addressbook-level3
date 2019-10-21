@@ -26,7 +26,8 @@ public class RejectCommandParser implements Parser<RejectCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RejectCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RejectCommand.MESSAGE_USAGE_REJECT), ive);
+
         }
 
         String remark = argMultimap.getValue(PREFIX_REASON).orElse("");

@@ -26,7 +26,7 @@ public class ApproveCommandParser implements Parser<ApproveCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApproveCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApproveCommand.MESSAGE_USAGE_APPROVE), ive);
         }
 
         String remark = argMultimap.getValue(PREFIX_REASON).orElse("");

@@ -149,8 +149,8 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : true,
-    "result" : "REJECTED",
-    "remark" : "gay"
+    "result" : "APPROVED",
+    "remark" : ""
   }, {
     "appealId" : "C000001",
     "appealType" : "Drop module",
@@ -162,9 +162,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000002",
     "appealType" : "Drop module",
@@ -176,9 +176,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "k"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000003",
     "appealType" : "Add module",
@@ -190,9 +190,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000004",
     "appealType" : "Increase workload",
@@ -205,8 +205,8 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
-    "remark" : ""
+    "result" : "",
+    "remark" : "a"
   }, {
     "appealId" : "C000005",
     "appealType" : "Add module",
@@ -219,7 +219,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000006",
@@ -233,7 +233,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000007",
@@ -246,8 +246,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   } ]
 }
