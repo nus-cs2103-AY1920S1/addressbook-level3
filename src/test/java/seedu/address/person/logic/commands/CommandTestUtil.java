@@ -131,17 +131,11 @@ public class CommandTestUtil {
                     new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
             seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                     new seedu.address.reimbursement.storage.StorageManager(
-<<<<<<< HEAD
-                            "data/test/reimbursement.txt", transactionModel);
+                            "data/test/reimbursement.txt");
             seedu.address.cashier.storage.StorageManager cashierManager =
                     new seedu.address.cashier.storage.StorageManager(
-                    "data/test/inventory.txt", "data/test/transaction.txt",
-                            personModel);
-=======
-                            "data/test/reimbursement.txt");
-            seedu.address.cashier.storage.StorageManager cashierManager = new seedu.address.cashier.storage.StorageManager(
-                    "data/test/inventory.txt", "data/test/transaction.txt", personModel);
->>>>>>> upstream/master
+                    "data/test/inventory.txt",
+                    "data/test/transaction.txt", personModel);
             seedu.address.inventory.storage.StorageManager inventoryManager =
                     new seedu.address.inventory.storage.StorageManager("data/test/inventory.txt");
 

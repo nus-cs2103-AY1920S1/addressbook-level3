@@ -2,10 +2,10 @@ package seedu.address.reimbursement.logic;
 
 import java.io.IOException;
 
+import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.logic.commands.Command;
 import seedu.address.reimbursement.logic.commands.CommandResult;
 import seedu.address.reimbursement.logic.parser.ReimbursementTabParser;
-import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.transaction.util.TransactionList;
