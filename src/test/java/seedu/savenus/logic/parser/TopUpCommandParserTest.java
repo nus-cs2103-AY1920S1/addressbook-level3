@@ -1,13 +1,14 @@
 package seedu.savenus.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.savenus.logic.commands.TopUpCommand;
-
-import java.math.BigDecimal;
-
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import java.math.BigDecimal;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.savenus.logic.commands.TopUpCommand;
 
 public class TopUpCommandParserTest {
     private TopUpCommandParser parser = new TopUpCommandParser();
