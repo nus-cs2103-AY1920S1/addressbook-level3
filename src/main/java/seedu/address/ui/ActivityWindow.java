@@ -5,6 +5,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import seedu.address.logic.FunctionMode;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 
 /**
@@ -14,8 +15,8 @@ public class ActivityWindow extends UiPart<Region> {
 
     private static final String FXML = "ActivityWindow.fxml";
     private static final int FLASHCARD_TAB_INDEX = 1;
-    private static final int CHEATSHEET_TAB_INDEX = 2;
-    private static final int NOTES_TAB_INDEX = 3;
+    private static final int CHEATSHEET_TAB_INDEX = 3;
+    private static final int NOTES_TAB_INDEX = 2;
 
     @FXML
     private TabPane activityWindow;
@@ -64,6 +65,10 @@ public class ActivityWindow extends UiPart<Region> {
 
     public void displayFlashcard(Flashcard flashcard) {
         flashcardTabWindowController.loadFlashcard(flashcard);
+    }
+
+    public void displayCheatSheet(CheatSheet cheatSheet) {
+        cheatsheetTabWindowController.loadCheatSheet(cheatSheet);
     }
 
 }

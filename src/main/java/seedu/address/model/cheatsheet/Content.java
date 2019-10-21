@@ -16,7 +16,6 @@ public class Content {
     public final String content;
     public final int index;
 
-
     /**
      * Constructs a {@code Content}.
      *
