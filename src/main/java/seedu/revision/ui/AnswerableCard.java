@@ -34,7 +34,7 @@ public class AnswerableCard extends UiPart<Region> {
     @FXML
     private Label question;
     @FXML
-    private FlowPane answer1;
+    private FlowPane answer;
     @FXML
     private Label id;
     @FXML
@@ -42,9 +42,7 @@ public class AnswerableCard extends UiPart<Region> {
     @FXML
     private Label difficulty;
     @FXML
-    private Label category;
-    @FXML
-    private FlowPane tags;
+    private FlowPane categories;
 
     public AnswerableCard(Answerable answerable, int displayedIndex) {
         super(FXML);
@@ -54,7 +52,7 @@ public class AnswerableCard extends UiPart<Region> {
         difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
         answerable.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
-                .forEach(category -> tags.getChildren().add(new Label(category.categoryName)));
+                .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override

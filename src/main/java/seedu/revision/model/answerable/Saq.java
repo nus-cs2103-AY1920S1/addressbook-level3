@@ -26,7 +26,7 @@ public class Saq extends Answerable {
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: SAQ ")
                 .append("Question: ")
-                .append(" Correct Asnwers: ")
+                .append(" Correct Answers: ")
                 .append(getCorrectAnswerSet())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
