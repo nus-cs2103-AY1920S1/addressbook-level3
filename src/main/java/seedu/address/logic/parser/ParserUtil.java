@@ -332,6 +332,7 @@ public class ParserUtil {
         }
     }
 
+    //@@author QiuJiaaa -reused
     // reused from the parse Calendar method with minor modifications
     /**
      *Parse a {@Code String calendar} into a {@Code calendar}.
@@ -355,7 +356,7 @@ public class ParserUtil {
         } catch (NumberFormatException | DateTimeException e) {
             throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
         }
-
+        //@@author
         //offset month as Calendar takes in 0-based month
         int offsetMonth = input[1] - 1;
         return new Calendar.Builder().setDate(input[0], offsetMonth, input[2]).build();
@@ -375,6 +376,7 @@ public class ParserUtil {
         }
         return new Price(trimmedPrice);
     }
+
     /**
      * Parses a {@code String date, time} into a {@code Calendar}.
      * Leading and trailing whitespaces will be trimmed.
