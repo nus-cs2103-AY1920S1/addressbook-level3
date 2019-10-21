@@ -25,6 +25,8 @@ public class Messages {
 
     //Loan messages
     public static final String MESSAGE_BOOK_ON_LOAN = "%1$s is already on loan!";
+    public static final String MESSAGE_BOOK_NOT_ON_LOAN = "%1$s is not on loan!";
     public static final String MESSAGE_LOAN_ID_DOES_NOT_EXISTS = "LoanId %s does not exists in LoanRecords!";
+    public static final String MESSAGE_NOT_LOANED_BY_BORROWER = "%1$s does not loan %2$s!";
 
 }

@@ -63,6 +63,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.userSettings = userSettings;
     }
 
+    @Override
     public Path getLoanRecordsFilePath() {
         return loanRecordsFilePath;
     }

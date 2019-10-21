@@ -14,7 +14,7 @@ import seedu.address.model.book.Book;
 import seedu.address.model.genre.Genre;
 
 /**
- * A utility class for Person.
+ * A utility class for Book.
  */
 public class BookUtil {
 

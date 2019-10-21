@@ -31,6 +31,7 @@ class JsonAdaptedBorrower {
     private final String email;
     private final String borrowerId;
     private final List<String> currentLoanList = new ArrayList<>();
+    private final List<String> returnedLoanList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBorrower} with the given borrower detail.
@@ -40,12 +41,14 @@ class JsonAdaptedBorrower {
                                @JsonProperty("phone") String phone,
                                @JsonProperty("email") String email,
                                @JsonProperty("borrowerId") String borrowerId,
-                               @JsonProperty("currentLoanList") List<String> currentLoanList) {
+                               @JsonProperty("currentLoanList") List<String> currentLoanList,
+                               @JsonProperty("returnedLoanList") List<String> returnedLoanList) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.borrowerId = borrowerId;
         this.currentLoanList.addAll(currentLoanList);
+        this.returnedLoanList.addAll(returnedLoanList);
     }
 
     /**
@@ -57,6 +60,7 @@ class JsonAdaptedBorrower {
         email = source.getEmail().value;
         borrowerId = source.getBorrowerId().value;
         source.getCurrentLoanList().forEach(loan -> currentLoanList.add(loan.getLoanId().toString()));
+        source.getReturnedLoanList().forEach(loan -> returnedLoanList.add(loan.getLoanId().toString()));
     }
 
     /**
@@ -105,8 +109,23 @@ class JsonAdaptedBorrower {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LoanList.class.getSimpleName()));
         }
-        final LoanList modelCurrentLoanList = new LoanList();
-        for (String loanIdString : currentLoanList) {
+        final LoanList modelCurrentLoanList = getModelLoanList(currentLoanList, initialLoanRecords);
+
+        if (returnedLoanList == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LoanList.class.getSimpleName()));
+        }
+        final LoanList modelReturnedLoanList = getModelLoanList(returnedLoanList, initialLoanRecords);
+
+        return new Borrower(modelName, modelPhone, modelEmail, modelBorrowerId,
+                modelCurrentLoanList, modelReturnedLoanList);
+    }
+
+    private LoanList getModelLoanList(List<String> loanList, ReadOnlyLoanRecords initialLoanRecords)
+            throws IllegalValueException {
+        LoanList modelLoanList = new LoanList();
+
+        for (String loanIdString : loanList) {
             if (!LoanId.isValidLoanId(loanIdString)) {
                 throw new IllegalValueException(LoanId.MESSAGE_CONSTRAINTS);
             }
@@ -117,10 +136,9 @@ class JsonAdaptedBorrower {
                 throw new IllegalValueException(String.format(MESSAGE_LOAN_ID_DOES_NOT_EXISTS, loanId));
             }
 
-            modelCurrentLoanList.add(modelLoan);
+            modelLoanList.add(modelLoan);
         }
 
-        return new Borrower(modelName, modelPhone, modelEmail, modelBorrowerId, modelCurrentLoanList);
+        return modelLoanList;
     }
-
 }

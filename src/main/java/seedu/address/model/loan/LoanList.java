@@ -31,6 +31,14 @@ public class LoanList implements Iterable<Loan> {
         return loanList.size();
     }
 
+    public boolean contains(Loan loan) {
+        return loanList.contains(loan);
+    }
+
+    public void remove(Loan loan) {
+        loanList.remove(loan);
+    }
+
     @Override
     public Iterator<Loan> iterator() {
         return loanList.iterator();

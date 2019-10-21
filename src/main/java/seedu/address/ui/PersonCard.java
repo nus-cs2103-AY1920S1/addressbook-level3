@@ -38,6 +38,8 @@ public class PersonCard extends UiPart<Region> {
     private Label author;
     @FXML
     private FlowPane genres;
+    @FXML
+    private Label loanStatus;
 
     public PersonCard(Book book, int displayedIndex) {
         super(FXML);
@@ -49,6 +51,12 @@ public class PersonCard extends UiPart<Region> {
         book.getGenres().stream()
                 .sorted(Comparator.comparing(tag -> tag.genreName))
                 .forEach(tag -> genres.getChildren().add(new Label(tag.genreName)));
+        if (book.isCurrentlyLoanedOut()) {
+            loanStatus.setText("Loaned");
+        } else {
+            loanStatus.setText("");
+        }
+
     }
 
     @Override

@@ -17,7 +17,7 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanIdGenerator;
 
 /**
- * Loans a Book with the given Serial Number to a Borrower
+ * Loans a Book with the given Serial Number to a Borrower.
  */
 public class LoanCommand extends Command {
     public static final String COMMAND_WORD = "loan";
@@ -42,10 +42,11 @@ public class LoanCommand extends Command {
     }
 
     /**
+     * Executes the LoanCommand and returns the result message.
      *
      * @param model {@code Model} which the command should operate on.
      * @return Feedback message of the operation result for display.
-     * @throws CommandException TODO
+     * @throws CommandException If an error occurs during command execution.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {

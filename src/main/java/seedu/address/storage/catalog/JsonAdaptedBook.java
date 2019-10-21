@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_LOAN_ID_DOES_NOT_EXIST
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,9 +61,8 @@ public class JsonAdaptedBook {
         serialNumber = source.getSerialNumber().value;
         author = source.getAuthor().value;
 
-        Optional<Loan> optionalLoan = source.getLoan();
-        if (optionalLoan.isPresent()) {
-            loan = optionalLoan.get().getLoanId().toString();
+        if (source.isCurrentlyLoanedOut()) {
+            loan = source.getLoan().get().getLoanId().toString();
         } else {
             loan = null;
         }

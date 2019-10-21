@@ -21,7 +21,8 @@ public class ServeCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_BORROWER_ID + "K0001 ";
 
-    public static final String MESSAGE_SUCCESS = "Currently serving borrower: %1$s";
+    public static final String MESSAGE_SUCCESS = "Currently serving borrower: %1$s\n";
+
     private BorrowerId borrowerId;
 
     public ServeCommand (BorrowerId borrowerId) {
@@ -45,6 +46,7 @@ public class ServeCommand extends Command {
 
         model.setServingBorrower(borrowerId);
         Borrower borrower = model.getServingBorrower();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, borrower));
     }
 

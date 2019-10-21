@@ -3,13 +3,15 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
+
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
+import static seedu.address.testutil.TypicalBorrowers.BOB;
 import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
 
 import java.nio.file.Path;
@@ -20,8 +22,10 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-
+import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.DateUtil;
+import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.ServeCommand;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
 import seedu.address.model.borrower.BorrowerId;
@@ -70,6 +74,18 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setUserSettings_nullUserSettings_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setUserSettings(null));
+    }
+
+    @Test
+    public void setUserSettings_validUserSettings_setsUserSettings() {
+        UserSettings userSettings = new UserSettings(10, 10, 10);
+        modelManager.setUserSettings(userSettings);
+        assertEquals(userSettings, modelManager.getUserSettings());
     }
 
     @Test
@@ -180,6 +196,17 @@ public class ModelManagerTest {
         modelManager = new ModelManager();
 
         assertThrows(AssertionError.class, () -> modelManager.getServingBorrower());
+    }
+
+    @Test
+    public void getBorrowerBooks_noBooksBorrowed_returnEmptyList() throws Exception {
+        Model modelManager = new ModelManager();
+        new RegisterCommand(BOB).execute(modelManager);
+
+        BorrowerId validBorrowerId = new BorrowerId(VALID_ID_BOB);
+        new ServeCommand(validBorrowerId).execute(modelManager);
+
+        assertTrue(modelManager.getBorrowerBooks().isEmpty());
     }
 
     @Test
