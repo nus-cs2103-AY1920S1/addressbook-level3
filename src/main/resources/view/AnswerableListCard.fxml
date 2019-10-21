@@ -27,9 +27,12 @@
         </Label>
         <Label fx:id="question" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <FlowPane fx:id="answer" />
+<!--      <FlowPane fx:id="correctAnswer" />-->
+<!--      <FlowPane fx:id="wrongAnswer" />-->
+      <Label fx:id="questionType" styleClass="cell_small_label" text="\$questionType" />
       <FlowPane fx:id="categories" />
       <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
+      <FlowPane fx:id="answer" />
     </VBox>
   </GridPane>
 </HBox>

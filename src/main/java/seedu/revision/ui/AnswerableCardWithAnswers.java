@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Mcq;
 
 /**
  * An UI component that displays information of a {@code Answerable}.
@@ -40,9 +41,15 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label questionType;
+    @FXML
     private Label question;
     @FXML
     private FlowPane answer;
+//    @FXML
+//    private FlowPane correctAnswers;
+//    @FXML
+//    private FlowPane wrongAnswers;
     @FXML
     private Label id;
     @FXML
@@ -55,12 +62,27 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
     public AnswerableCardWithAnswers(Answerable answerable, int displayedIndex) {
         super(FXML);
         this.answerable = answerable;
+        if (answerable instanceof Mcq) {
+            questionType.setText("Question type: MCQ");
+        } else {
+            questionType.setText("Question type: SAQ");
+        }
         id.setText(displayedIndex + ". ");
         question.setText(answerable.getQuestion().fullQuestion);
-        difficulty.setText(answerable.getDifficulty().value);
+        difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
+//        answerable.getCorrectAnswerSet().stream()
+//                .sorted(Comparator.comparing(correctAnswer -> correctAnswer.answer))
+//                .forEach(correctAnswer -> correctAnswers.getChildren().add(new Label(correctAnswer.answer)));
+//        answerable.getWrongAnswerSet().stream()
+//                .sorted(Comparator.comparing(wrongAnswer -> wrongAnswer.answer))
+//                .forEach(wrongAnswer -> wrongAnswers.getChildren().add(new Label(wrongAnswer.answer)));
 
         //To set the individual answers to the answer flowPane
-        answer.getChildren().add(new Label (answerable.getCombinedAnswerSet().toString()));
+        answerable.getCombinedAnswerSet().stream()
+                .sorted(Comparator.comparing(answer -> answer.answer))
+                .forEach(answer -> this.answer.getChildren().add(new Label(answer.answer)));
+
+//        answer.getChildren().add(new Label (answerable.getCombinedAnswerSet().toString()));
 
         answerable.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))

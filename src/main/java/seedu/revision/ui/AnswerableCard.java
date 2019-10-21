@@ -74,7 +74,7 @@ public class AnswerableCard extends UiPart<Region> {
     }
 
     private static String convert (Answer answer, Integer questionNumbering) {
-        String fullString = String.format("%s %s", questionNumbering, answer.toStringNoBraces());
+        String fullString = String.format("%s %s", questionNumbering, answer.toString());
         return fullString;
     }
 }
