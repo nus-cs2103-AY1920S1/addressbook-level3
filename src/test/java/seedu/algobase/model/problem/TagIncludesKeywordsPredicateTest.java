@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
 import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPredicate;
 import seedu.algobase.model.tag.Tag;
 
@@ -25,14 +27,14 @@ class TagIncludesKeywordsPredicateTest {
             tagList.add(tag.tagName);
         }
         TagIncludesKeywordsPredicate predicate =
-            new TagIncludesKeywordsPredicate(tagList);
+            new TagIncludesKeywordsPredicate(tagList.stream().map(Keyword::new).collect(Collectors.toList()));
         assertTrue(predicate.test(QUICK_SORT));
     }
 
     @Test
     public void test_tagDoesNotIncludeKeywords_returnFalse() {
         TagIncludesKeywordsPredicate predicate =
-                new TagIncludesKeywordsPredicate(Arrays.asList(KEYWORD_NOT_IN_QUICK_SORT_TAGS));
+                new TagIncludesKeywordsPredicate(Arrays.asList(new Keyword(KEYWORD_NOT_IN_QUICK_SORT_TAGS)));
         assertFalse(predicate.test(QUICK_SORT));
     }
 }

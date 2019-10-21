@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class ProblemSearchRule {
 
     // Identity field(s)
-    private final String name;
+    private final Name name;
 
     // Data field(s)
     private final NameContainsKeywordsPredicate namePredicate;
@@ -26,7 +26,7 @@ public class ProblemSearchRule {
     private final boolean hasDefaultDifficultyPredicate;
     private final boolean hasDefaultTagPredicate;
 
-    public ProblemSearchRule(String name, NameContainsKeywordsPredicate namePredicate,
+    public ProblemSearchRule(Name name, NameContainsKeywordsPredicate namePredicate,
                              AuthorMatchesKeywordPredicate authorPredicate,
                              DescriptionContainsKeywordsPredicate descriptionPredicate,
                              SourceMatchesKeywordPredicate sourcePredicate,
@@ -48,7 +48,7 @@ public class ProblemSearchRule {
         this.hasDefaultTagPredicate = isNull(tagPredicate);
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
@@ -102,6 +102,7 @@ public class ProblemSearchRule {
 
     /**
      * Returns true when {@code other} has the same identity field(s) as {@code this}.
+     *
      * @param other
      */
     public boolean isSameProblemSearchRule(ProblemSearchRule other) {
@@ -114,7 +115,9 @@ public class ProblemSearchRule {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ProblemSearchRule // instanceof handles nulls
+            && name.equals(((ProblemSearchRule) other).getName())); // state check
     }
 }

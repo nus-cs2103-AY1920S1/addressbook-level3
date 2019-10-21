@@ -31,6 +31,14 @@ public class DifficultyIsInRangePredicate implements Predicate<Problem> {
         this.upperBound = DEFAULT_BOUND;
     }
 
+    public double getLowerBound() {
+        return lowerBound;
+    }
+
+    public double getUpperBound() {
+        return upperBound;
+    }
+
     @Override
     public boolean test(Problem problem) {
         Difficulty difficulty = problem.getDifficulty();

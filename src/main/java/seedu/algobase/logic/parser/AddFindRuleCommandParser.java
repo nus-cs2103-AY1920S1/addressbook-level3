@@ -12,12 +12,15 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.algobase.logic.commands.AddFindRuleCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
+import seedu.algobase.model.searchrule.problemsearchrule.Name;
 import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPredicate;
@@ -51,12 +54,13 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFindRuleCommand.MESSAGE_USAGE));
         }
 
-        String name = argumentMultimap.getPreamble();
+        Name name = new Name(argumentMultimap.getPreamble());
 
         final NameContainsKeywordsPredicate nameContainsKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
             List<String> nameKeywords = getArgumentValueAsList(argumentMultimap.getValue(PREFIX_NAME).get());
-            nameContainsKeywordsPredicate = new NameContainsKeywordsPredicate(nameKeywords);
+            List<Keyword> keywords = nameKeywords.stream().map(Keyword::new).collect(Collectors.toList());
+            nameContainsKeywordsPredicate = new NameContainsKeywordsPredicate(keywords);
         } else {
             nameContainsKeywordsPredicate = null;
         }
@@ -64,7 +68,7 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
         final AuthorMatchesKeywordPredicate authorMatchesKeywordPredicate;
         if (argumentMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
             String authorKeyword = argumentMultimap.getValue(PREFIX_AUTHOR).get();
-            authorMatchesKeywordPredicate = new AuthorMatchesKeywordPredicate(authorKeyword);
+            authorMatchesKeywordPredicate = new AuthorMatchesKeywordPredicate(new Keyword(authorKeyword));
         } else {
             authorMatchesKeywordPredicate = null;
         }
@@ -73,8 +77,9 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
         if (argumentMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             List<String> descriptionKeywords =
                 getArgumentValueAsList(argumentMultimap.getValue(PREFIX_DESCRIPTION).get());
+            List<Keyword> keywords = descriptionKeywords.stream().map(Keyword::new).collect(Collectors.toList());
             descriptionContainsKeywordsPredicate =
-                new DescriptionContainsKeywordsPredicate(descriptionKeywords);
+                new DescriptionContainsKeywordsPredicate(keywords);
         } else {
             descriptionContainsKeywordsPredicate = null;
         }
@@ -82,7 +87,7 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
         final SourceMatchesKeywordPredicate sourceMatchesKeywordPredicate;
         if (argumentMultimap.getValue(PREFIX_SOURCE).isPresent()) {
             String sourceKeyword = argumentMultimap.getValue(PREFIX_SOURCE).get();
-            sourceMatchesKeywordPredicate = new SourceMatchesKeywordPredicate(sourceKeyword);
+            sourceMatchesKeywordPredicate = new SourceMatchesKeywordPredicate(new Keyword(sourceKeyword));
         } else {
             sourceMatchesKeywordPredicate = null;
         }
@@ -109,7 +114,8 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
         final TagIncludesKeywordsPredicate tagIncludesKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_TAG).isPresent()) {
             List<String> tagKeywords = getArgumentValueAsList(argumentMultimap.getValue(PREFIX_TAG).get());
-            tagIncludesKeywordsPredicate = new TagIncludesKeywordsPredicate(tagKeywords);
+            List<Keyword> keywords = tagKeywords.stream().map(Keyword::new).collect(Collectors.toList());
+            tagIncludesKeywordsPredicate = new TagIncludesKeywordsPredicate(keywords);
         } else {
             tagIncludesKeywordsPredicate = null;
         }

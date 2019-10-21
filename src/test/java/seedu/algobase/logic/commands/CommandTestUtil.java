@@ -20,6 +20,7 @@ import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
 import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
 
 /**
@@ -138,7 +139,7 @@ public class CommandTestUtil {
 
         Problem problem = model.getFilteredProblemList().get(targetIndex.getZeroBased());
         final String[] splitName = problem.getName().fullName.split("\\s+");
-        model.updateFilteredProblemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredProblemList(new NameContainsKeywordsPredicate(Arrays.asList(new Keyword(splitName[0]))));
 
         assertEquals(1, model.getFilteredProblemList().size());
     }

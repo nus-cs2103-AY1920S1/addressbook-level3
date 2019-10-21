@@ -17,9 +17,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Problem> {
                 return true;
             }
         };
-    private final List<String> keywords;
+    private final List<Keyword> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public NameContainsKeywordsPredicate(List<Keyword> keywords) {
         this.keywords = keywords;
     }
 
@@ -27,10 +27,15 @@ public class NameContainsKeywordsPredicate implements Predicate<Problem> {
         this.keywords = null;
     }
 
+    public List<Keyword> getKeywords() {
+        return keywords;
+    }
+
     @Override
     public boolean test(Problem problem) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(problem.getName().fullName, keyword));
+                .anyMatch(keyword ->
+                    StringUtil.containsWordIgnoreCase(problem.getName().fullName, keyword.toString()));
     }
 
     @Override
