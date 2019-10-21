@@ -47,35 +47,35 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The architecture diagram given above explains the high-level design of the application. Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/thrift/Main.java[`Main`] and link:{repoURL}/src/main/java/thrift/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At application launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `**LogsCenter**` : Used by many classes to write log messages to the application's log file.
 
-The rest of the App consists of four components.
+The rest of the application consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Ui,*`UI`*>>: Displays the UI of the application.
+* <<Design-Logic,*`Logic`*>>: Executes the various commands.
+* <<Design-Model,*`Model`*>>: Holds the data of the application in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Defines its _API_ in an interface with the same name as the component.
+* Exposes its functionality using a `**{Component Name}Manager**` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `**Logic**` component (see the class diagram given below) defines it's API in the _Logic.java_ interface and exposes its functionality using the _LogicManager.java_ class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -83,9 +83,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command **delete i/1**.
 
-.Component interactions for `delete 1` command
+.Component interactions for **delete i/1** command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -96,16 +96,16 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/thrift/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `**MainWindow**` that is made up of parts e.g.`**BalanceBar**`, `**CommandBox**`, `**ResultDisplay**`, `**TransactionListPanel**`, `**StatusBarFooter**` etc. All these, including the `**MainWindow**`, inherit from the abstract `**UiPart**` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `**UI**` component uses JavaFx UI framework. The layout of these UI parts are defined in matching _.fxml_ files that are in the _src/main/resources/view_ folder. For example, the layout of the link:{repoURL}/src/main/java/thrift/ui/MainWindow.java[**`MainWindow`**] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`**MainWindow.fxml**`]
 
-The `UI` component,
+The `**UI**` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the `**Logic**` component.
+* Listens for changes to `**Model**` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -115,17 +115,17 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/thrift/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  `**Logic**` uses the `**ThriftParser**` class to parse the user command.
+.  This results in a `**Command**` object which is executed by the `**LogicManager**`.
+.  The command execution can affect the `**Model**` (e.g. adding a `**Transaction**`).
+.  The result of the command execution is encapsulated as a `**CommandResult**` object which is passed back to the `**Ui**`.
+.  In addition, the `**CommandResult**` object can also instruct the `**Ui**` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `**Logic**` component for the **execute("delete i/1")** API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete i/1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -136,17 +136,18 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/thrift/model/Model.java[`Model.java`]
 
-The `Model`,
+The `**Model**`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `**UserPref**` object that represents the user's preferences.
+* stores `**THRIFT**` data.
+* stores `**BudgetList**` which contains budget set for different months by the user.
+* exposes an unmodifiable `**ObservableList<Transaction>**` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `**THRIFT**`, which `**Transaction**` can reference. This would allow `**THRIFT**` to only require one `**Tag**` object per unique `Tag`, instead of each `**Transaction**` needing their own `**Tag**` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -156,21 +157,115 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/thrift/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `**UserPref**` objects in json format and read it back.
+* can save the `**THRIFT**` data in json format and read it back:
+** `**JsonAdaptedTransaction**` stores `**Transaction**` objects in `JSON` format.
+** `**JsonAdaptedTag**` stores `**Tag**` objects in `JSON` format, nested under `**JsonAdaptedTransaction**`.
+** `**JsonAdaptedBudget**` stores `**Budget**` objects in `JSON` format.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `**thrift.commons**` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::budget[]
+=== Add Expense/Income feature
+==== Implementation
+The **add_expense**/**add_income** feature is implemented through polymorphism. `**Expense**` and `**Income**` are both subclasses of the abstract class `Transaction`.
+Each `**Transaction**` contains the following mandatory fields: `Description`, `TransactionDate` and `Value`; as well as optional fields: `Remark`,
+and `Set<Tag>`.
+
+image::add-transaction/Polymorphism.png[]
+
+Because of this polymorphism relation, many of the driver functions in `THRIFT` simply references `Transaction` and it will work for both `Expense`
+and `Income` transaction objects. For example, when inserting a new `Expense`/`Income`, the `AddTransactionCommandParser` will determine
+which object to initialize:
+
+.Sequence diagram of how adding a new `Transaction` is processed with polymorphism
+image::add-transaction/PolymorphismCalling.png[]
+
+`**Expense**` and `**Income**` are normally instantiated by either `ExpenseCommandParser#parse(String args)` or `IncomeCommandParser#parse(String args)`, which
+attempts to parse the various parameters supplied in `args` and return either a `**Expense**` or `**Income**` object. The following conditions will cause a `**ParseException**`
+to be thrown by the parser:
+
+. Missing parameters
+. Incorrect syntax (i.e. missing prefix, if it is required)
+. Illegal values in parameters (i.e. special characters and symbols entered for a integer-only field)
+. Multiple occurrences of parameters which only expects a single entry
+
+[NOTE]
+If the user input is incorrect due to any of the reasons above, the usage syntax will be shown.
+
+Below is a given example on how a `**Transaction**` is added into `**THRIFT**` and how the back-end handles each step of the process:
+
+Step 1. The user launches the application for the first time. THRIFT does not contain any other `**Transaction**` and the user is
+about to add their own. An empty transaction list is initialized.
+
+image::add-transaction/AddTransaction0.png[]
+
+Step 2. The user executes **add_expense n/Laksa v/3.50** to insert an `**Expense**` with `**Description**` set to "Laksa"
+and `**Value**` set to "3.50". The `**TransactionDate**` is set to the user's current system date in the form "dd/mm/yyyy".
+The input is now checked and an attempt to parse each parameter occurs:
+
+* `**Description**` is parsed by `AddTransactionCommandParser#parseTransactionDescription(ArgumentMultimap)`
+* `**Value**` is parsed by `AddTransactionCommandParser#parseTransactionValue(ArgumentMultimap)`
+* `**TransactionDate**` is instantiated by `AddTransactionCommandParser#parseTransactionDate()`
+
+TIP: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
+
+Since the user input is valid, the `**Expense**` is successfully created and inserted into the transaction list.
+The transaction list now contains 1 `**Transaction**` object.
+
+image::add-transaction/AddTransaction1.png[]
+
+Step 3. The user executes **add_income n/Bursary v/500 r/Awarded for doing well in school** to insert an `**Income**` with
+the `**Description**` set to "Bursary", `**Value**` set to "500" and `**Remark**` set to "Awarded for doing well in school".
+The `**TransactionDate**` is set to the user's current system date in the form "dd/mm/yyyy". The input is now checked in
+a similar fashion as in Step 2 except for:
+
+* `**Remark**` is parsed by `AddTransactionCommandParser#parseTransactionRemark(ArgumentMultimap)`
+
+Again, since the input is valid, the `**Income**` is successfully added into the transaction list. The transaction list
+now contains 2 `**Transaction**` objects.
+
+image::add-transaction/AddTransaction2.png[]
+
+The following activity diagram summarizes what happens when the user executes a command to add a new `**Transaction**`:
+
+image::add-transaction/AddTransactionSequence.png[]
+
+==== Design considerations
+
+===== Aspect: Differentiating between `**Expense**` and `**Income**`
+* **Alternative 1: (current choice):** Introduce a `**Transaction**` parent class which both `**Expense**` and `**Income**`
+extends from.
+** Pros: Introduces polymorphism, easing references to either classes by simply referencing the `**Transaction**` object.
+For example, using a single `**List<Transaction>**` instead of needing 2 separate lists `**List<Expense>**` and `**List<Income>**`.
+** Cons: Reduces the readability of the program as polymorphism can be confusing.
+
+* **Alternative 2:** Keep `**Expense**` and `**Income**` classes separate, with each having their own specialized methods.
+** Pros: Maintains an intuitive design: `**Expense**` deducts money and `**Income**` increases money.
+** Cons: Incurs significant overhead and duplicated codes since it is likely that both `**Expense**` and `**Income**` will
+have very similar methods.
+
+===== Aspect: Managing how `**Value**` is stored and handled in `**Expense**` and `**Income**`
+* **Alternative 1: (current choice):** Disallow negative `**Value**` in `**Expense**` object, only using positive amount
+for both `**Expense**` and `**Income**`
+** Pros: Removes the need to implement support for inserting negative `**Value**`. This is due to how `**Value**` constraints
+are applied when restoring `**THRIFT**` data from the data file.
+** Cons: Requires the developer to negate the `**Value**` whenever calculations are done with a `**Expense**` object.
+
+* **Alternative 2:** Allow only negative amount in `**Expense**` object and only positive amount in `**Income**` object
+** Pros: Calculations become trivial: to get balance, sum up the entire `**List<Transaction>**`.
+** Cons: Overhead to parse user input to allow only a single negative symbol and no other symbols.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -263,23 +358,24 @@ _{Explain here how the data encryption feature will be implemented}_
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `**java.util.logging**` package for logging. The `**LogsCenter**` class is used to manage the logging levels and logging destinations:
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* The `**Logger**` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE` : Detected a critical problem which may possibly cause the termination of the application
+* `WARNING` : Exercise caution if continuing
+* `INFO` : Display information showing the noteworthy actions by the application
+* `FINE` : Display details that are usually not noteworthy but may be useful in debugging e.g. print the actual list
+instead of just its size
 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: _config.json_).
 
 == Documentation
 
@@ -737,6 +833,16 @@ _Use case ends_
 +
 _Use case ends_
 
+[discrete]
+=== Use case: Find a keyword in `**Transaction's  Remark**` and `**Description**` field
+
+*MSS*
+
+1. User requests to search for a keyword in THRIFT.
+2. THRIFT processes its currently saved entire transaction list to look for matches.
+3. THRIFT found matches and display the results at the `**TransactionListPanel**` screen.
+_Use case ends_
+
 [appendix]
 == Non Functional Requirements
 
@@ -928,6 +1034,13 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Error details shown in status message.
 .. Test case: `convert from/INVALID_CURRENCY to/USD v/VALUE` where `INVALID_CURRENCY` is not a supported currency. +
    Expected: Error details shown in status message.
+
+=== Finding a transaction
+
+. Looking up transactions that have the supplied keywords in its `**Remark**` and `**Description**` fields.
+
+.. Test case: `find Apple`. +
+    Expected: Transactions with the word 'Apple' in its `**Remark**` or `**Description**` field will be displayed to the user.
 
 === Undoing the previous command
 

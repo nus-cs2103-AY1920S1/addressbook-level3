@@ -1,0 +1,25 @@
+@startuml
+
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+package "Transactions List" {
+    class transaction1 as "__:Income__" {
+        Description: "Bursary"
+        Value: 500
+        Remark: "Awarded for doing well in school"
+    }
+    class transaction2 as "__:Expense__" {
+        Description: "Laksa"
+        Value: 3.50
+        Date: dd/mm/yyyy
+    }
+}
+
+transaction1 -[hidden]left- transaction2
+show members
+hide transaction1
+@enduml

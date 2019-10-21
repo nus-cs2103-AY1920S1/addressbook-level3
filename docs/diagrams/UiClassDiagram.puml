@@ -10,9 +10,11 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class BalanceBar
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class TransactionListPanel
+Class ExpenseCard
+class IncomeCard
 Class StatusBarFooter
 Class CommandBox
 }
@@ -31,30 +33,35 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> "1" CommandBox
+MainWindow *-down-> "1" ResultDisplay
+MainWindow *-down-> "1" TransactionListPanel
+MainWindow *-down-> "1" BalanceBar
+MainWindow *-down-> "1" StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+TransactionListPanel *-down-> "*" ExpenseCard
+TransactionListPanel *-down-> "*" IncomeCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+TransactionListPanel --|> UiPart
+ExpenseCard --|> UiPart
+IncomeCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+TransactionListPanel ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+BalanceBar -[hidden]left- ResultDisplay
+ExpenseCard -[hidden]left- UiManager
 
+Model -[hidden]-|> UiPart
 MainWindow -[hidden]-|> UiPart
 @enduml

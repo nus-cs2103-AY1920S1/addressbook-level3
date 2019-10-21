@@ -1,0 +1,34 @@
+@startuml
+
+!include ../style.puml
+
+box
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ThriftParser" as ThriftParser LOGIC_COLOR
+participant ":AddTransactionCommandParser" as AddTransactionCommandParser MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add_expense")
+activate LogicManager
+
+LogicManager -> ThriftParser : execute("add_expense")
+activate ThriftParser
+
+ThriftParser -> AddTransactionCommandParser
+activate AddTransactionCommandParser
+
+ThriftParser <-- AddTransactionCommandParser
+LogicManager <-- ThriftParser
+[<-- LogicManager
+[-> LogicManager : execute("add_income")
+
+LogicManager -> ThriftParser : execute("add_income")
+ThriftParser -> AddTransactionCommandParser
+
+ThriftParser <-- AddTransactionCommandParser
+deactivate AddTransactionCommandParser
+LogicManager <-- ThriftParser
+deactivate ThriftParser
+[<-- LogicManager
+
+@enduml

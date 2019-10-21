@@ -5,23 +5,31 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyThrift <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Thrift
+Class ReadOnlyThrift
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Transaction {
+abstract Class Transaction
+Class Remark
+Class TransactionDate
+Class Description
+Class Value
+Class TransactionList
+Class FilteredTransactionList
+}
+
+Package Budget {
+Class Budget
+Class BudgetDate
+Class BudgetValue
+Class BudgetList
 }
 
 Package Tag {
@@ -32,25 +40,32 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Thrift .up.|> ReadOnlyThrift
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Thrift
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Thrift *--> "1" TransactionList
+Thrift *--> "1" BudgetList
+FilteredTransactionList o--> "*" Transaction
+TransactionList o--> "*" Transaction
+TransactionList *--> "1" FilteredTransactionList
+Transaction *--> "1" Description
+Transaction *--> "1" Value
+Transaction *--> "1" TransactionDate
+Transaction *--> "0..1" Remark
+Transaction *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+BudgetList o--> "*" Budget
+Budget *--> "1" BudgetDate
+Budget *--> "1" BudgetValue
 
-ModelManager -->"1" Person : filtered list
+Description -[hidden]right-> Value
+Value -[hidden]right-> Remark
+Remark -[hidden]right-> TransactionDate
+
+ModelManager -->"1" FilteredTransactionList : filtered list
 @enduml

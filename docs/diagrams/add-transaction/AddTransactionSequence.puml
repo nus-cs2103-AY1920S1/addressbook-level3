@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes add transaction command;
+
+if (Check input validity with AddTransactionCommandParser) then ([Invalid, throws ParseException])
+else
+    if (Check input type) then ([Transaction is an Expense])
+        :Initialize AddExpenseCommandParser;
+        :Initialize Expense;
+        :Initialize AddExpenseCommand;
+    else ([Transaction is an Income])
+        :Initialize AddIncomeCommandParser;
+        :Initialize Income;
+        :Initialize AddIncomeCommand;
+    endif
+        :Add to transaction list;
+endif
+stop
+@enduml
