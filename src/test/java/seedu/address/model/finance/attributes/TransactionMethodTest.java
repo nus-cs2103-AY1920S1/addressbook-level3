@@ -32,7 +32,9 @@ public class TransactionMethodTest {
 
         // valid transaction methods
         assertTrue(TransactionMethod.isValidTransactionMet("cash"));
-        assertTrue(TransactionMethod.isValidTransactionMet("-")); // one character
+        assertTrue(TransactionMethod.isValidTransactionMet("-")); // dash
+        assertTrue(TransactionMethod.isValidTransactionMet("M")); // one character
+        assertTrue(TransactionMethod.isValidTransactionMet("Bank credit")); // whitespace in the middle
         assertTrue(TransactionMethod.isValidTransactionMet("NETSFlashpay")); // fix of upper and lower cases
     }
 }

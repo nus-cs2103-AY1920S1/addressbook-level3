@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.finance.commands.Command;
 import seedu.address.logic.finance.commands.ExitCommand;
 import seedu.address.logic.finance.commands.HelpCommand;
+import seedu.address.logic.finance.commands.IncomeCommand;
 import seedu.address.logic.finance.commands.SpendCommand;
 import seedu.address.logic.finance.commands.SwitchCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
@@ -43,6 +44,9 @@ public class FinanceLogParser {
 
         case SpendCommand.COMMAND_WORD:
             return new SpendCommandParser().parse(arguments);
+
+        case IncomeCommand.COMMAND_WORD:
+            return new IncomeCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

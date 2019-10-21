@@ -12,6 +12,7 @@ import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
 import seedu.address.model.finance.attributes.Description;
+import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.Place;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
@@ -137,4 +138,20 @@ public class ParserUtil {
         }
         return new Place(trimmedPlace);
     }
+
+    /**
+     * Parses a {@code String name} into an {@code Person}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Person parseFrom(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Person.isValidName(trimmedName)) {
+            throw new ParseException(Person.MESSAGE_CONSTRAINTS);
+        }
+        return new Person(trimmedName);
+    }
+
 }
