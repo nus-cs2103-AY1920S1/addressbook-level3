@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
@@ -27,7 +29,7 @@ public class Restaurant {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Order> orders = new HashSet<>();
-    private final Set<Food> menu = new HashSet<>();
+    private final ObservableList<Food> menu = FXCollections.observableArrayList();
 
     /**
      * Every field must be present and not null.
@@ -70,7 +72,7 @@ public class Restaurant {
         return orders;
     }
 
-    public Set<Food> getMenu() {
+    public ObservableList<Food> getMenu() {
         return menu;
     }
 

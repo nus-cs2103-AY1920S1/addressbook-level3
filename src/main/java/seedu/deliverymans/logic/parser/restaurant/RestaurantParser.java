@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.restaurant.AddCommand;
 import seedu.deliverymans.logic.commands.restaurant.EditRestaurantCommand;
+import seedu.deliverymans.logic.commands.restaurant.FoodCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
@@ -48,6 +49,9 @@ public class RestaurantParser {
         case EditRestaurantCommand.COMMAND_WORD:
             this.currentContext = Context.EDITING;
             return new EditRestaurantCommandParser().parse(arguments);
+
+        case FoodCommand.COMMAND_WORD:
+            return new FoodCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
