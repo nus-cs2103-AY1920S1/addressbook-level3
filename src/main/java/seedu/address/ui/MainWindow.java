@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ChangeTabCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.WindowView;
 
@@ -144,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         reminderBox = new ReminderBox();
-        reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -187,8 +188,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    public ChangeTabCommand handleEarnings() {
-        return new ChangeTabCommand( new WindowView("earnings"));
+    public void handleEarnings() throws ParseException, CommandException {
+        String USER_COMMAND = "change_tab tab/earnings";
+        executeCommand(USER_COMMAND);
     }
 
     void show() {
