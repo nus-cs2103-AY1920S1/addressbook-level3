@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -17,8 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.employee.Employee;
-import seedu.address.model.event.Event;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -66,7 +63,6 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -112,7 +108,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
+        listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList(), this);
         listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -153,9 +149,9 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the fetch window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleFetch(ObservableList<Employee> employeeList,
-                            ObservableList<Event> filteredEventList, Event event) {
-        fetchWindow = new FetchWindow(employeeList, filteredEventList, event);
+    public void handleFetch(Integer index) {
+        fetchWindow = new FetchWindow(logic.getFilteredEmployeeList(),
+                logic.getFilteredEventList(), logic.getFilteredEventList().get(index));
         //fetchWindow.getRoot().setScene();
         fetchWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!fetchWindow.isShowing()) {
@@ -207,8 +203,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.getFetch() != null) {
-                handleFetch(logic.getFilteredEmployeeList(),
-                        logic.getFilteredEventList(), logic.getFilteredEventList().get(commandResult.getFetch()));
+                handleFetch(commandResult.getFetch());
                 //listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
             }
 
@@ -220,8 +215,8 @@ public class MainWindow extends UiPart<Stage> {
                 listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
                 listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
             }*/
-
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

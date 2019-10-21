@@ -97,13 +97,14 @@
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: #0f17b8;
-    -fx-font-weight: bold;
+
 }*/
 
 #eventDescription{
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Segoe UI Semibold";
     -fx-control-inner-background:#80a4e8;
+    -fx-text-fill: #4104bd;
     -fx-highlight-fill: #80a4e8;
     -fx-highlight-text-fill: #f0e051;
 }
