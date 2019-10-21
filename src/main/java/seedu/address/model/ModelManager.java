@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,6 +17,7 @@ import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.appsettings.ReadOnlyAppSettings;
 import seedu.address.model.appsettings.ThemeEnum;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -29,7 +32,7 @@ import seedu.address.statistics.WordBankStatistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private WordBank wordBank;
+    private WordBank wordBank = new WordBank("Empty wordbank");
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
@@ -49,17 +52,14 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
      */
-    public ModelManager(ReadOnlyWordBank wordBank, ReadOnlyUserPrefs userPrefs, ReadOnlyAppSettings appSettings) {
+    public ModelManager(WordBankList wordBankList, ReadOnlyUserPrefs userPrefs, ReadOnlyAppSettings appSettings) {
         super();
-        requireAllNonNull(wordBank, userPrefs);
+        requireAllNonNull(wordBankList, userPrefs);
 
-        logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
+        logger.fine("Initializing with word bank list: " + wordBankList + " and user prefs " + userPrefs);
 
-        this.wordBank = new WordBank(wordBank, wordBank.getName());
-        this.wordBankList = new WordBankList();
-
+        this.wordBankList = wordBankList;
         this.wordBankStatisticsList = new WordBankStatisticsList();
-
         this.userPrefs = new UserPrefs(userPrefs);
         this.appSettings = new AppSettings(appSettings);
 
@@ -68,7 +68,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new WordBank("Empty WordBank"), new UserPrefs(), new AppSettings());
+        this(new WordBankList((List) new ArrayList<WordBankList>()), new UserPrefs(), new AppSettings());
     }
 
     // Placeholder setGame method
@@ -122,6 +122,29 @@ public class ModelManager implements Model {
         appSettings.setHintsEnabled(enabled);
     }
 
+    @Override
+    public long getTimeAllowedPerQuestion() {
+        return this.appSettings.getDefaultDifficulty().getTimeAllowedPerQuestion();
+    }
+
+    @Override
+    public FormattedHint getHintFormatFromCurrentGame() throws UnsupportedOperationException {
+        if (game == null || game.isOver()) {
+            throw new UnsupportedOperationException("No active game session to send hints from");
+        }
+        return game.getHintFormatForCurrCard();
+    }
+
+    @Override
+    public int getHintFormatSizeFromCurrentGame() {
+        return game.getHintFormatSizeOfCurrCard();
+    }
+
+    @Override
+    public boolean hintsAreEnabled() {
+        return difficulty.hintsAreEnabled();
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -148,13 +171,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getWordBankFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getDataFilePath();
     }
 
     @Override
-    public void setWordBankFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setWordBankFilePath(Path filePath) {
+        requireNonNull(filePath);
+        userPrefs.setDataFilePath(filePath);
     }
 
     //=========== WordBank ================================================================================
@@ -179,6 +202,11 @@ public class ModelManager implements Model {
     public ReadOnlyWordBank getWordBank() {
         return wordBank;
     }
+
+    public void removeWordBank() {
+        this.wordBank = new WordBank("Empty wordbank");
+    }
+
 
     @Override
     public boolean hasCard(Card card) {
@@ -233,14 +261,9 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        System.out.println("++++++++++");
-        System.out.println(wordBank.getName());
-        for (Card c : filteredCards) {
-            System.out.println(c);
-        }
+
         filteredCards.setPredicate(predicate);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
-        System.out.println("++++++++++");
     }
 
     //=========== WordBankStatistics methods =============================================================

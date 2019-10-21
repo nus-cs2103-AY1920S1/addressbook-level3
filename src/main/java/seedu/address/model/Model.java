@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.appsettings.ThemeEnum;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -57,6 +58,11 @@ public interface Model {
      * Replaces word bank data with the data in {@code wordBank}.
      */
     void setWordBank(ReadOnlyWordBank wordBank);
+
+    /**
+     * Set the word bank to empty.
+     */
+    void removeWordBank();
 
     /**
      * Returns the active word bank statistics. Null if no active.
@@ -169,4 +175,11 @@ public interface Model {
      */
     boolean getHintsEnabled();
 
+    long getTimeAllowedPerQuestion();
+
+    FormattedHint getHintFormatFromCurrentGame();
+
+    int getHintFormatSizeFromCurrentGame();
+
+    boolean hintsAreEnabled();
 }
