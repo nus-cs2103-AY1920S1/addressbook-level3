@@ -16,6 +16,7 @@ import com.dukeacademy.model.question.Question;
 
 import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.StandardQuestionBank;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -86,7 +87,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setStandardQuestionBank(QuestionBank standardQuestionBank) {
-//        this.standardQuestionBank.resetData(standardQuestionBank);
+        this.standardQuestionBank.setQuestions(standardQuestionBank.getReadOnlyQuestionListObservable());
     }
 
     @Override
@@ -96,7 +97,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteQuestion(Question target) {
-//        standardQuestionBank.removeQuestion(target);
+        // standardQuestionBank.removeQuestion(target);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class ModelManager implements Model {
     public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
-//        standardQuestionBank.setQuestion(target, editedQuestion);
+        // standardQuestionBank.setQuestion(target, editedQuestion);
     }
 
     //=========== Filtered Question List Accessors =============================================================

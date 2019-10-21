@@ -1,25 +1,8 @@
 package com.dukeacademy.logic.question;
 
-import com.dukeacademy.commons.exceptions.DataConversionException;
-import com.dukeacademy.model.question.QuestionBank;
-import com.dukeacademy.model.question.StandardQuestionBank;
-import com.dukeacademy.model.question.UserProgram;
-import com.dukeacademy.model.question.entities.Difficulty;
-import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.entities.Status;
-import com.dukeacademy.model.question.entities.TestCase;
-import com.dukeacademy.model.question.entities.Topic;
-import com.dukeacademy.observable.Observable;
-import com.dukeacademy.storage.Storage;
-import com.dukeacademy.storage.question.JsonQuestionBankStorage;
-import com.dukeacademy.storage.question.QuestionBankStorage;
-import com.dukeacademy.testutil.TypicalQuestions;
-import javafx.collections.ObservableList;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,9 +14,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.dukeacademy.commons.exceptions.DataConversionException;
+import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.model.question.entities.Difficulty;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
+import com.dukeacademy.storage.question.JsonQuestionBankStorage;
+import com.dukeacademy.storage.question.QuestionBankStorage;
+import com.dukeacademy.testutil.TypicalQuestions;
+
+import javafx.collections.ObservableList;
 
 class QuestionsLogicManagerTest {
     @TempDir
@@ -75,7 +72,7 @@ class QuestionsLogicManagerTest {
 
         // Load typical questions
         QuestionBankStorage storage1 = new JsonQuestionBankStorage(typicalQuestionBankPath);
-       QuestionsLogicManager questionsLogicManager1 = new QuestionsLogicManager(storage1);
+        QuestionsLogicManager questionsLogicManager1 = new QuestionsLogicManager(storage1);
 
         ObservableList<Question> questionsObservableList1 = questionsLogicManager1.getFilteredQuestionsList();
         assertTrue(this.matchListData(questionsObservableList1, TypicalQuestions.getTypicalQuestions()));
@@ -100,7 +97,8 @@ class QuestionsLogicManagerTest {
         assertTrue(questionsObservableList.stream().allMatch(question -> question.getTitle().equals("Valid Sudoku")));
 
         // Assert that the filter did not modify the original list data in the bank and in the logic manager
-        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get()
+                .getReadOnlyQuestionListObservable();
         assertTrue(this.matchListData(storageQuestions, TypicalQuestions.getTypicalQuestions()));
         questionsLogicManager.filterQuestionsList(question -> true);
         assertTrue(this.matchListData(questionsObservableList, TypicalQuestions.getTypicalQuestions()));
@@ -135,7 +133,8 @@ class QuestionsLogicManagerTest {
         Question newQuestion = this.getMockQuestion("abc");
         questionsLogicManager.addQuestion(newQuestion);
         assertTrue(this.matchListData(questionsObservableList, List.of(newQuestion)));
-        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get()
+                .getReadOnlyQuestionListObservable();
         assertTrue(this.matchListData(storageQuestions, List.of(newQuestion)));
     }
 
@@ -151,7 +150,8 @@ class QuestionsLogicManagerTest {
         List<Question> mockQuestions = this.getMockQuestionData();
         questionsLogicManager.addQuestions(mockQuestions);
         assertTrue(this.matchListData(questionsObservableList, mockQuestions));
-        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get()
+                .getReadOnlyQuestionListObservable();
         assertTrue(this.matchListData(storageQuestions, mockQuestions));
     }
 
@@ -166,14 +166,16 @@ class QuestionsLogicManagerTest {
         // Verify that original data is untouched if file path is invalid.
         questionsLogicManager.addQuestionsFromPath(Paths.get("a!3@"));
         assertEquals(0, questionsObservableList.size());
-        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get()
+                .getReadOnlyQuestionListObservable();
         assertEquals(0, storageQuestions.size());
 
         // Verify added questions are reflected in the logic manager and the storage
         questionsLogicManager.addQuestionsFromPath(typicalQuestionBankPath);
         List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
         assertTrue(this.matchListData(questionsObservableList, expectedQuestions));
-        ObservableList<Question> storageQuestions1 = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        ObservableList<Question> storageQuestions1 = storage.readQuestionBank().get()
+                .getReadOnlyQuestionListObservable();
         assertTrue(this.matchListData(storageQuestions1, expectedQuestions));
 
     }
@@ -194,7 +196,8 @@ class QuestionsLogicManagerTest {
         expectedQuestions.remove(1);
         expectedQuestions.add(1, newQuestion);
         assertTrue(this.matchListData(questionsObservableList, expectedQuestions));
-        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        ObservableList<Question> storageQuestions = storage.readQuestionBank()
+                .get().getReadOnlyQuestionListObservable();
         assertTrue(this.matchListData(storageQuestions, expectedQuestions));
 
         assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.setQuestion(100, newQuestion));
@@ -215,9 +218,10 @@ class QuestionsLogicManagerTest {
         List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
         expectedQuestions.remove(1);
         assertTrue(this.matchListData(questionsObservableList, expectedQuestions));
-        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get()
+                .getReadOnlyQuestionListObservable();
         assertTrue(this.matchListData(storageQuestions, expectedQuestions));
-//
+
         assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.deleteQuestion(100));
         assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.deleteQuestion(-1));
     }
@@ -234,10 +238,17 @@ class QuestionsLogicManagerTest {
         // Check that the questions are deleted in both the logic manager and in the question bank
         questionsLogicManager.deleteAllQuestions();
         assertEquals(0, questionsObservableList.size());
-        ObservableList<Question> storageQuestions = storage.readQuestionBank().get().getReadOnlyQuestionListObservable();
+        ObservableList<Question> storageQuestions = storage.readQuestionBank().get()
+                .getReadOnlyQuestionListObservable();
         assertEquals(0, storageQuestions.size());
     }
 
+    /**
+     * Helper method to compare an observable list to a list for equality.
+     * @param observableList the observable list to be compared.
+     * @param questionList the question list to be compared.
+     * @return true if both lists are equal.
+     */
     private boolean matchListData(ObservableList<Question> observableList, List<Question> questionList) {
         if (observableList.size() != questionList.size()) {
             return false;

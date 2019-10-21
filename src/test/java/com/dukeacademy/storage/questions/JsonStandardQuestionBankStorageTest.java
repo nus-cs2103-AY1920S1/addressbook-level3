@@ -1,24 +1,19 @@
 package com.dukeacademy.storage.questions;
 
-import static com.dukeacademy.testutil.Assert.assertThrows;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.IntStream;
 
-import com.dukeacademy.model.question.StandardQuestionBank;
-import com.dukeacademy.model.question.Question;
-import com.dukeacademy.storage.question.JsonQuestionBankStorage;
-import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.model.question.QuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
+import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 
 public class JsonStandardQuestionBankStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonQuestionBankStorageTest");
@@ -64,29 +59,29 @@ public class JsonStandardQuestionBankStorageTest {
 
     @Test
     public void readAndSaveQuestionBank_allInOrder_success() throws Exception {
-//        Path filePath = testFolder.resolve("TempQuestionBank.json");
-//        StandardQuestionBank original = getTypicalQuestionBank();
-//        JsonQuestionBankStorage
-//            jsonQuestionBankStorage = new JsonQuestionBankStorage(filePath);
-//
-//        // Save in new file and read back
-//        jsonQuestionBankStorage.saveQuestionBank(original, filePath);
-//        QuestionBank
-//            readBack = jsonQuestionBankStorage.readQuestionBank(filePath).get();
-//        assertEquals(original, new StandardQuestionBank(readBack));
-//
-//        // Modify data, overwrite exiting file, and read back
-//        original.addQuestion(HOON);
-////        original.removeQuestion(ALICE);
-//        jsonQuestionBankStorage.saveQuestionBank(original, filePath);
-//        readBack = jsonQuestionBankStorage.readQuestionBank(filePath).get();
-//        assertEquals(original, new StandardQuestionBank(readBack));
-//
-//        // Save and read without specifying file path
-//        original.addQuestion(IDA);
-//        jsonQuestionBankStorage.saveQuestionBank(original); // file path not specified
-//        readBack = jsonQuestionBankStorage.readQuestionBank().get(); // file path not specified
-//        assertEquals(original, new StandardQuestionBank(readBack));
+        // Path filePath = testFolder.resolve("TempQuestionBank.json");
+        // StandardQuestionBank original = getTypicalQuestionBank();
+        // JsonQuestionBankStorage
+        //    jsonQuestionBankStorage = new JsonQuestionBankStorage(filePath);
+
+        // Save in new file and read back
+        // jsonQuestionBankStorage.saveQuestionBank(original, filePath);
+        // QuestionBank
+        //   readBack = jsonQuestionBankStorage.readQuestionBank(filePath).get();
+        // assertEquals(original, new StandardQuestionBank(readBack));
+
+        // Modify data, overwrite exiting file, and read back
+        // original.addQuestion(HOON);
+        //        original.removeQuestion(ALICE);
+        // jsonQuestionBankStorage.saveQuestionBank(original, filePath);
+        // readBack = jsonQuestionBankStorage.readQuestionBank(filePath).get();
+        // assertEquals(original, new StandardQuestionBank(readBack));
+
+        // Save and read without specifying file path
+        // original.addQuestion(IDA);
+        // jsonQuestionBankStorage.saveQuestionBank(original); // file path not specified
+        // readBack = jsonQuestionBankStorage.readQuestionBank().get(); // file path not specified
+        // assertEquals(original, new StandardQuestionBank(readBack));
 
     }
 
@@ -114,20 +109,4 @@ public class JsonStandardQuestionBankStorageTest {
         assertThrows(NullPointerException.class, () -> saveQuestionBank(new StandardQuestionBank(), null));
     }
 
-    private boolean checkQuestionBanksEqual(StandardQuestionBank bank1, StandardQuestionBank bank2) {
-        SortedList<Question> list1 = bank1.getReadOnlyQuestionListObservable().sorted((q1, q2) -> q1.getTitle().compareTo(q2.getTitle()));
-        SortedList<Question> list2 = bank2.getReadOnlyQuestionListObservable().sorted((q1, q2) -> q1.getTitle().compareTo(q2.getTitle()));
-
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-
-        if (list1.size() == 0) {
-            return true;
-        }
-
-        return IntStream.range(0, list1.size())
-                .mapToObj(i -> list1.get(i).getTitle().equals(list2.get(i).getTitle()))
-                .reduce((x, y) -> x && y).get();
-    }
 }

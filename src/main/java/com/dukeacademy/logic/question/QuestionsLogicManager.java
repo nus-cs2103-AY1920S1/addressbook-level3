@@ -1,22 +1,26 @@
 package com.dukeacademy.logic.question;
 
-import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.commons.exceptions.DataConversionException;
-import com.dukeacademy.model.question.QuestionBank;
-import com.dukeacademy.model.question.Question;
-import com.dukeacademy.model.question.StandardQuestionBank;
-import com.dukeacademy.model.util.SampleDataUtil;
-import com.dukeacademy.storage.question.QuestionBankStorage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.commons.exceptions.DataConversionException;
+import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.QuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
+import com.dukeacademy.model.util.SampleDataUtil;
+import com.dukeacademy.storage.question.QuestionBankStorage;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
+/**
+ * Logic class to handle all CRUD operations regarding questions in the application.
+ */
 public class QuestionsLogicManager implements QuestionsLogic {
     private final Logger logger;
 
@@ -99,23 +103,33 @@ public class QuestionsLogicManager implements QuestionsLogic {
         this.saveQuestionBankToStorage(this.questionBank);
     }
 
+    /**
+     * Loads a new question bank from the given storage instance.
+     * @return the loaded question bank.
+     */
     private QuestionBank loadQuestionsFromStorage() {
         try {
             return this.storage.readQuestionBank().orElseGet(() -> {
-                logger.info("Unable to find json file: " + storage.getQuestionBankFilePath() + ".\n Loading sample data instead...");
+                logger.info("Unable to find json file: " + storage.getQuestionBankFilePath()
+                        + ".\n Loading sample data instead...");
                 return SampleDataUtil.getSampleQuestionBank();
             });
         } catch (IOException | DataConversionException e) {
-            logger.info("Unable to load question bank from: " + storage.getQuestionBankFilePath() + ".\n Loading sample data instead...");
+            logger.info("Unable to load question bank from: " + storage.getQuestionBankFilePath()
+                    + ".\n Loading sample data instead...");
             return SampleDataUtil.getSampleQuestionBank();
         }
     }
 
+    /**
+     * Saves a new question bank to the given storage instance.
+     * @param questionBank the question bank to be saved.
+     */
     private void saveQuestionBankToStorage(QuestionBank questionBank) {
         try {
             storage.saveQuestionBank(questionBank);
         } catch (IOException e) {
-            logger.info("Unable to save question data to: " +storage.getQuestionBankFilePath());
+            logger.info("Unable to save question data to: " + storage.getQuestionBankFilePath());
         }
     }
 }

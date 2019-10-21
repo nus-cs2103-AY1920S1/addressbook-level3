@@ -12,8 +12,8 @@ import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.QuestionBankParser;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.storage.Storage;
 
 import javafx.collections.ObservableList;

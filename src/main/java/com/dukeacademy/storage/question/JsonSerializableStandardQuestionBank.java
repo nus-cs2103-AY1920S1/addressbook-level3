@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
-import com.dukeacademy.model.question.StandardQuestionBank;
-import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.QuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,10 +29,16 @@ public class JsonSerializableStandardQuestionBank {
         this.questions.addAll(questions);
     }
 
+    /**
+     * Creates a JsonSerializableQuestionBank from the given question bank as source.
+     * @param source the question bank to be used as the source.
+     */
     public JsonSerializableStandardQuestionBank(QuestionBank source) {
-        questions.addAll(source.getReadOnlyQuestionListObservable().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
+        questions.addAll(source.getReadOnlyQuestionListObservable().stream()
+                .map(JsonAdaptedQuestion::new)
+                .collect(Collectors.toList()));
     }
-//
+
     /**
      * Converts this question bank into the model's {@code QuestionBank} object.
      *

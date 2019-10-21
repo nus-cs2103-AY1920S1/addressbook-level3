@@ -1,9 +1,12 @@
 package com.dukeacademy.model.question;
 
-import com.dukeacademy.model.question.entities.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.dukeacademy.model.question.entities.TestCase;
+
 
 class TestCaseTest {
     @Test

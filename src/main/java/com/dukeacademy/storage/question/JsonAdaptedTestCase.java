@@ -4,12 +4,16 @@ import com.dukeacademy.model.question.entities.TestCase;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Json friendly representation of the test case model for read and write by the Jackson library.
+ */
 public class JsonAdaptedTestCase {
     private final String input;
     private final String expectedResult;
 
     @JsonCreator
-    public JsonAdaptedTestCase(@JsonProperty("input") String input, @JsonProperty("expectedResult") String expectedResult) {
+    public JsonAdaptedTestCase(@JsonProperty("input") String input,
+                               @JsonProperty("expectedResult") String expectedResult) {
         this.input = input;
         this.expectedResult = expectedResult;
     }

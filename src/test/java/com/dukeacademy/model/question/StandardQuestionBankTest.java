@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+import org.junit.jupiter.api.Test;
+
 import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
 import com.dukeacademy.testutil.TypicalQuestions;
-import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 
@@ -126,6 +127,12 @@ public class StandardQuestionBankTest {
         assertEquals(0, questionObservableList.size());
     }
 
+    /**
+     * Helper method to check the equality of questions in an observable list and a list.
+     * @param observableList the observable list to be checked.
+     * @param questionList the list to be checked.
+     * @return true if the questions are equal.
+     */
     private boolean matchListData(ObservableList<Question> observableList, List<Question> questionList) {
         if (observableList.size() != questionList.size()) {
             return false;

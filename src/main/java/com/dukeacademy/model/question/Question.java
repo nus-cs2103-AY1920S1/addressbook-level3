@@ -18,6 +18,7 @@ import com.dukeacademy.model.question.entities.Topic;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Question {
+    public static final String TITLE_VALIDATION_REGEX = "[^\\s].*";
 
     private final String title;
     private final Status status;
@@ -26,16 +27,15 @@ public class Question {
     private final List<TestCase> testCases = new ArrayList<>();
     private final UserProgram userProgram;
 
-    public static final String TITLE_VALIDATION_REGEX = "[^\\s].*";
-
     /**
      * Every field must be present and not null.
      */
-    public Question(String title, Status status, Difficulty difficulty, Set<Topic> topics, List<TestCase> testCases, UserProgram userProgram) {
+    public Question(String title, Status status, Difficulty difficulty, Set<Topic> topics,
+                    List<TestCase> testCases, UserProgram userProgram) {
         requireAllNonNull(title, status, difficulty, topics, testCases, userProgram);
         if (!Question.checkValidTitle(title)) {
             throw new IllegalArgumentException();
-        };
+        }
 
         this.title = title;
         this.status = status;
@@ -82,12 +82,13 @@ public class Question {
         return builder.toString();
     }
 
+    /**
+     * Checks if the given string is a valid title for a question. Titles must be alphanumeric.
+     * @param title the string to be checked.
+     * @return true if the string is a valid title.
+     */
     public static boolean checkValidTitle(String title) {
-        if (!title.matches(TITLE_VALIDATION_REGEX)) {
-            return false;
-        }
-
-        return true;
+        return title.matches(TITLE_VALIDATION_REGEX);
     }
 
     @Override

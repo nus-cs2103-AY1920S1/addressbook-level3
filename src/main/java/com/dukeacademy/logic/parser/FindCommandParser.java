@@ -2,8 +2,6 @@ package com.dukeacademy.logic.parser;
 
 import static com.dukeacademy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
 import com.dukeacademy.logic.commands.FindCommand;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 
@@ -26,7 +24,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-//        return new FindCommand(new TitleContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        // return new FindCommand(new TitleContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         return new FindCommand();
     }
 

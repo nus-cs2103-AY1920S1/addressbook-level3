@@ -1,7 +1,5 @@
 package com.dukeacademy.logic.parser;
 
-import static com.dukeacademy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import com.dukeacademy.commons.core.index.Index;
 import com.dukeacademy.logic.commands.DeleteCommand;
 import com.dukeacademy.logic.parser.exceptions.ParseException;

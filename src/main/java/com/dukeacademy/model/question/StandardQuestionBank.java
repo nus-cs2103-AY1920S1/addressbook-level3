@@ -1,11 +1,7 @@
 package com.dukeacademy.model.question;
 
 import java.util.Collection;
-import java.util.Set;
 
-import com.dukeacademy.model.question.entities.Difficulty;
-import com.dukeacademy.model.question.entities.Status;
-import com.dukeacademy.model.question.entities.Topic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

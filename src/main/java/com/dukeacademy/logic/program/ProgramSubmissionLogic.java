@@ -1,8 +1,8 @@
 package com.dukeacademy.logic.program;
 
 import com.dukeacademy.model.program.TestResult;
-import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.observable.Observable;
 
 /**

@@ -1,11 +1,12 @@
 package com.dukeacademy.logic.question;
 
-import com.dukeacademy.model.question.Question;
-import javafx.collections.ObservableList;
-
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.function.Predicate;
+
+import com.dukeacademy.model.question.Question;
+
+import javafx.collections.ObservableList;
 
 /**
  * Interface to handle all CRUD operations related to questions.

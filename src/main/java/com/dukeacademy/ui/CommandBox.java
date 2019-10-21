@@ -1,9 +1,9 @@
 package com.dukeacademy.ui;
 
+import com.dukeacademy.logic.Logic;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.logic.Logic;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

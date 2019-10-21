@@ -5,17 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.dukeacademy.model.question.entities.Difficulty;
-import com.dukeacademy.model.question.entities.Status;
-import com.dukeacademy.model.question.entities.TestCase;
-import com.dukeacademy.model.question.entities.Topic;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.dukeacademy.model.question.entities.Difficulty;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
 
 public class QuestionTest {
     private final String validTitle = "Test question";
@@ -37,14 +38,21 @@ public class QuestionTest {
 
     @Test
     void constructor() {
-        assertThrows(NullPointerException.class, () -> new Question(null, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new Question(validTitle, null, validDifficulty, validTopics, validTestCases, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, null, validTopics, validTestCases, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty, null, validTestCases, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty, validTopics, null, validUserProgram));
-        assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty, validTopics, validTestCases, null));
+        assertThrows(NullPointerException.class, () -> new Question(null, validStatus, validDifficulty,
+                validTopics, validTestCases, validUserProgram));
+        assertThrows(NullPointerException.class, () -> new Question(validTitle, null, validDifficulty,
+                validTopics, validTestCases, validUserProgram));
+        assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, null,
+                validTopics, validTestCases, validUserProgram));
+        assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty,
+                null, validTestCases, validUserProgram));
+        assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty,
+                validTopics, null, validUserProgram));
+        assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty,
+                validTopics, validTestCases, null));
 
-        Question validQuestion = new Question(validTitle, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram);
+        Question validQuestion = new Question(validTitle, validStatus, validDifficulty, validTopics,
+                validTestCases, validUserProgram);
         assertEquals(validTitle, validQuestion.getTitle());
         assertEquals(validStatus, validQuestion.getStatus());
         assertEquals(validDifficulty, validQuestion.getDifficulty());

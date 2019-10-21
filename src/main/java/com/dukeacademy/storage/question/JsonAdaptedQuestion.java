@@ -7,9 +7,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
+import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Difficulty;
-import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
@@ -21,9 +21,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Jackson-friendly version of {@link Question}.
  */
 public class JsonAdaptedQuestion {
-
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Question's %s field is missing!";
-
     private final String title;
     private final String status;
     private final String difficulty;
@@ -61,7 +58,9 @@ public class JsonAdaptedQuestion {
         this.status = source.getStatus().toString();
         this.difficulty = source.getDifficulty().toString();
         this.topics.addAll(source.getTopics().stream().map(Objects::toString).collect(Collectors.toList()));
-        this.testCases.addAll(source.getTestCases().stream().map(JsonAdaptedTestCase::new).collect(Collectors.toList()));
+        this.testCases.addAll(source.getTestCases().stream()
+                .map(JsonAdaptedTestCase::new)
+                .collect(Collectors.toList()));
         this.userProgram = new JsonAdaptedUserProgram(source.getUserProgram());
     }
 
@@ -89,7 +88,9 @@ public class JsonAdaptedQuestion {
         final Status status = Status.valueOf(this.status);
         final Difficulty difficulty = Difficulty.valueOf(this.difficulty);
         final Set<Topic> newTopicsSet = this.topics.stream().map(Topic::valueOf).collect(Collectors.toSet());
-        final List<TestCase> newTestCaseList = this.testCases.stream().map(JsonAdaptedTestCase::toModel).collect(Collectors.toList());
+        final List<TestCase> newTestCaseList = this.testCases.stream()
+                .map(JsonAdaptedTestCase::toModel)
+                .collect(Collectors.toList());
         final UserProgram newUserProgram = this.userProgram.toModel();
 
         return new Question(title, status, difficulty, newTopicsSet, newTestCaseList, newUserProgram);

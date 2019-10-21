@@ -1,7 +1,6 @@
 package com.dukeacademy.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +9,8 @@ import com.dukeacademy.commons.core.index.Index;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.CliSyntax;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.testutil.Assert;
 
 /**
@@ -92,7 +91,8 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        StandardQuestionBank expectedStandardQuestionBank = new StandardQuestionBank(actualModel.getStandardQuestionBank().getReadOnlyQuestionListObservable());
+        StandardQuestionBank expectedStandardQuestionBank = new StandardQuestionBank(actualModel
+                .getStandardQuestionBank().getReadOnlyQuestionListObservable());
         List<Question> expectedFilteredList = new ArrayList<>(actualModel.getFilteredQuestionList());
 
         Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
@@ -104,13 +104,13 @@ public class CommandTestUtil {
      * {@code model}'s question bank.
      */
     public static void showQuestionAtIndex(Model model, Index targetIndex) {
-//        assertTrue(targetIndex.getZeroBased() < model.getFilteredQuestionList().size());
-//
-//        Question question = model.getFilteredQuestionList().get(targetIndex.getZeroBased());
-//        final String[] splitName = question.getTitle().split("\\s+");
-//        model.updateFilteredQuestionList(new TitleContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-//
-//        assertEquals(1, model.getFilteredQuestionList().size());
+    //        assertTrue(targetIndex.getZeroBased() < model.getFilteredQuestionList().size());
+    //
+    //        Question question = model.getFilteredQuestionList().get(targetIndex.getZeroBased());
+    //        final String[] splitName = question.getTitle().split("\\s+");
+    //        model.updateFilteredQuestionList(new TitleContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+    //
+    //        assertEquals(1, model.getFilteredQuestionList().size());
     }
 
 }

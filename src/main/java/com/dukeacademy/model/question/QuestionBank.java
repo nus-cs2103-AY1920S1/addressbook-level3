@@ -1,10 +1,8 @@
 package com.dukeacademy.model.question;
 
-import com.dukeacademy.model.question.Question;
+import java.util.Collection;
 
 import javafx.collections.ObservableList;
-
-import java.util.Collection;
 
 /**
  * Question bank to encapsulate the storage of all the questions registered in the program. A requirement for the

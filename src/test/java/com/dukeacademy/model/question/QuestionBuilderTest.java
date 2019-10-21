@@ -1,18 +1,20 @@
 package com.dukeacademy.model.question;
 
-import com.dukeacademy.model.question.entities.Difficulty;
-import com.dukeacademy.model.question.entities.Status;
-import com.dukeacademy.model.question.entities.TestCase;
-import com.dukeacademy.model.question.entities.Topic;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.dukeacademy.model.question.entities.Difficulty;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
 
 class QuestionBuilderTest {
     private final String validTitle = "Test question";

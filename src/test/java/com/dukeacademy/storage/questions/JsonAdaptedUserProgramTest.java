@@ -1,11 +1,12 @@
 package com.dukeacademy.storage.questions;
 
-import com.dukeacademy.model.question.UserProgram;
-import com.dukeacademy.storage.question.JsonAdaptedUserProgram;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.storage.question.JsonAdaptedUserProgram;
 
 public class JsonAdaptedUserProgramTest {
     private String className = "Test";

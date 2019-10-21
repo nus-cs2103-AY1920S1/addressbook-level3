@@ -1,11 +1,12 @@
 package com.dukeacademy.storage.questions;
 
-import com.dukeacademy.model.question.entities.TestCase;
-import com.dukeacademy.storage.question.JsonAdaptedTestCase;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.storage.question.JsonAdaptedTestCase;
 
 public class JsonAdaptedTestCaseTest {
     @Test

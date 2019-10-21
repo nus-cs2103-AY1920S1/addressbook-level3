@@ -2,7 +2,6 @@ package com.dukeacademy.model.prefs;
 
 import static com.dukeacademy.testutil.Assert.assertThrows;
 
-import com.dukeacademy.model.prefs.UserPrefs;
 import org.junit.jupiter.api.Test;
 
 public class UserPrefsTest {
