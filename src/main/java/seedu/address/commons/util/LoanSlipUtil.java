@@ -153,22 +153,8 @@ public class LoanSlipUtil {
     }
 
     /**
-     * Helper method to assist in generating content for the loan slip.
-     *
-     * @param borrower Borrower associated with the loan.
-     * @param book Book associated with the loan.
-     * @param loan Loan object representing the loan.
-     * @return {@Code String} to be printed on the loan slip.
-     */
-    private static String generateLoanSlipContent(Borrower borrower, Book book, Loan loan) {
-        String result = "Summary of loan:\n"
-                + "Please return the book by: " + loan.getDueDate() + "\n"
-                + "We hope to see you again!";
-        return result;
-    }
-
-    /**
      * Opens loan slip pdf to allow ease of printing loan slip.
+     * (Cannot be tested autonomously)
      */
     public static void openLoanSlip() {
         if (isMounted && isGenerated) {
