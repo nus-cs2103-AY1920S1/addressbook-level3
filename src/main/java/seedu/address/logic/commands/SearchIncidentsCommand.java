@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.function.Predicate;
 
@@ -26,8 +25,9 @@ public class SearchIncidentsCommand extends Command {
             + "or description contains any of the specified keywords (case-insensitive) and displays them as a list "
             + "with index numbers.\n"
             + "Parameters: "
-            + PREFIX_ID + "ID OR "
-            + PREFIX_DESC + "KEYWORD [MORE_KEYWORDS]...\n"
+            + PREFIX_ID + "<ID> OR "
+            + PREFIX_OPERATOR + "<OPERATOR> OR "
+            + PREFIX_DESC + "<KEYWORD [MORE_KEYWORDS]...>\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESC + "arson";
 
