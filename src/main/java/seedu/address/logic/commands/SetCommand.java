@@ -16,11 +16,11 @@ import seedu.address.model.transaction.Budget;
 public class SetCommand extends Command {
     public static final String COMMAND_WORD = "set";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a budget to the bank account. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a budget to the bank account.\n"
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DATE + "DEADLINE "
-            + PREFIX_TAG + "TAG "
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_AMOUNT + "100 "
             + PREFIX_DATE + "2019/01/01 "
