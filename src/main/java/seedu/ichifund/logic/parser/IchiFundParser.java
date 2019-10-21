@@ -18,12 +18,14 @@ import seedu.ichifund.logic.commands.ListCommand;
 import seedu.ichifund.logic.commands.budget.AddBudgetCommand;
 import seedu.ichifund.logic.commands.budget.DeleteBudgetCommand;
 import seedu.ichifund.logic.commands.repeater.AddRepeaterCommand;
+import seedu.ichifund.logic.commands.repeater.DeleteRepeaterCommand;
 import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
 import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
 import seedu.ichifund.logic.parser.budget.AddBudgetCommandParser;
 import seedu.ichifund.logic.parser.budget.DeleteBudgetCommandParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.logic.parser.repeater.AddRepeaterCommandParser;
+import seedu.ichifund.logic.parser.repeater.DeleteRepeaterCommandParser;
 import seedu.ichifund.logic.parser.transaction.AddTransactionCommandParser;
 import seedu.ichifund.logic.parser.transaction.FilterTransactionCommandParser;
 
@@ -86,6 +88,9 @@ public class IchiFundParser {
 
         case AddRepeaterCommand.COMMAND_WORD:
             return new AddRepeaterCommandParser().parse(arguments);
+
+        case DeleteRepeaterCommand.COMMAND_WORD:
+            return new DeleteRepeaterCommandParser().parse(arguments);
 
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);
