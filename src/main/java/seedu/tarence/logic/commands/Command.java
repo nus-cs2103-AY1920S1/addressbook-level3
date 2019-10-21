@@ -27,13 +27,17 @@ public abstract class Command {
     /**
      * Returns true if command requires prior user input, else false.
      */
-    public abstract boolean needsInput();
+    public boolean needsInput() {
+        return false;
+    }
 
     /**
      * Returns true if prior command is required for execution, else false.
      * Only needed for commands that require prior user input.
      */
-    public abstract boolean needsCommand(Command command);
+    public boolean needsCommand(Command command) {
+        return false;
+    }
 
     /**
      * Returns a list of {@code ModCode}s similar to the given one, and corresponding to a module containing a

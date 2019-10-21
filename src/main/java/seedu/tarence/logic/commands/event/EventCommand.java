@@ -140,16 +140,6 @@ public abstract class EventCommand extends Command {
     }
 
     @Override
-    public boolean needsInput() {
-        return false;
-    }
-
-    @Override
-    public boolean needsCommand(Command command) {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EventCommand // instanceof handles nulls

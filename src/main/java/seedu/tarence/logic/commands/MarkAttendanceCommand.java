@@ -202,8 +202,8 @@ public class MarkAttendanceCommand extends Command {
      * @return string representing the generated suggestions and their corresponding indexes for user selection.
      */
     private String createSuggestedClassCommands(List<ModCode> similarModCodes, ModCode originalModCode,
-                                           List<TutName> similarTutNames, TutName originalTutName,
-                                           Optional<Name> studName, Model model) {
+                                                List<TutName> similarTutNames, TutName originalTutName,
+                                                Optional<Name> studName, Model model) {
         List<Command> suggestedCommands = new ArrayList<>();
         StringBuilder s = new StringBuilder();
         int index = 1;
@@ -261,16 +261,6 @@ public class MarkAttendanceCommand extends Command {
         String suggestedCorrections = s.toString();
         model.storeSuggestedCommands(suggestedCommands, suggestedCorrections);
         return suggestedCorrections;
-    }
-
-    @Override
-    public boolean needsInput() {
-        return false;
-    }
-
-    @Override
-    public boolean needsCommand(Command command) {
-        return false;
     }
 
     /**

@@ -18,14 +18,4 @@ public class DisplayCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         return new CommandResult(message);
     }
-
-    @Override
-    public boolean needsInput() {
-        return false;
-    }
-
-    @Override
-    public boolean needsCommand(Command command) {
-        return false;
-    }
 }
