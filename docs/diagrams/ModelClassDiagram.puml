@@ -12,6 +12,7 @@ Interface Identifiable <<Interface>>
 Class Model
 Class ModelManager
 Class UserPrefs
+Class CalendarDate
 Class ReadOnlyUserPrefs
 Class "DataBook<Phone>"
 Class "UniqueList<Phone>"
@@ -71,6 +72,7 @@ ModelManager o--> "1" "DataBook<Customer>"
 ModelManager o--> "1" "DataBook<Schedule>"
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o-left-> "1" CalendarDate
 
 Phone .up.|> Identifiable
 Order .up.|> Identifiable

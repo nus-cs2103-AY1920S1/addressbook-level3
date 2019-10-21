@@ -159,8 +159,6 @@ Format: `delete-s ORDER_INDEX`
 Edits an existing schedule. +
 Format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]…`
 
-==== Add a customer : `add-s`
-
 === Utility Commands
 
 ==== Undo : `undo`
