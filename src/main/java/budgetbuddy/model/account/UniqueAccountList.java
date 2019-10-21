@@ -8,7 +8,6 @@ import java.util.List;
 
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.account.exception.DuplicateAccountException;
-import budgetbuddy.model.person.exceptions.PersonNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
