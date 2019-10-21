@@ -7,7 +7,7 @@ import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.showMemeAtIndex;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND_MEME;
-import static seedu.weme.testutil.TypicalMemes.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
 
 import org.junit.jupiter.api.Test;
 

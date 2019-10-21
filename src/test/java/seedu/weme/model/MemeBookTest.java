@@ -7,9 +7,9 @@ import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_JOKER;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_FILEPATH_JOKER;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_JOKER;
 import static seedu.weme.testutil.Assert.assertThrows;
+import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
 import static seedu.weme.testutil.TypicalMemes.DOGE;
 import static seedu.weme.testutil.TypicalMemes.JOKER;
-import static seedu.weme.testutil.TypicalMemes.getTypicalMemeBook;
 
 import java.util.Arrays;
 import java.util.Collections;
