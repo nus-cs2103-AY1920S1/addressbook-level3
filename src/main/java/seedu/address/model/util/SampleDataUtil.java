@@ -23,6 +23,8 @@ import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.quiz.SavedQuizzes;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -99,6 +101,11 @@ public class SampleDataUtil {
         eventList.add(event);
         EventRecord sampleEventRecord = new EventRecord(eventList);
         return sampleEventRecord;
+    }
+
+    public static ReadOnlyQuizzes getSampleQuizList() {
+        SavedQuizzes savedQuizzes = new SavedQuizzes();
+        return savedQuizzes;
     }
 
     /**

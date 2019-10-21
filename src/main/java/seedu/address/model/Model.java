@@ -15,6 +15,7 @@ import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 
@@ -231,6 +232,27 @@ public interface Model {
      * Returns a quiz's questions and answers, for testing purposes.
      */
     String getQuestionsAndAnswers(String quizId);
+
+    //endregion
+
+    //region SavedQuizzes
+    /**
+     * Returns the user prefs' quizzes file path.
+     */
+    Path getSavedQuizzesFilePath();
+
+    /**
+     * Sets the user prefs' quizzes file path.
+     */
+    void setSavedQuizzesFilePath(Path savedQuizzesFilePath);
+
+    /**
+     * Replaces quizzes data with the data in {@code savedQuizzes}.
+     */
+    void setSavedQuizzes(ReadOnlyQuizzes savedQuizzes);
+
+    /** Returns the saved questions */
+    ReadOnlyQuizzes getSavedQuizzes();
 
     //endregion
 

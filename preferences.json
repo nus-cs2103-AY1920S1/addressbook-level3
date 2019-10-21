@@ -1,5 +1,6 @@
 {
   "guiSettings" : {
+
     "windowWidth" : 1296.0,
     "windowHeight" : 877.0,
     "windowCoordinates" : {
@@ -11,5 +12,7 @@
   "studentRecordFilePath" : "data/students.json",
   "savedQuestionsFilePath" : "data/questions.json",
   "eventRecordFilePath" : "data/events.json",
+  "savedQuizzesFilePath" : "data/quizzes.json",
   "notesRecordFilePath" : "data/notes.json"
 }
+

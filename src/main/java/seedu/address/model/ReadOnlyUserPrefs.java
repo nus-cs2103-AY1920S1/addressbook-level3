@@ -15,6 +15,8 @@ public interface ReadOnlyUserPrefs {
 
     Path getStudentRecordFilePath();
 
+    Path getSavedQuizzesFilePath();
+
     Path getNotesRecordFilePath();
 
 }

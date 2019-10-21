@@ -15,8 +15,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.storage.event.EventStorage;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.QuestionStorage;
+import seedu.address.storage.quiz.QuizStorage;
 import seedu.address.storage.student.StudentRecordStorage;
 
 /**
@@ -28,18 +30,21 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private StudentRecordStorage studentRecordStorage;
     private QuestionStorage questionStorage;
+    private QuizStorage quizStorage;
     private NotesRecordStorage notesRecordStorage;
     private UserPrefsStorage userPrefsStorage;
     private EventStorage eventStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-        StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage, NotesRecordStorage notesStorage, EventStorage eventStorage) {
+        StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage,
+                          QuizStorage quizStorage, NotesRecordStorage notesStorage, EventStorage eventStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.studentRecordStorage = studentRecordStorage;
         this.questionStorage = questionStorage;
         this.eventStorage = eventStorage;
+        this.quizStorage = quizStorage;
         this.notesRecordStorage = notesStorage;
     }
 
@@ -150,6 +155,36 @@ public class StorageManager implements Storage {
     public void saveQuestions(ReadOnlyQuestions questions, Path filePath) throws IOException {
         logger.fine("Attempting to write to questions data file: " + filePath);
         questionStorage.saveQuestions(questions, filePath);
+    }
+    //endregion
+
+    //region Quiz methods
+    @Override
+    public Path getSavedQuizzesFilePath() {
+        return quizStorage.getSavedQuizzesFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyQuizzes> readQuizzes() throws DataConversionException, IOException {
+        return readQuizzes(quizStorage.getSavedQuizzesFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyQuizzes> readQuizzes(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read quiz data from file: " + filePath);
+        return quizStorage.readQuizzes(filePath);
+    }
+
+    @Override
+    public void saveQuizzes(ReadOnlyQuizzes quizzes) throws IOException {
+        saveQuizzes(quizzes, quizStorage.getSavedQuizzesFilePath());
+    }
+
+    @Override
+    public void saveQuizzes(ReadOnlyQuizzes quizzes, Path filePath) throws IOException {
+        logger.fine("Attempting to write to quiz file: " + filePath);
+        quizStorage.saveQuizzes(quizzes, filePath);
     }
     //endregion
 
