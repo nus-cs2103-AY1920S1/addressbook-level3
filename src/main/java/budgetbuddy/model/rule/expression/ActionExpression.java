@@ -48,6 +48,11 @@ public class ActionExpression extends RuleAction {
         return value;
     }
 
+    @Override
+    public String getType() {
+        return RuleAction.TYPE_EXPRESSION;
+    }
+
     /**
      * Returns true if both action expressions have the same identity and detail fields.
      */

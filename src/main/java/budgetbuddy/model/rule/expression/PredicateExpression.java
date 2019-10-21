@@ -55,6 +55,11 @@ public class PredicateExpression extends RulePredicate {
         return value;
     }
 
+    @Override
+    public String getType() {
+        return RulePredicate.TYPE_EXPRESSION;
+    }
+
     /**
      * Returns true if both predicate expressions have the same identity and detail fields.
      */
