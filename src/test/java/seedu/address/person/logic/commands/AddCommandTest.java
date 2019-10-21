@@ -71,7 +71,7 @@ public class AddCommandTest {
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
-                        FILE_PATH_REIMBURSEMENT, transactionModel);
+                        FILE_PATH_REIMBURSEMENT);
 
         //For Cashier Storage and Manager
         seedu.address.cashier.model.ModelManager cashierModel =
@@ -135,7 +135,7 @@ public class AddCommandTest {
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
-                        FILE_PATH_REIMBURSEMENT, transactionModel);
+                        FILE_PATH_REIMBURSEMENT);
 
         //For Cashier Storage and Manager
         seedu.address.cashier.model.ModelManager cashierModel =

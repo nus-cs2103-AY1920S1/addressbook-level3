@@ -1,6 +1,9 @@
 package seedu.address.reimbursement.logic;
 
+import java.io.IOException;
+
 import seedu.address.reimbursement.logic.commands.CommandResult;
+import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.ReimbursementList;
 
 /**
@@ -12,5 +15,9 @@ public interface Logic {
 
     //get list
     ReimbursementList getFilteredList();
+
+    void updateReimbursementFromTransaction() throws IOException;
+
+    void updateReimbursementFromPerson(Person editedPerson, Person personToEdit) throws IOException;
 
 }

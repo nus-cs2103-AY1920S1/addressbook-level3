@@ -4,15 +4,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.person.model.Model;
+import seedu.address.reimbursement.logic.commands.BackCommand;
 import seedu.address.reimbursement.logic.commands.Command;
 import seedu.address.reimbursement.logic.commands.DeadlineCommand;
 import seedu.address.reimbursement.logic.commands.DoneCommand;
 import seedu.address.reimbursement.logic.commands.ExitCommand;
 import seedu.address.reimbursement.logic.commands.FindCommand;
-import seedu.address.reimbursement.logic.commands.ListCommand;
 import seedu.address.reimbursement.logic.commands.SortCommand;
 import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
+
 
 /**
  * Parser for the Reimbursement tab.
@@ -43,8 +44,8 @@ public class ReimbursementTabParser {
             return new FindCommandParser().parse(arguments, personModel);
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments, personModel);
-        case ListCommand.COMMAND_WORD:
-            return new ListCommandParser().parse(arguments);
+        case BackCommand.COMMAND_WORD:
+            return new BackCommandParser().parse(arguments);
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
         case ExitCommand.COMMAND_WORD:

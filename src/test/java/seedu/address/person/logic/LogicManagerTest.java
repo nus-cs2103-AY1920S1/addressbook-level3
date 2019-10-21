@@ -80,7 +80,7 @@ public class LogicManagerTest {
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
-                        FILE_PATH_REIMBURSEMENT, transactionModel);
+                        FILE_PATH_REIMBURSEMENT);
 
         //For Cashier Storage and Manager
         seedu.address.cashier.model.ModelManager cashierModel =
@@ -140,6 +140,7 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+<<<<<<< HEAD
         seedu.address.transaction.model.ModelManager transactionModel =
                 new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -193,6 +194,11 @@ public class LogicManagerTest {
         logic = new LogicManager(personModel, storage, transactionLogicStub, reimbursementLogic,
                 cashierLogic, inventoryLogic); //add your logic stubs
 
+=======
+//
+//        logic = new LogicManager(model, personManager, transactionLogic, reimbursementLogic,
+//                cashierLogic, inventoryLogic);
+>>>>>>> upstream/master
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
@@ -217,6 +223,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
+<<<<<<< HEAD
             Model expectedModel) throws CommandException, ParseException {
         try {
             CommandResult result = logic.execute(inputCommand);
@@ -225,6 +232,12 @@ public class LogicManagerTest {
         } catch (IOException e) {
             throw new AssertionError("Execution of command should not fail.", e);
         }
+=======
+            Model expectedModel) throws CommandException, ParseException, IOException {
+        CommandResult result = logic.execute(inputCommand);
+        assertEquals(expectedMessage, result.getFeedbackToUser());
+        assertEquals(expectedModel, model);
+>>>>>>> upstream/master
     }
 
     /**

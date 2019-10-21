@@ -31,7 +31,7 @@ public class AddCommand extends Command {
                                  seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchItemException {
         Item i = modelManager.addItem(description, quantity);
-        return new CommandResult(String.format(MESSAGE_ADDED_ITEM, i));
+        return new CommandResult(String.format(MESSAGE_ADDED_ITEM, i.getDescription()));
     }
 }
 

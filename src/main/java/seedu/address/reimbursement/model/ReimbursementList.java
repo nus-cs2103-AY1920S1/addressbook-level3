@@ -89,6 +89,20 @@ public class ReimbursementList {
     }
 
     /**
+     * Updates all reimbursements of a person to another person.
+     *
+     * @param editedPerson The person we need to change to.
+     * @param personToEdit The person that should be changed.
+     */
+    public void updatePerson(Person editedPerson, Person personToEdit) {
+        for (Reimbursement rmb : list) {
+            if (rmb.getPerson().isSamePerson(personToEdit)) {
+                rmb.setPerson(editedPerson);
+            }
+        }
+    }
+
+    /**
      * finds a reimbursement in the list for the person
      *
      * @param person
