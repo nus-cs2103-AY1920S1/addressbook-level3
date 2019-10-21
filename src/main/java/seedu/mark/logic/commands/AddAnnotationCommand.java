@@ -12,6 +12,7 @@ import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
+import seedu.mark.logic.commands.results.OfflineCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.annotation.Annotation;
 import seedu.mark.model.annotation.AnnotationNote;
@@ -96,7 +97,7 @@ public class AddAnnotationCommand extends Command {
 
         model.updateDocument(doc);
         model.saveMark();
-        return new CommandResult(String.format(MESSAGE_ANNOTATE_BOOKMARK_ACKNOWLEDGEMENT, pid));
+        return new OfflineCommandResult(String.format(MESSAGE_ANNOTATE_BOOKMARK_ACKNOWLEDGEMENT, pid));
     }
 
     @Override
