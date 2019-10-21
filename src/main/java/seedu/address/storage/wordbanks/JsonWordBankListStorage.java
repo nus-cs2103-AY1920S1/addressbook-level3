@@ -159,7 +159,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         if (toDelete.exists()) {
             toDelete.delete();
         }
-        ((WordBankList) readOnlyWordBankList).removeWordBank(wb);
+        WordBankList wbl = ((WordBankList) readOnlyWordBankList);
+        wbl.removeWordBank(wb);
     }
 
     public Optional<ReadOnlyWordBankList> getWordBankList() {

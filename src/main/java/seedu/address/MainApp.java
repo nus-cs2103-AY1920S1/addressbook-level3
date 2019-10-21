@@ -22,14 +22,14 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbanklist.WordBankList;
-import seedu.address.storage.userprefs.JsonUserPrefsStorage;
-import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.userprefs.UserPrefsStorage;
-import seedu.address.storage.wordbanks.WordBankListStorage;
 import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
+import seedu.address.storage.userprefs.JsonUserPrefsStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+import seedu.address.storage.wordbanks.JsonWordBankListStorage;
+import seedu.address.storage.wordbanks.WordBankListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -111,19 +111,19 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-         Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
+        Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
         WordBankList wbl = (WordBankList) optionalWbl.get();
         WordBankList emptyWordBankList;
-//        try {
-//            addressBookOptional = storage.getWordBank();
-//            if (!addressBookOptional.isPresent()) {
-//                logger.info("Data file not found. Will be starting with a sample WordBank");
-//            }
-//        } catch (DataConversionException e) {
-//            logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-//        } catch (IOException e) {
-//            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-//        }
+        //        try {
+        //            addressBookOptional = storage.getWordBank();
+        //            if (!addressBookOptional.isPresent()) {
+        //                logger.info("Data file not found. Will be starting with a sample WordBank");
+        //            }
+        //        } catch (DataConversionException e) {
+        //            logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
+        //        } catch (IOException e) {
+        //            logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
+        //        }
         return new ModelManager(wbl, userPrefs);
     }
 

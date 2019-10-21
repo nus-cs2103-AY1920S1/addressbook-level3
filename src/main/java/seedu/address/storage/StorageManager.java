@@ -63,6 +63,13 @@ public class StorageManager implements Storage {
         saveWordBank(wordBank, getWordBankListFilePath());
     }
 
+    /**
+     * Saves the word bank at the specified path file.
+     *
+     * @param wordBank
+     * @param filePath location of the data. Cannot be null.
+     * @throws IOException
+     */
     public void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         wordBankListStorage.saveWordBank(wordBank, filePath);

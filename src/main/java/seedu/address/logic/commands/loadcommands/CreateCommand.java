@@ -1,4 +1,6 @@
-package seedu.address.logic.commands.loadCommands;
+package seedu.address.logic.commands.loadcommands;
+
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.LoadCommand;
@@ -6,8 +8,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.wordbank.WordBank;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Creates a word bank.
+ */
 public class CreateCommand extends LoadCommand {
 
     public static final String COMMAND_WORD = "create";

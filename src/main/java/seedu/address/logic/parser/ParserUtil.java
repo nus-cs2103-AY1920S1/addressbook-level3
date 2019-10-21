@@ -62,7 +62,7 @@ public class ParserUtil {
         if (trimmedPathFile.charAt(0) == '~') {
             trimmedPathFile = System.getProperty("user.home") + File.separator + trimmedPathFile.substring(1);
         }
-        File directory = Paths.get(trimmedPathFile ).toFile();
+        File directory = Paths.get(trimmedPathFile).toFile();
         if (!directory.exists()) {
             throw new ParseException("File does not exist");
         }

@@ -16,10 +16,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.loadCommands.CreateCommand;
-import seedu.address.logic.commands.loadCommands.ExportCommand;
-import seedu.address.logic.commands.loadCommands.ImportCommand;
-import seedu.address.logic.commands.loadCommands.RemoveCommand;
+import seedu.address.logic.commands.loadcommands.CreateCommand;
+import seedu.address.logic.commands.loadcommands.ExportCommand;
+import seedu.address.logic.commands.loadcommands.ImportCommand;
+import seedu.address.logic.commands.loadcommands.RemoveCommand;
 import seedu.address.logic.parser.DukemonParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -102,16 +102,16 @@ public class LogicManager implements Logic {
                 storage.addWordBank(wb);
             }
             if (command instanceof RemoveCommand) {
-                storage.removeWordBank(((RemoveCommand) command).wordBankName);
+                storage.removeWordBank(((RemoveCommand) command).getWordBankName());
             }
             if (command instanceof ExportCommand) {
-                File dir = ((ExportCommand) command).directory;
+                File dir = ((ExportCommand) command).getDirectory();
                 Path filePath = Paths.get(dir.toString());
-                storage.saveWordBank(((ExportCommand) command).wordBank, filePath);
+                storage.saveWordBank(((ExportCommand) command).getWordBank(), filePath);
             }
             if (command instanceof ImportCommand) {
-                File dir = ((ImportCommand) command).directory;
-                String wordBankName = ((ImportCommand) command).wordBankName + ".json";
+                File dir = ((ImportCommand) command).getDirectory();
+                String wordBankName = ((ImportCommand) command).getWordBankName() + ".json";
                 Path filePath = Paths.get(dir.toString(), wordBankName);
                 WordBank wordBank = (WordBank) storage.getWordBank(filePath).get();
                 storage.saveWordBank(wordBank, wordBankListFilePath);

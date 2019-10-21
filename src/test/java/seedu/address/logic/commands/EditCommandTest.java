@@ -9,8 +9,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.appCommands.ClearCommand;
-import seedu.address.logic.commands.appCommands.EditCommand;
+import seedu.address.logic.commands.appcommands.ClearCommand;
+import seedu.address.logic.commands.appcommands.EditCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 

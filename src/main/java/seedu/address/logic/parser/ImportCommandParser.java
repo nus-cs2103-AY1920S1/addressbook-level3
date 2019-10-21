@@ -1,16 +1,19 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.loadCommands.ImportCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.card.Word;
-
-import java.io.File;
-import java.util.stream.Stream;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
+import java.io.File;
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.loadcommands.ImportCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.card.Word;
+
+/**
+ * Parses input arguments and creates a new ImportCommand object
+ */
 public class ImportCommandParser implements Parser<ImportCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ImportCommand

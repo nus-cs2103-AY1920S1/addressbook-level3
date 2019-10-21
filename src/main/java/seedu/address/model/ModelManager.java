@@ -113,9 +113,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setWordBankFilePath(Path FilePath) {
-        requireNonNull(FilePath);
-        userPrefs.setDataFilePath(FilePath);
+    public void setWordBankFilePath(Path filePath) {
+        requireNonNull(filePath);
+        userPrefs.setDataFilePath(filePath);
     }
 
     //=========== WordBank ================================================================================

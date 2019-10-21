@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.settingCommands;
+package seedu.address.logic.commands.settingcommands;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SettingsCommand;

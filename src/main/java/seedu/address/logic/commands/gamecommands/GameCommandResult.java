@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.gameCommands;
+package seedu.address.logic.commands.gamecommands;
 
 import java.util.Optional;
 
