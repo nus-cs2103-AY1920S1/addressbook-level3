@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="flashcardTabWindow" style="-fx-background-color: #383838; -fx-border-color: #383838;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="flashcardTabWindow" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FlashcardTabWindowController">
    <center>
       <HBox style="-fx-border-color: #383838;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="qnsTextArea" editable="false" style="-fx-border-color: #383838;" styleClass="pane-with-border" stylesheets="@DarkTheme.css">
+            <TextArea fx:id="qnsTextArea" editable="false" nodeOrientation="LEFT_TO_RIGHT" styleClass="result-display" stylesheets="@DarkTheme.css" text="QnsTextArea">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -19,7 +19,7 @@
                </HBox.margin>
             </TextArea>
             <Separator fx:id="flashcardSeparator" orientation="VERTICAL" />
-            <TextArea fx:id="ansTextArea" editable="false" style="-fx-border-color: #383838;" styleClass="pane-with-border" stylesheets="@DarkTheme.css" />
+            <TextArea fx:id="ansTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" text="AnsTextArea" />
          </children>
       </HBox>
    </center>

@@ -15,7 +15,7 @@
                    </content>
                </Tab>
                <Tab text="FlashcardTab">
-                   <fx:include fx:id="flashcardTabWindow" source="FlashcardTabWindow.fxml" />
+                    <fx:include fx:id="flashcardTabWindow" source="FlashcardTabWindow.fxml" />
                </Tab>
                <Tab text="NotesTab">
                    <fx:include fx:id="notesTabWindow" source="NotesTabWindow.fxml" />

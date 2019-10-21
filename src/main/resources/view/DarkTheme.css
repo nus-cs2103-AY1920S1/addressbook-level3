@@ -352,13 +352,18 @@
 }
 
 #qnsTextArea .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: #383838;
+	 -fx-background-radius: 0;
+	 -fx-text-fill: white;
 }
 
 #ansTextArea .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: #383838;
+     -fx-border-top-width: 1px;
+	 -fx-background-radius: 0;
+	 -fx-text-fill: white;
 }
 
 .tab-pane {

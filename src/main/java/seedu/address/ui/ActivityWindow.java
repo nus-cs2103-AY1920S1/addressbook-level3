@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
@@ -38,7 +37,6 @@ public class ActivityWindow extends UiPart<Region> {
 
     public ActivityWindow() {
         super(FXML);
-        flashcardTabWindowController = new FlashcardTabWindowController(this);
     }
 
     /**
