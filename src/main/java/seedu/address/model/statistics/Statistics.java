@@ -1,6 +1,6 @@
-package seedu.address.model.statistics;
-
-public interface Statistics {
-
-
-}
+//package seedu.address.model.statistics;
+//
+//public interface Statistics {
+//
+//
+//}

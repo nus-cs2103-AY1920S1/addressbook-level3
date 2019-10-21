@@ -21,10 +21,7 @@ public class Date {
      */
     //public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    //public final String fullDate;
-    private LocalDate date;
-    private String fullTime;
-    private static DateTimeFormatter INPUTFORMATTER = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter INPUTFORMATTER = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ofPattern("yyyy MM dd"))
             .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
             .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/d"))
@@ -40,12 +37,9 @@ public class Date {
             .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy"))
             .toFormatter();
 
-    private static DateTimeFormatter OUTPUTFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    /**
-     * Constructs a {@code Time}.
-     *
-     * @param time A valid time.
-     */
+    private static final DateTimeFormatter OUTPUTFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private LocalDate date;
+    private String fullTime;
 
     /**
      * Converts String to LocalDate
@@ -66,9 +60,11 @@ public class Date {
         this.date = date;
         parseDate();
     }
+
     private void parseDate() {
         fullTime = date.format(OUTPUTFORMATTER);
     }
+
     /**
      * Returns true if a given string is a valid name.
      */

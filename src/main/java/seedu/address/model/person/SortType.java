@@ -3,7 +3,6 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -19,7 +18,7 @@ public class SortType {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String[] VALIDATIONLIST = new String[]{"amount", "description" ,"time" , "tags"};
+    public static final String[] VALIDATIONLIST = new String[]{"amount", "description" , "time" , "tags"};
 
     public final String fullType;
 

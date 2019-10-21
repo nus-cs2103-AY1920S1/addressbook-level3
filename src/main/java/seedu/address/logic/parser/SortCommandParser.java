@@ -36,7 +36,8 @@ public class SortCommandParser implements Parser<SortCommand> {
             SortSequence seq = ParserUtil.parseSortSequence(argMultimap.getValue(PREFIX_SEQUENCE).get().toLowerCase());
             return new SortCommand(type, seq);
         } catch (IllegalArgumentException iea) {
-            throw new IllegalArgumentException(String.format(MESSAGE_INVALID_ARGUMENT_FORMAT, SortType.MESSAGE_CONSTRAINTS));
+            throw new IllegalArgumentException(String.format(MESSAGE_INVALID_ARGUMENT_FORMAT,
+                                                               SortType.MESSAGE_CONSTRAINTS));
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);

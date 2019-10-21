@@ -9,6 +9,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 
+/**
+ * Represents a SortType in the finance manager.
+ * Guarantees: dateOfList cannot be changed.
+ */
 public class DailyList {
     private ObservableList<Expense> listOfExpenses;
     private ObservableList<Income> listOfIncomes;
@@ -33,24 +37,33 @@ public class DailyList {
         return listOfIncomes;
     }
 
-    public double getTotalExpense(){
+    public double getTotalExpense() {
         return totalExpense;
     }
 
-    public double getTotalIncome(){
+    public double getTotalIncome() {
         return totalIncome;
     }
 
-    public LocalDate getDate(){
+    /**
+     * @return dateOfRecord, the date in which the DailyList was created.
+     */
+    public LocalDate getDate() {
         return dateOfRecord;
     }
 
+    /**
+     * adds the recorded Expense into the listOfExpenses.
+     */
     public void addExpense(Expense expenseCreated) {
         requireNonNull(expenseCreated);
         this.listOfExpenses.add(expenseCreated);
         this.totalExpense = this.totalExpense + expenseCreated.getAmount().value;
     }
 
+    /**
+     * adds the recorded Income into the listOfExpenses.
+     */
     public void addIncome(Income incomeCreated) {
         requireNonNull(incomeCreated);
         this.listOfIncomes.add(incomeCreated);

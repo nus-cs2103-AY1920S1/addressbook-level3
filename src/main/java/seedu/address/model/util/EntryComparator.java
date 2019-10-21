@@ -3,7 +3,6 @@ package seedu.address.model.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,7 +32,8 @@ public class EntryComparator implements Comparator<Entry> {
         case "amount":
             return (Double.valueOf(e1.getAmount().value)).compareTo(e2.getAmount().value) * this.sequence.getSequence();
         case "description":
-            return (e1.getDesc().fullDesc.toLowerCase()).compareTo(e2.getDesc().fullDesc.toLowerCase()) * this.sequence.getSequence();
+            return (e1.getDesc().fullDesc.toLowerCase()).compareTo(e2.getDesc().fullDesc.toLowerCase())
+                    * this.sequence.getSequence();
         case "time":
             return (e1.getDate().getDate()).compareTo(e2.getDate().getDate()) * this.sequence.getSequence();
         case "tags":
@@ -43,11 +43,12 @@ public class EntryComparator implements Comparator<Entry> {
             List<Tag> secondEntryListTags = new ArrayList<Tag>(secondEntryTags);
             Collections.sort(firstEntryListTags);
             Collections.sort(secondEntryListTags);
-            String firstEntryStringofTags = firstEntryListTags.stream().map(n -> n.tagName).collect(Collectors.joining());
-            String secondEntryStringofTags = secondEntryListTags.stream().map(n -> n.tagName).collect(Collectors.joining());
+            String firstEntryStringofTags = firstEntryListTags.stream().map(n -> n.tagName)
+                    .collect(Collectors.joining());
+            String secondEntryStringofTags = secondEntryListTags.stream().map(n -> n.tagName)
+                    .collect(Collectors.joining());
             return firstEntryStringofTags.toLowerCase()
-                    .compareToIgnoreCase(secondEntryStringofTags.toLowerCase())
-                    * this.sequence.getSequence();
+                    .compareToIgnoreCase(secondEntryStringofTags.toLowerCase()) * this.sequence.getSequence();
         default:
             //TODO
             return 1;
