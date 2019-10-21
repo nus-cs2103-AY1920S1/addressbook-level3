@@ -69,7 +69,7 @@ public class AddressBookParser {
     public Command checkCommand(String userInput, String prevUnknownCommand) {
         if (this.commandList.containsKey(userInput)) {
             this.commandList.put(prevUnknownCommand, this.commandList.get(userInput));
-            return new NewCommand(this.commandList.get(userInput));
+            return new NewCommand(this.commandList.get(userInput), prevUnknownCommand);
         } else {
             return new UnknownCommand(userInput);
         }

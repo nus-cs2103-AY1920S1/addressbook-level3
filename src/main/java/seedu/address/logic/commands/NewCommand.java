@@ -9,21 +9,22 @@ public class NewCommand extends Command {
 
     public static final String SHOWING_NEW_COMMAND_MESSAGE = "Got it! We've now mapped ";
     private final String userInput;
+    private final String prevUnknownCommand;
 
-    public NewCommand(String userInput) {
+    public NewCommand(String userInput, String prevUnknownCommand) {
         this.userInput = userInput;
+        this.prevUnknownCommand = prevUnknownCommand;
     }
 
     @Override
     public CommandResult execute(Model model) {
-        String prevUnknownCommand = model.getSavedCommand();
-        CommandObject newCommand = new CommandObject(new CommandWord(prevUnknownCommand),
+        CommandObject newCommand = new CommandObject(new CommandWord(this.prevUnknownCommand),
                 new CommandAction(this.userInput));
 
         model.addCommand(newCommand);
 
         return new CommandResult(SHOWING_NEW_COMMAND_MESSAGE
-                + prevUnknownCommand + " to " + this.userInput,
+                + this.prevUnknownCommand + " to " + this.userInput,
                 false, false, false, false);
     }
 
