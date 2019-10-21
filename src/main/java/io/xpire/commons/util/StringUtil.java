@@ -109,14 +109,15 @@ public class StringUtil {
     //https://github.com/crwohlfeil/damerau-levenshtein/blob/master/src/main/java/com/codeweasel/DamerauLevenshtein.java
     //with minor modifications
     /**
-     * Returns the Levenshtein Distance between strings s1 and s2 (how different they are from each other).
+     * Returns the Levenshtein Distance between strings source and target.
+     * How many edits are needed to change source into target.
      * If returns 0, the strings are same.
-     * If returns 1, that means either a character is added, removed or replaced.
+     * If returns 1, that means either a character is added, removed, replaced or swapped.
      * @param source the first string
      * @param target the second string
      * @return The Levenshtein Distance between the two strings.
      */
-    private static int computeDistance (String source, String target) {
+    public static int computeDistance (String source, String target) {
         if (source == null || target == null) {
             throw new IllegalArgumentException("Parameter must not be null");
         }
@@ -153,13 +154,13 @@ public class StringUtil {
     }
 
     /**
-     * Returns suggestions of correct alternatives for an invalid word entered.
+     * Returns suggestions of alternatives for an invalid word entered.
      * @param invalidWord The invalid word entered.
-     * @param set The set of correct alternatives.
-     * @param limit The maximum degree of differences to which is accepted.
+     * @param set The set of alternative words.
+     * @param limit The maximum degree of differences between words compared which is accepted.
      * @return Suggestions that are the most appropriate replacements for the word entered.
      */
-    private static String getSuggestions(String invalidWord, Set<String> set, int limit) {
+    public static String getSuggestions(String invalidWord, Set<String> set, int limit) {
         StringBuilder matches = new StringBuilder();
         TreeMap<Integer, TreeSet<String>> allMatches = new TreeMap<>();
         for (String s : set) {
