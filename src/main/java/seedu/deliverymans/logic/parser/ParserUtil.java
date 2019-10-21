@@ -2,6 +2,8 @@ package seedu.deliverymans.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -106,5 +108,37 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String price} into a {@code BigDecimal}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static BigDecimal parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        try {
+            return new BigDecimal(trimmedPrice);
+        } catch (NumberFormatException e) {
+            throw new ParseException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Parses a {@code String duration} in seconds into a {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code duration} is invalid.
+     */
+    public static Duration parseSeconds(String seconds) throws ParseException {
+        requireNonNull(seconds);
+        String trimmedSeconds = seconds.trim();
+        try {
+            return Duration.ofSeconds(Long.parseLong(trimmedSeconds));
+        } catch (NumberFormatException e) {
+            throw new ParseException(e.getMessage(), e);
+        }
     }
 }
