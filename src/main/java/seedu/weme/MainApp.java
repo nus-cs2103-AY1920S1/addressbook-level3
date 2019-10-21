@@ -81,7 +81,7 @@ public class MainApp extends Application {
             if (!memeBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample MemeBook");
             }
-            initialData = memeBookOptional.orElseGet(SampleDataUtil::getSampleMemeBook);
+            initialData = memeBookOptional.orElseGet(() -> SampleDataUtil.getSampleMemeBook(userPrefs));
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MemeBook");
             initialData = new MemeBook();
