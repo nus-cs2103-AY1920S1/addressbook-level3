@@ -7,7 +7,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FilterByTagCommand;
 import seedu.address.model.Model;
+import seedu.address.model.StudyBuddyItem;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
+
+import java.util.ArrayList;
 
 /**
  * Command to filter cheatsheets(s) with the related tag(s).
@@ -38,7 +42,15 @@ public class FilterCheatSheetByTagCommand extends Command implements FilterByTag
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        ArrayList<CheatSheet> taggedCheatSheetResult = model.collectTaggedCheatSheets(tagPredicate);
         model.updateFilteredCheatSheetList(tagPredicate);
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS + FilterByTagCommand.displayTagKeywords(tagKeywords));
+        StringBuilder sb = new StringBuilder("");
+        for (CheatSheet cs : taggedCheatSheetResult) {
+            sb.append(cs);
+            sb.append("\n");
+        }
+        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
+                + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
+                + "\n" + sb.toString());
     }
 }
