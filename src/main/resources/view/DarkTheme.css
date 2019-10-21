@@ -342,11 +342,18 @@
     -fx-vgap: 3;
 }
 
-#tags .label {
+#predOp, #actOp, #predAttr, #predVal, #actVal {
+    -fx-padding: 1 3 3 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+#predOp, #actOp {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-background-color: #f67280;
+}
+
+#predAttr, #predVal, #actVal {
+    -fx-text-fill: black;
+    -fx-background-color: #f8b595;
 }

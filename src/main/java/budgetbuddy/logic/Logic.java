@@ -9,6 +9,7 @@ import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.person.Person;
+import budgetbuddy.model.rule.Rule;
 import javafx.collections.ObservableList;
 
 /**
@@ -33,6 +34,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the list of rules */
+    ObservableList<Rule> getRuleList();
 
     /**
      * Returns the user prefs' address book file path.

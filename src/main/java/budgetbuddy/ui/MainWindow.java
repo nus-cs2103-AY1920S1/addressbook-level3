@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     //private PersonListPanel personListPanel;
+    private RuleListPanel ruleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -41,8 +42,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    //@FXML
-    //private StackPane personListPanelPlaceholder;
+    @FXML
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -110,6 +111,10 @@ public class MainWindow extends UiPart<Stage> {
         //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        // TODO: Handle which panels should show and which should not.
+        ruleListPanel = new RuleListPanel(logic.getRuleList());
+        listPanelPlaceholder.getChildren().add(ruleListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -160,7 +165,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /**public PersonListPanel getPersonListPanel() {
+    /*public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }*/
 

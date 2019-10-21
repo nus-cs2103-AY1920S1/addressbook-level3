@@ -15,6 +15,7 @@ import budgetbuddy.logic.script.ScriptManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.person.Person;
+import budgetbuddy.model.rule.Rule;
 import budgetbuddy.storage.Storage;
 import javafx.collections.ObservableList;
 
@@ -67,6 +68,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Rule> getRuleList() {
+        return model.getRuleManager().getRuleList();
     }
 
     @Override
