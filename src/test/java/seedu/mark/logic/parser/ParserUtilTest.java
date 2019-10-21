@@ -3,7 +3,6 @@ package seedu.mark.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.mark.logic.parser.ParserUtil.parseParagraphIdentifier;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 

@@ -8,12 +8,12 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 public enum Highlight {
     YELLOW, ORANGE, GREEN, PINK;
 
+    public static final String MESSAGE_INVALID_COLOUR = "Highlight colours available: yellow, orange, green and pink.";
+
     @Override
     public String toString() {
         return name().toLowerCase();
     }
-
-    public static final String MESSAGE_INVALID_COLOUR = "Highlight colours available: yellow, orange, green and pink.";
 
     /**
      * Parses a string of a colour into a {@code Highlight}.

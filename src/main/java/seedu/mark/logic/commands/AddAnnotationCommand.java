@@ -23,6 +23,9 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.storage.Storage;
 
+/**
+ * Annotates a paragraph with an {@code Annotation}.
+ */
 public class AddAnnotationCommand extends Command {
 
     public static final String COMMAND_WORD = "annotate";
@@ -76,10 +79,10 @@ public class AddAnnotationCommand extends Command {
         Bookmark bookmarkOwnerOfCache = lastShownList.get(index.getZeroBased());
         List<CachedCopy> caches = bookmarkOwnerOfCache.getCachedCopies();
         if (caches.isEmpty()) {
-            //TODO: maybe - create cache if it does not exist so they can annnotate immediately. see how (need to change ug and dg too)
+            //TODO: maybe - create cache if it dne so they can annotate immediately. (then need to change ug and dg too)
             throw new CommandException(MESSAGE_NO_CACHE_AVAILABLE);
         }
-        //TODO: pick out the appropriate cache. (ug needs to change; default version on newwest cache; but can access others too)
+        //TODO: pick out the appropriate cache. (change ug; default version on newwest cache; but can access others too)
         CachedCopy c = caches.get(0);
         OfflineDocument doc = c.getAnnotations();
         Annotation an;

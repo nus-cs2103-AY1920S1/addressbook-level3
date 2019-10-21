@@ -1,9 +1,12 @@
 package seedu.mark.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;

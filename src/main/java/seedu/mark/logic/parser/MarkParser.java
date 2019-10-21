@@ -6,10 +6,10 @@ import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.mark.logic.commands.AddAnnotationCommand;
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AddReminderCommand;
-import seedu.mark.logic.commands.AddAnnotationCommand;
 import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;

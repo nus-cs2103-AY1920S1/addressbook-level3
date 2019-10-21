@@ -102,7 +102,7 @@ public class OfflineDocument {
 
     public static final Document OFFLINE_DOC_EXAMPLE = Jsoup.parse(OFFLINE_HTML_EXAMPLE);
 
-    public static final Logger logger = LogsCenter.getLogger(OfflineDocument.class);
+    public final Logger logger = LogsCenter.getLogger(OfflineDocument.class);
 
     /** Paragraphs with notes. */
     private HashMap<ParagraphIdentifier, Paragraph> paragraphs;
@@ -162,13 +162,19 @@ public class OfflineDocument {
         }
     }
 
+    /**
+     * Adds an annotation to the specified paragraph.
+     * @param pid The id of the paragraph to annotate
+     * @param an The annotation to annotate
+     * @throws IllegalValueException if {@code pid} is invalid.
+     */
     public void addAnnotation(ParagraphIdentifier pid, Annotation an) throws IllegalValueException {
         //for (ParagraphIdentifier id : paragraphs.keySet()) logger.info("this doc currently has pid: "+id);
         //logger.info("but i want to find pid: "+pid);
         Paragraph p = paragraphs.get(pid);
         if (p == null) {
-            throw new IllegalValueException("Annotate: invalid paragraph index provided. " +
-                    "Unable to annotate nonexistent paragraph.");
+            throw new IllegalValueException("Annotate: invalid paragraph index provided. "
+                    + "Unable to annotate nonexistent paragraph.");
         }
         p.addAnnotation(an);
     }
