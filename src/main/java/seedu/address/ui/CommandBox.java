@@ -1,23 +1,26 @@
 package seedu.address.ui;
 
 import java.util.List;
+
 import javafx.collections.ObservableList;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
-import seedu.address.logic.util.Action;
 import seedu.address.logic.UiLogicHelper;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.util.ModeEnum;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.util.Action;
+import seedu.address.logic.util.ModeEnum;
+
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -55,6 +58,9 @@ public class CommandBox extends UiPart<Region> {
 
     }
 
+    /**
+     *  Sets change detection callback to textfield
+     */
     private void initialiseText() {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
@@ -65,6 +71,11 @@ public class CommandBox extends UiPart<Region> {
         });
     }
 
+    /**
+     * updates menu based on changes detected
+     * @param oldCommand in text field
+     * @param newCommand in text field
+     */
     private void updateMenu(String oldCommand, String newCommand) {
         commandMenuField.getMenus().clear();
         for (Action temp : uiLogicHelper.getMenuItems(newCommand)) {
@@ -81,6 +92,9 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    /**
+     *  Fills in Menu bar in UI
+     */
     private void fillMenu() {
         for (Action temp : uiLogicHelper.getMenuItems("")) {
             Label label = new Label(temp.toString());
@@ -96,19 +110,22 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    /**
+     *  Fills in combo in ui
+     */
     private void fillCombo() {
         List<ModeEnum> temp = uiLogicHelper.getModes();
         EventHandler<ActionEvent> event =
-                new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent e) {
-                        try {
-                            commandExecutor.execute(commandComboField.getValue());
-                        } catch (CommandException | ParseException ex) {
-                            setStyleToIndicateCommandFailure();
-                        }
-
+            new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e) {
+                    try {
+                        commandExecutor.execute(commandComboField.getValue());
+                    } catch (CommandException | ParseException ex) {
+                        setStyleToIndicateCommandFailure();
                     }
-                };
+
+                }
+            };
         commandComboField.setOnAction(event);
         for (ModeEnum mode : temp) {
             commandComboField.getItems().add(mode.toString());

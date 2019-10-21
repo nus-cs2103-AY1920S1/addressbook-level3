@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+/**
+ * Pair class helps to hold two classes together.
+ */
 public class ClassPair {
 
     private Class command;

@@ -1,49 +1,36 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.List;
-import java.util.ArrayList;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.SwitchCommand;
-import seedu.address.logic.commands.app.AddCommand;
-import seedu.address.logic.commands.app.ClearCommand;
-import seedu.address.logic.commands.app.DeleteCommand;
-import seedu.address.logic.commands.app.EditCommand;
-import seedu.address.logic.commands.app.ExitCommand;
-import seedu.address.logic.commands.app.FindCommand;
 import seedu.address.logic.commands.app.HelpCommand;
-import seedu.address.logic.commands.app.ListCommand;
-import seedu.address.logic.commands.game.GuessCommand;
-import seedu.address.logic.commands.game.SkipCommand;
-import seedu.address.logic.commands.game.StopCommand;
-import seedu.address.logic.commands.settings.DifficultyCommand;
+import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.commands.switches.BankCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.LoadScreenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
-import seedu.address.logic.commands.exceptions.ModeSwitchException;
-import seedu.address.logic.util.ModeEnum;
-import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.AppModeParser;
-import seedu.address.logic.parser.LoadModeParser;
-import seedu.address.logic.parser.SettingsModeParser;
-import seedu.address.logic.parser.GameModeParser;
+import seedu.address.logic.util.AutoFillAction;
+import seedu.address.logic.util.ModeEnum;
+
+
 
 /**
  * Parses user input.
  */
 public class ParserManager {
+
+    /**
+     * Used for initial separation of command word and args.
+     */
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private ModeParser modeParser;
     private ModeEnum mode;
@@ -76,11 +63,16 @@ public class ParserManager {
             return new SettingsModeParser();
         case GAME:
             return new GameModeParser();
+        default:
+            return null;
         }
-        return null;
     }
 
 
+    /**
+     * Sets new state within parsermanager if command was successful.
+     * @param command
+     */
     public void updateState(Command command) {
         if (command.postcondition() && tempMode != null) {
             mode = tempMode;
@@ -106,11 +98,6 @@ public class ParserManager {
 
 
     /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    /**
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
@@ -130,6 +117,12 @@ public class ParserManager {
         }
     }
 
+    /**
+     * Checks if current input is requesting a switch mode command.
+     * @param userInput
+     * @return
+     * @throws ParseException
+     */
     private SwitchCommand checkSwitchMode(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {

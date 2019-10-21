@@ -1,17 +1,26 @@
 package seedu.address.logic;
 
-import java.util.List;
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.util.ModeEnum;
-import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.util.AutoFillAction;
+import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -19,13 +28,6 @@ import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
 
 
 /**
