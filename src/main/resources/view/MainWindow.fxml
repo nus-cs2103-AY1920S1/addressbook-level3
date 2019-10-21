@@ -14,7 +14,7 @@
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="PalPay" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/bank_building_32.png"/>
+        <Image url="@/images/palpay_32.png"/>
     </icons>
     <scene>
         <Scene>
