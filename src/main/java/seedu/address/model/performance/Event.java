@@ -16,7 +16,7 @@ public class Event {
 
     /**
      * Creates a type of event that stores the members and their respective timings (performance) for this event.
-     * @param name Name of this event.
+     * @param name of this event.
      */
     public Event(String name) {
         this.name = name;
@@ -27,8 +27,28 @@ public class Event {
      * Retrieves a list of all events.
      * @return List of all events.
      */
-    public ArrayList<Event> getEvents() {
+    public static ArrayList<Event> getEvents() {
         return events;
     }
 
+    public static void addEvent(String name) {
+        Event newEvent = new Event(name);
+        events.add(newEvent);
+    }
+
+    /**
+     * Checks if an event with the specified name exists in the event list, case insensitive.
+     * @param name of event to check for.
+     * @return Whether an event with the specified name exists.
+     */
+    public static boolean doesExist(String name) {
+        String queryName = name.toLowerCase();
+        for (Event event : events) {
+            String eventName = event.name.toLowerCase();
+            if (eventName.equals(queryName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
