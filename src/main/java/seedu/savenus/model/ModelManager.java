@@ -174,6 +174,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setPurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory) {
+        this.purchaseHistory.resetData(purchaseHistory);
+    }
+
+    @Override
     public void addPurchase(Purchase target) {
         purchaseHistory.addPurchase(target);
     }
@@ -360,6 +365,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlySavingsAccount getSavingsAccount() {
         return savingsAccount;
+    }
+
+    @Override
+    public void setSavingsAccount(ReadOnlySavingsAccount savingsAccount) {
+        this.savingsAccount.resetData(savingsAccount);
     }
 
     @Override

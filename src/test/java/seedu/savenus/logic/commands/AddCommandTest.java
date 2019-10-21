@@ -21,6 +21,10 @@ import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
+import seedu.savenus.model.PurchaseHistory;
+import seedu.savenus.model.ReadOnlyMenu;
+import seedu.savenus.model.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
@@ -179,6 +183,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setPurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPurchase(Purchase purchase) {
             throw new AssertionError("This method should not be called.");
         }
@@ -315,6 +324,11 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlySavingsAccount getSavingsAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSavingsAccount(ReadOnlySavingsAccount savingsAccount) {
             throw new AssertionError("This method should not be called.");
         }
     }

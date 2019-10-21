@@ -131,8 +131,13 @@ public interface Model {
      */
     void setPurchaseHistoryFilePath(Path menuFilePath);
 
-    /** Returns the $aveNUS menu */
+    /** Returns the $aveNUS purchase history */
     ReadOnlyPurchaseHistory getPurchaseHistory();
+
+    /**
+     * Replaces purchasing history data with the data in {@code purchaseHistory}.
+     */
+    void setPurchaseHistory(ReadOnlyPurchaseHistory purchaseHistory);
 
     /** Returns an unmodifiable view of the {@code PurchaseHistory} */
     ObservableList<Purchase> getPurchaseHistoryList();
@@ -278,4 +283,9 @@ public interface Model {
      * Return an unmodifiable version of the user's SavingsAccount.
      */
     ReadOnlySavingsAccount getSavingsAccount();
+
+    /**
+     * Replaces purchasing history data with the data in {@code purchaseHistory}.
+     */
+    void setSavingsAccount(ReadOnlySavingsAccount savingsAccount);
 }
