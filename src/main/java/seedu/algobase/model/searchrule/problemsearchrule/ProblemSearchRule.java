@@ -1,10 +1,18 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a search rule on finding {@code Problem} in AlgoBase.
  * Guarantees: details are present and not null, field values are immutable.
  */
 public class ProblemSearchRule {
+
+    // Identity field(s)
+    private final String name;
+
+    // Data field(s)
     private final NameContainsKeywordsPredicate namePredicate;
     private final AuthorMatchesKeywordPredicate authorPredicate;
     private final DescriptionContainsKeywordsPredicate descriptionPredicate;
@@ -18,30 +26,30 @@ public class ProblemSearchRule {
     private final boolean hasDefaultDifficultyPredicate;
     private final boolean hasDefaultTagPredicate;
 
-    public ProblemSearchRule (NameContainsKeywordsPredicate namePredicate,
+    public ProblemSearchRule(String name, NameContainsKeywordsPredicate namePredicate,
                              AuthorMatchesKeywordPredicate authorPredicate,
                              DescriptionContainsKeywordsPredicate descriptionPredicate,
                              SourceMatchesKeywordPredicate sourcePredicate,
                              DifficultyIsInRangePredicate difficultyPredicate,
-                             TagIncludesKeywordsPredicate tagPredicate,
-                             boolean hasDefaultNamePredicate,
-                             boolean hasDefaultAuthorPredicate,
-                            boolean hasDefaultDescriptionPredicate,
-                            boolean hasDefaultSourcePredicate,
-                            boolean hasDefaultDifficultyPredicate,
-                            boolean hasDefaultTagPredicate) {
+                             TagIncludesKeywordsPredicate tagPredicate) {
+        requireNonNull(name);
+        this.name = name;
         this.namePredicate = namePredicate;
         this.authorPredicate = authorPredicate;
         this.descriptionPredicate = descriptionPredicate;
         this.sourcePredicate = sourcePredicate;
         this.difficultyPredicate = difficultyPredicate;
         this.tagPredicate = tagPredicate;
-        this.hasDefaultNamePredicate = hasDefaultNamePredicate;
-        this.hasDefaultAuthorPredicate = hasDefaultAuthorPredicate;
-        this.hasDefaultDescriptionPredicate = hasDefaultDescriptionPredicate;
-        this.hasDefaultSourcePredicate = hasDefaultSourcePredicate;
-        this.hasDefaultDifficultyPredicate = hasDefaultDifficultyPredicate;
-        this.hasDefaultTagPredicate = hasDefaultTagPredicate;
+        this.hasDefaultNamePredicate = isNull(namePredicate);
+        this.hasDefaultAuthorPredicate = isNull(authorPredicate);
+        this.hasDefaultDescriptionPredicate = isNull(descriptionPredicate);
+        this.hasDefaultSourcePredicate = isNull(sourcePredicate);
+        this.hasDefaultDifficultyPredicate = isNull(difficultyPredicate);
+        this.hasDefaultTagPredicate = isNull(tagPredicate);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public NameContainsKeywordsPredicate getNamePredicate() {
@@ -90,5 +98,23 @@ public class ProblemSearchRule {
 
     public boolean hasDefaultTagPredicate() {
         return hasDefaultTagPredicate;
+    }
+
+    /**
+     * Returns true when {@code other} has the same identity field(s) as {@code this}.
+     * @param other
+     */
+    public boolean isSameProblemSearchRule(ProblemSearchRule other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other != null
+            && other.getName().equals(getName());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

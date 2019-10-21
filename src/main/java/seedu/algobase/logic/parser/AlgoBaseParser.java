@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.algobase.logic.commands.AddCommand;
+import seedu.algobase.logic.commands.AddFindRuleCommand;
 import seedu.algobase.logic.commands.AddPlanCommand;
 import seedu.algobase.logic.commands.AddTagCommand;
 import seedu.algobase.logic.commands.AddTaskCommand;
@@ -59,7 +60,7 @@ public class AlgoBaseParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        //Problem
+        // Problem
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
@@ -78,7 +79,7 @@ public class AlgoBaseParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
-        //Plan
+        // Plan
         case AddPlanCommand.COMMAND_WORD:
             return new AddPlanCommandParser().parse(arguments);
 
@@ -94,7 +95,7 @@ public class AlgoBaseParser {
         case ListPlanCommand.COMMAND_WORD:
             return new ListPlanCommand();
 
-        //Task
+        // Task
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
 
@@ -107,7 +108,11 @@ public class AlgoBaseParser {
         case UndoneTaskCommand.COMMAND_WORD:
             return new UndoneTaskCommandParser().parse(arguments);
 
-        //Util
+        // Find Rule
+        case AddFindRuleCommand.COMMAND_WORD:
+            return new AddFindRuleCommandParser().parse(arguments);
+
+        // Util
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 

@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.model.GuiState;
 import seedu.algobase.model.Model;
@@ -14,6 +13,7 @@ import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.ReadOnlyUserPrefs;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -179,6 +179,26 @@ public class DefaultModelStub implements Model {
 
     @Override
     public ObservableList<Task> getCurrentTaskList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasFindRule(ProblemSearchRule rule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addFindRule(ProblemSearchRule rule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteFindRule(ProblemSearchRule rule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
         throw new AssertionError("This method should not be called.");
     }
 }

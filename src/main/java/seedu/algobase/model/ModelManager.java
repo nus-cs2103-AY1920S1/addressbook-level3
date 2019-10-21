@@ -16,6 +16,7 @@ import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -287,6 +288,32 @@ public class ModelManager implements Model {
         return filteredTasks;
     }
 
+    //========== Find Rules =============================================================
+
+    @Override
+    public boolean hasFindRule(ProblemSearchRule rule) {
+        requireNonNull(rule);
+        return algoBase.hasFindRule(rule);
+    }
+
+    @Override
+    public void addFindRule(ProblemSearchRule rule) {
+        requireNonNull(rule);
+        algoBase.addFindRule(rule);
+    }
+
+    @Override
+    public void deleteFindRule(ProblemSearchRule rule) {
+        requireNonNull(rule);
+        algoBase.removeFindRule(rule);
+    }
+
+    @Override
+    public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
+        requireAllNonNull(target, editedRule);
+        algoBase.setFindRule(target, editedRule);
+    }
+
     //========== Util ===================================================================
 
     @Override
@@ -304,7 +331,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return algoBase.equals(other.algoBase)
-                && userPrefs.equals(other.userPrefs)
-                && filteredProblems.equals(other.filteredProblems);
+            && userPrefs.equals(other.userPrefs)
+            && filteredProblems.equals(other.filteredProblems);
     }
 }

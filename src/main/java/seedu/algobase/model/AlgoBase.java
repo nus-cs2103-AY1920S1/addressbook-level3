@@ -1,6 +1,7 @@
 package seedu.algobase.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -9,6 +10,8 @@ import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanList;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.UniqueProblemList;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
+import seedu.algobase.model.searchrule.problemsearchrule.UniqueFindRuleList;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.tag.UniqueTagList;
 import seedu.algobase.model.task.Task;
@@ -22,6 +25,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     private final UniqueProblemList problems;
     private final UniqueTagList tags;
     private final PlanList plans;
+    private final UniqueFindRuleList findRules;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,6 +38,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         problems = new UniqueProblemList();
         plans = new PlanList();
         tags = new UniqueTagList();
+        findRules = new UniqueFindRuleList();
     }
 
     public AlgoBase() {}
@@ -197,6 +202,54 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     @Override
     public ObservableList<Task> getCurrentTaskList() {
         return plans.getUnmodifiableObservableTaskList();
+    }
+
+    //========== Find Rules =============================================================
+
+    @Override
+    public ObservableList<ProblemSearchRule> getFindRules() {
+        return findRules.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns true of {@code rule} has the same identity as one {@code ProblemSearchRule} in AlgoBase.
+     * @param rule
+     */
+    public boolean hasFindRule(ProblemSearchRule rule) {
+        requireNonNull(rule);
+        return findRules.contains(rule);
+    }
+
+    /**
+     * Adds a {@code rule} into AlgoBase's list of {@code ProblemSearchRule}.
+     * @param rule
+     */
+    public void addFindRule(ProblemSearchRule rule) {
+        requireNonNull(rule);
+        findRules.add(rule);
+    }
+
+    /**
+     * Replaces a given {@code ProblemSearchRule} in the AlgoBase with an edited {@code ProblemSearchRule}.
+     * {@code target} must exist in the Algobase.
+     * The identity of {@code editedRule} must not be the same as another existing {@code ProblemSearchRule}
+     * in the algobase.
+     * @param target
+     * @param editedRule
+     */
+    public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
+        requireAllNonNull(target, editedRule);
+        findRules.setFindRule(target, editedRule);
+    }
+
+    /**
+     * Removes a given {@code ProblemSearchRule} in the AlgoBase.
+     * {@code toRemove} must exist in the Algobase.
+     * @param toRemove
+     */
+    public void removeFindRule(ProblemSearchRule toRemove) {
+        requireNonNull(toRemove);
+        findRules.remove(toRemove);
     }
 
     //========== Util ===================================================================

@@ -38,6 +38,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argumentMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION, PREFIX_SOURCE,
