@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 import static seedu.moneygowhere.testutil.TypicalSpendings.HOON;
 import static seedu.moneygowhere.testutil.TypicalSpendings.IDA;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
@@ -74,6 +75,7 @@ public class JsonSpendingBookStorageTest {
         // Modify data, overwrite exiting file, and read back
         original.addSpending(HOON);
         original.removeSpending(ALICE);
+        original.removeReminder(BILL_REMINDER);
         jsonSpendingBookStorage.saveSpendingBook(original, filePath);
         readBack = jsonSpendingBookStorage.readSpendingBook(filePath).get();
         assertEquals(original, new SpendingBook(readBack));

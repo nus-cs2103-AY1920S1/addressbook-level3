@@ -114,6 +114,14 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     /**
+     * Returns true if a Reminder with the same identity as {@code Reminder} exists in MoneyGoWhere.
+     */
+    public boolean hasReminder(Reminder reminder) {
+        requireNonNull(reminder);
+        return reminders.contains(reminder);
+    }
+
+    /**
      * Adds a Reminder to the reminder list.
      */
     public void addReminder(Reminder r) {

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import seedu.moneygowhere.commons.exceptions.IllegalValueException;
 import seedu.moneygowhere.commons.util.JsonUtil;
 import seedu.moneygowhere.model.SpendingBook;
-import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.testutil.TypicalSpendings;
 
 public class JsonSerializableSpendingBookTest {
@@ -28,12 +27,6 @@ public class JsonSerializableSpendingBookTest {
                 JsonSerializableSpendingBook.class).get();
         SpendingBook spendingBookFromFile = dataFromFile.toModelType();
         SpendingBook typicalSpendingBook = TypicalSpendings.getTypicalSpendingBook();
-        for (Reminder r: spendingBookFromFile.getReminderList()) {
-            System.out.println(r.toString());
-        }
-        for (Reminder r: typicalSpendingBook.getReminderList()) {
-            System.out.println(r.toString());
-        }
         assertEquals(spendingBookFromFile, typicalSpendingBook);
     }
 

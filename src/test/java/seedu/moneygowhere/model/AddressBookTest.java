@@ -7,6 +7,7 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.ALICE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getSpendingList());
+        assertEquals(Collections.emptyList(), addressBook.getReminderList());
         assertEquals(new Budget(0), addressBook.getBudget());
     }
 
@@ -64,14 +66,30 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasReminder_nullReminder_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasReminder(null));
+    }
+
+    @Test
     public void hasSpending_spendingNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasSpending(ALICE));
+    }
+
+    @Test
+    public void hasReminder_reminderNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasReminder(BILL_REMINDER));
     }
 
     @Test
     public void hasSpending_spendingInAddressBook_returnsTrue() {
         addressBook.addSpending(ALICE);
         assertTrue(addressBook.hasSpending(ALICE));
+    }
+
+    @Test
+    public void hasReminder_reminderInAddressBook_returnsTrue() {
+        addressBook.addReminder(BILL_REMINDER);
+        assertTrue(addressBook.hasReminder(BILL_REMINDER));
     }
 
     @Test

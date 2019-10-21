@@ -16,6 +16,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
+import seedu.moneygowhere.model.reminder.ReminderMessage;
 import seedu.moneygowhere.model.spending.Cost;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Name;
@@ -36,6 +37,7 @@ public class ParserUtilTest {
     private static final String VALID_REMARK = "Likes to watch movies";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_REMINDER_MESSAGE = "Pay school fee";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -214,5 +216,18 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseReminderMessage_validValueWithoutWhitespace_returnsReminderMessage() throws Exception {
+        ReminderMessage expectedReminderMessage = new ReminderMessage(VALID_REMINDER_MESSAGE);
+        assertEquals(expectedReminderMessage, ParserUtil.parseMessage(VALID_REMINDER_MESSAGE));
+    }
+
+    @Test
+    public void parseReminderMessage_validValueWithWhitespace_returnsTrimmedReminderMessage() throws Exception {
+        String reminderMessageWithWhitespace = WHITESPACE + VALID_REMINDER_MESSAGE + WHITESPACE;
+        ReminderMessage expectedReminderMessage = new ReminderMessage(VALID_REMINDER_MESSAGE);
+        assertEquals(expectedReminderMessage, ParserUtil.parseMessage(reminderMessageWithWhitespace));
     }
 }
