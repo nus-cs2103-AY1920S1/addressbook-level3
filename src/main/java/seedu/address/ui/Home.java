@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -55,7 +57,7 @@ public class Home extends UiPart<Region> {
      * @param logic Transaction Logic
      * @return List of transactions
      */
-    private List<Transaction> parseTransactionList(Logic logic) {
+    private ObservableList<Transaction> parseTransactionList(Logic logic) {
         // parse and construct User data model list by looping your transaction list
         // and return the list
         List<Transaction> list = new ArrayList<>();
@@ -63,6 +65,7 @@ public class Home extends UiPart<Region> {
             logic.getFilteredList().get(i).setId(i + 1);
             list.add(logic.getFilteredList().get(i));
         }
-        return list;
+        ObservableList<Transaction> obvList = FXCollections.observableList(list);
+        return obvList;
     }
 }
