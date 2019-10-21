@@ -20,7 +20,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -72,16 +71,10 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-    }
-
-    @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+        // Setup LogicManager with JsonCatalogIoExceptionThrowingStub
         JsonCatalogStorage catalogStorage =
-                new JsonCatalogIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+                new JsonCatalogIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCatalog.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonBorrowerRecordsStorage borrowerRecordsStorage =
@@ -173,5 +166,6 @@ public class LogicManagerTest {
         public void saveCatalog(ReadOnlyCatalog addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
+
     }
 }

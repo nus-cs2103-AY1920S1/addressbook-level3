@@ -36,6 +36,11 @@ public class LoanId {
         return test.matches(VALIDATION_REGEX);
     }
 
+    private int loanIdToInt() {
+        assert this.value.length() > 0 : "Invalid Loan id";
+        return Integer.parseInt(this.toString().substring(1));
+    }
+
     @Override
     public String toString() {
         return value;

@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.LoanSlipException;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
@@ -82,6 +84,16 @@ public class StorageManager implements Storage {
     public void saveLoanRecords(ReadOnlyLoanRecords loanRecords, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         loanRecordsStorage.saveLoanRecords(loanRecords, filePath);
+    }
+
+    @Override
+    public void storeNewLoanSlip() throws LoanSlipException {
+        LoanSlipUtil.createLoanSlipInDirectory();
+    }
+
+    @Override
+    public void openNewLoanSlip() {
+        LoanSlipUtil.openLoanSlip();
     }
 
     // ================ Catalog methods ==============================
