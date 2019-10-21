@@ -358,7 +358,7 @@ public class ModelManager implements Model {
         filteredCheatSheets.setPredicate(predicate);
     }
 
-    //========================COLLECT TAGGED ITEMS======================================
+    //========================COLLECT TAGGED ITEMS TO DISPLAY======================================
     @Override
     public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
         ArrayList<StudyBuddyItem> taggedItems = new ArrayList<>();

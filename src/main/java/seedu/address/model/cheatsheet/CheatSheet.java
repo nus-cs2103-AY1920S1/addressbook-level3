@@ -14,22 +14,21 @@ import seedu.address.model.tag.Tag;
  * Represents a Cheatsheet object in the StudyBuddy application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class CheatSheet implements StudyBuddyItem {
+public class CheatSheet extends StudyBuddyItem {
     // Identity fields
     private final Title title;
 
     // Data fields
     private final Set<Content> contents = new HashSet<>();
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public CheatSheet(Title title, Set<Content> contents, Set<Tag> tags) {
+        super(tags);
         requireAllNonNull(title, contents, tags);
         this.title = title;
         this.contents.addAll(contents);
-        this.tags.addAll(tags);
     }
 
     /**
@@ -38,21 +37,13 @@ public class CheatSheet implements StudyBuddyItem {
      * @param tags
      */
     public CheatSheet(Title title, Set<Tag> tags) {
+        super(tags);
         requireAllNonNull(title, tags);
         this.title = title;
-        this.tags.addAll(tags);
     }
 
     public Title getTitle() {
         return title;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     public Set<Content> getContents() {
@@ -92,16 +83,6 @@ public class CheatSheet implements StudyBuddyItem {
     }
 
     /**
-     * Returns true if the specified tag is found in this cheatsheet
-     * @param tag
-     * @return true or false depending
-     */
-    @Override
-    public boolean containsTag(Tag tag) {
-        return this.tags.contains(tag);
-    }
-
-    /**
      * Returns true if both cheatsheets have the same identity and data fields.
      * This defines a stronger notion of equality between two cheatsheets.
      */
@@ -124,7 +105,7 @@ public class CheatSheet implements StudyBuddyItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, contents, tags);
+        return Objects.hash(title, contents, getTags());
     }
 
     @Override
