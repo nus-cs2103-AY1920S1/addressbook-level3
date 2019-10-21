@@ -24,22 +24,22 @@ class ScheduleTest {
     @Test
     void isSameSchedule() {
         // same object -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule(SCHEDULEONE));
+        assertTrue(SCHEDULEONE.isSameAs(SCHEDULEONE));
 
         // null -> returns false
-        assertFalse(SCHEDULEONE.isSameSchedule(null));
+        assertFalse(SCHEDULEONE.isSameAs(null));
 
         // different id -> returns false
-        assertFalse(SCHEDULEONE.isSameSchedule(new ScheduleBuilder(SCHEDULEONE).withId(VALID_ID).build()));
+        assertFalse(SCHEDULEONE.isSameAs(new ScheduleBuilder(SCHEDULEONE).withId(VALID_ID).build()));
 
         // different calendar -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule(new ScheduleBuilder(SCHEDULEONE).withCalendar(VALID_CALENDAR).build()));
+        assertTrue(SCHEDULEONE.isSameAs(new ScheduleBuilder(SCHEDULEONE).withCalendar(VALID_CALENDAR).build()));
 
         // different venue -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule(new ScheduleBuilder(SCHEDULEONE).withVenue(VALID_VENUE).build()));
+        assertTrue(SCHEDULEONE.isSameAs(new ScheduleBuilder(SCHEDULEONE).withVenue(VALID_VENUE).build()));
 
         // different tags -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule(new ScheduleBuilder(SCHEDULEONE).withTags(VALID_TAG).build()));
+        assertTrue(SCHEDULEONE.isSameAs(new ScheduleBuilder(SCHEDULEONE).withTags(VALID_TAG).build()));
     }
 
     @Test

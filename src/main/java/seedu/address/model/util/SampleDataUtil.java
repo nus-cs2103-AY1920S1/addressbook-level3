@@ -7,9 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import seedu.address.model.CustomerBook;
-import seedu.address.model.OrderBook;
-import seedu.address.model.PhoneBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
@@ -83,9 +81,9 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyDataBook<Customer> getSampleCustomerBook() {
-        CustomerBook sampleCustBook = new CustomerBook();
+        DataBook<Customer> sampleCustBook = new DataBook<>();
         for (Customer sampleCustomer : getSampleCustomers()) {
-            sampleCustBook.addCustomer(sampleCustomer);
+            sampleCustBook.add(sampleCustomer);
         }
         return sampleCustBook;
     }
@@ -120,11 +118,28 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyDataBook<Phone> getSamplePhoneBook() {
-        PhoneBook samplePhoneBook = new PhoneBook();
+        DataBook<Phone> samplePhoneBook = new DataBook<>();
         for (Phone samplePhone : getSamplePhones()) {
-            samplePhoneBook.addPhone(samplePhone);
+            samplePhoneBook.add(samplePhone);
         }
         return samplePhoneBook;
+    }
+
+    public static Schedule[] getSampleSchedule() {
+        return new Schedule[] {
+            new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Kovan"),
+                        getTagSet("Rush")),
+            new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Orchard"),
+                        getTagSet("Office"))
+        };
+    }
+
+    public static ReadOnlyDataBook<Schedule> getSampleScheduleBook() {
+        DataBook<Schedule> sampleScheduleBook = new DataBook<>();
+        for (Schedule sampleSchedule : getSampleSchedule()) {
+            sampleScheduleBook.add(sampleSchedule);
+        }
+        return sampleScheduleBook;
     }
 
     /**
@@ -157,18 +172,38 @@ public class SampleDataUtil {
                         Capacity.SIZE_64GB, new Colour("White"), new Cost("$400"),
                         getTagSet("Used")),
                   new Price("$1500"),
-                    Status.UNSCHEDULED,
+                    Status.COMPLETED,
                     Optional.of(sampleSchedule()), getTagSet("New")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
                         new Email("lidavid@example.com"), getTagSet("family")),
                   new Phone(new IdentityNumber("352039075644270"),
                         new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
-                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$1000"),
+                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$540"),
                         getTagSet("New")),
                   new Price("$1200"),
-                    Status.UNSCHEDULED,
-                    Optional.of(sampleSchedule()), getTagSet("New"))
+                    Status.COMPLETED,
+                    Optional.of(sampleSchedule()), getTagSet("New")),
+            new Order(UUID.randomUUID(),
+                        new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
+                                new Email("lidavid@example.com"), getTagSet("family")),
+                        new Phone(new IdentityNumber("352039075644270"),
+                                new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
+                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$581"),
+                                getTagSet("New")),
+                        new Price("$1200"),
+                        Status.COMPLETED,
+                        Optional.of(sampleSchedule2()), getTagSet("New")),
+            new Order(UUID.randomUUID(),
+                        new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
+                                new Email("lidavid@example.com"), getTagSet("family")),
+                        new Phone(new IdentityNumber("352039075644270"),
+                                new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
+                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$95"),
+                                getTagSet("New")),
+                        new Price("$1200"),
+                        Status.COMPLETED,
+                        Optional.of(sampleSchedule3()), getTagSet("New"))
 
         };
     }
@@ -179,16 +214,38 @@ public class SampleDataUtil {
     private static Schedule sampleSchedule() {
         return new Schedule(
                 UUID.randomUUID(),
-                new Calendar.Builder().setDate(2018, 10, 02).build(),
+                new Calendar.Builder().setDate(2019, 10, 02).build(),
+                new Venue("test venue"),
+                getTagSet("New"));
+    }
+
+    /**
+     *Return sample Schedule object
+     */
+    private static Schedule sampleSchedule2() {
+        return new Schedule(
+                UUID.randomUUID(),
+                new Calendar.Builder().setDate(2019, 1, 31).build(),
+                new Venue("test venue"),
+                getTagSet("New"));
+    }
+    /**
+     *Return sample Schedule object
+     */
+    private static Schedule sampleSchedule3() {
+        return new Schedule(
+                UUID.randomUUID(),
+                new Calendar.Builder().setDate(2019, 4, 31).build(),
                 new Venue("test venue"),
                 getTagSet("New"));
     }
 
 
+
     public static ReadOnlyDataBook<Order> getSampleOrderBook() {
-        OrderBook sampleOrderBook = new OrderBook();
+        DataBook<Order> sampleOrderBook = new DataBook<>();
         for (Order sampleOrder : getSampleOrders()) {
-            sampleOrderBook.addOrder(sampleOrder);
+            sampleOrderBook.add(sampleOrder);
         }
         return sampleOrderBook;
     }

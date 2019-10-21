@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
-import seedu.address.model.ScheduleBook;
 import seedu.address.model.schedule.Schedule;
 
 /**
- * An Immutable ScheduleBook that is serializable to JSON format.
+ * An Immutable Schedule DataBook that is serializable to JSON format.
  */
 @JsonRootName(value = "schedulebook")
 class JsonSerializableScheduleBook {
@@ -41,18 +42,18 @@ class JsonSerializableScheduleBook {
     }
 
     /**
-     * Converts this schedule book into the model's {@code ScheduleBook} object.
+     * Converts this schedule book into the model's {@code DataBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public ScheduleBook toModelType() throws IllegalValueException {
-        ScheduleBook scheduleBook = new ScheduleBook();
+    public DataBook<Schedule> toModelType() throws IllegalValueException, ParseException {
+        DataBook<Schedule> scheduleBook = new DataBook<>();
         for (JsonAdaptedSchedule jsonAdaptedSchedule : schedules) {
             Schedule schedule = jsonAdaptedSchedule.toModelType();
-            if (scheduleBook.hasSchedule(schedule)) {
+            if (scheduleBook.has(schedule)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_SCHEDULE);
             }
-            scheduleBook.addSchedule(schedule);
+            scheduleBook.add(schedule);
         }
         return scheduleBook;
     }

@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -37,14 +38,14 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns the OrderBook.
+     * Returns the Order DataBook.
      *
      * @see seedu.address.model.Model#getOrderBook()
      */
     ReadOnlyDataBook<Order> getOrderBook();
 
     /**
-     * Returns the PhoneBook.
+     * Returns the Phone DataBook.
      *
      * @see seedu.address.model.Model#getPhoneBook()
      */
@@ -95,4 +96,22 @@ public interface Logic {
      * Gets logic to calculate total profit based on user input
      */
     String calculateTotalCost(StatsPayload statsPayload);
+
+     /**
+     * Gets logic to calculate total profit based on user input
+     * return a XYChart.series
+     */
+     XYChart.Series<String, Number> calculateTotalRevenueGraph(StatsPayload statsPayload);
+
+    /**
+     * Gets logic to calculate total cost based on user input
+     * return a XYChart.series
+     */
+    XYChart.Series<String, Number> calculateTotalCostGraph(StatsPayload statsPayload);
+
+    /**
+     * Gets logic to calculate total cost based on user input
+     * return a XYChart.series
+     */
+    XYChart.Series<String, Number> calculateTotalProfitGraph(StatsPayload statsPayload);
 }

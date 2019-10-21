@@ -10,6 +10,8 @@ import seedu.address.logic.commands.statisticcommand.StatisticType;
  */
 public class StatsPayload {
 
+    private final boolean isDefaultQuery;
+
     private final Calendar startingDate;
     private final Calendar endingDate;
     private final StatisticType statisticType;
@@ -25,6 +27,15 @@ public class StatsPayload {
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.statisticType = statisticType;
+        if (startingDate.equals(StatsParseUtil.MIN_DATE) && endingDate.equals(StatsParseUtil.MAX_DATE)) {
+            this.isDefaultQuery = true;
+        } else {
+            this.isDefaultQuery = false;
+        }
+    }
+
+    public boolean isDefaultQuery() {
+        return this.isDefaultQuery;
     }
 
     public Calendar getStartingDate() {

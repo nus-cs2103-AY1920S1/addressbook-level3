@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -185,6 +186,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsWindow.hide();
         primaryStage.hide();
     }
 
@@ -193,25 +195,47 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleStats(StatsPayload statsPayload) {
-        //calculate stats with input to logic manager
-        switch (statsPayload.getStatisticType()) {
-        case PROFIT:
-            String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
-            this.statsWindow.show();
-            break;
-        case REVENUE:
-            String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
-            this.statsWindow.show();
-            break;
-        case COST:
-            String totalCostResult = this.logic.calculateTotalCost(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
-            this.statsWindow.show();
-            break;
-        default:
-            throw new EnumNotPresentException("Enum not present in stat command");
+        if (statsPayload.isDefaultQuery()) {
+            switch (statsPayload.getStatisticType()) {
+            case PROFIT:
+                String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
+                this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
+                this.statsWindow.show();
+                break;
+            case REVENUE:
+                String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
+                this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
+                this.statsWindow.show();
+                break;
+            case COST:
+                String totalCostResult = this.logic.calculateTotalCost(statsPayload);
+                this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
+                this.statsWindow.show();
+                break;
+            default:
+                throw new EnumNotPresentException("Enum not present in stat command");
+            }
+        } else {
+            //calculate stats with input to logic manager
+            switch (statsPayload.getStatisticType()) {
+            case PROFIT:
+                XYChart.Series<String, Number> profitResult = this.logic.calculateTotalProfitGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Profit", profitResult);
+                this.statsWindow.show();
+                break;
+            case REVENUE:
+                XYChart.Series<String, Number> revenueResult = this.logic.calculateTotalRevenueGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Revenue", revenueResult);
+                this.statsWindow.show();
+                break;
+            case COST:
+                XYChart.Series<String, Number> costResult = this.logic.calculateTotalCostGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Cost", costResult);
+                this.statsWindow.show();
+                break;
+            default:
+                throw new EnumNotPresentException("Enum not present in stat command");
+            }
         }
     }
 

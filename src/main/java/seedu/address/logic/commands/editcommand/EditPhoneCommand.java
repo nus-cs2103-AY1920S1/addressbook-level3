@@ -91,7 +91,7 @@ public class EditPhoneCommand extends Command {
         Phone phoneToEdit = lastShownList.get(index.getZeroBased());
         Phone editedPhone = createEditedPhone(phoneToEdit, editPhoneDescriptor);
 
-        if (!phoneToEdit.isSamePhone(editedPhone) && model.hasPhone(editedPhone)) {
+        if (!phoneToEdit.isSameAs(editedPhone) && model.hasPhone(editedPhone)) {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
 

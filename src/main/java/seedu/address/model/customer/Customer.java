@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.Identifiable;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Customer in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Customer {
+public class Customer implements Identifiable<Customer> {
 
     // Identity fields
     private final CustomerName customerName;
@@ -55,21 +56,6 @@ public class Customer {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameCustomer(Customer otherCustomer) {
-        if (otherCustomer == this) {
-            return true;
-        }
-
-        return otherCustomer != null
-                && otherCustomer.getCustomerName().equals(getCustomerName())
-                && (otherCustomer.getContactNumber().equals(getContactNumber())
-                || otherCustomer.getEmail().equals(getEmail()));
-    }
-
-    /**
      * Returns true if both customers have the same identity and data fields.
      * This defines a stronger notion of equality between two customers.
      */
@@ -107,6 +93,18 @@ public class Customer {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    @Override
+    public boolean isSameAs(Customer other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other != null
+                && other.getCustomerName().equals(getCustomerName())
+                && (other.getContactNumber().equals(getContactNumber())
+                || other.getEmail().equals(getEmail()));
     }
 
 }

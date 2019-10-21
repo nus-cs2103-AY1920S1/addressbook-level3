@@ -16,7 +16,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 
 /**
- * A class to access CustomerBook data stored as a json file on the hard disk.
+ * A class to access Customer DataBook data stored as a json file on the hard disk.
  */
 public class JsonCustomerBookStorage implements CustomerBookStorage {
 

@@ -9,7 +9,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 
 /**
- * Represents a storage for {@link seedu.address.model.CustomerBook}.
+ * Represents a storage for {@link Customer} {@link seedu.address.model.DataBook}.
  */
 public interface CustomerBookStorage {
 
@@ -19,7 +19,7 @@ public interface CustomerBookStorage {
     Path getCustomerBookFilePath();
 
     /**
-     * Returns CustomerBook data as a {@link ReadOnlyDataBook}.
+     * Returns customer DataBook data as a {@link ReadOnlyDataBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
