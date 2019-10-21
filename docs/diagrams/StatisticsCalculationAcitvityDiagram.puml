@@ -5,14 +5,15 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 if () then ([Has date input])
-     :parse date input;
-     :create StatsPayload Object;
-else ([else])
+     :parse date input from user;
+     :create StatsPayload Object with this input;
 
+else ([else])
+    :create StatsPayload Object with default date;
 endif
 :command sends feedback to Ui;
 :MainWindow triggers call to Logic Manager;
-:calculate statistic of choice using logic manager;
+:logic manager uses statistic manager to calculate statistics;
 :display Statistics;
 stop
 @enduml

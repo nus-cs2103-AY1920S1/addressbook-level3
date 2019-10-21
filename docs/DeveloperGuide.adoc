@@ -154,6 +154,20 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
+=== Statistics Calculation and Chart generation feature
+==== Implementation
+
+This statistic calculation and chart generation feature
+extends `Seller Manager Lite` which allows seller to quickly
+generate total statistics from their `DataBooks`, through the use
+of a `statistic` module that handles this calculation.
+
+It implements the following mode of operations:
+
+* default mode with no date input: generates on completed order total `profit` , `cost` or `revenue`
+* mode with date input: takes in 2 `dates`, starting date and ending date and generates the `profit`
+, `cost` or `revenue`  each `month` between this 2 dates.
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
