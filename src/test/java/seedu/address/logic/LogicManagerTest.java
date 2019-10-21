@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exercise.ListExerciseCommand;
 import seedu.address.logic.commands.profile.AddProfileCommand;
+import seedu.address.logic.commands.recipe.ListRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -86,19 +87,19 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete exercise 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    public void execute_validRecipeCommand_success() throws Exception {
+        String listCommand = ListRecipeCommand.COMMAND_WORD + " " + ListRecipeCommand.VARIANT_WORD;
+        assertCommandSuccess(listCommand, ListRecipeCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
     public void execute_validExerciseCommand_success() throws Exception {
-        String listCommand = ListExerciseCommand.COMMAND_WORD;
+        String listCommand = ListExerciseCommand.COMMAND_WORD + " " + ListExerciseCommand.VARIANT_WORD;
         assertCommandSuccess(listCommand, ListExerciseCommand.MESSAGE_SUCCESS, model);
     }
 
@@ -130,8 +131,8 @@ public class LogicManagerTest {
         //String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD + " " + NAME_DESC_FISH
         //        + INGREDIENT_DESC_FISH + CALORIES_DESC_FISH + CARBS_DESC_FISH + FATS_DESC_FISH + PROTEIN_DESC_FISH;
         //Recipe expectedRecipe = new RecipeBuilder(FISH).build();
-        String addCommand = AddProfileCommand.COMMAND_WORD + NAME_DESC_AMY + DOB_DESC + GENDER_DESC
-                + BLOODTYPE_DESC + HEIGHT_DESC + WEIGHT_DESC;
+        String addCommand = AddProfileCommand.COMMAND_WORD + " " + AddProfileCommand.VARIANT_WORD
+                + NAME_DESC_AMY + DOB_DESC + GENDER_DESC + BLOODTYPE_DESC + HEIGHT_DESC + WEIGHT_DESC;
         Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
         //Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
         //       .withDetails(null, null, null, null, null, null)
