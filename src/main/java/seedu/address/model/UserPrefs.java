@@ -19,6 +19,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path templateListFilePath = Paths.get("data" , "templateList.json");
     private Path wasteArchiveFilePath = Paths.get("data", "wastearchive.json");
     private Path shoppingListFilePath = Paths.get("data", "shoppingList.json");
+    private Path boughtListFilePath = Paths.get("data", "boughtList.json");
     private IFridgeSettings iFridgeSettings = new IFridgeSettings();
 
 
@@ -99,6 +100,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setShoppingListFilePath(Path shoppingListFilePath) {
         requireNonNull(shoppingListFilePath);
         this.shoppingListFilePath = shoppingListFilePath;
+    }
+
+    public Path getBoughtListFilePath() {
+        return boughtListFilePath;
+    }
+
+    public void setBoughtListFilePath(Path boughtListFilePath) {
+        requireNonNull(boughtListFilePath);
+        this.boughtListFilePath = boughtListFilePath;
     }
 
     @Override

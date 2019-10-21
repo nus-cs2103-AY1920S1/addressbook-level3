@@ -33,12 +33,14 @@ public class ModelManager implements Model {
     private final TemplateList templateList;
     private WasteList wasteList;
     private final ShoppingList shoppingList;
+    private final AddressBook boughtList;
     private final UserPrefs userPrefs;
     private final FilteredList<GroceryItem> filteredGroceryItems;
     private final FilteredList<UniqueTemplateItems> filteredTemplateList;
     private FilteredList<TemplateItem> filteredShownTemplate;
     private FilteredList<GroceryItem> filteredWasteItems;
     private FilteredList<ShoppingItem> filteredShoppingItems;
+    private FilteredList<GroceryItem> filteredBoughtItems;
     private WasteReport wasteReport;
     private UniqueTemplateItems shownTemplate;
 
@@ -47,12 +49,12 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyAddressBook groceryList, ReadOnlyUserPrefs userPrefs,
                         ReadOnlyTemplateList templateList, TreeMap<WasteMonth, WasteList> wasteArchive,
-                        ReadOnlyShoppingList shoppingList) {
+                        ReadOnlyShoppingList shoppingList, ReadOnlyAddressBook boughtList) {
         super();
-        requireAllNonNull(groceryList, userPrefs, templateList);
+        requireAllNonNull(groceryList, userPrefs, templateList, shoppingList);
 
         logger.fine("Initializing with address book: " + groceryList + " and user prefs " + userPrefs
-            + " and template list " + templateList);
+            + " and template list " + templateList + " and shopping list " + shoppingList);
 
         WasteList.initialiseWasteArchive();
         WasteList.addWasteArchive(wasteArchive);
@@ -61,19 +63,21 @@ public class ModelManager implements Model {
         this.templateList = new TemplateList(templateList);
         this.wasteList = WasteList.getCurrentWasteList();
         this.shoppingList = new ShoppingList(shoppingList);
+        this.boughtList = new AddressBook(boughtList);
         this.userPrefs = new UserPrefs(userPrefs);
         this.shownTemplate = new UniqueTemplateItems(new Name("Displayed Template"));
         filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
         filteredTemplateList = new FilteredList<UniqueTemplateItems>(this.templateList.getTemplateList());
         filteredWasteItems = new FilteredList<GroceryItem>(this.wasteList.getWasteList());
         filteredShoppingItems = new FilteredList<ShoppingItem>(this.shoppingList.getShoppingList());
+        filteredBoughtItems = new FilteredList<GroceryItem>(this.boughtList.getPersonList());
         filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
 
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new TemplateList(),
-                new TreeMap<WasteMonth, WasteList>(), new ShoppingList());
+                new TreeMap<WasteMonth, WasteList>(), new ShoppingList(), new AddressBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -153,6 +157,17 @@ public class ModelManager implements Model {
     public void setShoppingListFilePath(Path shoppingListFilePath) {
         requireAllNonNull(shoppingListFilePath);
         userPrefs.setShoppingListFilePath(shoppingListFilePath);
+    }
+
+    @Override
+    public Path getBoughtListFilePath() {
+        return userPrefs.getBoughtListFilePath();
+    }
+
+    @Override
+    public void setBoughtListFilePath(Path boughtListFilePath) {
+        requireAllNonNull(boughtListFilePath);
+        userPrefs.setBoughtListFilePath(boughtListFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -450,6 +465,63 @@ public class ModelManager implements Model {
         filteredShoppingItems.setPredicate(predicate);
     }
 
+    //=========== BoughtList ================================================================================
+
+    @Override
+    public void setBoughtList(ReadOnlyAddressBook boughtList) {
+        this.boughtList.resetData(boughtList);
+    }
+
+    @Override
+    public ReadOnlyAddressBook getBoughtList() {
+        return boughtList;
+    }
+
+    /**
+     * Check if the in-memory model has the specified bought grocery item.
+     *
+     * @param food The grocery item
+     * @return Returns true if the model has the bought grocery item.
+     */
+    public boolean hasBoughtItem(GroceryItem food) {
+        requireNonNull(food);
+        return boughtList.hasPerson(food);
+    }
+
+    public void deleteBoughtItem(GroceryItem target) {
+        boughtList.removePerson(target);
+    }
+
+    @Override
+    public void addBoughtItem(GroceryItem food) {
+        boughtList.addPerson(food);
+        updateFilteredBoughtItemList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setBoughtItem(GroceryItem target, GroceryItem editedFood) {
+        requireAllNonNull(target, editedFood);
+
+        boughtList.setGroceryItem(target, editedFood);
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Grocery Item} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<GroceryItem> getFilteredBoughtItemList() {
+        return filteredBoughtItems;
+    }
+
+    @Override
+    public void updateFilteredBoughtItemList(Predicate<GroceryItem> predicate) {
+        requireNonNull(predicate);
+        filteredBoughtItems.setPredicate(predicate);
+    }
+
     //=========== Common Accessors =============================================================
     @Override
     public boolean equals(Object obj) {
@@ -471,6 +543,7 @@ public class ModelManager implements Model {
                 && filteredGroceryItems.equals(other.filteredGroceryItems)
                 && filteredTemplateList.equals(other.filteredTemplateList)
                 && filteredWasteItems.equals(other.filteredWasteItems)
+                && filteredShoppingItems.equals(other.filteredShoppingItems)
                 && filteredShownTemplate.equals(other.filteredShownTemplate);
     }
 }
