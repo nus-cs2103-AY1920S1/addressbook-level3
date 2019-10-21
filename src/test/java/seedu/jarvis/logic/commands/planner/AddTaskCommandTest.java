@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ class AddTaskCommandTest {
     void hasInverseExecution_success() {
         Task t = new Todo("borrow book");
         AddTaskCommand command = new AddTaskCommand(t);
-        assertFalse(command.hasInverseExecution());
+        assertTrue(command.hasInverseExecution());
     }
 
     @Test

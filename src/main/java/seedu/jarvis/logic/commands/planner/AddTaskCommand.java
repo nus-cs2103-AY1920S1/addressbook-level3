@@ -107,7 +107,6 @@ public class AddTaskCommand extends Command {
      * else {@code CommandResult} that the task was already not in the planner
      * @throws CommandException If task to be removed is not found in the planner
      */
-    //TODO test
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         requireNonNull(model);
