@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -20,13 +21,13 @@ public class AnswersGridPane extends UiPart<Region> {
     public final Answerable answerable;
 
     @FXML
-    private Label option1;
+    private Button option1;
     @FXML
-    private Label option2;
+    private Button option2;
     @FXML
-    private Label option3;
+    private Button option3;
     @FXML
-    private Label option4;
+    private Button option4;
 
 
     public AnswersGridPane(Answerable answerable) {

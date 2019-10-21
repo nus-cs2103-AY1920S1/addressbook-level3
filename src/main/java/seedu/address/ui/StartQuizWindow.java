@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -30,7 +31,25 @@ import seedu.address.model.answerable.Question;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class StartQuizWindow extends UiPart<Stage> {
+
+    private AnswerSet setDefaultAnswerSet() {
+        Set<Answer> correctAnswerSet = new HashSet<>();
+        correctAnswerSet.add(new Answer("20"));
+        Set<Answer> wrongAnswerSet = new HashSet<>();
+        wrongAnswerSet.add(new Answer("srksthjdasdfjjgsjsjaasvjfhbgdnsdfdhsjrgjthsj rjgetj grjhfdjrgtjsjg segjthjtr nfbgjd"
+                + "mrgetjrh egtjhrj vrketrjyn"
+                + "rmgetjhry rmtrj"));
+        wrongAnswerSet.add(new Answer("100"));
+        wrongAnswerSet.add(new Answer("50"));
+        return new AnswerSet(correctAnswerSet, wrongAnswerSet);
+    }
+
+    public MainWindow mainWindow;
+    private final Mcq DEFAULT_QUESTION =
+            new Mcq(new Question("what is 10 + 10?"), setDefaultAnswerSet(), new Difficulty("1"),
+                    new Category("math"), new HashSet<>());
+
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -38,12 +57,13 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private StartQuizWindow startQuizWindow;
 
     // Independent Ui parts residing in this Ui container
     private AnswerableListPanel answerableListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private AnswersGridPane answersGridPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -62,7 +82,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public StartQuizWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -81,9 +101,7 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public Logic getLogic() {
-        return logic;
-    }
+    public Logic getLogic() { return logic; }
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
@@ -124,8 +142,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
-        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
+//        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
+//        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
+
+        answersGridPane = new AnswersGridPane(DEFAULT_QUESTION);
+        answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -161,14 +182,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    @FXML
-    public void handleStart() {
-        startQuizWindow = new StartQuizWindow(getPrimaryStage(), getLogic());
-        startQuizWindow.show();
-        startQuizWindow.fillInnerParts();
-
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -178,11 +191,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
+        mainWindow = new MainWindow(getPrimaryStage(), getLogic());
+        mainWindow.show();
+        mainWindow.fillInnerParts();
     }
 
     public AnswerableListPanel getAnswerableListPanel() {
@@ -206,10 +217,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isStart()) {
-                handleStart();
             }
 
             return commandResult;

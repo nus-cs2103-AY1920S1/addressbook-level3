@@ -52,7 +52,7 @@ public class StartQuizCommand extends Command{
         }
         model.updateFilteredAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE);
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
 
     }
 }
