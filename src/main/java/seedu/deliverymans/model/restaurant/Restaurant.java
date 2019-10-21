@@ -1,5 +1,6 @@
 package seedu.deliverymans.model.restaurant;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
+import seedu.deliverymans.model.food.exceptions.DuplicateFoodException;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.order.Order;
 
@@ -43,13 +45,14 @@ public class Restaurant {
         this.tags.addAll(tags);
     }
 
-    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags) {
+    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu) {
         requireAllNonNull(name, location, rating, numberOfRatings, tags);
         this.numberOfRatings = 0;
         this.name = name;
         this.location = location;
         this.rating = rating;
         this.tags.addAll(tags);
+        this.menu.addAll(menu);
     }
 
     public Name getName() {
@@ -74,6 +77,15 @@ public class Restaurant {
 
     public ObservableList<Food> getMenu() {
         return menu;
+    }
+
+    public void addFood(Food toAdd) {
+        requireNonNull(toAdd);
+        boolean isDuplicate = menu.stream().anyMatch(toAdd::isSameFood);
+        if (isDuplicate) {
+            throw new DuplicateFoodException();
+        }
+        menu.add(toAdd);
     }
 
     /**

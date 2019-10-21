@@ -98,10 +98,11 @@ public class UniversalParser {
             case CUSTOMER:
                 return new CustomerParser().parseCommand(userInput);
             case RESTAURANT:
+                Command command = new RestaurantParser().parseCommand(userInput);
                 if (commandWord.equals("edit")) {
                     currentContext = Context.EDITING;
                 }
-                return new RestaurantParser().parseCommand(userInput);
+                return command;
             case DELIVERYMEN:
                 return new DeliverymanParser().parseCommand(userInput);
             case EDITING:

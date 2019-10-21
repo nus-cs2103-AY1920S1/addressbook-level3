@@ -84,6 +84,19 @@ public class Food {
         return seconds / 60 + "m " + seconds % 60 + "s";
     }
 
+    /**
+     * Returns true if both food are of the same name.
+     * This defines a weaker notion of equality between two food.
+     */
+    public boolean isSameFood(Food otherFood) {
+        if (otherFood == this) {
+            return true;
+        }
+
+        return otherFood != null
+                && otherFood.getName().equals(getName());
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

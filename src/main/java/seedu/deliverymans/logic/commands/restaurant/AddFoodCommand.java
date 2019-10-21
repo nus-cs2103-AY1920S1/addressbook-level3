@@ -16,8 +16,8 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 /**
  * Adds a food to the current restaurant.
  */
-public class FoodCommand extends Command {
-    public static final String COMMAND_WORD = "food";
+public class AddFoodCommand extends Command {
+    public static final String COMMAND_WORD = "addfood";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food to the current restaurant. "
             + "Parameters: "
@@ -40,7 +40,7 @@ public class FoodCommand extends Command {
     /**
      * Creates a FoodCommand to add the specified {@code Food}
      */
-    public FoodCommand(Food food) {
+    public AddFoodCommand(Food food) {
         requireNonNull(food);
         toAdd = food;
     }
@@ -49,17 +49,18 @@ public class FoodCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Restaurant restaurant = model.getEditingRestaurantList().get(0);
-        if (restaurant.getMenu().contains(toAdd)) {
+        boolean isDuplicate = restaurant.getMenu().stream().anyMatch(toAdd::isSameFood);
+        if (isDuplicate) {
             throw new CommandException(MESSAGE_DUPLICATE_FOOD);
         }
-        restaurant.getMenu().add(toAdd);
+        restaurant.addFood(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FoodCommand // instanceof handles nulls
-                && toAdd.equals(((FoodCommand) other).toAdd));
+                || (other instanceof AddFoodCommand // instanceof handles nulls
+                && toAdd.equals(((AddFoodCommand) other).toAdd));
     }
 }
