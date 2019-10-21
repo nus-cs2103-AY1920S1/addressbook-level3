@@ -28,7 +28,7 @@ public class SwitchToSettingsCommand extends SwitchCommand {
     }
 
     public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
-        return ModeEnum.LOAD;
+        return ModeEnum.SETTINGS;
     }
 
 
