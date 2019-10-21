@@ -46,7 +46,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveEngagementList(model.getHistoryManager());
+            storage.saveEngagementList(model.getEngagementList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -56,7 +56,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyEngagementList getEngagementList() {
-        return model.getHistoryManager();
+        return model.getEngagementList();
     }
 
     @Override

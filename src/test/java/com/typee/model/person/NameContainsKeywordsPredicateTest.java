@@ -1,5 +1,6 @@
 package com.typee.model.person;
 
+/*
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,9 +11,11 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.typee.testutil.PersonBuilder;
+*/
 
 public class NameContainsKeywordsPredicateTest {
 
+    /*
     @Test
     public void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
@@ -71,4 +74,5 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
     }
+     */
 }

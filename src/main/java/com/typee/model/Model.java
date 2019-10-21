@@ -54,7 +54,7 @@ public interface Model {
     void setHistoryManager(ReadOnlyEngagementList historyManager);
 
     /** Returns the engagement list */
-    ReadOnlyEngagementList getHistoryManager();
+    ReadOnlyEngagementList getEngagementList();
 
     /**
      * REDUNDANT.

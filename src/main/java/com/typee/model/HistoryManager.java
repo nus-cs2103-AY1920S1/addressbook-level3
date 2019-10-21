@@ -7,7 +7,7 @@ import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 
 /**
- * {@code AppointmentList} with a list of its previous states.
+ * {@code EngagementList} with a list of its previous states.
  */
 public class HistoryManager extends EngagementList {
 
