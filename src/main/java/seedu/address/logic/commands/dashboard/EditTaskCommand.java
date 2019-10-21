@@ -3,13 +3,9 @@ package seedu.address.logic.commands.dashboard;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DASHBOARD;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -18,16 +14,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.common.Name;
 import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.dashboard.components.DashboardName;
 import seedu.address.model.dashboard.components.TaskDate;
-import seedu.address.model.recipe.components.Calories;
-import seedu.address.model.recipe.components.Carbs;
-import seedu.address.model.recipe.components.Fats;
-import seedu.address.model.recipe.components.Ingredient;
-import seedu.address.model.recipe.components.Protein;
-import seedu.address.model.recipe.components.Recipe;
 
 /**
  * Edits the details of an existing recipe in Duke Cooks.
