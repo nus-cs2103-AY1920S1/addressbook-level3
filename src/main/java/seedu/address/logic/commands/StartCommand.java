@@ -61,7 +61,8 @@ public class StartCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof StartCommand // instanceof handles nulls
-                && tagName.equals(((StartCommand) other).tagName)); // state check
+                && tagName.equals(((StartCommand) other).tagName)
+                && addressBookParser.equals(((StartCommand) other).addressBookParser)); // state check
     }
 
     /** Searches the list of flashcard to fetch the relevant tags. */
