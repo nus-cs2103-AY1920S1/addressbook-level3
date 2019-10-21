@@ -11,8 +11,9 @@ public class Marking {
     public static final String MESSAGE_CONSTRAINTS =
             "Marks should only be 'Y' or 'N'";
 
+    private static String status;
     private static boolean isMarked;
-    public static String status;
+
 
     public Marking(String marking) {
         requireNonNull(marking);
@@ -31,6 +32,10 @@ public class Marking {
         } else {
             status = "unmarked";
         }
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     /**

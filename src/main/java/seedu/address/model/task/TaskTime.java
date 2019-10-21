@@ -17,9 +17,9 @@ public class TaskTime {
                     + "with format: dd/MM/yyyy HH:mm, dd/MM/yyyy HH:mm, "
                     + "with the ending time after the starting time.";
 
+    public final String fullTime;
     private final String starting;
     private final String ending;
-    public final String fullTime;
 
     public TaskTime(String taskTime) {
         requireAllNonNull(taskTime);

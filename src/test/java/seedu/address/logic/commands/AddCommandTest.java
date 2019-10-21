@@ -181,13 +181,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyCalendar getCalendar() {
+        public void setTask(Task target, Task editedTask) {
 
-            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+
         }
 
         public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTask(Task task) {
+            return false;
+        }
+
+        @Override
+        public void deleteTask(Task target) {
+
         }
     }
 

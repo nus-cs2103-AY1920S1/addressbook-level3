@@ -116,6 +116,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks.remove(key);
     }
 
+    /**
+     * set new string for task
+     * @return a tasks string
+     */
     public String toTasksString() {
         return tasks.asUnmodifiableObservableList().size() + " tasks";
         // TODO: refine later
