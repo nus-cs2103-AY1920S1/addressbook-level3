@@ -3,10 +3,13 @@ package seedu.address.logic.commands.notecommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.FILTER;
 
+import java.util.ArrayList;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FilterByTagCommand;
 import seedu.address.model.Model;
+import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
 
 /**
@@ -39,7 +42,15 @@ public class FilterNoteByTagCommand extends Command implements FilterByTagComman
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        ArrayList<Note> taggedNoteResult = model.collectTaggedNotes(tagPredicate);
         model.updateFilteredNoteList(tagPredicate);
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS + FilterByTagCommand.displayTagKeywords(tagKeywords));
+        StringBuilder sb = new StringBuilder("");
+        for (Note n : taggedNoteResult) {
+            sb.append(n);
+            sb.append("\n");
+        }
+        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
+                + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
+                + "\n" + sb.toString());
     }
 }

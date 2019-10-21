@@ -2,8 +2,6 @@ package seedu.address.model.flashcard;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,24 +12,21 @@ import seedu.address.model.tag.Tag;
  * Represents a flashcard in the StudyBuddy application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Flashcard implements StudyBuddyItem {
+public class Flashcard extends StudyBuddyItem {
 
     private final Question question;
     private final Answer answer;
     private final Title title;
 
-    // Data fields
-    private final Set<Tag> tags = new HashSet<>();
-
     /**
      * Every field must be present and not null.
      */
     public Flashcard(Question question, Answer answer, Title title, Set<Tag> tags) {
+        super(tags);
         requireAllNonNull(question, answer, tags);
         this.question = question;
         this.answer = answer;
         this.title = title;
-        this.tags.addAll(tags);
     }
 
     public Question getQuestion() {
@@ -51,18 +46,6 @@ public class Flashcard implements StudyBuddyItem {
      */
     public boolean isImageFlashcard() {
         return false;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    public boolean containsTag(Tag tag) {
-        return this.tags.contains(tag);
     }
 
     /**
@@ -88,7 +71,7 @@ public class Flashcard implements StudyBuddyItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, title, tags);
+        return Objects.hash(question, answer, title, getTags());
     }
 
     @Override
