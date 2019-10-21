@@ -17,6 +17,11 @@ public class CommandResult {
     private final boolean showHelp;
 
     /**
+     * Determines if there is a need to update the display of the active module.
+     */
+    private final boolean showModule;
+
+    /**
      * The application should exit.
      */
     private final boolean exit;
@@ -24,9 +29,10 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean showModule, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
+        this.showModule = showModule;
         this.exit = exit;
     }
 
@@ -35,7 +41,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +50,10 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isShowModule() {
+        return showModule;
     }
 
     public boolean isExit() {
@@ -64,6 +74,7 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
+                && showModule == otherCommandResult.showModule
                 && exit == otherCommandResult.exit;
     }
 

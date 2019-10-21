@@ -76,6 +76,13 @@
     -fx-background-color: -fx-focus-color;
 }
 
+.text-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-fill: white;
+    -fx-opacity: 1;
+}
+
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: derive(#1d1d1d, 20%);
     -fx-border-color: transparent transparent transparent #4d4d4d;
@@ -330,6 +337,10 @@
 
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+#mainPanel {
+    -fx-background-color: #383838;
 }
 
 #resultDisplay .content {

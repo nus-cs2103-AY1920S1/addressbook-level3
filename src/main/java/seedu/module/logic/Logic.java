@@ -1,6 +1,7 @@
 package seedu.module.logic;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.module.commons.core.GuiSettings;
@@ -28,6 +29,11 @@ public interface Logic {
      * @return
      */
     ObservableList<Module> getDisplayedList();
+
+    /**
+     * Returns the Optional active {@code Module} that is being viewed by the user.
+     */
+    Optional<Module> getDisplayedModule();
 
     /**
      * Returns the user prefs' Module book file path.
