@@ -68,6 +68,11 @@ public class LogicQuizManager implements Logic {
     }
 
     @Override
+    public ObservableList<Question> getFilteredShowQuestionList() {
+        return model.getFilteredShowQuestionList();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }

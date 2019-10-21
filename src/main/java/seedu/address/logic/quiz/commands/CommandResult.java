@@ -15,8 +15,23 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    /** Show question details to the user. */
+    private boolean showDetail;
+
     /** The application should exit. */
     private final boolean exit;
+
+    public CommandResult(String feedbackToUser, String specialCommand) {
+        if (specialCommand.equals("detail")) {
+            this.showDetail = true;
+        } else {
+            this.showDetail = false;
+        }
+
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -41,6 +56,10 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isShowDetail() {
+        return showDetail;
     }
 
     public boolean isExit() {

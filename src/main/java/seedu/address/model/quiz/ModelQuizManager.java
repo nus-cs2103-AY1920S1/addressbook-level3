@@ -113,7 +113,17 @@ public class ModelQuizManager implements Model {
         addressBook.setQuestion(target, editedQuestion);
     }
 
+    @Override
+    public void setShowQuestion(Question question) {
+        addressBook.setShowQuestion(question);
+    }
+
     //=========== Filtered Question List Accessors =============================================================
+
+    @Override
+    public ObservableList<Question> getFilteredShowQuestionList() {
+        return addressBook.getShowQuestionList();
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of

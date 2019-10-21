@@ -77,6 +77,15 @@ public interface Model {
      */
     void setQuestion(Question target, Question editedQuestion);
 
+    /**
+     * Set the question to be shown to the StackPane
+     * @param question
+     */
+    void setShowQuestion(Question question);
+
+    /** Returns an unmodifiable view of the filtered question list */
+    ObservableList<Question> getFilteredShowQuestionList();
+
     /** Returns an unmodifiable view of the filtered question list */
     ObservableList<Question> getFilteredQuestionList();
 
