@@ -19,6 +19,8 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
     public static final String EXAMPLE_USAGE = "Example Usage: " + COMMAND_WORD + " PRICE ASC NAME DESC";
     public static final String MESSAGE_SUCCESS = "You have successfully sorted the food items!";
+    public static final String NO_FIELDS_ERROR = "You have keyed in zero fields! "
+        + "You need to key in at least one field.";
 
     private List<String> fields;
 

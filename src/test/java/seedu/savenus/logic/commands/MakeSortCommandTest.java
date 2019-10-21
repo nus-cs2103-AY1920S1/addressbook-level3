@@ -1,5 +1,7 @@
 package seedu.savenus.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -19,5 +21,12 @@ public class MakeSortCommandTest {
     public void execute_correctReturnType() throws CommandException {
         MakeSortCommand test = new MakeSortCommand(fields);
         assertTrue(test.execute(model) instanceof CommandResult);
+    }
+
+    @Test
+    public void equals() {
+        assertNotEquals(new MakeSortCommand(fields), new Object());
+        MakeSortCommand test = new MakeSortCommand(fields);
+        assertEquals(test, test);
     }
 }

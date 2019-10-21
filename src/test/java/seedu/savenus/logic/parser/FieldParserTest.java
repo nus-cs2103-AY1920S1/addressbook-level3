@@ -43,17 +43,6 @@ public class FieldParserTest {
     }
 
     @Test
-    public void parse_emptyFields_failure() {
-        String noFieldsMessage = FieldParser.NO_ARGUMENTS_USAGE;
-
-        assertThrows(ParseException.class,
-                noFieldsMessage, () -> fieldParser.parse(""));
-
-        assertThrows(ParseException.class,
-                noFieldsMessage, () -> fieldParser.parse("  "));
-    }
-
-    @Test
     public void parse_invalidFields_failure() {
         String invalidFieldsMessage = FieldParser.INVALID_FIELD_USAGE;
 

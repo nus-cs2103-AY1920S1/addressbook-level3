@@ -12,7 +12,7 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_emptyFields_failure() {
-        String noFieldsMessage = FieldParser.NO_ARGUMENTS_USAGE;
+        String noFieldsMessage = SortCommand.NO_FIELDS_ERROR;
         String noFieldsUsage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 noFieldsMessage + "\n" + SortCommand.EXAMPLE_USAGE);
 
