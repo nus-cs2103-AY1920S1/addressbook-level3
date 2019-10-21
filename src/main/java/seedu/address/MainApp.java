@@ -5,7 +5,10 @@ import static seedu.sgm.model.food.TypicalFoods.FOODS;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
+
+import javax.swing.text.html.Option;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -93,48 +96,43 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        Optional<ReadOnlyUserList> userListOptional;
         ReadOnlyAddressBook initialData;
+
+        Optional<ReadOnlyUserList> userListOptional;
         ReadOnlyUserList initialUserData;
-        UniqueFoodList foodList = new UniqueFoodList();
-        foodList.setFoods(FOODS);
+
         Optional<UniqueFoodList> foodListOptional;
         UniqueFoodList initialFoodListData;
+
         Optional<UniqueRecordList> recordListOptional;
         UniqueRecordList initialRecordListData;
+
         Optional<ReadOnlyCalendar> calendarOptional;
         ReadOnlyCalendar initialCalendar;
 
         // Todo Following can eventually be abstracted in later versions if there's time.
         try {
             addressBookOptional = storage.readAddressBook();
-            foodListOptional = storage.readFoodList();
             recordListOptional = storage.readRecordList();
             calendarOptional = storage.readCalendarEntryList();
 
             if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            if (foodListOptional.isEmpty()) {
-                logger.info("Food list data file not found. Will be starting with a sample Foodlist");
-            }
             if (recordListOptional.isEmpty()) {
                 logger.info("Record list data file not found. Will be starting with a sample Recordlist");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
             initialRecordListData = recordListOptional.orElseGet(SampleDataUtil::getSampleRecordList);
             initialCalendar = calendarOptional.orElseGet(SampleDataUtil::getSampleCalendar);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
-            initialFoodListData = new UniqueFoodList();
             initialRecordListData = new UniqueRecordList();
             initialCalendar = new Calendar();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
-            initialFoodListData = new UniqueFoodList();
             initialRecordListData = new UniqueRecordList();
             initialCalendar = new Calendar();
         }
@@ -155,9 +153,44 @@ public class MainApp extends Application {
             initialUserData = new UserList();
         }
 
-        return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData,
+        try {
+            foodListOptional = storage.readFoodList();
+            if (!foodListOptional.isPresent()) {
+                logger.info("Food list data file not found. Will be starting a sample food list");
+            }
+            initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
+        } catch (DataConversionException e) {
+            logger.warning("Food list data file is not in the correct format. Will be starting with an empty "
+                + "food list");
+            initialFoodListData = new UniqueFoodList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty food list");
+            initialFoodListData = new UniqueFoodList();
+        }
+
+        return new ModelManager(initialData, userPrefs, initialUserData, initialFoodListData, initialRecordListData,
                 initialCalendar);
     }
+
+    /*
+    private void initData (Object target, Optional dataOptional, Supplier<Optional> getStorageData, Supplier getSampleData,
+                           Supplier getNewInstance, String dataName) {
+        try {
+            dataOptional = getStorageData.get();
+            if (dataOptional.isEmpty()) {
+                logger.info(dataName + " data file not found. Will be starting with sample data");
+            }
+            target = dataOptional.orElseGet(getSampleData);
+        } catch (DataConversionException e) {
+            logger.warning(dataName + "data file not in the correct format. Will be starting with an empty "
+                + "food list containing no food data");
+            target = getNewInstance.get();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty " + dataName);
+            target = getNewInstance.get();
+        }
+    }
+    */
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
