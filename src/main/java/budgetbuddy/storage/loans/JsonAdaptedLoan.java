@@ -7,14 +7,14 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
-import budgetbuddy.model.Direction;
+import budgetbuddy.model.attributes.Description;
+import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
-import budgetbuddy.model.transaction.stub.Description;
 
 /**
  * Jackson-friendly version of {@link budgetbuddy.model.loan.Loan}.
