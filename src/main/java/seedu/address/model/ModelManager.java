@@ -219,8 +219,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getTestQuestion() {
-        return flashCardTestModel.getQuestion();
+    public String getTestQuestion(Model model) {
+        return flashCardTestModel.getQuestion(model);
     }
 
     @Override

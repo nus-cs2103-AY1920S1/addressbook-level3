@@ -137,7 +137,7 @@ public interface Model {
 
     boolean hasTestFlashCard();
 
-    String getTestQuestion();
+    String getTestQuestion(Model model);
 
     String getTestAnswer();
 
