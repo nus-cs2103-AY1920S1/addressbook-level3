@@ -42,7 +42,7 @@ public class EditDetailsCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RESTAURANT = "This restaurant already exists in the "
             + "restaurant database.";
-    
+
     private final EditRestaurantDescriptor editRestaurantDescriptor;
 
     /**
@@ -50,7 +50,7 @@ public class EditDetailsCommand extends Command {
      */
     public EditDetailsCommand(EditRestaurantDescriptor editRestaurantDescriptor) {
         requireNonNull(editRestaurantDescriptor);
-        
+
         this.editRestaurantDescriptor = new EditRestaurantDescriptor(editRestaurantDescriptor);
     }
 
