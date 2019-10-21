@@ -257,6 +257,7 @@ public class ModelManager implements Model {
                 && activityBook.equals(other.activityBook)
                 && userPrefs.equals(other.userPrefs)
                 && internalState.equals(other.internalState)
+                && context.equals(other.context)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredActivities.equals(other.filteredActivities);
     }

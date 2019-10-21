@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import seedu.address.logic.CommandSubType;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Context;
 import seedu.address.model.Model;
 
 /**
@@ -38,9 +39,11 @@ public class ListCommand extends Command {
 
         switch (this.type) {
         case CONTACT:
+            model.setContext(Context.newListContactContext());
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_ENTRIES);
             return new CommandResult(String.format(MESSAGE_SUCCESS, "contacts"));
         case ACTIVITY:
+            model.setContext(Context.newListActivityContext());
             model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ENTRIES);
             return new CommandResult(String.format(MESSAGE_SUCCESS, "activities"));
         default:

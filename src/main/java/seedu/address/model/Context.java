@@ -2,8 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import seedu.address.model.activity.Activity;
@@ -14,26 +12,20 @@ import seedu.address.model.person.Person;
  */
 public class Context {
 
-    /**
-     * Represents the various types of contexts that can exist.
-     */
-    enum Type {
-        MAIN,
-        VIEW_CONTACT,
-        VIEW_ACTIVITY,
-        LIST_CONTACT,
-        LIST_ACTIVITY;
-    }
-
     private final Optional<Object> object;
-    private final Type type;
+    private final ContextType type;
 
     /**
      * Default constructor where context type is MAIN.
      */
     Context() {
-        object = Optional.empty();
-        type = Type.MAIN;
+        this.object = Optional.empty();
+        this.type = ContextType.MAIN;
+    }
+
+    private Context(ContextType type) {
+        this.object = Optional.empty();
+        this.type = type;
     }
 
     /**
@@ -42,7 +34,7 @@ public class Context {
     Context(Activity activity) {
         requireNonNull(activity);
         object = Optional.ofNullable(activity);
-        type = Type.VIEW_ACTIVITY;
+        type = ContextType.VIEW_ACTIVITY;
     }
 
     /**
@@ -51,52 +43,48 @@ public class Context {
     Context(Person person) {
         requireNonNull(person);
         object = Optional.ofNullable(person);
-        type = Type.VIEW_CONTACT;
+        type = ContextType.VIEW_CONTACT;
     }
 
     /**
-     * Constructor for a LIST_ACTIVITY context.
+     * Factory constructor for a LIST_ACTIVITY context.
      */
-    Context(Activity... activityList) {
-        requireNonNull(activityList);
-        ArrayList<Activity> arr = new ArrayList<>();
-        for (Activity a : activityList) {
-            arr.add(a);
-        }
-        object = Optional.ofNullable(arr);
-        type = Type.LIST_ACTIVITY;
+    public static Context newListActivityContext() {
+        return new Context(ContextType.LIST_ACTIVITY);
     }
 
     /**
-     * Constructor for a LIST_CONTACT context.
+     * Factory constructor for a LIST_CONTACT context.
      */
-    Context(Person... personList) {
-        requireNonNull(personList);
-        ArrayList<Person> arr = new ArrayList<>();
-        for (Person p : personList) {
-            arr.add(p);
-        }
-        object = Optional.ofNullable(arr);
-        type = Type.LIST_CONTACT;
+    public static Context newListContactContext() {
+        return new Context(ContextType.LIST_CONTACT);
     }
 
-    public Type getType() {
+    public ContextType getType() {
         return type;
     }
 
     public Optional<Activity> getActivity() {
-        return object.filter(x -> type == Type.VIEW_ACTIVITY).map(x->(Activity) x);
+        return object.filter(x -> type == ContextType.VIEW_ACTIVITY).map(x->(Activity) x);
     }
 
     public Optional<Person> getContact() {
-        return object.filter(x -> type == Type.VIEW_CONTACT).map(x->(Person) x);
+        return object.filter(x -> type == ContextType.VIEW_CONTACT).map(x->(Person) x);
     }
 
-    public Optional<List<Activity>> getActivityList() {
-        return object.filter(x -> type == Type.LIST_ACTIVITY).map(x->(List<Activity>) x);
-    }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
 
-    public Optional<List<Person>> getContactList() {
-        return object.filter(x -> type == Type.LIST_CONTACT).map(x->(List<Person>) x);
+        if (!(other instanceof Context)) {
+            return false;
+        }
+
+        Context con = (Context) other;
+        return this.type == con.type
+                && this.getActivity().equals(con.getActivity())
+                && this.getContact().equals(con.getContact());
     }
 }
