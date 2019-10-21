@@ -7,22 +7,22 @@ import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
-import mams.logic.commands.AddModCommand;
 import mams.logic.commands.ModCommand;
+import mams.logic.commands.RemoveModCommand;
 import mams.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddModCommand object
+ * Parses input arguments and creates a new RemoveModCommand object
  */
-public class AddModCommandParser implements Parser<AddModCommand> {
+public class RemoveModCommandParser implements Parser<RemoveModCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddModCommand
-     * and returns an AddModCommand object for execution. (Only argument checking is done here)
+     * Parses the given {@code String} of arguments in the context of the RemoveModCommand
+     * and returns an RemoveModCommand object for execution. (Only argument checking is done here)
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public AddModCommand parse(String args) throws ParseException {
+    public RemoveModCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE_CODE);
@@ -37,16 +37,16 @@ public class AddModCommandParser implements Parser<AddModCommand> {
         if (argMultimap.getValue(PREFIX_STUDENT).isEmpty()) {
             try {
                 index = ParserUtil.parseIndex(argMultimap.getPreamble());
-                return new AddModCommand(index, argMultimap.getAllValues(PREFIX_MODULE_CODE).get(0));
+                return new RemoveModCommand(index, argMultimap.getAllValues(PREFIX_MODULE_CODE).get(0));
             } catch (ParseException pe) {
                 throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddModCommand.MESSAGE_USAGE_ADD_MOD), pe);
+                        RemoveModCommand.MESSAGE_USAGE_REMOVE_MOD), pe);
             }
         } else if (argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
-            return new AddModCommand(argMultimap.getAllValues(PREFIX_STUDENT).get(0),
+            return new RemoveModCommand(argMultimap.getAllValues(PREFIX_STUDENT).get(0),
                     argMultimap.getAllValues(PREFIX_MODULE_CODE).get(0));
         } else {
-            throw new ParseException(ModCommand.MESSAGE_USAGE_ADD_MOD);
+            throw new ParseException(ModCommand.MESSAGE_USAGE_REMOVE_MOD);
         }
     }
 }

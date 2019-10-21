@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import mams.commons.core.Messages;
+import mams.logic.commands.AddModCommand;
 import mams.logic.commands.ApproveCommand;
 import mams.logic.commands.ClashCommand;
 import mams.logic.commands.Command;
@@ -13,6 +14,7 @@ import mams.logic.commands.FindCommand;
 import mams.logic.commands.HelpCommand;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.RejectCommand;
+import mams.logic.commands.RemoveModCommand;
 import mams.logic.parser.exceptions.ParseException;
 
 /**
@@ -59,10 +61,19 @@ public class MamsParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
         case ApproveCommand.COMMAND_WORD:
             return new ApproveCommandParser().parse(arguments);
+
         case RejectCommand.COMMAND_WORD:
             return new RejectCommandParser().parse(arguments);
+
+        case AddModCommand.COMMAND_WORD_ADD_MOD:
+            return new AddModCommandParser().parse(arguments);
+
+        case RemoveModCommand.COMMAND_WORD_REMOVE_MOD:
+            return new RemoveModCommandParser().parse(arguments);
+
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
