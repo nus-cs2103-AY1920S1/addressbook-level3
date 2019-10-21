@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox>
+    <ListView fx:id="mondayListView" VBox.vgrow="ALWAYS" />
+  </VBox>
+  <VBox>
+    <ListView fx:id="tuesdayListView" VBox.vgrow="ALWAYS" />
+  </VBox>
+  <VBox>
+    <ListView fx:id="wednesdayListView" VBox.vgrow="ALWAYS" />
+  </VBox>
+  <VBox>
+    <ListView fx:id="thursdayListView" VBox.vgrow="ALWAYS" />
+  </VBox>
+  <VBox>
+    <ListView fx:id="fridayListView" VBox.vgrow="ALWAYS" />
+  </VBox>
+  <VBox>
+    <ListView fx:id="saturdayListView" VBox.vgrow="ALWAYS" />
+  </VBox>
+  <VBox>
+    <ListView fx:id="sundayListView" VBox.vgrow="ALWAYS" />
+  </VBox>
+</HBox>
+
