@@ -11,7 +11,7 @@ public class Expense extends Entry {
 
     private static final String ENTRYTYPE = "Expense";
 
-    public Expense(Description desc, Time time, Amount amount, Set<Tag> tags) {
+    public Expense(Description desc, Date time, Amount amount, Set<Tag> tags) {
         super(desc, time, amount, tags);
     }
 
@@ -20,8 +20,8 @@ public class Expense extends Entry {
     }
 
     /**
-     * Returns true if both expenses have the same data fields.
-     * This defines a stronger notion of equality between two entries.
+     * Returns true if both expenses have the same data fields. This defines a
+     * stronger notion of equality between two entries.
      */
     @Override
     public boolean equals(Object other) {
@@ -36,22 +36,16 @@ public class Expense extends Entry {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getDesc().equals(getDesc())
-                && otherExpense.getAmount().equals(getAmount())
-                && otherExpense.getTags().equals(getTags())
-                && otherExpense.getTime().equals(getTime());
+        return otherExpense.getDesc().equals(getDesc()) && otherExpense.getAmount().equals(getAmount())
+                && otherExpense.getTags().equals(getTags()) && otherExpense.getDate().equals(getDate());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(ENTRYTYPE + ": ")
-                .append(getDesc())
-                .append(" Amount: ")
-                .append(getAmount())
-                .append(" Tags: ");
+        builder.append(ENTRYTYPE + ": ").append(getDesc()).append(" Amount: ").append(getAmount()).append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + this.getTime() + ")");
+        builder.append("(" + this.getDate() + ")");
         return builder.toString();
     }
 

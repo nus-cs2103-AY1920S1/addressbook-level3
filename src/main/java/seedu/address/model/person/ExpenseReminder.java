@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
 /**
- * Implement expense tracker
+ * Implement expense reminder
  */
 public class ExpenseReminder extends Reminder {
     private long currSum;
