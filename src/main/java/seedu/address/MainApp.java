@@ -37,6 +37,8 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TemplateListStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.shoppinglist.BoughtListStorage;
+import seedu.address.storage.shoppinglist.JsonBoughtItemStorage;
 import seedu.address.storage.shoppinglist.JsonShoppingItemStorage;
 import seedu.address.storage.shoppinglist.ShoppingListStorage;
 import seedu.address.storage.wastelist.JsonWasteListStorage;
@@ -73,8 +75,9 @@ public class MainApp extends Application {
         TemplateListStorage templateListStorage = new JsonTemplateListStorage(userPrefs.getTemplateListFilePath());
         WasteListStorage wasteListStorage = new JsonWasteListStorage(userPrefs.getWasteArchiveFilePath());
         ShoppingListStorage shoppingListStorage = new JsonShoppingItemStorage(userPrefs.getShoppingListFilePath());
+        BoughtListStorage boughtListStorage = new JsonBoughtItemStorage(userPrefs.getBoughtListFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage, wasteListStorage,
-                shoppingListStorage);
+                shoppingListStorage, boughtListStorage);
 
         initLogging(config);
 
@@ -95,15 +98,18 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTemplateList> templateListOptional;
         Optional<ReadOnlyShoppingList> shoppingListOptional;
+        Optional<ReadOnlyAddressBook> boughtListOptional;
         ReadOnlyAddressBook initialAddressBookData;
         ReadOnlyTemplateList initialTemplateListData;
         TreeMap<WasteMonth, WasteList> initialWasteArchiveData;
         ReadOnlyShoppingList initialShoppingListData;
+        ReadOnlyAddressBook initialBoughtListData;
 
         try {
             addressBookOptional = storage.readAddressBook();
             templateListOptional = storage.readTemplateList();
             shoppingListOptional = storage.readShoppingList();
+            boughtListOptional = storage.readBoughtList();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
@@ -113,26 +119,32 @@ public class MainApp extends Application {
             if (!shoppingListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ShoppingList");
             }
+            if (!boughtListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Bought List.");
+            }
             initialAddressBookData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialTemplateListData = templateListOptional.orElseGet(SampleDataUtil::getSampleTemplateList);
             initialShoppingListData = shoppingListOptional.orElseGet(SampleDataUtil::getSampleShoppingList);
+            initialBoughtListData = boughtListOptional.orElseGet(SampleDataUtil::getSampleBoughtList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialAddressBookData = new AddressBook();
             initialTemplateListData = new TemplateList();
             initialShoppingListData = new ShoppingList();
+            initialBoughtListData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialAddressBookData = new AddressBook();
             initialTemplateListData = new TemplateList();
             initialShoppingListData = new ShoppingList();
+            initialBoughtListData = new AddressBook();
         }
 
         initialWasteArchiveData = initModelManagerWaste(storage);
 
 
         return new ModelManager(initialAddressBookData, userPrefs, initialTemplateListData, initialWasteArchiveData,
-                initialShoppingListData);
+                initialShoppingListData, initialBoughtListData);
     }
 
     /**
