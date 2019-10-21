@@ -57,6 +57,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         setProblems(newData.getProblemList());
         setPlans(newData.getPlanList());
         setTags(newData.getTagList());
+        setPlans(newData.getPlanList());
     }
 
     //========== Problem ================================================================
@@ -176,6 +177,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     /**
      * Replaces the contents of the Plan list with {@code plans}.
+     * {@code plans} must not contain duplicate plans.
      */
     public void setPlans(List<Plan> plans) {
         this.plans.setPlans(plans);
