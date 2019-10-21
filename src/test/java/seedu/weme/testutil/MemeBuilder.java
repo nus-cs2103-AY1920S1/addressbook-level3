@@ -3,7 +3,7 @@ package seedu.weme.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.weme.model.image_path.ImagePath;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;

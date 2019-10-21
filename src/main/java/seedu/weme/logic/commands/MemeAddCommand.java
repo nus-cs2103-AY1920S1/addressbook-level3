@@ -6,12 +6,11 @@ import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.util.MemeUtil;
+import seedu.weme.model.util.ImageUtil;
 
 /**
  * Adds a meme to the meme book.
@@ -52,9 +51,7 @@ public class MemeAddCommand extends Command {
         // Copy the meme to internal data directory
         Meme copiedMeme;
         try {
-            copiedMeme = MemeUtil.copyMeme(toAdd, model.getMemeImagePath());
-        } catch (FileAlreadyExistsException e) {
-            throw new CommandException(MESSAGE_DUPLICATE_MEME);
+            copiedMeme = ImageUtil.copyMeme(toAdd, model.getMemeImagePath());
         } catch (IOException e) {
             throw new CommandException(MESSAGE_COPY_FAILURE);
         }
