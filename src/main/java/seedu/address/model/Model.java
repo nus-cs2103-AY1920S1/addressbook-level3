@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Calendar;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -273,4 +274,13 @@ public interface Model {
      */
     void updateFilteredScheduleList(Predicate<Schedule> predicate);
 
+    /**
+     * Returns the CalendarDate object.
+     */
+    CalendarDate getCalendarDate();
+
+    /**
+     * Sets the calendar object in the property
+     */
+    void setCalendarDate(Calendar calendar);
 }

@@ -19,6 +19,7 @@ import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
@@ -193,6 +194,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setCalendarDate_nullCalendarDate_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setCalendarDate(null));
+    }
+
+    @Test
+    public void setCalendarDate_validCalendarDate_replacesData() {
+        Calendar newCalendar = Calendar.getInstance();
+        modelManager.setCalendarDate(newCalendar);
+        assertEquals(newCalendar, modelManager.getCalendarDate().getCalendar());
+    }
+
+    @Test
     public void equals() {
         //AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         DataBook<Customer> customerBook = new CustomerBookBuilder().withCustomer(DANIEL).withCustomer(FIONA).build();
@@ -237,7 +250,6 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new
                 ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, userPrefs)));
 
-
         // different filteredList -> returns false
         String[] keywords = DANIEL.getCustomerName().fullName.split("\\s+");
         modelManager.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
@@ -251,5 +263,11 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new
                 ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentUserPrefs)));
+
+        // different calendar in calendarDate -> returns true
+        Calendar differentCalendar = Calendar.getInstance();
+        modelManagerCopy.setCalendarDate(differentCalendar);
+        assertTrue(modelManager.equals(modelManagerCopy));
+
     }
 }
