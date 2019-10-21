@@ -8,7 +8,8 @@ public class TagTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Tag(null));
+        assertThrows(NullPointerException.class, () -> new Tag((String) null));
+        assertThrows(NullPointerException.class, () -> new Tag((Tag) null));
     }
 
     @Test

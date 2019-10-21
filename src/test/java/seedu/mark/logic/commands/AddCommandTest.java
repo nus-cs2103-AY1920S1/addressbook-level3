@@ -111,6 +111,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void applyAllTaggers() {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
         public void saveMark() {
             // called by {@code AddCommand#execute()}
         }
