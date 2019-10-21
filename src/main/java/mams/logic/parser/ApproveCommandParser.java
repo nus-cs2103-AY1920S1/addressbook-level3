@@ -1,20 +1,22 @@
 package mams.logic.parser;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static java.util.Objects.requireNonNull;
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static mams.logic.parser.CliSyntax.PREFIX_MASS_RESOLVE;
 import static mams.logic.parser.CliSyntax.PREFIX_REASON;
 
-import mams.commons.core.index.Index;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import mams.commons.exceptions.IllegalValueException;
 
 import mams.logic.commands.Approve;
 import mams.logic.commands.ApproveCommand;
 import mams.logic.commands.MassApprove;
 
-import mams.commons.exceptions.IllegalValueException;
+import mams.commons.core.index.Index;
 
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.appeal.Appeal;
@@ -43,7 +45,7 @@ public class ApproveCommandParser implements Parser<Approve> {
             String remark = argMultimap.getValue(PREFIX_REASON).orElse("");
             return new ApproveCommand(index, remark);
         } else if (argMultimap.getValue(PREFIX_MASS_RESOLVE).isPresent()) {
-            Optional<String> appealLine =  argMultimap.getValue(PREFIX_MASS_RESOLVE);
+            Optional<String> appealLine = argMultimap.getValue(PREFIX_MASS_RESOLVE);
             String[] appeals = appealLine.get().split(" ");
             List<String> validIds = new ArrayList<>();
             List<String> invalidIds = new ArrayList<>();

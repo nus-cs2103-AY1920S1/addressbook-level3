@@ -5,8 +5,6 @@ import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static mams.logic.parser.CliSyntax.PREFIX_MASS_RESOLVE;
 import static mams.logic.parser.CliSyntax.PREFIX_REASON;
 
-import mams.model.appeal.Appeal;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +16,8 @@ import mams.logic.commands.MassReject;
 import mams.logic.commands.Reject;
 import mams.logic.commands.RejectCommand;
 import mams.logic.parser.exceptions.ParseException;
+
+import mams.model.appeal.Appeal;
 /**
  * Parses input arguments and creates a new {@code ApproveCommand} object
  */
@@ -43,7 +43,7 @@ public class RejectCommandParser implements Parser<Reject> {
             String remark = argMultimap.getValue(PREFIX_REASON).orElse("");
             return new RejectCommand(index, remark);
         } else if (argMultimap.getValue(PREFIX_MASS_RESOLVE).isPresent()) {
-            Optional<String> appealLine =  argMultimap.getValue(PREFIX_MASS_RESOLVE);
+            Optional<String> appealLine = argMultimap.getValue(PREFIX_MASS_RESOLVE);
             String[] appeals = appealLine.get().split(" ");
             List<String> validIds = new ArrayList<>();
             List<String> invalidIds = new ArrayList<>();
