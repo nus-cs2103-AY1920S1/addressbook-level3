@@ -30,11 +30,11 @@ class LocationGraphTest {
     @Test
     void getLocations() {
         Location location1 = new Location("Foo");
-        location1.setGoogleRecognisedLocation("NUS_FOO");
+        location1.setValidLocation("NUS_FOO");
         Location location2 = new Location("Foo-1234");
-        location2.setGoogleRecognisedLocation("NUS_FOO");
+        location2.setValidLocation("NUS_FOO");
         Location location3 = new Location("Foo_1234");
-        location3.setGoogleRecognisedLocation("NUS_FOO");
+        location3.setValidLocation("NUS_FOO");
         ArrayList<Location> expectedLocations = new ArrayList<Location>(Arrays.asList(location1, location2, location3));
         assertEquals(locationGraph.getLocations(), expectedLocations);
     }

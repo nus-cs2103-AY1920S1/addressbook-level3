@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.websocket.util.ApiQuery;
+import seedu.address.websocket.util.ApiQueryFactory;
 import seedu.address.websocket.util.ParserUtil;
 import seedu.address.websocket.util.QueryResult;
 
@@ -21,7 +21,7 @@ public class GmapsApi {
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GmapsApi() {
-        this.apiKey = "INSERT API KEY";
+        this.apiKey = "INSERT KEY HERE";
     }
 
     /**
@@ -50,7 +50,7 @@ public class GmapsApi {
         originQueryParams = originQueryParams + "&";
         destinationQueryParams = destinationQueryParams + "&";
         String fullUrl = baseUrl + originQueryParams + destinationQueryParams + apiKeyQueryParams;
-        ApiQuery query = new ApiQuery(fullUrl);
+        ApiQueryFactory query = new ApiQueryFactory(fullUrl, CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
@@ -65,8 +65,7 @@ public class GmapsApi {
         String apiKeyQueryParams = "key=" + apiKey + "&";
         String queryParams = "query=" + locationName + "&";
         String fullUrl = baseUrl + queryParams + apiKeyQueryParams;
-        System.out.println(fullUrl);
-        ApiQuery query = new ApiQuery(fullUrl);
+        ApiQueryFactory query = new ApiQueryFactory(fullUrl, CacheFileNames.GMAPS_PLACES_PATH);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());

@@ -2,14 +2,18 @@ package seedu.address.websocket;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.Reader;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -59,6 +63,65 @@ public class Cache {
         } catch (IOException e) {
             logger.warning("Failed to save file : " + StringUtil.getDetails(e));
         }
+    }
+
+    /**
+     * This method is used to save all the API response to a particular JSON file. Only for JSON
+     * Object
+     * @param key
+     * @param value
+     * @param filePath
+     */
+    public static void saveToJson(String key, Object value , String filePath) {
+        requireNonNull(key);
+        requireNonNull(value);
+        requireNonNull(filePath);
+
+        JSONParser parser;
+        parser = new JSONParser();
+
+        try (Reader reader = new FileReader(filePath)) {
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
+            if (jsonObject.containsKey(key)) {
+                jsonObject.remove(key);
+            }
+            jsonObject.put(key, value);
+
+            try (FileWriter file = new FileWriter(filePath)) {
+                file.write(jsonObject.toJSONString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to load a previously called API response
+     * @param key
+     * @param filePath
+     * @return
+     */
+    public static String loadFromJson(String key, String filePath) {
+        requireNonNull(key);
+        requireNonNull(filePath);
+
+        JSONParser parser;
+        parser = new JSONParser();
+        Object result = null;
+        try (Reader reader = new FileReader(filePath)) {
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            result = jsonObject.get(key);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result.toString();
     }
 
     /**

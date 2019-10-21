@@ -16,7 +16,7 @@ class LocationTest {
     @Test
     void setGoogleRecognisedLocation() {
 
-        location.setGoogleRecognisedLocation("NUS_LTFOO");
+        location.setValidLocation("NUS_LTFOO");
         assertEquals(location.getGoogleRecognisedLocation(), "NUS_LTFOO");
     }
 
@@ -27,15 +27,15 @@ class LocationTest {
 
     @Test
     void testEquals() {
-        location.setGoogleRecognisedLocation("NUS_LTFOO");
+        location.setValidLocation("NUS_LTFOO");
         Location location2 = new Location("LTFOO");
-        location2.setGoogleRecognisedLocation("NUS_LTFOO");
+        location2.setValidLocation("NUS_LTFOO");
         assertEquals(location, location2);
     }
 
     @Test
     void testToString() {
-        location.setGoogleRecognisedLocation("NUS_LTFOO");
+        location.setValidLocation("NUS_LTFOO");
         assertEquals(location.toString(), "Location: LTFOO, Google recognised location: NUS_LTFOO");
     }
 }
