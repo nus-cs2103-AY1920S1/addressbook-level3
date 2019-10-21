@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.model.person.NameContainsKeywordsPredicate;
+import com.typee.model.person.DescriptionContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -26,7 +26,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new DescriptionContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

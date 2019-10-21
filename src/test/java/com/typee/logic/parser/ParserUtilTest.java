@@ -2,7 +2,7 @@ package com.typee.logic.parser;
 
 import static com.typee.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static com.typee.testutil.Assert.assertThrows;
-import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_ENGAGEMENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -40,10 +40,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_ENGAGEMENT, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_ENGAGEMENT, ParserUtil.parseIndex("  1  "));
     }
 
     @Test

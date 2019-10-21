@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.typee.commons.core.Messages;
 import com.typee.model.Model;
-import com.typee.model.person.NameContainsKeywordsPredicate;
+import com.typee.model.person.DescriptionContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -19,9 +19,9 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final DescriptionContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(DescriptionContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

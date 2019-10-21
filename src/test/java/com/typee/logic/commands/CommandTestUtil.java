@@ -2,14 +2,18 @@ package com.typee.logic.commands;
 
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.typee.commons.core.index.Index;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.EngagementList;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.person.DescriptionContainsKeywordsPredicate;
 
 /**
  * Contains helper methods for testing commands.
@@ -90,19 +94,19 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the engagement at the given {@code targetIndex} in the
+     * {@code model}'s engagement list.
      */
-    /*
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showEngagementAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEngagementList().size());
 
-        Person person = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Engagement engagement = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
+        final String[] splitDescription = engagement.getDescription().split("\\s+");
+        model.updateFilteredEngagementList(new DescriptionContainsKeywordsPredicate((
+                Arrays.asList(splitDescription[0]))
+        ));
 
         assertEquals(1, model.getFilteredEngagementList().size());
     }
-     */
 
 }
