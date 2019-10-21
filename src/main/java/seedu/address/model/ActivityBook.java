@@ -14,18 +14,16 @@ import seedu.address.model.activity.Activity;
 public class ActivityBook implements ReadOnlyActivityBook {
 
     private final ObservableList<Activity> activityList = FXCollections.observableArrayList();
-    private final ObservableList<Activity> unmodifiableActivityList;
+    private final ObservableList<Activity> unmodifiableActivityList =
+            FXCollections.unmodifiableObservableList(activityList);
 
-    public ActivityBook() {
-        unmodifiableActivityList = FXCollections.unmodifiableObservableList(activityList);
-    }
+    public ActivityBook() { }
 
     /**
      * Creates an ActivityBook using the Activities in the {@code previousActivityBook}
      */
     public ActivityBook(ActivityBook previousActivityBook) {
         activityList.addAll(previousActivityBook.getActivityList());
-        unmodifiableActivityList = previousActivityBook.getActivityList();
     }
 
     // ================ List overwrite operations ================
