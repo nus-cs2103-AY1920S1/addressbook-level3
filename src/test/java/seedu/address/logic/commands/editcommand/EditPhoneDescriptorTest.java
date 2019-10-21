@@ -8,9 +8,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_BRAND_SAMSUNG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CAPACITY_SAMSUNG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COLOUR_SAMSUNG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_SAMSUNG;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_IDENTITYNUMBER_SAMSUNG;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONENAME_SAMSUNG;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIALNUMBER_SAMSUNG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_IDENTITY_NUMBER_SAMSUNG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_NAME_SAMSUNG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_SAMSUNG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_REGULAR;
 
 import org.junit.jupiter.api.Test;
@@ -40,17 +40,17 @@ public class EditPhoneDescriptorTest {
 
         // different name -> returns false
         EditPhoneDescriptor editedIphone = new EditPhoneDescriptorBuilder(DESC_IPHONE)
-                .withPhoneName(VALID_PHONENAME_SAMSUNG).build();
+                .withPhoneName(VALID_PHONE_NAME_SAMSUNG).build();
         assertFalse(DESC_IPHONE.equals(editedIphone));
 
         // different identity number -> returns false
         editedIphone = new EditPhoneDescriptorBuilder(DESC_IPHONE)
-                .withIdentityNumber(VALID_IDENTITYNUMBER_SAMSUNG).build();
+                .withIdentityNumber(VALID_IDENTITY_NUMBER_SAMSUNG).build();
         assertFalse(DESC_IPHONE.equals(editedIphone));
 
         // different serial number -> returns false
         editedIphone = new EditPhoneDescriptorBuilder(DESC_IPHONE)
-                .withSerialNumber(VALID_SERIALNUMBER_SAMSUNG).build();
+                .withSerialNumber(VALID_SERIAL_NUMBER_SAMSUNG).build();
         assertFalse(DESC_IPHONE.equals(editedIphone));
 
         // different brand -> returns false

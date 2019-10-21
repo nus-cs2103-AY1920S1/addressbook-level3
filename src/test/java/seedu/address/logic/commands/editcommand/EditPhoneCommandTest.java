@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_BRAND_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CAPACITY_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COLOUR_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONENAME_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIALNUMBER_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_NAME_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPhoneAtIndex;
@@ -63,13 +63,13 @@ public class EditPhoneCommandTest {
         Phone lastPhone = model.getFilteredPhoneList().get(indexLastPhone.getZeroBased());
 
         PhoneBuilder phoneInList = new PhoneBuilder(lastPhone);
-        Phone editedPhone = phoneInList.withName(VALID_PHONENAME_IPHONE)
+        Phone editedPhone = phoneInList.withName(VALID_PHONE_NAME_IPHONE)
                 .withBrand(VALID_BRAND_IPHONE).withCapacity(VALID_CAPACITY_IPHONE).withCost(VALID_COST_IPHONE)
-                .withColour(VALID_COLOUR_IPHONE).withSerialNumber(VALID_SERIALNUMBER_IPHONE).build();
+                .withColour(VALID_COLOUR_IPHONE).withSerialNumber(VALID_SERIAL_NUMBER_IPHONE).build();
 
-        EditPhoneDescriptor descriptor = new EditPhoneDescriptorBuilder().withPhoneName(VALID_PHONENAME_IPHONE)
+        EditPhoneDescriptor descriptor = new EditPhoneDescriptorBuilder().withPhoneName(VALID_PHONE_NAME_IPHONE)
                 .withBrand(VALID_BRAND_IPHONE).withCapacity(VALID_CAPACITY_IPHONE).withCost(VALID_COST_IPHONE)
-                .withColour(VALID_COLOUR_IPHONE).withSerialNumber(VALID_SERIALNUMBER_IPHONE).build();
+                .withColour(VALID_COLOUR_IPHONE).withSerialNumber(VALID_SERIAL_NUMBER_IPHONE).build();
         EditPhoneCommand editCommand = new EditPhoneCommand(indexLastPhone, descriptor);
 
         String expectedMessage = String.format(EditPhoneCommand.MESSAGE_EDIT_PHONE_SUCCESS, editedPhone);
@@ -99,9 +99,9 @@ public class EditPhoneCommandTest {
         showPhoneAtIndex(model, INDEX_FIRST_PHONE);
 
         Phone phoneInFilteredList = model.getFilteredPhoneList().get(INDEX_FIRST_PHONE.getZeroBased());
-        Phone editedPhone = new PhoneBuilder(phoneInFilteredList).withSerialNumber(VALID_SERIALNUMBER_IPHONE).build();
+        Phone editedPhone = new PhoneBuilder(phoneInFilteredList).withSerialNumber(VALID_SERIAL_NUMBER_IPHONE).build();
         EditPhoneCommand editCommand = new EditPhoneCommand(INDEX_FIRST_PHONE,
-                new EditPhoneDescriptorBuilder().withSerialNumber(VALID_SERIALNUMBER_IPHONE).build());
+                new EditPhoneDescriptorBuilder().withSerialNumber(VALID_SERIAL_NUMBER_IPHONE).build());
 
         String expectedMessage = String.format(EditPhoneCommand.MESSAGE_EDIT_PHONE_SUCCESS, editedPhone);
 
@@ -137,7 +137,7 @@ public class EditPhoneCommandTest {
     public void execute_invalidPhoneIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPhoneList().size() + 1);
         EditPhoneDescriptor descriptor = new EditPhoneDescriptorBuilder()
-                .withPhoneName(VALID_PHONENAME_IPHONE).build();
+                .withPhoneName(VALID_PHONE_NAME_IPHONE).build();
         EditPhoneCommand editCommand = new EditPhoneCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PHONE_DISPLAYED_INDEX);
@@ -155,7 +155,7 @@ public class EditPhoneCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPhoneBook().getList().size());
 
         EditPhoneCommand editCommand = new EditPhoneCommand(outOfBoundIndex,
-                new EditPhoneDescriptorBuilder().withPhoneName(VALID_PHONENAME_IPHONE).build());
+                new EditPhoneDescriptorBuilder().withPhoneName(VALID_PHONE_NAME_IPHONE).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PHONE_DISPLAYED_INDEX);
     }

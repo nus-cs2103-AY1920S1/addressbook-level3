@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACTNUMBER_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_NUMBER_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_REGULAR;
@@ -61,11 +61,11 @@ public class EditCustomerCommandTest {
         Customer lastCustomer = model.getFilteredCustomerList().get(indexLastCustomer.getZeroBased());
 
         CustomerBuilder customerInList = new CustomerBuilder(lastCustomer);
-        Customer editedCustomer = customerInList.withName(VALID_NAME_BEN).withContactNumber(VALID_CONTACTNUMBER_BEN)
+        Customer editedCustomer = customerInList.withName(VALID_NAME_BEN).withContactNumber(VALID_CONTACT_NUMBER_BEN)
                 .withTags(VALID_TAG_REGULAR).build();
 
         EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withCustomerName(VALID_NAME_BEN)
-                .withContactNumber(VALID_CONTACTNUMBER_BEN).withTags(VALID_TAG_REGULAR).build();
+                .withContactNumber(VALID_CONTACT_NUMBER_BEN).withTags(VALID_TAG_REGULAR).build();
         EditCustomerCommand editCommand = new EditCustomerCommand(indexLastCustomer, descriptor);
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);

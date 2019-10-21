@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACTNUMBER_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_NUMBER_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -40,7 +40,7 @@ public class EditCustomerDescriptorTest {
         assertFalse(DESC_ALICE.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new EditCustomerDescriptorBuilder(DESC_ALICE).withContactNumber(VALID_CONTACTNUMBER_BEN).build();
+        editedAlice = new EditCustomerDescriptorBuilder(DESC_ALICE).withContactNumber(VALID_CONTACT_NUMBER_BEN).build();
         assertFalse(DESC_ALICE.equals(editedAlice));
 
         // different email -> returns false
