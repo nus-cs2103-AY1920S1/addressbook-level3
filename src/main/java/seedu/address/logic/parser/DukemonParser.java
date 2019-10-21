@@ -19,6 +19,8 @@ import seedu.address.logic.commands.game.GuessCommand;
 import seedu.address.logic.commands.game.SkipCommand;
 import seedu.address.logic.commands.game.StopCommand;
 import seedu.address.logic.commands.settings.DifficultyCommand;
+import seedu.address.logic.commands.settings.HintsCommand;
+import seedu.address.logic.commands.settings.ThemeCommand;
 import seedu.address.logic.commands.switches.BankCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.LoadScreenCommand;
@@ -26,6 +28,8 @@ import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
+import seedu.address.logic.parser.settings.HintsCommandParser;
+import seedu.address.logic.parser.settings.ThemeCommandParser;
 
 /**
  * Parses user input.
@@ -110,6 +114,12 @@ public class DukemonParser {
 
         case DifficultyCommand.COMMAND_WORD:
             return new DifficultyCommandParser().parse(arguments);
+
+        case HintsCommand.COMMAND_WORD:
+            return new HintsCommandParser().parse(arguments);
+
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

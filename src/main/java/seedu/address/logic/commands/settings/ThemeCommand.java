@@ -4,29 +4,29 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.appsettings.DifficultyEnum;
+import seedu.address.model.appsettings.ThemeEnum;
 
 /**
  * Class that represents a command to change the Model's difficulty for all its games.
  */
-public class HintsCommand extends SettingsCommand {
+public class ThemeCommand extends SettingsCommand {
 
-    public static final String COMMAND_WORD = "hints";
+    public static final String COMMAND_WORD = "theme";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enables or disables hints."
-            + "Parameters: HINTS [on/off]\n"
-            + "Example: " + COMMAND_WORD + " on";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes theme to light or dark."
+            + "Parameters: THEME [light/dark]\n"
+            + "Example: " + COMMAND_WORD + " light";
 
-    private final boolean hintsEnabled;
+    private final ThemeEnum theme;
 
-    public HintsCommand(boolean hintsEnabled) {
-        this.hintsEnabled = hintsEnabled;
+    public ThemeCommand(ThemeEnum theme) {
+        this.theme = theme;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.setHintsEnabled(this.hintsEnabled);
-        return new CommandResult("Hints now set to: " + (this.hintsEnabled ? "ON" : "OFF"));
+        model.setDefaultTheme(this.theme);
+        return new CommandResult("Theme now set to: " + theme);
     }
 
 }

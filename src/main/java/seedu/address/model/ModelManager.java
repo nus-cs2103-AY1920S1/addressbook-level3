@@ -39,9 +39,6 @@ public class ModelManager implements Model {
 
     //Settings for the app.
     private final AppSettings appSettings;
-    private DifficultyEnum difficulty;
-    private ThemeEnum theme;
-    private boolean hintsEnabled;
 
     private FilteredList<Card> filteredCards;
     private final FilteredList<WordBank> filteredWordBanks;
@@ -68,11 +65,6 @@ public class ModelManager implements Model {
 
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
         filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
-
-        // Settings fields
-        this.difficulty = appSettings.getDefaultDifficulty();
-        this.theme = appSettings.getDefaultTheme();
-        this.hintsEnabled = appSettings.getHintsEnabled();
     }
 
     public ModelManager() {
@@ -127,7 +119,7 @@ public class ModelManager implements Model {
     @Override
     public void setHintsEnabled(boolean enabled) {
         requireNonNull(enabled);
-        this.hintsEnabled = enabled;
+        appSettings.setHintsEnabled(enabled);
     }
 
     //=========== UserPrefs ==================================================================================

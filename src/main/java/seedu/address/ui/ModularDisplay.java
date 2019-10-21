@@ -22,7 +22,7 @@ public class ModularDisplay {
     private BankLabelPanel bankLabelPanel;
     private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
-//    private final SettingsPanel settingsPanel;
+    private final SettingsPanel settingsPanel;
     private final GameManager gameManager;
 
     /**
@@ -34,6 +34,7 @@ public class ModularDisplay {
         loadBankPanel = new LoadBankPanel(gameManager.getFilteredWordBankList());
         cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
+        settingsPanel = new SettingsPanel(gameManager.getAppSettings());
         this.gameManager = gameManager;
     }
 
@@ -122,8 +123,9 @@ public class ModularDisplay {
      *
      * @param paneToDisplay
      */
-//    public void swapToSettings(StackPane paneToDisplay) {
-//        paneToDisplay.getChildren().clear();
-//        paneToDisplay.getChildren().add(settingsPanel.getRoot());
-//    }
+    public void swapToSettings(StackPane paneToDisplay) {
+        paneToDisplay.getChildren().clear();
+        paneToDisplay.getChildren().add(settingsPanel.getRoot());
+    }
+
 }

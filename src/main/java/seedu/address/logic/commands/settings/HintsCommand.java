@@ -9,24 +9,24 @@ import seedu.address.model.appsettings.DifficultyEnum;
 /**
  * Class that represents a command to change the Model's difficulty for all its games.
  */
-public class DifficultyCommand extends SettingsCommand {
+public class HintsCommand extends SettingsCommand {
 
-    public static final String COMMAND_WORD = "difficulty";
+    public static final String COMMAND_WORD = "hints";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes difficulty of games"
-            + "Parameters: DIFFICULTY [easy/medium/hard]\n"
-            + "Example: " + COMMAND_WORD + " medium";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enables or disables hints."
+            + "Parameters: HINTS [on/off]\n"
+            + "Example: " + COMMAND_WORD + " on";
 
-    private final DifficultyEnum difficulty;
+    private final boolean hintsEnabled;
 
-    public DifficultyCommand(DifficultyEnum difficulty) {
-        this.difficulty = difficulty;
+    public HintsCommand(boolean hintsEnabled) {
+        this.hintsEnabled = hintsEnabled;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.setDefaultDifficulty(this.difficulty);
-        return new CommandResult("Difficulty is now set to: " + difficulty);
+        model.setHintsEnabled(this.hintsEnabled);
+        return new CommandResult("Hints now set to: " + (this.hintsEnabled ? "ON" : "OFF"));
     }
 
 }

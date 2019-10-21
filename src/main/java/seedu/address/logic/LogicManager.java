@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.DukemonParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -155,5 +156,10 @@ public class LogicManager implements Logic {
     @Override
     public long getTimeAllowedPerQuestion() {
         return this.model.getDefaultDifficulty().getTimeAllowedPerQuestion();
+    }
+
+    @Override
+    public AppSettings getAppSettings() {
+        return this.model.getAppSettings();
     }
 }
