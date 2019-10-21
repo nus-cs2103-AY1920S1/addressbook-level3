@@ -2,6 +2,7 @@ package seedu.billboard.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -123,6 +124,8 @@ public class UniqueTagList {
      * @return list of unique tag names.
      */
     public List<String> getTagNames() {
-        return List.copyOf(tagList.keySet());
+        List<String> tagNames = new ArrayList<>(tagList.keySet());
+        Collections.sort(tagNames);
+        return List.copyOf(tagNames);
     }
 }
