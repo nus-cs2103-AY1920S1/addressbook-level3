@@ -31,7 +31,7 @@ public class BackCommandParser implements SortParser<BackCommand> {
 
         if (!arePrefixesPresent(argMultimap)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_LISTCOMMAND_FORMAT);
+            throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_BACKCOMMAND_FORMAT);
         }
         BackCommand backCommand = new BackCommand();
         return backCommand;

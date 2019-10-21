@@ -17,6 +17,6 @@ public class BackCommand extends Command {
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
         ReimbursementMessages reimbursementMessages = new ReimbursementMessages();
         model.listReimbursement();
-        return new CommandResult(reimbursementMessages.LIST_COMMAND);
+        return new CommandResult(reimbursementMessages.BACK_COMMAND);
     }
 }
