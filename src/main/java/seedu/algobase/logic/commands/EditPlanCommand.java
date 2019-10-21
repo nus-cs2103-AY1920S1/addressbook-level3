@@ -95,6 +95,7 @@ public class EditPlanCommand extends Command {
     private static Plan createEditedPlan(Plan planToEdit, EditPlanDescriptor editPlanDescriptor) {
         assert planToEdit != null;
 
+        long id = planToEdit.getId();
         PlanName updatedName = editPlanDescriptor.getPlanName().orElse(planToEdit.getPlanName());
         PlanDescription updatedDescription = editPlanDescriptor.getPlanDescription().orElse(
                 planToEdit.getPlanDescription());
@@ -102,7 +103,7 @@ public class EditPlanCommand extends Command {
         LocalDateTime endDate = editPlanDescriptor.getEndDate().orElse(planToEdit.getEndDate());
         Set<Task> tasks = editPlanDescriptor.getTasks().orElse(planToEdit.getTasks());
 
-        return new Plan(updatedName, updatedDescription, startDate, endDate, tasks);
+        return new Plan(id, updatedName, updatedDescription, startDate, endDate, tasks);
     }
 
     @Override

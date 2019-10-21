@@ -21,6 +21,7 @@ public class Plan {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Identity fields
+    private final long id;
     private final PlanName planName;
 
     // Data fields
@@ -35,6 +36,19 @@ public class Plan {
     public Plan(PlanName planName, PlanDescription planDescription, LocalDateTime startDate, LocalDateTime endDate,
                 Set<Task> tasks) {
         requireAllNonNull(planName, planDescription, startDate, endDate, tasks);
+        this.id = System.currentTimeMillis() / 1000L;
+        this.planName = planName;
+        this.planDescription = planDescription;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.tasks = new HashSet<>();
+        this.tasks.addAll(tasks);
+    }
+
+    public Plan(long id, PlanName planName, PlanDescription planDescription, LocalDateTime startDate,
+                LocalDateTime endDate, Set<Task> tasks) {
+        requireAllNonNull(id, planName, planDescription, startDate, endDate, tasks);
+        this.id = id;
         this.planName = planName;
         this.planDescription = planDescription;
         this.startDate = startDate;
@@ -47,15 +61,20 @@ public class Plan {
      * Creates and returns a {@code Plan} with the details of {@code planToUpdate}
      * with an updated {@code taskSet}.
      */
-    public static Plan createUpdatedPlan(Plan planToUpdate, Set taskSet) {
+    public static Plan updateTasks(Plan planToUpdate, Set taskSet) {
         assert planToUpdate != null;
 
-        PlanName updatedName = planToUpdate.getPlanName();
-        PlanDescription updatedDescription = planToUpdate.getPlanDescription();
-        LocalDateTime startDate = planToUpdate.getStartDate();
-        LocalDateTime endDate = planToUpdate.getEndDate();
+        long id = planToUpdate.id;
+        PlanName name = planToUpdate.planName;
+        PlanDescription description = planToUpdate.planDescription;
+        LocalDateTime startDate = planToUpdate.startDate;
+        LocalDateTime endDate = planToUpdate.endDate;
 
-        return new Plan(updatedName, updatedDescription, startDate, endDate, taskSet);
+        return new Plan(id, name, description, startDate, endDate, taskSet);
+    }
+
+    public long getId() {
+        return id;
     }
 
     public PlanName getPlanName() {

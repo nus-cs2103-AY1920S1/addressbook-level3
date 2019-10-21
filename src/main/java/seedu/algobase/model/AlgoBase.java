@@ -53,6 +53,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         requireNonNull(newData);
 
         setProblems(newData.getProblemList());
+        setPlans(newData.getPlanList());
         setTags(newData.getTagList());
     }
 
@@ -155,6 +156,13 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     //========== Plan ===================================================================
+
+    /**
+     * Replaces the contents of the Plan list with {@code plans}.
+     */
+    public void setPlans(List<Plan> plans) {
+        this.plans.setPlans(plans);
+    }
 
     /**
      * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.

@@ -13,6 +13,7 @@ public class Tag {
         "Tags names should contain only alphabets, numbers, hyphen or underscore";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]*$";
 
+    public final long id;
     public final String tagName;
 
     /**
@@ -23,12 +24,21 @@ public class Tag {
     public Tag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        this.id = System.currentTimeMillis() / 1000L;
         this.tagName = tagName;
     }
 
-    /**
-     *
-     */
+    public Tag(long id, String tagName) {
+        requireNonNull(tagName);
+        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        this.id = id;
+        this.tagName = tagName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
     public String getName() {
         return this.tagName;
     }
