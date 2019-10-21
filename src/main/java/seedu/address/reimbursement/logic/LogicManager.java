@@ -1,5 +1,7 @@
 package seedu.address.reimbursement.logic;
 
+import java.io.IOException;
+
 import seedu.address.reimbursement.commands.Command;
 import seedu.address.reimbursement.commands.CommandResult;
 import seedu.address.reimbursement.model.Model;
@@ -49,4 +51,9 @@ public class LogicManager implements Logic {
         return reimbursementModel.getFilteredReimbursementList();
     }
 
+    @Override
+    public void updateReimbursementList() throws IOException {
+        reimbursementModel.updateReimbursementList(reimbursementStorage.readReimbursementList());
+        reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
+    }
 }
