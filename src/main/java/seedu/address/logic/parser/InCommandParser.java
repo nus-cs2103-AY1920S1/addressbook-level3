@@ -13,6 +13,7 @@ import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.InTransaction;
@@ -34,12 +35,13 @@ public class InCommandParser implements Parser<InCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Person person = new Person(name);
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Transaction transaction = new InTransaction(amount, date, tagList);
+        Transaction transaction = new InTransaction(amount, date, tagList, person);
 
         return new InCommand(transaction);
 
