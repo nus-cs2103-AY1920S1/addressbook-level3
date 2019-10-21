@@ -44,9 +44,6 @@ public class IndividualContactWindow extends UiPart<Stage> {
         super(FXML, root);
         name.setText("Name: " + contact.getName().toString());
         number.setText("Contact: " + contact.getPhone().toString());
-//        date.setText("Date: " + contact.getDescription().toString());
-//        amount.setText("Amount: " + contact.getAmount().toString());
-//        description.setText("Description: " + contact.getDescription().toString());
     }
 
     /**
