@@ -99,6 +99,9 @@ public class LogicManager implements Logic {
             if (command instanceof RemoveCommand) {
                 storage.removeWordBank(((RemoveCommand) command).wordBankName);
             }
+            if (command instanceof RemoveCommand) {
+                storage.removeWordBank(((RemoveCommand) command).wordBankName);
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

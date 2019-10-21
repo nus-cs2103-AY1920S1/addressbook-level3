@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.loadCommands;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.AppCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.LoadCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -11,7 +10,7 @@ import seedu.address.model.wordbank.WordBank;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Deletes a card identified using it's displayed index from the word bank.
+ * Removes a word bank identified using it's unique name.
  */
 public class RemoveCommand extends LoadCommand {
 
