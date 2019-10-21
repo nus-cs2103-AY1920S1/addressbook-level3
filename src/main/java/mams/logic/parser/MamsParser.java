@@ -12,8 +12,8 @@ import mams.logic.commands.ExitCommand;
 import mams.logic.commands.FindCommand;
 import mams.logic.commands.HelpCommand;
 import mams.logic.commands.ListCommand;
-import mams.logic.commands.ResolveCommand;
 import mams.logic.commands.RemoveModCommand;
+import mams.logic.commands.ResolveCommand;
 import mams.logic.commands.SetCredits;
 import mams.logic.parser.exceptions.ParseException;
 

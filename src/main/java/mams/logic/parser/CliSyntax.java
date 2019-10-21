@@ -18,9 +18,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_MODULE_CODE = new Prefix("m/");
 
     /*Prefix definitions for Appeal class */
-    public static final Prefix PREFIX_REASON = new Prefix("rr/");
     public static final Prefix PREFIX_APPEALID = new Prefix("a/");
     public static final Prefix PREFIX_MASS_RESOLVE = new Prefix("mass/");
-
+    public static final Prefix PREFIX_REASON = new Prefix("rr/");
 
 }

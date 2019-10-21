@@ -7,6 +7,9 @@ import mams.model.appeal.Appeal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Mass rejects appeals in Mams
+ */
 public class MassReject extends Reject{
 
     private final List<String> validIds;
@@ -45,9 +48,11 @@ public class MassReject extends Reject{
                                 "");
                         model.setAppeal(appealToApprove, approvedAppeal);
                         rejectedSuccessfully.add(appealId);
-                    } else if (appealToApprove.isResolved() == true && appealToApprove.getResult().equalsIgnoreCase("APPROVED")) {
+                    } else if (appealToApprove.isResolved() == true
+                            && appealToApprove.getResult().equalsIgnoreCase("APPROVED")) {
                         alreadyApproved.add(appeal.getAppealId());
-                    } else if (appealToApprove.isResolved() == true && appealToApprove.getResult().equalsIgnoreCase("REJECTED")) {
+                    } else if (appealToApprove.isResolved() == true
+                            && appealToApprove.getResult().equalsIgnoreCase("REJECTED")) {
                         alreadyRejected.add(appeal.getAppealId());
                     }
                     break;
@@ -56,20 +61,25 @@ public class MassReject extends Reject{
         }
         return new CommandResult(resultGenerator());
     }
+
+    /**
+     * Generates response for user
+     * @return
+     */
     private String resultGenerator() {
         String result = "";
-        if(rejectedSuccessfully.isEmpty()) {
+        if (rejectedSuccessfully.isEmpty()) {
             result += "No appeals were rejected";
         } else {
             result += "Successfully approved: " + rejectedSuccessfully.toString();
         }
-        if(!alreadyApproved.isEmpty()) {
+        if (!alreadyApproved.isEmpty()) {
             result += "\nAlready approved: " + alreadyApproved.toString();
         }
-        if(!alreadyRejected.isEmpty()) {
+        if (!alreadyRejected.isEmpty()) {
             result += "\nAlready rejected: " + alreadyRejected.toString();
         }
-        if(!invalidIds.isEmpty()) {
+        if (!invalidIds.isEmpty()) {
             result += "\nInvalid appeal IDs: " + invalidIds.toString();
         }
         return result;
