@@ -5,7 +5,7 @@ import thrift.model.Model;
 /**
  * Terminates the program.
  */
-public class ExitCommand extends Command {
+public class ExitCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "exit";
 

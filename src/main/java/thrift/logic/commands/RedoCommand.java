@@ -8,7 +8,7 @@ import thrift.model.Model;
 /**
  * Redo undone command in THRIFT.
  */
-public class RedoCommand extends Command {
+public class RedoCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "redo";
 

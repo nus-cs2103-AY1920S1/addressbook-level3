@@ -24,7 +24,7 @@ import thrift.model.transaction.Value;
 /**
  * Tags a specified Transaction
  */
-public class TagCommand extends Command implements Undoable {
+public class TagCommand extends NonScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "tag";
 

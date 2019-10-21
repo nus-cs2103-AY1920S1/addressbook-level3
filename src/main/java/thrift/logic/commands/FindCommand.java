@@ -10,7 +10,7 @@ import thrift.model.transaction.DescriptionOrRemarkContainsKeywordsPredicate;
  * Finds and lists all transactions in THRIFT whose description contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "find";
 

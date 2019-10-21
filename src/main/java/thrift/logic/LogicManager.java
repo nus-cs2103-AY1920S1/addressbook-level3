@@ -16,7 +16,9 @@ import thrift.logic.commands.CloneCommand;
 import thrift.logic.commands.Command;
 import thrift.logic.commands.CommandResult;
 import thrift.logic.commands.DeleteCommand;
+import thrift.logic.commands.NonScrollingCommand;
 import thrift.logic.commands.RedoCommand;
+import thrift.logic.commands.ScrollingCommand;
 import thrift.logic.commands.UndoCommand;
 import thrift.logic.commands.Undoable;
 import thrift.logic.commands.UpdateCommand;
@@ -54,10 +56,10 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = thriftParser.parseCommand(commandText);
-        if (command instanceof UpdateCommand) {
-            commandResult = ((UpdateCommand) command).execute(model, transactionListPanel);
+        if (command instanceof ScrollingCommand) {
+            commandResult = ((ScrollingCommand) command).execute(model, transactionListPanel);
         } else {
-            commandResult = command.execute(model);
+            commandResult = ((NonScrollingCommand) command).execute(model);
         }
         if (isRefreshingFilteredList(command)) {
             model.updateBalanceForCurrentMonth();

@@ -9,7 +9,7 @@ import thrift.model.transaction.Budget;
 /**
  * Sets the monthly budget.
  */
-public class BudgetCommand extends Command {
+public class BudgetCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "budget";
 

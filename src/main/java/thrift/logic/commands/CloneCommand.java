@@ -25,7 +25,7 @@ import thrift.model.transaction.Value;
 /**
  * Clones a transaction specified by its index in THRIFT.
  */
-public class CloneCommand extends Command implements Undoable {
+public class CloneCommand extends NonScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "clone";
 

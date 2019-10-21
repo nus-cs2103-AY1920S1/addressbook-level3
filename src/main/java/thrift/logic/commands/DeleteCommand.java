@@ -17,7 +17,7 @@ import thrift.model.transaction.Transaction;
 /**
  * Deletes a transaction identified using it's displayed index from THRIFT.
  */
-public class DeleteCommand extends Command implements Undoable {
+public class DeleteCommand extends NonScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "delete";
 

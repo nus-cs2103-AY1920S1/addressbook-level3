@@ -10,7 +10,7 @@ import thrift.model.transaction.Income;
 /**
  * Adds an expense transaction to the THRIFT.
  */
-public class AddIncomeCommand extends Command implements Undoable {
+public class AddIncomeCommand extends NonScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add_income";
 

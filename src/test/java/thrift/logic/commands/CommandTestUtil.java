@@ -89,10 +89,10 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result;
-            if (command instanceof UpdateCommand) {
-                result = ((UpdateCommand) command).execute(actualModel, null);
+            if (command instanceof ScrollingCommand) {
+                result = ((ScrollingCommand) command).execute(actualModel, null);
             } else {
-                result = command.execute(actualModel);
+                result = ((NonScrollingCommand) command).execute(actualModel);
             }
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
@@ -124,11 +124,12 @@ public class CommandTestUtil {
         Thrift expectedThrift = new Thrift(actualModel.getThrift());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
-        if (command instanceof UpdateCommand) {
+        if (command instanceof ScrollingCommand) {
             assertThrows(CommandException.class, expectedMessage, () -> (
-                (UpdateCommand) command).execute(actualModel, null));
+                (ScrollingCommand) command).execute(actualModel, null));
         } else {
-            assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+            assertThrows(CommandException.class, expectedMessage, (
+                )-> ((NonScrollingCommand) command).execute(actualModel));
         }
         assertEquals(expectedThrift, actualModel.getThrift());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());

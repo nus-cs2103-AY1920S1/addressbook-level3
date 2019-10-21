@@ -8,7 +8,7 @@ import thrift.model.Model;
 /**
  * Lists all transactions in THRIFT to the user.
  */
-public class ListCommand extends Command {
+public class ListCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "list";
 

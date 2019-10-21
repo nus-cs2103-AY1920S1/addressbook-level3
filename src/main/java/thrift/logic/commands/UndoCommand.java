@@ -8,7 +8,7 @@ import thrift.model.Model;
 /**
  * Undo the previous undoable command in THRIFT.
  */
-public class UndoCommand extends Command {
+public class UndoCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "undo";
 
