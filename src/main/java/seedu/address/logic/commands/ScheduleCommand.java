@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.Calendar;
 
@@ -19,7 +19,7 @@ public class ScheduleCommand extends Command {
             + ": Switch the schedule view according to the date input by the user.\n"
             + "Parameters: PREFIX_CALENDAR + YYYY.MM.DD\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_CALENDAR + "2019.10.18\n";
+            + PREFIX_DATE + "2019.10.18\n";
 
     public static final String MESSAGE_SUCCESS = "Schedule view switched.";
 

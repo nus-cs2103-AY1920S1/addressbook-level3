@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.Calendar;
 import java.util.stream.Stream;
@@ -21,13 +21,13 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
      */
     public ScheduleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CALENDAR);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CALENDAR)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
         }
 
-        Calendar calendar = ParserUtil.parseDateCalendar(argMultimap.getValue(PREFIX_CALENDAR).get());
+        Calendar calendar = ParserUtil.parseDateCalendar(argMultimap.getValue(PREFIX_DATE).get());
 
         return new ScheduleCommand(calendar);
     }

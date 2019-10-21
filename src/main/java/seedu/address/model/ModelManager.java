@@ -439,7 +439,6 @@ public class ModelManager implements Model {
 
         scheduleBook.set(target, editedSchedule);
         setCalendarDate(editedSchedule.getCalendar());
-        scheduleBook.set(target, editedSchedule);
 
         // cascade
         List<Order> orders = orderBook.getList();

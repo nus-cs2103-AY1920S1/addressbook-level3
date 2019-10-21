@@ -1,8 +1,9 @@
 package seedu.address.logic.commands.addcommand;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.List;
@@ -29,11 +30,13 @@ public class AddScheduleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a schedule to an existing order in the SML "
             + "by the index number of the order to be scheduled in the displayed order list. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CALENDAR + "YYYY.MM.DD.HH.MM "
+            + PREFIX_DATE + "YYYY.MM.DD "
+            + PREFIX_TIME + "HH.MM "
             + PREFIX_VENUE + "VENUE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CALENDAR + "2019.12.12.17.30 "
+            + PREFIX_DATE + "2019.12.12 "
+            + PREFIX_TIME + "17.30 "
             + PREFIX_VENUE + "Changi Airport T3 "
             + PREFIX_TAG + "freebie";
 
