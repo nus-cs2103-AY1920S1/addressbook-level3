@@ -21,14 +21,18 @@ public class Task {
     private final TaskDescription taskDescription;
 
     // Data fields
+    private final TaskDeadline taskDeadline;
     private final TaskPlace taskPlace;
     private final Set<TaskTag> taskTags = new HashSet<>();
+
+
 
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskTitle taskTitle, TaskTime taskTime, TaskDescription taskDescription, TaskPlace taskPlace,
-                Set<TaskTag> taskTags) {
+    public Task(TaskTitle taskTitle, TaskTime taskTime, TaskDescription taskDescription, TaskDeadline taskDeadline,
+                TaskPlace taskPlace, Set<TaskTag> taskTags) {
+        this.taskDeadline = taskDeadline;
         requireAllNonNull(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
         this.taskTitle = taskTitle;
         this.taskTime = taskTime;
@@ -47,6 +51,10 @@ public class Task {
 
     public TaskDescription getTaskDescription() {
         return taskDescription;
+    }
+
+    public TaskDeadline getTaskDeadline() {
+        return taskDeadline;
     }
 
     public TaskPlace getTaskPlace() {
@@ -73,6 +81,7 @@ public class Task {
         return otherTask != null
                 && otherTask.getTaskTitle().equals(getTaskTitle())
                 && (otherTask.getTaskTime().equals(getTaskTime())
+                && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 || otherTask.getTaskDescription().equals(getTaskDescription()));
     }
 
@@ -93,6 +102,7 @@ public class Task {
         Task otherTask = (Task) other;
         return otherTask.getTaskTitle().equals(getTaskTitle())
                 && otherTask.getTaskTime().equals(getTaskTime())
+                && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 && otherTask.getTaskDescription().equals(getTaskDescription())
                 && otherTask.getTaskPlace().equals(getTaskPlace())
                 && otherTask.getTaskTags().equals(getTaskTags());
@@ -108,10 +118,12 @@ public class Task {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTaskTitle())
-                .append(" TaskTime: ")
+                .append(" Time: ")
                 .append(getTaskTime())
-                .append(" TaskDescription: ")
+                .append(" Description: ")
                 .append(getTaskDescription())
+                .append(" Deadline: ")
+                .append(getTaskDeadline())
                 .append(" Address: ")
                 .append(getTaskPlace())
                 .append(" Tags: ");

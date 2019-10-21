@@ -1,6 +1,7 @@
 package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDEADLINE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
@@ -20,6 +21,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.person.TaskDeadline;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
 import seedu.address.model.calendar.person.TaskTime;
@@ -40,6 +42,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TASKTITLE + "TITLE] "
             + "[" + PREFIX_TASKTIME + "TIME] "
             + "[" + PREFIX_TASKDESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_TASKDEADLINE + "DEADLINE] "
             + "[" + PREFIX_TASKPLACE + "PLACE] "
             + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -97,10 +100,13 @@ public class EditCommand extends Command {
         TaskTime updatedTaskTime = editPersonDescriptor.getTaskTime().orElse(taskToEdit.getTaskTime());
         TaskDescription updatedTaskDescription = editPersonDescriptor.getTaskDescription()
                 .orElse(taskToEdit.getTaskDescription());
+        TaskDeadline updatedTaskDeadline = editPersonDescriptor.getTaskDeadline()
+                .orElse(taskToEdit.getTaskDeadline());
         TaskPlace updatedTaskPlace = editPersonDescriptor.getTaskPlace().orElse(taskToEdit.getTaskPlace());
         Set<TaskTag> updatedTaskTags = editPersonDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
 
-        return new Task(updatedTaskTitle, updatedTaskTime, updatedTaskDescription, updatedTaskPlace, updatedTaskTags);
+        return new Task(updatedTaskTitle, updatedTaskTime, updatedTaskDescription, updatedTaskDeadline,
+                updatedTaskPlace, updatedTaskTags);
     }
 
     @Override
@@ -129,6 +135,7 @@ public class EditCommand extends Command {
         private TaskTitle taskTitle;
         private TaskTime taskTime;
         private TaskDescription taskDescription;
+        private TaskDeadline taskDeadline;
         private TaskPlace taskPlace;
         private Set<TaskTag> taskTags;
 
@@ -142,6 +149,7 @@ public class EditCommand extends Command {
             setTaskTitle(toCopy.taskTitle);
             setTaskTime(toCopy.taskTime);
             setTaskDescription(toCopy.taskDescription);
+            setTaskDeadline(toCopy.taskDeadline);
             setTaskPlace(toCopy.taskPlace);
             setTaskTags(toCopy.taskTags);
         }
@@ -175,6 +183,14 @@ public class EditCommand extends Command {
 
         public Optional<TaskDescription> getTaskDescription() {
             return Optional.ofNullable(taskDescription);
+        }
+
+        public void setTaskDeadline(TaskDeadline taskDeadline) {
+            this.taskDeadline = taskDeadline;
+        }
+
+        public Optional<TaskDeadline> getTaskDeadline() {
+            return Optional.ofNullable(taskDeadline);
         }
 
         public void setTaskPlace(TaskPlace taskPlace) {
@@ -219,6 +235,7 @@ public class EditCommand extends Command {
 
             return getTaskTitle().equals(e.getTaskTitle())
                     && getTaskTime().equals(e.getTaskTime())
+                    && getTaskDeadline().equals(e.getTaskDeadline())
                     && getTaskDescription().equals(e.getTaskDescription())
                     && getTaskPlace().equals(e.getTaskPlace())
                     && getTaskTags().equals(e.getTaskTags());

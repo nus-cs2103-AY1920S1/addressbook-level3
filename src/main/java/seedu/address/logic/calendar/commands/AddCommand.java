@@ -1,6 +1,7 @@
 package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDEADLINE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
@@ -27,8 +28,9 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASKTITLE + "CS2109 Assignment 7 "
-            + PREFIX_TASKTIME + "20/10/2019 "
+            + PREFIX_TASKTIME + "today "
             + PREFIX_TASKDESCRIPTION + "Submit to Luminus "
+            + PREFIX_TASKDEADLINE + "12-10-2019 "
             + PREFIX_TASKPLACE + "NUS "
             + PREFIX_TASKTAG + "IMPORTANT "
             + PREFIX_TASKTAG + "CS2109";

@@ -45,17 +45,17 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_TASKTITLE).isPresent()) {
-            editPersonDescriptor.setTaskTitle(ParserUtil.parseName(argMultimap.getValue(PREFIX_TASKTITLE).get()));
+            editPersonDescriptor.setTaskTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TASKTITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_TASKTIME).isPresent()) {
-            editPersonDescriptor.setTaskTime(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_TASKTIME).get()));
+            editPersonDescriptor.setTaskTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKTIME).get()));
         }
         if (argMultimap.getValue(PREFIX_TASKDESCRIPTION).isPresent()) {
-            editPersonDescriptor.setTaskDescription(ParserUtil.parseEmail(argMultimap
+            editPersonDescriptor.setTaskDescription(ParserUtil.parseDescription(argMultimap
                     .getValue(PREFIX_TASKDESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_TASKPLACE).isPresent()) {
-            editPersonDescriptor.setTaskPlace(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_TASKPLACE).get()));
+            editPersonDescriptor.setTaskPlace(ParserUtil.parsePlace(argMultimap.getValue(PREFIX_TASKPLACE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TASKTAG)).ifPresent(editPersonDescriptor::setTaskTags);
 

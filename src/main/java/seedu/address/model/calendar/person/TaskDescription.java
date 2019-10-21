@@ -32,12 +32,12 @@ public class TaskDescription {
     /**
      * Constructs an {@code TaskDescription}.
      *
-     * @param email A valid email address.
+     * @param description A valid description address.
      */
-    public TaskDescription(String email) {
-        requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
-        value = email;
+    public TaskDescription(String description) {
+        requireNonNull(description);
+        checkArgument(isValidEmail(description), MESSAGE_CONSTRAINTS);
+        value = description;
     }
 
     /**

@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
+import seedu.address.model.calendar.person.TaskDeadline;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
 import seedu.address.model.calendar.person.TaskTime;
@@ -41,7 +42,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static TaskTitle parseName(String name) throws ParseException {
+    public static TaskTitle parseTitle(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!TaskTitle.isValidName(trimmedName)) {
@@ -56,7 +57,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static TaskTime parsePhone(String phone) throws ParseException {
+    public static TaskTime parseTime(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!TaskTime.isValidPhone(trimmedPhone)) {
@@ -71,7 +72,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static TaskPlace parseAddress(String address) throws ParseException {
+    public static TaskPlace parsePlace(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!TaskPlace.isValidAddress(trimmedAddress)) {
@@ -86,13 +87,28 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static TaskDescription parseEmail(String email) throws ParseException {
+    public static TaskDescription parseDescription(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!TaskDescription.isValidEmail(trimmedEmail)) {
             throw new ParseException(TaskDescription.MESSAGE_CONSTRAINTS);
         }
         return new TaskDescription(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String deadline} into an {@code TaskDeadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code deadline} is invalid.
+     */
+    public static TaskDeadline parseDeadline(String deadline) throws ParseException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
+        if (!TaskDeadline.isValidDate(trimmedDeadline)) {
+            throw new ParseException(TaskDeadline.MESSAGE_CONSTRAINTS);
+        }
+        return new TaskDeadline(trimmedDeadline);
     }
 
     /**
