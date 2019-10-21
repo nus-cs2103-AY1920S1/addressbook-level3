@@ -44,6 +44,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateReimbursementList(Person editedPerson, Person personToEdit) {
+        reimbursementList.updatePerson(editedPerson, personToEdit);
+    }
+
+    @Override
     public Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException {
         Reimbursement reim = reimbursementList.findReimbursement(person);
         ArrayList<Reimbursement> newList = new ArrayList<>();
