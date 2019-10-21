@@ -1,6 +1,6 @@
 package seedu.revision.ui;
 
-import java.net.URL;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -20,8 +20,7 @@ import seedu.revision.logic.commands.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answer;
-import seedu.revision.model.answerable.AnswerSet;
-import seedu.revision.model.answerable.Category;
+import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
@@ -33,22 +32,17 @@ import seedu.revision.model.answerable.Question;
  */
 public class StartQuizWindow extends UiPart<Stage> {
 
-    private AnswerSet setDefaultAnswerSet() {
-        Set<Answer> correctAnswerSet = new HashSet<>();
-        correctAnswerSet.add(new Answer("20"));
-        Set<Answer> wrongAnswerSet = new HashSet<>();
-        wrongAnswerSet.add(new Answer("srksthjdasdfjjgsjsjaasvjfhbgdnsdfdhsjrgjthsj rjgetj grjhfdjrgtjsjg segjthjtr nfbgjd"
-                + "mrgetjrh egtjhrj vrketrjyn"
-                + "rmgetjhry rmtrj"));
-        wrongAnswerSet.add(new Answer("100"));
-        wrongAnswerSet.add(new Answer("50"));
-        return new AnswerSet(correctAnswerSet, wrongAnswerSet);
-    }
+    Answer correctAnswerStub = new Answer("CORRECT");
+    Set<Answer> correctAnswerSetStub = new HashSet<>(Arrays.asList(correctAnswerStub));
+    Answer wrongAnswerStub = new Answer("WRONG");
+    Set<Answer> wrongAnswerSetStub = new HashSet<>(Arrays.asList(wrongAnswerStub));
+    Category categoryStub = new Category("math");
+    Set<Category> categoriesStub = new HashSet<>(Arrays.asList(categoryStub));
 
     public MainWindow mainWindow;
     private final Mcq DEFAULT_QUESTION =
-            new Mcq(new Question("what is 10 + 10?"), setDefaultAnswerSet(), new Difficulty("1"),
-                    new Category("math"), new HashSet<>());
+            new Mcq(new Question("what is 10 + 10?"), correctAnswerSetStub, wrongAnswerSetStub,
+                    new Difficulty("1"), categoriesStub);
 
 
     private static final String FXML = "MainWindow.fxml";

@@ -54,7 +54,9 @@ public abstract class Answerable {
         return wrongAnswerSet;
     }
 
-    public Set<Answer> getCombinedAnswerSet() { return combinedAnswerSet}
+    public Set<Answer> getCombinedAnswerSet() {
+        return combinedAnswerSet;
+    }
 
     public Difficulty getDifficulty() {
         return difficulty;

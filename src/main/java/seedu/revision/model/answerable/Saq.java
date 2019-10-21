@@ -4,6 +4,7 @@ import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,7 +19,7 @@ public class Saq extends Answerable {
     public Saq(Question question, Set<Answer> correctAnswerSet, Difficulty difficulty,
                Set<Category> categories) {
         //TODO: Find a better way to initialise this
-        super(question, correctAnswerSet, null, difficulty, categories);
+        super(question, correctAnswerSet, new HashSet<>(), difficulty, categories);
     }
 
     public String toString() {

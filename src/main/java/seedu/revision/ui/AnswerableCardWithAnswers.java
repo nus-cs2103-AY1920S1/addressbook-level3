@@ -50,9 +50,7 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
     @FXML
     private Label difficulty;
     @FXML
-    private Label category;
-    @FXML
-    private FlowPane tags;
+    private FlowPane categories;
 
     public AnswerableCardWithAnswers(Answerable answerable, int displayedIndex) {
         super(FXML);
@@ -60,14 +58,13 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         question.setText(answerable.getQuestion().fullQuestion);
         difficulty.setText(answerable.getDifficulty().value);
-        category.setText(answerable.getCategory().value);
 
         //To set the individual answers to the answer flowPane
-        answer1.getChildren().add(new Label (answerable.getAnswerSet().combinedAnswerSet.toString()));
+        answer1.getChildren().add(new Label (answerable.getCombinedAnswerSet().toString()));
 
-        answerable.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        answerable.getCategories().stream()
+                .sorted(Comparator.comparing(category -> category.categoryName))
+                .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
 
     }
 

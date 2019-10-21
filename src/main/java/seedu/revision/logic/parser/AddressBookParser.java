@@ -15,6 +15,7 @@ import seedu.revision.logic.commands.ExitCommand;
 import seedu.revision.logic.commands.FindCommand;
 import seedu.revision.logic.commands.HelpCommand;
 import seedu.revision.logic.commands.ListCommand;
+import seedu.revision.logic.commands.StartQuizCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
 /**
