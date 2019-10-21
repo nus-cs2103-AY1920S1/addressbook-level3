@@ -2,6 +2,7 @@ package seedu.moneygowhere.testutil;
 
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_MESSAGE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
@@ -10,6 +11,8 @@ import java.util.Set;
 
 import seedu.moneygowhere.logic.commands.AddCommand;
 import seedu.moneygowhere.logic.commands.EditCommand.EditSpendingDescriptor;
+import seedu.moneygowhere.logic.commands.ReminderCommand;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.tag.Tag;
 
@@ -26,6 +29,13 @@ public class SpendingUtil {
     }
 
     /**
+     * Returns a reminder command string for adding the {@code Reminder}.
+     */
+    public static String getReminderCommand(Reminder reminder) {
+        return ReminderCommand.COMMAND_WORD + " " + getReminderDetails(reminder);
+    }
+
+    /**
      * Returns the part of command string for the given {@code Spending}'s details.
      */
     public static String getSpendingDetails(Spending spending) {
@@ -37,6 +47,16 @@ public class SpendingUtil {
         spending.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+        return sb.toString();
+    }
+
+    /**
+     * Returns the part of command string for the given {@code Reminder}'s details.
+     */
+    public static String getReminderDetails(Reminder reminder) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_DATE + reminder.getDeadline().value + " ");
+        sb.append(PREFIX_MESSAGE + reminder.getReminderMessage().value + " ");
         return sb.toString();
     }
 
