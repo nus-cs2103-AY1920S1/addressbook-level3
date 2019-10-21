@@ -17,11 +17,10 @@ import seedu.address.websocket.util.QueryResult;
  */
 public class GmapsApi {
 
-    private final String apiKey;
+    private static final String API_KEY = "AIzaSyAbbblr33yEEYFNqFgiqfSckdgBANayVms";
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GmapsApi() {
-        this.apiKey = "AIzaSyCFr1epgRKPYSO7ux5NvCeYJ4pfTDR4pR4";
     }
 
     /**
@@ -38,7 +37,7 @@ public class GmapsApi {
             throw new InvalidParameterException("GMAPS API Only can make request to 10 locations.");
         }
         String baseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&";
-        String apiKeyQueryParams = "key=" + apiKey;
+        String apiKeyQueryParams = "key=" + API_KEY;
         String originQueryParams = "origins=";
         String destinationQueryParams = "destinations=";
         for (int i = 0; i < locationsRow.size(); i++) {
@@ -63,7 +62,7 @@ public class GmapsApi {
     public JSONObject getLocation(String locationName) throws ConnectException {
         String baseUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&"
                 + "inputtype=textquery&fields=name,place_id&";
-        String apiKeyQueryParams = "key=" + apiKey + "&";
+        String apiKeyQueryParams = "key=" + API_KEY + "&";
         String queryParams = "input=" + locationName + "&";
         String fullUrl = baseUrl + queryParams + apiKeyQueryParams;
         System.out.println(fullUrl);

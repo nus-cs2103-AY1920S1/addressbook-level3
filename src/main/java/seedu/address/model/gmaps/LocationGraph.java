@@ -1,18 +1,15 @@
 package seedu.address.model.gmaps;
 
-import java.net.ConnectException;
 import java.util.ArrayList;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
 
 
 /**
  * This is the graph object that contains the information for location vertex
  */
-public class LocationGraph implements java.io.Serializable {
-    private static final long serialVersionUID = 6529685098267757690L;
+public class LocationGraph {
     private ArrayList<Location> locations;
 
     private ArrayList<String> validLocationList;
@@ -29,8 +26,7 @@ public class LocationGraph implements java.io.Serializable {
     }
 
     private LocationGraph(ArrayList<Location> locations, ArrayList<String> validLocationList,
-             ArrayList<ArrayList<Long>> distanceMatrix)
-            throws ConnectException, TimeBookInvalidState {
+             ArrayList<ArrayList<Long>> distanceMatrix) {
         this.locations = locations;
         this.validLocationList = validLocationList;
         this.distanceMatrix = distanceMatrix;
@@ -61,7 +57,7 @@ public class LocationGraph implements java.io.Serializable {
         return distanceMatrix;
     }
     //TODO refactor out the return statement
-    public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) throws ConnectException, TimeBookInvalidState {
+    public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) {
         distanceMatrix.get(rowNum).addAll(row);
         return new LocationGraph(locations, validLocationList, distanceMatrix);
     }

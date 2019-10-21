@@ -34,7 +34,7 @@ public class ClosestLocationCommand extends Command {
         try {
             return new CommandResult(MESSAGE_SUCCESS
                     + model.getClosestLocationDataString(locationNameList) + " location you entered: " + userInput);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

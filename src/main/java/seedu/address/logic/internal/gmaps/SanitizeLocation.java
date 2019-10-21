@@ -1,10 +1,5 @@
 package seedu.address.logic.internal.gmaps;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -18,7 +13,6 @@ import seedu.address.websocket.GmapsApi;
  * This call is used to find the valid location name
  */
 public class SanitizeLocation implements Serializable {
-    private static final long serialVersionUID = 6529685098267757693L;
     private ArrayList<String> validLocationList = new ArrayList<>();
     private transient GmapsApi gmapsApi;
 
@@ -67,53 +61,4 @@ public class SanitizeLocation implements Serializable {
         }
         return validLocation;
     }
-
-    /**
-     * This method is used to save the instance of this object
-     */
-    public void save() {
-        try {
-            //Saving of object in a file
-            FileOutputStream file = new FileOutputStream("data/SanitizeLocationSerialization");
-            ObjectOutputStream out = new ObjectOutputStream(file);
-
-            // Method for serialization of object
-            out.writeObject(this);
-
-            out.close();
-            file.close();
-
-            System.out.println("SanitizeLocation has been serialized");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * This method is used to get the instance of SanitizeLocation
-     * @return
-     */
-    public static SanitizeLocation load() {
-        SanitizeLocation sanitizeLocation = null;
-        try {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream("data/SanitizeLocationSerialization");
-            ObjectInputStream in = new ObjectInputStream(file);
-
-            // Method for deserialization of object
-            sanitizeLocation = (SanitizeLocation) in.readObject();
-
-            in.close();
-            file.close();
-
-            System.out.println("SanitizeLocation has been deserialized");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        return sanitizeLocation;
-    }
-
 }

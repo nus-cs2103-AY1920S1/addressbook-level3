@@ -13,7 +13,7 @@ public class ArrayListUtil {
      */
     public static String toStringCommaSpaced(ArrayList<String> arrayList) {
         String result = "";
-        for (int i = 0; i < arrayList.size() ; i++) {
+        for (int i = 0; i < arrayList.size(); i++) {
             if (i != arrayList.size() - 1) {
                 result = result + arrayList.get(i) + ", ";
             } else {

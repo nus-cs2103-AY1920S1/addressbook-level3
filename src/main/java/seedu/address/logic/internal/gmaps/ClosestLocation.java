@@ -25,7 +25,7 @@ public class ClosestLocation {
      * @param locationNameList
      * @return
      */
-    public String closesLocationDataString(ArrayList<String> locationNameList) {
+    public String closestLocationDataString(ArrayList<String> locationNameList) {
         Hashtable<String, Object> data = closestLocationData(locationNameList);
         String result = "";
 
@@ -65,14 +65,14 @@ public class ClosestLocation {
             for (int i = 0; i < locationNameList.size(); i++) {
                 int indexLocation = LocationArrayListUtils.getIndex(locations, locationNameList.get(i));
                 String validLocation = null;
-                    if (indexLocation >= 0) {
-                        Location currLocation = locations.get(indexLocation);
-                        validLocation = currLocation.getValidLocation();
-                    } else {
-                        if (validLocationList.contains("NUS_" + locationNameList.get(i))) {
-                            validLocation = locationNameList.get(i);
-                        }
+                if (indexLocation >= 0) {
+                    Location currLocation = locations.get(indexLocation);
+                    validLocation = currLocation.getValidLocation();
+                } else {
+                    if (validLocationList.contains("NUS_" + locationNameList.get(i))) {
+                        validLocation = locationNameList.get(i);
                     }
+                }
                 if (validLocation != null) {
                     int indexGmapsRecognisedLocation = validLocationList.indexOf(validLocation);
                     if (indexGmapsRecognisedLocation == -1) {
@@ -143,6 +143,11 @@ public class ClosestLocation {
         return data;
     }
 
+    /**
+     * This method is used to remove the Nus Prefix in the validLocationName
+     * @param locationName
+     * @return
+     */
     private static String removeNusPrefix(String locationName) {
         if (locationName.contains("NUS_")) {
             return locationName.split("NUS_")[1];

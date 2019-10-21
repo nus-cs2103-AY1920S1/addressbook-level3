@@ -1,8 +1,5 @@
 package seedu.address.logic.internal.gmaps;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -42,7 +39,7 @@ public class ProcessLocationGraph {
      * This method is used to populate the distance matrix.
      * @throws ConnectException
      */
-    public void populateMatrix() throws ConnectException, TimeBookInvalidState {
+    public void process() throws ConnectException, TimeBookInvalidState {
         ProcessLocationGraph processLocationGraph = this;
         System.out.println("Start populating");
         ArrayList<String> gmapsRecognisedLocationList = locationGraph.getValidLocationList();
@@ -62,25 +59,4 @@ public class ProcessLocationGraph {
         System.out.println("Finish populating");
     }
 
-    /**
-     * This method is used to save the instance of the LocationGraph
-     */
-    public void saveLocationGraph() {
-        try {
-            //Saving of object in a file
-            FileOutputStream file = new FileOutputStream("data/LocationGraphSerialization");
-            ObjectOutputStream out = new ObjectOutputStream(file);
-
-            // Method for serialization of object
-            out.writeObject(locationGraph);
-
-            out.close();
-            file.close();
-
-            System.out.println("LocationGraph has been serialized");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 }

@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 
 import seedu.address.commons.exceptions.TimeBookInvalidState;
@@ -32,17 +31,12 @@ public class GmapsModelManager {
         }
     }
 
-    public static void main(String[] args) {
-        GmapsModelManager gmapsModelManager = new GmapsModelManager();
-        System.out.println(gmapsModelManager.closestLocationDataString(new ArrayList<>(Arrays.asList("AS5", "LT17", "LT14"))));
-    }
-
     public Hashtable<String, Object> closestLocationData(ArrayList<String> locationNameList) {
         return new ClosestLocation(locationGraph).closestLocationData(locationNameList);
     }
 
     public String closestLocationDataString(ArrayList<String> locationNameList) {
-        return new ClosestLocation(locationGraph).closesLocationDataString(locationNameList);
+        return new ClosestLocation(locationGraph).closestLocationDataString(locationNameList);
     }
 
     /**
@@ -50,9 +44,9 @@ public class GmapsModelManager {
      */
     private void initProcessVenues() throws TimeBookInvalidState, ConnectException {
         ProcessVenues processVenues;
-            processVenues = new ProcessVenues().process();
-            locations = processVenues.getLocations();
-            validLocationList = processVenues.getValidLocationList();
+        processVenues = new ProcessVenues().process();
+        locations = processVenues.getLocations();
+        validLocationList = processVenues.getValidLocationList();
     }
 
     /**
@@ -62,6 +56,6 @@ public class GmapsModelManager {
      */
     private void initLocationGraph() throws TimeBookInvalidState, ConnectException {
         locationGraph = new LocationGraph(locations, validLocationList);
-        new ProcessLocationGraph(locationGraph).populateMatrix();
+        new ProcessLocationGraph(locationGraph).process();
     }
 }
