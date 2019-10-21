@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 /**
  * Stores the user's recommendations

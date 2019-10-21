@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
-import seedu.savenus.model.CommandHistory;
+import seedu.savenus.model.commandhistory.CommandHistory;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

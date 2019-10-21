@@ -1,5 +1,7 @@
 package seedu.savenus.logic.parser;
 
+import seedu.savenus.model.food.Prefix;
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */

@@ -14,7 +14,8 @@ import seedu.savenus.logic.commands.PreferenceCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Prefix;
+import seedu.savenus.model.food.Tag;
 
 /**
  * Parses input arguments and creates a new LikeCommand or DislikeCommand object

@@ -14,8 +14,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.savenus.model.tag.Tag;
-
 /**
  * Represents a Food in the menu.
  * Guarantees: details are present and not null, field values are validated, immutable.

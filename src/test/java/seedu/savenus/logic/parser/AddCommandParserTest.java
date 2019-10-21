@@ -42,7 +42,7 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.Price;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 import seedu.savenus.testutil.FoodBuilder;
 
 public class AddCommandParserTest {

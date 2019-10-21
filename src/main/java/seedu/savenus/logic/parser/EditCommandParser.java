@@ -20,7 +20,7 @@ import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.commands.EditCommand;
 import seedu.savenus.logic.commands.EditCommand.EditFoodDescriptor;
 import seedu.savenus.logic.parser.exceptions.ParseException;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

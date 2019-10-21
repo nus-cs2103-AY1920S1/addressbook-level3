@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 /**
  * Represents the Recommendation System of the menu.

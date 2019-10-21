@@ -13,7 +13,7 @@ import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Restrictions;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 /**
  * A utility class to help with building EditFoodDescriptor objects.

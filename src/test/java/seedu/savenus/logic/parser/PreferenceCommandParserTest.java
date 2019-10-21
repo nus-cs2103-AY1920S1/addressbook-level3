@@ -33,7 +33,7 @@ import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.PreferenceCommand;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 
 public class PreferenceCommandParserTest {
     private PreferenceCommandParser parser = new PreferenceCommandParser();

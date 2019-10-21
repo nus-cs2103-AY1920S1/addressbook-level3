@@ -42,7 +42,7 @@ import seedu.savenus.logic.commands.EditCommand.EditFoodDescriptor;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.Price;
-import seedu.savenus.model.tag.Tag;
+import seedu.savenus.model.food.Tag;
 import seedu.savenus.testutil.EditFoodDescriptorBuilder;
 
 public class EditCommandParserTest {
