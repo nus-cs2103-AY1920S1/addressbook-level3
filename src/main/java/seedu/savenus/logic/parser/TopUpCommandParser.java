@@ -8,13 +8,13 @@ import seedu.savenus.logic.commands.TopUpCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new BuyCommand object
+ * Parses input arguments and creates a new TopUpCommand object
  */
 public class TopUpCommandParser implements Parser<TopUpCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the BuyCommand
-     * and returns an BuyCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the TopUpCommand
+     * and returns an TopUpCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public TopUpCommand parse(String args) throws ParseException {
