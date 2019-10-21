@@ -12,6 +12,10 @@ public class Messages {
     public static final String MESSAGE_STUDENTS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX = "The appeal index provided is invalid";
     public static final String MESSAGE_INVALID_MODULE_DISPLAYED_INDEX = "The module index provided is invalid";
+    public static final String MESSAGE_INVALD_CREDIT_VALUE = "The value for credits is invalid";
+    public static final String MESSAGE_CREDIT_UNDER_AMT_MODS = "The new credit score is below amount "
+            + "required for current modules taken";
+
 
 
 }
