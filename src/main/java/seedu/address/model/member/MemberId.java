@@ -27,7 +27,9 @@ public class MemberId {
     /**
      * Default MemberId constructor for Json support
      */
-    public MemberId() {}
+    public MemberId() {
+        displayId = null;
+    }
 
     /**
      * Returns true if a given string is a valid name.

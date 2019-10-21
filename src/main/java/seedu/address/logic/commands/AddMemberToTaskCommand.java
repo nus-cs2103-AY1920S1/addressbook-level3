@@ -15,14 +15,11 @@ import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 
-/**
- * Adds a task to member to be responsible for
- */
-public class AddTaskToMemberCommand extends Command {
-    public static final String COMMAND_WORD = "assign-task";
+public class AddMemberToTaskCommand extends Command {
+    public static final String COMMAND_WORD = "assign-member";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task indicated "
-            + "by the index number used in the displayed task list, to the member indicated "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member indicated "
+            + "by the memberId used in the displayed member list, to the task indicated "
             + "by the member ID. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TASK_INDEX + "TASK_INDEX"
@@ -35,12 +32,11 @@ public class AddTaskToMemberCommand extends Command {
 
     private final Index taskId;
     private final MemberId memberId;
-
     /**
      * @param taskId of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
-    public AddTaskToMemberCommand(Index taskId, MemberId memberId) {
+    public AddMemberToTaskCommand(Index taskId, MemberId memberId) {
         requireNonNull(memberId);
         requireNonNull(taskId);
 
@@ -53,19 +49,18 @@ public class AddTaskToMemberCommand extends Command {
         requireNonNull(model);
         List<Task> lastShownTaskList = model.getFilteredTasksList();
         List<Member> lastShownMemberList = model.getFilteredMembersList();
-        List<Mapping> lastShownMappingList = model.getFilteredMappingsList();
 
         if (taskId.getZeroBased() >= lastShownTaskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         boolean contains = false;
-        Member involvedMember = null;
+        Member memberToAdd = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
             if (lastShownMemberList.get(i).getId() == memberId) {
                 contains = true;
-                involvedMember = lastShownMemberList.get(i);
+                memberToAdd = lastShownMemberList.get(i);
                 break;
             }
         }
@@ -74,11 +69,10 @@ public class AddTaskToMemberCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
         }
 
-        Task taskToAdd = lastShownTaskList.get(taskId.getZeroBased());
-        Mapping mappingToAdd = createMapping(involvedMember, taskToAdd);
+        Task involvedTask = lastShownTaskList.get(taskId.getZeroBased());
+        Mapping mappingToAdd = createMapping(memberToAdd, involvedTask);
         model.addMapping(mappingToAdd);
-
-        return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedMember));
+        return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedTask));
     }
 
     /**
@@ -100,12 +94,12 @@ public class AddTaskToMemberCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddTaskToMemberCommand)) {
+        if (!(other instanceof AddMemberToTaskCommand)) {
             return false;
         }
 
         // state check
-        AddTaskToMemberCommand e = (AddTaskToMemberCommand) other;
+        AddMemberToTaskCommand e = (AddMemberToTaskCommand) other;
         return memberId.equals(e.memberId)
                 && taskId.equals(e.taskId);
     }

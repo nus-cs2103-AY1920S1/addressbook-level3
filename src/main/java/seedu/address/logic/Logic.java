@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.task.Task;
 
 /**
@@ -43,6 +44,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Task> getFilteredTaskListDone();
+
+    /** Returns an unmodifiable view of the filtered list of inventories */
+    ObservableList<Inventory> getFilteredInventoryList();
 
     /**
      * Returns the user prefs' address book file path.

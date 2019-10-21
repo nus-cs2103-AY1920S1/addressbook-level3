@@ -8,7 +8,9 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMemberCommand;
+import seedu.address.logic.commands.AddMemberToTaskCommand;
 import seedu.address.logic.commands.AddTaskCommand;
+import seedu.address.logic.commands.AddTaskToMemberCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteInventoryCommand;
@@ -23,10 +25,12 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
+import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
+import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-//Remove these lines once stubbing not required
 import seedu.address.logic.parser.stub.DoneTaskCommandParserStub;
 import seedu.address.logic.parser.stub.SetDeadlineCommandParserStub;
 
@@ -87,6 +91,9 @@ public class ProjectDashboardParser {
         case ListMemberCommand.COMMAND_WORD:
             return new ListMemberCommand();
 
+        case ListInventoryCommand.COMMAND_WORD:
+            return new ListInventoryCommand();
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -102,14 +109,26 @@ public class ProjectDashboardParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        //case EditCommand.COMMAND_WORD:
-            //return new EditCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
         case AddInventoryCommand.COMMAND_WORD:
             return new AddInventoryCommandParser().parse(arguments);
 
         case DeleteInventoryCommand.COMMAND_WORD:
             return new DeleteInventoryCommandParser().parse(arguments);
+
+        case AddTaskToMemberCommand.COMMAND_WORD:
+            return new AddTaskToMemberParser().parse(arguments);
+
+        case AddMemberToTaskCommand.COMMAND_WORD:
+            return new AddMemberToTaskParser().parse(arguments);
+
+        case RemoveTaskFromMemberCommand.COMMAND_WORD:
+            return new RemoveTaskFromMemberParser().parse(arguments);
+
+        case RemoveMemberFromTaskCommand.COMMAND_WORD:
+            return new RemoveMemberFromTaskParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

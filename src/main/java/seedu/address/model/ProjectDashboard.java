@@ -8,10 +8,11 @@ import javafx.collections.ObservableList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
-import seedu.address.model.member.UniqueMemberList;
-
+import seedu.address.model.member.MemberId;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.UniqueMappingList;
+import seedu.address.model.member.UniqueMemberList;
+
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.UniqueTaskList;
@@ -209,6 +210,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         mappings.remove(mapping);
     }
 
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
     public boolean hasMapping(Mapping mapping) {
         requireNonNull(mapping);
         return mappings.contains(mapping);
@@ -272,6 +276,14 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public boolean hasMember(Member member) {
         requireNonNull(member);
         return members.contains(member);
+    }
+
+    /**
+     * Returns true if a member with the same identity as {@code memberId} exists in the dashboard.
+     */
+    public boolean hasMemId(MemberId memId) {
+        requireNonNull(memId);
+        return members.containsId(memId);
     }
 
     /**

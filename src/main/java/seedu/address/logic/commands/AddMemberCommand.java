@@ -13,7 +13,7 @@ import seedu.address.model.member.Member;
  * Adds a task to the address book.
  */
 public class AddMemberCommand extends Command {
-    public static final String COMMAND_WORD = "add member";
+    public static final String COMMAND_WORD = "add-member";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member to the address book. "
             + "Parameters: "
