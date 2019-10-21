@@ -3,14 +3,14 @@ package seedu.address.logic.commands.notecommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.FILTER;
 
+import java.util.ArrayList;
+
+import seedu.address.model.Model;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FilterByTagCommand;
-import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
-
-import java.util.ArrayList;
 
 /**
  * Command to filter person(s) with the related tag(s).

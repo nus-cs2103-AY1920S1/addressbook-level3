@@ -13,9 +13,11 @@ import seedu.address.model.exceptions.StudyBuddyItemNotFoundException;
 
 /**
  * A list of StudyBuddyItems that enforces uniqueness between its elements and does not allow nulls.
- * A StudyBuddyItems is considered unique by comparing using {@code StudyBuddyItem#equals(Object)}. As such, adding and
- * updating of StudyBuddyItem uses StudyBuddyItem#equals(Object) for equality so as to ensure that the StudyBuddyItem being added or
- * updated is unique in the UniqueStudyBuddyList. The removal of a flashcard uses StudyBuddyItem#equals(Object) as well so
+ * A StudyBuddyItems is considered unique by comparing using {@code StudyBuddyItem#equals(Object)}.
+ * As such, adding and updating of StudyBuddyItem uses StudyBuddyItem#equals(Object)
+ * for equality so as to ensure that the StudyBuddyItem being added or
+ * updated is unique in the UniqueStudyBuddyList. The removal of a flashcard uses
+ * StudyBuddyItem#equals(Object) as well so
  * as to ensure that the flashcard with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.

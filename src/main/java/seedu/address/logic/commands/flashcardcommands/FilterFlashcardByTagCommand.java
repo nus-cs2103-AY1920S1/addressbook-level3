@@ -3,14 +3,14 @@ package seedu.address.logic.commands.flashcardcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.FILTER;
 
+import java.util.ArrayList;
+
+import seedu.address.model.Model;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FilterByTagCommand;
-import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
-
-import java.util.ArrayList;
 
 /**
  * Command to filter flashcard(s) with the related tag(s).
@@ -41,16 +41,16 @@ public class FilterFlashcardByTagCommand extends Command implements FilterByTagC
 
     @Override
     public CommandResult execute(Model model) {
-        requireNonNull(model);
-        ArrayList<Flashcard> taggedFlashcardResult = model.collectTaggedFlashcards(tagPredicate);
-        model.updateFilteredFlashcardList(tagPredicate);
-        StringBuilder sb = new StringBuilder("");
-        for (Flashcard fc : taggedFlashcardResult) {
-            sb.append(fc);
-            sb.append("\n");
-        }
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
-                + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
-                + "\n" + sb.toString());
+            requireNonNull(model);
+            ArrayList<Flashcard> taggedFlashcardResult = model.collectTaggedFlashcards(tagPredicate);
+            model.updateFilteredFlashcardList(tagPredicate);
+            StringBuilder sb = new StringBuilder("");
+            for (Flashcard fc : taggedFlashcardResult) {
+                sb.append(fc);
+                sb.append("\n");
+            }
+            return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
+                    + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
+                    + "\n" + sb.toString());
     }
 }

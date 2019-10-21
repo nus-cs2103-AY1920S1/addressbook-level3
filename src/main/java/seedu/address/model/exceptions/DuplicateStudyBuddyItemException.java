@@ -1,8 +1,8 @@
 package seedu.address.model.exceptions;
 
 /**
- * Signals that the operation will result in duplicate StudyBuddyItems (StudyBuddyItems are considered duplicates if they have
- * the same fields).
+ * Signals that the operation will result in duplicate StudyBuddyItems
+ * (StudyBuddyItems are considered duplicates if they have the same fields).
  */
 
 public class DuplicateStudyBuddyItemException extends RuntimeException {
