@@ -12,6 +12,7 @@ public class CliSyntax {
 
     // Biography Prefixes
     public static final Prefix PREFIX_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_DP_PATH = new Prefix("dp/");
     public static final Prefix PREFIX_PROFILE_DESC = new Prefix("desc/");
     public static final Prefix PREFIX_NRIC = new Prefix("nric/");
     public static final Prefix PREFIX_GENDER = new Prefix("gender/");
@@ -35,7 +36,7 @@ public class CliSyntax {
     // Calendar Prefixes
     public static final Prefix PREFIX_CALENDAR_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_CALENDAR_REPETITION = new Prefix("r/");
-    public static final Prefix PREFIX_TIME_PERIOD = new Prefix("tp/");
+    public static final Prefix PREFIX_TIME_DURATION = new Prefix("td/");
 
     // Stats Prefixes
     public static final Prefix PREFIX_TAG = new Prefix("t/");
@@ -65,6 +66,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
     public static final Prefix PREFIX_COUNT = new Prefix("n/");
 
+    // @Todo to remove if not used.
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
 

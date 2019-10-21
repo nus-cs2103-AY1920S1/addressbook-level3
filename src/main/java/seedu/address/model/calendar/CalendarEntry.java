@@ -4,6 +4,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import seedu.address.model.DateTime;
+
 /**
  * Represents a Calendar Entry in the calendar.
  */
@@ -31,6 +33,12 @@ public abstract class CalendarEntry {
     public LocalDate getDate() {
         return dateTime.getDate();
     }
+
+    /**
+     * Returns true if both calendar entries are same;
+     * This defines a weaker notion of equality between two calendar entries;
+     */
+    public abstract boolean isSameCalendarEntry(CalendarEntry calendarEntry);
 
     /**
      * Returns the day of week of the date in the entry.

@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.bio.User;
-import seedu.address.model.calendar.Reminder;
+import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.UniqueRecordList;
@@ -99,10 +99,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    public boolean hasReminder(Reminder reminder);
-
-    public void addReminder(Reminder reminder);
-
     /**
      * Replaces food list data with the data in {@code newFoodList}.
      */
@@ -183,8 +179,6 @@ public interface Model {
      */
     void updateFilteredRecordList(Predicate<Record> predicate);
 
-    void addReminder(Reminder reminder);
-
     //=========== User List =============================================================
 
     /**
@@ -240,4 +234,35 @@ public interface Model {
      */
     void updateFilteredUserList(Predicate<User> predicate);
 
+    /**
+     * Returns the Calendar.
+     */
+    ReadOnlyCalendar getCalendar();
+
+    /**
+     * Returns true if a calendar entry with the same identity as {@code calendarEntry} exists in the calendar.
+     */
+    boolean hasCalendarEntry(CalendarEntry calendarEntry);
+
+    /**
+     * Deletes the given calendarEntry. The calendarEntry must exist in the calendar.
+     */
+    void deleteCalendarEntry(CalendarEntry target);
+
+    /**
+     * Adds the given calendar entry. {@code calendarEntry} must not already exist in the calendar.
+     */
+    void addCalendarEntry(CalendarEntry calendarEntry);
+
+    /**
+     * Replaces the given calendarEntry {@code target} with {@code editedCalendarEntry}. {@code target} must exist in
+     * the calendar. The calendarEntry identity of {@code editedCalendarEntry} must not be the same as another existing
+     * calendar entry in the calendar.
+     */
+    void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry);
+
+    /**
+     * Returns an unmodifiable view of the filtered calendar entry list
+     */
+    ObservableList<CalendarEntry> getFilteredCalendarEntryList();
 }

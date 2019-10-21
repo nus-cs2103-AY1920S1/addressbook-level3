@@ -18,8 +18,8 @@ public class TypicalReminders {
     public static final LocalTime TIME_MORN = LocalTime.of(7, 45);
     public static final LocalTime TIME_NOON = LocalTime.of(11, 30);
     public static final LocalTime TIME_EVEN = LocalTime.of(18, 0);
-    public static final Repetition DAILY = Repetition.EveryDay;
-    public static final Repetition WEEKLY = Repetition.EveryWeek;
+    public static final Repetition DAILY = Repetition.Daily;
+    public static final Repetition WEEKLY = Repetition.Weekly;
     public static final Repetition ONCE = Repetition.Once;
 
     public static final Reminder LUNCH_INSULIN_INJECTION = new ReminderBuilder()

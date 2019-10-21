@@ -1,21 +1,29 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import javax.imageio.ImageIO;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DateTime;
+import seedu.address.model.TimeDuration;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.DisplayPicPath;
 import seedu.address.model.bio.Gender;
 import seedu.address.model.bio.Goal;
 import seedu.address.model.bio.MedicalCondition;
@@ -24,7 +32,8 @@ import seedu.address.model.bio.Nric;
 import seedu.address.model.bio.OtherBioInfo;
 import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
-import seedu.address.model.calendar.DateTime;
+import seedu.address.model.calendar.Description;
+import seedu.address.model.calendar.Repetition;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.RecordType;
@@ -108,6 +117,34 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String displayPicPath} into a {@code DisplayPicPath}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code displayPicPath} is invalid.
+     */
+    public static DisplayPicPath parseDpPath(Optional<String> dpPath) throws ParseException {
+        requireNonNull(dpPath);
+        if (!dpPath.isEmpty()) {
+            String trimmedDisplayPic = dpPath.get().trim();
+            if (!DisplayPicPath.isValidDisplayPicPath(trimmedDisplayPic)) {
+                throw new ParseException(DisplayPicPath.MESSAGE_CONSTRAINTS);
+            } else if (!trimmedDisplayPic.isEmpty()) {
+                try {
+                    Image image = ImageIO.read(new File(trimmedDisplayPic));
+                    if (image == null) {
+                        throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                    }
+                } catch (IOException e) {
+                    throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                }
+            }
+            return new DisplayPicPath(trimmedDisplayPic);
+        } else {
+            return new DisplayPicPath("");
+        }
+    }
+
+    /**
      * Parses a {@code String nric} into a {@code Nric}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -184,6 +221,10 @@ public class ParserUtil {
      */
     public static List<Phone> parsePhones(Collection<String> phones) throws ParseException {
         requireNonNull(phones);
+        if (phones.isEmpty()) {
+            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        }
+
         final List<Phone> phoneList = new ArrayList<>();
         for (String phoneNumber : phones) {
             phoneList.add(parsePhone(phoneNumber));
@@ -212,6 +253,9 @@ public class ParserUtil {
     public static List<MedicalCondition> parseMedicalConditions(Collection<String> medicalConditions)
             throws ParseException {
         requireNonNull(medicalConditions);
+        if (medicalConditions.isEmpty()) {
+            throw new ParseException(MedicalCondition.MESSAGE_CONSTRAINTS);
+        }
         final List<MedicalCondition> medicalConditionList = new ArrayList<>();
         for (String medicalConditionName : medicalConditions) {
             medicalConditionList.add(parseMedicalCondition(medicalConditionName));
@@ -407,6 +451,7 @@ public class ParserUtil {
         if (!DateTime.isValidDateTime(trimmedDateTime)) {
             throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
         }
+
         LocalDate ld = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern(DateTime.VALIDATION_REGEX_STRING));
         LocalTime lt = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(DateTime.VALIDATION_REGEX_STRING));
         return new DateTime(ld, lt);
@@ -450,5 +495,55 @@ public class ParserUtil {
             throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
         }
         return new Weight(trimmedWeight);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String repetition} into a {@code Repetition}.
+     *
+     * @throws ParseException if the given {@code repetition} is invalid.
+     */
+    public static Repetition parseRepetition(String repetition) throws ParseException {
+        requireNonNull(repetition);
+        String trimmedRepetition = repetition.trim();
+        if (!Repetition.isValidRepetition(trimmedRepetition)) {
+            throw new ParseException(Repetition.MESSAGE_CONSTRAINTS);
+        }
+        return Repetition.of(trimmedRepetition);
+    }
+
+    /**
+     * Parses a {@code String timeDuration} into a {@code TimeDuration}.
+     *
+     * @throws ParseException if the given {@code timeDuration} is invalid.
+     */
+    public static TimeDuration parseTimeDuration(String timeDuration) throws ParseException {
+        requireNonNull(timeDuration);
+        String trimmedTimeDuration = timeDuration.trim();
+        if (!TimeDuration.isValidTimeDuration(trimmedTimeDuration)) {
+            throw new ParseException(TimeDuration.MESSAGE_CONSTRAINTS);
+        }
+        try {
+            String[] hm = trimmedTimeDuration.split(":");
+            int hours = Integer.parseInt(hm[0]);
+            int minutes = Integer.parseInt(hm[1]);
+            return new TimeDuration(hours, minutes);
+        } catch (NumberFormatException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 }
