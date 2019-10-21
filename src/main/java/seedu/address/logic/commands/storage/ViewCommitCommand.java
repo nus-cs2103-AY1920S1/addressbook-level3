@@ -1,10 +1,15 @@
 package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.storage.ViewCommitHistoryCommand.MESSAGE_NO_COMMIT_HISTORY;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.versiontracking.CommitList;
+import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
  * Represents a command for the user to view the version of the current active study plan for a particular commit.
@@ -31,8 +36,8 @@ public class ViewCommitCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        throw new AssertionError("This is not implemented yet.");
-        /*
+        // TODO: THIS IS NOT IMPLEMENTED YET.
+
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
         if (activeStudyPlan == null) {
             throw new StudyPlanNotFoundException();
@@ -47,6 +52,6 @@ public class ViewCommitCommand extends Command {
         } catch (StudyPlanCommitManagerNotFoundException e) {
             return new CommandResult(MESSAGE_NO_COMMIT_HISTORY);
         }
-        */
+
     }
 }
