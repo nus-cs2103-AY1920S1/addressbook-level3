@@ -148,8 +148,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "REJECTED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000001",
@@ -246,8 +246,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   } ]
 }
