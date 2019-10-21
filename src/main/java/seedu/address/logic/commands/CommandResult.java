@@ -11,8 +11,6 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    private final boolean undo;
-
     /**
      * Help information should be shown to the user.
      */
@@ -26,11 +24,10 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean undo) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.undo = undo;
     }
 
     /**
@@ -38,15 +35,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
-    }
-
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false);
-    }
-
-    public CommandResult(String feedbackToUser, boolean undo) {
-        this(feedbackToUser, false, false, undo);
+        this(feedbackToUser, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -59,10 +48,6 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
-    }
-
-    public boolean isUndo() {
-        return undo;
     }
 
     @Override

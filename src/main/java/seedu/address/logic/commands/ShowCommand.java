@@ -53,7 +53,7 @@ public class ShowCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
-        beforeSwitch = model.getVisualList();
+        beforeSwitch = model.getVisualList().deepCopy();
         try {
             model.setVisualList(targetList); // should be T/E/R
         } catch (Exception e) {
@@ -64,7 +64,6 @@ public class ShowCommand extends Command {
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-        //TODO
         model.setVisualizeList(beforeSwitch);
     }
 }

@@ -24,10 +24,10 @@ public class UndoCommand extends Command {
         } else {
             Command lastDone = elisaCommandHistory.popCommand();
             lastDone.reverse(model);
-            return new CommandResult("Undo successful!", true);
+            return new CommandResult("Undo successful!");
         }
     }
 
     @Override
-    public void reverse(ItemModel model) throws CommandException { }
+    public void reverse(ItemModel model) throws CommandException { /*won't be pushed*/ }
 }
