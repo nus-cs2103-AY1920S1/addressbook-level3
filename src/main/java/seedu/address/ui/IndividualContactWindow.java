@@ -42,11 +42,11 @@ public class IndividualContactWindow extends UiPart<Stage> {
      */
     public IndividualContactWindow(Stage root, Contact contact) {
         super(FXML, root);
-        name.setText("Name: " + claim.getName().toString());
-        number.setText("Contact: " + claim.getPhone().toString());
-        date.setText("Date: " + claim.getDescription().toString());
-        amount.setText("Amount: " + claim.getAmount().toString());
-        description.setText("Description: " + claim.getDescription().toString());
+        name.setText("Name: " + contact.getName().toString());
+        number.setText("Contact: " + contact.getPhone().toString());
+//        date.setText("Date: " + contact.getDescription().toString());
+//        amount.setText("Amount: " + contact.getAmount().toString());
+//        description.setText("Description: " + contact.getDescription().toString());
     }
 
     /**

@@ -72,29 +72,29 @@ Example:
 `goto claims`
 `goto income`
 
-=== Adding a person `add_person`
+=== Adding a person `add_contact`
 
-Adds a person to the contacts list +
+Adds a contact to the contacts list list +
 
 Format:
-`add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
+`add_contact n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
 
 Examples:
 
-* `add_person n/John Doe p/98765432 e/johnd@example.com`
+* `add_contact n/John Doe p/98765432 e/johnd@example.com`
 
-=== Editing a person : `edit_person`
+=== Editing a contact : `edit_person`
 
-Edits an existing person +
+Edits an existing contact +
 
-Keyword: `edit_person`
+Keyword: `edit_contact`
 
 Format:
-`edit_person INDEX n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
+`edit_contact INDEX n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]`
 
 Examples:
 
-* ` edit_person 2 n/john lim p/92222223 e/johnlim@gmail.com`
+* ` edit_contact 2 n/john lim p/92222223 e/johnlim@gmail.com`
 
 === Adding a claim : `add_claim`
 
@@ -175,48 +175,9 @@ Examples:
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-=== Filter
-
-Filters using a keyword from the list
-
-Keyword: `filter`
-
-Format: `filter w/KEYWORD)
-
-Examples:
-
-* `filter w/Sports`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang` +
-
-Examples:
-
-* `filter John` +
-Returns `john` and `John Doe` +
-
-* `filter Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-****
-
 === See budget (Pop-up)
 
 Format: `budget`
-
-=== Sorting claims list based on dates
-
-Sorts claims in claims list based on dates, either in chronological or reverse order
-
-Keyword: `sort`
-
-Format:
-
-* Sort in normal order `sort`
-* Sort in reverse order `sort -r`
 
 === Resolving claims
 
@@ -306,11 +267,11 @@ Automatically detects command and comes up with suggestions as a pop-up on what 
 * *Changing of Views* `goto (parameter)`
 e.g. `goto claims`
 
-* *Add person* `add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add contact* `add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
+e.g. `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
-* *Edit person* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
-e.g. `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports` +
+* *Edit contact* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
+e.g. `edit_contact 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports` +
 
 * *Add claim* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
@@ -331,9 +292,6 @@ e.g.
 
 * *Deleting a person* `delete INDEX` +
 e.g. `delete 3`
-
-* *Filter* : `filter w/KEYWORD` +
-e.g. `filter Orientation Camp`
 
 * *See Budget* `budget`
 

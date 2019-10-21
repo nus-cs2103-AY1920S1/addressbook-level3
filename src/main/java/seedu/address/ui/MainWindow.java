@@ -165,6 +165,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleClaimsList() {
         claimListPanel = new ClaimListPanel(logic.getFilteredClaimList());
         personListPanelPlaceholder.getChildren().add(claimListPanel.getRoot());
+        UiManager.changeState("claims");
         resultDisplay.setFeedbackToUser("All Claims Listed");
     }
 
@@ -175,6 +176,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleContactsList() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        UiManager.changeState("contacts");
         resultDisplay.setFeedbackToUser("All Contacts Listed");
     }
 

@@ -64,6 +64,13 @@ public class UiManager implements Ui {
     }
 
     /**
+     * Change state
+     */
+    public static void changeState(String change) {
+        state = change;
+    }
+
+    /**
      * Initialises the View to be displayed.
      */
     public static void startWithContacts() {
