@@ -8,25 +8,14 @@ import seedu.address.model.ItemModel;
 /**
  * Command for scrolling up.
  */
-public class UpCommand extends Command {
+public class UpCommand extends ScrollCommand {
 
     public static final String COMMAND_WORD = "up";
     public static final String MESSAGE_SUCCESS = "Scrolling up...";
     public static final String MESSAGE_USAGE = "Message Usage";
 
-    private String pane;
-
     public UpCommand(String input) {
-        switch(input.trim()) {
-        case "L": case "l":
-            this.pane = "resultDisplay";
-            break;
-        case "R": case "r":
-            this.pane = "tabPane";
-            break;
-        default:
-            this.pane = "Illegal";
-        }
+        super(input);
     }
 
     @Override

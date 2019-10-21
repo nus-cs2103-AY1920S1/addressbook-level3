@@ -8,25 +8,10 @@ import seedu.address.model.ItemModel;
 /**
  * Command for scrolling down.
  */
-public class DownCommand extends Command {
-
-    public static final String COMMAND_WORD = "down";
-    public static final String MESSAGE_SUCCESS = "Scrolling down...";
-    public static final String MESSAGE_USAGE = "Message Usage";
-
-    private String pane;
+public class DownCommand extends ScrollCommand {
 
     public DownCommand(String input) {
-        switch(input.trim()) {
-        case "L": case "l":
-            this.pane = "resultDisplay";
-            break;
-        case "R": case "r":
-            this.pane = "tabPane";
-            break;
-        default:
-            this.pane = "Illegal";
-        }
+        super(input);
     }
 
     @Override

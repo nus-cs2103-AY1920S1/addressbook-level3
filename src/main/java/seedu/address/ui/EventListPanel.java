@@ -15,6 +15,8 @@ import seedu.address.commons.core.item.Item;
  */
 public class EventListPanel extends UiPart<Region> {
 
+    //We decided to set the number of items to scroll to 5 because that is
+    //the number of items displayed in the minimum window size.
     private static final int NUM_OF_ITEMS_TO_SCROLL = 5;
     private static int currentPosition;
 
