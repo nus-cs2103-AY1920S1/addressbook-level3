@@ -39,7 +39,6 @@ public class ModelManager implements Model {
     private final FilteredList<Book> filteredBooks;
 
     private Optional<Borrower> servingBorrower;
-    private Optional<LoanSlipDocument> loanSlip;
 
     /**
      * Initializes a ModelManager with the given catalog, loan records, borrower records and userPrefs.
@@ -153,15 +152,6 @@ public class ModelManager implements Model {
     public void addLoan(Loan loan) {
         requireNonNull(loan);
         loanRecords.addLoan(loan);
-    }
-
-    public void setLoanSlip(LoanSlipDocument loanSlip) {
-        requireNonNull(loanSlip);
-        this.loanSlip = Optional.of(loanSlip);
-    }
-
-    public Optional<LoanSlipDocument> getLoanSlip() {
-        return loanSlip;
     }
 
     //=========== Catalog ===============================================================================
