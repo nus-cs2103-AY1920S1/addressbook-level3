@@ -2,8 +2,10 @@ package seedu.address.autocomplete;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.AddressBook;
 
+/**
+ * Class that initialise and stores all list
+ */
 public class AutoCompleteWordStorage {
     private ObservableList<AutoCompleteWord> oListAllObjectWord;
     private ObservableList<AutoCompleteWord> oListAllCommandWord;
@@ -16,7 +18,7 @@ public class AutoCompleteWordStorage {
     }
 
     /**
-     * Add command words to list of all suggestible command words
+     * Initialise command list
      */
     private ObservableList<AutoCompleteWord> initAllCommandWordList() {
         ObservableList<AutoCompleteWord> oListAllCommandWord = FXCollections.observableArrayList();
@@ -31,7 +33,7 @@ public class AutoCompleteWordStorage {
         oListAllCommandWord.add(new CommandWord("patient", "find", false, true));
         oListAllCommandWord.add(new CommandWord("patient", "view", true, false));
         oListAllCommandWord.add(new CommandWord("patient", "add-medcon", false, true));
-        oListAllCommandWord.add(new CommandWord("app","undo", false, false));
+        oListAllCommandWord.add(new CommandWord("app", "undo", false, false));
         oListAllCommandWord.add(new CommandWord("app", "redo", false, false));
         oListAllCommandWord.add(new CommandWord("app", "import-replace", false, true));
         oListAllCommandWord.add(new CommandWord("app", "export-all", false, false));
@@ -44,7 +46,7 @@ public class AutoCompleteWordStorage {
     }
 
     /**
-     * Add prefix words to list of all suggestible prefix words
+     * Initialise prefix list
      */
     private ObservableList<AutoCompleteWord> initAllPrefixWordList() {
         ObservableList<AutoCompleteWord> oListAllPrefixWord = FXCollections.observableArrayList();
@@ -68,7 +70,7 @@ public class AutoCompleteWordStorage {
     }
 
     /**
-     * Add prefix words to list of all suggestible prefix words
+     * Initialise object list
      */
     private ObservableList<AutoCompleteWord> initAllObjectWordList() {
         ObservableList<AutoCompleteWord> oListAllObjectWord = FXCollections.observableArrayList();
@@ -94,7 +96,12 @@ public class AutoCompleteWordStorage {
         return FXCollections.observableArrayList(oListAllObjectWord);
     }
 
-    // total person/medcon etc may change during runtime (to improve later)
+    /**
+     * Dummy method to produce index word list
+     * (total person/medcon etc may change during runtime (to improve later))
+     *
+     * @return list of index word
+     */
     public ObservableList<AutoCompleteWord> generateOListAllIndexWord() {
         ObservableList<AutoCompleteWord> oListAllIndexWord = FXCollections.observableArrayList();
         oListAllIndexWord.add(new IndexWord("1"));

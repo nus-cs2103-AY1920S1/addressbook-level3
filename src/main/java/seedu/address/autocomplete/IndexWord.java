@@ -1,9 +1,7 @@
 package seedu.address.autocomplete;
 
-import java.util.LinkedList;
-
 /**
- * Represents a prefix word(eg: n/, t/) in application
+ * Represents an index word(eg: 1, 2, 3) in application
  */
 public class IndexWord extends AutoCompleteWord {
 

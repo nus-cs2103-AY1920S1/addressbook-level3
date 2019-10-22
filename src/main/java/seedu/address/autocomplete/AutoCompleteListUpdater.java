@@ -1,13 +1,13 @@
 package seedu.address.autocomplete;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
- * A handler that initialises autocomplete word bank and updates list of autocomplete words to be shown
+ * A handler class that updates list of autocomplete words to be shown according to userinput
  */
 public class AutoCompleteListUpdater {
     private ObservableList<AutoCompleteWord> oListSuggestedWords;

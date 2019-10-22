@@ -2,12 +2,27 @@ package seedu.address.autocomplete;
 
 import java.util.LinkedList;
 
+/**
+ * Utility class for parsing userinput
+ */
 public class UserinputParserUtil {
 
+    /**
+     * Parse userinput by spaces
+     *
+     * @param currentPhraseInCommandBox string in command box text field
+     * @return array of split strings
+     */
     public static String[] splitIntoSegments(String currentPhraseInCommandBox) {
         return currentPhraseInCommandBox.split(" ");
     }
 
+    /**
+     * Parse first segment of userinput into object and command word
+     *
+     * @param firstSegment first segment of userinput
+     * @return linkedlist of object word and command word if they exist
+     */
     public static LinkedList<String> parseFirstSegment(String firstSegment) {
         LinkedList<String> splitWords = new LinkedList<>();
 

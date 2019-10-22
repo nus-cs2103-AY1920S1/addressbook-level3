@@ -108,7 +108,7 @@ public class CommandBox extends UiPart<Region> {
                     autoCompletePanel.updateListView(textInTextField.toString());
 
                 } catch (NullPointerException e) {
-                    logger.info("Nothing is selected thus left key does not work");
+                    logger.info("Nothing is selected thus right key does not work");
                 }
                 break;
             default:
