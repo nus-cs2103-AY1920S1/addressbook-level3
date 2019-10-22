@@ -154,14 +154,212 @@ Classes used by multiple components are in the `seedu.calofit.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-include::DevGuideFeatureImplementations/report.adoc[]
+=== Add feature
+==== Implementation
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+The `add` feature uses the Model to check if the dish is already in the database.
+If the dish is already in the database, the meal will be added to the meal log only.
+If the dish the user wants to add is not in the database,
+then the dish will be added to both the meal log and the dish database so that the user
+can conveniently add it the next time.
 
-_{Explain here how the data encryption feature will be implemented}_
+There are a few cases to take note:
 
-// end::dataencryption[]
+* If the dish is in the dish database:
+** The user inserts the calorie information that is the same as the one in the dish database
+*** The dish will be added to the meal log only.
+
+** The user inserts the calorie information different from the calorie in the dish database
+*** This will create a new dish all together as there are differences in the calorie
+*** The new dish will be added to both the meal log as well as the dish database
+
+** The user does not insert the calorie information
+*** The program will look through the dish database and get the calorie information from that dish.
+
+* If the dish is not in the dish database
+** The user inserts the calorie information
+*** A new dish is created with that name and calorie information
+*** The dish will then be added to both the dish database as well as the meal log.
+
+** The user does not insert the calorie information
+*** The program sets the calorie information to 700 by default.
+*** The dish will then be added to both the dish database as well as the meal log
+
+The following sequence diagram shows how the `add` operation works when calorie information is included:
+
+image::AddSequenceDiagram.png[]
+
+To detect whether the calorie tag is used in the user input, we use an UNKNOWN_CALORIE in the Calorie class.
+This will trigger either search for the dish in the dish database or create a new dish and input it into the dish database.
+
+
+The input by the user and the dish in the dish database is considered equal only if both the name and the calorie information are the same.
+
+Addition of tags are supported. However, they are not crucial to the implementation of the add function as tags are not considered when deciding equality of dishes.
+
+
+=== Budget Bar display
+
+The budget bar display provides a graphic overview of meals consumed on the current day,
+comparing against the total calorie budget set by the user.
+
+==== Implementation
+
+The budget bar feature is implemented via the `BudgetBar` class.
+It is a JavaFx UI component, which wraps around `MealLog` and `CalorieBudget`.
+`MealLog` provides an observable list of meals eaten today,
+while `CalorieBudget` provides the currently set user budget.
+
+Using helper code from `ObservableUtil` and `ObservableListUtil`,
+we compute several derived properties:
+
+* Total calories consumed
+* Percentage of budget consumed
+
+From there, we again construct further observable/reactive values representing:
+
+* Bar info text color
+** Transitions from green to red, when more budget is consumed
+* Bar info text
+** If budget has been set, shows `<Total Consumed> / <Budget>`.
+** If budget has not been set, only shows `<Total Consumed>`.
+* Meal segments
+** Each meal is displayed as a proportionally-sized segment in the whole bar.
+* Position of warning/danger markers
+
+The following activity diagram shows the reactive update dependencies.
+
+image::BudgetMealUpdate.png[]
+
+==== Design Consideration
+
+===== Aspect: Base UI component to display meal segments.
+
+* **Alternative 1 (current choice):**
+Use ControlsFx's `SegmentedBar` class to handle display of bar segments.
+** Pros:
+*** No need to reimplement JavaFx `setLayout` logic
+*** Better performance than `GridPane`
+** Cons:
+*** Dependency on external library
+*** Have to create a separate `BufferSegment` class to represent gap.
+* **Alternative 2:**
+Use JavaFx's `GridPane` to lay out bar segments, and `ColumnConstraints` to appropriately set column widths.
+** Pros:
+*** No external library (other than JavaFx) needed
+** Cons:
+*** Poor performance to due `Observable` machinery and `GridPane` layout
+* Explanation of choice:
+Simpler implementation and better performance outweighs the cost of using an external library.
+
+// tag::suggest[]
+=== Suggest feature
+==== Implementation
+
+The suggest mechanism is implemented through a `SuggestCommand` that extends from the abstract `Command` class. It interacts with the object that implements the `Model` interface by updating it with dishes that are within the calories budget. The calories budget is obtained from `Model#getRemainingCalories()`.
+
+Additionally, it implements the following operation:
+
+* `Model#getRemainingCalories` -- gets the current allowed calories budget.
+
+This operation is exposed in the `Model` interface as `Model#getRemainingCalories()`.
+
+Given below is an example usage scenario and how the suggest mechanism behaves at each step.
+
+Step 1. The user starts up CaloFit for the first time. The `DishDatabase` will be loaded with the initial data by calling `MainApp#loadDishDatabase`.
+
+[NOTE]
+If the DishDatabase is empty, or the daily calorie budget have exceeded the set amount, or there are no dishes that is within the amount, nothing will be display.
+
+Step 2. The user enters `"suggest"` in the Command Line Input to invoke the `SuggestCommand` command which will run `SuggestCommand#execute()`. `Model#getRemainingCalories()` will be executed to get the remaining calories, which will provide `#Model#updateFilteredDishList` with the calories budget to update the list accordingly.
+
+Step 3. The success message will be return, while printing the updated dish list on CaloFit.
+
+The following sequence diagram shows how the suggest operation works:
+
+image::SuggestCommand.png[]
+
+==== Design Considerations
+
+===== Aspect: How suggest executes
+
+* **Alternative 1 (current choice):** Update dish list with calorie budget
+** Pros: Neater code, easier to maintain and uses lesser memory.
+** Cons: Unable to get history of suggest list.
+* **Alternative 2:** Create a new list for every `SuggestCommand`.
+** Pros: Easier to understand and customise if require data for method.
+** Cons: Unnecessary memory wastage for list created and not used.
+* **Explanation of Choice:** Since we only need to show the user the current meal suggest, there are no usage for the past suggest result.
+
+===== Aspect: Data structure to support the suggest command
+
+* **Alternative 1 (current choice):** Stores the value in a dish list.
+** Pros: Commonly used, thus easier to understand and easier to deal with. It can also be easily updated.
+** Cons: Would constantly require `Model` with a responsibility that is not relevant to it's current.
+* **Alternative 2:** Wrap the values in a `Suggest` object
+** Pros: Neater and easier to maintain, since all suggest-related values are stored in the `Suggest` object.
+** Cons: Additional class to maintain, harder for newcomers to understand code with too many classes.
+
+// end::suggest[]
+
+// tag::report[]
+=== Report feature
+==== Implementation
+
+The Report feature is implemented through a `ReportCommand` that extends from the abstract `Command` class.
+It returns `CommandResult` object that has the boolean "isReport" set to True.
+The `MainApp` Ui component will check the `CommandResult` for the "isReport" boolean and create a new `ReportWindow` through the `MainApp#handleReport()` method.
+The `ReportWindow` object takes in a `Statistics` object that is created by calling `Logic#getStatistics()` which subsequently calls `Model#getStatistics()`.
+Additionally, the following operation is also implemented:
+
+* `Model#getStatistics()` -- gets the statistics of the current object.
+
+Given below is an example usage scenario and how the Report feature behaves at each step.
+
+Step 1. The user starts up CaloFit for the first time. The `ModelManager` will contain a `MealLog` that has an empty list
+
+[NOTE]
+If the user enters "report" in the Command Line Input with a `MealLog` that has no `Meal` entered this month, a `CommandException` will be thrown since there are no `Meal` to gather statistics pertaining to this month.
+
+Step 2. The user has added a `Meal` into the `MealLog` through the `add` feature.
+
+Step 3. The user enters "report" in the Command Line Input to generate the report of CaloFit. The `ReportCommand` created will return a `CommandResult` object with "isReport" set to True. When the `MainWindow` checks this boolean, it calls `MainWindow#handleReport()` that creates the `ReportWindow`.
+
+The following sequence diagram shows how the "report" command works.
+
+image::ReportCommand.png[]
+
+The following sequence diagram shows how the `ReportWindow` is generated.
+
+image::ReportWindow.png[]
+
+==== Design Considerations
+
+===== Aspect: When the `Statistics` object is saved.
+
+* **Alternative 1 (current choice):** Only when a "report" command is entered.
+** Pros: Less processes carried out for each type of command.
+** Cons: At any point in using CaloFit, the statistics are likely not updated to the most recent command.
+* **Alternative 2:** Every command saves a new updated `Statistics` object.
+** Pros: Logging of statistics can be accurate, and statistics are always updated.
+** Cons: Unnecessary as user does not need to see the statistics other than through a "report" command and results in every command having to do more work and interact with the `Model` more, possibly creating more bugs.
+* **Explanation of Choice:** Since the user only needs to see the updated statistics when a "report" command is executed, we only need to generate a new `Statistics` object with the updated values for that command, hence **Alternative 1** is chosen to avoid adding unnecessary complexity to each command.
+
+===== Aspect: Data structure to store the statistics in CaloFit.
+
+* **Alternative 1 (current choice):** Wrap the values in a `Statistics` object.
+** Pros: Neater code and easier to understand, since all statistic-related values are stored in the `Statistics` object and are not implemented in the `Model`.
+** Cons: Additional class to maintain and test for dependencies.
+* **Alternative 2:** Store the values as a list in the `Model`.
+** Pros: The statistics can be updated easily through the `Model` itself by updating the elements in the list. Accessing the statistics to display is easier as well.
+** Cons: Burdens the `Model` with a responsibility that is largely irrelevant to its current ones, which is to keep track of the Objects that make up the CaloFit model.
+* **Explanation of Choice:** To try and enforce Single Responsibility Principle as much as possible and avoid adding irrelavant functionality to `Model`.
+// end::report[]
+
+
+
+
+
 
 === Logging
 

@@ -23,11 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -129,7 +125,6 @@ public class BudgetBar extends StackPane {
         )));
 
         Callback<SegmentedBar.Segment, Node> orig = mealSegments.getSegmentViewFactory();
-        Background white = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
         mealSegments.setSegmentViewFactory(segment -> {
             SegmentedBar.SegmentView view = (SegmentedBar.SegmentView) orig.call(segment);
             if (segment instanceof BufferSegment) {
@@ -140,7 +135,7 @@ public class BudgetBar extends StackPane {
             return view;
         });
 
-        DoubleExpression budgetXPos = markPosition(new SimpleDoubleProperty(1));
+        DoubleExpression budgetXPos = markPosition(Bindings.createDoubleBinding(() -> 1.0));
         budgetMark.startXProperty().bind(budgetXPos);
         budgetMark.endXProperty().bind(budgetXPos);
         budgetMark.visibleProperty().bind(map(budget, val -> Double.isFinite((double) val)));
@@ -179,8 +174,4 @@ public class BudgetBar extends StackPane {
         return budget;
     }
 
-    @Override
-    protected void layoutChildren() {
-        super.layoutChildren();
-    }
 }

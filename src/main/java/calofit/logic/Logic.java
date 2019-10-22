@@ -54,7 +54,7 @@ public interface Logic {
     /**
      * Returns a list of meals that has already been filtered by a predicate.
      */
-    ObservableList<Meal> getFilteredMealList();
+    ObservableList<Meal> getTodayMealList();
 
     /**
      * Returns the Statistics object that wraps around the statistics of CaloFit.

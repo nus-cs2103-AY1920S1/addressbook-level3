@@ -93,7 +93,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered Meal List.
      */
-    ObservableList<Meal> getFilteredMealList();
+    ObservableList<Meal> getTodayMealList();
 
     void addMeal(Meal meal);
 
@@ -101,11 +101,6 @@ public interface Model {
      * Returns the MealLog that wraps around the list of meals input by the user.
      */
     MealLog getMealLog();
-
-    /**
-     * Updates the statistics of CaloFit based on the current state of it.
-     */
-    void updateStatistics();
 
     /**
      * Returns the current Statistics object that wraps around the statistics of CaloFit.
