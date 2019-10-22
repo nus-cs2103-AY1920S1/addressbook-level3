@@ -291,8 +291,8 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 ** Supporting deletion of Tags
 *** Allow the user to delete a specified Tag.
 *** All StudyBuddyItems must be updated in response to the deletion.
-*** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure,
-such that each StudyBuddyItem is able to update their Tags in an optimised manner.
+*** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
+*** As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
 
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
