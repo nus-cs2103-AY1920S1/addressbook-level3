@@ -1,9 +1,9 @@
 package dream.fcard.model;
 
-import java.util.ArrayList;
-
 import static dream.fcard.model.cards.Priority.HIGH_PRIORITY;
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
+
+import java.util.ArrayList;
 
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
@@ -64,8 +64,6 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     *
-     *
      * @param list
      */
     private void addCardsToQueues(ArrayList<FlashCard> list) {
@@ -186,7 +184,6 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     *
      * @return
      */
     public String getName() {
@@ -194,18 +191,16 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     *
      * @return
      */
-    public ArrayList<FlashCard> getHighPriorityQueue(){
+    public ArrayList<FlashCard> getHighPriorityQueue() {
         return highPriorityQueue;
     }
 
     /**
-     *
      * @return
      */
-    public ArrayList<FlashCard> getLowPriorityQueue(){
+    public ArrayList<FlashCard> getLowPriorityQueue() {
         return lowPriorityQueue;
     }
 }
