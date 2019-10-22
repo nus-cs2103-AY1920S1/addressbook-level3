@@ -91,8 +91,8 @@
                                 <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0">
                                         <children>
-                                            <VBox fx:id="analyticsBoard" styleClass="content-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                <StackPane fx:id="analyticsBoardPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                            <VBox fx:id="analyticsBoard" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <StackPane fx:id="dataListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                             </VBox>
                                         </children>
                                     </AnchorPane>

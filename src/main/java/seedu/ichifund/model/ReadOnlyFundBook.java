@@ -1,6 +1,7 @@
 package seedu.ichifund.model;
 
 import javafx.collections.ObservableList;
+import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
@@ -39,5 +40,10 @@ public interface ReadOnlyFundBook {
      * Returns an unmodifiable view of the transactions list.
      */
     ObservableList<Transaction> getTransactionList();
+
+    /**
+     * Returns an unmodifiable view of the data list.
+     */
+    ObservableList<Data> getDataList();
 
 }
