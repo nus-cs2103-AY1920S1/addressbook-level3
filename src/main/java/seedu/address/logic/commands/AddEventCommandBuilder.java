@@ -10,8 +10,8 @@ import seedu.address.logic.commands.arguments.StringVariableArguments;
 import seedu.address.logic.commands.arguments.StringVariableArgumentsBuilder;
 import seedu.address.logic.commands.options.Option;
 import seedu.address.logic.commands.options.OptionBuilder;
+import seedu.address.model.DateTime;
 import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.

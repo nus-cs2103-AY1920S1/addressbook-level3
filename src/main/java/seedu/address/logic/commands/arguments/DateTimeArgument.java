@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.arguments;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
 
 /**
  * Represents a command argument of type DateTime.

@@ -1,4 +1,4 @@
-package seedu.address.model.events;
+package seedu.address.model;
 
 import java.time.Instant;
 import java.time.ZoneId;

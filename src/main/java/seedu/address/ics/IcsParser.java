@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 
 /***

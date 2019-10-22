@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.arguments;
 
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
 
 /**
  * Represents an ArgumentBuilder responsible for building {@link DateTimeArgument}

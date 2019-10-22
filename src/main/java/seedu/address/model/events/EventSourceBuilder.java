@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.DateTime;
+
 /**
  * Represents a Builder responsible for creating {@link EventSource}.
  */

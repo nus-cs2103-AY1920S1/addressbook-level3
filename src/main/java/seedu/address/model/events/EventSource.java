@@ -6,6 +6,8 @@ import static seedu.address.commons.util.IcsUtil.toIcsTimeStamp;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.DateTime;
+
 /**
  * Represents an EventSource in Horo.
  * It is immutable.
