@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 
@@ -24,7 +25,7 @@ public class AddLessonCommandParser implements Parser<AddLessonCommand> {
      */
     public AddLessonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_REPEAT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -37,6 +38,9 @@ public class AddLessonCommandParser implements Parser<AddLessonCommand> {
 
         Lesson lesson = new Lesson(startTime, endTime, className);
 
+        if (arePrefixesPresent(argMultimap, PREFIX_REPEAT)) { //if indicated repeat then set isRepeat in lesson to true
+            lesson.setRepeat();
+        }
         return new AddLessonCommand(lesson);
     }
 

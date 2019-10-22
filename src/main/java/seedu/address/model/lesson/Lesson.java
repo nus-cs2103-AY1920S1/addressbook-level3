@@ -34,6 +34,10 @@ public class Lesson {
         return isRepeat;
     }
 
+    public void setRepeat() {
+        this.isRepeat = true;
+    }
+
     /**
      * Returns true if both lessons of the same name have both identity fields that are the same.
      */
@@ -78,7 +82,8 @@ public class Lesson {
                 .append(" \nFrom: ")
                 .append(getStartTime())
                 .append(" To: ")
-                .append(getEndTime());
+                .append(getEndTime())
+                .append(" " + getIsRepeat());
         return builder.toString();
     }
 }

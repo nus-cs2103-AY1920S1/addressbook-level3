@@ -15,6 +15,14 @@
     "address" : "test8",
     "medicalCondition" : "sinus",
     "tagged" : [ ]
+  }, {
+    "name" : "testttt",
+    "phone" : "12121212",
+    "email" : "test@mail.com",
+    "parentPhone" : "9999999",
+    "address" : "home",
+    "medicalCondition" : "sick",
+    "tagged" : [ ]
   } ],
   "assignments" : [ {
     "assignmentName" : "math",
@@ -36,6 +44,6 @@
     "grades" : [ ]
   }, {
     "assignmentName" : "math test1",
-    "grades" : [ "20", "50" ]
+    "grades" : [ ]
   } ]
 }

@@ -18,5 +18,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_LESSONNAME = new Prefix("l/");
     public static final Prefix PREFIX_STARTTIME = new Prefix("st/");
     public static final Prefix PREFIX_ENDTIME = new Prefix("et/");
+    public static final Prefix PREFIX_REPEAT = new Prefix("r/");
 
 }
