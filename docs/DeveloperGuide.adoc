@@ -242,6 +242,41 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::genpdf[]
+=== [Proposed] Generate PDF feature
+==== Proposed Implementation
+
+The generate PDF feature is facilitated by `ReportGenerator`.
+It extends `Mortago` with the ability to create a report, supported by iText external library.
+Additionally, it implements the following operations:
+
+* `ReportGenerator#execute()` -- Creates report in a PDF file for the specific body identification number.
+* `ReportGenerator#executeAll()` -- Creates report in a PDF file for all bodies registered in Mortago.
+
+The following sequence diagram shows how the execute operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `GenReportCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creates the document.
+
+The following activity diagram summarizes what happens when a user executes a 'genReport <BODY_ID>' command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How generate report executes
+
+* **Alternative 1 (current choice):** Creates a PDF file.
+** Pros: Implementation is easy.
+** Cons: Implementation must ensure that each individual body attribute is correct.
+* **Alternative 2:** Creates a Word Document file.
+** Pros: Implementation allows user to edit the contents of the report.
+** Cons: Implementation defeats the purpose of being automated.
+// end::genpdf[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
