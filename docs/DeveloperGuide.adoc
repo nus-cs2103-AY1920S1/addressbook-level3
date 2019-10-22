@@ -153,6 +153,110 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::loans[]
+=== Loans Feature
+==== Implementation
+
+The Loans feature exists outside of the Account/Transaction mechanisms.
+It adds a separate `LoansManager` alongside the main `AccountsManager`, with `Loan` objects stored internally in a list of `loans`.
+Each `Loan` object has the following attributes:
+
+* `person:Person` -- The person to whom the loan belongs.
++
+Internally, `Person` holds a `String` attribute representing the person's name.
+* `amount:Amount` -- The amount of money loaned.
++
+Internally, `Amount` holds a `long` attribute representing the monetary value of the loan.
+* `direction:Direction` -- The direction of the loan (either *in* or *out*).
++
+Internally, `Direction` is an enumeration with values `Direction.IN` and `Direction.OUT`.
+* `status:Status` -- The status of the loan (either *paid* or *unpaid*).
++
+Internally, `Status` is an enumeration with values `Status.PAID` and `Status.UNPAID`.
+* `date:Date` -- The date of the loan.
++
+Internally, `Date` is represented using `java.util.Date`.
+* `description:Description` (optional) -- A description of the loan.
++
+Internally, `Description` holds a `String` attribute to represent the user-given description.
+
+To facilitate the manipulation of `Loan` objects, `LoansManager` implements the following operations.
+
+* `LoansManager#getLoans()` -- Gets the current list of loans.
+* `LoansManager#addLoan(Loan toAdd)` -- Adds the `Loan toAdd` to `loans`.
+* `LoansManager#editLoan(Loan toEdit, Loan editedLoan)` -- Edits `Loan toEdit` to match `Loan editedLoan`.
+* `LoansManager#updateStatus(Loan toUpdate, Status newStatus)` -- Updates the `Status` of `Loan toUpdate` to `newStatus`.
+* `LoansManager#deleteLoan(Loan toDelete)` -- Deletes `Loan toDelete` from `loans`.
+
+Additionally, the state of `loans` is saved between sessions.
+This data is stored separately in the file `loans.json` on the local hard disk.
+
+Given below is an example usage scenario and how the `LoansManager` behaves at each step.
+
+Step 1. The user launches the application.
+If `loans.json` exists on the hard disk, its data is loaded into `loans`.
+Otherwise, `loans.json` is created and the `LoansManager` initializes with an empty list of `loans`.
+
+Step 2. The user executes the command `loan out p/John x/4.20` to add a new loan.
+This creates a new loan `toAdd` of `amount` 4.20 `out` to the `person` John, with the current `date` being used as the user did not provide one.
+`LoansManager#addLoan(Loan toAdd)` is then called and `toAdd` is added to `loans`.
+
+[NOTE]
+If the `person` of the loan `toAdd` already exists in `LoansManager`, then it is set to reference the existing `person`.
+Otherwise, a new `person` is created using the given name of the `person` in the loan `toAdd`.
+
+Step 3. The user executes the command `loan list` to see their current list of loans.
+`LoansManager#getLoans()` is called.
+The content of `loans` is retrieved, sorted by `person` in alphabetical order, and displayed to the user.
+
+Step 4. The user executes the command `loan edit 1 x/500` to edit the `amount` of the first loan in the list.
+This creates a new `editedLoan` identical to the first loan in `loans`, except that `editedLoan` has an `amount` of 500.
+`LoansManager#editLoan(Loan toEdit, Loan editedLoan)` is then called,
+where `toEdit` is the targeted first loan in `loans`,
+and `toEdit` is replaced with `editedLoan`.
+
+[NOTE]
+If `toEdit` cannot be found by the `LoansManager` in `loans`, an error message will be displayed to notify the user.
+
+Step 5. The user executes the command `loan paid 1` to update the status of the first loan in the list to *paid*.
+`LoansManager#updateStatus(Loan toUpdate, Status newStatus)` is called
+(where `toUpdate` is the targeted first loan in `loans` and `newStatus` has the value `Status.PAID`)
+and the loan `toUpdate` in `loans` has its `status` updated to `newStatus`.
+
+[NOTE]
+The command `loan unpaid` works identically to `loan paid`, except that `newStatus` has the value `Status.UNPAID`.
+
+Step 6. The user executes the command `loan delete 1` to delete the first loan in the list.
+`LoansManager#deleteLoan(Loan toDelete)` is called,
+where `toDelete` is the first loan in `loans`,
+and `toDelete` is removed from `loans`.
+
+===== Multi-Loan Targeting
+
+The user can target and act on multiple loans with a single command.
+For example, `loan delete 1 3 4` can be used to delete the first, third and fourth loans in `loans`.
+Alternatively, `loan delete p/John` can also be used to update all the loans of the `person` John in `loans`.
+The `LoansManager` handles this by executing the appropriate operation repeatedly.
+In the case of `loan delete 1 3 4`, `LoansManager#deleteLoan(Loan toDelete)` is called for all three loans,
+with each loan taking its turn as the loan `toDelete`.
+
+If any of the targeted loans cannot be found by the `LoansManager` in `loans`, they are added to a `missingLoans` list.
+The `missingLoans` list is then displayed to the user after all other loans have been acted upon,
+notifying them that those loans could not be found.
+
+Multi-loan targeting is implemented for the commands `loan paid`, `loan unpaid` and `loan delete`.
+
+==== Design Considerations
+===== Aspect: Structure of the loan - person interaction
+
+* **Alternative 1 (current choice)**: `LoansManager` stores `loans`; each `Loan` references a `Person`
+** Pros: Easy to implement and understand.
+** Cons: Takes a longer time to get all the loans belonging to a person.
+* **Alternative 2**: `LoansManager` stores `persons` list; each `Person` stores `loans`; each `Loan` references `Person`
+** Pros: Easy to retrieve the person of each loan and retrieve all the loans belonging to a person.
+** Cons: Circular dependency and high coupling, potentially leading to lower testability and a higher bug count.
+// end::loans[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
