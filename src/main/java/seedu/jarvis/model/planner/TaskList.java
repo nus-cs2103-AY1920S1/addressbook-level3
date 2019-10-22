@@ -45,7 +45,6 @@ public class TaskList {
      * @param zeroBasedIndex Zero-based index to add {@code Person} to
      * @param toAdd {@code Person} to be added.
      */
-    //TODO test
     public void add(int zeroBasedIndex, Task toAdd) {
         requireNonNull(toAdd);
 
@@ -124,7 +123,6 @@ public class TaskList {
      * Deletes the specified task from the list of tasks
      * @param t the task to be deleted
      */
-    //TODO test
     public void deleteTask(Task t) {
         tasks.remove(t);
     }

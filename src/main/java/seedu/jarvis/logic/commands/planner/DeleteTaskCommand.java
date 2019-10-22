@@ -106,7 +106,15 @@ public class DeleteTaskCommand extends Command {
 
     }
 
-    //TODO test
+    /**
+     * Adds back the {@code Task} that was deleted
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} of a successful restore of the deleted {@code Task}
+     * if the {@code Task} is not already in the planner
+     * @throws CommandException If the task to be added will be in conflict with an existing task
+     * in the planner
+     */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         requireNonNull(model);

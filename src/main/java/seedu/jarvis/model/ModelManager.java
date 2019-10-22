@@ -471,7 +471,6 @@ public class ModelManager implements Model {
      * @param zeroBasedIndex Zero-based index to add {@code Task} to
      * @param task {@code Task} to be added
      */
-    //TODO test
     public void addTask(int zeroBasedIndex, Task task) {
         planner.addTask(zeroBasedIndex, task);
     }
@@ -528,7 +527,6 @@ public class ModelManager implements Model {
      * Deletes the specified task in the planner
      * @param t the task to be deleted
      */
-    //TODO test
     @Override
     public void deleteTask(Task t) {
         planner.deleteTask(t);

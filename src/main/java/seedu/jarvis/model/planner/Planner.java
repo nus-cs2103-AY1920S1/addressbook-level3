@@ -51,7 +51,6 @@ public class Planner {
      * @param zeroBasedIndex Zero-based index to add {@code Task} to
      * @param task {@code Task} to be added
      */
-    //TODO test
     public void addTask(int zeroBasedIndex, Task task) {
         taskList.add(zeroBasedIndex, task);
     }
@@ -122,7 +121,6 @@ public class Planner {
      *
      * @param t the task to be deleted
      */
-    //TODO test
     public void deleteTask(Task t) {
         taskList.deleteTask(t);
     }
