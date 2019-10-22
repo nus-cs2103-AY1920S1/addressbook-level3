@@ -13,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
@@ -81,7 +82,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate) {
+    public ArrayList<Person> findPersonAny(NameContainsKeywordsPredicate predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ArrayList<Person> findPersonAll(NameContainsAllKeywordsPredicate predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

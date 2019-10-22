@@ -17,7 +17,7 @@ public class Context {
     /**
      * Represents the various types of contexts that can exist.
      */
-    enum Type {
+    public enum Type {
         MAIN,
         VIEW_CONTACT,
         VIEW_ACTIVITY,
@@ -39,7 +39,7 @@ public class Context {
     /**
      * Constructor for a VIEW_ACTIVITY context.
      */
-    Context(Activity activity) {
+    public Context(Activity activity) {
         requireNonNull(activity);
         object = Optional.ofNullable(activity);
         type = Type.VIEW_ACTIVITY;

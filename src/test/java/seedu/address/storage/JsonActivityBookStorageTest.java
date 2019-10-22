@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalActivities.BREAKFAST;
-import static seedu.address.testutil.TypicalActivities.LUNCH;
 import static seedu.address.testutil.TypicalActivities.getTypicalActivityBook;
 
 import java.io.IOException;
@@ -59,6 +58,11 @@ public class JsonActivityBookStorageTest {
     }
 
     @Test
+    public void readActivityBook_duplicateKeysActivityBook_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readActivityBook("duplicateKeysActivityBook.json"));
+    }
+
+    @Test
     public void readAndSaveActivityBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempActivityBook.json");
         ActivityBook original = getTypicalActivityBook();
@@ -70,14 +74,13 @@ public class JsonActivityBookStorageTest {
         assertEquals(original, new ActivityBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addActivity(LUNCH);
         original.removeActivity(BREAKFAST);
         jsonActivityBookStorage.saveActivityBook(original, filePath);
         readBack = jsonActivityBookStorage.readActivityBook(filePath).get();
         assertEquals(original, new ActivityBook(readBack));
 
         // Save and read without specifying file path
-        original.addActivity(LUNCH);
+        original.addActivity(BREAKFAST);
         jsonActivityBookStorage.saveActivityBook(original); // file path not specified
         readBack = jsonActivityBookStorage.readActivityBook().get(); // file path not specified
         assertEquals(original, new ActivityBook(readBack));
