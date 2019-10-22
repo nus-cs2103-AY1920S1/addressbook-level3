@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
+import seedu.address.model.task.Task;
 
 /**
  * Unmodifiable view of an address book
@@ -16,5 +17,14 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
     ObservableList<Earnings> getEarningsList();
+
+
+    /**
+     * Returns an unmodifiable view of the task list.
+     * This list will not contain any duplicate tasks.
+     */
+    ObservableList<Task> getTaskList();
+
     ObservableList<Reminder> getReminderList();
+
 }

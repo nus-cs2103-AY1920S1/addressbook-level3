@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.earnings.Earnings;
-
+import seedu.address.model.task.Task;
 
 
 /**
@@ -23,14 +23,20 @@ public class CommandResult {
 
     private boolean showEarnings;
     private Earnings earnings;
+
+    private boolean showTasks;
+    private Task task;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean showEarnings, boolean showTasks) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showEarnings = showEarnings;
+        this.showTasks = showTasks;
     }
 
     /**
@@ -46,11 +52,23 @@ public class CommandResult {
     }
 
     /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp,
+                         boolean exit, boolean showTasks, Task task) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showTasks = showTasks;
+        this.task = task;
+    }
+
+    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -71,6 +89,14 @@ public class CommandResult {
 
     public Earnings getEarnings() {
         return earnings;
+    }
+
+    public boolean isTasks() {
+        return showTasks;
+    }
+
+    public Task getTask() {
+        return task;
     }
 
     @Override
