@@ -1,0 +1,14 @@
+@startuml
+start
+: User enters command to add expense to archive;
+: command entered is parsed;
+: command is executed;
+
+if () then ([archive name \n entered does not exist])
+    : create new archive;
+else ([else])
+endif
+: Remove expense from \n list of current expenses;
+: Add expense to archive;
+stop
+@enduml

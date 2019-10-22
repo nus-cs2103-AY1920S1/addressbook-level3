@@ -276,17 +276,21 @@ These operations are exposed in the `Model` interface respectively as:
 * `Model#deleteArchiveExpense(String, Expense)`
 * `Model#getArchiveNames()`
 
-Given below is an example usage scenario of the add expense to archive function, and how the archive model behaves at each step: +
+Given below is an example usage scenario of the add expense to archive function, showing how the command is parsed in `Logic` and how it interacts with `Model`: +
 
 Firstly, the user has the application running and has a non empty list of current expenses. The user can enter the `list` command to bring up
 this list. +
 
-Next, the user executes the command `archive add 3 arc/archiveName` to archive an expense. The command is first parsed by `BillboardParser` to determine what kind of command it is,
-`archive` indicates it is an archive command, so the remaining command is parsed through `ArchiveCommandParser` to determine which archive command it is.
-`add` indicates it is an add command, so it is parsed for the final time by `AddArchiveCommandParser` to extract out the arguments entered for the operation.
+Next, the user executes the command `archive add 3 arc/archiveName` to archive an expense. +
+The command is first parsed by `BillboardParser` to determine what kind of general command it is. `archive` indicates it is an archive command so the remaining input is parsed through `ArchiveCommandParser`. +
+`ArchiveCommandParser` determines which archive command should be called. `add` indicates it is an add command, so the input is parsed for the final time through `AddArchiveCommandParser` to extract out the arguments entered for the operation.
 In this case, the arguments are `3` and `archiveName` +
 
-`AddArchiveCommandParser` then returns a `AddArchiveCommand` object to be executed. The `AddArchiveCommand` performs two checks before executing any changes:
+This parsing process is shown in the cropped portion of the full sequence diagram below:
+
+image::AddArchiveCommandSequenceDiagram_Parsing.png[]
+
+`AddArchiveCommandParser` then returns an `AddArchiveCommand` object to be executed. The `AddArchiveCommand` performs two checks before executing any changes:
 
 * First, it is changed if entered index, `3`, is a valid index from the current expense list. An exception is thrown and the command is aborted if the index is invalid,
 so `Model` is left unmodified in this case.
@@ -300,9 +304,19 @@ After the checks are completed and if no exception is thrown, the command execut
 * Next, the expense's `archiveName` field is updated using `Expense#archiveTo(String)`
 * Lastly, the expense is added to the specified archive using `Model#addArchiveExpense(String, Expense)`
 
+These interactions with `Model` by `AddArchiveCommand` can be shown in the cropped portion of the full sequence diagram below:
+
+image::AddArchiveCommandSequenceDiagram_executeCommand.png[]
+
 Finally, a `CommandResult` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful. +
 
+Below is the full sequence diagram of the operation:
+
+image::AddArchiveCommandSequenceDiagram.png[]
+
 The following activity diagram summarizes what happens when a user executes a new `AddArchiveCommand`:
+
+image::AddArchiveCommandActivityDiagram.png[]
 
 ===== Storing Archive
 All expenses, archived and non-archived, are stored in a single JSON file. +
