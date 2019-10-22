@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  * Represents an Itinerary Item in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class ItineraryItem {
+public abstract class ItineraryItem {
     //Identity fields
     private final Name name;
 
@@ -94,6 +94,7 @@ public class ItineraryItem {
                 .append(getContact().isPresent()
                         ? getContact().get()
                         : "")
+                //note that Contact.toString also has tags
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
