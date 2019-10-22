@@ -17,30 +17,30 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
 /**
- * Adds tag(s) to an existing expense.
+ * Removes tag(s) from existing expense.
  */
-public class AddTagCommand extends TagCommand {
-    public static final String COMMAND_WORD = "add";
+public class RemoveTagCommand extends TagCommand {
+    public static final String COMMAND_WORD = "rm";
 
     public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds tags to the expense identified "
+            + ": Removes tags from the expense identified "
             + "by the index number used in the last expense listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "[TAG]\n"
             + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "SCHOOL";
 
-    public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Expense: %1$s";
+    public static final String MESSAGE_RM_TAG_SUCCESS = "Removed tag(s) from Expense: %1$s";
 
     private final Index index;
     private List<String> tagNames;
 
     /**
-     * Creates an AddTagCommand to add tags to the specified {@code Expense}
+     * Creates an RemoveTagCommand to remove tags from the specified {@code Expense}
      * @param index                 of the expense in the filtered expense list to edit
-     * @param tagNames          tags to be added to expense.
+     * @param tagNames          tags to be removed from expense.
      */
-    public AddTagCommand(Index index, List<String> tagNames) {
+    public RemoveTagCommand(Index index, List<String> tagNames) {
         requireAllNonNull(index, tagNames);
         this.index = index;
         this.tagNames = tagNames;
@@ -57,11 +57,9 @@ public class AddTagCommand extends TagCommand {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
 
         Set<Tag> currentTags = expenseToEdit.getTags();
-        Set<Tag> tagsToAdd = model.retrieveTags(tagNames);
-        Set<Tag> editedTags = combineSets(currentTags, tagsToAdd);
-
-        Set<Tag> tagsToIncrementCount = getUniqueTags(currentTags, tagsToAdd);
-        model.incrementCount(tagsToIncrementCount);
+        Set<Tag> tagsToRemove = getExistingTags(currentTags, tagNames);
+        Set<Tag> editedTags = getRemainingTags(currentTags, tagsToRemove);
+        model.decreaseCount(tagsToRemove);
 
         Expense editedExpense = new Expense(expenseToEdit.getName(), expenseToEdit.getDescription(),
                 expenseToEdit.getAmount(), expenseToEdit.getCreated(), editedTags);
@@ -69,44 +67,44 @@ public class AddTagCommand extends TagCommand {
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, editedExpense));
+        return new CommandResult(String.format(MESSAGE_RM_TAG_SUCCESS, editedExpense));
     }
 
     /**
-     * Merge 2 sets into 1 with unique elements.
-     * @param setOne first set.
-     * @param setTwo second set.
-     * @return Merged set with unique elements.
+     * Checks and returns a set consisting of tags whose names exist in the set given in argument.
+     * @param current to check names against
+     * @param names of tags to be removed.
+     * @return set consisting of tags whose names exist in set.
      */
-    private Set<Tag> combineSets(Set<Tag> setOne, Set<Tag> setTwo) {
-        requireAllNonNull(setOne, setTwo);
+    private Set<Tag> getExistingTags(Set<Tag> current, List<String> names) {
+        requireAllNonNull(current, names);
         Set<Tag> toReturn = new HashSet<>();
-        toReturn.addAll(setOne);
-        toReturn.addAll(setTwo);
+        for (Tag tag : current) {
+            if (names.contains(tag.tagName)) {
+                toReturn.add(tag);
+            }
+        }
         return Collections.unmodifiableSet(toReturn);
     }
 
     /**
-     * Return a set consisting of elements in setTwo that are not in setOne.
-     * @param setOne first set.
-     * @param setTwo second set.
-     * @return set of elements in setTwo but not setOne.
+     * Removes all elements of a set from another set.
+     * @param current set which elements will be removed from.
+     * @param toRemove set whose elements are to be removed.
+     * @return set consisting of remaining elements.
      */
-    private Set<Tag> getUniqueTags(Set<Tag> setOne, Set<Tag> setTwo) {
-        requireAllNonNull(setOne, setTwo);
-        Set<Tag> setOneCopy = new HashSet<>(setOne);
-        Set<Tag> toReturn = new HashSet<>(setTwo);
-        setOneCopy.retainAll(setTwo);
-        toReturn.removeAll(setOneCopy);
+    private Set<Tag> getRemainingTags(Set<Tag> current, Set<Tag> toRemove) {
+        requireAllNonNull(current, toRemove);
+        Set<Tag> toReturn = new HashSet<>(current);
+        toReturn.removeAll(toRemove);
         return Collections.unmodifiableSet(toReturn);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddTagCommand // instanceof handles nulls
-                && tagNames.equals(((AddTagCommand) other).tagNames))
-                && index.equals(((AddTagCommand) other).index);
+                || (other instanceof RemoveTagCommand // instanceof handles nulls
+                && tagNames.equals(((RemoveTagCommand) other).tagNames))
+                && index.equals(((RemoveTagCommand) other).index);
     }
-
 }
