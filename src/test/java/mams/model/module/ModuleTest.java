@@ -3,10 +3,12 @@ package mams.model.module;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import mams.testutil.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import mams.model.student.Name;
-
+import mams.testutil.TypicalModules;
 
 class ModuleTest {
 
@@ -65,6 +67,10 @@ class ModuleTest {
     @Test
     void isSameModule() {
         // same object -> returns true
+        //Assertions.assertTrue(TypicalModules.CS1010.isSameModule(TypicalModules.CS1010));
+
+        //null -> return false
+        //Assertions.assertFalse(TypicalModules.CS1020.isSameModule(null));
     }
 
     @Test

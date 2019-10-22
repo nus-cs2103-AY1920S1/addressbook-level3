@@ -1,5 +1,8 @@
 package mams.model.tag;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import mams.testutil.Assert;
@@ -21,6 +24,9 @@ public class TagTest {
     public void isValidTagName() {
         // null tag name
         Assert.assertThrows(NullPointerException.class, () -> Tag.isValidTagName(null));
-    }
 
+        assertTrue(Tag.isValidTagName("CS1010"));
+
+
+    }
 }
