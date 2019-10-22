@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -36,12 +37,22 @@ public class CommandTestUtil {
     public static final String VALID_TAG_DISCOUNTED = "usedCouponCode";
     public static final String VALID_UNIQUE_IDENTIFIER = "Expense@12341234-1234-1234-1234-123412341234";
 
+    public static final String VALID_DESCRIPTION_SCHOOL = "school related expenses";
+    public static final String VALID_AMOUNT_SCHOOL = "300";
+    public static final String VALID_START_DATE_SCHOOL = "01-10-2019";
+    public static final String VALID_PERIOD_SCHOOL = "month";
+
     public static final String DESCRIPTION_DESC_CHICKEN = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHICKEN;
     public static final String DESCRIPTION_DESC_TRANSPORT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TRANSPORT;
     public static final String PRICE_DESC_CHICKEN = " " + PREFIX_PRICE + VALID_PRICE_CHICKEN;
     public static final String PRICE_DESC_TRANSPORT = " " + PREFIX_PRICE + VALID_PRICE_TRANSPORT;
     public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_TAG + VALID_TAG_DISCOUNTED;
     public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_TAG + VALID_TAG_CLAIMABLE;
+
+    public static final String DESCRIPTION_DESC_SCHOOL = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_SCHOOL;
+    public static final String AMOUNT_DESC_SCHOOL = " " + PREFIX_PRICE + VALID_AMOUNT_SCHOOL;
+    public static final String START_DATE_DESC_SCHOOL = " " + PREFIX_START_DATE + VALID_START_DATE_SCHOOL;
+    public static final String PERIOD_DESC_SCHOOL = " " + PREFIX_PERIOD + VALID_PERIOD_SCHOOL;
 
     // '&' not allowed in descriptions
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";

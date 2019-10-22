@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.Percentage;
 
