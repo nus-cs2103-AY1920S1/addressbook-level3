@@ -34,15 +34,6 @@ public class EventSchedulePanel extends UiPart<Region>{
         eventScheduleBorderPane.setCenter(agenda);
     }
 
-    private void initCalendar(ObservableList<VEvent> vEventList) {
-        this.vCalendar = new VCalendar();
-        vCalendar.setVEvents(vEventList);
-        this.agenda = new ICalendarAgenda(this.vCalendar);
-        // set calendar to start week on monday
-        this.agenda.setLocale(calendarLocale);
-        setWeekSkin();
-    }
-
     private void setWeekSkin() {
         AgendaWeekSkin weekSkin = new AgendaWeekSkin(agenda);
         agenda.setSkin(weekSkin);

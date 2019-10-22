@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+import jfxtras.icalendarfx.properties.component.descriptive.Comment;
 import jfxtras.icalendarfx.properties.component.time.DateTimeStart;
 import seedu.address.commons.core.index.Index;
 
@@ -49,6 +50,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     private List<Event> VEventsToEventsMapper(List<VEvent> vEvents) {
         ArrayList<Event> eventList = new ArrayList<>();
         for (VEvent vEvent : vEvents) {
+            vEvent.setDescription("testDescription");
             eventList.add(vEventToEventMapper(vEvent));
         }
         return eventList;
@@ -127,7 +129,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
             resultEvent.setRecurrenceType(RecurrenceType.WEEKLY);
         }
 
-        String colorCategory = vEventToMap.getCategories().get(0).toString();
+        String colorCategory = vEventToMap.getCategories().get(0).getValue().get(0);
         resultEvent.setColorCategory(colorCategory);
 
         return resultEvent;
