@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import seedu.address.ui.HelpWindow;
 import seedu.address.ui.commands.CommandResult;
 import seedu.address.ui.logic.exception.ParseException;
 
@@ -16,12 +15,8 @@ public class LogicManager implements Logic {
     @FXML
     private TabPane tabPane;
 
-    @FXML
-    private HelpWindow helpWindow;
-
-    public LogicManager(TabPane tabPane, HelpWindow helpWindow) {
+    public LogicManager(TabPane tabPane) {
         this.tabPane = tabPane;
-        this.helpWindow = helpWindow;
     }
 
     @Override
@@ -38,9 +33,6 @@ public class LogicManager implements Logic {
             return goToTab(param);
         } else if (command.equals("exit")) {
             return new CommandResult("Exiting...", true);
-        } else if (command.equals("help")) {
-            handleHelp();
-            return new CommandResult("Showing help menu.");
         } else {
             throw new ParseException("This really shouldn't happen. How did you get here?");
         }
@@ -73,18 +65,6 @@ public class LogicManager implements Logic {
         }
 
         return new CommandResult("Switched to " + param + " tab!");
-    }
-
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
     }
 
 }
