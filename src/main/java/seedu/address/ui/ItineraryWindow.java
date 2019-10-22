@@ -1,15 +1,15 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.logging.Logger;
 
 public class ItineraryWindow extends UiPart<Scene> {
     private static final String FXML = "ItineraryWindow.fxml";
