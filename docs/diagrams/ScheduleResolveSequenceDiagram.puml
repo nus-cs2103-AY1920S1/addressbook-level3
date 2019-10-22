@@ -1,0 +1,47 @@
+@startuml ScheduleResolve
+!include style.puml
+
+title __Schedule Resolve__
+actor User USER_COLOR
+participant "__:Ui__" as Ui UI_COLOR
+participant "__:Logic__" as Logic LOGIC_COLOR
+participant "__:Model__" as Model MODEL_COLOR
+participant "__:Storage__" as Storage STORAGE_COLOR
+
+ref over User
+Schedule Conflict
+end ref
+
+User -[USER_COLOR]> Ui: resolve n/cardio2 i/1 r/2
+activate Ui UI_COLOR
+
+Ui -[UI_COLOR]> Logic: execute("n/cardio2 i/1 r/2")
+activate Logic LOGIC_COLOR
+
+Logic -[LOGIC_COLOR]> Model: resolveConflict(conflict)
+activate Model MODEL_COLOR
+
+Model --[MODEL_COLOR]> Logic
+deactivate Model
+
+Logic -[LOGIC_COLOR]> Storage: saveBook()
+activate Storage STORAGE_COLOR
+
+Storage -[STORAGE_COLOR]> Storage: saveToFile()
+activate Storage STORAGE_COLOR_T1
+return
+
+Storage --[STORAGE_COLOR]> Logic
+deactivate Storage
+
+Logic --[LOGIC_COLOR]> Ui
+deactivate Logic
+
+Ui -[UI_COLOR]> Ui: closeResolveWindow()
+activate Ui UI_COLOR_T1
+return
+
+Ui --[UI_COLOR]> User
+deactivate Ui
+
+@enduml

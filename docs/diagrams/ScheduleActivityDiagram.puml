@@ -1,0 +1,27 @@
+@startuml
+skinparam activityShape rectangle
+
+start
+:Entered schedule command;
+if () then ([Conflict])
+    :ResolveWindow pops up;
+    repeat
+        :User enters commands;
+        if () then ([ResolveCommand])
+            if () then ([Valid Name])
+                :resolve conflict and\ncreate new regime\n with valid name;
+            else ([Invalid name])
+                :show invalid name message;
+            endif
+        else ([Not ResolveCommand])
+            :show invalid command message;
+        endif
+    repeat while (conflict resolved?) is (no)
+    -> yes;
+    :ResolveWindow close;
+else ([No Conflict])
+endif
+:Schedule a regime\n successfully;
+-> Program resumes;
+stop
+@enduml

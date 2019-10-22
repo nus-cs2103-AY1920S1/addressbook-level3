@@ -235,13 +235,6 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -256,6 +249,61 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+=== Resolve feature
+==== Implementation
+The resolve feature is used when there is a scheduling conflict that happens within ExerHealth. This feature will alter the state of the program. The state is known by `MainApp` and it is either `State.IN_CONFLICT` or `State.NORMAL`. Only when the state is `State.IN_CONFLICT` will `resolve` commands be allowed. The flow of the program for a scheduling conflict is as such:
+
+Step 1. User enters a `schedule` command that will cause a scheduling conflict. The `ScheduleCommand` will change `MainApp` state to `State.IN_CONFLICT`.
+
+[NOTE]
+`schedule` can conflict with another `schedule` when the dates from the 2 schedules are the same. The method `model.hasSchedule()` returns `true` if that happens.
+
+Step 2. A `CommandResult` object is returned to `MainWindow` where the flag `showResolve` is set to `true`.
+
+Step 3. Upon receipt of the object, `MainWindow` will show the resolve window and the user is required to resolve the conflict.
+
+[NOTE]
+The `ResolveWindow` will block all inputs to `MainWindow` and only allow `resolve` command to be entered.
+
+Shown below is the sequence diagram for when a scheduling conflict happens:
+
+image::ScheduleConflict.png[]
+
+Step 5. When the user is prompted with the `ResolveWindow`, all the conflicting exercises will be shown in one page. The previously `scheduled regime` on the left and the `conflicting regime` on the right.
+
+Step 6. Once the user issue a `resolve` command correctly, the `model` and `storage` of ExerHealth will be updated to reflect the changes. A new regime will be added for the user from the `resolve`.
+
+[NOTE]
+The `ResolveWindow` will only take one valid `resolve` command and `Ui` will close the `ResolveWindow` immediately after the command finishes. The newly made schedule will result in a new `regime` being added to the user's `RegimeList`, so the name of the `regime` in the `resolve` command cannot have any conflicts with current names in `RegimeList`.
+
+Step 7. The `ResolveWindow` then closes upon successful `resolve` and the application continues.
+
+Shown below is the sequence diagram for when a valid resolve command is issued:
+
+image::ScheduleResolve.png[]
+
+The following activity diagram summarizes what happens when a user enters a `schedule` command:
+
+image::ScheduleActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Signalling Schedule Conflict
+* **Alternative 1(current choice): ** Using `CommandResult` object
+** Pros:
+*** Cleaner code while using existing objects in codebase
+*** UI does not have to handle logic when encountering schedule conflicts. It only has to show the `ResolveWindow` and pass the data accordingly.
+** Cons:
+*** If we have to signal different types of scheduling conflict in the future, the `CommandResult` will become bloated.
+*** Violates SRP as CommandResult is continuously doing multiple types of jobs.
+
+* **Alternative 2: ** throw `ScheduleException`
+** Pros:
+*** Easy to implement. `ScheduleCommand` just has to throw an exception and `UI` catches it.
+** Cons:
+*** UI required to catch `ScheduleException` and act on that catch which makes the program hard to integrate
+*** Codebase will contain multiple `try/catch` acting like a control flow mechanism
+
 
 [[Implementation-Configuration]]
 === Configuration
@@ -558,25 +606,6 @@ Planning of an exercise on a later day.
 An attribute of an exercise item. Pre-defined attributes include name,
 quantity, units and calories.
 
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -598,26 +627,23 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting an exercise
 
-=== Deleting a person
+. Deleting an exercise while all exercises are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all exercises using the `list` command. Multiple exercises in the list.
+.. Test case: `delete t/exercise i/1` +
+   Expected: First exercise is deleted from the list. Details of the deleted exercise shown in the status message.
+.. Test case: `delete t/exercise i/0` +
+   Expected: No exercise is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: Must have ran `ExerHealth` at least once and have `exercisebook.json`.
 
-_{ more test cases ... }_
+.. Open up `exercisebook.json` with any text editor and change one of the dates to `//`, representing an invalid date. +
+   Expected: `ExerHealth` will start with an empty exercise book due to data corruption. Exercise Panel will be empty.
