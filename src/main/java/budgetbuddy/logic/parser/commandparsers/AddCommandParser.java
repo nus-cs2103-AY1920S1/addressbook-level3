@@ -13,7 +13,6 @@ import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.person.Person;
 
 /**

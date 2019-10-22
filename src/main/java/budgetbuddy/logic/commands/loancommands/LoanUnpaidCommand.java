@@ -9,7 +9,6 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Status;
-import budgetbuddy.model.loan.util.PersonLoanIndexPair;
 import budgetbuddy.model.person.Person;
 
 /**

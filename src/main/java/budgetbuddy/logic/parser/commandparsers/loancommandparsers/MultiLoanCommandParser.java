@@ -1,7 +1,6 @@
 package budgetbuddy.logic.parser.commandparsers.loancommandparsers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
@@ -9,8 +8,6 @@ import budgetbuddy.logic.commands.loancommands.MultiLoanCommand;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.loan.util.PersonLoanIndexPair;
 import budgetbuddy.model.person.Person;
 
 /**

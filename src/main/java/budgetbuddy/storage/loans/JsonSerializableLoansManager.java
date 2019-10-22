@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.person.Person;
 
 /**
  * An immutable LoansManager that is serializable to JSON format.

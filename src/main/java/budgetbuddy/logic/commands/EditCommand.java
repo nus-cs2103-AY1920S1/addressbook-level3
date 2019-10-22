@@ -13,7 +13,6 @@ import budgetbuddy.commons.util.CollectionUtil;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.person.Person;
 
 /**

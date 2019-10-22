@@ -1,17 +1,10 @@
 package budgetbuddy.storage.loans;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.person.Person;
 
 /**

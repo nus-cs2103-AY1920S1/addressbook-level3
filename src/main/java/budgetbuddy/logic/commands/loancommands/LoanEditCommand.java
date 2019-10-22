@@ -21,7 +21,6 @@ import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.exceptions.PersonNotFoundException;
 import budgetbuddy.model.transaction.Amount;
 
 /**
