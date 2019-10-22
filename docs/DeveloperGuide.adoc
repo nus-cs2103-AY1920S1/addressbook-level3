@@ -260,7 +260,7 @@ Given below is an example usage scenario and how the commit mechanism behaves at
 Step 1. The user launches the application for the first time. The `VersionTrackingManager` will be initialized with the
 initial module planner state, and its `StudyPlanCommitManagerList` will only contain a manager for the default study plan.
 
-// image::UndoRedoState0.png[]
+image::VersionTrackingClassDiagram.png[]
 
 Step 2. After changing the state of the current active study plan (e.g. by calling `addmodule y1s1 cs1101s`),
 the user executes `commit first draft` command to save the current state of this study plan with the commit message
