@@ -1,4 +1,4 @@
-package seedu.address.transaction.logic;
+package seedu.address.transaction.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,7 +33,6 @@ import seedu.address.transaction.logic.commands.ExitCommand;
 import seedu.address.transaction.logic.commands.FindCommand;
 import seedu.address.transaction.logic.commands.SortCommand;
 import seedu.address.transaction.logic.commands.SortNameCommand;
-import seedu.address.transaction.logic.parser.TransactionTabParser;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 import seedu.address.transaction.ui.TransactionMessages;

@@ -2,7 +2,6 @@
 :site-section: ProjectPortfolio
 :toc:
 :toc-title:
-:toc-placement: preamble
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -11,10 +10,10 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
+== Introduction
+
 This project portfolio briefly introduces the project, treasurerPro and outlines my contributions to the project
 and explains the feature I implemented.
-
-== Introduction
 
 === About the team
 
@@ -35,7 +34,7 @@ reimbursements to members, inventory and member’s contact details easily.
 This symbol indicates important information or detail.
 
 `Model`
-Text with grey highlight indicates a component, class or object in the architecture of
+Text with white highlight indicates a component, class or object in the architecture of
 the application.
 
 === Introduction of treasurerPro

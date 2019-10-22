@@ -1,11 +1,9 @@
-package seedu.address.transaction.logic;
+package seedu.address.transaction.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.address.person.model.Model;
 import seedu.address.transaction.logic.commands.Command;
-import seedu.address.transaction.logic.parser.CommandParserWithPersonModel;
-import seedu.address.transaction.logic.parser.IndependentCommandParser;
 
 /**
  * Contains helper methods for testing command parsers.
