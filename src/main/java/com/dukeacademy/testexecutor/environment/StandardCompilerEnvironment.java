@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.models.JavaFile;

@@ -4,7 +4,9 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import com.dukeacademy.commons.core.GuiSettings;
+import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.QuestionBank;
 
 import javafx.collections.ObservableList;
 
@@ -48,15 +50,11 @@ public interface Model {
     /**
      * Replaces question bank data with the data in {@code questionBank}.
      */
-    void setQuestionBank(ReadOnlyQuestionBank questionBank);
+    void setStandardQuestionBank(QuestionBank standardQuestionBank);
 
     /** Returns the QuestionBank */
-    ReadOnlyQuestionBank getQuestionBank();
+    QuestionBank getStandardQuestionBank();
 
-    /**
-     * Returns true if a question with the same identity as {@code question} exists in the question bank.
-     */
-    boolean hasQuestion(Question question);
 
     /**
      * Deletes the given question.

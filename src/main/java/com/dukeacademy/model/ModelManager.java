@@ -10,7 +10,12 @@ import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.model.question.Question;
+
+import com.dukeacademy.model.question.QuestionBank;
+import com.dukeacademy.model.question.StandardQuestionBank;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -21,26 +26,26 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final QuestionBank questionBank;
+    private final StandardQuestionBank standardQuestionBank;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
 
     /**
      * Initializes a ModelManager with the given questionBank and userPrefs.
      */
-    public ModelManager(ReadOnlyQuestionBank questionBank, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(QuestionBank questionBank, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(questionBank, userPrefs);
 
         logger.fine("Initializing with question bank: " + questionBank + " and user prefs " + userPrefs);
 
-        this.questionBank = new QuestionBank(questionBank);
+        this.standardQuestionBank = new StandardQuestionBank(questionBank.getReadOnlyQuestionListObservable());
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredQuestions = new FilteredList<>(this.questionBank.getQuestionList());
+        filteredQuestions = new FilteredList<>(this.standardQuestionBank.getReadOnlyQuestionListObservable());
     }
 
     public ModelManager() {
-        this(new QuestionBank(), new UserPrefs());
+        this(new StandardQuestionBank(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -81,29 +86,23 @@ public class ModelManager implements Model {
     //=========== QuestionBank ================================================================================
 
     @Override
-    public void setQuestionBank(ReadOnlyQuestionBank questionBank) {
-        this.questionBank.resetData(questionBank);
+    public void setStandardQuestionBank(QuestionBank standardQuestionBank) {
+        this.standardQuestionBank.setQuestions(standardQuestionBank.getReadOnlyQuestionListObservable());
     }
 
     @Override
-    public ReadOnlyQuestionBank getQuestionBank() {
-        return questionBank;
-    }
-
-    @Override
-    public boolean hasQuestion(Question question) {
-        requireNonNull(question);
-        return questionBank.hasQuestion(question);
+    public QuestionBank getStandardQuestionBank() {
+        return standardQuestionBank;
     }
 
     @Override
     public void deleteQuestion(Question target) {
-        questionBank.removeQuestion(target);
+        // standardQuestionBank.removeQuestion(target);
     }
 
     @Override
     public void addQuestion(Question question) {
-        questionBank.addQuestion(question);
+        standardQuestionBank.addQuestion(question);
         updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
     }
 
@@ -111,7 +110,7 @@ public class ModelManager implements Model {
     public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
-        questionBank.setQuestion(target, editedQuestion);
+        // standardQuestionBank.setQuestion(target, editedQuestion);
     }
 
     //=========== Filtered Question List Accessors =============================================================
@@ -130,24 +129,4 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return questionBank.equals(other.questionBank)
-                && userPrefs.equals(other.userPrefs)
-                && filteredQuestions.equals(other.filteredQuestions);
-    }
-
 }

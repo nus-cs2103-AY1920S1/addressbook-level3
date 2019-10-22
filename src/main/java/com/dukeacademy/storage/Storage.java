@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
 
-import com.dukeacademy.model.ReadOnlyQuestionBank;
-import com.dukeacademy.model.ReadOnlyUserPrefs;
-import com.dukeacademy.model.UserPrefs;
+import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
+import com.dukeacademy.model.question.QuestionBank;
+import com.dukeacademy.storage.prefs.UserPrefsStorage;
+import com.dukeacademy.storage.question.QuestionBankStorage;
 
 /**
  * API of the Storage component
@@ -22,12 +24,12 @@ public interface Storage extends QuestionBankStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getQuestionBankFilePath();
 
     @Override
-    Optional<ReadOnlyQuestionBank> readQuestionBank() throws DataConversionException, IOException;
+    Optional<QuestionBank> readQuestionBank() throws DataConversionException, IOException;
 
     @Override
-    void saveQuestionBank(ReadOnlyQuestionBank questionBank) throws IOException;
+    void saveQuestionBank(QuestionBank questionBank) throws IOException;
 
 }

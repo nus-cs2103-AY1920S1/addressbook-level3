@@ -8,9 +8,11 @@ import java.util.logging.Logger;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 
-import com.dukeacademy.model.ReadOnlyQuestionBank;
-import com.dukeacademy.model.ReadOnlyUserPrefs;
-import com.dukeacademy.model.UserPrefs;
+import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
+import com.dukeacademy.model.question.QuestionBank;
+import com.dukeacademy.storage.prefs.UserPrefsStorage;
+import com.dukeacademy.storage.question.QuestionBankStorage;
 
 /**
  * Manages storage of QuestionBank data in local storage.
@@ -49,28 +51,28 @@ public class StorageManager implements Storage {
     // ================ QuestionBank methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return questionBankStorage.getAddressBookFilePath();
+    public Path getQuestionBankFilePath() {
+        return questionBankStorage.getQuestionBankFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyQuestionBank> readQuestionBank() throws DataConversionException, IOException {
-        return readQuestionBank(questionBankStorage.getAddressBookFilePath());
+    public Optional<QuestionBank> readQuestionBank() throws DataConversionException, IOException {
+        return readQuestionBank(questionBankStorage.getQuestionBankFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyQuestionBank> readQuestionBank(Path filePath) throws DataConversionException, IOException {
+    public Optional<QuestionBank> readQuestionBank(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return questionBankStorage.readQuestionBank(filePath);
     }
 
     @Override
-    public void saveQuestionBank(ReadOnlyQuestionBank questionBank) throws IOException {
-        saveQuestionBank(questionBank, questionBankStorage.getAddressBookFilePath());
+    public void saveQuestionBank(QuestionBank questionBank) throws IOException {
+        saveQuestionBank(questionBank, questionBankStorage.getQuestionBankFilePath());
     }
 
     @Override
-    public void saveQuestionBank(ReadOnlyQuestionBank questionBank, Path filePath) throws IOException {
+    public void saveQuestionBank(QuestionBank questionBank, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         questionBankStorage.saveQuestionBank(questionBank, filePath);
     }

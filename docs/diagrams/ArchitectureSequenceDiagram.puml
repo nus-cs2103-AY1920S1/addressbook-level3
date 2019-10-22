@@ -3,34 +3,34 @@
 
 Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
-Participant ":Logic" as questionsLogic LOGIC_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
 user -[USER_COLOR]> ui : "delete 1"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> questionsLogic : execute("delete 1")
-activate questionsLogic LOGIC_COLOR
+ui -[UI_COLOR]> logic : execute("delete 1")
+activate logic LOGIC_COLOR
 
-questionsLogic -[LOGIC_COLOR]> model : deletePerson(p)
+logic -[LOGIC_COLOR]> model : deletePerson(p)
 activate model MODEL_COLOR
 
-model -[MODEL_COLOR]-> questionsLogic
+model -[MODEL_COLOR]-> logic
 deactivate model
 
-questionsLogic -[LOGIC_COLOR]> storage : saveQuestionBank(questionBank)
+logic -[LOGIC_COLOR]> storage : saveQuestionBank(standardQuestionBank)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file
 activate storage STORAGE_COLOR_T1
 deactivate storage
 
-storage --[STORAGE_COLOR]> questionsLogic
+storage --[STORAGE_COLOR]> logic
 deactivate storage
 
 logic --[LOGIC_COLOR]> ui
-deactivate questionsLogic
+deactivate logic
 
 ui--[UI_COLOR]> user
 deactivate ui

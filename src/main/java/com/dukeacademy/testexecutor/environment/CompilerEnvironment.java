@@ -2,7 +2,7 @@ package com.dukeacademy.testexecutor.environment;
 
 import java.io.FileNotFoundException;
 
-import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.models.JavaFile;
