@@ -83,7 +83,7 @@
 
 .split-pane {
     -fx-border-radius: 1;
-    -fx-border-width: 1;
+    -fx-border-width: 0;
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
@@ -365,6 +365,21 @@
 	 -fx-background-radius: 0;
 	 -fx-text-fill: white;
 }
+
+#titleTextArea .content {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: #383838;
+     -fx border-top-width: 1px;
+	 -fx-background-radius: 0;
+	 -fx-text-fill: white;
+}
+
+#contentTextArea .content {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: #383838;
+     -fx border-top-width: 1px;
+	 -fx-background-radius: 0;
+	 -fx-text-fill: white;
 
 #cheatsheetArea .content {
     -fx-background-color: derive(#1d1d1d, 20%);

@@ -275,6 +275,41 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Tagging Feature
+
+==== Current Implementation
+
+** The current implementation of StudyBuddyItems in StudyBuddyPro is such that it contains a Set of Tags.
+** The following objects of each individual feature shares similar Tagging behaviour, as shown in the class diagram below.
+
+image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
+
+==== Considerations
+
+** As explained in the class diagram above, each StudyBuddyItem is limited to a total number of 10 tags.
+** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
+** To reduce confusion for the user, all tags will be converted to lower-case upon initialization.
+
+==== Usage of Tags
+
+** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `list tag/cs2100`).
+** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro.
+** Currently, the user is able to specify multiple tags in his/her query.
+** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
+
+image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
+
+==== [Proposed] Future improvements
+
+** Supporting deletion of Tags
+*** Allow the user to delete a specified Tag.
+*** All StudyBuddyItems must be updated in response to the deletion.
+*** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
+*** As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
+
+** Supporting statistics for Tags
+*** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

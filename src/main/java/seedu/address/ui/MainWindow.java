@@ -112,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contai ns a TextArea, thus some accelerators (e.g F1) will
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *
@@ -222,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getNote().isPresent()) {
+                activityWindow.displayNote(commandResult.getNote().get());
             }
 
             return commandResult;
