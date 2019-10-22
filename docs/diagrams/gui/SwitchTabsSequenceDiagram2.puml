@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 
 box UI UI_COLOR_T1
 participant ":DetailsTabPane" as DetailsTabPane UI_COLOR
