@@ -25,6 +25,7 @@ public class SortCommand extends Command {
     private final Comparator<BankAccountOperation> comparator;
 
     public SortCommand(Comparator<BankAccountOperation> comparator) {
+        requireNonNull(comparator);
         this.comparator = comparator;
     }
 

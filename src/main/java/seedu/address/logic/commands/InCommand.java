@@ -35,6 +35,7 @@ public class InCommand extends Command {
     private final BankAccountOperation transaction;
 
     public InCommand(BankAccountOperation transaction) {
+        requireNonNull(transaction);
         this.transaction = transaction;
     }
 

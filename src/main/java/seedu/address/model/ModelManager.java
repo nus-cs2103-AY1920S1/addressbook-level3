@@ -117,6 +117,11 @@ public class ModelManager implements Model {
         versionedBankAccount.addBudget(budget);
     }
 
+    @Override
+    public void addTransaction(BankAccountOperation transaction){
+        versionedBankAccount.addTransaction(transaction);
+    }
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
