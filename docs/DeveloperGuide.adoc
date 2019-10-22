@@ -376,6 +376,8 @@ cca tracking capabilities by extending the `CcaTrackerModel` which has the follo
 * `Model#getCca(Index index)` -- Gets the `Cca` instance by its index in the `CcaTracker`.
 * `Model#updateFilteredCcaList(Predicate<Cca> predicate)` -- Updates the `FilteredCcaList` by passing it a predicate.
 * `Model#getFilteredCcaList()` -- Returns an instance of the `FilteredCcaList`
+* `Model#addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList)` - Adds `CcaProgressList` to the target `Cca`.
+* `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
 
 CcaTracker has 7 specific commands that support the given operations to mutate the state of the `Model`. Each command is
 represented as seperate class:
@@ -389,7 +391,7 @@ represented as seperate class:
 * `IncreaseProgressCommand` -- Increments the progress level of a cca.
 
 
-For brevity's sake, we will illustrate only 1 specific command and its execution on mode.
+For brevity's sake, we will illustrate only 1 specific command and its execution on model.
 The following activity diagram illustrates how a `Cca`'s progress is incremented when a user types in a
 `increase-progress` command:
 
@@ -400,44 +402,25 @@ already been added to the Cca and that a progress tracker has already been set f
 
 Step 2. The user executes `increase-progress 1` command to increment the progress of the 1st `Cca` in the CcaTracker.
 A `IncreaseProgressCommandParser` object is created and its `#parse` method is called. The parse method returns a new
-`IncreaseProgressCommand` object. This
+`IncreaseProgressCommand` object.
 
-Step 3. The user executes `add n/David ...` to add a new person.
-A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
-Since `AddAddressCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
-
-[NOTE]
-If a invertible command execution fails, `HistoryManager` will not remember it, therefore it will not be stored for undo/redo capabilities.
-
-Step 4. The user now decides that the last two commands entered was a mistake, and decides to undo those commands by executing the `undo` command by typing in the command `undo r/2`.
-An `UndoCommand` is created and executed in `LogicManager#execute(String)` to undo the latest two commands.
-The command will call `Model#rollback()` two times. During each `Model#rollback()` call, the `Model` will call `HistoryManager` to take the latest command
-from `HistoryManager#executedCommands` and call `Command#executeInverse(Model)` on the `Model`, undoing the changes made to `Model` by the command, before adding it to
-`HistoryManager#inverselyExecutedCommands`. After the `undo` command execution is complete, the `Model` state is reverted to what it was before the two undone commands were executed.
+Step 3. The `IncreaseProgressCommand` object is then executed on model. The `IncreaseProgressCommand#execute` method is
+called and in this method, the `Model#increaseProgress` method is called.
 
 [NOTE]
-`undo`/`redo` commands can undo/redo one or more commands. To undo/redo one command, entering `undo`/`redo` is equivalent to entering  `undo 1`/`redo 1`.
+The `IncreaseProgressCommand#execute` method first checks for whether the index is within the size of CcaList.
+
+Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the methods in the `CcaTracker` class. As such,
+the `CcaTracker#increaseProgress` method is called. This in turn calls the `CcaList#increaseProgress` method. This
+method first finds the `Cca` based on its corresponding index. Then, it calls the `Cca#increaseProgress` method.
+
+Step 5. This in turn calls the `CcaProgress#increaseProgress` method that calls `CcaCurrentProgress#increaseProgress`
+method. At long last, the final `#increaseProgress` method in the `CcaCurrentProgress` instance is called and the
+`currentProgress` counter is incremented by 1.
 
 [NOTE]
-If an `undo`/`redo` command is given to undo/redo more commands than available, the operation will fail and no `undo`/`redo` is applied at all.
-This check is enforced by `Model#getAvailableNumberOfExecutedCommands()`, `Model#getAvailableNumberOfInverselyExecutedCommands()`, `Model#canRollback()` and `Model#canCommit()`.
-
-Step 5. The user then decides to execute the command `list`. `list` command is a *non-invertible command*. Therefore, it will not be stored by `HistoryManager` after its execution.
-
-Step 6. The user decides to redo the last command that was undone by executing a `redo` command by typing in the command `redo`.
-A `RedoCommand` is created and executed in `LogicManager#execute(String)` to redo the latest undo.
-The command will call `Model#commit()` once. `Model` will call `HistoryManager` to take the latest command from `HistoryManager#inverselyExecutedCommands`
-and call `Command#execute(Model)` on the `Model`, reapplying the changes that were made by the command, before adding it to `HistoryManager#executedCommands`.
-After the `redo` command execution is complete, the `Model` has the changes made by the latest the command that was redone.
-
-Step 7. The user executes `add n/John ...` to add a new person.
-A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
-The `HistoryManager` clears all commands stored in `HistoryManager#inverselyExecutedCommands`.
-Similar to `Step 3`, `HistoryManager` remembers this command.
-
-[NOTE]
-Whenever a new invertible command is executed that is not currently in `HistoryManager`, it will clear all the commands that are stored in `HistoryManager#inverselyExecutedCommands`.
-This means that all potential redo actions are cleared.
+TLDR: The calling of the `#increaseProgress` method at the `CcaTracker` level triggers a cascading series of
+`#increaseProgress` methods which culminates in the `currentProgress` variable being incremented by 1.
 
 ==== Design Considerations
 ===== Aspect: Whether to have subclasses for each type of cca.
@@ -450,6 +433,15 @@ that extend from CcaProgress for each type of `Cca`
 ** Pros: Easier to extend functionality for each type of cca.
 ** Cons: Does not significantly extend functionality for this version of Jarvis.
 
+===== Aspect: Whether to use observable list for `CcaProgressList`
+* *Alternative 1 (Current choice):* Implement CcaProgressList as an `ObservableList` .
+** Pros: Easier to manipulate for JavaFx.
+** Cons: Potentially complicated nesting when passing arguments to it as CcaProgressList is nested several classes
+within `Cca`.
+
+* *Alternative 2:* Implement CcaProgressList as a normal `List` e.g. `ArrayList` .
+** Pros: Does not require predicates to be passed in.
+** Cons: Might be more complicated when rendering in Javafx.
 
 === Logging
 
