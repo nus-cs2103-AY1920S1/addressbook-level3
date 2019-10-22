@@ -6,9 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -451,10 +448,7 @@ public class ParserUtil {
         if (!DateTime.isValidDateTime(trimmedDateTime)) {
             throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
         }
-
-        LocalDate ld = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern(DateTime.VALIDATION_REGEX_STRING));
-        LocalTime lt = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(DateTime.VALIDATION_REGEX_STRING));
-        return new DateTime(ld, lt);
+        return new DateTime(dateTime);
     }
 
     /**
