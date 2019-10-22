@@ -211,10 +211,6 @@ public class ModelManager implements Model {
         versionedMemeBook.commit();
     }
 
-    public void setContext(ModelContext context) {
-        this.context.set(context);
-    }
-
     //=========== Statistics Methods =============================================================
 
     @Override
