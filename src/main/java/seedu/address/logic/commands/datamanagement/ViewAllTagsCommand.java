@@ -37,8 +37,8 @@ public class ViewAllTagsCommand extends Command {
         UniqueTagList uniqueTagList = model.getTagsFromActiveSp();
 
         final String stringOfTags = uniqueTagList.asUnmodifiableObservableList().stream()
-            .map(item -> item.toString())
-            .collect(joining("\n"));
+                .map(item -> item.toString())
+                .collect(joining("\n"));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfTags));
     }

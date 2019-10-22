@@ -104,6 +104,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     /**
      * Gets a specific tag that has the given tag name.
+     *
      * @param tagName Name of the tag
      * @return Tag
      */
@@ -166,7 +167,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
         internalList.setAll(tags);
         mapTags.clear();
-        for (Tag newTag: tags) {
+        for (Tag newTag : tags) {
             mapTags.put(newTag.getTagName().toUpperCase(), newTag);
         }
     }

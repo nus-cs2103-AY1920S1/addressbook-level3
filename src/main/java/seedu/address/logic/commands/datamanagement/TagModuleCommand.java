@@ -2,14 +2,11 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.Module;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UserTag;
 
@@ -22,10 +19,10 @@ public class TagModuleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds the specified tag to the specified module. "
             + "Parameters: "
-            + PREFIX_MODULE_CODE + "MODULE CODE "
-            + PREFIX_TAG + "TAG_NAME \n"
+            + "MODULE CODE "
+            + "TAG_NAME \n"
             + "Example: "
-            + "tag m/CS3230 t/exchange";
+            + "tag CS3230 exchange";
 
     public static final String MESSAGE_SUCCESS_TAG_ADDED = "A new tag %1$s has been created and added to module %2$s";
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been added to module %2$s";

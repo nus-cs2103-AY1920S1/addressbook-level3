@@ -44,7 +44,7 @@ public class Commit {
 
     @Override
     public String toString() {
-        return "Commit no. " + String.valueOf(studyPlan.getIndex()) + "." + String.valueOf(index)
+        return "Commit no. " + studyPlan.getIndex() + "." + index
                 + " " + commitMessage;
     }
 }

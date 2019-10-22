@@ -2,7 +2,6 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.joining;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,9 +27,9 @@ public class ViewTaggedCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all modules attached to specific tags. "
             + "Parameters: "
-            + PREFIX_TAG + "TAG_NAME... \n"
+            + "TAG_NAME... \n"
             + "Example: "
-            + "viewtagged t/core t/completed";
+            + "viewtagged core completed";
 
     public static final String MESSAGE_SUCCESS = "All modules with the specified tags shown \n%1$s.";
 
@@ -60,7 +59,7 @@ public class ViewTaggedCommand extends Command {
 
     private Set<Module> getMatchingModules(String tagName, HashMap<String, Module> moduleHashMap) {
         Set<String> moduleNames = moduleHashMap.keySet();
-        Set<Module> matchingModules = new HashSet<Module>();
+        Set<Module> matchingModules = new HashSet<>();
         for (String moduleName : moduleNames) {
             Module currentModule = moduleHashMap.get(moduleName);
             boolean matches = checkMatch(currentModule, tagName);
@@ -72,7 +71,7 @@ public class ViewTaggedCommand extends Command {
     }
 
     private Set<Module> getAllMatchingModules(HashMap<String, Module> moduleHashMap) {
-        Set<Module> allMatchingModules = new HashSet<Module>();
+        Set<Module> allMatchingModules = new HashSet<>();
         for (String tagName : tagNames) {
             Set<Module> matchingModules = getMatchingModules(tagName, moduleHashMap);
             if (allMatchingModules.size() == 0) {
@@ -103,5 +102,4 @@ public class ViewTaggedCommand extends Command {
         }
         return false;
     }
-
 }
