@@ -1,20 +1,17 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.activity.Activity;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of an {@code Activity}.
  */
-public class PersonCard extends UiPart<Region> {
+public class ActivityCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonCard.fxml";
+    private static final String FXML = "ActivityCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +21,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Activity activity;
 
     @FXML
     private HBox cardPane;
@@ -33,22 +30,18 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label name;
+    private Label title;
     @FXML
-    private Label phone;
-    @FXML
-    private FlowPane tags;
+    private Label participantCount;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public ActivityCard(Activity activity, int displayedIndex) {
         super(FXML);
-        this.person = person;
-        id.setText("ID: " + person.getPrimaryKey());
+        this.activity = activity;
+        id.setText("ID: " + activity.getPrimaryKey());
         index.setText("#" + displayedIndex);
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        title.setText(activity.getTitle().title);
+        int numParticipants = activity.getParticipantIds().size() + 1;
+        participantCount.setText(numParticipants + (numParticipants > 1 ? " participants" : " participant"));
     }
 
     @Override
@@ -59,13 +52,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ActivityCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        ActivityCard card = (ActivityCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && activity.equals(card.activity);
     }
 }

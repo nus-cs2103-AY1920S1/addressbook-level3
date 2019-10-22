@@ -66,13 +66,13 @@
     -fx-highlight-fill: lightblue;
 }
 
-.person-card {
+.person-card, .activity-card {
     -fx-padding: 8;
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
 
-.person-card .person-name {
+.person-card .person-name, .activity-card .activity-title {
     -fx-font-family: "Noto Sans CJK SC Black", "Segoe UI", sans-serif;
     -fx-font-weight: bolder;
     -fx-font-size: 18px;
@@ -83,11 +83,17 @@
     -fx-font-size: 15px;
 }
 
-.person-card .person-index {
+.person-card .person-index, .activity-card .activity-index {
     -fx-padding: 0;
     -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
     -fx-font-weight: bold;
     -fx-font-size: 22px;
+}
+
+.activity-card .activity-participant-count {
+    -fx-font-family: "Noto Sans CJK SC DemiLight", "Segoe UI", sans-serif;
+    -fx-font-style: italic;
+    -fx-font-size: 16px;
 }
 
 .tag-list {
