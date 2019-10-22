@@ -32,9 +32,16 @@ class PlannerTest {
     }
 
     @Test
-    void addTask() {
+    void addTask_task() {
         Planner planner = new Planner();
         planner.addTask(new Todo("read book"));
+        assertNotNull(planner.getTasks().getTasks());
+    }
+
+    @Test
+    void addTask_taskAndIndex() {
+        Planner planner = new Planner();
+        planner.addTask(0, new Todo("read book"));
         assertNotNull(planner.getTasks().getTasks());
     }
 
@@ -85,13 +92,26 @@ class PlannerTest {
     }
 
     @Test
-    void deleteTask() throws ParseException {
+    void deleteTask_index() throws ParseException {
         Planner testPlanner = new Planner();
         testPlanner.addTask(new Todo("borrow"));
         testPlanner.addTask(new Todo("read"));
         testPlanner.addTask(new Todo("study"));
 
         testPlanner.deleteTask(ParserUtil.parseIndex("2"));
+
+        assertEquals(2, testPlanner.size());
+    }
+
+    @Test
+    void deleteTask_task() {
+        Planner testPlanner = new Planner();
+        Task toDelete = new Todo("read");
+        testPlanner.addTask(new Todo("borrow"));
+        testPlanner.addTask(toDelete);
+        testPlanner.addTask(new Todo("study"));
+
+        testPlanner.deleteTask(toDelete);
 
         assertEquals(2, testPlanner.size());
     }
