@@ -1,9 +1,9 @@
 package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TARGET_DATE;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
@@ -24,7 +24,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
      */
     public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_PLAN, PREFIX_PROBLEM, PREFIX_TARGET_DATE);
+            ArgumentTokenizer.tokenize(args, PREFIX_PLAN, PREFIX_PROBLEM, PREFIX_DUE_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PLAN)
             || !arePrefixesPresent(argMultimap, PREFIX_PROBLEM)
@@ -47,8 +47,8 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         }
 
         LocalDate targetDate;
-        if (arePrefixesPresent(argMultimap, PREFIX_TARGET_DATE)) {
-            targetDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_TARGET_DATE).get());
+        if (arePrefixesPresent(argMultimap, PREFIX_DUE_DATE)) {
+            targetDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DUE_DATE).get());
         } else {
             targetDate = null;
         }

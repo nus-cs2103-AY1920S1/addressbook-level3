@@ -1,9 +1,9 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TARGET_DATE;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.time.LocalDate;
@@ -31,12 +31,12 @@ public class AddTaskCommand extends Command {
             + "Parameters:\n"
             + PREFIX_PLAN + "PLAN_INDEX "
             + PREFIX_PROBLEM + "PROBLEM_INDEX "
-            + PREFIX_TARGET_DATE + "TARGET_DATE\n"
+            + PREFIX_DUE_DATE + "DUE_DATE\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_PLAN + "1 "
             + PREFIX_PROBLEM + "10"
-            + PREFIX_TARGET_DATE + "2019-12-12";
+            + PREFIX_DUE_DATE + "2019-12-12";
 
     public static final String MESSAGE_SUCCESS = "New Task [%1$s] added to Plan [%2$s]";
 
