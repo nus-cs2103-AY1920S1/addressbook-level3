@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes quiz command;
+:Check input;
+
+if() then ([input is valid])
+    :Select quiz questions from question list;
+    :Add quiz questions to AppData;
+    :Display command result;
+else ([else])
+    :Exception thrown;
+endif
+stop
+@enduml
