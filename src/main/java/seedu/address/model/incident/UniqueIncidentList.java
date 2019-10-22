@@ -103,7 +103,6 @@ public class UniqueIncidentList implements Iterable<Incident> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Incident> asUnmodifiableObservableList() {
-        System.out.println("size 2= " + internalList.size());
         return internalUnmodifiableList;
     }
 
