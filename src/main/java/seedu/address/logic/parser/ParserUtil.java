@@ -10,6 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Name;
+import seedu.address.model.dashboard.components.DashboardName;
+import seedu.address.model.dashboard.components.TaskDate;
 import seedu.address.model.diary.components.DiaryName;
 import seedu.address.model.diary.components.Title;
 import seedu.address.model.health.components.Timestamp;
@@ -61,6 +63,36 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code DashboardName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code DashboardName} is invalid.
+     */
+    public static DashboardName parseDashboardName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new DashboardName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code TaskDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code TaskDate} is invalid.
+     */
+    public static TaskDate parseTaskDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!TaskDate.isValidTaskDate(trimmedDate)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new TaskDate(trimmedDate);
     }
 
     /**

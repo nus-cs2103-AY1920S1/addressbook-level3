@@ -10,6 +10,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.dashboard.AddTaskCommand;
+import seedu.address.logic.commands.dashboard.DeleteTaskCommand;
+import seedu.address.logic.commands.dashboard.EditTaskCommand;
+import seedu.address.logic.commands.dashboard.FindTaskCommand;
 import seedu.address.logic.commands.diary.AddDiaryCommand;
 import seedu.address.logic.commands.diary.AddPageCommand;
 import seedu.address.logic.commands.diary.DeleteDiaryCommand;
@@ -26,6 +30,10 @@ import seedu.address.logic.commands.profile.AddProfileCommand;
 import seedu.address.logic.commands.profile.EditProfileCommand;
 import seedu.address.logic.commands.stats.StatisticsCommand;
 
+import seedu.address.logic.parser.dashboard.AddTaskCommandParser;
+import seedu.address.logic.parser.dashboard.DeleteTaskCommandParser;
+import seedu.address.logic.parser.dashboard.EditTaskCommandParser;
+import seedu.address.logic.parser.dashboard.FindTaskCommandParser;
 import seedu.address.logic.parser.diary.AddDiaryCommandParser;
 import seedu.address.logic.parser.diary.AddPageCommandParser;
 import seedu.address.logic.parser.diary.DeleteDiaryCommandParser;
@@ -120,6 +128,18 @@ public class DukeCooksParser {
 
         case DeletePageCommand.COMMAND_WORD:
             return new DeletePageCommandParser().parse(arguments);
+
+        case AddTaskCommand.COMMAND_WORD:
+             return new AddTaskCommandParser().parse(arguments);
+
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
+
+        case EditTaskCommand.COMMAND_WORD:
+            return new EditTaskCommandParser().parse(arguments);
+
+        case FindTaskCommand.COMMAND_WORD:
+             return new FindTaskCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

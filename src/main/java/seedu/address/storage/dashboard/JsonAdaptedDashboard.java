@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.dashboard.components.DashboardName;
+import seedu.address.model.dashboard.components.TaskDate;
 
 /**
  * Jackson-friendly version of {@link Dashboard}.
@@ -15,13 +16,15 @@ class JsonAdaptedDashboard {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Dashboard's %s field is missing!";
 
     private final String name;
+    private final String taskDate;
 
     /**
      * Constructs a {@code JsonAdaptedDashboard} with the given details.
      */
     @JsonCreator
-    public JsonAdaptedDashboard(@JsonProperty("name") String name) {
+    public JsonAdaptedDashboard(@JsonProperty("name") String name, @JsonProperty("taskDate") String taskDate) {
         this.name = name;
+        this.taskDate = taskDate;
     }
 
     /**
@@ -29,6 +32,7 @@ class JsonAdaptedDashboard {
      */
     public JsonAdaptedDashboard(Dashboard source) {
         name = source.getDashboardName().fullName;
+        taskDate = source.getTaskDate().taskDate;
     }
 
     /**
@@ -47,7 +51,14 @@ class JsonAdaptedDashboard {
         }
         final DashboardName modelName = new DashboardName(name);
 
-        return new Dashboard(modelName);
+        if(taskDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskDate.class.getSimpleName()));
+        }
+        if(!TaskDate.isValidTaskDate(taskDate)) {
+            throw new IllegalValueException(TaskDate.MESSAGE_CONSTRAINTS);
+        }
+        final TaskDate modelDate = new TaskDate(taskDate);
+        return new Dashboard(modelName, modelDate);
     }
 
 }

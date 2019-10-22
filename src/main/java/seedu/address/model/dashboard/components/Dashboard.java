@@ -1,5 +1,7 @@
 package seedu.address.model.dashboard.components;
 
+import javafx.concurrent.Task;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -13,17 +15,24 @@ public class Dashboard {
     // Identity fields
     private final DashboardName dashboardName;
 
+    // Data fields
+    private final TaskDate taskDate;
+
     /**
      * Every field must be present and not null.
      */
-    public Dashboard(DashboardName dashboardName) {
-        requireAllNonNull(dashboardName);
+    public Dashboard(DashboardName dashboardName, TaskDate taskDate) {
+        requireAllNonNull(dashboardName, taskDate);
         this.dashboardName = dashboardName;
+        this.taskDate = taskDate;
     }
-
 
     public DashboardName getDashboardName() {
         return dashboardName;
+    }
+
+    public TaskDate getTaskDate() {
+        return taskDate;
     }
 
     /**
@@ -55,19 +64,21 @@ public class Dashboard {
         }
 
         Dashboard otherDashboard = (Dashboard) other;
-        return otherDashboard.getDashboardName().equals(getDashboardName());
+        return otherDashboard.getDashboardName().equals(getDashboardName())
+                && otherDashboard.getTaskDate().equals(getTaskDate());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(dashboardName);
+        return Objects.hash(dashboardName, taskDate);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDashboardName());
+        builder.append(getDashboardName())
+                .append(" Date: ").append(getTaskDate());
         return builder.toString();
     }
 
