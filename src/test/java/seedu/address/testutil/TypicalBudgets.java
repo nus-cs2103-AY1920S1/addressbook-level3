@@ -39,5 +39,4 @@ public class TypicalBudgets {
     public static List<Budget> getTypicalBudgets() {
         return new ArrayList<>(Arrays.asList(KOREA, JAPAN, FRANCE));
     }
-
 }
