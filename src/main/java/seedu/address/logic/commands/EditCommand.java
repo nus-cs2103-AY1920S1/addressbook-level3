@@ -85,7 +85,7 @@ public class EditCommand extends Command {
         Incident incidentToEdit = listOfIncidents.get(index.getZeroBased());
         Incident editedIncident = createEditedIncident(incidentToEdit, editIncident);
 
-        if (!incidentToEdit.isSameIncident(editedIncident) && model.hasIncident(editedIncident)) {
+        if (!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)) {
             throw new CommandException(MESSAGE_DUPLICATE_INCIDENT);
         }
 

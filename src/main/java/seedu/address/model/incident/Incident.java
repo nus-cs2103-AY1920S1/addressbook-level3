@@ -116,6 +116,7 @@ public class Incident {
     /**
      * Returns a new updated incident report by filling callerNumber and description fields.
      * Triggered by 'fill' command.
+     * @param toUpdate the incident to be filled.
      * @param callerNumber phone number of the caller reporting the incident.
      * @param description description of this incident.
      * @return updated incident report.
@@ -126,12 +127,15 @@ public class Incident {
     }
 
     /**
-     * Submits this report by updating its status.
+     * Returns a new updated incident report by filling callerNumber and description fields.
+     * Triggered by 'submit' command.
+     * @param toSubmit the incident report to be submitted.
+     * @return updated incident report.
      */
-    public void submit() {
-        // updateStatus(Status.FINAL); // report has been submitted
+    public static Incident submitReport(Incident toSubmit) {
+        return new Incident(toSubmit.getOperator(), toSubmit.getDistrict(), toSubmit.getIncidentDateTime(),
+                toSubmit.getIncidentId(), toSubmit.getCallerNumber(), toSubmit.getDesc(), Status.FINAL);
     }
-
 
     public IncidentDateTime getDateTime() {
         return this.incidentDateTime;
