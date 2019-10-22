@@ -2,7 +2,6 @@ package seedu.module.logic.parser;
 
 import static seedu.module.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.module.logic.commands.FindCommand;
 import seedu.module.logic.commands.ViewCommand;
 import seedu.module.logic.parser.exceptions.ParseException;
 
@@ -21,7 +20,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
 
         return new ViewCommand(trimmedArgs);
