@@ -157,26 +157,119 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
-
 This section describes some noteworthy details on how certain features are implemented.
 There are a total of 6 tabs in our application for each feature: Home Tab, Members Tab, Reimbursement Tab,
 Inventory Tab, Cashier Tab, Overview Tab.
 
 === Home Tab
 This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
-cost of buying items to sell. Each transaction will require an input of its date, description, category, amount
-and member that is accountable for it. Revenue from each cashier checkout will also be automatically inputted as
+cost of buying items to sell.
+
+Each transaction will require an input of its date, description, category, amount
+and member that is accountable for it.
+
+Revenue from each cashier checkout will also be automatically inputted as
 a positive transaction in this tab with the person being the cashier. The inputted transactions that corresponds to
 a spending will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
 
+
+This is the overall Class Diagram of this tab:
+
+.Class Diagram of Home Tab (transaction package)
+
+image::HomeTabClassDiagram.png[]
+
 ==== Add Command feature
+The add command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
+person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
+to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
+has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
 
+The following sequence diagram shows how the add command works:
 
-==== Delete by Index Feature
+.Sequence Diagram of Add Command in Home Tab (transaction package)
 
-==== Delete by Person Feature
+image::HomeTabAddCommandSequenceDiagram.png[]
 
-==== Sort by Date Feature
+The following activity diagram shows the steps needed to add a new transaction:
+
+.Activity Diagram of Add Command in Home Tab (transaction package)
+
+image::HomeTabActivityDiagramAddCommand.png[]
+
+As shown, when a user does not input all the compulsory fields or input a name that does not match anyone in
+the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is
+done, a response message is shown as well by our mascot, Leo.
+
+In addition, since the `resetPredicate()` method is called as shown, the UI table will immediately show the full
+transaction list regardless of the list at the start of the activity diagram showing the filtered list
+due to prior the inputted Find Command.
+
+Since the reimbursement tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
+amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
+
+The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
+
+.Sequence Diagram of updating Reimbursement Tab (reimbursement package)
+
+image::TransactionUpdatingReimbursement.png[]
+
+This is done for every feature in the `LogicManager`.
+
+==== Delete Feature
+The add command is facilitated by the `VersionedtreasurerPro`. The delete feature allows for 2 types of deletion, by
+the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
+that person to be deleted.
+
+The following sequence diagram shows how the delete by name command works:
+
+.Sequence Diagram of Delete Command in Home Tab (transaction package)
+
+image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
+
+After this, the reimbursement tab is updated as shown in Figure 12.
+The delete by index implementation would be similar but does not require interaction with the `Model` from the
+`AddressBook` in the person package.
+
+The following activity diagram shows the steps needed to delete a new transaction:
+
+.Activity Diagram of Delete Command in Home Tab (transaction package)
+
+image::HomeTabActivityDiagramDeleteCommand.png[]
+
+The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
+be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
+When a successful deletion is done, a response message is shown as well.
+
+In addition, since the `resetPredicate()` method is not called as shown, the UI table will continue to show the
+filtered transaction list if the prior input is a Find Command and the list at the start of the activity diagram shows
+a filtered list by the Find Command's keywords. To view the full transaction list, the user would have to input the
+Back Command that calls `resetPredicate()`.
+
+The following sequence diagram shows how the back command works:
+
+.Sequence Diagram of Back Command in Home Tab (transaction package)
+
+image::HomeTabBackCommandSequenceDiagram.png[]
+
+==== Sort Feature
+The add command is facilitated by the `VersionedtreasurerPro`. The sort feature allows for 3 types of sort, by name in
+alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
+
+The following sequence diagram shows how the sort command works:
+
+.Sequence Diagram of Sort Command in Home Tab (transaction package)
+
+image::HomeTabSortCommandSequenceDiagram.png[]
+
+When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
+the incorrect user input. When it is successfully sorted, there will also be a response message shown.
+
+Similar to the Delete Command, since the `resetPredicate()` method is not called as shown, the UI table will
+continue to show the filtered transaction list if the prior input is a Find Command and the list at the start
+of the activity diagram shows a filtered list by the Find Command's keywords.
+To view the full transaction list, the user would have to input the
+Back Command that calls `resetPredicate()`.
 
 === Members Tab
 

@@ -1,10 +1,8 @@
 package seedu.address.transaction.logic.commands;
 
-import static seedu.address.transaction.model.Transaction.DATE_TIME_FORMATTER;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
 
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -54,12 +52,6 @@ public class EditCommand extends Command {
         /*if (transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }*/
-
-        try {
-            LocalDate.parse(editedTransaction.getDate(), DATE_TIME_FORMATTER);
-        } catch (Exception e) {
-            throw new ParseException("Please input the correct date format. DD-MMM-YYYY (eg. 02-Sep-2019).");
-        }
         model.setTransaction(transactionToEdit, editedTransaction);
         return new CommandResult(String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction));
     }

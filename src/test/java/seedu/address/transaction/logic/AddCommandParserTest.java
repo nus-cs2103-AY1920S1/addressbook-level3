@@ -3,8 +3,8 @@ package seedu.address.transaction.logic;
 import static seedu.address.testutil.TransactionBuilder.DEFAULT_CATEGORY;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseFailure;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertAddCommandParseSuccess;
+import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
+import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_CATEGORY;
@@ -53,47 +53,41 @@ class AddCommandParserTest {
 
 
         // whitespace only preamble
-        assertAddCommandParseSuccess(parser, PREAMBLE_WHITESPACE + DESC_NAME_ALICE + DESC_BUILDER_DESC
+        assertCommandParseWithPersonModelSuccess(parser, PREAMBLE_WHITESPACE + DESC_NAME_ALICE + DESC_BUILDER_DESC
                         + DESC_BUILDER_CATEGORY + DESC_BUILDER_AMOUNT + DESC_BUILDER_DATE,
-                new AddCommand(expectedTransaction),
-                personModel.getFilteredPersonList().size(), personModel);
+                new AddCommand(expectedTransaction), personModel);
 
         //no whitespace preamble
-        assertAddCommandParseSuccess(parser, DESC_NAME_BENSEN + DESC_BUILDER_DATE + DESC_BUILDER_DESC
-                + DESC_BUILDER_CATEGORY + DESC_BUILDER_AMOUNT, new AddCommand(expectedTransaction2),
-                personModel.getFilteredPersonList().size(), personModel);
+        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_BENSEN + DESC_BUILDER_DATE + DESC_BUILDER_DESC
+                + DESC_BUILDER_CATEGORY + DESC_BUILDER_AMOUNT, new AddCommand(expectedTransaction2), personModel);
 
         // multiple phones - last description accepted
-        assertAddCommandParseSuccess(parser, DESC_NAME_ALICE + DESC_DESC + DESC_BUILDER_DESC
+        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_DESC + DESC_BUILDER_DESC
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE,
-                new AddCommand(expectedTransaction),
-                personModel.getFilteredPersonList().size(), personModel);
+                new AddCommand(expectedTransaction), personModel);
 
         // multiple emails - last category accepted
-        assertAddCommandParseSuccess(parser, DESC_NAME_ALICE + DESC_CATEGORY + DESC_BUILDER_CATEGORY
+        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_CATEGORY + DESC_BUILDER_CATEGORY
                         + DESC_BUILDER_DESC + DESC_BUILDER_DATE + DESC_BUILDER_AMOUNT,
-                new AddCommand(expectedTransaction),
-                personModel.getFilteredPersonList().size(), personModel);
+                new AddCommand(expectedTransaction), personModel);
 
         // multiple addresses - last amount accepted
-        assertAddCommandParseSuccess(parser, DESC_NAME_ALICE + DESC_AMOUNT + DESC_BUILDER_AMOUNT
+        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_AMOUNT + DESC_BUILDER_AMOUNT
                         + DESC_BUILDER_DESC + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE,
-                new AddCommand(expectedTransaction),
-                personModel.getFilteredPersonList().size(), personModel);
+                new AddCommand(expectedTransaction), personModel);
 
         // multiple addresses - last date accepted
-        assertAddCommandParseSuccess(parser, DESC_NAME_ALICE + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC
+        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC
                         + DESC_BUILDER_CATEGORY + DESC_DATE + DESC_BUILDER_DATE , new AddCommand(expectedTransaction),
-                personModel.getFilteredPersonList().size(), personModel);
+                personModel);
     }
 
     @Test
     public void parse_personNotInAddressBook_failure() {
         //person not found in addressbook
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertAddCommandParseFailure(parser, DESC_NAME_AMY + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC
-                + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_NO_SUCH_PERSON,
-                personModel.getFilteredPersonList().size(), personModel);
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_AMY + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC
+                + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_NO_SUCH_PERSON, personModel);
     }
 
     @Test
@@ -101,65 +95,69 @@ class AddCommandParserTest {
         String expectedMessage = TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT;
 
         // missing name prefix
-        assertAddCommandParseFailure(parser, VALID_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, VALID_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_CATEGORY
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC,
-                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
+                expectedMessage, personModel);
 
         // missing date prefix
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + VALID_DATE + DESC_BUILDER_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + VALID_DATE + DESC_BUILDER_CATEGORY
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC,
-                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
+                expectedMessage, personModel);
 
         // missing amount prefix
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_CATEGORY
                         + VALID_AMOUNT + DESC_BUILDER_DESC,
-                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
+                expectedMessage, personModel);
 
         // missing description prefix
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + DEFAULT_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + DEFAULT_CATEGORY
                         + DESC_BUILDER_AMOUNT + VALID_DESC,
-                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
+                expectedMessage, personModel);
 
         // missing category prefix
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + VALID_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + VALID_CATEGORY
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC,
-                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
+                expectedMessage, personModel);
 
         // all prefixes missing
-        assertAddCommandParseFailure(parser, VALID_NAME_ALICE + VALID_DATE + VALID_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, VALID_NAME_ALICE + VALID_DATE + VALID_CATEGORY
                         + VALID_AMOUNT + VALID_DESC,
-                expectedMessage, personModel.getFilteredPersonList().size(), personModel);
+                expectedMessage, personModel);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid amount
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_CATEGORY
-                + INVALID_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT,
-                personModel.getFilteredPersonList().size(), personModel);
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + DESC_BUILDER_DATE
+                + DESC_BUILDER_CATEGORY
+                + INVALID_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT, personModel);
 
         // invalid date
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + INVALID_DATE_1 + DESC_BUILDER_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + INVALID_DATE_1
+                        + DESC_BUILDER_CATEGORY
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_DATE_FORMAT,
-                personModel.getFilteredPersonList().size(), personModel);
+                personModel);
 
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + INVALID_DATE_2 + DESC_BUILDER_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + INVALID_DATE_2
+                        + DESC_BUILDER_CATEGORY
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_DATE_FORMAT,
-                personModel.getFilteredPersonList().size(), personModel);
+                personModel);
 
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + INVALID_DATE_3 + DESC_BUILDER_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + INVALID_DATE_3
+                        + DESC_BUILDER_CATEGORY
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_DATE_FORMAT,
-                personModel.getFilteredPersonList().size(), personModel);
+                personModel);
 
         // two invalid values, only first invalid value reported
-        assertAddCommandParseFailure(parser, DESC_NAME_ALICE + INVALID_DATE_1 + DESC_BUILDER_CATEGORY
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_ALICE + INVALID_DATE_1
+                        + DESC_BUILDER_CATEGORY
                         + INVALID_AMOUNT + DESC_BUILDER_DESC, TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT,
-                personModel.getFilteredPersonList().size(), personModel);
+                personModel);
 
         // non-empty preamble
-        assertAddCommandParseFailure(parser, PREAMBLE_NON_EMPTY + DESC_NAME_ALICE + DESC_BUILDER_DATE
+        assertCommandParseWithPersonModelFailure(parser, PREAMBLE_NON_EMPTY + DESC_NAME_ALICE
+                        + DESC_BUILDER_DATE
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC,
-                TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT,
-                personModel.getFilteredPersonList().size(), personModel);
+                TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT, personModel);
     }
 }
