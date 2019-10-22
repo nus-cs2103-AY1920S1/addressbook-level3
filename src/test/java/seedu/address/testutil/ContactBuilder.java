@@ -6,7 +6,6 @@ import java.util.Set;
 import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 
@@ -21,12 +20,10 @@ public class ContactBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
     private Set<Tag> tags;
     private Set<Id> claims;
 
@@ -34,7 +31,6 @@ public class ContactBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         claims = new HashSet<>();
     }
@@ -46,7 +42,6 @@ public class ContactBuilder {
         name = contactToCopy.getName();
         phone = contactToCopy.getPhone();
         email = contactToCopy.getEmail();
-        address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
         claims = new HashSet<>(contactToCopy.getClaims());
     }
@@ -76,14 +71,6 @@ public class ContactBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code FinSec} that we are building.
-     */
-    public ContactBuilder withAddress(String address) {
-        this.address = new Address(address);
-        return this;
-    }
-
-    /**
      * Sets the {@code Phone} of the {@code FinSec} that we are building.
      */
     public ContactBuilder withPhone(String phone) {
@@ -100,7 +87,7 @@ public class ContactBuilder {
     }
 
     public Contact build() {
-        return new Contact(name, phone, email, address, tags, claims);
+        return new Contact(name, phone, email, tags, claims);
     }
 
 }

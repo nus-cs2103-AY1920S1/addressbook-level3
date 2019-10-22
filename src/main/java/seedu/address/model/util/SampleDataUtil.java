@@ -11,7 +11,6 @@ import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
@@ -23,8 +22,7 @@ public class SampleDataUtil {
     public static Contact[] getSampleContacts() {
         return new Contact[] {
             new Contact(new Name("John Doe"), new Phone("87438807"),
-                    new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"), new HashSet<>())
+                    new Email("alexyeoh@example.com"), getTagSet("friends"), new HashSet<>())
         };
     }
 
