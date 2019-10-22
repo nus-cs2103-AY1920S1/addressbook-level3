@@ -1,4 +1,7 @@
 = Jarvis - User Guide
+:nus-grades: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html
+:nusmods-modules: https://nusmods.com/modules
+:cs-focus-areas:  https://www.comp.nus.edu.sg/programmes/ug/focus/
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -16,28 +19,24 @@ endif::[]
 
 By: `Team T10-1`      Since: `Sep 2019`      Licence: `MIT`
 
-= Introduction
-
-First paragraph changes font.
+== Introduction
 
 Ensure you have https://www.java.com/en/download/[Java 11] or above installed
 on your PC.
 
-Jarvis is your personal student assistant. He is able to manage your schoolwork
-and finances. Jarvis offers three main features to bolster your productivity,
-a:
+Jarvis is your personal student assistant. She is able to manage your
+schoolwork and finances. Jarvis offers four main features to bolster your
+productivity, he is able to track your:
 
-1. **Schedule Planner**
-2. **Finance Planner**
-3. **Module Planner**
-
-Jarvis allows you to track calendar events, keep an eye on your expenses and
-many more features as listed below.
+1. **Tasks**
+2. **CCA Life**
+3. **Finances**
+4. **Courses Taken**
 
 Jarvis also supports undo and redo functionality, allowing you easily
-undo and redo any mistakes in the application.
+undo and redo any mistakes that you may make in your application.
 
-= Quick Start
+== Quick Start
 
 Ensure you have https://www.java.com/en/download/[Java 11] or above installed
 on your PC.
@@ -50,18 +49,19 @@ home folder for `Jarvis`.
 Double-click `jarvis.jar` to start the app. The GUI will appear in a few
 seconds.
 
-= Features
+== Features
 
-== Command Format
+=== Command Format
 
 1. Words in `UPPER CASE` are the parameters supplied by the user, while those
-in `lower case` are *key-words* used by the program.
+in `lower case` are **key-words** used by the program.
 +
 For example:
 +
 `add t/TASK-TYPE/TASK-DESCRIPTION`
 +
-In this case, `TASK-TYPE` and `TASK-DESCRIPTION` and `add` is a key-word.
+In this case, `TASK-TYPE` and `TASK-DESCRIPTION` are parameters supplied by
+the user, and `add` is a key-word.
 
 2. Items in square brackets `[]` are optional fields with the command.
 +
@@ -71,38 +71,43 @@ For example:
 +
 Can be used
 +
-With a date:: `t/todo/CS2103T Assignment d/12/03/2019`
-Without a date:: `t/todo/CS2103T Assignment`
+With a date:: `add t/todo/assignment d/12/03/2019`
+Without a date:: `add t/todo/assignment`
 
 3. Parameters with `...` can be used 0, or any number of items
 +
 For example:
 +
-`[#TAG]...` can are both optional, or used like `#friend #family #food` etc
+`[#TAG]...` is an optional parameter that can be used 0 or any number of times.
++
+Without optional parameter:: `add t/todo/assignment`
+With optional parameter:: `add t/todo/assignment #cs2103t #urgent`
 
-4. Jarvis can parse the commands in any order.
+4. Jarvis can parse parameters to commands in *any order*.
 
-5. Commands that can take different inputs are represented with a pipe,
-surrounded by curly braces, i.e `{|}`.
+5. Commands that can take different parameters are represented with a pipe `|`,
+surrounded by curly braces, e.g `{param1 | param2}`.
 +
 For example:
 +
 `delete {INDEX | t/TASK-DESCRIPTION}`
 +
-means you can use the command as `delete 2` or `delete t/Assignment`
+With Index:: `delete 2`
+With Task Description:: `delete t/Assignment`
 
-////
-DATE Section, coordinate with team to standardise on a single date format.
-////
+6. Dates `d/DATE` follow the following format: `DD/MM/YYYY`.
++
+For example:
++
+`add t/todo/assignment d/01/01/1970`
 
 ////
 Task Scheduler
 
 Feature by
--> Tan Ye Kai
 -> Anisha Nicole Joseph
 ////
-== Task Scheduler
+=== Task Scheduler
 
 ==== List all tasks: `list`
 Lists tasks in the planner based on the given `DATE` or `#TAG`(s).
@@ -218,7 +223,7 @@ Finance Tracker
 Feature by
 -> Goh Si Ning
 ////
-== Finance Tracker
+=== Finance Tracker
 
 
 ==== Add a single-use payment: `pay`
@@ -397,83 +402,100 @@ Module Lookup
 Feature by
 -> Ryan Tan Yu
 ////
-== Course Lookup
+=== Course Planner
 
-==== Add a course: `add`
-Adds the specified module to the user's list. If the user does not
-specify any grade, the grade will be taken as to not exist.
+==== Add a course: `add-course`
+Adds the specified course to your list. A grade may be specified to
+indicate if you have already finished the given course. If no course is given,
+the grade will not be taken into account in the `cap` command. `GRADE`
+may be any {nus-grades}[valid NUS grade].
+While `COURSE-CODE` may be the code of any {nusmods-modules}[NUS course].
 
-Format: `add c/MODCODE [g/GRADE]`
+Format: `add-course c/COURSE-CODE [g/GRADE]`
 
-Example: +
-`add cs3230` +
-`add ab1234 A+`
+===== Example
+----
+add-course c/AB1234
+add-course c/AB1234 g/A+
+----
 
+NOTE: We recommend to enter your grades for any course you have taken,
+as Jarvis uses them for the `check`, `cap` and `focus` commands specified below.
 
-==== Delete a course: `delete`
-Deletes the specified course from the user's list. If no such course exists,
-a warning is thrown.
+==== Delete a course: `delete-course`
+Deletes the specified course from your list.
 
-Format: `delete c/MODCODE`
+Format: `delete-course c/COURSECODE`
 
-Example: +
-`delete cs3230`
+===== Example
+----
+delete-course c/AB1234
+----
 
 
 ==== Lookup a course's information: `lookup`
 Retrieves information about the specified course - such as name, course code,
-number of credits and its prerequisites.
+number of credits and its prerequisites - and displays it on the screen.
 
-Format: `lookup c/MODCODE`
+Format: `lookup c/COURSECODE`
 
-Example: +
-`lookup cs3230`
+===== Example
+----
+lookup c/AB1234
+----
 
 ==== Check a course: `check`
-Checks if the user can take the specified course. The outcome is dependent
-on the courses that the user has added into their list.
+Checks if you can take the specified course. The result is dependent on the
+courses you have added to your list and whether any grades have attached to the
+relevant courses. If no grades are specified, Jarvis assumes the course has
+not been taken.
 
-Format: `check c/MODCODE`
+Format: `check c/COURSECODE`
 
-Example: +
-`check cs2103t`
+===== Example
+----
+check c/AB1234
+----
 
 ==== Calculate CAP: `cap`
-Calculates the user's Cumulative Average Point (CAP). Requires at least one
-course to have been added. Any course that does not have a `GRADE` added
+Calculates your Cumulative Average Point (CAP). Your CAP is calculated based on
+the {nus-grades}[NUS grading system]. This command requires at least one
+course to have been added. Any course that does not have a `GRADE` attached
 will not be counted in the calculation.
 
 Format: `cap`
 
 
-==== Check NUS focus-areas: `focus`
-Returns a list of courses available to take to fulfill *Focus Area* requirements
-for NUS Computer Science. The list can also tell you
+==== Check CS focus-areas: `focus`
+Specific to NUS Computer Science students, this returns a list of courses
+that are required to fulfill a focus area that you are interested in. Jarvis
+is also able to tell you:
 
-1. Number of courses to take
-2. The courses you have already fulfilled
-3. Giving suggestions on what courses to take
+. Number of courses to take
+. The courses you have already fulfilled
+. Giving suggestions on what courses to take
 
-Available Focus Areas
-https://www.comp.nus.edu.sg/programmes/ug/focus/[reference]
+The list of focus areas are given below. This is taken from
+{cs-focus-areas}[the official NUS Computer Science website].
 
+. Algorithms & Theory `algorithms` `algo`
+. Artificial Intelligence `artificial` `intelligence` `ai`
+. Computer Graphics and Games `computer graphics` `gfx`
+. Computer Security `computer security` `cs`
+. Database Systems `database` `db`
+. Multimedia Information Retrieval `multimedia` `media`
+. Networking and Distributed Systems `networking` `net`
+. Parallel Computing `parallel computing` `pc`
+. Programming Languages `programming languages` `pl`
+. Software Engineering `software engineering` `swe`
 
-* Algorithms & Theory `algorithms` `algo`
-* Artificial Intelligence `artificial` `intelligence` `ai`
-* Computer Graphics and Games `computer graphics` `gfx`
-* Computer Security `computer security` `cs`
-* Database Systems `database` `db`
-* Multimedia Information Retrieval `multimedia` `media`
-* Networking and Distributed Systems `networking` `net`
-* Parallel Computing `parallel computing` `pc`
-* Programming Languages `programming languages` `pl`
-* Software Engineering `software engineering` `swe`
+Format: `focus f/FOCUS-AREA`
 
-Format: `focus n/FOCUS-AREA`
-
-Example: +
-`focus algo` +
-`focus computer graphics`
+===== Example
+----
+focus f/algo
+focus f/computer graphics
+----
 
 ////
 CCA tracker
@@ -481,78 +503,87 @@ CCA tracker
 Feature by
 -> Tan Ye Kai
 ////
-== CCA tracker
+=== CCA tracker
 
-=== Add a CCA: `add-cca`
-Add a CCA to a user's list. The user will need to to specify the name of the
-course and the type of CCA. The types of the CCA will be limited to the
-following: PerformingArts, Sports, ClubsSocieties, UniformedGroups
+==== Add a CCA: `add-cca`
+Add a CCA to your list. You need to to specify the name of the course and the
+type of CCA. The types of the CCA will be limited to the following:
+
+. `PerformingArts`
+. `Sports`
+. `ClubsSocieties`
+. `UniformedGroups`
 
 Format: `add-cca n/NAME t/TYPE`
 
-Example: +
-`add-cca n/Canoeing t/Sports` +
-`add-cca n/Guitar Ensemble t/PerformingArts`
+===== Example
+----
+add-cca n/Canoeing t/Sports
+add-cca n/Guitar Ensemble t/PerformingArts
+----
 
 
-=== Delete a CCA: `delete-cca`
-Deletes the specified CCA from the user's list. If no such CCA exists, a
-warning is thrown.
+==== Delete a CCA: `delete-cca`
+Deletes the specified CCA from your list.
 
 Format: `delete-cca n/[NAME]`
 
-Example: +
-`delete-cca n/Canoeing`
+===== Example
+----
+delete-cca n/Canoeing
+----
 
 
-=== Edit a CCA: `edit-cca`
-Edit the CCA type. If no such CCA exists, a warning is thrown.
+==== Edit a CCA: `edit-cca`
+Edit the CCA type.
 
-Format: `edit-cca n/[NAME]`
+Format: `edit-cca [n/NAME]`
 
-Example: +
-`edit-cca n/Canoeing`
+===== Example
+----
+edit-cca n/Canoeing
+----
 
 
-=== List a CCA: `list-cca`
+==== List a CCA: `list-cca`
 List the CCAs that the user is participating in. If user does not participate
 in any CCAs, an empty list will be shown.
 
 Format: `list-cca`
 
-Example: +
-`list-cca`
 
-
-=== Find a CCA: `find-cca`
+==== Find a CCA: `find-cca`
 Find a CCA based on keyword. If no such CCA can be found, an empty list will
 be shown.
 
-Format: `find-cca k/[KEYWORD]`
+Format: `find-cca [k/KEYWORD]`
 
-Example: +
-`find-cca k/Canoeing`
+===== Example
+----
+find-cca k/Canoeing
+----
 
 
-=== Add progress levels for a CCA: `add-progress`
+==== Add progress levels for a CCA: `add-progress`
 Add the number of levels of possible progress for the CCA.
 
 Format: `add-progress n/[NAME] l/[LEVELS]`
 
-Example: +
-`add-progress n/Canoeing l/10` +
-`add-progress n/Guitar Ensemble l/8`
+===== Example
+----
+add-progress n/Canoeing l/10
+add-progress n/Guitar Ensemble l/8
+----
 
+==== Increment progress level: `increment-progress`
+Increments the progress for a CCA at the specified index.
 
-=== Add equipment needed for a CCA: `add-equipment`
-Add the equipment needed for each CCA.
+Format: `increment-progress INDEX`
 
-Format: `add-equipment n/[NAME] e/[EQUIPMENT]`
-
-Example: +
-`add-equipment n/Canoeing e/paddle,boat,life-jacket,sunglasses` +
-`add-equipment n/Guitar Ensemble e/guitar,capo,musical-score`
-
+===== Example
+----
+increment-progress 1
+----
 
 ////
 Undo/Redo
@@ -560,48 +591,53 @@ Undo/Redo
 Feature by
 -> Marc Fong Yung Kit
 ////
-== App History
+=== App History
 
 ==== undo
-Undo action(s) on the application. This will allow users to roll back certain
-actions that the user may have accidentally or erroneously done on the
-application. Keep in mind that only commands that change the data on the application
-are undoable. Commands that just render and display information are not actions
-that can be undone.
+Undo action(s) on the application. This will allow you to roll back certain
+actions that you may have accidentally or erroneously done on the application.
+Keep in mind that only commands that change the data on the application
+are undoable. Commands that render and display information cannot be undone.
 
-There is a limit of to the number of undoable actions you can make in the application,
-which is set to 20 actions.
+The limit of the number of undoable actions you can make in the application is
+currently **20** actions.
 
 Format: `undo [r/NUMBER]`
 
-Examples: +
-`undo` (undoes the latest action) +
-`undo r/3` (undoes the last three actions) +
-
+===== Example
+----
+undo        (undoes the latest action)
+undo r/3    (undoes the last three actions)
+----
 
 
 ==== redo
-Redo action(s) on the application. This will allow users to redo certain
+Redo action(s) on the application. This will allow you to redo certain
 actions, or any accidental or erroneous undo actions. Keep in mind that
 only commands that can be undone can be redone. Therefore, only commands
 that change the data on the application can be redone as they can be undone.
-Commands that just render and display information are not actions that can be
+Commands that render and display information are not actions that can be
 undone and hence will not be able to be redone.
 
-The maximum number of available redo actions you can make is 20 due to the limit
-of undo actions on the application which is 20.
+The limit of the number of available redo actions you can make in the
+application is currently **20** actions.
 
-Take note that if you have undone a certain amount of actions and from that point,
-you type in a new command that is not `redo`, the actions available to be redone
-will be cleared as of that point, similar to a browser navigation on a single tab.
+Take note that if you have undone a certain amount of actions and from that
+point, you type in a new command that is not `redo`, the actions available to
+be redone will be cleared as of that point, similar to a browser navigation on
+a single tab.
 
 Format: `redo [r/NUMBER]`
 
-Examples: +
-`redo` (redoes the latest undo) +
-`redo r/3` (redoes the last three undos) +
+===== Example
+----
+redo        (redoes the latest undo)
+redo r/3    (redoes the last three undos)
+----
 
-= FAQ
+== FAQ
+
+'''
 
 **Q:** How is the budget for monthly limit calculated?
 
@@ -625,7 +661,9 @@ Examples: +
 
 **A:** enter redo to undo your undo mistake, if you made multiple undo mistakes, you can redo <number> to redo those mistakes quickly.
 
-= Command Summary
+'''
+
+== Command Summary
 
 === Task Scheduler
 
@@ -662,16 +700,20 @@ Examples: +
 * `graph`
 
 
-=== Course Lookup
+=== Course Planner
 
-* `add c/MODCODE [g/GRADE`
-* `delete c/MODCODE`
-* `lookup c/MODCODE`
-* `check c/MODCODE`
-* `cap`
-* `focus n/FOCUS-AREA`
+----
+add-course    c/COURSECODE [g/GRADE]
+delete-course c/COURSECODE
+lookup        c/COURSECODE
+check         c/COURSECODE
+cap
+focus         n/FOCUS-AREA
+----
 
 === App History
 
-* `undo`
-* `redo`
+----
+undo [r/NUMBER]
+redo [r/NUMBER]
+----
