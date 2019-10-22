@@ -9,36 +9,36 @@ import seedu.weme.model.meme.Meme;
 /**
  * Manager class for statistics data for Weme.
  */
-public class StatsManager implements StatsEngine {
+public class StatsManager implements Stats {
 
-    private LikeData likeData;
+    private LikeManager likeManager;
 
     /**
      * Constructs a {@code StatsManager} without data.
      */
     public StatsManager() {
-        this.likeData = new LikeManager();
+        this.likeManager = new LikeManager();
     }
 
     /**
-     * Constructs a {@code Stats Manager} with a {@code statsEngine} data.
+     * Constructs a {@code Stats Manager} with a {@code stats} data.
      */
-    public StatsManager(StatsEngine statsEngine) {
+    public StatsManager(Stats stats) {
         this();
-        resetData(statsEngine);
+        resetData(stats);
     }
 
     @Override
-    public LikeData getLikeData() {
-        return likeData;
+    public LikeData getLikeManager() {
+        return likeManager.getLikeData();
     }
 
     /**
      * Replaces the contents of the like data with {@code likeData}.
      */
     @Override
-    public void setLikeData(LikeData likeData) {
-        this.likeData.setLikeData(likeData);
+    public void setLikeManager(LikeData likeManager) {
+        this.likeManager.setLikeData(likeManager);
     }
 
     /**
@@ -46,7 +46,7 @@ public class StatsManager implements StatsEngine {
      */
     @Override
     public ObservableMap<String, Integer> getObservableLikeData() {
-        return likeData.getLikeData();
+        return likeManager.getObservableLikeData();
     }
 
     /**
@@ -54,7 +54,7 @@ public class StatsManager implements StatsEngine {
      */
     @Override
     public void incrementMemeLikeCount(Meme meme) {
-        likeData.incrementMemeLikeCount(meme);
+        likeManager.incrementMemeLikeCount(meme);
     }
 
     /**
@@ -62,15 +62,15 @@ public class StatsManager implements StatsEngine {
      */
     @Override
     public void deleteLikesByMeme(Meme meme) {
-        likeData.deleteLikesByMeme(meme);
+        likeManager.deleteLikesByMeme(meme);
     }
 
     /**
      * Resets the existing data of this {@code StatsManager} with {@code newData}.
      */
-    public void resetData(StatsEngine newData) {
+    public void resetData(Stats newData) {
         requireNonNull(newData);
 
-        setLikeData(newData.getLikeData());
+        setLikeManager(newData.getLikeManager());
     }
 }

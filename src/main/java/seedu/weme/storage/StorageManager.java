@@ -10,7 +10,7 @@ import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 
 /**
  * Manages storage of MemeBook data in local storage.
@@ -87,24 +87,24 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<StatsEngine> readStatsData() throws DataConversionException, IOException {
+    public Optional<Stats> readStatsData() throws DataConversionException, IOException {
         return readStatsData(getStatsDataPath());
     }
 
     @Override
-    public Optional<StatsEngine> readStatsData(Path filePath) throws DataConversionException, IOException {
+    public Optional<Stats> readStatsData(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return statsDataStorage.readStatsData(filePath);
     }
 
     @Override
-    public void saveStatsData(StatsEngine statsEngine) throws IOException {
-        saveStatsData(statsEngine, statsDataStorage.getStatsDataPath());
+    public void saveStatsData(Stats stats) throws IOException {
+        saveStatsData(stats, statsDataStorage.getStatsDataPath());
     }
 
     @Override
-    public void saveStatsData(StatsEngine statsEngine, Path filePath) throws IOException {
+    public void saveStatsData(Stats stats, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        statsDataStorage.saveStatsData(statsEngine, filePath);
+        statsDataStorage.saveStatsData(stats, filePath);
     }
 }

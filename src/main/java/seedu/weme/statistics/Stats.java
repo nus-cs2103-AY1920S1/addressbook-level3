@@ -6,11 +6,11 @@ import seedu.weme.model.meme.Meme;
 /**
  * Interface for statistics data for Weme.
  */
-public interface StatsEngine {
+public interface Stats {
 
-    LikeData getLikeData();
+    LikeData getLikeManager();
 
-    void setLikeData(LikeData likeData);
+    void setLikeManager(LikeData likeManager);
 
     ObservableMap<String, Integer> getObservableLikeData();
 

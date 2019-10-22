@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.weme.commons.exceptions.DataConversionException;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 
 /**
  * An interface for statistics data storage access.
@@ -18,27 +18,27 @@ public interface StatsDataStorage {
     Path getStatsDataPath();
 
     /**
-     * Returns statistical data as a {@link StatsEngine}.
+     * Returns statistical data as a {@link Stats}.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<StatsEngine> readStatsData() throws DataConversionException, IOException;
+    Optional<Stats> readStatsData() throws DataConversionException, IOException;
 
     /**
      * @see #getStatsDataPath()
      */
-    Optional<StatsEngine> readStatsData(Path filePath) throws DataConversionException, IOException;
+    Optional<Stats> readStatsData(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link StatsEngine} to the storage.
-     * @param statsEngine cannot be null.
+     * Saves the given {@link Stats} to the storage.
+     * @param stats cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveStatsData(StatsEngine statsEngine) throws IOException;
+    void saveStatsData(Stats stats) throws IOException;
 
     /**
-     * @see #saveStatsData(StatsEngine)
+     * @see #saveStatsData(Stats)
      */
-    void saveStatsData(StatsEngine statsEngine, Path filePath) throws IOException;
+    void saveStatsData(Stats stats, Path filePath) throws IOException;
 
 }

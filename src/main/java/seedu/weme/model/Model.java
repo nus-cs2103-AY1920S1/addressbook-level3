@@ -10,7 +10,7 @@ import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 
 /**
  * The API of the Model component.
@@ -162,7 +162,7 @@ public interface Model {
     /**
      * Returns statistics data.
      */
-    StatsEngine getStatsEngine();
+    Stats getStats();
 
     /**
      * Returns the like data.

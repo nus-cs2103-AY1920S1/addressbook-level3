@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
 
 /**
- * An Immutable StatsData that is serializable to JSON format.
+ * An Immutable Stats that is serializable to JSON format.
  */
 @JsonRootName(value = "statsData")
 class JsonSerializableStatsData {
@@ -31,8 +31,8 @@ class JsonSerializableStatsData {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableMemeBook}.
      */
-    public JsonSerializableStatsData(StatsEngine source) {
-        jsonLikeData = new JsonAdaptedLikeData(source.getLikeData());
+    public JsonSerializableStatsData(Stats source) {
+        jsonLikeData = new JsonAdaptedLikeData(source.getLikeManager().getInMap());
     }
 
     /**
@@ -40,10 +40,10 @@ class JsonSerializableStatsData {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public StatsEngine toModelType() throws IllegalValueException {
-        StatsEngine statsEngine = new StatsManager();
-        statsEngine.setLikeData(jsonLikeData.toModelType());
-        return statsEngine;
+    public Stats toModelType() throws IllegalValueException {
+        Stats stats = new StatsManager();
+        stats.setLikeManager(jsonLikeData.toModelType());
+        return stats;
     }
 
 }

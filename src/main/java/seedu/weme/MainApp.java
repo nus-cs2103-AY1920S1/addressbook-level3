@@ -22,7 +22,7 @@ import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.util.SampleDataUtil;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
 import seedu.weme.storage.JsonMemeBookStorage;
 import seedu.weme.storage.JsonStatsDataStorage;
@@ -81,8 +81,8 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyMemeBook> memeBookOptional;
         ReadOnlyMemeBook initialData;
-        Optional<StatsEngine> statsEngineOptional;
-        StatsEngine initialStatsEngine;
+        Optional<Stats> statsEngineOptional;
+        Stats initialStats;
         try {
             memeBookOptional = storage.readMemeBook();
             if (!memeBookOptional.isPresent()) {
@@ -91,22 +91,22 @@ public class MainApp extends Application {
             initialData = memeBookOptional.orElseGet(() -> SampleDataUtil.getSampleMemeBook(userPrefs));
             statsEngineOptional = storage.readStatsData();
             if (!statsEngineOptional.isPresent()) {
-                logger.info("Stats file not found. Will be starting with an empty StatsEngine");
+                logger.info("Stats file not found. Will be starting with an empty Stats");
             }
-            initialStatsEngine = statsEngineOptional.orElseGet(() -> new StatsManager());
+            initialStats = statsEngineOptional.orElseGet(() -> new StatsManager());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. "
-                    + "Will be starting with an empty MemeBook and StatsEngine");
+                    + "Will be starting with an empty MemeBook and Stats");
             initialData = new MemeBook();
-            initialStatsEngine = new StatsManager();
+            initialStats = new StatsManager();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. "
-                    + "Will be starting with an empty MemeBook and LikeData");
+                    + "Will be starting with an empty MemeBook and LikeManager");
             initialData = new MemeBook();
-            initialStatsEngine = new StatsManager();
+            initialStats = new StatsManager();
         }
 
-        return new ModelManager(initialData, userPrefs, initialStatsEngine);
+        return new ModelManager(initialData, userPrefs, initialStats);
     }
 
     private void initLogging(Config config) {

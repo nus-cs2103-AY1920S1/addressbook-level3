@@ -6,6 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javafx.collections.FXCollections;
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.LikeManager;
@@ -31,7 +32,7 @@ class JsonAdaptedLikeData {
     /**
      * Converts a given {@code LikeData} into this class for Json use.
      */
-    public JsonAdaptedLikeData(LikeData source) {
+    public JsonAdaptedLikeData(LikeManager source) {
         likeData.putAll(source.getLikeDataInMap());
     }
 
@@ -41,7 +42,7 @@ class JsonAdaptedLikeData {
     public JsonAdaptedLikeData() {}
 
     public void setJsonAdaptedLikeData(LikeData likeData) {
-        this.likeData.putAll(likeData.getLikeDataInMap());
+        this.likeData.putAll(likeData.getInMap());
     }
 
     /**
@@ -50,8 +51,8 @@ class JsonAdaptedLikeData {
      * @throws IllegalValueException if there were any data constraints violated in the adapted meme.
      */
     public LikeData toModelType() throws IllegalValueException {
-        final LikeData likeData = new LikeManager();
-        likeData.setLikeDataFromMap(this.likeData);
+        final LikeData likeData = new LikeData();
+        likeData.setLikeMap(FXCollections.observableMap(this.likeData));
 
         return likeData;
     }

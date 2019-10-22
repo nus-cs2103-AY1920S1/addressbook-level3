@@ -22,7 +22,7 @@ import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
 
 /**
@@ -35,7 +35,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
     private final FilteredList<Template> filteredTemplates;
-    private final StatsEngine statsEngine;
+    private final Stats stats;
 
     // ModelContext determines which parser to use at any point of time.
     private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
@@ -43,7 +43,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs, StatsEngine statsEngine) {
+    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs, Stats stats) {
         super();
         requireAllNonNull(memeBook, userPrefs);
 
@@ -53,7 +53,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(versionedMemeBook.getMemeList());
         filteredTemplates = new FilteredList<>(versionedMemeBook.getTemplateList());
-        this.statsEngine = statsEngine;
+        this.stats = stats;
     }
 
     public ModelManager() {
@@ -218,28 +218,28 @@ public class ModelManager implements Model {
     //=========== Statistics Methods =============================================================
 
     @Override
-    public StatsEngine getStatsEngine() {
-        return statsEngine;
+    public Stats getStats() {
+        return stats;
     }
 
     @Override
     public LikeData getLikeData() {
-        return statsEngine.getLikeData();
+        return stats.getLikeManager();
     }
 
     @Override
     public ObservableMap<String, Integer> getObservableLikeData() {
-        return statsEngine.getObservableLikeData();
+        return stats.getObservableLikeData();
     }
 
     @Override
     public void incrementMemeLikeCount(Meme meme) {
-        statsEngine.incrementMemeLikeCount(meme);
+        stats.incrementMemeLikeCount(meme);
     }
 
     @Override
     public void clearMemeStats(Meme meme) {
-        statsEngine.deleteLikesByMeme(meme);
+        stats.deleteLikesByMeme(meme);
     }
 
     @Override

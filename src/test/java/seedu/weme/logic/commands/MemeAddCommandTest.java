@@ -26,7 +26,7 @@ import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 import seedu.weme.testutil.MemeBuilder;
 import seedu.weme.testutil.TestUtil;
 import seedu.weme.testutil.UserPrefsBuilder;
@@ -224,7 +224,7 @@ public class MemeAddCommandTest {
 
 
         @Override
-        public StatsEngine getStatsEngine() {
+        public Stats getStats() {
             throw new AssertionError("This method should not be called");
         }
 

@@ -1,50 +1,75 @@
 package seedu.weme.statistics;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
-import seedu.weme.model.meme.Meme;
-
 /**
- * An interface for Like/Dislike feature.
+ * The like data storage in Stats.
  */
-public interface LikeData {
+public class LikeData {
+
+    private ObservableMap<String, Integer> likeMap;
 
     /**
-     * Returns the like data about a meme.
+     * Constructs an empty like data.
      */
-    int getLikesByMeme(Meme meme);
+    public LikeData() {
+        likeMap = FXCollections.observableMap(new HashMap<>());
+    }
 
     /**
-     * Returns the like data in map form.
+     * Sets the current set of {@code LikeData} with a replacement.
      */
-    ObservableMap<String, Integer> getLikeData();
+    public void setLikeMap(ObservableMap<String, Integer> replacement) {
+        likeMap.putAll(replacement);
+    }
 
     /**
-     * Replaces current like data with replacement.
+     * Sets like count of a meme.
      */
-    void setLikeData(LikeData replacement);
+    public void setLikesByMemeRef(String memeRef, int change) {
+        if (!likeMap.containsKey(memeRef)) {
+            likeMap.put(memeRef, change);
+        } else {
+            int currLikes = likeMap.get(memeRef);
+            likeMap.replace(memeRef, currLikes + change);
+        }
+    }
 
     /**
-     * Sets the current like data with Map of like data.
+     * Returns the like count of a meme by its URL.
      */
-    void setLikeDataFromMap(Map<String, Integer> replacement);
+    public int getLikesByMemeRef(String memeRef) {
+        if (!likeMap.containsKey(memeRef)) {
+            likeMap.put(memeRef, 0);
+            return 0;
+        }
+        return likeMap.get(memeRef);
+    }
 
     /**
-     * Likes a meme once.
+     * Returns an unmodifiable view of LikeData.
+     * @return
      */
-    void incrementMemeLikeCount(Meme meme);
+    public ObservableMap<String, Integer> getObservableLikeData() {
+        return likeMap;
+    }
 
     /**
-     * Dislikes a meme once.
+     * Deletes like count of a meme by its URL.
+     * @param memeRef
      */
-    void decrementLikesByMeme(Meme meme);
+    public void deleteLikesByMemeRef(String memeRef) {
+        likeMap.remove(memeRef);
+    }
 
     /**
-     * Delete like data for a meme.
+     * Returns like data in Map.
      */
-    void deleteLikesByMeme(Meme meme);
-
-    Map<String, Integer> getLikeDataInMap();
+    public Map<String, Integer> getInMap() {
+        return likeMap;
+    }
 }

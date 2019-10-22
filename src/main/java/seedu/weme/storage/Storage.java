@@ -8,7 +8,7 @@ import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 
 /**
  * API of the Storage component
@@ -31,8 +31,8 @@ public interface Storage extends MemeBookStorage, UserPrefsStorage, StatsDataSto
     void saveMemeBook(ReadOnlyMemeBook memeBook) throws IOException;
 
     @Override
-    Optional<StatsEngine> readStatsData() throws DataConversionException, IOException;
+    Optional<Stats> readStatsData() throws DataConversionException, IOException;
 
     @Override
-    void saveStatsData(StatsEngine statsEngine) throws IOException;
+    void saveStatsData(Stats stats) throws IOException;
 }

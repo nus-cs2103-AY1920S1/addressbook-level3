@@ -12,7 +12,7 @@ import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.commons.util.FileUtil;
 import seedu.weme.commons.util.JsonUtil;
-import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.Stats;
 
 /**
  * A class to access Weme statistics data stored as a json file on the hard disk.
@@ -33,7 +33,7 @@ public class JsonStatsDataStorage implements StatsDataStorage {
     }
 
     @Override
-    public Optional<StatsEngine> readStatsData() throws DataConversionException {
+    public Optional<Stats> readStatsData() throws DataConversionException {
         return readStatsData(filePath);
     }
 
@@ -43,7 +43,7 @@ public class JsonStatsDataStorage implements StatsDataStorage {
      * @param statsDataPath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<StatsEngine> readStatsData(Path statsDataPath) throws DataConversionException {
+    public Optional<Stats> readStatsData(Path statsDataPath) throws DataConversionException {
         requireNonNull(statsDataPath);
         Optional<JsonSerializableStatsData> jsonStatsData =
                 JsonUtil.readJsonFile(statsDataPath, JsonSerializableStatsData.class);
@@ -60,20 +60,20 @@ public class JsonStatsDataStorage implements StatsDataStorage {
     }
 
 
-    public void saveStatsData(StatsEngine statsEngine) throws IOException {
-        saveStatsData(statsEngine, filePath);
+    public void saveStatsData(Stats stats) throws IOException {
+        saveStatsData(stats, filePath);
     }
 
     /**
-     * Similar to {@link #saveStatsData(StatsEngine, Path)}.
+     * Similar to {@link #saveStatsData(Stats, Path)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveStatsData(StatsEngine statsEngine, Path filePath) throws IOException {
-        requireNonNull(statsEngine);
+    public void saveStatsData(Stats stats, Path filePath) throws IOException {
+        requireNonNull(stats);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableStatsData(statsEngine), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableStatsData(stats), filePath);
     }
 
 }

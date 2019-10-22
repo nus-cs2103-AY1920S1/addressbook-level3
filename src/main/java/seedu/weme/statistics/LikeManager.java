@@ -15,28 +15,27 @@ import seedu.weme.model.meme.Meme;
 /**
  * Implementation of Like interface.
  */
-public class LikeManager implements LikeData {
+public class LikeManager {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static final int INCREMENT = 1;
     private static final int DECREMENT = -1;
 
-    private LikeDataImpl data;
+    private LikeData data;
 
-    public LikeManager(LikeData data) {
+    public LikeManager(LikeManager data) {
         super();
         requireAllNonNull(data);
 
         logger.fine("Initializing with like data: " + data);
 
-        this.data = new LikeDataImpl();
-        this.data.setLikeMap(data.getLikeData());
+        this.data = new LikeData();
+        this.data.setLikeMap(data.getObservableLikeData());
     }
 
     public LikeManager() {
-        this.data = new LikeDataImpl();
+        this.data = new LikeData();
     }
 
-    @Override
     public int getLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         return data.getLikesByMemeRef(memeRef);
@@ -45,15 +44,20 @@ public class LikeManager implements LikeData {
     /**
      * Returns an unmodifiable view of {@code LikeData}.
      */
-    @Override
-    public ObservableMap<String, Integer> getLikeData() {
-        return data.getInObservableMap();
+    public LikeData getLikeData() {
+        return data;
+    }
+
+    /**
+     * Returns an unmodifiable view of {@code LikeData}.
+     */
+    public ObservableMap<String, Integer> getObservableLikeData() {
+        return data.getObservableLikeData();
     }
 
     /**
      * Returns {@code LikeData} in Map.
      */
-    @Override
     public Map<String, Integer> getLikeDataInMap() {
         return data.getInMap();
     }
@@ -61,23 +65,29 @@ public class LikeManager implements LikeData {
     /**
      * Replace the current like data with a new set of data.
      */
-    @Override
     public void setLikeData(LikeData replacement) {
-        data.setLikeMap(replacement.getLikeData());
+        data.setLikeMap(replacement.getObservableLikeData());
     }
 
-    @Override
+    /**
+     * Replace the current like data with a new set of data in map.
+     * @param replacement
+     */
     public void setLikeDataFromMap(Map<String, Integer> replacement) {
         data.setLikeMap(FXCollections.observableMap(replacement));
     }
 
-    @Override
+    /**
+     * Increments a meme's like count by 1.
+     */
     public void incrementMemeLikeCount(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.setLikesByMemeRef(memeRef, INCREMENT);
     }
 
-    @Override
+    /**
+     * Decrements a meme's like count by 1.
+     */
     public void decrementLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.setLikesByMemeRef(memeRef, DECREMENT);
@@ -86,7 +96,6 @@ public class LikeManager implements LikeData {
     /**
      * Deletes like data of a meme when it gets deleted.
      */
-    @Override
     public void deleteLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.deleteLikesByMemeRef(memeRef);

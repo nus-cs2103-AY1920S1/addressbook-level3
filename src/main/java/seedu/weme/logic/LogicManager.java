@@ -51,7 +51,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveMemeBook(model.getMemeBook());
-            storage.saveStatsData(model.getStatsEngine());
+            storage.saveStatsData(model.getStats());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
