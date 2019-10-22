@@ -202,6 +202,10 @@ public class MainWindow extends UiPart<Stage> {
         return runCodeResultPanel;
     }
 
+    public ProfilePage getProfilePage() {
+        return profilePage;
+    }
+
     /**
      * Executes the command and returns the result.
      *
