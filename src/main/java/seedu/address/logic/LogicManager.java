@@ -17,6 +17,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.question.Question;
 import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
@@ -26,6 +27,7 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
+
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -81,6 +83,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Question> getSlideshowQuestions() {
+        return model.getSlideshowQuestions();
+    }
+
     public ReadOnlyStatisticsRecord getStatisticsRecord() {
         return model.getStatisticsRecord();
     }
