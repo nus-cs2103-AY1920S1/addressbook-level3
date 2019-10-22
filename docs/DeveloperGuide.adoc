@@ -154,42 +154,50 @@ Classes used by multiple components are in the `seedu.weme.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Undo and Redo is necessary to give users the flexibility of undoing or redoing a wrongly executed command. Especially in Weme where we deal with image files, it is possible to key in the wrong file when adding a meme. Hence, simply entering the command `undo` allows the user to revert this mistake and add the correct file accordingly.
+
+==== Current implementation
+
+The undo/redo mechanism is facilitated by `VersionedMemeBook` and `VersionedStatsEngine`.
+`VersionedMemeBook` extends `MemeBook` with an undo/redo history, stored internally as a `versionedMemeBookStates`, `stateIndex` and a `undoableCommandHistoryList`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedMemeBook#commit()` -- Saves the current meme book state in its history.
+* `VersionedMemeBook#undo()` -- Restores the previous meme book state from its history and returns the undo message of the undone command.
+* `VersionedMemeBook#redo()` -- Restores a previously undone meme book state from its history and returns the redo message of the redone command.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitMemeBook()`, `Model#undoMemeBook()` and `Model#redoMemeBook()` respectively.
+
+`VersionedStatsEngine` extends `StatsEngine` with similar additional methods and components.
+
+[NOTE]
+Only state changes are undoable. Commands such as `list`, `find` that only change the user interface are not undoable.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedMemeBook` will be initialized with the initial meme book state, and the `stateIndex` pointing to that single meme book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th meme in the meme book. The `delete` command calls `Model#commitMemeBook()`, causing the modified state of the meme book after the `delete 5` command executes to be saved in the `versionedMemeBookStates`, and the `stateIndex` is shifted to the newly inserted meme book state. The delete command is then inserted into the `undoableCommandHistoryList`.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `edit 2 d/surprised pikachu` to edit a meme's description. The `edit` command also calls `Model#commitMemeBook()`, causing another modified meme book state to be saved into the `versionedMemeBookStates`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitMemeBook()`, so the meme book state will not be saved into the `versionedMemeBookStates`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that editing the meme was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoMemeBook()`, which will shift the `stateIndex` once to the left, pointing it to the previous meme book state, and restores the meme book to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `stateIndex` is at index 0, pointing to the initial meme book state, then there are no previous meme book states to restore. The `undo` command uses `Model#canUndoMemeBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +205,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoMemeBook()`, which shifts the `stateIndex` once to the right, pointing to the previously undone state, and restores the meme book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `stateIndex` is at index `versionedMemeBookStates.size() - 1`, pointing to the latest meme book state, then there are no undone meme book states to restore. The `redo` command uses `Model#canRedoMemeBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the meme book, such as `list`, will usually not call `Model#commitMemeBook()`, `Model#undoMemeBook()` or `Model#redoMemeBook()`. Thus, the `versionedMemeBookStates` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitMemeBook()`. Since the `stateIndex` is not pointing at the end of the `versionedMemeBookStates`, all meme book states after the `stateIndex` will be purged. We designed it this way because it no longer makes sense to redo the `edit 2 d/surprised pikachu` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -214,25 +222,54 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::CommitActivityDiagram.png[]
 
+The addition of undo redo complicates certain commands. An example of this complication is when undoing add or delete commands. Originally, deleting a Meme will delete the corresponding image file on the disk. However, this means it is not possible to retrieve the file afterwards. Hence, the current implementation is to delete the Meme Entry in the json, but keep the original image file until Weme is closed. When Weme is closed, a thread will clean up all unreferenced image files in the image folder.
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire state.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
+===== Aspect: Types of commands to undo
+
+* **Alternative 1 (current choice):** Includes only commands that modify the underlying data. (Add, Edit, Clear, Delete)
+** Pros: Only changes that permanently affect the application are reverted.
+** Cons: Might be less intuitive as a user calling `tab templates` then `undo` might expect to revert the Tab command instead.
+* **Alternative 2:** Includes all commands
+** Pros: Intuitive
+** Cons: Might be very troublesome for a user if they want to revert the state instead of the view.
+
+===== Aspect: Context for commands to be undoable
+
+* **Alternative 1 (current choice):** Allow undoing throughout the application regardless of context.
+** Pros: User in a different context is able to easily undo the state.
+** Cons: User might expect to undo only when they are in the same context. i.e. Undo Meme commands in Meme context.
+* **Alternative 2:** Restrict undoing to its own context
+** Pros: More user intuitive. Commands will only affect their own context.
+** Cons: Heavily complicates the model. Model will then need to keep track of a versioning of every single context.
+
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Use a list to store the history of past states.
+** Pros: Easy to understand and adjust according to needs. Undo and redo simply moves along the list to change the state.
+** Cons: Each individual type (in this case, StatsEngine and MemeBook) will need to keep track of it's own versions.
+* **Alternative 2:** Use a wrapper class
+** Pros: Everything will be handled within a single UndoRedoManager class.
+** Cons: Might introduce complications as managing states now needs to go through another class instead of just the model.
+
+===== Aspect: Handling file changes
+
+* **Alternative 1 (current choice):** Remove files only on exit.
+** Pros: No need to deal with files when managing commands. Easy to execute add and delete commands without an issue.
+** Cons: Might take a while to delete if we had a lot of images.
+* **Alternative 2:** Implement a recycle bin to move files to/from on command.
+** Pros: Commands do what they are fully expected to do (Delete deletes the image as well).
+** Cons: Heavily complicates the logic with a need to copy and paste when undoing and redoing. Very difficult to understand and error-prone.
 // end::undoredo[]
 
 // tag::dataencryption[]
