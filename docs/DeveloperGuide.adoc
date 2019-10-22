@@ -161,7 +161,7 @@ The `FileReadWrite` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `dream.fcard.datastructures` package and root of `dream.fcard.util`
 
 == Implementation
 
