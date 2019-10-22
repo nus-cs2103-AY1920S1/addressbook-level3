@@ -93,7 +93,8 @@ public class EditTaskCommand extends Command {
     private static void freeDriverIfDateIsChanged(Task taskToEdit, Task editedTask) {
         if (taskToEdit.getDate() != editedTask.getDate() && taskToEdit.getDriver().isPresent()) {
             Driver driver = taskToEdit.getDriver().get();
-            driver.deleteFromSchedule(taskToEdit.getEventTime().get());
+            boolean isDeleteSuccess = driver.deleteFromSchedule(taskToEdit.getEventTime().get());
+            assert isDeleteSuccess;
             editedTask.setStatus(TaskStatus.INCOMPLETE);
         }
     }

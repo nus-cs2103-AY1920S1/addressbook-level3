@@ -24,7 +24,7 @@ import seedu.address.model.task.Task;
 public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned #%1$d to %2$s at %3$s";
-    public static final String MESSAGE_EVENT_START_BEFORE_NOW = "Assigned #%1$d to %2$s at %3$s";
+    public static final String MESSAGE_EVENT_START_BEFORE_NOW = "The proposed time is in the past.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign a driver the specified task, with a proposed "
             + "start and end time. "
             + "\n"
@@ -75,7 +75,7 @@ public class AssignCommand extends Command {
 
         // check current time against system time
         if (eventTime.getStart().compareTo(LocalTime.now(this.clock)) < 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_EVENT_START_BEFORE_NOW);
         }
 
 
@@ -84,8 +84,12 @@ public class AssignCommand extends Command {
             throw new CommandException(suggestion);
         }
 
+        forceAssign(driver, task, eventTime);
 
-        return forceAssign(driver, task, eventTime);
+        // TODO: update GUI
+        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS,
+                task.getId(), driver.getName().fullName, eventTime.toString()));
+
     }
 
     /**
@@ -95,10 +99,9 @@ public class AssignCommand extends Command {
      * @param driver    driver
      * @param task      task
      * @param eventTime the time which the task is happening
-     * @return success messages
      * @throws SchedulingException when the proposed time conflicts with the driver's schedule
      */
-    private CommandResult forceAssign(Driver driver, Task task, EventTime eventTime) throws CommandException {
+    private void forceAssign(Driver driver, Task task, EventTime eventTime) throws CommandException {
         try {
             driver.assign(eventTime);
         } catch (SchedulingException e) {
@@ -107,11 +110,6 @@ public class AssignCommand extends Command {
 
         task.setDriver(Optional.of(driver));
         task.setEventTime(Optional.of(eventTime));
-
-        // TODO: update GUI
-        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS,
-                task.getId(), driver.getName().fullName, eventTime.toString()));
-
     }
 
     @Override

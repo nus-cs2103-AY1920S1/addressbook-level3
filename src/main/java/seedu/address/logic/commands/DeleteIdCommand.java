@@ -57,7 +57,8 @@ public class DeleteIdCommand extends Command {
             if (taskToDelete.getStatus() == TaskStatus.ON_GOING) {
                 //disregard check for optional empty because if a task is ON_GOING, there MUST be a driver and duration.
                 Driver driver = taskToDelete.getDriver().get();
-                driver.deleteFromSchedule(taskToDelete.getEventTime().get());
+                boolean isDeleteSuccess = driver.deleteFromSchedule(taskToDelete.getEventTime().get());
+                assert isDeleteSuccess;
             }
 
             model.deleteTask(taskToDelete);

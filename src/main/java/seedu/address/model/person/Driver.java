@@ -44,8 +44,11 @@ public class Driver extends Person {
         return schedule;
     }
 
-    public void deleteFromSchedule(EventTime durationToRemove) throws SchedulingException {
-        schedule.remove(durationToRemove);
+    /**
+     * {@see Schedule#remove}
+     */
+    public boolean deleteFromSchedule(EventTime durationToRemove) {
+        return schedule.remove(durationToRemove);
     }
 
     public void addToSchedule(EventTime durationToAdd) throws SchedulingException {
