@@ -87,7 +87,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasTransaction_transactionInBankAccount_returnsTrue() {
-        modelManager.addTransaction(ALICE);
+        modelManager.handleOperation(ALICE);
         assertTrue(modelManager.hasTransaction(ALICE));
     }
 

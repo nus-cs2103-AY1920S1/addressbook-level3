@@ -16,6 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -28,7 +29,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Transaction transactionToDelete = model
+        BankAccountOperation transactionToDelete = model
                 .getFilteredTransactionList()
                 .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
@@ -53,7 +54,7 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        Transaction transactionToDelete = model
+        BankAccountOperation transactionToDelete = model
                 .getFilteredTransactionList()
                 .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);

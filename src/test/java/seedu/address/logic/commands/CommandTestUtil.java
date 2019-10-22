@@ -17,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionContainsTagsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -105,7 +106,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         BankAccount expectedBankAccount = new BankAccount(actualModel.getBankAccount());
-        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
+        List<BankAccountOperation> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedBankAccount, actualModel.getBankAccount());
@@ -119,7 +120,7 @@ public class CommandTestUtil {
     public static void showTransactionAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
 
-        Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
+        BankAccountOperation transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
 
         final List<String> tags = transaction
                 .getTags()
@@ -135,7 +136,7 @@ public class CommandTestUtil {
      * Deletes the first transaction in {@code model}'s filtered list from {@code model}'s bank account.
      */
     public static void deleteFirstTransaction(Model model) {
-        Transaction firstTransaction = model.getFilteredTransactionList().get(0);
+        BankAccountOperation firstTransaction = model.getFilteredTransactionList().get(0);
         model.deleteTransaction(firstTransaction);
         model.commitBankAccount();
     }

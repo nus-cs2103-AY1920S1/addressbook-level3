@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -60,7 +61,7 @@ class JsonSerializableBankAccount {
     public BankAccount toModelType() throws IllegalValueException {
         BankAccount bankAccount = new BankAccount();
         for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
-            Transaction txn = jsonAdaptedTransaction.toModelType();
+            BankAccountOperation txn = jsonAdaptedTransaction.toModelType();
             if (bankAccount.hasTransaction(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }

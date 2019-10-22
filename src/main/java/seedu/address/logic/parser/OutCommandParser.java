@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
@@ -40,7 +41,7 @@ public class OutCommandParser implements Parser<OutCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Transaction transaction = new OutTransaction(amount, date);
+        BankAccountOperation transaction = new OutTransaction(amount, date);
 
         return new OutCommand(transaction);
 

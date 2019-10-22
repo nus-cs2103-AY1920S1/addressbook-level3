@@ -14,6 +14,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
@@ -45,7 +46,7 @@ class JsonAdaptedTransaction {
     /**
      * Converts a given {@code Transaction} into this class for Jason use.
      */
-    public JsonAdaptedTransaction(Transaction source) {
+    public JsonAdaptedTransaction(BankAccountOperation source) {
         amount = source.getAmount().toString();
         date = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
@@ -58,7 +59,7 @@ class JsonAdaptedTransaction {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted transaction.
      */
-    public Transaction toModelType() throws IllegalValueException {
+    public BankAccountOperation toModelType() throws IllegalValueException {
         final List<Tag> transactionTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             transactionTags.add(tag.toModelType());

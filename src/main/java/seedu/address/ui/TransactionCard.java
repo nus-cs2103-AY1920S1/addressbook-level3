@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -16,7 +17,7 @@ public class TransactionCard extends UiPart<Region> {
 
     private static final String FXML = "TransactionListCard.fxml";
 
-    public final Transaction transaction;
+    public final BankAccountOperation transaction;
 
     @FXML
     private HBox cardPane;
@@ -29,7 +30,7 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public TransactionCard(Transaction transaction, int displayedIndex) {
+    public TransactionCard(BankAccountOperation transaction, int displayedIndex) {
         super(FXML);
         this.transaction = transaction;
         id.setText(displayedIndex + ". ");

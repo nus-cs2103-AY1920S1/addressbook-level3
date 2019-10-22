@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.BankAccount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -12,51 +13,51 @@ import seedu.address.model.transaction.Transaction;
  */
 public class TypicalTransactions {
 
-    public static final Transaction ALICE = new TransactionBuilder()
+    public static final BankAccountOperation ALICE = new TransactionBuilder()
             .withAmount("100")
             .withDate("19112019")
             .withTags("food")
-            .withPeopleInvolved("ALICE").build();
-    public static final Transaction BENSON = new TransactionBuilder()
+            .build();
+    public static final BankAccountOperation BENSON = new TransactionBuilder()
             .withAmount("200")
             .withDate("19112019")
             .withTags("breakfast")
-            .withPeopleInvolved("BENSON").build();
-    public static final Transaction CARL = new TransactionBuilder()
+            .build();
+    public static final BankAccountOperation CARL = new TransactionBuilder()
             .withAmount("300")
             .withDate("19112019")
             .withTags("dinner")
-            .withPeopleInvolved("CARL").build();
-    public static final Transaction DANIEL = new TransactionBuilder()
+            .build();
+    public static final BankAccountOperation DANIEL = new TransactionBuilder()
             .withAmount("400")
             .withDate("19112019")
             .withTags("drink")
-            .withPeopleInvolved("DANIEL").build();
-    public static final Transaction ELLE = new TransactionBuilder()
+            .build();
+    public static final BankAccountOperation ELLE = new TransactionBuilder()
             .withAmount("500")
             .withDate("19112019")
             .withTags("lunch")
-            .withPeopleInvolved("ELLE").build();
-    public static final Transaction FIONA = new TransactionBuilder()
+            .build();
+    public static final BankAccountOperation FIONA = new TransactionBuilder()
             .withAmount("600")
             .withDate("19112019")
             .withTags("club")
-            .withPeopleInvolved("FIONA").build();
-    public static final Transaction GEORGE = new TransactionBuilder()
+            .build();
+    public static final BankAccountOperation GEORGE = new TransactionBuilder()
             .withAmount("700")
             .withDate("19112019")
             .withTags("grocery")
-            .withPeopleInvolved("GEORGE").build();
+            .build();
 
     // Manually added
-    public static final Transaction HOON = new TransactionBuilder()
+    public static final BankAccountOperation HOON = new TransactionBuilder()
             .withAmount("800")
             .withDate("19112019")
-            .withPeopleInvolved("HOON").build();
-    public static final Transaction IDA = new TransactionBuilder()
+            .build();
+    public static final BankAccountOperation IDA = new TransactionBuilder()
             .withAmount("900")
             .withDate("19112019")
-            .withPeopleInvolved("IDA").build();
+            .build();
 
     private TypicalTransactions() {
     } // prevents instantiation
@@ -66,13 +67,13 @@ public class TypicalTransactions {
      */
     public static BankAccount getTypicalBankAccount() {
         BankAccount ba = new BankAccount();
-        for (Transaction transaction : getTypicalTransactions()) {
+        for (BankAccountOperation transaction : getTypicalTransactions()) {
             ba.addTransaction(transaction);
         }
         return ba;
     }
 
-    public static List<Transaction> getTypicalTransactions() {
+    public static List<BankAccountOperation> getTypicalTransactions() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

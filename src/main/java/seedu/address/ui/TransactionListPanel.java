@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -18,9 +19,9 @@ public class TransactionListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TransactionListPanel.class);
 
     @FXML
-    private ListView<Transaction> transactionListView;
+    private ListView<BankAccountOperation> transactionListView;
 
-    public TransactionListPanel(ObservableList<Transaction> transactions) {
+    public TransactionListPanel(ObservableList<BankAccountOperation> transactions) {
         super(FXML);
         transactionListView.setItems(transactions);
         transactionListView.setCellFactory(listView -> new TransactionListViewCell());
@@ -29,9 +30,9 @@ public class TransactionListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Transaction} using a {@code TransactionCard}.
      */
-    class TransactionListViewCell extends ListCell<Transaction> {
+    class TransactionListViewCell extends ListCell<BankAccountOperation> {
         @Override
-        protected void updateItem(Transaction transaction, boolean empty) {
+        protected void updateItem(BankAccountOperation transaction, boolean empty) {
             super.updateItem(transaction, empty);
 
             if (empty || transaction == null) {

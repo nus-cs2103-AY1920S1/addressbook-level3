@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Transaction;
 
@@ -117,7 +118,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ObservableList<Transaction> list = logic.getTransactionList();
+        ObservableList<BankAccountOperation> list = logic.getTransactionList();
         transactionListPanel = new TransactionListPanel(list);
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
