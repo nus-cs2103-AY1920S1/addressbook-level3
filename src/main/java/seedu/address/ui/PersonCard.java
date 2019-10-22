@@ -57,6 +57,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private TitledPane visitsTitledPane;
 
+    /**
+     * Display UI for a person, taking into account their displayed index.
+     */
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
@@ -80,6 +83,8 @@ public class PersonCard extends UiPart<Region> {
             }
         }
 
+        //Keep visits pane closed by default
+        visitsTitledPane.setExpanded(false);
         int visitIndex = 1;
         if (!person.getVisits().isEmpty()) {
             noVisitsLabel.setVisible(false);
