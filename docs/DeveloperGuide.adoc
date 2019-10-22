@@ -215,9 +215,15 @@ Given that consideration, we decided that it will be the `UI` to trigger this ca
 and then display the result of that call. Thus when Statistics need to be shown, the `UI` module will query the
 `Logic` for the respective data
 
+One of the motivation for this approach was to maintain the architecture that is already in place in AB3.
+
 Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
 the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
 with the actual changes on data done with a call to model during `execute(model)`.
+
+A high level view of the packages working together:
+
+image::statsOverallClassDiagram.png[]
 
 
 ====== decision 2:
@@ -256,9 +262,6 @@ handle the call with the `statsPayload` to the logic component:
 image::StatisticsCalculationUI.png[]
 
 Below is a more in-depth explanation at each step:
-
-
-
 
 
 === [Proposed] Undo/Redo feature
