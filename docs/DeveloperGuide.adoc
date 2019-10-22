@@ -15,7 +15,6 @@ endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
 By: `T12-1`      Since: `Sep 2019`      Licence: `MIT`
-////
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -273,7 +272,7 @@ Refer to the guide <<Testing#, here>>.
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
-////
+
 [appendix]
 == Product Scope
 
@@ -708,7 +707,6 @@ command line interface (bash, git)
 graphical user interface
 
 
-////
 [appendix]
 == Product Survey
 
@@ -771,4 +769,3 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
-////
