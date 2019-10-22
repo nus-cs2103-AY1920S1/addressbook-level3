@@ -210,13 +210,20 @@ list operations.
 
 === Add revision task
 ==== Implementation
-`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision. It extends `Command` class and adds a
+`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `radd`. It extends `Command` class and adds a
 `Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data.
 
 The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
 exposed to `AppData#addTask(Task)`.
 
-The  `TaskList` class supports
+The following sequence diagram illustrates how `radd` command is executed:
+
+image::AddTaskSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect: Design of `Task`
+* **Alternative 1 (current implementation):** implement `Task` as abstract class with two subclasses to support task for
+notes and questions respectively.
 
 === Logging
 

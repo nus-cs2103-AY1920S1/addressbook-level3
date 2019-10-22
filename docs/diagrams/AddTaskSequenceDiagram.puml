@@ -64,7 +64,7 @@ deactivate TaskList
 AppData --> Model
 deactivate AppData
 
-Model -> AddTaskForNoteCommand
+Model --> AddTaskForNoteCommand
 deactivate Model
 
 create CommandResult
