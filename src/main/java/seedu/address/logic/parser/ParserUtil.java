@@ -174,7 +174,7 @@ public class ParserUtil {
      * @return a LocalDateTime representation of the given string
      * @throws DateTimeParseException if the format of the string given is incorrect
      */
-    private static LocalDateTime getFormattedDateTime(String stringDateTime) throws ParseException {
+    public static LocalDateTime getFormattedDateTime(String stringDateTime) throws ParseException {
         boolean invalidFormat = false;
         ParseException parseException = new ParseException("dummy"); // just to initialize
         ArrayList<DateTimeParser> allParsers = new ArrayList<>() {
