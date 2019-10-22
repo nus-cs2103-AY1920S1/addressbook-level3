@@ -61,6 +61,12 @@ public class ReportGenerator {
         }
     }
 
+    /**
+     * Adds other details of the specific body to the PDF report.
+     *
+     * @param document which is the report.
+     * @param body which is used to generate the report.
+     */
     private static void addOtherDetails(Document document, Body body) throws DocumentException {
         document.add(new Paragraph("Other Details:"));
         PdfPTable otherDetails = createTable();
@@ -104,6 +110,11 @@ public class ReportGenerator {
         document.add(otherDetails);
     }
 
+    /**
+     * Creates a new table for the report PDF.
+     *
+     * @return table which is an empty table with 2 columns
+     */
     private static PdfPTable createTable() throws DocumentException {
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(70);
@@ -115,6 +126,12 @@ public class ReportGenerator {
         return table;
     }
 
+    /**
+     * Adds next of kin details of the specific body to the PDF report.
+     *
+     * @param document which is the report.
+     * @param body which is used to generate the report.
+     */
     private static void addNokDetails(Document document, Body body) throws DocumentException {
         document.add(new Paragraph("Next of Kin:"));
         PdfPTable nokDetails = createTable();
@@ -144,6 +161,12 @@ public class ReportGenerator {
         document.add(nokDetails);
     }
 
+    /**
+     * Adds personal details of the specific body to the PDF report.
+     *
+     * @param document which is the report.
+     * @param body which is used to generate the report.
+     */
     private static void addPersonalDetails(Document document, Body body) throws DocumentException {
         document.add(new Paragraph("Personal Details:"));
         PdfPTable personalDetails = createTable();
